@@ -1,0 +1,46 @@
+<template name="Create">
+	
+
+	{{#contentFor "headerButtonLeft"}}
+		{{>ionNavBackButton}}
+	{{/contentFor}}
+
+	{{#contentFor "headerTitle"}}
+		<h1 class="title">Create Account</h1>
+	{{/contentFor}}
+
+	{{#contentFor "headerButtonRight"}}
+		<button data-bind="click:create" class="button button-clear button-entering button-active">Create</button>
+	{{/contentFor}}
+
+	
+
+	{{#ionView}}
+		{{#ionContent}}
+			<div class="background-blue">
+				<div class="list ">
+					<label class="item item-input">
+						<input type="text" placeholder="First Name" data-bind="value:first">
+					</label>
+					<label class="item item-input">
+						<input type="text" placeholder="Last Name" data-bind="value:last">
+					</label>
+					<label class="item item-input">
+						<input type="text" placeholder="Email" data-bind="value:email">
+					</label>
+					<label class="item item-input">
+						<input type="text" placeholder="Password" data-bind="value:pwd">
+					</label>
+				</div>
+				<p class="cc">
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</p>
+			</div>
+		{{/ionContent}}
+	{{/ionView}}
+</template>

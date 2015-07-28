@@ -1,0 +1,18 @@
+/*****************************************************************************/
+/* PreMainLayout: Style */
+/*****************************************************************************/
+.pre-main_layout {
+}
+
+
+
+.background{
+  background: url(http://lorempixel.com/500/600/people/7);
+  background-size: cover;
+  width: 100wh;
+  height: 100vh;
+}
+
+i.flag.gb:before, i.flag.united.kingdom:before {
+  background-position: -36px -26px;
+}

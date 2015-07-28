@@ -1,0 +1,32 @@
+<template name="SignIn">
+  	
+
+		{{#contentFor "headerButtonLeft"}}
+		  {{>ionNavBackButton}}
+		{{/contentFor}}
+
+		{{#contentFor "headerTitle"}}
+		  <h1 class="title">SignIn</h1>
+		{{/contentFor}}
+
+		
+
+
+		{{#ionView}}
+		  {{#ionContent}}
+		      	<div class="sign-form">
+		    			<div class="list ">
+		    				<label class="item item-input">
+		    					<input type="text" placeholder="Email">
+		    				</label>
+		    				<label class="item item-input">
+		    					<input type="text" placeholder="Password">
+		    				</label>
+		    			</div>
+		    			<div>
+		    				<a href="" class="text-center">forgot passowrd?</a>
+		    			</div>
+		    		</div>
+		  {{/ionContent}}
+		{{/ionView}}
+</template>
