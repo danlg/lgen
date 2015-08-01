@@ -25,13 +25,16 @@ Template.EmailSignup.destroyed = function () {
 
 Template.ionNavBar.events({
   'click .createBtn':function(){
-    /*console.log(createVM.toJS());*/
-    var userObj = createVM.toJS();
+    var userObj = {};
     userObj.profile={
       firstname : createVM.toJS().first,
       lastname : createVM.toJS().last
-    }
-    Accounts.createUser(userObj, loginCallBack)
+    };
+    userObj.email = createVM.toJS().email;
+    userObj.password = createVM.toJS().password;
+
+    console.log(userObj);
+    Accounts.createUser(userObj,loginCallBack)
   }
 })
 

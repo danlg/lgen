@@ -59,6 +59,7 @@ Router.route('home',{
 		 controller: 'HomePageController',
 		 action:"home"
 	});
+Router.route('Testing');
 
 
 

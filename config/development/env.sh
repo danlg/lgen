@@ -7,3 +7,5 @@
 # export ROOT_URL="http://localhost:3000"
 
 export SAMPLE_VARIABLE="somevalue"
+export MANDRILL_API_USER="dan@littlegenius.io"
+export MANDRILL_API_KEY="GBt6d5ggNEP7969s9j9DyA"

@@ -19,3 +19,15 @@ ServiceConfiguration.configurations.insert({
     clientId: "621918568251-nf0apn9k6s71808cvp7v5j1ciuluk6vr.apps.googleusercontent.com",
     secret: "cayfgSLf0iONHPtki5E78ov2"
 });
+
+
+Accounts.onCreateUser(function(options, user) {
+  user.profile = {};
+
+  // we wait for Meteor to create the user before sending an email
+  Meteor.setTimeout(function() {
+    Accounts.sendVerificationEmail(user._id);
+  }, 2 * 1000);
+
+  return user;
+});
