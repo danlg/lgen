@@ -1,12 +1,5 @@
 /*****************************************************************************/
-/* Server Only Methods */
+/* NavBarScreenLayout: Style */
 /*****************************************************************************/
-Meteor.methods({
-  /*
-   * Example:
-   *
-   * '/app/items/insert': function (item) {
-   * }
-   */
-  
-});
+.nav-bar_screen_layout {
+}

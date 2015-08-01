@@ -1,0 +1,16 @@
+<template name="Role">
+  <div style="width:100vw;height:60vh"></div>
+	<div class="padding-horizontal">
+		{{#each char}}
+			{{> charItem}}
+		{{/each}}
+
+	</div>
+
+</template>
+
+<template name="charItem">
+	<a href="{{ pathFor 'email-signup' char=this }}" class="button button-block button-positive" data-char="{{this}}">
+		{{this}}
+	</a>
+</template>

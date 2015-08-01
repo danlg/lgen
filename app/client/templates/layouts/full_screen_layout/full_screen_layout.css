@@ -1,12 +1,5 @@
 /*****************************************************************************/
-/* Server Only Methods */
+/* FullScreenLayout: Style */
 /*****************************************************************************/
-Meteor.methods({
-  /*
-   * Example:
-   *
-   * '/app/items/insert': function (item) {
-   * }
-   */
-  
-});
+.full-screen_layout {
+}

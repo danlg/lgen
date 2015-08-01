@@ -1,0 +1,40 @@
+<template name="EmailSignup">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">Sign a new Account</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+    <button  class="button button-clear button-entering button-active createBtn">Create</button>
+  {{/contentFor}}
+
+
+
+
+
+  {{#ionView}}
+    {{#ionContent}}
+
+
+          <div class="sign-form">
+            <div class="list ">
+              <label class="item item-input">
+                <input type="text" data-bind="value : first" placeholder="First Name">
+              </label>
+              <label class="item item-input">
+                <input type="text" data-bind="value : last" placeholder="Last Name">
+              </label>
+              <label class="item item-input">
+                <input type="text" data-bind="value : email" placeholder="Email">
+              </label>
+              <label class="item item-input">
+                <input type="password" data-bind="value : password" placeholder="Password">
+              </label>
+            </div>
+          </div>
+    {{/ionContent}}
+  {{/ionView}}
+</template>

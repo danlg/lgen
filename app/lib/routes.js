@@ -4,24 +4,71 @@ Router.configure({
 	notFoundTemplate: 'NotFound'
 });
 
-// Router.route('/', {
-//   name: 'home',
-//   controller: 'HomeController',
-//   action: 'action',
-//   where: 'client'
-// });
+var OnBeforeActions;
+
+OnBeforeActions = {
+    loginRequired: function(pause) {
+      if (!Meteor.userId()) {
+        Router.go('login');
+				this.next();
+      }else{
+				this.next();
+			}
+    },
+		charRequired:function(){
+
+		}
+};
+
+/*Router.onBeforeAction(OnBeforeActions.loginRequired,{except:['lang','login','create','char','signIn']});*/
 
 
-// complex route with
-// name 'authorDetail' that for example
-// matches '/authors/1/edit' or '/authors/1' and automatically renders
-// template 'authorDetail'
-// HINT:
-//// get parameter via this.params
-//// the part '/edit' is optional because of '?'
-// this.route('authorDetail', {
-//   path: '/authors/:_id/edit?'
-// });
+
+
+/*/lang
+/create/:role/register
+/login/
+/login/:role/
+/home/
+
+lang->language*/
+
+
+Router.route('/',{
+		 controller: 'LoginController',
+		 action:"language"
+	});
+Router.route('signin',{
+		 controller: 'LoginController',
+		 action:"signin"
+	});
+Router.route('email-signin',{
+		 controller: 'LoginController',
+		 action:"emailsigin"
+	});
+Router.route('email-signup',{
+		 controller: 'LoginController',
+		 action:"emailsigup"
+	});
+
+Router.route('role',{
+		 controller: 'LoginController',
+		 action:"role"
+	});
+Router.route('home',{
+		 controller: 'HomePageController',
+		 action:"home"
+	});
+
+
+
+
+
+
+
+
+
+/*
 
 
 Router.map(function(){
@@ -35,15 +82,35 @@ Router.map(function(){
 	});
 	this.route("char",{
 		layoutTemplate:"PreMainLayout",
-	});
+		});
 	this.route("create",{
 		layoutTemplate:"MainLayout",
+		path:"create/:char",
+		onBeforeAction:function(){
+			if(Meteor.user()){
+				Router.go('home');
+			}else{
+				this.next();
+			}
+		},
+		data:function(){
+			var templateData={
+				char:this.params.char
+			};
+			return templateData;
+		}
 	});
 	this.route("signIn",{
 		layoutTemplate:"MainLayout",
-	})
+	}),
+	this.route("home",{
+		layoutTemplate:"MainLayout",
+	}),
+	this.route("TabChat",{
+		layoutTemplate:"MainLayout",
+		})
 
-});
+});*/
 
 
 
@@ -67,3 +134,23 @@ Router.map(function(){
 // Router.routes('/char');
 // Router.routes('/create');
 // Router.routes('/signin');
+
+
+// Router.route('/', {
+//   name: 'home',
+//   controller: 'HomeController',
+//   action: 'action',
+//   where: 'client'
+// });
+
+
+// complex route with
+// name 'authorDetail' that for example
+// matches '/authors/1/edit' or '/authors/1' and automatically renders
+// template 'authorDetail'
+// HINT:
+//// get parameter via this.params
+//// the part '/edit' is optional because of '?'
+// this.route('authorDetail', {
+//   path: '/authors/:_id/edit?'
+// });

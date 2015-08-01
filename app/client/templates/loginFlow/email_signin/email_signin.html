@@ -1,0 +1,37 @@
+<template name="EmailSignin">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">SignIn</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+    <button  class="button button-clear button-entering button-active loginBtn">Login</button>
+  {{/contentFor}}
+
+
+
+
+
+  {{#ionView}}
+    {{#ionContent}}
+
+
+          <div class="sign-form">
+            <div class="list ">
+              <label class="item item-input">
+                <input type="text" data-bind="value : email" placeholder="Email">
+              </label>
+              <label class="item item-input">
+                <input type="password" data-bind="value : pwd" placeholder="Password">
+              </label>
+            </div>
+            <div style="align:center">
+              <a href="" class="">forgot passowrd?</a>
+            </div>
+          </div>
+    {{/ionContent}}
+  {{/ionView}}
+</template>
