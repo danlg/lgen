@@ -4,6 +4,7 @@ loginVM = new ViewModel({
 })
 
 createVM = new ViewModel({
+  role:"",
   email:"",
   password:"",
   first:"",

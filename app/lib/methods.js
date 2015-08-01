@@ -15,11 +15,14 @@ Meteor.methods({
    *  // server method logic
    * }
    */
-   'user/char/update':function(char){
-     console.log(char);
-     Meteor.users.update(Meteor.userId(),{$set:{"char":char}},function(err){
-          if(err)
+   'user/role/update':function(role){
+     Meteor.users.update(Meteor.userId(),{$set:{"profile":{"role":role}}},function(err){
+          if(err){
             console.log(err);
+            return err;
+          }else{
+            return
+          }
        });
    }
 

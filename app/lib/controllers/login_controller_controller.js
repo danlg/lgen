@@ -42,7 +42,7 @@ LoginController = RouteController.extend({
   },
   emailsigup:function(){
     this.layout("NavBarScreenLayout");
-    this.render('EmailSignup');
+    this.render('EmailSignup',{data:{role:this.params.role}});
   },
   role:function(){
     this.layout('FullScreenLayout');

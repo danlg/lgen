@@ -24,10 +24,18 @@ ServiceConfiguration.configurations.insert({
 Accounts.onCreateUser(function(options, user) {
   user.profile = {};
 
-  // we wait for Meteor to create the user before sending an email
-  Meteor.setTimeout(function() {
-    Accounts.sendVerificationEmail(user._id);
-  }, 2 * 1000);
+  console.log(user);
+
+  if(user.services.hasOwnProperty('google')){
+    console.info('google user');
+  }else{
+    // we wait for Meteor to create the user before sending an email
+    Meteor.setTimeout(function() {
+      Accounts.sendVerificationEmail(user._id);
+    }, 2 * 1000);
+  }
+
+  
 
   return user;
 });

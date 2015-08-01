@@ -10,7 +10,11 @@
 </template>
 
 <template name="charItem">
-	<a href="{{ pathFor 'email-signup' char=this }}" class="button button-block button-positive" data-char="{{this}}">
-		{{this}}
-	</a>
+
+  <button  class="button button-block button-positive" data-role="{{this}}">
+    {{this}}
+  </button>
+
+
+
 </template>

@@ -48,7 +48,8 @@ Router.route('email-signin',{
 	});
 Router.route('email-signup',{
 		 controller: 'LoginController',
-		 action:"emailsigup"
+		 action:"emailsigup",
+		 path:"email-signup/:role",
 	});
 
 Router.route('role',{
