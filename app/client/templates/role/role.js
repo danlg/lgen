@@ -28,6 +28,11 @@ Template.Role.created = function () {
 };
 
 Template.Role.rendered = function () {
+  if(Meteor.user()){
+    var userObj=Meteor.user();
+      if(!userObj.profile.role=="")
+        Router.go('home');
+  }
 };
 
 Template.Role.destroyed = function () {

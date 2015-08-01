@@ -1,3 +1,25 @@
 <template name="TabClasses">
-  <h1>Find me in app/client/templates/tab_classes/tab_classes</h1>
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">Classes</h1>
+  {{/contentFor}}
+
+  {{#ionContent}}
+    <div class="tab-classes">
+      <div class="listview-container">
+        <div class="row row-center add-join-bar">
+            <div>CLASSES I OWN</div>
+        </div>
+        <div class="row row-center listview-nth">
+
+            <a class="btn" href="{{pathFor 'AddClass'  }}">Create a class</a>
+        </div>
+      </div>
+      <div class="listview-container">
+        <div class="row row-center add-join-bar">
+            <div>CLASSES I'VE JOINED</div>
+
+        </div>
+      </div>
+    </div>
+  {{/ionContent}}
 </template>

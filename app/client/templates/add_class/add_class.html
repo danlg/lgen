@@ -1,0 +1,75 @@
+<template name="AddClass">
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">Add class</h1>
+  {{/contentFor}}
+
+  {{#ionContent}}
+
+
+  {{#contentFor "headerButtonLeft"}}
+    <button  class="button button-clear button-entering button-active createBtn">Cancel</button>
+  {{/contentFor}}
+
+
+
+  {{#contentFor "headerButtonRight"}}
+    <button  class="button button-clear button-entering button-active createBtn">Add</button>
+  {{/contentFor}}
+
+
+{{#autoForm collection="Class" id="insertClass" type="insert"}}
+
+
+  <ul class="list ">
+    <li class="item item-input">
+      {{> afFieldInput name="className" placeholder="Class Name"}}
+    </li>
+    <li class="item item-input">
+      {{> afFieldInput name="classCode" placeholder="@classcode"}}
+    </li>
+
+
+    <li class="item item-toggle">
+      Anyone in this class cna start a Chat
+
+      <label class="toggle">
+       {{> afFieldInput name="AnyoneCanChat" }}
+       <div class="track">
+         <div class="handle"></div>
+       </div>
+      </label>
+    </li>
+
+
+
+    <li class="item item-toggle">
+      I will only message people 13 and older
+
+      <label class="toggle">
+       {{> afFieldInput name="HigherThirteen" }}
+       <div class="track">
+         <div class="handle"></div>
+       </div>
+      </label>
+    </li>
+
+
+  </ul>
+
+    <p style="padding: 0 2rem;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+
+
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Add Person</button>
+      <button type="reset" class="btn btn-default">Reset Form</button>
+    </div>
+
+
+{{/autoForm}}
+
+
+  {{/ionContent}}
+
+</template>
