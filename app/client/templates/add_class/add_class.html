@@ -7,18 +7,22 @@
 
 
   {{#contentFor "headerButtonLeft"}}
-    <button  class="button button-clear button-entering button-active createBtn">Cancel</button>
+    {{>ionNavBackButton text="Cancel"}}
   {{/contentFor}}
 
 
 
   {{#contentFor "headerButtonRight"}}
-    <button  class="button button-clear button-entering button-active createBtn">Add</button>
+    <button  class="button button-clear button-entering button-active addClassBtn">Add</button>
   {{/contentFor}}
 
 
-{{#autoForm collection="Class" id="insertClass" type="insert"}}
+{{#autoForm collection="Classes" id="insertClass" type="insert"}}
 
+    <p>
+      {{afFieldMessage name='className'}}
+      {{afFieldMessage name='classCode'}}
+    </p>
 
   <ul class="list ">
     <li class="item item-input">
@@ -61,15 +65,19 @@
 
 
 
-    <div class="form-group">
+    <!-- <div class="form-group">
       <button type="submit" class="btn btn-primary">Add Person</button>
       <button type="reset" class="btn btn-default">Reset Form</button>
-    </div>
+    </div> -->
 
 
 {{/autoForm}}
 
 
+
+
   {{/ionContent}}
+
+
 
 </template>

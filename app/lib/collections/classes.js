@@ -1,17 +1,23 @@
-Class = new Mongo.Collection('class');
+Classes = new Mongo.Collection('classes');
 
 
-Class.attachSchema(new SimpleSchema({
+Classes.attachSchema(new SimpleSchema({
   className: {
     type: String,
     label: "Class name",
+    optional: false,
+    regEx: /[a-z0-9]/
+
   },
   classCode: {
     type: String,
     label: "Class code",
+    optional: true,
+    unique: true
   },
   AnyoneCanChat: {
     type: Boolean,
+    optional: false,
     autoform: {
       afFieldInput: {
         type: "boolean-checkbox2",
@@ -20,6 +26,7 @@ Class.attachSchema(new SimpleSchema({
   },
   HigherThirteen: {
     type: Boolean,
+    optional: false,
     autoform: {
       afFieldInput: {
         type: "boolean-checkbox2",
@@ -33,7 +40,7 @@ Class.attachSchema(new SimpleSchema({
 
 
 if (Meteor.isServer) {
-  Class.allow({
+  Classes.allow({
     insert: function (userId, doc) {
       console.log("asd");
       return false;

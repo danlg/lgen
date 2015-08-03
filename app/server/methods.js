@@ -2,22 +2,7 @@
 /* Server Only Methods */
 /*****************************************************************************/
 
-var mailtemplate={
-    "message": {
-        "html": "<p>Example HTML content</p>",
-        "text": "Example text content",
-        "subject": "example subject",
-        "from_email": "message.from_email@example.com",
-        "from_name": "Example Name",
-        "to": [
-            {
-                "email": "mike@sanuker.com",
-                "name": "Recipient Name",
-                "type": "to"
-            }
-        ],
-      }
-}
+
 
 Meteor.methods({
   /*
@@ -44,12 +29,18 @@ Meteor.methods({
        console.log(e);
      }
    },
-   'simplemail':function(){
+   'addClassMail':function(to,classname){
+
+  
      try{
-       Mandrill.messages.send(mailtemplate)
+       Mandrill.messages.send(addClassMailTemplate(to,classname));
+
      }catch(e){
        console.log(e);
+
      }
+
+
    }
 
 

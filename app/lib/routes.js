@@ -20,7 +20,7 @@ OnBeforeActions = {
 		}
 };
 
-/*Router.onBeforeAction(OnBeforeActions.loginRequired,{except:['lang','login','create','char','signIn']});*/
+Router.onBeforeAction(OnBeforeActions.loginRequired,{except:['language','signin','email-signin','role']});
 
 
 
@@ -34,9 +34,11 @@ OnBeforeActions = {
 lang->language*/
 
 
-Router.route('/',{
+Router.route('language',{
 		 controller: 'LoginController',
-		 action:"language"
+		 action:"language",
+		 path:"/",
+
 	});
 Router.route('signin',{
 		 controller: 'LoginController',

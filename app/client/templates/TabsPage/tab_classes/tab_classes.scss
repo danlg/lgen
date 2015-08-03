@@ -6,9 +6,12 @@
   .listview-container{
     height:50%;
     .add-join-bar{
-      height: 30%;
+      height: 50px;
+      background-color: #FAFAF9;
+
     }
     .listview-nth{
+      text-align: center;
       height: 70%;
     }
   }
