@@ -20,7 +20,7 @@ OnBeforeActions = {
 		}
 };
 
-/*Router.onBeforeAction(OnBeforeActions.loginRequired,{except:['lang','login','create','char','signIn']});*/
+Router.onBeforeAction(OnBeforeActions.loginRequired,{except:['language','signin','email-signin','role']});
 
 
 
@@ -34,9 +34,11 @@ OnBeforeActions = {
 lang->language*/
 
 
-Router.route('/',{
+Router.route('language',{
 		 controller: 'LoginController',
-		 action:"language"
+		 action:"language",
+		 path:"/",
+
 	});
 Router.route('signin',{
 		 controller: 'LoginController',
@@ -57,9 +59,26 @@ Router.route('role',{
 		 action:"role"
 	});
 Router.route('home',{
-		 controller: 'HomePageController',
+		 controller: 'MainApplicationController',
 		 action:"home"
 	});
+
+Router.route('Chat',{
+			 controller: 'MainApplicationController',
+			 action:"chat"
+	});
+Router.route('Classes',{
+			 controller: 'MainApplicationController',
+			 action:"classes"
+	});
+
+	Router.route('AddClass',{
+				 controller: 'ClassController',
+				 action:"addclass",
+				 path:"class/add"
+});
+
+
 Router.route('Testing');
 
 
