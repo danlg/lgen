@@ -1,25 +1,23 @@
 /*****************************************************************************/
-/* TabClasses: Event Handlers */
+/* ShareInvite: Event Handlers */
 /*****************************************************************************/
-Template.TabClasses.events({
+Template.ShareInvite.events({
 });
 
 /*****************************************************************************/
-/* TabClasses: Helpers */
+/* ShareInvite: Helpers */
 /*****************************************************************************/
-Template.TabClasses.helpers({
+Template.ShareInvite.helpers({
 });
 
 /*****************************************************************************/
-/* TabClasses: Lifecycle Hooks */
+/* ShareInvite: Lifecycle Hooks */
 /*****************************************************************************/
-Template.TabClasses.created = function () {
+Template.ShareInvite.created = function () {
 };
 
-Template.TabClasses.rendered = function () {
-
-
+Template.ShareInvite.rendered = function () {
 };
 
-Template.TabClasses.destroyed = function () {
+Template.ShareInvite.destroyed = function () {
 };

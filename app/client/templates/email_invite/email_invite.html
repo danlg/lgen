@@ -1,0 +1,45 @@
+<template name="EmailInvite">
+
+    {{#contentFor "headerTitle"}}
+      <h1 class="title">Send invitations</h1>
+    {{/contentFor}}
+
+
+
+
+    {{#contentFor "headerButtonLeft"}}
+      {{>ionNavBackButton }}
+    {{/contentFor}}
+
+
+
+    {{#contentFor "headerButtonRight"}}
+      <button  class="button button-clear button-entering button-active doneClassBtn">?</button>
+    {{/contentFor}}
+
+    {{#ionContent}}
+
+
+
+      <ul class="list ">
+        {{#autoForm schema=inviteClassSchema id="inviteClassForm" doc=this type="method" meteormethod="class/invite"}}
+        <li class="item item-input">
+          {{> afFieldInput name="emailOrName"}}
+          <span class="inviteBtn">Invite</span>
+        </li>
+        <li class="item item-input">
+          mike wong
+          <button class="button">add</button>
+        </li>
+
+        {{> afFieldInput name="classCode" value=classObj.classCode}}
+        {{/autoForm}}
+
+      </ul>
+
+
+
+
+
+    {{/ionContent}}
+</template>

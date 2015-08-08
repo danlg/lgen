@@ -1,25 +1,30 @@
+var form;
 /*****************************************************************************/
-/* TabClasses: Event Handlers */
+/* EmailInvite: Event Handlers */
 /*****************************************************************************/
-Template.TabClasses.events({
+Template.EmailInvite.events({
+  'click .inviteBtn':function(){
+    $(form).submit();
+
+  }
+
 });
 
 /*****************************************************************************/
-/* TabClasses: Helpers */
+/* EmailInvite: Helpers */
 /*****************************************************************************/
-Template.TabClasses.helpers({
+Template.EmailInvite.helpers({
 });
 
 /*****************************************************************************/
-/* TabClasses: Lifecycle Hooks */
+/* EmailInvite: Lifecycle Hooks */
 /*****************************************************************************/
-Template.TabClasses.created = function () {
+Template.EmailInvite.created = function () {
 };
 
-Template.TabClasses.rendered = function () {
-
-
+Template.EmailInvite.rendered = function () {
+  form =  $("#inviteClassForm");
 };
 
-Template.TabClasses.destroyed = function () {
+Template.EmailInvite.destroyed = function () {
 };

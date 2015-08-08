@@ -1,0 +1,36 @@
+<template name="ClassUsers">
+
+    {{#contentFor "headerTitle"}}
+      <h1 class="title">{{classObj.joinedUserId.length}} users</h1>
+    {{/contentFor}}
+
+
+
+
+    {{#contentFor "headerButtonLeft"}}
+      {{>ionNavBackButton text="<"}}
+    {{/contentFor}}
+
+
+
+    {{#contentFor "headerButtonRight"}}
+      <button  class="button button-clear button-entering button-active addClassBtn">search</button>
+    {{/contentFor}}
+
+
+  {{#ionContent}}
+
+
+
+    <ul>
+      {{#each usersProfile}}
+        <li><a href="{{ pathFor 'user' _id=this._id }}">{{this.profile.role}}</a></li>
+      {{/each}}
+    </ul>
+
+
+
+
+    {{/ionContent}}
+
+</template>

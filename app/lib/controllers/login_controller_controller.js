@@ -47,7 +47,12 @@ LoginController = RouteController.extend({
   role:function(){
     this.layout('FullScreenLayout');
     this.render('Role');
+  },
+  dob:function(){
+    this.layout("NavBarScreenLayout");
+    this.render("Dob");
   }
+
 
 
 

@@ -30,16 +30,36 @@ Meteor.methods({
      }
    },
    'addClassMail':function(to,classname){
-
-  
      try{
        Mandrill.messages.send(addClassMailTemplate(to,classname));
-
      }catch(e){
        console.log(e);
-
      }
+   },
+   "class/invite":function(doc){
 
+     console.log(doc);
+
+    var classObj = Classes.findOne({classCode:doc.classCode});
+     var first = Meteor.user().profile.firstname;
+     var last = Meteor.user().profile.lastname;
+
+
+     Meteor.setTimeout(function() {
+       try{
+         Mandrill.messages.send(inviteClassMailTemplate(
+           doc.emailOrName,
+           first,
+           last,
+           doc.classCode,
+           classObj.className
+           ));
+       }catch(e){
+         console.log(e);
+       }
+     }, 2 * 1000);
+
+     /*Router.go("Classes");*/
 
    }
 

@@ -1,0 +1,37 @@
+<template name="ShareInvite">
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">Share this link with your class!</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton text="<"}}
+  {{/contentFor}}
+
+
+
+  {{#contentFor "headerButtonRight"}}
+    <button  class="button button-clear button-entering button-active addClassBtn">?</button>
+  {{/contentFor}}
+
+
+{{#ionContent}}
+
+  <div class="row row-center" style="height:100vh">
+    <div class="col">
+        <h1>Share this link with your class</h1>
+        <h5>sharing this link helps students and parent join your class</h5>
+        <div>
+          https://gen.me/join/{{classObj.classCode}}
+        </div>
+        <div class="row">
+          <div class="col">Share</div>
+          <div class="col">Copy</div>
+        </div>
+    </div>
+  </div>
+
+
+  {{/ionContent}}
+
+</template>

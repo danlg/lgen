@@ -1,4 +1,5 @@
-MainApplicationController = RouteController.extend({
+UserController = RouteController.extend({
+  layoutTemplate:"NavBarScreenLayout",
   subscriptions: function () {
     // set up the subscriptions for the route and optionally
     // wait on them like this:
@@ -14,6 +15,9 @@ MainApplicationController = RouteController.extend({
   data: function () {
     // return a global data context like this:
     // Items.findOne({_id: this.params._id});
+    return{
+      userPofile:Meteor.users.findOne({_id:this.params._id}),
+    }
   },
 
   action: function () {
@@ -23,33 +27,12 @@ MainApplicationController = RouteController.extend({
     // might also perform some conditional logic. Override
     // the data context by providing it as an option in the
     // last parameter.
-    this.render('MainApplication', { /* data: {} */});
+    this.render('User', { /* data: {} */});
   },
-
-  home:function(){
-    this.layout('NavBarTabLayout');
-    this.render('Home');
+  user:function(){
+    this.render("UserDetail");
   },
-  you:function(){
-    this.layout('NavBarTabLayout');
-    this.render('TabYou',{
-      data:{
-        _id:Meteor.userId(),
-      }
-    });
-  },
-  chat:function(){
-    this.layout('NavBarTabLayout');
-    this.render('TabChat');
-  },
-  classes:function(){
-    this.layout('NavBarTabLayout');
-    this.render('TabClasses',{
-      data:{
-        joinedClass:Classes.find({joinedUserId:Meteor.userId()}).fetch(),
-        createdClass:Classes.find({createBy:Meteor.userId()}).fetch()
-      }
-    });
+  myAccount:function  (argument) {
+    this.render('MyAccount')
   }
-
 });

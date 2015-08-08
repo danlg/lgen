@@ -1,25 +1,29 @@
 /*****************************************************************************/
-/* TabClasses: Event Handlers */
+/* ClassDetail: Event Handlers */
 /*****************************************************************************/
-Template.TabClasses.events({
+Template.ClassDetail.events({
 });
 
 /*****************************************************************************/
-/* TabClasses: Helpers */
+/* ClassDetail: Helpers */
 /*****************************************************************************/
-Template.TabClasses.helpers({
+Template.ClassDetail.helpers({
 });
 
 /*****************************************************************************/
-/* TabClasses: Lifecycle Hooks */
+/* ClassDetail: Lifecycle Hooks */
 /*****************************************************************************/
-Template.TabClasses.created = function () {
+Template.ClassDetail.created = function () {
 };
 
-Template.TabClasses.rendered = function () {
-
-
+Template.ClassDetail.rendered = function () {
 };
 
-Template.TabClasses.destroyed = function () {
+Template.ClassDetail.destroyed = function () {
 };
+
+
+
+Template.ionNavBar.helpers({
+  classObj:{className:"asd"}
+});

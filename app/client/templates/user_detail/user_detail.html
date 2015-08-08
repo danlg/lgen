@@ -1,0 +1,35 @@
+<template name="UserDetail">
+
+    {{#contentFor "headerTitle"}}
+      <h1 class="title">User</h1>
+    {{/contentFor}}
+
+
+
+
+    {{#contentFor "headerButtonLeft"}}
+      {{>ionNavBackButton text="<"}}
+    {{/contentFor}}
+
+
+
+    <!-- {{#contentFor "headerButtonRight"}}
+      <button  class="button button-clear button-entering button-active addClassBtn">Add</button>
+    {{/contentFor}} -->
+
+
+  {{#ionContent}}
+
+  
+
+
+      <div class="row row-center" style="height:40vh">
+        <div class="row">{{userPofile.profile.role}}</div>
+      </div>
+      <p>get method</p>
+      <div>email</div>
+      <div>android</div>
+
+    {{/ionContent}}
+
+</template>

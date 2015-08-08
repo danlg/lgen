@@ -1,0 +1,60 @@
+<template name="JoinClass">
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">Join class</h1>
+  {{/contentFor}}
+
+
+
+
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton text="Cancel"}}
+  {{/contentFor}}
+
+
+
+  {{#contentFor "headerButtonRight"}}
+    <button  class="button button-clear button-entering button-active doneClassBtn">Done</button>
+  {{/contentFor}}
+
+  {{#ionContent}}
+
+  <div style="text-align:center">Enter class code</div>
+
+<ul class="list ">
+  {{#autoForm schema=leaveClassSchema id="leaveClassForm" doc=this type="method" meteormethod="class/leave"}}
+
+    {{#each joinClassArr}}
+      <li class="item item-input">
+      {{> afFieldInput name="classCode"   value=this.classCode }}
+      <span class="leaveBtn">Leave</span>
+      </li>
+    {{/each}}
+
+
+  {{/autoForm}}
+
+
+
+  {{#autoForm schema=joinClassSchema id="joinClassForm" type="method" meteormethod="class/join"}}
+
+
+
+        <li class="item item-input">
+          {{> afFieldInput name="classCode" placeholder="@classCode"}}
+          <span class="joinBtn">Join</span>
+        </li>
+
+
+
+  {{/autoForm}}
+      </ul>
+
+
+
+
+
+
+
+
+  {{/ionContent}}
+</template>

@@ -1,0 +1,45 @@
+<template name="ClassDetail">
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">{{classObj.className}}</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton text="<"}}
+  {{/contentFor}}
+
+
+
+  {{#contentFor "headerButtonRight"}}
+
+
+
+  <div style="position: absolute; right: 0;">
+
+    <a href="{{pathFor 'classEdit' classCode=classObj.classCode}}"  class="button button-clear button-entering button-active ">Edit</a>
+    <button  class="button button-clear button-entering button-active addClassBtn">?</button>
+  </div>
+  {{/contentFor}}
+
+
+{{#ionContent}}
+
+
+  <div class="container">
+      <div class="row">
+        <div class="col"><a href="{{ pathFor 'classUser' classCode=classObj.classCode  }}">{{ classObj.joinedUserId.length }} users</a></div>
+        <a href="{{pathFor 'ClassInvitation' classCode=classObj.classCode }}"><div class="col">add</div></a>
+      </div>
+  </div>
+
+
+  <!-- <div style="height:60vh"></div>
+  <ul>
+    <li>In-class</li>
+    <li>Share a Link</li>
+    <li><a href="{{pathFor 'ClassInvitation' classCode=classObj.classCode }}">send</a></li>
+  </ul> -->
+
+
+
+  {{/ionContent}}
+</template>

@@ -1,4 +1,6 @@
 ClassController = RouteController.extend({
+  layoutTemplate:"NavBarScreenLayout",
+
   subscriptions: function () {
     // set up the subscriptions for the route and optionally
     // wait on them like this:
@@ -14,6 +16,16 @@ ClassController = RouteController.extend({
   data: function () {
     // return a global data context like this:
     // Items.findOne({_id: this.params._id});
+    classObj = Classes.findOne({classCode:this.params.classCode});
+
+    return {
+      classObj:classObj,
+      inviteClassSchema : Schema.inviteClass,
+      joinClassSchema : Schema.joinClass,
+      leaveClassSchema : Schema.leaveClass,
+      joinClassArr: Classes.find({joinedUserId:Meteor.userId()}).fetch(),
+
+    }
   },
 
   action: function () {
@@ -25,8 +37,34 @@ ClassController = RouteController.extend({
     // last parameter.
     this.render('Class', { /* data: {} */});
   },
-  addclass:function(){
-    this.layout("NavBarScreenLayout");
+  add:function(){
     this.render("AddClass");
+  },
+  join:function(){
+    this.render("JoinClass");
+  },
+  invite:function(){
+    /*this.render("ClassInvitation",{
+      data:{
+        inviteClassSchema: Schema.inviteClass,
+        classCode:this.params.classCode
+
+      }
+      });*/
+      this.render("ClassInvitation")
+  },
+  detail:function(){
+    this.render("ClassDetail");
+  },
+  emailinvite:function(){
+    this.render("EmailInvite");
+  },
+  edit:function(){
+    this.render("ClassEdit");
+  },
+  users:function(){
+    this.render("ClassUsers");
   }
+
+
 });

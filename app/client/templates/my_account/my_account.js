@@ -1,25 +1,26 @@
 /*****************************************************************************/
-/* TabClasses: Event Handlers */
+/* MyAccount: Event Handlers */
 /*****************************************************************************/
-Template.TabClasses.events({
+Template.MyAccount.events({
 });
 
 /*****************************************************************************/
-/* TabClasses: Helpers */
+/* MyAccount: Helpers */
 /*****************************************************************************/
-Template.TabClasses.helpers({
+Template.MyAccount.helpers({
+	current: function () {
+    	return Meteor.user();
+	}
 });
 
 /*****************************************************************************/
-/* TabClasses: Lifecycle Hooks */
+/* MyAccount: Lifecycle Hooks */
 /*****************************************************************************/
-Template.TabClasses.created = function () {
+Template.MyAccount.created = function () {
 };
 
-Template.TabClasses.rendered = function () {
-
-
+Template.MyAccount.rendered = function () {
 };
 
-Template.TabClasses.destroyed = function () {
+Template.MyAccount.destroyed = function () {
 };

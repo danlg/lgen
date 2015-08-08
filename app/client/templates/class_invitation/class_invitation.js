@@ -1,25 +1,25 @@
+
 /*****************************************************************************/
-/* TabClasses: Event Handlers */
+/* ClassInvitation: Event Handlers */
 /*****************************************************************************/
-Template.TabClasses.events({
+Template.ClassInvitation.events({
 });
 
 /*****************************************************************************/
-/* TabClasses: Helpers */
+/* ClassInvitation: Helpers */
 /*****************************************************************************/
-Template.TabClasses.helpers({
+Template.ClassInvitation.helpers({
 });
 
 /*****************************************************************************/
-/* TabClasses: Lifecycle Hooks */
+/* ClassInvitation: Lifecycle Hooks */
 /*****************************************************************************/
-Template.TabClasses.created = function () {
+Template.ClassInvitation.created = function () {
 };
 
-Template.TabClasses.rendered = function () {
-
-
+Template.ClassInvitation.rendered = function () {
+  
 };
 
-Template.TabClasses.destroyed = function () {
+Template.ClassInvitation.destroyed = function () {
 };

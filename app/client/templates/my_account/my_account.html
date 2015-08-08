@@ -1,0 +1,55 @@
+<template name="MyAccount">
+  
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">Add class</h1>
+  {{/contentFor}}
+
+
+
+
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton text="Cancel"}}
+  {{/contentFor}}
+
+
+
+  {{#contentFor "headerButtonRight"}}
+    <button  class="button button-clear button-entering button-active addClassBtn">Add</button>
+  {{/contentFor}}
+
+
+
+
+{{#ionContent}}
+
+{{#autoForm collection="Meteor.users" id="updateUser" type="update" doc=current}}
+
+{{> afObjectField name='profile'}}
+
+  <!-- <ul class="list ">
+
+
+    <li class="item item-input">
+      {{> afFieldInput name="className" placeholder="Class Name"}}
+    </li>
+
+
+    <li class="item item-input">
+      {{> afFieldInput name="classCode" placeholder="@classcode"}}
+    </li>
+
+
+    
+
+
+  </ul> -->
+
+
+
+{{/autoForm}}
+
+
+
+
+  {{/ionContent}}
+</template>

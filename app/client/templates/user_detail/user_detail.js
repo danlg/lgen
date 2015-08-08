@@ -1,25 +1,23 @@
 /*****************************************************************************/
-/* TabClasses: Event Handlers */
+/* UserDetail: Event Handlers */
 /*****************************************************************************/
-Template.TabClasses.events({
+Template.UserDetail.events({
 });
 
 /*****************************************************************************/
-/* TabClasses: Helpers */
+/* UserDetail: Helpers */
 /*****************************************************************************/
-Template.TabClasses.helpers({
+Template.UserDetail.helpers({
 });
 
 /*****************************************************************************/
-/* TabClasses: Lifecycle Hooks */
+/* UserDetail: Lifecycle Hooks */
 /*****************************************************************************/
-Template.TabClasses.created = function () {
+Template.UserDetail.created = function () {
 };
 
-Template.TabClasses.rendered = function () {
-
-
+Template.UserDetail.rendered = function () {
 };
 
-Template.TabClasses.destroyed = function () {
+Template.UserDetail.destroyed = function () {
 };

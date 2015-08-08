@@ -1,4 +1,4 @@
-<template name="AddClass">
+<template name="ClassEdit">
   {{#contentFor "headerTitle"}}
     <h1 class="title">Add class</h1>
   {{/contentFor}}
@@ -17,11 +17,9 @@
   {{/contentFor}}
 
 
-
-
 {{#ionContent}}
 
-{{#autoForm collection="Classes" id="insertClass" type="insert"}}
+{{#autoForm collection="Classes" id="insertClass" type="update" doc=this}}
 
     <p>
       {{afFieldMessage name='className'}}
@@ -30,10 +28,10 @@
 
   <ul class="list ">
     <li class="item item-input">
-      {{> afFieldInput name="className" placeholder="Class Name"}}
+      {{> afFieldInput name="className" placeholder="Class Name" value=classObj.className }}
     </li>
     <li class="item item-input">
-      {{> afFieldInput name="classCode" placeholder="@classcode"}}
+      {{> afFieldInput name="classCode" placeholder="@classcode" value =classObj.classCode}}
     </li>
 
 
@@ -62,23 +60,25 @@
     </li>
 
 
+
   </ul>
-
-    <p style="padding: 0 2rem;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-
-
-
 
 
 
 {{/autoForm}}
 
 
+<p style="padding: 0 2rem;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+
+
+<div style="position: fixed; width: 100vw; bottom: 0;">
+   <a class="button button-full button-assertive button-outline removeAllUserBtn">remove all user</a>
+   <a class="button button-full button-assertive button-outline removeClass">remove class</a>
+</div>
+
+
 
 
   {{/ionContent}}
-
-
-
 </template>

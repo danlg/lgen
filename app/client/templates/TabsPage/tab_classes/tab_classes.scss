@@ -5,8 +5,16 @@
   height: 100%;
   .listview-container{
     height:50%;
+    .listview{
+      height: 80%;
+      overflow-y: auto;
+      .listview-item{
+        padding: 1rem;
+        border: 1px solid #EEE;
+      }
+    }
     .add-join-bar{
-      height: 50px;
+      height: 20%;
       background-color: #FAFAF9;
 
     }

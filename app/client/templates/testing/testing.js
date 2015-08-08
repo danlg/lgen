@@ -3,9 +3,7 @@
 /*****************************************************************************/
 Template.Testing.events({
   'click .mail':function(){
-    Meteor.call('simplemail',function(err){
-        err?console.log(err):"";
-      });
+
   }
 });
 
@@ -23,6 +21,17 @@ Template.Testing.created = function () {
 
 Template.Testing.rendered = function () {
 
+  /*IonPopup.show({
+      title: 'A Popup',
+      template: 'Here\'s a quick popup.',
+      buttons: [{
+        text: 'Close me',
+        type: 'button-positive',
+        onTap: function() {
+          IonPopup.close();
+        }
+      }]
+    });*/
 
 };
 

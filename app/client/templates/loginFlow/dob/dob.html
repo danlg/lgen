@@ -1,3 +1,34 @@
 <template name="Dob">
-  <h1>Find me in app/client/templates/dob/dob</h1>
+
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">Date Of Birth</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+    <button  class="button button-clear button-entering button-active createBtn">Create</button>
+  {{/contentFor}}
+
+
+
+
+
+  {{#ionView}}
+    {{#ionContent}}
+
+        <div class="row row-center " style="height:60vh">
+          <div class="col" style="text-align:center"><h2>What is your Date Of Birth?</h2></div>
+        </div>
+
+
+        <input type="date">
+
+
+
+
+    {{/ionContent}}
+  {{/ionView}}
 </template>

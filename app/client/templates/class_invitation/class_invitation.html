@@ -1,0 +1,38 @@
+<template name="ClassInvitation">
+
+    <!-- {{#contentFor "headerTitle"}}
+      <h1 class="title">{{classObj}}</h1>
+    {{/contentFor}} -->
+
+    {{#contentFor "headerButtonLeft"}}
+      {{>ionNavBackButton text="<"}}
+    {{/contentFor}}
+
+
+
+    {{#contentFor "headerButtonRight"}}
+      <button  class="button button-clear button-entering button-active addClassBtn">?</button>
+    {{/contentFor}}
+
+
+  {{#ionContent}}
+
+
+
+
+
+    <div class="row row-center" style="height:60vh">
+        <div class="col" style="text-align:center">
+          what method you would like to add them
+        </div>
+    </div>
+    <ul>
+      <li>In-class</li>
+      <li><a href="{{pathFor 'ShareInvite' classCode=classObj.classCode }}">Share a Link</a></li>
+      <li><a href="{{pathFor 'EmailInvite' classCode=classObj.classCode }}">send</a></li>
+    </ul>
+
+
+
+    {{/ionContent}}
+</template>
