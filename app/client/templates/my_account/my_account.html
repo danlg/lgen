@@ -1,32 +1,34 @@
 <template name="MyAccount">
-  
+
   {{#contentFor "headerTitle"}}
-    <h1 class="title">Add class</h1>
+    <h1 class="title">My Account</h1>
   {{/contentFor}}
 
 
 
 
   {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton text="Cancel"}}
+    {{>ionNavBackButton text=""}}
   {{/contentFor}}
 
 
 
   {{#contentFor "headerButtonRight"}}
-    <button  class="button button-clear button-entering button-active addClassBtn">Add</button>
+    <button  class="button button-clear button-entering button-active editAccountBtn">edit</button>
   {{/contentFor}}
 
 
 
-
+{{#ionView}}
 {{#ionContent}}
 
-{{#autoForm collection="Meteor.users" id="updateUser" type="update" doc=current}}
 
-{{> afObjectField name='profile'}}
 
-  <!-- <ul class="list ">
+<!-- {{#autoForm collection="Meteor.users" id="updateUser" type="update" doc=current}}
+
+{{> afObjectField name='profile.name'}}
+
+   <ul class="list ">
 
 
     <li class="item item-input">
@@ -39,17 +41,40 @@
     </li>
 
 
-    
-
-
-  </ul> -->
 
 
 
-{{/autoForm}}
+  </ul>
+
+
+
+{{/autoForm}} -->
+
+<div class="list">
+  <div class="item item-input">
+    <input type="text" placeholder="first name" value="{{current.profile.firstname}}">
+  </div>
+  <div class="item item-input">
+    <input type="text" placeholder="last name" value="{{current.profile.lastname}}">
+  </div>
+  <div class="item item-input">
+    <input type="text" placeholder="display name" value="{{current.profile.firstname}} {{current.profile.lastname}}">
+  </div>
+  <div class="item item-input">
+    <input type="text" placeholder="Location" value="Hong Kong"  >
+  </div>
+  <div class="item item-input">
+    <input type="text" placeholder="email" value="{{email}}">
+  </div>
+</div>
+
+<a href="">
+  <button class="button">Change password</button>
+</a>
 
 
 
 
   {{/ionContent}}
+  {{/ionView}}
 </template>

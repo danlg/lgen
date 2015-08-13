@@ -1,8 +1,14 @@
 <template name="NavBarScreenLayout">
+   {{#ionBody}}
   {{> ionNavBar}}
   {{#ionNavView}}
-
     {{> yield}}
-  
   {{/ionNavView}}
+   {{/ionBody}}
+
+  {{#if isActiveRoute regex='Home|You|TabChat|Classes'}}
+    {{> Tabs}}
+  {{/if}}
+
+
 </template>

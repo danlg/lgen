@@ -8,7 +8,7 @@
 
 
     {{#contentFor "headerButtonLeft"}}
-      {{>ionNavBackButton text="<"}}
+      {{>ionNavBackButton text=""}}
     {{/contentFor}}
 
 
@@ -20,15 +20,20 @@
 
   {{#ionContent}}
 
-  
+
 
 
       <div class="row row-center" style="height:40vh">
-        <div class="row">{{userPofile.profile.role}}</div>
+        <div class="row"><h1>{{userPofile.profile.firstname}} {{userPofile.profile.lastname}}</h1></div>
       </div>
-      <p>get method</p>
-      <div>email</div>
-      <div>android</div>
+
+      <div class="list">
+        <div class="item">get method</div>
+        <div class="item">email</div>
+        <div class="item">android</div>
+      </div>
+
+      
 
     {{/ionContent}}
 

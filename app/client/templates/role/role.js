@@ -6,7 +6,7 @@ Template.Role.events({
     var $this = $(e.target);
     if(Meteor.user()){
       Meteor.call('user/role/update',$this.data('role'),function(){
-          Router.go('home');
+          Router.go('Home');
         });
     }else{
       Router.go('email-signup',{role:$this.data('role')})
@@ -30,8 +30,8 @@ Template.Role.created = function () {
 Template.Role.rendered = function () {
   if(Meteor.user()){
     var userObj=Meteor.user();
-      if(!userObj.profile.role=="")
-        Router.go('home');
+      /*if(!_.pick(userObj,'role')=='')*/
+        Router.go('Home');
   }
 };
 

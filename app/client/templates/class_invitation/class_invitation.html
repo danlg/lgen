@@ -5,7 +5,7 @@
     {{/contentFor}} -->
 
     {{#contentFor "headerButtonLeft"}}
-      {{>ionNavBackButton text="<"}}
+      {{>ionNavBackButton text=""}}
     {{/contentFor}}
 
 
@@ -14,7 +14,7 @@
       <button  class="button button-clear button-entering button-active addClassBtn">?</button>
     {{/contentFor}}
 
-
+  {{#ionView}}
   {{#ionContent}}
 
 
@@ -26,13 +26,14 @@
           what method you would like to add them
         </div>
     </div>
-    <ul>
-      <li>In-class</li>
-      <li><a href="{{pathFor 'ShareInvite' classCode=classObj.classCode }}">Share a Link</a></li>
-      <li><a href="{{pathFor 'EmailInvite' classCode=classObj.classCode }}">send</a></li>
+    <ul class="list">
+      <li class="item">In-class</li>
+      <a href="{{pathFor 'ShareInvite' classCode=classObj.classCode }}"><li class="item">Share a Link</li></a>
+      <a href="{{pathFor 'EmailInvite' classCode=classObj.classCode }}"><li class="item">send</li></a>
     </ul>
 
 
 
     {{/ionContent}}
+    {{/ionView}}
 </template>

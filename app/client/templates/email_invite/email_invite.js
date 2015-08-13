@@ -1,11 +1,11 @@
-var form;
+
 /*****************************************************************************/
 /* EmailInvite: Event Handlers */
 /*****************************************************************************/
 Template.EmailInvite.events({
   'click .inviteBtn':function(){
-    $(form).submit();
 
+    AutoForm.submitFormById("#inviteClassForm")
   }
 
 });
@@ -14,6 +14,7 @@ Template.EmailInvite.events({
 /* EmailInvite: Helpers */
 /*****************************************************************************/
 Template.EmailInvite.helpers({
+  inviteClassSchema:Schema.inviteClass
 });
 
 /*****************************************************************************/
@@ -23,7 +24,6 @@ Template.EmailInvite.created = function () {
 };
 
 Template.EmailInvite.rendered = function () {
-  form =  $("#inviteClassForm");
 };
 
 Template.EmailInvite.destroyed = function () {

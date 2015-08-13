@@ -3,20 +3,43 @@
     <h1 class="title">Classes</h1>
   {{/contentFor}}
 
+
+    {{#contentFor "headerButtonRight"}}
+      <a href="{{ pathFor 'SendMessage' }}"  class="button button-clear button-entering button-active">
+        <i class="icon ion-compose"></i>
+      </a>
+    {{/contentFor}}
+
+{{#ionView}}
   {{#ionContent}}
     <div class="tab-classes">
       <div class="listview-container">
         <div class="row row-center add-join-bar">
             <div class="col col-90">CLASSES I OWN </div>
-            <div class="col "><i class="fa fa-plus-circle"></i></div>
+            <div class="col ">
+              <a href="{{pathFor 'AddClass'  }}">
+                <i class="icon ion-plus-circled"></i>
+              </a>
+            </div>
         </div>
 
         <div class="listview">
-          <ul>
+
+
+
+          {{#if notCreateEmptyList}}
+
+          <ul class="list">
             {{#each createdClass}}
-              <li class="listview-item"><a href={{ pathFor 'classDetail' classCode=this.classCode  }} >{{this.className}}@{{this.classCode}}</a></li>
+              <a href={{ pathFor 'classDetail'   }} >
+                <li class="item">
+                  {{this.className}}@{{this.classCode}}
+                </li>
+              </a>
             {{/each}}
           </ul>
+
+          {{else}}
 
 
           <div class="row row-center listview-nth">
@@ -24,6 +47,10 @@
                 <a class="button button-calm" href="{{pathFor 'AddClass'  }}">Create a class </a>
               </div>
           </div>
+
+          {{/if}}
+
+
         </div>
 
 
@@ -32,16 +59,28 @@
       <div class="listview-container">
         <div class="row row-center add-join-bar">
           <div class="col col-90">CLASSES I'VE JOINED</div>
-            <div class="col "><i class="fa fa-plus-circle"></i></div>
+            <div class="col ">
+              <a href="{{pathFor 'JoinClass'  }}">
+                <i class="icon ion-plus-circled"></i>
+              </a>
+            </div>
         </div>
 
+        {{#if notJoinedEmptyList}}
+
         <div>
-          <ul>
+          <ul class="list">
             {{#each joinedClass}}
-              <li>@{{this.classCode}}</li>
+              <a href={{ pathFor 'classDetail'   }} >
+                <li class="item">
+                  {{this.className}}@{{this.classCode}}
+                </li>
+              </a>
             {{/each}}
           </ul>
         </div>
+
+        {{else}}
 
 
         <div class="row row-center listview-nth">
@@ -49,7 +88,12 @@
               <a class="button button-calm" href="{{pathFor 'JoinClass'  }}">Join a Class</a>
             </div>
         </div>
+
+        {{/if}}
+
+
       </div>
     </div>
   {{/ionContent}}
+  {{/ionView}}
 </template>

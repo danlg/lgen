@@ -1,0 +1,74 @@
+<template name="SendMessage">
+
+    {{#contentFor "headerTitle"}}
+      <h1 class="title">new notification</h1>
+    {{/contentFor}}
+
+
+
+
+    {{#contentFor "headerButtonLeft"}}
+      {{>ionNavBackButton text="Cancel"}}
+    {{/contentFor}}
+
+
+
+    {{#contentFor "headerButtonRight"}}
+    <div style="position: absolute; right: 0;">
+      <button  class="button button-clear button-entering button-active sendMsgBtn">Send</button>
+      <!-- <button  class="button button-clear button-entering button-active msgDoneClassBtn {{doneClassBtnStatus}}">Done</button> -->
+
+    </div>
+    {{/contentFor}}
+
+
+
+
+  {{#ionContent}}
+
+
+
+  <div class="list">
+    <label class="item item-input">
+      To :
+      &nbsp;
+
+      <select class="js-example-basic-multiple" multiple="multiple">
+          {{#each createdClasses}}
+              <option value={{classCode}}>{{className}}</option>
+          {{/each}}
+
+      </select>
+
+    </label>
+
+
+
+    <label class="item item-input {{messageBox}}" style="height:60vh">
+      <textarea class="msgBox" placeholder="message" style="height:100%;font-size:20px;" ></textarea>
+    </label>
+
+
+    <!-- <li class="item item-checkbox {{checkbox}}">
+     <label class="checkbox">
+       <input type="checkbox">
+     </label>
+     Flux Capacitor
+    </li> -->
+
+
+
+
+
+  </div>
+
+
+
+
+
+
+
+
+
+    {{/ionContent}}
+</template>

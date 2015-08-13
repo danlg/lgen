@@ -32,6 +32,7 @@ Accounts.onCreateUser(function(options, user) {
       });
     user.profile.firstname = user.services.google.given_name;
     user.profile.lastname = user.services.google.family_name;
+    user.profile.role = "";
 
 
   }else{
@@ -39,6 +40,21 @@ Accounts.onCreateUser(function(options, user) {
     Meteor.setTimeout(function() {
       Accounts.sendVerificationEmail(user._id);
     }, 2 * 1000);
+
+    /*switch(_.pick(options,role)){
+      case "Teacher":
+        Roles.addUsersToRoles(user._id, 'Teacher');
+      break;
+      case "Student":
+        Roles.addUsersToRoles(user._id, 'Student');
+      break;
+      case "Parent":
+        Roles.addUsersToRoles(user._id, 'Parent');
+      break;
+    }*/
+
+
+
   }
 
 

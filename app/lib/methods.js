@@ -28,7 +28,9 @@ Meteor.methods({
    },
 
    'user/role/update':function(role){
-     Meteor.users.update(Meteor.userId(),{$set:{"profile":{"role":role}}},function(err){
+     var userObj  = Meteor.user();
+     userObj.profile.role = role;
+     Meteor.users.upsert(Meteor.userId(),{$set:userObj},function(err){
           if(err){
             console.log(err);
             return err;
@@ -51,6 +53,9 @@ Meteor.methods({
    },
    'class/delete':function(classObj){
       Classes.remove(classObj);
+   },
+   'class/update':function(doc){
+      Classes.update({classCode:doc.classCode},{$set:doc});
    }
 
 

@@ -16,7 +16,11 @@ Template.JoinClass.events({
 /* JoinClass: Helpers */
 /*****************************************************************************/
 Template.JoinClass.helpers({
-
+  leaveClassSchema : Schema.leaveClass,
+  joinClassSchema : Schema.joinClass,
+  joinClassArr: function(){
+    return Classes.find({joinedUserId:{$in:[Meteor.userId()]}});
+  }
 });
 
 /*****************************************************************************/

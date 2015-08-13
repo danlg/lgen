@@ -1,23 +1,23 @@
 /*****************************************************************************/
-/* NavBarTabLayout: Event Handlers */
+/* Test2: Event Handlers */
 /*****************************************************************************/
-Template.NavBarTabLayout.events({
+Template.Test2.events({
 });
 
 /*****************************************************************************/
-/* NavBarTabLayout: Helpers */
+/* Test2: Helpers */
 /*****************************************************************************/
-Template.NavBarTabLayout.helpers({
+Template.Test2.helpers({
 });
 
 /*****************************************************************************/
-/* NavBarTabLayout: Lifecycle Hooks */
+/* Test2: Lifecycle Hooks */
 /*****************************************************************************/
-Template.NavBarTabLayout.created = function () {
+Template.Test2.created = function () {
 };
 
-Template.NavBarTabLayout.rendered = function () {
+Template.Test2.rendered = function () {
 };
 
-Template.NavBarTabLayout.destroyed = function () {
+Template.Test2.destroyed = function () {
 };

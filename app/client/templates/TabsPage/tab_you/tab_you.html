@@ -4,21 +4,23 @@
       <h1 class="title">Classes</h1>
     {{/contentFor}}
 
+    {{#contentFor "headerButtonLeft"}}
+      {{>ionNavBackButton text=""}}
+    {{/contentFor}}
+
+
     {{#ionContent}}
 		<div class="list">
 
-			<a href="{{ pathFor 'myAccount'  }}"><div class="item" >My accounts</div></a>
+			<a href="{{ pathFor 'MyAccount'  }}"><div class="item" >My accounts</div></a>
 
 			<div class="item" >Notification</div>
 			<div class="item" >About</div>
 			<div class="item" >Feedback</div>
 			<div class="item" >Love Little Genius</div>
 			{{#linkTo route='language'}}
-			<div class="item" >Sing Out</div>
+			<div class="item" >Sign Out</div>
 			{{/linkTo}}
 		</div>
     {{/ionContent}}
 </template>
-
-
-

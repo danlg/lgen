@@ -3,3 +3,8 @@
 /*****************************************************************************/
 .role {
 }
+
+.transitioner>div{
+  display: block;
+  position: relative;
+}

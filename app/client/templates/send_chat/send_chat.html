@@ -1,0 +1,58 @@
+<template name="SendChat">
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">Chat</h1>
+  {{/contentFor}}
+
+
+
+
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton text="Cancel"}}
+  {{/contentFor}}
+
+
+
+  {{#contentFor "headerButtonRight"}}
+  <div style="position: absolute; right: 0;">
+    <button  class="button button-clear button-entering button-active sendMsgBtn">Send</button>
+    <!-- <button  class="button button-clear button-entering button-active msgDoneClassBtn {{doneClassBtnStatus}}">Done</button> -->
+
+  </div>
+  {{/contentFor}}
+
+
+
+
+{{#ionContent}}
+
+
+
+<div class="list">
+  <label class="item item-input">
+    To :
+    &nbsp;
+
+    <select class="js-example-basic-multiple" multiple="multiple">
+        {{#each classesJoinedOwner}}
+            <option value={{_id}}>{{profile.firstname}}</option>
+        {{/each}}
+
+    </select>
+
+  </label>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+  {{/ionContent}}
+
+</template>

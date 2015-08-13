@@ -10,6 +10,10 @@ Template.MyAccount.events({
 Template.MyAccount.helpers({
 	current: function () {
     	return Meteor.user();
+	},
+	email:function(){
+		/*console.log(_.deep(Meteor.user(),'firstname'));*/
+		return Meteor.user().emails[0].address;
 	}
 });
 

@@ -1,5 +1,5 @@
 Router.configure({
-  layoutTemplate: 'MasterLayout',
+  /*layoutTemplate: 'MasterLayout',*/
   loadingTemplate: 'Loading',
   notFoundTemplate: 'NotFound'
 });
@@ -27,7 +27,7 @@ OnBeforeActions = {
 };
 
 Router.onBeforeAction(OnBeforeActions.loginRequired, {
-  except: ['language', 'signin', 'email-signin','email-signup', 'role']
+  except: ['language', 'signin', 'email-signin','email-signup', 'role','Testing','Test2']
 });
 
 Router.onBeforeAction(OnBeforeActions.roleRequired, {
@@ -49,8 +49,7 @@ lang->language*/
 Router.route('language', {
   controller: 'LoginController',
   action: "language",
-  path: "/",
-
+  path: "/"
 });
 Router.route('signin', {
   controller: 'LoginController',
@@ -76,20 +75,20 @@ Router.route('dob', {
   action: "dob"
 });
 
-Router.route('home', {
+Router.route('Home', {
   controller: 'MainApplicationController',
-  action: "home"
 });
 
-Router.route('Chat', {
+Router.route('TabChat', {
   controller: 'MainApplicationController',
-  action: "chat"
 });
 
 Router.route('You', {
   controller: 'MainApplicationController',
   action: "you"
 });
+
+
 
 
 Router.route('Classes', {
@@ -99,65 +98,76 @@ Router.route('Classes', {
 
 Router.route('AddClass', {
   controller: 'ClassController',
-  action: "add",
   path: "class/add"
 });
 
 Router.route('JoinClass', {
-  controller: 'ClassController',
-  action: "join",
-  path: "class/join"
+  // controller: 'ClassController',
+  layoutTemplate:"NavBarScreenLayout",
+  path: "class/join",
 });
 Router.route('ClassInvitation', {
-  controller: 'ClassController',
-  action: "invite",
-  path: "class/invite/:classCode"
+  controller: 'ClassWithIdController',
+  path: "class/:classCode/invite"
 });
 
 Router.route('EmailInvite', {
-  controller: 'ClassController',
+  /*controller: 'ClassWithIdController',*/
+  layoutTemplate:"NavBarScreenLayout",
   path: "class/:classCode/invite/byemail",
-  action:"emailinvite"
+
 });
 
 
 
 
 Router.route('classDetail', {
-  controller: 'ClassController',
-  action: "detail",
+  controller: 'ClassWithIdController',
   path: "class/:classCode"
 });
 Router.route('ShareInvite', {
-  controller: 'ClassController',
-  action: "detail",
+  controller: 'ClassWithIdController',
   path: "class/:classCode/invite/share"
 });
 Router.route('classEdit', {
-  controller: 'ClassController',
-  action: "edit",
+  controller: 'ClassWithIdController',
   path: "class/:classCode/edit"
 });
 
-Router.route('classUser', {
-  controller: 'ClassController',
-  action: "users",
+Router.route('ClassUsers', {
+  controller: 'ClassWithIdController',
   path: "class/:classCode/users"
 });
 
-Router.route('user', {
+Router.route('UserDetail', {
   controller: 'UserController',
-  action: "user",
   path: "user/:_id"
 });
 
-Router.route('myAccount', {
-  controller: 'UserController',
-  action: "myAccount",
-  path: "me"
+Router.route('MyAccount', function(){
+  this.layout('NavBarScreenLayout');
+  this.render('MyAccount');
 });
 
-Router.route('Testing');
+Router.route('SendMessage', {
+  controller: 'MessageController',
+  path: "message/send/:classCode?"
+});
+
+Router.route('Testing',{
+  controller:"TestController",
+
+  });
+
+Router.route('Test2',{
+  controller:"TestController",
+
+  });
+Router.route('sendChat',{
+  layoutTemplate:"NavBarScreenLayout",
+  path:"chat"
+
+  });
 
 
 

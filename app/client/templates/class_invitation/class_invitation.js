@@ -9,6 +9,7 @@ Template.ClassInvitation.events({
 /* ClassInvitation: Helpers */
 /*****************************************************************************/
 Template.ClassInvitation.helpers({
+  
 });
 
 /*****************************************************************************/
@@ -18,7 +19,7 @@ Template.ClassInvitation.created = function () {
 };
 
 Template.ClassInvitation.rendered = function () {
-  
+
 };
 
 Template.ClassInvitation.destroyed = function () {

@@ -8,7 +8,7 @@
 
 
     {{#contentFor "headerButtonLeft"}}
-      {{>ionNavBackButton text="<"}}
+      {{>ionNavBackButton text=""}}
     {{/contentFor}}
 
 
@@ -22,11 +22,19 @@
 
 
 
-    <ul>
+
+
+
+    <div class="list">
       {{#each usersProfile}}
-        <li><a href="{{ pathFor 'user' _id=this._id }}">{{this.profile.role}}</a></li>
+        <div class="item">
+
+          <a href="{{ pathFor 'UserDetail' _id=this._id }}">{{this.profile.firstname}} {{this.profile.lastname}}</a>
+        </div>
       {{/each}}
-    </ul>
+    </div>
+
+
 
 
 

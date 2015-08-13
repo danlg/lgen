@@ -38,6 +38,34 @@ Classes.attachSchema(new SimpleSchema({
     type:[String],
     optional:true
   },
+  messagesObj:{
+    type:[Object],
+    optional:true
+  },
+  "messagesObj.$.msgId":{
+    type:String
+  },
+  "messagesObj.$.sentAt":{
+    type:Date,
+    autoValue: function() {
+        return new Date;
+    }
+  },
+  "messagesObj.$.content":{
+    type:String
+  },
+  "messagesObj.$.like":{
+    type:[String]
+  },
+  "messagesObj.$.dislike":{
+    type:[String]
+  },
+  /*"messagesObj.$.msgRating":{
+    type:[Object]
+  },
+  "messagesObj.$.msgRating.$.type":{
+    type:String
+  },*/
   createBy:{
     type:String,
     optional:false,

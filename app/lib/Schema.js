@@ -24,3 +24,17 @@ Schema.inviteClass = new SimpleSchema({
     }
   }
 });
+
+
+Schema.sendMsg = new SimpleSchema({
+  sendTarget: {
+    type: [String],
+    autoform: {
+      type: "selectize",
+      afFieldInput: {
+        multiple: true,
+        selectizeOptions: {"asd":123}
+      }
+    }
+  }
+});

@@ -1,4 +1,5 @@
 MainApplicationController = RouteController.extend({
+  layoutTemplate:"NavBarScreenLayout",
   subscriptions: function () {
     // set up the subscriptions for the route and optionally
     // wait on them like this:
@@ -9,6 +10,8 @@ MainApplicationController = RouteController.extend({
     // the subscription handle is added to a reactive list
     // and when all items in this list are ready, this.ready()
     // returns true in any of your route functions.
+    this.subscribe('joinedClass').wait();
+    this.subscribe('createdClassByMe').wait();
   },
 
   data: function () {
@@ -16,22 +19,9 @@ MainApplicationController = RouteController.extend({
     // Items.findOne({_id: this.params._id});
   },
 
-  action: function () {
-    // You can create as many action functions as you'd like.
-    // This is the primary function for running your route.
-    // Usually it just renders a template to a page. But it
-    // might also perform some conditional logic. Override
-    // the data context by providing it as an option in the
-    // last parameter.
-    this.render('MainApplication', { /* data: {} */});
-  },
 
-  home:function(){
-    this.layout('NavBarTabLayout');
-    this.render('Home');
-  },
   you:function(){
-    this.layout('NavBarTabLayout');
+
     this.render('TabYou',{
       data:{
         _id:Meteor.userId(),
@@ -39,17 +29,12 @@ MainApplicationController = RouteController.extend({
     });
   },
   chat:function(){
-    this.layout('NavBarTabLayout');
+
     this.render('TabChat');
   },
   classes:function(){
-    this.layout('NavBarTabLayout');
-    this.render('TabClasses',{
-      data:{
-        joinedClass:Classes.find({joinedUserId:Meteor.userId()}).fetch(),
-        createdClass:Classes.find({createBy:Meteor.userId()}).fetch()
-      }
-    });
+
+    this.render('TabClasses');
   }
 
 });

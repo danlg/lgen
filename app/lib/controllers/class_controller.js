@@ -1,6 +1,5 @@
 ClassController = RouteController.extend({
   layoutTemplate:"NavBarScreenLayout",
-
   subscriptions: function () {
     // set up the subscriptions for the route and optionally
     // wait on them like this:
@@ -14,9 +13,13 @@ ClassController = RouteController.extend({
   },
 
   data: function () {
+
+
     // return a global data context like this:
     // Items.findOne({_id: this.params._id});
-    classObj = Classes.findOne({classCode:this.params.classCode});
+    /*classObj = Classes.findOne({classCode:this.params.classCode});
+
+
 
     return {
       classObj:classObj,
@@ -25,46 +28,33 @@ ClassController = RouteController.extend({
       leaveClassSchema : Schema.leaveClass,
       joinClassArr: Classes.find({joinedUserId:Meteor.userId()}).fetch(),
 
+    }*/
+    return {
+      usersProfile : Meteor.users.find(),
+    }
+  }
+});
+
+ClassWithIdController = ClassController.extend({
+  subscriptions:function(){
+    this.subscribe('class',this.params.classCode).wait();
+    this.subscribe('personCreateClass',this.params.classCode).wait();
+    this.subscribe('getJoinedClassUser',this.params.classCode).wait();
+    this.subscribe('joinedClass').wait();
+    if (this.ready()) {
+      this.render();
+    } else {
+      this.render('Loading');
     }
   },
-
-  action: function () {
-    // You can create as many action functions as you'd like.
-    // This is the primary function for running your route.
-    // Usually it just renders a template to a page. But it
-    // might also perform some conditional logic. Override
-    // the data context by providing it as an option in the
-    // last parameter.
-    this.render('Class', { /* data: {} */});
-  },
-  add:function(){
-    this.render("AddClass");
-  },
-  join:function(){
-    this.render("JoinClass");
-  },
-  invite:function(){
-    /*this.render("ClassInvitation",{
-      data:{
-        inviteClassSchema: Schema.inviteClass,
-        classCode:this.params.classCode
-
-      }
-      });*/
-      this.render("ClassInvitation")
-  },
-  detail:function(){
-    this.render("ClassDetail");
-  },
-  emailinvite:function(){
-    this.render("EmailInvite");
-  },
-  edit:function(){
-    this.render("ClassEdit");
-  },
-  users:function(){
-    this.render("ClassUsers");
+  data:function(){
+    var classObj = Classes.findOne();
+    var joinedUserId = classObj.joinedUserId;
+    return{
+      classObj:classObj,
+      classCode : this.params.classCode,
+      ownUser : Meteor.users.findOne(),
+      usersProfile : Meteor.users.find({_id:{$in:joinedUserId}})
+    }
   }
-
-
 });

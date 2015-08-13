@@ -10,28 +10,17 @@ UserController = RouteController.extend({
     // the subscription handle is added to a reactive list
     // and when all items in this list are ready, this.ready()
     // returns true in any of your route functions.
+    this.subscribe('user',this.params._id).wait();
   },
 
   data: function () {
     // return a global data context like this:
     // Items.findOne({_id: this.params._id});
     return{
-      userPofile:Meteor.users.findOne({_id:this.params._id}),
+      userPofile:Meteor.users.findOne(),
     }
   },
 
-  action: function () {
-    // You can create as many action functions as you'd like.
-    // This is the primary function for running your route.
-    // Usually it just renders a template to a page. But it
-    // might also perform some conditional logic. Override
-    // the data context by providing it as an option in the
-    // last parameter.
-    this.render('User', { /* data: {} */});
-  },
-  user:function(){
-    this.render("UserDetail");
-  },
   myAccount:function  (argument) {
     this.render('MyAccount')
   }

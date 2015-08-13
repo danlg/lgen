@@ -32,3 +32,9 @@ Template.ClassEdit.rendered = function () {
 
 Template.ClassEdit.destroyed = function () {
 };
+
+Template.ionNavBar.events({
+  'click .saveClassBtn':function(){
+    AutoForm.submitFormById("#updateClass");
+  }
+});

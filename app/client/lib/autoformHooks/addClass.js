@@ -7,22 +7,16 @@ var postHooks = {
         doc.classCode  = CryptoJS.SHA1(rString,beforeHash).toString().substring(0,6);
       }
       doc.joinedUserId=[];
+      doc.messagesObj=[];
       return doc;
     }
   },
   onSuccess: function(operation, result, template) {
         // display success, reset form status
 
-        classObj = Classes.findOne({_id:result});
-
-        Meteor.call(
-          'addClassMail',
-          Meteor.user().emails[0].address,
-          classObj.className,
-          function(err,res){
-            err?alert(err):Router.go('Classes');
-          });
-
+    Meteor.call('addClassMail',Meteor.user().emails[0].address,result,function(err,res){
+        err?alert(err):Router.go('Classes');
+    });
   }
 }
 

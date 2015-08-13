@@ -4,6 +4,12 @@
     <h1 class="title">Chat</h1>
   {{/contentFor}}
 
+  {{#contentFor "headerButtonRight"}}
+    <a href="{{ pathFor 'sendChat' }}"  class="button button-clear button-entering button-active">
+      <i class="icon ion-chatbubble-working"></i>
+    </a>
+  {{/contentFor}}
+
   {{#ionContent}}
       <div>chat</div>
   {{/ionContent}}
