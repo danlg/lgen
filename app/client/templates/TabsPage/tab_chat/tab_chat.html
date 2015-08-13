@@ -5,13 +5,26 @@
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
-    <a href="{{ pathFor 'sendChat' }}"  class="button button-clear button-entering button-active">
+  <div style="position: absolute; right: 0;">
+    <a href="{{ pathFor 'ChatInvite' }}"  class="button button-clear button-entering button-active">
       <i class="icon ion-chatbubble-working"></i>
     </a>
+    <a href="{{ pathFor 'ChatSetting' }}"  class="button button-clear button-entering button-active">
+      <i class="icon ion-gear-a"></i>
+    </a>
+  </div>
   {{/contentFor}}
 
-  {{#ionContent}}
-      <div>chat</div>
-  {{/ionContent}}
+  {{#ionView}}
+    {{#ionContent}}
+      <div class="list">
+        {{#each getAllMyChatRooms}}
+          <a href="{{ pathFor 'ChatRoom' chatRoomId=_id }}">
+            <div class="item">{{toUser chatIds}}</div>
+          </a>
+        {{/each}}
+      </div>
+    {{/ionContent}}
+  {{/ionView}}
 
 </template>

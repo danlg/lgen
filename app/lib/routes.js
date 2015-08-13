@@ -31,7 +31,7 @@ Router.onBeforeAction(OnBeforeActions.loginRequired, {
 });
 
 Router.onBeforeAction(OnBeforeActions.roleRequired, {
-  only: ['home']
+  only: ['Home']
 });
 
 
@@ -81,6 +81,10 @@ Router.route('Home', {
 
 Router.route('TabChat', {
   controller: 'MainApplicationController',
+  waitOn:function(){
+    Meteor.subscribe('getAllMyChatRooms');
+    Meteor.subscribe('getChatRoomMenbers');
+  }
 });
 
 Router.route('You', {
@@ -105,6 +109,9 @@ Router.route('JoinClass', {
   // controller: 'ClassController',
   layoutTemplate:"NavBarScreenLayout",
   path: "class/join",
+  waitOn:function(){
+    Meteor.subscribe('joinedClass');
+  }
 });
 Router.route('ClassInvitation', {
   controller: 'ClassWithIdController',
@@ -163,11 +170,27 @@ Router.route('Test2',{
   controller:"TestController",
 
   });
-Router.route('sendChat',{
+Router.route('ChatInvite',{
   layoutTemplate:"NavBarScreenLayout",
-  path:"chat"
+  path:"chat",
+  waitOn:function(){
+    /*Meteor.subscribe('joinedClass');*/
+    Meteor.subscribe('getAllJoinedClassesUser');
+  }
+});
+Router.route('ChatRoom',{
+  controller:'ChatRoomController',
+  path:"chat/:chatRoomId",
+  waitOn:function(){
+    Meteor.subscribe('getChatRoomById',this.params.chatRoomId);
+  }
+});
 
-  });
+Router.route('ChatSetting',{
+  controller:'ChatRoomController',
+  path:"chat/setting",
+  template:'ChatSetting',
+});
 
 
 
@@ -197,7 +220,7 @@ Router.map(function(){
 		path:"create/:char",
 		onBeforeAction:function(){
 			if(Meteor.user()){
-				Router.go('home');
+				Router.go('Home');
 			}else{
 				this.next();
 			}
@@ -246,7 +269,7 @@ Router.map(function(){
 
 
 // Router.route('/', {
-//   name: 'home',
+//   name: 'Home',
 //   controller: 'HomeController',
 //   action: 'action',
 //   where: 'client'

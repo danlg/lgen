@@ -1,0 +1,53 @@
+<template name="ChatRoom">
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">{{userProfile.profile.firstname}}</h1>
+  {{/contentFor}}
+
+
+
+
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton href="/TabChat"  }}
+  {{/contentFor}}
+
+
+
+  {{#contentFor "headerButtonRight"}}
+  <div style="position: absolute; right: 0;">
+    <a href="{{pathFor 'classEdit'  }}"  class="button button-clear button-entering button-active "><i class="icon ion-information-circled"></i></a>
+  </div>
+  {{/contentFor}}
+
+
+
+{{#ionView}}
+{{#ionContent}}
+
+  <div class="list" style="height:60vh">
+
+    {{#each chatRoomProfile.messagesObj}}
+      {{#if isMind from }}
+      <div class="item mind">{{text}}</div>
+      {{else}}
+      <div class="item notmind">{{text}}</div>
+      {{/if}}
+    {{/each}}
+
+  </div>
+
+  <div class="list">
+    <div class="item">
+      <input type="text" class="inputBox">
+    </div>
+    <div class="item">
+      <button class="sendBtn" >send</button>
+    </div>
+  </div>
+
+
+
+  {{/ionContent}}
+{{/ionView}}
+
+</template>

@@ -18,10 +18,34 @@
   {{#ionView}}
     {{#ionContent}}
 
+  <div class="list">
+    {{#autoForm schema=emailSignup id="signupform" type="method" meteormethod="signup/email" }}
+
+    <label class="item item-input">
+          {{> afFieldInput name="firstname" placeholder="First Name" }}
+    </label>
+    <label class="item item-input">
+          {{> afFieldInput name="lastname" placeholder="Last Name" }}
+    </label>
+    <label class="item item-input">
+          {{> afFieldInput name="email" placeholder="Email" }}
+    </label>
+    <label class="item item-input">
+          {{> afFieldInput name="password" placeholder="Password" type='password' }}
+    </label>
+    <label class="item item-input">
+          {{> afFieldInput name="confirmPassword" placeholder="Confirm Password" type='password' }}
+    </label>
 
 
 
-          <div class="sign-form">
+    {{/autoForm}}
+
+  </div>
+
+
+
+          <!-- <div class="sign-form">
             <div class="list ">
               <label class="item item-input">
                 <input type="text" data-bind="value : first" placeholder="First Name">
@@ -35,8 +59,11 @@
               <label class="item item-input">
                 <input type="password" data-bind="value : password" placeholder="Password">
               </label>
+              <label class="item item-input">
+                <input type="password" data-bind="value : cpassword" placeholder="Confirm password">
+              </label>
             </div>
-          </div>
+          </div> -->
     {{/ionContent}}
   {{/ionView}}
 </template>

@@ -1,5 +1,4 @@
 var joinform;
-var leaveform;
 /*****************************************************************************/
 /* JoinClass: Event Handlers */
 /*****************************************************************************/
@@ -7,8 +6,9 @@ Template.JoinClass.events({
   'click .joinBtn':function(){
     $(joinform).submit();
   },
-  'click .leaveBtn':function(){
-    $(leaveform).submit();
+  'click .leaveBtn':function(e){
+      var classId= $(e.target).attr("data-classId");
+      Meteor.call('class/leave',classId);
   }
 });
 
@@ -31,7 +31,6 @@ Template.JoinClass.created = function () {
 
 Template.JoinClass.rendered = function () {
   joinform = this.$("#joinClassForm");
-  leaveform = this.$("#leaveClassForm");
 
 
 

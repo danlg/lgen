@@ -12,10 +12,14 @@ Template.TabClasses.helpers({
     return Classes.find({createBy:Meteor.userId()}).fetch().length>0
   },
   notJoinedEmptyList:function(){
-    return Classes.find({joinedUserId:Meteor.userId()}).fetch().length>0
+    return Classes.find({joinedUserId:{$in:[Meteor.userId()]}}).fetch().length>0
   },
-  joinedClass:Classes.find({joinedUserId:Meteor.userId()}),
-  createdClass:Classes.find({createBy:Meteor.userId()})
+  joinedClass:function(){
+    return Classes.find({joinedUserId:{$in:[Meteor.userId()]}});
+  },
+  createdClass:function(){
+    return Classes.find({createBy:Meteor.userId()});
+  }
 
 
 });

@@ -2,6 +2,11 @@
 /* TabYou: Event Handlers */
 /*****************************************************************************/
 Template.TabYou.events({
+  'click .signOut':function(){
+      Meteor.logout(function(){
+        Router.go('language');
+        })
+  }
 });
 
 /*****************************************************************************/

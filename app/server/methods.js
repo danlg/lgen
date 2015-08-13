@@ -128,6 +128,19 @@ Meteor.methods({
     }
 
 
+  },
+  'chat/create':function(chatArr){
+    var _id = lodash.first(chatArr);
+    var res = Chat.findOne({chatIds:{$all:[_id,Meteor.userId()]}});
+    if(res)
+    {
+      return res._id
+    }
+    else{
+        //no room exists
+      var newRoom= Chat.insert({chatIds:[_id , Meteor.userId()],messagesObj:[]});
+      return newRoom;
+    }
   }
 
 // db.test.update({_id:"cpkqcGycHWBw7Qkz9", messagesObj:{$elemMatch:{msgId:"c62bdf"}}},{$push:{'messagesObj.$.like':"a"}})

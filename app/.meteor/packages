@@ -10,7 +10,7 @@ insecure
 
 
 
-autopublish
+
 less
 accounts-google
 accounts-base
@@ -26,12 +26,12 @@ aldeed:autoform
 aldeed:collection2
 aldeed:simple-schema
 manuel:viewmodel
-timmyg13:parse-sdk
+
 meteorhacks:fast-render
 wylio:mandrill
 jparker:crypto-sha1
-fortawesome:fontawesome
-froatsnook:sleep
+
+
 iron:router
 fourseven:scss@2.0.0
 meteoric:ionic-sass

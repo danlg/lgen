@@ -1,26 +1,23 @@
 /*****************************************************************************/
-/* UserDetail: Event Handlers */
+/* ChatSetting: Event Handlers */
 /*****************************************************************************/
-Template.UserDetail.events({
+Template.ChatSetting.events({
 });
 
 /*****************************************************************************/
-/* UserDetail: Helpers */
+/* ChatSetting: Helpers */
 /*****************************************************************************/
-Template.UserDetail.helpers({
-  userPofile:function(){
-    return Meteor.users.findOne({_id:Router.current().params._id})
-  }
+Template.ChatSetting.helpers({
 });
 
 /*****************************************************************************/
-/* UserDetail: Lifecycle Hooks */
+/* ChatSetting: Lifecycle Hooks */
 /*****************************************************************************/
-Template.UserDetail.created = function () {
+Template.ChatSetting.created = function () {
 };
 
-Template.UserDetail.rendered = function () {
+Template.ChatSetting.rendered = function () {
 };
 
-Template.UserDetail.destroyed = function () {
+Template.ChatSetting.destroyed = function () {
 };

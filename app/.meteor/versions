@@ -6,7 +6,6 @@ alanning:roles@1.2.13
 aldeed:autoform@5.3.2
 aldeed:collection2@2.3.1
 aldeed:simple-schema@1.1.0
-autopublish@1.0.3
 autoupdate@1.2.1
 base64@1.0.3
 binary-heap@1.0.3
@@ -24,9 +23,7 @@ deps@1.0.7
 ejson@1.0.6
 email@1.0.6
 fastclick@1.0.3
-fortawesome:fontawesome@4.3.0
 fourseven:scss@2.1.1
-froatsnook:sleep@1.1.0
 geojson-utils@1.0.3
 google@1.1.5
 html-tools@1.0.4
@@ -87,7 +84,6 @@ spacebars-compiler@1.0.6
 srp@1.0.3
 stevezhu:lodash@3.10.1
 templating@1.1.1
-timmyg13:parse-sdk@1.0.1
 tracker@1.0.7
 ui@1.0.6
 underscore@1.0.3

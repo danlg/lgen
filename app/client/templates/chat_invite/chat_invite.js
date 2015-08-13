@@ -1,28 +1,34 @@
 /*****************************************************************************/
-/* SendChat: Event Handlers */
+/* ChatInvite: Event Handlers */
 /*****************************************************************************/
-Template.SendChat.events({
+Template.ChatInvite.events({
+  'click .startChatBtn':function(){
+    var chatArr =  $('.js-example-basic-multiple').val();
+    Meteor.call('chat/create',chatArr,function(err,data){
+          Router.go('ChatRoom',{chatRoomId:data});
+      });
+
+    /*console.log($('.js-example-basic-multiple').val());*/
+  }
 });
 
 /*****************************************************************************/
-/* SendChat: Helpers */
+/* ChatInvite: Helpers */
 /*****************************************************************************/
-Template.SendChat.helpers({
+Template.ChatInvite.helpers({
   'classesJoinedOwner':function(){
-    var classesJoined =  Classes.find({joinedUserId:{$in:[Meteor.userId()]}}).fetch();
-    var classesJoinedId= lodash.map(classesJoined,'createBy');
-    var classesJoinedOwner = Meteor.users.find({_id:{$in:classesJoinedId}}).fetch();
+    var classesJoinedOwner = Meteor.users.find({_id:{$nin:[Meteor.userId()]}}).fetch();
     return classesJoinedOwner;
   }
 });
 
 /*****************************************************************************/
-/* SendChat: Lifecycle Hooks */
+/* ChatInvite: Lifecycle Hooks */
 /*****************************************************************************/
-Template.SendChat.created = function () {
+Template.ChatInvite.created = function () {
 };
 
-Template.SendChat.rendered = function () {
+Template.ChatInvite.rendered = function () {
   $(".js-example-basic-multiple").select2({
     tags: true,
     tokenSeparators: [',', ' '],
@@ -30,5 +36,5 @@ Template.SendChat.rendered = function () {
     });
 };
 
-Template.SendChat.destroyed = function () {
+Template.ChatInvite.destroyed = function () {
 };

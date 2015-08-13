@@ -48,7 +48,7 @@ ClassWithIdController = ClassController.extend({
     }
   },
   data:function(){
-    var classObj = Classes.findOne();
+    var classObj = Classes.findOne({classCode:this.params.classCode});
     var joinedUserId = classObj.joinedUserId;
     return{
       classObj:classObj,

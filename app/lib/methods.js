@@ -27,6 +27,18 @@ Meteor.methods({
        })
    },
 
+   'signup/email':function(doc){
+     Accounts.createUser({
+       email : doc.email,
+       password : doc.password,
+       profile:{
+         firstname : doc.firstname,
+         lastname : doc.lastname,
+         role    : doc.role
+       }
+    })
+   },
+
    'user/role/update':function(role){
      var userObj  = Meteor.user();
      userObj.profile.role = role;
@@ -43,9 +55,10 @@ Meteor.methods({
      check(doc,Schema.joinClass)
      Classes.update(doc,{$push:{"joinedUserId":Meteor.userId()}});
    },
-   'class/leave':function(doc){
-     check(doc,Schema.leaveClass)
-     Classes.update(doc,{$pull:{"joinedUserId":Meteor.userId()}});
+   'class/leave':function(classId){
+     /*check(doc,Schema.leaveClass)*/
+     /*Classes.update(doc,{$pull:{"joinedUserId":Meteor.userId()}});*/
+     Classes.update({_id:classId},{$pull:{"joinedUserId":Meteor.userId()}});
    },
    'class/deleteUser':function(classObj){
 
@@ -56,6 +69,19 @@ Meteor.methods({
    },
    'class/update':function(doc){
       Classes.update({classCode:doc.classCode},{$set:doc});
+   },
+   'chat/SendMessage':function(chatRoomId,text){
+     var pushObj = {};
+       pushObj.from = Meteor.userId();
+       pushObj.sendAt = new Date;
+       pushObj.text = text;
+
+     Chat.update({_id:chatRoomId},{$push:{messagesObj:pushObj}});
+
+   },
+   'getUserByIdArr':function(chatIds){
+     lodash.pull(chatIds,this.userId);
+     return Meteor.users.findOne({_id:{$in:chatIds}})
    }
 
 
