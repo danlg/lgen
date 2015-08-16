@@ -31,14 +31,20 @@
     To :
     &nbsp;
 
-    <select class="js-example-basic-multiple" multiple="multiple">
-        {{#each classesJoinedOwner}}
-            <option value={{_id}}>{{profile.firstname}} {{profile.lastname}}</option>
-        {{/each}}
+    <!-- <select class="js-example-basic-multiple" multiple="multiple">
 
-    </select>
+    </select> -->
+    <input type="text" data-bind="text: chatArr">
+
 
   </label>
+
+
+
+  {{#each classesJoinedOwner}}
+    {{> checkbox}}
+  {{/each}}
+
 
 
 </div>
@@ -54,4 +60,13 @@
   {{/ionContent}}
 {{/ionView}}
 
+</template>
+
+<template name="checkbox">
+  <li class="item item-checkbox">
+     <label class="checkbox">
+       <input type="checkbox" value="asds" data-bind="checked: chatArr">
+     </label>
+     {{profile.firstname}} {{profile.lastname}}
+  </li>
 </template>

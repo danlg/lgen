@@ -1,0 +1,84 @@
+<template name="Chatoption">
+
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton href='TabChat' }}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">Chat Setting</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+    <button  class="button button-clear button-entering button-active ChatoptionSave">Save</button>
+  {{/contentFor}}
+
+
+
+
+
+  {{#ionView}}
+    {{#ionContent}}
+
+      <div class="list">
+        {{#autoForm schema=chatSetting resetOnSuccess="false"  id="chatOptionUpdate" type="method" meteormethod="chat/setting/update"}}
+
+          <div class="item item-toggle">
+            Work Hour
+
+            <label class="toggle">
+               {{> afFieldInput name="workHour" value=chatSettingObj.workHour }}
+             <div class="track">
+               <div class="handle"></div>
+             </div>
+            </label>
+            <div>
+              Lorem ipsum dolor sit amet,
+            </div>
+          </div>
+
+
+
+          {{#if chatSettingObj.workHour}}
+
+          <a href="{{ pathFor 'WorkTimeSelection' }}">
+            <div class="item ">
+              work time
+            </div>
+          </a>
+
+          {{/if}}
+
+          <div class="item" >
+            <div class="row row-center" style="height:20vh;">
+              <div class="col">Can other Teacher talk with you?</div>
+            </div>
+          </div>
+          <div class="item">
+            <span class="checkall">Allow All</span>
+          </div>
+
+          {{#each createdClassByMe}}
+
+
+          <li class="item item-toggle">
+           {{className}}
+           <label class="toggle toggle-assertive">
+             <input class="classCb" type="checkbox" value="{{_id}}">
+             <div class="track">
+               <div class="handle"></div>
+             </div>
+           </label>
+          </li>
+
+          {{/each}}
+
+
+
+        {{/autoForm}}
+
+      </div>
+
+    {{/ionContent}}
+  {{/ionView}}
+
+</template>

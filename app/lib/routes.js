@@ -37,14 +37,6 @@ Router.onBeforeAction(OnBeforeActions.roleRequired, {
 
 
 
-/*/lang
-/create/:role/register
-/login/
-/login/:role/
-/home/
-
-lang->language*/
-
 
 Router.route('language', {
   controller: 'LoginController',
@@ -80,11 +72,11 @@ Router.route('Home', {
 });
 
 Router.route('TabChat', {
-  controller: 'MainApplicationController',
+  layoutTemplate:"NavBarScreenLayout",
   waitOn:function(){
-    Meteor.subscribe('getAllMyChatRooms');
-    Meteor.subscribe('getChatRoomMenbers');
-  }
+    return [Meteor.subscribe('getAllMyChatRooms'),Meteor.subscribe('getChatRoomMenbers')]
+  },
+  path:"chat"
 });
 
 Router.route('You', {
@@ -93,6 +85,28 @@ Router.route('You', {
 });
 
 
+Router.route('Chatoption',{
+  layoutTemplate:"NavBarScreenLayout",
+  path:"chat/option",
+  waitOn:function(){
+    Meteor.subscribe('createdClassByMe');
+  }
+});
+Router.route('WorkTimeSelection',{
+  layoutTemplate:"NavBarScreenLayout",
+  path:"chat/option/weeksTime",
+});
+
+Router.route('ClassInfomation',{
+  layoutTemplate:"NavBarScreenLayout",
+  path:"class/:classCode/info",
+  waitOn:function(){
+    return[
+    Meteor.subscribe('personCreateClass',this.params.classCode),
+    Meteor.subscribe('class',this.params.classCode)
+    ]
+  }
+});
 
 
 Router.route('Classes', {
@@ -130,8 +144,10 @@ Router.route('EmailInvite', {
 
 Router.route('classDetail', {
   controller: 'ClassWithIdController',
-  path: "class/:classCode"
+  /*layoutTemplate:"NavBarScreenLayout",*/
+  path: "class/:classCode/detail",
 });
+
 Router.route('ShareInvite', {
   controller: 'ClassWithIdController',
   path: "class/:classCode/invite/share"
@@ -142,13 +158,21 @@ Router.route('classEdit', {
 });
 
 Router.route('ClassUsers', {
-  controller: 'ClassWithIdController',
-  path: "class/:classCode/users"
+  path: "class/:classCode/users",
+  layoutTemplate:"NavBarScreenLayout",
+  waitOn:function(){
+    Meteor.subscribe('getJoinedClassUser',this.params.classCode);
+  }
 });
 
 Router.route('UserDetail', {
-  controller: 'UserController',
-  path: "user/:_id"
+  /*controller: 'UserController',*/
+  path: "user/:_id",
+  layoutTemplate:"NavBarScreenLayout",
+  waitOn:function(){
+    Meteor.subscribe('getUserById',this.params._id);
+    Meteor.subscribe('getJoinedClassByUserId',this.params._id);
+  },
 });
 
 Router.route('MyAccount', function(){
@@ -159,6 +183,16 @@ Router.route('MyAccount', function(){
 Router.route('SendMessage', {
   controller: 'MessageController',
   path: "message/send/:classCode?"
+});
+
+Router.route('ClassPanel', {
+  /*controller: 'MessageController',*/
+  path: "class/:classCode/panel",
+  layoutTemplate:"NavBarScreenLayout",
+  waitOn:function(){
+    return Meteor.subscribe('class',this.params.classCode);
+  }
+
 });
 
 Router.route('Testing',{
@@ -172,7 +206,7 @@ Router.route('Test2',{
   });
 Router.route('ChatInvite',{
   layoutTemplate:"NavBarScreenLayout",
-  path:"chat",
+  path:"chat/invite",
   waitOn:function(){
     /*Meteor.subscribe('joinedClass');*/
     Meteor.subscribe('getAllJoinedClassesUser');
@@ -185,104 +219,3 @@ Router.route('ChatRoom',{
     Meteor.subscribe('getChatRoomById',this.params.chatRoomId);
   }
 });
-
-Router.route('ChatSetting',{
-  controller:'ChatRoomController',
-  path:"chat/setting",
-  template:'ChatSetting',
-});
-
-
-
-
-
-
-
-
-
-/*
-
-
-Router.map(function(){
-
-	this.route("lang", {
-		layoutTemplate:"PreMainLayout",
-		path:"/"
-	});
-	this.route("login",{
-		layoutTemplate:"PreMainLayout",
-	});
-	this.route("char",{
-		layoutTemplate:"PreMainLayout",
-		});
-	this.route("create",{
-		layoutTemplate:"MainLayout",
-		path:"create/:char",
-		onBeforeAction:function(){
-			if(Meteor.user()){
-				Router.go('Home');
-			}else{
-				this.next();
-			}
-		},
-		data:function(){
-			var templateData={
-				char:this.params.char
-			};
-			return templateData;
-		}
-	});
-	this.route("signIn",{
-		layoutTemplate:"MainLayout",
-	}),
-	this.route("home",{
-		layoutTemplate:"MainLayout",
-	}),
-	this.route("TabChat",{
-		layoutTemplate:"MainLayout",
-		})
-
-});*/
-
-
-
-// Router.route("/SignUp",function  (argument) {
-// 	this.layout("Home");
-// 	this.render('HomeSignUp');
-// })
-
-// Router.route("/SignForm",function  (argument) {
-// 	// this.layout("Home");
-// 	this.render('SignForm');
-// })
-
-// Router.route("/SignInForm",function  (argument) {
-// 	// this.layout("Home");
-// 	this.render('SignInForm');
-// })
-
-// Router.routes('/lang');
-// Router.routes('/login');
-// Router.routes('/char');
-// Router.routes('/create');
-// Router.routes('/signin');
-
-
-// Router.route('/', {
-//   name: 'Home',
-//   controller: 'HomeController',
-//   action: 'action',
-//   where: 'client'
-// });
-
-
-// complex route with
-// name 'authorDetail' that for example
-// matches '/authors/1/edit' or '/authors/1' and automatically renders
-// template 'authorDetail'
-// HINT:
-//// get parameter via this.params
-//// the part '/edit' is optional because of '?'
-// this.route('authorDetail', {
-//   path: '/authors/:_id/edit?'
-// });

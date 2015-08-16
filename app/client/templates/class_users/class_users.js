@@ -8,6 +8,7 @@ Template.ClassUsers.events({
 /* ClassUsers: Helpers */
 /*****************************************************************************/
 Template.ClassUsers.helpers({
+  usersProfile:Meteor.users.find({_id:{$nin:[Meteor.userId()]}})
 });
 
 /*****************************************************************************/

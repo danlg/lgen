@@ -1,0 +1,58 @@
+<template name="ClassInfomation">
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">Class Infomation</h1>
+  {{/contentFor}}
+
+
+
+
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton text=""}}
+  {{/contentFor}}
+
+
+
+  <!-- {{#contentFor "headerButtonRight"}}
+    <button  class="button button-clear button-entering button-active addClassBtn">Add</button>
+  {{/contentFor}} -->
+
+
+{{#ionContent}}
+
+{{this.className}}
+
+
+
+    <div class="row row-center" style="height:30vh">
+      <div class="col">
+        <h1>{{classObj.className}}</h1>
+      </div>
+    </div>
+
+    <div>
+      Teacher
+    </div>
+    <div class="list">
+      <div class="item">{{classObj.createBy}}</div>
+    </div>
+    <div>
+      Class Code
+    </div>
+
+    <div class="list">
+      <div class="item">@{{classObj.classCode}}</div>
+    </div>
+
+
+
+  <div class="bar bar-footer bar-balanced unsub">
+    <div class="title">Unsubsribe</div>
+  </div>
+
+
+
+
+  {{/ionContent}}
+
+</template>

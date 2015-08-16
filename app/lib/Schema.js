@@ -68,3 +68,36 @@ Schema.sendMsg = new SimpleSchema({
     }
   }
 });
+
+
+Schema.chatSetting = new SimpleSchema({
+  workHour:{
+    type:Boolean,
+    optional:true,
+    autoform: {
+      afFieldInput: {
+        type: "boolean-checkbox2",
+      },
+    }
+  },
+  workHourTime:{
+    type:Object,
+    optional:true,
+  },
+  'workHourTime.from':{
+    type:String,
+    optional:true,
+  },
+  'workHourTime.to':{
+    type:String,
+    optional:true,
+  },
+  'workHourTime.weeks':{
+    type:[String],
+    optional:true,
+  },
+  allowChat:{
+    type:[String],
+    optional:true,
+  }
+});

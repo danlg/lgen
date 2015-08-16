@@ -1,0 +1,106 @@
+<template name="WorkTimeSelection">
+
+
+    {{#contentFor "headerButtonLeft"}}
+      {{>ionNavBackButton}}
+    {{/contentFor}}
+
+    {{#contentFor "headerTitle"}}
+      <h1 class="title">Chat Setting</h1>
+    {{/contentFor}}
+
+    {{#contentFor "headerButtonRight"}}
+      <button  class="button button-clear button-entering button-active WorkTimeSelectionSaveBtn">Save</button>
+    {{/contentFor}}
+
+
+
+
+
+    {{#ionView}}
+      {{#ionContent}}
+
+
+        <li class="item item-input">
+          <input type="time" class="from" >
+        </li>
+        <li class="item item-input">
+          <input type="time" class="to" >
+        </li>
+
+
+
+
+
+        <li class="item item-toggle">
+         Monday
+         <label class="toggle toggle-assertive">
+           <input class="timeCb" type="checkbox" value="1">
+           <div class="track">
+             <div class="handle"></div>
+           </div>
+         </label>
+        </li>
+        <li class="item item-toggle">
+         Tuesday
+         <label class="toggle toggle-assertive">
+           <input class="timeCb" type="checkbox" value="2">
+           <div class="track">
+             <div class="handle"></div>
+           </div>
+         </label>
+        </li>
+        <li class="item item-toggle">
+         Wednesday
+         <label class="toggle toggle-assertive">
+           <input class="timeCb" type="checkbox" value="3">
+           <div class="track">
+             <div class="handle"></div>
+           </div>
+         </label>
+        </li>
+        <li class="item item-toggle">
+         Thursday
+         <label class="toggle toggle-assertive">
+           <input class="timeCb" type="checkbox" value="4">
+           <div class="track">
+             <div class="handle"></div>
+           </div>
+         </label>
+        </li>
+        <li class="item item-toggle">
+         Friday
+         <label class="toggle toggle-assertive">
+           <input class="timeCb" type="checkbox" value="5">
+           <div class="track">
+             <div class="handle"></div>
+           </div>
+         </label>
+        </li>
+
+        <li class="item item-toggle">
+         Saturday
+         <label class="toggle toggle-assertive">
+           <input class="timeCb" type="checkbox" value="6">
+           <div class="track">
+             <div class="handle"></div>
+           </div>
+         </label>
+        </li>
+        <li class="item item-toggle">
+         Sunday
+         <label class="toggle toggle-assertive">
+           <input class="timeCb" type="checkbox" value="7">
+           <div class="track">
+             <div class="handle"></div>
+           </div>
+         </label>
+        </li>
+
+
+
+
+      {{/ionContent}}
+    {{/ionView}}
+
+</template>

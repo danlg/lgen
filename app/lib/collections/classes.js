@@ -34,6 +34,18 @@ Classes.attachSchema(new SimpleSchema({
       },
     }
   },
+  canBeSearch: {
+    type: Boolean,
+    optional: true,
+    autoform: {
+      afFieldInput: {
+        type: "boolean-checkbox2",
+      },
+    },
+    autoValue:function(){
+      return true;
+    }
+  },
   joinedUserId:{
     type:[String],
     optional:true

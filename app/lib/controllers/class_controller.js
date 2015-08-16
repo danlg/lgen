@@ -38,9 +38,6 @@ ClassController = RouteController.extend({
 ClassWithIdController = ClassController.extend({
   subscriptions:function(){
     this.subscribe('class',this.params.classCode).wait();
-    this.subscribe('personCreateClass',this.params.classCode).wait();
-    this.subscribe('getJoinedClassUser',this.params.classCode).wait();
-    this.subscribe('joinedClass').wait();
     if (this.ready()) {
       this.render();
     } else {
@@ -49,12 +46,9 @@ ClassWithIdController = ClassController.extend({
   },
   data:function(){
     var classObj = Classes.findOne({classCode:this.params.classCode});
-    var joinedUserId = classObj.joinedUserId;
     return{
       classObj:classObj,
       classCode : this.params.classCode,
-      ownUser : Meteor.users.findOne(),
-      usersProfile : Meteor.users.find({_id:{$in:joinedUserId}})
     }
   }
 });

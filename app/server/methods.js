@@ -130,18 +130,23 @@ Meteor.methods({
 
   },
   'chat/create':function(chatArr){
-    var _id = lodash.first(chatArr);
-    var res = Chat.findOne({chatIds:{$all:[_id,Meteor.userId()]}});
+    /*var _id = lodash.first(chatArr);*/
+    chatArr.push(Meteor.userId());
+    var res = Chat.findOne({chatIds:{$all:chatArr}});
     if(res)
     {
       return res._id
     }
     else{
         //no room exists
-      var newRoom= Chat.insert({chatIds:[_id , Meteor.userId()],messagesObj:[]});
+      var newRoom= Chat.insert({chatIds:chatArr,messagesObj:[]});
       return newRoom;
     }
+  },
+  'chat/setting/update':function(doc){
+    Meteor.users.update({_id:Meteor.userId()},{$set:{'profile.chatSetting':doc}},{validate: false});
   }
+
 
 // db.test.update({_id:"cpkqcGycHWBw7Qkz9", messagesObj:{$elemMatch:{msgId:"c62bdf"}}},{$push:{'messagesObj.$.like':"a"}})
 

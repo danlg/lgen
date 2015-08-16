@@ -60,6 +60,11 @@ Meteor.methods({
      /*Classes.update(doc,{$pull:{"joinedUserId":Meteor.userId()}});*/
      Classes.update({_id:classId},{$pull:{"joinedUserId":Meteor.userId()}});
    },
+   'class/leaveByCode':function(classCode){
+     /*check(doc,Schema.leaveClass)*/
+     /*Classes.update(doc,{$pull:{"joinedUserId":Meteor.userId()}});*/
+     Classes.update({classCode:classCode},{$pull:{"joinedUserId":Meteor.userId()}});
+   },
    'class/deleteUser':function(classObj){
 
      Classes.update(classObj,{$set:{joinedUserId:[]}});

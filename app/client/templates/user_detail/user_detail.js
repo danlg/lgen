@@ -10,7 +10,8 @@ Template.UserDetail.events({
 Template.UserDetail.helpers({
   userPofile:function(){
     return Meteor.users.findOne({_id:Router.current().params._id})
-  }
+  },
+  hisJoinedClasses:Classes.find()
 });
 
 /*****************************************************************************/

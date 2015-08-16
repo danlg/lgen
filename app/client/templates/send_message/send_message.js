@@ -31,6 +31,9 @@ Template.SendMessage.helpers({
   checkbox:function(){
     return Session.get("isSelecting")?"":"hidden";
   },
+  isSelect:function(classCode){
+      return classCode == Router.current().params.classCode?"selected":"";
+  }
 
 });
 
