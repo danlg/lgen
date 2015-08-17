@@ -1,0 +1,38 @@
+<template name="NotificationDetail">
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">Notification Detail</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton text=""}}
+  {{/contentFor}}
+
+
+
+  {{#contentFor "headerButtonRight"}}
+
+  <div style="position: absolute; right: 0;">
+
+    <a href=""  class="button button-clear button-entering button-active "><i class="icon ion-android-share-alt"></i></a>
+  </div>
+
+  {{/contentFor}}
+
+  {{#ionView}}
+ {{#ionContent}}
+   <div class="list">
+     <div class="item">
+
+     </div>
+     <div class="item">
+       Sent To:
+     </div>
+     <div class="item">
+       {{classObj.className}}
+     </div>
+   </div>
+ {{/ionContent}}
+ {{/ionView}}
+
+
+</template>

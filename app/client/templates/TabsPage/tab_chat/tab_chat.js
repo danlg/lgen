@@ -1,7 +1,11 @@
+var text = ReactiveVar('');
 /*****************************************************************************/
 /* TabChat: Event Handlers */
 /*****************************************************************************/
 Template.TabChat.events({
+  'keyup .searchbar':function(){
+    text.set($('.searchbar').val());
+  }
 });
 
 /*****************************************************************************/
@@ -9,12 +13,32 @@ Template.TabChat.events({
 /*****************************************************************************/
 Template.TabChat.helpers({
   'getAllMyChatRooms':function(){
-    return Chat.find({chatIds:{$in:[Meteor.userId()]}});
+    var allchat = Chat.find();
+    return allchat;
   },
-  'toUser':function(chatIds){
-    var chatIds = lodash.pull(chatIds,Meteor.userId());
-    var user = Meteor.users.findOne({_id:{$in:chatIds}})
-    return user.profile.firstname+" "+user.profile.lastname;
+  'chatroomMenberName':function(chatIds){
+    var string = [];
+    var userObjArr = lodash.reject(chatIds,Meteor.user());
+    userObjArr =  lodash.map(userObjArr,'profile')
+    lodash.forEach(userObjArr,function(el,index){
+      var name = el.firstname +" "+ el.lastname;
+      string.push(name);
+    });
+    return lodash(string).toString();
+  },
+  'lasttext':function(messagesObj){
+    var len = messagesObj.length;
+    return messagesObj[len-1].text;
+  },
+  'isHide':function(chatIds){
+    var string = [];
+    var userObjArr = lodash.reject(chatIds,Meteor.user());
+    userObjArr =  lodash.map(userObjArr,'profile')
+    lodash.forEach(userObjArr,function(el,index){
+      var name = el.firstname +" "+ el.lastname;
+      string.push(name);
+    });
+    return lodash.includes(lodash(string).toString(),text.get())?"":"hide";
   }
 });
 

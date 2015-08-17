@@ -16,6 +16,9 @@ Template.ClassInfomation.helpers({
   classObj:function(){
     return Classes.findOne();
   },
+  teacher:function(){
+    return Meteor.users.findOne({_id:{$nin :[Meteor.userId()]}});
+  }
 });
 
 /*****************************************************************************/

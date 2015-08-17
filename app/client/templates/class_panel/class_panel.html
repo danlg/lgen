@@ -38,26 +38,31 @@
 
       <div class="button-bar">
         <a class="button" href="{{ pathFor 'ClassUsers' classCode=classObj.classCode }}">{{ classObj.joinedUserId.length }} users</a>
-        <a class="button" href="{{pathFor 'ClassInvitation'  }}">add</a>
+        <a class="button" href="{{pathFor 'ClassInvitation' classCode=classObj.classCode  }}">add</a>
       </div>
 
+
+
         <div class="list">
+
+
+
+
+
         {{#each classObj.messagesObj}}
 
-        <label class="item item-input item-select">
-          <div class="input-label">
-            {{content}}
+        <a href="{{ pathFor 'Notification' msgCode=msgId }}">
+
+          <div class="card">
+            <div class="item item-text-wrap">
+              {{content}}
+              <div>{{messagesObj.like.length}}</div>
+              <div>{{messagesObj.dislike.length}}</div>
+            </div>
           </div>
-          <select id="{{msgId}}" class="chooseType" data-mgsid={{msgId}}>
-              <option value="">select</option>
-              <option value="like">good</option>
-              <option value="dislike">bad</option>
-          </select>
-          <div>like:{{like.length}}</div>
-          <div>dislike:{{dislike.length}}</div>
+        </a>
 
 
-        </label>
         {{/each}}
         </div>
     </div>

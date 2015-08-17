@@ -1,5 +1,6 @@
 Classes = new Mongo.Collection('classes');
 
+Classes.initEasySearch('_id');
 
 Classes.attachSchema(new SimpleSchema({
   className: {

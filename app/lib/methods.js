@@ -77,7 +77,7 @@ Meteor.methods({
    },
    'chat/SendMessage':function(chatRoomId,text){
      var pushObj = {};
-       pushObj.from = Meteor.userId();
+       pushObj.from = Meteor.user();
        pushObj.sendAt = new Date;
        pushObj.text = text;
 

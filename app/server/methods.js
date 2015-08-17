@@ -131,15 +131,17 @@ Meteor.methods({
   },
   'chat/create':function(chatArr){
     /*var _id = lodash.first(chatArr);*/
-    chatArr.push(Meteor.userId());
-    var res = Chat.findOne({chatIds:{$all:chatArr}});
+    var arrOfUser = Meteor.users.find({_id:{$in:chatArr}}).fetch();
+    /*chatArr.push(Meteor.user());*/
+    arrOfUser.push(Meteor.user());
+    var res = Chat.findOne({chatIds:{$all:arrOfUser}});
     if(res)
     {
       return res._id
     }
     else{
         //no room exists
-      var newRoom= Chat.insert({chatIds:chatArr,messagesObj:[]});
+      var newRoom= Chat.insert({chatIds:arrOfUser,messagesObj:[]});
       return newRoom;
     }
   },

@@ -24,7 +24,7 @@
 <div class="list list-inset">
   <label class="item item-input">
     <i class="icon ion-search placeholder-icon"></i>
-    <input type="text" placeholder="Search">
+    <input type="text" placeholder="Search" class="searchbar">
   </label>
 </div>
 
@@ -32,10 +32,11 @@
 
     <div class="list">
       {{#each usersProfile}}
+      <a href="{{ pathFor 'UserDetail' _id=this._id }}">
         <div class="item">
-
-          <a href="{{ pathFor 'UserDetail' _id=this._id }}">{{this.profile.firstname}} {{this.profile.lastname}}</a>
+          {{this.profile.firstname}} {{this.profile.lastname}}
         </div>
+      </a>
       {{/each}}
     </div>
 

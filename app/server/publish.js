@@ -9,6 +9,9 @@
 Meteor.publish('class', function (classCode) {
   return Classes.find({classCode:classCode});
 });
+Meteor.publish('getClassMsgId', function (msgId) {
+  return Classes.find({messagesObj:{$elemMatch:{msgId:msgId}}});
+});
 Meteor.publish('personCreateClass', function (classCode) {
   var ownId = _.pick(Classes.findOne({classCode:classCode}),'createBy');
   return Meteor.users.find({_id:ownId.createBy});
@@ -38,7 +41,7 @@ Meteor.publish('user', function (_id) {
 });
 
 Meteor.publish('getAllMyChatRooms', function () {
-  return Chat.find({chatIds:{$in:[this.userId]}});
+  return Chat.find({chatIds:{$elemMatch:{_id:this.userId}}});
 });
 
 Meteor.publish('getAllJoinedClassesUser', function () {

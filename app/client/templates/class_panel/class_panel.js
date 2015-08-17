@@ -1,3 +1,5 @@
+
+var text =  new ReactiveVar('');
 /*****************************************************************************/
 /* ClassPanel: Event Handlers */
 /*****************************************************************************/
@@ -18,6 +20,10 @@ Template.ClassPanel.events({
 
 
 
+    },
+    'keyup .search':function(){
+        text.set($('.search').val());
+        /*console.log(text.get());*/
     }
 });
 
@@ -31,6 +37,10 @@ Template.ClassPanel.helpers({
   classCode:function(){
     return Classes.findOne().classCode;
   }
+
+
+
+
 });
 
 /*****************************************************************************/

@@ -74,7 +74,8 @@ Router.route('Home', {
 Router.route('TabChat', {
   layoutTemplate:"NavBarScreenLayout",
   waitOn:function(){
-    return [Meteor.subscribe('getAllMyChatRooms'),Meteor.subscribe('getChatRoomMenbers')]
+    /*return [Meteor.subscribe('getAllMyChatRooms'),Meteor.subscribe('getChatRoomMenbers')]*/
+    return Meteor.subscribe('getAllMyChatRooms');
   },
   path:"chat"
 });
@@ -95,6 +96,20 @@ Router.route('Chatoption',{
 Router.route('WorkTimeSelection',{
   layoutTemplate:"NavBarScreenLayout",
   path:"chat/option/weeksTime",
+});
+Router.route('Notification',{
+  layoutTemplate:"NavBarScreenLayout",
+  path:"notice/:msgCode",
+  waitOn:function(){
+    Meteor.subscribe('getClassMsgId',this.params.msgCode);
+  }
+});
+Router.route('NotificationDetail',{
+  layoutTemplate:"NavBarScreenLayout",
+  path:"notice/:msgCode/detail",
+  waitOn:function(){
+    Meteor.subscribe('getClassMsgId',this.params.msgCode);
+  }
 });
 
 Router.route('ClassInfomation',{

@@ -1,0 +1,40 @@
+<template name="Notification">
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">Notification</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton text=""}}
+  {{/contentFor}}
+
+
+
+  {{#contentFor "headerButtonRight"}}
+
+
+
+  <div style="position: absolute; right: 0;">
+
+    <a href="{{pathFor 'NotificationDetail' msgCode=msgObj.msgId  }}"  class="button button-clear button-entering button-active "><i class="icon ion-information-circled"></i></a>
+
+    <!-- <a href="{{ pathFor 'SendMessage' classCode=classObj.classCode }}"  class="button button-clear button-entering button-active">
+      <i class="icon ion-compose"></i>
+    </a> -->
+
+    <!-- <button  class="button button-clear button-entering button-active addClassBtn">?</button> -->
+
+  </div>
+  {{/contentFor}}
+
+
+ {{#ionView}}
+{{#ionContent}}
+<div class="card">
+<div class="item item-text-wrap">
+  {{msgObj.content}}
+</div>
+</div>
+{{/ionContent}}
+{{/ionView}}
+
+</template>

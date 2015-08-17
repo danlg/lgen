@@ -17,10 +17,17 @@
 
   {{#ionView}}
     {{#ionContent}}
+
       <div class="list">
+        <div class="item">
+          <input type="text" class="searchbar">
+        </div>
         {{#each getAllMyChatRooms}}
           <a href="{{ pathFor 'ChatRoom' chatRoomId=_id }}">
-            <div class="item">{{toUser chatIds}}</div>
+            <div class="item {{isHide chatIds}}">
+              <div>{{chatroomMenberName chatIds }}</div>
+              <div>{{lasttext messagesObj}}</div>
+            </div>
           </a>
         {{/each}}
       </div>

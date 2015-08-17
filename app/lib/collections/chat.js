@@ -2,13 +2,15 @@ Chat = new Mongo.Collection('chat');
 
 Chat.attachSchema(new SimpleSchema({
   chatIds: {
-    type: [String],
+    type: [Object],
+    blackbox:true
   },
   messagesObj:{
     type: [Object],
   },
   'messagesObj.$.from':{
-    type: String
+    type: Object,
+    blackbox:true
   },
   'messagesObj.$.sendAt':{
     type: Date,

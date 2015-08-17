@@ -18,8 +18,8 @@ Template.ChatRoom.helpers({
   'chatRoomProfile':function(){
     return Chat.findOne({_id:Router.current().params.chatRoomId});
   },
-  'isMind':function(fromId){
-    return fromId===Meteor.userId();
+  'isMind':function(from){
+    return from._id===Meteor.userId();
   }
 });
 
