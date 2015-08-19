@@ -21,21 +21,15 @@
 
 
 
-      <ul class="list ">
-        {{#autoForm schema=inviteClassSchema id="inviteClassForm" doc=this type="method" meteormethod="class/invite"}}
-        <li class="item item-input">
-          {{> afFieldInput name="emailOrName"}}
-          <span class="inviteBtn">Invite</span>
-        </li>
-        <li class="item item-input">
-          mike wong
-          <button class="button">add</button>
-        </li>
 
-        {{> afFieldInput name="classCode" value=classObj.classCode}}
-        {{/autoForm}}
+    <ul class="list">
+      {{#each contactList}}
 
-      </ul>
+
+        <li class="item">{{this.displayName}}</li>
+
+      {{/each}}
+    </ul>
 
 
 

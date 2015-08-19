@@ -26,27 +26,26 @@
             Work Hour
 
             <label class="toggle">
-               {{> afFieldInput name="workHour" value=chatSettingObj.workHour }}
+               {{> afFieldInput id="checkworkhour" name="workHour" checked=workhourcheck }}
              <div class="track">
                <div class="handle"></div>
              </div>
             </label>
-            <div>
-              Lorem ipsum dolor sit amet,
-            </div>
           </div>
 
 
 
-          {{#if chatSettingObj.workHour}}
 
-          <a href="{{ pathFor 'WorkTimeSelection' }}">
-            <div class="item ">
-              work time
-            </div>
-          </a>
+          <div class="item workHourTimeCol {{ishide}}">
+            <a href="{{ pathFor 'WorkTimeSelection' }}">
+              <div class="item ">
+                work time
+              </div>
+            </a>
+          </div>
 
-          {{/if}}
+
+
 
           <div class="item" >
             <div class="row row-center" style="height:20vh;">
@@ -62,7 +61,7 @@
 
           <li class="item item-toggle">
            {{className}}
-           <label class="toggle toggle-assertive">
+           <label class="toggle">
              <input class="classCb" type="checkbox" value="{{_id}}">
              <div class="track">
                <div class="handle"></div>

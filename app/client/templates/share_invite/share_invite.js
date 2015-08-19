@@ -1,7 +1,14 @@
+
 /*****************************************************************************/
 /* ShareInvite: Event Handlers */
 /*****************************************************************************/
 Template.ShareInvite.events({
+  'click .copyBth':function(){
+
+    if (Meteor.isCordova) {
+      cordova.plugins.clipboard.copy(Router.current().params.classCode);
+    }
+  }
 });
 
 /*****************************************************************************/

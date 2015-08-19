@@ -1,6 +1,7 @@
 var postHooks = {
   before:{
     method:function(doc){
+      console.log(doc);
       if(!doc.classCode){
         var beforeHash = Meteor.user().email + doc.className;
         var rString = randomString(6);

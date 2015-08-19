@@ -73,6 +73,7 @@ Meteor.methods({
       Classes.remove(classObj);
    },
    'class/update':function(doc){
+     console.log(doc);
       Classes.update({classCode:doc.classCode},{$set:doc});
    },
    'chat/SendMessage':function(chatRoomId,text){
@@ -85,8 +86,28 @@ Meteor.methods({
 
    },
    'getUserByIdArr':function(chatIds){
-     lodash.pull(chatIds,this.userId);
+     lodash.pull(chatIds,Meteor.userId());
      return Meteor.users.findOne({_id:{$in:chatIds}})
+   },
+   'profile/edit':function(doc){
+
+
+
+      var email = doc.email;
+      doc = lodash.omit(doc,'email');
+      var _id = Meteor.userId();
+
+      var ModifiedDoc = lodash.assign(Meteor.user().profile,doc);
+
+      Meteor.users.update({_id:_id},{$set:{profile:ModifiedDoc}});
+      var  emailarr = lodash.map(Meteor.user().emails,'address');
+
+      if(!lodash.includes(emailarr,email)){
+          Meteor.users.update({_id:Meteor.user()._id}, {$push:{emails:{address:email,"verified":false}}});
+      }
+
+
+      /*Meteor.users.update({_id:Meteor.userId()},{$set:{'emails.$.items.0.address':}});*/
    }
 
 

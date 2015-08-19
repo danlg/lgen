@@ -27,8 +27,9 @@
     <li class="item item-input">
       {{> afFieldInput name="className" placeholder="Class Name"  }}
     </li>
-    <li class="item item-input">
-      {{> afFieldInput name="classCode" placeholder="@classcode" readonly=true }}
+    <li class="item ">
+      {{classCode}}
+      {{> afFieldInput name="classCode" placeholder="@classcode" readonly=true type="hidden" }}
     </li>
 
 
@@ -56,7 +57,7 @@
       </label>
     </li>
     <li class="item item-toggle">
-      Allow this clasa can be search
+      Allow this class can be search
 
       <label class="toggle">
        {{> afFieldInput name="canBeSearch" }}
@@ -75,17 +76,6 @@
 {{/autoForm}}
 
 
-  <div class="container">
-    <div class="row row-center">
-      <div class="col">{{classObj.className}}</div>
-    </div>
-    <div class="row">
-      <div class="col">@{{classObj.classCode}}</div>
-    </div>
-    <div class="row">
-      <div class="col">{{ownUser.profile.firstname}} {{ownUser.profile.lastname}}</div>
-    </div>
-  </div>
 
 
 

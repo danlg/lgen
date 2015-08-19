@@ -1,3 +1,10 @@
+
+$stable:                          #ACDA45 ;
+$positive:                        #ACDA45 ;
+
+
+
+
 @import '.meteor/local/build/programs/server/assets/packages/meteoric_ionic-sass/ionic';
 @import '.meteor/local/build/programs/server/assets/packages/meteoric_ionicons-sass/ionicons';
 
@@ -6,4 +13,8 @@
 a {
   text-decoration: none !important ;
   color: #333 !important;
+}
+
+.shouldhide{
+  display: none;
 }

@@ -1,16 +1,17 @@
 var postHooks = {
   before:{
-    method:function(doc){
-      doc.role = Router.current().params.role;
+    insert:function(doc){
+
       return doc;
     }
   },
   onSuccess: function(operation, result, template) {
-    Router.go('signin');
+        // display success, reset form status
+      alert("success");
   },
   onError: function(formType, error) {
     alert(error);
   }
 }
 
-AutoForm.addHooks('signupform', postHooks);
+AutoForm.addHooks('editprofile', postHooks);

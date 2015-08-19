@@ -32,12 +32,21 @@ Template.WorkTimeSelection.events({
 /* WorkTimeSelection: Helpers */
 /*****************************************************************************/
 Template.WorkTimeSelection.helpers({
+  checked:function(week){
+    return lodash.includes(weeks,week)?"checked":"";
+  }
 });
 
 /*****************************************************************************/
 /* WorkTimeSelection: Lifecycle Hooks */
 /*****************************************************************************/
 Template.WorkTimeSelection.created = function () {
+  weeks = function(){
+    if(!lodash.has(Meteor.user()["profile.chatSetting.workHourTime.weeks"]))
+      return []
+    else
+      Meteor.user().profile.chatSetting.workHourTime.weeks;
+  }
 };
 
 Template.WorkTimeSelection.rendered = function () {
@@ -49,8 +58,6 @@ Template.WorkTimeSelection.destroyed = function () {
 
 Template.ionNavBar.events({
   'click .WorkTimeSelectionSaveBtn':function(e,template){
-    workHourTime.from =  
-    console.log(Session.get('workHourTime'));
     Router.go('Chatoption');
   }
 });

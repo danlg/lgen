@@ -101,3 +101,20 @@ Schema.chatSetting = new SimpleSchema({
     optional:true,
   }
 });
+
+Schema.editprofile = new SimpleSchema({
+  firstname:{
+    type:String
+  },
+  lastname:{
+    type:String
+  },
+  location:{
+    type:String,
+    optional:true
+  },
+  email:{
+    type:String,
+    regEx:SimpleSchema.RegEx.Email,
+  }
+});

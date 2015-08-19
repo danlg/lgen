@@ -50,27 +50,39 @@
 
 {{/autoForm}} -->
 
+
+{{#autoForm schema=editprofile id="editprofile" resetOnSuccess=false type="method" doc=this meteormethod="profile/edit"  }}
+
 <div class="list">
   <div class="item item-input">
-    <input type="text" placeholder="first name" value="{{current.profile.firstname}}">
+    {{> afFieldInput name="firstname" placeholder="First Name" value=profile.firstname  }}
+    <!-- <input type="text" placeholder="first name" value="{{current.profile.firstname}}"> -->
   </div>
   <div class="item item-input">
-    <input type="text" placeholder="last name" value="{{current.profile.lastname}}">
+    {{> afFieldInput name="lastname" placeholder="Last Name" value=profile.lastname }}
+    <!-- <input type="text" placeholder="last name" value="{{current.profile.lastname}}"> -->
   </div>
-  <div class="item item-input">
+  <!-- <div class="item item-input">
+    {{> afFieldInput name="lastname" placeholder=""  }}
     <input type="text" placeholder="display name" value="{{current.profile.firstname}} {{current.profile.lastname}}">
+  </div> -->
+  <div class="item item-input">
+    {{> afFieldInput name="location" placeholder="Location" value="Hong Kong"   }}
+    <!-- <input type="text" placeholder="Location" value="Hong Kong"  > -->
   </div>
   <div class="item item-input">
-    <input type="text" placeholder="Location" value="Hong Kong"  >
-  </div>
-  <div class="item item-input">
-    <input type="text" placeholder="email" value="{{email}}">
+    {{> afFieldInput name="email" placeholder="" value=email  }}
+    <!-- <input type="text" placeholder="email" value="{{email}}"> -->
   </div>
 </div>
 
-<a href="">
+
+
+{{/autoForm}}
+
+<!-- <a href="">
   <button class="button">Change password</button>
-</a>
+</a> -->
 
 
 

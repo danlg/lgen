@@ -1,9 +1,9 @@
 var postHooks = {
   before:{
     method:function(doc){
-      //Session.get('workHourTime')
-      var weekObj = {};
+      var weekObj = Session.get('workHourTime')?Session.get('workHourTime'):{};
       doc.workHourTime = weekObj
+      doc.allowChat = Session.get('selectedClass')?Session.get('selectedClass'):[];
 
       console.log(doc);
 
@@ -12,7 +12,7 @@ var postHooks = {
   },
   onSuccess: function(operation, result, template) {
         // display success, reset form status
-
+    Router.go('TabChat');
   },
   onError: function(formType, error) {
     console.log(error);
