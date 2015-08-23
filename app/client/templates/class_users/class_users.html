@@ -32,11 +32,13 @@
 
     <div class="list">
       {{#each usersProfile}}
-      <a href="{{ pathFor 'UserDetail' _id=this._id }}">
-        <div class="item">
-          {{this.profile.firstname}} {{this.profile.lastname}}
-        </div>
-      </a>
+        {{#if isSearched this}}
+          <a href="{{ pathFor 'UserDetail' _id=this._id }}">
+            <div class="item">
+              {{this.profile.firstname}} {{this.profile.lastname}}
+            </div>
+          </a>
+        {{/if}}
       {{/each}}
     </div>
 

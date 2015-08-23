@@ -22,3 +22,9 @@ lodash.mixin({
     });
   }
 });
+
+
+getClassCode = function(className){
+  var beforeHash = Meteor.user().email + className + new Date().getTime().toString();
+  return CryptoJS.SHA1(randomString(10),beforeHash).toString().substring(0,6);
+}

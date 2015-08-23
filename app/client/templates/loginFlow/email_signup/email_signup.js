@@ -7,7 +7,10 @@ Template.EmailSignup.events({});
 /* EmailSignup: Helpers */
 /*****************************************************************************/
 Template.EmailSignup.helpers({
-  emailSignup:Schema.emailSignup
+  emailSignup:Schema.emailSignup,
+  isStudent:function(){
+    return Router.current().params.role == "Student"
+  }
 });
 
 /*****************************************************************************/
@@ -29,7 +32,11 @@ Template.ionNavBar.events({
     Meteor.call('user/create', createVM.toJS(), function(err) {
       err ? alert(err) : Router.go('Home');
     });*/
-    AutoForm.submitFormById("#signupform");
+
+      AutoForm.submitFormById("#signupform");
+
+
+
   }
 
 })

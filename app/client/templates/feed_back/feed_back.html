@@ -1,0 +1,34 @@
+<template name="FeedBack">
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">FeedBack</h1>
+  {{/contentFor}}
+
+
+
+
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton text=""}}
+  {{/contentFor}}
+
+
+
+  {{#contentFor "headerButtonRight"}}
+    <button  class="button button-clear button-entering button-active feedbackSend">feedbackSend</button>
+  {{/contentFor}}
+
+
+
+ {{#ionView}}
+  {{#ionContent}}
+
+  <div class="list">
+
+<label class="item item-input">
+<textarea placeholder="Tell me what you think"></textarea>
+</label>
+</div>
+
+
+  {{/ionContent}}
+   {{/ionView}}
+</template>

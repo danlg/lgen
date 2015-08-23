@@ -32,6 +32,10 @@ Schema.emailSignup = new SimpleSchema({
   },
   role:{
     type:String
+  },
+  dob:{
+    type:String,
+    optional:true
   }
 });
 

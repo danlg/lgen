@@ -1,14 +1,14 @@
 <template name="SendMessage">
 
     {{#contentFor "headerTitle"}}
-      <h1 class="title">new notification</h1>
+      <h1 class="title">New Notification</h1>
     {{/contentFor}}
 
 
 
 
     {{#contentFor "headerButtonLeft"}}
-      {{>ionNavBackButton text="Cancel"}}
+      {{>ionNavBackButton href="/Classes" }}
     {{/contentFor}}
 
 
@@ -29,18 +29,42 @@
 
 
   <div class="list">
-    <label class="item item-input">
-      To :
-      &nbsp;
 
-      <select class="js-example-basic-multiple" multiple="multiple">
-          {{#each createdClasses}}
-              <option value="{{classCode}}" {{isSelect classCode}} >{{className}}</option>
-          {{/each}}
+      <!-- <label class="item item-input">
+        <a href="{{ pathFor 'MessageClassSelection' }}">
+        To :
+        &nbsp;
 
-      </select>
+        <input type="text" class="target" value={{selectArr}} >
+        <div>{{selectArrString}}</div>
 
-    </label>
+        <select class="js-example-basic-multiple" multiple="multiple">
+            {{#each createdClasses}}
+                <option value="{{classCode}}" {{isSelect classCode}} >{{className}}</option>
+            {{/each}}
+
+        </select>
+        </a>
+      </label> -->
+
+      <a href="{{pathFor 'MessageClassSelection' }}">
+        <div class="item">
+          To: {{ arrToString searchObj.selectArrName }}
+        </div>
+      </a>
+
+
+
+    <!-- <div class="{{isSelecting}}">
+      {{#each createdClasses}}
+      <li class="item item-checkbox">
+       <label class="checkbox">
+         <input type="checkbox" value="{{classCode}}" data-className={{className}} class="targetCB" >
+       </label>
+          {{className}}
+      </li>
+      {{/each}}
+    </div> -->
 
 
 

@@ -35,7 +35,7 @@ Meteor.methods({
       _id: _id
     });
     try {
-      Mandrill.messages.send(addClassMailTemplate(to, classObj.classname));
+      Mandrill.messages.send(addClassMailTemplate(to, classObj.className));
     } catch (e) {
       console.log(e);
     }
@@ -69,12 +69,15 @@ Meteor.methods({
 
   },
   "sendMsg": function(target, msg) {
+
     var msgObj = {};
     var date = Date.now();
     msgObj.msgId = CryptoJS.SHA1(date + msg).toString().substring(0, 6);
     msgObj.content = msg;
-    msgObj.like = [];
-    msgObj.dislike = [];
+    msgObj.checked = [];
+    msgObj.star = [];
+    msgObj.close = [];
+    msgObj.help = [];
     Classes.update({
       classCode: {
         $in: target
@@ -90,7 +93,8 @@ Meteor.methods({
   },
   'updateMsgRating': function(type, msgId, classObj) {
 
-    var arr = ['like', 'dislike'];
+    var arr = ["star", "checked", "close", "help"];
+
 
 
     var selector = {};
@@ -104,7 +108,7 @@ Meteor.methods({
     _.forEach(arr, function(element, index) {
 
       var updateObj={};
-        updateObj['messagesObj.$.'+element] =  Meteor.userId();
+        updateObj['messagesObj.$.'+element] = {_id:Meteor.userId()};
 
 
       Classes.update(
@@ -119,7 +123,7 @@ Meteor.methods({
     if(type){
       var updateObj2={};
 
-        updateObj2['messagesObj.$.'+type] = Meteor.userId();
+        updateObj2['messagesObj.$.'+type] = Meteor.user();
 
       Classes.update(
         {classCode:classObj.classCode, messagesObj:{$elemMatch:{msgId:msgId}}},
@@ -147,11 +151,15 @@ Meteor.methods({
   },
   'chat/setting/update':function(doc){
     Meteor.users.update({_id:Meteor.userId()},{$set:{'profile.chatSetting':doc}},{validate: false});
+  },
+
+
+
+  'getFullNameById':function(id){
+    var userObj = Meteor.users.findOne({_id:id});
+    var name =  userObj.profile.firstname+" "+userObj.profile.lastname;
+    return name ;
   }
-
-
-// db.test.update({_id:"cpkqcGycHWBw7Qkz9", messagesObj:{$elemMatch:{msgId:"c62bdf"}}},{$push:{'messagesObj.$.like':"a"}})
-
 
 
 });

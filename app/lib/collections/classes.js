@@ -1,6 +1,6 @@
 Classes = new Mongo.Collection('classes');
 
-Classes.initEasySearch('_id');
+
 
 Classes.attachSchema(new SimpleSchema({
   className: {
@@ -53,9 +53,10 @@ Classes.attachSchema(new SimpleSchema({
   },
   messagesObj:{
     type:[Object],
-    optional:true
+    optional:true,
+    blackbox:true
   },
-  "messagesObj.$.msgId":{
+  /*"messagesObj.$.msgId":{
     type:String
   },
   "messagesObj.$.sentAt":{
@@ -63,8 +64,8 @@ Classes.attachSchema(new SimpleSchema({
     autoValue: function() {
         return new Date;
     }
-  },
-  "messagesObj.$.content":{
+  },*/
+  /*"messagesObj.$.content":{
     type:String
   },
   "messagesObj.$.like":{
@@ -72,7 +73,7 @@ Classes.attachSchema(new SimpleSchema({
   },
   "messagesObj.$.dislike":{
     type:[String]
-  },
+  },*/
   /*"messagesObj.$.msgRating":{
     type:[Object]
   },

@@ -42,6 +42,9 @@ stevezhu:lodash
 msavin:mongol
 alanning:roles
 meteoric:ionicons-sass
-manuel:viewmodel-explorer
+
 reactive-var
-matteodem:easy-search
+
+meteorhacks:kadira
+aldeed:console-me
+u2622:persistent-session

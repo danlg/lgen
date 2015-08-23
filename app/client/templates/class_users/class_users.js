@@ -14,7 +14,12 @@ Template.ClassUsers.events({
 Template.ClassUsers.helpers({
   usersProfile:function(){
     var users = Meteor.users.find({_id:{$nin:[Meteor.userId()]}}).fetch();
-    return lodash.findByValuesNested(users,'profile','firstname',text.get())
+    /*return lodash.findByValuesNested(users,'profile','firstname',text.get())*/
+    return users;
+  },
+  isSearched:function(userObj){
+    var name = userObj.profile.firstname+" "+userObj.profile.lastname;
+    return lodash.includes(name.toUpperCase(),text.get().toUpperCase());
   }
 });
 

@@ -3,6 +3,18 @@ $stable:                          #ACDA45 ;
 $positive:                        #ACDA45 ;
 
 
+.ion-ios-star.colored{
+  color: yellow;
+}
+.ion-checkmark-round.colored{
+  color: green;
+}
+.ion-close-round.colored{
+  color: red;
+}
+.ion-help.colored{
+  color: purple;
+}
 
 
 @import '.meteor/local/build/programs/server/assets/packages/meteoric_ionic-sass/ionic';

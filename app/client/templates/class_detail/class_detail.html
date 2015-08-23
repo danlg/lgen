@@ -5,7 +5,7 @@
   {{/contentFor}}
 
   {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton text=""}}
+    {{>ionNavBackButton text="" href="/Classes" }}
   {{/contentFor}}
 
 
@@ -29,7 +29,7 @@
 
     {{#each classObj.messagesObj}}
 
-    <label class="item item-input item-select">
+    <!-- <label class="item item-input item-select">
       <div class="input-label">
         {{content}}
       </div>
@@ -42,7 +42,54 @@
       <div>dislike:{{dislike.length}}</div>
 
 
-    </label>
+    </label> -->
+
+  <div class="list card">
+
+  <div class="item ">
+    <div class="row" style="padding:0">
+      <div class="col" style="padding:0"><h2>{{className}}</h2></div>
+      <div class="col" style="padding:0;text-align:right">{{createdAt}}</div>
+    </div>
+  </div>
+
+  <div class="item ">
+    <div>
+      <span>Mike:</span>
+      <span>{{content}}</span>
+    </div>
+    <br>
+    <p>
+        {{#if isNotEmpty star}}
+        <a href="#" class="subdued">{{star.length}} <i class="ion-ios-star"></i></a>
+        {{/if}}
+        {{#if isNotEmpty checked}}
+        <a href="#" class="subdued">{{checked.length}} <i class="ion-checkmark-round"></i></a>
+        {{/if}}
+        {{#if isNotEmpty close}}
+        <a href="#" class="subdued">{{close.length}} <i class="ion-close-round"></i></a>
+        {{/if}}
+        {{#if isNotEmpty help}}
+        <a href="#" class="subdued">{{help.length}} <i class="ion-help"></i></a>
+        {{/if}}
+    </p>
+  </div>
+
+  <div class="item tabs tabs-secondary tabs-icon-left">
+    <a class="tab-item" data-msgId={{msgId}} data-action="star" href="#">
+      <i class="icon ion-ios-star {{isSelectAction star}}"></i>
+    </a>
+    <a class="tab-item" data-msgId={{msgId}} data-action="checked" href="#">
+      <i class="icon ion-checkmark-round {{isSelectAction checked}}"></i>
+    </a>
+    <a class="tab-item" data-msgId={{msgId}} data-action="close" href="#">
+      <i class="icon ion-close-round {{isSelectAction close}}"></i>
+    </a>
+    <a class="tab-item" data-msgId={{msgId}} data-action="help" href="#">
+      <i class="icon ion-help {{isSelectAction help}}"></i>
+    </a>
+  </div>
+</div>
 
     {{/each}}
 

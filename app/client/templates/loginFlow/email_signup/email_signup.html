@@ -1,14 +1,14 @@
 <template name="EmailSignup">
   {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton}}
+    {{>ionNavBackButton text="" }}
   {{/contentFor}}
 
   {{#contentFor "headerTitle"}}
-    <h1 class="title">Sign a new Account</h1>
+    <h1 class="title">Sign a new account</h1>
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
-    <button  class="button button-clear button-entering button-active createBtn">Create</button>
+    <button  class="button button-clear button-entering button-active createBtn">Sign up</button>
   {{/contentFor}}
 
 
@@ -27,6 +27,12 @@
     <label class="item item-input">
           {{> afFieldInput name="lastname" placeholder="Last Name" }}
     </label>
+    {{#if isStudent}}
+    <label class="item item-input">
+          {{> afFieldInput name="dob" type='text' onfocus="(this.type='date')" placeholder="Date of Birth" }}
+    </label>
+    {{/if}}
+
     <label class="item item-input">
           {{> afFieldInput name="email" placeholder="Email" }}
     </label>

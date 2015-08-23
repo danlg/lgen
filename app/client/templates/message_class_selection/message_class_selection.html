@@ -1,0 +1,62 @@
+<template name="MessageClassSelection">
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">New Notification</h1>
+  {{/contentFor}}
+
+
+
+
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton text=""}}
+  {{/contentFor}}
+
+
+
+  {{#contentFor "headerButtonRight"}}
+  <!-- <div style="position: absolute; right: 0;">
+    <button  class="button button-clear button-entering button-active sendMsgBtn">Send</button> -->
+    <!-- <button  class="button button-clear button-entering button-active msgDoneClassBtn {{doneClassBtnStatus}}">Done</button> -->
+  <!-- </div> -->
+  {{/contentFor}}
+
+
+
+
+{{#ionContent}}
+
+
+<div class="list list-inset">
+  <label class="item item-input">
+    <i class="icon ion-search placeholder-icon"></i>
+    <input type="text" placeholder="Search" class="searchText"  >
+  </label>
+</div>
+
+
+
+<div class="list">
+    {{#each createdClasses}}
+
+
+    <li class="item item-checkbox {{searchresult className}} ">
+     <label class="checkbox">
+       <input type="checkbox" value="{{classCode}}" data-className={{className}} class="targetCB" {{selected classCode}} >
+     </label>
+        {{className}}
+    </li>
+
+
+    {{/each}}
+
+</div>
+
+
+<div class="bar bar-footer bar-balanced">
+  <div class="done">Done</div>
+</div>
+
+{{/ionContent}}
+
+
+
+</template>

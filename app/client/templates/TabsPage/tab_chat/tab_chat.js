@@ -18,7 +18,7 @@ Template.TabChat.helpers({
   },
   'chatroomMenberName':function(chatIds){
     var string = [];
-    var userObjArr = lodash.reject(chatIds,Meteor.user());
+    var userObjArr = lodash.reject(chatIds,{_id:Meteor.userId()});
     userObjArr =  lodash.map(userObjArr,'profile')
     lodash.forEach(userObjArr,function(el,index){
       var name = el.firstname +" "+ el.lastname;

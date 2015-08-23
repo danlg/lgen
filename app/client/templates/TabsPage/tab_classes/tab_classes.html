@@ -19,15 +19,14 @@
       <div class="listview-container">
 
 
-
-        <div class="row row-center add-join-bar">
-            <div class="col col-90">CLASSES I OWN </div>
-            <div class="col ">
-              <a href="{{pathFor 'AddClass'  }}">
-                <i class="icon ion-plus-circled"></i>
-              </a>
-            </div>
-        </div>
+        <a href="{{pathFor 'AddClass'  }}">
+          <div class="row row-center add-join-bar">
+              <div class="col col-90">CLASSES I OWN </div>
+              <div class="col ">
+                  <i class="icon ion-plus-circled"></i>
+              </div>
+          </div>
+        </a>
 
         <div class="listview">
 
@@ -50,7 +49,7 @@
 
           <div class="row row-center listview-nth">
               <div class="col">
-                <a class="button button-calm" href="{{pathFor 'AddClass'  }}">Create a class </a>
+                <a class="button button-stable" href="{{pathFor 'AddClass'  }}">Create a class </a>
               </div>
           </div>
 
@@ -63,14 +62,16 @@
 
 
       <div class="listview-container">
+        <a href="{{pathFor 'JoinClass'  }}">
         <div class="row row-center add-join-bar">
           <div class="col col-90">CLASSES I'VE JOINED</div>
             <div class="col ">
-              <a href="{{pathFor 'JoinClass'  }}">
+
                 <i class="icon ion-plus-circled"></i>
-              </a>
+
             </div>
         </div>
+        </a>
 
         {{#if notJoinedEmptyList}}
 
@@ -91,7 +92,7 @@
 
         <div class="row row-center listview-nth">
             <div class="col">
-              <a class="button button-calm" href="{{pathFor 'JoinClass'  }}">Join a Class</a>
+              <a class="button button-stable" href="{{pathFor 'JoinClass'  }}">Join a Class</a>
             </div>
         </div>
 

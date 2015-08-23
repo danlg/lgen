@@ -15,26 +15,39 @@ Meteor.methods({
    *  // server method logic
    * }
    */
-   'user/create':function(userObj){
+   /*'user/create':function(userObj){
+
+     if(!lodash.has(userObj,'dob')){
+       userObj.dob="";
+     }
+
      Accounts.createUser({
        email : userObj.email,
        password : userObj.password,
        profile:{
          firstname : userObj.first,
          lastname : userObj.last,
-         role    : userObj.role
+         role    : userObj.role,
+         dob = userObj.dob
        }
+
        })
-   },
+   },*/
 
    'signup/email':function(doc){
+
+     if(!lodash.has(doc,'dob')){
+       doc.dob="";
+     }
+
      Accounts.createUser({
        email : doc.email,
        password : doc.password,
        profile:{
          firstname : doc.firstname,
          lastname : doc.lastname,
-         role    : doc.role
+         role    : doc.role,
+         dob : doc.dob
        }
     })
    },

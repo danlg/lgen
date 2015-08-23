@@ -1,5 +1,7 @@
 
 var text =  new ReactiveVar('');
+var classObj;
+var teacherName = ReactiveVar("");
 /*****************************************************************************/
 /* ClassPanel: Event Handlers */
 /*****************************************************************************/
@@ -32,11 +34,28 @@ Template.ClassPanel.events({
 /*****************************************************************************/
 Template.ClassPanel.helpers({
   classObj:function(){
-    return Classes.findOne();
+    classObj=Classes.findOne();
+    return classObj;
   },
   classCode:function(){
     return Classes.findOne().classCode;
-  }
+  },
+  isNotEmpty:function(action){
+    return action.length>0;
+  },
+  createBy:function(){
+    return classCode.createBy;
+  },
+  teacherName:function(){
+
+
+    return teacherName.get();
+
+  },
+  className:function(){
+    return classObj.className;
+  },
+
 
 
 
@@ -50,6 +69,10 @@ Template.ClassPanel.created = function () {
 };
 
 Template.ClassPanel.rendered = function () {
+  Meteor.call('getFullNameById',classObj.createBy,function(err,data){
+      return teacherName.set(data);
+  });
+
 };
 
 Template.ClassPanel.destroyed = function () {
