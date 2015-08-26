@@ -21,16 +21,29 @@
   {{#ionContent}}
 
 
-<div class="list list-inset">
-  <label class="item item-input">
-    <i class="icon ion-search placeholder-icon"></i>
-    <input type="text" placeholder="Search" class="searchbar">
-  </label>
-</div>
 
 
 
     <div class="list">
+
+      <label class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="text" placeholder="Search" class="searchbar">
+      </label>
+
+
+      {{#if emptyList}}
+
+        <div class="item">
+          <div class="row row-center">
+            <div class="col">No record</div>
+          </div>
+        </div>
+
+      {{else}}
+
+
+
       {{#each usersProfile}}
         {{#if isSearched this}}
           <a href="{{ pathFor 'UserDetail' _id=this._id }}">
@@ -40,6 +53,8 @@
           </a>
         {{/if}}
       {{/each}}
+
+      {{/if}}
     </div>
 
 

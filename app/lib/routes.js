@@ -22,28 +22,38 @@ OnBeforeActions = {
     }else{
       this.next();
     }
-
+  },
+  loginedRedirect:function(pause){
+    if(Meteor.userId()){
+      Router.go('Home')
+      this.next();
+    }else{
+      this.next();
+    }
   }
 };
 
-Router.onBeforeAction(OnBeforeActions.loginRequired, {
+/*Router.onBeforeAction(OnBeforeActions.loginRequired, {
   except: ['language', 'signin', 'email-signin','email-signup', 'role','Testing','Test2']
 });
+
+*/
 
 Router.onBeforeAction(OnBeforeActions.roleRequired, {
   only: ['Home']
 });
 
+Router.onBeforeAction(OnBeforeActions.loginedRedirect, {
+  only: ['language']
+});
+
 Router.onBeforeAction('loading');
-
-
-
 
 
 Router.route('language', {
   controller: 'LoginController',
   action: "language",
-  path: "/"
+  path: "/",
 });
 Router.route('signin', {
   controller: 'LoginController',
@@ -76,10 +86,14 @@ Router.route('Home', {
 Router.route('TabChat', {
   layoutTemplate:"NavBarScreenLayout",
   waitOn:function(){
-    /*return [Meteor.subscribe('getAllMyChatRooms'),Meteor.subscribe('getChatRoomMenbers')]*/
+    return [Meteor.subscribe('getAllMyChatRooms'),Meteor.subscribe('getChatRoomMenbers')]
 
-    return Meteor.subscribe('getAllMyChatRooms');
+
   },
+  /*subscription:function(){
+    Meteor.subscribe('getAllMyChatRooms');
+  },*/
+
   path:"chat"
 });
 
@@ -160,7 +174,7 @@ Router.route('ClassInvitation', {
 Router.route('EmailInvite', {
   /*controller: 'ClassWithIdController',*/
   layoutTemplate:"NavBarScreenLayout",
-  path: "class/:classCode/invite/byemail",
+  path: "class/:classCode/invite-email",
 
 });
 
@@ -178,8 +192,12 @@ Router.route('ShareInvite', {
   path: "class/:classCode/invite/share"
 });
 Router.route('classEdit', {
-  controller: 'ClassWithIdController',
-  path: "class/:classCode/edit"
+  /*controller: 'ClassWithIdController',*/
+  layoutTemplate:"NavBarScreenLayout",
+  path: "class/:classCode/edit",
+  waitOn:function(){
+    return Meteor.subscribe('class',this.params.classCode);
+  }
 });
 
 Router.route('ClassUsers', {
@@ -246,7 +264,7 @@ Router.route('ChatInvite',{
   path:"chat/invite",
   waitOn:function(){
     /*Meteor.subscribe('joinedClass');*/
-    Meteor.subscribe('getAllJoinedClassesUser');
+    return Meteor.subscribe('getAllJoinedClassesUser');
   }
 });
 Router.route('ChatRoom',{

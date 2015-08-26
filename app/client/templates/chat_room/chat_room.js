@@ -19,7 +19,11 @@ Template.ChatRoom.helpers({
     return Chat.findOne({_id:Router.current().params.chatRoomId});
   },
   'isMind':function(from){
+    $(".content").animate({ scrollTop: $('.content')[0].scrollHeight}, 100);
     return from._id===Meteor.userId();
+  },
+  sendTime:function(sendAt){
+    return moment(sendAt,"HH:mm")
   }
 });
 
@@ -30,7 +34,16 @@ Template.ChatRoom.created = function () {
 };
 
 Template.ChatRoom.rendered = function () {
+  $(".content").animate({ scrollTop: $('.content')[0].scrollHeight}, 100);
+  if(Meteor.isCordova){
+    window.addEventListener('native.keyboardshow', keyboardShowHandler);
+  }
 };
 
 Template.ChatRoom.destroyed = function () {
 };
+
+function keyboardShowHandler(e){
+  $(".content").animate({ scrollTop: $('.content')[0].scrollHeight}, 100);
+    /*alert('Keyboard height is: ' + e.keyboardHeight);*/
+}

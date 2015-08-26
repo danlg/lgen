@@ -35,14 +35,11 @@
 
 
 
-
-          <div class="item workHourTimeCol {{ishide}}">
-            <a href="{{ pathFor 'WorkTimeSelection' }}">
-              <div class="item ">
+          <a href="{{ pathFor 'WorkTimeSelection' }}">
+            <div class="item workHourTimeCol {{ishide}}">
                 work time
-              </div>
-            </a>
-          </div>
+            </div>
+          </a>
 
 
 
@@ -52,8 +49,8 @@
               <div class="col">Can other Teacher talk with you?</div>
             </div>
           </div>
-          <div class="item">
-            <span class="checkall">Allow All</span>
+          <div class="item" style="text-align:right">
+            <span class="checkall button">Allow All</span>
           </div>
 
           {{#each createdClassByMe}}

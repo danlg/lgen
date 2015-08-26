@@ -8,7 +8,7 @@
 
 
     {{#contentFor "headerButtonLeft"}}
-      {{>ionNavBackButton }}
+      {{>ionNavBackButton text="" }}
     {{/contentFor}}
 
 
@@ -23,11 +23,19 @@
 
 
     <ul class="list">
+      <div class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="search" class="searchbar" placeholder="search">
+      </div>
       {{#each contactList}}
-
-
-        <li class="item">{{this.displayName}}</li>
-
+        {{#if isSearched this}}
+          <div class="item item-button-right">
+            {{getName this}}
+            <button class="button button-positive" data-id={{id}}>
+              invite
+            </button>
+          </div>
+        {{/if}}
       {{/each}}
     </ul>
 

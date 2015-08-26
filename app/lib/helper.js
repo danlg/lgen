@@ -16,6 +16,14 @@ lodash.mixin({
 });
 
 lodash.mixin({
+  'findByValues2': function(collection, property, values) {
+    return lodash.filter(collection, function(item) {
+      return item[property]==values
+    });
+  }
+});
+
+lodash.mixin({
   'findByValuesNested': function(collection, property,secproperty, values) {
     return lodash.filter(collection, function(item) {
       return lodash.includes(item[property][secproperty],values);
@@ -27,4 +35,8 @@ lodash.mixin({
 getClassCode = function(className){
   var beforeHash = Meteor.user().email + className + new Date().getTime().toString();
   return CryptoJS.SHA1(randomString(10),beforeHash).toString().substring(0,6);
+}
+
+getFullNameByProfileObj=function(profile){
+    return profile.firstname+" "+profile.lastname
 }

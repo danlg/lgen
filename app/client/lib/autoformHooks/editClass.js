@@ -1,12 +1,8 @@
 var postHooks = {
   before:{
     method:function(doc){
-      console.log(doc);
-      if(!doc.classCode){
-        var beforeHash = Meteor.user().email + doc.className;
-        var rString = randomString(6);
-        doc.classCode  = CryptoJS.SHA1(rString,beforeHash).toString().substring(0,6);
-      }
+
+
       return doc;
     }
   },
@@ -29,6 +25,9 @@ var postHooks = {
 
           Router.go("Classes");
 
+  },
+  onError:function(type,error){
+    alert(error);
   }
 }
 

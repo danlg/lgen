@@ -13,8 +13,9 @@ Classes.attachSchema(new SimpleSchema({
   classCode: {
     type: String,
     label: "Class code",
-    optional: true,
-    unique: true
+    optional: false,
+    unique: true,
+    min:3
 
   },
   anyoneCanChat: {

@@ -66,7 +66,7 @@ Meteor.methods({
    },
    'class/join':function(doc){
      check(doc,Schema.joinClass)
-     Classes.update(doc,{$push:{"joinedUserId":Meteor.userId()}});
+     Classes.update(doc,{$addToSet:{"joinedUserId":Meteor.userId()}});
    },
    'class/leave':function(classId){
      /*check(doc,Schema.leaveClass)*/
@@ -86,8 +86,7 @@ Meteor.methods({
       Classes.remove(classObj);
    },
    'class/update':function(doc){
-     console.log(doc);
-      Classes.update({classCode:doc.classCode},{$set:doc});
+      Classes.update({_id:doc._id},{$set:doc});
    },
    'chat/SendMessage':function(chatRoomId,text){
      var pushObj = {};

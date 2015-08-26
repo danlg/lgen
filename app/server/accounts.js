@@ -8,7 +8,9 @@
 //   secret: "cayfgSLf0iONHPtki5E78ov2"
 // });
 
-
+Accounts.config({
+   loginExpirationInDays: null
+}) 
 
 
 ServiceConfiguration.configurations.remove({

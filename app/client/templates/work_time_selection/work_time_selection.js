@@ -34,19 +34,27 @@ Template.WorkTimeSelection.events({
 Template.WorkTimeSelection.helpers({
   checked:function(week){
     return lodash.includes(weeks,week)?"checked":"";
+  },
+  workHourTimeObj:function(){
+    if(Meteor.user().profile.chatSetting.workHourTime != undefined)
+      return Meteor.user().profile.chatSetting.workHourTime
+    else
+      return {}
   }
+
 });
 
 /*****************************************************************************/
 /* WorkTimeSelection: Lifecycle Hooks */
 /*****************************************************************************/
 Template.WorkTimeSelection.created = function () {
-  weeks = function(){
-    if(!lodash.has(Meteor.user()["profile.chatSetting.workHourTime.weeks"]))
-      return []
+
+    if(Meteor.user().profile.chatSetting.workHourTime.weeks != undefined)
+      weeks =  Meteor.user().profile.chatSetting.workHourTime.weeks;
     else
-      Meteor.user().profile.chatSetting.workHourTime.weeks;
-  }
+      weeks =[];
+
+
 };
 
 Template.WorkTimeSelection.rendered = function () {

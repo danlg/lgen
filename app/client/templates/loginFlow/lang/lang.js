@@ -38,8 +38,6 @@ Template.Lang.rendered = function () {
       alert('Failed to create new object, with error code: ' + error.message);
     }
   });*/
-
-	Meteor.logout();
 };
 
 Template.Lang.destroyed = function () {

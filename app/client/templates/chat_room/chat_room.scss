@@ -1,0 +1,60 @@
+/*****************************************************************************/
+/* ChatRoom: Style */
+/*****************************************************************************/
+.chat-room {
+}
+
+.item{
+  white-space: normal !important;
+}
+
+.chatroomList{
+  .item{
+    border-color: #FFF !important;
+    background-color: rgba(255, 0, 0, 0);
+  }
+}
+
+.bar.bar-footer.input-footer{
+  padding: 0;
+  .row{
+    padding: 0;
+    .col{
+      padding: 0;
+    }
+  }
+}
+
+// .list{
+//   overflow-y: auto;
+// }
+
+.list.chatroomList:last-child{
+}
+
+.bubble{
+  position: relative;
+  max-width: 50vw;
+  /*width: 210px;
+  height: 85px;*/
+  padding: 10px;
+  -webkit-border-radius: 13px;
+  -moz-border-radius: 13px;
+  border-radius: 13px;
+}
+
+.mind{
+  .bubble
+  {
+    float: right;
+    background: #A0FF9F;
+  }
+}
+
+.notmind{
+  .bubble
+  {
+    float: left;
+    background: #E0E0E0;
+  }
+}

@@ -26,6 +26,34 @@ Template.ClassPanelMsgNotice.helpers({
   },
   getName:function(userObj){
     return userObj._id==Meteor.userId()?"You":userObj.profile.firstname+" "+userObj.profile.lastname;
+  },
+  star:function(){
+    return Classes.findOne().messagesObj.star
+  },
+  allMan:function(){
+    var msgArr = Classes.findOne().messagesObj;
+    var arr =[] ;
+    var filtedArr = lodash.findByValues(msgArr,"msgId",Router.current().params.msgCode);
+
+    arr.push(filtedArr[0].star);
+    arr.push(filtedArr[0].close);
+    arr.push(filtedArr[0].help);
+    arr.push(filtedArr[0].checked);
+
+    return lodash.flatten(arr);
+  },
+  geticon:function(userObj){
+
+    /*var msgArr = Classes.findOne().messagesObj;
+    var arr =[] ;
+    var filtedArr = lodash.findByValues(msgArr,"msgId",Router.current().params.msgCode);
+
+    if(lodash.includes(lodash.map(filtedArr[0].star,"_id"),userObj._id))
+        return "ion-ios-star";
+    if(lodash.includes(lodash.map(filtedArr[0].close,"_id"),userObj._id))*/
+
+
+
   }
 });
 

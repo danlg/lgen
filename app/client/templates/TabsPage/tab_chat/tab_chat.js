@@ -1,9 +1,13 @@
 var text = ReactiveVar('');
+var totalResult;
+var notFoundResult = ReactiveVar(0);
+
 /*****************************************************************************/
 /* TabChat: Event Handlers */
 /*****************************************************************************/
 Template.TabChat.events({
   'keyup .searchbar':function(){
+    notFoundResult.set(0);
     text.set($('.searchbar').val());
   }
 });
@@ -13,8 +17,13 @@ Template.TabChat.events({
 /*****************************************************************************/
 Template.TabChat.helpers({
   'getAllMyChatRooms':function(){
-    var allchat = Chat.find();
-    return allchat;
+    var allchat = Chat.find() ;
+    totalResult = allchat.length;
+    if( Chat.find().count() >0 ){
+      return allchat
+    }else{
+      return false;
+    }
   },
   'chatroomMenberName':function(chatIds){
     var string = [];
@@ -38,8 +47,13 @@ Template.TabChat.helpers({
       var name = el.firstname +" "+ el.lastname;
       string.push(name);
     });
-    return lodash.includes(lodash(string).toString(),text.get())?"":"hide";
-  }
+
+    if(lodash.includes(lodash(string).toString().toUpperCase(),text.get().toUpperCase())){
+      return true;
+    }else{
+      return false;
+    }
+  },
 });
 
 /*****************************************************************************/
@@ -49,7 +63,9 @@ Template.TabChat.created = function () {
 };
 
 Template.TabChat.rendered = function () {
+  text.set("");
 };
 
 Template.TabChat.destroyed = function () {
+  text.set("");
 };

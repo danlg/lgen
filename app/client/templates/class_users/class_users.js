@@ -20,6 +20,9 @@ Template.ClassUsers.helpers({
   isSearched:function(userObj){
     var name = userObj.profile.firstname+" "+userObj.profile.lastname;
     return lodash.includes(name.toUpperCase(),text.get().toUpperCase());
+  },
+  emptyList:function(){
+    return Meteor.users.find({_id:{$nin:[Meteor.userId()]}}).fetch().length<1;
   }
 });
 

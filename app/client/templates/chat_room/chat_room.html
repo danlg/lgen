@@ -14,9 +14,9 @@
 
 
   {{#contentFor "headerButtonRight"}}
-  <div style="position: absolute; right: 0;">
+  <!-- <div style="position: absolute; right: 0;">
     <a href="{{pathFor 'classEdit'  }}"  class="button button-clear button-entering button-active "><i class="icon ion-information-circled"></i></a>
-  </div>
+  </div> -->
   {{/contentFor}}
 
 
@@ -24,30 +24,42 @@
 {{#ionView}}
 {{#ionContent}}
 
-  <div class="list" style="height:60vh">
+  <div class="list chatroomList" id="chatroomList">
 
     {{#each chatRoomProfile.messagesObj}}
       {{#if isMind from }}
-      <div class="item mind">{{text}}</div>
+      <div class="item mind">
+        <div class="bubble" >
+        {{text}}
+        </div>
+      </div>
       {{else}}
-      <div class="item notmind">{{text}}</div>
+      <div class="item notmind">
+        <div class="bubble" >
+          {{text}}
+        </div>
+      </div>
       {{/if}}
     {{/each}}
 
+
+      <div class="item item-input">
+        <input type="text" class="inputBox" placeholder="input">
+        <button style="margin-right:10px" class="sendBtn button button-clear" >send</button>
+      </div>
+
+
   </div>
 
-  <div class="list">
-    <div class="item">
-      <input type="text" class="inputBox">
-    </div>
-    <div class="item">
-      <button class="sendBtn" >send</button>
-    </div>
-  </div>
+
+
+
 
 
 
   {{/ionContent}}
 {{/ionView}}
+
+
 
 </template>

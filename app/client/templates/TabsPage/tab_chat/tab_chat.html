@@ -19,17 +19,37 @@
     {{#ionContent}}
 
       <div class="list">
-        <div class="item">
+        <div class="item item-input">
+          <i class="icon ion-search placeholder-icon"></i>
           <input type="search" class="searchbar" placeholder="search">
         </div>
-        {{#each getAllMyChatRooms}}
-          <a href="{{ pathFor 'ChatRoom' chatRoomId=_id }}">
-            <div class="item {{isHide chatIds}}">
-              <div>{{chatroomMenberName chatIds }}</div>
-              <div>{{lasttext messagesObj}}</div>
+
+
+        {{#with getAllMyChatRooms }}
+
+
+          {{#each this}}
+            {{#if isHide chatIds}}
+            <a href="{{ pathFor 'ChatRoom' chatRoomId=_id }}">
+              <div class="item">
+                <h2>{{chatroomMenberName chatIds }}</h2>
+                <div class="description" >{{lasttext messagesObj}}</div>
+              </div>
+            </a>
+            {{/if}}
+          {{/each}}
+
+        {{else}}
+
+            <div class="item">
+              no record
             </div>
-          </a>
-        {{/each}}
+
+        {{/with}}
+
+
+
+
       </div>
     {{/ionContent}}
   {{/ionView}}

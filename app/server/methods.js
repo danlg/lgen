@@ -118,21 +118,17 @@ Meteor.methods({
 
 
     })
-
-
     if(type){
       var updateObj2={};
-
         updateObj2['messagesObj.$.'+type] = Meteor.user();
-
       Classes.update(
         {classCode:classObj.classCode, messagesObj:{$elemMatch:{msgId:msgId}}},
         {$push: updateObj2 }
       )
     }
-
-
   },
+
+
   'chat/create':function(chatArr){
     /*var _id = lodash.first(chatArr);*/
     var arrOfUser = Meteor.users.find({_id:{$in:chatArr}}).fetch();
@@ -149,6 +145,8 @@ Meteor.methods({
       return newRoom;
     }
   },
+
+
   'chat/setting/update':function(doc){
     Meteor.users.update({_id:Meteor.userId()},{$set:{'profile.chatSetting':doc}},{validate: false});
   },

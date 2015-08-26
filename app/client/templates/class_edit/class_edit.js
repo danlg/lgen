@@ -1,3 +1,4 @@
+/*var isValid = ReactiveVar(false);*/
 /*****************************************************************************/
 /* ClassEdit: Event Handlers */
 /*****************************************************************************/
@@ -19,6 +20,12 @@ Template.ClassEdit.events({
 /* ClassEdit: Helpers */
 /*****************************************************************************/
 Template.ClassEdit.helpers({
+  classObj:function(){
+    return Classes.findOne();
+  },
+  classId:function(){
+    return Classes.findOne()._id;
+  },
 });
 
 /*****************************************************************************/
