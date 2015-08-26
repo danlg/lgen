@@ -271,7 +271,7 @@ Router.route('ChatRoom',{
   controller:'ChatRoomController',
   path:"chat/:chatRoomId",
   waitOn:function(){
-    Meteor.subscribe('getChatRoomById',this.params.chatRoomId);
+    return Meteor.subscribe('getChatRoomById',this.params.chatRoomId);
   }
 });
 

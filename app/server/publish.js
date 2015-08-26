@@ -36,6 +36,7 @@ Meteor.publish('getChatRoomById', function (chatRoomId) {
   return Chat.find({_id:chatRoomId});
 });
 
+
 Meteor.publish('user', function (_id) {
   return Meteor.users.find({_id:_id});
 });

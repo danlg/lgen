@@ -2,15 +2,15 @@
   {{#if isAndroid}}
     {{#ionTabs style="android" class="tabs-background-positive tabs-color-light"}}
       {{> ionTab title="Home" path="Home" icon="android-home"}}
-      {{> ionTab title="Chat" path="TabChat" icon="android-star"}}
-      {{> ionTab title="Classes" path="Classes" icon="heart"}}
+      {{> ionTab title="Chat" path="TabChat" icon="android-chat"}}
+      {{> ionTab title="Classes" path="Classes" icon="android-people"}}
       {{> ionTab title="You" path="You" icon="gear-b"}}
     {{/ionTabs}}
   {{else}}
     {{#ionTabs style="ios"}}
       {{> ionTab title="Home" path="Home" iconOff="ios-home-outline" iconOn="ios-home"}}
-      {{> ionTab title="Chat" path="TabChat" iconOff="ios-star-outline" iconOn="ios-star"}}
-      {{> ionTab title="Classes" path="Classes" iconOff="ios-heart-outline" iconOn="ios-heart"}}
+      {{> ionTab title="Chat" path="TabChat" iconOff="ios-chatbubble-outline" iconOn="ios-chatbubble"}}
+      {{> ionTab title="Classes" path="Classes" iconOff="ios-people-outline" iconOn="ios-people"}}
       {{> ionTab title="You" path="You" iconOff="ios-gear-outline" iconOn="ios-gear"}}
     {{/ionTabs}}
   {{/if}}

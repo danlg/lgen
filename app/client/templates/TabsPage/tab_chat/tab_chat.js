@@ -37,7 +37,11 @@ Template.TabChat.helpers({
   },
   'lasttext':function(messagesObj){
     var len = messagesObj.length;
-    return messagesObj[len-1].text;
+    if(len > 0 )
+      return messagesObj[len-1].text;
+    else
+      return "";
+
   },
   'isHide':function(chatIds){
     var string = [];

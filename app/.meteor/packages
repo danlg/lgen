@@ -11,6 +11,7 @@ insecure
 
 
 
+
 less
 accounts-google
 accounts-base
@@ -49,3 +50,6 @@ meteorhacks:kadira
 aldeed:console-me
 u2622:persistent-session
 momentjs:moment
+underscore
+jquery
+fastclick

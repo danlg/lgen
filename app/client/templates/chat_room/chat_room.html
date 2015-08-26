@@ -1,7 +1,7 @@
 <template name="ChatRoom">
 
   {{#contentFor "headerTitle"}}
-    <h1 class="title">{{userProfile.profile.firstname}}</h1>
+    <h1 class="title">{{getName userProfile.profile}}</h1>
   {{/contentFor}}
 
 
@@ -43,13 +43,18 @@
     {{/each}}
 
 
-      <div class="item item-input">
-        <input type="text" class="inputBox" placeholder="input">
-        <button style="margin-right:10px" class="sendBtn button button-clear" >send</button>
-      </div>
+
 
 
   </div>
+
+  <div class="list inputBoxList">
+    <div class="item item-input">
+      <textarea dir="auto" name="msg" maxlength="5000" class="inputBox autogrow-short" placeholder="Message"></textarea>
+      <button style="margin-right:10px" class="sendBtn button button-clear" >send</button>
+    </div>
+  </div>
+
 
 
 
