@@ -20,3 +20,5 @@ sftp-config.json
 ### Meteor ###
 .meteor/local
 .meteor/meteorite
+app/android/ios
+app/android
