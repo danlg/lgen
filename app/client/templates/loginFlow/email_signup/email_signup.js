@@ -16,7 +16,9 @@ Template.EmailSignup.helpers({
 /*****************************************************************************/
 /* EmailSignup: Lifecycle Hooks */
 /*****************************************************************************/
-Template.EmailSignup.created = function() {};
+Template.EmailSignup.created = function() {
+  $("body").removeClass('modal-open');
+};
 
 Template.EmailSignup.rendered = function() {
   /*createVM.bind(this);

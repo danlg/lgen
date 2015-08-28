@@ -53,7 +53,7 @@ Meteor.methods({
    },
 
    'user/role/update':function(role){
-     var userObj  = Meteor.user();
+     /*var userObj  = Meteor.user();
      userObj.profile.role = role;
      Meteor.users.upsert(Meteor.userId(),{$set:userObj},function(err){
           if(err){
@@ -62,7 +62,18 @@ Meteor.methods({
           }else{
             return
           }
-       });
+       });*/
+
+       Meteor.users.update({_id:Meteor.userId()},{$set:{'profile.role':role}},function(err){
+         if(err){
+           console.log(err);
+           return err;
+         }else{
+           return
+         }
+      });
+
+
    },
    'class/join':function(doc){
      check(doc,Schema.joinClass)

@@ -1,12 +1,16 @@
 <template name="FullScreenLayout">
-  <div class="background">
+
 
     {{#transitioner}}
+      {{#ionBody}}
+      <div class="background">
       {{> yield}}
+      </div>
+      {{/ionBody}}
     {{/transitioner}}
 
 
 
 
-  </div>
+
 </template>

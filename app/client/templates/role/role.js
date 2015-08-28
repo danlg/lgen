@@ -25,6 +25,7 @@ Template.Role.helpers({
 /* Role: Lifecycle Hooks */
 /*****************************************************************************/
 Template.Role.created = function () {
+
 };
 
 Template.Role.rendered = function () {
@@ -33,7 +34,27 @@ Template.Role.rendered = function () {
       /*if(!_.pick(userObj,'role')=='')*/
         Router.go('Home');
   }
+  IonModal.open('_modal',"");
 };
 
 Template.Role.destroyed = function () {
 };
+
+
+Template._modal.events({
+    'click .role':function(e){
+      IonModal.close('_modal');
+      var role =  $(e.target).data('role');
+      if(Meteor.userId()){
+
+        Meteor.call('user/role/update',role,function(){
+            Router.go('Home');
+          });
+
+      }else{
+
+        Router.go("email-signup",{role:role})
+      }
+    }
+
+});

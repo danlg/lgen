@@ -1,0 +1,33 @@
+/*****************************************************************************/
+/* Role: Style */
+/*****************************************************************************/
+.role {
+}
+
+.transitioner>div{
+  display: block;
+  position: relative;
+}
+
+
+.modal{
+  background-color: rgba(255, 0, 0, 0) !important;
+  height: 100vh;
+  .bar.bar-header.bar-stable{
+    background-color: rgba(255, 0, 0, 0) !important;
+  }
+  .icon.ion-ios-close-empty{
+    color:white;
+  }
+  .col div{
+    text-align: center;
+    .button{
+      width: 60vw;
+      margin: 1rem;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+
+
+    }
+  }
+}

@@ -1,7 +1,12 @@
+
 /*****************************************************************************/
 /* Lang: Event Handlers */
 /*****************************************************************************/
 Template.Lang.events({
+	'click .button':function(event){
+		var lang = $(event.target).data('lang')
+		Session.setPersistent('lang',lang);
+	}
 });
 
 /*****************************************************************************/
@@ -14,9 +19,12 @@ Template.Lang.helpers({
 /* Lang: Lifecycle Hooks */
 /*****************************************************************************/
 Template.Lang.created = function () {
+	Session.setDefaultPersistent("lang","en");
 };
 
 Template.Lang.rendered = function () {
+
+
 
 	/*Parse.initialize("f8PjTETlRT71zC3Wls1QW12sucgCimOET0qdcbtt", "6jVbg8jQ8UgJncS2KAOb3AqDHnqk2CzqA7ngP839");
 

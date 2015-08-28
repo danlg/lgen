@@ -7,9 +7,10 @@
 
 
 .background{
-  background: url(http://lorempixel.com/500/600/people/7);
+  background-image: url("img/text.png");
   background-size: cover;
-  width: 100wh;
+  background-position: center;
+  width: 100vw;
   height: 100vh;
 }
 

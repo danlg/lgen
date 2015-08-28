@@ -1,20 +1,55 @@
 <template name="Role">
   <div style="width:100vw;height:60vh"></div>
 	<div class="padding-horizontal">
-		{{#each char}}
+		<!-- {{#each char}}
 			{{> charItem}}
-		{{/each}}
+		{{/each}} -->
 
 	</div>
 
 </template>
 
-<template name="charItem">
+  <!-- <template name="charItem">
 
-  <a  class="button button-block button-positive" data-role="{{this}}">
-    {{this}}
-  </a>
+    <a  class="button button-block button-positive" data-role="{{this}}">
+      {{this}}
+    </a>
 
 
 
+  </template> -->
+
+<template name="_modal">
+	{{#ionModal title="" }}
+    <div class="padding">
+      <div class="row row-center">
+      		<div class="col" >
+      			<div>
+      				<button class="button role" data-role="Teacher"  >
+								<i class="icon ion-paintbrush"></i>
+								<div>
+									Teacher
+								</div>
+      				</button>
+      			</div>
+      			<div>
+      				<button class="button role" data-role="Parent"  >
+								<i class="icon ion-person"></i>
+      					<div>
+      						Parent
+      					</div>
+      				</button>
+      			</div>
+      			<div>
+      				<button class="button role" data-role="Student"  >
+								<i class="icon ion-university"></i>
+								<div>
+									Student
+								</div>
+      				</button>
+      			</div>
+      		</div>
+      </div>
+    </div>
+  {{/ionModal}}
 </template>

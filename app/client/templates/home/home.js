@@ -17,6 +17,7 @@ Template.Home.created = function () {
 };
 
 Template.Home.rendered = function () {
+  $("body").removeClass('modal-open');
 };
 
 Template.Home.destroyed = function () {
