@@ -3,7 +3,7 @@
   "servers": [
     {
       "host": "128.199.174.251",
-      "username": "root",
+      "username": "lg",
       "password": "genie123"
       // or pem file (ssh based authentication)
       //"pem": "~/.ssh/id_rsa"
