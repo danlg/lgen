@@ -1,0 +1,68 @@
+{
+	"SignUp": "Sign Up",
+	"Login": "Login",
+	"Gmaillogin": "Gmail login",
+	"Teacher": "Teacher",
+	"Parent": "Parent",
+	"Student": "Student",
+	"SignANewAccount":"Sign a new account",
+	"Login":"Login",
+	"SignIn":"Sign In",
+	"Email":"Email",
+	"Password":"Password",
+	"Chat":"Chat",
+	"Classes":"Classes",
+	"You":"You",
+	"search":"search",
+	"NoRecord":"No Record",
+	"ClassesIOwn":"CLASSES I OWN",
+	"ClassesIveJoined":"CLASSES I'VE JOINED",
+	"CreateAClass":"Create a class",
+	"JoinAClass":"Join a Class",
+	"AddClass":"Add class",
+	"Add":"Add",
+	"AnyoneInThisClassCanStartAChat":"Anyone in this class can start a Chat",
+	"IWillOnlyMessagePeople13AndOlder":"I Will Only Message People 13 And Older",
+	"addClassTerm":"asdsada",
+	"MyAccounts":"My accounts",
+	"Notification":"Notification",
+	"Feedback":"Feedback",
+	"LoveLittleGenius":"Love Little Genius",
+	"SignOut":"Sign Out",
+	"MyAccount":"My Account",
+	"Send":"Send",
+	"feedbackTextarea":"Tell Us What You Think",
+
+
+	// https://github.com/gwendall/meteor-autoform-i18n/
+	// This is for schemas of autoForm
+	"schemas": {
+		"emailSignup": {
+			"firstname": {
+				"placeholder": "First Name"
+			},
+			"lastname": {
+				"placeholder": "Last Name"
+			},
+			"email": {
+				"placeholder": "Email"
+			},
+			"password": {
+				"placeholder": "Password"
+			},
+			"confirmPassword": {
+				"placeholder": "Confirm Password"
+			}
+		},
+		"ClassesSchema":{
+			"className":{
+				"placeholder":"Class Name",
+				"label": "Class name"
+			},
+			"classCode":{
+				"placeholder":"Class Code",
+				"label":"Class Code"
+			}
+		}
+	}
+}

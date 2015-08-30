@@ -1,19 +1,19 @@
 <template name="FeedBack">
   {{#contentFor "headerTitle"}}
-    <h1 class="title">FeedBack</h1>
+    <h1 class="title">{{_"Feedback"}}</h1>
   {{/contentFor}}
 
 
 
 
   {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton text=""}}
+    {{>ionNavBackButton text=" "}}
   {{/contentFor}}
 
 
 
   {{#contentFor "headerButtonRight"}}
-    <button  class="button button-clear button-entering button-active feedbackSend">feedbackSend</button>
+    <button  class="button button-clear button-entering button-active feedbackSend">{{_"Send"}}</button>
   {{/contentFor}}
 
 
@@ -24,7 +24,7 @@
   <div class="list">
 
 <label class="item item-input">
-<textarea placeholder="Tell me what you think"></textarea>
+<textarea class="feedbackContent" placeholder="{{_"feedbackTextarea"}}" style="height:400px" ></textarea>
 </label>
 </div>
 

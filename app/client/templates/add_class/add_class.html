@@ -1,19 +1,19 @@
 <template name="AddClass">
   {{#contentFor "headerTitle"}}
-    <h1 class="title">Add class</h1>
+    <h1 class="title"> {{_ "AddClass"}} </h1>
   {{/contentFor}}
 
 
 
 
   {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton text="Cancel"}}
+    {{>ionNavBackButton text=" "}}
   {{/contentFor}}
 
 
 
   {{#contentFor "headerButtonRight"}}
-    <button  class="button button-clear button-entering button-active addClassBtn">Add</button>
+    <button  class="button button-clear button-entering button-active addClassBtn">{{_ "Add"}}</button>
   {{/contentFor}}
 
 
@@ -26,7 +26,7 @@
 
   <ul class="list ">
     <li class="item item-input">
-      {{> afFieldInput name="className" placeholder="Class Name"}}
+      {{> afFieldInput name="className" placeholder="Class Name" }}
     </li>
     <!-- <li class="item item-input">
       {{> afFieldInput name="classCode" placeholder="@classcode"}}
@@ -34,10 +34,10 @@
 
 
     <li class="item item-toggle">
-      <span class="description">Anyone in this class can start a Chat</span>
+      <span class="description">{{_ "AnyoneInThisClassCanStartAChat"}}</span>
 
       <label class="toggle">
-       {{> afFieldInput name="anyoneCanChat" }}
+       {{> afFieldInput name="anyoneCanChat" class="checked"  }}
        <div class="track">
          <div class="handle"></div>
        </div>
@@ -47,10 +47,10 @@
 
 
     <li class="item item-toggle">
-      <span class="description">I will only message people 13 and older</span>
+      <span class="description">{{_ "IWillOnlyMessagePeople13AndOlder"}}</span>
 
       <label class="toggle">
-       {{> afFieldInput name="higherThirteen" }}
+       {{> afFieldInput name="higherThirteen" class="checked"  }}
        <div class="track">
          <div class="handle"></div>
        </div>
@@ -62,7 +62,7 @@
   </ul>
 
   <div style="padding: 0 16px">
-    <span class="description">sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
+    <span class="description">{{_ "addClassTerm" }}</span>
   </div>
 
 

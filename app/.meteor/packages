@@ -6,7 +6,7 @@
 
 meteor-platform
 
-insecure
+
 
 
 
@@ -47,10 +47,14 @@ meteoric:ionicons-sass
 reactive-var
 
 meteorhacks:kadira
-aldeed:console-me
+
 u2622:persistent-session
 momentjs:moment
 underscore
 jquery
 fastclick
-mizzao:bootboxjs
+tap:i18n
+gwendall:autoform-i18n
+cfs:standard-packages
+cfs:gridfs
+cfs:graphicsmagick

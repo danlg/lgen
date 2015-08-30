@@ -16,7 +16,7 @@
 
   <div style="position: absolute; right: 0;">
 
-    <a href="{{pathFor 'ClassInfomation'   }}"  class="button button-clear button-entering button-active "><i class="icon ion-information-circled"></i></a>
+    <a href="{{pathFor 'ClassInfomation'   }}"  class="button button-clear button-entering button-active "><i class="icon ion-ios-information-outline"></i></a>
     <!-- <button  class="button button-clear button-entering button-active addClassBtn">?</button> -->
   </div>
   {{/contentFor}}
@@ -27,7 +27,7 @@
 
 
 
-    {{#each classObj.messagesObj}}
+    {{#with getMessagesObj}}
 
     <!-- <label class="item item-input item-select">
       <div class="input-label">
@@ -91,7 +91,14 @@
   </div>
 </div>
 
-    {{/each}}
+  {{else}}
+
+      <div class="item">
+        Not Found
+      </div>
+
+
+    {{/with}}
 
   {{/ionContent}}
    {{/ionView}}

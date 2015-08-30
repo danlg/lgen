@@ -42,6 +42,7 @@ Meteor.publish('user', function (_id) {
 });
 
 Meteor.publish('getAllMyChatRooms', function () {
+  // Meteor._sleepForMs(5000);
   return Chat.find({chatIds:{$elemMatch:{_id:this.userId}}});
 });
 
@@ -69,3 +70,6 @@ Meteor.publish('getJoinedClassUser', function (classCode) {
     var joinedUserId = classObj.joinedUserId;
   return Meteor.users.find({_id:{$in:joinedUserId}});
 });
+
+Meteor.publish("images", function(){ return Images.find();});
+Meteor.publish("sounds", function(){ return Sounds.find();});

@@ -6,7 +6,7 @@ Template.Role.events({
     var $this = $(e.target);
     if(Meteor.user()){
       Meteor.call('user/role/update',$this.data('role'),function(){
-          Router.go('Home');
+          Router.go('TabChat');
         });
     }else{
       Router.go('email-signup',{role:$this.data('role')})
@@ -32,7 +32,7 @@ Template.Role.rendered = function () {
   if(Meteor.user()){
     var userObj=Meteor.user();
       /*if(!_.pick(userObj,'role')=='')*/
-        Router.go('Home');
+        Router.go('TabChat');
   }
   IonModal.open('_modal',"");
 };
@@ -48,7 +48,7 @@ Template._modal.events({
       if(Meteor.userId()){
 
         Meteor.call('user/role/update',role,function(){
-            Router.go('Home');
+            Router.go('TabChat');
           });
 
       }else{

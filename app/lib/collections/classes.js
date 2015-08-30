@@ -2,17 +2,15 @@ Classes = new Mongo.Collection('classes');
 
 
 
-Classes.attachSchema(new SimpleSchema({
+ClassesSchema = new SimpleSchema({
   className: {
     type: String,
-    label: "Class name",
     optional: false,
     regEx: /[a-z0-9]/
 
   },
   classCode: {
     type: String,
-    label: "Class code",
     optional: false,
     unique: true,
     min:3
@@ -25,11 +23,17 @@ Classes.attachSchema(new SimpleSchema({
       afFieldInput: {
         type: "boolean-checkbox2",
       },
+    },
+    autoValue:function(){
+      return true;
     }
   },
   higherThirteen: {
     type: Boolean,
     optional: false,
+    autoValue:function(){
+      return true;
+    },
     autoform: {
       afFieldInput: {
         type: "boolean-checkbox2",
@@ -100,9 +104,9 @@ Classes.attachSchema(new SimpleSchema({
     },
     autoValue: function() {
       if (this.isInsert) {
-        return new Date;
+        return new Date();
       } else if (this.isUpsert) {
-        return {$setOnInsert: new Date};
+        return {$setOnInsert: new Date()};
       } else {
         this.unset();
       }
@@ -111,24 +115,26 @@ Classes.attachSchema(new SimpleSchema({
 
 
 
-}));
+});
 
+ClassesSchema.i18n("schemas.ClassesSchema");
+Classes.attachSchema(ClassesSchema);
 
 
 
 if (Meteor.isServer) {
   Classes.allow({
     insert: function (userId, doc) {
-      console.log("asd");
-      return false;
+
+      return true;
     },
 
     update: function (userId, doc, fieldNames, modifier) {
-      return false;
+      return true;
     },
 
     remove: function (userId, doc) {
-      return false;
+      return true;
     }
   });
 }

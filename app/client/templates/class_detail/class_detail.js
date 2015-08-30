@@ -36,6 +36,14 @@ Template.ClassDetail.helpers({
   },
   isSelectAction:function(action){
     return lodash.includes(lodash.map(action,"_id"),Meteor.userId())?"colored":"";
+  },
+  getMessagesObj:function(){
+    var classObj  = Classes.findOne();
+    if(classObj.messagesObj.length>0){
+      return classObj.messagesObj;
+    }else{
+      return false
+    }
   }
 });
 

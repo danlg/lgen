@@ -27,7 +27,7 @@
         <div class="row"><h1>{{userPofile.profile.firstname}} {{userPofile.profile.lastname}}</h1></div>
       </div>
 
-      <div class="padding">Recive notice method</div>
+      <!-- <div class="padding">Recive notice method</div>
 
       <div class="list">
         <div href="#" class="item item-icon-left">
@@ -38,13 +38,18 @@
            <i class="icon ion-ios-telephone"></i>
            Android
         </div>
-      </div>
+      </div> -->
 
       <div class="padding">Their class</div>
       <div class="list">
         {{#each hisJoinedClasses}}
           <div class="item">{{className}}</div>
         {{/each}}
+      </div>
+
+
+      <div class="bar bar-footer">
+        <div class="title talkToBtn" data-userId="{{userId}}">Talk to {{userPofile.profile.firstname}} {{userPofile.profile.lastname}}</div>
       </div>
 
 

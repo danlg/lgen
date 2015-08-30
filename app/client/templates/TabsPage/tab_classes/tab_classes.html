@@ -1,6 +1,6 @@
 <template name="TabClasses">
   {{#contentFor "headerTitle"}}
-    <h1 class="title">Classes</h1>
+    <h1 class="title">{{_ "Classes"}}</h1>
   {{/contentFor}}
 
 
@@ -21,9 +21,9 @@
 
         <a href="{{pathFor 'AddClass'  }}">
           <div class="row row-center add-join-bar">
-              <div class="col col-90">CLASSES I OWN </div>
+              <div class="col col-90">{{_ "ClassesIOwn"}}</div>
               <div class="col ">
-                  <i class="icon ion-plus-circled"></i>
+                  <i class="icon ion-android-add-circle"></i>
               </div>
           </div>
         </a>
@@ -49,7 +49,7 @@
 
           <div class="row row-center listview-nth">
               <div class="col">
-                <a class="button button-stable" href="{{pathFor 'AddClass'  }}">Create a class </a>
+                <a class="button button-stable" href="{{pathFor 'AddClass'  }}"> {{_ "CreateAClass"}} </a>
               </div>
           </div>
 
@@ -64,10 +64,10 @@
       <div class="listview-container">
         <a href="{{pathFor 'JoinClass'  }}">
         <div class="row row-center add-join-bar">
-          <div class="col col-90">CLASSES I'VE JOINED</div>
+          <div class="col col-90">{{_ "ClassesIveJoined"}}</div>
             <div class="col ">
 
-                <i class="icon ion-plus-circled"></i>
+                <i class="icon ion-android-add-circle"></i>
 
             </div>
         </div>
@@ -92,7 +92,7 @@
 
         <div class="row row-center listview-nth">
             <div class="col">
-              <a class="button button-stable" href="{{pathFor 'JoinClass'  }}">Join a Class</a>
+              <a class="button button-stable" href="{{pathFor 'JoinClass'  }}">{{_ "JoinAClass"}}</a>
             </div>
         </div>
 

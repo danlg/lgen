@@ -48,6 +48,7 @@
 }
 
 .mind{
+  text-align: right;
   .bubble
   {
     float: right;
@@ -56,9 +57,17 @@
 }
 
 .notmind{
+  text-align: left;
   .bubble
   {
     float: left;
     background: #E0E0E0;
   }
+}
+
+.ion-image::before,
+.ion-mic-a::before,
+.ion-paperclip::before
+{
+  font-size: 20px;
 }

@@ -7,9 +7,12 @@ Template.EmailSignup.events({});
 /* EmailSignup: Helpers */
 /*****************************************************************************/
 Template.EmailSignup.helpers({
-  emailSignup:Schema.emailSignup,
+  emailSignup:function (argument) {
+    Schema.emailSignup.i18n("schemas.emailSignup");
+    return Schema.emailSignup;
+  },
   isStudent:function(){
-    return Router.current().params.role == "Student"
+    return Router.current().params.role === "Student";
   }
 });
 
@@ -32,7 +35,7 @@ Template.ionNavBar.events({
   'click .createBtn': function() {
     /*var userObj =  createVM.toJS();
     Meteor.call('user/create', createVM.toJS(), function(err) {
-      err ? alert(err) : Router.go('Home');
+      err ? alert(err) : Router.go('TabChat');
     });*/
 
       AutoForm.submitFormById("#signupform");

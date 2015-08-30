@@ -5,12 +5,12 @@
 Template.ClassEdit.events({
   'click .removeAllUserBtn':function(){
 
-    Meteor.call("class/deleteUser",this.classObj,function(){
+    Meteor.call("class/deleteUser",Classes.findOne(),function(){
         alert("success removed!");
       });
   },
   'click .removeClass':function(){
-    Meteor.call("class/delete",this.classObj,function(){
+    Meteor.call("class/delete",Classes.findOne(),function(){
         Router.go("Classes");
       });
   }

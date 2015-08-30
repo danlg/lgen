@@ -4,8 +4,9 @@
 /*****************************************************************************/
 Template.Lang.events({
 	'click .button':function(event){
-		var lang = $(event.target).data('lang')
+		var lang = $(event.target).data('lang');
 		Session.setPersistent('lang',lang);
+		TAPi18n.setLanguage(lang);
 	}
 });
 

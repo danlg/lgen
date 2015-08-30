@@ -1,4 +1,7 @@
 Schema = {};
+
+
+
 Schema.joinClass = new SimpleSchema({
   classCode: {
     type: String

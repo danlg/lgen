@@ -27,7 +27,7 @@ Template.ionNavBar.events({
     'click .loginBtn':function(){
       var loginObj = loginVM.toJS();
       Meteor.loginWithPassword(loginObj.email,loginObj.pwd,function(err){
-        err?alert(err):Router.go('Home');
+        err?alert(err):Router.go('TabChat');
         });
     }
 });

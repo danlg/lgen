@@ -20,11 +20,11 @@ addClassMailTemplate = function(to,classname) {
   }
 }
 
-inviteClassMailTemplate = function(to,first,last,classname,classcode) {
+inviteClassMailTemplate = function(to,first,last,classname,classcode,acceptLink) {
   return {
     "message": {
       "merge_language": "handlebars",
-      "html": "<p class=\"p1\" style=\"margin: 0.0px 0.0px 0.0px 0.0px;font: 30.0px Helvetica;color: #008f00;\">little genius<\/p>\r\n<p class=\"p2\" style=\"margin: 0.0px 0.0px 0.0px 0.0px;font: 30.0px Arial;color: #343b42;\">Please join {{classname}}! <\/p>\r\n<p class=\"p3\" style=\"margin: 0.0px 0.0px 0.0px 0.0px;font: 13.0px Arial;\">I\'m using\u00A0Little Genius to send important updates, last minute changes, and class\u00A0assignments for {{classname}} (our class code is @{{classcode}}).<\/p>\r\n<p class=\"p4\" style=\"margin: 0.0px 0.0px 0.0px 0.0px;text-align: center;font: 20.0px Arial;color: #008f00;\"><a href=\"http:\/\/www.littlegenius.io\/%3Ctoken%3E\">Accept {{first}} {{last}}\'s request<\/a><\/p>\r\n<p class=\"p5\" style=\"margin: 0.0px 0.0px 0.0px 0.0px;font: 13.0px Arial;min-height: 15.0px;\"><br><\/p>\r\n<p class=\"p3\" style=\"margin: 0.0px 0.0px 0.0px 0.0px;font: 13.0px Arial;\">Thanks for joining,\u00A0<\/p>\r\n<p class=\"p3\" style=\"margin: 0.0px 0.0px 0.0px 0.0px;font: 13.0px Arial;\">{{first}} {{last}}<\/p>\r\n<p class=\"p5\" style=\"margin: 0.0px 0.0px 0.0px 0.0px;font: 13.0px Arial;min-height: 15.0px;\"><br><\/p>\r\n<p class=\"p6\" style=\"margin: 0.0px 0.0px 0.0px 0.0px;font: 13.0px Arial;color: #353535;\"><span class=\"s2\" style=\"color: #000000;\">P.S. <a href=\"http:\/\/www.littlege\"><span class=\"s3\" style=\"text-decoration: underline;color: #008f00;\">Little Genius<\/span><\/a> is a free, safe, easy-to-use communication tool t<\/span>hat helps me connect with you instantly. You can choose to receive my updates by the Little Genius app or email<\/p>\r\n",
+      "html": "<p class=\"p1\" style=\"margin: 0.0px 0.0px 0.0px 0.0px;font: 30.0px Helvetica;color: #008f00;\">little genius<\/p>\r\n<p class=\"p2\" style=\"margin: 0.0px 0.0px 0.0px 0.0px;font: 30.0px Arial;color: #343b42;\">Please join {{classname}}! <\/p>\r\n<p class=\"p3\" style=\"margin: 0.0px 0.0px 0.0px 0.0px;font: 13.0px Arial;\">I\'m using\u00A0Little Genius to send important updates, last minute changes, and class\u00A0assignments for {{classname}} (our class code is @{{classcode}}).<\/p>\r\n<p class=\"p4\" style=\"margin: 0.0px 0.0px 0.0px 0.0px;text-align: center;font: 20.0px Arial;color: #008f00;\"><a href=\"{{acceptLink}}\">Accept {{first}} {{last}}\'s request<\/a><\/p>\r\n<p class=\"p5\" style=\"margin: 0.0px 0.0px 0.0px 0.0px;font: 13.0px Arial;min-height: 15.0px;\"><br><\/p>\r\n<p class=\"p3\" style=\"margin: 0.0px 0.0px 0.0px 0.0px;font: 13.0px Arial;\">Thanks for joining,\u00A0<\/p>\r\n<p class=\"p3\" style=\"margin: 0.0px 0.0px 0.0px 0.0px;font: 13.0px Arial;\">{{first}} {{last}}<\/p>\r\n<p class=\"p5\" style=\"margin: 0.0px 0.0px 0.0px 0.0px;font: 13.0px Arial;min-height: 15.0px;\"><br><\/p>\r\n<p class=\"p6\" style=\"margin: 0.0px 0.0px 0.0px 0.0px;font: 13.0px Arial;color: #353535;\"><span class=\"s2\" style=\"color: #000000;\">P.S. <a href=\"http:\/\/www.littlege\"><span class=\"s3\" style=\"text-decoration: underline;color: #008f00;\">Little Genius<\/span><\/a> is a free, safe, easy-to-use communication tool t<\/span>hat helps me connect with you instantly. You can choose to receive my updates by the Little Genius app or email<\/p>\r\n",
       "text": "Example text content",
       "subject": "Please join class",
       "from_email": "message.from_email@example.com",
@@ -58,6 +58,10 @@ inviteClassMailTemplate = function(to,first,last,classname,classcode) {
       {
         "name": "classcode",
         "content": classcode
+      },
+      {
+        "name": "acceptLink",
+        "content": acceptLink
       }
 
       ]

@@ -2,6 +2,11 @@
 /* FeedBack: Event Handlers */
 /*****************************************************************************/
 Template.FeedBack.events({
+  'click .feedbackSend':function (argument) {
+    Meteor.call("FeedBack",$(".feedbackContent"),function (argument) {
+      alert("Thanks for Share!");
+    });
+  }
 });
 
 /*****************************************************************************/

@@ -2,7 +2,7 @@ var postHooks = {
   before:{
     insert:function(doc){
       if(!doc.classCode){
-        doc.classCode = getClassCode(doc.className);
+        doc.classCode = getClassCodeNew(doc.className);
       }
       doc.joinedUserId=[];
       doc.messagesObj=[];
@@ -21,12 +21,12 @@ var postHooks = {
     });
   },
   onError: function(formType, error) {
-      alert(error)
+      alert(error);
   },
   beginSubmit: function() {
   },
   endSubmit: function() {
   }
-}
+};
 
 AutoForm.addHooks('insertClass', postHooks);

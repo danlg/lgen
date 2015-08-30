@@ -7,36 +7,37 @@ Chat.attachSchema(new SimpleSchema({
   },
   messagesObj:{
     type: [Object],
-  },
-  'messagesObj.$.from':{
-    type: Object,
     blackbox:true
-  },
-  'messagesObj.$.sendAt':{
-    type: Date,
-    autoValue:function(){
-      return new Date;
-    }
-  },
-  'messagesObj.$.text':{
-    type: String
   }
-
+  // 'messagesObj.$.from':{
+  //   type: Object,
+  //   blackbox:true
+  // },
+  // 'messagesObj.$.sendAt':{
+  //   type: Date,
+  //   autoValue:function(){
+  //     return new Date;
+  //   }
+  // },
+  // 'messagesObj.$.text':{
+  //   type: String
+  // }
+  //
 }));
 
 
 if (Meteor.isServer) {
   Chat.allow({
     insert: function (userId, doc) {
-      return false;
+      return true;
     },
 
     update: function (userId, doc, fieldNames, modifier) {
-      return false;
+      return true;
     },
 
     remove: function (userId, doc) {
-      return false;
+      return true;
     }
   });
 }

@@ -40,30 +40,35 @@ Meteor.methods({
       console.log(e);
     }
   },
-  "class/invite": function(doc) {
+  "class/invite": function(classObj,targetFirstEmail) {
 
-    console.log(doc);
+    /*console.log(doc);
 
     var classObj = Classes.findOne({
       classCode: doc.classCode
     });
+
+    */
+
+    var acceptLink ="http://localhost:3000/"+classObj.classCode;
+    var acceptLinkEncoded =  encodeURI(acceptLink);
+
+
     var first = Meteor.user().profile.firstname;
     var last = Meteor.user().profile.lastname;
 
-
-    Meteor.setTimeout(function() {
       try {
         Mandrill.messages.send(inviteClassMailTemplate(
-          doc.emailOrName,
+          targetFirstEmail,
           first,
           last,
-          doc.classCode,
-          classObj.className
+          classObj.classCode,
+          classObj.className,
+          acceptLinkEncoded
         ));
       } catch (e) {
         console.log(e);
       }
-    }, 2 * 1000);
 
     /*Router.go("Classes");*/
 
@@ -157,6 +162,39 @@ Meteor.methods({
     var userObj = Meteor.users.findOne({_id:id});
     var name =  userObj.profile.firstname+" "+userObj.profile.lastname;
     return name ;
+  },
+
+  'chatSendImage':function (file,chatRoomId) {
+
+    Images.insert(file, function(err, fileObj) {
+      if (err) {
+        // handle error
+      } else {
+        // handle success depending what you need to do
+        var userId = Meteor.userId();
+        var imagesURL = {
+          'profile.image': '/cfs/files/images/' + fileObj._id
+        };
+        // Meteor.users.update(userId, {
+        //   $set: imagesURL
+        // });
+
+        var pushObj = {};
+          pushObj.from = Meteor.user();
+          pushObj.sendAt = moment().format('x');
+          pushObj.text = "";
+          pushObj.image = fileObj._id;
+
+
+        Chat.update({_id:Router.current().params.chatRoomId},{$push:{messagesObj:pushObj}});
+
+      }
+    });
+
+
+
+
+
   }
 
 

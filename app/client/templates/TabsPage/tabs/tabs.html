@@ -1,17 +1,17 @@
 <template name="Tabs">
   {{#if isAndroid}}
     {{#ionTabs style="android" class="tabs-background-positive tabs-color-light"}}
-      {{> ionTab title="Home" path="Home" icon="android-home"}}
-      {{> ionTab title="Chat" path="TabChat" icon="android-chat"}}
-      {{> ionTab title="Classes" path="Classes" icon="android-people"}}
-      {{> ionTab title="You" path="You" icon="gear-b"}}
+      <!-- {{> ionTab title="Home" path="Home" icon="android-home"}} -->
+      {{> ionTab title=_Chat path="TabChat" icon="android-chat"}}
+      {{> ionTab title=_Classes path="Classes" icon="android-people"}}
+      {{> ionTab title=_You path="You" icon="gear-b"}}
     {{/ionTabs}}
   {{else}}
     {{#ionTabs style="ios"}}
-      {{> ionTab title="Home" path="Home" iconOff="ios-home-outline" iconOn="ios-home"}}
-      {{> ionTab title="Chat" path="TabChat" iconOff="ios-chatbubble-outline" iconOn="ios-chatbubble"}}
-      {{> ionTab title="Classes" path="Classes" iconOff="ios-people-outline" iconOn="ios-people"}}
-      {{> ionTab title="You" path="You" iconOff="ios-gear-outline" iconOn="ios-gear"}}
+      <!-- {{> ionTab title="Home" path="Home" iconOff="ios-home-outline" iconOn="ios-home"}} -->
+      {{> ionTab title=_Chat path="TabChat" iconOff="ios-chatbubble-outline" iconOn="ios-chatbubble"}}
+      {{> ionTab title=_Classes path="Classes" iconOff="ios-people-outline" iconOn="ios-people"}}
+      {{> ionTab title=_You path="You" iconOff="ios-gear-outline" iconOn="ios-gear"}}
     {{/ionTabs}}
   {{/if}}
 </template>

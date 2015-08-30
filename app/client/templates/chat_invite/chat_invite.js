@@ -55,11 +55,11 @@ Template.ChatInvite.created = function () {
 };
 
 Template.ChatInvite.rendered = function () {
-  $(".js-example-basic-multiple").select2({
-    tags: true,
-    tokenSeparators: [',', ' '],
-    width:"100%"
-    });
+  // $(".js-example-basic-multiple").select2({
+  //   tags: true,
+  //   tokenSeparators: [',', ' '],
+  //   width:"100%"
+  //   });
 };
 
 Template.ChatInvite.destroyed = function () {

@@ -1,14 +1,14 @@
 <template name="EmailSignin">
   {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton}}
+    {{>ionNavBackButton text=" "}}
   {{/contentFor}}
 
   {{#contentFor "headerTitle"}}
-    <h1 class="title">SignIn</h1>
+    <h1 class="title">{{_"SignIn"}}</h1>
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
-    <button  class="button button-clear button-entering button-active loginBtn">Login</button>
+    <button  class="button button-clear button-entering button-active loginBtn">{{_ "Login"}}</button>
   {{/contentFor}}
 
 
@@ -22,10 +22,10 @@
           <div class="sign-form">
             <div class="list ">
               <label class="item item-input">
-                <input type="email" data-bind="value : email" placeholder="Email">
+                <input type="email" data-bind="value : email" placeholder="{{_"Email"}}">
               </label>
               <label class="item item-input">
-                <input type="password" data-bind="value : pwd" placeholder="Password">
+                <input type="password" data-bind="value : pwd" placeholder="{{_"Password"}}">
               </label>
             </div>
             <div style="text-align:center">

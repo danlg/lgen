@@ -1,14 +1,14 @@
 <template name="EmailSignup">
   {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton text="" href="/signin" }}
+    {{>ionNavBackButton text=" " href="/signin" }}
   {{/contentFor}}
 
   {{#contentFor "headerTitle"}}
-    <h1 class="title">Sign a new account</h1>
+    <h1 class="title">{{_ "SignANewAccount"}}</h1>
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
-    <button  class="button button-clear button-entering button-active createBtn">Sign up</button>
+    <button  class="button button-clear button-entering button-active createBtn"> {{_SignUp}} </button>
   {{/contentFor}}
 
 
@@ -22,25 +22,25 @@
     {{#autoForm schema=emailSignup id="signupform" type="method" meteormethod="signup/email" }}
 
     <label class="item item-input">
-          {{> afFieldInput name="firstname" placeholder="First Name" }}
+          {{> afFieldInput name="firstname"  }}
     </label>
     <label class="item item-input">
-          {{> afFieldInput name="lastname" placeholder="Last Name" }}
+          {{> afFieldInput name="lastname"  }}
     </label>
     {{#if isStudent}}
     <label class="item item-input">
-          {{> afFieldInput name="dob" type='text' onfocus="(this.type='date')" placeholder="Date of Birth" }}
+          {{> afFieldInput name="dob" type='text' onfocus="(this.type='date')"  }}
     </label>
     {{/if}}
 
     <label class="item item-input">
-          {{> afFieldInput name="email" placeholder="Email" }}
+          {{> afFieldInput name="email"  }}
     </label>
     <label class="item item-input">
-          {{> afFieldInput name="password" placeholder="Password" type='password' }}
+          {{> afFieldInput name="password"  type='password' }}
     </label>
     <label class="item item-input">
-          {{> afFieldInput name="confirmPassword" placeholder="Confirm Password" type='password' }}
+          {{> afFieldInput name="confirmPassword"  type='password' }}
     </label>
 
 
@@ -54,19 +54,19 @@
           <!-- <div class="sign-form">
             <div class="list ">
               <label class="item item-input">
-                <input type="text" data-bind="value : first" placeholder="First Name">
+                <input type="text" data-bind="value : first" >
               </label>
               <label class="item item-input">
-                <input type="text" data-bind="value : last" placeholder="Last Name">
+                <input type="text" data-bind="value : last" >
               </label>
               <label class="item item-input">
-                <input type="text" data-bind="value : email" placeholder="Email">
+                <input type="text" data-bind="value : email" >
               </label>
               <label class="item item-input">
-                <input type="password" data-bind="value : password" placeholder="Password">
+                <input type="password" data-bind="value : password" >
               </label>
               <label class="item item-input">
-                <input type="password" data-bind="value : cpassword" placeholder="Confirm password">
+                <input type="password" data-bind="value : cpassword" >
               </label>
             </div>
           </div> -->

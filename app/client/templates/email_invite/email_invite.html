@@ -8,13 +8,15 @@
 
 
     {{#contentFor "headerButtonLeft"}}
-      {{>ionNavBackButton text="" }}
+      {{>ionNavBackButton text=" " }}
     {{/contentFor}}
 
 
 
     {{#contentFor "headerButtonRight"}}
-      <button  class="button button-clear button-entering button-active doneClassBtn">?</button>
+      <button  class="button button-clear button-entering button-active doneClassBtn">
+        <i class="icon ion-ios-help-outline"></i>
+      </button>
     {{/contentFor}}
 
     {{#ionContent}}
@@ -31,7 +33,7 @@
         {{#if isSearched this}}
           <div class="item item-button-right">
             {{getName this}}
-            <button class="button button-positive" data-id={{id}}>
+            <button class="button button-positive inviteBtn" data-id={{id}}>
               invite
             </button>
           </div>

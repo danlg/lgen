@@ -4,7 +4,7 @@
 {{#ionView}}
    {{#ionContent}}
 
-   <div class="padding">
+   <!-- <div class="padding">
      <button class="button button-large button-stable button-block" data-action="showLoading">
        Show Loading (3s)
      </button>
@@ -18,7 +18,24 @@
      </button>
    </div>
 
-   <button class="stop">stop</button>
+   <button class="stop">stop</button> -->
+
+   <div class="padding">
+     <input type="file" accept="image/*" class="myFileInput">
+   </div>
+
+   <div class="padding">
+     <input type="file" accept="audio/*" class="myFileInputSound">
+   </div>
+
+   <audio controls>
+      <source src="{{mp3Src}}" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+   <div>
+     <img src="{{src}}" alt="">
+   </div>
 
 
    {{/ionContent}}

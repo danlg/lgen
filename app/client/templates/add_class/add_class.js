@@ -20,6 +20,7 @@ Template.AddClass.created = function () {
 
 Template.AddClass.rendered = function () {
   form = this.$("#insertClass");
+  $(".checked").attr("checked","checked");
 };
 
 Template.AddClass.destroyed = function () {

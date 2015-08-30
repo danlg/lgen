@@ -1,7 +1,7 @@
 <template name="TabYou">
 
     {{#contentFor "headerTitle"}}
-      <h1 class="title">My Account</h1>
+      <h1 class="title">{{_"MyAccount"}}</h1>
     {{/contentFor}}
 
     {{#contentFor "headerButtonLeft"}}
@@ -12,13 +12,13 @@
     {{#ionContent}}
 		<div class="list">
 
-			<a href="{{ pathFor 'MyAccount'  }}"><div class="item" >My accounts</div></a>
+			<a href="{{ pathFor 'MyAccount'  }}"><div class="item" >{{_"MyAccounts"}}</div></a>
 
-			<div class="item" >Notification</div>
-			<div class="item" >About</div>
-			<a href="{{pathFor 'FeedBack'}}"><div class="item" >Feedback</div></a>
-			<div class="item" >Love Little Genius</div>
-			<div class="item signOut" >Sign Out</div>
+			<div class="item" >{{_"Notification"}}</div>
+			<div class="item" >{{_"About"}}</div>
+			<a href="{{pathFor 'FeedBack'}}"><div class="item" >{{_"Feedback"}}</div></a>
+			<div class="item" >{{_ "LoveLittleGenius"}}</div>
+			<div class="item signOut" >{{_ "SignOut"}}</div>
 		</div>
     {{/ionContent}}
 </template>

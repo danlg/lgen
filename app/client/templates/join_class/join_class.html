@@ -7,7 +7,7 @@
 
 
   {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton }}
+    {{>ionNavBackButton text=" " }}
   {{/contentFor}}
 
 
@@ -23,15 +23,19 @@
 <ul class="list ">
 
   <li class="item">
-    <div  style="text-align:center">Enter class code</div>
+    <div class="row row-center" style="height:4rem">
+      <div class="col" >
+        <div  style="text-align:center"><h2>Enter class code</h2></div>
+      </div>
+    </div>
   </li>
 
 
 
     {{#each joinClassArr}}
       <li class="item item-input">
-        <div class="row">
-          <div class="col">
+        <div class="row" style="padding-left:0">
+          <div class="col" style="padding-left:0">
             {{className}}@{{classCode}}
           </div>
           <div class="col leaveBtn" data-classId="{{_id}}">

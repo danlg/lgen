@@ -15,7 +15,7 @@
 
   {{#contentFor "headerButtonRight"}}
   <!-- <div style="position: absolute; right: 0;">
-    <a href="{{pathFor 'classEdit'  }}"  class="button button-clear button-entering button-active "><i class="icon ion-information-circled"></i></a>
+    <a href="{{pathFor 'classEdit'  }}"  class="button button-clear button-entering button-active "><i class="icon ion-ios-information-outline"></i></a>
   </div> -->
   {{/contentFor}}
 
@@ -29,15 +29,62 @@
     {{#each chatRoomProfile.messagesObj}}
       {{#if isMind from }}
       <div class="item mind">
+
+        {{#if isText this}}
+
         <div class="bubble" >
         {{text}}
         </div>
+
+        {{else}}
+
+        {{#if isImage this }}
+
+          {{#with getImage this}}
+
+            {{#if this.isUploaded}}
+              <img src="{{this.url store='thumbs' }}" alt="">
+            {{/if}}
+
+          {{/with}}
+
+
+        {{/if}}
+
+        {{/if}}
+
+
+
+
       </div>
       {{else}}
       <div class="item notmind">
+
+        {{#if isText this}}
+
         <div class="bubble" >
-          {{text}}
+        {{text}}
         </div>
+
+        {{else}}
+
+        {{#if isImage this }}
+
+          {{#with getImage this}}
+
+            {{#if this.isUploaded}}
+              <img src="{{this.url store='thumbs' }}" alt="">
+            {{/if}}
+
+          {{/with}}
+
+
+        {{/if}}
+
+        {{/if}}
+
+
+
       </div>
       {{/if}}
     {{/each}}
@@ -50,7 +97,14 @@
 
   <div class="list inputBoxList">
     <div class="item item-input">
-      <textarea dir="auto" name="msg" maxlength="5000" class="inputBox autogrow-short" placeholder="Message"></textarea>
+      <div style="margin-left:5px;margin-right:30px">
+        <label class="imageBtnTri" ><i class="icon ion-image"></i></label>
+        <input type="file" accept="image/*" id="imageBtn" class="hide" >
+      </div>
+      <!-- <div style="margin-left:30px;"><i class="icon ion-mic-a"></i></div> -->
+      <!-- <div style="margin:0 30px;"><i class="icon ion-paperclip"></i></div> -->
+
+      <textarea style="font-size:20px;line-height:25px;" dir="auto" name="msg" maxlength="5000" class="inputBox autogrow-short" placeholder="Message"></textarea>
       <button style="margin-right:10px" class="sendBtn button button-clear" >send</button>
     </div>
   </div>

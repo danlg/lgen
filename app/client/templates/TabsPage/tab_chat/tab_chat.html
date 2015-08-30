@@ -1,7 +1,7 @@
 <template name="TabChat">
 
   {{#contentFor "headerTitle"}}
-    <h1 class="title">Chat</h1>
+    <h1 class="title">{{_"Chat"}}</h1>
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
@@ -21,7 +21,7 @@
       <div class="list">
         <div class="item item-input">
           <i class="icon ion-search placeholder-icon"></i>
-          <input type="search" class="searchbar" placeholder="search">
+          <input type="search" class="searchbar" placeholder="{{_ 'search'}}">
         </div>
 
 
@@ -42,7 +42,7 @@
         {{else}}
 
             <div class="item">
-              no record
+              {{_ 'NoRecord'}}
             </div>
 
         {{/with}}
