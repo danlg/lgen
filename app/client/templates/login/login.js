@@ -4,8 +4,16 @@
 Template.Login.events({
   'click .gmailLoginBtn':function(){
       Meteor.loginWithGoogle(function(err){
-          err?alert(err):Router.go('role');
-        })
+        if(err)
+          alert(err);
+        else {
+          if(Meteor.user().profile.role!=="")
+            Router.go('TabChat');
+          else
+            Router.go('role');
+        }
+
+      });
   }
 });
 

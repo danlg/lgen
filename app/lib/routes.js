@@ -40,7 +40,7 @@ OnBeforeActions = {
 */
 
 Router.onBeforeAction(OnBeforeActions.roleRequired, {
-  only: ['Home']
+  only: ['TabChat']
 });
 
 Router.onBeforeAction(OnBeforeActions.loginedRedirect, {

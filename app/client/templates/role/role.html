@@ -20,36 +20,51 @@
   </template> -->
 
 <template name="_modal">
-	{{#ionModal title="" }}
-    <div class="padding">
-      <div class="row row-center">
-      		<div class="col" >
-      			<div>
-      				<button class="button role" data-role="Teacher"  >
-								<i class="icon ion-paintbrush"></i>
-								<div>
-									{{_ "Teacher"}}
-								</div>
-      				</button>
-      			</div>
-      			<div>
-      				<button class="button role" data-role="Parent"  >
-								<i class="icon ion-person"></i>
-      					<div>
-      						{{_ "Parent"}}
-      					</div>
-      				</button>
-      			</div>
-      			<div>
-      				<button class="button role" data-role="Student"  >
-								<i class="icon ion-university"></i>
-								<div>
-									{{_ "Student"}}
-								</div>
-      				</button>
-      			</div>
-      		</div>
-      </div>
+	{{#ionModal title="" customTemplate=true }}
+
+
+    <div class="">
+      {{#unless currentUser }}
+        <button data-dismiss="modal" class="button button-icon"><i class="icon ion-ios-close-empty"></i></button>
+      {{/unless}}
     </div>
+    <div class="content has-header overflow-scroll">
+
+      <div class="padding">
+        <div class="row row-center">
+        		<div class="col" >
+        			<div>
+        				<button class="button role" data-role="Teacher"  >
+  								<i class="icon ion-paintbrush"></i>
+  								<div>
+  									{{_ "Teacher"}}
+  								</div>
+        				</button>
+        			</div>
+        			<div>
+        				<button class="button role" data-role="Parent"  >
+  								<i class="icon ion-person"></i>
+        					<div>
+        						{{_ "Parent"}}
+        					</div>
+        				</button>
+        			</div>
+        			<div>
+        				<button class="button role" data-role="Student"  >
+  								<i class="icon ion-university"></i>
+  								<div>
+  									{{_ "Student"}}
+  								</div>
+        				</button>
+        			</div>
+        		</div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
   {{/ionModal}}
 </template>

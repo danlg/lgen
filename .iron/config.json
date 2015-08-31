@@ -14,9 +14,12 @@
   "route": {
     "controller": true,
     "template": true
+  },
+
+  "mup": {
+    "version": "mup",
+    "anyenv": "/any/folder"
   }
-
-
 
 
 }

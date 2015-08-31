@@ -12,11 +12,7 @@ var postHooks = {
 
   onSuccess: function(operation, result, template) {
     // display success, reset form status
-    IonLoading.show({
-      backdrop: true
-    });
     Meteor.call('addClassMail',Meteor.user().emails[0].address,result,function(err,res){
-        IonLoading.hide();
         err?alert(err):Router.go('Classes');
     });
   },

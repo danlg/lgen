@@ -41,7 +41,8 @@ getClassCodeNew = function(className){
   var firstname = Meteor.user().profile.firstname;
   var lastname = Meteor.user().profile.lastname;
   var name = firstname.substring(0,1) + lastname.substring(0,4);
-  return name+className;
+  var fullname = name+className.toLowerCase();
+  return fullname;
 };
 
 getFullNameByProfileObj=function(profile){

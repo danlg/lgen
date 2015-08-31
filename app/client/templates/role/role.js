@@ -9,7 +9,7 @@ Template.Role.events({
           Router.go('TabChat');
         });
     }else{
-      Router.go('email-signup',{role:$this.data('role')})
+      Router.go('email-signup',{role:$this.data('role')});
     }
   }
 });
@@ -29,12 +29,12 @@ Template.Role.created = function () {
 };
 
 Template.Role.rendered = function () {
-  if(Meteor.user()){
-    var userObj=Meteor.user();
-      /*if(!_.pick(userObj,'role')=='')*/
-        Router.go('TabChat');
-  }
-  IonModal.open('_modal',"");
+  // if(Meteor.user()){
+  //   var userObj=Meteor.user();
+  //     /*if(!_.pick(userObj,'role')=='')*/
+  //       Router.go('TabChat');
+  // }
+  IonModal.open('_modal');
 };
 
 Template.Role.destroyed = function () {
@@ -53,7 +53,7 @@ Template._modal.events({
 
       }else{
 
-        Router.go("email-signup",{role:role})
+        Router.go("email-signup",{role:role});
       }
     }
 

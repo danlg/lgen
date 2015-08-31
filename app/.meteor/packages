@@ -58,3 +58,4 @@ gwendall:autoform-i18n
 cfs:standard-packages
 cfs:gridfs
 cfs:graphicsmagick
+raix:push

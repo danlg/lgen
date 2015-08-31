@@ -10,7 +10,7 @@
 
 Accounts.config({
    loginExpirationInDays: null
-}) 
+});
 
 
 ServiceConfiguration.configurations.remove({
@@ -19,7 +19,7 @@ ServiceConfiguration.configurations.remove({
 ServiceConfiguration.configurations.insert({
     service: "google",
     clientId: "621918568251-nf0apn9k6s71808cvp7v5j1ciuluk6vr.apps.googleusercontent.com",
-    secret: "cayfgSLf0iONHPtki5E78ov2"
+    secret: "qZ5NcbllTG4Hy_gkGiZ9mKkT"
 });
 
 
