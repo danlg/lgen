@@ -3,3 +3,13 @@ Accounts.onEmailVerificationLink(function(token){
     err?alert(err):Router.go('TabChat');
   });
 });
+
+
+Push.addListener('token', function(token) {
+        // Token is { apn: 'xxxx' } or { gcm: 'xxxx' }
+        var x={"asd":"asd"};
+        console.log(token);
+        console.log(x);
+
+
+});

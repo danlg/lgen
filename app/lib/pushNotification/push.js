@@ -12,7 +12,8 @@ Push.allow({
   //  });
 
 
-  Push.addListener('token', function(token) {
-          // Token is { apn: 'xxxx' } or { gcm: 'xxxx' }
-    Meteor.call('raix:push-setuser',Push.id());
-  });
+  Push.addListener('error', function(err) {
+          if (error.type == 'apn.cordova') {
+              console.log(err.error);
+          }
+      });

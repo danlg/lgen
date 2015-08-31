@@ -48,3 +48,6 @@ getClassCodeNew = function(className){
 getFullNameByProfileObj=function(profile){
     return profile.firstname+" "+profile.lastname;
 };
+
+
+token={};

@@ -31,6 +31,8 @@ Template.Login.created = function () {
 
 Template.Login.rendered = function () {
   /*console.log(Meteor.user());*/
+  console.log(token);
+  console.log(token.gcm);
 };
 
 Template.Login.destroyed = function () {

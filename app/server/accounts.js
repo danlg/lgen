@@ -22,6 +22,23 @@ ServiceConfiguration.configurations.insert({
     secret: "qZ5NcbllTG4Hy_gkGiZ9mKkT"
 });
 
+// Accounts.onLogin(function (argument) {
+//
+//
+//
+//
+//
+//
+//   Meteor.call("raix:push-setuser", token , function(error, result){
+//     if(error){
+//       console.log("error", error);
+//     }
+//     if(result){
+//        console.log("updateGcm");
+//     }
+//   });
+// });
+
 
 Accounts.onCreateUser(function(options, user) {
 
@@ -55,7 +72,7 @@ Accounts.onCreateUser(function(options, user) {
       break;
     }*/
 
-
+    
 
   }
 

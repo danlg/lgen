@@ -6,11 +6,11 @@ var postHooks = {
     }
   },
   onSuccess: function(operation, result, template) {
-    Router.go('signin');
+    
   },
   onError: function(formType, error) {
     alert(error);
   }
-}
+};
 
 AutoForm.addHooks('signupform', postHooks);
