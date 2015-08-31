@@ -6,7 +6,8 @@
       "username": "lg",
       "password": "genie123"
       // or pem file (ssh based authentication)
-      //"pem": "~/.ssh/id_rsa"
+      //, "pem": "~/.ssh/id_rsa"
+      //"pem": "~/.ssh/dolgdev2.pub"
     }
   ],
 
@@ -17,7 +18,7 @@
   "setupNode": true,
 
   // WARNING: If nodeVersion omitted will setup 0.10.36 by default. Do not use v, only version number.
-  "nodeVersion": "0.10.36",
+  "nodeVersion": "0.10.40",
 
   // Install PhantomJS in the server
   "setupPhantom": true,
@@ -27,10 +28,10 @@
   "enableUploadProgressBar": true,
 
   // Application name (No spaces)
-  "appName": "LittleGenius",
+  "appName": "littlegenius",
 
   // Location of app (local directory)
-  "app": "/Users/mike/lgen/app",
+  "app": "~/DEV/github2/lgen/app",
 
   // Configure environment
   "env": {
