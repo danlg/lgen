@@ -9,7 +9,9 @@ Template.ClassInvitation.events({
 /* ClassInvitation: Helpers */
 /*****************************************************************************/
 Template.ClassInvitation.helpers({
-  
+  'getclassCode':function (argument) {
+    return Router.current().params.classCode;
+  }
 });
 
 /*****************************************************************************/

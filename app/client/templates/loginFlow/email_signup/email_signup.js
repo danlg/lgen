@@ -38,10 +38,40 @@ Template.ionNavBar.events({
       err ? alert(err) : Router.go('TabChat');
     });*/
 
-      AutoForm.submitFormById("#signupform");
+      // AutoForm.submitFormById("#signupform");
+
+      var userObj={};
+      userObj.profile={};
+      userObj.email=$(".email").val();
+      userObj.profile.firstname=$(".fn").val();
+      userObj.profile.lastname=$(".ln").val();
+      userObj.profile.role=Router.current().params.role;
+      userObj.profile.dob= $(".dob").val() || "";
+
+      if(!validateEmail(userObj.email)){
+        alert("Incorrect Email");
+      }else if($(".pwd").val().length<4){
+        alert("At least 3 characters Password");
+      }else{
+        Accounts.createUser({
+          email : userObj.email,
+          password : $('.pwd').val(),
+          profile:userObj.profile
+        },function (err) {
+          if(err)
+            alert(err);
+          else
+            Router.go("TabClasses");
+        });
+
+      }
+
+
+
+
 
 
 
   }
 
-})
+});

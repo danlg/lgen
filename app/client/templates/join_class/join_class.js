@@ -41,6 +41,6 @@ Template.JoinClass.destroyed = function () {
 
 Template.ionNavBar.events({
   'click .doneClassBtn':function(e,template){
-      Router.go("Classes");
+      Router.go('TabClasses')
     }
   });

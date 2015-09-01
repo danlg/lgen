@@ -4,7 +4,7 @@
 Template.ClassInfomation.events({
   'click .unsub':function(){
     Meteor.call('class/leaveByCode',Router.current().params.classCode,function(){
-          Router.go('Classes')
+          Router.go('TabClasses')
       })
   }
 });

@@ -13,7 +13,7 @@ var postHooks = {
   onSuccess: function(operation, result, template) {
     // display success, reset form status
     Meteor.call('addClassMail',Meteor.user().emails[0].address,result,function(err,res){
-        err?alert(err):Router.go('Classes');
+        err?alert(err):Router.go('TabClasses');
     });
   },
   onError: function(formType, error) {

@@ -20,6 +20,24 @@ $positive:                        #ACDA45 ;
   color: #999;
 }
 
+.NoRecord{
+  text-align: center;
+  font-size: 5rem;
+}
+
+.background{
+  background-image: url("img/text.png");
+  background-size: cover;
+  background-position: center;
+}
+.bg{
+  background-image: url("img/text.png");
+  background-size: cover;
+  background-position: center;
+}
+
+
+
 
 @import '.meteor/local/build/programs/server/assets/packages/meteoric_ionic-sass/ionic';
 @import '.meteor/local/build/programs/server/assets/packages/meteoric_ionicons-sass/ionicons';

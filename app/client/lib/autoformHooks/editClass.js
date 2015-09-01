@@ -16,14 +16,14 @@ var postHooks = {
           Meteor.user().emails[0].address,
           classObj.className,
           function(err,res){
-            err?alert(err):Router.go('Classes');
+            err?alert(err):Router.go('TabClasses');
           });*/
 
 
 
 
 
-          Router.go("Classes");
+          Router.go("TabClasses");
 
   },
   onError:function(type,error){

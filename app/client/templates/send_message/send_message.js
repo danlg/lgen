@@ -97,7 +97,7 @@ Template.ionNavBar.events({
     if(target!=""){
       Meteor.call('sendMsg',target,msg,function(){
         Session.set("sendMessageSelectedClasses",{selectArrName:[],selectArrId:[]});
-        Router.go("Classes");
+        Router.go('TabClasses')
       });
     }else{
       alert("no class select!")

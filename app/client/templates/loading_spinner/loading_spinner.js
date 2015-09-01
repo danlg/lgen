@@ -1,4 +1,4 @@
-var loading = true
+var loading = true;
 /*****************************************************************************/
 /* LoadingSpinner: Event Handlers */
 /*****************************************************************************/
@@ -19,7 +19,6 @@ Template.LoadingSpinner.onCreated(function () {
   Meteor.setTimeout(function(){
     if(loading){
       IonLoading.show({
-        backdrop: true
       });
     }
   }, 100);
@@ -30,8 +29,8 @@ Template.LoadingSpinner.onRendered(function () {
 });
 
 Template.LoadingSpinner.onDestroyed(function () {
-    loading =false;
+  if(loading){
     IonLoading.hide();
-    
-
+    loading =false;
+  }
 });

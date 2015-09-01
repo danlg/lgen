@@ -1,6 +1,6 @@
 Router.configure({
-  // layoutTemplate: 'NavBarScreenLayout',
-  loadingTemplate: 'LoadingSpinner',
+  layoutTemplate: 'MasterLayout',
+  // loadingTemplate: 'LoadingSpinner',
   notFoundTemplate: 'NotFound'
 });
 
@@ -9,7 +9,7 @@ var OnBeforeActions;
 OnBeforeActions = {
   loginRequired: function(pause) {
     if (!Meteor.userId()) {
-      Router.go('signin');
+      Router.go('Login');
       this.next();
     } else {
       this.next();
@@ -51,44 +51,43 @@ Router.onBeforeAction('loading');
 
 
 Router.route('language', {
-  controller: 'LoginController',
-  action: "language",
+  // controller: 'LoginController',
+  // action: "language",
   path: "/",
+  name:"language"
 });
-Router.route('signin', {
-  controller: 'LoginController',
-  action: "signin"
+Router.route('/loginMethod', {
+  name:"Login"
 });
-Router.route('email-signin', {
-  controller: 'LoginController',
-  action: "emailsigin"
+Router.route('/email-signin', {
+  // controller: 'LoginController',
+  name:"EmailSignin"
 });
-Router.route('email-signup', {
-  controller: 'LoginController',
-  action: "emailsigup",
+Router.route('EmailSignup', {
   path: "email-signup/:role",
 });
 
-Router.route('role', {
-  controller: 'LoginController',
-  action: "role"
-});
+// Router.route('role', {
+//   controller: 'LoginController',
+//   action: "role"
+// });
+//
+// Router.route('dob', {
+//   controller: 'LoginController',
+//   action: "dob"
+// });
 
-Router.route('dob', {
-  controller: 'LoginController',
-  action: "dob"
-});
-
-Router.route('Home', {
-  controller: 'MainApplicationController',
-});
+// Router.route('Home', {
+//   controller: 'MainApplicationController',
+// });
 
 Router.route('TabChat', {
-  layoutTemplate: "NavBarScreenLayout",
+  // layoutTemplate: "NavBarScreenLayout",
   waitOn: function() {
-    return [Meteor.subscribe('getAllMyChatRooms'), Meteor.subscribe('getChatRoomMenbers')];
-
-
+    return [
+      Meteor.subscribe('getAllMyChatRooms'),
+      Meteor.subscribe('getChatRoomMenbers')
+    ];
   },
   /*subscription:function(){
     Meteor.subscribe('getAllMyChatRooms');
@@ -97,39 +96,40 @@ Router.route('TabChat', {
   path: "chat"
 });
 
-Router.route('You', {
-  controller: 'MainApplicationController',
-  action: "you"
+Router.route('TabYou', {
+  // controller: 'MainApplicationController',
+  // action: "you"
+  path:"You"
 });
 
 
 Router.route('Chatoption', {
-  layoutTemplate: "NavBarScreenLayout",
+  // layoutTemplate: "NavBarScreenLayout",
   path: "chat/option",
   waitOn: function() {
     Meteor.subscribe('createdClassByMe');
   }
 });
 Router.route('WorkTimeSelection', {
-  layoutTemplate: "NavBarScreenLayout",
+  // layoutTemplate: "NavBarScreenLayout",
   path: "chat/option/weeksTime",
 });
 Router.route('Notification', {
-  layoutTemplate: "NavBarScreenLayout",
+  // layoutTemplate: "NavBarScreenLayout",
   path: "notice/:msgCode",
   waitOn: function() {
     Meteor.subscribe('getClassMsgId', this.params.msgCode);
   }
 });
 Router.route('ClassPanelMsgNotice', {
-  layoutTemplate: "NavBarScreenLayout",
+  // layoutTemplate: "NavBarScreenLayout",
   path: "panel/notice/:msgCode",
   waitOn: function() {
     return Meteor.subscribe('getClassMsgId', this.params.msgCode);
   }
 });
 Router.route('NotificationDetail', {
-  layoutTemplate: "NavBarScreenLayout",
+  // layoutTemplate: "NavBarScreenLayout",
   path: "notice/:msgCode/detail",
   waitOn: function() {
     Meteor.subscribe('getClassMsgId', this.params.msgCode);
@@ -137,7 +137,7 @@ Router.route('NotificationDetail', {
 });
 
 Router.route('ClassInfomation', {
-  layoutTemplate: "NavBarScreenLayout",
+  // layoutTemplate: "NavBarScreenLayout",
   path: "class/:classCode/info",
   waitOn: function() {
     return [
@@ -148,54 +148,77 @@ Router.route('ClassInfomation', {
 });
 
 
-Router.route('Classes', {
-  controller: 'MainApplicationController',
-  action: "classes"
+Router.route('TabClasses', {
+  // controller: 'MainApplicationController',
+  // action: "classes"
+  path:"Classes",
+  waitOn:function (argument) {
+      Meteor.subscribe('joinedClass');
+      Meteor.subscribe('createdClassByMe');
+  }
+
 });
 
 Router.route('AddClass', {
-  controller: 'ClassController',
+  // controller: 'ClassController',
   path: "class/add"
 });
 
 Router.route('JoinClass', {
   // controller: 'ClassController',
-  layoutTemplate: "NavBarScreenLayout",
+  // layoutTemplate: "NavBarScreenLayout",
   path: "class/join",
   waitOn: function() {
     Meteor.subscribe('joinedClass');
   }
 });
 Router.route('ClassInvitation', {
-  controller: 'ClassWithIdController',
+  // controller: 'ClassWithIdController',
   path: "class/:classCode/invite"
 });
 
 Router.route('EmailInvite', {
   /*controller: 'ClassWithIdController',*/
-  layoutTemplate: "NavBarScreenLayout",
+  // layoutTemplate: "NavBarScreenLayout",
   path: "class/:classCode/invite-email",
   waitOn: function() {
     return Meteor.subscribe('class', this.params.classCode);
   }
 });
 
-
+Router.route('ChatRoom', {
+  path: "chat/:chatRoomId",
+  waitOn: function() {
+    return [Meteor.subscribe('getChatRoomById', this.params.chatRoomId),Meteor.subscribe('images')];
+  }
+});
 
 
 Router.route('classDetail', {
-  controller: 'ClassWithIdController',
-  /*layoutTemplate:"NavBarScreenLayout",*/
+  // controller: 'ClassWithIdController',
+  // layoutTemplate:"NavBarScreenLayout",
   path: "class/:classCode/detail",
+  waitOn: function() {
+    return Meteor.subscribe('class', this.params.classCode);
+  }
+});
+
+Router.route('ChatInvite', {
+  // layoutTemplate: "NavBarScreenLayout",
+  path: "chat-invite",
+  waitOn: function() {
+    /*Meteor.subscribe('joinedClass');*/
+    return Meteor.subscribe('getAllJoinedClassesUser');
+  }
 });
 
 Router.route('ShareInvite', {
-  controller: 'ClassWithIdController',
+  // controller: 'ClassWithIdController',
   path: "class/:classCode/invite/share"
 });
 Router.route('classEdit', {
   /*controller: 'ClassWithIdController',*/
-  layoutTemplate: "NavBarScreenLayout",
+  // layoutTemplate: "NavBarScreenLayout",
   path: "class/:classCode/edit",
   waitOn: function() {
     return Meteor.subscribe('class', this.params.classCode);
@@ -204,7 +227,7 @@ Router.route('classEdit', {
 
 Router.route('ClassUsers', {
   path: "class/:classCode/users",
-  layoutTemplate: "NavBarScreenLayout",
+  // layoutTemplate: "NavBarScreenLayout",
   waitOn: function() {
     Meteor.subscribe('getJoinedClassUser', this.params.classCode);
   }
@@ -213,24 +236,21 @@ Router.route('ClassUsers', {
 Router.route('UserDetail', {
   /*controller: 'UserController',*/
   path: "user/:_id",
-  layoutTemplate: "NavBarScreenLayout",
+  // layoutTemplate: "NavBarScreenLayout",
   waitOn: function() {
     return[
       Meteor.subscribe('getUserById', this.params._id),
       Meteor.subscribe('getJoinedClassByUserId', this.params._id)
-    ]
+    ];
   }
 
 });
 
-Router.route('MyAccount', function() {
-  this.layout('NavBarScreenLayout');
-  this.render('MyAccount');
-});
+Router.route('MyAccount');
 
 Router.route('SendMessage', {
   /*controller: 'MessageController',*/
-  layoutTemplate: "NavBarScreenLayout",
+  // layoutTemplate: "NavBarScreenLayout",
   path: "message/send/:classCode?",
   waitOn: function() {
     return Meteor.subscribe('createdClassByMe');
@@ -238,7 +258,7 @@ Router.route('SendMessage', {
 });
 
 Router.route('MessageClassSelection', {
-  layoutTemplate: "NavBarScreenLayout",
+  // layoutTemplate: "NavBarScreenLayout",
   path: "message/classselect",
   waitOn: function() {
     return Meteor.subscribe('createdClassByMe');
@@ -248,7 +268,7 @@ Router.route('MessageClassSelection', {
 Router.route('ClassPanel', {
   /*controller: 'MessageController',*/
   path: "class/:classCode/panel",
-  layoutTemplate: "NavBarScreenLayout",
+  // layoutTemplate: "NavBarScreenLayout",
   waitOn: function() {
     return Meteor.subscribe('class', this.params.classCode);
   }
@@ -256,7 +276,7 @@ Router.route('ClassPanel', {
 });
 
 Router.route('Testing', {
-  layoutTemplate: "NavBarScreenLayout",
+  // layoutTemplate: "NavBarScreenLayout",
   waitOn: function() {
     return [
       Meteor.subscribe('images'),
@@ -269,23 +289,10 @@ Router.route('Test2', {
   controller: "TestController",
 
 });
-Router.route('ChatInvite', {
-  layoutTemplate: "NavBarScreenLayout",
-  path: "chat/invite",
-  waitOn: function() {
-    /*Meteor.subscribe('joinedClass');*/
-    return Meteor.subscribe('getAllJoinedClassesUser');
-  }
-});
-Router.route('ChatRoom', {
-  controller: 'ChatRoomController',
-  path: "chat/:chatRoomId",
-  waitOn: function() {
-    return [Meteor.subscribe('getChatRoomById', this.params.chatRoomId),Meteor.subscribe('images')];
-  }
-});
+
+
 
 
 Router.route('FeedBack', {
-  layoutTemplate: "NavBarScreenLayout",
+  // layoutTemplate: "NavBarScreenLayout",
 });

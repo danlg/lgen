@@ -20,7 +20,7 @@ Template.TabChat.helpers({
     var allchat = Chat.find() ;
     totalResult = allchat.length;
     if( Chat.find().count() >0 ){
-      return allchat
+      return allchat;
     }else{
       return false;
     }
@@ -28,7 +28,7 @@ Template.TabChat.helpers({
   'chatroomMenberName':function(chatIds){
     var string = [];
     var userObjArr = lodash.reject(chatIds,{_id:Meteor.userId()});
-    userObjArr =  lodash.map(userObjArr,'profile')
+    userObjArr =  lodash.map(userObjArr,'profile');
     lodash.forEach(userObjArr,function(el,index){
       var name = el.firstname +" "+ el.lastname;
       string.push(name);
@@ -46,7 +46,7 @@ Template.TabChat.helpers({
   'isHide':function(chatIds){
     var string = [];
     var userObjArr = lodash.reject(chatIds,Meteor.user());
-    userObjArr =  lodash.map(userObjArr,'profile')
+    userObjArr =  lodash.map(userObjArr,'profile');
     lodash.forEach(userObjArr,function(el,index){
       var name = el.firstname +" "+ el.lastname;
       string.push(name);
@@ -55,9 +55,9 @@ Template.TabChat.helpers({
     if(lodash.includes(lodash(string).toString().toUpperCase(),text.get().toUpperCase())){
       return true;
     }else{
-      return false;
+    return false;
     }
-  },
+  }
 });
 
 /*****************************************************************************/
@@ -68,6 +68,7 @@ Template.TabChat.created = function () {
 
 Template.TabChat.rendered = function () {
   text.set("");
+  $("body").removeClass('modal-open');
 };
 
 Template.TabChat.destroyed = function () {

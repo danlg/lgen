@@ -11,7 +11,7 @@
 
 
     {{#contentFor "headerButtonRight"}}
-      <button  class="button button-clear button-entering button-active addClassBtn">?</button>
+      <!-- <button  class="button button-clear button-entering button-active addClassBtn">?</button> -->
     {{/contentFor}}
 
   {{#ionView}}
@@ -28,8 +28,8 @@
     </div>
     <ul class="list">
       <li class="item">In-class</li>
-      <a href="{{pathFor 'ShareInvite' classCode=classObj.classCode }}"><li class="item">Share a Link</li></a>
-      <a href="{{pathFor 'EmailInvite' classCode=classObj.classCode }}"><li class="item">send</li></a>
+      <a href="{{pathFor 'ShareInvite' classCode=getclassCode }}"><li class="item">Share a Link</li></a>
+      <a href="{{pathFor 'EmailInvite' classCode=getclassCode }}"><li class="item">send</li></a>
     </ul>
 
 

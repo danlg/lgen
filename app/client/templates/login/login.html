@@ -1,29 +1,31 @@
 <template name="Login">
 
-
+{{#ionView class="bg" }}
 {{#ionContent}}
 
 
-  <div style="width:100vw;height:60vh"></div>
-  <div class="padding-horizontal">
-    <!-- <a href="{{ pathFor 'role' }}" class="button button-block button-positive" > -->
-    <a href="" class="button button-block button-positive" data-ion-modal="_modal" >
-      {{_ "SignUp"}}
-    </a>
-  </div>
-  <div class="padding-horizontal">
-    <a href="{{ pathFor 'email-signin' }}" class="button button-block button-positive" >
-      {{_ "Login"}}
-    </a>
-  </div>
-  <div class="padding-horizontal">
-    <a class="button button-block button-positive gmailLoginBtn" >
-      {{_ "Gmaillogin"}}
-    </a>
-  </div>
+
+    <div style="width:100vw;height:60vh"></div>
+    <div class="padding-horizontal">
+      <!-- <a href="{{ pathFor 'role' }}" class="button button-block button-positive" > -->
+      <a href="" class="button button-block button-positive" data-ion-modal="_modal" >
+        {{_ "SignUp"}}
+      </a>
+    </div>
+    <div class="padding-horizontal">
+      <a href="{{ pathFor 'EmailSignin' }}" class="button button-block button-positive" >
+        {{_ "Login"}}
+      </a>
+    </div>
+    <div class="padding-horizontal">
+      <a class="button button-block button-positive gmailLoginBtn" >
+        {{_ "Gmaillogin"}}
+      </a>
+    </div>
+
 
   {{/ionContent}}
-
+{{/ionView}}
 
 
 </template>

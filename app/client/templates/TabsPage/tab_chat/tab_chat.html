@@ -18,14 +18,18 @@
   {{#ionView}}
     {{#ionContent}}
 
-      <div class="list">
-        <div class="item item-input">
-          <i class="icon ion-search placeholder-icon"></i>
-          <input type="search" class="searchbar" placeholder="{{_ 'search'}}">
-        </div>
+
+    <div class="list">
+      <div class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="search" class="searchbar" placeholder="{{_ 'search'}}">
+      </div>
 
 
         {{#with getAllMyChatRooms }}
+
+
+
 
 
           {{#each this}}
@@ -41,7 +45,7 @@
 
         {{else}}
 
-            <div class="item">
+            <div class="item NoRecord">
               {{_ 'NoRecord'}}
             </div>
 

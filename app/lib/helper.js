@@ -41,13 +41,15 @@ getClassCodeNew = function(className){
   var firstname = Meteor.user().profile.firstname;
   var lastname = Meteor.user().profile.lastname;
   var name = firstname.substring(0,1) + lastname.substring(0,4);
-  var fullname = name+className.toLowerCase();
-  return fullname;
+  var fullname = name+className;
+  return fullname.toLowerCase();
 };
 
 getFullNameByProfileObj=function(profile){
     return profile.firstname+" "+profile.lastname;
 };
 
-
-token={};
+validateEmail = function(email) {
+    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    return re.test(email);
+};

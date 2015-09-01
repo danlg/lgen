@@ -36,12 +36,8 @@ jparker:crypto-sha1
 iron:router
 fourseven:scss@2.0.0
 meteoric:ionic-sass
-meteoric:ionic
-ccorcos:transitioner
 zimme:active-route
 stevezhu:lodash
-msavin:mongol
-alanning:roles
 meteoric:ionicons-sass
 
 reactive-var
@@ -59,3 +55,4 @@ cfs:standard-packages
 cfs:gridfs
 cfs:graphicsmagick
 raix:push
+dcsan:ionic

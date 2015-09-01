@@ -1,11 +1,12 @@
-var classObj
+var classObj;
+var teacherName = ReactiveVar("");
 /*****************************************************************************/
 /* ClassDetail: Event Handlers */
 /*****************************************************************************/
 Template.ClassDetail.events({
   'click .tab-item':function(e){
-    var msgId = $(e.target.parentNode).data("msgid")
-    var action = $(e.target.parentNode).data("action")
+    var msgId = $(e.target.parentNode).data("msgid");
+    var action = $(e.target.parentNode).data("action");
     Meteor.call('updateMsgRating',action,msgId,classObj);
   },
 });
@@ -25,6 +26,9 @@ Template.ClassDetail.helpers({
   className:function(){
     return classObj.className;
   },
+  getClassName:function(){
+    return Classes.findOne().className;
+  },
   actions:function(){
     return ["star", "checked", "close", "help"];
   },
@@ -42,9 +46,15 @@ Template.ClassDetail.helpers({
     if(classObj.messagesObj.length>0){
       return classObj.messagesObj;
     }else{
-      return false
+      return false;
     }
-  }
+  },
+  teacherName:function(){
+
+
+    return teacherName.get();
+
+  },
 });
 
 /*****************************************************************************/
@@ -54,6 +64,9 @@ Template.ClassDetail.created = function () {
 };
 
 Template.ClassDetail.rendered = function () {
+  Meteor.call('getFullNameById',classObj.createBy,function(err,data){
+      return teacherName.set(data);
+  });
 };
 
 Template.ClassDetail.destroyed = function () {

@@ -2,7 +2,7 @@
 /*****************************************************************************/
 /* Lang: Event Handlers */
 /*****************************************************************************/
-Template.Lang.events({
+Template.Language.events({
 	'click .button':function(event){
 		var lang = $(event.target).data('lang');
 		Session.setPersistent('lang',lang);
@@ -13,17 +13,17 @@ Template.Lang.events({
 /*****************************************************************************/
 /* Lang: Helpers */
 /*****************************************************************************/
-Template.Lang.helpers({
+Template.Language.helpers({
 });
 
 /*****************************************************************************/
 /* Lang: Lifecycle Hooks */
 /*****************************************************************************/
-Template.Lang.created = function () {
+Template.Language.created = function () {
 	Session.setDefaultPersistent("lang","en");
 };
 
-Template.Lang.rendered = function () {
+Template.Language.rendered = function () {
 
 
 
@@ -49,5 +49,5 @@ Template.Lang.rendered = function () {
   });*/
 };
 
-Template.Lang.destroyed = function () {
+Template.Language.destroyed = function () {
 };

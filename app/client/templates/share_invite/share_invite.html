@@ -1,7 +1,7 @@
 <template name="ShareInvite">
 
   {{#contentFor "headerTitle"}}
-    <h1 class="title">Share this link with your class!</h1>
+    <h1 class="title">Share a link</h1>
   {{/contentFor}}
 
   {{#contentFor "headerButtonLeft"}}
@@ -11,12 +11,12 @@
 
 
   {{#contentFor "headerButtonRight"}}
-    <button  class="button button-clear button-entering button-active addClassBtn">?</button>
+    <!-- <button  class="button button-clear button-entering button-active addClassBtn">?</button> -->
   {{/contentFor}}
 
-
+{{#ionView}}
 {{#ionContent}}
-
+<!--
   <div class="row row-center" style="height:70vh">
     <div class="col">
         <h1>Share this link with your class</h1>
@@ -29,9 +29,34 @@
           <div class="col copyBth">Copy</div>
         </div>
     </div>
+  </div> -->
+
+  <div class="card">
+  <div class="item item-text-wrap">
+      <div style="text-align:center">
+        <h2>Share this link with your class</h2>
+        <p>sharing this link helps students and parent join your class</p>
+      </div>
+      <div class="classCodeDiv">
+        https://gen.me/join/{{classCode}}
+      </div>
+    <div>
+        <button class="button button-block button-positive shareBtn">
+          <i class="icon ion-android-share-alt"> Share</i>
+        </button>
+        <!-- <button style="button button-block button-positive" onclick="window.plugins.socialsharing.share('Message only')">message only</button> -->
+        <button class="button button-block button-positive copyBth">
+          Copy
+        </button>
+      </div>
+
+
   </div>
+</div>
+
 
 
   {{/ionContent}}
+{{/ionView}}
 
 </template>

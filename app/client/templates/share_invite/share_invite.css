@@ -3,3 +3,13 @@
 /*****************************************************************************/
 .share-invite {
 }
+
+.classCodeDiv{
+  text-align: center;
+  margin: 20px 0;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 20px;
+  background-color: rgb(196, 196, 196);
+}

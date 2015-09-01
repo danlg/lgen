@@ -70,7 +70,7 @@ Meteor.methods({
         console.log(e);
       }
 
-    /*Router.go("Classes");*/
+    /*Router.go('TabClasses')*/
 
   },
   "sendMsg": function(target, msg) {

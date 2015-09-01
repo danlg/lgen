@@ -8,7 +8,7 @@ Template.Login.events({
           alert(err);
         else {
           if(Meteor.user().profile.role!=="")
-            Router.go('TabChat');
+            Router.go('TabClasses');
           else
             Router.go('role');
         }
@@ -30,9 +30,6 @@ Template.Login.created = function () {
 };
 
 Template.Login.rendered = function () {
-  /*console.log(Meteor.user());*/
-  console.log(token);
-  console.log(token.gcm);
 };
 
 Template.Login.destroyed = function () {

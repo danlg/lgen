@@ -9,7 +9,7 @@ Template.Role.events({
           Router.go('TabChat');
         });
     }else{
-      Router.go('email-signup',{role:$this.data('role')});
+      Router.go('EmailSignin',{role:$this.data('role')});
     }
   }
 });
@@ -53,7 +53,7 @@ Template._modal.events({
 
       }else{
 
-        Router.go("email-signup",{role:role});
+        Router.go("EmailSignup",{role:role});
       }
     }
 
