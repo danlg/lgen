@@ -1,5 +1,5 @@
 App.info({
-  // id: 'com.example.matt.uber',
+  id: 'io.littlegenius.genie',
   name: 'Little Genius'
   // description: 'Get über power in one button click',
   // author: 'Matt Development Group',
