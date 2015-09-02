@@ -29,6 +29,13 @@ Meteor.methods({
       console.log(e);
     }
   },
+  'testEmail': function() {
+    try {
+      Mandrill.messages.send(testMail("", ""));
+    } catch (e) {
+      console.log(e);
+    }
+  },
   'addClassMail': function(to, _id) {
 
     var classObj = Classes.findOne({
@@ -136,17 +143,18 @@ Meteor.methods({
 
   'chat/create':function(chatArr){
     /*var _id = lodash.first(chatArr);*/
-    var arrOfUser = Meteor.users.find({_id:{$in:chatArr}}).fetch();
-    /*chatArr.push(Meteor.user());*/
-    arrOfUser.push(Meteor.user());
-    var res = Chat.findOne({chatIds:{$all:arrOfUser}});
+    // var arrOfUser = Meteor.users.find({_id:{$in:chatArr}}).fetch();
+
+    // arrOfUser.push(Meteor.user());
+    chatArr.push(Meteor.userId());
+    var res = Chat.findOne({chatIds:{$all:chatArr}});
     if(res)
     {
-      return res._id
+      return res._id;
     }
     else{
         //no room exists
-      var newRoom= Chat.insert({chatIds:arrOfUser,messagesObj:[]});
+      var newRoom= Chat.insert({chatIds:chatArr,messagesObj:[]});
       return newRoom;
     }
   },

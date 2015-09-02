@@ -189,7 +189,11 @@ Router.route('EmailInvite', {
 Router.route('ChatRoom', {
   path: "chat/:chatRoomId",
   waitOn: function() {
-    return [Meteor.subscribe('getChatRoomById', this.params.chatRoomId),Meteor.subscribe('images')];
+    // return [Meteor.subscribe('getChatRoomById', this.params.chatRoomId),Meteor.subscribe('images')];
+    return [
+      Meteor.subscribe('images'),
+      Meteor.subscribe('chatRoomWithUser',this.params.chatRoomId)
+    ];
   }
 });
 
@@ -199,7 +203,7 @@ Router.route('classDetail', {
   // layoutTemplate:"NavBarScreenLayout",
   path: "class/:classCode/detail",
   waitOn: function() {
-    return Meteor.subscribe('class', this.params.classCode);
+     Meteor.subscribe('class', this.params.classCode);
   }
 });
 

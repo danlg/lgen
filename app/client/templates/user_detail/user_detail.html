@@ -17,7 +17,7 @@
       <button  class="button button-clear button-entering button-active addClassBtn">Add</button>
     {{/contentFor}} -->
 
-
+{{#ionView}}
   {{#ionContent}}
 
 
@@ -40,19 +40,29 @@
         </div>
       </div> -->
 
-      <div class="padding">Their class</div>
+
       <div class="list">
-        {{#each hisJoinedClasses}}
-          <div class="item">{{className}}</div>
-        {{/each}}
+
+        <div class="item item-divider">
+          Their Class
+        </div>
+
+
+          <div class="item">
+            {{#each hisJoinedClasses}}
+            <div>{{className}}</div>
+            {{/each}}
+          </div>
+
       </div>
 
 
-      <div class="bar bar-footer">
+      <div class="bar bar-footer bar-stable">
         <div class="title talkToBtn" data-userId="{{userId}}">Talk to {{userPofile.profile.firstname}} {{userPofile.profile.lastname}}</div>
       </div>
 
 
     {{/ionContent}}
+{{/ionView}}
 
 </template>

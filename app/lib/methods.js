@@ -70,14 +70,19 @@ Meteor.methods({
            console.log(err);
            return err;
          }else{
-           return
+           return true;
          }
       });
 
 
    },
+   'class/search':function(classCode){
+    //  check(doc,Schema.joinClass)
+    //  Classes.update(doc,{$addToSet:{"joinedUserId":Meteor.userId()}});
+    return Classes.findOne({classCode:classCode})||false;
+   },
    'class/join':function(doc){
-     check(doc,Schema.joinClass)
+     check(doc,Schema.joinClass);
      Classes.update(doc,{$addToSet:{"joinedUserId":Meteor.userId()}});
    },
    'class/leave':function(classId){
@@ -102,16 +107,16 @@ Meteor.methods({
    },
    'chat/SendMessage':function(chatRoomId,text){
      var pushObj = {};
-       pushObj.from = Meteor.user();
-       pushObj.sendAt = new Date;
+       pushObj.from = Meteor.userId();
+       pushObj.sendAt = moment().format('x');
        pushObj.text = text;
 
-     Chat.update({_id:chatRoomId},{$push:{messagesObj:pushObj}});
+     Chat.update(chatRoomId,{$push:{messagesObj:pushObj}});
 
    },
    'getUserByIdArr':function(chatIds){
      lodash.pull(chatIds,Meteor.userId());
-     return Meteor.users.findOne({_id:{$in:chatIds}})
+     return Meteor.users.findOne({_id:{$in:chatIds}});
    },
    'profile/edit':function(doc){
 

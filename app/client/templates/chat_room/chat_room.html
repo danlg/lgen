@@ -1,7 +1,7 @@
 <template name="ChatRoom">
 
   {{#contentFor "headerTitle"}}
-    <h1 class="title">{{getName userProfile.profile}}</h1>
+    <h1 class="title">{{getName}}</h1>
   {{/contentFor}}
 
 
@@ -96,6 +96,13 @@
   </div>
 
   <div class="list inputBoxList">
+
+
+    <div class="item " style="text-align:center">
+      <i class="icon ion-clock"></i> {{_ "Itisworkofftime"}}
+    </div>
+
+
     <div class="item item-input">
       <div style="margin-left:5px;margin-right:30px">
         <label class="imageBtnTri" ><i class="icon ion-image"></i></label>

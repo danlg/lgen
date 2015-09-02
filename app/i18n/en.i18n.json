@@ -33,6 +33,17 @@
 	"MyAccount":"My Account",
 	"Send":"Send",
 	"feedbackTextarea":"Tell Us What You Think",
+	"Itisworkofftime":"It is work off time",
+
+	// 3 sep 2015
+	"Teacher":"Teacher",
+	"ClassCode":"Class Code",
+	"Unsubsribe":"Unsubsribe",
+	"Subscriber":"Subscriber",
+	"Addstudentsandparents":"Add students and parents",
+	"Update":"Update",
+
+
 
 
 	// https://github.com/gwendall/meteor-autoform-i18n/

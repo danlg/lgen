@@ -1,7 +1,7 @@
 <template name="MyAccount">
 
   {{#contentFor "headerTitle"}}
-    <h1 class="title">My Account</h1>
+    <h1 class="title">{{_ "MyAccount"}}</h1>
   {{/contentFor}}
 
 
@@ -14,7 +14,7 @@
 
 
   {{#contentFor "headerButtonRight"}}
-    <button  class="button button-clear button-entering button-active editAccountBtn">edit</button>
+    <button  class="button button-clear button-entering button-active editAccountBtn">{{_ "Update"}}</button>
   {{/contentFor}}
 
 
@@ -53,28 +53,36 @@
 
 {{#autoForm schema=editprofile id="editprofile" resetOnSuccess=false type="method" doc=this meteormethod="profile/edit"  }}
 
-<div class="list">
+<!-- <div class="list">
   <div class="item item-input">
     {{> afFieldInput name="firstname" placeholder="First Name" value=profile.firstname  }}
-    <!-- <input type="text" placeholder="first name" value="{{current.profile.firstname}}"> -->
   </div>
   <div class="item item-input">
     {{> afFieldInput name="lastname" placeholder="Last Name" value=profile.lastname }}
-    <!-- <input type="text" placeholder="last name" value="{{current.profile.lastname}}"> -->
   </div>
-  <!-- <div class="item item-input">
-    {{> afFieldInput name="lastname" placeholder=""  }}
-    <input type="text" placeholder="display name" value="{{current.profile.firstname}} {{current.profile.lastname}}">
-  </div> -->
   <div class="item item-input">
     {{> afFieldInput name="location" placeholder="Location" value="Hong Kong"   }}
-    <!-- <input type="text" placeholder="Location" value="Hong Kong"  > -->
   </div>
   <div class="item item-input">
     {{> afFieldInput name="email" placeholder="" value=email  }}
-    <!-- <input type="text" placeholder="email" value="{{email}}"> -->
   </div>
+</div> -->
+
+<div class="list">
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">First Name</span>
+    {{> afFieldInput name="firstname" placeholder="First Name" value=profile.firstname  }}
+  </label>
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">Last Name</span>
+    {{> afFieldInput name="lastname" placeholder="Last Name" value=profile.lastname }}
+  </label>
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">Email</span>
+    {{> afFieldInput name="email" placeholder="" value=email  }}
+  </label>
 </div>
+
 
 
 

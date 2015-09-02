@@ -17,8 +17,32 @@ addClassMailTemplate = function(to,classname) {
         "content": classname
       }]
     }
-  }
-}
+  };
+};
+
+
+
+testMail = function(to,classname) {
+
+  var date = new Date();
+  var email = "mike@sanuker.com";
+
+  return {
+    "message": {
+      "merge_language": "handlebars",
+      "html": "<h1>"+date+"</h1>" ,
+      "text": "Example text content",
+      "subject": "new class ready!",
+      "from_email": "message.from_email@example.com",
+      "from_name": "little genius",
+      "to": [{
+        "email": email ,
+        "name": "Recipient Name",
+        "type": "to"
+      }],
+    }
+  };
+};
 
 inviteClassMailTemplate = function(to,first,last,classname,classcode,acceptLink) {
   return {
@@ -66,5 +90,5 @@ inviteClassMailTemplate = function(to,first,last,classname,classcode,acceptLink)
 
       ]
     }
-  }
-}
+  };
+};

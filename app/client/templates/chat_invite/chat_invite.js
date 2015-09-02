@@ -1,13 +1,13 @@
 var targetStringVar = ReactiveVar([]);
 var targetString=[];
-var targetIds=[]
+var targetIds= ReactiveVar([]);
 /*****************************************************************************/
 /* ChatInvite: Event Handlers */
 /*****************************************************************************/
 Template.ChatInvite.events({
   'click .startChatBtn':function(){
     /*var chatArr =  $('.js-example-basic-multiple').val();*/
-    Meteor.call('chat/create',targetIds,function(err,data){
+    Meteor.call('chat/create',targetIds.get(),function(err,data){
           Router.go('ChatRoom',{chatRoomId:data});
       });
 
@@ -15,12 +15,14 @@ Template.ChatInvite.events({
   },
   'change .targetCB':function(){
     targetString= [];
-    targetIds= [];
+    targetIds.set([]);
+    var localarr= [];
     $(".targetCB:checked").each(function(index,el){
-      targetIds.push($(el).val());
+      localarr.push($(el).val());
       targetString.push($(el).data("fullname"));
     });
     targetStringVar.set(targetString);
+    targetIds.set(localarr);
 
   }
 });
@@ -32,19 +34,22 @@ Template.ChatInvite.helpers({
   'classesJoinedOwner':function(){
     var classesJoinedOwner = Meteor.users.find({_id:{$nin:[Meteor.userId()]}}).fetch();
     if(classesJoinedOwner.length<1){
-      return false
+      return false;
     }else{
       return classesJoinedOwner;
     }
   },
   userName:function(profile){
-    return getFullNameByProfileObj(profile)
+    return getFullNameByProfileObj(profile);
   },
   targetCB:function(){
 
   },
   tagertList:function(){
     return targetStringVar.get();
+  },
+  shouldhide:function () {
+    return targetIds.get().length>0?"":"hide";
   }
 });
 

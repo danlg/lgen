@@ -4,7 +4,18 @@ var joinform;
 /*****************************************************************************/
 Template.JoinClass.events({
   'click .joinBtn':function(){
-    $(joinform).submit();
+
+    Meteor.call("class/search", $(".classCodeInput").val(), function(error, result){
+      if(error){
+        console.log("error", error);
+      }
+      if(!result){
+         alert("No class found");
+      }else{
+        $(joinform).submit();
+      }
+    });
+
   },
   'click .leaveBtn':function(e){
       var classId= $(e.target).attr("data-classId");

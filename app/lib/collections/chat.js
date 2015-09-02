@@ -2,8 +2,8 @@ Chat = new Mongo.Collection('chat');
 
 Chat.attachSchema(new SimpleSchema({
   chatIds: {
-    type: [Object],
-    blackbox:true
+    type: [String],
+    // blackbox:true
   },
   messagesObj:{
     type: [Object],

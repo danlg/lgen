@@ -49,7 +49,7 @@ Template.ChatRoom.events({
           // });
 
           var pushObj = {};
-            pushObj.from = Meteor.user();
+            pushObj.from = Meteor.userId();
             pushObj.sendAt = moment().format('x');
             pushObj.text = "";
             pushObj.image = fileObj._id;
@@ -76,8 +76,7 @@ Template.ChatRoom.helpers({
     return Chat.findOne({_id:Router.current().params.chatRoomId});
   },
   'isMind':function(from){
-
-    return from._id===Meteor.userId();
+    return from===Meteor.userId();
   },
   sendTime:function(sendAt){
     return moment(sendAt,"HH:mm");
@@ -87,7 +86,10 @@ Template.ChatRoom.helpers({
     return lodash.reject(arr,{_id:Meteor.userId()})[0];
   },
   getName:function(profile){
-    return getFullNameByProfileObj(profile);
+
+    var userObj =  Meteor.users.findOne({_id:{$nin:[Meteor.userId()]}});
+
+    return getFullNameByProfileObj(userObj.profile);
   },
   isText:function (chatObj) {
     return chatObj.text!=="";
@@ -98,6 +100,11 @@ Template.ChatRoom.helpers({
   getImage:function (chatObj) {
     var ImageId = chatObj.image.replace("/cfs/files/images/","");
     return Images.findOne(ImageId);
+  },
+  isWorkOff:function (argument) {
+    var arr = Chat.findOne({_id:Router.current().params.chatRoomId}).chatIds;
+    var targetUserObj = lodash.reject(arr,{_id:Meteor.userId()})[0];
+
   }
 
 });
@@ -136,12 +143,12 @@ onscroll = _.throttle(function() {
 
   Meteor.setInterval(function(){
     if(template.atBottom){
-      chatroomList.scrollTop = chatroomList.scrollHeight - chatroomList.clientHeight
+      chatroomList.scrollTop = chatroomList.scrollHeight - chatroomList.clientHeight;
     }
   },100);
 
 
-  chatroomList.addEventListener('touchstart', function() {
+chatroomList.addEventListener('touchstart', function() {
   return template.atBottom = false;
 });
 

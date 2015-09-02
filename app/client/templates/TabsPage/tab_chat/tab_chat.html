@@ -9,9 +9,9 @@
     <a href="{{ pathFor 'ChatInvite' }}"  class="button button-clear button-entering button-active">
       <i class="icon ion-chatbubble-working"></i>
     </a>
-    <!-- <a href="{{ pathFor 'Chatoption' }}"  class="button button-clear button-entering button-active">
+    <a href="{{ pathFor 'Chatoption' }}"  class="button button-clear button-entering button-active">
       <i class="icon ion-gear-a"></i>
-    </a> -->
+    </a>
   </div>
   {{/contentFor}}
 
@@ -20,14 +20,16 @@
 
 
     <div class="list">
-      <div class="item item-input">
-        <i class="icon ion-search placeholder-icon"></i>
-        <input type="search" class="searchbar" placeholder="{{_ 'search'}}">
-      </div>
+
 
 
         {{#with getAllMyChatRooms }}
 
+
+        <div class="item item-input">
+          <i class="icon ion-search placeholder-icon"></i>
+          <input type="search" class="searchbar" placeholder="{{_ 'search'}}">
+        </div>
 
 
 

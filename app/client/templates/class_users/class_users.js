@@ -1,4 +1,5 @@
 var text = ReactiveVar('');
+var classObj;
 /*****************************************************************************/
 /* ClassUsers: Event Handlers */
 /*****************************************************************************/
@@ -23,6 +24,9 @@ Template.ClassUsers.helpers({
   },
   emptyList:function(){
     return Meteor.users.find({_id:{$nin:[Meteor.userId()]}}).fetch().length<1;
+  },
+  classObj:function (argument) {
+    return classObj;
   }
 });
 
@@ -30,6 +34,8 @@ Template.ClassUsers.helpers({
 /* ClassUsers: Lifecycle Hooks */
 /*****************************************************************************/
 Template.ClassUsers.created = function () {
+  classObj = Classes.findOne({classCode:Router.current().params.classCode});
+
 };
 
 Template.ClassUsers.rendered = function () {

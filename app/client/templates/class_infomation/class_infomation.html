@@ -1,12 +1,8 @@
 <template name="ClassInfomation">
 
   {{#contentFor "headerTitle"}}
-    <h1 class="title">Class Infomation</h1>
+  <h1 class="title">Class Infomation</h1>
   {{/contentFor}}
-
-
-
-
   {{#contentFor "headerButtonLeft"}}
     {{>ionNavBackButton text=""}}
   {{/contentFor}}
@@ -18,41 +14,44 @@
   {{/contentFor}} -->
 
 
-{{#ionContent}}
-
-{{this.className}}
-
+  {{#ionView}}
+  {{#ionContent}}
 
 
-    <div class="row row-center" style="height:30vh">
-      <div class="col">
-        <h1>{{classObj.className}}</h1>
-      </div>
+
+
+
+  <div class="row row-center" style="height:30vh">
+    <div class="col">
+      <h1>{{classObj.className}}</h1>
+    </div>
+  </div>
+  <div class="list">
+    <div class="item item-divider">
+      {{_ "Teacher"}}
     </div>
 
-    <div>
-      Teacher
-    </div>
-    <div class="list">
-      <div class="item">{{teacher.profile.firstname}} {{teacher.profile.lastname}}</div>
-    </div>
-    <div>
-      Class Code
+    <div class="item">{{teacher.profile.firstname}} {{teacher.profile.lastname}}</div>
+
+    <div class="item item-divider">
+      {{_ "ClassCode"}}
     </div>
 
-    <div class="list">
-      <div class="item">@{{classObj.classCode}}</div>
-    </div>
+
+    <div class="item">@{{classObj.classCode}}</div>
+
+  </div>
 
 
 
   <div class="bar bar-footer bar-stable unsub">
-    <div class="title">Unsubsribe</div>
+    <div class="title">{{_ "Unsubsribe"}}</div>
   </div>
 
 
 
 
   {{/ionContent}}
+  {{/ionView}}
 
 </template>

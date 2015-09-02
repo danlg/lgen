@@ -7,7 +7,10 @@ Template.ClassDetail.events({
   'click .tab-item':function(e){
     var msgId = $(e.target.parentNode).data("msgid");
     var action = $(e.target.parentNode).data("action");
-    Meteor.call('updateMsgRating',action,msgId,classObj);
+    IonLoading.show();
+    Meteor.call('updateMsgRating',action,msgId,classObj,function (argument) {
+      IonLoading.hide();
+    });
   },
 });
 
