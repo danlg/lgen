@@ -136,14 +136,63 @@ Meteor.publishComposite('chatRoomWithUser', function(chatRoomId) {
       // being used in query.
       return Chat.find(chatRoomId);
     },
-    children: [{
-      // This section will be similar to that of the previous example.
-      find: function(chat) {
-        // Find post author. Even though we only want to return
-        // one record here, we use "find" instead of "findOne"
-        // since this function should return a cursor.
-        return Meteor.users.find({ _id: { $in: chat.chatIds }});
+    children: [
+      {
+        // This section will be similar to that of the previous example.
+        find: function(chat) {
+          // Find post author. Even though we only want to return
+          // one record here, we use "find" instead of "findOne"
+          // since this function should return a cursor.
+          return Meteor.users.find({ _id: { $in: chat.chatIds }});
+        }
       }
-    }]
+  ]
+  };
+});
+
+
+Meteor.publishComposite('allMyChatRoomWithUser', function() {
+  return {
+    find: function() {
+      // Find posts made by user. Note arguments for callback function
+      // being used in query.
+      return Chat.find({chatIds:this.userId});
+    },
+    children: [
+      {
+        // This section will be similar to that of the previous example.
+        find: function(chat) {
+          // Find post author. Even though we only want to return
+          // one record here, we use "find" instead of "findOne"
+          // since this function should return a cursor.
+          chat.chatIds  = lodash.reject(chat.chatIds,this.userId);
+          return Meteor.users.find({ _id: { $in: chat.chatIds }});
+        }
+      }
+  ]
+  };
+});
+
+
+Meteor.publishComposite('getClassroomWithJoinedUserByClassCode', function(classCode) {
+  return {
+    find: function() {
+      // Find posts made by user. Note arguments for callback function
+      // being used in query.
+      return Classes.find({classCode:classCode});
+    },
+    children: [
+      {
+        // This section will be similar to that of the previous example.
+        find: function(classObj) {
+          // Find post author. Even though we only want to return
+          // one record here, we use "find" instead of "findOne"
+          // since this function should return a cursor.
+          // chat.chatIds  = lodash.reject(chat.chatIds,this.userId);
+
+          return Meteor.users.find({ _id: { $in: classObj.joinedUserId }});
+        }
+      }
+  ]
   };
 });

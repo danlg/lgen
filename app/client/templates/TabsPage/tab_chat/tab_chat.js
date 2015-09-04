@@ -27,13 +27,27 @@ Template.TabChat.helpers({
   },
   'chatroomMenberName':function(chatIds){
     var string = [];
-    var userObjArr = lodash.reject(chatIds,{_id:Meteor.userId()});
-    userObjArr =  lodash.map(userObjArr,'profile');
+    // var userObjArr = lodash.reject(chatIds,{_id:Meteor.userId()});
+    // userObjArr =  lodash.map(userObjArr,'profile');
+    // lodash.forEach(userObjArr,function(el,index){
+    //   var name = el.firstname +" "+ el.lastname;
+    //   string.push(name);
+    // });
+    // return lodash(string).toString();
+    var usersArr = lodash.remove(chatIds,function (el) {
+      return el !== Meteor.userId();
+    });
+    var userObjArr =  Meteor.users.find({_id:{$in:usersArr } }).fetch();
+
     lodash.forEach(userObjArr,function(el,index){
-      var name = el.firstname +" "+ el.lastname;
+      var name = getFullNameByProfileObj(el.profile);
       string.push(name);
     });
+
     return lodash(string).toString();
+
+
+
   },
   'lasttext':function(messagesObj){
     var len = messagesObj.length;
@@ -45,10 +59,15 @@ Template.TabChat.helpers({
   },
   'isHide':function(chatIds){
     var string = [];
-    var userObjArr = lodash.reject(chatIds,Meteor.user());
-    userObjArr =  lodash.map(userObjArr,'profile');
+
+
+    var usersArr = lodash.remove(chatIds,function (el) {
+      return el === Meteor.userId();
+    });
+    var userObjArr =  Meteor.users.find({_id:{$in:usersArr } }).fetch();
+
     lodash.forEach(userObjArr,function(el,index){
-      var name = el.firstname +" "+ el.lastname;
+      var name = getFullNameByProfileObj(el.profile);
       string.push(name);
     });
 
@@ -57,6 +76,8 @@ Template.TabChat.helpers({
     }else{
     return false;
     }
+
+    // return true;
   }
 });
 
@@ -69,6 +90,8 @@ Template.TabChat.created = function () {
 Template.TabChat.rendered = function () {
   text.set("");
   $("body").removeClass('modal-open');
+  Session.set("chatUnreadNumber", 0);
+
 };
 
 Template.TabChat.destroyed = function () {

@@ -1,5 +1,5 @@
 var text = ReactiveVar('');
-var classObj;
+// var classObj = ReactiveVar({});
 /*****************************************************************************/
 /* ClassUsers: Event Handlers */
 /*****************************************************************************/
@@ -19,14 +19,21 @@ Template.ClassUsers.helpers({
     return users;
   },
   isSearched:function(userObj){
-    var name = userObj.profile.firstname+" "+userObj.profile.lastname;
-    return lodash.includes(name.toUpperCase(),text.get().toUpperCase());
+    var name = getFullNameByProfileObj(userObj.profile);
+
+    if(text.get()===""){
+      return true;
+    }else{
+      return lodash.includes(name.toUpperCase(),text.get().toUpperCase());
+    }
+
+
   },
   emptyList:function(){
     return Meteor.users.find({_id:{$nin:[Meteor.userId()]}}).fetch().length<1;
   },
   classObj:function (argument) {
-    return classObj;
+    return Classes.findOne({classCode:Router.current().params.classCode});
   }
 });
 
@@ -34,11 +41,11 @@ Template.ClassUsers.helpers({
 /* ClassUsers: Lifecycle Hooks */
 /*****************************************************************************/
 Template.ClassUsers.created = function () {
-  classObj = Classes.findOne({classCode:Router.current().params.classCode});
-
+  // classObj.set(Classes.findOne({classCode:Router.current().params.classCode}));
 };
 
 Template.ClassUsers.rendered = function () {
+  text.set("");
 };
 
 Template.ClassUsers.destroyed = function () {

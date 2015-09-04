@@ -39,6 +39,8 @@ $positive:                        #ACDA45 ;
 
 
 
+
+
 @import '.meteor/local/build/programs/server/assets/packages/meteoric_ionic-sass/ionic';
 @import '.meteor/local/build/programs/server/assets/packages/meteoric_ionicons-sass/ionicons';
 
@@ -53,4 +55,9 @@ a {
 
 .shouldhide{
   display: none;
+}
+
+.badge.badge-assertive{
+  left: calc( 50% - 35px );
+  width: 28px;
 }

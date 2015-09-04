@@ -1,0 +1,10 @@
+{
+  "public": {
+    "persistent_session": {
+     "default_method": "persistent"
+   },
+   "analyticsSettings": {
+      "Mixpanel": {"token":  "9566b1a8aad8f17497bfe5846eefb8dc", "people": true}
+    }
+  }
+}

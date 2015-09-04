@@ -203,7 +203,30 @@ Meteor.methods({
 
 
 
-  }
+  },
+  'pushTest':function (userId) {
+    Push.send({
+        from: 'push',
+        title: 'Hello',
+        text: 'world',
+        query: {
+            userId: userId
+        }
+    });
+  },
+  serverNotification: function (query) {
+
+    Push.send({
+      from: 'push',
+      title: 'Hello World',
+      text: 'This notification has been sent from the SERVER',
+      payload: {
+        title: 'Hello World'
+      },
+      query:query
+    });
+
+	},
 
 
 });

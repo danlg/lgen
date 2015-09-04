@@ -114,6 +114,15 @@ Meteor.methods({
      Chat.update(chatRoomId,{$push:{messagesObj:pushObj}});
 
    },
+   'chat/SendImage':function(chatRoomId,pushObj){
+    //  var pushObj = {};
+    //    pushObj.from = Meteor.userId();
+    //    pushObj.sendAt = moment().format('x');
+    //    pushObj.text = text;
+
+     Chat.update(chatRoomId,{$push:{messagesObj:pushObj}});
+
+   },
    'getUserByIdArr':function(chatIds){
      lodash.pull(chatIds,Meteor.userId());
      return Meteor.users.findOne({_id:{$in:chatIds}});

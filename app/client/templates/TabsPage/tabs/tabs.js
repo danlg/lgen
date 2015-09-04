@@ -1,3 +1,6 @@
+
+
+
 /*****************************************************************************/
 /* Tabs: Event Handlers */
 /*****************************************************************************/
@@ -15,13 +18,22 @@ Template.Tabs.helpers({
   },
   _You: function(argument) {
     return TAPi18n.__('You');
+  },
+  _chatNumber:function (argument) {
+    if(Session.get("chatUnreadNumber") ===0 ){
+      return false;
+    }else{
+      return Session.get("chatUnreadNumber");
+    }
   }
 });
 
 /*****************************************************************************/
 /* Tabs: Lifecycle Hooks */
 /*****************************************************************************/
-Template.Tabs.created = function() {};
+Template.Tabs.created = function() {
+  Session.setDefault("chatUnreadNumber", 0);
+};
 
 Template.Tabs.rendered = function() {};
 

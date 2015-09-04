@@ -85,8 +85,9 @@ Router.route('TabChat', {
   // layoutTemplate: "NavBarScreenLayout",
   waitOn: function() {
     return [
-      Meteor.subscribe('getAllMyChatRooms'),
-      Meteor.subscribe('getChatRoomMenbers')
+      // Meteor.subscribe('getAllMyChatRooms'),
+      // Meteor.subscribe('getChatRoomMenbers')
+      Meteor.subscribe('allMyChatRoomWithUser')
     ];
   },
   /*subscription:function(){
@@ -233,7 +234,7 @@ Router.route('ClassUsers', {
   path: "class/:classCode/users",
   // layoutTemplate: "NavBarScreenLayout",
   waitOn: function() {
-    Meteor.subscribe('getJoinedClassUser', this.params.classCode);
+    return Meteor.subscribe('getClassroomWithJoinedUserByClassCode', this.params.classCode);
   }
 });
 

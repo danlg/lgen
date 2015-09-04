@@ -27,7 +27,22 @@
   <div class="list chatroomList" id="chatroomList">
 
     {{#each chatRoomProfile.messagesObj}}
-      {{#if isMind from }}
+    <div class="item {{isMind}}">
+    {{#if isText}}
+      <div class="bubble" >
+      {{text}}
+      </div>
+    {{else}}
+      {{#with getImage}}
+        {{#if this.isUploaded}}
+          <img src="{{this.url store='thumbs'  }}" alt="">
+        {{/if}}
+      {{/with}}
+    {{/if}}
+    </div>
+
+
+      <!-- {{#if isMind from }}
       <div class="item mind">
 
         {{#if isText this}}
@@ -43,7 +58,7 @@
           {{#with getImage this}}
 
             {{#if this.isUploaded}}
-              <img src="{{this.url store='thumbs' }}" alt="">
+              <img src="{{this.url  }}" alt="">
             {{/if}}
 
           {{/with}}
@@ -86,7 +101,7 @@
 
 
       </div>
-      {{/if}}
+      {{/if}} -->
     {{/each}}
 
 
@@ -98,9 +113,9 @@
   <div class="list inputBoxList">
 
 
-    <div class="item " style="text-align:center">
+    <!-- <div class="item " style="text-align:center">
       <i class="icon ion-clock"></i> {{_ "Itisworkofftime"}}
-    </div>
+    </div> -->
 
 
     <div class="item item-input">

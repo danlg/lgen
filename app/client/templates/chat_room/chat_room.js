@@ -7,8 +7,24 @@ Template.ChatRoom.events({
     template.atBottom=true;
     if(!lodash.isEmpty(text)){
       Meteor.call('chat/SendMessage',Router.current().params.chatRoomId,text,function(err,data){
-        if(!err)
+        if(!err){
           $('.inputBox').val("");
+
+          var targetId =  Meteor.users.findOne({_id:{$nin:[Meteor.userId()]}})._id;
+          var query = {};
+          query.userId = targetId;
+
+
+          Meteor.call("serverNotification", query, function(error, result){
+            if(error){
+
+            }
+            if(result){
+
+            }
+          });
+        }
+
       });
     }
   },
@@ -54,8 +70,17 @@ Template.ChatRoom.events({
             pushObj.text = "";
             pushObj.image = fileObj._id;
 
+          Meteor.call("chat/SendImage", Router.current().params.chatRoomId,pushObj, function(error, result){
+            if(error){
+              console.log("error", error);
+            }
+            if(result){
 
-          Chat.update({_id:Router.current().params.chatRoomId},{$push:{messagesObj:pushObj}});
+            }
+          });
+
+
+          // Chat.update({_id:Router.current().params.chatRoomId},{$push:{messagesObj:pushObj}});
 
         }
       });
@@ -75,8 +100,8 @@ Template.ChatRoom.helpers({
   'chatRoomProfile':function(){
     return Chat.findOne({_id:Router.current().params.chatRoomId});
   },
-  'isMind':function(from){
-    return from===Meteor.userId();
+  'isMind':function(){
+    return this.from===Meteor.userId()?"mind":"notmind";
   },
   sendTime:function(sendAt){
     return moment(sendAt,"HH:mm");
@@ -91,14 +116,14 @@ Template.ChatRoom.helpers({
 
     return getFullNameByProfileObj(userObj.profile);
   },
-  isText:function (chatObj) {
-    return chatObj.text!=="";
+  isText:function () {
+    return this.text!=="";
   },
   isImage:function (chatObj) {
     return chatObj.image!=="";
   },
-  getImage:function (chatObj) {
-    var ImageId = chatObj.image.replace("/cfs/files/images/","");
+  getImage:function () {
+    var ImageId = this.image.replace("/cfs/files/images/","");
     return Images.findOne(ImageId);
   },
   isWorkOff:function (argument) {
@@ -113,6 +138,10 @@ Template.ChatRoom.helpers({
 /* ChatRoom: Lifecycle Hooks */
 /*****************************************************************************/
 Template.ChatRoom.created = function () {
+  Images.on("stored", function (fileObj, storeName) {
+    var url = fileObj.url({store: storeName});
+    alert(url);
+  });
 };
 
 Template.ChatRoom.rendered = function () {

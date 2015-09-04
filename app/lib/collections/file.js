@@ -19,6 +19,8 @@ Sounds = new FS.Collection("sounds", {
   stores: [soundStore]
 });
 
+
+
 // Images.deny({
 //   insert: function() {
 //     return false;

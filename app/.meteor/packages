@@ -54,6 +54,8 @@ gwendall:autoform-i18n
 cfs:standard-packages
 cfs:gridfs
 cfs:graphicsmagick
-raix:push
+
 dcsan:ionic
 reywood:publish-composite
+okgrow:analytics
+raix:push
