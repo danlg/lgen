@@ -1,8 +1,9 @@
 com.verso.cordova.clipboard@0.1.0
-nl.x-services.plugins.actionsheet@https://github.com/Telerik-Verified-Plugins/ActionSheet/tarball/6be03cf03d16b2d3ea2e7cb603e699c485e9eb02
+cordova-plugin-camera@0.3.1
+cordova-plugin-console@0.2.13
+cordova-plugin-contacts@0.2.16
+cordova-plugin-dialogs@0.2.10
+cordova-plugin-vibration@0.3.11
+de.appplant.cordova.plugin.local-notification@0.8.1
+nl.x-services.plugins.actionsheet@https://github.com/Telerik-Verified-Plugins/ActionSheet.git#6be03cf03d16b2d3ea2e7cb603e699c485e9eb02
 nl.x-services.plugins.socialsharing@4.3.17
-org.apache.cordova.camera@0.3.1
-org.apache.cordova.contacts@0.2.16
-de.appplant.cordova.plugin.local-notification@0.7.6
-org.apache.cordova.dialogs@0.2.10
-org.apache.cordova.vibration@0.3.11
