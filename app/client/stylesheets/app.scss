@@ -41,8 +41,8 @@ $positive:                        #ACDA45 ;
 
 
 
-@import '.meteor/local/build/programs/server/assets/packages/meteoric_ionic-sass/ionic';
-@import '.meteor/local/build/programs/server/assets/packages/meteoric_ionicons-sass/ionicons';
+@import 'meteoric_ionic-sass/ionic';
+@import 'meteoric_ionicons-sass/ionicons';
 
 // .content.overflow-scroll { bottom: 0px !important; }
 
