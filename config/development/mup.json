@@ -2,9 +2,9 @@
 
   "servers": [
     {
-      "host": "128.199.187.103",
-      "username": "lg",
-      "password": "genie123"
+      "host": "128.199.160.218",
+      "username": "root",
+      "password": "mw140120"
     }
   ],
 
@@ -12,20 +12,21 @@
 
   "setupNode": true,
 
-  "nodeVersion": "0.10.40",
+  "nodeVersion": "0.10.36",
 
   "setupPhantom": true,
 
   "enableUploadProgressBar": true,
 
-  "appName": "littlegenius",
+  "appName": "legnTestInMike",
 
   "app": "/Users/mike/lgen/app",
 
   "env": {
-    "ROOT_URL": "http://esprit.io:8000",
-    "PORT":"8000"
-
+    "ROOT_URL": "http://128.199.160.218",
+    "PORT":8000,
+    "FROM_EMAIL":"DEV@lg.com",
+    "FROM_NAME":"Little Genius"
   },
 
   "deployCheckWaitTime": 15

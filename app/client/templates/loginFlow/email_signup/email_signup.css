@@ -3,3 +3,16 @@
 /*****************************************************************************/
 .email-signup {
 }
+
+.dobplaceholder{
+  font-size: 14px;
+  color: #999;
+  margin-right: 10px;
+}
+
+::-webkit-datetime-edit-year-field:not([aria-valuenow]),
+::-webkit-datetime-edit-month-field:not([aria-valuenow]),
+::-webkit-datetime-edit-day-field:not([aria-valuenow]),
+::-webkit-datetime-edit-text:not([aria-valuenow]) {
+    color: transparent;
+}

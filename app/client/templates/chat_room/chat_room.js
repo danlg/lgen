@@ -8,14 +8,25 @@ Template.ChatRoom.events({
     if(!lodash.isEmpty(text)){
       Meteor.call('chat/SendMessage',Router.current().params.chatRoomId,text,function(err,data){
         if(!err){
+
+          var text = $('.inputBox').val();
           $('.inputBox').val("");
 
           var targetId =  Meteor.users.findOne({_id:{$nin:[Meteor.userId()]}})._id;
           var query = {};
           query.userId = targetId;
 
+          var notificationObj={};
+            notificationObj.from = getFullNameByProfileObj(Meteor.user().profile);
+            notificationObj.title = getFullNameByProfileObj(Meteor.user().profile);
+            notificationObj.text = text;
+            // notificationObj.payload = {
+            //   title: 'Hello World'
+            // },
+            notificationObj.query=query;
 
-          Meteor.call("serverNotification", query, function(error, result){
+
+          Meteor.call("serverNotification", notificationObj, function(error, result){
             if(error){
 
             }
@@ -23,6 +34,8 @@ Template.ChatRoom.events({
 
             }
           });
+
+
         }
 
       });
@@ -33,15 +46,20 @@ Template.ChatRoom.events({
     $(".chatroomList").css(height,"(100% - " + height +"px )");
   },
   'click .imageBtnTri':function (argument) {
-    $("#imageBtn").trigger('click');
+    // $("#imageBtn").trigger('click');
+    // testShareSheet();
   },
   'change #imageBtn': function(event, template) {
     // Meteor.call("chatSendImage",event,Router.current().params.chatRoomId,function (err) {
-    //   err?alert(err):alert("success");
+    //   err?alert(err.reason);:alert("success");
     // });
 
 
+
     FS.Utility.eachFile(event, function(file) {
+
+
+
       // Meteor.call("chatSendImage", file,Router.current().params.chatRoomId, function(error, result){
       //   if(error){
       //     console.log("error", error);
@@ -56,10 +74,10 @@ Template.ChatRoom.events({
           // handle error
         } else {
           // handle success depending what you need to do
-          var userId = Meteor.userId();
-          var imagesURL = {
-            'profile.image': '/cfs/files/images/' + fileObj._id
-          };
+          // var userId = Meteor.userId();
+          // var imagesURL = {
+          //   'profile.image': '/cfs/files/images/' + fileObj._id
+          // };
           // Meteor.users.update(userId, {
           //   $set: imagesURL
           // });
@@ -91,6 +109,11 @@ Template.ChatRoom.events({
 
 
    },
+   'click .imgThumbs':function (e) {
+     var imageFullSizePath = $(e.target).data('fullsizeimage');
+     IonModal.open('imageModal',{src:imageFullSizePath});
+   }
+
 });
 
 /*****************************************************************************/
@@ -138,10 +161,6 @@ Template.ChatRoom.helpers({
 /* ChatRoom: Lifecycle Hooks */
 /*****************************************************************************/
 Template.ChatRoom.created = function () {
-  Images.on("stored", function (fileObj, storeName) {
-    var url = fileObj.url({store: storeName});
-    alert(url);
-  });
 };
 
 Template.ChatRoom.rendered = function () {
@@ -211,3 +230,118 @@ Template.ChatRoom.destroyed = function () {
   $(".content").animate({ scrollTop: $('.content')[0].scrollHeight}, 100);
     alert('Keyboard height is: ' + e.keyboardHeight);
 }*/
+
+function testShareSheet() {
+    var options = {
+        'androidTheme': window.plugins.actionsheet.ANDROID_THEMES.THEME_HOLO_LIGHT, // default is THEME_TRADITIONAL
+        'title': 'How to get image',
+        'buttonLabels': ['Gallery', 'Camera'],
+        'androidEnableCancelButton' : true, // default false
+        'winphoneEnableCancelButton' : true, // default false
+        'addCancelButtonWithLabel': 'Cancel',
+        // 'addDestructiveButtonWithLabel' : 'Delete it',
+        'position': [20, 40] // for iPad pass in the [x, y] position of the popover
+    };
+    // Depending on the buttonIndex, you can now call shareViaFacebook or shareViaTwitter
+    // of the SocialSharing plugin (https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin)
+    window.plugins.actionsheet.show(options, callback);
+}
+
+  var callback = function(buttonIndex) {
+   setTimeout(function() {
+     // like other Cordova plugins (prompt, confirm) the buttonIndex is 1-based (first button is index 1)
+    //  alert('button index clicked: ' + buttonIndex);
+
+
+    if(buttonIndex==1){
+
+
+      var options = {
+        // max images to be selected, defaults to 15. If this is set to 1, upon
+        // selection of a single image, the plugin will return it.
+        maximumImagesCount: 1,
+
+        // max width and height to allow the images to be.  Will keep aspect
+        // ratio no matter what.  So if both are 800, the returned image
+        // will be at most 800 pixels wide and 800 pixels tall.  If the width is
+        // 800 and height 0 the image will be 800 pixels wide if the source
+        // is at least that wide.
+        // width: int,
+        // height: int,
+
+        // quality of resized image, defaults to 100
+        // quality: int (0-100)
+      };
+
+
+      window.imagePicker.getPictures(
+          function(results) {
+              for (var i = 0; i < results.length; i++) {
+                  console.log('Image URI: ' + results[i]);
+
+
+
+
+
+
+
+                  // Meteor.call("insertImageTest", results[i], function(error, result){
+                  //   if(error){
+                  //     console.log("error", error);
+                  //   }
+                  //   if(result){
+                  //
+                  //   }
+                  // });
+
+                  // Images.insert(results[i], function (err, fileObj) {
+                  //     if(err)console.log(err);
+                  //     else{
+                  //       console.log(fileObj);
+                  //     }
+                  // });
+
+              }
+          }, function (error) {
+              console.log('Error: ' + error);
+          },
+      options);
+
+    }else{
+
+      MeteorCamera.getPicture(onSuccess)
+
+      //
+      // navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
+      //     // destinationType: Camera.DestinationType.DATA_URL
+      //       destinationType: window.Camera.DestinationType.FILE_URI,
+      //       sourceType: window.Camera.PictureSourceType.PHOTOLIBRARY,
+      //       mediaType: window.Camera.MediaType.ALLMEDIA
+      // });
+    }
+
+
+   });
+ };
+
+
+
+function onSuccess(err,imageData) {
+    // var image = document.getElementById('myImage');
+    // image.src = "data:image/jpeg;base64," + imageData;
+
+    alert(imageData);
+    // window.resolveLocalFileSystemURI(fileURI,
+    //     function( fileEntry){
+    //         alert("got image file entry: " + fileEntry.fullPath);
+    //     },
+    //     function(){
+    //       //error
+    //     }
+    // );
+
+}
+
+function onFail(message) {
+    alert('Failed because: ' + message);
+}

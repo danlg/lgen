@@ -1,6 +1,6 @@
 Accounts.onEmailVerificationLink(function(token){
   Accounts.verifyEmail(token, function(err){
-    err?alert(err):Router.go('TabChat');
+    err?alert(err.reason):Router.go('TabChat');
   });
 });
 

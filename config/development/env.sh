@@ -9,3 +9,6 @@
 export SAMPLE_VARIABLE="somevalue"
 export MANDRILL_API_USER="dan@littlegenius.io"
 export MANDRILL_API_KEY="GBt6d5ggNEP7969s9j9DyA"
+export FROM_EMAIL="DEV@lg.com"
+export FROM_NAME="Little Genius"
+export FEEDBACK_EMAIL="mike@sanuker.com"

@@ -5,7 +5,7 @@ Template.Login.events({
   'click .gmailLoginBtn':function(){
       Meteor.loginWithGoogle(function(err){
         if(err)
-          alert(err);
+          alert(err.reason);
         else {
           if(Meteor.user().profile.role!=="")
             Router.go('TabClasses');

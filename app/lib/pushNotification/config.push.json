@@ -3,10 +3,20 @@
     "apiKey": "AIzaSyD92b_-vKiFjaBpkgXm0IbGmOhfwFJLCt4",
     "projectNumber": 122417300165
   },
+  "apn": {
+    "passphrase": "mw140120",
+    "key": "apnKey/prod/LGPUSHPRODKey.pem",
+    "cert": "apnKey/prod/LGCertPROD.pem"
+  },
+  "apn-dev": {
+    "passphrase": "mw140120",
+    "key": "apnKey/development/LGPUSHDEVKey.pem",
+    "cert": "apnKey/development/LGPUSHCertDEV.pem"
+  },
 
   "vibrate": true,
-  "production": true,
-  "development":false,
+  "production": false,
+  "development":true,
   "badge": true,
   "sound": true,
   "alert": true,

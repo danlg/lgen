@@ -84,11 +84,11 @@ Router.route('EmailSignup', {
 Router.route('TabChat', {
   // layoutTemplate: "NavBarScreenLayout",
   waitOn: function() {
-    return [
+    // return [
       // Meteor.subscribe('getAllMyChatRooms'),
       // Meteor.subscribe('getChatRoomMenbers')
-      Meteor.subscribe('allMyChatRoomWithUser')
-    ];
+      Meteor.subscribe('allMyChatRoomWithUser');
+    // ];
   },
   /*subscription:function(){
     Meteor.subscribe('getAllMyChatRooms');

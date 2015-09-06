@@ -23,7 +23,7 @@ Template.EmailInvite.events({
 
 
     Meteor.call("class/invite",classObj,targetFirstEmail,function(err){
-        err?alert(err):alert("success");
+        err?alert(err.reason):alert("success");
     });
 
   },

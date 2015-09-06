@@ -10,7 +10,8 @@ var postHooks = {
       alert("success");
   },
   onError: function(formType, error) {
-    alert(error);
+    alert(error.reason);
+    // console.log(error);
   }
 }
 

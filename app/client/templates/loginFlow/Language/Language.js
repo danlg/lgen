@@ -21,6 +21,25 @@ Template.Language.helpers({
 /*****************************************************************************/
 Template.Language.created = function () {
 	Session.setDefaultPersistent("lang","en");
+	var  pattern = /-.*/g ;
+		if(Meteor.isCordova){
+			navigator.globalization.getPreferredLanguage(
+				function (language) {
+					// alert('language: ' + language.value + '\n');
+					// console.log(language);
+					var lang =language.value.replace(pattern,"");
+					Session.setPersistent('lang',lang);
+					TAPi18n.setLanguage(lang);
+					Router.go('Login');
+
+				},
+				function () {alert('Error getting language\n');}
+			);
+		// 	navigator.globalization.getLocaleName(
+		// 		function (locale) {alert('locale: ' + locale.value + '\n');},
+		// 		function () {alert('Error getting locale\n');}
+		// )	;
+	}
 };
 
 Template.Language.rendered = function () {

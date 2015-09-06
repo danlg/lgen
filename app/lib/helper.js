@@ -49,6 +49,10 @@ getClassCodeNew = function(className){
 getFullNameByProfileObj=function(profile){
     return profile.firstname+" "+profile.lastname;
 };
+getFullNameOfCurrentUser=function(){
+    var profile = Meteor.user().profile;
+    return profile.firstname+" "+profile.lastname;
+};
 
 validateEmail = function(email) {
     var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;

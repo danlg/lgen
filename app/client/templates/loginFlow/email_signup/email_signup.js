@@ -1,7 +1,15 @@
 /*****************************************************************************/
 /* EmailSignup: Event Handlers */
 /*****************************************************************************/
-Template.EmailSignup.events({});
+Template.EmailSignup.events({
+  'focus #dobInput':function (argument) {
+    $(".dobplaceholder").hide();
+  },
+  'blur #dobInput':function (argument) {
+    if($("#dobInput").val()==="")
+      $(".dobplaceholder").show();
+  }
+});
 
 /*****************************************************************************/
 /* EmailSignup: Helpers */
@@ -14,6 +22,7 @@ Template.EmailSignup.helpers({
   isStudent:function(){
     return Router.current().params.role === "Student";
   }
+
 });
 
 /*****************************************************************************/
@@ -35,7 +44,7 @@ Template.ionNavBar.events({
   'click .createBtn': function() {
     /*var userObj =  createVM.toJS();
     Meteor.call('user/create', createVM.toJS(), function(err) {
-      err ? alert(err) : Router.go('TabChat');
+      err ? alert(err.reason); : Router.go('TabChat');
     });*/
 
       // AutoForm.submitFormById("#signupform");
@@ -58,10 +67,12 @@ Template.ionNavBar.events({
           password : $('.pwd').val(),
           profile:userObj.profile
         },function (err) {
-          if(err)
-            alert(err);
-          else
+          if(err){
+            alert(err.reason);
+            console.log(err);
+          }else{
             Router.go("TabClasses");
+          }
         });
 
       }

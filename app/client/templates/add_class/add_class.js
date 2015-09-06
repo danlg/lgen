@@ -34,7 +34,7 @@ Template.ionNavBar.events({
       var classname = AutoForm.getFieldValue("className","insertClass");
 
       Meteor.call('addClassMail',email,classname,function(err,res){
-          err?alert(err):Router.go('TabClasses');
+          err?alert(err.reason);:Router.go('TabClasses');
         });*/
     }
   });

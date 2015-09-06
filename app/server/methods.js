@@ -12,7 +12,6 @@ Meteor.methods({
    * }
    */
   'ping': function() {
-    console.log("asd");
     this.unblock();
     try {
       console.log(Mandrill.users.ping());
@@ -21,7 +20,6 @@ Meteor.methods({
     }
   },
   'ping2': function() {
-    console.log("asd");
     this.unblock();
     try {
       console.log(Mandrill.users.ping2());
@@ -32,6 +30,14 @@ Meteor.methods({
   'testEmail': function() {
     try {
       Mandrill.messages.send(testMail("", ""));
+    } catch (e) {
+      console.log(e);
+    }
+  },
+  'FeedBack': function(content) {
+    // feedback@littlegenius.io
+    try {
+      Mandrill.messages.send(feedback(content));
     } catch (e) {
       console.log(e);
     }
@@ -214,19 +220,20 @@ Meteor.methods({
         }
     });
   },
-  serverNotification: function (query) {
+  serverNotification: function ( notificationObj ) {
 
-    Push.send({
-      from: 'push',
-      title: 'Hello World',
-      text: 'This notification has been sent from the SERVER',
-      payload: {
-        title: 'Hello World'
-      },
-      query:query
-    });
+    Push.send(notificationObj);
 
 	},
+  'insertImageTest':function (filePath) {
+
+    Images.insert(filePath, function (err, fileObj) {
+        if(err)console.log(err);
+        else{
+          console.log(fileObj);
+        }
+    });
+  }
 
 
 });

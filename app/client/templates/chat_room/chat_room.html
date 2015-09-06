@@ -35,7 +35,9 @@
     {{else}}
       {{#with getImage}}
         {{#if this.isUploaded}}
-          <img src="{{this.url store='thumbs'  }}" alt="">
+          {{#if this.hasStored 'images'}}
+          <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}" >
+          {{/if}}
         {{/if}}
       {{/with}}
     {{/if}}
@@ -105,9 +107,6 @@
     {{/each}}
 
 
-
-
-
   </div>
 
   <div class="list inputBoxList">
@@ -118,11 +117,17 @@
     </div> -->
 
 
-    <div class="item item-input">
-      <div style="margin-left:5px;margin-right:30px">
+    <div class="item item-input chatroomItem">
+      <!-- <div style="margin-left:5px;margin-right:30px">
         <label class="imageBtnTri" ><i class="icon ion-image"></i></label>
-        <input type="file" accept="image/*" id="imageBtn" class="hide" >
-      </div>
+        <input type="file" accept="image/*" id="imageBtn" class="" >
+
+      </div> -->
+
+  <div>
+    <label for="imageBtn" class="imageBtnTri"></label>
+    <input id="imageBtn" type="file" name="photo" style="display: none;" accept="image/*">
+  </div>
       <!-- <div style="margin-left:30px;"><i class="icon ion-mic-a"></i></div> -->
       <!-- <div style="margin:0 30px;"><i class="icon ion-paperclip"></i></div> -->
 
@@ -131,16 +136,19 @@
     </div>
   </div>
 
-
-
-
-
-
-
-
   {{/ionContent}}
 {{/ionView}}
 
 
 
+</template>
+
+<template name="imageModal">
+  {{#ionModal title="" }}
+  <div class="row row-center" style="height:100%">
+    <div class="col" style="text-align: center;">
+        <img src="{{src}}" alt="" style="max-width:100%">
+    </div>
+  </div>
+  {{/ionModal}}
 </template>
