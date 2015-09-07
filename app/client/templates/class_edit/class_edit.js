@@ -11,7 +11,7 @@ Template.ClassEdit.events({
   },
   'click .removeClass':function(){
     Meteor.call("class/delete",Classes.findOne(),function(){
-        Router.go('TabClasses')
+        Router.go('TabClasses');
       });
   }
 });
@@ -21,7 +21,7 @@ Template.ClassEdit.events({
 /*****************************************************************************/
 Template.ClassEdit.helpers({
   classObj:function(){
-    return Classes.findOne();
+    return Classes.findOne({classCode:Router.current().params.classCode});
   },
   classId:function(){
     return Classes.findOne()._id;

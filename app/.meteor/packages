@@ -45,7 +45,7 @@ reactive-var
 meteorhacks:kadira
 
 u2622:persistent-session
-momentjs:moment
+
 underscore
 jquery
 fastclick
@@ -60,3 +60,5 @@ reywood:publish-composite
 okgrow:analytics
 raix:push
 mdg:camera
+momentjs:moment
+benmgreene:moment-range

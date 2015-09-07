@@ -17,6 +17,12 @@ Images = new FS.Collection("images", {
   }
 });
 
+Sounds = new FS.Collection("sounds", {
+  stores: [
+    Stores.sounds
+  ]
+});
+
 
 function trueFunc(userId) {
   if (!userId) {
@@ -36,6 +42,12 @@ function falseFunc() {return false;}
 // });
 
 Images.allow({
+  insert: trueFunc,
+  update: trueFunc,
+  remove: trueFunc,
+  download: trueFunc
+});
+Sounds.allow({
   insert: trueFunc,
   update: trueFunc,
   remove: trueFunc,

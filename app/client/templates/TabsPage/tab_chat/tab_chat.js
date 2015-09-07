@@ -25,8 +25,11 @@ Template.TabChat.helpers({
       return false;
     }
   },
-  'chatroomMenberName':function(chatIds){
+  'chatroomMenberName':function(){
     var string = [];
+
+
+
     // var userObjArr = lodash.reject(chatIds,{_id:Meteor.userId()});
     // userObjArr =  lodash.map(userObjArr,'profile');
     // lodash.forEach(userObjArr,function(el,index){
@@ -34,14 +37,14 @@ Template.TabChat.helpers({
     //   string.push(name);
     // });
     // return lodash(string).toString();
-    var usersArr = lodash.remove(chatIds,function (el) {
-      return el !== Meteor.userId();
-    });
-    var userObjArr =  Meteor.users.find({_id:{$in:usersArr } }).fetch();
+
+    var userObjArr =  Meteor.users.find({_id:{$in:this.chatIds } }).fetch();
 
     lodash.forEach(userObjArr,function(el,index){
-      var name = getFullNameByProfileObj(el.profile);
-      string.push(name);
+      if(el._id!==Meteor.userId()){
+        var name = getFullNameByProfileObj(el.profile);
+        string.push(name);
+      }
     });
 
     return lodash(string).toString();
@@ -58,26 +61,48 @@ Template.TabChat.helpers({
 
   },
   'isHide':function(chatIds){
-    var string = [];
+
+    var chatIdsLocal = chatIds;
+
+    if(text.get()!==""){
+
+      var string = [];
+
+      var userObjArr =  Meteor.users.find({_id:{$in:this.chatIds } }).fetch();
+
+      lodash.forEach(userObjArr,function(el,index){
+        if(el._id!==Meteor.userId()){
+          var name = getFullNameByProfileObj(el.profile);
+          string.push(name);
+        }
+      });
 
 
-    var usersArr = lodash.remove(chatIds,function (el) {
-      return el === Meteor.userId();
-    });
-    var userObjArr =  Meteor.users.find({_id:{$in:usersArr } }).fetch();
 
-    lodash.forEach(userObjArr,function(el,index){
-      var name = getFullNameByProfileObj(el.profile);
-      string.push(name);
-    });
+      //
+      //
+      // var usersArr = lodash.remove(chatIds,function (el) {
+      //   return el === Meteor.userId();
+      // });
+      // var userObjArr =  Meteor.users.find({_id:{$in:usersArr } }).fetch();
+      //
+      // lodash.forEach(userObjArr,function(el,index){
+      //   var name = getFullNameByProfileObj(el.profile);
+      //   string.push(name);
+      // });
+      //
 
-    if(lodash.includes(lodash(string).toString().toUpperCase(),text.get().toUpperCase())){
-      return true;
+
+      if(lodash.includes(lodash(string).toString().toUpperCase(),text.get().toUpperCase())){
+        return true;
+      }else{
+      return false;
+      }
+
     }else{
-    return false;
+      return true;
     }
 
-    // return true;
   }
 });
 

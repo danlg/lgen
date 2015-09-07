@@ -1,7 +1,7 @@
 <template name="Chatoption">
 
   {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton href='TabChat' }}
+    {{>ionNavBackButton href='TabChat' class="ChatoptionCancel" }}
   {{/contentFor}}
 
   {{#contentFor "headerTitle"}}
@@ -9,7 +9,7 @@
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
-    <button  class="button button-clear button-entering button-active ChatoptionSave">Save</button>
+    <!-- <button  class="button button-clear button-entering button-active ChatoptionSave">Save</button> -->
   {{/contentFor}}
 
 
@@ -20,7 +20,7 @@
     {{#ionContent}}
 
       <div class="list">
-        {{#autoForm schema=chatSetting resetOnSuccess="false"  id="chatOptionUpdate" type="method" meteormethod="chat/setting/update"}}
+        {{#autoForm schema=chatSetting resetOnSuccess="false" doc=optionObj id="chatOptionUpdate" type="method" meteormethod="chat/setting/update"}}
 
           <div class="item item-toggle">
             Work Hour

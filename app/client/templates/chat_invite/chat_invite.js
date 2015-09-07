@@ -13,14 +13,18 @@ Template.ChatInvite.events({
 
     /*console.log($('.js-example-basic-multiple').val());*/
   },
-  'change .targetCB':function(){
+  'change .targetCB':function(e){
     targetString= [];
     targetIds.set([]);
     var localarr= [];
-    $(".targetCB:checked").each(function(index,el){
-      localarr.push($(el).val());
-      targetString.push($(el).data("fullname"));
-    });
+    // $(".targetCB:checked").each(function(index,el){
+      // localarr.push($(el).val());
+      // targetString.push($(el).data("fullname"));
+    // });
+    // $(e.target).attr('checked','checked');
+    localarr.push($(e.target).val());
+    targetString.push($(e.target).data("fullname"));
+
     targetStringVar.set(targetString);
     targetIds.set(localarr);
 

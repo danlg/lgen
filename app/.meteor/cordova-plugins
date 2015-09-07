@@ -7,4 +7,5 @@ org.apache.cordova.camera@0.3.1
 org.apache.cordova.contacts@0.2.16
 org.apache.cordova.dialogs@0.2.10
 org.apache.cordova.globalization@0.3.4
+org.apache.cordova.media@0.2.16
 org.apache.cordova.vibration@0.3.11

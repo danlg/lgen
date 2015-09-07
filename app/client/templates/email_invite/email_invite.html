@@ -1,7 +1,7 @@
 <template name="EmailInvite">
 
     {{#contentFor "headerTitle"}}
-      <h1 class="title">Send invitations</h1>
+      <h1 class="title">{{_ "SendInvitations"}}</h1>
     {{/contentFor}}
 
 
@@ -33,8 +33,8 @@
         {{#if isSearched this}}
           <div class="item item-button-right">
             {{getName this}}
-            <button class="button button-positive inviteBtn" data-id={{id}}>
-              invite
+            <button class=" {{invited}} button button-positive inviteBtn" data-id={{id}}>
+              {{_ "invite"}}
             </button>
           </div>
         {{/if}}

@@ -24,7 +24,11 @@
 
   "env": {
     "ROOT_URL": "http://esprit.io:8000",
-    "PORT":"8000"
+    "PORT":"8000",
+    "FROM_EMAIL":"feedback@littlegenius.io",
+    "FROM_NAME":"Little Genius",
+    "FEEDBACK_EMAIL":"feedback@littlegenius.io",
+    "WEB_URL":"http://esprit.io/"
 
   },
 

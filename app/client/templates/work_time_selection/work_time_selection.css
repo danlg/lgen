@@ -3,3 +3,9 @@
 /*****************************************************************************/
 .work-time_selection {
 }
+
+.formplacehoder,
+.toplacehoder{
+  width: 50px;
+  color: #999;
+}

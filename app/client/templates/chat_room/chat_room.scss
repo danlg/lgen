@@ -11,7 +11,7 @@
 .list.chatroomList{
   overflow-x: hidden;
   overflow-y: auto;
-  height: calc(100% - 60px);
+  height: calc(100% - 123px);
   margin-bottom: 0;
   .item{
     border-color: #FFF !important;
@@ -73,7 +73,7 @@
 }
 
 .item.item-input.chatroomItem{
-  padding: 0;
+  // padding: 0;
 }
 
 .imageBtnTri{
@@ -81,6 +81,116 @@
     width: 40px;
     height: 32px;
     margin: 0 20px;
-    background-image: url('/img/picture64.png');
     background-repeat: no-repeat;
+}
+
+.image.imageBtnTri{
+  background-image: url('/img/picture64.png');
+}
+.mic.imageBtnTri{
+  background-image: url('/img/picture64.png');
+}
+
+.file{
+  -webkit-font-smoothing: antialiased;
+-webkit-transition-delay: 0s, 0s;
+-webkit-transition-duration: 0.1s, 0.1s;
+-webkit-transition-property: background-color, color;
+-webkit-transition-timing-function: linear, linear;
+// background-color: rgb(241, 241, 241);
+// border-bottom-color: rgb(231, 231, 231);
+
+box-sizing: border-box;
+// color: rgb(102, 102, 102);
+cursor: pointer;
+display: block;
+font-family: Roboto, HelveticaNeue-Light, sans-serif;
+font-size: 22px;
+height: 36px;
+line-height: 16px;
+margin-bottom: 0px;
+margin-left: 0px;
+margin-right: 0px;
+margin-top: 0px;
+padding-bottom: 6px;
+padding-left: 0px;
+padding-right: 0px;
+padding-top: 6px;
+text-align: center;
+transition-delay: 0s, 0s;
+transition-duration: 0.1s, 0.1s;
+// transition-property: background-color, color;
+// transition-timing-function: linear, linear;
+vertical-align: baseline;
+visibility: visible;
+width: 39.25px;
+position: relative;
+}
+
+#imageBtn{
+  -webkit-appearance: none;
+-webkit-font-smoothing: antialiased;
+-webkit-rtl-ordering: logical;
+-webkit-user-select: text;
+// background-color: rgba(0, 0, 0, 0);
+// border-bottom-color: rgb(102, 102, 102);
+border-bottom-style: none;
+border-bottom-width: 0px;
+border-image-outset: 0px;
+border-image-repeat: stretch;
+border-image-slice: 100%;
+border-image-source: none;
+border-image-width: 1;
+// border-left-color: rgb(102, 102, 102);
+border-left-style: none;
+border-left-width: 0px;
+// border-right-color: rgb(102, 102, 102);
+border-right-style: none;
+border-right-width: 0px;
+// border-top-color: rgb(102, 102, 102);
+border-top-style: none;
+border-top-width: 0px;
+bottom: 0px;
+box-sizing: border-box;
+// color: rgb(102, 102, 102);
+cursor: pointer;
+display: block;
+font-family: Roboto, HelveticaNeue-Light, sans-serif;
+font-size: 22px;
+font-style: normal;
+font-variant: normal;
+font-weight: normal;
+height: 36px;
+left: 0px;
+letter-spacing: normal;
+line-height: 16px;
+margin-bottom: 0px;
+margin-left: 0px;
+margin-right: 0px;
+margin-top: 0px;
+opacity: 0;
+overflow-x: hidden;
+overflow-y: hidden;
+padding-bottom: 0px;
+padding-left: 0px;
+padding-right: 0px;
+padding-top: 0px;
+right: 0px;
+text-align: start;
+text-indent: 0px;
+text-rendering: auto;
+text-shadow: none;
+text-transform: none;
+top: 0px;
+visibility: visible;
+width: 44px;
+word-spacing: 0px;
+writing-mode: lr-tb;
+-webkit-writing-mode: horizontal-tb;
+position: absolute;
+z-index: 100;
+}
+
+.imageIcon{
+z-index: -1;
 }

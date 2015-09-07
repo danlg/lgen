@@ -70,16 +70,16 @@
 
 <div class="list">
   <label class="item item-input item-stacked-label">
-    <span class="input-label">First Name</span>
-    {{> afFieldInput name="firstname" placeholder="First Name" value=profile.firstname  }}
+    <span class="input-label">{{_ "firstname"}}</span>
+    {{> afFieldInput name="firstname"  value=profile.firstname  }}
   </label>
   <label class="item item-input item-stacked-label">
-    <span class="input-label">Last Name</span>
-    {{> afFieldInput name="lastname" placeholder="Last Name" value=profile.lastname }}
+    <span class="input-label">{{_ "lastname"}}</span>
+    {{> afFieldInput name="lastname"  value=profile.lastname }}
   </label>
   <label class="item item-input item-stacked-label">
     <span class="input-label">Email</span>
-    {{> afFieldInput name="email" placeholder="" value=email  }}
+    {{> afFieldInput name="email" value=email  }}
   </label>
 </div>
 

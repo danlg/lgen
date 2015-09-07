@@ -7,16 +7,13 @@ var classObj ;
 /*****************************************************************************/
 Template.EmailInvite.events({
   'click .inviteBtn':function(e){
-    $(e.target).data('id')
-  },
-  'click .button':function(e){
 
     var classObj = Classes.findOne();
 
 
 
     var id  = $(e.target).data("id");
-    var targerObj = lodash.findByValues2(contactsObj,"id",id)
+    var targerObj = lodash.findByValues2(contactsObj,"id",id);
     var targetEmails= lodash.map(targerObj[0].emails,"value");
     var targetFirstEmail = targetEmails[0];
 
@@ -24,6 +21,16 @@ Template.EmailInvite.events({
 
     Meteor.call("class/invite",classObj,targetFirstEmail,function(err){
         err?alert(err.reason):alert("success");
+
+        Meteor.call("addInvitedPplId",id , function(error, result){
+          if(error){
+            console.log("error", error);
+          }
+          if(result){
+            //  $(e.target).remove();
+          }
+        });
+
     });
 
   },
@@ -38,6 +45,25 @@ Template.EmailInvite.events({
 /* EmailInvite: Helpers */
 /*****************************************************************************/
 Template.EmailInvite.helpers({
+  invited:function (argument) {
+    if(!Meteor.user().profile['contactsIds']){
+      return "";
+    }
+
+    else{
+
+      var contactsIds = Meteor.user().profile['contactsIds'];
+
+      if(contactsIds.indexOf(this.id) > -1){
+        // return "hide";
+        return "";
+      }else{
+        return "";
+      }
+
+    }
+
+  },
   classObj:function(){
     return Classes.findOne();
   },

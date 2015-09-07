@@ -15,8 +15,8 @@
   },
 
   "vibrate": true,
-  "production": false,
-  "development":true,
+  "production": true,
+  "development":false,
   "badge": true,
   "sound": true,
   "alert": true,

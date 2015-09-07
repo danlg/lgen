@@ -13,7 +13,7 @@
 	"Classes":"Classes",
 	"You":"Vous",
 	"search":"Recherche",
-	"NoRecord":" ",
+	"NoRecord":"No Record",
 	"ClassesIOwn":"Mes classes",
 	"ClassesIveJoined":"Mes abonnements",
 	"CreateAClass":"Créer une classe",
@@ -28,8 +28,8 @@
 	"Feedback":"Retour",
 	"LoveLittleGenius":"J'aime Little Genius",
 	"SignOut":"Déconnexion",
-    "MyAccounts":"Mon compte",
-    "MyAccount":"Mon compte",
+  "MyAccounts":"Mon compte",
+  "MyAccount":"Mon compte",
 	"Send":"Envoi",
 	"feedbackTextarea":"Dites nous ce que vous en pensez !",
 	"Itisworkofftime":"En dehors des heures de bureau",
@@ -42,6 +42,27 @@
 	"Addstudentsandparents":"Inviter élève / parent",
 	"Update":"Mise à jour",
 
+	// 7 sep 2015
+	"firstname":"Prénom",
+	"lastname":"Nom de famille",
+	"password":"Mot de passe",
+
+	// please delete this line after changed to fr
+	"NewNotification":"New Notification",
+	"To":"To:",
+	"message":"message",
+	"WhatMethodYouWouldLikeToAddThem":"what method you would like to add them",
+	"ShareALink":"Share a Link",
+	"ShareThisLinkWithYourClass":"Share This Link With Your Class",
+	"SharingThisLinkHelpsStudentsAndParentJoinYourClass":"sharing this link helps students and parent join your class",
+	"Share":"Share",
+	"Copy":"Copy",
+	"SendInvitations":"Send Invitations",
+	"invite":"invite",
+
+
+
+
 
 
 
@@ -49,21 +70,21 @@
 	// This is for schemas of autoForm
 	"schemas": {
 		"emailSignup": {
-			"firstname": {
-				"placeholder": "Prénom"
-			},
-			"lastname": {
-				"placeholder": "Nom de famille"
-			},
-			"email": {
-				"placeholder": "Email"
-			},
-			"password": {
-				"placeholder": "Mot de passe"
-			},
-			"confirmPassword": {
-				"placeholder": "Confirmation du mot de passe"
-			}
+				"firstname": {
+					"placeholder": "Prénom"
+				},
+				"lastname": {
+					"placeholder": "Nom de famille"
+				},
+				"email": {
+					"placeholder": "Email"
+				},
+				"password": {
+					"placeholder": "Mot de passe"
+				},
+				"confirmPassword": {
+					"placeholder": "Confirmation du mot de passe"
+				}
 		},
 		"ClassesSchema":{
 			"className":{
@@ -74,6 +95,18 @@
 				"placeholder":"Code de la classe",
 				"label":"Code de la classe"
 			}
+		},
+		"editprofile":{
+			"firstname": {
+				"placeholder": "Prénom"
+			},
+			"lastname": {
+				"placeholder": "Nom de famille"
+			},
+			"email": {
+				"placeholder": "Email"
+			}
 		}
+
 	}
 }

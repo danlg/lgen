@@ -13,6 +13,7 @@ Stores = {};
 // });
 
 Stores.images = new FS.Store.GridFS("images");
+Stores.sounds = new FS.Store.GridFS("sounds");
 Stores.thumbs = new FS.Store.GridFS("thumbs", {
   beforeWrite: function(fileObj) {
     // We return an object, which will change the

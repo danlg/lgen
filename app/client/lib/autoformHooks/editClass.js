@@ -1,8 +1,6 @@
 var postHooks = {
   before:{
     method:function(doc){
-
-
       return doc;
     }
   },
@@ -18,7 +16,7 @@ var postHooks = {
           function(err,res){
             err?alert(err.reason);:Router.go('TabClasses');
           });*/
-
+        // alert("update success");
 
 
 
@@ -29,6 +27,6 @@ var postHooks = {
   onError:function(type,error){
     alert(error.reason);
   }
-}
+};
 
 AutoForm.addHooks('updateClass', postHooks);

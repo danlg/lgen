@@ -43,6 +43,19 @@
 	"Addstudentsandparents":"Add students and parents",
 	"Update":"Update",
 
+	//7 sep 2015
+	"NewNotification":"New Notification",
+	"To":"To:",
+	"message":"message",
+	"WhatMethodYouWouldLikeToAddThem":"what method you would like to add them",
+	"ShareALink":"Share a Link",
+	"ShareThisLinkWithYourClass":"Share This Link With Your Class",
+	"SharingThisLinkHelpsStudentsAndParentJoinYourClass":"sharing this link helps students and parent join your class",
+	"Share":"Share",
+	"Copy":"Copy",
+	"SendInvitations":"Send Invitations",
+	"invite":"invite",
+
 
 
 
@@ -74,6 +87,17 @@
 			"classCode":{
 				"placeholder":"Class code",
 				"label":"Class code"
+			}
+		},
+		"editprofile":{
+			"firstname": {
+				"placeholder": "First name"
+			},
+			"lastname": {
+				"placeholder": "Last name"
+			},
+			"email": {
+				"placeholder": "Email"
 			}
 		}
 	}

@@ -1,4 +1,20 @@
+getUserLanguage = function () {
+  // Put here the logic for determining the user language
 
+  var  pattern = /-.*/g ;
+
+  navigator.globalization.getPreferredLanguage(
+    function (language) {
+      // alert('language: ' + language.value + '\n');
+      console.log(language);
+      var lang =language.value.replace(pattern,"");
+      return lang;
+  },
+    function () {console.log('Error getting language\n');}
+  );
+
+
+};
 
 randomString = function (length, chars) {
     chars ="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";

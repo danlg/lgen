@@ -63,7 +63,7 @@ Meteor.methods({
 
     */
 
-    var acceptLink ="http://localhost:3000/"+classObj.classCode;
+    var acceptLink = process.env.WEB_URL +classObj.classCode;
     var acceptLinkEncoded =  encodeURI(acceptLink);
 
 
@@ -89,7 +89,7 @@ Meteor.methods({
   "sendMsg": function(target, msg) {
 
     var msgObj = {};
-    var date = Date.now();
+    var date = moment().format('x');
     msgObj.msgId = CryptoJS.SHA1(date + msg).toString().substring(0, 6);
     msgObj.content = msg;
     msgObj.checked = [];
@@ -233,6 +233,22 @@ Meteor.methods({
           console.log(fileObj);
         }
     });
+  },
+  'addInvitedPplId':function (id) {
+    var profile="";
+    if(!Meteor.user().profile['invitedContactIds']){
+      profile = Meteor.user().profile;
+      var contactsIds = [];
+      contactsIds.push(id);
+      profile.contactsIds=contactsIds;
+      Meteor.users.update(Meteor.userId(),{$set:{profile:profile}});
+    }else{
+      profile = Meteor.user().profile;
+      var contactsIds = Meteor.user().profile.contactsIds.push(id);
+      profile.contactsIds=contactsIds;
+      console.log(profile);
+      Meteor.users.update(Meteor.userId(),{$set:{profile:profile}});
+    }
   }
 
 

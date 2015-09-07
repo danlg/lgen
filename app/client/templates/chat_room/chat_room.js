@@ -1,3 +1,5 @@
+var isRecording = false;
+ media="";
 /*****************************************************************************/
 /* ChatRoom: Event Handlers */
 /*****************************************************************************/
@@ -112,6 +114,31 @@ Template.ChatRoom.events({
    'click .imgThumbs':function (e) {
      var imageFullSizePath = $(e.target).data('fullsizeimage');
      IonModal.open('imageModal',{src:imageFullSizePath});
+   },
+   'click .voice':function (argument) {
+
+     if(!isRecording){
+       console.log('startRec');
+       media  = getNewRecordFile();
+       media.startRecord();
+       isRecording=true;
+
+     }else{
+       console.log('stopRec');
+       media.stopRecord();
+       playAudio(media.src);
+       isRecording=false;
+
+        Sounds.insert(media.src,function (err, fileObj) {
+          if(err){
+            alert(err);
+          }else{
+            alert('success');
+          }
+        });
+
+     }
+
    }
 
 });
@@ -153,6 +180,12 @@ Template.ChatRoom.helpers({
     var arr = Chat.findOne({_id:Router.current().params.chatRoomId}).chatIds;
     var targetUserObj = lodash.reject(arr,{_id:Meteor.userId()})[0];
 
+  },
+  targertWorkingTime:function (argument) {
+    var target = Meteor.users.find({_id:{$ne:Meteor.userId()}});
+    if(target.profile.role=="Teacher"){
+      
+    }
   }
 
 });
@@ -218,6 +251,7 @@ chatroomList.addEventListener('wheel', function() {
   template.atBottom = false;
   return onscroll();
 });
+
 
 
 
@@ -345,3 +379,47 @@ function onSuccess(err,imageData) {
 function onFail(message) {
     alert('Failed because: ' + message);
 }
+
+// Record audio
+
+
+function getNewRecordFile() {
+
+  var src = "documents://"+moment().format('x')+".wav";
+  mediaRec = new Media(src,
+      // success callback
+      function() {
+          console.log("recordAudio():Audio Success");
+      },
+
+      // error callback
+      function(err) {
+          console.log("recordAudio():Audio Error: "+ err.code);
+      }
+  );
+
+  return mediaRec;
+
+}
+
+
+
+
+
+playAudio = function (url) {
+    // Play the audio file at url
+    var my_media = new Media(url,
+        // success callback
+        function () { console.log("playAudio():Audio Success"); },
+        // error callback
+        function (err) { console.log("playAudio():Audio Error: " + err); }
+    );
+
+    // Play audio
+    my_media.play();
+
+    // Pause after 10 seconds
+    setTimeout(function () {
+        media.pause();
+    }, 10000);
+};

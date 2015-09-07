@@ -36,10 +36,10 @@
 
 
           {{#each this}}
-            {{#if isHide chatIds}}
+            {{#if isHide }}
             <a href="{{ pathFor 'ChatRoom' chatRoomId=_id }}">
               <div class="item">
-                <h2>{{chatroomMenberName chatIds }}</h2>
+                <h2>{{chatroomMenberName  }}</h2>
                 <div class="description" >{{lasttext messagesObj}}</div>
               </div>
             </a>

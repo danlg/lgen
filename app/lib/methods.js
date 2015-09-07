@@ -79,7 +79,10 @@ Meteor.methods({
    'class/search':function(classCode){
     //  check(doc,Schema.joinClass)
     //  Classes.update(doc,{$addToSet:{"joinedUserId":Meteor.userId()}});
-    return Classes.findOne({classCode:classCode})||false;
+    var query={};
+    query.classCode=classCode;
+    query.createBy = {$ne:Meteor.userId()};
+    return Classes.findOne(query)||false;
    },
    'class/join':function(doc){
      check(doc,Schema.joinClass);

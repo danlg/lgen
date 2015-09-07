@@ -30,7 +30,42 @@ OnBeforeActions = {
     } else {
       this.next();
     }
+  },
+  checkLanguage: function(pause) {
+
+    if(Meteor.isCordova){
+      var  pattern = /-.*/g ;
+
+      navigator.globalization.getPreferredLanguage(
+        function (language) {
+          // alert('language: ' + language.value + '\n');
+          // console.log(language);
+          var lang =language.value.replace(pattern,"");
+
+          TAPi18n.setLanguage(lang)
+          .done(function (){
+              Session.setPersistent('lang',lang);
+          })
+          .fail(function (error_message) {
+            // Handle the situation
+            console.log(error_message);
+          });
+
+
+        },
+        function () {alert('Error getting language\n');}
+      );
+    }
+
+    this.next();
+
+
   }
+
+
+
+
+
 };
 
 /*Router.onBeforeAction(OnBeforeActions.loginRequired, {
@@ -48,6 +83,7 @@ Router.onBeforeAction(OnBeforeActions.loginedRedirect, {
 });
 
 Router.onBeforeAction('loading');
+Router.onBeforeAction(OnBeforeActions.checkLanguage);
 
 
 Router.route('language', {

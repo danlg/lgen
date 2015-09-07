@@ -23,13 +23,13 @@
 
     <div class="row row-center" style="height:60vh">
         <div class="col" style="text-align:center">
-          what method you would like to add them
+          {{_ "WhatMethodYouWouldLikeToAddThem"}}
         </div>
     </div>
     <ul class="list">
       <li class="item">In-class</li>
-      <a href="{{pathFor 'ShareInvite' classCode=getclassCode }}"><li class="item">Share a Link</li></a>
-      <a href="{{pathFor 'EmailInvite' classCode=getclassCode }}"><li class="item">send</li></a>
+      <a href="{{pathFor 'ShareInvite' classCode=getclassCode }}"><li class="item">{{_ "ShareALink" }}</li></a>
+      <a href="{{pathFor 'EmailInvite' classCode=getclassCode }}"><li class="item">{{_ "send"}}</li></a>
     </ul>
 
 

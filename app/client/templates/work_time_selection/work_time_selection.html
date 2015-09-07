@@ -10,7 +10,7 @@
     {{/contentFor}}
 
     {{#contentFor "headerButtonRight"}}
-      <button  class="button button-clear button-entering button-active WorkTimeSelectionSaveBtn">Save</button>
+      <!-- <button  class="button button-clear button-entering button-active WorkTimeSelectionSaveBtn">Save</button> -->
     {{/contentFor}}
 
 
@@ -21,12 +21,20 @@
       {{#ionContent}}
 
 
-        <li class="item item-input">
-          <input type="time" class="from" value={{workHourTimeObj.from}} >
-        </li>
-        <li class="item item-input">
-          <input type="time" class="to" value={{workHourTimeObj.to}} >
-        </li>
+        <label for="fromInput">
+          <li class="item item-input">
+            <div class="formplacehoder">From</div>
+            <input type="time" class="from" id="fromInput" value={{from}} >
+          </li>
+        </label>
+        <label for="toInput">
+          <li class="item item-input">
+            <div class="toplacehoder">To</div>
+            <input id="toInput" type="time" class="to" value={{to}} >
+          </li>
+        </label>
+
+
 
 
 

@@ -23,17 +23,14 @@ ClassesSchema = new SimpleSchema({
       afFieldInput: {
         type: "boolean-checkbox2",
       },
-    },
-    autoValue:function(){
-      return true;
     }
+    // autoValue:function(){
+    //   return true;
+    // }
   },
   higherThirteen: {
     type: Boolean,
     optional: false,
-    autoValue:function(){
-      return true;
-    },
     autoform: {
       afFieldInput: {
         type: "boolean-checkbox2",
@@ -48,9 +45,9 @@ ClassesSchema = new SimpleSchema({
         type: "boolean-checkbox2",
       },
     },
-    autoValue:function(){
-      return true;
-    }
+    // autoValue:function(){
+    //   return true;
+    // }
   },
   joinedUserId:{
     type:[String],

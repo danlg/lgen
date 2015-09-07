@@ -1,7 +1,7 @@
 <template name="SendMessage">
 
     {{#contentFor "headerTitle"}}
-      <h1 class="title">New Notification</h1>
+      <h1 class="title">{{_ "NewNotification"}}</h1>
     {{/contentFor}}
 
 
@@ -15,7 +15,7 @@
 
     {{#contentFor "headerButtonRight"}}
     <div style="position: absolute; right: 0;">
-      <button  class="button button-clear button-entering button-active sendMsgBtn">Send</button>
+      <button  class="button button-clear button-entering button-active sendMsgBtn">{{ _ "Send"}}</button>
       <!-- <button  class="button button-clear button-entering button-active msgDoneClassBtn {{doneClassBtnStatus}}">Done</button> -->
 
     </div>
@@ -49,7 +49,7 @@
 
       <a href="{{pathFor 'MessageClassSelection' }}">
         <div class="item">
-          To: {{ arrToString searchObj.selectArrName }}
+          {{_ "To" }} {{ arrToString searchObj.selectArrName }}
         </div>
       </a>
 
@@ -69,7 +69,7 @@
 
 
     <label class="item item-input {{messageBox}}" style="height:60vh">
-      <textarea class="msgBox" placeholder="message" style="height:100%;font-size:20px;" ></textarea>
+      <textarea class="msgBox" placeholder="{{_'message'}}" style="height:100%;font-size:20px;" ></textarea>
     </label>
 
 
