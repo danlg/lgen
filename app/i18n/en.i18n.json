@@ -21,7 +21,7 @@
 	"JoinAClass":"Join a class",
 	"AddClass":"Add class",
 	"Add":"Add",
-	"AnyoneInThisClassCanStartAChat":"Anyone in this class can start a Chat",
+	"AnyoneInThisClassCanStartAChat":"Anyone in this class can start a chat",
 	"IWillOnlyMessagePeople13AndOlder":"I will only message people 13 and older",
 	"addClassDescription":"It's OK if students are under 13; we'll ask them their parent's email to keep everyone in the loop.",
 	"addClassTerm":" ",
@@ -39,7 +39,7 @@
 	"Teacher":"Teacher",
 	"ClassCode":"Class Code",
 	"Unsubsribe":"Unsubscribe",
-	"Subscriber":"Subscriber",
+	"Subscriber":"Member",
 	"Addstudentsandparents":"Add students and parents",
 	"Update":"Update",
 
