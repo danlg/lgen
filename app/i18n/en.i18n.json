@@ -14,31 +14,31 @@
 	"Classes":"Classes",
 	"You":"You",
 	"search":"search",
-	"NoRecord":"No Record",
-	"ClassesIOwn":"CLASSES I OWN",
-	"ClassesIveJoined":"CLASSES I'VE JOINED",
+	"NoRecord":"No record",
+	"ClassesIOwn":"Classes I own",
+	"ClassesIveJoined":"Classes I've joined",
 	"CreateAClass":"Create a class",
-	"JoinAClass":"Join a Class",
+	"JoinAClass":"Join a class",
 	"AddClass":"Add class",
 	"Add":"Add",
 	"AnyoneInThisClassCanStartAChat":"Anyone in this class can start a Chat",
-	"IWillOnlyMessagePeople13AndOlder":"I Will Only Message People 13 And Older",
+	"IWillOnlyMessagePeople13AndOlder":"I will only message people 13 and older",
 	"addClassDescription":"It's OK if students are under 13; we'll ask them their parent's email to keep everyone in the loop.",
-	"addClassTerm":"asdsada",
-	"MyAccounts":"My accounts",
+	"addClassTerm":" ",
+	"MyAccounts":"My account",
 	"Notification":"Notification",
 	"Feedback":"Feedback",
 	"LoveLittleGenius":"Love Little Genius",
 	"SignOut":"Sign Out",
 	"MyAccount":"My Account",
 	"Send":"Send",
-	"feedbackTextarea":"Tell Us What You Think",
+	"feedbackTextarea":"Tell us what you think",
 	"Itisworkofftime":"It is work off time",
 
 	// 3 sep 2015
 	"Teacher":"Teacher",
 	"ClassCode":"Class Code",
-	"Unsubsribe":"Unsubsribe",
+	"Unsubsribe":"Unsubscribe",
 	"Subscriber":"Subscriber",
 	"Addstudentsandparents":"Add students and parents",
 	"Update":"Update",
@@ -51,10 +51,10 @@
 	"schemas": {
 		"emailSignup": {
 			"firstname": {
-				"placeholder": "First Name"
+				"placeholder": "First name"
 			},
 			"lastname": {
-				"placeholder": "Last Name"
+				"placeholder": "Last name"
 			},
 			"email": {
 				"placeholder": "Email"
@@ -63,17 +63,17 @@
 				"placeholder": "Password"
 			},
 			"confirmPassword": {
-				"placeholder": "Confirm Password"
+				"placeholder": "Confirm password"
 			}
 		},
 		"ClassesSchema":{
 			"className":{
-				"placeholder":"Class Name",
+				"placeholder":"Class name",
 				"label": "Class name"
 			},
 			"classCode":{
-				"placeholder":"Class Code",
-				"label":"Class Code"
+				"placeholder":"Class code",
+				"label":"Class code"
 			}
 		}
 	}
