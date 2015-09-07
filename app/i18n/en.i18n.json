@@ -21,6 +21,7 @@
 	"ClassesIveJoined":"Classes I've joined",
 	"CreateAClass":"Create a class",
 	"JoinAClass":"Join a class",
+	"EnterClassCode":"Input the class code (without @)",
 	"AddClass":"Add class",
 	"Add":"Add",
 	"AnyoneInThisClassCanStartAChat":"Anyone in this class can start a chat",
