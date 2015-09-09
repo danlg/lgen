@@ -21,7 +21,7 @@ Template.TabClasses.helpers({
     return Classes.find({createBy:Meteor.userId()});
   },
   isTeacher:function(){
-    return Meteor.user().profile.role=="Teacher"
+    return Meteor.user().profile.role==="Teacher";
   }
 
 

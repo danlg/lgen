@@ -3,9 +3,11 @@
 /*****************************************************************************/
 Template.TabYou.events({
   'click .signOut':function(){
-      Meteor.logout(function(){
-        Router.go('language');
-      });
+      Meteor.logout(
+          function(err) {
+              Router.go('login');
+          }
+      );
   }
 });
 

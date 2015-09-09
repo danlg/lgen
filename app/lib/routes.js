@@ -9,7 +9,7 @@ var OnBeforeActions;
 OnBeforeActions = {
   loginRequired: function(pause) {
     if (!Meteor.userId()) {
-      Router.go('Login');
+      Router.go('login');
       this.next();
     } else {
       this.next();
@@ -25,7 +25,7 @@ OnBeforeActions = {
   },
   loginedRedirect: function(pause) {
     if (Meteor.userId()) {
-      Router.go('TabChat');
+      Router.go('TabClasses');
       this.next();
     } else {
       this.next();
@@ -39,12 +39,15 @@ OnBeforeActions = {
 
 */
 
+Router.onBeforeAction(OnBeforeActions.loginedRedirect, {
+  only: ['language']
+});
+
 Router.onBeforeAction(OnBeforeActions.roleRequired, {
   only: ['TabChat']
 });
-
-Router.onBeforeAction(OnBeforeActions.loginedRedirect, {
-  only: ['language']
+Router.onBeforeAction(OnBeforeActions.roleRequired, {
+  only: ['TabClasses']
 });
 
 Router.onBeforeAction('loading');
@@ -56,8 +59,8 @@ Router.route('language', {
   path: "/",
   name:"language"
 });
-Router.route('/loginMethod', {
-  name:"Login"
+Router.route('/login', {
+  name:"login"
 });
 Router.route('/email-signin', {
   // controller: 'LoginController',
@@ -67,11 +70,11 @@ Router.route('EmailSignup', {
   path: "email-signup/:role",
 });
 
-// Router.route('role', {
-//   controller: 'LoginController',
-//   action: "role"
-// });
-//
+ Router.route('/role', {
+   name:"role"
+ });
+
+
 // Router.route('dob', {
 //   controller: 'LoginController',
 //   action: "dob"
@@ -152,7 +155,7 @@ Router.route('ClassInfomation', {
 Router.route('TabClasses', {
   // controller: 'MainApplicationController',
   // action: "classes"
-  path:"Classes",
+  path:"classes",
   waitOn:function (argument) {
       Meteor.subscribe('joinedClass');
       Meteor.subscribe('createdClassByMe');

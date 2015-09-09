@@ -6,7 +6,7 @@ Template.Role.events({
     var $this = $(e.target);
     if(Meteor.user()){
       Meteor.call('user/role/update',$this.data('role'),function(){
-          Router.go('TabChat');
+          Router.go('TabClasses');
         });
     }else{
       Router.go('EmailSignin',{role:$this.data('role')});
@@ -29,11 +29,6 @@ Template.Role.created = function () {
 };
 
 Template.Role.rendered = function () {
-  // if(Meteor.user()){
-  //   var userObj=Meteor.user();
-  //     /*if(!_.pick(userObj,'role')=='')*/
-  //       Router.go('TabChat');
-  // }
   IonModal.open('_modal');
 };
 
@@ -45,15 +40,14 @@ Template._modal.events({
     'click .role':function(e){
       IonModal.close('_modal');
       var role =  $(e.target).data('role');
+
       if(Meteor.userId()){
-
         Meteor.call('user/role/update',role,function(){
-            Router.go('TabChat');
-          });
-
-      }else{
-
-        Router.go("EmailSignup",{role:role});
+            Router.go('TabClasses');
+        });
+      }
+      else{
+        Router.go('EmailSignup', {role:role});
       }
     }
 

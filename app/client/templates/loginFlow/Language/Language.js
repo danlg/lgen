@@ -29,8 +29,10 @@ Template.Language.created = function () {
 					// console.log(language);
 					var lang =language.value.replace(pattern,"");
 					Session.setPersistent('lang',lang);
+					//TODO set default language to English
+
 					TAPi18n.setLanguage(lang);
-					Router.go('Login');
+					Router.go('login');
 
 				},
 				function () {alert('Error getting language\n');}
