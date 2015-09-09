@@ -10,9 +10,7 @@ autoupdate@1.2.3-rc.1
 babel-compiler@5.8.22-rc.1
 babel-runtime@0.1.4-rc.0
 base64@1.0.4-rc.0
-bigvideo@0.0.0
 binary-heap@1.0.4-rc.0
-bkvideo@0.0.0
 blaze@2.1.3-rc.0
 blaze-html-templates@1.0.1-rc.0
 blaze-tools@1.0.4-rc.0
@@ -41,7 +39,6 @@ cfs:worker@0.1.4
 check@1.0.6-rc.0
 chuangbo:cookie@1.1.0
 coffeescript@1.0.8-rc.3
-cwaring:modernizr@3.0.0_1
 dcsan:ionic@0.1.17_6
 ddp@1.2.1-rc.0
 ddp-client@1.2.1-rc.1
@@ -96,8 +93,6 @@ meteoric:ionic-sass@0.1.9
 meteoric:ionicons-sass@0.1.6
 minifiers@1.1.6-rc.1
 minimongo@1.0.9-rc.0
-mizzao:build-fetcher@0.2.0
-mizzao:jquery-ui@1.11.4
 mobile-experience@1.0.1-rc.0
 mobile-status-bar@1.0.5-rc.1
 momentjs:moment@2.10.6
@@ -139,7 +134,6 @@ u2622:persistent-session@0.4.1
 ui@1.0.7-rc.0
 underscore@1.0.4-rc.0
 url@1.0.5-rc.0
-video@0.0.0
 webapp@1.2.2-rc.2
 webapp-hashing@1.0.4-rc.0
 wylio:mandrill@1.0.1
