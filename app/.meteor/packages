@@ -51,19 +51,9 @@ reywood:publish-composite
 okgrow:analytics
 raix:push
 mdg:camera
-standard-minifiers
-meteor-base
-mobile-experience
-mongo
-blaze-html-templates
-session
-tracker
-logging
-reload
-random
-ejson
-spacebars
-check
+meteor-platform
+
+
 
 
 
