@@ -3,26 +3,43 @@
 /*****************************************************************************/
 
 Template.Login.events({
-  'click .gmailLoginBtn': function() {
+    'click .gmailLoginBtn': function () {
+        console.log("Meteor user /logged in ?"+Meteor.user());
+        //if (!
+        //for details see, http://www.helptouser.com/code/29008008-meteor-js-google-account-filter-email-and-force-account-choser.html
+                Meteor.loginWithGoogle(
+            {
+                forceApprovalPrompt: true,
+                requestPermissions: ['email'],
+                loginStyle: 'popup',
+                requestOfflineToken: true
+            }
+            , function (err) {
+                if (err){
+                    // set a session variable to display later if there is a login error
+                    Session.set('loginError', 'reason: ' + err.reason + ' message: ' + err.message || 'Unknown error');
+                    alert(err.message + ":" + err.reason);
 
-    var option ={};
-    option.forceApprovalPrompt=true;
-    option.loginStyle="popup";
+                }
 
-
-    Meteor.loginWithGoogle(option,function(err) {
-      if (err)
-        alert(err.reason);
-      else {
-        if (Meteor.user().profile.role !== "")
-          Router.go('TabClasses');
-        else
-        // Router.go('role');
-          IonModal.open('_modal');
-      }
-
-    });
-  }
+                else {
+                    if (Meteor.user().profile.role !== "")
+                        Router.go('TabClasses');
+                    else
+                        Router.go('role');
+                }
+            })
+        //)
+        //{
+        //    if (Meteor.user().profile.role !== "")
+        //        Router.go('TabClasses');
+        //    else
+        //        Router.go('role');
+        //}
+        //else{
+        //    console.log("Shouldn't go here");
+        //}
+    }
 });
 
 /*****************************************************************************/

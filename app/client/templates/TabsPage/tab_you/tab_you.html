@@ -1,28 +1,33 @@
 <template name="TabYou">
 
     {{#contentFor "headerTitle"}}
-      <h1 class="title">{{_"MyAccount"}}</h1>
+        <h1 class="title">{{_"MyAccount"}}</h1>
     {{/contentFor}}
 
     {{#contentFor "headerButtonLeft"}}
-      <!-- {{>ionNavBackButton text=""}} -->
+        <!-- {{>ionNavBackButton text=""}} -->
     {{/contentFor}}
 
     {{#ionView}}
-    {{#ionContent}}
-		<div class="list">
+        {{#ionContent}}
+            <div class="list">
 
-			<a href="{{ pathFor 'MyAccount'  }}">
-        <div class="item" > <i class="icon ion-person"></i> {{_"MyAccounts"}}</div>
-      </a>
+                <a href="{{ pathFor 'MyAccount'  }}">
+                    <div class="item"><i class="icon ion-person"></i> {{_"MyAccount"}}</div>
+                </a>
 
-			<!-- <div class="item" >{{_"Notification"}}</div> -->
-			<div class="item" > <i class="icon ion-ios-information-outline"></i> {{_"About"}}</div>
-			<a href="{{pathFor 'FeedBack'}}"><div class="item" > <i class="icon ion-ios-paper-outline"></i> {{_"Feedback"}}</div></a>
-			<div class="item loveLG"  > <i class="icon ion-heart"></i> {{_ "LoveLittleGenius"}}</div>
-			<div class="item signOut" >{{_ "SignOut"}}</div>
-		</div>
-    {{/ionContent}}
+
+                <div class="item"><i class="icon ion-ios-information-outline"></i> {{_ "About"}}</div>
+                <a href="{{pathFor 'FeedBack'}}">
+                    <div class="item"><i class="icon ion-ios-paper-outline"></i> {{_ "Feedback"}}</div>
+                </a>
+
+                <div class="item"><i class="icon ion-heart"></i> {{_ "LoveLittleGenius"}}</div>
+
+                <div class="item signOut"><i class="icon ion-log-out"></i> {{_ "SignOut"}}</div>
+                <!--<div class="item signOut">{{_ "SignOut"}}</div>-->
+            </div>
+        {{/ionContent}}
     {{/ionView}}
 
 </template>
