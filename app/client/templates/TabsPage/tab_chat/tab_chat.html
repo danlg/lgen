@@ -10,9 +10,11 @@
     <a href="{{ pathFor 'ChatInvite' }}"  class="button button-clear button-entering button-active">
       <i class="icon ion-chatbubble-working"></i>
     </a>
-    <a href="{{ pathFor 'Chatoption' }}"  class="button button-clear button-entering button-active">
-      <i class="icon ion-gear-a"></i>
-    </a>
+    {{#if IAMTeacher}}
+      <a href="{{ pathFor 'Chatoption' }}"  class="button button-clear button-entering button-active">
+        <i class="icon ion-gear-a"></i>
+      </a>
+    {{/if}}
   </div>
   {{/contentFor}}
 

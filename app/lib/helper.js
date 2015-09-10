@@ -74,3 +74,26 @@ validateEmail = function(email) {
     var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
     return re.test(email);
 };
+
+
+
+
+
+getNewRecordFile = function () {
+
+  var src = moment().format('x')+".wav";
+  mediaRec = new Media(src,
+      // success callback
+      function() {
+          console.log("recordAudio():Audio Success");
+      },
+
+      // error callback
+      function(err) {
+          console.log("recordAudio():Audio Error: "+ err.code);
+      }
+  );
+
+  return mediaRec;
+
+};

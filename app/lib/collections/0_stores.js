@@ -13,7 +13,21 @@ Stores = {};
 // });
 
 Stores.images = new FS.Store.GridFS("images");
-Stores.sounds = new FS.Store.GridFS("sounds");
+Stores.sounds = new FS.Store.GridFS("sounds",{
+  // beforeWrite:function(fileObj){
+  //   console.log("start Transform");
+  //
+  //
+  //     // fileObj.extension("wav");
+  //     // fileObj.type("audio/wav");
+  //
+  // },
+  // beforeRead:function (fileObj) {
+  //   // fileObj.extension("wav");
+  //   // fileObj.type("audio/wav");
+  //
+  // }
+});
 Stores.thumbs = new FS.Store.GridFS("thumbs", {
   beforeWrite: function(fileObj) {
     // We return an object, which will change the

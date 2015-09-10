@@ -61,6 +61,15 @@
 	"invite":"invite",
 
 
+	"firstname":"First name",
+	"lastname":"Last name",
+	"password":"Password",
+	"email":"Email",
+
+	"Done":"Done",
+
+
+
 
 
 	// https://github.com/gwendall/meteor-autoform-i18n/

@@ -16,6 +16,9 @@ Template.TabChat.events({
 /* TabChat: Helpers */
 /*****************************************************************************/
 Template.TabChat.helpers({
+  IAMTeacher:function (argument) {
+    return Meteor.user().profile.role==="Teacher";
+  },
   'getAllMyChatRooms':function(){
     var allchat = Chat.find() ;
     totalResult = allchat.length;

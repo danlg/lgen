@@ -8,6 +8,9 @@
 //   secret: "cayfgSLf0iONHPtki5E78ov2"
 // });
 
+
+
+
 Accounts.config({
    loginExpirationInDays: null
 });
@@ -16,6 +19,7 @@ Accounts.config({
 ServiceConfiguration.configurations.remove({
    service: "google",
 });
+
 ServiceConfiguration.configurations.insert({
     service: "google",
     clientId: "621918568251-nf0apn9k6s71808cvp7v5j1ciuluk6vr.apps.googleusercontent.com",
@@ -72,7 +76,7 @@ Accounts.onCreateUser(function(options, user) {
       break;
     }*/
 
-    
+
 
   }
 

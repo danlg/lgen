@@ -1,8 +1,36 @@
 <template name="Testing">
 
 
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton text=" "}}
+  {{/contentFor}}
+
 {{#ionView}}
    {{#ionContent}}
+
+   <input type="file" class="soundTest">
+
+
+   <div class="file voice">
+           <i class="icon  ion-mic-a imageIcon"></i>
+   </div>
+{{#each Soundssrc}}
+{{#if isUploaded}}
+<div class="padding">
+  <div>
+    <audio id="{{_id}}" controls >
+      <source  src="{{url}}" type="audio/wav">
+
+    Your browser does not support the audio element.
+    </audio>
+  </div>
+  <div data-clipname="{{_id}}" class="playBtn" >
+    <i class="icon ion-play"></i>
+  </div>
+</div>
+{{/if}}
+{{/each}}
+
 
    <!-- <div class="padding">
      <button class="button button-large button-stable button-block" data-action="showLoading">
@@ -20,7 +48,7 @@
 
    <button class="stop">stop</button> -->
 
-   <div class="padding">
+   <!-- <div class="padding">
      <input type="file" accept="image/*" class="myFileInput">
    </div>
 
@@ -35,7 +63,9 @@
 
    <div>
      <img src="{{src}}" alt="">
-   </div>
+   </div> -->
+
+
 
 
    {{/ionContent}}

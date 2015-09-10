@@ -6,7 +6,7 @@ Template.Language.events({
 	'click .button':function(event){
 		var lang = $(event.target).data('lang');
 		Session.setPersistent('lang',lang);
-		TAPi18n.setLanguage(lang);
+		// TAPi18n.setLanguage(lang);
 	}
 });
 

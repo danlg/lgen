@@ -54,9 +54,9 @@ feedback = function(content) {
   return {
     "message": {
       "merge_language": "handlebars",
-      "html": "<h3> A FeedBack From "+fullName+" </h3><p>"+content+"</p>" ,
+      "html": "<h3> Feedback From "+fullName+" </h3><p>"+content+"</p>" ,
       "text": "Example text content",
-      "subject": "FeedBack From User!",
+      "subject": "Feedback from user!",
       "from_email": process.env.FROM_EMAIL,
       "from_name": process.env.FROM_NAME,
       "to": [{

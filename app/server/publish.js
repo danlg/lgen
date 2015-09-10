@@ -124,9 +124,9 @@ Meteor.publish('getJoinedClassUser', function(classCode) {
 Meteor.publish("images", function() {
   return Images.find();
 });
-// Meteor.publish("sounds", function() {
-//   return Sounds.find();
-// });
+Meteor.publish("sounds", function() {
+  return Sounds.find();
+});
 
 
 

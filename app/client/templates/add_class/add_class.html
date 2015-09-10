@@ -24,7 +24,7 @@
 {{#autoForm collection="Classes" id="insertClass" type="insert"}}
 
 
-  <ul class="list ">
+  <ul class="list " style="margin-bottom:0;">
     <li class="item item-input">
       {{> afFieldInput name="className" placeholder="Class Name" }}
     </li>
@@ -57,14 +57,16 @@
        </label>
     </li>
 
-       <div style="padding: 0 16px">
-         <span class="description">{{_ "addClassDescription"}}</span>
-       </div>
 
 
   </ul>
 
-  <div style="padding: 0 16px">
+  <div class="padding">
+    <span class="description">{{_ "addClassDescription"}}</span>
+  </div>
+
+
+  <div class="padding">
     <span class="description">{{_ "addClassTerm" }}</span>
   </div>
 

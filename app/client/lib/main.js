@@ -1,5 +1,6 @@
 Meteor.startup(function () {
 
+
 	if (Meteor.isCordova) {
 		window.alert = navigator.notification.alert;
 	}
@@ -29,3 +30,26 @@ Meteor.startup(function () {
 		// alert(notification.message, alertDismissed, notification.payload.title, "Ok");
 	});
 });
+
+AutoForm.setDefaultTemplate('plain');
+
+
+AutoForm.submitFormById= function(id){
+  $(id).submit();
+};
+
+Accounts.onEmailVerificationLink(function(token){
+  Accounts.verifyEmail(token, function(err){
+    err?alert(err.reason):Router.go('TabClasses');
+  });
+});
+
+
+// Meteor.AppCache.config({
+//   chrome: true,
+//   firefox: true,
+// 	chromium:true,
+// 	chromeMobileIOS:true,
+// 	mobileSafari:true,
+// 	safari:true
+// });

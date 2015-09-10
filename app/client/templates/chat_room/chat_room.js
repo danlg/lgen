@@ -1,5 +1,7 @@
 var isRecording = false;
  media="";
+ var isPlayingSound = false;
+ var recordTimer;
 /*****************************************************************************/
 /* ChatRoom: Event Handlers */
 /*****************************************************************************/
@@ -52,24 +54,8 @@ Template.ChatRoom.events({
     // testShareSheet();
   },
   'change #imageBtn': function(event, template) {
-    // Meteor.call("chatSendImage",event,Router.current().params.chatRoomId,function (err) {
-    //   err?alert(err.reason);:alert("success");
-    // });
-
-
 
     FS.Utility.eachFile(event, function(file) {
-
-
-
-      // Meteor.call("chatSendImage", file,Router.current().params.chatRoomId, function(error, result){
-      //   if(error){
-      //     console.log("error", error);
-      //   }
-      //   if(result){
-      //
-      //   }
-      // });
 
       Images.insert(file, function(err, fileObj) {
         if (err) {
@@ -98,10 +84,7 @@ Template.ChatRoom.events({
 
             }
           });
-
-
           // Chat.update({_id:Router.current().params.chatRoomId},{$push:{messagesObj:pushObj}});
-
         }
       });
 
@@ -122,24 +105,65 @@ Template.ChatRoom.events({
        media  = getNewRecordFile();
        media.startRecord();
        isRecording=true;
+       $(".icon.ion-mic-a").attr("class","icon ion-stop");
+
+      setTimeout(function () {
+        if(isRecording)
+          media.stopRecord();
+      }, 1000*60*3 );
+
+
+
 
      }else{
        console.log('stopRec');
        media.stopRecord();
-       playAudio(media.src);
+      //  playAudio(media.src);
        isRecording=false;
 
-        Sounds.insert(media.src,function (err, fileObj) {
-          if(err){
-            alert(err);
-          }else{
-            alert('success');
-          }
-        });
+       $(".icon.ion-stop").attr("class","icon ion-mic-a");
+
+
+       switch (window.device.platform) {
+         case "Android":
+           window.resolveLocalFileSystemURL(cordova.file.externalRootDirectory + media.src , onResolveSuccess, fail);
+           break;
+         case "iOS":
+           window.resolveLocalFileSystemURL(cordova.file.tempDirectory + media.src , onResolveSuccess, fail);
+           break;
+
+       }
+
+
+        // Sounds.insert(media.src,function (err, fileObj) {
+        //   if(err){
+        //     alert(err);
+        //   }else{
+        //     alert('success');
+        //   }
+        // });
 
      }
 
+   },
+   'click .playBtn':function (e) {
+     if(!isPlayingSound){
+       isPlayingSound=true;
+       var playname=$(e.target).parent().data('clipid');
+       $(e.target).attr('class','icon ion-stop');
+      // alert("startPlay");
+       playAudio(Sounds.findOne(playname).url(),function (argument) {
+        //  alert("callback!");
+         $(e.target).attr('class','icon ion-play');
+         isPlayingSound=false;
+       });
+     }
+
+    //  music.addEventListener('ended',function (argument) {
+    //    $(e.target).attr('class','icon ion-play');
+    //  },false);
    }
+
 
 });
 
@@ -169,8 +193,11 @@ Template.ChatRoom.helpers({
   isText:function () {
     return this.text!=="";
   },
-  isImage:function (chatObj) {
-    return chatObj.image!=="";
+  isImage:function () {
+    return this.image && this.image!=="" ;
+  },
+  isSound:function(argument) {
+    return this.sound && this.sound!=="" ;
   },
   getImage:function () {
     var ImageId = this.image.replace("/cfs/files/images/","");
@@ -182,10 +209,27 @@ Template.ChatRoom.helpers({
 
   },
   targertWorkingTime:function (argument) {
-    var target = Meteor.users.find({_id:{$ne:Meteor.userId()}});
+    var target = Meteor.users.findOne({_id:{$ne:Meteor.userId()}});
     if(target.profile.role=="Teacher"){
-      
+      if(target.profile.chatSetting  && target.profile.chatSetting.workHour){
+        var workHourTime = target.profile.chatSetting.workHourTime;
+        var fromMoment = moment(workHourTime.from);
+        var toMoment = moment(workHourTime.to);
+        var range = moment.range(fromMoment,toMoment);
+        if(range.contains(moment())){
+          // $(".list.chatroomList").height()
+        }
+        return !range.contains(moment());
+      }
     }
+    return false;
+  },
+  getSound:function (argument) {
+    // var SoundId = this.image.replace("/cfs/files/sounds/","");
+    return Sounds.findOne(this.sound);
+  },
+  SoundsArr:function (argument) {
+    return Sounds.find();
   }
 
 });
@@ -209,48 +253,45 @@ Template.ChatRoom.rendered = function () {
 
   template.atBottom=true;
 
-  /*$(".content").animate({ scrollTop: $('.content')[0].scrollHeight}, 0);*/
-  /*if(Meteor.isCordova){
-    window.addEventListener('native.keyboardshow', keyboardShowHandler);
-  }*/
+
   var onscroll;
 
 
 
-onscroll = _.throttle(function() {
-  return template.atBottom = chatroomList.scrollTop >= chatroomList.scrollHeight - chatroomList.clientHeight;
-}, 200);
+    onscroll = _.throttle(function() {
+      return template.atBottom = chatroomList.scrollTop >= chatroomList.scrollHeight - chatroomList.clientHeight;
+    }, 200);
 
 
-  Meteor.setInterval(function(){
-    if(template.atBottom){
-      chatroomList.scrollTop = chatroomList.scrollHeight - chatroomList.clientHeight;
-    }
-  },100);
+      Meteor.setInterval(function(){
+        if(template.atBottom){
+          chatroomList.scrollTop = chatroomList.scrollHeight - chatroomList.clientHeight;
+        }
+      },100);
 
 
-chatroomList.addEventListener('touchstart', function() {
-  return template.atBottom = false;
-});
+    chatroomList.addEventListener('touchstart', function() {
+      return template.atBottom = false;
+    });
 
-chatroomList.addEventListener('touchend', function() {
-  return onscroll();
-});
+    chatroomList.addEventListener('touchend', function() {
+      return onscroll();
+    });
 
-chatroomList.addEventListener('scroll', function() {
-  template.atBottom = false;
-  return onscroll();
-});
+    chatroomList.addEventListener('scroll', function() {
+      template.atBottom = false;
+      return onscroll();
+    });
 
-chatroomList.addEventListener('mousewheel', function() {
-  template.atBottom = false;
-  return onscroll();
-});
+    chatroomList.addEventListener('mousewheel', function() {
+      template.atBottom = false;
+      return onscroll();
+    });
 
-chatroomList.addEventListener('wheel', function() {
-  template.atBottom = false;
-  return onscroll();
-});
+    chatroomList.addEventListener('wheel', function() {
+      template.atBottom = false;
+      return onscroll();
+    });
 
 
 
@@ -260,103 +301,7 @@ chatroomList.addEventListener('wheel', function() {
 Template.ChatRoom.destroyed = function () {
 };
 
-/*function keyboardShowHandler(e){
-  $(".content").animate({ scrollTop: $('.content')[0].scrollHeight}, 100);
-    alert('Keyboard height is: ' + e.keyboardHeight);
-}*/
 
-function testShareSheet() {
-    var options = {
-        'androidTheme': window.plugins.actionsheet.ANDROID_THEMES.THEME_HOLO_LIGHT, // default is THEME_TRADITIONAL
-        'title': 'How to get image',
-        'buttonLabels': ['Gallery', 'Camera'],
-        'androidEnableCancelButton' : true, // default false
-        'winphoneEnableCancelButton' : true, // default false
-        'addCancelButtonWithLabel': 'Cancel',
-        // 'addDestructiveButtonWithLabel' : 'Delete it',
-        'position': [20, 40] // for iPad pass in the [x, y] position of the popover
-    };
-    // Depending on the buttonIndex, you can now call shareViaFacebook or shareViaTwitter
-    // of the SocialSharing plugin (https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin)
-    window.plugins.actionsheet.show(options, callback);
-}
-
-  var callback = function(buttonIndex) {
-   setTimeout(function() {
-     // like other Cordova plugins (prompt, confirm) the buttonIndex is 1-based (first button is index 1)
-    //  alert('button index clicked: ' + buttonIndex);
-
-
-    if(buttonIndex==1){
-
-
-      var options = {
-        // max images to be selected, defaults to 15. If this is set to 1, upon
-        // selection of a single image, the plugin will return it.
-        maximumImagesCount: 1,
-
-        // max width and height to allow the images to be.  Will keep aspect
-        // ratio no matter what.  So if both are 800, the returned image
-        // will be at most 800 pixels wide and 800 pixels tall.  If the width is
-        // 800 and height 0 the image will be 800 pixels wide if the source
-        // is at least that wide.
-        // width: int,
-        // height: int,
-
-        // quality of resized image, defaults to 100
-        // quality: int (0-100)
-      };
-
-
-      window.imagePicker.getPictures(
-          function(results) {
-              for (var i = 0; i < results.length; i++) {
-                  console.log('Image URI: ' + results[i]);
-
-
-
-
-
-
-
-                  // Meteor.call("insertImageTest", results[i], function(error, result){
-                  //   if(error){
-                  //     console.log("error", error);
-                  //   }
-                  //   if(result){
-                  //
-                  //   }
-                  // });
-
-                  // Images.insert(results[i], function (err, fileObj) {
-                  //     if(err)console.log(err);
-                  //     else{
-                  //       console.log(fileObj);
-                  //     }
-                  // });
-
-              }
-          }, function (error) {
-              console.log('Error: ' + error);
-          },
-      options);
-
-    }else{
-
-      MeteorCamera.getPicture(onSuccess)
-
-      //
-      // navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
-      //     // destinationType: Camera.DestinationType.DATA_URL
-      //       destinationType: window.Camera.DestinationType.FILE_URI,
-      //       sourceType: window.Camera.PictureSourceType.PHOTOLIBRARY,
-      //       mediaType: window.Camera.MediaType.ALLMEDIA
-      // });
-    }
-
-
-   });
- };
 
 
 
@@ -383,43 +328,89 @@ function onFail(message) {
 // Record audio
 
 
-function getNewRecordFile() {
-
-  var src = "documents://"+moment().format('x')+".wav";
-  mediaRec = new Media(src,
-      // success callback
-      function() {
-          console.log("recordAudio():Audio Success");
-      },
-
-      // error callback
-      function(err) {
-          console.log("recordAudio():Audio Error: "+ err.code);
-      }
-  );
-
-  return mediaRec;
-
-}
 
 
 
 
 
-playAudio = function (url) {
-    // Play the audio file at url
-    var my_media = new Media(url,
-        // success callback
-        function () { console.log("playAudio():Audio Success"); },
-        // error callback
-        function (err) { console.log("playAudio():Audio Error: " + err); }
-    );
 
-    // Play audio
-    my_media.play();
 
-    // Pause after 10 seconds
-    setTimeout(function () {
-        media.pause();
-    }, 10000);
-};
+
+
+
+    function onFileSystemSuccess(fileSystem) {
+        console.log('onFileSystemSuccess: '+ fileSystem.name);
+    }
+
+    function onResolveSuccess(fileEntry) {
+        console.log('onResolveSuccess: ' + fileEntry.name);
+
+        fileEntry.file(function(file) {
+
+          var newFile = new FS.File(file);
+          //newFile.attachData();
+          //console.log(newFile);
+
+          Sounds.insert(newFile, function (err, fileObj) {
+            if (err) {
+              //handle error
+              console.log("insert error" + err);
+            } else {
+              //handle success depending what you need to do
+              console.dir(fileObj);
+              var fileURL = {
+                "file": "/cfs/files/files/" + fileObj._id
+              };
+              console.log(fileURL.file);
+
+
+              var pushObj = {};
+                pushObj.from = Meteor.userId();
+                pushObj.sendAt = moment().format('x');
+                pushObj.text = "";
+                pushObj.sound = fileObj._id;
+
+
+              Meteor.call("chat/SendImage", Router.current().params.chatRoomId,pushObj, function(error, result){
+                if(error){
+                  console.log("error", error);
+                }
+                if(result){
+
+                }
+              });
+
+
+
+
+
+
+            }
+          });
+        });
+    }
+
+    function fail(error) {
+        console.log('fail: ' + error.code);
+    }
+
+
+
+    function playAudio (url,callback) {
+        // Play the audio file at url
+        // console.log(callback);
+        var my_media = new Media(url,
+            // success callback
+            function () {
+               console.log("playAudio():Audio Success");
+               callback();
+               console.log("calledback");
+             },
+            // error callback
+            function (err) { console.log("playAudio():Audio Error: " + err); }
+        );
+        // Play audio
+        my_media.play({ numberOfLoops: 1 });
+
+
+    }

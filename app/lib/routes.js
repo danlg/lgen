@@ -42,14 +42,20 @@ OnBeforeActions = {
           // console.log(language);
           var lang =language.value.replace(pattern,"");
 
-          TAPi18n.setLanguage(lang)
-          .done(function (){
-              Session.setPersistent('lang',lang);
-          })
-          .fail(function (error_message) {
-            // Handle the situation
-            console.log(error_message);
-          });
+          if(!lodash.has(TAPi18n.getLanguages(),lang))
+            lang = "en";
+
+            TAPi18n.setLanguage(lang)
+            .done(function (){
+                Session.setPersistent('lang',lang);
+            })
+            .fail(function (error_message) {
+              // Handle the situation
+              console.log(error_message);
+            });
+
+
+
 
 
         },
@@ -68,11 +74,9 @@ OnBeforeActions = {
 
 };
 
-/*Router.onBeforeAction(OnBeforeActions.loginRequired, {
-  except: ['language', 'signin', 'email-signin','email-signup', 'role','Testing','Test2']
+Router.onBeforeAction(OnBeforeActions.loginRequired, {
+  except: ['language', 'Login', 'EmailSignup','EmailSignin', 'role','Testing','Test2']
 });
-
-*/
 
 Router.onBeforeAction(OnBeforeActions.roleRequired, {
   only: ['TabChat']
@@ -84,6 +88,15 @@ Router.onBeforeAction(OnBeforeActions.loginedRedirect, {
 
 Router.onBeforeAction('loading');
 Router.onBeforeAction(OnBeforeActions.checkLanguage);
+
+Router.onBeforeAction(function (argument) {
+  if(Meteor.userId()){
+    Router.go("TabClasses");
+    this.next();
+  }else{
+    this.next();
+  }
+},{only:['Login']});
 
 
 Router.route('language', {
@@ -103,10 +116,10 @@ Router.route('EmailSignup', {
   path: "email-signup/:role",
 });
 
-// Router.route('role', {
-//   controller: 'LoginController',
-//   action: "role"
-// });
+Router.route('role', {
+  // controller: 'LoginController',
+  // action: "role"
+});
 //
 // Router.route('dob', {
 //   controller: 'LoginController',
@@ -229,6 +242,7 @@ Router.route('ChatRoom', {
     // return [Meteor.subscribe('getChatRoomById', this.params.chatRoomId),Meteor.subscribe('images')];
     return [
       Meteor.subscribe('images'),
+      Meteor.subscribe('sounds'),
       Meteor.subscribe('chatRoomWithUser',this.params.chatRoomId)
     ];
   }
