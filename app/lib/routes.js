@@ -78,7 +78,6 @@ Router.onBeforeAction(OnBeforeActions.loginRequired, {
   except: ['language', 'Login', 'EmailSignup','EmailSignin', 'role','Testing','Test2']
 });
 
-*/
 
 Router.onBeforeAction(OnBeforeActions.loginedRedirect, {
   only: ['language']

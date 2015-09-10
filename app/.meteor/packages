@@ -1,19 +1,17 @@
+# Meteor packages used by this project, one per line.
+# Check this file (and the other files in this directory) into your repository.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+meteor-platform
 
 
-meteor-base
-mobile-experience
-mongo
-blaze-html-templates
-jquery
-session
-tracker
-logging
-reload
-random
-ejson
-spacebars
-check
-ecmascript
+
+
+
+
+
 less
 accounts-google
 accounts-base
@@ -29,29 +27,38 @@ aldeed:autoform
 aldeed:collection2
 aldeed:simple-schema
 manuel:viewmodel
-meteoric:ionic
+
 meteorhacks:fast-render
 wylio:mandrill
 jparker:crypto-sha1
+
+
 iron:router
-fourseven:scss
+fourseven:scss@2.0.0
 meteoric:ionic-sass
 zimme:active-route
 stevezhu:lodash
 meteoric:ionicons-sass
+
 reactive-var
+
 meteorhacks:kadira
+
 u2622:persistent-session
+
 underscore
+jquery
+fastclick
 tap:i18n
 gwendall:autoform-i18n
 cfs:standard-packages
 cfs:gridfs
 cfs:graphicsmagick
+
+dcsan:ionic
 reywood:publish-composite
 okgrow:analytics
 raix:push
 mdg:camera
 momentjs:moment
 benmgreene:moment-range
-crosswalk
