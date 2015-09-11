@@ -17,7 +17,7 @@
   "EnterClassCode":"Input the class code (without @)",
   "Feedback":"Feedback",
   "feedbackTextarea":"Tell us what you think",
-  "Gmaillogin":"Gmail login",
+  "Gmaillogin":"Google login",
   "Itisworkofftime":"It is work off time",
   "IWillOnlyMessagePeople13AndOlder":"I will only message people 13 and older",
   "JoinAClass":"Join a class",
@@ -45,79 +45,45 @@
   "Whatisyourdateofbirth":"What is your date of birth?",
   "You":"You",
 
-	// 3 sep 2015
-	"Teacher":"Teacher",
-	"ClassCode":"Class Code",
-	"Unsubsribe":"Unsubscribe",
-	"Subscriber":"Member",
-	"Addstudentsandparents":"Add students and parents",
-	"Update":"Update",
-
-	//7 sep 2015
-	"NewNotification":"New Notification",
-	"To":"To:",
-	"message":"message",
-	"WhatMethodYouWouldLikeToAddThem":"what method you would like to add them",
-	"ShareALink":"Share a Link",
-	"ShareThisLinkWithYourClass":"Share This Link With Your Class",
-	"SharingThisLinkHelpsStudentsAndParentJoinYourClass":"sharing this link helps students and parent join your class",
-	"Share":"Share",
-	"Copy":"Copy",
-	"SendInvitations":"Send Invitations",
-	"invite":"invite",
 
 
-	"firstname":"First name",
-	"lastname":"Last name",
-	"password":"Password",
-	"email":"Email",
-
-	"Done":"Done",
-
-
-
-
-
-	// https://github.com/gwendall/meteor-autoform-i18n/
-	// This is for schemas of autoForm
-	"schemas": {
-		"emailSignup": {
-			"firstname": {
-				"placeholder": "First name"
-			},
-			"lastname": {
-				"placeholder": "Last name"
-			},
-			"email": {
-				"placeholder": "Email"
-			},
-			"password": {
-				"placeholder": "Password"
-			},
-			"confirmPassword": {
-				"placeholder": "Confirm password"
-			}
-		},
-		"ClassesSchema":{
-			"className":{
-				"placeholder":"Class name",
-				"label": "Class name"
-			},
-			"classCode":{
-				"placeholder":"Class code",
-				"label":"Class code"
-			}
-		},
-		"editprofile":{
-			"firstname": {
-				"placeholder": "First name"
-			},
-			"lastname": {
-				"placeholder": "Last name"
-			},
-			"email": {
-				"placeholder": "Email"
-			}
-		}
+  "schemas": {
+	"WorkTimeSelection":{
+	  "Monday":"Monday",
+	  "Tuesday":"Tuesday",
+	  "Wednesday":"Wednesday",
+	  "Thursday":"Thursday",
+	  "Friday":"Friday",
+	  "Saturday":"Saturday",
+	  "Sunday":"Sunday",
+	  "Chat settings":"Chat settings"
+    },
+	"emailSignup": {
+	  "firstname": {
+		"placeholder": "First name"
+	  },
+	  "lastname": {
+		"placeholder": "Last name"
+	  },
+	  "email": {
+		"placeholder": "Email"
+	  },
+	  "password": {
+		"placeholder": "Password"
+	  },
+	  "confirmPassword": {
+		"placeholder": "Confirm password"
+	  }
+	},
+	"ClassesSchema":{
+	  "className":{
+		"placeholder":"Class name",
+		"label": "Class name"
+	  },
+	  "classCode":{
+		"placeholder":"Class code",
+		"label":"Class code"
+	  }
 	}
+  }
 }
