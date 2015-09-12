@@ -1,7 +1,7 @@
 <template name="Dob">
 
   {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton}}
+    <!-- {{>ionNavBackButton}} -->
   {{/contentFor}}
 
   {{#contentFor "headerTitle"}}
@@ -9,7 +9,7 @@
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
-    <button  class="button button-clear button-entering button-active createBtn">Create</button>
+    <!-- <button  class="button button-clear button-entering button-active createBtn">Create</button> -->
   {{/contentFor}}
 
 
@@ -20,11 +20,22 @@
     {{#ionContent}}
 
         <div class="row row-center " style="height:60vh">
-          <div class="col" style="text-align:center"><h2>{{_"Whatisyourdateofbirth"}}}</h2></div>
+          <div class="col" style="text-align:center"><h2>{{_"Whatisyourdateofbirth"}}</h2></div>
         </div>
 
 
-        <input type="date">
+        <div>
+          <label class="item item-input doblabel" for="dobInput">
+                <div class="dobplaceholder" >Date Of Birth</div>
+                <!-- {{> afFieldInput name="dob" type='text' onfocus="(this.type='date')"  }} -->
+                <!-- <input type="date" placeholder="Date Of Birth" onfocus="this.type='date'" class="dob" > -->
+                <input type="date" placeholder="Date Of Birth"  class="dob " id="dobInput" value=""  >
+          </label>
+          <br><br>
+            <button class="button button-block button-positive Confirm">
+              Confirm
+            </button>
+        </div>
 
 
 

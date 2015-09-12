@@ -7,9 +7,9 @@ Router.configure({
 var OnBeforeActions;
 
 OnBeforeActions = {
-  loginRequired: function(pause) {
+  LoginRequired: function(pause) {
     if (!Meteor.userId()) {
-      Router.go('login');
+      Router.go('Login');
       this.next();
     } else {
       this.next();
@@ -23,7 +23,7 @@ OnBeforeActions = {
       this.next();
     }
   },
-  loginedRedirect: function(pause) {
+  LoginedRedirect: function(pause) {
     if (Meteor.userId()) {
       Router.go('TabClasses');
       this.next();
@@ -55,9 +55,6 @@ OnBeforeActions = {
             });
 
 
-
-
-
         },
         function () {alert('Error getting language\n');}
       );
@@ -66,6 +63,16 @@ OnBeforeActions = {
     this.next();
 
 
+  },
+  checkDob:function (pause) {
+    var dob = lodash.get(Meteor.user(),"profile.dob") || "";
+    var role = lodash.get(Meteor.user(),"profile.role") || "" ;
+    if(dob==="" && role==="Student" ){
+      Router.go('Dob');
+      this.next();
+    }else{
+      this.next();
+    }
   }
 
 
@@ -74,12 +81,12 @@ OnBeforeActions = {
 
 };
 
-Router.onBeforeAction(OnBeforeActions.loginRequired, {
+Router.onBeforeAction(OnBeforeActions.LoginRequired, {
   except: ['language', 'Login', 'EmailSignup','EmailSignin', 'role','Testing','Test2']
 });
 
 
-Router.onBeforeAction(OnBeforeActions.loginedRedirect, {
+Router.onBeforeAction(OnBeforeActions.LoginedRedirect, {
   only: ['language']
 });
 
@@ -92,6 +99,9 @@ Router.onBeforeAction(OnBeforeActions.roleRequired, {
 
 Router.onBeforeAction('loading');
 Router.onBeforeAction(OnBeforeActions.checkLanguage);
+Router.onBeforeAction(OnBeforeActions.checkDob,{
+  only: ['TabClasses']
+});
 
 Router.onBeforeAction(function (argument) {
   if(Meteor.userId()){
@@ -103,14 +113,15 @@ Router.onBeforeAction(function (argument) {
 },{only:['Login']});
 
 
-Router.route('language', {
-  // controller: 'LoginController',
-  // action: "language",
-  path: "/",
-  name:"language"
-});
-Router.route('/login', {
-  name:"login"
+// Router.route('language', {
+//   // controller: 'LoginController',
+//   // action: "language",
+//   path: "/",
+//   name:"language"
+// });
+
+Router.route('Login',{
+  path:"/",
 });
 Router.route('/email-signin', {
   // controller: 'LoginController',
@@ -125,10 +136,7 @@ Router.route('EmailSignup', {
  });
 
 
-// Router.route('dob', {
-//   controller: 'LoginController',
-//   action: "dob"
-// });
+Router.route('Dob');
 
 // Router.route('Home', {
 //   controller: 'MainApplicationController',

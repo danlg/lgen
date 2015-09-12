@@ -48,42 +48,27 @@ Meteor.methods({
       _id: _id
     });
     try {
-      Mandrill.messages.send(addClassMailTemplate(to, classObj.className));
+      Mandrill.messages.send(addClassMailTemplate(to, classObj.className,classObj.classCode));
     } catch (e) {
       console.log(e);
     }
   },
   "class/invite": function(classObj,targetFirstEmail) {
 
-    /*console.log(doc);
-
-    var classObj = Classes.findOne({
-      classCode: doc.classCode
-    });
-
-    */
-
     var acceptLink = process.env.WEB_URL +classObj.classCode;
     var acceptLinkEncoded =  encodeURI(acceptLink);
-
-
     var first = Meteor.user().profile.firstname;
     var last = Meteor.user().profile.lastname;
 
-      try {
-        Mandrill.messages.send(inviteClassMailTemplate(
-          targetFirstEmail,
-          first,
-          last,
-          classObj.classCode,
-          classObj.className,
-          acceptLinkEncoded
-        ));
-      } catch (e) {
-        console.log(e);
-      }
+    // console.log("send invite");
+    // console.log(first+last+" "+acceptLinkEncoded+" TO: "+"  "+ targetFirstEmail);
+    // console.log(inviteClassMailTemplateTest(targetFirstEmail, classObj));
 
-    /*Router.go('TabClasses')*/
+    try {
+      Mandrill.messages.send(inviteClassMailTemplateTest(targetFirstEmail, classObj));
+    } catch (e) {
+      console.log(e);
+    }
 
   },
   "sendMsg": function(target, msg) {
@@ -249,6 +234,9 @@ Meteor.methods({
       console.log(profile);
       Meteor.users.update(Meteor.userId(),{$set:{profile:profile}});
     }
+  },
+  'getShareLink':function (classCode) {
+    return process.env.WEB_URL+classCode;
   }
 
 

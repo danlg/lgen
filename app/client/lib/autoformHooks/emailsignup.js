@@ -6,7 +6,7 @@ var postHooks = {
     }
   },
   onSuccess: function(operation, result, template) {
-    
+
   },
   onError: function(formType, error) {
     alert(error.reason);

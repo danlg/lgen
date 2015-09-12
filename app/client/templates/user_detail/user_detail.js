@@ -15,11 +15,17 @@ Template.UserDetail.events({
 /*****************************************************************************/
 Template.UserDetail.helpers({
   userPofile:function(){
-    return Meteor.users.findOne({_id:Router.current().params._id})
+    return Meteor.users.findOne({_id:Router.current().params._id});
   },
   hisJoinedClasses:Classes.find(),
   userId:function (argument) {
     return Router.current().params._id;
+  },
+  isStudentHigherThirteen:function () {
+    var user = Meteor.users.findOne({_id:Router.current().params._id});
+    var age = moment(lodash.get(user,'profile.dob')) || moment() ;
+    var now = moment();
+    return now.diff( age,'years') > 12 ;
   }
 
 });

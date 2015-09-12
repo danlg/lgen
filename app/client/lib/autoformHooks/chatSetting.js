@@ -10,10 +10,11 @@ var postHooks = {
   onSuccess: function(operation, result, template) {
     // display success, reset form status
     Session.set('optionObj',{});
-    // Router.go('TabChat');
+    Router.go('TabChat');
   },
   onError: function(formType, error) {
     console.log(error);
+    alert(error.reason);
   }
 };
 

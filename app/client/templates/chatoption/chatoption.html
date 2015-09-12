@@ -1,7 +1,10 @@
 <template name="Chatoption">
 
   {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton href='TabChat' class="ChatoptionCancel" }}
+    <!-- {{>ionNavBackButton href='TabChat' class="ChatoptionCancel" }} -->
+    <button class="buttons button button-clear back-button pull-left ChatoptionCancel button-entering button-active ChatoptionCancel">
+      <i class="icon ion-android-arrow-back"></i>
+    </button>
   {{/contentFor}}
 
   {{#contentFor "headerTitle"}}
@@ -23,7 +26,7 @@
         {{#autoForm schema=chatSetting resetOnSuccess="false" doc=optionObj id="chatOptionUpdate" type="method" meteormethod="chat/setting/update"}}
 
           <div class="item item-toggle">
-            Work Hour
+            {{_ "OfficeHours"}}
 
             <label class="toggle">
                {{> afFieldInput id="checkworkhour" name="workHour" checked=workhourcheck }}
@@ -35,15 +38,24 @@
 
 
 
-          <a href="{{ pathFor 'WorkTimeSelection' }}">
+          <!-- <a href="{{ pathFor 'WorkTimeSelection' }}">
             <div class="item workHourTimeCol {{ishide}}">
                 work time
             </div>
+          </a> -->
+
+          <a class="workHourTimeCol item  {{ishide}}" href="{{ pathFor 'WorkTimeSelection' }}" >
+
+            {{_ "TimeDays"}}
+            <span class="item-note">
+              <div>{{getTimeRange}}</div>
+              <div>{{getWeeks}}</div>
+            </span>
           </a>
 
 
 
-
+<!--
           <div class="item" >
             <div class="row row-center" style="height:20vh;">
               <div class="col">Can other Teacher talk with you?</div>
@@ -66,7 +78,7 @@
            </label>
           </li>
 
-          {{/each}}
+          {{/each}} -->
 
 
 

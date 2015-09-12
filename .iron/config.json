@@ -6,20 +6,17 @@
   },
 
   "template": {
-    "html": true,
-    "js": true,
-    "css": true
+    "html": "true",
+    "js": "true",
+    "css": "true"
   },
 
   "route": {
-    "controller": true,
-    "template": true
+    "controller": "true",
+    "template": "true"
   },
 
-  "mup": {
-    "version": "mup",
-    "anyenv": "/any/folder"
+  "generator": {
+    "comments": "true"
   }
-
-
 }

@@ -59,20 +59,25 @@ Template.WorkTimeSelection.helpers({
     return lodash.includes(weeks,week)?"checked":"";
   },
   from:function (argument) {
-    return Session.get('optionObj').workHourTime.from;
+    var from  = Session.get('optionObj').workHourTime.from;
+    if(from===""||!from){
+      var optionObj = Session.get('optionObj');
+      from  = moment().format("09:00");
+      optionObj.workHourTime.from = from;
+      Session.set('optionObj',optionObj);
+    }
+    return from;
   },
   to:function (argument) {
-    return Session.get('optionObj').workHourTime.to;
+    var to  = Session.get('optionObj').workHourTime.to;
+    if(to===""||!to){
+      var optionObj = Session.get('optionObj');
+      to  = moment().format("17:00");
+      optionObj.workHourTime.to = to;
+      Session.set('optionObj',optionObj);
+    }
+    return to;
   }
-  // checked:function(week){
-  //   return lodash.includes(weeks,week)?"checked":"";
-  // },
-  // workHourTimeObj:function(){
-  //   if(Meteor.user().profile.chatSetting.workHourTime != undefined)
-  //     return Meteor.user().profile.chatSetting.workHourTime
-  //   else
-  //     return {}
-  // }
 
 });
 

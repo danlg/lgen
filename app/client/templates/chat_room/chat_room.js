@@ -101,6 +101,7 @@ Template.ChatRoom.events({
    'click .voice':function (argument) {
 
      if(!isRecording){
+
        console.log('startRec');
        media  = getNewRecordFile();
        media.startRecord();
@@ -149,12 +150,14 @@ Template.ChatRoom.events({
    'click .playBtn':function (e) {
      if(!isPlayingSound){
        isPlayingSound=true;
-       var playname=$(e.target).parent().data('clipid');
-       $(e.target).attr('class','icon ion-stop');
+       var playname=$(e.target).data('clipid');
+      //  $(e.target).attr('class','icon ion-stop');
+       $(e.target).attr('class','button button-icon icon ion-stop ');
+
       // alert("startPlay");
        playAudio(Sounds.findOne(playname).url(),function (argument) {
         //  alert("callback!");
-         $(e.target).attr('class','icon ion-play');
+         $(e.target).attr('class','button button-icon icon ion-play playBtn');
          isPlayingSound=false;
        });
      }
@@ -217,7 +220,10 @@ Template.ChatRoom.helpers({
         var toMoment = moment(workHourTime.to);
         var range = moment.range(fromMoment,toMoment);
         if(range.contains(moment())){
-          // $(".list.chatroomList").height()
+          var height = $(".list.chatroomList").height();
+          height.replace("px","");
+          height= height - 60;
+          $(".list.chatroomList").height();
         }
         return !range.contains(moment());
       }

@@ -48,10 +48,12 @@
               {{#with getSound}}
                 {{#if this.isUploaded}}
                   {{#if this.hasStored 'sounds'}}
+
                     <div class="bubble" >
-                      <div data-clipid="{{_id}}" class="playBtn" >
+                      <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}" ></a>    
+                      <!-- <div data-clipid="{{_id}}" class="playBtn" >
                         <i class="icon ion-play"></i>
-                      </div>
+                      </div> -->
                     </div>
                   {{/if}}
                 {{/if}}
@@ -73,23 +75,24 @@
 
 
     <div class="item item-input chatroomItem">
-      <textarea style="font-size:20px;line-height:25px;" dir="auto" name="msg" maxlength="5000" class="inputBox autogrow-short" placeholder="Message"></textarea>
-      <button style="margin-right:10px" class="sendBtn button button-clear" >send</button>
+
+      <!-- <button style="margin-right:10px" class="sendBtn button button-clear" >send</button> -->
       <!-- <div style="margin-left:5px;margin-right:30px">
         <label class="imageBtnTri" ><i class="icon ion-image"></i></label>
         <input type="file" accept="image/*" id="imageBtn" class="" >
 
       </div> -->
 
-  <div>
+  <!-- <div>
     <label for="imageBtn" class="imageBtnTri"></label>
     <input id="imageBtn" type="file" name="photo" style="display: none;" accept="image/*">
-  </div>
+  </div> -->
       <!-- <div style="margin-left:30px;"><i class="icon ion-mic-a"></i></div> -->
       <!-- <div style="margin:0 30px;"><i class="icon ion-paperclip"></i></div> -->
 
-      <textarea style="font-size:10px;line-height:10px;" dir="auto" name="msg" maxlength="5000" class="inputBox autogrow-short" placeholder=" "></textarea>
-      <button style="margin-right:10px" class="sendBtn button button-positive"> {{_ "Send" }}</button>
+      <!-- <textarea style="font-size:10px;line-height:10px;" dir="auto" name="msg" maxlength="5000" class="inputBox autogrow-short" placeholder=" "></textarea> -->
+      <textarea style="font-size:20px;line-height:25px;" dir="auto" name="msg" maxlength="5000" class="inputBox autogrow-short" placeholder="Message"></textarea>
+      <button style="margin-right:10px;width:100px;" class="sendBtn button button-positive"> {{_ "Send" }}</button>
     </div>
 
     <div class="">
@@ -100,11 +103,11 @@
                   <input type="file" id="imageBtn" accept="image/*">
           </div>
         </div>
-        <div class="col col-10">
-          <div class="file voice">
-                  <i class="icon  ion-mic-a "></i>
+          <div class="col col-10">
+            <div class="file voice">
+                    <i class="icon  ion-mic-a "></i>
+            </div>
           </div>
-        </div>
       </div>
     </div>
   </div>

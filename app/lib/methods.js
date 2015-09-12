@@ -149,6 +149,10 @@ Meteor.methods({
 
 
       /*Meteor.users.update({_id:Meteor.userId()},{$set:{'emails.$.items.0.address':}});*/
+   },
+   'profileUpdateByObj':function (user) {
+     var usersProfile = user.profile;
+     Meteor.users.update(Meteor.userId(),{$set:{profile:usersProfile}});
    }
 
 

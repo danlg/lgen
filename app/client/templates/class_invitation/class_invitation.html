@@ -23,13 +23,13 @@
 
     <div class="row row-center" style="height:60vh">
         <div class="col" style="text-align:center">
-          {{_ "WhatMethodYouWouldLikeToAddThem"}}
+          <h2>{{_ "WhatMethodYouWouldLikeToAddThem"}}</h2>
         </div>
     </div>
     <ul class="list">
       <li class="item">In-class</li>
       <a href="{{pathFor 'ShareInvite' classCode=getclassCode }}"><li class="item">{{_ "ShareALink" }}</li></a>
-      <a href="{{pathFor 'EmailInvite' classCode=getclassCode }}"><li class="item">{{_ "send"}}</li></a>
+      <a href="{{pathFor 'EmailInvite' classCode=getclassCode }}"><li class="item">{{_ "Send"}}</li></a>
     </ul>
 
 

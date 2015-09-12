@@ -20,16 +20,16 @@ Template.EmailInvite.events({
 
 
     Meteor.call("class/invite",classObj,targetFirstEmail,function(err){
-        err?alert(err.reason):alert("success");
 
-        Meteor.call("addInvitedPplId",id , function(error, result){
-          if(error){
-            console.log("error", error);
-          }
-          if(result){
-            //  $(e.target).remove();
-          }
-        });
+      alert("Invite Success");
+
+        // Meteor.call("addInvitedPplId",id , function(error, result){
+        //   if(error){
+        //     console.log("error", error);
+        //   }else{
+        //
+        //   }
+        // });
 
     });
 

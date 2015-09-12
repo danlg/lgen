@@ -56,10 +56,11 @@
 
       </div>
 
-
+      {{#if isStudentHigherThirteen }}
       <div class="bar bar-footer bar-stable">
         <div class="title talkToBtn" data-userId="{{userId}}">Talk to {{userPofile.profile.firstname}} {{userPofile.profile.lastname}}</div>
       </div>
+      {{/if}}
 
 
     {{/ionContent}}

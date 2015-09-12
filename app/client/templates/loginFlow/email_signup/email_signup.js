@@ -62,6 +62,7 @@ Template.ionNavBar.events({
       }else if($(".pwd").val().length<4){
         alert("At least 3 characters Password");
       }else{
+        userObj.email = userObj.email.toUpperCase();
         Accounts.createUser({
           email : userObj.email,
           password : $('.pwd').val(),

@@ -37,7 +37,10 @@ $positive:                        #ACDA45 ;
 }
 
 
-
+.item{
+  border-top: 1px solid #ddd !important;
+  border-bottom: 1px solid #ddd !important;
+}
 
 
 
@@ -61,4 +64,3 @@ a {
   left: calc( 50% - 35px );
   width: 28px;
 }
-

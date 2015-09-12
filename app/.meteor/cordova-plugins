@@ -1,9 +1,8 @@
+cordova-plugin-media@https://github.com/mike623/cordova-plugin-media/tarball/d0b118a007aa746e515f134d292c4ffb256345bb
 com.verso.cordova.clipboard@0.1.0
-cordova-plugin-media@https://github.com/mike623/cordova-plugin-media#d0b118a007aa746e515f134d292c4ffb256345bb
-nl.x-services.plugins.actionsheet@1.1.7
+de.appplant.cordova.plugin.local-notification@0.7.6
 nl.x-services.plugins.socialsharing@4.3.17
-org.apache.cordova.camera@0.3.1
 org.apache.cordova.contacts@0.2.16
+org.apache.cordova.dialogs@0.2.10
 org.apache.cordova.globalization@0.3.4
 org.apache.cordova.vibration@0.3.11
-org.apache.cordova.dialogs@0.2.10
