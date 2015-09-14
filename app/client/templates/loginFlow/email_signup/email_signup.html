@@ -69,10 +69,10 @@
       {{#if isStudent}}
       <div>
         <label class="item item-input doblabel" for="dobInput">
-              <div class="dobplaceholder" >Date Of Birth</div>
+              <div class="dobplaceholder" > {{_ "DateOfBirth"}}</div>
               <!-- {{> afFieldInput name="dob" type='text' onfocus="(this.type='date')"  }} -->
               <!-- <input type="date" placeholder="Date Of Birth" onfocus="this.type='date'" class="dob" > -->
-              <input type="date" placeholder="Date Of Birth"  class="dob " id="dobInput" value=""  >
+              <input type="date" placeholder="{{_ "DateOfBirth"}}"  class="dob" id="dobInput" value=""  >
         </label>
       </div>
       {{/if}}
