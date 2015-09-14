@@ -3,37 +3,6 @@
 /* Client and Server Methods */
 /*****************************************************************************/
 Meteor.methods({
-  /*
-   * Example:
-   *
-   * '/app/items/insert': function (item) {
-   *  if (this.isSimulation) {
-   *    // do some client stuff while waiting for
-   *    // result from server.
-   *    return;
-   *  }
-   *
-   *  // server method logic
-   * }
-   */
-   /*'user/create':function(userObj){
-
-     if(!lodash.has(userObj,'dob')){
-       userObj.dob="";
-     }
-
-     Accounts.createUser({
-       email : userObj.email,
-       password : userObj.password,
-       profile:{
-         firstname : userObj.first,
-         lastname : userObj.last,
-         role    : userObj.role,
-         dob = userObj.dob
-       }
-
-       })
-   },*/
 
    'signup/email':function(doc){
 
@@ -54,17 +23,6 @@ Meteor.methods({
    },
 
    'user/role/update':function(role){
-     /*var userObj  = Meteor.user();
-     userObj.profile.role = role;
-     Meteor.users.upsert(Meteor.userId(),{$set:userObj},function(err){
-          if(err){
-            console.log(err);
-            return err;
-          }else{
-            return
-          }
-       });*/
-
        Meteor.users.update({_id:Meteor.userId()},{$set:{'profile.role':role}},function(err){
          if(err){
            console.log(err);
@@ -80,7 +38,7 @@ Meteor.methods({
     //  check(doc,Schema.joinClass)
     //  Classes.update(doc,{$addToSet:{"joinedUserId":Meteor.userId()}});
     var query={};
-    query.classCode=classCode;
+    query.classCode=classCode.toLowerCase();
     query.createBy = {$ne:Meteor.userId()};
     return Classes.findOne(query)||false;
    },
