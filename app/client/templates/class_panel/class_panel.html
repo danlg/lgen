@@ -1,115 +1,84 @@
 <template name="ClassPanel">
 
     {{#contentFor "headerTitle"}}
-      <h1 class="title">{{classObj.className}}</h1>
+        <h1 class="title">{{classObj.className}}</h1>
     {{/contentFor}}
 
     {{#contentFor "headerButtonLeft"}}
-      {{>ionNavBackButton text=""}}
+        {{>ionNavBackButton text=""}}
     {{/contentFor}}
-
-
 
     {{#contentFor "headerButtonRight"}}
 
+        <div style="position: absolute; right: 0;">
 
+            <a href="{{pathFor 'classEdit' classCode=classObj.classCode  }}"
+               class="button button-clear button-entering button-active ">
+                <i class="icon ion-ios-information-outline"></i></a>
 
-    <div style="position: absolute; right: 0;">
+            <a href="{{ pathFor 'SendMessage' classCode=classObj.classCode }}"
+               class="button button-clear button-entering button-active">
+                <i class="icon ion-compose"></i>
+            </a>
 
-      <a href="{{pathFor 'classEdit' classCode=classObj.classCode  }}"  class="button button-clear button-entering button-active "><i class="icon ion-ios-information-outline"></i></a>
-
-      <a href="{{ pathFor 'SendMessage' classCode=classObj.classCode }}"  class="button button-clear button-entering button-active">
-        <i class="icon ion-compose"></i>
-      </a>
-
-      <!-- <button  class="button button-clear button-entering button-active addClassBtn">?</button> -->
-
-    </div>
+            <!-- <button  class="button button-clear button-entering button-active addClassBtn">?</button> -->
+        </div>
     {{/contentFor}}
 
+    {{#ionView}}
+        {{#ionContent}}
 
-   {{#ionView}}
-  {{#ionContent}}
+            <div class="container">
+
+                <div class="button-bar">
+                    <a class="button"
+                       href="{{ pathFor 'ClassUsers' classCode=classObj.classCode }}">{{ classObj.joinedUserId.length }} {{_"Member(s)" }}</a>
+                    <a class="button"
+                       href="{{pathFor 'ClassInvitation' classCode=classObj.classCode  }}">{{_"add" }}</a>
+                </div>
+
+                {{#each classObj.messagesObj}}
+
+                    <a href="{{ pathFor 'ClassPanelMsgNotice' msgCode=msgId }}">
+
+                        <div class="list card">
 
 
+                            <div class="item ">
+                                <div class="row" style="padding:0">
+                                    <div class="col" style="padding:0"><h2>{{className}}</h2></div>
+                                    <div class="col" style="padding:0;text-align:right">{{createdAt}}</div>
+                                </div>
+                            </div>
 
+                            <div class="item ">
+                                <div>
+                                    <span>{{teacherName}}:</span>
+                                    <span>{{content}}</span>
+                                </div>
+                                <br>
 
-    <div class="container">
-
-      <div class="button-bar">
-        <a class="button" href="{{ pathFor 'ClassUsers' classCode=classObj.classCode }}">{{ classObj.joinedUserId.length }} users</a>
-        <a class="button" href="{{pathFor 'ClassInvitation' classCode=classObj.classCode  }}">add</a>
-      </div>
-
-
-
-
-
-          {{#each classObj.messagesObj}}
-
-          <!-- <label class="item item-input item-select">
-            <div class="input-label">
-              {{content}}
+                                <p>
+                                    {{#if isNotEmpty star}}
+                                        <a href="#" class="subdued">{{star.length}} <i class="ion-ios-star"></i></a>
+                                    {{/if}}
+                                    {{#if isNotEmpty checked}}
+                                        <a href="#" class="subdued">{{checked.length}} <i
+                                                class="ion-checkmark-round"></i></a>
+                                    {{/if}}
+                                    {{#if isNotEmpty close}}
+                                        <a href="#" class="subdued">{{close.length}} <i class="ion-close-round"></i></a>
+                                    {{/if}}
+                                    {{#if isNotEmpty help}}
+                                        <a href="#" class="subdued">{{help.length}} <i class="ion-help"></i></a>
+                                    {{/if}}
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                {{/each}}
             </div>
-            <select id="{{msgId}}" class="chooseType" data-mgsid={{msgId}}>
-                <option value="">select</option>
-                <option value="like">good</option>
-                <option value="dislike">bad</option>
-            </select>
-            <div>like:{{like.length}}</div>
-            <div>dislike:{{dislike.length}}</div>
 
-
-          </label> -->
-
-      <a href="{{ pathFor 'ClassPanelMsgNotice' msgCode=msgId }}">
-
-      <div class="list card">
-
-
-        <div class="item ">
-          <div class="row" style="padding:0">
-            <div class="col" style="padding:0"><h2>{{className}}</h2></div>
-            <div class="col" style="padding:0;text-align:right">{{createdAt}}</div>
-          </div>
-        </div>
-
-        <div class="item ">
-          <div>
-            <span>{{teacherName}}:</span>
-            <span>{{content}}</span>
-          </div>
-          <br>
-          <p>
-              {{#if isNotEmpty star}}
-              <a href="#" class="subdued">{{star.length}} <i class="ion-ios-star"></i></a>
-              {{/if}}
-              {{#if isNotEmpty checked}}
-              <a href="#" class="subdued">{{checked.length}} <i class="ion-checkmark-round"></i></a>
-              {{/if}}
-              {{#if isNotEmpty close}}
-              <a href="#" class="subdued">{{close.length}} <i class="ion-close-round"></i></a>
-              {{/if}}
-              {{#if isNotEmpty help}}
-              <a href="#" class="subdued">{{help.length}} <i class="ion-help"></i></a>
-              {{/if}}
-          </p>
-        </div>
-
-
-      </div>
-      </a>
-
-          {{/each}}
-
-
-
-    </div>
-
-
-
-
-
-    {{/ionContent}}
-     {{/ionView}}
+        {{/ionContent}}
+    {{/ionView}}
 </template>

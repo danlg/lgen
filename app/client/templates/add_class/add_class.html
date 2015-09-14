@@ -1,93 +1,65 @@
 <template name="AddClass">
-  {{#contentFor "headerTitle"}}
-    <h1 class="title"> {{_ "AddClass"}} </h1>
-  {{/contentFor}}
+    {{#contentFor "headerTitle"}}
+        <h1 class="title"> {{_ "AddClass"}} </h1>
+    {{/contentFor}}
+
+    {{#contentFor "headerButtonLeft"}}
+        {{>ionNavBackButton text=" "}}
+    {{/contentFor}}
+
+    {{#contentFor "headerButtonRight"}}
+        <button class="button button-clear button-entering button-active addClassBtn">{{_ "Add"}}</button>
+    {{/contentFor}}
+
+    {{#ionView}}
+        {{#ionContent}}
+
+            {{#autoForm collection="Classes" id="insertClass" type="insert"}}
+
+                <ul class="list " style="margin-bottom:0;">
+                    <li class="item item-input">
+                        <!--TODO localize placeholder and test-->
+                        {{> afFieldInput name="className" placeholder="class name" }}
+                        <!--{{> afFieldInput name="className" placeholder="{{_ "ClassName"}}" }}-->
+                    </li>
+                    <!-- <li class="item item-input">
+                    {{> afFieldInput name="classCode" placeholder="@classcode"}}
+                    </li> -->
+                   <li class="item item-toggle">
+                        <span class="description">{{_ "AnyoneInThisClassCanStartAChat"}}</span>
+
+                        <label class="toggle">
+                            {{> afFieldInput name="anyoneCanChat" class="checked"  }}
+                            <div class="track">
+                                <div class="handle"></div>
+                            </div>
+                        </label>
+                    </li>
+
+                    <li class="item item-toggle">
+                        <span class="description">{{_ "IWillOnlyMessagePeople13AndOlder"}}</span>
+
+                        <label class="toggle">
+                            {{> afFieldInput name="higherThirteen" class="checked"  }}
+                            <div class="track">
+                                <div class="handle"></div>
+                            </div>
+                        </label>
+                    </li>
+                </ul>
+
+                <div class="padding">
+                    <span class="description">{{_ "addClassDescription"}}</span>
+                </div>
 
 
+                <div class="padding">
+                    <span class="description">{{_ "addClassTerm" }}</span>
+                </div>
 
+            {{/autoForm}}
 
-  {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton text=" "}}
-  {{/contentFor}}
-
-
-
-  {{#contentFor "headerButtonRight"}}
-    <button  class="button button-clear button-entering button-active addClassBtn">{{_ "Add"}}</button>
-  {{/contentFor}}
-
-
-
- {{#ionView}}
-{{#ionContent}}
-
-{{#autoForm collection="Classes" id="insertClass" type="insert"}}
-
-
-  <ul class="list " style="margin-bottom:0;">
-    <li class="item item-input">
-      {{> afFieldInput name="className" placeholder="Class Name" }}
-    </li>
-    <!-- <li class="item item-input">
-      {{> afFieldInput name="classCode" placeholder="@classcode"}}
-    </li> -->
-
-
-    <li class="item item-toggle">
-      <span class="description">{{_ "AnyoneInThisClassCanStartAChat"}}</span>
-
-      <label class="toggle">
-       {{> afFieldInput name="anyoneCanChat" class="checked"  }}
-       <div class="track">
-         <div class="handle"></div>
-       </div>
-      </label>
-    </li>
-
-
-
-    <li class="item item-toggle">
-      <span class="description">{{_ "IWillOnlyMessagePeople13AndOlder"}}</span>
-
-      <label class="toggle">
-       {{> afFieldInput name="higherThirteen" class="checked"  }}
-       <div class="track">
-         <div class="handle"></div>
-       </div>
-       </label>
-    </li>
-
-
-
-  </ul>
-
-  <div class="padding">
-    <span class="description">{{_ "addClassDescription"}}</span>
-  </div>
-
-
-  <div class="padding">
-    <span class="description">{{_ "addClassTerm" }}</span>
-  </div>
-
-
-
-
-
-
-
-
-
-
-
-{{/autoForm}}
-
-
-
-
-  {{/ionContent}}
-   {{/ionView}}
-
-
+        {{/ionContent}}
+    {{/ionView}}
 
 </template>

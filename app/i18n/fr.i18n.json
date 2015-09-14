@@ -1,6 +1,6 @@
 {
   "About":"A propos",
-  "Add":"Ajouter",
+  "Add":"Inviter",
   "AddClass":"Ajouter une classe",
   "addClassDescription":"Pas de problème si les élèves ont moins de 13 ans; nous demanderons l'adresse email de leurs parents pour informer tout le monde",
   "addClassTerm":"",
@@ -23,6 +23,9 @@
   "JoinAClass":"Rejoindre une classe",
   "Login":"Connexion",
   "LoveLittleGenius":"J'aime Little Genius",
+  "Member(s)":"membre(s)",
+  "Member":"membre",
+  "Members":"membres",
   "MyAccount":"Mon compte",
   "NoRecord":"",
   "Notification":"Notification",
