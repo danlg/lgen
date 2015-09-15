@@ -48,10 +48,10 @@ App.launchScreens({
 //  2208 x 1242 (@3x) for landscape
   'iphone6p_portrait': 'resources/ios/logo-litegreen-splash-ip6+@3x.png',
   //'iphone6p_landscape': 'resources/splash/iphone6p_landscape.png',
-  //'ipad_portrait': 'resources/splash/ipad_portrait.png',
-  //'ipad_portrait_2x': 'resources/splash/ipad_portrait_2x.png',
-  //'ipad_landscape': 'resources/splash/ipad_landscape.png',
-  //'ipad_landscape_2x': 'resources/splash/ipad_landscape_2x.png',
+  'ipad_portrait': 'resources/ios/logo-litegreen-splash-ipad1x.png',//768 x 1024
+  //'ipad_landscape': 'resources/splash/ipad_landscape.png'
+  'ipad_portrait_2x': 'resources/ios/logo-litegreen-splash-ipad2x.png',//1536 x 2048
+  // 'ipad_landscape_2x': 'resources/splash/ipad_landscape_2x.png',
 
     //ANDROID
     //http://stackoverflow.com/questions/13487124/android-splash-screen-sizes-for-ldpi-mdpi-hdpi-xhdpi-displays-eg-1024x76
