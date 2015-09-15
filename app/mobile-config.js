@@ -46,20 +46,25 @@ App.launchScreens({
 //  For iPhone 6 Plus:
 //    1242 x 2208 (@3x) for portrait
 //  2208 x 1242 (@3x) for landscape
-  'iphone6p_portrait': 'resources/ios/logo-litegreen-splash-ip6+@3x.png'
+  'iphone6p_portrait': 'resources/ios/logo-litegreen-splash-ip6+@3x.png',
   //'iphone6p_landscape': 'resources/splash/iphone6p_landscape.png',
   //'ipad_portrait': 'resources/splash/ipad_portrait.png',
   //'ipad_portrait_2x': 'resources/splash/ipad_portrait_2x.png',
   //'ipad_landscape': 'resources/splash/ipad_landscape.png',
   //'ipad_landscape_2x': 'resources/splash/ipad_landscape_2x.png',
-  //'android_ldpi_portrait': 'resources/splash/android_ldpi_portrait.png',
-  //'android_ldpi_landscape': 'resources/splash/android_ldpi_landscape.png',
-  //'android_mdpi_portrait': 'resources/splash/android_mdpi_portrait.png',
-  //'android_mdpi_landscape': 'resources/splash/android_mdpi_landscape.png',
-  //'android_hdpi_portrait': 'resources/splash/android_hdpi_portrait.png',
-  //'android_hdpi_landscape': 'resources/splash/android_hdpi_landscape.png',
-  //'android_xhdpi_portrait': 'resources/splash/android_xhdpi_portrait.png',
-  //'android_xhdpi_landscape': 'resources/splash/android_xhdpi_landscape.png'
+
+    //ANDROID
+    //http://stackoverflow.com/questions/13487124/android-splash-screen-sizes-for-ldpi-mdpi-hdpi-xhdpi-displays-eg-1024x76
+    // Format : 9-Patch PNG (recommended)
+
+  'android_ldpi_portrait': 'resources/android/logo-splash-android_ldpi_portrait-200x320.png', //200x320px
+  //'android_ldpi_landscape': 'resources/splash/android_ldpi_landscape.png',//320x200px
+  'android_mdpi_portrait': 'resources/android/logo-splash-android_mdpi_portrait-320x480.png',//320x480px
+  //'android_mdpi_landscape': 'resources/splash/android_mdpi_landscape.png',//480x320px
+  'android_hdpi_portrait': 'resources/android/logo-splash-android_hdpi_portrait-480x800.png',//480x800px
+  //'android_hdpi_landscape': 'resources/splash/android_hdpi_landscape.png',//800x480px
+  'android_xhdpi_portrait': 'resources/android/logo-splash-android_xhdpi_portrait-720x1280.png'//720px1280px
+  //'android_xhdpi_landscape': 'resources/splash/android_xhdpi_landscape.png'//1280x720px
 });
 
 //Cordova-Android original asset dimensions
