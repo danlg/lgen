@@ -44,6 +44,12 @@ Accounts.onEmailVerificationLink(function(token){
   });
 });
 
+Accounts.onLogin(function (argument) {
+    // analytics.track("Login", {
+    //   date: new Date(),
+    // });
+});
+
 
 // Meteor.AppCache.config({
 //   chrome: true,

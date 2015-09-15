@@ -137,5 +137,6 @@ Schema.profile= {
   firstchat:true,
   firstinvitation:true,
   firstpicture:true,
-  firstclassjoined:true
+  firstclassjoined:true,
+  referral:0
 };

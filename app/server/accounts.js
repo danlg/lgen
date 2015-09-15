@@ -18,7 +18,15 @@ ServiceConfiguration.configurations.insert({
     secret: "qZ5NcbllTG4Hy_gkGiZ9mKkT"
 });
 
+
+
 Accounts.onCreateUser(function(options, user) {
+
+  // analytics.track("Sign Up", {
+  //   date: new Date(),
+  // });
+
+
 
   user.profile = options.profile ? options.profile : {};
 

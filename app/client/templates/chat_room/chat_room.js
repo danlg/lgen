@@ -59,13 +59,12 @@ Template.ChatRoom.events({
   },
   'click #imageBtn':function (e) {
 
-     console.log(window.device.platform);
-    if(window.device.platform=="Android"){
-      e.preventDefault();
-      imageAction();
+    if(Meteor.isCordova){
+      if(window.device.platform==="Android"){
+        e.preventDefault();
+        imageAction();
+      }
     }
-
-
 
   },
   'change #imageBtn': function(event, template) {
@@ -370,10 +369,11 @@ function onSuccess(imageURI) {
     // alert(imageData);
     window.resolveLocalFileSystemURI(imageURI,
         function( fileEntry){
-            alert("got image file entry: " + fileEntry.fullPath);
+            // alert("got image file entry: " + fileEntry.fullPath);
+
             // console.log(fileEntry.)
             fileEntry.file(function(file) {
-              alert(file);
+              // alert(file);
               console.log(file);
 
 
@@ -420,7 +420,7 @@ function onSuccess(imageURI) {
         },
         function(){
           //error
-          alert("ada");
+          // alert("ada");
         }
     );
 

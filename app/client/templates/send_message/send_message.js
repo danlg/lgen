@@ -60,7 +60,11 @@ Template.SendMessage.helpers({
 
   },
   arrToString:function(arr){
-    return lodash(arr).toString();
+    if(arr.length<1){
+      return "";
+    }else{
+      return lodash(arr).toString();
+    }
   }
 
 
@@ -94,13 +98,13 @@ Template.ionNavBar.events({
     /*var target  = $(".js-example-basic-multiple").val();*/
     var target  = Session.get('sendMessageSelectedClasses').selectArrId;
     var msg  = $(".msgBox").val();
-    if(target!=""){
+    if(target!==""){
       Meteor.call('sendMsg',target,msg,function(){
         Session.set("sendMessageSelectedClasses",{selectArrName:[],selectArrId:[]});
-        Router.go('TabClasses')
+        Router.go('TabClasses');
       });
     }else{
-      alert("no class select!")
+      alert("no class select!");
     }
   }
 });

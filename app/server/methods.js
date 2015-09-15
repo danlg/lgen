@@ -284,5 +284,16 @@ Meteor.methods({
     var user = Meteor.user();
     lodash.set(user,path,value);
     Meteor.users.update(Meteor.userId(),user);
+  },
+  'updateProfileByPath2':function (path,fuc) {
+    var value  = lodash.get(Meteor.user(),'profile.'+path) || "";
+    var newValue = fuc(value);
+    var updateObj = {};
+    updateObj['profile'+path]=newValue;
+    Meteor.users.update(Meteor.userId(),{$set:updateObj});
+  },
+  'addReferral':function (userId) {
+    Meteor.users.update(Meteor.userId(),{$inc:{'profile.referral':1}});
   }
+
 });

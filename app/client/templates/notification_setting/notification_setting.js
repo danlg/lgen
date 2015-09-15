@@ -21,7 +21,19 @@ Template.NotificationSetting.events({
       if(error){
         console.log("error", error);
       }else{
-        // alert("update success") ;
+
+        // if(type.toUpperCase()==="PUSH"){
+        //
+        //   var tag = lodash.get(userObj,'profile.push')? "push notification activated "
+        //
+        //   analytics.track(tag, {
+        //     date: new Date(),
+        //   });
+        //
+        // }
+
+
+
       }
 
     });
