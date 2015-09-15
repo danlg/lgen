@@ -123,6 +123,8 @@
   "You":"Vous",
   // 3 sep 2015
 
+	"ReceivingMessagesVia":"Receiving messages via",
+
 
 	// https://github.com/gwendall/meteor-autoform-i18n/
 	// This is for schemas of autoForm

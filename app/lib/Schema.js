@@ -125,3 +125,17 @@ Schema.editprofile = new SimpleSchema({
     regEx:SimpleSchema.RegEx.Email,
   }
 });
+
+
+Schema.profile= {
+  firstname:"",
+  lastname:"",
+  role:"",
+  dob:"",
+  email:true,
+  push:true,
+  firstchat:true,
+  firstinvitation:true,
+  firstpicture:true,
+  firstclassjoined:true
+};

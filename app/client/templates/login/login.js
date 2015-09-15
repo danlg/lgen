@@ -50,10 +50,16 @@ Template.Login.helpers({});
 /*****************************************************************************/
 /* Login: Lifecycle Hooks */
 /*****************************************************************************/
-Template.Login.created = function() {};
+Template.Login.created = function() {
+  // alert("created");
+  if(Meteor.userId()){
+    Router.go("TabClasses");
+  }
+};
 
 Template.Login.rendered = function() {
   // videojs('bg-video').Background();
+  // alert("rendered");
 };
 
 Template.Login.destroyed = function() {};

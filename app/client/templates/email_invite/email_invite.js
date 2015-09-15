@@ -23,6 +23,14 @@ Template.EmailInvite.events({
 
       alert("Invite Success");
 
+      if(Meteor.user().profile.firstinvitation){
+        analytics.track("First Invitation", {
+          date: new Date(),
+        });
+
+        Meteor.call("updateProfileByPath", 'profile.firstinvitation',false);
+      }
+
         // Meteor.call("addInvitedPplId",id , function(error, result){
         //   if(error){
         //     console.log("error", error);
@@ -88,7 +96,14 @@ Template.EmailInvite.helpers({
     else
       name = contactObj.name.formatted;
 
-    return lodash.includes(name.toUpperCase(),searchText.get().toUpperCase());
+      var id  =this.id;
+      var targerObj = lodash.findByValues2(contactsObj,"id",id);
+      var targetEmails= lodash.map(targerObj[0].emails,"value");
+      var targetFirstEmail = targetEmails[0];
+
+
+
+    return lodash.includes(name.toUpperCase(),searchText.get().toUpperCase()) || lodash.includes(targetFirstEmail.toUpperCase(),searchText.get().toUpperCase()) ;
   }
 });
 
@@ -96,6 +111,8 @@ Template.EmailInvite.helpers({
 /* EmailInvite: Lifecycle Hooks */
 /*****************************************************************************/
 Template.EmailInvite.created = function () {
+  contactList.set("");
+  searchText.set("");
   if (Meteor.isCordova) {
     var options      = new ContactFindOptions();
     options.filter   = "";
@@ -112,6 +129,8 @@ Template.EmailInvite.rendered = function () {
 };
 
 Template.EmailInvite.destroyed = function () {
+  contactList.set("");
+  searchText.set("");
 };
 
 function onSuccess(contacts) {

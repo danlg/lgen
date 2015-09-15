@@ -1,0 +1,44 @@
+<template name="NotificationSetting">
+
+  {{#contentFor "headerTitle"}}
+      <h1 class="title">{{_"NOTIFICATION"}}</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonLeft"}}
+      {{>ionNavBackButton text=""}}
+  {{/contentFor}}
+
+
+
+  {{#ionView}}
+      {{#ionContent}}
+
+  <div class="notification-setting">
+    <ul class="list">
+
+  <li class="item item-toggle">
+     {{_ "Email"}}
+     <label class="toggle toggle-positive">
+       <input type="checkbox" class="cb" data-type='email' {{checked 'email'}} >
+       <div class="track">
+         <div class="handle"></div>
+       </div>
+     </label>
+  </li>
+  <li class="item item-toggle">
+     {{_ "PUSH"}}
+     <label class="toggle toggle-positive">
+       <input type="checkbox" class="cb" data-type='push' {{checked 'push'}} >
+       <div class="track">
+         <div class="handle"></div>
+       </div>
+     </label>
+  </li>
+
+
+</ul>
+  </div>
+
+  {{/ionContent}}
+  {{/ionView}}
+</template>

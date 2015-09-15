@@ -20,7 +20,7 @@
 
   "appName": "littlegenius",
 
-  "app": "/Users/mike/lgenMike/app",
+  "app": "/Users/mike/lgen/app",
 
   "env": {
     "ROOT_URL": "http://esprit.io:8080",

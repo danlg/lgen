@@ -48,7 +48,7 @@
 
       {{#each usersProfile}}
         {{#if isSearched this}}
-          <a href="{{ pathFor 'UserDetail' _id=this._id }}">
+          <a href="{{ pathFor 'UserDetail' _id=this._id classCode=classObj.classCode classId=classObj._id  }}">
             <div class="item">
               {{this.profile.firstname}} {{this.profile.lastname}}
             </div>

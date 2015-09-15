@@ -15,10 +15,10 @@
   },
 
   "vibrate": true,
-  "production": true,
-  "development":false,
+  "production": false,
+  "development":true,
   "badge": true,
-  "sound": true,
+  "sound": "true",
   "alert": true,
   "vibrate": true,
   "sendInterval":1

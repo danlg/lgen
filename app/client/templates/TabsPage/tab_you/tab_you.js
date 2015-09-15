@@ -1,3 +1,4 @@
+var legalLink = ReactiveVar("");
 /*****************************************************************************/
 /* TabYou: Event Handlers */
 /*****************************************************************************/
@@ -8,14 +9,8 @@ Template.TabYou.events({
         Router.go('Login');
       }
     );
-  }
-});
-
-/*****************************************************************************/
-/* TabYou: Helpers */
-/*****************************************************************************/
-Template.TabYou.helpers({
-  getlegal:function () {
+  },
+  'click .about':function (argument) {
 
     if(Meteor.isCordova){
       var  pattern = /-.*/g ;
@@ -26,17 +21,69 @@ Template.TabYou.helpers({
           // console.log(language);
           var lang =language.value.replace(pattern,"");
 
-          var html  = "http://esprit.io/legal/"+lang+".privacy.html";
+          console.log(lang);
 
-          return html;
+          // var html  = "http://esprit.io/legal/"+lang+".privacy.html";
+          // var html = Meteor.call("getPpLink",lang);
+          Meteor.call("getPpLink",lang, function(error, result){
+            if(error){
+              console.log("error", error);
+            }else{
+
+
+              switch (window.device.platform) {
+                case "Android":
+                  navigator.app.loadUrl(result,{openExternal: true});
+                  break;
+                case "iOS":
+                window.open(result, '_system');
+                  break;
+
+              }
+
+
+              // return legalLink.set(result);
+            }
+
+          });
+
+          // return html;
 
 
         },
         function () {alert('Error getting language\n');}
       );
+    }else{
+      console.log('you are not in phone');
     }
 
-    return "http://esprit.io/legal/en.privacy.html";
+  },
+  'click .love':function (argument) {
+
+
+    switch (Meteor.user().profile.role) {
+      case "Teacher":
+        var text = "Hey! \r\n\r\nI have been using Little Genius to text my students and parents without sharing my personal phone number.\r\nYou have to try it! It saves time, students love it and it is free! \r\nHere is the link: "+Meteor.settings.public.WEB_URL+"?rid="+Meteor.userId();
+        break;
+      case "Parent":
+        var text = "Hey!\r\n\r\nMy teachers have been using the Little Genius app to message our class before assignments are due, share photos and update us with last minute changes. You should tell your teachers about it! It\'s really helpful and free.\r\nHere is the link: "+Meteor.settings.public.WEB_URL+"?rid="+Meteor.userId()+"\"\r\n";
+      default:
+
+    }
+    window.plugins.socialsharing.share(text, null, null, null);
+  }
+
+});
+
+/*****************************************************************************/
+/* TabYou: Helpers */
+/*****************************************************************************/
+Template.TabYou.helpers({
+  getlegal:function () {
+    return legalLink.get();
+
+
+    // return Meteor.call("getPpLink","en");
 
   }
 });
@@ -50,6 +97,62 @@ Template.TabYou.created = function() {
 
 };
 
-Template.TabYou.rendered = function() {};
+Template.TabYou.rendered = function() {
+
+  if(Meteor.isCordova){
+    var  pattern = /-.*/g ;
+
+    navigator.globalization.getPreferredLanguage(
+      function (language) {
+        // alert('language: ' + language.value + '\n');
+        // console.log(language);
+        var lang =language.value.replace(pattern,"");
+
+        console.log(lang);
+
+        // var html  = "http://esprit.io/legal/"+lang+".privacy.html";
+        // var html = Meteor.call("getPpLink",lang);
+        Meteor.call("getPpLink",lang, function(error, result){
+          if(error){
+            console.log("error", error);
+          }else{
+
+
+            // switch (window.device.platform) {
+            //   case "Android":
+            //     navigator.app.loadUrl(result,{openExternal: true})
+            //     break;
+            //   case "iOS":
+            //   window.open(result, '_system')
+            //     break;
+            //
+            // }
+
+
+            return legalLink.set(result);
+          }
+
+        });
+
+        // return html;
+
+
+      },
+      function () {alert('Error getting language\n');}
+    );
+  }else{
+
+    Meteor.call("getPpLink","en", function(error, result){
+      if(error){
+        console.log("error", error);
+      }else{
+        return legalLink.set(result);
+      }
+
+    });
+
+  }
+
+};
 
 Template.TabYou.destroyed = function() {};

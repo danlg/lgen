@@ -16,15 +16,19 @@
                     <div class="item"><i class="icon ion-person"></i> {{_"MyAccount"}}</div>
                 </a>
 
-
-                <a href="{{getlegal}}">
-                  <div class="item"><i class="icon ion-ios-information-outline"></i> {{_ "About"}}</div>
+                <a href="{{ pathFor 'NotificationSetting' }}">
+                    <span class="item">{{_ 'Notification'}}</span>
                 </a>
+
+
+                <!-- <a href="{{getlegal}}"  > -->
+                  <div class="item about"><i class="icon ion-ios-information-outline"></i> {{_ "About"}}</div>
+                <!-- </a> -->
                 <a href="{{pathFor 'FeedBack'}}">
                     <div class="item"><i class="icon ion-ios-paper-outline"></i> {{_ "Feedback"}}</div>
                 </a>
 
-                <div class="item"><i class="icon ion-heart"></i> {{_ "LoveLittleGenius"}}</div>
+                <div class="item love"><i class="icon ion-heart"></i> {{_ "LoveLittleGenius"}}</div>
 
                   <div class="item signOut"><i class="icon ion-log-out"></i> {{_ "SignOut"}}</div>
                 <!--<div class="item signOut">{{_ "SignOut"}}</div>-->

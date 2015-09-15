@@ -69,17 +69,44 @@ Template.ionNavBar.events({
 
     var doc = Session.get("optionObj");
 
-    if(doc.workHour){
-      var workHourTime = doc.workHourTime;
-      if(!(workHourTime.from!=="" &&
-      workHourTime.to!=="" &&
-      workHourTime.weeks.length>0)){
-        doc={};
-        Session.set("optionObj",doc);
+    if(lodash.get(doc,"workHour")){
+
+      var allWork = lodash.get(doc,"workHour") &&
+                    lodash.get(doc,"workHourTime.from") &&
+                    lodash.get(doc,"workHourTime.to") &&
+                    lodash.get(doc,"workHourTime.weeks") &&
+                    lodash.get(doc,"workHourTime.weeks").length > 0;
+
+
+      console.log(allWork);
+      if(allWork){
+        AutoForm.submitFormById("#chatOptionUpdate");
+      }else{
+        Session.set("optionObj",{});
+        window.history.back();
       }
+
+
+    }else {
+      Session.set("optionObj",{});
+      AutoForm.submitFormById("#chatOptionUpdate");
     }
 
-    AutoForm.submitFormById("#chatOptionUpdate");
+
+    // if(doc.workHour){
+    //   var workHourTime = doc.workHourTime;
+    //   if(!( workHourTime.from &&
+    //   workHourTime.to!=="" &&
+    //   workHourTime.weeks.length>0)){
+    //     doc={};
+    //     Session.set("optionObj",doc);
+    //     AutoForm.submitFormById("#chatOptionUpdate");
+    //   }
+    // }else{
+    //   window.history.back();
+    // }
+
+
 
   }
 });

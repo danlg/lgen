@@ -80,12 +80,14 @@ Meteor.methods({
     //  check(doc,Schema.joinClass)
     //  Classes.update(doc,{$addToSet:{"joinedUserId":Meteor.userId()}});
     var query={};
-    query.classCode=classCode;
+    query.classCode=new RegExp('^'+classCode, 'i');
     query.createBy = {$ne:Meteor.userId()};
+    console.log(query);
     return Classes.findOne(query)||false;
    },
    'class/join':function(doc){
      check(doc,Schema.joinClass);
+     doc.classCode= new RegExp('^'+doc.classCode, 'i');
      Classes.update(doc,{$addToSet:{"joinedUserId":Meteor.userId()}});
    },
    'class/leave':function(classId){

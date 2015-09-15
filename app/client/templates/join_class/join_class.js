@@ -5,7 +5,7 @@ var joinform;
 Template.JoinClass.events({
   'click .joinBtn':function(){
 
-    Meteor.call("class/search", $(".classCodeInput").val().toLowerCase(), function(error, result){
+    Meteor.call("class/search", $(".classCodeInput").val(), function(error, result){
       if(error){
         console.log("error", error);
       }
@@ -13,6 +13,15 @@ Template.JoinClass.events({
          alert("No class found");
       }else{
         $(joinform).submit();
+
+        if(Meteor.user().profile.firstclassjoined){
+          analytics.track("First Class Joined", {
+            date: new Date(),
+          });
+
+          Meteor.call("updateProfileByPath", 'profile.firstclassjoined',false);
+        }
+
       }
     });
 

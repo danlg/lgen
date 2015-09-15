@@ -11,6 +11,14 @@ Meteor.publish('class', function(classCode) {
     classCode: classCode
   });
 });
+Meteor.publish('getClassByClassId', function(classId) {
+  return Classes.find(classId);
+});
+
+Meteor.publish('getCommentsByClassIdNId', function(classId,_id) {
+  return Commend.find({"userId":_id,"classId":classId});
+});
+
 Meteor.publish('getClassMsgId', function(msgId) {
   return Classes.find({
     messagesObj: {
@@ -45,6 +53,12 @@ Meteor.publish('getJoinedClassByUserId', function(userId) {
     joinedUserId: userId
   });
 });
+Meteor.publish('getJoinedClassCreatedByMeByUserId', function(userId) {
+  return Classes.find({
+    joinedUserId: userId,
+    createBy:this.userId
+  });
+});
 
 Meteor.publish('createdClassByMe', function() {
   return Classes.find({
@@ -75,6 +89,8 @@ Meteor.publish('getAllMyChatRooms', function() {
     }
   });
 });
+
+
 
 Meteor.publish('getAllJoinedClassesUser', function() {
   var classes = Classes.find({

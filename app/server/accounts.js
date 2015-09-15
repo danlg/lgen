@@ -1,3 +1,7 @@
+
+
+
+
 Accounts.config({
   //we keep delay at 90 days
    //loginExpirationInDays: null
@@ -14,27 +18,12 @@ ServiceConfiguration.configurations.insert({
     secret: "qZ5NcbllTG4Hy_gkGiZ9mKkT"
 });
 
-// Accounts.onLogin(function (argument) {
-//
-//
-//
-//
-//
-//
-//   Meteor.call("raix:push-setuser", token , function(error, result){
-//     if(error){
-//       console.log("error", error);
-//     }
-//     if(result){
-//        console.log("updateGcm");
-//     }
-//   });
-// });
-
-
 Accounts.onCreateUser(function(options, user) {
 
   user.profile = options.profile ? options.profile : {};
+
+  user.profile = lodash.assign(Schema.profile,user.profile);
+
 
   if(user.services.hasOwnProperty('google')){
     user.emails = [];
@@ -43,7 +32,6 @@ Accounts.onCreateUser(function(options, user) {
       });
     user.profile.firstname = user.services.google.given_name;
     user.profile.lastname = user.services.google.family_name;
-    user.profile.role = "";
 
 
   }else{
@@ -52,23 +40,6 @@ Accounts.onCreateUser(function(options, user) {
       Accounts.sendVerificationEmail(user._id);
     }, 2 * 1000);
 
-    /*switch(_.pick(options,role)){
-      case "Teacher":
-        Roles.addUsersToRoles(user._id, 'Teacher');
-      break;
-      case "Student":
-        Roles.addUsersToRoles(user._id, 'Student');
-      break;
-      case "Parent":
-        Roles.addUsersToRoles(user._id, 'Parent');
-      break;
-    }*/
-
-
-
   }
-
-
-
   return user;
 });

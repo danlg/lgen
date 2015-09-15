@@ -1,6 +1,6 @@
 Router.configure({
   layoutTemplate: 'MasterLayout',
-  // loadingTemplate: 'LoadingSpinner',
+  loadingTemplate: 'LoadingSpinner',
   notFoundTemplate: 'NotFound'
 });
 
@@ -103,14 +103,14 @@ Router.onBeforeAction(OnBeforeActions.checkDob,{
   only: ['TabClasses']
 });
 
-Router.onBeforeAction(function (argument) {
-  if(Meteor.userId()){
-    Router.go("TabClasses");
-    this.next();
-  }else{
-    this.next();
-  }
-},{only:['Login']});
+// Router.onBeforeAction(function (argument) {
+//   if(Meteor.userId()){
+//     Router.go("TabClasses");
+//     this.next();
+//   }else{
+//     this.next();
+//   }
+// },{only:['Login']});
 
 
 // Router.route('language', {
@@ -148,7 +148,7 @@ Router.route('TabChat', {
     // return [
       // Meteor.subscribe('getAllMyChatRooms'),
       // Meteor.subscribe('getChatRoomMenbers')
-      Meteor.subscribe('allMyChatRoomWithUser');
+      return Meteor.subscribe('allMyChatRoomWithUser');
     // ];
   },
   /*subscription:function(){
@@ -215,8 +215,10 @@ Router.route('TabClasses', {
   // action: "classes"
   path:"classes",
   waitOn:function (argument) {
-      Meteor.subscribe('joinedClass');
-      Meteor.subscribe('createdClassByMe');
+    return [
+      Meteor.subscribe('joinedClass'),
+      Meteor.subscribe('createdClassByMe')
+    ];
   }
 
 });
@@ -302,13 +304,25 @@ Router.route('ClassUsers', {
 
 Router.route('UserDetail', {
   /*controller: 'UserController',*/
-  path: "user/:_id",
+  path: "user/:_id/:classCode?/:classId?",
   // layoutTemplate: "NavBarScreenLayout",
   waitOn: function() {
-    return[
-      Meteor.subscribe('getUserById', this.params._id),
-      Meteor.subscribe('getJoinedClassByUserId', this.params._id)
-    ];
+
+    var subList=[];
+
+    if(this.params.classCode){
+      subList.push(Meteor.subscribe('class', this.params.classCode));
+
+    }
+    if(this.params.classId){
+      subList.push(Meteor.subscribe('getCommentsByClassIdNId', this.params.classId,this.params._id));
+    }
+
+
+    subList.push(Meteor.subscribe('getUserById', this.params._id));
+    subList.push(Meteor.subscribe('getJoinedClassByUserId', this.params._id));
+
+    return subList;
   }
 
 });
@@ -360,6 +374,19 @@ Router.route('Test2', {
 
 
 
+Router.route('Commend', {
+  // layoutTemplate: "NavBarScreenLayout",
+  path:"comment/:classId/:_id/",
+  waitOn:function (argument) {
+      Meteor.subscribe('getClassByClassId',this.params.classId);
+      Meteor.subscribe('getUserById',this.params._id);
+      Meteor.subscribe('getCommentsByClassIdNId',this.params.classId,this.params._id);
+      Meteor.subscribe('getJoinedClassCreatedByMeByUserId',this.params._id);
+  }
+});
 Router.route('FeedBack', {
+  // layoutTemplate: "NavBarScreenLayout",
+});
+Router.route('NotificationSetting', {
   // layoutTemplate: "NavBarScreenLayout",
 });

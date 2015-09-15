@@ -55,7 +55,7 @@ Template.ionNavBar.events({
       userObj.profile.firstname=$(".fn").val();
       userObj.profile.lastname=$(".ln").val();
       userObj.profile.role=Router.current().params.role;
-      userObj.profile.dob= $(".dob").val() || "";
+      userObj.profile.dob= $("#dobInput").val() || "";
 
       if(!validateEmail(userObj.email)){
         alert("Incorrect Email");

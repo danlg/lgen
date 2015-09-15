@@ -27,6 +27,8 @@
         <div class="row"><h1>{{userPofile.profile.firstname}} {{userPofile.profile.lastname}}</h1></div>
       </div>
 
+
+
       <!-- <div class="padding">Recive notice method</div>
 
       <div class="list">
@@ -43,6 +45,14 @@
 
       <div class="list">
 
+        <a href="{{pathFor 'Commend' classCode=classCode _id=userId classId=classId }}">
+          <div class="note item">
+            {{note}}
+          </div>
+        </a>
+
+
+
         <div class="item item-divider">
           Their Class
         </div>
@@ -54,9 +64,31 @@
             {{/each}}
           </div>
 
+          <div class="item item-divider">
+            {{_ "ReceivingMessagesVia"}}
+          </div>
+
+          {{#if canEmail}}
+            <div class="item item-icon-right" href="#">
+              {{_ "Email"}}
+              <i class="icon ion-email"></i>
+            </div>
+          {{/if}}
+          {{#if canPush}}
+            <div class="item item-icon-right" href="#">
+              {{_ "NOTIFICATION"}}
+              <i class="icon ion-alert"></i>
+            </div>
+          {{/if}}
+
+
+
+
       </div>
 
-      {{#if isStudentHigherThirteen }}
+      <!-- {{#if isStudentHigherThirteen }} -->
+      {{#if canChat }}
+
       <div class="bar bar-footer bar-stable">
         <div class="title talkToBtn" data-userId="{{userId}}">Talk to {{userPofile.profile.firstname}} {{userPofile.profile.lastname}}</div>
       </div>

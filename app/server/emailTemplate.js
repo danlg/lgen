@@ -79,7 +79,7 @@ feedback = function(content) {
       "from_email": process.env.FROM_EMAIL,
       "from_name": process.env.FROM_NAME,
       "to": [{
-        "email": "mike@sanuker.com" ,
+        "email": process.env.FEEDBACK_EMAIL  ,
         "name": "Recipient Name",
         "type": "to"
       }],

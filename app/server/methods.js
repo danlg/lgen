@@ -47,11 +47,17 @@ Meteor.methods({
     var classObj = Classes.findOne({
       _id: _id
     });
-    try {
-      Mandrill.messages.send(addClassMailTemplate(to, classObj.className,classObj.classCode));
-    } catch (e) {
-      console.log(e);
+
+    if(lodash.get(Meteor.user(),"profile.email")){
+      try {
+        Mandrill.messages.send(addClassMailTemplate(to, classObj.className,classObj.classCode));
+      } catch (e) {
+        console.log(e);
+      }
     }
+
+
+
   },
   "class/invite": function(classObj,targetFirstEmail) {
 
@@ -64,10 +70,13 @@ Meteor.methods({
     // console.log(first+last+" "+acceptLinkEncoded+" TO: "+"  "+ targetFirstEmail);
     // console.log(inviteClassMailTemplateTest(targetFirstEmail, classObj));
 
-    try {
-      Mandrill.messages.send(inviteClassMailTemplateTest(targetFirstEmail, classObj));
-    } catch (e) {
-      console.log(e);
+
+    if(lodash.get(Meteor.user(),"profile.email")){
+      try {
+        Mandrill.messages.send(inviteClassMailTemplateTest(targetFirstEmail, classObj));
+      } catch (e) {
+        console.log(e);
+      }
     }
 
   },
@@ -117,17 +126,17 @@ Meteor.methods({
       Classes.update(
         selector,
         {$pull:  updateObj  }
-      )
+      );
 
 
-    })
+    });
     if(type){
       var updateObj2={};
         updateObj2['messagesObj.$.'+type] = Meteor.user();
       Classes.update(
         {classCode:classObj.classCode, messagesObj:{$elemMatch:{msgId:msgId}}},
         {$push: updateObj2 }
-      )
+      );
     }
   },
 
@@ -196,6 +205,7 @@ Meteor.methods({
 
   },
   'pushTest':function (userId) {
+
     Push.send({
         from: 'push',
         title: 'Hello',
@@ -204,10 +214,14 @@ Meteor.methods({
             userId: userId
         }
     });
+
   },
   serverNotification: function ( notificationObj ) {
-
-    Push.send(notificationObj);
+    var userId =  notificationObj.query.userId;
+    var userObj = Meteor.users.findOne(userId);
+    if(lodash.get(userObj,'profile.push')){
+      Push.send(notificationObj);
+    }
 
 	},
   'insertImageTest':function (filePath) {
@@ -237,7 +251,38 @@ Meteor.methods({
   },
   'getShareLink':function (classCode) {
     return process.env.WEB_URL+classCode;
+  },
+  'giveComment':function (commentObj) {
+    var selector = {};
+    selector.userId = commentObj.userId;
+    selector.classId = commentObj.classId;
+    Commend.upsert(selector, {$set:{
+        comment:commentObj.comment
+    }});
+
+  },
+  'class/removeStd':function (dataObject) {
+    var selector = {};
+    selector.userId = dataObject.userId;
+    selector.classId = dataObject.classId;
+
+    console.log(dataObject);
+    console.log(dataObject.userId);
+    console.log(dataObject.classId);
+
+    // Commend.remove(dataObject);
+    Classes.update({_id:dataObject.classId},{$pull:{joinedUserId:dataObject.userId}});
+
+  },
+  'getPpLink':function (lang) {
+
+    return process.env.WEB_URL+"legal/"+lang+".privacy.html";
+  },
+  'updateProfileByPath':function (path,value) {
+    // var obj = {};
+    // obj = lodash.set(obj,path,value);
+    var user = Meteor.user();
+    lodash.set(user,path,value);
+    Meteor.users.update(Meteor.userId(),user);
   }
-
-
 });

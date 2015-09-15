@@ -26,6 +26,55 @@ Template.UserDetail.helpers({
     var age = moment(lodash.get(user,'profile.dob')) || moment() ;
     var now = moment();
     return now.diff( age,'years') > 12 ;
+  },
+  canChat:function () {
+    var user = Meteor.users.findOne({_id:Router.current().params._id});
+    var age = moment(lodash.get(user,'profile.dob')) || moment() ;
+    var now = moment();
+    var isHigherThan13 = now.diff( age,'years') > 12 ;
+
+
+    var higherThirteenClass;
+    if(Router.current().params.classCode){
+      var classObj = Classes.findOne({classCode:Router.current().params.classCode});
+       higherThirteenClass = classObj.higherThirteen;
+    }else{
+       higherThirteenClass = true;
+    }
+
+    if(isHigherThan13){
+      return true;
+    }
+
+    if(!higherThirteenClass){
+      return true;
+    }
+
+    if(higherThirteenClass && isHigherThan13){
+      return true;
+    }else if(!isHigherThan13 && !higherThirteenClass ){
+      return true;
+    }
+
+
+    return false;
+  },
+  classCode:function (argument) {
+    return Router.current().params.classCode || "";
+  },
+  note:function (argument) {
+    return lodash.get(Commend.findOne({userId:Router.current().params._id,classId:Router.current().params.classId}),'comment') || "No note yet!";
+  },
+  classId:function (argument) {
+    return Router.current().params.classId || "";
+  },
+  canEmail:function (argument) {
+    var user = Meteor.users.findOne({_id:Router.current().params._id});
+    return lodash.get(user,'profile.email') || false;
+  },
+  canPush:function (argument) {
+    var user = Meteor.users.findOne({_id:Router.current().params._id});
+    return lodash.get(user,'profile.push') || false;
   }
 
 });
