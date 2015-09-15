@@ -1,12 +1,11 @@
 App.info({
   id: 'io.littlegenius.genie',
-  name: 'Little Genius'
-  // description: 'Get über power in one button click',
-  // author: 'Matt Development Group',
-  // email: 'contact@example.com',
-  // website: 'http://example.com'
+  name: 'Little Genius',
+  description: 'Instant, free, simple communication for teachers, students and parents',
+  author: 'Little Genius Education',
+  email: 'contact@littlegenius.io',
+  website: 'http://littlegenius.io'
 });
-
 
 App.setPreference('Orientation', 'portrait');
 App.setPreference('ios-orientation-iphone', 'portrait');
@@ -15,37 +14,70 @@ App.accessRule('*');
 App.icons({
   // iOS
   //https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/MobileHIG/IconMatrix.html#//apple_ref/doc/uid/TP40006556-CH27-SW2
-  // 'iphone': 'resources/ios/Icon.png',
-  //
-  'iphone_2x': 'resources/ios/Icon@2x.png',
-  'iphone_3x': 'resources/ios/Icon@2x.png',
-  'ipad': 'resources/ios/Icon-72.png',
-  'ipad_2x': 'resources/ios/Icon-72@2x.png',
+  //dan@LG1:~/DEV/github6/lgen/app/resources/ios$ file Icon*
+  //Icon-60.png:          PNG image data, 60 x 60, 8-bit/color RGBA, non-interlaced
+  //Icon-72.png:          PNG image data, 72 x 72, 8-bit/color RGBA, non-interlaced
+  //Icon-72@2x.png:       PNG image data, 144 x 144, 8-bit/color RGBA, non-interlaced
+  //Icon-Small-50.png:    PNG image data, 50 x 50, 8-bit/color RGBA, non-interlaced
+  //Icon-Small-50@2x.png: PNG image data, 100 x 100, 8-bit/color RGBA, non-interlaced
+  //Icon.png:             PNG image data, 57 x 57, 8-bit/color RGBA, non-interlaced
+  //Icon@2x.png:          PNG image data, 114 x 114, 8-bit/color RGBA, non-interlaced
 
-   // Android
-   'android_ldpi': 'resources/icons/logo-120.png',
-   'android_mdpi': 'resources/icons/logo-120.png',
-   'android_hdpi': 'resources/icons/logo-120.png',
-   'android_xhdpi': 'resources/icons/logo-120.png'
- });
+  //    Asset
+  // App icon (required for all apps)
+  // @1x: iPad 2 and iPad mini icon: 76 x 76
+  // 'ipad': 'resources/ios/Icon-72.png',
+  'ipad': 'resources/ios/logo-litegreen-76.png',
+  // @2x: iPad and iPad mini icon: 152 x 152//'ipad_2x': 'resources/ios/Icon-72@2x.png'
+  'ipad_2x': 'resources/ios/logo-litegreen-152.png',
 
+  'iphone': 'resources/ios/Icon.png',
+
+  // 'iphone_2x': 'resources/ios/Icon@2x.png',
+  // iPhone_2x: iPhone 4s, iPhone 5,6 : 120 x 120
+  'iphone_2x': 'resources/ios/logo-litegreen-120.png',
+
+  //iPhone_3x: iPhone 6 Plus : 180 x 180
+  //'iphone_3x': 'resources/ios/Icon@2x.png',
+  'iphone_3x': 'resources/ios/logo-litegreen-180.png',
+
+  //App icon for the App Store (required for all apps)
+  //1024 x 1024 for all device
+
+  // Android
+  'android_ldpi': 'resources/icons/logo-120.png',
+  'android_mdpi': 'resources/icons/logo-120.png',
+  'android_hdpi': 'resources/icons/logo-120.png',
+  'android_xhdpi': 'resources/icons/logo-120.png'
+});
 
 App.launchScreens({
-  //https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/MobileHIG/IconMatrix.html#//apple_ref/doc/uid/TP40006556-CH27-SW2
+  //https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/MobileHIG/IconMatrix.html
+  // #//apple_ref/doc/uid/TP40006556-CH27-SW2
+
+  //logo-litegreen-splash-ip4@2x.png:  PNG image data, 640 x 960, 8-bit/color RGBA, non-interlaced
+  //logo-litegreen-splash-ip6+@3x.png: PNG image data, 1243 x 2208, 8-bit/color RGBA, non-interlaced
+  //logo-litegreen-splash-ip6@2x.png:  PNG image data, 750 x 1334, 8-bit/color RGBA, non-interlaced
+  //logo-litegreen-splash-ipad1x.png:  PNG image data, 768 x 1025, 8-bit/color RGBA, non-interlaced
+  //logo-litegreen-splash-ipad2x.png:  PNG image data, 1536 x 2049, 8-bit/color RGBA, non-interlaced
 
   //IPhone 4(@2x), 640 x 960
   'iphone': 'resources/ios/logo-litegreen-splash-ip4@2x.png',
   //'iphone4': 'resources/ios/logo-litegreen-splash-ip4@2x.png',
   //For iPhone 5((@2x)), 640 x 1136
   'iphone_2x': 'resources/ios/logo-litegreen-splash-ip5@2x.png',
+
+  //logo-litegreen-splash-ip5@2x.png:  PNG image data, 640 x 1136, 8-bit/color RGBA, non-interlaced
   'iphone5': 'resources/ios/logo-litegreen-splash-ip5@2x.png',
+
   //For iPhone 6(@2x):
   //750 x 1334 (@2x) for portrait
   //  1334 x 750 (@2x) for landscape
   'iphone6': 'resources/ios/logo-litegreen-splash-ip6@2x.png',
-//  For iPhone 6 Plus:
-//    1242 x 2208 (@3x) for portrait
-//  2208 x 1242 (@3x) for landscape
+
+  //  For iPhone 6 Plus:
+  //    1242 x 2208 (@3x) for portrait
+  //  2208 x 1242 (@3x) for landscape
   'iphone6p_portrait': 'resources/ios/logo-litegreen-splash-ip6+@3x.png',
   //'iphone6p_landscape': 'resources/splash/iphone6p_landscape.png',
   'ipad_portrait': 'resources/ios/logo-litegreen-splash-ipad1x.png',//768 x 1024
@@ -53,9 +85,9 @@ App.launchScreens({
   'ipad_portrait_2x': 'resources/ios/logo-litegreen-splash-ipad2x.png',//1536 x 2048
   // 'ipad_landscape_2x': 'resources/splash/ipad_landscape_2x.png',
 
-    //ANDROID
-    //http://stackoverflow.com/questions/13487124/android-splash-screen-sizes-for-ldpi-mdpi-hdpi-xhdpi-displays-eg-1024x76
-    // Format : 9-Patch PNG (recommended)
+  //ANDROID
+  //http://stackoverflow.com/questions/13487124/android-splash-screen-sizes-for-ldpi-mdpi-hdpi-xhdpi-displays-eg-1024x76
+  // Format : 9-Patch PNG (recommended)
 
   'android_ldpi_portrait': 'resources/android/logo-splash-android_ldpi_portrait-200x320.png', //200x320px
   //'android_ldpi_landscape': 'resources/splash/android_ldpi_landscape.png',//320x200px
@@ -69,7 +101,6 @@ App.launchScreens({
 
 //Cordova-Android original asset dimensions
 //=========================================
-//
 //drawable/icon.png: 96 x 96
 //drawable-hdpi/icon.png: 72 x 72
 //drawable-ldpi/icon.png: 36 x 36
@@ -87,7 +118,6 @@ App.launchScreens({
 //
 //Cordova-iOS original asset dimensions
 //=========================================
-//
 //icons/icon-40.png: 40 x 40
 //icons/icon-40@2x.png: 80 x 80
 //icons/icon-50.png: 50 x 50
