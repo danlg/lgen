@@ -111,7 +111,7 @@ Template.ChatRoom.events({
       setTimeout(function () {
         if(isRecording)
           media.stopRecord();
-      }, 1000*60*3 );
+      }, 1000*60*3 );//3 min max
 
 
 
@@ -213,7 +213,7 @@ Template.ChatRoom.helpers({
   },
   targertWorkingTime:function (argument) {
     var target = Meteor.users.findOne({_id:{$ne:Meteor.userId()}});
-    if(target.profile.role=="Teacher"){
+    if(target.profile.role==="Teacher"){
       if(target.profile.chatSetting  && target.profile.chatSetting.workHour){
         var workHourTime = target.profile.chatSetting.workHourTime;
         var fromMoment = moment(workHourTime.from);

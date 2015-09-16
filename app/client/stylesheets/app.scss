@@ -25,24 +25,24 @@ $positive:                        #ACDA45 ;
   font-size: 5rem;
 }
 
-.background{
-  background-image: url("img/login.jpg");
-  background-size: cover;
-  background-position: center;
-}
 .bg{
   background-image: url("img/login.jpg");
   background-size: cover;
   background-position: center;
 }
 
-
-.item{
-  border-top: 1px solid #ddd !important;
-  border-bottom: 1px solid #ddd !important;
+.wallpaper{
+  background-image: url("img/wallpaper.jpg");
+  background-size: cover;
+  background-position: center;
 }
 
-
+.item{
+//  border-top: 1px solid #ddd !important;
+//  border-bottom: 1px solid #ddd !important;
+  border-top: 0 transparent;
+  border-bottom: 0 transparent;
+}
 
 @import 'meteoric_ionic-sass/ionic';
 @import 'meteoric_ionicons-sass/ionicons';
