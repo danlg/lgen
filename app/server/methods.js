@@ -80,16 +80,20 @@ Meteor.methods({
     }
 
   },
-  "sendMsg": function(target, msg) {
+  "sendMsg": function(target, msg, mediaObj,classId) {
 
     var msgObj = {};
     var date = moment().format('x');
-    msgObj.msgId = CryptoJS.SHA1(date + msg).toString().substring(0, 6);
+    // msgObj.msgId = CryptoJS.SHA1(date + msg).toString().substring(0, 6);
+    msgObj.msgId = Random.id();
     msgObj.content = msg;
     msgObj.checked = [];
     msgObj.star = [];
     msgObj.close = [];
     msgObj.help = [];
+    msgObj.imageArr = mediaObj.imageArr;
+    msgObj.soundArr = mediaObj.soundArr;
+
     Classes.update({
       classCode: {
         $in: target
@@ -100,6 +104,27 @@ Meteor.methods({
       }
     }, {
       validate: false
+    });
+
+    var arrayOfClasses = Classes.find({classCode:{$in:target}}).fetch();
+
+    var arrayOfTarget = lodash.map(arrayOfClasses,'joinedUserId');
+
+    var flattenArray = lodash.flatten(arrayOfTarget);
+
+    var index = flattenArray.indexOf(Meteor.userId());
+
+    if (index > -1) {
+      flattenArray.splice(index, 1);
+    }
+
+    Push.send({
+        from: 'push',
+        title: 'Message From Classroom',
+        text: msg,
+        query: {
+            userId:{$in:flattenArray}
+        }
     });
 
   },

@@ -34,7 +34,6 @@ aldeed:collection2
 aldeed:simple-schema
 manuel:viewmodel
 
-meteorhacks:fast-render
 wylio:mandrill
 jparker:crypto-sha1
 
@@ -68,3 +67,4 @@ okgrow:analytics
 momentjs:moment
 benmgreene:moment-range
 raix:push
+cfs:ui

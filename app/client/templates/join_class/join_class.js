@@ -5,13 +5,14 @@ var joinform;
 Template.JoinClass.events({
   'click .joinBtn':function(){
 
-    Meteor.call("class/search", $(".classCodeInput").val(), function(error, result){
+    Meteor.call("class/search", $(".classCodeInput").val().trim(), function(error, result){
       if(error){
         console.log("error", error);
       }
       if(!result){
          alert("No class found");
       }else{
+        IonLoading.show();
         $(joinform).submit();
 
         if(Meteor.user().profile.firstclassjoined){

@@ -80,12 +80,15 @@ Template.EmailInvite.helpers({
       return contactList.get();
   },
   getName:function(contactObj){
-    if(contactObj.displayName!==null)
+    console.log(contactObj);
+    if( contactObj.displayName!==null && contactObj.displayName!=="")
       return contactObj.displayName;
-    else if(contactObj.nickname!==null)
+    else if( contactObj.nickname!==null && contactObj.nickname!=="" )
       return contactObj.nickname;
-    else
+    else if( contactObj.name.formatted!==null && contactObj.name.formatted!=="" )
       return contactObj.name.formatted;
+    else
+      return lodash.map(contactObj.phoneNumbers,'value')[0];
   },
   isSearched:function(contactObj){
     var name ="";

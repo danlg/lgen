@@ -62,6 +62,42 @@
           <span>{{content}}</span>
         </div>
         <br>
+        <div>
+          <div >
+            {{#if havePic}}
+              {{#each imageArr}}
+                {{#with getImage}}
+                  {{#if this.isUploaded}}
+                    {{#if this.hasStored 'images'}}
+                      <div class="" >
+                        <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}" >
+                        <!-- <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a> -->
+                      </div>
+                    {{/if}}
+                  {{/if}}
+                {{/with}}
+              {{/each}}
+            {{/if}}
+          </div>
+          <div >
+            {{#if haveSound}}
+              {{#each soundArr}}
+                {{#with getSound}}
+                  {{#if this.isUploaded}}
+                    {{#if this.hasStored 'sounds'}}
+                      <div class="bubble" >
+                        <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}" ></a>
+                        <!-- <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a> -->
+                      </div>
+                    {{/if}}
+                  {{/if}}
+                {{/with}}
+              {{/each}}
+            {{/if}}
+          </div>
+        </div>
+        <br>
+
         <p>
             {{#if isNotEmpty star}}
             <a href="#" class="subdued">{{star.length}} <i class="ion-ios-star"></i></a>

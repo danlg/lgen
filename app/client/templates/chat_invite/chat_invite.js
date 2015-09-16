@@ -1,6 +1,7 @@
 var targetStringVar = ReactiveVar([]);
 var targetString=[];
 var targetIds= ReactiveVar([]);
+var searchString = ReactiveVar("");
 /*****************************************************************************/
 /* ChatInvite: Event Handlers */
 /*****************************************************************************/
@@ -28,6 +29,9 @@ Template.ChatInvite.events({
     targetStringVar.set(targetString);
     targetIds.set(localarr);
 
+  },
+  'keyup .searchbar':function () {
+    searchString.set($(".searchbar").val().trim());
   }
 });
 
@@ -54,6 +58,9 @@ Template.ChatInvite.helpers({
   },
   shouldhide:function () {
     return targetIds.get().length>0?"":"hide";
+  },
+  isSearchable:function () {
+    return lodash.includes(getFullNameByProfileObj(this.profile).toUpperCase(),searchString.get().toUpperCase());
   }
 });
 

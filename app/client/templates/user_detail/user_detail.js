@@ -29,6 +29,11 @@ Template.UserDetail.helpers({
   },
   canChat:function () {
     var user = Meteor.users.findOne({_id:Router.current().params._id});
+
+    if(user.profile.role!=="Student"){
+      return true;
+    }
+
     var age = moment(lodash.get(user,'profile.dob')) || moment() ;
     var now = moment();
     var isHigherThan13 = now.diff( age,'years') > 12 ;

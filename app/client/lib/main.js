@@ -8,27 +8,24 @@ Meteor.startup(function () {
 	Push.addListener('message', function(notification) {
 		// Called on every message
 		console.log(JSON.stringify(notification));
+		var payload = notification.payload;
 
-		if(Router.current().route.getName()!=="TabChat"){
-			var badge =  Session.get("chatUnreadNumber");
-			badge++;
-			Session.set("chatUnreadNumber",badge);
-		}else {
-			Session.set("chatUnreadNumber",0);
+		if(payload.type=="chat"){
+
+			if(Router.current().route.getName()!=="TabChat"){
+				var badge =  Session.get("chatUnreadNumber");
+				badge++;
+				Session.set("chatUnreadNumber",badge);
+			}else {
+				Session.set("chatUnreadNumber",0);
+			}
+
 		}
 
 
 
-
-
-		// function alertDismissed() {
-    //   var badge =  Session.get("chatUnreadNumber");
-    //   badge++;
-    //   Session.set("chatUnreadNumber",badge);
-		//
-		// }
-		// alert(notification.message, alertDismissed, notification.payload.title, "Ok");
 	});
+
 });
 
 AutoForm.setDefaultTemplate('plain');

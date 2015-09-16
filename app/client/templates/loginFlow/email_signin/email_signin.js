@@ -26,7 +26,7 @@ Template.EmailSignin.destroyed = function () {
 Template.ionNavBar.events({
     'click .loginBtn':function(){
       var loginObj = loginVM.toJS();
-      loginObj.email = loginObj.email.toUpperCase();
+      // loginObj.email = loginObj.email.toUpperCase();
       Meteor.loginWithPassword(loginObj.email,loginObj.pwd,function(err){
         // err?alert(err.reason);Router.go('TabClasses');
         if(err)

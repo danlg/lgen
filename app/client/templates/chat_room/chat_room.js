@@ -1,5 +1,5 @@
 var isRecording = false;
- media="";
+ var media="";
  var isPlayingSound = false;
  var recordTimer;
  var needReduce =false;
@@ -35,9 +35,10 @@ Template.ChatRoom.events({
             notificationObj.from = getFullNameByProfileObj(Meteor.user().profile);
             notificationObj.title = getFullNameByProfileObj(Meteor.user().profile);
             notificationObj.text = text;
-            // notificationObj.payload = {
-            //   title: 'Hello World'
-            // },
+            notificationObj.payload = {
+              sound: 'Hello World',
+              type:'chat'
+            };
             notificationObj.query=query;
 
 
@@ -98,6 +99,11 @@ Template.ChatRoom.events({
             notificationObj.title = getFullNameByProfileObj(Meteor.user().profile);
             notificationObj.text = "Image";
             notificationObj.query=query;
+            notificationObj.sound='default';
+            notificationObj.payload = {
+              sound: 'Hello World',
+              type:'chat'
+            };
 
 
           Meteor.call("serverNotification", notificationObj);
@@ -282,6 +288,11 @@ Template.ChatRoom.created = function () {
 Template.ChatRoom.rendered = function () {
 
 
+  $(".list.chatroomList").height("100%");
+  $(".list.chatroomList").height( ($(".list.chatroomList").height() - 123) + "px");
+
+
+
 
 
   $(".inputBox").autogrow();
@@ -404,6 +415,11 @@ function onSuccess(imageURI) {
                     notificationObj.title = getFullNameByProfileObj(Meteor.user().profile);
                     notificationObj.text = "Image";
                     notificationObj.query=query;
+                    notificationObj.sound='default';
+                    notificationObj.payload = {
+                      sound: 'Hello World',
+                      type:'chat'
+                    };
 
 
                   Meteor.call("serverNotification", notificationObj);
@@ -482,16 +498,25 @@ function onFail(message) {
               var notificationObj={};
                 notificationObj.from = getFullNameByProfileObj(Meteor.user().profile);
                 notificationObj.title = getFullNameByProfileObj(Meteor.user().profile);
-                notificationObj.text = "Image";
+                notificationObj.text = "Sound";
                 notificationObj.query=query;
+                notificationObj.sound='default';
+                notificationObj.payload = {
+                  sound: 'Hello World',
+                  type:'chat'
+                };
+
+
+                // if(Meteor.user().profile.firstpicture){
+                //   analytics.track("First Picture", {
+                //     date: new Date(),
+                //   });
+                //
+                //   Meteor.call("updateProfileByPath", 'profile.firstpicture',false);
+                // }
 
 
               Meteor.call("serverNotification", notificationObj);
-
-
-
-
-
 
             }
           });

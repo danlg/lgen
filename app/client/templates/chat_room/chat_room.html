@@ -48,13 +48,11 @@
               {{#with getSound}}
                 {{#if this.isUploaded}}
                   {{#if this.hasStored 'sounds'}}
-
-                    <div class="bubble" >
-                      <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}" ></a>
-                      <!-- <div data-clipid="{{_id}}" class="playBtn" >
-                        <i class="icon ion-play"></i>
-                      </div> -->
-                    </div>
+                      {{#if  this.url}}
+                      <div class="bubble" >
+                        <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}" ></a>
+                      </div>
+                      {{/if}}
                   {{/if}}
                 {{/if}}
               {{/with}}

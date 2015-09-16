@@ -1,4 +1,4 @@
-<template name="ClassPanel">
+  <template name="ClassPanel">
 
     {{#contentFor "headerTitle"}}
       <h1 class="title">{{classObj.className}}</h1>
@@ -47,23 +47,7 @@
 
           {{#each classObj.messagesObj}}
 
-          <!-- <label class="item item-input item-select">
-            <div class="input-label">
-              {{content}}
-            </div>
-            <select id="{{msgId}}" class="chooseType" data-mgsid={{msgId}}>
-                <option value="">select</option>
-                <option value="like">good</option>
-                <option value="dislike">bad</option>
-            </select>
-            <div>like:{{like.length}}</div>
-            <div>dislike:{{dislike.length}}</div>
-
-
-          </label> -->
-
-      <a href="{{ pathFor 'ClassPanelMsgNotice' msgCode=msgId }}">
-
+    
       <div class="list card">
 
 
@@ -76,8 +60,47 @@
 
         <div class="item ">
           <div>
-            <span>{{teacherName}}:</span>
-            <span>{{content}}</span>
+            <div>{{teacherName}}:</div>
+            <div>{{content}}</div>
+
+            <div style="height:10px;">
+
+            </div>
+
+
+            <div >
+              {{#if havePic}}
+                {{#each imageArr}}
+                  {{#with getImage}}
+                    {{#if this.isUploaded}}
+                      {{#if this.hasStored 'images'}}
+                        <div class="" >
+                          <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}" >
+                          <!-- <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a> -->
+                        </div>
+                      {{/if}}
+                    {{/if}}
+                  {{/with}}
+                {{/each}}
+              {{/if}}
+            </div>
+            <div >
+              {{#if haveSound}}
+                {{#each soundArr}}
+                  {{#with getSound}}
+                    {{#if this.isUploaded}}
+                      {{#if this.hasStored 'sounds'}}
+                        <div class="bubble" >
+                          <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}" ></a>
+                          <!-- <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a> -->
+                        </div>
+                      {{/if}}
+                    {{/if}}
+                  {{/with}}
+                {{/each}}
+              {{/if}}
+            </div>
+
           </div>
           <br>
           <p>
@@ -98,7 +121,7 @@
 
 
       </div>
-      </a>
+      <!-- </a> -->
 
           {{/each}}
 

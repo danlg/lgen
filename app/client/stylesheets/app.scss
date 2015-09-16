@@ -42,6 +42,10 @@ $positive:                        #ACDA45 ;
   border-bottom: 1px solid #ddd !important;
 }
 
+.icon.disabled{
+  opacity: 0.5;
+}
+
 
 
 @import 'meteoric_ionic-sass/ionic';

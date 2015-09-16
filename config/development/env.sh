@@ -15,5 +15,5 @@ export FEEDBACK_EMAIL="mike@sanuker.com"
 export WEB_URL="http://esprit.io/"
 export ROOT_URL_WITHOUT_PORT="http://localhost/"
 
-# export MONGO_URL="mongodb://geniedb:genie123@cockney.3.mongolayer.com:10233,cockney.2.mongolayer.com:10233/genie?replicaSet=set-55e8023231f767440700040b"
-# export MONGO_OPLOG_URL="mongodb://geniedb:genie123@cockney.3.mongolayer.com:10233,cockney.2.mongolayer.com:10233/local?authSource=genie"
+export MONGO_URL="mongodb://geniedb:genie123@cockney.3.mongolayer.com:10233,cockney.2.mongolayer.com:10233/genie?replicaSet=set-55e8023231f767440700040b"
+export MONGO_OPLOG_URL="mongodb://geniedb:genie123@cockney.3.mongolayer.com:10233,cockney.2.mongolayer.com:10233/local?authSource=genie"

@@ -187,7 +187,11 @@ Router.route('ClassPanelMsgNotice', {
   // layoutTemplate: "NavBarScreenLayout",
   path: "panel/notice/:msgCode",
   waitOn: function() {
-    return Meteor.subscribe('getClassMsgId', this.params.msgCode);
+    return [
+      Meteor.subscribe('getClassMsgId', this.params.msgCode),
+      Meteor.subscribe('images'),
+      Meteor.subscribe('sounds')
+    ];
   }
 });
 Router.route('NotificationDetail', {
@@ -268,7 +272,11 @@ Router.route('classDetail', {
   // layoutTemplate:"NavBarScreenLayout",
   path: "class/:classCode/detail",
   waitOn: function() {
-     Meteor.subscribe('class', this.params.classCode);
+     return [
+       Meteor.subscribe('class', this.params.classCode),
+       Meteor.subscribe('images'),
+       Meteor.subscribe('sounds')
+     ];
   }
 });
 
@@ -334,7 +342,11 @@ Router.route('SendMessage', {
   // layoutTemplate: "NavBarScreenLayout",
   path: "message/send/:classCode?",
   waitOn: function() {
-    return Meteor.subscribe('createdClassByMe');
+    return [
+      Meteor.subscribe('createdClassByMe'),
+      Meteor.subscribe('images'),
+      Meteor.subscribe('sounds')
+    ];
   }
 });
 
@@ -351,7 +363,12 @@ Router.route('ClassPanel', {
   path: "class/:classCode/panel",
   // layoutTemplate: "NavBarScreenLayout",
   waitOn: function() {
-    return Meteor.subscribe('class', this.params.classCode);
+    return [
+      Meteor.subscribe('class', this.params.classCode),
+      Meteor.subscribe('images'),
+      Meteor.subscribe('sounds')
+    ];
+
   }
 
 });

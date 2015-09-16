@@ -5,20 +5,20 @@
   },
   "apn": {
     "passphrase": "mw140120",
-    "key": "apnKey/prod/LGPUSHPRODKey.pem",
-    "cert": "apnKey/prod/LGCertPROD.pem"
+    "key": "apn/production_io.littlegenius.genie.pkey",
+    "cert": "apn/production_io.littlegenius.genie.pem"
   },
   "apn-dev": {
     "passphrase": "mw140120",
-    "key": "apnKey/development/LGPUSHDEVKey.pem",
-    "cert": "apnKey/development/LGPUSHCertDEV.pem"
+    "key": "apn/development_io.littlegenius.genie.pkey",
+    "cert": "apn/development_io.littlegenius.genie.pem"
   },
 
   "vibrate": true,
-  "production": false,
-  "development":true,
+  "production": true,
+  "development":false,
   "badge": true,
-  "sound": "true",
+  "sound": true,
   "alert": true,
   "vibrate": true,
   "sendInterval":1
