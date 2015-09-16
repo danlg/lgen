@@ -32,9 +32,15 @@
 
                 <div class="button-bar">
                     <a class="button"
-                       href="{{ pathFor 'ClassUsers' classCode=classObj.classCode }}">{{ classObj.joinedUserId.length }} {{_"Member(s)" }}</a>
+                       href="{{ pathFor 'ClassUsers' classCode=classObj.classCode }}">
+                        <i class="icon ion-ios-people"></i>
+                        {{ classObj.joinedUserId.length }} {{_"Member(s)" }}
+                    </a>
                     <a class="button"
-                       href="{{pathFor 'ClassInvitation' classCode=classObj.classCode  }}">{{_"add" }}</a>
+                       href="{{pathFor 'ClassInvitation' classCode=classObj.classCode  }}">
+                        <i class="icon ion-ios-personadd"></i>
+                        {{_"Add" }}
+                    </a>
                 </div>
 
                 {{#each classObj.messagesObj}}
