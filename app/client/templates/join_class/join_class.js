@@ -5,7 +5,7 @@ var joinform;
 Template.JoinClass.events({
   'click .joinBtn':function(){
 
-    Meteor.call("class/search", $(".classCodeInput").val().toLowerCase(), function(error, result){
+    Meteor.call("class/search", $(".classCodeInput").val().trim().toLowerCase(), function(error, result){
       if(error){
         console.log("error", error);
       }
