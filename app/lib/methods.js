@@ -38,7 +38,7 @@ Meteor.methods({
     //  check(doc,Schema.joinClass)
     //  Classes.update(doc,{$addToSet:{"joinedUserId":Meteor.userId()}});
     var query={};
-    query.classCode=classCode.toLowerCase();
+    query.classCode=classCode.trim().toLowerCase();
     query.createBy = {$ne:Meteor.userId()};
     return Classes.findOne(query)||false;
    },
