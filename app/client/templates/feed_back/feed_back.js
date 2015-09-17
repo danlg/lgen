@@ -2,11 +2,7 @@
 /* FeedBack: Event Handlers */
 /*****************************************************************************/
 Template.FeedBack.events({
-  // 'click .feedbackSend':function (argument) {
-  //   Meteor.call("FeedBack",$(".feedbackContent"),function (argument) {
-  //     alert("Thanks for Share!");
-  //   });
-  // }
+
 });
 
 /*****************************************************************************/
@@ -34,7 +30,7 @@ Template.ionNavBar.events({
       if(err)
         alert(err.reason);
       else{
-        alert("Thanks for Share!");
+        alert("Thanks for sharing!");
       }
     });
   }

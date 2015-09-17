@@ -7,6 +7,15 @@
 .item{
   white-space: normal !important;
 }
+//here is the toolbar for sending
+.item.item-input.chatroomItem{
+  padding: 0;
+  background-color: #E6E6E6;
+}
+
+.imgtoolbar {
+  font-size: 30px;
+}
 
 .list.chatroomList{
   overflow-x: hidden;
@@ -14,9 +23,13 @@
   // height: calc(100% - 123px);
   margin-bottom: 0;
   .item{
-    border-color: #FFF !important;
-    background-color: rgba(255, 0, 0, 0);
+    /*border-color: #FFF !important;*/
+    border-color: transparent;
+    background-color: transparent;
   }
+}
+
+.list.chatroomList:last-child{
 }
 
 .bar.bar-footer.input-footer{
@@ -33,18 +46,22 @@
 //   overflow-y: auto;
 // }
 
-.list.chatroomList:last-child{
-}
+
 
 .bubble{
   position: relative;
   max-width: 50vw;
   /*width: 210px;
   height: 85px;*/
-  padding: 10px;
-  -webkit-border-radius: 13px;
-  -moz-border-radius: 13px;
-  border-radius: 13px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-right: 10px;
+  padding-left: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  /*border: 1px solid;
+  border-color: ;*/
 }
 
 .mind{
@@ -52,7 +69,7 @@
   .bubble
   {
     float: right;
-    background: #A0FF9F;
+    background: #C8EBB0;
   }
 }
 
@@ -61,7 +78,7 @@
   .bubble
   {
     float: left;
-    background: #E0E0E0;
+    background: #EAEAEA;
   }
 }
 
@@ -70,10 +87,6 @@
 .ion-paperclip::before
 {
   font-size: 20px;
-}
-
-.item.item-input.chatroomItem{
-  // padding: 0;
 }
 
 .imageBtnTri{
@@ -194,3 +207,4 @@ z-index: 100;
 .imageIcon{
 z-index: -1;
 }
+
