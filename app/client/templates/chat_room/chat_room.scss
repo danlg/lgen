@@ -20,8 +20,11 @@
 .list.chatroomList{
   overflow-x: hidden;
   overflow-y: auto;
-  // height: calc(100% - 123px);
-  margin-bottom: 0;
+  height: calc(100% - 123px);
+  // margin-bottom: 0;
+  // width: 100%;
+  bottom: 0;
+
   .item{
     /*border-color: #FFF !important;*/
     border-color: transparent;
@@ -207,4 +210,3 @@ z-index: 100;
 .imageIcon{
 z-index: -1;
 }
-
