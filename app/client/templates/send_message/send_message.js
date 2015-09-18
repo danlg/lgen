@@ -255,6 +255,10 @@ Template.SendMessage.destroyed = function() {
   isRecording = false;
   media="";
   isPlayingSound = false;
+  Session.set("sendMessageSelectedClasses", {
+    selectArrName: [],
+    selectArrId: []
+  });
 };
 
 Template.ionNavBar.events({

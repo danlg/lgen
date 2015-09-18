@@ -41,10 +41,10 @@ Accounts.onEmailVerificationLink(function(token){
   });
 });
 
-Accounts.onLogin(function (argument) {
-    // analytics.track("Login", {
-    //   date: new Date(),
-    // });
+Accounts.onLogin(function (err) {
+    Meteor.logoutOtherClients(function (err) {
+    	console.log(err);
+    });
 });
 
 

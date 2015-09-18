@@ -6,6 +6,7 @@ var postHooks = {
       }
       doc.joinedUserId=[];
       doc.messagesObj=[];
+      doc.canBeSearch=false;
       return doc;
     }
   },
@@ -21,7 +22,7 @@ var postHooks = {
     });
   },
   onError: function(formType, error) {
-
+      console.log(error);
       alert(error.reason);
   },
   beginSubmit: function() {

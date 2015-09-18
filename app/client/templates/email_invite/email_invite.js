@@ -88,7 +88,7 @@ Template.EmailInvite.helpers({
     else if( contactObj.name.formatted!==null && contactObj.name.formatted!=="" )
       return contactObj.name.formatted;
     else
-      return lodash.map(contactObj.phoneNumbers,'value')[0];
+      return lodash.map(contactObj.emails,'value')[0];
   },
   isSearched:function(contactObj){
     var name ="";

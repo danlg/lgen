@@ -118,6 +118,13 @@ Meteor.methods({
       flattenArray.splice(index, 1);
     }
 
+    if(msg===""){
+      if(msgObj.imageArr.length>0)
+        msg="Image";
+      if(msgObj.soundArr.length>0)
+        msg="Sound";
+    }
+
     Push.send({
         from: 'push',
         title: 'Message From Classroom',
