@@ -6,14 +6,14 @@ var isPlayingSound = false;
 /* ClassPanelMsgNotice: Event Handlers */
 /*****************************************************************************/
 Template.ClassPanelMsgNotice.events({
-  'click .imgThumbs': function(e) {
+  'click .imgThumbs': function (e) {
     e.preventDefault();
     var imageFullSizePath = $(e.target).data('fullsizeimage');
     IonModal.open('imageModal', {
       src: imageFullSizePath
     });
   },
-  'click .playBtn': function(e) {
+  'click .playBtn': function (e) {
     if (!isPlayingSound) {
       isPlayingSound = true;
       var playname = $(e.target).data('clipid');
@@ -21,7 +21,7 @@ Template.ClassPanelMsgNotice.events({
       $(e.target).attr('class', 'button button-icon icon ion-stop ');
 
       // alert("startPlay");
-      playAudio(Sounds.findOne(playname).url(), function(argument) {
+      playAudio(Sounds.findOne(playname).url(), function (argument) {
         $(e.target).attr('class', 'button button-icon icon ion-play playBtn');
         isPlayingSound = false;
       });
@@ -33,28 +33,28 @@ Template.ClassPanelMsgNotice.events({
 /* ClassPanelMsgNotice: Helpers */
 /*****************************************************************************/
 Template.ClassPanelMsgNotice.helpers({
-  classObj: function() {
+  classObj: function () {
     classObj = Classes.findOne();
     return classObj;
   },
-  msgObj: function() {
+  msgObj: function () {
     var msgArr = Classes.findOne().messagesObj;
     var filtedArr = lodash.findByValues(msgArr, "msgId", Router.current().params.msgCode);
     return filtedArr[0];
   },
-  className: function() {
+  className: function () {
     return classObj.className;
   },
-  isNotEmpty: function(action) {
+  isNotEmpty: function (action) {
     return action.length > 0;
   },
-  getName: function(userObj) {
+  getName: function (userObj) {
     return userObj._id == Meteor.userId() ? "You" : userObj.profile.firstname + " " + userObj.profile.lastname;
   },
-  star: function() {
+  star: function () {
     return Classes.findOne().messagesObj.star;
   },
-  allMan: function() {
+  allMan: function () {
     var msgArr = Classes.findOne().messagesObj;
     var arr = [];
     var filtedArr = lodash.findByValues(msgArr, "msgId", Router.current().params.msgCode);
@@ -66,18 +66,19 @@ Template.ClassPanelMsgNotice.helpers({
 
     return lodash.flatten(arr);
   },
-  geticon: function(userObj) {},
-  havePic: function() {
+  geticon: function (userObj) {
+  },
+  havePic: function () {
     return this.imageArr.length > 0;
   },
-  getImage: function() {
+  getImage: function () {
     var id = this.toString();
     return Images.findOne(id);
   },
-  haveSound: function() {
+  haveSound: function () {
     return this.soundArr.length > 0;
   },
-  getSound: function() {
+  getSound: function () {
     var id = this.toString();
     return Sounds.findOne(id);
   }
@@ -86,24 +87,27 @@ Template.ClassPanelMsgNotice.helpers({
 /*****************************************************************************/
 /* ClassPanelMsgNotice: Lifecycle Hooks */
 /*****************************************************************************/
-Template.ClassPanelMsgNotice.created = function() {};
+Template.ClassPanelMsgNotice.created = function () {
+};
 
-Template.ClassPanelMsgNotice.rendered = function() {};
+Template.ClassPanelMsgNotice.rendered = function () {
+};
 
-Template.ClassPanelMsgNotice.destroyed = function() {};
+Template.ClassPanelMsgNotice.destroyed = function () {
+};
 
 function playAudio(url, callback) {
   // Play the audio file at url
   // console.log(callback);
   var my_media = new Media(url,
     // success callback
-    function() {
+    function () {
       console.log("playAudio():Audio Success");
       callback();
       console.log("calledback");
     },
     // error callback
-    function(err) {
+    function (err) {
       console.log("playAudio():Audio Error: " + err);
     }
   );

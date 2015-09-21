@@ -6,53 +6,54 @@
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
-  <div style="position: absolute; right: 0;">
-    <a href="{{ pathFor 'ChatInvite' }}"  class="button button-clear button-entering button-active">
-      <i class="icon ion-chatbubble-working"></i>
-    </a>
-    {{#if IAMTeacher}}
-      <a href="{{ pathFor 'Chatoption' }}"  class="button button-clear button-entering button-active">
-        <i class="icon ion-gear-a"></i>
+    <div style="position: absolute; right: 0;">
+      <a href="{{ pathFor 'ChatInvite' }}" class="button button-clear button-entering button-active">
+        <i class="icon ion-chatbubble-working"></i>
       </a>
-    {{/if}}
-  </div>
+      {{#if IAMTeacher}}
+        <a href="{{ pathFor 'Chatoption' }}" class="button button-clear button-entering button-active">
+          <i class="icon ion-gear-a"></i>
+        </a>
+      {{/if}}
+    </div>
   {{/contentFor}}
 
   {{#ionView}}
     {{#ionContent}}
 
 
-    <div class="list">
+      <div class="list">
 
 
 
         {{#with getAllMyChatRooms }}
 
 
-        <div class="item item-input">
-          <i class="icon ion-search placeholder-icon"></i>
-          <input type="search" class="searchbar" placeholder="{{_ 'search'}}">
-        </div>
+          <div class="item item-input">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="search" class="searchbar" placeholder="{{_ 'search'}}">
+          </div>
 
 
 
 
           {{#each this}}
             {{#if isHide }}
-            <a href="{{ pathFor 'ChatRoom' chatRoomId=_id }}">
-              <div class="item">
-                <h2>{{chatroomMenberName  }}</h2>
-                <div class="description" >{{lasttext messagesObj}}</div>
-              </div>
-            </a>
+              <a href="{{ pathFor 'ChatRoom' chatRoomId=_id }}">
+                <div class="item">
+                  <h2>{{chatroomMenberName  }}</h2>
+
+                  <div class="description">{{lasttext messagesObj}}</div>
+                </div>
+              </a>
             {{/if}}
           {{/each}}
 
         {{else}}
 
-            <div class="item NoRecord">
-              {{_ "NoRecord" }}
-            </div>
+          <div class="item NoRecord">
+            {{_ "NoRecord" }}
+          </div>
 
         {{/with}}
 

@@ -4,8 +4,8 @@ var text = ReactiveVar('');
 /* ClassUsers: Event Handlers */
 /*****************************************************************************/
 Template.ClassUsers.events({
-  'keyup .searchbar':function(el){
-      text.set($(".searchbar").val());
+  'keyup .searchbar': function (el) {
+    text.set($(".searchbar").val());
   }
 });
 
@@ -13,27 +13,27 @@ Template.ClassUsers.events({
 /* ClassUsers: Helpers */
 /*****************************************************************************/
 Template.ClassUsers.helpers({
-  usersProfile:function(){
-    var users = Meteor.users.find({_id:{$nin:[Meteor.userId()]}}).fetch();
+  usersProfile: function () {
+    var users = Meteor.users.find({_id: {$nin: [Meteor.userId()]}}).fetch();
     /*return lodash.findByValuesNested(users,'profile','firstname',text.get())*/
     return users;
   },
-  isSearched:function(userObj){
+  isSearched: function (userObj) {
     var name = getFullNameByProfileObj(userObj.profile);
 
-    if(text.get()===""){
+    if (text.get() === "") {
       return true;
-    }else{
-      return lodash.includes(name.toUpperCase(),text.get().toUpperCase());
+    } else {
+      return lodash.includes(name.toUpperCase(), text.get().toUpperCase());
     }
 
 
   },
-  emptyList:function(){
-    return Meteor.users.find({_id:{$nin:[Meteor.userId()]}}).fetch().length<1;
+  emptyList: function () {
+    return Meteor.users.find({_id: {$nin: [Meteor.userId()]}}).fetch().length < 1;
   },
-  classObj:function (argument) {
-    return Classes.findOne({classCode:Router.current().params.classCode});
+  classObj: function (argument) {
+    return Classes.findOne({classCode: Router.current().params.classCode});
   }
 });
 

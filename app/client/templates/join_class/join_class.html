@@ -13,58 +13,58 @@
 
 
   {{#contentFor "headerButtonRight"}}
-    <button  class="button button-clear button-entering button-active doneClassBtn">{{_ "Done"}}</button>
+    <button class="button button-clear button-entering button-active doneClassBtn">{{_ "Done"}}</button>
   {{/contentFor}}
 
 
-{{#ionView}}
-  {{#ionContent}}
+  {{#ionView}}
+    {{#ionContent}}
 
 
 
-<ul class="list ">
+      <ul class="list ">
 
-  <li class="item">
-    <div class="row row-center" style="height:4rem">
-      <div class="col" >
-        <div  style="text-align:center"><h2>{{ _"EnterClassCode"}}</h2></div>
-      </div>
-    </div>
-  </li>
-
-
-
-    {{#each joinClassArr}}
-      <li class="item item-input">
-        <div class="row" style="padding-left:0">
-          <div class="col" style="padding-left:0">
-            {{className}}@{{classCode}}
+        <li class="item">
+          <div class="row row-center" style="height:4rem">
+            <div class="col">
+              <div style="text-align:center"><h2>{{ _"EnterClassCode"}}</h2></div>
+            </div>
           </div>
-          <div class="col leaveBtn" data-classId="{{_id}}">
-            Leave
-          </div>
-        </div>
-      </li>
-    {{/each}}
-
-
-
-
-
-
-
-  {{#autoForm schema=joinClassSchema id="joinClassForm" type="method" meteormethod="class/join"}}
-
-
-
-        <li class="item item-input">
-          {{> afFieldInput name="classCode" class="classCodeInput" placeholder="Class Code"}}
-          <span class="joinBtn">{{_ "JoinAClass"}}</span>
         </li>
 
 
 
-  {{/autoForm}}
+        {{#each joinClassArr}}
+          <li class="item item-input">
+            <div class="row" style="padding-left:0">
+              <div class="col" style="padding-left:0">
+                {{className}}@{{classCode}}
+              </div>
+              <div class="col leaveBtn" data-classId="{{_id}}">
+                Leave
+              </div>
+            </div>
+          </li>
+        {{/each}}
+
+
+
+
+
+
+
+        {{#autoForm schema=joinClassSchema id="joinClassForm" type="method" meteormethod="class/join"}}
+
+
+
+          <li class="item item-input">
+            {{> afFieldInput name="classCode" class="classCodeInput" placeholder="Class Code"}}
+            <span class="joinBtn">{{_ "JoinAClass"}}</span>
+          </li>
+
+
+
+        {{/autoForm}}
       </ul>
 
 
@@ -74,6 +74,6 @@
 
 
 
-  {{/ionContent}}
-{{/ionView}}
+    {{/ionContent}}
+  {{/ionView}}
 </template>

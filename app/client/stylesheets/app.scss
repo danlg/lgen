@@ -1,72 +1,70 @@
+$stable: #ACDA45;
+$positive: #ACDA45;
 
-$stable:                          #ACDA45 ;
-$positive:                        #ACDA45 ;
-
-
-.ion-ios-star.colored{
+.ion-ios-star.colored {
   color: yellow;
 }
-.ion-checkmark-round.colored{
+
+.ion-checkmark-round.colored {
   color: green;
 }
-.ion-close-round.colored{
+
+.ion-close-round.colored {
   color: red;
 }
-.ion-help.colored{
+
+.ion-help.colored {
   color: purple;
 }
-.description{
+
+.description {
   font-size: 0.8rem;
   color: #999;
 }
 
-.NoRecord{
+.NoRecord {
   text-align: center;
   font-size: 5rem;
 }
 
-.bg{
+.bg {
   background-image: url("img/login.jpg");
   background-size: cover;
   background-position: center;
 }
 
-.wallpaper{
+.wallpaper {
   background-image: url("img/wallpaper.jpg");
   background-size: cover;
   background-position: center;
 }
 
-.item{
-//  border-top: 1px solid #ddd !important;
-//  border-bottom: 1px solid #ddd !important;
+.item {
+  //  border-top: 1px solid #ddd !important;
+  //  border-bottom: 1px solid #ddd !important;
   border-top: 0 transparent;
   border-bottom: 0 transparent;
 }
 
-.icon.disabled{
+.icon.disabled {
   opacity: 0.5;
 }
-
-
 
 @import 'meteoric_ionic-sass/ionic';
 @import 'meteoric_ionicons-sass/ionicons';
 
 // .content.overflow-scroll { bottom: 0px !important; }
 
-
-
 a {
-  text-decoration: none !important ;
+  text-decoration: none !important;
   color: #333 !important;
 }
 
-.shouldhide{
+.shouldhide {
   display: none;
 }
 
-.badge.badge-assertive{
-  left: calc( 50% - 35px );
+.badge.badge-assertive {
+  left: calc(50% - 35px);
   width: 28px;
 }

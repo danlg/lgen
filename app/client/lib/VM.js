@@ -1,13 +1,13 @@
 loginVM = new ViewModel({
-  email:'',
-  pwd:''
-})
+  email: '',
+  pwd: ''
+});
 
 createVM = new ViewModel({
-  role:"",
-  email:"",
-  password:"",
-  cpassword:"",
-  first:"",
-  last:""
-})
+  role: "",
+  email: "",
+  password: "",
+  cpassword: "",
+  first: "",
+  last: ""
+});

@@ -1,17 +1,11 @@
 @charset "UTF-8";
 
-@import
-// Variables
-"stylesheets/mixins",
+@import // Variables "stylesheets/mixins",
 "stylesheets/variables",
-
-// Base
-"stylesheets/reset",
+  // Base "stylesheets/reset",
 "stylesheets/scaffolding",
 "stylesheets/type",
-
-// Components
-"stylesheets/action-sheet",
+  // Components "stylesheets/action-sheet",
 "stylesheets/backdrop",
 "stylesheets/bar",
 "stylesheets/tabs",
@@ -24,25 +18,17 @@
 "stylesheets/list",
 "stylesheets/badge",
 "stylesheets/slide-box",
-
-// Forms
-"stylesheets/form",
+  // Forms "stylesheets/form",
 "stylesheets/checkbox",
 "stylesheets/toggle",
 "stylesheets/radio",
 "stylesheets/range",
 "stylesheets/select",
 "stylesheets/progress",
-
-// Buttons
-"stylesheets/button",
+  // Buttons "stylesheets/button",
 "stylesheets/button-bar",
-
-// Util
-"stylesheets/grid",
+  // Util "stylesheets/grid",
 "stylesheets/util",
 "stylesheets/platform",
-
-// Animations
-"stylesheets/animations",
+  // Animations "stylesheets/animations",
 "stylesheets/transitions";

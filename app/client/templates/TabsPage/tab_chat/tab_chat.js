@@ -6,7 +6,7 @@ var notFoundResult = ReactiveVar(0);
 /* TabChat: Event Handlers */
 /*****************************************************************************/
 Template.TabChat.events({
-  'keyup .searchbar':function(){
+  'keyup .searchbar': function () {
     notFoundResult.set(0);
     text.set($('.searchbar').val());
   }
@@ -16,21 +16,20 @@ Template.TabChat.events({
 /* TabChat: Helpers */
 /*****************************************************************************/
 Template.TabChat.helpers({
-  IAMTeacher:function (argument) {
-    return Meteor.user().profile.role==="Teacher";
+  IAMTeacher: function (argument) {
+    return Meteor.user().profile.role === "Teacher";
   },
-  'getAllMyChatRooms':function(){
-    var allchat = Chat.find() ;
+  'getAllMyChatRooms': function () {
+    var allchat = Chat.find();
     totalResult = allchat.length;
-    if( Chat.find().count() >0 ){
+    if (Chat.find().count() > 0) {
       return allchat;
-    }else{
+    } else {
       return false;
     }
   },
-  'chatroomMenberName':function(){
+  'chatroomMenberName': function () {
     var string = [];
-
 
 
     // var userObjArr = lodash.reject(chatIds,{_id:Meteor.userId()});
@@ -41,10 +40,10 @@ Template.TabChat.helpers({
     // });
     // return lodash(string).toString();
 
-    var userObjArr =  Meteor.users.find({_id:{$in:this.chatIds } }).fetch();
+    var userObjArr = Meteor.users.find({_id: {$in: this.chatIds}}).fetch();
 
-    lodash.forEach(userObjArr,function(el,index){
-      if(el._id!==Meteor.userId()){
+    lodash.forEach(userObjArr, function (el, index) {
+      if (el._id !== Meteor.userId()) {
         var name = getFullNameByProfileObj(el.profile);
         string.push(name);
       }
@@ -53,33 +52,31 @@ Template.TabChat.helpers({
     return lodash(string).toString();
 
 
-
   },
-  'lasttext':function(messagesObj){
+  'lasttext': function (messagesObj) {
     var len = messagesObj.length;
-    if(len > 0 )
-      return messagesObj[len-1].text;
+    if (len > 0)
+      return messagesObj[len - 1].text;
     else
       return "";
 
   },
-  'isHide':function(chatIds){
+  'isHide': function (chatIds) {
 
     var chatIdsLocal = chatIds;
 
-    if(text.get()!==""){
+    if (text.get() !== "") {
 
       var string = [];
 
-      var userObjArr =  Meteor.users.find({_id:{$in:this.chatIds } }).fetch();
+      var userObjArr = Meteor.users.find({_id: {$in: this.chatIds}}).fetch();
 
-      lodash.forEach(userObjArr,function(el,index){
-        if(el._id!==Meteor.userId()){
+      lodash.forEach(userObjArr, function (el, index) {
+        if (el._id !== Meteor.userId()) {
           var name = getFullNameByProfileObj(el.profile);
           string.push(name);
         }
       });
-
 
 
       //
@@ -96,13 +93,13 @@ Template.TabChat.helpers({
       //
 
 
-      if(lodash.includes(lodash(string).toString().toUpperCase(),text.get().toUpperCase())){
+      if (lodash.includes(lodash(string).toString().toUpperCase(), text.get().toUpperCase())) {
         return true;
-      }else{
-      return false;
+      } else {
+        return false;
       }
 
-    }else{
+    } else {
       return true;
     }
 

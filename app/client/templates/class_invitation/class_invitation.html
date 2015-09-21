@@ -1,39 +1,43 @@
 <template name="ClassInvitation">
 
-    <!-- {{#contentFor "headerTitle"}}
+  <!-- {{#contentFor "headerTitle"}}
       <h1 class="title">{{classObj}}</h1>
     {{/contentFor}} -->
 
-    {{#contentFor "headerButtonLeft"}}
-      {{>ionNavBackButton text=""}}
-    {{/contentFor}}
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton text=""}}
+  {{/contentFor}}
 
 
 
-    {{#contentFor "headerButtonRight"}}
-      <!-- <button  class="button button-clear button-entering button-active addClassBtn">?</button> -->
-    {{/contentFor}}
+  {{#contentFor "headerButtonRight"}}
+    <!-- <button  class="button button-clear button-entering button-active addClassBtn">?</button> -->
+  {{/contentFor}}
 
   {{#ionView}}
-  {{#ionContent}}
+    {{#ionContent}}
 
 
 
 
 
-    <div class="row row-center" style="height:60vh">
+      <div class="row row-center" style="height:60vh">
         <div class="col" style="text-align:center">
           <h2>{{_ "WhatMethodYouWouldLikeToAddThem"}}</h2>
         </div>
-    </div>
-    <ul class="list">
-      <li class="item">In-class</li>
-      <a href="{{pathFor 'ShareInvite' classCode=getclassCode }}"><li class="item">{{_ "ShareALink" }}</li></a>
-      <a href="{{pathFor 'EmailInvite' classCode=getclassCode }}"><li class="item">{{_ "Send"}}</li></a>
-    </ul>
+      </div>
+      <ul class="list">
+        <li class="item">In-class</li>
+        <a href="{{pathFor 'ShareInvite' classCode=getclassCode }}">
+          <li class="item">{{_ "ShareALink" }}</li>
+        </a>
+        <a href="{{pathFor 'EmailInvite' classCode=getclassCode }}">
+          <li class="item">{{_ "Send"}}</li>
+        </a>
+      </ul>
 
 
 
     {{/ionContent}}
-    {{/ionView}}
+  {{/ionView}}
 </template>

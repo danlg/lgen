@@ -13,33 +13,32 @@
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
-    <button  class="button button-clear button-entering button-active doneCommentsBtn">{{_ "Done"}}</button>
+    <button class="button button-clear button-entering button-active doneCommentsBtn">{{_ "Done"}}</button>
   {{/contentFor}}
 
 
   {{#ionView}}
     {{#ionContent}}
 
-  <div class="commend">
+      <div class="commend">
 
 
+        <div class="item item-input">
+          <textarea style="height:200px;font-size:18px;" placeholder="Comments" class="Comments">{{Comments}}</textarea>
+        </div>
 
-  <div class="item item-input">
-    <textarea style="height:200px;font-size:18px;" placeholder="Comments" class="Comments">{{Comments}}</textarea>
-  </div>
+        {{#each getJoinedClassCreatedByMe}}
+          <div class="item item-icon-left removeStd" data-classid="{{_id}}">
+            <i class="icon ion-minus-circled" style="color:red"></i>
+            {{className}}
+          </div>
+        {{/each}}
 
-  {{#each getJoinedClassCreatedByMe}}
-      <div class="item item-icon-left removeStd" data-classid="{{_id}}"  >
-        <i class="icon ion-minus-circled" style="color:red"></i>
-        {{className}}
       </div>
-  {{/each}}
-
-  </div>
 
 
 
     {{/ionContent}}
-    {{/ionView}}
+  {{/ionView}}
 
 </template>

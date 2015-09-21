@@ -1,15 +1,13 @@
-
 /*****************************************************************************/
 /* ClassInvitation: Event Handlers */
 /*****************************************************************************/
-Template.ClassInvitation.events({
-});
+Template.ClassInvitation.events({});
 
 /*****************************************************************************/
 /* ClassInvitation: Helpers */
 /*****************************************************************************/
 Template.ClassInvitation.helpers({
-  'getclassCode':function (argument) {
+  'getclassCode': function (argument) {
     return Router.current().params.classCode;
   }
 });

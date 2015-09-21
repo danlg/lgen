@@ -1,8 +1,6 @@
 Commend = new Mongo.Collection('commend');
 
 
-
-
 if (Meteor.isServer) {
   Commend.allow({
     insert: function (userId, doc) {

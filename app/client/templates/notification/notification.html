@@ -13,28 +13,29 @@
 
 
 
-  <div style="position: absolute; right: 0;">
+    <div style="position: absolute; right: 0;">
 
-    <a href="{{pathFor 'NotificationDetail' msgCode=msgObj.msgId  }}"  class="button button-clear button-entering button-active "><i class="icon ion-ios-information-outline"></i></a>
+      <a href="{{pathFor 'NotificationDetail' msgCode=msgObj.msgId  }}"
+         class="button button-clear button-entering button-active "><i class="icon ion-ios-information-outline"></i></a>
 
-    <!-- <a href="{{ pathFor 'SendMessage' classCode=classObj.classCode }}"  class="button button-clear button-entering button-active">
+      <!-- <a href="{{ pathFor 'SendMessage' classCode=classObj.classCode }}"  class="button button-clear button-entering button-active">
       <i class="icon ion-compose"></i>
     </a> -->
 
-    <!-- <button  class="button button-clear button-entering button-active addClassBtn">?</button> -->
+      <!-- <button  class="button button-clear button-entering button-active addClassBtn">?</button> -->
 
-  </div>
+    </div>
   {{/contentFor}}
 
 
- {{#ionView}}
-{{#ionContent}}
-<div class="card">
-<div class="item item-text-wrap">
-  {{msgObj.content}}
-</div>
-</div>
-{{/ionContent}}
-{{/ionView}}
+  {{#ionView}}
+    {{#ionContent}}
+      <div class="card">
+        <div class="item item-text-wrap">
+          {{msgObj.content}}
+        </div>
+      </div>
+    {{/ionContent}}
+  {{/ionView}}
 
 </template>

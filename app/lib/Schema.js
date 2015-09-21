@@ -1,7 +1,6 @@
 Schema = {};
 
 
-
 Schema.joinClass = new SimpleSchema({
   classCode: {
     type: String
@@ -9,18 +8,18 @@ Schema.joinClass = new SimpleSchema({
 });
 
 Schema.emailSignup = new SimpleSchema({
-  firstname:{
-    type:String
+  firstname: {
+    type: String
   },
-  lastname:{
-    type:String
+  lastname: {
+    type: String
   },
-  email:{
-    type:String,
-    regEx:SimpleSchema.RegEx.Email,
+  email: {
+    type: String,
+    regEx: SimpleSchema.RegEx.Email,
   },
-  password:{
-    type:String,
+  password: {
+    type: String,
     min: 8,
   },
   confirmPassword: {
@@ -33,12 +32,12 @@ Schema.emailSignup = new SimpleSchema({
       }
     }
   },
-  role:{
-    type:String
+  role: {
+    type: String
   },
-  dob:{
-    type:String,
-    optional:true
+  dob: {
+    type: String,
+    optional: true
   }
 });
 
@@ -70,7 +69,7 @@ Schema.sendMsg = new SimpleSchema({
       type: "selectize",
       afFieldInput: {
         multiple: true,
-        selectizeOptions: {"asd":123}
+        selectizeOptions: {"asd": 123}
       }
     }
   }
@@ -78,65 +77,65 @@ Schema.sendMsg = new SimpleSchema({
 
 
 Schema.chatSetting = new SimpleSchema({
-  workHour:{
-    type:Boolean,
-    optional:true,
+  workHour: {
+    type: Boolean,
+    optional: true,
     autoform: {
       afFieldInput: {
         type: "boolean-checkbox2",
       },
     }
   },
-  workHourTime:{
-    type:Object,
-    optional:true,
+  workHourTime: {
+    type: Object,
+    optional: true,
   },
-  'workHourTime.from':{
-    type:String,
-    optional:true,
+  'workHourTime.from': {
+    type: String,
+    optional: true,
   },
-  'workHourTime.to':{
-    type:String,
-    optional:true,
+  'workHourTime.to': {
+    type: String,
+    optional: true,
   },
-  'workHourTime.weeks':{
-    type:[String],
-    optional:true,
+  'workHourTime.weeks': {
+    type: [String],
+    optional: true,
   },
-  allowChat:{
-    type:[String],
-    optional:true,
+  allowChat: {
+    type: [String],
+    optional: true,
   }
 });
 
 Schema.editprofile = new SimpleSchema({
-  firstname:{
-    type:String
+  firstname: {
+    type: String
   },
-  lastname:{
-    type:String
+  lastname: {
+    type: String
   },
-  location:{
-    type:String,
-    optional:true
+  location: {
+    type: String,
+    optional: true
   },
-  email:{
-    type:String,
-    regEx:SimpleSchema.RegEx.Email,
+  email: {
+    type: String,
+    regEx: SimpleSchema.RegEx.Email,
   }
 });
 
 
-Schema.profile= {
-  firstname:"",
-  lastname:"",
-  role:"",
-  dob:"",
-  email:true,
-  push:true,
-  firstchat:true,
-  firstinvitation:true,
-  firstpicture:true,
-  firstclassjoined:true,
-  referral:0
+Schema.profile = {
+  firstname: "",
+  lastname: "",
+  role: "",
+  dob: "",
+  email: true,
+  push: true,
+  firstchat: true,
+  firstinvitation: true,
+  firstpicture: true,
+  firstclassjoined: true,
+  referral: 0
 };

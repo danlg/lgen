@@ -14,19 +14,19 @@
 
 
   {{#contentFor "headerButtonRight"}}
-    <button  class="button button-clear button-entering button-active editAccountBtn">{{_ "Update"}}</button>
+    <button class="button button-clear button-entering button-active editAccountBtn">{{_ "Update"}}</button>
   {{/contentFor}}
 
 
 
-{{#ionView}}
-{{#ionContent}}
+  {{#ionView}}
+    {{#ionContent}}
 
 
 
-<!-- {{#autoForm collection="Meteor.users" id="updateUser" type="update" doc=current}}
+      <!-- {{#autoForm collection="Meteor.users" id="updateUser" type="update" doc=current}}
 
-{{> afObjectField name='profile.name'}}
+        {{> afObjectField name='profile.name'}}
 
    <ul class="list ">
 
@@ -51,9 +51,9 @@
 {{/autoForm}} -->
 
 
-{{#autoForm schema=editprofile id="editprofile" resetOnSuccess=false type="method" doc=this meteormethod="profile/edit"  }}
+      {{#autoForm schema=editprofile id="editprofile" resetOnSuccess=false type="method" doc=this meteormethod="profile/edit"  }}
 
-<!-- <div class="list">
+        <!-- <div class="list">
   <div class="item item-input">
     {{> afFieldInput name="firstname" placeholder="First Name" value=profile.firstname  }}
   </div>
@@ -68,33 +68,33 @@
   </div>
 </div> -->
 
-<div class="list">
-  <label class="item item-input item-stacked-label">
-    <span class="input-label">{{_ "firstname"}}</span>
-    {{> afFieldInput name="firstname"  value=profile.firstname  }}
-  </label>
-  <label class="item item-input item-stacked-label">
-    <span class="input-label">{{_ "lastname"}}</span>
-    {{> afFieldInput name="lastname"  value=profile.lastname }}
-  </label>
-  <label class="item item-input item-stacked-label">
-    <span class="input-label">Email</span>
-    {{> afFieldInput name="email" value=email  }}
-  </label>
-</div>
+        <div class="list">
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">{{_ "firstname"}}</span>
+            {{> afFieldInput name="firstname"  value=profile.firstname  }}
+          </label>
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">{{_ "lastname"}}</span>
+            {{> afFieldInput name="lastname"  value=profile.lastname }}
+          </label>
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">Email</span>
+            {{> afFieldInput name="email" value=email  }}
+          </label>
+        </div>
 
 
 
 
-{{/autoForm}}
+      {{/autoForm}}
 
-<!-- <a href="">
-  <button class="button">Change password</button>
-</a> -->
-
-
+      <!-- <a href="">
+        <button class="button">Change password</button>
+      </a> -->
 
 
-  {{/ionContent}}
+
+
+    {{/ionContent}}
   {{/ionView}}
 </template>

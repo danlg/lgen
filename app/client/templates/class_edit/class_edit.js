@@ -3,16 +3,16 @@
 /* ClassEdit: Event Handlers */
 /*****************************************************************************/
 Template.ClassEdit.events({
-  'click .removeAllUserBtn':function(){
+  'click .removeAllUserBtn': function () {
 
-    Meteor.call("class/deleteUser",Classes.findOne(),function(){
-        alert("success removed!");
-      });
+    Meteor.call("class/deleteUser", Classes.findOne(), function () {
+      alert("success removed!");
+    });
   },
-  'click .removeClass':function(){
-    Meteor.call("class/delete",Classes.findOne(),function(){
-        Router.go('TabClasses');
-      });
+  'click .removeClass': function () {
+    Meteor.call("class/delete", Classes.findOne(), function () {
+      Router.go('TabClasses');
+    });
   }
 });
 
@@ -20,10 +20,10 @@ Template.ClassEdit.events({
 /* ClassEdit: Helpers */
 /*****************************************************************************/
 Template.ClassEdit.helpers({
-  classObj:function(){
-    return Classes.findOne({classCode:Router.current().params.classCode});
+  classObj: function () {
+    return Classes.findOne({classCode: Router.current().params.classCode});
   },
-  classId:function(){
+  classId: function () {
     return Classes.findOne()._id;
   },
 });
@@ -41,7 +41,7 @@ Template.ClassEdit.destroyed = function () {
 };
 
 Template.ionNavBar.events({
-  'click .saveClassBtn':function(){
+  'click .saveClassBtn': function () {
     AutoForm.submitFormById("#updateClass");
   }
 });

@@ -25,7 +25,7 @@ HomePageController = RouteController.extend({
     // last parameter.
   },
 
-  home: function(){
+  home: function () {
     this.layout('NavBarScreenLayout');
     this.render('Home');
   }

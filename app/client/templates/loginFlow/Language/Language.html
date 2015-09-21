@@ -1,34 +1,33 @@
 <template name="Language">
 
-{{#ionView class="bg" }}
-{{#ionContent}}
+  {{#ionView class="bg" }}
+    {{#ionContent}}
 
 
-<div  style="position: relative;height:100vh">
-	<div class="langBtnSet">
+      <div style="position: relative;height:100vh">
+        <div class="langBtnSet">
 
-			<div class="padding-horizontal">
+          <div class="padding-horizontal">
 
-				<a href="{{ pathFor 'Login' }}"  class="button  button-block  button-positive" data-lang="en">
-					<i class="united kingdom flag"></i>
-					English
-				</a>
-
-
-
-				<a href="{{ pathFor 'Login' }}"  class="button  button-block  button-positive" data-lang="fr" >
-					<i class="France flag"></i>
-				    Français
-				</a>
-
-			</div>
-
-	</div>
-</div>
+            <a href="{{ pathFor 'Login' }}" class="button  button-block  button-positive" data-lang="en">
+              <i class="united kingdom flag"></i>
+              English
+            </a>
 
 
-{{/ionContent}}
-{{/ionView}}
+            <a href="{{ pathFor 'Login' }}" class="button  button-block  button-positive" data-lang="fr">
+              <i class="France flag"></i>
+              Français
+            </a>
+
+          </div>
+
+        </div>
+      </div>
+
+
+    {{/ionContent}}
+  {{/ionView}}
 
 
 </template>

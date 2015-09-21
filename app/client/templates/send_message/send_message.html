@@ -1,33 +1,33 @@
 <template name="SendMessage">
 
-    {{#contentFor "headerTitle"}}
-      <h1 class="title">{{_ "NewNotification"}}</h1>
-    {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">{{_ "NewNotification"}}</h1>
+  {{/contentFor}}
 
 
 
 
-    {{#contentFor "headerButtonLeft"}}
-      {{>ionNavBackButton href="/Classes" }}
-    {{/contentFor}}
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton href="/Classes" }}
+  {{/contentFor}}
 
 
 
-    {{#contentFor "headerButtonRight"}}
+  {{#contentFor "headerButtonRight"}}
     <div style="position: absolute; right: 0;">
       <!--<button  class="button button-clear button-entering button-active sendMsgBtn">{{ _ "Send"}}</button>-->
-      <button  class="button button-icon icon ion-paper-airplane stable sendMsgBtn"></button>
+      <button class="button button-icon icon ion-paper-airplane stable sendMsgBtn"></button>
 
-        <!-- <button  class="button button-clear button-entering button-active msgDoneClassBtn {{doneClassBtnStatus}}">Done</button> -->
+      <!-- <button  class="button button-clear button-entering button-active msgDoneClassBtn {{doneClassBtnStatus}}">Done</button> -->
 
     </div>
-    {{/contentFor}}
+  {{/contentFor}}
 
   {{#ionContent}}
 
 
 
-  <div class="list">
+    <div class="list">
 
 
       <a href="{{pathFor 'MessageClassSelection' }}">
@@ -35,61 +35,64 @@
           {{_ "To" }} {{ arrToString searchObj.selectArrName }}
         </div>
       </a>
-      
-    <label class="item item-input {{messageBox}}" style="height:40vh">
-      <textarea class="msgBox" placeholder="{{_'message'}}" style="height:100%;font-size:20px;" ></textarea>
-    </label>
-    <div class="">
-      <div class="row">
-        <div class="col col-10">
-          <div class="file ">
-                  <i class="icon ion-image imageIcon {{ isDisabled 'camera' }} "></i>
-                  <input type="file" id="imageBtn" accept="image/*;capture=camera" capture="camera" {{ isDisabled 'camera' }} >
-          </div>
-        </div>
+
+      <label class="item item-input {{messageBox}}" style="height:40vh">
+        <textarea class="msgBox" placeholder="{{_'message'}}" style="height:100%;font-size:20px;"></textarea>
+      </label>
+
+      <div class="">
+        <div class="row">
           <div class="col col-10">
-            <div class="file voice {{ isDisabled 'voice' }} ">
-                    <i class="icon  ion-mic-a {{ isDisabled 'voice' }} "></i>
+            <div class="file ">
+              <i class="icon ion-image imageIcon {{ isDisabled 'camera' }} "></i>
+              <input type="file" id="imageBtn" accept="image/*;capture=camera"
+                     capture="camera" {{ isDisabled 'camera' }} >
             </div>
           </div>
+          <div class="col col-10">
+            <div class="file voice {{ isDisabled 'voice' }} ">
+              <i class="icon  ion-mic-a {{ isDisabled 'voice' }} "></i>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="padding" >
+      <div class="padding">
         {{#each uploadPic}}
-            {{#with FS.GetFile "images" this}}
-              <!-- In here, we can use the FS.File instance methods that work as helpers, such as {{url}} or {{isImage}} -->
-              {{#unless this.isUploaded}}
-               {{> LoadingSpinner}}
-              {{else}}
+          {{#with FS.GetFile "images" this}}
+            <!-- In here, we can use the FS.File instance methods that work as helpers, such as {{url}} or {{isImage}} -->
+            {{#unless this.isUploaded}}
+              {{> LoadingSpinner}}
+            {{else}}
               <div class="bubble">
-                <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}" >
+                <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}">
                 <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a>
               </div>
-              {{/unless}}
-            {{/with}}
+            {{/unless}}
+          {{/with}}
         {{/each}}
 
         {{#each uploadSound}}
           {{#with FS.GetFile "sounds" this}}
             <!-- In here, we can use the FS.File instance methods that work as helpers, such as {{url}} or {{isImage}} -->
             {{#unless this.isUploaded}}
-             {{> LoadingSpinner}}
+              {{> LoadingSpinner}}
             {{else}}
               {{#if url}}
-              <div class="bubble" >
-                <!-- <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}" >
+                <div class="bubble">
+                  <!-- <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}" >
                 <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a> -->
-                <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}" data-clipurl="{{url}}" ></a>
-                <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a>
-              </div>
+                  <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}" data-clipurl="{{url}}"></a>
+                  <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a>
+                </div>
               {{/if}}
             {{/unless}}
           {{/with}}
         {{/each}}
 
+      </div>
+
     </div>
 
-  </div>
 
 
 
@@ -98,6 +101,5 @@
 
 
 
-
-    {{/ionContent}}
+  {{/ionContent}}
 </template>

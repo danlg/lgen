@@ -3,13 +3,13 @@ var shareLink = ReactiveVar('');
 /* ShareInvite: Event Handlers */
 /*****************************************************************************/
 Template.ShareInvite.events({
-  'click .copyBth': function() {
+  'click .copyBth': function () {
 
     if (Meteor.isCordova) {
       cordova.plugins.clipboard.copy(shareLink.get());
     }
   },
-  'click .shareBtn': function(argument) {
+  'click .shareBtn': function (argument) {
     if (Meteor.isCordova) {
       // testShareSheet();
       var link = shareLink.get();
@@ -22,10 +22,10 @@ Template.ShareInvite.events({
 /* ShareInvite: Helpers */
 /*****************************************************************************/
 Template.ShareInvite.helpers({
-  'classCode': function(argument) {
+  'classCode': function (argument) {
     return Router.current().params.classCode;
   },
-  'getShareLink': function() {
+  'getShareLink': function () {
     return shareLink.get();
   }
 
@@ -34,8 +34,8 @@ Template.ShareInvite.helpers({
 /*****************************************************************************/
 /* ShareInvite: Lifecycle Hooks */
 /*****************************************************************************/
-Template.ShareInvite.created = function() {
-  Meteor.call("getShareLink", Router.current().params.classCode, function(error, result) {
+Template.ShareInvite.created = function () {
+  Meteor.call("getShareLink", Router.current().params.classCode, function (error, result) {
     if (error) {
       console.log("error", error);
     }
@@ -46,6 +46,8 @@ Template.ShareInvite.created = function() {
 
 };
 
-Template.ShareInvite.rendered = function() {};
+Template.ShareInvite.rendered = function () {
+};
 
-Template.ShareInvite.destroyed = function() {};
+Template.ShareInvite.destroyed = function () {
+};

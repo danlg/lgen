@@ -13,22 +13,22 @@
 
 
   {{#contentFor "headerButtonRight"}}
-    <button  class="button button-clear button-entering button-active feedbackSend">{{_"Send"}}</button>
+    <button class="button button-clear button-entering button-active feedbackSend">{{_"Send"}}</button>
   {{/contentFor}}
 
 
 
- {{#ionView}}
-  {{#ionContent}}
+  {{#ionView}}
+    {{#ionContent}}
 
-  <div class="list">
+      <div class="list">
 
-<label class="item item-input">
-<textarea class="feedbackContent" placeholder="{{_"feedbackTextarea"}}" style="height:400px" ></textarea>
-</label>
-</div>
+        <label class="item item-input">
+          <textarea class="feedbackContent" placeholder="{{_"feedbackTextarea"}}" style="height:400px"></textarea>
+        </label>
+      </div>
 
 
-  {{/ionContent}}
-   {{/ionView}}
+    {{/ionContent}}
+  {{/ionView}}
 </template>

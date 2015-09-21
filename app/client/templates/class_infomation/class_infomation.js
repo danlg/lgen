@@ -2,10 +2,10 @@
 /* ClassInfomation: Event Handlers */
 /*****************************************************************************/
 Template.ClassInfomation.events({
-  'click .unsub':function(){
-    Meteor.call('class/leaveByCode',Router.current().params.classCode,function(){
-          Router.go('TabClasses')
-      })
+  'click .unsub': function () {
+    Meteor.call('class/leaveByCode', Router.current().params.classCode, function () {
+      Router.go('TabClasses')
+    })
   }
 });
 
@@ -13,11 +13,11 @@ Template.ClassInfomation.events({
 /* ClassInfomation: Helpers */
 /*****************************************************************************/
 Template.ClassInfomation.helpers({
-  classObj:function(){
+  classObj: function () {
     return Classes.findOne();
   },
-  teacher:function(){
-    return Meteor.users.findOne({_id:{$nin :[Meteor.userId()]}});
+  teacher: function () {
+    return Meteor.users.findOne({_id: {$nin: [Meteor.userId()]}});
   }
 });
 

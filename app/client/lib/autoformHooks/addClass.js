@@ -1,32 +1,32 @@
 var postHooks = {
-  before:{
-    insert:function(doc){
-      if(!doc.classCode){
+  before: {
+    insert: function (doc) {
+      if (!doc.classCode) {
         doc.classCode = getClassCodeNew(doc.className);
       }
-      doc.joinedUserId=[];
-      doc.messagesObj=[];
+      doc.joinedUserId = [];
+      doc.messagesObj = [];
       return doc;
     }
   },
 
-  onSuccess: function(operation, result, template) {
+  onSuccess: function (operation, result, template) {
     // display success, reset form status
     IonLoading.show({
-      backdrop:true
+      backdrop: true
     });
-    Meteor.call('addClassMail',Meteor.user().emails[0].address,result,function(err,res){
-        IonLoading.hide();
-        err?alert(err.reason):Router.go('TabClasses');
+    Meteor.call('addClassMail', Meteor.user().emails[0].address, result, function (err, res) {
+      IonLoading.hide();
+      err ? alert(err.reason) : Router.go('TabClasses');
     });
   },
-  onError: function(formType, error) {
+  onError: function (formType, error) {
 
-      alert(error.reason);
+    alert(error.reason);
   },
-  beginSubmit: function() {
+  beginSubmit: function () {
   },
-  endSubmit: function() {
+  endSubmit: function () {
   }
 };
 

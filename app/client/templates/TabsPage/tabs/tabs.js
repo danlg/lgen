@@ -1,6 +1,3 @@
-
-
-
 /*****************************************************************************/
 /* Tabs: Event Handlers */
 /*****************************************************************************/
@@ -10,19 +7,19 @@ Template.Tabs.events({});
 /* Tabs: Helpers */
 /*****************************************************************************/
 Template.Tabs.helpers({
-  _Chat: function(argument) {
+  _Chat: function (argument) {
     return TAPi18n.__('Chat');
   },
-  _Classes: function(argument) {
+  _Classes: function (argument) {
     return TAPi18n.__('Classes');
   },
-  _You: function(argument) {
+  _You: function (argument) {
     return TAPi18n.__('You');
   },
-  _chatNumber:function (argument) {
-    if(Session.get("chatUnreadNumber") ===0 ){
+  _chatNumber: function (argument) {
+    if (Session.get("chatUnreadNumber") === 0) {
       return false;
-    }else{
+    } else {
       return Session.get("chatUnreadNumber");
     }
   }
@@ -31,10 +28,12 @@ Template.Tabs.helpers({
 /*****************************************************************************/
 /* Tabs: Lifecycle Hooks */
 /*****************************************************************************/
-Template.Tabs.created = function() {
+Template.Tabs.created = function () {
   Session.setDefault("chatUnreadNumber", 0);
 };
 
-Template.Tabs.rendered = function() {};
+Template.Tabs.rendered = function () {
+};
 
-Template.Tabs.destroyed = function() {};
+Template.Tabs.destroyed = function () {
+};

@@ -1,5 +1,5 @@
 ClassController = RouteController.extend({
-  layoutTemplate:"NavBarScreenLayout",
+  layoutTemplate: "NavBarScreenLayout",
   subscriptions: function () {
     // set up the subscriptions for the route and optionally
     // wait on them like this:
@@ -21,34 +21,34 @@ ClassController = RouteController.extend({
 
 
 
-    return {
-      classObj:classObj,
-      inviteClassSchema : Schema.inviteClass,
-      joinClassSchema : Schema.joinClass,
-      leaveClassSchema : Schema.leaveClass,
-      joinClassArr: Classes.find({joinedUserId:Meteor.userId()}).fetch(),
+     return {
+     classObj:classObj,
+     inviteClassSchema : Schema.inviteClass,
+     joinClassSchema : Schema.joinClass,
+     leaveClassSchema : Schema.leaveClass,
+     joinClassArr: Classes.find({joinedUserId:Meteor.userId()}).fetch(),
 
-    }*/
+     }*/
     return {
-      usersProfile : Meteor.users.find(),
+      usersProfile: Meteor.users.find(),
     }
   }
 });
 
 ClassWithIdController = ClassController.extend({
-  subscriptions:function(){
-    this.subscribe('class',this.params.classCode).wait();
+  subscriptions: function () {
+    this.subscribe('class', this.params.classCode).wait();
     if (this.ready()) {
       this.render();
     } else {
       this.render('Loading');
     }
   },
-  data:function(){
-    var classObj = Classes.findOne({classCode:this.params.classCode});
-    return{
-      classObj:classObj,
-      classCode : this.params.classCode,
+  data: function () {
+    var classObj = Classes.findOne({classCode: this.params.classCode});
+    return {
+      classObj: classObj,
+      classCode: this.params.classCode,
     }
   }
 });

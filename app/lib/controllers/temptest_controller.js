@@ -23,6 +23,6 @@ TemptestController = RouteController.extend({
     // might also perform some conditional logic. Override
     // the data context by providing it as an option in the
     // last parameter.
-    this.render('Temptest', { /* data: {} */});
+    this.render('Temptest', {/* data: {} */});
   }
 });

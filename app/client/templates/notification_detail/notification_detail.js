@@ -1,19 +1,18 @@
 /*****************************************************************************/
 /* NotificationDetail: Event Handlers */
 /*****************************************************************************/
-Template.NotificationDetail.events({
-});
+Template.NotificationDetail.events({});
 
 /*****************************************************************************/
 /* NotificationDetail: Helpers */
 /*****************************************************************************/
 Template.NotificationDetail.helpers({
-  msgObj:function(){
+  msgObj: function () {
     var classes = Classes.findOne();
     var msgObj = classes.messagesObj;
-    return lodash.find(msgObj,'msgId',Router.current().params.msgCode);
+    return lodash.find(msgObj, 'msgId', Router.current().params.msgCode);
   },
-  classObj:function(){
+  classObj: function () {
     return Classes.findOne();
   }
 });

@@ -14,9 +14,9 @@
     <!-- <button  class="button button-clear button-entering button-active addClassBtn">?</button> -->
   {{/contentFor}}
 
-{{#ionView}}
-{{#ionContent}}
-<!--
+  {{#ionView}}
+    {{#ionContent}}
+      <!--
   <div class="row row-center" style="height:70vh">
     <div class="col">
         <h1>Share this link with your class</h1>
@@ -31,32 +31,33 @@
     </div>
   </div> -->
 
-  <div class="card">
-  <div class="item item-text-wrap">
-      <div style="text-align:center">
-        <h2>{{_ "ShareThisLinkWithYourClass"}}</h2>
-        <p><b>{{_ "ShareThisLinkHelpsStudentsAndParentJoinYourClass"}}</b></p>
+      <div class="card">
+        <div class="item item-text-wrap">
+          <div style="text-align:center">
+            <h2>{{_ "ShareThisLinkWithYourClass"}}</h2>
+
+            <p><b>{{_ "ShareThisLinkHelpsStudentsAndParentJoinYourClass"}}</b></p>
+          </div>
+          <div class="classCodeDiv">
+            {{getShareLink}}
+          </div>
+          <div>
+            <button class="button button-block button-positive shareBtn">
+              <i class="icon ion-android-share-alt">{{_ "Share" }}</i>
+            </button>
+            <!-- <button style="button button-block button-positive" onclick="window.plugins.socialsharing.share('Message only')">message only</button> -->
+            <button class="button button-block button-positive copyBth">
+              {{_ "Copy"}}
+            </button>
+          </div>
+
+
+        </div>
       </div>
-      <div class="classCodeDiv">
-        {{getShareLink}}
-      </div>
-    <div>
-        <button class="button button-block button-positive shareBtn">
-          <i class="icon ion-android-share-alt">{{_ "Share" }}</i>
-        </button>
-        <!-- <button style="button button-block button-positive" onclick="window.plugins.socialsharing.share('Message only')">message only</button> -->
-        <button class="button button-block button-positive copyBth">
-          {{_ "Copy"}}
-        </button>
-      </div>
-
-
-  </div>
-</div>
 
 
 
-  {{/ionContent}}
-{{/ionView}}
+    {{/ionContent}}
+  {{/ionView}}
 
 </template>

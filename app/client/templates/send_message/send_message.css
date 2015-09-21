@@ -4,11 +4,11 @@
 .send-message {
 }
 
-.hidden{
+.hidden {
   display: none !important;
 }
 
-.bubble{
+.bubble {
   padding: 10px;
   background: #ACDA45;
 }

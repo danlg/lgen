@@ -1,76 +1,76 @@
 <template name="ClassUsers">
 
-    {{#contentFor "headerTitle"}}
-      <h1 class="title">{{classObj.joinedUserId.length}} {{_ "Subscriber"}}</h1>
-    {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">{{classObj.joinedUserId.length}} {{_ "Subscriber"}}</h1>
+  {{/contentFor}}
 
 
 
 
-    {{#contentFor "headerButtonLeft"}}
-      {{>ionNavBackButton text=""}}
-    {{/contentFor}}
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton text=""}}
+  {{/contentFor}}
 
 
 
-    {{#contentFor "headerButtonRight"}}
-      <!-- <button  class="button button-clear button-entering button-active addClassBtn">search</button> -->
-    {{/contentFor}}
+  {{#contentFor "headerButtonRight"}}
+    <!-- <button  class="button button-clear button-entering button-active addClassBtn">search</button> -->
+  {{/contentFor}}
 
-{{#ionView}}
-  {{#ionContent}}
-
-
-
-
-
-    <div class="list">
+  {{#ionView}}
+    {{#ionContent}}
 
 
 
 
-      {{#if emptyList}}
 
-        <div class="item">
-          <div class="row row-center">
-            <div class="col">No record</div>
-          </div>
-        </div>
-
-      {{else}}
-
-      <label class="item item-input">
-        <i class="icon ion-search placeholder-icon"></i>
-        <input type="text" placeholder="Search" class="searchbar">
-      </label>
+      <div class="list">
 
 
 
-      {{#each usersProfile}}
-        {{#if isSearched this}}
-          <a href="{{ pathFor 'UserDetail' _id=this._id classCode=classObj.classCode classId=classObj._id  }}">
-            <div class="item">
-              {{this.profile.firstname}} {{this.profile.lastname}}
+
+        {{#if emptyList}}
+
+          <div class="item">
+            <div class="row row-center">
+              <div class="col">No record</div>
             </div>
-          </a>
+          </div>
+
+        {{else}}
+
+          <label class="item item-input">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="text" placeholder="Search" class="searchbar">
+          </label>
+
+
+
+          {{#each usersProfile}}
+            {{#if isSearched this}}
+              <a href="{{ pathFor 'UserDetail' _id=this._id classCode=classObj.classCode classId=classObj._id  }}">
+                <div class="item">
+                  {{this.profile.firstname}} {{this.profile.lastname}}
+                </div>
+              </a>
+            {{/if}}
+          {{/each}}
+
         {{/if}}
-      {{/each}}
-
-      {{/if}}
-    </div>
-
-
-    <a href="{{ pathFor 'ShareInvite' classCode=classObj.classCode }}">
-      <div class="bar bar-footer bar-stable">
-        <div class="title">{{_ "Addstudentsandparents"}}</div>
       </div>
-    </a>
+
+
+      <a href="{{ pathFor 'ShareInvite' classCode=classObj.classCode }}">
+        <div class="bar bar-footer bar-stable">
+          <div class="title">{{_ "Addstudentsandparents"}}</div>
+        </div>
+      </a>
 
 
 
 
 
     {{/ionContent}}
-{{/ionView}}
+  {{/ionView}}
 
 </template>

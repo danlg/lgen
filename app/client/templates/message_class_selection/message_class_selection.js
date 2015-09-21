@@ -5,22 +5,22 @@ var selectArrId = [];
 /* MessageClassSelection: Event Handlers */
 /*****************************************************************************/
 Template.MessageClassSelection.events({
-  'keyup .searchText':function(){
+  'keyup .searchText': function () {
     searchText.set($(".searchText").val());
   },
-  'change .targetCB':function(){
-    selectArrName=[];
-    selectArrId=[];
-    $(".targetCB:checked").each(function(index,el){
-        selectArrName.push($(el).attr("data-className"));
-        selectArrId.push($(el).val());
+  'change .targetCB': function () {
+    selectArrName = [];
+    selectArrId = [];
+    $(".targetCB:checked").each(function (index, el) {
+      selectArrName.push($(el).attr("data-className"));
+      selectArrId.push($(el).val());
     });
   },
-  'click .bar':function(){
+  'click .bar': function () {
 
-    Session.set("sendMessageSelectedClasses",{selectArrName:selectArrName,selectArrId:selectArrId})
-    selectArrId=[];
-    selectArrName=[];
+    Session.set("sendMessageSelectedClasses", {selectArrName: selectArrName, selectArrId: selectArrId});
+    selectArrId = [];
+    selectArrName = [];
     Router.go("SendMessage");
   }
 });
@@ -29,14 +29,14 @@ Template.MessageClassSelection.events({
 /* MessageClassSelection: Helpers */
 /*****************************************************************************/
 Template.MessageClassSelection.helpers({
-  createdClasses:function(){
+  createdClasses: function () {
     return Classes.find();
   },
-  searchresult:function(className){
-    return lodash.includes(className,searchText.get())?"":"hide"
+  searchresult: function (className) {
+    return lodash.includes(className, searchText.get()) ? "" : "hide"
   },
-  selected:function(classCode){
-    return lodash.includes(Session.get('sendMessageSelectedClasses').selectArrId,classCode)?"checked":"";
+  selected: function (classCode) {
+    return lodash.includes(Session.get('sendMessageSelectedClasses').selectArrId, classCode) ? "checked" : "";
   }
 });
 

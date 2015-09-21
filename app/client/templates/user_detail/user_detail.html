@@ -1,19 +1,19 @@
 <template name="UserDetail">
 
-    {{#contentFor "headerTitle"}}
-      <h1 class="title">User</h1>
-    {{/contentFor}}
+{{#contentFor "headerTitle"}}
+    <h1 class="title">User</h1>
+{{/contentFor}}
 
 
 
 
-    {{#contentFor "headerButtonLeft"}}
-      {{>ionNavBackButton text=""}}
-    {{/contentFor}}
+{{#contentFor "headerButtonLeft"}}
+  {{>ionNavBackButton text=""}}
+{{/contentFor}}
 
 
 
-    <!-- {{#contentFor "headerButtonRight"}}
+  <!-- {{#contentFor "headerButtonRight"}}
       <button  class="button button-clear button-entering button-active addClassBtn">Add</button>
     {{/contentFor}} -->
 
@@ -26,7 +26,6 @@
       <div class="row row-center" style="height:100px">
         <div class="row"><h1>{{userPofile.profile.firstname}} {{userPofile.profile.lastname}}</h1></div>
       </div>
-
 
 
       <!-- <div class="padding">Recive notice method</div>
@@ -52,50 +51,48 @@
         </a>
 
 
-
         <div class="item item-divider">
           Their Class
         </div>
 
 
-          <div class="item">
-            {{#each hisJoinedClasses}}
+        <div class="item">
+          {{#each hisJoinedClasses}}
             <div>{{className}}</div>
-            {{/each}}
+          {{/each}}
+        </div>
+
+        <div class="item item-divider">
+          {{_ "ReceivingMessagesVia"}}
+        </div>
+
+        {{#if canEmail}}
+          <div class="item item-icon-right" href="#">
+            {{_ "Email"}}
+            <i class="icon ion-email"></i>
           </div>
-
-          <div class="item item-divider">
-            {{_ "ReceivingMessagesVia"}}
+        {{/if}}
+        {{#if canPush}}
+          <div class="item item-icon-right" href="#">
+            {{_ "NOTIFICATION"}}
+            <i class="icon ion-alert"></i>
           </div>
-
-          {{#if canEmail}}
-            <div class="item item-icon-right" href="#">
-              {{_ "Email"}}
-              <i class="icon ion-email"></i>
-            </div>
-          {{/if}}
-          {{#if canPush}}
-            <div class="item item-icon-right" href="#">
-              {{_ "NOTIFICATION"}}
-              <i class="icon ion-alert"></i>
-            </div>
-          {{/if}}
-
-
+        {{/if}}
 
 
       </div>
 
       <!-- {{#if isStudentHigherThirteen }} -->
-      {{#if canChat }}
+    {{#if canChat }}
 
-      <div class="bar bar-footer bar-stable">
-        <div class="title talkToBtn" data-userId="{{userId}}">Talk to {{userPofile.profile.firstname}} {{userPofile.profile.lastname}}</div>
-      </div>
-      {{/if}}
+        <div class="bar bar-footer bar-stable">
+          <div class="title talkToBtn" data-userId="{{userId}}">Talk
+            to {{userPofile.profile.firstname}} {{userPofile.profile.lastname}}</div>
+        </div>
+    {{/if}}
 
 
     {{/ionContent}}
-{{/ionView}}
+  {{/ionView}}
 
-</template>
+  </template>

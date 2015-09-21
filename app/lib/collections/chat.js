@@ -5,9 +5,9 @@ Chat.attachSchema(new SimpleSchema({
     type: [String],
     // blackbox:true
   },
-  messagesObj:{
+  messagesObj: {
     type: [Object],
-    blackbox:true
+    blackbox: true
   }
   // 'messagesObj.$.from':{
   //   type: Object,

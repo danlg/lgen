@@ -1,9 +1,7 @@
 /*****************************************************************************/
 /* FeedBack: Event Handlers */
 /*****************************************************************************/
-Template.FeedBack.events({
-
-});
+Template.FeedBack.events({});
 
 /*****************************************************************************/
 /* FeedBack: Helpers */
@@ -13,23 +11,26 @@ Template.FeedBack.helpers({});
 /*****************************************************************************/
 /* FeedBack: Lifecycle Hooks */
 /*****************************************************************************/
-Template.FeedBack.created = function() {};
+Template.FeedBack.created = function () {
+};
 
-Template.FeedBack.rendered = function() {};
+Template.FeedBack.rendered = function () {
+};
 
-Template.FeedBack.destroyed = function() {};
+Template.FeedBack.destroyed = function () {
+};
 
 
 Template.ionNavBar.events({
-  'click .feedbackSend': function(e, template) {
+  'click .feedbackSend': function (e, template) {
     IonLoading.show({
-      backdrop:true
+      backdrop: true
     });
-    Meteor.call("FeedBack", $(".feedbackContent").val(), function(err,result) {
+    Meteor.call("FeedBack", $(".feedbackContent").val(), function (err, result) {
       IonLoading.hide();
-      if(err)
+      if (err)
         alert(err.reason);
-      else{
+      else {
         alert("Thanks for sharing!");
       }
     });

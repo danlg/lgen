@@ -4,33 +4,31 @@
 .role {
 }
 
-.transitioner>div{
+.transitioner > div {
   display: block;
   position: relative;
 }
 
-
-.modal{
+.modal {
   background-color: rgba(255, 0, 0, 0) !important;
   height: 100vh;
-  .bar.bar-stable{
+  .bar.bar-stable {
     border: 0;
   }
-  .bar.bar-header.bar-stable{
+  .bar.bar-header.bar-stable {
     background-color: rgba(255, 0, 0, 0) !important;
 
   }
-  .icon.ion-ios-close-empty{
-    color:white;
+  .icon.ion-ios-close-empty {
+    color: white;
   }
-  .col div{
+  .col div {
     text-align: center;
-    .button{
+    .button {
       width: 100%;
       margin: 1rem;
       padding-top: 1rem;
       padding-bottom: 1rem;
-
 
     }
   }

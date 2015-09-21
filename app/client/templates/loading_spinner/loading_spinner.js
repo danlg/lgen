@@ -2,14 +2,12 @@ var loading = true;
 /*****************************************************************************/
 /* LoadingSpinner: Event Handlers */
 /*****************************************************************************/
-Template.LoadingSpinner.events({
-});
+Template.LoadingSpinner.events({});
 
 /*****************************************************************************/
 /* LoadingSpinner: Helpers */
 /*****************************************************************************/
-Template.LoadingSpinner.helpers({
-});
+Template.LoadingSpinner.helpers({});
 
 /*****************************************************************************/
 /* LoadingSpinner: Lifecycle Hooks */

@@ -1,171 +1,158 @@
 {
-	"SignUp": "M'enregistrer",
-	"Login": "Connexion",
-	"Gmaillogin": "Gmail login",
-	"Teacher": "Prof",
-	"Parent": "Parent",
-	"Student": "Elève",
-	"SignANewAccount":"S'enregistrer",
-	"SignIn":"Connexion",
-	"Email":"Email",
-	"Password":"Mot de passe",
-    "DateOfBirth":"Date de naissance",
-    "Whatisyourdateofbirth":"Quelle est votre date de naissance?",
-    "Chat":"Discussion",
-	"Classes":"Classes",
-	"You":"Vous",
-	"search":"Recherche",
-	"NoRecord":"No Record",
-	"ClassesIOwn":"Mes classes",
-	"ClassesIveJoined":"Mes abonnements",
-	"CreateAClass":"Créer une classe",
-	"JoinAClass":"Rejoindre une classe",
-    "EnterClassCode":"Saisissez le code de la classe (sans @)",
-    "AddClass":"Ajouter une classe",
-	"Add":"Ajouter",
-	"AnyoneInThisClassCanStartAChat":"Tous les participants de cette classe peuvent démarrer un chat",
-	"IWillOnlyMessagePeople13AndOlder":"Je ne communiquerai qu'à des élèves d'au moins 13 ans",
-	"addClassDescription":"Pas de problème si les élèves ont moins de 13 ans; nous demanderons l'adresse email de leurs parents pour informer tout le monde",
-	"addClassTerm":" ",
-	"Notification":"Notification",
-	"Feedback":"Retour",
-    "About":"A propos",
-	"LoveLittleGenius":"J'aime Little Genius",
-	"SignOut":"Déconnexion",
-  "MyAccounts":"Mon compte",
-  "MyAccount":"Mon compte",
-	"Send":"Envoi",
-	"feedbackTextarea":"Dites nous ce que vous en pensez !",
-	"Itisworkofftime":"En dehors des heures de bureau",
-
-	// 3 sep 2015
-	"Teacher":"Professeur",
-	"ClassCode":"Class Code",
-	"Unsubsribe":"Se désinscrire",
-	"Subscriber":"Membre",
-	"Addstudentsandparents":"Inviter élève / parent",
-	"Update":"Mise à jour",
-
-	// 7 sep 2015
-	"firstname":"Prénom",
-	"lastname":"Nom de famille",
-	"password":"Mot de passe",
-
-	// please delete this line after changed to fr
-	"NewNotification":"New Notification",
-	"To":"To:",
-	"message":"message",
-	"WhatMethodYouWouldLikeToAddThem":"What method you would like to add them",
-	"ShareALink":"Share a Link",
-	"ShareThisLinkWithYourClass":"Share This Link With Your Class",
-	"SharingThisLinkHelpsStudentsAndParentJoinYourClass":"sharing this link helps students and parent join your class",
-	"Share":"Share",
-	"Copy":"Copy",
-	"SendInvitations":"Send Invitations",
-	"invite":"invite",
-
-
-
-	"firstname":"Prénom",
-	"lastname":"Nom de famille",
-	"password":"Mot de passe",
-
-	"Done":"Done",
-
-	"OfficeHours":"Office Hours",
-	"TimeDays":"Time Days",
-
-
-  "About":"A propos",
-  "Add":"Ajouter",
-  "AddClass":"Ajouter une classe",
-  "addClassDescription":"Pas de problème si les élèves ont moins de 13 ans; nous demanderons l'adresse email de leurs parents pour informer tout le monde",
-  "addClassTerm":"",
-  "Addstudentsandparents":"Inviter élève / parent",
-  "AnyoneInThisClassCanStartAChat":"Tous les participants de cette classe peuvent démarrer un chat",
-  "Chat":"Discussion",
-  "ClassCode":"Class Code",
-  "Classes":"Classes",
-  "ClassesIOwn":"Mes classes",
-  "ClassesIveJoined":"Mes abonnements",
-  "CreateAClass":"Créer une classe",
-  "DateOfBirth":"Date de naissance",
-  "Email":"Email",
-  "EnterClassCode":"Saisissez le code de la classe (sans @)",
-  "Feedback":"Retour et commentaires",
-  "feedbackTextarea":"Dites nous ce que vous en pensez !",
-  "Gmaillogin":"Gmail login",
-  "Itisworkofftime":"En dehors des heures de bureau",
-  "IWillOnlyMessagePeople13AndOlder":"Je ne communiquerai qu'à des élèves d'au moins 13 ans",
-  "JoinAClass":"Rejoindre une classe",
-  "Login":"Connexion",
-  "LoveLittleGenius":"J'aime Little Genius",
-  "MyAccount":"Mon compte",
-  "Notification":"Notification",
-  "Parent":"Parent",
-  "Password":"Mot de passe",
-  "RemoveAllUsers":"Supprimer tous les membres",
-  "RemoveClass":"Supprimer la classe",
-  "search":"Recherche",
-  "Send":"Envoyer",
-  "SignANewAccount":"S'enregistrer",
-  "SignIn":"Connexion",
-  "SignOut":"Déconnexion",
-  "SignUp":"M'enregistrer",
-  "Student":"Elève",
-  "Subscriber":"Membre",
-  "Teacher":"Prof",
-  "Teacher":"Professeur",
-  "Unsubsribe":"Se désinscrire",
-  "Update":"Mise à jour",
-  "Whatisyourdateofbirth":"Quelle est votre date de naissance?",
-  "You":"Vous",
+  "SignUp": "M'enregistrer",
+  "Login": "Connexion",
+  "Gmaillogin": "Gmail login",
+  "Teacher": "Prof",
+  "Parent": "Parent",
+  "Student": "Elève",
+  "SignANewAccount": "S'enregistrer",
+  "SignIn": "Connexion",
+  "Email": "Email",
+  "Password": "Mot de passe",
+  "DateOfBirth": "Date de naissance",
+  "Whatisyourdateofbirth": "Quelle est votre date de naissance?",
+  "Chat": "Discussion",
+  "Classes": "Classes",
+  "You": "Vous",
+  "search": "Recherche",
+  "NoRecord": "No Record",
+  "ClassesIOwn": "Mes classes",
+  "ClassesIveJoined": "Mes abonnements",
+  "CreateAClass": "Créer une classe",
+  "JoinAClass": "Rejoindre une classe",
+  "EnterClassCode": "Saisissez le code de la classe (sans @)",
+  "AddClass": "Ajouter une classe",
+  "Add": "Ajouter",
+  "AnyoneInThisClassCanStartAChat": "Tous les participants de cette classe peuvent démarrer un chat",
+  "IWillOnlyMessagePeople13AndOlder": "Je ne communiquerai qu'à des élèves d'au moins 13 ans",
+  "addClassDescription": "Pas de problème si les élèves ont moins de 13 ans; nous demanderons l'adresse email de leurs parents pour informer tout le monde",
+  "addClassTerm": " ",
+  "Notification": "Notification",
+  "Feedback": "Retour",
+  "About": "A propos",
+  "LoveLittleGenius": "J'aime Little Genius",
+  "SignOut": "Déconnexion",
+  "MyAccounts": "Mon compte",
+  "MyAccount": "Mon compte",
+  "Send": "Envoi",
+  "feedbackTextarea": "Dites nous ce que vous en pensez !",
+  "Itisworkofftime": "En dehors des heures de bureau",
+  // 3 sep 2015
+  "Teacher": "Professeur",
+  "ClassCode": "Class Code",
+  "Unsubsribe": "Se désinscrire",
+  "Subscriber": "Membre",
+  "Addstudentsandparents": "Inviter élève / parent",
+  "Update": "Mise à jour",
+  // 7 sep 2015
+  "firstname": "Prénom",
+  "lastname": "Nom de famille",
+  "password": "Mot de passe",
+  // please delete this line after changed to fr
+  "NewNotification": "New Notification",
+  "To": "To:",
+  "message": "message",
+  "WhatMethodYouWouldLikeToAddThem": "What method you would like to add them",
+  "ShareALink": "Share a Link",
+  "ShareThisLinkWithYourClass": "Share This Link With Your Class",
+  "SharingThisLinkHelpsStudentsAndParentJoinYourClass": "sharing this link helps students and parent join your class",
+  "Share": "Share",
+  "Copy": "Copy",
+  "SendInvitations": "Send Invitations",
+  "invite": "invite",
+  "firstname": "Prénom",
+  "lastname": "Nom de famille",
+  "password": "Mot de passe",
+  "Done": "Done",
+  "OfficeHours": "Office Hours",
+  "TimeDays": "Time Days",
+  "About": "A propos",
+  "Add": "Ajouter",
+  "AddClass": "Ajouter une classe",
+  "addClassDescription": "Pas de problème si les élèves ont moins de 13 ans; nous demanderons l'adresse email de leurs parents pour informer tout le monde",
+  "addClassTerm": "",
+  "Addstudentsandparents": "Inviter élève / parent",
+  "AnyoneInThisClassCanStartAChat": "Tous les participants de cette classe peuvent démarrer un chat",
+  "Chat": "Discussion",
+  "ClassCode": "Class Code",
+  "Classes": "Classes",
+  "ClassesIOwn": "Mes classes",
+  "ClassesIveJoined": "Mes abonnements",
+  "CreateAClass": "Créer une classe",
+  "DateOfBirth": "Date de naissance",
+  "Email": "Email",
+  "EnterClassCode": "Saisissez le code de la classe (sans @)",
+  "Feedback": "Retour et commentaires",
+  "feedbackTextarea": "Dites nous ce que vous en pensez !",
+  "Gmaillogin": "Gmail login",
+  "Itisworkofftime": "En dehors des heures de bureau",
+  "IWillOnlyMessagePeople13AndOlder": "Je ne communiquerai qu'à des élèves d'au moins 13 ans",
+  "JoinAClass": "Rejoindre une classe",
+  "Login": "Connexion",
+  "LoveLittleGenius": "J'aime Little Genius",
+  "MyAccount": "Mon compte",
+  "Notification": "Notification",
+  "Parent": "Parent",
+  "Password": "Mot de passe",
+  "RemoveAllUsers": "Supprimer tous les membres",
+  "RemoveClass": "Supprimer la classe",
+  "search": "Recherche",
+  "Send": "Envoyer",
+  "SignANewAccount": "S'enregistrer",
+  "SignIn": "Connexion",
+  "SignOut": "Déconnexion",
+  "SignUp": "M'enregistrer",
+  "Student": "Elève",
+  "Subscriber": "Membre",
+  "Teacher": "Prof",
+  "Teacher": "Professeur",
+  "Unsubsribe": "Se désinscrire",
+  "Update": "Mise à jour",
+  "Whatisyourdateofbirth": "Quelle est votre date de naissance?",
+  "You": "Vous",
   // 3 sep 2015
 
-	"ReceivingMessagesVia":"Receiving messages via",
-
-
-	// https://github.com/gwendall/meteor-autoform-i18n/
-	// This is for schemas of autoForm
-	"schemas": {
-		"emailSignup": {
-				"firstname": {
-					"placeholder": "Prénom"
-				},
-				"lastname": {
-					"placeholder": "Nom de famille"
-				},
-				"email": {
-					"placeholder": "Email"
-				},
-				"password": {
-					"placeholder": "Mot de passe"
-				},
-				"confirmPassword": {
-					"placeholder": "Confirmation du mot de passe"
-				}
-		},
-		"ClassesSchema":{
-			"className":{
-				"placeholder":"Nom de la classe",
-				"label": "Nom de la classe"
-			},
-			"classCode":{
-				"placeholder":"Code de la classe",
-				"label":"Code de la classe"
-			}
-		},
-		"editprofile":{
-			"firstname": {
-				"placeholder": "Prénom"
-			},
-			"lastname": {
-				"placeholder": "Nom de famille"
-			},
-			"email": {
-				"placeholder": "Email"
-			}
-		}
-
-	}
+  "ReceivingMessagesVia": "Receiving messages via",
+  // https://github.com/gwendall/meteor-autoform-i18n/
+  // This is for schemas of autoForm
+  "schemas": {
+    "emailSignup": {
+      "firstname": {
+        "placeholder": "Prénom"
+      },
+      "lastname": {
+        "placeholder": "Nom de famille"
+      },
+      "email": {
+        "placeholder": "Email"
+      },
+      "password": {
+        "placeholder": "Mot de passe"
+      },
+      "confirmPassword": {
+        "placeholder": "Confirmation du mot de passe"
+      }
+    },
+    "ClassesSchema": {
+      "className": {
+        "placeholder": "Nom de la classe",
+        "label": "Nom de la classe"
+      },
+      "classCode": {
+        "placeholder": "Code de la classe",
+        "label": "Code de la classe"
+      }
+    },
+    "editprofile": {
+      "firstname": {
+        "placeholder": "Prénom"
+      },
+      "lastname": {
+        "placeholder": "Nom de famille"
+      },
+      "email": {
+        "placeholder": "Email"
+      }
+    }
+  }
 }

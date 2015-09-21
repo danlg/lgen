@@ -1,5 +1,5 @@
 MainApplicationController = RouteController.extend({
-  layoutTemplate:"NavBarScreenLayout",
+  layoutTemplate: "NavBarScreenLayout",
   subscriptions: function () {
     // set up the subscriptions for the route and optionally
     // wait on them like this:
@@ -20,19 +20,19 @@ MainApplicationController = RouteController.extend({
   },
 
 
-  you:function(){
+  you: function () {
 
-    this.render('TabYou',{
-      data:{
-        _id:Meteor.userId(),
+    this.render('TabYou', {
+      data: {
+        _id: Meteor.userId(),
       }
     });
   },
-  chat:function(){
+  chat: function () {
 
     this.render('TabChat');
   },
-  classes:function(){
+  classes: function () {
 
     this.render('TabClasses');
   }

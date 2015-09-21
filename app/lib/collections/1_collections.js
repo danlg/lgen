@@ -1,6 +1,3 @@
-
-
-
 Images = new FS.Collection("images", {
   stores: [
     Stores.images,
@@ -11,7 +8,7 @@ Images = new FS.Collection("images", {
     allow: {
       contentTypes: ['image/*']
     },
-    onInvalid: function(message) {
+    onInvalid: function (message) {
       alert(message);
     }
   }
@@ -32,7 +29,9 @@ function trueFunc(userId) {
 
   return true;
 }
-function falseFunc() {return false;}
+function falseFunc() {
+  return false;
+}
 
 // Files.allow({
 //   insert: trueFunc,

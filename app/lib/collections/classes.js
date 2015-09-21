@@ -1,7 +1,6 @@
 Classes = new Mongo.Collection('classes');
 
 
-
 ClassesSchema = new SimpleSchema({
   className: {
     type: String,
@@ -13,7 +12,7 @@ ClassesSchema = new SimpleSchema({
     type: String,
     optional: false,
     unique: true,
-    min:3
+    min: 3
 
   },
   anyoneCanChat: {
@@ -49,57 +48,57 @@ ClassesSchema = new SimpleSchema({
     //   return true;
     // }
   },
-  joinedUserId:{
-    type:[String],
-    optional:true
+  joinedUserId: {
+    type: [String],
+    optional: true
   },
-  messagesObj:{
-    type:[Object],
-    optional:true,
-    blackbox:true
+  messagesObj: {
+    type: [Object],
+    optional: true,
+    blackbox: true
   },
   /*"messagesObj.$.msgId":{
-    type:String
-  },
-  "messagesObj.$.sentAt":{
-    type:Date,
-    autoValue: function() {
-        return new Date;
-    }
-  },*/
+   type:String
+   },
+   "messagesObj.$.sentAt":{
+   type:Date,
+   autoValue: function() {
+   return new Date;
+   }
+   },*/
   /*"messagesObj.$.content":{
-    type:String
-  },
-  "messagesObj.$.like":{
-    type:[String]
-  },
-  "messagesObj.$.dislike":{
-    type:[String]
-  },*/
+   type:String
+   },
+   "messagesObj.$.like":{
+   type:[String]
+   },
+   "messagesObj.$.dislike":{
+   type:[String]
+   },*/
   /*"messagesObj.$.msgRating":{
-    type:[Object]
-  },
-  "messagesObj.$.msgRating.$.type":{
-    type:String
-  },*/
-  createBy:{
-    type:String,
-    optional:false,
-    autoform:{
-      omit:true
+   type:[Object]
+   },
+   "messagesObj.$.msgRating.$.type":{
+   type:String
+   },*/
+  createBy: {
+    type: String,
+    optional: false,
+    autoform: {
+      omit: true
     },
-    autoValue:function(){
-      if(this.isInsert)
+    autoValue: function () {
+      if (this.isInsert)
         return Meteor.userId();
     }
 
   },
-  createdAt:{
-    type:Date,
-    autoform:{
-      omit:true
+  createdAt: {
+    type: Date,
+    autoform: {
+      omit: true
     },
-    autoValue: function() {
+    autoValue: function () {
       if (this.isInsert) {
         return new Date();
       } else if (this.isUpsert) {
@@ -111,12 +110,10 @@ ClassesSchema = new SimpleSchema({
   }
 
 
-
 });
 
 ClassesSchema.i18n("schemas.ClassesSchema");
 Classes.attachSchema(ClassesSchema);
-
 
 
 if (Meteor.isServer) {

@@ -1,26 +1,26 @@
 var targetStringVar = ReactiveVar([]);
-var targetString=[];
-var targetIds= ReactiveVar([]);
+var targetString = [];
+var targetIds = ReactiveVar([]);
 var searchString = ReactiveVar("");
 /*****************************************************************************/
 /* ChatInvite: Event Handlers */
 /*****************************************************************************/
 Template.ChatInvite.events({
-  'click .startChatBtn':function(){
+  'click .startChatBtn': function () {
     /*var chatArr =  $('.js-example-basic-multiple').val();*/
-    Meteor.call('chat/create',targetIds.get(),function(err,data){
-          Router.go('ChatRoom',{chatRoomId:data});
-      });
+    Meteor.call('chat/create', targetIds.get(), function (err, data) {
+      Router.go('ChatRoom', {chatRoomId: data});
+    });
 
     /*console.log($('.js-example-basic-multiple').val());*/
   },
-  'change .targetCB':function(e){
-    targetString= [];
+  'change .targetCB': function (e) {
+    targetString = [];
     targetIds.set([]);
-    var localarr= [];
+    var localarr = [];
     // $(".targetCB:checked").each(function(index,el){
-      // localarr.push($(el).val());
-      // targetString.push($(el).data("fullname"));
+    // localarr.push($(el).val());
+    // targetString.push($(el).data("fullname"));
     // });
     // $(e.target).attr('checked','checked');
     localarr.push($(e.target).val());
@@ -30,7 +30,7 @@ Template.ChatInvite.events({
     targetIds.set(localarr);
 
   },
-  'keyup .searchbar':function () {
+  'keyup .searchbar': function () {
     searchString.set($(".searchbar").val().trim());
   }
 });
@@ -39,28 +39,28 @@ Template.ChatInvite.events({
 /* ChatInvite: Helpers */
 /*****************************************************************************/
 Template.ChatInvite.helpers({
-  'classesJoinedOwner':function(){
-    var classesJoinedOwner = Meteor.users.find({_id:{$nin:[Meteor.userId()]}}).fetch();
-    if(classesJoinedOwner.length<1){
+  'classesJoinedOwner': function () {
+    var classesJoinedOwner = Meteor.users.find({_id: {$nin: [Meteor.userId()]}}).fetch();
+    if (classesJoinedOwner.length < 1) {
       return false;
-    }else{
+    } else {
       return classesJoinedOwner;
     }
   },
-  userName:function(profile){
+  userName: function (profile) {
     return getFullNameByProfileObj(profile);
   },
-  targetCB:function(){
+  targetCB: function () {
 
   },
-  tagertList:function(){
+  tagertList: function () {
     return targetStringVar.get();
   },
-  shouldhide:function () {
-    return targetIds.get().length>0?"":"hide";
+  shouldhide: function () {
+    return targetIds.get().length > 0 ? "" : "hide";
   },
-  isSearchable:function () {
-    return lodash.includes(getFullNameByProfileObj(this.profile).toUpperCase(),searchString.get().toUpperCase());
+  isSearchable: function () {
+    return lodash.includes(getFullNameByProfileObj(this.profile).toUpperCase(), searchString.get().toUpperCase());
   }
 });
 

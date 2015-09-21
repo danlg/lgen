@@ -1,5 +1,5 @@
 UserController = RouteController.extend({
-  layoutTemplate:"NavBarScreenLayout",
+  layoutTemplate: "NavBarScreenLayout",
   subscriptions: function () {
     // set up the subscriptions for the route and optionally
     // wait on them like this:
@@ -10,18 +10,16 @@ UserController = RouteController.extend({
     // the subscription handle is added to a reactive list
     // and when all items in this list are ready, this.ready()
     // returns true in any of your route functions.
-    this.subscribe('user',this.params._id).wait();
+    this.subscribe('user', this.params._id).wait();
   },
 
   data: function () {
     // return a global data context like this:
     // Items.findOne({_id: this.params._id});
-    return{
-      
-    }
+    return {}
   },
 
-  myAccount:function  (argument) {
+  myAccount: function (argument) {
     this.render('MyAccount')
   }
 });

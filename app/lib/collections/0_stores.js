@@ -13,7 +13,7 @@ Stores = {};
 // });
 
 Stores.images = new FS.Store.GridFS("images");
-Stores.sounds = new FS.Store.GridFS("sounds",{
+Stores.sounds = new FS.Store.GridFS("sounds", {
   // beforeWrite:function(fileObj){
   //   console.log("start Transform");
   //
@@ -29,7 +29,7 @@ Stores.sounds = new FS.Store.GridFS("sounds",{
   // }
 });
 Stores.thumbs = new FS.Store.GridFS("thumbs", {
-  beforeWrite: function(fileObj) {
+  beforeWrite: function (fileObj) {
     // We return an object, which will change the
     // filename extension and type for this store only.
     return {
@@ -37,7 +37,7 @@ Stores.thumbs = new FS.Store.GridFS("thumbs", {
       type: 'image/png'
     };
   },
-  transformWrite: function(fileObj, readStream, writeStream) {
+  transformWrite: function (fileObj, readStream, writeStream) {
     // Transform the image into a 60px x 60px PNG thumbnail
     gm(readStream).resize(100).stream('PNG').pipe(writeStream);
     // The new file size will be automatically detected and set for this store

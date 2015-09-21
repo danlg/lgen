@@ -1,97 +1,96 @@
 getUserLanguage = function () {
   // Put here the logic for determining the user language
 
-  var  pattern = /-.*/g ;
+  var pattern = /-.*/g;
 
   navigator.globalization.getPreferredLanguage(
     function (language) {
       // alert('language: ' + language.value + '\n');
       console.log(language);
-      var lang =language.value.replace(pattern,"");
+      var lang = language.value.replace(pattern, "");
       return lang;
-  },
-    function () {console.log('Error getting language\n');}
+    },
+    function () {
+      console.log('Error getting language\n');
+    }
   );
 
 
 };
 
 randomString = function (length, chars) {
-    chars ="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    var result = '';
-    for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
-    return result;
+  chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  var result = '';
+  for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
+  return result;
 };
 
 
 lodash.mixin({
-  'findByValues': function(collection, property, values) {
-    return lodash.filter(collection, function(item) {
-      return lodash.includes(item[property],values);
+  'findByValues': function (collection, property, values) {
+    return lodash.filter(collection, function (item) {
+      return lodash.includes(item[property], values);
     });
   }
 });
 
 lodash.mixin({
-  'findByValues2': function(collection, property, values) {
-    return lodash.filter(collection, function(item) {
-      return item[property]==values;
+  'findByValues2': function (collection, property, values) {
+    return lodash.filter(collection, function (item) {
+      return item[property] == values;
     });
   }
 });
 
 lodash.mixin({
-  'findByValuesNested': function(collection, property,secproperty, values) {
-    return lodash.filter(collection, function(item) {
-      return lodash.includes(item[property][secproperty],values);
+  'findByValuesNested': function (collection, property, secproperty, values) {
+    return lodash.filter(collection, function (item) {
+      return lodash.includes(item[property][secproperty], values);
     });
   }
 });
 
 
-getClassCode = function(className){
+getClassCode = function (className) {
   var beforeHash = Meteor.user().email + className + new Date().getTime().toString();
-  return CryptoJS.SHA1(randomString(10),beforeHash).toString().substring(0,6);
+  return CryptoJS.SHA1(randomString(10), beforeHash).toString().substring(0, 6);
 };
 
-getClassCodeNew = function(className){
+getClassCodeNew = function (className) {
   var firstname = Meteor.user().profile.firstname;
   var lastname = Meteor.user().profile.lastname;
-  var name = firstname.substring(0,1) + lastname.substring(0,4);
-  var fullname = name+className;
+  var name = firstname.substring(0, 1) + lastname.substring(0, 4);
+  var fullname = name + className;
   return fullname.toLowerCase();
 };
 
-getFullNameByProfileObj=function(profile){
-    return profile.firstname+" "+profile.lastname;
+getFullNameByProfileObj = function (profile) {
+  return profile.firstname + " " + profile.lastname;
 };
-getFullNameOfCurrentUser=function(){
-    var profile = Meteor.user().profile;
-    return profile.firstname+" "+profile.lastname;
-};
-
-validateEmail = function(email) {
-    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-    return re.test(email);
+getFullNameOfCurrentUser = function () {
+  var profile = Meteor.user().profile;
+  return profile.firstname + " " + profile.lastname;
 };
 
-
-
+validateEmail = function (email) {
+  var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+  return re.test(email);
+};
 
 
 getNewRecordFile = function () {
 
-  var src = moment().format('x')+".wav";
+  var src = moment().format('x') + ".wav";
   mediaRec = new Media(src,
-      // success callback
-      function() {
-          console.log("recordAudio():Audio Success");
-      },
+    // success callback
+    function () {
+      console.log("recordAudio():Audio Success");
+    },
 
-      // error callback
-      function(err) {
-          console.log("recordAudio():Audio Error: "+ err.code);
-      }
+    // error callback
+    function (err) {
+      console.log("recordAudio():Audio Error: " + err.code);
+    }
   );
 
   return mediaRec;

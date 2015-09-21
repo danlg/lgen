@@ -13,51 +13,51 @@
 
 
   {{#contentFor "headerButtonRight"}}
-  <!-- <div style="position: absolute; right: 0;">
-    <button  class="button button-clear button-entering button-active sendMsgBtn">Send</button> -->
+    <!-- <div style="position: absolute; right: 0;">
+      <button  class="button button-clear button-entering button-active sendMsgBtn">Send</button> -->
     <!-- <button  class="button button-clear button-entering button-active msgDoneClassBtn {{doneClassBtnStatus}}">Done</button> -->
-  <!-- </div> -->
+    <!-- </div> -->
   {{/contentFor}}
 
 
 
-{{#ionView}}
-{{#ionContent}}
+  {{#ionView}}
+    {{#ionContent}}
 
 
-<div class="list">
-  <label class="item item-input">
-    <i class="icon ion-search placeholder-icon"></i>
-    <input type="text" placeholder="Search" class="searchText"  >
-  </label>
+      <div class="list">
+        <label class="item item-input">
+          <i class="icon ion-search placeholder-icon"></i>
+          <input type="text" placeholder="Search" class="searchText">
+        </label>
 
 
 
 
 
-    {{#each createdClasses}}
+        {{#each createdClasses}}
 
 
-    <li class="item item-checkbox {{searchresult className}} ">
-     <label class="checkbox">
-       <input type="radio" name="classCheckBox" value="{{classCode}}" data-className={{className}} class="targetCB" {{selected classCode}} >
-     </label>
-        {{className}}
-    </li>
+          <li class="item item-checkbox {{searchresult className}} ">
+            <label class="checkbox">
+              <input type="radio" name="classCheckBox" value="{{classCode}}"
+                     data-className={{className}} class="targetCB" {{selected classCode}} >
+            </label>
+            {{className}}
+          </li>
 
 
-    {{/each}}
+        {{/each}}
 
-</div>
+      </div>
 
 
-<div class="bar bar-footer bar-stable">
-  <div class="title done">Done</div>
-</div>
+      <div class="bar bar-footer bar-stable">
+        <div class="title done">Done</div>
+      </div>
 
-{{/ionContent}}
-{{/ionView}}
-
+    {{/ionContent}}
+  {{/ionView}}
 
 
 </template>

@@ -2,25 +2,23 @@
 /* NotificationSetting: Event Handlers */
 /*****************************************************************************/
 Template.NotificationSetting.events({
-  'change .cb':function (e) {
+  'change .cb': function (e) {
 
     var userObj = Meteor.user();
 
     var type = $(e.target).data('type');
 
-    if($(e.target).is(':checked')){
-      lodash.set(userObj,'profile.'+type,true);
-    }else{
-      lodash.set(userObj,'profile.'+type,false);
+    if ($(e.target).is(':checked')) {
+      lodash.set(userObj, 'profile.' + type, true);
+    } else {
+      lodash.set(userObj, 'profile.' + type, false);
     }
 
 
-
-
-    Meteor.call("profileUpdateByObj", userObj, function(error, result){
-      if(error){
+    Meteor.call("profileUpdateByObj", userObj, function (error, result) {
+      if (error) {
         console.log("error", error);
-      }else{
+      } else {
 
         // if(type.toUpperCase()==="PUSH"){
         //
@@ -31,7 +29,6 @@ Template.NotificationSetting.events({
         //   });
         //
         // }
-
 
 
       }
@@ -45,8 +42,8 @@ Template.NotificationSetting.events({
 /* NotificationSetting: Helpers */
 /*****************************************************************************/
 Template.NotificationSetting.helpers({
-  checked:function (type) {
-    return lodash.get(Meteor.user(),'profile.'+type)?"checked" : "";
+  checked: function (type) {
+    return lodash.get(Meteor.user(), 'profile.' + type) ? "checked" : "";
   }
 });
 

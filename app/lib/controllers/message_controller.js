@@ -1,5 +1,5 @@
 MessageController = RouteController.extend({
-  layoutTemplate:"NavBarScreenLayout",
+  layoutTemplate: "NavBarScreenLayout",
   subscriptions: function () {
     // set up the subscriptions for the route and optionally
     // wait on them like this:
@@ -17,11 +17,10 @@ MessageController = RouteController.extend({
     // return a global data context like this:
     // Items.findOne({_id: this.params._id});
     return {
-      sendMsgSchema:Schema.sendMsg,
-      createdClasses:Classes.find()
+      sendMsgSchema: Schema.sendMsg,
+      createdClasses: Classes.find()
     }
   },
-
 
 
 });

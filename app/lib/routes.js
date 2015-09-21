@@ -7,7 +7,7 @@ Router.configure({
 var OnBeforeActions;
 
 OnBeforeActions = {
-  LoginRequired: function(pause) {
+  LoginRequired: function (pause) {
     if (!Meteor.userId()) {
       Router.go('Login');
       this.next();
@@ -15,7 +15,7 @@ OnBeforeActions = {
       this.next();
     }
   },
-  roleRequired: function() {
+  roleRequired: function () {
     if (!Meteor.user().profile.role) {
       Router.go('role');
       this.next();
@@ -23,7 +23,7 @@ OnBeforeActions = {
       this.next();
     }
   },
-  LoginedRedirect: function(pause) {
+  LoginedRedirect: function (pause) {
     if (Meteor.userId()) {
       Router.go('TabClasses');
       this.next();
@@ -31,23 +31,23 @@ OnBeforeActions = {
       this.next();
     }
   },
-  checkLanguage: function(pause) {
+  checkLanguage: function (pause) {
 
-    if(Meteor.isCordova){
-      var  pattern = /-.*/g ;
+    if (Meteor.isCordova) {
+      var pattern = /-.*/g;
 
       navigator.globalization.getPreferredLanguage(
         function (language) {
           // alert('language: ' + language.value + '\n');
           // console.log(language);
-          var lang =language.value.replace(pattern,"");
+          var lang = language.value.replace(pattern, "");
 
-          if(!lodash.has(TAPi18n.getLanguages(),lang))
+          if (!lodash.has(TAPi18n.getLanguages(), lang))
             lang = "en";
 
-            TAPi18n.setLanguage(lang)
-            .done(function (){
-                Session.setPersistent('lang',lang);
+          TAPi18n.setLanguage(lang)
+            .done(function () {
+              Session.setPersistent('lang', lang);
             })
             .fail(function (error_message) {
               // Handle the situation
@@ -56,7 +56,9 @@ OnBeforeActions = {
 
 
         },
-        function () {alert('Error getting language\n');}
+        function () {
+          alert('Error getting language\n');
+        }
       );
     }
 
@@ -64,25 +66,22 @@ OnBeforeActions = {
 
 
   },
-  checkDob:function (pause) {
-    var dob = lodash.get(Meteor.user(),"profile.dob") || "";
-    var role = lodash.get(Meteor.user(),"profile.role") || "" ;
-    if(dob==="" && role==="Student" ){
+  checkDob: function (pause) {
+    var dob = lodash.get(Meteor.user(), "profile.dob") || "";
+    var role = lodash.get(Meteor.user(), "profile.role") || "";
+    if (dob === "" && role === "Student") {
       Router.go('Dob');
       this.next();
-    }else{
+    } else {
       this.next();
     }
   }
 
 
-
-
-
 };
 
 Router.onBeforeAction(OnBeforeActions.LoginRequired, {
-  except: ['language', 'Login', 'EmailSignup','EmailSignin', 'role','Testing','Test2']
+  except: ['language', 'Login', 'EmailSignup', 'EmailSignin', 'role', 'Testing', 'Test2']
 });
 
 
@@ -99,7 +98,7 @@ Router.onBeforeAction(OnBeforeActions.roleRequired, {
 
 Router.onBeforeAction('loading');
 Router.onBeforeAction(OnBeforeActions.checkLanguage);
-Router.onBeforeAction(OnBeforeActions.checkDob,{
+Router.onBeforeAction(OnBeforeActions.checkDob, {
   only: ['TabClasses']
 });
 
@@ -120,20 +119,20 @@ Router.onBeforeAction(OnBeforeActions.checkDob,{
 //   name:"language"
 // });
 
-Router.route('Login',{
-  path:"/",
+Router.route('Login', {
+  path: "/",
 });
 Router.route('/email-signin', {
   // controller: 'LoginController',
-  name:"EmailSignin"
+  name: "EmailSignin"
 });
 Router.route('EmailSignup', {
   path: "email-signup/:role",
 });
 
- Router.route('/role', {
-   name:"role"
- });
+Router.route('/role', {
+  name: "role"
+});
 
 
 Router.route('Dob');
@@ -144,16 +143,16 @@ Router.route('Dob');
 
 Router.route('TabChat', {
   // layoutTemplate: "NavBarScreenLayout",
-  waitOn: function() {
+  waitOn: function () {
     // return [
-      // Meteor.subscribe('getAllMyChatRooms'),
-      // Meteor.subscribe('getChatRoomMenbers')
-      return Meteor.subscribe('allMyChatRoomWithUser');
+    // Meteor.subscribe('getAllMyChatRooms'),
+    // Meteor.subscribe('getChatRoomMenbers')
+    return Meteor.subscribe('allMyChatRoomWithUser');
     // ];
   },
   /*subscription:function(){
-    Meteor.subscribe('getAllMyChatRooms');
-  },*/
+   Meteor.subscribe('getAllMyChatRooms');
+   },*/
 
   path: "chat"
 });
@@ -161,14 +160,14 @@ Router.route('TabChat', {
 Router.route('TabYou', {
   // controller: 'MainApplicationController',
   // action: "you"
-  path:"You"
+  path: "You"
 });
 
 
 Router.route('Chatoption', {
   // layoutTemplate: "NavBarScreenLayout",
   path: "chat/option",
-  waitOn: function() {
+  waitOn: function () {
     Meteor.subscribe('createdClassByMe');
   }
 });
@@ -179,14 +178,14 @@ Router.route('WorkTimeSelection', {
 Router.route('Notification', {
   // layoutTemplate: "NavBarScreenLayout",
   path: "notice/:msgCode",
-  waitOn: function() {
+  waitOn: function () {
     Meteor.subscribe('getClassMsgId', this.params.msgCode);
   }
 });
 Router.route('ClassPanelMsgNotice', {
   // layoutTemplate: "NavBarScreenLayout",
   path: "panel/notice/:msgCode",
-  waitOn: function() {
+  waitOn: function () {
     return [
       Meteor.subscribe('getClassMsgId', this.params.msgCode),
       Meteor.subscribe('images'),
@@ -197,7 +196,7 @@ Router.route('ClassPanelMsgNotice', {
 Router.route('NotificationDetail', {
   // layoutTemplate: "NavBarScreenLayout",
   path: "notice/:msgCode/detail",
-  waitOn: function() {
+  waitOn: function () {
     Meteor.subscribe('getClassMsgId', this.params.msgCode);
   }
 });
@@ -205,7 +204,7 @@ Router.route('NotificationDetail', {
 Router.route('ClassInfomation', {
   // layoutTemplate: "NavBarScreenLayout",
   path: "class/:classCode/info",
-  waitOn: function() {
+  waitOn: function () {
     return [
       Meteor.subscribe('personCreateClass', this.params.classCode),
       Meteor.subscribe('class', this.params.classCode)
@@ -217,8 +216,8 @@ Router.route('ClassInfomation', {
 Router.route('TabClasses', {
   // controller: 'MainApplicationController',
   // action: "classes"
-  path:"classes",
-  waitOn:function (argument) {
+  path: "classes",
+  waitOn: function (argument) {
     return [
       Meteor.subscribe('joinedClass'),
       Meteor.subscribe('createdClassByMe')
@@ -236,7 +235,7 @@ Router.route('JoinClass', {
   // controller: 'ClassController',
   // layoutTemplate: "NavBarScreenLayout",
   path: "class/join",
-  waitOn: function() {
+  waitOn: function () {
     Meteor.subscribe('joinedClass');
   }
 });
@@ -249,19 +248,19 @@ Router.route('EmailInvite', {
   /*controller: 'ClassWithIdController',*/
   // layoutTemplate: "NavBarScreenLayout",
   path: "class/:classCode/invite-email",
-  waitOn: function() {
+  waitOn: function () {
     return Meteor.subscribe('class', this.params.classCode);
   }
 });
 
 Router.route('ChatRoom', {
   path: "chat/:chatRoomId",
-  waitOn: function() {
+  waitOn: function () {
     // return [Meteor.subscribe('getChatRoomById', this.params.chatRoomId),Meteor.subscribe('images')];
     return [
       Meteor.subscribe('images'),
       Meteor.subscribe('sounds'),
-      Meteor.subscribe('chatRoomWithUser',this.params.chatRoomId)
+      Meteor.subscribe('chatRoomWithUser', this.params.chatRoomId)
     ];
   }
 });
@@ -271,19 +270,19 @@ Router.route('classDetail', {
   // controller: 'ClassWithIdController',
   // layoutTemplate:"NavBarScreenLayout",
   path: "class/:classCode/detail",
-  waitOn: function() {
-     return [
-       Meteor.subscribe('class', this.params.classCode),
-       Meteor.subscribe('images'),
-       Meteor.subscribe('sounds')
-     ];
+  waitOn: function () {
+    return [
+      Meteor.subscribe('class', this.params.classCode),
+      Meteor.subscribe('images'),
+      Meteor.subscribe('sounds')
+    ];
   }
 });
 
 Router.route('ChatInvite', {
   // layoutTemplate: "NavBarScreenLayout",
   path: "chat-invite",
-  waitOn: function() {
+  waitOn: function () {
     /*Meteor.subscribe('joinedClass');*/
     return Meteor.subscribe('getAllJoinedClassesUser');
   }
@@ -297,7 +296,7 @@ Router.route('classEdit', {
   /*controller: 'ClassWithIdController',*/
   // layoutTemplate: "NavBarScreenLayout",
   path: "class/:classCode/edit",
-  waitOn: function() {
+  waitOn: function () {
     return Meteor.subscribe('class', this.params.classCode);
   }
 });
@@ -305,7 +304,7 @@ Router.route('classEdit', {
 Router.route('ClassUsers', {
   path: "class/:classCode/users",
   // layoutTemplate: "NavBarScreenLayout",
-  waitOn: function() {
+  waitOn: function () {
     return Meteor.subscribe('getClassroomWithJoinedUserByClassCode', this.params.classCode);
   }
 });
@@ -314,16 +313,16 @@ Router.route('UserDetail', {
   /*controller: 'UserController',*/
   path: "user/:_id/:classCode?/:classId?",
   // layoutTemplate: "NavBarScreenLayout",
-  waitOn: function() {
+  waitOn: function () {
 
-    var subList=[];
+    var subList = [];
 
-    if(this.params.classCode){
+    if (this.params.classCode) {
       subList.push(Meteor.subscribe('class', this.params.classCode));
 
     }
-    if(this.params.classId){
-      subList.push(Meteor.subscribe('getCommentsByClassIdNId', this.params.classId,this.params._id));
+    if (this.params.classId) {
+      subList.push(Meteor.subscribe('getCommentsByClassIdNId', this.params.classId, this.params._id));
     }
 
 
@@ -341,7 +340,7 @@ Router.route('SendMessage', {
   /*controller: 'MessageController',*/
   // layoutTemplate: "NavBarScreenLayout",
   path: "message/send/:classCode?",
-  waitOn: function() {
+  waitOn: function () {
     return [
       Meteor.subscribe('createdClassByMe'),
       Meteor.subscribe('images'),
@@ -353,7 +352,7 @@ Router.route('SendMessage', {
 Router.route('MessageClassSelection', {
   // layoutTemplate: "NavBarScreenLayout",
   path: "message/classselect",
-  waitOn: function() {
+  waitOn: function () {
     return Meteor.subscribe('createdClassByMe');
   }
 });
@@ -362,7 +361,7 @@ Router.route('ClassPanel', {
   /*controller: 'MessageController',*/
   path: "class/:classCode/panel",
   // layoutTemplate: "NavBarScreenLayout",
-  waitOn: function() {
+  waitOn: function () {
     return [
       Meteor.subscribe('class', this.params.classCode),
       Meteor.subscribe('images'),
@@ -375,7 +374,7 @@ Router.route('ClassPanel', {
 
 Router.route('Testing', {
   // layoutTemplate: "NavBarScreenLayout",
-  waitOn: function() {
+  waitOn: function () {
     return [
       Meteor.subscribe('images'),
       Meteor.subscribe('sounds')
@@ -389,16 +388,14 @@ Router.route('Test2', {
 });
 
 
-
-
 Router.route('Commend', {
   // layoutTemplate: "NavBarScreenLayout",
-  path:"comment/:classId/:_id/",
-  waitOn:function (argument) {
-      Meteor.subscribe('getClassByClassId',this.params.classId);
-      Meteor.subscribe('getUserById',this.params._id);
-      Meteor.subscribe('getCommentsByClassIdNId',this.params.classId,this.params._id);
-      Meteor.subscribe('getJoinedClassCreatedByMeByUserId',this.params._id);
+  path: "comment/:classId/:_id/",
+  waitOn: function (argument) {
+    Meteor.subscribe('getClassByClassId', this.params.classId);
+    Meteor.subscribe('getUserById', this.params._id);
+    Meteor.subscribe('getCommentsByClassIdNId', this.params.classId, this.params._id);
+    Meteor.subscribe('getJoinedClassCreatedByMeByUserId', this.params._id);
   }
 });
 Router.route('FeedBack', {

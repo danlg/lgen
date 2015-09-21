@@ -14,107 +14,107 @@
 
 
   {{#contentFor "headerButtonRight"}}
-  <!-- <div style="position: absolute; right: 0;">
+    <!-- <div style="position: absolute; right: 0;">
     <a href="{{pathFor 'classEdit'  }}"  class="button button-clear button-entering button-active "><i class="icon ion-ios-information-outline"></i></a>
   </div> -->
   {{/contentFor}}
 
 
 
-{{#ionView}}
-{{#ionContent}}
+  {{#ionView}}
+    {{#ionContent}}
 
 
 
-        <div class="list chatroomList" id="chatroomList">
-          {{#each chatRoomProfile.messagesObj}}
-              <div class="item {{isMind}}">
-                  {{#if isText}}
-                    <div class="bubble" >
-                    {{text}}
-                    </div>
-                  {{/if}}
-                  {{#if isImage}}
-                    <!-- {{#with getImage}}
-                      {{#if this.isUploaded}}
-                        {{#if this.hasStored 'images'}}
+      <div class="list chatroomList" id="chatroomList">
+        {{#each chatRoomProfile.messagesObj}}
+          <div class="item {{isMind}}">
+            {{#if isText}}
+              <div class="bubble">
+                {{text}}
+              </div>
+            {{/if}}
+            {{#if isImage}}
+              <!-- {{#with getImage}}
+                {{#if this.isUploaded}}
+                  {{#if this.hasStored 'images'}}
                         <div class="bubble">
                           <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}" >
                         </div>
                         {{/if}}
-                      {{/if}}
-                    {{/with}} -->
-                    {{#with FS.GetFile "images" this.image}}
-                      <div class="bubble">
-                        <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}" >
-                      </div>
-                    {{/with}}
+                {{/if}}
+              {{/with}} -->
+              {{#with FS.GetFile "images" this.image}}
+                <div class="bubble">
+                  <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}">
+                </div>
+              {{/with}}
 
+            {{/if}}
+            {{#if isSound}}
+              {{#with getSound}}
+                {{#if this.isUploaded}}
+                  {{#if this.hasStored 'sounds'}}
+                    {{#if  this.url}}
+                      <div class="bubble">
+                        <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}"></a>
+                      </div>
+                    {{/if}}
                   {{/if}}
-                  {{#if isSound}}
-                    {{#with getSound}}
-                      {{#if this.isUploaded}}
-                        {{#if this.hasStored 'sounds'}}
-                            {{#if  this.url}}
-                            <div class="bubble" >
-                              <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}" ></a>
-                            </div>
-                            {{/if}}
-                        {{/if}}
-                      {{/if}}
-                    {{/with}}
-                  {{/if}}
-              </div>
-          {{/each}}
+                {{/if}}
+              {{/with}}
+            {{/if}}
+          </div>
+        {{/each}}
+      </div>
+
+      <div class="list inputBoxList">
+
+        {{#if targertWorkingTime}}
+          <div class="item " style="text-align:center">
+            <i class="icon ion-clock"></i> {{_ "Itisworkofftime"}}
+          </div>
+        {{/if}}
+
+
+        <div class="item item-input chatroomItem">
+          <textarea style="font-size:20px;line-height:25px;padding-left: 20px;" dir="auto" name="msg" maxlength="5000"
+                    class="inputBox autogrow-short" placeholder="Message"></textarea>
+          <button style="margin-right:10px;width:100px;" class="sendBtn button button-positive"> {{_ "Send" }}</button>
         </div>
 
-          <div class="list inputBoxList" >
 
-                {{#if targertWorkingTime}}
-                  <div class="item " style="text-align:center">
-                    <i class="icon ion-clock"></i> {{_ "Itisworkofftime"}}
-                  </div>
-                {{/if}}
-
-
-                <div class="item item-input chatroomItem">
-                  <textarea style="font-size:20px;line-height:25px;padding-left: 20px;" dir="auto" name="msg" maxlength="5000" class="inputBox autogrow-short" placeholder="Message"></textarea>
-                  <button style="margin-right:10px;width:100px;" class="sendBtn button button-positive"> {{_ "Send" }}</button>
-                </div>
-
-
-                <div class="">
-                  <div class="row">
-                    <div class="col col-10">
-                      <div class="file ">
-                              <i class="icon ion-image imageIcon "></i>
-                              <input type="file" id="imageBtn" accept="image/*;capture=camera" capture="camera">
-                      </div>
-                    </div>
-                      <div class="col col-10">
-                        <div class="file voice">
-                                <i class="icon  ion-mic-a "></i>
-                        </div>
-                      </div>
-                  </div>
-                </div>
+        <div class="">
+          <div class="row">
+            <div class="col col-10">
+              <div class="file ">
+                <i class="icon ion-image imageIcon "></i>
+                <input type="file" id="imageBtn" accept="image/*;capture=camera" capture="camera">
+              </div>
+            </div>
+            <div class="col col-10">
+              <div class="file voice">
+                <i class="icon  ion-mic-a "></i>
+              </div>
+            </div>
           </div>
+        </div>
+      </div>
 
 
 
-  {{/ionContent}}
-{{/ionView}}
-
+    {{/ionContent}}
+  {{/ionView}}
 
 
 </template>
 
 <template name="imageModal">
   {{#ionModal title="" }}
-  <div class="row row-center" style="height:100%">
-    <div class="col" style="text-align: center;">
+    <div class="row row-center" style="height:100%">
+      <div class="col" style="text-align: center;">
         <img src="{{src}}" alt="" style="max-width:100%">
+      </div>
     </div>
-  </div>
   {{/ionModal}}
 </template>

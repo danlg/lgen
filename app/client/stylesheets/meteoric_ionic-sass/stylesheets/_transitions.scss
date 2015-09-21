@@ -10,17 +10,17 @@
 // iOS View Transitions
 // -------------------------------
 
-$ios-transition-duration:              450ms !default;
-$ios-transition-timing-function:       cubic-bezier(.3, .9, .4, 1) !default;
-$ios-transition-container-bg-color:    #000 !default;
-$ios-transition-box-shadow:            0px 0px 12px rgba(0,0,0,0.5);
+$ios-transition-duration: 450ms !default;
+$ios-transition-timing-function: cubic-bezier(.3, .9, .4, 1) !default;
+$ios-transition-container-bg-color: #000 !default;
+$ios-transition-box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.5);
 
 .nav-view-transition-ios {
 
   .nav-view-entering,
   .nav-view-leaving {
-    @include transition-duration( $ios-transition-duration );
-    @include transition-timing-function( $ios-transition-timing-function );
+    @include transition-duration($ios-transition-duration);
+    @include transition-timing-function($ios-transition-timing-function);
     -webkit-transition-property: opacity, -webkit-transform;
     transition-property: opacity, transform;
   }
@@ -93,8 +93,6 @@ $ios-transition-box-shadow:            0px 0px 12px rgba(0,0,0,0.5);
 
 }
 
-
-
 // iOS Nav Bar Transitions
 // -------------------------------
 
@@ -103,8 +101,8 @@ $ios-transition-box-shadow:            0px 0px 12px rgba(0,0,0,0.5);
   .title,
   .button,
   .back-text {
-    @include transition-duration( $ios-transition-duration );
-    @include transition-timing-function( $ios-transition-timing-function );
+    @include transition-duration($ios-transition-duration);
+    @include transition-timing-function($ios-transition-timing-function);
     -webkit-transition-property: opacity, -webkit-transform;
     transition-property: opacity, transform;
   }
@@ -181,21 +179,18 @@ $ios-transition-box-shadow:            0px 0px 12px rgba(0,0,0,0.5);
 
 }
 
-
-
 // Android View Transitions
 // -------------------------------
 
-$android-transition-duration:             320ms !default;
-$android-transition-timing-function:      cubic-bezier(0.4, 0.6, 0.2, 1) !default;
-
+$android-transition-duration: 320ms !default;
+$android-transition-timing-function: cubic-bezier(0.4, 0.6, 0.2, 1) !default;
 
 .nav-view-transition-android {
 
   .nav-view-entering,
   .nav-view-leaving {
-    @include transition-duration( $android-transition-duration );
-    @include transition-timing-function( $android-transition-timing-function );
+    @include transition-duration($android-transition-duration);
+    @include transition-timing-function($android-transition-timing-function);
     -webkit-transition-property: -webkit-transform;
     transition-property: transform;
   }
@@ -234,8 +229,6 @@ $android-transition-timing-function:      cubic-bezier(0.4, 0.6, 0.2, 1) !defaul
 
 }
 
-
-
 // Android Nav Bar Transitions
 // -------------------------------
 
@@ -243,8 +236,8 @@ $android-transition-timing-function:      cubic-bezier(0.4, 0.6, 0.2, 1) !defaul
 
   .title,
   .button {
-    @include transition-duration( $android-transition-duration );
-    @include transition-timing-function( $android-transition-timing-function );
+    @include transition-duration($android-transition-duration);
+    @include transition-timing-function($android-transition-timing-function);
     -webkit-transition-property: opacity;
     transition-property: opacity;
   }

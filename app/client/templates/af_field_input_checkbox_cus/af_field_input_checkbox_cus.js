@@ -1,14 +1,12 @@
 /*****************************************************************************/
 /* AfFieldInputCheckboxCus: Event Handlers */
 /*****************************************************************************/
-Template.AfFieldInputCheckboxCus.events({
-});
+Template.AfFieldInputCheckboxCus.events({});
 
 /*****************************************************************************/
 /* AfFieldInputCheckboxCus: Helpers */
 /*****************************************************************************/
-Template.AfFieldInputCheckboxCus.helpers({
-});
+Template.AfFieldInputCheckboxCus.helpers({});
 
 /*****************************************************************************/
 /* AfFieldInputCheckboxCus: Lifecycle Hooks */

@@ -1,130 +1,118 @@
 {
-  "About":"About",
-  "Add":"Add",
-  "AddClass":"Add class",
-  "addClassDescription":"It's OK if students are under 13; we'll ask them their parent's email to keep everyone in the loop.",
-  "addClassTerm":"",
-  "Addstudentsandparents":"Add students and parents",
-  "AnyoneInThisClassCanStartAChat":"Anyone in this class can start a chat",
-  "Chat":"Chat",
-  "ClassCode":"Class Code",
-  "Classes":"Classes",
-  "ClassesIOwn":"Classes I own",
-  "ClassesIveJoined":"Classes I've joined",
-  "CreateAClass":"Create a class",
-  "DateOfBirth":"Date of birth",
-  "Email":"Email",
-  "EnterClassCode":"Input the class code (without @)",
-  "Feedback":"Feedback",
-  "feedbackTextarea":"Tell us what you think",
-  "Gmaillogin":"Gmail login",
-  "Itisworkofftime":"It is work off time",
-  "IWillOnlyMessagePeople13AndOlder":"I will only message people 13 and older",
-  "JoinAClass":"Join a class",
-  "Login":"Login",
-  "LoveLittleGenius":"Love Little Genius",
-  "MyAccount":"My account",
-  "NoRecord":"No record",
-  "Notification":"Notification",
-  "Parent":"Parent",
-  "Password":"Password",
-  "RemoveAllUsers":"Remove all members",
-  "RemoveClass":"Remove class",
-  "search":"search",
-  "Send":"Send",
-  "SignANewAccount":"Sign a new account",
-  "SignIn":"Sign In",
-  "SignOut":"Sign Out",
-  "SignUp":"Sign Up",
-  "Student":"Student",
-  "Subscriber":"Member",
-  "Teacher":"Teacher",
-  "Teacher":"Teacher",
-  "Unsubsribe":"Unsubscribe",
-  "Update":"Update",
-  "Whatisyourdateofbirth":"What is your date of birth?",
-  "You":"You",
-
-	// 3 sep 2015
-	"Teacher":"Teacher",
-	"ClassCode":"Class Code",
-	"Unsubsribe":"Unsubscribe",
-	"Subscriber":"Member",
-	"Addstudentsandparents":"Add students and parents",
-	"Update":"Update",
-
-	//7 sep 2015
-	"NewNotification":"New Notification",
-	"To":"To:",
-	"message":"message",
-	"WhatMethodYouWouldLikeToAddThem":"What method you would like to add them",
-	"ShareALink":"Share a Link",
-	"ShareThisLinkWithYourClass":"Share This Link With Your Class",
-	"SharingThisLinkHelpsStudentsAndParentJoinYourClass":"sharing this link helps students and parent join your class",
-	"Share":"Share",
-	"Copy":"Copy",
-	"SendInvitations":"Send Invitations",
-	"invite":"invite",
-
-
-	"firstname":"First name",
-	"lastname":"Last name",
-	"password":"Password",
-	"email":"Email",
-
-	"Done":"Done",
-  "OfficeHours":"Office Hours",
-  "TimeDays":"Time Days",
-
-  "PUSH":"Push",
-  "NOTIFICATION":"Notification",
-
-  "ReceivingMessagesVia":"Receiving messages via",
-
-
-
-
-
-	// https://github.com/gwendall/meteor-autoform-i18n/
-	// This is for schemas of autoForm
-	"schemas": {
-		"emailSignup": {
-			"firstname": {
-				"placeholder": "First name"
-			},
-			"lastname": {
-				"placeholder": "Last name"
-			},
-			"email": {
-				"placeholder": "Email"
-			},
-			"password": {
-				"placeholder": "Password"
-			},
-			"confirmPassword": {
-				"placeholder": "Confirm password"
-			}
-		},
-		"ClassesSchema":{
-			"className":{
-				"placeholder":"Class name",
-				"label": "Class name"
-			},
-			"classCode":{
-				"placeholder":"Class code",
-				"label":"Class code"
-			}
-		},
-		"editprofile":{
-			"firstname": {
-				"placeholder": "First name"
-			},
-			"lastname": {
-				"placeholder": "Last name"
-			},
-			"email": {
-				"placeholder": "Email"
-			}
-		}
-	}
+  "About": "About",
+  "Add": "Add",
+  "AddClass": "Add class",
+  "addClassDescription": "It's OK if students are under 13; we'll ask them their parent's email to keep everyone in the loop.",
+  "addClassTerm": "",
+  "Addstudentsandparents": "Add students and parents",
+  "AnyoneInThisClassCanStartAChat": "Anyone in this class can start a chat",
+  "Chat": "Chat",
+  "ClassCode": "Class Code",
+  "Classes": "Classes",
+  "ClassesIOwn": "Classes I own",
+  "ClassesIveJoined": "Classes I've joined",
+  "CreateAClass": "Create a class",
+  "DateOfBirth": "Date of birth",
+  "Email": "Email",
+  "EnterClassCode": "Input the class code (without @)",
+  "Feedback": "Feedback",
+  "feedbackTextarea": "Tell us what you think",
+  "Gmaillogin": "Gmail login",
+  "Itisworkofftime": "It is work off time",
+  "IWillOnlyMessagePeople13AndOlder": "I will only message people 13 and older",
+  "JoinAClass": "Join a class",
+  "Login": "Login",
+  "LoveLittleGenius": "Love Little Genius",
+  "MyAccount": "My account",
+  "NoRecord": "No record",
+  "Notification": "Notification",
+  "Parent": "Parent",
+  "Password": "Password",
+  "RemoveAllUsers": "Remove all members",
+  "RemoveClass": "Remove class",
+  "search": "search",
+  "Send": "Send",
+  "SignANewAccount": "Sign a new account",
+  "SignIn": "Sign In",
+  "SignOut": "Sign Out",
+  "SignUp": "Sign Up",
+  "Student": "Student",
+  "Subscriber": "Member",
+  "Teacher": "Teacher",
+  "Teacher": "Teacher",
+  "Unsubsribe": "Unsubscribe",
+  "Update": "Update",
+  "Whatisyourdateofbirth": "What is your date of birth?",
+  "You": "You",
+  // 3 sep 2015
+  "Teacher": "Teacher",
+  "ClassCode": "Class Code",
+  "Unsubsribe": "Unsubscribe",
+  "Subscriber": "Member",
+  "Addstudentsandparents": "Add students and parents",
+  "Update": "Update",
+  //7 sep 2015
+  "NewNotification": "New Notification",
+  "To": "To:",
+  "message": "message",
+  "WhatMethodYouWouldLikeToAddThem": "What method you would like to add them",
+  "ShareALink": "Share a Link",
+  "ShareThisLinkWithYourClass": "Share This Link With Your Class",
+  "SharingThisLinkHelpsStudentsAndParentJoinYourClass": "sharing this link helps students and parent join your class",
+  "Share": "Share",
+  "Copy": "Copy",
+  "SendInvitations": "Send Invitations",
+  "invite": "invite",
+  "firstname": "First name",
+  "lastname": "Last name",
+  "password": "Password",
+  "email": "Email",
+  "Done": "Done",
+  "OfficeHours": "Office Hours",
+  "TimeDays": "Time Days",
+  "PUSH": "Push",
+  "NOTIFICATION": "Notification",
+  "ReceivingMessagesVia": "Receiving messages via",
+  // https://github.com/gwendall/meteor-autoform-i18n/
+  // This is for schemas of autoForm
+  "schemas": {
+    "emailSignup": {
+      "firstname": {
+        "placeholder": "First name"
+      },
+      "lastname": {
+        "placeholder": "Last name"
+      },
+      "email": {
+        "placeholder": "Email"
+      },
+      "password": {
+        "placeholder": "Password"
+      },
+      "confirmPassword": {
+        "placeholder": "Confirm password"
+      }
+    },
+    "ClassesSchema": {
+      "className": {
+        "placeholder": "Class name",
+        "label": "Class name"
+      },
+      "classCode": {
+        "placeholder": "Class code",
+        "label": "Class code"
+      }
+    },
+    "editprofile": {
+      "firstname": {
+        "placeholder": "First name"
+      },
+      "lastname": {
+        "placeholder": "Last name"
+      },
+      "email": {
+        "placeholder": "Email"
+      }
+    }
+  }
 }

@@ -1,5 +1,3 @@
-Template.MasterLayout.helpers({
-});
+Template.MasterLayout.helpers({});
 
-Template.MasterLayout.events({
-});
+Template.MasterLayout.events({});

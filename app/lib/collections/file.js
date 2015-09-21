@@ -20,7 +20,6 @@
 // });
 
 
-
 // Images.deny({
 //   insert: function() {
 //     return false;

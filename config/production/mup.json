@@ -1,5 +1,4 @@
 {
-
   "servers": [
     {
       "host": "128.199.187.103",
@@ -7,32 +6,23 @@
       "password": "genie123"
     }
   ],
-
   "setupMongo": true,
-
   "setupNode": true,
-
   "nodeVersion": "0.10.40",
-
   "setupPhantom": true,
-
   "enableUploadProgressBar": true,
-
   "appName": "littlegenius",
-
   "app": "/Users/mike/lgen/app",
-
   "env": {
     "ROOT_URL": "http://esprit.io:8000",
-    "PORT":"8000",
-    "FROM_EMAIL":"no-reply@esprit.io",
-    "FROM_NAME":"Little Genius",
-    "FEEDBACK_EMAIL":"feedback@littlegenius.io",
-    "WEB_URL":"http://esprit.io/",
-    "ROOT_URL_WITHOUT_PORT":"http://esprit.io/",
-    "MONGO_URL":"mongodb://geniedb:genie123@cockney.3.mongolayer.com:10233,cockney.2.mongolayer.com:10233/genie?replicaSet=set-55e8023231f767440700040b",
-    "MONGO_OPLOG_URL":"mongodb://geniedb:genie123@cockney.3.mongolayer.com:10233,cockney.2.mongolayer.com:10233/local?authSource=genie"
+    "PORT": "8000",
+    "FROM_EMAIL": "no-reply@esprit.io",
+    "FROM_NAME": "Little Genius",
+    "FEEDBACK_EMAIL": "feedback@littlegenius.io",
+    "WEB_URL": "http://esprit.io/",
+    "ROOT_URL_WITHOUT_PORT": "http://esprit.io/",
+    "MONGO_URL": "mongodb://geniedb:genie123@cockney.3.mongolayer.com:10233,cockney.2.mongolayer.com:10233/genie?replicaSet=set-55e8023231f767440700040b",
+    "MONGO_OPLOG_URL": "mongodb://geniedb:genie123@cockney.3.mongolayer.com:10233,cockney.2.mongolayer.com:10233/local?authSource=genie"
   },
-
   "deployCheckWaitTime": 120
 }

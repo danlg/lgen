@@ -1,15 +1,15 @@
 <template name="Role">
   <div style="width:100vw;height:60vh"></div>
-	<div class="padding-horizontal">
-		<!-- {{#each char}}
-			{{> charItem}}
-		{{/each}} -->
+  <div class="padding-horizontal">
+    <!-- {{#each char}}
+      {{> charItem}}
+    {{/each}} -->
 
-	</div>
+  </div>
 
 </template>
 
-  <!-- <template name="charItem">
+<!-- <template name="charItem">
 
     <a  class="button button-block button-positive" data-role="{{this}}">
       {{this}}
@@ -20,52 +20,55 @@
   </template> -->
 
 <template name="_modal">
-	{{#ionModal title="" customTemplate=true }}
+  {{#ionModal title="" customTemplate=true }}
 
-        <!--{{#ionView  }}-->
-            <!--{{#ionContent}}-->
-
-    <div class="padding">
-      {{#unless currentUser }}
-        <button data-dismiss="modal" class="button button-icon"><i class="icon ion-ios-close-empty"></i></button>
-      {{/unless}}
-    </div>
-    <div class="content has-header overflow-scroll">
+  <!--{{#ionView  }}-->
+    <!--{{#ionContent}}-->
 
       <div class="padding">
-        <div class="row row-center">
-        		<div class="col" >
-        			<div>
-        				<button class="button role" data-role="Teacher"  >
-  								<i class="icon ion-paintbrush"></i>
-  								<div>
-  									{{_ "Teacher"}}
-  								</div>
-        				</button>
-        			</div>
-        			<div>
-        				<button class="button role" data-role="Parent"  >
-  								<i class="icon ion-person"></i>
-        					<div>
-        						{{_ "Parent"}}
-        					</div>
-        				</button>
-        			</div>
-        			<div>
-        				<button class="button role" data-role="Student"  >
-  								<i class="icon ion-university"></i>
-  								<div>
-  									{{_ "Student"}}
-  								</div>
-        				</button>
-        			</div>
-        		</div>
+        {{#unless currentUser }}
+          <button data-dismiss="modal" class="button button-icon"><i class="icon ion-ios-close-empty"></i></button>
+        {{/unless}}
+      </div>
+      <div class="content has-header overflow-scroll">
+
+        <div class="padding">
+          <div class="row row-center">
+            <div class="col">
+              <div>
+                <button class="button role" data-role="Teacher">
+                  <i class="icon ion-paintbrush"></i>
+
+                  <div>
+                    {{_ "Teacher"}}
+                  </div>
+                </button>
+              </div>
+              <div>
+                <button class="button role" data-role="Parent">
+                  <i class="icon ion-person"></i>
+
+                  <div>
+                    {{_ "Parent"}}
+                  </div>
+                </button>
+              </div>
+              <div>
+                <button class="button role" data-role="Student">
+                  <i class="icon ion-university"></i>
+
+                  <div>
+                    {{_ "Student"}}
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
 
       <!--{{/ionContent}}-->
-  <!--{{/ionView}}-->
-    {{/ionModal}}
+    <!--{{/ionView}}-->
+  {{/ionModal}}
 
 </template>

@@ -1,105 +1,105 @@
 <template name="TabClasses">
-    {{#contentFor "headerTitle"}}
-        <h1 class="title">{{_ "Classes"}}</h1>
-    {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">{{_ "Classes"}}</h1>
+  {{/contentFor}}
 
 
-    {{#contentFor "headerButtonRight"}}
-        <a href="{{ pathFor 'SendMessage' }}" class="button button-clear button-entering button-active">
-            <i class="icon ion-compose"></i>
-        </a>
-    {{/contentFor}}
+  {{#contentFor "headerButtonRight"}}
+    <a href="{{ pathFor 'SendMessage' }}" class="button button-clear button-entering button-active">
+      <i class="icon ion-compose"></i>
+    </a>
+  {{/contentFor}}
 
-    {{#ionView}}
-        {{#ionContent}}
-            <div class="tab-classes">
+  {{#ionView}}
+    {{#ionContent}}
+      <div class="tab-classes">
 
-                {{#if isTeacher}}
+        {{#if isTeacher}}
 
-                    <div class="listview-container">
-
-
-                        <a href="{{pathFor 'AddClass'  }}">
-                            <div class="row row-center add-join-bar">
-                                <div class="col col-90">{{_ "ClassesIOwn"}}</div>
-                                <div class="col ">
-                                    <i class="icon ion-android-add-circle"></i>
-                                </div>
-                            </div>
-                        </a>
-
-                        <div class="listview">
+          <div class="listview-container">
 
 
-
-                            {{#if notCreateEmptyList}}
-
-                                <ul class="list">
-                                    {{#each createdClass}}
-                                        <a href={{ pathFor 'ClassPanel'   }}>
-                                            <li class="item">
-                                                {{this.className}}
-                                                <!-- @{{this.classCode}} -->
-                                            </li>
-                                        </a>
-                                    {{/each}}
-                                </ul>
-
-                            {{else}}
-
-
-                                <div class="row row-center listview-nth">
-                                    <div class="col">
-                                        <a class="button button-stable"
-                                           href="{{pathFor 'AddClass'  }}"> {{_ "CreateAClass"}} </a>
-                                    </div>
-                                </div>
-
-                            {{/if}}
-
-                        </div>
-                    </div>
-
-                {{/if}}
-
-
-                <div class="listview-container">
-                    <a href="{{pathFor 'JoinClass'  }}">
-                        <div class="row row-center add-join-bar">
-                            <div class="col col-90">{{_ "ClassesIveJoined"}}</div>
-                            <div class="col ">
-
-                                <i class="icon ion-android-add-circle"></i>
-
-                            </div>
-                        </div>
-                    </a>
-
-                    {{#if notJoinedEmptyList}}
-
-                        <div>
-                            <ul class="list">
-                                {{#each joinedClass}}
-                                    <a href={{ pathFor 'classDetail'   }}>
-                                        <li class="item">
-                                            {{this.className}}@{{this.classCode}}
-                                        </li>
-                                    </a>
-                                {{/each}}
-                            </ul>
-                        </div>
-
-                    {{else}}
-
-                        <div class="row row-center listview-nth">
-                            <div class="col">
-                                <a class="button button-stable" href="{{pathFor 'JoinClass'  }}">{{_ "JoinAClass"}}</a>
-                            </div>
-                        </div>
-                    {{/if}}
-
+            <a href="{{pathFor 'AddClass'  }}">
+              <div class="row row-center add-join-bar">
+                <div class="col col-90">{{_ "ClassesIOwn"}}</div>
+                <div class="col ">
+                  <i class="icon ion-android-add-circle"></i>
                 </div>
+              </div>
+            </a>
+
+            <div class="listview">
+
+
+
+              {{#if notCreateEmptyList}}
+
+                <ul class="list">
+                  {{#each createdClass}}
+                    <a href={{ pathFor 'ClassPanel'   }}>
+                      <li class="item">
+                        {{this.className}}
+                        <!-- @{{this.classCode}} -->
+                      </li>
+                    </a>
+                  {{/each}}
+                </ul>
+
+              {{else}}
+
+
+                <div class="row row-center listview-nth">
+                  <div class="col">
+                    <a class="button button-stable"
+                       href="{{pathFor 'AddClass'  }}"> {{_ "CreateAClass"}} </a>
+                  </div>
+                </div>
+
+              {{/if}}
+
             </div>
-        {{/ionContent}}
-    {{/ionView}}
+          </div>
+
+        {{/if}}
+
+
+        <div class="listview-container">
+          <a href="{{pathFor 'JoinClass'  }}">
+            <div class="row row-center add-join-bar">
+              <div class="col col-90">{{_ "ClassesIveJoined"}}</div>
+              <div class="col ">
+
+                <i class="icon ion-android-add-circle"></i>
+
+              </div>
+            </div>
+          </a>
+
+          {{#if notJoinedEmptyList}}
+
+            <div>
+              <ul class="list">
+                {{#each joinedClass}}
+                  <a href={{ pathFor 'classDetail'   }}>
+                    <li class="item">
+                      {{this.className}}@{{this.classCode}}
+                    </li>
+                  </a>
+                {{/each}}
+              </ul>
+            </div>
+
+          {{else}}
+
+            <div class="row row-center listview-nth">
+              <div class="col">
+                <a class="button button-stable" href="{{pathFor 'JoinClass'  }}">{{_ "JoinAClass"}}</a>
+              </div>
+            </div>
+          {{/if}}
+
+        </div>
+      </div>
+    {{/ionContent}}
+  {{/ionView}}
 </template>

@@ -13,14 +13,12 @@
     "key": "apn/development_io.littlegenius.genie.pkey",
     "cert": "apn/development_io.littlegenius.genie.pem"
   },
-
   "vibrate": true,
   "production": true,
-  "development":false,
+  "development": false,
   "badge": true,
   "sound": true,
   "alert": true,
   "vibrate": true,
-  "sendInterval":1
-
+  "sendInterval": 1
 }

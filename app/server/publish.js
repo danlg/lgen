@@ -6,20 +6,20 @@
 
 
 
-Meteor.publish('class', function(classCode) {
+Meteor.publish('class', function (classCode) {
   return Classes.find({
     classCode: classCode
   });
 });
-Meteor.publish('getClassByClassId', function(classId) {
+Meteor.publish('getClassByClassId', function (classId) {
   return Classes.find(classId);
 });
 
-Meteor.publish('getCommentsByClassIdNId', function(classId,_id) {
-  return Commend.find({"userId":_id,"classId":classId});
+Meteor.publish('getCommentsByClassIdNId', function (classId, _id) {
+  return Commend.find({"userId": _id, "classId": classId});
 });
 
-Meteor.publish('getClassMsgId', function(msgId) {
+Meteor.publish('getClassMsgId', function (msgId) {
   return Classes.find({
     messagesObj: {
       $elemMatch: {
@@ -28,7 +28,7 @@ Meteor.publish('getClassMsgId', function(msgId) {
     }
   });
 });
-Meteor.publish('personCreateClass', function(classCode) {
+Meteor.publish('personCreateClass', function (classCode) {
   var ownId = _.pick(Classes.findOne({
     classCode: classCode
   }), 'createBy');
@@ -38,48 +38,48 @@ Meteor.publish('personCreateClass', function(classCode) {
 });
 
 
-Meteor.publish('joinedClass', function() {
+Meteor.publish('joinedClass', function () {
   return Classes.find({
     joinedUserId: this.userId
   });
 });
-Meteor.publish('getUserById', function(userId) {
+Meteor.publish('getUserById', function (userId) {
   return Meteor.users.find({
     _id: userId
   });
 });
-Meteor.publish('getJoinedClassByUserId', function(userId) {
+Meteor.publish('getJoinedClassByUserId', function (userId) {
   return Classes.find({
     joinedUserId: userId
   });
 });
-Meteor.publish('getJoinedClassCreatedByMeByUserId', function(userId) {
+Meteor.publish('getJoinedClassCreatedByMeByUserId', function (userId) {
   return Classes.find({
     joinedUserId: userId,
-    createBy:this.userId
+    createBy: this.userId
   });
 });
 
-Meteor.publish('createdClassByMe', function() {
+Meteor.publish('createdClassByMe', function () {
   return Classes.find({
     createBy: this.userId
   });
 });
 
-Meteor.publish('getChatRoomById', function(chatRoomId) {
+Meteor.publish('getChatRoomById', function (chatRoomId) {
   return Chat.find({
     _id: chatRoomId
   });
 });
 
 
-Meteor.publish('user', function(_id) {
+Meteor.publish('user', function (_id) {
   return Meteor.users.find({
     _id: _id
   });
 });
 
-Meteor.publish('getAllMyChatRooms', function() {
+Meteor.publish('getAllMyChatRooms', function () {
   // Meteor._sleepForMs(5000);
   return Chat.find({
     chatIds: {
@@ -91,8 +91,7 @@ Meteor.publish('getAllMyChatRooms', function() {
 });
 
 
-
-Meteor.publish('getAllJoinedClassesUser', function() {
+Meteor.publish('getAllJoinedClassesUser', function () {
   var classes = Classes.find({
     joinedUserId: this.userId
   }).fetch();
@@ -106,8 +105,7 @@ Meteor.publish('getAllJoinedClassesUser', function() {
 });
 
 
-
-Meteor.publish('getChatRoomMenbers', function() {
+Meteor.publish('getChatRoomMenbers', function () {
   var chat = Chat.find({
     chatIds: {
       $in: [this.userId]
@@ -124,8 +122,7 @@ Meteor.publish('getChatRoomMenbers', function() {
 });
 
 
-
-Meteor.publish('getJoinedClassUser', function(classCode) {
+Meteor.publish('getJoinedClassUser', function (classCode) {
   var classObj = Classes.findOne({
     classCode: classCode
   });
@@ -137,19 +134,17 @@ Meteor.publish('getJoinedClassUser', function(classCode) {
   });
 });
 
-Meteor.publish("images", function() {
+Meteor.publish("images", function () {
   return Images.find();
 });
-Meteor.publish("sounds", function() {
+Meteor.publish("sounds", function () {
   return Sounds.find();
 });
 
 
-
-
-Meteor.publishComposite('chatRoomWithUser', function(chatRoomId) {
+Meteor.publishComposite('chatRoomWithUser', function (chatRoomId) {
   return {
-    find: function() {
+    find: function () {
       // Find posts made by user. Note arguments for callback function
       // being used in query.
       return Chat.find(chatRoomId);
@@ -157,60 +152,60 @@ Meteor.publishComposite('chatRoomWithUser', function(chatRoomId) {
     children: [
       {
         // This section will be similar to that of the previous example.
-        find: function(chat) {
+        find: function (chat) {
           // Find post author. Even though we only want to return
           // one record here, we use "find" instead of "findOne"
           // since this function should return a cursor.
-          return Meteor.users.find({ _id: { $in: chat.chatIds }});
+          return Meteor.users.find({_id: {$in: chat.chatIds}});
         }
       }
-  ]
+    ]
   };
 });
 
 
-Meteor.publishComposite('allMyChatRoomWithUser', function() {
+Meteor.publishComposite('allMyChatRoomWithUser', function () {
   return {
-    find: function() {
+    find: function () {
       // Find posts made by user. Note arguments for callback function
       // being used in query.
-      return Chat.find({chatIds:this.userId});
+      return Chat.find({chatIds: this.userId});
     },
     children: [
       {
         // This section will be similar to that of the previous example.
-        find: function(chat) {
+        find: function (chat) {
           // Find post author. Even though we only want to return
           // one record here, we use "find" instead of "findOne"
           // since this function should return a cursor.
-          chat.chatIds  = lodash.reject(chat.chatIds,this.userId);
-          return Meteor.users.find({ _id: { $in: chat.chatIds }});
+          chat.chatIds = lodash.reject(chat.chatIds, this.userId);
+          return Meteor.users.find({_id: {$in: chat.chatIds}});
         }
       }
-  ]
+    ]
   };
 });
 
 
-Meteor.publishComposite('getClassroomWithJoinedUserByClassCode', function(classCode) {
+Meteor.publishComposite('getClassroomWithJoinedUserByClassCode', function (classCode) {
   return {
-    find: function() {
+    find: function () {
       // Find posts made by user. Note arguments for callback function
       // being used in query.
-      return Classes.find({classCode:classCode});
+      return Classes.find({classCode: classCode});
     },
     children: [
       {
         // This section will be similar to that of the previous example.
-        find: function(classObj) {
+        find: function (classObj) {
           // Find post author. Even though we only want to return
           // one record here, we use "find" instead of "findOne"
           // since this function should return a cursor.
           // chat.chatIds  = lodash.reject(chat.chatIds,this.userId);
 
-          return Meteor.users.find({ _id: { $in: classObj.joinedUserId }});
+          return Meteor.users.find({_id: {$in: classObj.joinedUserId}});
         }
       }
-  ]
+    ]
   };
 });

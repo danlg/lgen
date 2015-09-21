@@ -1,22 +1,22 @@
 <template name="ClassPanelMsgNotice">
 
-      {{#contentFor "headerTitle"}}
-        <h1 class="title">{{classObj.className}}</h1>
-      {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">{{classObj.className}}</h1>
+  {{/contentFor}}
 
-      {{#contentFor "headerButtonLeft"}}
-        {{>ionNavBackButton text=""}}
-      {{/contentFor}}
-
-
-
-      {{#contentFor "headerButtonRight"}}
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton text=""}}
+  {{/contentFor}}
 
 
 
-      <div style="position: absolute; right: 0;">
+  {{#contentFor "headerButtonRight"}}
 
-        <!-- <a href="{{pathFor 'classEdit' classCode=classObj.classCode  }}"  class="button button-clear button-entering button-active "><i class="icon ion-ios-information-outline"></i></a>
+
+
+    <div style="position: absolute; right: 0;">
+
+      <!-- <a href="{{pathFor 'classEdit' classCode=classObj.classCode  }}"  class="button button-clear button-entering button-active "><i class="icon ion-ios-information-outline"></i></a>
 
         <a href="{{ pathFor 'SendMessage' classCode=classObj.classCode }}"  class="button button-clear button-entering button-active">
           <i class="icon ion-compose"></i>
@@ -24,11 +24,11 @@
 
         <button  class="button button-clear button-entering button-active addClassBtn">?</button> -->
 
-      </div>
-      {{/contentFor}}
+    </div>
+  {{/contentFor}}
 
 
-     {{#ionView}}
+  {{#ionView}}
     {{#ionContent}}
 
 
@@ -54,32 +54,32 @@
 
 
             <p>
-                {{#if isNotEmpty msgObj.star}}
+              {{#if isNotEmpty msgObj.star}}
                 <a href="#" class="subdued">{{msgObj.star.length}} <i class="ion-ios-star"></i></a>
-                {{/if}}
-                {{#if isNotEmpty msgObj.checked}}
+              {{/if}}
+              {{#if isNotEmpty msgObj.checked}}
                 <a href="#" class="subdued">{{msgObj.checked.length}} <i class="ion-checkmark-round"></i></a>
-                {{/if}}
-                {{#if isNotEmpty msgObj.close}}
+              {{/if}}
+              {{#if isNotEmpty msgObj.close}}
                 <a href="#" class="subdued">{{msgObj.close.length}} <i class="ion-close-round"></i></a>
-                {{/if}}
-                {{#if isNotEmpty msgObj.help}}
+              {{/if}}
+              {{#if isNotEmpty msgObj.help}}
                 <a href="#" class="subdued">{{msgObj.help.length}} <i class="ion-help"></i></a>
-                {{/if}}
+              {{/if}}
             </p>
           </div>
           <div class="item">
             {{#each msgObj.star}}
-             <div><i class="ion-ios-star colored"></i> {{getName this}} </div>
+              <div><i class="ion-ios-star colored"></i> {{getName this}} </div>
             {{/each}}
             {{#each msgObj.checked}}
-             <div><i class="ion-checkmark-round colored"></i> {{getName this}} </div>
+              <div><i class="ion-checkmark-round colored"></i> {{getName this}} </div>
             {{/each}}
             {{#each msgObj.close}}
-             <div><i class="ion-close-round colored"></i> {{getName this}} </div>
+              <div><i class="ion-close-round colored"></i> {{getName this}} </div>
             {{/each}}
             {{#each msgObj.help}}
-             <div><i class="ion-help colored"></i> {{getName this}} </div>
+              <div><i class="ion-help colored"></i> {{getName this}} </div>
             {{/each}}
             <!-- {{#each allMan}}
               <div><i class="{{geticon this }} colored"></i> {{getName this}} </div>
@@ -88,47 +88,44 @@
           </div>
           <div class="item">
             {{#with msgObj}}
-            <div >
-              {{#if havePic}}
-                {{#each imageArr}}
-                  {{#with getImage}}
-                    {{#if this.isUploaded}}
-                      {{#if this.hasStored 'images'}}
-                        <div class="" >
-                          <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}" >
-                          <!-- <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a> -->
-                        </div>
+              <div>
+                {{#if havePic}}
+                  {{#each imageArr}}
+                    {{#with getImage}}
+                      {{#if this.isUploaded}}
+                        {{#if this.hasStored 'images'}}
+                          <div class="">
+                            <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs"
+                                 data-fullsizeimage="{{this.url  }}">
+                            <!-- <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a> -->
+                          </div>
+                        {{/if}}
                       {{/if}}
-                    {{/if}}
-                  {{/with}}
-                {{/each}}
-              {{/if}}
-            </div>
-            <div >
-              {{#if haveSound}}
-                {{#each soundArr}}
-                  {{#with getSound}}
-                    {{#if this.isUploaded}}
-                      {{#if this.hasStored 'sounds'}}
-                        <div class="bubble" >
-                          <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}" ></a>
-                          <!-- <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a> -->
-                        </div>
+                    {{/with}}
+                  {{/each}}
+                {{/if}}
+              </div>
+              <div>
+                {{#if haveSound}}
+                  {{#each soundArr}}
+                    {{#with getSound}}
+                      {{#if this.isUploaded}}
+                        {{#if this.hasStored 'sounds'}}
+                          <div class="bubble">
+                            <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}"></a>
+                            <!-- <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a> -->
+                          </div>
+                        {{/if}}
                       {{/if}}
-                    {{/if}}
-                  {{/with}}
-                {{/each}}
-              {{/if}}
-            </div>
+                    {{/with}}
+                  {{/each}}
+                {{/if}}
+              </div>
             {{/with}}
           </div>
 
 
         </div>
-
-
-
-
 
 
       </div>
@@ -137,6 +134,6 @@
 
 
 
-      {{/ionContent}}
-       {{/ionView}}
+    {{/ionContent}}
+  {{/ionView}}
 </template>

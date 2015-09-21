@@ -1,96 +1,103 @@
 <template name="WorkTimeSelection">
-    {{#contentFor "headerButtonLeft"}}
-      {{>ionNavBackButton}}
-    {{/contentFor}}
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton}}
+  {{/contentFor}}
 
-    {{#contentFor "headerTitle"}}
-      <h1 class="title"> {{_ "Chat settings"}} </h1>
-    {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title"> {{_ "Chat settings"}} </h1>
+  {{/contentFor}}
 
-    {{#contentFor "headerButtonRight"}}
-      <button  class="button button-clear button-entering button-active WorkTimeSelectionSaveBtn">Save</button>
-    {{/contentFor}}
+  {{#contentFor "headerButtonRight"}}
+    <button class="button button-clear button-entering button-active WorkTimeSelectionSaveBtn">Save</button>
+  {{/contentFor}}
 
-    {{#ionView}}
-      {{#ionContent}}
+  {{#ionView}}
+    {{#ionContent}}
 
-        <li class="item item-input">
-          <input type="time" class="from" value={{workHourTimeObj.from}} >
-        </li>
-        <li class="item item-input">
-          <input type="time" class="to" value={{workHourTimeObj.to}} >
-        </li>
-
-
-        <li class="item item-toggle">
-         {{_ "Monday" }}
-         <label class="toggle toggle-stable">
-           <input class="timeCb" type="checkbox" {{checked "1" }} value="1">
-           <div class="track">
-             <div class="handle"></div>
-           </div>
-         </label>
-        </li>
-        <li class="item item-toggle">
-            {{_ "Tuesday" }}
-         <label class="toggle toggle-stable">
-           <input class="timeCb" type="checkbox" {{checked "2" }} value="2">
-           <div class="track">
-             <div class="handle"></div>
-           </div>
-         </label>
-        </li>
-        <li class="item item-toggle">
-            {{_ "Wednesday" }}
-         <label class="toggle toggle-stable">
-           <input class="timeCb" type="checkbox" {{checked "3" }} value="3">
-           <div class="track">
-             <div class="handle"></div>
-           </div>
-         </label>
-        </li>
-        <li class="item item-toggle">
-            {{_ "Thursday" }}
-         <label class="toggle toggle-stable">
-           <input class="timeCb" type="checkbox" {{checked "4" }} value="4">
-           <div class="track">
-             <div class="handle"></div>
-           </div>
-         </label>
-        </li>
-        <li class="item item-toggle">
-            {{_ "Friday" }}
-         <label class="toggle toggle-stable">
-           <input class="timeCb" type="checkbox" {{checked "5" }} value="5">
-           <div class="track">
-             <div class="handle"></div>
-           </div>
-         </label>
-        </li>
-
-        <li class="item item-toggle">
-            {{_ "Saturday" }}
-         <label class="toggle toggle-stable">
-           <input class="timeCb" type="checkbox" {{checked "6" }} value="6">
-           <div class="track">
-             <div class="handle"></div>
-           </div>
-         </label>
-        </li>
-        <li class="item item-toggle">
-            {{_ "Sunday" }}
-         <label class="toggle toggle-stable">
-           <input class="timeCb" type="checkbox" {{checked "7" }} value="7">
-           <div class="track">
-             <div class="handle"></div>
-           </div>
-         </label>
-        </li>
+      <li class="item item-input">
+        <input type="time" class="from" value={{workHourTimeObj.from}}>
+      </li>
+      <li class="item item-input">
+        <input type="time" class="to" value={{workHourTimeObj.to}}>
+      </li>
 
 
+      <li class="item item-toggle">
+        {{_ "Monday" }}
+        <label class="toggle toggle-stable">
+          <input class="timeCb" type="checkbox" {{checked "1" }} value="1">
+
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </li>
+      <li class="item item-toggle">
+        {{_ "Tuesday" }}
+        <label class="toggle toggle-stable">
+          <input class="timeCb" type="checkbox" {{checked "2" }} value="2">
+
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </li>
+      <li class="item item-toggle">
+        {{_ "Wednesday" }}
+        <label class="toggle toggle-stable">
+          <input class="timeCb" type="checkbox" {{checked "3" }} value="3">
+
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </li>
+      <li class="item item-toggle">
+        {{_ "Thursday" }}
+        <label class="toggle toggle-stable">
+          <input class="timeCb" type="checkbox" {{checked "4" }} value="4">
+
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </li>
+      <li class="item item-toggle">
+        {{_ "Friday" }}
+        <label class="toggle toggle-stable">
+          <input class="timeCb" type="checkbox" {{checked "5" }} value="5">
+
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </li>
+
+      <li class="item item-toggle">
+        {{_ "Saturday" }}
+        <label class="toggle toggle-stable">
+          <input class="timeCb" type="checkbox" {{checked "6" }} value="6">
+
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </li>
+      <li class="item item-toggle">
+        {{_ "Sunday" }}
+        <label class="toggle toggle-stable">
+          <input class="timeCb" type="checkbox" {{checked "7" }} value="7">
+
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </li>
 
 
-      {{/ionContent}}
-    {{/ionView}}
+
+
+    {{/ionContent}}
+  {{/ionView}}
 
 </template>

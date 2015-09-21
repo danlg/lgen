@@ -7,22 +7,22 @@ var isPlayingSound = false;
 /* ClassDetail: Event Handlers */
 /*****************************************************************************/
 Template.ClassDetail.events({
-  'click .tab-item': function(e) {
+  'click .tab-item': function (e) {
     var msgId = $(e.target.parentNode).data("msgid");
     var action = $(e.target.parentNode).data("action");
     IonLoading.show();
-    Meteor.call('updateMsgRating', action, msgId, classObj, function(argument) {
+    Meteor.call('updateMsgRating', action, msgId, classObj, function (argument) {
       IonLoading.hide();
     });
   },
-  'click .imgThumbs': function(e) {
+  'click .imgThumbs': function (e) {
     e.preventDefault();
     var imageFullSizePath = $(e.target).data('fullsizeimage');
     IonModal.open('imageModal', {
       src: imageFullSizePath
     });
   },
-  'click .playBtn': function(e) {
+  'click .playBtn': function (e) {
     if (!isPlayingSound) {
       isPlayingSound = true;
       var playname = $(e.target).data('clipid');
@@ -30,7 +30,7 @@ Template.ClassDetail.events({
       $(e.target).attr('class', 'button button-icon icon ion-stop ');
 
       // alert("startPlay");
-      playAudio(Sounds.findOne(playname).url(), function(argument) {
+      playAudio(Sounds.findOne(playname).url(), function (argument) {
         $(e.target).attr('class', 'button button-icon icon ion-play playBtn');
         isPlayingSound = false;
       });
@@ -42,33 +42,33 @@ Template.ClassDetail.events({
 /* ClassDetail: Helpers */
 /*****************************************************************************/
 Template.ClassDetail.helpers({
-  classObj: function() {
+  classObj: function () {
     classObj = Classes.findOne();
     return classObj;
   },
-  classCode: function() {
+  classCode: function () {
     var classObj = Classes.findOne();
     return classObj.classCode;
   },
-  className: function() {
+  className: function () {
     return classObj.className;
   },
-  getClassName: function() {
+  getClassName: function () {
     return Classes.findOne().className;
   },
-  actions: function() {
+  actions: function () {
     return ["star", "checked", "close", "help"];
   },
-  isNotEmpty: function(action) {
+  isNotEmpty: function (action) {
     return action.length > 0;
   },
-  createBy: function() {
+  createBy: function () {
     return classCode.createBy;
   },
-  isSelectAction: function(action) {
+  isSelectAction: function (action) {
     return lodash.includes(lodash.map(action, "_id"), Meteor.userId()) ? "colored" : "";
   },
-  getMessagesObj: function() {
+  getMessagesObj: function () {
     var classObj = Classes.findOne();
     if (classObj.messagesObj.length > 0) {
       return classObj.messagesObj;
@@ -76,20 +76,20 @@ Template.ClassDetail.helpers({
       return false;
     }
   },
-  teacherName: function() {
+  teacherName: function () {
     return teacherName.get();
   },
-  havePic: function() {
+  havePic: function () {
     return this.imageArr.length > 0;
   },
-  getImage: function() {
+  getImage: function () {
     var id = this.toString();
     return Images.findOne(id);
   },
-  haveSound: function() {
+  haveSound: function () {
     return this.soundArr.length > 0;
   },
-  getSound: function() {
+  getSound: function () {
     var id = this.toString();
     return Sounds.findOne(id);
   }
@@ -98,15 +98,16 @@ Template.ClassDetail.helpers({
 /*****************************************************************************/
 /* ClassDetail: Lifecycle Hooks */
 /*****************************************************************************/
-Template.ClassDetail.created = function() {};
+Template.ClassDetail.created = function () {
+};
 
-Template.ClassDetail.rendered = function() {
-  Meteor.call('getFullNameById', classObj.createBy, function(err, data) {
+Template.ClassDetail.rendered = function () {
+  Meteor.call('getFullNameById', classObj.createBy, function (err, data) {
     return teacherName.set(data);
   });
 };
 
-Template.ClassDetail.destroyed = function() {
+Template.ClassDetail.destroyed = function () {
 
 };
 
@@ -115,13 +116,13 @@ function playAudio(url, callback) {
   // console.log(callback);
   var my_media = new Media(url,
     // success callback
-    function() {
+    function () {
       console.log("playAudio():Audio Success");
       callback();
       console.log("calledback");
     },
     // error callback
-    function(err) {
+    function (err) {
       console.log("playAudio():Audio Error: " + err);
     }
   );
