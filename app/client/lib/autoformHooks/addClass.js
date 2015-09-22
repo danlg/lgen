@@ -20,12 +20,14 @@ var postHooks = {
       err ? alert(err.reason) : Router.go('TabClasses');
     });
   },
-  onError: function (formType, error) {
 
+  onError: function (formType, error) {
     alert(error.reason);
   },
+
   beginSubmit: function () {
   },
+
   endSubmit: function () {
   }
 };

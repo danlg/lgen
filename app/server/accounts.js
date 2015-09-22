@@ -3,7 +3,6 @@ Accounts.config({
   //loginExpirationInDays: null
 });
 
-
 ServiceConfiguration.configurations.remove({
   service: "google",
 });
@@ -13,7 +12,6 @@ ServiceConfiguration.configurations.insert({
     clientId: Meteor.settings.GOOGLE_CLIENT_ID,
     secret:   Meteor.settings.GOOGLE_SECRET
 });
-
 
 Accounts.onCreateUser(function (options, user) {
   // analytics.track("Sign Up", {

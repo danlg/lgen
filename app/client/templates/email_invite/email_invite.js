@@ -17,7 +17,7 @@ Template.EmailInvite.events({
     var targetFirstEmail = targetEmails[0];
 
 
-    Meteor.call("class/invite", classObj, targetFirstEmail, function (err) {
+    Meteor.call( "classinvite", classObj, targetFirstEmail, function (err) {
 
       alert("Invite Success");
 

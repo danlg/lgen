@@ -1,35 +1,25 @@
 <template name="UserDetail">
 
-{{#contentFor "headerTitle"}}
-    <h1 class="title">User</h1>
-{{/contentFor}}
+  {{#contentFor "headerTitle"}}
+      <h1 class="title">User</h1>
+  {{/contentFor}}
 
-
-
-
-{{#contentFor "headerButtonLeft"}}
-  {{>ionNavBackButton text=""}}
-{{/contentFor}}
-
-
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton text=""}}
+  {{/contentFor}}
 
   <!-- {{#contentFor "headerButtonRight"}}
       <button  class="button button-clear button-entering button-active addClassBtn">Add</button>
     {{/contentFor}} -->
 
-{{#ionView}}
-  {{#ionContent}}
-
-
-
+    {{#ionView}}
+    {{#ionContent}}
 
       <div class="row row-center" style="height:100px">
         <div class="row"><h1>{{userPofile.profile.firstname}} {{userPofile.profile.lastname}}</h1></div>
       </div>
 
-
       <!-- <div class="padding">Recive notice method</div>
-
       <div class="list">
         <div href="#" class="item item-icon-left">
            <i class="icon ion-ios-email"></i>
@@ -40,8 +30,6 @@
            Android
         </div>
       </div> -->
-
-
       <div class="list">
 
         <a href="{{pathFor 'Commend' classCode=classCode _id=userId classId=classId }}">
@@ -50,11 +38,9 @@
           </div>
         </a>
 
-
         <div class="item item-divider">
           Their Class
         </div>
-
 
         <div class="item">
           {{#each hisJoinedClasses}}
@@ -78,8 +64,6 @@
             <i class="icon ion-alert"></i>
           </div>
         {{/if}}
-
-
       </div>
 
       <!-- {{#if isStudentHigherThirteen }} -->
@@ -90,7 +74,6 @@
             to {{userPofile.profile.firstname}} {{userPofile.profile.lastname}}</div>
         </div>
     {{/if}}
-
 
     {{/ionContent}}
   {{/ionView}}

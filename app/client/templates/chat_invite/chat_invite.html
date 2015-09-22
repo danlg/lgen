@@ -1,55 +1,37 @@
 <template name="ChatInvite">
-
   {{#contentFor "headerTitle"}}
-    <h1 class="title">Chat</h1>
+    <h1 class="title">{{_ "Chat"}} </h1>
   {{/contentFor}}
-
-
-
-
   {{#contentFor "headerButtonLeft"}}
     {{>ionNavBackButton text="Cancel"}}
   {{/contentFor}}
-
-
-
   {{#contentFor "headerButtonRight"}}
     <div style="position: absolute; right: 0;">
       <!-- <button  class="button button-clear button-entering button-active sendMsgBtn">Send</button> -->
       <!-- <button  class="button button-clear button-entering button-active msgDoneClassBtn {{doneClassBtnStatus}}">Done</button> -->
-
     </div>
   {{/contentFor}}
-
-
 
   {{#ionView}}
     {{#ionContent}}
 
       <div class="list">
         <!-- <label class="item item-input">
-    To :
-    &nbsp;
-
+    To : &nbsp;
     <select class="js-example-basic-multiple" multiple="multiple">
         {{#each classesJoinedOwner}}
             <option value={{_id}}>{{profile.firstname}} {{profile.lastname}}</option>
         {{/each}}
-
     </select>
-
   </label> -->
         <!-- <div class="item">
     To: {{tagertList}}
   </div> -->
-
-
-
         {{#with classesJoinedOwner}}
 
           <div class="item item-input">
             <i class="icon ion-search placeholder-icon"></i>
-            <input type="search" class="searchbar" placeholder="{{_ 'search'}}">
+            <input type="search" class="searchbar" placeholder="{{_ "Search"}}">
           </div>
 
           {{#each this}}
@@ -73,14 +55,11 @@
 
       </div>
 
-
       <div class="bar bar-footer bar-stable startChatBtn {{shouldhide}} ">
         <div class="title">Next</div>
       </div>
 
       <!-- <a href="{{pathFor 'ChatRoom' }}" class="button"></a> -->
-
     {{/ionContent}}
   {{/ionView}}
-
 </template>

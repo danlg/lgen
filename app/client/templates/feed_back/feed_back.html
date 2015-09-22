@@ -2,32 +2,21 @@
   {{#contentFor "headerTitle"}}
     <h1 class="title">{{_"Feedback"}}</h1>
   {{/contentFor}}
-
-
-
-
   {{#contentFor "headerButtonLeft"}}
     {{>ionNavBackButton text=" "}}
   {{/contentFor}}
-
-
-
   {{#contentFor "headerButtonRight"}}
     <button class="button button-clear button-entering button-active feedbackSend">{{_"Send"}}</button>
   {{/contentFor}}
-
-
 
   {{#ionView}}
     {{#ionContent}}
 
       <div class="list">
-
         <label class="item item-input">
           <textarea class="feedbackContent" placeholder="{{_"feedbackTextarea"}}" style="height:400px"></textarea>
         </label>
       </div>
-
 
     {{/ionContent}}
   {{/ionView}}

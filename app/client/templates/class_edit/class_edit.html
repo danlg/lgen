@@ -1,34 +1,19 @@
 <template name="ClassEdit">
   {{#contentFor "headerTitle"}}
-    <h1 class="title">Add class</h1>
+    <h1 class="title">{{_ "AddClass" }}</h1>
   {{/contentFor}}
-
-
-
-
   {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton text="Cancel"}}
+    <!--{{> ionNavBackButton text="{{_ "Cancel" }}" }}-->
+    {{> ionNavBackButton text="Cancel" }}
   {{/contentFor}}
-
-
-
-
   {{#contentFor "headerButtonRight"}}
-    <button class="button button-clear button-entering button-active saveClassBtn">save</button>
+    <button class="button button-clear button-entering button-active saveClassBtn">{{_ "Save" }} </button>
   {{/contentFor}}
-
-
-
 
   {{#ionView}}
     {{#ionContent}}
 
-
-
       {{#autoForm collection="Classes" id="updateClass" type="update" doc=classObj   }}
-
-
-
 
         <ul class="list ">
           <li class="item item-input">
@@ -37,7 +22,6 @@
           <li class="item item-input">
             @ {{> afFieldInput name="classCode" class="classCode" placeholder="classcode" }}
           </li>
-
 
           <li class="item item-toggle">
             {{_ "AnyoneInThisClassCanStartAChat"}}
@@ -50,7 +34,6 @@
             </label>
           </li>
 
-
           <li class="item item-toggle">
             {{_ "IWillOnlyMessagePeople13AndOlder"}}
             <label class="toggle">
@@ -61,7 +44,7 @@
             </label>
           </li>
           <li class="item item-toggle">
-            Allow this class can be search
+            Allow this class to be searched
 
             <label class="toggle">
               {{> afFieldInput name="canBeSearch" }}
@@ -74,24 +57,13 @@
 
         </ul>
 
-
-
       {{/autoForm}}
-
-
-
-
-
-
 
       <div style="position: fixed; width: 100vw; bottom: 0;">
 
-        <a class="button button-full button-assertive button-outline removeAllUserBtn">{{_"RemoveAllUsers"}}</a>
-        <a class="button button-full button-assertive button-outline removeClass">{{_"RemoveClass"}}</a>
+        <a class="button button-full button-assertive button-outline removeAllUserBtn">{{_ "RemoveAllUsers"}}</a>
+        <a class="button button-full button-assertive button-outline removeClass">{{_ "RemoveClass"}}</a>
       </div>
-
-
-
 
     {{/ionContent}}
   {{/ionView}}
