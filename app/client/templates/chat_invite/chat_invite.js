@@ -8,12 +8,12 @@ var searchString = ReactiveVar("");
 Template.ChatInvite.events({
   'click .startChatBtn': function () {
     /*var chatArr =  $('.js-example-basic-multiple').val();*/
-    Meteor.call('chat/create', targetIds.get(), function (err, data) {
+      Meteor.call('chatCreate', targetIds.get(), function (err, data) {
       Router.go('ChatRoom', {chatRoomId: data});
     });
-
     /*console.log($('.js-example-basic-multiple').val());*/
   },
+
   'change .targetCB': function (e) {
     targetString = [];
     targetIds.set([]);
@@ -25,11 +25,10 @@ Template.ChatInvite.events({
     // $(e.target).attr('checked','checked');
     localarr.push($(e.target).val());
     targetString.push($(e.target).data("fullname"));
-
     targetStringVar.set(targetString);
     targetIds.set(localarr);
-
   },
+
   'keyup .searchbar': function () {
     searchString.set($(".searchbar").val().trim());
   }
@@ -47,18 +46,22 @@ Template.ChatInvite.helpers({
       return classesJoinedOwner;
     }
   },
+
   userName: function (profile) {
     return getFullNameByProfileObj(profile);
   },
-  targetCB: function () {
 
+  targetCB: function () {
   },
+
   tagertList: function () {
     return targetStringVar.get();
   },
+
   shouldhide: function () {
     return targetIds.get().length > 0 ? "" : "hide";
   },
+
   isSearchable: function () {
     return lodash.includes(getFullNameByProfileObj(this.profile).toUpperCase(), searchString.get().toUpperCase());
   }

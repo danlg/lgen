@@ -20,13 +20,12 @@ Template.FeedBack.rendered = function () {
 Template.FeedBack.destroyed = function () {
 };
 
-
 Template.ionNavBar.events({
   'click .feedbackSend': function (e, template) {
     IonLoading.show({
       backdrop: true
     });
-    Meteor.call("FeedBack", $(".feedbackContent").val(), function (err, result) {
+    Meteor.call("feedback", $(".feedbackContent").val(), function (err, result) {
       IonLoading.hide();
       if (err)
         alert(err.reason);

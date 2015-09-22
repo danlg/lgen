@@ -4,7 +4,7 @@
 Template.UserDetail.events({
   'click .talkToBtn': function (e) {
     var targetIds = [Router.current().params._id];
-    Meteor.call('chatcreate', targetIds, function (err, data) {
+      Meteor.call('chatCreate', targetIds, function (err, data) {
       Router.go('ChatRoom', {chatRoomId: data});
     });
   }

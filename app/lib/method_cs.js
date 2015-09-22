@@ -112,7 +112,7 @@ Meteor.methods({
     Classes.update({_id: doc._id}, {$set: doc});
   },
 
-  'chat/SendMessage': function (chatRoomId, text) {
+  'chat/sendMessage': function (chatRoomId, text) {
     var pushObj = {};
     pushObj.from = Meteor.userId();
     pushObj.sendAt = moment().format('x');
@@ -123,7 +123,7 @@ Meteor.methods({
     //Mandrill.messages.send
   },
 
-  'chat/SendImage': function (chatRoomId, pushObj) {
+  'chat/sendImage': function (chatRoomId, pushObj) {
     //  var pushObj = {};
     //    pushObj.from = Meteor.userId();
     //    pushObj.sendAt = moment().format('x');

@@ -7,30 +7,24 @@ var needReduce = false;
 /* ChatRoom: Event Handlers */
 /*****************************************************************************/
 Template.ChatRoom.events({
-  'click .sendBtn': function () {
 
+  'click .sendBtn': function () {
     if (Meteor.user().profile.firstchat) {
       analytics.track("First Chat", {
         date: new Date(),
       });
-
       Meteor.call("updateProfileByPath", 'profile.firstchat', false);
     }
-
-
     var text = $('.inputBox').val();
     template.atBottom = true;
     if (!lodash.isEmpty(text)) {
-      Meteor.call('chat/SendMessage', Router.current().params.chatRoomId, text, function (err, data) {
+      Meteor.call('chat/sendMessage', Router.current().params.chatRoomId, text, function (err, data) {
         if (!err) {
-
           var text = $('.inputBox').val();
           $('.inputBox').val("");
-
           var targetId = Meteor.users.findOne({_id: {$nin: [Meteor.userId()]}})._id;
           var query = {};
           query.userId = targetId;
-
           var notificationObj = {};
           notificationObj.from = getFullNameByProfileObj(Meteor.user().profile);
           notificationObj.title = getFullNameByProfileObj(Meteor.user().profile);
@@ -40,51 +34,45 @@ Template.ChatRoom.events({
             type: 'chat'
           };
           notificationObj.query = query;
-
-
           Meteor.call("serverNotification", notificationObj);
-
-
         }
-
       });
     }
   },
+
   'click .imageIcon': function (argument) {
     // alert("asd");
     // imageAction();
   },
+
   'change .inputBox': function () {
     var height = $(".inputBoxList").height() + 2;
     $(".chatroomList").css(height, "(100% - " + height + "px )");
   },
-  'click #imageBtn': function (e) {
 
+  'click #imageBtn': function (e) {
     if (Meteor.isCordova) {
       if (window.device.platform === "Android") {
         e.preventDefault();
         imageAction();
       }
     }
-
   },
+
   'change #imageBtn': function (event, template) {
-
     FS.Utility.eachFile(event, function (file) {
-
       Images.insert(file, function (err, fileObj) {
         if (err) {
           // handle error
           console.log(err);
-        } else {
-
+        }
+        else {
           var pushObj = {};
           pushObj.from = Meteor.userId();
           pushObj.sendAt = moment().format('x');
           pushObj.text = "";
           pushObj.image = fileObj._id;
-
-          Meteor.call("chat/SendImage", Router.current().params.chatRoomId, pushObj, function (error, result) {
+          Meteor.call("chat/sendImage", Router.current().params.chatRoomId, pushObj, function (error, result) {
             if (error) {
               console.log("error", error);
             }
@@ -104,54 +92,41 @@ Template.ChatRoom.events({
             sound: 'Hello World',
             type: 'chat'
           };
-
-
           Meteor.call("serverNotification", notificationObj);
-
           if (Meteor.user().profile.firstpicture) {
             analytics.track("First Picture", {
               date: new Date(),
             });
-
             Meteor.call("updateProfileByPath", 'profile.firstpicture', false);
           }
-
-
         }
       });
     });
-
-
   },
+
   'click .imgThumbs': function (e) {
     var imageFullSizePath = $(e.target).data('fullsizeimage');
     IonModal.open('imageModal', {src: imageFullSizePath});
   },
+
   'click .voice': function (argument) {
-
     if (!isRecording) {
-
       console.log('startRec');
       media = getNewRecordFile();
       media.startRecord();
       isRecording = true;
       $(".icon.ion-mic-a").attr("class", "icon ion-stop");
-
       setTimeout(function () {
         if (isRecording)
           media.stopRecord();
       }, 1000 * 60 * 3);//3 min max
-
-
-    } else {
+    }
+    else {
       console.log('stopRec');
       media.stopRecord();
       //  playAudio(media.src);
       isRecording = false;
-
       $(".icon.ion-stop").attr("class", "icon ion-mic-a");
-
-
       switch (window.device.platform) {
         case "Android":
           window.resolveLocalFileSystemURL(cordova.file.externalRootDirectory + media.src, onResolveSuccess, fail);
@@ -159,10 +134,7 @@ Template.ChatRoom.events({
         case "iOS":
           window.resolveLocalFileSystemURL(cordova.file.tempDirectory + media.src, onResolveSuccess, fail);
           break;
-
       }
-
-
       // Sounds.insert(media.src,function (err, fileObj) {
       //   if(err){
       //     alert(err);
@@ -170,17 +142,15 @@ Template.ChatRoom.events({
       //     alert('success');
       //   }
       // });
-
     }
-
   },
+
   'click .playBtn': function (e) {
     if (!isPlayingSound) {
       isPlayingSound = true;
       var playname = $(e.target).data('clipid');
       //  $(e.target).attr('class','icon ion-stop');
       $(e.target).attr('class', 'button button-icon icon ion-stop ');
-
       // alert("startPlay");
       playAudio(Sounds.findOne(playname).url(), function (argument) {
         //  alert("callback!");
@@ -188,56 +158,60 @@ Template.ChatRoom.events({
         isPlayingSound = false;
       });
     }
-
     //  music.addEventListener('ended',function (argument) {
     //    $(e.target).attr('class','icon ion-play');
     //  },false);
   }
-
-
 });
 
 /*****************************************************************************/
 /* ChatRoom: Helpers */
 /*****************************************************************************/
 Template.ChatRoom.helpers({
-  'chatRoomProfile': function () {
+  chatRoomProfile: function () {
     return Chat.findOne({_id: Router.current().params.chatRoomId});
   },
-  'isMind': function () {
-    return this.from === Meteor.userId() ? "mind" : "notmind";
+
+  isMine: function () {
+    return this.from === Meteor.userId() ? "mine" : "notmine";
   },
+
   sendTime: function (sendAt) {
     return moment(sendAt, "HH:mm");
   },
+
   userProfile: function () {
     var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
     return lodash.reject(arr, {_id: Meteor.userId()})[0];
   },
+
   getName: function (profile) {
-
     var userObj = Meteor.users.findOne({_id: {$nin: [Meteor.userId()]}});
-
     return getFullNameByProfileObj(userObj.profile);
   },
+
   isText: function () {
     return this.text !== "";
   },
+
   isImage: function () {
     return this.image && this.image !== "";
   },
+
   isSound: function (argument) {
     return this.sound && this.sound !== "";
   },
+
   getImage: function () {
     var ImageId = this.image.replace("/cfs/files/images/", "");
     return Images.findOne(ImageId);
   },
+
   isWorkOff: function (argument) {
     var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
     var targetUserObj = lodash.reject(arr, {_id: Meteor.userId()})[0];
-
   },
+
   targertWorkingTime: function (argument) {
     var target = Meteor.users.findOne({_id: {$ne: Meteor.userId()}});
     if (target.profile.role === "Teacher") {
@@ -253,7 +227,8 @@ Template.ChatRoom.helpers({
           // console.log(height);
           // $(".list.chatroomList").height(height+"px");
           needReduce = true;
-        } else {
+        }
+        else {
           needReduce = false;
         }
         return !range.contains(moment());
@@ -261,11 +236,13 @@ Template.ChatRoom.helpers({
     }
     return false;
   },
+
   getSound: function (argument) {
     // var SoundId = this.image.replace("/cfs/files/sounds/","");
     return Sounds.findOne(this.sound);
   },
-  SoundsArr: function (argument) {
+
+  soundsCollection: function (argument) {
     return Sounds.find();
   }
 
@@ -278,35 +255,21 @@ Template.ChatRoom.created = function () {
 };
 
 Template.ChatRoom.rendered = function () {
-
-
   $(".list.chatroomList").height("100%");
   $(".list.chatroomList").height(($(".list.chatroomList").height() - 123) + "px");
-
-
   $(".inputBox").autogrow();
-
   chatroomList = this.find('.chatroomList');
-
   template = this;
-
   template.atBottom = true;
-
-
   var onscroll;
-
-
   onscroll = _.throttle(function () {
     return template.atBottom = chatroomList.scrollTop >= chatroomList.scrollHeight - chatroomList.clientHeight;
   }, 200);
-
-
   Meteor.setInterval(function () {
     if (template.atBottom) {
       chatroomList.scrollTop = chatroomList.scrollHeight - chatroomList.clientHeight;
     }
   }, 100);
-
 
   chatroomList.addEventListener('touchstart', function () {
     return template.atBottom = false;
@@ -331,68 +294,54 @@ Template.ChatRoom.rendered = function () {
     return onscroll();
   });
 
-
   // if(needReduce){
-  //
   //   var height = $(".list.chatroomList").height();
   //   height= height - 60;
   //   console.log(height);
   //   $(".list.chatroomList").height(height+"px");
-  //
   //   needReduce = false;
   // }else{
-  //
   //   var height = $(".list.chatroomList").height();
   //   height= height + 60;
   //   console.log(height);
   //   $(".list.chatroomList").height(height+"px");
-  //
   // }
-
-
 };
 
 Template.ChatRoom.destroyed = function () {
 };
 
-
 function onSuccess(imageURI) {
   // var image = document.getElementById('myImage');
   // image.src = "data:image/jpeg;base64," + imageData;
-
   // alert(imageData);
   window.resolveLocalFileSystemURI(imageURI,
     function (fileEntry) {
       // alert("got image file entry: " + fileEntry.fullPath);
-
       // console.log(fileEntry.)
       fileEntry.file(function (file) {
         // alert(file);
         console.log(file);
-
-
         Images.insert(file, function (err, fileObj) {
           if (err) {
             // handle error
             console.log(err);
-          } else {
-
+          }
+          else {
             var pushObj = {};
             pushObj.from = Meteor.userId();
             pushObj.sendAt = moment().format('x');
             pushObj.text = "";
             pushObj.image = fileObj._id;
 
-            Meteor.call("chat/SendImage", Router.current().params.chatRoomId, pushObj, function (error, result) {
+            Meteor.call("chat/sendImage", Router.current().params.chatRoomId, pushObj, function (error, result) {
               if (error) {
                 console.log("error", error);
               }
             });
-
             var targetId = Meteor.users.findOne({_id: {$nin: [Meteor.userId()]}})._id;
             var query = {};
             query.userId = targetId;
-
             var notificationObj = {};
             notificationObj.from = getFullNameByProfileObj(Meteor.user().profile);
             notificationObj.title = getFullNameByProfileObj(Meteor.user().profile);
@@ -403,15 +352,9 @@ function onSuccess(imageURI) {
               sound: 'Hello World',
               type: 'chat'
             };
-
-
             Meteor.call("serverNotification", notificationObj);
-
-
           }
         });
-
-
       });
     },
     function () {
@@ -419,60 +362,47 @@ function onSuccess(imageURI) {
       // alert("ada");
     }
   );
-
 }
 
 function onFail(message) {
   alert('Failed because: ' + message);
 }
-
 // Record audio
-
-
 function onFileSystemSuccess(fileSystem) {
   console.log('onFileSystemSuccess: ' + fileSystem.name);
 }
 
 function onResolveSuccess(fileEntry) {
   console.log('onResolveSuccess: ' + fileEntry.name);
-
   fileEntry.file(function (file) {
-
     var newFile = new FS.File(file);
     //newFile.attachData();
     //console.log(newFile);
-
     Sounds.insert(newFile, function (err, fileObj) {
       if (err) {
         //handle error
         console.log("insert error" + err);
-      } else {
+      }
+      else {
         //handle success depending what you need to do
         console.dir(fileObj);
         var fileURL = {
           "file": "/cfs/files/files/" + fileObj._id
         };
         console.log(fileURL.file);
-
-
         var pushObj = {};
         pushObj.from = Meteor.userId();
         pushObj.sendAt = moment().format('x');
         pushObj.text = "";
         pushObj.sound = fileObj._id;
-
-
-        Meteor.call("chat/SendImage", Router.current().params.chatRoomId, pushObj, function (error, result) {
+        Meteor.call("chat/sendImage", Router.current().params.chatRoomId, pushObj, function (error, result) {
           if (error) {
             console.log("error", error);
           }
         });
-
-
         var targetId = Meteor.users.findOne({_id: {$nin: [Meteor.userId()]}})._id;
         var query = {};
         query.userId = targetId;
-
         var notificationObj = {};
         notificationObj.from = getFullNameByProfileObj(Meteor.user().profile);
         notificationObj.title = getFullNameByProfileObj(Meteor.user().profile);
@@ -483,19 +413,13 @@ function onResolveSuccess(fileEntry) {
           sound: 'Hello World',
           type: 'chat'
         };
-
-
         // if(Meteor.user().profile.firstpicture){
         //   analytics.track("First Picture", {
         //     date: new Date(),
         //   });
-        //
         //   Meteor.call("updateProfileByPath", 'profile.firstpicture',false);
         // }
-
-
         Meteor.call("serverNotification", notificationObj);
-
       }
     });
   });
@@ -504,7 +428,6 @@ function onResolveSuccess(fileEntry) {
 function fail(error) {
   console.log('fail: ' + error.code);
 }
-
 
 function playAudio(url, callback) {
   // Play the audio file at url
@@ -523,10 +446,7 @@ function playAudio(url, callback) {
   );
   // Play audio
   my_media.play({numberOfLoops: 1});
-
-
 }
-
 
 var callback = function (buttonIndex) {
   setTimeout(function () {
@@ -551,10 +471,8 @@ var callback = function (buttonIndex) {
       default:
 
     }
-
   });
 };
-
 
 function imageAction() {
   var options = {

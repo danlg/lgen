@@ -34,7 +34,7 @@ Meteor.methods({
     }
   },
 
-  Feedback: function (content) {
+  feedback: function (content) {
     // feedback@littlegenius.io
     try {
       Mandrill.messages.send(feedback(content));
@@ -87,7 +87,6 @@ Meteor.methods({
     msgObj.help  = [];
     msgObj.imageArr = mediaObj.imageArr;
     msgObj.soundArr = mediaObj.soundArr;
-
     Classes.update({
       classCode: {
         $in: target
@@ -144,7 +143,7 @@ Meteor.methods({
     }
   },
 
-  chatcreate: function (chatArr) {
+  chatCreate: function (chatArr) {
     /*var _id = lodash.first(chatArr);*/
     // var arrOfUser = Meteor.users.find({_id:{$in:chatArr}}).fetch();
     // arrOfUser.push(Meteor.user());
