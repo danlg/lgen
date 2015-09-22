@@ -1,14 +1,11 @@
-/*****************************************************************************/
 /* Server Only Methods */
-/*****************************************************************************/
-
 
 Meteor.methods({
    /* Example:
    * '/app/items/insert': function (item) {}
    */
 
-  'ping': function () {
+  ping: function () {
     this.unblock();
     try {
       console.log(Mandrill.users.ping());
@@ -18,7 +15,7 @@ Meteor.methods({
     }
   },
 
-  'ping2': function () {
+  ping2: function () {
     this.unblock();
     try {
       console.log(Mandrill.users.ping2());
@@ -28,7 +25,7 @@ Meteor.methods({
     }
   },
 
-  'testEmail': function () {
+  testEmail: function () {
     try {
       Mandrill.messages.send(testMail("", ""));
     }
@@ -37,7 +34,7 @@ Meteor.methods({
     }
   },
 
-  'FeedBack': function (content) {
+  Feedback: function (content) {
     // feedback@littlegenius.io
     try {
       Mandrill.messages.send(feedback(content));
@@ -47,10 +44,11 @@ Meteor.methods({
     }
   },
 
-  'addClassMail': function (to, _id) {
+  addClassMail: function (to, _id) {
     var classObj = Classes.findOne( {_id: _id});
     if (lodash.get(Meteor.user(), "profile.email")) {
       try {
+        retrieveContent("en");
         Mandrill.messages.send(addClassMailTemplate(to, classObj.className, classObj.classCode));
       }
       catch (e) {
@@ -59,8 +57,8 @@ Meteor.methods({
     }
   },
 
-  "class/invite": function (classObj, targetFirstEmail) {
-    var acceptLink = process.env.WEB_URL + classObj.classCode;
+  classinvite: function (classObj, targetFirstEmail) {
+    var acceptLink = Meteor.settings.WEB_URL + classObj.classCode;
     var acceptLinkEncoded = encodeURI(acceptLink);
     var first = Meteor.user().profile.firstname;
     var last = Meteor.user().profile.lastname;
@@ -75,19 +73,18 @@ Meteor.methods({
         console.log(e);
       }
     }
-
   },
 
-  "sendMsg": function (target, msg, mediaObj, classId) {
+  sendMsg: function (target, msg, mediaObj, classId) {
     var msgObj = {};
     var date = moment().format('x');
     // msgObj.msgId = CryptoJS.SHA1(date + msg).toString().substring(0, 6);
     msgObj.msgId = Random.id();
     msgObj.content = msg;
     msgObj.checked = [];
-    msgObj.star = [];
+    msgObj.star  = [];
     msgObj.close = [];
-    msgObj.help = [];
+    msgObj.help  = [];
     msgObj.imageArr = mediaObj.imageArr;
     msgObj.soundArr = mediaObj.soundArr;
 
@@ -120,7 +117,7 @@ Meteor.methods({
     });
   },
 
-  'updateMsgRating': function (type, msgId, classObj) {
+  updateMsgRating: function (type, msgId, classObj) {
     var arr = ["star", "checked", "close", "help"];
     var selector = {};
     selector.classCode = classObj.classCode;
@@ -147,7 +144,7 @@ Meteor.methods({
     }
   },
 
-  'chat/create': function (chatArr) {
+  chatcreate: function (chatArr) {
     /*var _id = lodash.first(chatArr);*/
     // var arrOfUser = Meteor.users.find({_id:{$in:chatArr}}).fetch();
     // arrOfUser.push(Meteor.user());
@@ -167,13 +164,13 @@ Meteor.methods({
     Meteor.users.update({_id: Meteor.userId()}, {$set: {'profile.chatSetting': doc}}, {validate: false});
   },
 
-  'getFullNameById': function (id) {
+  getFullNameById: function (id) {
     var userObj = Meteor.users.findOne({_id: id});
     var name = userObj.profile.firstname + " " + userObj.profile.lastname;
     return name;
   },
 
-  'chatSendImage': function (file, chatRoomId) {
+  chatSendImage: function (file, chatRoomId) {
     Images.insert(file, function (err, fileObj) {
       if (err) {
         // handle error
@@ -198,7 +195,7 @@ Meteor.methods({
     });
   },
 
-  'pushTest': function (userId) {
+  pushTest: function (userId) {
     Push.send({
       from: 'push',
       title: 'Hello',
@@ -217,7 +214,7 @@ Meteor.methods({
     }
   },
 
-  'insertImageTest': function (filePath) {
+  insertImageTest: function (filePath) {
     Images.insert(filePath, function (err, fileObj) {
       if (err)console.log(err);
       else {
@@ -226,7 +223,7 @@ Meteor.methods({
     });
   },
 
-  'addInvitedPplId': function (id) {
+  addInvitedPplId: function (id) {
     var profile = "";
     if (!Meteor.user().profile['invitedContactIds']) {
       profile = Meteor.user().profile;
@@ -243,11 +240,11 @@ Meteor.methods({
     }
   },
 
-  'getShareLink': function (classCode) {
-    return process.env.WEB_URL + classCode;
+  getShareLink: function (classCode) {
+    return Meteor.settings.WEB_URL + classCode;
   },
 
-  'giveComment': function (commentObj) {
+  giveComment: function (commentObj) {
     var selector = {};
     selector.userId = commentObj.userId;
     selector.classId = commentObj.classId;
@@ -270,11 +267,11 @@ Meteor.methods({
     Classes.update({_id: dataObject.classId}, {$pull: {joinedUserId: dataObject.userId}});
   },
 
-  'getPpLink': function (lang) {
-    return process.env.WEB_URL + "legal/" + lang + ".privacy.html";
+  getPpLink: function (lang) {
+    return Meteor.settings.WEB_URL + "legal/" + lang + ".privacy.html";
   },
 
-  'updateProfileByPath': function (path, value) {
+  updateProfileByPath: function (path, value) {
     // var obj = {};
     // obj = lodash.set(obj,path,value);
     var user = Meteor.user();
@@ -282,7 +279,7 @@ Meteor.methods({
     Meteor.users.update(Meteor.userId(), user);
   },
 
-  'updateProfileByPath2': function (path, fuc) {
+  updateProfileByPath2: function (path, fuc) {
     var value = lodash.get(Meteor.user(), 'profile.' + path) || "";
     var newValue = fuc(value);
     var updateObj = {};
@@ -290,7 +287,7 @@ Meteor.methods({
     Meteor.users.update(Meteor.userId(), {$set: updateObj});
   },
 
-  'addReferral': function (userId) {
+  addReferral: function (userId) {
     Meteor.users.update(Meteor.userId(), {$inc: {'profile.referral': 1}});
   }
 
