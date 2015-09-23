@@ -1,9 +1,9 @@
 {
   "public": {
-    "WEB_URL": "http://esprit.io/",
     "ROOT_URL": "http://esprit.io:8080",
-    "WEB_URL": "http://esprit.io/",
     "ROOT_URL_WITHOUT_PORT": "http://esprit.io/",
+
+    "WEB_URL": "http://esprit.io/",
     "PORT": 8080,
 
     "persistent_session": {
@@ -18,7 +18,7 @@
     }
   },
 
-  "FROM_EMAIL": "no-reply@esprit.io",
+  "FROM_EMAIL": "no-reply@littlegenius.io",
   "FROM_NAME": "Little Genius",
   "FEEDBACK_EMAIL": "feedback@littlegenius.io",
 
