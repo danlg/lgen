@@ -22,10 +22,8 @@
   overflow-x: hidden;
   overflow-y: auto;
   height: calc(100% - 123px);
-  // margin-bottom: 0;
-  // width: 100%;
+  //height: auto;
   bottom: 0;
-
   .item {
     /*border-color: #FFF !important;*/
     border-color: transparent;
@@ -50,7 +48,7 @@
 //   overflow-y: auto;
 // }
 
-.bubble {
+.bubbleold {
   position: relative;
   max-width: 50vw;
   /*width: 210px;
@@ -66,11 +64,36 @@
   border-color: ;*/
 }
 
+
+//here we see talkbubble
+//https://css-tricks.com/examples/ShapesOfCSS/
 .mine {
-  text-align: right;
+  text-align: left;
   .bubble {
     float: right;
     background: #C8EBB0;
+
+    position: relative;
+    max-width: 50vw;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-right: 10px;
+    padding-left: 10px;
+    -moz-border-radius:    3px;
+    -webkit-border-radius: 3px;
+    border-radius:         3px;
+  }
+  .bubble:before {
+    border-left: 12px solid #C8EBB0;//was not defined with .bubble
+    left: 100%;
+
+    content:"";
+    position: absolute;
+    //top: 26px;
+    width: 0;
+    height: 0;
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
   }
 }
 
@@ -79,7 +102,29 @@
   .bubble {
     float: left;
     background: #EAEAEA;
+
+    position: relative;
+    max-width: 50vw;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-right: 10px;
+    padding-left: 10px;
+    -moz-border-radius:    3px;
+    -webkit-border-radius: 3px;
+    border-radius:         3px;
   }
+  .bubble:before {
+    border-right: 12px solid #EAEAEA;//was not defined with .bubble
+    right: 100%;
+
+    content:"";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+  }
+
 }
 
 .ion-image::before,
