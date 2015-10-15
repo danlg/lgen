@@ -1,6 +1,6 @@
 App.info({
   id: 'io.littlegenius.genie',
-  name: 'Little Genius',
+  name: 'LittleGenius',
   description: 'Instant, free, simple communication for teachers, students and parents',
   author: 'Little Genius Education',
   email: 'contact@littlegenius.io',
