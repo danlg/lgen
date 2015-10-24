@@ -17,8 +17,6 @@
     "PORT": 8080
   },
 
-  "MONGO_URL": "mongodb://lgdb:genie123@c247.alcatraz.1.mongolayer.com:10247/littlegenius",
-
   "GOOGLE_CLIENT_ID": "122417300165-4i555ct1kvrf8fesec9bp1f9vprdrlef.apps.googleusercontent.com",
   "GOOGLE_SECRET": "jyI4QhG3lz2J_fXxSk1QXxJG",
 

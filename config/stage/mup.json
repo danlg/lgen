@@ -4,22 +4,10 @@
     "PORT": 8080,
     //"WEB_URL": "http://esprit.io/",
 
-    "FROM_EMAIL": "no-reply@littlegenius.io",
-    "FROM_NAME": "Little Genius",
-    "FEEDBACK_EMAIL": "feedback@littlegenius.io",
-
     //"MONGO_URL": "mongodb://localhost:27017/littlegenius",
-    //TODO change support to add both URL
-    //"MONGO_URL": "\"mongodb://lgdb:genie123@c247.alcatraz.1.mongolayer.com:10247,alcatraz.1.mongolayer.com:10247,alcatraz.0.mongolayer.com:10247/littlegenius?replicaSet=set-56286b556228d9247c000ffa\"",
-    "MONGO_URL": "mongodb://lgdb:genie123@c247.alcatraz.1.mongolayer.com:10247/littlegenius",
-    //"MONGO_OPLOG_URL": "\"mongodb://lgdb:genie123@c247.alcatraz.1.mongolayer.com:10247,alcatraz.1.mongolayer.com:10247,alcatraz.0.mongolayer.com:10247/local?authSource=littlegenius\"",
+    "MONGO_URL": "mongodb://lgdb:genie123@c247.alcatraz.1.mongolayer.com:10247,alcatraz.1.mongolayer.com:10247,alcatraz.0.mongolayer.com:10247/littlegenius?replicaSet=set-56286b556228d9247c000ffa",
+    "MONGO_OPLOG_URL": "mongodb://lgdb:genie123@c247.alcatraz.1.mongolayer.com:10247,alcatraz.1.mongolayer.com:10247,alcatraz.0.mongolayer.com:10247/local?authSource=littlegenius"
 
-    "GOOGLE_CLIENT_ID": "122417300165-4i555ct1kvrf8fesec9bp1f9vprdrlef.apps.googleusercontent.com",
-    "GOOGLE_SECRET": "jyI4QhG3lz2J_fXxSk1QXxJG",
-
-    "MANDRILL_USERNAME": "dan@littlegenius.io",
-    "MANDRILL_KEY": "GBt6d5ggNEP7969s9j9DyA",
-    "MANDRILL_PORT": 587
   },
 
   //stage
