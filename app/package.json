@@ -1,0 +1,15 @@
+{  
+  "name": "littlegenius",
+  "scripts": {
+    "start": "meteor --settings ../config/stage/settings.json",
+    "simulate": "meteor run ios --settings ../config/stage/settings.json",
+    "ios": "meteor run ios-device --settings ../config/stage/settings.json",
+    "build": "NODE_ENV=production VULCANIZE=true meteor build ../myapp-dist --server=https://api.myapp.com/ --mobile-settings settings-production.json",
+    "build-uat":  "meteor build ../dist -v --mobile-settings ../config/stage/settings.json --server=http://uat.littlegenius.io",
+    "deploy":  "cd ../dist && scp app.tar.gz lg@uat.littlegenius.io:~/app && ssh lg@uat.littlegenius.io \"cd app && tar xzvf app.tar.gz\"",
+    "deploy-mup" : "DEBUG=* mupx deploy --config=../config/stage/mup.json --settings=../config/stage/settings.json",
+    "setup" : "DEBUG=* mupx setup --config=../config/stage/mup.json --settings=../config/stage/settings.json",
+    "reconfig" : "DEBUG=* mupx setup --config=../config/stage/mup.json --settings=../config/stage/settings.json",
+    "mupx-start" : "DEBUG=* mupx start --config=../config/stage/mup.json --settings=../config/stage/settings.json"
+  }
+}

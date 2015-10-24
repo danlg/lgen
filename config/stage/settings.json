@@ -1,10 +1,5 @@
 {
   "public": {
-    "ROOT_URL": "http://esprit.io:8080",
-    "ROOT_URL_WITHOUT_PORT": "http://esprit.io/",
-
-    "WEB_URL": "http://esprit.io/",
-    "PORT": 8080,
 
     "persistent_session": {
       "default_method": "persistent"
@@ -15,21 +10,23 @@
         "token": "9566b1a8aad8f17497bfe5846eefb8dc",
         "people": true
       }
-    }
+    },
+
+    "ROOT_URL": "http://uat.littlegenius.io:8080",
+    "WEB_URL": "http://esprit.io/",
+    "PORT": 8080
   },
 
-  "FROM_EMAIL": "no-reply@littlegenius.io",
-  "FROM_NAME": "Little Genius",
-  "FEEDBACK_EMAIL": "feedback@littlegenius.io",
-
-  "MONGO_URL": "mongodb://geniedb:genie123@cockney.3.mongolayer.com:10233,cockney.2.mongolayer.com:10233/genie?replicaSet=set-55e8023231f767440700040b",
-  "MONGO_OPLOG_URL": "mongodb://geniedb:genie123@cockney.3.mongolayer.com:10233,cockney.2.mongolayer.com:10233/local?authSource=genie",
+  "MONGO_URL": "mongodb://lgdb:genie123@c247.alcatraz.1.mongolayer.com:10247/littlegenius",
 
   "GOOGLE_CLIENT_ID": "122417300165-4i555ct1kvrf8fesec9bp1f9vprdrlef.apps.googleusercontent.com",
   "GOOGLE_SECRET": "jyI4QhG3lz2J_fXxSk1QXxJG",
 
   "MANDRILL_USERNAME": "dan@littlegenius.io",
   "MANDRILL_KEY": "GBt6d5ggNEP7969s9j9DyA",
-  "MANDRILL_PORT": 587
+  "MANDRILL_PORT": 587,
 
+  "FROM_EMAIL": "no-reply@littlegenius.io",
+  "FROM_NAME": "Little Genius",
+  "FEEDBACK_EMAIL": "feedback@littlegenius.io"
 }
