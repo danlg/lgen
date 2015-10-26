@@ -1,0 +1,114 @@
+dan@LG1:~/DEV/github7/lgen/app$ meteor update 
+                                              
+Changes to your project's package version selections from updating the release:
+                                              
+accounts-base           upgraded from 1.2.0 to 1.2.1
+accounts-google         upgraded from 1.0.4 to 1.0.6
+accounts-oauth          upgraded from 1.1.5 to 1.1.7
+accounts-password       upgraded from 1.1.1 to 1.1.3
+autoupdate              upgraded from 1.2.1 to 1.2.3
+babel-compiler          added, version 5.8.24_1
+babel-runtime           added, version 0.1.4
+base64                  upgraded from 1.0.3 to 1.0.4
+binary-heap             upgraded from 1.0.3 to 1.0.4
+blaze                   upgraded from 2.1.2 to 2.1.3
+blaze-tools             upgraded from 1.0.3 to 1.0.4
+boilerplate-generator   upgraded from 1.0.3 to 1.0.4
+caching-compiler        added, version 1.0.0
+caching-html-compiler   added, version 1.0.1
+callback-hook           upgraded from 1.0.3 to 1.0.4
+check                   upgraded from 1.0.5 to 1.0.6
+coffeescript            upgraded from 1.0.6 to 1.0.9
+ddp                     upgraded from 1.1.0 to 1.2.2
+ddp-client              added, version 1.2.1
+ddp-common              added, version 1.2.1
+ddp-rate-limiter        added, version 1.0.0
+ddp-server              added, version 1.2.1
+deps                    upgraded from 1.0.7 to 1.0.9
+diff-sequence           added, version 1.0.1
+ecmascript              added, version 0.1.4
+ecmascript-collections  added, version 0.1.6
+ejson                   upgraded from 1.0.6 to 1.0.7
+email                   upgraded from 1.0.6 to 1.0.7
+fastclick               upgraded from 1.0.3 to 1.0.7
+geojson-utils           upgraded from 1.0.3 to 1.0.4
+google                  upgraded from 1.1.5 to 1.1.6
+html-tools              upgraded from 1.0.4 to 1.0.5
+htmljs                  upgraded from 1.0.4 to 1.0.5
+http                    upgraded from 1.1.0 to 1.1.1
+id-map                  upgraded from 1.0.3 to 1.0.4
+jquery                  upgraded from 1.11.3_2 to 1.11.4
+json                    removed from your project
+launch-screen           upgraded from 1.0.2 to 1.0.4
+less*                   upgraded from 1.0.14 to 2.5.0_2
+livedata                upgraded from 1.0.13 to 1.0.15
+localstorage            upgraded from 1.0.3 to 1.0.5
+logging                 upgraded from 1.0.7 to 1.0.8
+meteor                  upgraded from 1.1.6 to 1.1.7
+meteor-platform         upgraded from 1.2.2 to 1.2.3
+minifiers               upgraded from 1.1.5 to 1.1.7
+minimongo               upgraded from 1.0.8 to 1.0.9
+mobile-status-bar       upgraded from 1.0.3 to 1.0.6
+mongo                   upgraded from 1.1.0 to 1.1.1
+mongo-id                added, version 1.0.1
+mongo-livedata          upgraded from 1.0.8 to 1.0.9
+npm-mongo               added, version 1.4.39_1
+oauth                   upgraded from 1.1.4 to 1.1.6
+oauth2                  upgraded from 1.1.3 to 1.1.5
+observe-sequence        upgraded from 1.0.6 to 1.0.7
+ordered-dict            upgraded from 1.0.3 to 1.0.4
+promise                 added, version 0.4.8
+random                  upgraded from 1.0.3 to 1.0.4
+rate-limit              added, version 1.0.0
+reactive-dict           upgraded from 1.1.0 to 1.1.1
+reactive-var            upgraded from 1.0.5 to 1.0.6
+reload                  upgraded from 1.1.3 to 1.1.4
+retry                   upgraded from 1.0.3 to 1.0.4
+routepolicy             upgraded from 1.0.5 to 1.0.6
+service-configuration   upgraded from 1.0.4 to 1.0.5
+session                 upgraded from 1.1.0 to 1.1.1
+sha                     upgraded from 1.0.3 to 1.0.4
+spacebars               upgraded from 1.0.6 to 1.0.7
+spacebars-compiler      upgraded from 1.0.6 to 1.0.7
+srp                     upgraded from 1.0.3 to 1.0.4
+templating              upgraded from 1.1.1 to 1.1.3
+templating-tools        added, version 1.0.0
+tracker                 upgraded from 1.0.7 to 1.0.8
+ui                      upgraded from 1.0.6 to 1.0.8
+underscore              upgraded from 1.0.3 to 1.0.4
+url                     upgraded from 1.0.4 to 1.0.5
+webapp                  upgraded from 1.2.0 to 1.2.2
+webapp-hashing          upgraded from 1.0.3 to 1.0.5
+
+                                              
+* These packages have been updated to new versions that are not backwards
+compatible.
+app: updated to Meteor 1.2.0.1.               
+                                              
+-- Notice --                                  
+                                              
+1.2: Meteor 1.2 includes many changes and improvements to the build system, some of which might require small changes to apps and packages. Please read the guide about breaking changes here:
+     https://github.com/meteor/meteor/wiki/Breaking-changes-in-Meteor-1.2
+                                              
+Changes to your project's package version selections from updating package versions:
+                                              
+aldeed:autoform       upgraded from 5.5.0 to 5.5.1
+blaze-html-templates  added, version 1.0.1
+hot-code-push         added, version 1.0.0
+manuel:viewmodel      upgraded from 1.9.9 to 1.9.12
+meteor-base           added, version 1.0.1
+meteor-platform       removed from your project
+meteorhacks:kadira    upgraded from 2.23.2 to 2.23.4
+mobile-experience     added, version 1.0.1
+raix:eventstate       upgraded from 0.0.2 to 0.0.4
+standard-minifiers    added, version 1.0.0
+tap:i18n              upgraded from 1.5.1 to 1.6.1
+
+                                              
+The following top-level dependencies were not updated to the very latest version available:
+ * fourseven:scss 2.1.1 (3.2.0 is available)  
+ * meteoric:ionic-sass 0.1.9 (0.3.0 is available)
+ * meteoric:ionicons-sass 0.1.6 (0.1.7 is available)
+
+
+//"deploy":  "cd ../build && tar cvf - . |gzip -c - |ssh lg@uat.littlegenius.io \"cd app && gzip -c -d |tar xf -\""
