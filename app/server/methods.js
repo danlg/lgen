@@ -80,6 +80,7 @@ Meteor.methods({
     var date = moment().format('x');
     // msgObj.msgId = CryptoJS.SHA1(date + msg).toString().substring(0, 6);
     msgObj.msgId = Random.id();
+    msgObj.sendAt = date;
     msgObj.content = msg;
     msgObj.checked = [];
     msgObj.star  = [];

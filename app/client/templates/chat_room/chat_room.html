@@ -33,7 +33,7 @@
             {{#if isText}}
               <div class="bubble">
                 {{text}}
-                <br/><span class='timestamp'>{{sendTime}}</span>
+                <br/><span class='timestamp'>{{formatTime sendAt}}</span>
                
               </div>
 
@@ -54,7 +54,7 @@
                   
                     <!--read the below to know how to access parent scope value-->
                     <!--https://www.discovermeteor.com/blog/a-guide-to-meteor-templates-data-contexts/-->
-                    <br/><span  class='timestamp'>{{sendTime ..}}</span>  
+                    <br/><span  class='timestamp'>{{formatTime  ../sendAt}}</span>  
                                 
             
                 </div>
@@ -68,7 +68,7 @@
                     {{#if  this.url}}
                       <div class="bubble">
                         <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}"></a>
-                        <br/><span  class='timestamp'>{{sendTime ..}}</span>                       
+                        <br/><span  class='timestamp'>{{formatTime  ../sendAt}}</span>                       
                       </div>
                     {{/if}}
                   {{/if}}

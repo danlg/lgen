@@ -176,24 +176,6 @@ Template.ChatRoom.helpers({
     return this.from === Meteor.userId() ? "mine" : "notmine";
   },
 
-  sendTime: function (parentContext) {
-    //console.log(this);
-    //console.log(parentContext);    
-    var fullUnixTime;
-    if(parentContext){
-      fullUnixTime = parentContext.sendAt;
-    }
-    else{
-       fullUnixTime = this.sendAt;
-    }
-    var dateString="";
-    if (fullUnixTime){
-      var trimUnixTime = fullUnixTime.substr(0,10);
-      dateString = moment.unix(trimUnixTime).format('h:mm a');
-    }
-    return dateString;
-  },
-
   userProfile: function () {
     var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
     return lodash.reject(arr, {_id: Meteor.userId()})[0];
