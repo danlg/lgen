@@ -1,0 +1,29 @@
+{
+  "env": {
+    "ROOT_URL": "http://uat.littlegenius.io:8080",
+    "PORT": 8080,
+    //"WEB_URL": "http://esprit.io/",
+
+    //"MONGO_URL": "mongodb://localhost:27017/littlegenius",
+    "MONGO_URL": "mongodb://lgdb:genie123@c247.alcatraz.1.mongolayer.com:10247,alcatraz.1.mongolayer.com:10247,alcatraz.0.mongolayer.com:10247/littlegenius?replicaSet=set-56286b556228d9247c000ffa",
+    "MONGO_OPLOG_URL": "mongodb://lgdb:genie123@c247.alcatraz.1.mongolayer.com:10247,alcatraz.1.mongolayer.com:10247,alcatraz.0.mongolayer.com:10247/local?authSource=littlegenius"
+
+  },
+
+  //stage
+  "servers": [
+    {
+      "host": "uat.littlegenius.io",
+      "username": "lg",
+      "password": "genie123"
+    }
+  ],
+  "setupMongo": false,
+  "setupNode": true,
+  "nodeVersion": "0.10.40",
+  "setupPhantom": true,
+  "enableUploadProgressBar": true,
+  "appName": "littlegenius",
+  "app": "/Users/dan/DEV/github9/lgen/app",
+  "deployCheckWaitTime": 15
+}
