@@ -1,7 +1,3 @@
-
-
-
-
 Accounts.config({
   //we keep delay at 90 days
    //loginExpirationInDays: null
@@ -13,9 +9,9 @@ ServiceConfiguration.configurations.remove({
 });
 
 ServiceConfiguration.configurations.insert({
-    service: "google",
-    clientId: "621918568251-nf0apn9k6s71808cvp7v5j1ciuluk6vr.apps.googleusercontent.com",
-    secret: "qZ5NcbllTG4Hy_gkGiZ9mKkT"
+  service: "google",
+  clientId: "122417300165-4i555ct1kvrf8fesec9bp1f9vprdrlef.apps.googleusercontent.com",
+  secret: "jyI4QhG3lz2J_fXxSk1QXxJG"
 });
 
 
