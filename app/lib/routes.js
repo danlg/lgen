@@ -122,6 +122,9 @@ Router.onBeforeAction(OnBeforeActions.checkDob,{
 
 Router.route('Login',{
   path:"/",
+  waitOn:function () {
+     Accounts.loginServicesConfigured();
+  }
 });
 Router.route('/email-signin', {
   // controller: 'LoginController',
