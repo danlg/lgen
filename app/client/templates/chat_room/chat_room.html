@@ -28,11 +28,15 @@
 
       <div class="list chatroomList" id="chatroomList">
         {{#each chatRoomProfile.messagesObj}}
+          
           <div class="item {{isMine}}">
             {{#if isText}}
               <div class="bubble">
                 {{text}}
+                <br/><span class='timestamp'>{{sendTime}}</span>
+               
               </div>
+
             {{/if}}
             {{#if isImage}}
               <!-- {{#with getImage}}
@@ -47,6 +51,12 @@
               {{#with FS.GetFile "images" this.image}}
                 <div class="bubble">
                   <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}">
+                  
+                    <!--read the below to know how to access parent scope value-->
+                    <!--https://www.discovermeteor.com/blog/a-guide-to-meteor-templates-data-contexts/-->
+                    <br/><span  class='timestamp'>{{sendTime ..}}</span>  
+                                
+            
                 </div>
               {{/with}}
 
@@ -58,13 +68,14 @@
                     {{#if  this.url}}
                       <div class="bubble">
                         <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}"></a>
+                        <br/><span  class='timestamp'>{{sendTime ..}}</span>                       
                       </div>
                     {{/if}}
                   {{/if}}
                 {{/if}}
               {{/with}}
             {{/if}}
-          </div>
+          </div>        
         {{/each}}
       </div>
 

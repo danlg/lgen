@@ -64,6 +64,11 @@
   border-color: ;*/
 }
 
+.timestamp{
+  color:gray;
+  font-size:65%;
+  float:right;
+}
 
 //here we see talkbubble
 //https://css-tricks.com/examples/ShapesOfCSS/
@@ -74,7 +79,7 @@
     background: #C8EBB0;
 
     position: relative;
-    max-width: 50vw;
+    max-width: 80vw;
     padding-top: 2px;
     padding-bottom: 2px;
     padding-right: 10px;
@@ -104,7 +109,7 @@
     background: #EAEAEA;
 
     position: relative;
-    max-width: 50vw;
+    max-width: 80vw;
     padding-top: 2px;
     padding-bottom: 2px;
     padding-right: 10px;

@@ -176,8 +176,22 @@ Template.ChatRoom.helpers({
     return this.from === Meteor.userId() ? "mine" : "notmine";
   },
 
-  sendTime: function (sendAt) {
-    return moment(sendAt, "HH:mm");
+  sendTime: function (parentContext) {
+    //console.log(this);
+    //console.log(parentContext);    
+    var fullUnixTime;
+    if(parentContext){
+      fullUnixTime = parentContext.sendAt;
+    }
+    else{
+       fullUnixTime = this.sendAt;
+    }
+    var dateString="";
+    if (fullUnixTime){
+      var trimUnixTime = fullUnixTime.substr(0,10);
+      dateString = moment.unix(trimUnixTime).format('h:mm a');
+    }
+    return dateString;
   },
 
   userProfile: function () {
