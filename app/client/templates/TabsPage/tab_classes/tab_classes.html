@@ -39,7 +39,7 @@
                     <a href={{ pathFor 'ClassPanel'   }}>
                       <li class="item">
                         {{this.className}}
-                        <!-- @{{this.classCode}} -->
+                        <br/><span class='class-code'>@{{this.classCode}}</span>
                       </li>
                     </a>
                   {{/each}}
@@ -82,7 +82,8 @@
                 {{#each joinedClass}}
                   <a href={{ pathFor 'classDetail'   }}>
                     <li class="item">
-                      {{this.className}}@{{this.classCode}}
+                      {{this.className}}
+                      <br/><span class='class-code'>@{{this.classCode}}</span>                      
                     </li>
                   </a>
                 {{/each}}
