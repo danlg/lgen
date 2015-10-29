@@ -20,19 +20,7 @@
   {{#ionView}}
     {{#ionContent}}
 
-
-
       <ul class="list ">
-
-        <li class="item">
-          <div class="row row-center" style="height:4rem">
-            <div class="col">
-              <div style="text-align:center"><h2>{{ _"EnterClassCode"}}</h2></div>
-            </div>
-          </div>
-        </li>
-
-
 
         {{#each joinClassArr}}
           <li class="item item-input">
@@ -47,32 +35,21 @@
           </li>
         {{/each}}
 
-
-
-
-
-
-
         {{#autoForm schema=joinClassSchema id="joinClassForm" type="method" meteormethod="class/join"}}
-
-
-
-          <li class="item item-input">
-            {{> afFieldInput name="classCode" class="classCodeInput" placeholder="Class Code"}}
-            <span class="joinBtn">{{_ "JoinAClass"}}</span>
-          </li>
-
-
-
+        <li>
+            <div class="bar bar-header item-input-inset">
+              <label class="item-input-wrapper white-background">
+                <i class="icon ion-at placeholder-icon"></i>
+                {{> afFieldInput name="classCode" class="classCodeInput" placeholder=(_ "JoinAClassByInputClassCode") }}
+              </label>
+              <button class="button button-positive joinBtn">
+                {{_ "Join"}}
+              </button>
+            </div>
+         </li>  
         {{/autoForm}}
+        
       </ul>
-
-
-
-
-
-
-
 
     {{/ionContent}}
   {{/ionView}}
