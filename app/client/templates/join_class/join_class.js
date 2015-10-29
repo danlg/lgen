@@ -4,13 +4,22 @@ var joinform;
 /*****************************************************************************/
 Template.JoinClass.events({
   'click .joinBtn': function () {
+    
+    var classCodeInput = $(".classCodeInput").val().trim();
 
-    Meteor.call("class/search", $(".classCodeInput").val().trim(), function (error, result) {
+    if(classCodeInput == ""){
+      
+      alert(TAPi18n.__("JoinAClassByInputClassCode"));
+
+      return false;
+    }
+  
+    Meteor.call("class/search", classCodeInput, function (error, result) {
       if (error) {
         console.log("error", error);
       }
       if (!result) {
-        alert("No class found");
+        alert(TAPi18n.__("NoClass"));
       } else {
         IonLoading.show();
         $(joinform).submit();
