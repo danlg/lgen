@@ -16,6 +16,7 @@ You need to install:
  for other builds see http://stackoverflow.com/questions/10335747/how-to-download-xcode-4-5-6-7-and-get-the-dmg-file
  (XCode 7/ iOS 9 SDK cannot be used due to a prevention of clear http, workarounds found do not work on ioS8.4 just iOS9)
  This is a temporary workaround until SSL is implemented.
+http://adcdownload.apple.com/Developer_Tools/Xcode_6.4/Xcode_6.4.dmg
 
 - XCode 7 / iOS 9 SDK to submit to AppStore (unfortunately you cannot use iOS SDK 8.4 with XCode7)
 
