@@ -2,23 +2,23 @@
   "name": "littlegenius",
   "scripts": {
     "start": "meteor --settings ../config/stage/settings.json",
-    "ios": "meteor run ios --settings ../config/stage/settings.json",
-    "ios-device": "meteor run ios-device --settings ../config/stage/settings.json",
+    "ios": "meteor run ios -v --settings ../config/stage/settings.json --mobile-server=http://uat.littlegenius.io:8080",
+    "ios-device": "meteor run -v ios-device --settings ../config/stage/settings.json --mobile-server=http://uat.littlegenius.io:8080",
 
     "android": "meteor run android --settings ../config/stage/settings.json --mobile-server=http://uat.littlegenius.io:8080",
     "android-device": "meteor run android-device --settings ../config/stage/settings.json --mobile-server=http://uat.littlegenius.io:8080",
 
-    "runlocal-obs" : "meteor -v --settings ../config/stage/settings.json",
+    "local" : "meteor -v --settings ../config/stage/settings.json",
 
-    "runlocal" : "meteor -v --settings ../config/development/settings.json",
+    "localdev" : "meteor -v --settings ../config/development/settings.json",
 
     "runlocal-android-emulator": "meteor run android -v --settings ../config/development/settings.json",
     "build": "NODE_ENV=production VULCANIZE=true meteor build ../myapp-dist --server=https://api.myapp.com/ --mobile-settings settings-production.json",
 
-    "build-uat":  "meteor build ../dist -v --mobile-settings ../config/stage/settings.json --server=http://uat.littlegenius.io:8080",
+    "build-uat":  "meteor build  --mobile-settings=../config/stage/settings.json --server=http://uat.littlegenius.io:8080",
 
     "deploy-ko":  "cd ../dist && scp app.tar.gz lg@uat.littlegenius.io:~/app && ssh lg@uat.littlegenius.io \"cd app && tar xzvf app.tar.gz\"",
-
+    "list-plugins": "ls -l .meteor/local/cordova-build/plugins",
     "setup"    : "cd ../config/stage && DEBUG=* mup setup   --config=mup.json --settings=settings.json",
     "stop"     : "cd ../config/stage && DEBUG=* mup stop   --config=mup.json --settings=settings.json",
     "restart"  : "cd ../config/stage && DEBUG=* mup restart   --config=mup.json --settings=settings.json",
