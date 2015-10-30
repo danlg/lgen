@@ -20,13 +20,15 @@
   {{#ionView}}
     {{#ionContent}}
 
-      <ul class="list ">
+      <ul class="list join-class">
 
         {{#each joinClassArr}}
           <li class="item item-input">
             <div class="row" style="padding-left:0">
               <div class="col" style="padding-left:0">
-                {{className}}@{{classCode}}
+                {{className}}
+                
+               <br/><span class='class-code'>@{{this.classCode}}</span> 
               </div>
               <div class="col leaveBtn" data-classId="{{_id}}">
                 Leave
