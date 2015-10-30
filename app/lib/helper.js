@@ -78,7 +78,7 @@ getLastnameOfCurrentUser = function(requiredCharLength){
       trimlastname = "";
     }
 
-    return trimlastname;  
+    return trimlastname.toLowerCase();  
 };
 
 
