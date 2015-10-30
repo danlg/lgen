@@ -103,8 +103,8 @@ oauth2@1.1.5
 observe-sequence@1.0.7
 okgrow:analytics@0.4.3
 ordered-dict@1.0.4
-practicalmeteor:chai@1.9.2_3
-practicalmeteor:loglevel@1.2.0_1
+practicalmeteor:chai@2.1.0_1
+practicalmeteor:loglevel@1.2.0_2
 promise@0.5.1
 raix:eventemitter@0.1.3
 raix:eventstate@0.0.4
@@ -134,6 +134,7 @@ u2622:persistent-session@0.4.4
 ui@1.0.8
 underscore@1.0.4
 url@1.0.5
+votercircle:winston@0.0.3
 webapp@1.2.3
 webapp-hashing@1.0.5
 wylio:mandrill@1.0.1
