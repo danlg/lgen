@@ -12,6 +12,7 @@ You need to install:
 - npm
 
 *for iOS:
+- DEPRECATED Build with iOS9.x SDK is now supported. 
 - XCode 6.4 / iOS 8.4 SDK to build:  http://developer.apple.com/devcenter/download.action?path=/Developer_Tools/Xcode_6.4/Xcode_6.4.dmg
  for other builds see http://stackoverflow.com/questions/10335747/how-to-download-xcode-4-5-6-7-and-get-the-dmg-file
  (XCode 7/ iOS 9 SDK cannot be used due to a prevention of clear http, workarounds found do not work on ioS8.4 just iOS9)
@@ -23,6 +24,7 @@ Ensure that xcodebuild is pointing to 6.4
 How to add SDK 8.4 to XCode 7:
 dan@LG1:/Applications/Xcode7.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs$ ln -s /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk
 Enablebitcode to false
+- End OF DEPRECATION 
 
 TO DO change the build process as it now works with iOS 9.1 SDK provided that the following block is added to LittleGenius-Info.plist
 
@@ -57,10 +59,14 @@ You may need to run: npm run restart if the deployment takes too long or it cann
 
 * Building the iOS
 - `npm run ios-device`
-- Open XCode 6.4. Clean & Build with iOS 8.4 SDK (because it is not sure which SDK is picked up by default by Meteor and it may be iOS 9 which we do not want).
+- Open XCode 7 or 7.1. To submit to AppStore
+  - Building with iOS 9.1 SDK is ok.
   - Archive.
-  - Close XCode 6.4`
-- Open XCode 7. To submit to AppStore (due to validation error in 6.4)
+
+For XCode 7.1, when Archiving (build is fine), add in Build Settings -> Header Search Paths
+$(OBJROOT)/UninstalledProducts/$(PLATFORM_NAME)/include
+as you might get cdvviewcontroller-h-file-not-found error.
+See http://forum.ionicframework.com/t/cordova-cdvviewcontroller-h-file-not-found-in-xcode-7-1-beta/32232/5
 
 ## ARCHITECTURE ##
 The app uses Compose.io MongoDB managed database in UAT and production.
