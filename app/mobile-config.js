@@ -4,7 +4,9 @@ App.info({
   description: 'Instant, free, simple communication for teachers, students and parents',
   author: 'Little Genius Education',
   email: 'contact@littlegenius.io',
-  website: 'http://littlegenius.io'
+  website: 'http://app.littlegenius.io',
+  version: '0.91',
+  buildNumber: '64110'
 });
 
 App.setPreference('Orientation', 'portrait');
