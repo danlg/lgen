@@ -407,3 +407,10 @@ Router.route('FeedBack', {
 Router.route('NotificationSetting', {
   // layoutTemplate: "NavBarScreenLayout",
 });
+
+Router.route('AppTour',{
+    
+    path:"ApplicationTour"
+  
+  }
+);
