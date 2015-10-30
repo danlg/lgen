@@ -71,7 +71,20 @@ Meteor.methods({
       }
     });
   },
-
+  'class/classCodeIsAvailable': function (classCode) {
+    //  check(doc,Schema.joinClass)
+    //  Classes.update(doc,{$addToSet:{"joinedUserId":Meteor.userId()}});
+    var query = {};
+    query.classCode =  classCode ;
+    console.log(query);
+    if(Classes.findOne(query)){
+      return false;
+    }else{
+      return true;
+    }
+   
+  },
+  
   'class/search': function (classCode) {
     //  check(doc,Schema.joinClass)
     //  Classes.update(doc,{$addToSet:{"joinedUserId":Meteor.userId()}});
@@ -86,12 +99,14 @@ Meteor.methods({
     
     //TODO : put the below checking inside joinClass schema and return a proper error message
     var query = {};
-    query.classCode = new RegExp('^' + doc.classCode, 'i');    
+    query.classCode = new RegExp('^' + doc.classCode, 'i');
+    //console.log(query) ;
     var classDetail = Classes.findOne(query);
+    //console.log(classDetail);
     if(classDetail.createBy == Meteor.userId()){
-      //console.log("you can't join the class you own.")
+      console.log("you can't join the class you own.")
 
-      return "you can't join the class you own";
+      return false;
     }
     //TODO : end
     
@@ -123,7 +138,8 @@ Meteor.methods({
   'class/update': function (doc) {
     Classes.update({_id: doc._id}, {$set: doc});
   },
-
+  
+  
   'chat/sendMessage': function (chatRoomId, text) {
     var pushObj = {};
     pushObj.from = Meteor.userId();

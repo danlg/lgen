@@ -4,15 +4,37 @@ Classes = new Mongo.Collection('classes');
 ClassesSchema = new SimpleSchema({
   className: {
     type: String,
-    optional: false,
-    regEx: /[a-z0-9]/
+    optional: false
+    //regEx: /[a-z0-9]/
 
   },
   classCode: {
     type: String,
     optional: false,
     unique: true,
-    min: 3
+    min: 3,
+    regEx: /^[a-z0-9]+$/,
+    custom: function () {
+      if (Meteor.isClient && this.isSet && this.isInsert) {
+       
+        
+   
+        Meteor.call("class/classCodeIsAvailable", this.value, function (err, result) {
+          
+          var isAvailable = result;
+          //console.log(result);
+          
+          if (isAvailable == false) {
+            AutoForm.getValidationContext("insertClass").resetValidation();           
+            AutoForm.getValidationContext("insertClass").addInvalidKeys([{ name: "classCode", type: "notUnique" }]);
+            
+            return "problem";
+          }
+
+        });
+
+      }
+    }
 
   },
   anyoneCanChat: {
