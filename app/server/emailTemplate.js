@@ -62,27 +62,31 @@ testMail = function (to, classname) {
 };
 
 feedback = function (content) {
+  if (Meteor.settings && Meteor.settings.FEEDBACK_EMAIL)
+  {
+    var email = Meteor.settings.FEEDBACK_EMAIL;
+    var fullName = getFullNameOfCurrentUser();
+    console.log("Sending feedback to " + Meteor.settings.FEEDBACK_EMAIL + " from " + fullName);
+    return {
+      "message": {
+        "merge_language": "handlebars",
+        "html": "<h3> Feedback From " + fullName + " </h3><p>" + content + "</p>",
+        "text": "Example text content",
+        "subject": "Feedback from user!",
+        "from_email": Meteor.settings.FROM_EMAIL,
+        "from_name": Meteor.settings.FROM_NAME,
+        "to": [{
+          "email": Meteor.settings.FEEDBACK_EMAIL,
+          "name": "Recipient Name",
+          "type": "to"
+        }]
+      }
+    };
+  }
+  else {
+    log.error("FEEDBACK_EMAIL unknown. Please set in Meteor.settings");
+  }
 
-  var email = "feedback@littlegenius.io";
-  var fullName = getFullNameOfCurrentUser();
-
-  // console.log(fullName);
-
-  return {
-    "message": {
-      "merge_language": "handlebars",
-      "html": "<h3> Feedback From " + fullName + " </h3><p>" + content + "</p>",
-      "text": "Example text content",
-      "subject": "Feedback from user!",
-      "from_email": process.env.FROM_EMAIL,
-      "from_name": process.env.FROM_NAME,
-      "to": [{
-        "email": process.env.FEEDBACK_EMAIL,
-        "name": "Recipient Name",
-        "type": "to"
-      }],
-    }
-  };
 };
 
 inviteClassMailTemplateTest = function (to, classObj) {
