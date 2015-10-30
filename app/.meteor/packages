@@ -76,9 +76,9 @@ session
 tracker
 logging
 votercircle:winston
+practicalmeteor:loglevel
 reload
 random
 ejson
 spacebars
 check
-practicalmeteor:wkwebview
