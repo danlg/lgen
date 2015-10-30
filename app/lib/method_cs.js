@@ -86,12 +86,14 @@ Meteor.methods({
     
     //TODO : put the below checking inside joinClass schema and return a proper error message
     var query = {};
-    query.classCode = new RegExp('^' + doc.classCode, 'i');    
+    query.classCode = new RegExp('^' + doc.classCode, 'i');
+    //console.log(query) ;
     var classDetail = Classes.findOne(query);
+    //console.log(classDetail);
     if(classDetail.createBy == Meteor.userId()){
-      //console.log("you can't join the class you own.")
+      console.log("you can't join the class you own.")
 
-      return "you can't join the class you own";
+      return false;
     }
     //TODO : end
     
