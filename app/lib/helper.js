@@ -64,6 +64,24 @@ getClassCodeNew = function (className) {
   return fullname.toLowerCase();
 };
 
+getLastnameOfCurrentUser = function(requiredCharLength){
+  
+    var userProfile = Meteor.user().profile;
+    var trimlastname;
+    if (userProfile) {
+      if (userProfile.lastname.length < requiredCharLength) {
+        trimlastname = userProfile.lastname;
+      } else {
+        trimlastname = userProfile.lastname.substr(0, requiredCharLength);
+      }
+    } else {
+      trimlastname = "";
+    }
+
+    return trimlastname;  
+};
+
+
 getFullNameByProfileObj = function (profile) {
   return profile.firstname + " " + profile.lastname;
 };

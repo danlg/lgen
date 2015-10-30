@@ -21,16 +21,31 @@
   {{#ionView}}
     {{#ionContent}}
 
-      {{#autoForm collection="Classes" id="insertClass" type="insert"}}
+      {{#autoForm  validation="keyup" collection="Classes" id="insertClass" type="insert"}}
 
 
         <ul class="list " style="margin-bottom:0;">
           <li class="item item-input">
+                   
             {{> afFieldInput name="className" placeholder="Class Name" }}
+            
+            {{#if afFieldIsInvalid name='className'}}
+              <br><span class="help-block">{{afFieldMessage name='className'}}</span>
+            {{/if}}             
           </li>
-          <!-- <li class="item item-input">
-                    {{> afFieldInput name="classCode" placeholder="@classcode"}}
-                    </li> -->
+         <li class="" >
+            <div class="bar bar-header item-input-inset">
+              <label class="item-input-wrapper white-background">
+                <i class="icon ion-at placeholder-icon"></i>
+                {{> afFieldInput name="classCode" class="classCodeInput" placeholder="Class Code" }}
+                {{#if afFieldIsInvalid name='classCode'}}
+                   <br><span class="help-block ">{{afFieldMessage name='classCode'}}</span>
+                {{/if}}                   
+              </label>
+
+            </div>
+         </li>          
+  
 
 
           <li class="item item-toggle">
