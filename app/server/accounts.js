@@ -1,17 +1,12 @@
-Accounts.config({
-  //we keep delay at 90 days
-  //loginExpirationInDays: null
-});
 
-ServiceConfiguration.configurations.remove({
-  service: "google",
-});
 
-ServiceConfiguration.configurations.insert({
-    service:  "google",
-    clientId: Meteor.settings.GOOGLE_CLIENT_ID,
-    secret:   Meteor.settings.GOOGLE_SECRET
-});
+
+//clientId: "122417300165-4i555ct1kvrf8fesec9bp1f9vprdrlef.apps.googleusercontent.com",
+//secret: "jyI4QhG3lz2J_fXxSk1QXxJG"
+
+//console.log('loginServicesConfigured with ClientID=' + Meteor.settings.GOOGLE_CLIENT_ID);
+//var loginServicesConfigured = Accounts.loginServicesConfigured();
+//console.log('loginServicesConfigured =' + loginServicesConfigured);
 
 Accounts.onCreateUser(function (options, user) {
   // analytics.track("Sign Up", {

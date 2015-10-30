@@ -19,10 +19,15 @@ Template.Login.events({
           // set a session variable to display later if there is a login error
           Session.set('loginError', 'reason: ' + err.reason + ' message: ' + err.message || 'Unknown error');
           alert(err.message + ":" + err.reason);
-
+          console.log('loginWithGoogle err'+ err.reason +" msg="+ err.message);
+          var loginServicesConfigured = Accounts.loginServicesConfigured();
+          console.log('loginServicesConfigured='+loginServicesConfigured);
         }
-
         else {
+          console.log('loginWithGoogle OK');
+          var loginServicesConfigured = Accounts.loginServicesConfigured();
+          console.log('loginServicesConfigured='+loginServicesConfigured);
+
           if (Meteor.user().profile.role !== "")
             Router.go('TabClasses');
           else

@@ -1,6 +1,6 @@
 {
   "public": {
-   
+
     "persistent_session": {
       "default_method": "persistent"
     },
@@ -11,17 +11,17 @@
         "people": true
       }
     }
-  },
 
-  "FROM_EMAIL": "no-reply@esprit.io",
-  "FROM_NAME": "Little Genius",
-  "FEEDBACK_EMAIL": "feedback@littlegenius.io",
+  },
 
   "GOOGLE_CLIENT_ID": "122417300165-4i555ct1kvrf8fesec9bp1f9vprdrlef.apps.googleusercontent.com",
   "GOOGLE_SECRET": "jyI4QhG3lz2J_fXxSk1QXxJG",
 
   "MANDRILL_USERNAME": "dan@littlegenius.io",
   "MANDRILL_KEY": "GBt6d5ggNEP7969s9j9DyA",
-  "MANDRILL_PORT": 587
+  "MANDRILL_PORT": 587,
 
+  "FROM_EMAIL": "no-reply@littlegenius.io",
+  "FROM_NAME": "Little Genius",
+  "FEEDBACK_EMAIL": "feedback@littlegenius.io"
 }
