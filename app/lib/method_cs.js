@@ -83,6 +83,18 @@ Meteor.methods({
   },
 
   'class/join': function (doc) {
+    
+    //TODO : put the below checking inside joinClass schema and return a proper error message
+    var query = {};
+    query.classCode = new RegExp('^' + doc.classCode, 'i');    
+    var classDetail = Classes.findOne(query);
+    if(classDetail.createBy == Meteor.userId()){
+      //console.log("you can't join the class you own.")
+
+      return "you can't join the class you own";
+    }
+    //TODO : end
+    
     check(doc, Schema.joinClass);
     doc.classCode = new RegExp('^' + doc.classCode, 'i');
     Classes.update(doc, {$addToSet: {"joinedUserId": Meteor.userId()}});
