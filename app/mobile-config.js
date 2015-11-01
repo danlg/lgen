@@ -6,7 +6,7 @@ App.info({
   email: 'contact@littlegenius.io',
   website: 'http://app.littlegenius.io',
   version: '0.91',
-  buildNumber: '64110'
+  buildNumber: '90110'
 });
 
 App.setPreference('Orientation', 'portrait');
