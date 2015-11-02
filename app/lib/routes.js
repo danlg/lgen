@@ -408,9 +408,9 @@ Router.route('NotificationSetting', {
   // layoutTemplate: "NavBarScreenLayout",
 });
 
-Router.route('AppTour',{
-    
-    path:"ApplicationTour"
+Router.route('InviteUser',{
+    layoutTemplate:'',
+    path:"help/inviteuser"
   
   }
 );
