@@ -5,6 +5,7 @@ var joinform;
 Template.JoinClass.events({
   'click .joinBtn': function () {
     
+
     var classCodeInput = $(".classCodeInput").val().trim();
 
     if(classCodeInput == ""){
@@ -13,7 +14,11 @@ Template.JoinClass.events({
 
       return false;
     }
-  
+    
+    if(AutoForm.validateForm("joinClassForm")==false){
+      return;
+    }
+      
     Meteor.call("class/search", classCodeInput, function (error, result) {
       if (error) {
         console.log("error", error);

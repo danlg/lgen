@@ -94,7 +94,14 @@ Meteor.methods({
     console.log(query);
     return Classes.findOne(query) || false;
   },
-
+  'class/searchExact': function (classCode) {
+    //  check(doc,Schema.joinClass)
+    //  Classes.update(doc,{$addToSet:{"joinedUserId":Meteor.userId()}});
+    var query = {};
+    query.classCode = classCode;
+    console.log(query);
+    return Classes.findOne(query) || false;
+  },
   'class/join': function (doc) {
     
     //TODO : put the below checking inside joinClass schema and return a proper error message

@@ -3,8 +3,30 @@ Schema = {};
 
 Schema.joinClass = new SimpleSchema({
   classCode: {
-    type: String
+    type: String,
+    custom:function(){
+      
+      if (Meteor.isClient && this.isSet){
+        
+         Meteor.call("class/searchExact", this.value, function (err, result) {
+          
+          var isMyClass = result;
+        
+          if (isMyClass) {
+            AutoForm.getValidationContext("joinClassForm").resetValidation();           
+            AutoForm.getValidationContext("joinClassForm").addInvalidKeys([{ name:  "classCode",type:  "notYourClass" }]);      
+          }
+
+        });       
+      }
+    }
   }
+});
+
+Schema.joinClass.messages({
+  
+  notYourClass: "You cant join the class you own"
+  
 });
 
 Schema.emailSignup = new SimpleSchema({

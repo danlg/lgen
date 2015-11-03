@@ -43,6 +43,9 @@
               <label class="item-input-wrapper white-background">
                 <i class="icon ion-at placeholder-icon"></i>
                 {{> afFieldInput name="classCode" class="classCodeInput" placeholder=(_ "JoinAClassByInputClassCode") }}
+                {{#if afFieldIsInvalid name='classCode'}}
+                    <span class="help-block">{{afFieldMessage name='classCode'}}</span>
+                {{/if}}
               </label>
               <button class="button button-positive joinBtn">
                 {{_ "Join"}}
