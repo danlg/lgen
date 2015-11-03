@@ -21,10 +21,15 @@ Template.AddClass.events({
         var trimSpacesSuggestClassCode = className.replace(/\s/g, "");
         var first4Letters = trimSpacesSuggestClassCode.substr(0,4);
         var lowerCaseEngAndNumber = first4Letters.toLowerCase().replace(/[^a-z0-9]/g, "");
-        template.$("input[name=classCode]").val(lastName + ""+ lowerCaseEngAndNumber);
+        var classCode = lastName + ""+ lowerCaseEngAndNumber;
+        template.$("input[name=classCode]").val(classCode);
         
-        //everytime user input in className, we do a validation to the form
-        AutoForm.validateForm("insertClass");
+        //everytime user input in className, we do a validation to the class code
+        var isValidate = AutoForm.validateField("insertClass","classCode");
+        
+        
+        
+
     }
   
   

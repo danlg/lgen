@@ -17,17 +17,18 @@ ClassesSchema = new SimpleSchema({
     custom: function () {
       if (Meteor.isClient && this.isSet && this.isInsert) {
        
-        
+        var inputClassCode = this.value;
    
         Meteor.call("class/classCodeIsAvailable", this.value, function (err, result) {
           
+          var classCodeSuggestion = inputClassCode +""+ getRandomInt(0,99);
           var isAvailable = result;
-          //console.log(result);
-          
+        
           if (isAvailable == false) {
             AutoForm.getValidationContext("insertClass").resetValidation();           
-            AutoForm.getValidationContext("insertClass").addInvalidKeys([{ name: "classCode", type: "notUnique" }]);
-            
+            AutoForm.getValidationContext("insertClass").addInvalidKeys([{ name:  "classCode",
+                                                                           type:  "notUniqueAndSuggestClasscode",
+                                                                           value: classCodeSuggestion }]);      
             return "problem";
           }
 
@@ -154,3 +155,9 @@ if (Meteor.isServer) {
     }
   });
 }
+
+
+ClassesSchema.messages({
+  
+  notUniqueAndSuggestClasscode:"[label] is not unique. You may try [value]"
+});
