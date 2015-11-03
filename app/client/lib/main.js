@@ -2,10 +2,15 @@ Meteor.startup(function () {
 	if (Meteor.isCordova) {
 		window.alert = navigator.notification.alert;
 	}
+  
+  log = loglevel.createLogger('lg');
+  log.info("log initialized on client");
+  log.setLevel("info");
+  
   //todo add 'startup' listener
 	Push.addListener('message', function(notification) {
 		// Called on every message
-		console.log(JSON.stringify(notification));
+		log.info(JSON.stringify(notification));
 		var payload = notification.payload;
     if (payload.type == "chat") {
       if (Router.current().route.getName() !== "TabChat") {
@@ -18,6 +23,9 @@ Meteor.startup(function () {
       }
     }
   });
+  
+
+  
 });
 
 AutoForm.setDefaultTemplate('plain');
