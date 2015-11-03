@@ -56,8 +56,10 @@ Template.AddClass.destroyed = function () {
 
 Template.ionNavBar.events({
   'click .addClassBtn': function (e, template) {
-    $(form).submit();
-
+    
+    if(AutoForm.validateForm("insertClass")){
+      $(form).submit();
+    }
     /*var email = getValues(Meteor.user(),"email").shift();
      var classname = AutoForm.getFieldValue("className","insertClass");
 
