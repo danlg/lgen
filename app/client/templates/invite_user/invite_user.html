@@ -10,16 +10,16 @@
   {{#ionSlide}}
   
     <div class="invite-user heading item text-center padding" style='background-color:white;height:60%;position:relative;'>
-      <div class="padding">{{_ "DownloadTheApp"}}</div>
+      <div class="padding strong">{{_ "DownloadTheApp"}}</div>
       <div>
-       <img style='width:150px;height:150px;margin:0 auto;'  src="/img/icon-hd-email.png" alt='App Store'/>
+       <img style='width:150px;height:150px;margin:0 auto;'  src="/img/icon-hd-email.png" alt='Little Genius'/>
       </div>
        <div class="row" style="position:absolute;bottom:0px;">
         <div class="col"><img style='max-width:100%;max-height:100%;' src="/img/App_Store_grey.svg" alt='App Store'/></div>        
         <div class="col"><img style='max-width:100%;max-height:100%;' src="/img/get_it_on_google_play_grey.svg" alt='Google Play'/></div>         
       </div>     
     </div>
-    <div class="item" style='background-color:darkgray;height:40%;'>
+    <div class="item" style='background-color:#ACDA45;height:40%;'>
       <div class='text-center padding' ><i class="icon ion-ios-download-outline" style='font-size:3.2em;'></i></div>
       <div class='text-center' style='font-size:smaller' > {{_ "AskParentAndStudentToDownloadApp"}} </div>
     </div>
@@ -28,7 +28,7 @@
   
   {{#ionSlide}}
     <div class="item text-center padding" style='background-color:lightgray;height:60%;'>
-      <div class="padding">{{_ "InClassInstructions"}}</div>
+      <div class="padding strong">{{_ "InClassInstructions"}}</div>
       
       <!--bounding box http://stackoverflow.com/questions/9994493/scale-image-to-fit-a-bounding-box/10016640#10016640-->
       <div class='device'>
@@ -50,15 +50,15 @@
       
     </div>
 
-    <div class="item" style='background-color:darkgray;height:40%;'>
+    <div class="item" style='background-color:#00bfff;height:40%;'>
       <div class='text-center padding' ><i class="icon ion-ios-chatboxes-outline" style='font-size:3.2em;'></i></div>
       <div class='text-center' style='font-size:smaller' > {{_ "StudentAndParentCanJoinByClassCode"}} </div>
     </div>
-      
   {{/ionSlide}}
+
   {{#ionSlide}}
     <div class="item text-center padding" style='background-color:lightgray;height:60%;'>
-      <div class="padding">{{_ "ShareALink"}}</div>
+      <div class="padding strong">{{_ "ShareALink"}}</div>
       
       <!--bounding box http://stackoverflow.com/questions/9994493/scale-image-to-fit-a-bounding-box/10016640#10016640-->
       <div class='device'>
@@ -67,7 +67,7 @@
           <div class="bar bar-header item-input-inset">
             <label class="item-input-wrapper white-background">
       
-              <input id='shareALink' value='lgen.me/join/class101' />
+              <input id='shareALink' value='lgen.me/join/mathfun' />
             </label>
           
       
@@ -80,47 +80,44 @@
       </div>
       
     </div>
-    <div class="item" style='background-color:darkgray;height:40%;'>
+    <div class="item" style='background-color:#feffa8;height:40%;'>
       <div class='text-center padding' ><i class="icon ion-ios-upload-outline" style='font-size:3.2em;'></i></div>
       <div class='text-center' style='font-size:smaller' > {{_ "StudentAndParentVistLinkToJoinClass"}}  </div>
     </div>
-      
   {{/ionSlide}}
+
   {{#ionSlide}}
     <div class="item text-center padding" style='background-color:lightgray;height:60%;'>
-      <div class="padding">{{_ "SendEmailInvitations"}}</div>
+      <div class="padding strong">{{_ "SendEmailInvitations"}}</div>
       <div class='device-with-contact'></div>
     </div>
-    <div class="item" style='background-color:darkgray;height:40%;'>
+    <div class="item" style='background-color:#7e9cff;height:40%;'>
       <div class='text-center padding' ><i class="icon ion-ios-email-outline" style='font-size:3.2em;'></i></div>
       <div class='text-center' style='font-size:smaller' > {{_ "SendEmailInvitationsForStudentAndParentJoining"}}  </div>
     </div>
-      
   {{/ionSlide}}
+
   {{#ionSlide}}
-  
-    <div class="item text-center padding" style='background-color:lightgray;height:40%;'>
-      <div class="padding">{{_ "OKayGotIt"}}</div>
+    <div class="item text-center padding" style='background-color:#fff;height:40%;'>
+      <div class="padding strong">{{_ "OKayGotIt"}}</div>
+      <div>
+        <img style='width:150px;height:150px;margin:0 auto;'  src="/img/icon-hd-email.png" alt='Little Genius'/>
+      </div>
     </div>
-    <div class="item" style='background-color:lightgray;height:20%;border-width:0px;'>
-  
-      <!--<div class="row">
-        <div class="col col-33 col-offset-10"><img src='' alt='app store icon'/></div>        
-        <div class="col col-33 col-offset-20"><img src='' alt='google play icon'/></div>        
-      </div>-->
-  
- 
+    <div class="item" style='background-color:#fff;height:20%;border-width:0px;'>
     </div>
-    <div class="item" style='background-color:darkgray;height:40%;'>
+    <div class="item" style='background-color:lightgray;height:40%;'>
       <div class='text-center padding' ><i class="icon ion-ios-checkmark-outline" style='font-size:3.2em;'></i></div>
       <div class='text-center' style='font-size:smaller' > {{_ "EnjoyTheApp"}} </div>
-      <a href="{{pathFor 'TabClasses' }}" class="button button-full button-balanced">
+      <a href="{{pathFor 'TabClasses' }}" class="button button-full button-positive">
        {{_ "OKay"}}
       </a>      
     </div>
-    
-  {{/ionSlide}}
-  {{/ionSlideBox}}} {{/ionContent}}
+    {{/ionSlide}}
+
+  {{/ionSlideBox}}
+
+   {{/ionContent}}
 
 
 </template>

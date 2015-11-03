@@ -2,9 +2,9 @@
 
 Template.InviteUser.rendered = function()
 {
-   var sim = document.getElementById("inputClassCodeSimulation")     
-   type('math101',sim);
-}
+   var sim = document.getElementById("inputClassCodeSimulation");
+   type('mathfun',sim);
+};
 
 //adopt from: http://stackoverflow.com/questions/23688149/simulate-the-look-of-typing-not-the-actual-keypresses-in-javascript
 function type(string,element){
