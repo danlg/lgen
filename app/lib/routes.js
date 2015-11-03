@@ -404,8 +404,11 @@ Router.route('Commend', {
 Router.route('FeedBack', {
   // layoutTemplate: "NavBarScreenLayout",
 });
-Router.route('NotificationSetting', {
-  // layoutTemplate: "NavBarScreenLayout",
+
+Router.route('Help',{
+  
+  path:"help"
+  
 });
 
 Router.route('InviteUser',{
@@ -414,3 +417,8 @@ Router.route('InviteUser',{
   
   }
 );
+
+Router.route('NotificationSetting', {
+  // layoutTemplate: "NavBarScreenLayout",
+});
+

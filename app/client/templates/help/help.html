@@ -1,0 +1,23 @@
+<template name="Help">
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">{{_"MyAccount"}}</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonLeft"}}
+     {{>ionNavBackButton text=""}} 
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}
+      <div class="list">
+
+        <a href="{{ pathFor 'InviteUser'  }}">
+          <div class="item"> {{_"ApplicationTourForParentAndStudent"}}</div>
+        </a>
+        
+      </div>
+    {{/ionContent}}
+  {{/ionView}}
+
+</template>
