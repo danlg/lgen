@@ -91,25 +91,22 @@
         <div class="item item-input chatroomItem">
           <textarea style="font-size:20px;line-height:25px;padding-left: 20px;" dir="auto" name="msg" maxlength="5000"
                     class="inputBox autogrow-short" placeholder="Message"></textarea>
-          <button style="margin-right:10px;width:100px;" class="sendBtn button button-positive"> {{_ "Send" }}</button>
+          <button style="width:100px;display:none;" class="sendBtn button button-positive"> {{_ "Send" }}</button>
+          <span class='mediaButtonGroup' style='width:107px;'>
+            
+                <span class="file " style='display:inline;padding:10px;'>
+                  <i class="icon ion-image imageIcon "></i>
+                  <input type="file" id="imageBtn" accept="image/*;capture=camera" capture="camera">
+                </span>
+          
+            
+                <span class="file voice" style='display:inline;;padding:10px;'>
+                  <i class="icon  ion-mic-a "></i>
+                </span>
+           
+          </span>
         </div>
 
-
-        <div class="">
-          <div class="row">
-            <div class="col col-10">
-              <div class="file ">
-                <i class="icon ion-image imageIcon "></i>
-                <input type="file" id="imageBtn" accept="image/*;capture=camera" capture="camera">
-              </div>
-            </div>
-            <div class="col col-10">
-              <div class="file voice">
-                <i class="icon  ion-mic-a "></i>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
 

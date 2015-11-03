@@ -7,7 +7,7 @@ var needReduce = false;
 /* ChatRoom: Event Handlers */
 /*****************************************************************************/
 Template.ChatRoom.events({
-
+  
   'click .sendBtn': function () {
     if (Meteor.user().profile.firstchat) {
       analytics.track("First Chat", {
@@ -24,6 +24,7 @@ Template.ChatRoom.events({
           $('.inputBox').val("");
           var targetId = Meteor.users.findOne({_id: {$nin: [Meteor.userId()]}})._id;
           var query = {};
+          sendBtnMediaButtonToggle();
           query.userId = targetId;
           var notificationObj = {};
           notificationObj.from = getFullNameByProfileObj(Meteor.user().profile);
@@ -39,15 +40,17 @@ Template.ChatRoom.events({
       });
     }
   },
-
   'click .imageIcon': function (argument) {
     // alert("asd");
-    // imageAction();
+  
   },
-
+  'keyup .inputBox':function(){
+    sendBtnMediaButtonToggle();
+  },
   'change .inputBox': function () {
-    var height = $(".inputBoxList").height() + 2;
-    $(".chatroomList").css(height, "(100% - " + height + "px )");
+    //var height = $(".inputBoxList").height() + 2;
+    //$(".chatroomList").css(height, "(100% - " + height + "px )");
+    sendBtnMediaButtonToggle(); 
   },
 
   'click #imageBtn': function (e) {
@@ -478,4 +481,16 @@ function imageAction() {
     'addCancelButtonWithLabel': 'Cancel'
   };
   window.plugins.actionsheet.show(options, callback);
+}
+
+function sendBtnMediaButtonToggle(){
+     if($('.inputBox').val().length>0){
+        
+        $('.mediaButtonGroup').fadeOut(50,function(){$('.sendBtn').fadeIn(50,function(){});});
+        
+    }else{
+      
+        $('.sendBtn').fadeOut(50,function(){ $('.mediaButtonGroup').fadeIn(50,function(){});   });
+          
+    }   
 }
