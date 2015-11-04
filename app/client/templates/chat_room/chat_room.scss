@@ -6,6 +6,7 @@
 
 .item {
   white-space: normal !important;
+
 }
 
 //here is the toolbar for sending
@@ -28,6 +29,7 @@
     /*border-color: #FFF !important;*/
     border-color: transparent;
     background-color: transparent;
+    padding:1px 16px 1px 16px;    
   }
 }
 
@@ -258,7 +260,9 @@
   z-index: -1;
 }
 
-.chatroomItem{
-  position:absolute;
+.inputBoxList{
+  position:fixed !important;
   bottom:0px;
+  width:100%;
+  z-index:10;
 }
