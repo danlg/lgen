@@ -333,15 +333,7 @@ function onFail(message) {
   alert('Failed because: ' + message);
 }
 
-function imageAction() {
-  var options = {
-    'buttonLabels': ['Take Photo From Camera', 'Select From Gallery'],
-    'androidEnableCancelButton': true, // default false
-    'winphoneEnableCancelButton': true, // default false
-    'addCancelButtonWithLabel': 'Cancel'
-  };
-  window.plugins.actionsheet.show(options, callback);
-}
+
 
 var callback = function (buttonIndex) {
   setTimeout(function () {

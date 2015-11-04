@@ -203,6 +203,7 @@ Template.Testing.destroyed = function () {
 };
 
 
+/*
 function getNewRecordFile() {
 
   var src;
@@ -234,7 +235,7 @@ function getNewRecordFile() {
   return mediaRec;
 
 }
-
+*/
 
 function onFileSystemSuccess(fileSystem) {
   console.log('onFileSystemSuccess: ' + fileSystem.name);

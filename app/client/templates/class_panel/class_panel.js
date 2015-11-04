@@ -1,9 +1,12 @@
 var text = new ReactiveVar('');
 var classObj;
 var teacherName = ReactiveVar("");
+
+var soundArr = ReactiveVar([]);
 var isRecording = false;
 var media = "";
 var isPlayingSound = false;
+var tempClassCode;
 /*****************************************************************************/
 /* ClassPanel: Event Handlers */
 /*****************************************************************************/
@@ -36,18 +39,96 @@ Template.ClassPanel.events({
     mediaObj.soundArr = {};
 
     if (target.length > 0) {
-      Meteor.call('sendMsg', target, msg, mediaObj, function () {
+      Meteor.call('sendMsg', target, msg, mediaObj, function (error,result) {
         /*Session.set("sendMessageSelectedClasses", {
           selectArrName: [],
           selectArrId: []
         });
         Router.go('TabClasses');*/
+        $(".inputBox").val('');
       });
     } else {
       alert("no class select!");
     }
-  }
+  },
+  'change #imageBtn': function (event, template) {
+    FS.Utility.eachFile(event, function (file) {
+      Images.insert(file, function (err, fileObj) {
+        if (err) {
+          // handle error
+          console.log(err);
+        }
+        else {
+          log.info("Image is inserted");
+          
+          var selectedClassCodes = [];
+          selectedClassCodes.push(template.currentClassCode.get());
+          var target = selectedClassCodes;
+          
+          log.info(target);
+          var msg = $(".inputBox").val();
+          
+          //todo: acquire image and sound arr from user input
+          var mediaObj = {};
+          log.info(fileObj);         
+          log.info(fileObj._id);
+          
+          mediaObj.imageArr = [] ;
+          mediaObj.imageArr.push(fileObj._id) ;
+          mediaObj.soundArr = soundArr.get();
+      
+          if (target.length > 0) {
+            Meteor.call('sendMsg', target, msg, mediaObj, function (error,result) {
  
+              $("#imageBtn").val('');
+            });
+          } else {
+            alert("no class select!");
+          }          
+        }
+      });
+    });
+  },
+  'click .file.voice:not(.disabled)': function (event,template) {
+
+    if (!isRecording) {
+      alert("start recording!");
+      console.log('startRec');
+      media = getNewRecordFile();
+      media.startRecord();
+      isRecording = true;
+      $(".icon.ion-mic-a").attr("class", "icon ion-stop");
+
+      setTimeout(function () {
+        if (isRecording)
+          media.stopRecord();
+      }, 1000 * 60 * 3);
+
+
+    } else {
+      alert("stop recording!");
+      console.log('stopRec');
+      media.stopRecord();
+      //  playAudio(media.src);
+      isRecording = false;
+
+      $(".icon.ion-stop").attr("class", "icon ion-mic-a");
+
+
+      switch (window.device.platform) {
+        case "Android":
+          window.resolveLocalFileSystemURL(cordova.file.externalRootDirectory + media.src, onResolveSuccess, fail);
+          break;
+        case "iOS":
+          window.resolveLocalFileSystemURL(cordova.file.tempDirectory + media.src, onResolveSuccess, fail);
+          break;
+
+      }
+
+    }
+
+  } 
+  
 });
 
 /*****************************************************************************/
@@ -104,6 +185,7 @@ Template.ClassPanel.rendered = function () {
   });
   
   this.currentClassCode = new ReactiveVar( classObj.classCode );
+  tempClassCode = classObj.classCode;
   
   Meteor.call('getUserCreateClassesCount', function (err, count) {
 
@@ -165,4 +247,62 @@ function playAudio(url, callback) {
   );
   // Play audio
   my_media.play({numberOfLoops: 1});
+}
+
+
+function onResolveSuccess(fileEntry) {
+ 
+  console.log('onResolveSuccess: ' + fileEntry.name);
+  fileEntry.file(function (file) {
+    var newFile = new FS.File(file);
+ 
+    Sounds.insert(newFile, function (err, fileObj) {
+      if (err) {
+        //handle error
+        console.log("insert error" + err);
+      }
+      else {
+        //handle success depending what you need to do
+        console.dir(fileObj);
+        var fileURL = {
+          "file": "/cfs/files/files/" + fileObj._id
+        };
+        console.log(fileURL.file);
+
+        var arr = [];
+        arr.push(fileObj._id);
+        media = "";
+        
+        log.info("Sound is inserted");
+        
+        var selectedClassCodes = [];
+        selectedClassCodes.push(tempClassCode);
+        var target = selectedClassCodes;
+        
+        log.info(target);
+        var msg = $(".inputBox").val();
+        
+        //todo: acquire image and sound arr from user input
+        var mediaObj = {};
+        
+        mediaObj.imageArr = [] ;
+        mediaObj.soundArr = arr;
+    
+        if (target.length > 0) {
+          Meteor.call('sendMsg', target, msg, mediaObj, function (error,result) {
+
+            $(".inputBox").val('');
+            
+          });
+        } else {
+          alert("no class select!");
+        }   
+      }
+    }
+      );
+  });  
+}
+
+function fail(error) {
+  console.log('fail: ' + error.code);
 }

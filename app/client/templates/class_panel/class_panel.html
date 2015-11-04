@@ -23,84 +23,108 @@
   {{#ionView}}
     {{#ionContent}}
 
-      <div class="container">
+      <div class="container ">
 
         <div class="button-bar">
           <a class="button"
-             href="{{ pathFor 'ClassUsers' classCode=classObj.classCode }}">{{ classObj.joinedUserId.length }} users</a>
-          <a class="button" href="{{pathFor 'ClassInvitation' classCode=classObj.classCode  }}">add</a>
+             href="{{ pathFor 'ClassUsers' classCode=classObj.classCode }}">  <i class="icon ion-ios-people"></i>{{ classObj.joinedUserId.length }} users</a>
+          <a class="button" href="{{pathFor 'ClassInvitation' classCode=classObj.classCode  }}">  <i class="icon ion-person-add"></i>add</a>
         </div>
 
-        {{#each classObj.messagesObj}}
-
-          <div class="list card">
-            <div class="item ">
-              <div class="row" style="padding:0">
-                <div class="col" style="padding:0"><h2>{{className}}</h2></div>
-                <div class="col" style="padding:0;text-align:right">{{createdAt}}</div>
-              </div>
-            </div>
-            <div class="item ">
-              <div>
-                <div>{{teacherName}}:</div>
-                <div>{{content}}</div>
-                 <br/><span class='timestamp'>{{formatTime sendAt}}</span> 
-                <div style="height:10px;">
-                </div>
-
-                <div>
-                  {{#if havePic}}
-                    {{#each imageArr}}
-                      {{#with getImage}}
-                        {{#if this.isUploaded}}
-                          {{#if this.hasStored 'images'}}
-                            <div class="">
-                              <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs"
-                                   data-fullsizeimage="{{this.url  }}">
-                              <!-- <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a> -->
-                            </div>
-                          {{/if}}
-                        {{/if}}
-                      {{/with}}
-                    {{/each}}
-                  {{/if}}
-                </div>
-                <div>
-                  {{#if haveSound}}
-                    {{#each soundArr}}
-                      {{#with getSound}}
-                        {{#if this.isUploaded}}
-                          {{#if this.hasStored 'sounds'}}
-                            <div class="bubble">
-                              <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}"></a>
-                              <!-- <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a> -->
-                            </div>
-                          {{/if}}
-                        {{/if}}
-                      {{/with}}
-                    {{/each}}
-                  {{/if}}
+        <div class="list messageList" id="messageList">
+          {{#each classObj.messagesObj}}
+  
+            <div class="list card">
+              <div class="item ">
+                <div class="row" style="padding:0">
+                  <div class="col" style="padding:0"><h2>{{className}}</h2></div>
+                  <div class="col" style="padding:0;text-align:right">{{createdAt}}</div>
                 </div>
               </div>
-              <br>
-              <p>
-                {{#if isNotEmpty star}}
-                  <a href="#" class="subdued">{{star.length}} <i class="ion-ios-star"></i></a>
-                {{/if}}
-                {{#if isNotEmpty checked}}
-                  <a href="#" class="subdued">{{checked.length}} <i class="ion-checkmark-round"></i></a>
-                {{/if}}
-                {{#if isNotEmpty close}}
-                  <a href="#" class="subdued">{{close.length}} <i class="ion-close-round"></i></a>
-                {{/if}}
-                {{#if isNotEmpty help}}
-                  <a href="#" class="subdued">{{help.length}} <i class="ion-help"></i></a>
-                {{/if}}
-              </p>
+              <div class="item ">
+                <div>
+                  <div>{{teacherName}}:</div>
+                  <div>{{content}}</div>
+                  <br/><span class='timestamp'>{{formatTime sendAt}}</span> 
+                  <div style="height:10px;">
+                  </div>
+  
+                  <div>
+                    {{#if havePic}}
+                      {{#each imageArr}}
+                        {{#with getImage}}
+                          {{#if this.isUploaded}}
+                            {{#if this.hasStored 'images'}}
+                              <div class="">
+                                <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs"
+                                    data-fullsizeimage="{{this.url  }}">
+                                <!-- <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a> -->
+                              </div>
+                            {{/if}}
+                          {{/if}}
+                        {{/with}}
+                      {{/each}}
+                    {{/if}}
+                  </div>
+                  <div>
+                    {{#if haveSound}}
+                      {{#each soundArr}}
+                        {{#with getSound}}
+                          {{#if this.isUploaded}}
+                            {{#if this.hasStored 'sounds'}}
+                              <div class="bubble">
+                                <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}"></a>
+                                <!-- <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a> -->
+                              </div>
+                            {{/if}}
+                          {{/if}}
+                        {{/with}}
+                      {{/each}}
+                    {{/if}}
+                  </div>
+                </div>
+                <br>
+                <p>
+                  {{#if isNotEmpty star}}
+                    <a href="#" class="subdued">{{star.length}} <i class="ion-ios-star"></i></a>
+                  {{/if}}
+                  {{#if isNotEmpty checked}}
+                    <a href="#" class="subdued">{{checked.length}} <i class="ion-checkmark-round"></i></a>
+                  {{/if}}
+                  {{#if isNotEmpty close}}
+                    <a href="#" class="subdued">{{close.length}} <i class="ion-close-round"></i></a>
+                  {{/if}}
+                  {{#if isNotEmpty help}}
+                    <a href="#" class="subdued">{{help.length}} <i class="ion-help"></i></a>
+                  {{/if}}
+                </p>
+              </div>
             </div>
+            <!-- </a> -->
+          {{/each}}
+        </div>
+        <div class="list inputBoxList">
+  
+          <div class="item item-input chatroomItem">
+            <textarea style="font-size:20px;line-height:25px;padding-left: 20px;" dir="auto" name="msg" maxlength="5000"
+                      class="inputBox autogrow-short" placeholder="Message"></textarea>
+            <button style="width:100px;" class="sendBtn button button-positive"> {{_ "Send" }}</button>
+            <span class='mediaButtonGroup' style='width:107px;'>
+              
+                  <span class="file " style='display:inline;padding:10px;'>
+                    <i class="icon ion-image imageIcon "></i>
+                    <input type="file" id="imageBtn" accept="image/*;capture=camera" capture="camera">
+                  </span>
+            
+              
+                  <span class="file voice" style='display:inline;padding:10px;'>
+                    <i class="icon  ion-mic-a "></i>
+                  </span>
+            
+            </span>
           </div>
-          <!-- </a> -->
-        {{/each}}
+  
+        </div>        
       </div>
 
     {{/ionContent}}
