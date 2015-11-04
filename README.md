@@ -68,6 +68,11 @@ $(OBJROOT)/UninstalledProducts/$(PLATFORM_NAME)/include
 as you might get cdvviewcontroller-h-file-not-found error.
 See http://forum.ionicframework.com/t/cordova-cdvviewcontroller-h-file-not-found-in-xcode-7-1-beta/32232/5
 
+* Building for Android (APK)
+- `npm run build-apk <PASSWORD>` or `build-android.sh <PASSWORD>`
+where PASSWORD is the storepass provided by the build manager (ask Dan!)
+NB: to sign only without building `npm run sign-apk <PASSWORD>` or `sign-android.sh <PASSWORD>`
+
 ## ARCHITECTURE ##
 The app uses Compose.io MongoDB managed database in UAT and production.
 The app uses DigitalOcean boxes for the app server.
