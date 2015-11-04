@@ -68,6 +68,18 @@ $(OBJROOT)/UninstalledProducts/$(PLATFORM_NAME)/include
 as you might get cdvviewcontroller-h-file-not-found error.
 See http://forum.ionicframework.com/t/cordova-cdvviewcontroller-h-file-not-found-in-xcode-7-1-beta/32232/5
 
+* Building for Android (APK) - dev
+1. Run `keygen-android.sh` you will be asked for 
+a) password: type one . This will be reused in step 2
+b) prompted by many questions. You can leave all default blank except for 
+What is the name of your organization? Type `Little Genius Education Ltd`
+This step needs only to be done once per build machine.
+This generates a key in the keystore `~/.keystore`
+
+2. `npm run build-apk <PASSWORD>` or `build-android.sh <PASSWORD>`
+where PASSWORD is the storepass provided in the previous step
+NB: to sign only without building `npm run sign-apk <PASSWORD>` or `sign-android.sh <PASSWORD>`
+
 ## ARCHITECTURE ##
 The app uses Compose.io MongoDB managed database in UAT and production.
 The app uses DigitalOcean boxes for the app server.

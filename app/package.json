@@ -5,6 +5,9 @@
     "ios": "meteor run ios -v --settings ../config/stage/settings.json --mobile-server=http://uat.littlegenius.io:8080",
     "ios-device": "meteor run -v ios-device --settings ../config/stage/settings.json --mobile-server=http://uat.littlegenius.io:8080",
 
+    "build-apk": "./build-android.sh $1",
+    "sign-apk": "./sign-android.sh $1",
+
     "android": "meteor run android --settings ../config/stage/settings.json --mobile-server=http://uat.littlegenius.io:8080",
     "android-device": "meteor run android-device --settings ../config/stage/settings.json --mobile-server=http://uat.littlegenius.io:8080",
 
