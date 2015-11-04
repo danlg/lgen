@@ -4,6 +4,7 @@ Template.InviteUser.rendered = function()
 {
    var sim = document.getElementById("inputClassCodeSimulation");
    type('mathfun',sim);
+   Session.set("hasSeenTheTourForStudent", true);
 };
 
 //adopt from: http://stackoverflow.com/questions/23688149/simulate-the-look-of-typing-not-the-actual-keypresses-in-javascript

@@ -8,7 +8,6 @@
   background-image: url("/img/iphone5-vertical-top.png");
   background-size: 100%;
   background-repeat: no-repeat;
-  background-position: -46px 0px;
   margin:0 auto;
   left:12px;
   right:0;
@@ -18,7 +17,7 @@
 .device-content {
   position: absolute;
   top: 121px;
-  left: 26px;
+  left: 72px;
   width: 254px;
   height: 577px;
   overflow: hidden;

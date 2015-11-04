@@ -73,3 +73,14 @@ a {
 		color: $assertive; 
 		font-size: $font-size-small;
 }
+
+.popup-container .popup{
+	  
+    .button.button-positive{
+      flex:3;
+    }
+    
+    .button.button-light{
+      font-size: smaller;
+    }
+}

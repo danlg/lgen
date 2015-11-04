@@ -169,7 +169,11 @@ Meteor.methods({
     var name = userObj.profile.firstname + " " + userObj.profile.lastname;
     return name;
   },
-
+  getUserCreateClassesCount: function(){
+    
+      return Classes.find({createBy: Meteor.userId()}).count();   
+      
+  },
   chatSendImage: function (file, chatRoomId) {
     Images.insert(file, function (err, fileObj) {
       if (err) {
