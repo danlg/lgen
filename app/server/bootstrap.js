@@ -6,7 +6,7 @@ Meteor.startup(function () {
   log.info("log initialized");
   log.setLevel("info");
 
-  log.info("Using env DDP_DEFAULT_CONNECTION_URL="+ process.env.DDP_DEFAULT_CONNECTION_URL);
+  log.info("Using env DDP_DEFAULT_CONNECTION_URL="+ Meteor.settings.DDP_DEFAULT_CONNECTION_URL);
   log.info("Using meteor DDP_DEFAULT_CONNECTION_URL="+ __meteor_runtime_config__.DDP_DEFAULT_CONNECTION_URL);
 
   Accounts.config({
