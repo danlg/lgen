@@ -12,7 +12,7 @@ Meteor.startup(function () {
 		// Called on every message
 		log.info(JSON.stringify(notification));
 		var payload = notification.payload;
-    if (payload.type == "chat") {
+    if (payload.type === "chat") {
       if (Router.current().route.getName() !== "TabChat") {
         var badge = Session.get("chatUnreadNumber");
         badge++;
