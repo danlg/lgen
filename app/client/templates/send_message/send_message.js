@@ -162,8 +162,12 @@ Template.SendMessage.events({
     var mediaObj = {};
     mediaObj.imageArr = imageArr.get();
     mediaObj.soundArr = soundArr.get();
-
-    if (target.length > 0) {
+     
+    if(msg == "" && mediaObj.imageArr.length == 0 && mediaObj.soundArr.length == 0){
+      
+      alert("please input some message");
+      
+    }else if(target.length > 0) {
       Meteor.call('sendMsg', target, msg, mediaObj, function () {
         Session.set("sendMessageSelectedClasses", {
           selectArrName: [],
@@ -271,7 +275,7 @@ Template.SendMessage.created = function () {
 };
 
 Template.SendMessage.rendered = function () {
-
+  $(".msgBox").autogrow();
 };
 
 Template.SendMessage.destroyed = function () {
@@ -300,7 +304,13 @@ Template.ionNavBar.events({
     mediaObj.soundArr = soundArr.get();
 
     log.info(target.length);
-    if (target.length > 0) {
+    
+    if(msg == "" && mediaObj.imageArr.length == 0 && mediaObj.soundArr.length == 0){
+      
+      alert("please input some message");
+      
+    }    
+    else if (target.length > 0) {
       
       //loop through selected classes
       for (var count = 0; count < target.length; count++) {
