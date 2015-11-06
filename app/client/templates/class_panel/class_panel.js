@@ -19,7 +19,7 @@ Template.ClassPanel.events({
   },
   'keyup .search': function () {
     text.set($('.search').val());
-    /*console.log(text.get());*/
+    log.info(text.get());
   },
   'click .list.card': function () {
     Router.go('ClassPanelMsgNotice', {msgCode: this.msgId});

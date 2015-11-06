@@ -13,7 +13,7 @@ var postHooks = {
     Router.go('TabChat');
   },
   onError: function (formType, error) {
-    console.log(error);
+    log.error(error);
     alert(error.reason);
   }
 };

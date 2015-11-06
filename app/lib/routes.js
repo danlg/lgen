@@ -39,7 +39,7 @@ OnBeforeActions = {
       navigator.globalization.getPreferredLanguage(
         function (language) {
           // alert('language: ' + language.value + '\n');
-          // console.log(language);
+          // log.info(language);
           var lang = language.value.replace(pattern, "");
 
           if (!lodash.has(TAPi18n.getLanguages(), lang))
@@ -51,7 +51,7 @@ OnBeforeActions = {
             })
             .fail(function (error_message) {
               // Handle the situation
-              console.log(error_message);
+              log.error(error_message);
             });
 
 

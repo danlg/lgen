@@ -17,7 +17,7 @@ Template.NotificationSetting.events({
 
     Meteor.call("profileUpdateByObj", userObj, function (error, result) {
       if (error) {
-        console.log("error", error);
+        log.error("error", error);
       } else {
 
         // if(type.toUpperCase()==="PUSH"){

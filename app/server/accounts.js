@@ -4,9 +4,9 @@
 //clientId: "122417300165-4i555ct1kvrf8fesec9bp1f9vprdrlef.apps.googleusercontent.com",
 //secret: "jyI4QhG3lz2J_fXxSk1QXxJG"
 
-//console.log('loginServicesConfigured with ClientID=' + Meteor.settings.GOOGLE_CLIENT_ID);
+//log.info('loginServicesConfigured with ClientID=' + Meteor.settings.GOOGLE_CLIENT_ID);
 //var loginServicesConfigured = Accounts.loginServicesConfigured();
-//console.log('loginServicesConfigured =' + loginServicesConfigured);
+//log.info('loginServicesConfigured =' + loginServicesConfigured);
 
 Accounts.onCreateUser(function (options, user) {
   // analytics.track("Sign Up", {

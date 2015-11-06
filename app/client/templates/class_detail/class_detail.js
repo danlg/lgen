@@ -113,17 +113,17 @@ Template.ClassDetail.destroyed = function () {
 
 function playAudio(url, callback) {
   // Play the audio file at url
-  // console.log(callback);
+     log.info(callback);
   var my_media = new Media(url,
     // success callback
     function () {
-      console.log("playAudio():Audio Success");
+      log.info("playAudio():Audio Success");
       callback();
-      console.log("calledback");
+      log.info("calledback");
     },
     // error callback
     function (err) {
-      console.log("playAudio():Audio Error: " + err);
+      log.error("playAudio():Audio Error: " + err);
     }
   );
   // Play audio

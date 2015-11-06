@@ -2,8 +2,8 @@ Template.registerHelper('formatTime', function(time) {
 
     var dateString="";
     if(time){  
-    //console.log(this);
-    //console.log(parentContext); 
+     log.info(this);
+
    
       var fullUnixTime = time;
     

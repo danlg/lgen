@@ -8,7 +8,7 @@ var postHooks = {
 
   },
   onError: function (formType, error) {
-    console.log(error);
+    log.error(error);
   }
 };
 

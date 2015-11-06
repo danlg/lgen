@@ -18,15 +18,15 @@ Template.TabYou.events({
       navigator.globalization.getPreferredLanguage(
         function (language) {
           // alert('language: ' + language.value + '\n');
-          // console.log(language);
+          log.info(language);
           var lang = language.value.replace(pattern, "");
 
-          console.log(lang);
+          log.info(lang);
           // var html  = "http://esprit.io/legal/"+lang+".privacy.html";
           // var html = Meteor.call("getPpLink",lang);
           Meteor.call("getPpLink", lang, function (error, result) {
             if (error) {
-              console.log("error", error);
+              log.error("error", error);
             }
             else {
               switch (window.device.platform) {
@@ -47,7 +47,7 @@ Template.TabYou.events({
         }
       );
     } else {
-      console.log('you are not in phone');
+      log.info('you are not in phone');
     }
   },
 
@@ -80,7 +80,7 @@ Template.TabYou.events({
       });
       Meteor.call("addReferral", Meteor.userId(), function (error, result) {
         if (error) {
-          console.log("error", error);
+          log.error("error", error);
         }
       });
     }//end of isCordova
@@ -109,14 +109,14 @@ Template.TabYou.rendered = function () {
     navigator.globalization.getPreferredLanguage(
       function (language) {
         // alert('language: ' + language.value + '\n');
-        // console.log(language);
+        // log.error(language);
         var lang = language.value.replace(pattern, "");
-        console.log(lang);
+        log.info(lang);
         // var html  = "http://esprit.io/legal/"+lang+".privacy.html";
         // var html = Meteor.call("getPpLink",lang);
         Meteor.call("getPpLink", lang, function (error, result) {
           if (error) {
-            console.log("error", error);
+            log.error("error", error);
           }
           else {
             return legalLink.set(result);
@@ -132,7 +132,7 @@ Template.TabYou.rendered = function () {
   else {
     Meteor.call("getPpLink", "en", function (error, result) {
       if (error) {
-        console.log("error", error);
+        log.error("error", error);
       }
       else {
         return legalLink.set(result);

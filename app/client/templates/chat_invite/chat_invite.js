@@ -11,7 +11,7 @@ Template.ChatInvite.events({
       Meteor.call('chatCreate', targetIds.get(), function (err, data) {
       Router.go('ChatRoom', {chatRoomId: data});
     });
-    /*console.log($('.js-example-basic-multiple').val());*/
+    /*log.info($('.js-example-basic-multiple').val());*/
   },
 
   'change .targetCB': function (e) {

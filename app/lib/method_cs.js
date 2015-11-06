@@ -54,7 +54,7 @@ Meteor.methods({
      userObj.profile.role = role;
      Meteor.users.upsert(Meteor.userId(),{$set:userObj},function(err){
      if(err){
-     console.log(err);
+     log.error(err);
      return err;
      }else{
      return
@@ -63,7 +63,7 @@ Meteor.methods({
 
     Meteor.users.update({_id: Meteor.userId()}, {$set: {'profile.role': role}}, function (err) {
       if (err) {
-        console.log(err);
+        log.error(err);
         return err;
       }
       else {
@@ -76,7 +76,7 @@ Meteor.methods({
     //  Classes.update(doc,{$addToSet:{"joinedUserId":Meteor.userId()}});
     var query = {};
     query.classCode =  classCode ;
-    console.log(query);
+    log.info(query);
     if(Classes.findOne(query)){
       return false;
     }else{
@@ -91,7 +91,7 @@ Meteor.methods({
     var query = {};
     query.classCode = new RegExp('^' + classCode, 'i');
     query.createBy = {$ne: Meteor.userId()};
-    console.log(query);
+    log.info(query);
     return Classes.findOne(query) || false;
   },
   'class/searchExact': function (classCode) {
@@ -99,7 +99,7 @@ Meteor.methods({
     //  Classes.update(doc,{$addToSet:{"joinedUserId":Meteor.userId()}});
     var query = {};
     query.classCode = classCode;
-    console.log(query);
+    log.info(query);
     return Classes.findOne(query) || false;
   },
   'class/join': function (doc) {
@@ -107,11 +107,12 @@ Meteor.methods({
     //TODO : put the below checking inside joinClass schema and return a proper error message
     var query = {};
     query.classCode = new RegExp('^' + doc.classCode, 'i');
-    //console.log(query) ;
+    log.info(query) ;
+    
     var classDetail = Classes.findOne(query);
-    //console.log(classDetail);
+    log.info(classDetail);
     if(classDetail.createBy == Meteor.userId()){
-      console.log("you can't join the class you own.")
+      log.info("you can't join the class you own.")
 
       return false;
     }

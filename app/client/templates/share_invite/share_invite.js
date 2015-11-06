@@ -37,7 +37,7 @@ Template.ShareInvite.helpers({
 Template.ShareInvite.created = function () {
   Meteor.call("getShareLink", Router.current().params.classCode, function (error, result) {
     if (error) {
-      console.log("error", error);
+      log.error("error", error);
     }
     if (result) {
       shareLink.set(result);

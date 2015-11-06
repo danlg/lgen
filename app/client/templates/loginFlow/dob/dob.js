@@ -7,7 +7,7 @@ Template.Dob.events({
     lodash.set(user, 'profile.dob', $("#dobInput").val());
     Meteor.call("profileUpdateByObj", user, function (error, result) {
       if (error) {
-        console.log("error", error);
+        log.error("error", error);
       } else {
         Router.go('TabClasses');
       }

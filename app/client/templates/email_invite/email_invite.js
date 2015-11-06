@@ -31,7 +31,7 @@ Template.EmailInvite.events({
 
       // Meteor.call("addInvitedPplId",id , function(error, result){
       //   if(error){
-      //     console.log("error", error);
+      //     log.error("error", error);
       //   }else{
       //
       //   }
@@ -78,7 +78,7 @@ Template.EmailInvite.helpers({
     return contactList.get();
   },
   getName: function (contactObj) {
-    console.log(contactObj);
+    log.info(contactObj);
     if (contactObj.displayName !== null && contactObj.displayName !== "")
       return contactObj.displayName;
     else if (contactObj.nickname !== null && contactObj.nickname !== "")

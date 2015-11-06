@@ -77,7 +77,7 @@ Template.ionNavBar.events({
         lodash.get(doc, "workHourTime.weeks").length > 0;
 
 
-      console.log(allWork);
+      log.info(allWork);
       if (allWork) {
         AutoForm.submitFormById("#chatOptionUpdate");
       } else {
@@ -120,6 +120,7 @@ function getWeekName(week) {
   weekday[5] = "Fri";
   weekday[6] = "Sat";
   weekday[7] = "Sun";
-  // console.log("Today is " + weekday[week]);
+  
+  log.info("Today is " + weekday[week]);
   return weekday[week];
 }

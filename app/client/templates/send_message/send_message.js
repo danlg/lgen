@@ -33,14 +33,14 @@ Template.SendMessage.events({
       //  $(e.target).attr('class','icon ion-stop');
       $(e.target).attr('class', 'button button-icon icon ion-stop ');
 
-      // console.log(playname);
+      // log.info(playname);
 
-      // console.log(Sounds.findOne(playname).url());
-      // console.log(Sounds.findOne(playname));
-      console.log(soundUrl);
-      console.log("startPlay");
+      // log.info(Sounds.findOne(playname).url());
+      // log.info(Sounds.findOne(playname));
+      log.info(soundUrl);
+      log.info("startPlay");
       playAudio(soundUrl, function (argument) {
-        console.log("finishPlay");
+        log.info("finishPlay");
         $(e.target).attr('class', 'button button-icon icon ion-play playBtn');
         isPlayingSound = false;
       });
@@ -50,7 +50,7 @@ Template.SendMessage.events({
 
     if (!isRecording) {
 
-      console.log('startRec');
+      log.info('startRec');
       media = getNewRecordFile();
       media.startRecord();
       isRecording = true;
@@ -63,7 +63,7 @@ Template.SendMessage.events({
 
 
     } else {
-      console.log('stopRec');
+      log.info('stopRec');
       media.stopRecord();
       //  playAudio(media.src);
       isRecording = false;
@@ -86,7 +86,7 @@ Template.SendMessage.events({
   },
   'click .ion-close-circled.image': function (e) {
     var id = $(e.target).data('imgid');
-    console.log(id);
+    log.info(id);
 
     var array = imageArr.get();
     var index = array.indexOf(id);
@@ -99,7 +99,7 @@ Template.SendMessage.events({
 
     // var i = imageArr.get().indexOf(id);
     // if(i != -1) {
-    //   console.log(imageArr.get().splice(i, 1));
+    //   log.info(imageArr.get().splice(i, 1));
     //   imageArr.set(imageArr.get().splice(i, 1));
     // }
 
@@ -107,7 +107,7 @@ Template.SendMessage.events({
   'click .ion-close-circled.voice': function (e) {
 
     var id = $(e.target).data('clipid');
-    console.log(id);
+    log.info(id);
 
     var array = soundArr.get();
     var index = array.indexOf(id);
@@ -130,7 +130,7 @@ Template.SendMessage.events({
       Images.insert(file, function (err, fileObj) {
         if (err) {
           // handle error
-          console.log(err);
+          log.error(err);
         } else {
 
           // alert(fileObj._id);
@@ -212,13 +212,13 @@ Template.SendMessage.helpers({
 
     if (lodash.has(Router.current().params, 'classCode')) {
       if (!lodash.isUndefined(Router.current().params.classCode)) {
-        console.log(Classes.find({
+        log.info(Classes.find({
           classCode: Router.current().params.classCode
         }).fetch());
         var getDefaultClass = Classes.findOne({
           classCode: Router.current().params.classCode
         });
-        console.log(getDefaultClass);
+        log.info(getDefaultClass);
         var obj = {
           selectArrName: [getDefaultClass.className],
           selectArrId: [getDefaultClass.classCode]
@@ -240,8 +240,8 @@ Template.SendMessage.helpers({
     }
   },
   uploadPic: function (argument) {
-    console.log(imageArr.get().length);
-    console.log(imageArr.get());
+    log.info(imageArr.get().length);
+    log.info(imageArr.get());
     return imageArr.get();
   },
   uploadSound: function (argument) {
@@ -315,7 +315,7 @@ Template.ionNavBar.events({
       //loop through selected classes
       for (var count = 0; count < target.length; count++) {
         
-        console.log("called" + count);
+        log.info("called" + count);
         var tempArray = [];
         tempArray.push(target[count]);
         Meteor.call('sendMsg', tempArray, msg, mediaObj, function () {
@@ -344,16 +344,16 @@ function onSuccess(imageURI) {
     function (fileEntry) {
       // alert("got image file entry: " + fileEntry.fullPath);
 
-      // console.log(fileEntry.)
+      // log.info(fileEntry.)
       fileEntry.file(function (file) {
         // alert(file);
-        console.log(file);
+        log.info(file);
 
 
         Images.insert(file, function (err, fileObj) {
           if (err) {
             // handle error
-            console.log(err);
+            log.error(err);
           } else {
 
             // alert(fileObj._id);
@@ -419,25 +419,25 @@ var callback = function (buttonIndex) {
 
 
 function onResolveSuccess(fileEntry) {
-  console.log('onResolveSuccess: ' + fileEntry.name);
+  log.info('onResolveSuccess: ' + fileEntry.name);
 
   fileEntry.file(function (file) {
 
     var newFile = new FS.File(file);
     //newFile.attachData();
-    //console.log(newFile);
+    //log.info(newFile);
 
     Sounds.insert(newFile, function (err, fileObj) {
       if (err) {
         //handle error
-        console.log("insert error" + err);
+        log.error("insert error" + err);
       } else {
         //handle success depending what you need to do
         console.dir(fileObj);
         var fileURL = {
           "file": "/cfs/files/files/" + fileObj._id
         };
-        console.log(fileURL.file);
+        log.info(fileURL.file);
 
         var arr = soundArr.get();
         arr.push(fileObj._id);
@@ -450,22 +450,22 @@ function onResolveSuccess(fileEntry) {
 }
 
 function fail(error) {
-  console.log('fail: ' + error.code);
+  log.error('fail: ' + error.code);
 }
 
 function playAudio(url, callback) {
   // Play the audio file at url
-  console.log("playAudio : " + url);
+  log.info("playAudio : " + url);
   var my_media = new Media(url,
     // success callback
     function () {
-      console.log("playAudio():Audio Success");
+      log.info("playAudio():Audio Success");
       callback();
-      console.log("calledback");
+      log.info("calledback");
     },
     // error callback
     function (err) {
-      console.log("playAudio():Audio Error: " + err);
+      log.error("playAudio():Audio Error: " + err);
     }
   );
   // Play audio

@@ -6,12 +6,12 @@ getUserLanguage = function () {
   navigator.globalization.getPreferredLanguage(
     function (language) {
       // alert('language: ' + language.value + '\n');
-      console.log(language);
+      log.info(language);
       var lang = language.value.replace(pattern, "");
       return lang;
     },
     function () {
-      console.log('Error getting language\n');
+      log.error('Error getting language\n');
     }
   );
 
@@ -102,12 +102,12 @@ getNewRecordFile = function () {
   mediaRec = new Media(src,
     // success callback
     function () {
-      console.log("recordAudio():Audio Success");
+      log.info("recordAudio():Audio Success");
     },
 
     // error callback
     function (err) {
-      console.log("recordAudio():Audio Error: " + err.code);
+      log.error("recordAudio():Audio Error: " + err.code);
     }
   );
 

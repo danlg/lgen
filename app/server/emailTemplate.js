@@ -75,7 +75,7 @@ feedback = function (content) {
   {
     var email = Meteor.settings.FEEDBACK_EMAIL;
     var fullName = getFullNameOfCurrentUser();
-    console.log("Sending feedback to " + Meteor.settings.FEEDBACK_EMAIL + " from " + fullName);
+    log.info("Sending feedback to " + Meteor.settings.FEEDBACK_EMAIL + " from " + fullName);
     return {
       "message": {
         "merge_language": "handlebars",

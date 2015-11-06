@@ -24,7 +24,7 @@ Template.Language.created = function () {
     navigator.globalization.getPreferredLanguage(
       function (language) {
         // alert('language: ' + language.value + '\n');
-        // console.log(language);
+        log.info(language);
         var lang = language.value.replace(pattern, "");
         Session.setPersistent('lang', lang);
         //TODO set default language to English

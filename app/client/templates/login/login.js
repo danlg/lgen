@@ -4,7 +4,7 @@
 
 Template.Login.events({
   'click .gmailLoginBtn': function () {
-    console.log("Meteor user /logged in ?" + Meteor.user());
+    log.info("Meteor user /logged in ?" + Meteor.user());
     //if (!
     //for details see, http://www.helptouser.com/code/29008008-meteor-js-google-account-filter-email-and-force-account-choser.html
     Meteor.loginWithGoogle(
@@ -19,14 +19,14 @@ Template.Login.events({
           // set a session variable to display later if there is a login error
           Session.set('loginError', 'reason: ' + err.reason + ' message: ' + err.message || 'Unknown error');
           alert(err.message + ":" + err.reason);
-          console.log('loginWithGoogle err'+ err.reason +" msg="+ err.message);
+          log.error('loginWithGoogle err'+ err.reason +" msg="+ err.message);
           var loginServicesConfigured = Accounts.loginServicesConfigured();
-          console.log('loginServicesConfigured='+loginServicesConfigured);
+          log.info('loginServicesConfigured='+loginServicesConfigured);
         }
         else {
-          console.log('loginWithGoogle OK');
+          log.info('loginWithGoogle OK');
           var loginServicesConfigured = Accounts.loginServicesConfigured();
-          console.log('loginServicesConfigured='+loginServicesConfigured);
+          log.info('loginServicesConfigured='+loginServicesConfigured);
 
           if (Meteor.user().profile.role !== "")
             Router.go('TabClasses');
@@ -42,7 +42,7 @@ Template.Login.events({
     //        Router.go('role');
     //}
     //else{
-    //    console.log("Shouldn't go here");
+    //    log.error("Shouldn't go here");
     //}
   }
 });

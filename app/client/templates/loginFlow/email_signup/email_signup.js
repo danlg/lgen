@@ -70,7 +70,7 @@ Template.ionNavBar.events({
       }, function (err) {
         if (err) {
           alert(err.reason);
-          console.log(err);
+          log.error(err);
         } else {
           Router.go("TabClasses");
         }

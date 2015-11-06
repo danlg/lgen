@@ -10,7 +10,7 @@ Template.Commend.events({
 
     Meteor.call("class/removeStd", dataObject, function (error, result) {
       if (error) {
-        console.log("error", error);
+        log.error("error", error);
       } else {
         // alert("remove success!");
         Router.go('TabClasses');
@@ -60,7 +60,7 @@ Template.ionNavBar.events({
 
     Meteor.call("giveComment", commentObj, function (error, result) {
       if (error) {
-        console.log("error", error);
+        log.error("error", error);
       } else {
         window.history.back();
       }

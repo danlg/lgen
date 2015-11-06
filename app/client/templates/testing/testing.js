@@ -73,7 +73,7 @@ Template.Testing.events({
       Sounds.insert(file, function (err, fileObj) {
         if (err) {
           //handle error
-          console.log("insert error" + err);
+          log.error("insert error" + err);
         } else {
 
 
@@ -89,31 +89,31 @@ Template.Testing.events({
   },
   'click .voice': function (argument) {
     if (!isRecording) {
-      console.log('startRec');
+      log.info('startRec');
       media = getNewRecordFile();
       media.startRecord();
       isRecording = true;
     } else {
-      console.log('stopRec');
+      log.info('stopRec');
       media.stopRecord();
       // playAudio(media.src);
       isRecording = false;
 
-      console.log(media.src);
+      log.info(media.src);
 
-      // console.log(cordova.file.applicationDirectory + media.src);
-      // console.log(cordova.file.applicationStorageDirectory + media.src);
-      // console.log(cordova.file.dataDirectory + media.src);
-      // console.log(cordova.file.cacheDirectory + media.src);
+      // log.info(cordova.file.applicationDirectory + media.src);
+      // log.info(cordova.file.applicationStorageDirectory + media.src);
+      // log.info(cordova.file.dataDirectory + media.src);
+      // log.info(cordova.file.cacheDirectory + media.src);
 
-      // console.log(cordova.file.externalApplicationStorageDirectory + media.src);
-      // console.log(cordova.file.externalDataDirectory + media.src);
-      // console.log(cordova.file.externalCacheDirectory + media.src);
-      console.log(cordova.file.externalRootDirectory + media.src);
+      // log.info(cordova.file.externalApplicationStorageDirectory + media.src);
+      // log.info(cordova.file.externalDataDirectory + media.src);
+      // log.info(cordova.file.externalCacheDirectory + media.src);
+      log.info(cordova.file.externalRootDirectory + media.src);
 
-      // console.log(cordova.file.syncedDataDirectory + media.src);
-      // console.log(cordova.file.documentsDirectory + media.src);
-      // console.log(cordova.file.sharedDirectory + media.src);
+      // log.info(cordova.file.syncedDataDirectory + media.src);
+      // log.info(cordova.file.documentsDirectory + media.src);
+      // log.info(cordova.file.sharedDirectory + media.src);
 
 
       switch (window.device.platform) {
@@ -223,12 +223,12 @@ function getNewRecordFile() {
   mediaRec = new Media(src,
     // success callback
     function () {
-      console.log("recordAudio():Audio Success");
+      log.info("recordAudio():Audio Success");
     },
 
     // error callback
     function (err) {
-      console.log("recordAudio():Audio Error: " + err.code);
+      log.error("recordAudio():Audio Error: " + err.code);
     }
   );
 
@@ -238,41 +238,41 @@ function getNewRecordFile() {
 */
 
 function onFileSystemSuccess(fileSystem) {
-  console.log('onFileSystemSuccess: ' + fileSystem.name);
+  log.info('onFileSystemSuccess: ' + fileSystem.name);
 }
 
 function onResolveSuccess(fileEntry) {
 
   media = "";
 
-  console.log('onResolveSuccess: ' + fileEntry.name);
+  log.info('onResolveSuccess: ' + fileEntry.name);
 
   fileEntry.file(function (file) {
 
     var newFile = new FS.File(file);
     //newFile.attachData();
-    //console.log(newFile);
+    //log.info(newFile);
 
     // newFile.attachData(file, {type:"audio/aac"});
 
     Sounds.insert(newFile, function (err, fileObj) {
       if (err) {
         //handle error
-        console.log("insert error" + err);
+        log.error("insert error" + err);
       } else {
         //handle success depending what you need to do
         console.dir(fileObj);
         var fileURL = {
           "file": "/cfs/files/files/" + fileObj._id
         };
-        console.log(fileURL.file);
+        log.info(fileURL.file);
       }
     });
   });
 }
 
 function fail(error) {
-  console.log('fail: ' + error.code);
+  log.error('fail: ' + error.code);
 }
 
 

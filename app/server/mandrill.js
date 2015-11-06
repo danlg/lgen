@@ -16,7 +16,7 @@ Mandrill.config({
 });
 
 
-/*console.log(Mandrill.users.ping());*/
+/*log.info(Mandrill.users.ping());*/
 
 
 Accounts.emailTemplates.verifyEmail.html = function (user, url) {

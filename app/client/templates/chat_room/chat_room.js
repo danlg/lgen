@@ -67,7 +67,7 @@ Template.ChatRoom.events({
       Images.insert(file, function (err, fileObj) {
         if (err) {
           // handle error
-          console.log(err);
+          log.error(err);
         }
         else {
           var pushObj = {};
@@ -77,7 +77,7 @@ Template.ChatRoom.events({
           pushObj.image = fileObj._id;
           Meteor.call("chat/sendImage", Router.current().params.chatRoomId, pushObj, function (error, result) {
             if (error) {
-              console.log("error", error);
+              log.error("error", error);
             }
           });
 
@@ -114,7 +114,7 @@ Template.ChatRoom.events({
 
   'click .voice': function (argument) {
     if (!isRecording) {
-      console.log('startRec');
+      log.info('startRec');
       media = getNewRecordFile();
       media.startRecord();
       isRecording = true;
@@ -125,7 +125,7 @@ Template.ChatRoom.events({
       }, 1000 * 60 * 3);//3 min max
     }
     else {
-      console.log('stopRec');
+      log.info('stopRec');
       media.stopRecord();
       //  playAudio(media.src);
       isRecording = false;
@@ -223,7 +223,7 @@ Template.ChatRoom.helpers({
           // var height = $(".list.chatroomList").height();
           // height.replace("px","");
           // height= height - 60;
-          // console.log(height);
+          // log.info(height);
           // $(".list.chatroomList").height(height+"px");
           needReduce = true;
         }
@@ -296,13 +296,13 @@ Template.ChatRoom.rendered = function () {
   // if(needReduce){
   //   var height = $(".list.chatroomList").height();
   //   height= height - 60;
-  //   console.log(height);
+  //   log.info(height);
   //   $(".list.chatroomList").height(height+"px");
   //   needReduce = false;
   // }else{
   //   var height = $(".list.chatroomList").height();
   //   height= height + 60;
-  //   console.log(height);
+  //   log.info(height);
   //   $(".list.chatroomList").height(height+"px");
   // }
 };
@@ -317,14 +317,14 @@ function onSuccess(imageURI) {
   window.resolveLocalFileSystemURI(imageURI,
     function (fileEntry) {
       // alert("got image file entry: " + fileEntry.fullPath);
-      // console.log(fileEntry.)
+      // log.info(fileEntry.)
       fileEntry.file(function (file) {
         // alert(file);
-        console.log(file);
+        log.info(file);
         Images.insert(file, function (err, fileObj) {
           if (err) {
             // handle error
-            console.log(err);
+            log.error(err);
           }
           else {
             var pushObj = {};
@@ -335,7 +335,7 @@ function onSuccess(imageURI) {
 
             Meteor.call("chat/sendImage", Router.current().params.chatRoomId, pushObj, function (error, result) {
               if (error) {
-                console.log("error", error);
+                log.error("error", error);
               }
             });
             var targetId = Meteor.users.findOne({_id: {$nin: [Meteor.userId()]}})._id;
@@ -368,19 +368,19 @@ function onFail(message) {
 }
 // Record audio
 function onFileSystemSuccess(fileSystem) {
-  console.log('onFileSystemSuccess: ' + fileSystem.name);
+  log.info('onFileSystemSuccess: ' + fileSystem.name);
 }
 
 function onResolveSuccess(fileEntry) {
-  console.log('onResolveSuccess: ' + fileEntry.name);
+  log.info('onResolveSuccess: ' + fileEntry.name);
   fileEntry.file(function (file) {
     var newFile = new FS.File(file);
     //newFile.attachData();
-    //console.log(newFile);
+    //log.info(newFile);
     Sounds.insert(newFile, function (err, fileObj) {
       if (err) {
         //handle error
-        console.log("insert error" + err);
+        log.error("insert error" + err);
       }
       else {
         //handle success depending what you need to do
@@ -388,7 +388,7 @@ function onResolveSuccess(fileEntry) {
         var fileURL = {
           "file": "/cfs/files/files/" + fileObj._id
         };
-        console.log(fileURL.file);
+        log.info(fileURL.file);
         var pushObj = {};
         pushObj.from = Meteor.userId();
         pushObj.sendAt = moment().format('x');
@@ -396,7 +396,7 @@ function onResolveSuccess(fileEntry) {
         pushObj.sound = fileObj._id;
         Meteor.call("chat/sendImage", Router.current().params.chatRoomId, pushObj, function (error, result) {
           if (error) {
-            console.log("error", error);
+            log.error("error", error);
           }
         });
         var targetId = Meteor.users.findOne({_id: {$nin: [Meteor.userId()]}})._id;
@@ -425,22 +425,22 @@ function onResolveSuccess(fileEntry) {
 }
 
 function fail(error) {
-  console.log('fail: ' + error.code);
+  log.error('fail: ' + error.code);
 }
 
 function playAudio(url, callback) {
   // Play the audio file at url
-  // console.log(callback);
+  // log.info(callback);
   var my_media = new Media(url,
     // success callback
     function () {
-      console.log("playAudio():Audio Success");
+      log.info("playAudio():Audio Success");
       callback();
-      console.log("calledback");
+      log.info("calledback");
     },
     // error callback
     function (err) {
-      console.log("playAudio():Audio Error: " + err);
+      log.error("playAudio():Audio Error: " + err);
     }
   );
   // Play audio

@@ -27,9 +27,10 @@ Template.ionNavBar.events({
     // loginObj.email = loginObj.email.toUpperCase();
     Meteor.loginWithPassword(loginObj.email, loginObj.pwd, function (err) {
       // err?alert(err.reason);Router.go('TabClasses');
-      if (err)
+      if (err){
         alert("user not found");
-      // console.log(err);
+        log.error(err);
+      }
       else {
         Router.go('TabClasses');
       }

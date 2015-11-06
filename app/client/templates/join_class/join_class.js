@@ -21,7 +21,7 @@ Template.JoinClass.events({
       
     Meteor.call("class/search", classCodeInput, function (error, result) {
       if (error) {
-        console.log("error", error);
+        log.error("error", error);
       }
       if (!result) {
         alert(TAPi18n.__("NoClass"));

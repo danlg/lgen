@@ -15,7 +15,7 @@ Stores = {};
 Stores.images = new FS.Store.GridFS("images");
 Stores.sounds = new FS.Store.GridFS("sounds", {
   // beforeWrite:function(fileObj){
-  //   console.log("start Transform");
+  //   log.info("start Transform");
   //
   //
   //     // fileObj.extension("wav");

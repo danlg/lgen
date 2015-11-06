@@ -11,7 +11,7 @@ Template.MyAccount.helpers({
     return Meteor.user();
   },
   email: function () {
-    /*console.log(_.deep(Meteor.user(),'firstname'));*/
+    //log.info(_.deep(Meteor.user(),'firstname'));
     return Meteor.user().emails[0].address;
   },
   editprofile: Schema.editprofile,

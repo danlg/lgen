@@ -45,11 +45,11 @@ var callback = function (buttonIndex) {
       window.imagePicker.getPictures(
         function (results) {
           for (var i = 0; i < results.length; i++) {
-            console.log('Image URI: ' + results[i]);
+            log.info('Image URI: ' + results[i]);
 
           }
         }, function (error) {
-          console.log('Error: ' + error);
+          log.error('Error: ' + error);
         },
         options);
 
