@@ -109,7 +109,7 @@ Template.TabYou.rendered = function () {
     navigator.globalization.getPreferredLanguage(
       function (language) {
         // alert('language: ' + language.value + '\n');
-        // log.error(language);
+        // log.info(language);
         var lang = language.value.replace(pattern, "");
         log.info(lang);
         // var html  = "http://esprit.io/legal/"+lang+".privacy.html";
