@@ -254,8 +254,8 @@ Template.ChatRoom.created = function () {
 };
 
 Template.ChatRoom.rendered = function () {
-  $(".list.chatroomList").height("100%");
-  $(".list.chatroomList").height(($(".list.chatroomList").height() - 123) + "px");
+  //$(".list.chatroomList").height("100%");
+  //$(".list.chatroomList").height(($(".list.chatroomList").height() - 123) + "px");
   $(".inputBox").autogrow();
   chatroomList = this.find('.chatroomList');
   template = this;

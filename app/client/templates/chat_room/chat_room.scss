@@ -22,15 +22,17 @@
 .list.chatroomList {
   overflow-x: hidden;
   overflow-y: auto;
-  height: calc(100% - 80px);
+  height: calc(100% - 57px);
   //height: auto;
   bottom: 0;
+  margin-bottom:0px;
   .item {
     /*border-color: #FFF !important;*/
     border-color: transparent;
     background-color: transparent;
     padding:1px 16px 1px 16px;    
   }
+
 }
 
 .list.chatroomList:last-child {
