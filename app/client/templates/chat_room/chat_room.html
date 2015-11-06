@@ -25,8 +25,8 @@
     {{#ionContent}}
 
 
-
-      <div class="list chatroomList" id="chatroomList">
+      <!--todo: allow user to choose from a selection of background image. save user perefence at the chat object in DB-->
+      <div class="list chatroomList" style='background-image: url("/img/diagmonds.png");background-repeat: repeat;' id="chatroomList">
         {{#each chatRoomProfile.messagesObj}}
           
           <div class="item {{isMine}}">
@@ -90,7 +90,7 @@
 
         <div class="item item-input chatroomItem">
           <textarea style="font-size:20px;line-height:25px;padding-left: 20px;" dir="auto" name="msg" maxlength="5000"
-                    class="inputBox autogrow-short" placeholder="Message"></textarea>
+                    class="inputBox autogrow-short" placeholder="{{_'message'}}"></textarea>
           <button style="width:100px;display:none;" class="sendBtn button icon  ion-paper-airplane "></button>
           <span class='mediaButtonGroup' style='width:107px;'>
             
