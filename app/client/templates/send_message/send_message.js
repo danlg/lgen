@@ -151,7 +151,30 @@ Template.SendMessage.events({
         }
       });
     });
-  }
+  },
+  'click .sendMsgBtn': function () {
+    /*var target  = $(".js-example-basic-multiple").val();*/
+
+
+    var target = Session.get('sendMessageSelectedClasses').selectArrId;
+    log.info(target);
+    var msg = $(".msgBox").val();
+    var mediaObj = {};
+    mediaObj.imageArr = imageArr.get();
+    mediaObj.soundArr = soundArr.get();
+
+    if (target.length > 0) {
+      Meteor.call('sendMsg', target, msg, mediaObj, function () {
+        Session.set("sendMessageSelectedClasses", {
+          selectArrName: [],
+          selectArrId: []
+        });
+        //Router.go('TabClasses');
+      });
+    } else {
+      alert("no class select!");
+    }
+  }  
 });
 
 /*****************************************************************************/
@@ -264,24 +287,35 @@ Template.ionNavBar.events({
 
 
     var target = Session.get('sendMessageSelectedClasses').selectArrId;
+    log.info(target);
+    
     var msg = $(".msgBox").val();
     var mediaObj = {};
     mediaObj.imageArr = imageArr.get();
     mediaObj.soundArr = soundArr.get();
 
+    log.info(target.length);
     if (target.length > 0) {
-      Meteor.call('sendMsg', target, msg, mediaObj, function () {
-        Session.set("sendMessageSelectedClasses", {
-          selectArrName: [],
-          selectArrId: []
+      for (var count = 0; count < target.length; count++) {
+        
+        console.log("called" + count);
+        var tempArray = [];
+        tempArray.push(target[count]);
+        Meteor.call('sendMsg', tempArray, msg, mediaObj, function () {
+          Session.set("sendMessageSelectedClasses", {
+            selectArrName: [],
+            selectArrId: []
+          });
+          //Router.go('TabClasses');
         });
-        Router.go('TabClasses');
-      });
+      }
+
     } else {
       alert("no class select!");
     }
   }
 });
+
 
 
 function onSuccess(imageURI) {

@@ -12,10 +12,10 @@
       <a href="{{pathFor 'classEdit' classCode=classObj.classCode  }}"
          class="button button-clear button-entering button-active "><i class="icon ion-ios-information-outline"></i></a>
 
-      <a href="{{ pathFor 'SendMessage' classCode=classObj.classCode }}"
+      <!--<a href="{{ pathFor 'SendMessage' classCode=classObj.classCode }}"
          class="button button-clear button-entering button-active">
         <i class="icon ion-compose"></i>
-      </a>
+      </a>-->
       <!-- <button  class="button button-clear button-entering button-active addClassBtn">?</button> -->
     </div>
   {{/contentFor}}
@@ -103,30 +103,12 @@
             <!-- </a> -->
           {{/each}}
         </div>
-        <div class="list inputBoxList">
-  
-          <div class="item item-input chatroomItem">
-            <textarea style="font-size:20px;line-height:25px;padding-left: 20px;" dir="auto" name="msg" maxlength="5000"
-                      class="inputBox autogrow-short" placeholder="Message"></textarea>
-            <button style="width:100px;" class="sendBtn button button-positive"> {{_ "Send" }}</button>
-            <span class='mediaButtonGroup' style='width:107px;'>
-              
-                  <span class="file " style='display:inline;padding:10px;'>
-                    <i class="icon ion-image imageIcon "></i>
-                    <input type="file" id="imageBtn" accept="image/*;capture=camera" capture="camera">
-                  </span>
-            
-              
-                  <span class="file voice" style='display:inline;padding:10px;'>
-                    <i class="icon  ion-mic-a "></i>
-                  </span>
-            
-            </span>
-          </div>
-  
-        </div>        
-      </div>
 
+        {{> SendMessage callFromClassPanel=true }}
+      </div>
+      
+      
+      
     {{/ionContent}}
   {{/ionView}}
 </template>
