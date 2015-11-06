@@ -34,7 +34,7 @@
         <label class="item item-input {{messageBox}}" style="">
           <div class="row">
           <div class="col">
-            <textarea class="msgBox" placeholder="{{_'message'}}" style=""></textarea>
+            <textarea style="font-size:20px;line-height:25px;padding-left: 20px;" dir="auto" name="msg" maxlength="5000" class="msgBox autogrow-short" placeholder="{{_'message'}}"></textarea>
           </div>
             <div class="col col-10">
               <div class="file ">
@@ -48,7 +48,11 @@
               </div>
             </div>
             <div class="col col-10">
-                 <button class="button button-icon icon ion-paper-airplane stable sendMsgBtn"></button>
+                <div class="file">
+                  <i class="icon ion-paper-airplane sendMsgBtn"></i>                    
+                </div>
+                  
+          
             </div>            
           </div>          
         </label>

@@ -12,18 +12,13 @@
       <a href="{{pathFor 'classEdit' classCode=classObj.classCode  }}"
          class="button button-clear button-entering button-active "><i class="icon ion-ios-information-outline"></i></a>
 
-      <!--<a href="{{ pathFor 'SendMessage' classCode=classObj.classCode }}"
-         class="button button-clear button-entering button-active">
-        <i class="icon ion-compose"></i>
-      </a>-->
-      <!-- <button  class="button button-clear button-entering button-active addClassBtn">?</button> -->
     </div>
   {{/contentFor}}
 
   {{#ionView}}
     {{#ionContent}}
 
-      <div class="container ">
+     
 
         <div class="button-bar">
           <a class="button"
@@ -34,16 +29,16 @@
         <div class="list messageList" id="messageList">
           {{#each classObj.messagesObj}}
   
-            <div class="list card">
-              <div class="item ">
+            <div class="item card">
+             <!-- <div class="item ">
                 <div class="row" style="padding:0">
                   <div class="col" style="padding:0"><h2>{{className}}</h2></div>
                   <div class="col" style="padding:0;text-align:right">{{createdAt}}</div>
                 </div>
-              </div>
+              </div>-->
               <div class="item ">
                 <div>
-                  <div>{{teacherName}}:</div>
+                  <!--<div>{{teacherName}}:</div>>-->
                   <div>{{content}}</div>
                   <br/><span class='timestamp'>{{formatTime sendAt}}</span> 
                   <div style="height:10px;">
@@ -105,7 +100,7 @@
         </div>
 
         {{> SendMessage callFromClassPanel=true }}
-      </div>
+     
       
       
       

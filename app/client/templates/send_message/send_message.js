@@ -169,7 +169,12 @@ Template.SendMessage.events({
           selectArrName: [],
           selectArrId: []
         });
-        //Router.go('TabClasses');
+        
+        //input parameters clean up
+        $(".msgBox").val("");
+        imageArr.set([]);
+        soundArr.set([]);
+
       });
     } else {
       alert("no class select!");
@@ -296,6 +301,8 @@ Template.ionNavBar.events({
 
     log.info(target.length);
     if (target.length > 0) {
+      
+      //loop through selected classes
       for (var count = 0; count < target.length; count++) {
         
         console.log("called" + count);
@@ -306,7 +313,7 @@ Template.ionNavBar.events({
             selectArrName: [],
             selectArrId: []
           });
-          //Router.go('TabClasses');
+          Router.go('TabClasses');
         });
       }
 
