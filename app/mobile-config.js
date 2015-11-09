@@ -6,7 +6,7 @@ App.info({
   email: 'contact@littlegenius.io',
   website: 'http://app.littlegenius.io',
   version: '0.91',
-  buildNumber: '90112'
+  buildNumber: '90113'
 });
 
 App.setPreference('Orientation', 'portrait');
@@ -16,6 +16,7 @@ App.setPreference('StatusBarOverlaysWebView', 'true');
 App.setPreference('StatusBarStyle', 'lightcontent');
 App.setPreference('android-targetSdkVersion', '22');
 App.setPreference('android-minSdkVersion', '19');
+App.setPreference('BackupWebStorage', 'none');
 
 App.icons({
   // iOS
