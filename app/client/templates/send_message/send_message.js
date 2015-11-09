@@ -54,7 +54,7 @@ Template.SendMessage.events({
       media = getNewRecordFile();
       media.startRecord();
       isRecording = true;
-      $(".icon.ion-mic-a").attr("class", "icon ion-stop");
+      $(".icon.ion-ios-mic-outline").attr("class", "icon ion-stop");
 
       setTimeout(function () {
         if (isRecording)
@@ -68,7 +68,7 @@ Template.SendMessage.events({
       //  playAudio(media.src);
       isRecording = false;
 
-      $(".icon.ion-stop").attr("class", "icon ion-mic-a");
+      $(".icon.ion-stop").attr("class", "icon ion-ios-mic-outline");
 
 
       switch (window.device.platform) {
