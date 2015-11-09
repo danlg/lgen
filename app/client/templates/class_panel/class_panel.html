@@ -18,12 +18,13 @@
   {{#ionView}}
     {{#ionContent}}
 
-     
-
         <div class="button-bar">
-          <a class="button"
-             href="{{ pathFor 'ClassUsers' classCode=classObj.classCode }}">  <i class="icon ion-ios-people"></i>{{ classObj.joinedUserId.length }} users</a>
-          <a class="button" href="{{pathFor 'ClassInvitation' classCode=classObj.classCode  }}">  <i class="icon ion-person-add"></i>add</a>
+          <a class="button button-bar-button" href="{{ pathFor 'ClassUsers' classCode=classObj.classCode }}"> <i class="icon ion-ios-people"></i>
+            <div>{{ classObj.joinedUserId.length }} {{_ "users"}}</div>
+          </a>
+          <a class="button button-bar-button" href="{{pathFor 'ClassInvitation' classCode=classObj.classCode  }}"> <i class="icon ion-person-add"></i>
+            <div>{{_ "AddMembers"}}</div>
+          </a>
         </div>
 
         <div class="list messageList" id="messageList">
