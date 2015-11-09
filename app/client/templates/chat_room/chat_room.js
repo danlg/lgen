@@ -118,7 +118,7 @@ Template.ChatRoom.events({
       media = getNewRecordFile();
       media.startRecord();
       isRecording = true;
-      $(".icon.ion-mic-a").attr("class", "icon ion-stop");
+      $(".ion-ios-mic-outline").attr("class", "icon ion-stop");
       setTimeout(function () {
         if (isRecording)
           media.stopRecord();
@@ -129,7 +129,7 @@ Template.ChatRoom.events({
       media.stopRecord();
       //  playAudio(media.src);
       isRecording = false;
-      $(".icon.ion-stop").attr("class", "icon ion-mic-a");
+      $(".icon.ion-stop").attr("class", "ion-ios-mic-outline");
       switch (window.device.platform) {
         case "Android":
           window.resolveLocalFileSystemURL(cordova.file.externalRootDirectory + media.src, onResolveSuccess, fail);
@@ -149,11 +149,13 @@ Template.ChatRoom.events({
   },
 
   'click .playBtn': function (e) {
+    log.info(isPlayingSound);
     if (!isPlayingSound) {
       isPlayingSound = true;
       var playname = $(e.target).data('clipid');
       //  $(e.target).attr('class','icon ion-stop');
-      $(e.target).attr('class', 'button button-icon icon ion-stop ');
+     
+      $(e.target).attr('class', 'button button-icon icon ion-stop playBtn');
       // alert("startPlay");
       playAudio(Sounds.findOne(playname).url(), function (argument) {
         //  alert("callback!");

@@ -11,7 +11,7 @@
 
 //here is the toolbar for sending
 .item.item-input.chatroomItem {
-  padding: 0;
+  padding: 5px 3% 5px 3%;
   background-color: #E6E6E6;
 }
 
@@ -22,7 +22,7 @@
 .list.chatroomList {
   overflow-x: hidden;
   overflow-y: auto;
-  height: calc(100% - 57px);
+  height: calc(100% - 70px);
   //height: auto;
   bottom: 0;
   margin-bottom:0px;
@@ -264,4 +264,12 @@
 
 .inputBoxList{
 
+}
+
+textarea.inputBox{
+  font-size:20px;
+  line-height:25px;
+  padding-left: 20px;
+  border-radius: 6px;
+  margin-right:10px;
 }
