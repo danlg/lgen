@@ -18,7 +18,7 @@
     "runlocal-android-emulator": "meteor run android -v --settings ../config/development/settings.json",
     "build": "NODE_ENV=production VULCANIZE=true meteor build ../myapp-dist --server=https://api.myapp.com/ --mobile-settings settings-production.json",
 
-    "build-uat":  "meteor build  --mobile-settings=../config/stage/settings.json --server=http://uat.littlegenius.io:8080",
+    "build-uat":  "meteor build .meteor/local -v --mobile-settings=../config/stage/settings.json --server=http://uat.littlegenius.io:8080",
 
     "deploy-ko":  "cd ../dist && scp app.tar.gz lg@uat.littlegenius.io:~/app && ssh lg@uat.littlegenius.io \"cd app && tar xzvf app.tar.gz\"",
     "list-plugins": "ls -l .meteor/local/cordova-build/plugins",

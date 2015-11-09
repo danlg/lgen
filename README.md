@@ -10,6 +10,7 @@ For Android, Windows, Linux or Mac can be used (the guidelines below have just b
 You need to install:
 - Meteor
 - npm
+- mup: npm install -g mup . The "app" directory path should be set to your actual one in `mup.json`.
 
 *for iOS:
 - DEPRECATED Build with iOS9.x SDK is now supported. 
