@@ -2,25 +2,38 @@
   {{#ionView class="bg" }}
     {{#ionContent}}
 
-
-
-      <div style="width:100vw;height:60%"></div>
-      <div class="padding-horizontal">
-        <!-- <a href="{{ pathFor 'role' }}" class="button button-block button-positive" > -->
-        <a href="" class="button button-block button-positive" data-ion-modal="_modal">
-          {{_ "SignUp"}}
-        </a>
+      <div class="login-header">
+        <!--div class="login-logo">
+          <img src="img/logo-login-g.png" style=''>
+        </div-->
+        <div class="motto">
+        {{_ "Motto1" }}<br>
+        {{_ "Motto2" }}<br>
+        {{_ "Motto3" }}
+        </div>
       </div>
-      <div class="padding-horizontal">
-        <a href="{{ pathFor 'EmailSignin' }}" class="button button-block button-positive">
-          {{_ "Login"}}
-        </a>
-      </div>
-      <div class="padding-horizontal">
-        <a class="button button-block button-positive gmailLoginBtn">
-          <i class="icon ion-social-google"></i>
-          {{_ "Gmaillogin"}}
-        </a>
+
+      <div class="login-footer">
+        <div>
+          <div class="padding-horizontal">
+            <!-- <a href="{{ pathFor 'role' }}" class="button button-block button-positive" > -->
+            <a href="" class="button button-block button-calm button-login" data-ion-modal="_modal">
+              {{_ "SignUp"}}
+            </a>
+          </div>
+          <div class="padding-horizontal">
+            <a href="{{ pathFor 'EmailSignin' }}" class="button button-block button-calm button-login">
+              {{_ "Login"}}
+            </a>
+          </div>
+        </div>
+
+        <div class="padding-horizontal">
+          <a class="button button-block button-calm button-login gmailLoginBtn">
+            <i class="icon ion-social-google"></i>
+            {{_ "Gmaillogin"}}
+          </a>
+        </div>
       </div>
 
 

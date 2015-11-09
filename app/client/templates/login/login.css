@@ -4,6 +4,51 @@
 .login {
 }
 
+.login-header {
+  width: 100vw;
+}asd
+
+.login-footer {
+  width:100vw;
+  bottom:0;
+  position: fixed;
+}
+
+.login-logo {
+  background-position: center;
+  padding-top: 2%;
+}
+
+.motto {
+  font-family: HelveticaNeue-Light, sans-serif;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.5em;
+  padding-top: 30%;
+  text-align: center;
+}
+
+/*.button-outline {*/
+.button-login {
+  /*color: #fff ! important;*/
+  font-weight: bold;
+}
+
+/*  background: transparent;
+  color: #fff;
+
+@if $text-color == "" {
+//  $text-color: $color;
+//}
+//color:
+//&.active,
+//&.activated {
+   background-color: $color;
+   box-shadow: none;
+   color: #fff;
+ //}*/
+
+
 /*
 .videojs-background-wrap {
      overflow:hidden;
