@@ -7,11 +7,12 @@ Template.Login.events({
     log.info("Meteor user /logged in ?" + Meteor.user());
     //if (!
     //for details see, http://www.helptouser.com/code/29008008-meteor-js-google-account-filter-email-and-force-account-choser.html
+    //and also https://github.com/meteor/meteor/wiki/OAuth-for-mobile-Meteor-clients
     Meteor.loginWithGoogle(
       {
         forceApprovalPrompt: true,
         requestPermissions: ['email'],
-        loginStyle: 'popup',
+        loginStyle: 'redirect',
         requestOfflineToken: true
       }
       , function (err) {
