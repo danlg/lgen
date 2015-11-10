@@ -405,7 +405,7 @@ function onSuccess(imageURI) {
               Meteor.call("updateProfileByPath", 'profile.firstpicture', false);
             }
             
-
+            showPreview("image");
           }
         });
 
