@@ -522,7 +522,7 @@ function imageAction() {
 }
 
 function showPreview(filetype){
-      log.info("show preview");
+    log.info("show preview");
     
     $('.preview').show();
     
@@ -537,13 +537,18 @@ function showPreview(filetype){
     }else{
       $('.messageList').height($('.messageList').height() - 90);       
     }
-
+    
+    $('.image-btn-class').hide();
+    $('.voice-btn-class').hide();  
+    $('.sendMsgBtn').addClass('positive');
+      
+     
 
 
 }
 
 function hidePreview(filetype){
-      log.info("close preview");
+    log.info("close preview");
     
     $('.preview').hide();
   
@@ -556,7 +561,9 @@ function hidePreview(filetype){
     }else{
        $('.messageList').height($('.messageList').height() + 90);           
     }
-      
-  
+    
+    $('.image-btn-class').show();
+    $('.voice-btn-class').show();  
+   $('.sendMsgBtn').removeClass('positive');      
 
 }
