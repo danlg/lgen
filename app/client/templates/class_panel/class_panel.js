@@ -23,6 +23,10 @@ Template.ClassPanel.events({
   },
   'click .list.card': function () {
     Router.go('ClassPanelMsgNotice', {msgCode: this.msgId});
+  },
+  'click .imgThumbs': function (e) {
+    var imageFullSizePath = $(e.target).data('fullsizeimage');
+    IonModal.open('imageModal', {src: imageFullSizePath});
   }
   
 });

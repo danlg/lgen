@@ -30,21 +30,17 @@
         <div class="list messageList" id="messageList">
           {{#each classObj.messagesObj}}
   
-            <div class="item card">
+            <div class="item card less-padding less-top-bottom-margin">
              <!-- <div class="item ">
                 <div class="row" style="padding:0">
                   <div class="col" style="padding:0"><h2>{{className}}</h2></div>
                   <div class="col" style="padding:0;text-align:right">{{createdAt}}</div>
                 </div>
               </div>-->
-              <div class="item ">
+              <div class="item less-padding">
                 <div>
-                  <!--<div>{{teacherName}}:</div>>-->
+                  <!--<div>{{teacherName}}:</div>>-->                 
                   <div>{{content}}</div>
-                  <br/><span class='timestamp'>{{formatTime sendAt}}</span> 
-                  <div style="height:10px;">
-                  </div>
-  
                   <div>
                     {{#if havePic}}
                       {{#each imageArr}}
@@ -52,8 +48,7 @@
                           {{#if this.isUploaded}}
                             {{#if this.hasStored 'images'}}
                               <div class="">
-                                <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs"
-                                    data-fullsizeimage="{{this.url  }}">
+                                <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}">
                                 <!-- <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a> -->
                               </div>
                             {{/if}}
@@ -94,6 +89,7 @@
                     <a href="#" class="subdued">{{help.length}} <i class="ion-help"></i></a>
                   {{/if}}
                 </p>
+                <span class='timestamp'>{{formatTime sendAt}}</span>   
               </div>
             </div>
             <!-- </a> -->
