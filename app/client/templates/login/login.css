@@ -32,6 +32,8 @@
 .button-login {
   /*color: #fff ! important;*/
   font-weight: bold;
+  margin-top: 4px !important;
+  margin-bottom: 4px !important;
 }
 
 /*  background: transparent;
