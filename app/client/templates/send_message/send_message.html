@@ -29,9 +29,31 @@
 
   {{#if callFromClassPanel}}
       <div class="list">
+   
+        <div class="padding preview" style='display:none'>
+          {{#each uploadPic}} {{#with FS.GetFile "images" this}}
+          <!-- In here, we can use the FS.File instance methods that work as helpers, such as {{url}} or {{isImage}} -->
+          {{#unless this.isUploaded}} {{> LoadingSpinner}} {{else}}
+          <div class="bubble">
+            <img style='height:100px;' src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}">
+            <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a>
+            
+          </div>
+          {{/unless}} {{/with}} {{/each}} {{#each uploadSound}} {{#with FS.GetFile "sounds" this}}
+          <!-- In here, we can use the FS.File instance methods that work as helpers, such as {{url}} or {{isImage}} -->
+          {{#unless this.isUploaded}} {{> LoadingSpinner}} {{else}} {{#if url}}
+          <div class="bubble">
+            <!-- <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}" >
+                      <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a> -->
+            <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}" data-clipurl="{{url}}"></a>
+            <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a>
+          </div>
+          {{/if}} {{/unless}} {{/with}} {{/each}}
       
+        </div>
+              
         <div style="display:none;"> {{ arrToString searchObj.selectArrName }}</div>
-        <label class="item item-input input-box-panel  {{messageBox}}" style="">
+        <div class="item item-input input-box-panel  {{messageBox}}" style="">
           <div class="row no-padding">
           <div class="col less-padding">
             <textarea  dir="auto" name="msg" maxlength="5000" class="inputBox msgBox autogrow-short" placeholder=""></textarea>
@@ -55,9 +77,17 @@
           
             </div>            
           </div>          
-        </label>
+        </div>
    
-        <div class="padding">
+
+      
+      </div>
+  {{else}}
+    {{#ionContent}}
+    
+     <div class="list">
+      
+         <div class="padding preview" style="display:none;">
           {{#each uploadPic}} {{#with FS.GetFile "images" this}}
           <!-- In here, we can use the FS.File instance methods that work as helpers, such as {{url}} or {{isImage}} -->
           {{#unless this.isUploaded}} {{> LoadingSpinner}} {{else}}
@@ -77,14 +107,7 @@
           {{/if}} {{/unless}} {{/with}} {{/each}}
       
         </div>
-      
-      </div>
-  {{else}}
-    {{#ionContent}}
-    
-     <div class="list">
-      
-      
+             
         <a href="{{pathFor 'MessageClassSelection' }}">
           <div class="item">
             {{_ "To" }} {{ arrToString searchObj.selectArrName }}
@@ -110,26 +133,7 @@
             </div>
           </div>
         </div>
-        <div class="padding">
-          {{#each uploadPic}} {{#with FS.GetFile "images" this}}
-          <!-- In here, we can use the FS.File instance methods that work as helpers, such as {{url}} or {{isImage}} -->
-          {{#unless this.isUploaded}} {{> LoadingSpinner}} {{else}}
-          <div class="bubble">
-            <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}">
-            <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a>
-          </div>
-          {{/unless}} {{/with}} {{/each}} {{#each uploadSound}} {{#with FS.GetFile "sounds" this}}
-          <!-- In here, we can use the FS.File instance methods that work as helpers, such as {{url}} or {{isImage}} -->
-          {{#unless this.isUploaded}} {{> LoadingSpinner}} {{else}} {{#if url}}
-          <div class="bubble">
-            <!-- <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}" >
-                      <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a> -->
-            <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}" data-clipurl="{{url}}"></a>
-            <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a>
-          </div>
-          {{/if}} {{/unless}} {{/with}} {{/each}}
-      
-        </div>
+
       
       </div>      
        

@@ -7,6 +7,7 @@ var soundArr = ReactiveVar([]);
 var isRecording = false;
 var media = "";
 var isPlayingSound = false;
+var messageListOriginalHeight = 
 /*var arr = [];*/
 /*var selectArr = ReactiveVar("");
  var selecting = ReactiveVar(false);*/
@@ -17,6 +18,7 @@ var isPlayingSound = false;
 Template.SendMessage.events({
   'click #imageBtn': function (e) {
 
+   
     if (Meteor.isCordova) {
       if (window.device.platform === "Android") {
         e.preventDefault();
@@ -81,6 +83,7 @@ Template.SendMessage.events({
 
       }
 
+      showPreview();
     }
 
   },
@@ -96,12 +99,10 @@ Template.SendMessage.events({
     }
 
     imageArr.set(array);
+    
+    hidePreview("image");
 
-    // var i = imageArr.get().indexOf(id);
-    // if(i != -1) {
-    //   log.info(imageArr.get().splice(i, 1));
-    //   imageArr.set(imageArr.get().splice(i, 1));
-    // }
+    
 
   },
   'click .ion-close-circled.voice': function (e) {
@@ -118,6 +119,7 @@ Template.SendMessage.events({
 
     soundArr.set(array);
 
+    hidePreview();
   },
   'click .imgThumbs': function (e) {
     var imageFullSizePath = $(e.target).data('fullsizeimage');
@@ -125,6 +127,8 @@ Template.SendMessage.events({
   },
   'change #imageBtn': function (event, template) {
 
+    //https://github.com/CollectionFS/Meteor-CollectionFS
+    //Image is inserted from here via FS.Utility
     FS.Utility.eachFile(event, function (file) {
 
       Images.insert(file, function (err, fileObj) {
@@ -137,7 +141,13 @@ Template.SendMessage.events({
           var arr = imageArr.get();
           arr.push(fileObj._id);
           imageArr.set(arr);
-
+          
+            log.info(fileObj.name());
+            log.info(fileObj.extension());
+            log.info(fileObj.size());
+        
+            log.info(fileObj.type());
+            log.info(fileObj.updatedAt());
 
           if (Meteor.user().profile.firstpicture) {
             analytics.track("First Picture", {
@@ -146,11 +156,18 @@ Template.SendMessage.events({
 
             Meteor.call("updateProfileByPath", 'profile.firstpicture', false);
           }
+          
 
-
+          
         }
       });
     });
+    
+    showPreview("image");
+
+
+    
+
   },
   'click .sendMsgBtn': function () {
     /*var target  = $(".js-example-basic-multiple").val();*/
@@ -174,11 +191,18 @@ Template.SendMessage.events({
           selectArrId: []
         });
         
+        if(mediaObj.imageArr.length > 0){
+          hidePreview("image");
+        }else{
+          hidePreview();
+        } 
         //input parameters clean up
         $(".msgBox").val("");
         imageArr.set([]);
         soundArr.set([]);
 
+       
+        
       });
     } else {
       alert("no class select!");
@@ -240,8 +264,15 @@ Template.SendMessage.helpers({
     }
   },
   uploadPic: function (argument) {
+    
     log.info(imageArr.get().length);
     log.info(imageArr.get());
+    
+    var tempArr = imageArr.get();
+
+  
+  
+           
     return imageArr.get();
   },
   uploadSound: function (argument) {
@@ -276,6 +307,7 @@ Template.SendMessage.created = function () {
 
 Template.SendMessage.rendered = function () {
   $(".msgBox").autogrow();
+  messageListOriginalHeight = $("#messageList").height();
 };
 
 Template.SendMessage.destroyed = function () {
@@ -339,6 +371,7 @@ function onSuccess(imageURI) {
   // var image = document.getElementById('myImage');
   // image.src = "data:image/jpeg;base64," + imageData;
 
+  log.info("onSuccess");
   // alert(imageData);
   window.resolveLocalFileSystemURI(imageURI,
     function (fileEntry) {
@@ -359,6 +392,9 @@ function onSuccess(imageURI) {
             // alert(fileObj._id);
             var arr = imageArr.get();
             arr.push(fileObj._id);
+            
+
+            
             imageArr.set(arr);
 
             if (Meteor.user().profile.firstpicture) {
@@ -368,7 +404,7 @@ function onSuccess(imageURI) {
 
               Meteor.call("updateProfileByPath", 'profile.firstpicture', false);
             }
-
+            
 
           }
         });
@@ -391,6 +427,8 @@ function onFail(message) {
 
 
 var callback = function (buttonIndex) {
+  
+            
   setTimeout(function () {
     // like other Cordova plugins (prompt, confirm) the buttonIndex is 1-based (first button is index 1)
     //  alert('button index clicked: ' + buttonIndex);
@@ -481,4 +519,44 @@ function imageAction() {
     'addCancelButtonWithLabel': 'Cancel'
   };
   window.plugins.actionsheet.show(options, callback);
+}
+
+function showPreview(filetype){
+      log.info("show preview");
+    
+    $('.preview').show();
+    
+    
+    
+    //http://stackoverflow.com/questions/10503606/scroll-to-bottom-of-div-on-page-load-jquery
+    $('.messageList').scrollTop($('.messageList').prop("scrollHeight") );
+     
+    //decrease the height of message list to give space to input box panel   
+    if(filetype && filetype == "image"){
+      $('.messageList').height($('.messageList').height() - 150);        
+    }else{
+      $('.messageList').height($('.messageList').height() - 90);       
+    }
+
+
+
+}
+
+function hidePreview(filetype){
+      log.info("close preview");
+    
+    $('.preview').hide();
+  
+    //http://stackoverflow.com/questions/10503606/scroll-to-bottom-of-div-on-page-load-jquery   
+    $('.messageList').scrollTop($('.messageList').prop("scrollHeight") );
+   
+    //increase the height of message list to get back space from input box panel  
+    if(filetype && filetype == "image"){
+        $('.messageList').height($('.messageList').height() + 150);          
+    }else{
+       $('.messageList').height($('.messageList').height() + 90);           
+    }
+      
+  
+
 }
