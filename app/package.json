@@ -21,7 +21,7 @@
     "build-uat":  "meteor build .meteor/local -v --mobile-settings=../config/stage/settings.json --server=http://uat.littlegenius.io:8080",
 
     "deploy-ko":  "cd ../dist && scp app.tar.gz lg@uat.littlegenius.io:~/app && ssh lg@uat.littlegenius.io \"cd app && tar xzvf app.tar.gz\"",
-    "list-plugins": "ls -l .meteor/local/cordova-build/plugins",
+    "listplugins": "ls -lrt .meteor/local/cordova-build/plugins",
     "setup"    : "cd ../config/stage && DEBUG=* mup setup   --config=mup.json --settings=settings.json",
     "stop"     : "cd ../config/stage && DEBUG=* mup stop   --config=mup.json --settings=settings.json",
     "restart"  : "cd ../config/stage && DEBUG=* mup restart   --config=mup.json --settings=settings.json",

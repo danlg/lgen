@@ -1,0 +1,21 @@
+<template name="About">
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title"> {{_ "About"}} </h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonLeft"}}
+     {{>ionNavBackButton text=""}} 
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}
+      <div class="list">
+          <a href="{{getlegal}}"><div class="item">Terms and conditions</div></a>
+          <div class="item"> Version {{getVersion}} </div>
+          <div class="item"> Little Genius Education, 2015 </div>
+      </div>
+    {{/ionContent}}
+  {{/ionView}}
+
+</template>

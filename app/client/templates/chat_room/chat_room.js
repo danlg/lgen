@@ -149,6 +149,8 @@ Template.ChatRoom.events({
   },
 
   'click .playBtn': function (e) {
+    //check also https://github.com/SidneyS/cordova-plugin-nativeaudio#api
+    //no record
     log.info(isPlayingSound);
     if (!isPlayingSound) {
       isPlayingSound = true;
@@ -482,7 +484,7 @@ function sendBtnMediaButtonToggle(){
         $('.mediaButtonGroup').fadeOut(50,function(){$('.sendBtn').fadeIn(50,function(){});});
         
     }else{
-      
+      //
         $('.sendBtn').fadeOut(50,function(){ $('.mediaButtonGroup').fadeIn(50,function(){});   });
           
     }   

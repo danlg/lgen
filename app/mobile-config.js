@@ -5,8 +5,8 @@ App.info({
   author: 'Little Genius Education',
   email: 'contact@littlegenius.io',
   website: 'http://app.littlegenius.io',
-  version: '0.91',
-  buildNumber: '90113'
+  version: '0.91.90114',
+  buildNumber: '100'
 });
 
 App.setPreference('Orientation', 'portrait');

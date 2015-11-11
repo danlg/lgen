@@ -1,54 +1,10 @@
-var legalLink = ReactiveVar("");
-/*****************************************************************************/
-/* TabYou: Event Handlers */
-/*****************************************************************************/
 Template.TabYou.events({
-
   'click .signOut': function () {
     Meteor.logout(
       function (err) {
         Router.go('Login');
       }
     );
-  },
-
-  'click .about': function (argument) {
-    if (Meteor.isCordova) {
-      var pattern = /-.*/g;
-      navigator.globalization.getPreferredLanguage(
-        function (language) {
-          // alert('language: ' + language.value + '\n');
-          log.info(language);
-          var lang = language.value.replace(pattern, "");
-
-          log.info(lang);
-          // var html  = "http://esprit.io/legal/"+lang+".privacy.html";
-          // var html = Meteor.call("getPpLink",lang);
-          Meteor.call("getPpLink", lang, function (error, result) {
-            if (error) {
-              log.error("error", error);
-            }
-            else {
-              switch (window.device.platform) {
-                case "Android":
-                  navigator.app.loadUrl(result, {openExternal: true});
-                  break;
-                case "iOS":
-                  window.open(result, '_system');
-                  break;
-              }
-              // return legalLink.set(result);
-            }
-          });
-          // return html;
-        },
-        function () {
-          alert('Error getting language\n');
-        }
-      );
-    } else {
-      log.info('you are not in phone');
-    }
   },
 
   'click .love': function (argument) {
@@ -91,10 +47,7 @@ Template.TabYou.events({
 /* TabYou: Helpers */
 /*****************************************************************************/
 Template.TabYou.helpers({
-  getlegal: function () {
-    return legalLink.get();
-    //return Meteor.call("getPpLink","en");
-  }
+
 });
 
 /*****************************************************************************/
@@ -104,41 +57,7 @@ Template.TabYou.created = function () {
 };
 
 Template.TabYou.rendered = function () {
-  if (Meteor.isCordova) {
-    var pattern = /-.*/g;
-    navigator.globalization.getPreferredLanguage(
-      function (language) {
-        // alert('language: ' + language.value + '\n');
-        // log.info(language);
-        var lang = language.value.replace(pattern, "");
-        log.info(lang);
-        // var html  = "http://esprit.io/legal/"+lang+".privacy.html";
-        // var html = Meteor.call("getPpLink",lang);
-        Meteor.call("getPpLink", lang, function (error, result) {
-          if (error) {
-            log.error("error", error);
-          }
-          else {
-            return legalLink.set(result);
-          }
-        });
-        // return html;
-      },
-      function () {
-        alert('Error getting language\n');
-      }
-    );
-  }
-  else {
-    Meteor.call("getPpLink", "en", function (error, result) {
-      if (error) {
-        log.error("error", error);
-      }
-      else {
-        return legalLink.set(result);
-      }
-    });
-  }
+
 };
 
 Template.TabYou.destroyed = function () {

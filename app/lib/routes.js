@@ -406,9 +406,11 @@ Router.route('FeedBack', {
 });
 
 Router.route('Help',{
-  
   path:"help"
-  
+});
+
+Router.route('About',{
+  path:"about"
 });
 
 Router.route('InviteUser',{
