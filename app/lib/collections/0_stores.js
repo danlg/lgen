@@ -39,7 +39,7 @@ Stores.thumbs = new FS.Store.GridFS("thumbs", {
   },
   transformWrite: function (fileObj, readStream, writeStream) {
     // Transform the image into a 60px x 60px PNG thumbnail
-    gm(readStream).resize(100).stream('PNG').pipe(writeStream);
+    gm(readStream).resize(300).stream('PNG').pipe(writeStream);
     // The new file size will be automatically detected and set for this store
   }
 });
