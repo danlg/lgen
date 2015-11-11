@@ -4,14 +4,9 @@
     <h1 class="title">{{classObj.joinedUserId.length}} {{_ "Subscriber"}}</h1>
   {{/contentFor}}
 
-
-
-
   {{#contentFor "headerButtonLeft"}}
     {{>ionNavBackButton text=" "}}
   {{/contentFor}}
-
-
 
   {{#contentFor "headerButtonRight"}}
     <!-- <button  class="button button-clear button-entering button-active addClassBtn">search</button> -->
@@ -20,20 +15,12 @@
   {{#ionView}}
     {{#ionContent}}
 
-
-
-
-
       <div class="list">
-
-
-
-
         {{#if emptyList}}
 
           <div class="item">
             <div class="row row-center">
-              <div class="col">No record</div>
+              <div class="col">{{_ "No_subscriber"}}</div>
             </div>
           </div>
 
@@ -43,8 +30,6 @@
             <i class="icon ion-search placeholder-icon"></i>
             <input type="text" placeholder="Search" class="searchbar">
           </label>
-
-
 
           {{#each usersProfile}}
             {{#if isSearched this}}
@@ -59,16 +44,11 @@
         {{/if}}
       </div>
 
-
       <a href="{{ pathFor 'ShareInvite' classCode=classObj.classCode }}">
         <div class="bar bar-footer bar-stable">
           <div class="title">{{_ "Addstudentsandparents"}}</div>
         </div>
       </a>
-
-
-
-
 
     {{/ionContent}}
   {{/ionView}}
