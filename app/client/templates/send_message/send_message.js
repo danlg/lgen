@@ -7,7 +7,8 @@ var soundArr = ReactiveVar([]);
 var isRecording = false;
 var media = "";
 var isPlayingSound = false;
-var messageListOriginalHeight = 
+var messageListOriginalHeight;
+
 /*var arr = [];*/
 /*var selectArr = ReactiveVar("");
  var selecting = ReactiveVar(false);*/
@@ -191,22 +192,28 @@ Template.SendMessage.events({
           selectArrId: []
         });
         
+        //input parameters clean up
+        imageArr.set([]);
+        soundArr.set([]);        
+        $(".msgBox").val("");
+        
+        //hide Preview according to attached file type
         if(mediaObj.imageArr.length > 0){
           hidePreview("image");
-        }else{
+        }else if(mediaObj.soundArr.length > 0){
           hidePreview();
-        } 
-        //input parameters clean up
-        $(".msgBox").val("");
-        imageArr.set([]);
-        soundArr.set([]);
-
-       
-        
+        }else{
+          //do nothing
+        }
+        sendBtnMediaButtonToggle();      
       });
     } else {
       alert("no class select!");
     }
+  },
+  'keyup .inputBox':function(){
+    log.info("input box keyup");
+    sendBtnMediaButtonToggle();
   }  
 });
 
@@ -295,6 +302,20 @@ Template.SendMessage.helpers({
       default:
 
     }
+  },
+  isHidden: function(){
+    if(imageArr.get().length > 0 || soundArr.get().length > 0){
+      return "display:none;"
+    }else{
+      return "";
+    }
+  },
+  isShown: function(){
+    if(imageArr.get().length > 0 || soundArr.get().length > 0){
+      return "display:block !important;"
+    }else{
+      return "";
+    }    
   }
 });
 
@@ -322,6 +343,7 @@ Template.SendMessage.destroyed = function () {
   });
 };
 
+//for the separated send message page
 Template.ionNavBar.events({
   'click .sendMsgBtn': function () {
     /*var target  = $(".js-example-basic-multiple").val();*/
@@ -536,17 +558,8 @@ function showPreview(filetype){
       $('.messageList').height($('.messageList').height() - 150);        
     }else{
       $('.messageList').height($('.messageList').height() - 90);       
-    }
-    
-    $('.image-btn-class').hide();
-    $('.voice-btn-class').hide();  
-    $('.sendMsgBtn').addClass('positive');
-      
-     
-
-
+    }  
 }
-
 function hidePreview(filetype){
     log.info("close preview");
     
@@ -561,9 +574,17 @@ function hidePreview(filetype){
     }else{
        $('.messageList').height($('.messageList').height() + 90);           
     }
-    
-    $('.image-btn-class').show();
-    $('.voice-btn-class').show();  
-   $('.sendMsgBtn').removeClass('positive');      
+}
 
+function sendBtnMediaButtonToggle(){
+  if ($('.inputBox').val().length > 0 || imageArr.get().length > 0 || soundArr.get().length > 0) {
+    $('.mediaButtonGroup').fadeOut(50, function () {
+      $('.sendMsgBtn').fadeIn(50, function () { });
+    });
+  } else {
+    $('.sendMsgBtn').fadeOut(50, function () {
+      $('.mediaButtonGroup').fadeIn(50, function () { });
+    });
+
+  }   
 }

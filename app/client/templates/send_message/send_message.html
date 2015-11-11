@@ -54,29 +54,18 @@
               
         <div style="display:none;"> {{ arrToString searchObj.selectArrName }}</div>
         <div class="item item-input input-box-panel  {{messageBox}}" style="">
-          <div class="row no-padding">
-          <div class="col  less-padding">
-            <textarea  dir="auto" name="msg" maxlength="5000" class="inputBox msgBox autogrow-short" placeholder=""></textarea>
-          </div>
-            <div class="col col-10 less-padding image-btn-class">
-              <div class="file ">
-                <i class="icon ion-ios-camera-outline imageIcon {{ isDisabled 'camera' }} "></i>
-                <input type="file" id="imageBtn" accept="image/*;capture=camera" capture="camera" {{ isDisabled 'camera' }}>
-              </div>
-            </div>
-            <div class="col col-10 less-padding voice-btn-class">
-              <div class="file voice {{ isDisabled 'voice' }} ">
-                <i class="icon  ion-ios-mic-outline {{ isDisabled 'voice' }} "></i>
-              </div>
-            </div>
-            <div class="col col-10 less-padding send-msg-btn-class" style='margin-right:6%;'>
-                <div class="file">
-                  <i class="icon ion-paper-airplane sendMsgBtn"></i>                    
-                </div>
-                  
-          
-            </div>            
-          </div>          
+        
+          <textarea dir="auto" name="msg" maxlength="5000" class="inputBox msgBox autogrow-short" placeholder=""></textarea>
+          <button style="width:100px;display:none;{{isShown}}" class="send-msg-btn-class sendMsgBtn button icon  ion-paper-airplane "></button>
+          <span class='mediaButtonGroup' style='width:107px;{{isHidden}}'>
+                    <span class="file image-btn-class" style='display:inline;padding:10px;'>
+                        <i class="icon ion-ios-camera-outline imageIcon {{ isDisabled 'camera' }} "></i>
+                        <input type="file" id="imageBtn" accept="image/*;capture=camera" capture="camera" {{ isDisabled 'camera' }}>
+                      </span>
+          <span class="file voice voice-btn-class {{ isDisabled 'voice' }} " style='display:inline;padding:10px;'>
+                        <i class="icon  ion-ios-mic-outline {{ isDisabled 'voice' }} "></i>
+                      </span>
+          </span>
         </div>
    
 
