@@ -72,6 +72,8 @@
       $(window).resize(update);
 
       update();
+      
+      //you can also call updateAutogrow manually to force autogrow
       self.updateAutogrow = update;
     });
   };

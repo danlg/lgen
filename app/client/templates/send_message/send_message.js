@@ -205,7 +205,9 @@ Template.SendMessage.events({
         }else{
           //do nothing
         }
-        sendBtnMediaButtonToggle();      
+        sendBtnMediaButtonToggle(); 
+        //force update autogrow
+        document.getElementsByClassName("inputBox")[0].updateAutogrow();     
       });
     } else {
       alert("no class select!");

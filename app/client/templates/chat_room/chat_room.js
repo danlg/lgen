@@ -36,6 +36,7 @@ Template.ChatRoom.events({
           };
           notificationObj.query = query;
           Meteor.call("serverNotification", notificationObj);
+          document.getElementsByClassName("inputBox")[0].updateAutogrow();
         }
       });
     }
