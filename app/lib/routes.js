@@ -204,7 +204,7 @@ Router.route('NotificationDetail', {
   }
 });
 
-Router.route('ClassInfomation', {
+Router.route('ClassInformation', {
   // layoutTemplate: "NavBarScreenLayout",
   path: "class/:classCode/info",
   waitOn: function () {

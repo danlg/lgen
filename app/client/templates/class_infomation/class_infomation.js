@@ -1,7 +1,7 @@
 /*****************************************************************************/
-/* ClassInfomation: Event Handlers */
+/* ClassInformation: Event Handlers */
 /*****************************************************************************/
-Template.ClassInfomation.events({
+Template.ClassInformation.events({
   'click .unsub': function () {
     Meteor.call('class/leaveByCode', Router.current().params.classCode, function () {
       Router.go('TabClasses')
@@ -10,9 +10,9 @@ Template.ClassInfomation.events({
 });
 
 /*****************************************************************************/
-/* ClassInfomation: Helpers */
+/* ClassInformation: Helpers */
 /*****************************************************************************/
-Template.ClassInfomation.helpers({
+Template.ClassInformation.helpers({
   classObj: function () {
     return Classes.findOne();
   },
@@ -22,15 +22,15 @@ Template.ClassInfomation.helpers({
 });
 
 /*****************************************************************************/
-/* ClassInfomation: Lifecycle Hooks */
+/* ClassInformation: Lifecycle Hooks */
 /*****************************************************************************/
-Template.ClassInfomation.created = function () {
+Template.ClassInformation.created = function () {
 };
 
-Template.ClassInfomation.rendered = function () {
+Template.ClassInformation.rendered = function () {
 
 
 };
 
-Template.ClassInfomation.destroyed = function () {
+Template.ClassInformation.destroyed = function () {
 };
