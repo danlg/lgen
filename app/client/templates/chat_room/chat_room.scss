@@ -79,7 +79,7 @@
     background: #C8EBB0;
 
     position: relative;
-    max-width: 80vw;
+    max-width: 85vw;
     padding-top: 2px;
     padding-bottom: 2px;
     padding-right: 10px;
@@ -88,18 +88,36 @@
     -webkit-border-radius: 3px;
     border-radius:         3px;
   }
+  .bubble.image-bubble{
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-right: 0px;
+    padding-left: 2px;   
+  }
   .bubble:before {
     border-left: 12px solid #C8EBB0;//was not defined with .bubble
     left: 100%;
 
     content:"";
     position: absolute;
-    //top: 26px;
+   
     width: 0;
     height: 0;
     border-top: 3px solid transparent;
     border-bottom: 3px solid transparent;
   }
+  .bubble.image-bubble:after {
+   
+    bottom:0;
+    right:0;
+
+    content:"";
+    position: absolute;
+    color:gray;
+    font-size:65%;
+
+  }  
+  
 }
 
 .notmine {
@@ -109,7 +127,7 @@
     background: #EAEAEA;
 
     position: relative;
-    max-width: 80vw;
+    max-width: 85vw;
     padding-top: 2px;
     padding-bottom: 2px;
     padding-right: 10px;
@@ -117,6 +135,12 @@
     -moz-border-radius:    3px;
     -webkit-border-radius: 3px;
     border-radius:         3px;
+  }
+   .bubble.image-bubble{
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-right: 0px;
+    padding-left: 2px;   
   }
   .bubble:before {
     border-right: 12px solid #EAEAEA;//was not defined with .bubble
