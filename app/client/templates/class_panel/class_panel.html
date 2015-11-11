@@ -74,7 +74,7 @@
                     {{/if}}
                   </div>
                 </div>
-                <br>
+                
                 <p>
                   {{#if isNotEmpty star}}
                     <a href="#" class="subdued">{{star.length}} <i class="ion-ios-star"></i></a>
@@ -88,8 +88,9 @@
                   {{#if isNotEmpty help}}
                     <a href="#" class="subdued">{{help.length}} <i class="ion-help"></i></a>
                   {{/if}}
+                  <span class='timestamp'>{{formatTime sendAt}}</span>  
                 </p>
-                <span class='timestamp'>{{formatTime sendAt}}</span>   
+                 
               </div>
             </div>
             <!-- </a> -->

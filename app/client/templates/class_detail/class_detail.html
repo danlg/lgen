@@ -61,7 +61,7 @@
               <div>
                 <!--<span>{{teacherName}} : </span>-->
                 <span>{{content}}</span>
-                <br/><span class='timestamp'>{{formatTime sendAt}}</span>                 
+                              
               </div>
               <br>
 
@@ -100,7 +100,7 @@
                   {{/if}}
                 </div>
               </div>
-              <br>
+              
 
               <p>
                 {{#if isNotEmpty star}}
@@ -115,6 +115,7 @@
                 {{#if isNotEmpty help}}
                   <a href="#" class="subdued">{{help.length}} <i class="ion-help"></i></a>
                 {{/if}}
+                 <span class='timestamp'>{{formatTime sendAt}}</span>  
               </p>
             </div>
 
