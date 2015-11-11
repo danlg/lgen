@@ -12,6 +12,8 @@ Template.About.helpers({
       //return version + " build " + buildNumber;
       return version;
     }
+    //TODO fix me on web version !
+    else {return (Meteor.settings && Meteor.settings.VERSION) ?  Meteor.settings.VERSION : "1.0"}
 
   },
 

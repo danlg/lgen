@@ -19,11 +19,12 @@ Template.Language.helpers({});
 /*****************************************************************************/
 Template.Language.created = function () {
   Session.setDefaultPersistent("lang", "en");
-  var pattern = /-.*/g;
+
   if (Meteor.isCordova) {
     navigator.globalization.getPreferredLanguage(
       function (language) {
         // alert('language: ' + language.value + '\n');
+        var pattern = /-.*/g;
         log.info(language);
         var lang = language.value.replace(pattern, "");
         Session.setPersistent('lang', lang);

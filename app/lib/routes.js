@@ -409,6 +409,14 @@ Router.route('Help',{
   path:"help"
 });
 
+Router.route('TermsOfService',{
+  path:"terms-of-service"
+});
+
+Router.route('PrivacyPolicy',{
+  path:"privacy-policy"
+});
+
 Router.route('About',{
   path:"about"
 });
