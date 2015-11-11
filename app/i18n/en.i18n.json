@@ -90,7 +90,7 @@
   "OfficeHours": "Office Hours",
   "TimeDays": "Time Days",
   "PUSH": "Push",
-  "NOTIFICATION": "Notification",
+  "Notification": "Notification",
   "ReceivingMessagesVia": "Receiving messages via",
   "schemas": {
     "emailSignup": {

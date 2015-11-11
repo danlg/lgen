@@ -1,11 +1,11 @@
 <template name="Help">
 
   {{#contentFor "headerTitle"}}
-    <h1 class="title">{{_"Help"}}</h1>
+    <h1 class="title">{{_ "Help"}}</h1>
   {{/contentFor}}
 
   {{#contentFor "headerButtonLeft"}}
-     {{>ionNavBackButton text=""}} 
+     {{>ionNavBackButton text=" "}}
   {{/contentFor}}
 
   {{#ionView}}
@@ -13,7 +13,7 @@
       <div class="list">
 
         <a href="{{ pathFor 'InviteUser'  }}">
-          <div class="item"> {{_"ApplicationTourForParentAndStudent"}}</div>
+          <div class="item"> {{_ "ApplicationTourForParentAndStudent"}}</div>
         </a>
         
       </div>
