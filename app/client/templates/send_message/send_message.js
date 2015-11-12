@@ -549,16 +549,12 @@ function showPreview(filetype){
     log.info("show preview");
     
     $('.preview').show();
-    
-    
-    
-
-     
+ 
     //decrease the height of message list to give space to input box panel   
     if(filetype && filetype == "image"){
-      $('.messageList').height($('.messageList').height() - 150);        
+      $('.messageList').height($('.messageList').height() - 95);        
     }else{
-      $('.messageList').height($('.messageList').height() - 90);       
+      $('.messageList').height($('.messageList').height() - 67);       
     }  
     
     //http://stackoverflow.com/questions/10503606/scroll-to-bottom-of-div-on-page-load-jquery
@@ -568,14 +564,12 @@ function hidePreview(filetype){
     log.info("close preview");
     
     $('.preview').hide();
-  
-
    
     //increase the height of message list to get back space from input box panel  
     if(filetype && filetype == "image"){
-        $('.messageList').height($('.messageList').height() + 150);          
+        $('.messageList').height($('.messageList').height() + 95);          
     }else{
-       $('.messageList').height($('.messageList').height() + 90);           
+       $('.messageList').height($('.messageList').height() + 67);           
     }
     
     //http://stackoverflow.com/questions/10503606/scroll-to-bottom-of-div-on-page-load-jquery   
