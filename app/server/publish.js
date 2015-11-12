@@ -90,13 +90,20 @@ Meteor.publish('getAllMyChatRooms', function () {
   });
 });
 
-
+//get all users that have joined current teacher's classes
 Meteor.publish('getAllJoinedClassesUser', function () {
+  log.info("getAllJoinedClassesUser");
+
   var classes = Classes.find({
-    joinedUserId: this.userId
-  }).fetch();
-  var arr = lodash.map(classes, 'createBy');
-  arr = lodash.pull(lodash.flatten(arr), this.userId);
+    createBy: this.userId //find the classes create by teacher using teacher's userid
+  }).fetch(); //fetch is used to extract the result to an array.
+  
+  var arr = lodash.map(classes, 'joinedUserId'); //extract only the joinedUserId fields to another array
+
+  arr = lodash.pull(lodash.flatten(arr), this.userId); //flatten the array from 2D to 1D array for easy use
+  
+ 
+  
   return Meteor.users.find({
     _id: {
       $in: arr

@@ -1,0 +1,34 @@
+/*****************************************************************************/
+/* TabChat: Style */
+/*****************************************************************************/
+.tab-chat {
+  height: 100%;
+  .listview-container {
+    height: 50%;
+    .listview {
+      height: 80%;
+      overflow-y: auto;
+      .listview-item {
+        padding: 1rem;
+      }
+    }
+    .add-join-bar {
+      height: 15%;
+      background-color: #FAFAF9;
+
+    }
+    .listview-nth {
+      text-align: center;
+      height: 70%;
+    }
+  }
+   
+  .class-code{
+   color:gray;
+   font-size:65%; 
+  }
+}
+
+.hide {
+  display: none !important;
+}

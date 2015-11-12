@@ -20,9 +20,9 @@
 
   {{#ionView}}
     {{#ionContent}}
-
-      <div class="list">
-
+    <div class="tab-chat">
+      <div class="listview">
+        <div class="listview-container">
         {{#with getAllMyChatRooms }}
 
           <div class="item item-input">
@@ -43,14 +43,18 @@
           {{/each}}
 
         {{else}}
-
-          <div class="item NoRecord">
-            {{_ "No_chat_yet" }}
+          
+          <div class="row row-center listview-nth">
+            <div class="col">
+              {{_ "No_chat_yet" }} <br/>
+              <a class="button button-stable long-button" href="{{pathFor 'ChatInvite'  }}"> {{_ "StartNewChat" }} </a>
+            </div>
           </div>
 
         {{/with}}
-
+        </div>
       </div>
+     </div>
     {{/ionContent}}
   {{/ionView}}
 
