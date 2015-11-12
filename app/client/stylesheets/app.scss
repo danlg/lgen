@@ -97,6 +97,11 @@ a {
   padding:2px;
 }
 
+.less-top-bottom-padding{
+  padding-top:2px;
+  padding-bottom:2px;
+}
+
 .long-button{
   width:65%;
 }
@@ -108,4 +113,10 @@ a {
 
 .responsive-img{
   max-width: 100%;
+}
+
+.background-wallpaper{
+  background-image: url("/img/wallpaper.jpg"); 
+  background-size:cover; 
+  margin-bottom:0px;
 }
