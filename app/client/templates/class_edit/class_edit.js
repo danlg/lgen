@@ -20,6 +20,9 @@ Template.ClassEdit.events({
 /* ClassEdit: Helpers */
 /*****************************************************************************/
 Template.ClassEdit.helpers({
+  classCode: function () {
+    return Classes.findOne({classCode: Router.current().params.classCode});
+  },
   classObj: function () {
     return Classes.findOne({classCode: Router.current().params.classCode});
   },

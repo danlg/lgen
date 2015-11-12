@@ -1,6 +1,6 @@
 <template name="ClassEdit">
   {{#contentFor "headerTitle"}}
-    <h1 class="title">{{_ "AddClass" }}</h1>
+    <h1 class="title">{{_ "EditClass" }}</h1>
   {{/contentFor}}
   {{#contentFor "headerButtonLeft"}}
     <!--{{> ionNavBackButton text="{{_ "Cancel" }}" }}-->
@@ -20,7 +20,7 @@
             {{> afFieldInput name="className" placeholder="Class Name"  }}
           </li>
           <li class="item item-input">
-            @ {{> afFieldInput name="classCode" class="classCode" placeholder="classcode" }}
+            @ {{classObj.classCode }}
           </li>
 
           <li class="item item-toggle">
@@ -43,16 +43,16 @@
               </div>
             </label>
           </li>
-          <li class="item item-toggle">
-            Allow this class to be searched
-
+          <!--TODO change this localization + give a better name too complicated-->
+          <!--<li class="item item-toggle">
+            {{_ "Allow_this_class_to_be_searched" }}
             <label class="toggle">
               {{> afFieldInput name="canBeSearch" }}
               <div class="track">
                 <div class="handle"></div>
               </div>
             </label>
-          </li>
+          </li> -->
 
 
         </ul>
@@ -61,8 +61,15 @@
 
       <div style="position: fixed; width: 100vw; bottom: 0;">
 
-        <a class="button button-full button-assertive button-outline removeAllUserBtn">{{_ "RemoveAllUsers"}}</a>
-        <a class="button button-full button-assertive button-outline removeClass">{{_ "RemoveClass"}}</a>
+        <!--<ul class="list ">-->
+          <!--<li class="item item-input ion-">-->
+            <!--DangerZone-->
+            <!--&lt;!&ndash;{{_ "DangerZone"}}&ndash;&gt;-->
+          <!--</li>-->
+        <!--</ul>-->
+
+        <a class="button button-full button-assertive button-outline removeAllUserBtn ion-alert-circled"> {{_ "RemoveAllUsers"}}</a>
+        <a class="button button-full button-assertive button-outline removeClass ion-alert-circled"> {{_ "RemoveClass"}}</a>
       </div>
 
     {{/ionContent}}
