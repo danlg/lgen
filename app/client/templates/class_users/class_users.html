@@ -1,7 +1,7 @@
 <template name="ClassUsers">
 
   {{#contentFor "headerTitle"}}
-    <h1 class="title">{{classObj.joinedUserId.length}} {{_ "Subscriber"}}</h1>
+    <h1 class="title">{{classObj.joinedUserId.length}} {{_ "Subscriber" count=classObj.joinedUserId.length}}</h1>
   {{/contentFor}}
 
   {{#contentFor "headerButtonLeft"}}
