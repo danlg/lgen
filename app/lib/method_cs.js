@@ -61,18 +61,28 @@ Meteor.methods({
   },
 
   'class/join': function (doc) {
+    
     if (doc && doc.classCode) {
       var classCode = doc.classCode.trim().toLowerCase();
       var query = {};
       query.classCode = classCode;
       log.info("class/join:" + query);
       var classDetail = Classes.findOne(query);
-      if(classDetail.createBy == Meteor.userId()){
-        log.error("you can't join the class you own.")
+      log.info(classDetail);
+      if (classDetail) {
+        if (classDetail.createBy == Meteor.userId()) {
+          log.error("you can't join the class you own.")
+          return false;
+        }else{
+          
+        Classes.update(doc, { $addToSet: { "joinedUserId": Meteor.userId() } });
+        return true;         
+        }
+      } else { //class is not found
+          log.error("class is not found.")
         return false;
       }
-      Classes.update(doc, {$addToSet: {"joinedUserId": Meteor.userId()}});
-      return true;
+
     }
     return false;
   },
