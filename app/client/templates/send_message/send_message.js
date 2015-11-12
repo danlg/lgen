@@ -552,8 +552,7 @@ function showPreview(filetype){
     
     
     
-    //http://stackoverflow.com/questions/10503606/scroll-to-bottom-of-div-on-page-load-jquery
-    $('.messageList').scrollTop($('.messageList').prop("scrollHeight") );
+
      
     //decrease the height of message list to give space to input box panel   
     if(filetype && filetype == "image"){
@@ -561,14 +560,16 @@ function showPreview(filetype){
     }else{
       $('.messageList').height($('.messageList').height() - 90);       
     }  
+    
+    //http://stackoverflow.com/questions/10503606/scroll-to-bottom-of-div-on-page-load-jquery
+    $('.messageList').scrollTop($('.messageList').prop("scrollHeight") );   
 }
 function hidePreview(filetype){
     log.info("close preview");
     
     $('.preview').hide();
   
-    //http://stackoverflow.com/questions/10503606/scroll-to-bottom-of-div-on-page-load-jquery   
-    $('.messageList').scrollTop($('.messageList').prop("scrollHeight") );
+
    
     //increase the height of message list to get back space from input box panel  
     if(filetype && filetype == "image"){
@@ -576,6 +577,9 @@ function hidePreview(filetype){
     }else{
        $('.messageList').height($('.messageList').height() + 90);           
     }
+    
+    //http://stackoverflow.com/questions/10503606/scroll-to-bottom-of-div-on-page-load-jquery   
+    $('.messageList').scrollTop($('.messageList').prop("scrollHeight") );   
 }
 
 function sendBtnMediaButtonToggle(){
