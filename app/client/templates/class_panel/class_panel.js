@@ -67,7 +67,11 @@ Template.ClassPanel.helpers({
   getSound: function () {
     var id = this.toString();
     return Sounds.findOne(id);
+  },
+  isPlural: function (count) {
+    return count > 1;
   }
+
 });
 
 /*****************************************************************************/

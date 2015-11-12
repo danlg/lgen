@@ -18,22 +18,26 @@ Template.ClassUsers.helpers({
     /*return lodash.findByValuesNested(users,'profile','firstname',text.get())*/
     return users;
   },
+
   isSearched: function (userObj) {
     var name = getFullNameByProfileObj(userObj.profile);
-
     if (text.get() === "") {
       return true;
     } else {
       return lodash.includes(name.toUpperCase(), text.get().toUpperCase());
     }
-
-
   },
+
   emptyList: function () {
     return Meteor.users.find({_id: {$nin: [Meteor.userId()]}}).fetch().length < 1;
   },
+
   classObj: function (argument) {
     return Classes.findOne({classCode: Router.current().params.classCode});
+  },
+
+  isPlural: function (count) {
+    return count > 1;
   }
 });
 

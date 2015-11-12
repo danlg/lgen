@@ -20,7 +20,13 @@
 
         <div class="button-bar">
           <a class="button button-bar-button" href="{{ pathFor 'ClassUsers' classCode=classObj.classCode }}"> <i class="icon ion-ios-people"></i>
-            <div>{{ classObj.joinedUserId.length }} {{_ "users"}}</div>
+          <!-- bug see https://github.com/TAPevents/tap-i18n/issues/50 -->
+            {{#if isPlural classObj.joinedUserId.length }}
+              <div>{{ classObj.joinedUserId.length }} {{_ "Subscriber_plural" }} </div>
+            {{else}}
+              <div>{{ classObj.joinedUserId.length }} {{_ "Subscriber" }} </div>
+            {{/if}}
+
           </a>
           <a class="button button-bar-button" href="{{pathFor 'ClassInvitation' classCode=classObj.classCode  }}"> <i class="icon ion-person-add"></i>
             <div>{{_ "AddMembers"}}</div>
