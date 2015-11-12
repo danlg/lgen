@@ -9,35 +9,23 @@ Chat.attachSchema(new SimpleSchema({
     type: [Object],
     blackbox: true
   }
-  // 'messagesObj.$.from':{
-  //   type: Object,
-  //   blackbox:true
-  // },
-  // 'messagesObj.$.sendAt':{
-  //   type: Date,
-  //   autoValue:function(){
-  //     return new Date;
-  //   }
-  // },
-  // 'messagesObj.$.text':{
-  //   type: String
-  // }
-  //
 }));
-
 
 if (Meteor.isServer) {
   Chat.allow({
     insert: function (userId, doc) {
-      return true;
+      var isOwner = doc && (doc.userId === userId);
+      return isOwner;
     },
 
     update: function (userId, doc, fieldNames, modifier) {
-      return true;
+      var isOwner = doc && (doc.userId === userId);
+      return isOwner;
     },
 
     remove: function (userId, doc) {
-      return true;
+      var isOwner = doc && (doc.userId === userId);
+      return isOwner;
     }
   });
 }

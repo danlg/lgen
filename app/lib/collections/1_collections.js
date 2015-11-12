@@ -20,54 +20,57 @@ Sounds = new FS.Collection("sounds", {
   ]
 });
 
-
 function trueFunc(userId) {
-  if (!userId) {
-    // must be logged in
-    return false;
-  }
-
-  return true;
+  //must be logged in => userId defined
+  return userId ? true : false;
+  //return doc.userId === userId;;
 }
+
+function isOwner (userId, doc) {
+  //TODO see issue #105
+  //should be at the very least isOwner
+  //see http://joshowens.me/meteor-security-101/
+  var isOwner = doc && (doc.userId === userId);
+  return isOwner;
+}
+
 function falseFunc() {
   return false;
 }
 
-// Files.allow({
-//   insert: trueFunc,
-//   update: trueFunc,
-//   remove: trueFunc,
-//   download: trueFunc
-// });
-
 Images.allow({
-  insert: trueFunc,
-  update: trueFunc,
-  remove: trueFunc,
-  download: trueFunc
+  insert: isOwner,
+  update: isOwner,
+  remove: isOwner,
+  download: isOwner
 });
 Sounds.allow({
-  insert: trueFunc,
-  update: trueFunc,
-  remove: trueFunc,
-  download: trueFunc
+  insert: isOwner,
+  update: isOwner,
+  remove: isOwner,
+  download: isOwner
 });
 
 
+// Files.allow({
+//   insert: isOwner,
+//   update: isOwner,
+//   remove: isOwner,
+//   download: isOwner
+// });
+
 // Docs.allow({
-//   insert: trueFunc,
-//   update: trueFunc,
-//   remove: trueFunc
+//   insert: isOwner,
+//   update: isOwner,
+//   remove: isOwner
 // });
 //
 // Docs2.allow({
-//   insert: trueFunc,
-//   update: trueFunc,
-//   remove: trueFunc
+//   insert: isOwner,
+//   update: isOwner,
+//   remove: isOwner
 // });
 
-
-//
 // Files = new FS.Collection("files", {
 //   stores: [Stores.any],
 //   chunkSize: 4 * 1024 * 1024

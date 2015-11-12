@@ -4,6 +4,7 @@ Classes = new Mongo.Collection('classes');
 ClassesSchema = new SimpleSchema({
   className: {
     type: String,
+    trim:true,
     optional: false
     //regEx: /[a-z0-9]/
 
@@ -11,12 +12,13 @@ ClassesSchema = new SimpleSchema({
   classCode: {
     type: String,
     optional: false,
+    trim:true,
     unique: true,
     min: 3,
     regEx: /^[a-z0-9]+$/,
     custom: function () {
       if (Meteor.isClient && this.isSet && this.isInsert) {
-       
+
         var inputClassCode = this.value;
    
         Meteor.call("class/classCodeIsAvailable", this.value, function (err, result) {
@@ -35,6 +37,7 @@ ClassesSchema = new SimpleSchema({
         });
 
       }
+
     }
 
   },
@@ -44,7 +47,7 @@ ClassesSchema = new SimpleSchema({
     autoform: {
       afFieldInput: {
         type: "boolean-checkbox2",
-      },
+      }
     }
     // autoValue:function(){
     //   return true;
@@ -55,8 +58,8 @@ ClassesSchema = new SimpleSchema({
     optional: false,
     autoform: {
       afFieldInput: {
-        type: "boolean-checkbox2",
-      },
+        type: "boolean-checkbox2"
+      }
     }
   },
   canBeSearch: {
@@ -65,8 +68,8 @@ ClassesSchema = new SimpleSchema({
     autoform: {
       afFieldInput: {
         type: "boolean-checkbox2",
-      },
-    },
+      }
+    }
     // autoValue:function(){
     //   return true;
     // }
@@ -140,24 +143,39 @@ Classes.attachSchema(ClassesSchema);
 
 
 if (Meteor.isServer) {
+  //TODO see issue #105
   Classes.allow({
     insert: function (userId, doc) {
-
-      return true;
+      var isOwner = doc && (doc.userId === userId);
+      return isOwner;
     },
 
     update: function (userId, doc, fieldNames, modifier) {
-      return true;
+      // security issue here
+      //TODO prevent classCode to be changed - immutable, only user can update other fields !
+      //see for best practice --> http://joshowens.me/meteor-security-101/
+      var isOwner = doc && (doc.userId === userId);
+      return isOwner;
+      /*var willModify = function (field) {
+        var ci = _.contains(fieldNames, field);
+        //pb is that all fields are marked as modified even if they are not
+        //log.info("willModify, " + fieldNames + "," + ci);
+        //log.info("willModify, " + field + "," + ci);
+        return ci;
+      };
+      //var willModifyClassCode = willModify("classCode");
+      return isOwner; // &&  !willModifyClassCode;*/
     },
 
     remove: function (userId, doc) {
-      return true;
+      // security issue, only the user can remove its class !
+      // TODO test this logic so only the user can remove its class
+      var isOwner = doc && (doc.userId === userId);
+      return isOwner;
     }
   });
 }
 
-
 ClassesSchema.messages({
-  
   notUniqueAndSuggestClasscode:"[label] is not unique. You may try [value]"
 });

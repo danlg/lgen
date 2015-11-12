@@ -1,37 +1,7 @@
-/*****************************************************************************/
-/* Client and Server Methods */
-/*****************************************************************************/
+/*
+ Client and Server Methods */
+
 Meteor.methods({
-  /*
-   * Example:
-   *
-   * '/app/items/insert': function (item) {
-   *  if (this.isSimulation) {
-   *    // do some client stuff while waiting for
-   *    // result from server.
-   *    return;
-   *  }
-   *
-   *  // server method logic
-   * }
-   */
-  /*'user/create':function(userObj){
-   if(!lodash.has(userObj,'dob')){
-     userObj.dob="";
-   }
-
-   Accounts.createUser({
-     email : userObj.email,
-     password : userObj.password,
-     profile:{
-     firstname : userObj.first,
-     lastname : userObj.last,
-     role    : userObj.role,
-     dob = userObj.dob
-   }
-
-   })
-   },*/
 
   'signup/email': function (doc) {
     if (!lodash.has(doc, 'dob')) {
@@ -50,88 +20,68 @@ Meteor.methods({
   },
 
   'user/role/update': function (role) {
-    /*var userObj  = Meteor.user();
-     userObj.profile.role = role;
-     Meteor.users.upsert(Meteor.userId(),{$set:userObj},function(err){
-     if(err){
-     log.error(err);
-     return err;
-     }else{
-     return
-     }
-     });*/
-
     Meteor.users.update({_id: Meteor.userId()}, {$set: {'profile.role': role}}, function (err) {
       if (err) {
         log.error(err);
         return err;
       }
-      else {
-        return true;
-      }
+      else return true;
     });
   },
+
   'class/classCodeIsAvailable': function (classCode) {
-    //  check(doc,Schema.joinClass)
-    //  Classes.update(doc,{$addToSet:{"joinedUserId":Meteor.userId()}});
     var query = {};
-    query.classCode =  classCode ;
-    log.info(query);
-    if(Classes.findOne(query)){
-      return false;
-    }else{
-      return true;
+    if (classCode) {
+      query.classCode = classCode.trim().toLowerCase() ;
+      log.info(query);
+      return Classes.findOne(query) ? false : true;
     }
-   
+    return false;
   },
   
   'class/search': function (classCode) {
-    //  check(doc,Schema.joinClass)
-    //  Classes.update(doc,{$addToSet:{"joinedUserId":Meteor.userId()}});
     var query = {};
-    query.classCode = new RegExp('^' + classCode, 'i');
-    query.createBy = {$ne: Meteor.userId()};
-    log.info(query);
-    return Classes.findOne(query) || false;
-  },
-  'class/searchExact': function (classCode) {
-    //  check(doc,Schema.joinClass)
-    //  Classes.update(doc,{$addToSet:{"joinedUserId":Meteor.userId()}});
-    var query = {};
-    query.classCode = classCode;
-    log.info(query);
-    return Classes.findOne(query) || false;
-  },
-  'class/join': function (doc) {
-    
-    //TODO : put the below checking inside joinClass schema and return a proper error message
-    var query = {};
-    query.classCode = new RegExp('^' + doc.classCode, 'i');
-    log.info(query) ;
-    
-    var classDetail = Classes.findOne(query);
-    log.info(classDetail);
-    if(classDetail.createBy == Meteor.userId()){
-      log.info("you can't join the class you own.")
-
-      return false;
+    if (classCode) {
+      query.classCode = classCode.trim().toLowerCase();
+      query.createBy = {$ne: Meteor.userId()};
+      log.info("class/search:"+ query);
+      return Classes.findOne(query) || false;
     }
-    //TODO : end
-    
-    check(doc, Schema.joinClass);
-    doc.classCode = new RegExp('^' + doc.classCode, 'i');
-    Classes.update(doc, {$addToSet: {"joinedUserId": Meteor.userId()}});
+    return false;
+  },
+
+  'class/searchExact': function (classCode) {
+    var query = {};
+    if (classCode) {
+      query.classCode = classCode.trim().toLowerCase();
+      log.info(query);
+      return Classes.findOne(query) || false;
+    }
+    return false;
+  },
+
+  'class/join': function (doc) {
+    if (doc && doc.classCode) {
+      var classCode = doc.classCode.trim().toLowerCase();
+      var query = {};
+      query.classCode = classCode;
+      log.info("class/join:" + query);
+      var classDetail = Classes.findOne(query);
+      if(classDetail.createBy == Meteor.userId()){
+        log.error("you can't join the class you own.")
+        return false;
+      }
+      Classes.update(doc, {$addToSet: {"joinedUserId": Meteor.userId()}});
+      return true;
+    }
+    return false;
   },
 
   'class/leave': function (classId) {
-    /*check(doc,Schema.leaveClass)*/
-    /*Classes.update(doc,{$pull:{"joinedUserId":Meteor.userId()}});*/
     Classes.update({_id: classId}, {$pull: {"joinedUserId": Meteor.userId()}});
   },
 
   'class/leaveByCode': function (classCode) {
-    /*check(doc,Schema.leaveClass)*/
-    /*Classes.update(doc,{$pull:{"joinedUserId":Meteor.userId()}});*/
     Classes.update({classCode: classCode}, {$pull: {"joinedUserId": Meteor.userId()}});
   },
 
@@ -146,7 +96,6 @@ Meteor.methods({
   'class/update': function (doc) {
     Classes.update({_id: doc._id}, {$set: doc});
   },
-  
   
   'chat/sendMessage': function (chatRoomId, text) {
     var pushObj = {};
