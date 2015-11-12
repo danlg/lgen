@@ -91,8 +91,8 @@
   .bubble.image-bubble{
     padding-top: 1px;
     padding-bottom: 1px;
-    padding-right: 0px;
-    padding-left: 2px;   
+    padding-right: 1px;
+    padding-left: 1px;   
   }
   .bubble:before {
     border-left: 12px solid #C8EBB0;//was not defined with .bubble
@@ -109,7 +109,7 @@
   .bubble.image-bubble:after {
    
     bottom:0;
-    right:0;
+    right:3%;
 
     content:"";
     position: absolute;
@@ -139,8 +139,8 @@
    .bubble.image-bubble{
     padding-top: 1px;
     padding-bottom: 1px;
-    padding-right: 0px;
-    padding-left: 2px;   
+    padding-right: 1px;
+    padding-left: 1px;   
   }
   .bubble:before {
     border-right: 12px solid #EAEAEA;//was not defined with .bubble
@@ -153,7 +153,17 @@
     border-top: 3px solid transparent;
     border-bottom: 3px solid transparent;
   }
+  .bubble.image-bubble:after {
+   
+    bottom:0;
+    right:3%;
 
+    content:"";
+    position: absolute;
+    color:gray;
+    font-size:65%;
+
+  }
 }
 
 .ion-image::before,

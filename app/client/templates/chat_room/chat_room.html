@@ -48,13 +48,14 @@
                 {{/if}}
               {{/with}} -->
               {{#with FS.GetFile "images" this.image}}
+              
+              <!--read the below to know how to access parent scope value-->
+              <!--https://www.discovermeteor.com/blog/a-guide-to-meteor-templates-data-contexts/-->  
               <style>.bubble.image-bubble.image{{@index}}:after{content:"{{formatTime  ../sendAt}}";}</style>
                 <div class="bubble image-bubble image{{@index}}">
-                  <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}">
                   
-                    <!--read the below to know how to access parent scope value-->
-                    <!--https://www.discovermeteor.com/blog/a-guide-to-meteor-templates-data-contexts/-->                               
-                    
+                  <!--http://stackoverflow.com/questions/10426786/div-gets-extra-height-for-no-reason-->
+                  <img style='max-width:100%;display:block;' src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}"> 
                 </div>
               {{/with}}
 
