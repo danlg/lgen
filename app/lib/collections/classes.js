@@ -35,11 +35,8 @@ ClassesSchema = new SimpleSchema({
           }
 
         });
-
       }
-
     }
-
   },
   anyoneCanChat: {
     type: Boolean,
@@ -146,16 +143,17 @@ if (Meteor.isServer) {
   //TODO see issue #105
   Classes.allow({
     insert: function (userId, doc) {
-      var isOwner = doc && (doc.userId === userId);
-      return isOwner;
+      //see issue #105 isOwner code is not working
+      return userId;
     },
 
     update: function (userId, doc, fieldNames, modifier) {
+      return true;
       // security issue here
       //TODO prevent classCode to be changed - immutable, only user can update other fields !
       //see for best practice --> http://joshowens.me/meteor-security-101/
-      var isOwner = doc && (doc.userId === userId);
-      return isOwner;
+      //var isOwner = doc && (doc.userId === userId);
+      //return isOwner;
       /*var willModify = function (field) {
         var ci = _.contains(fieldNames, field);
         //pb is that all fields are marked as modified even if they are not

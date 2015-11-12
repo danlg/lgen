@@ -14,18 +14,18 @@ Chat.attachSchema(new SimpleSchema({
 if (Meteor.isServer) {
   Chat.allow({
     insert: function (userId, doc) {
-      var isOwner = doc && (doc.userId === userId);
-      return isOwner;
+      //var isOwner = doc && (doc.userId === userId);
+      //return isOwner;
+      // isOwner model doesn't work
+      return true;
     },
 
     update: function (userId, doc, fieldNames, modifier) {
-      var isOwner = doc && (doc.userId === userId);
-      return isOwner;
+      return true;
     },
 
     remove: function (userId, doc) {
-      var isOwner = doc && (doc.userId === userId);
-      return isOwner;
+      return true;
     }
   });
 }
