@@ -90,3 +90,12 @@ Both are colocated in San Francisco DigitalOcean datacenter (not available in As
 The UAT server is `uat.littlegenius.io`
 The production server is `app.littlegenius.io`
 They use a floating IPs. See https://www.digitalocean.com/company/blog/floating-ips-start-architecting-your-applications-for-high-availability/
+
+#Server side#
+Balance is used for port forwarding and round robin.
+http://www.inlab.de/balance.html
+http://www.inlab.de/balance.pdf
+To install it:
+`sudo apt-get install balance`
+`sudo mkdir -m 01777 /var/run/balance/`
+then run `balance-start.sh` (custom shell script)
