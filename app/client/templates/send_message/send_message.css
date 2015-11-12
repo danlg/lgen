@@ -13,6 +13,10 @@
   background: #ACDA45;
 }
 
+.preview-bubble{
+  background-image: url("/img/wallpaper.jpg");background-size:cover;
+}
+
 .input-box-panel  {
   background-color: #E6E6E6  !important;
   padding:0 !important;
