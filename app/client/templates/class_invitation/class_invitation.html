@@ -1,15 +1,11 @@
 <template name="ClassInvitation">
 
-  <!-- {{#contentFor "headerTitle"}}
-      <h1 class="title">{{classObj}}</h1>
+  <!-- {{#contentFor "headerTitle"}}      <h1 class="title">{{classObj}}</h1>
     {{/contentFor}} -->
 
   {{#contentFor "headerButtonLeft"}}
     {{>ionNavBackButton text=" "}}
   {{/contentFor}}
-
-
-
   {{#contentFor "headerButtonRight"}}
     <!-- <button  class="button button-clear button-entering button-active addClassBtn">?</button> -->
   {{/contentFor}}
@@ -17,13 +13,9 @@
   {{#ionView}}
     {{#ionContent}}
 
-
-
-
-
       <div class="row row-center" style="height:60vh">
         <div class="col" style="text-align:center">
-          <h2>{{_ "WhatMethodYouWouldLikeToAddThem"}}</h2>
+          <h2>{{_ "How_would_you_like_to_add_new_members"}}</h2>
         </div>
       </div>
       <ul class="list">
@@ -35,8 +27,6 @@
           <li class="item">{{_ "SendEmailInvitations"}}</li>
         </a>
       </ul>
-
-
 
     {{/ionContent}}
   {{/ionView}}
