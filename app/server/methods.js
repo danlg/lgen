@@ -44,6 +44,35 @@ Meteor.methods({
     }
   },
 
+  chatroomEmail: function(recipientUser,orginateUser,content){
+    //log.info(recipientUser);
+    //log.info(orginateUser);
+    //log.info(content);
+    
+    //send to user only if they opt to receive email
+    var isUserOptToReceiveEmail = recipientUser.profile.email;
+    log.info(isUserOptToReceiveEmail);
+  
+    if (isUserOptToReceiveEmail) {
+      
+      //need to make sure the email is verfied. For now, to ensure that, only people login by google can be checked.
+      //TODO: verify user's email address who is not registered with google acc.
+      if (recipientUser.services) {
+        if (recipientUser.services.google) {
+          if (recipientUser.services.google.verified_email) {
+            log.info("try sending chat room mail to " + recipientUser.emails[0].address);
+            try {
+              Mandrill.messages.send(chatroomEmailTemplate(recipientUser.emails[0].address, recipientUser.profile.name, orginateUser.profile.name, content));
+            }
+            catch (e) {
+              log.error(e);
+            }
+          }
+        }
+      }
+    }
+  },
+
   addClassMail: function (to, _id) {
     var classObj = Classes.findOne( {_id: _id});
     if (lodash.get(Meteor.user(), "profile.email")) {

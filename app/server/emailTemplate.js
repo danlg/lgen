@@ -1,3 +1,24 @@
+chatroomEmailTemplate = function (RecipientUserEmail, RecipientUserName, OriginateUserName,content) {
+
+  var date = new Date();
+
+  return {
+    "message": {
+      "merge_language": "handlebars",
+      "html": content ,
+      "text": "Example text content",
+      "subject": "You have a new message from " + OriginateUserName,
+      "from_email": Meteor.settings.FROM_EMAIL,
+      "from_name": OriginateUserName,
+      "to": [{
+        "email": RecipientUserEmail,
+        "name": RecipientUserName,
+        "type": "to"
+      }],
+    }
+  };
+};
+
 addClassMailTemplate = function (to, classname, classCode) {
   return {
     "message": {

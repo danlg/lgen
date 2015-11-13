@@ -22,7 +22,10 @@ Template.ChatRoom.events({
         if (!err) {
           var text = $('.inputBox').val();
           $('.inputBox').val("");
-          var targetId = Meteor.users.findOne({_id: {$nin: [Meteor.userId()]}})._id;
+          
+          var targetUser = Meteor.users.findOne({_id: {$nin: [Meteor.userId()]}});
+          var targetId = targetUser._id;
+          
           var query = {};
           sendBtnMediaButtonToggle();
           query.userId = targetId;
@@ -37,6 +40,9 @@ Template.ChatRoom.events({
           notificationObj.query = query;
           Meteor.call("serverNotification", notificationObj);
           document.getElementsByClassName("inputBox")[0].updateAutogrow();
+          
+          //send chat email
+          Meteor.call("chatroomEmail",targetUser,Meteor.user(),text);
         }
       });
     }
