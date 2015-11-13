@@ -1,10 +1,6 @@
 {
   "public": {
-    "WEB_URL": "http://littlegenius.io/",
-    "ROOT_URL": "http://littlegenius.io:8080",
-    "WEB_URL": "http://littlegenius.io/",
-    "ROOT_URL_WITHOUT_PORT": "http://littlegenius.io/",
-    "PORT": 8080,
+
 
     "persistent_session": {
       "default_method": "persistent"
@@ -15,7 +11,11 @@
         "token": "9566b1a8aad8f17497bfe5846eefb8dc",
         "people": true
       }
-    }
+    },
+
+    "ROOT_URL": "http://app.littlegenius.io",
+    "PORT": 80,
+    "SHARE_URL": "http://gogen.ie"
   },
 
   "FROM_EMAIL": "no-reply@littlegenius.io",

@@ -1,4 +1,5 @@
 var shareLink = ReactiveVar('');
+var classObj;
 /*****************************************************************************/
 /* ShareInvite: Event Handlers */
 /*****************************************************************************/
@@ -22,11 +23,13 @@ Template.ShareInvite.events({
 /* ShareInvite: Helpers */
 /*****************************************************************************/
 Template.ShareInvite.helpers({
-  'classCode': function (argument) {
+
+  getclassCode: function (argument) {
     return Router.current().params.classCode;
   },
-  'getShareLink': function () {
-    return shareLink.get();
+  getShareLink: function () {
+    var share = shareLink.get() + "/join/"+ classObj.classCode;
+    return share;
   }
 
 });
@@ -35,15 +38,10 @@ Template.ShareInvite.helpers({
 /* ShareInvite: Lifecycle Hooks */
 /*****************************************************************************/
 Template.ShareInvite.created = function () {
-  Meteor.call("getShareLink", Router.current().params.classCode, function (error, result) {
-    if (error) {
-      log.error("error", error);
-    }
-    if (result) {
-      shareLink.set(result);
-    }
-  });
-
+  var link = Meteor.settings.public.SHARE_URL;
+  log.info ("Setting SHARE_URL="+link);
+  shareLink.set (link);
+  classObj = Classes.findOne();
 };
 
 Template.ShareInvite.rendered = function () {

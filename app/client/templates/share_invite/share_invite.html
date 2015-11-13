@@ -1,14 +1,12 @@
 <template name="ShareInvite">
 
   {{#contentFor "headerTitle"}}
-    <h1 class="title">Share a link</h1>
+    <h1 class="title"> {{_ "ShareALink" }}</h1>
   {{/contentFor}}
 
   {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton text=""}}
+    {{>ionNavBackButton text=" "}}
   {{/contentFor}}
-
-
 
   {{#contentFor "headerButtonRight"}}
     <!-- <button  class="button button-clear button-entering button-active addClassBtn">?</button> -->
@@ -16,46 +14,30 @@
 
   {{#ionView}}
     {{#ionContent}}
-      <!--
-  <div class="row row-center" style="height:70vh">
-    <div class="col">
-        <h1>Share this link with your class</h1>
-        <h5>sharing this link helps students and parent join your class</h5>
-        <div>
-          https://gen.me/join/{{classObj.classCode}}
-        </div>
-        <div class="row">
-          <div class="col">Share</div>
-          <div class="col copyBth">Copy</div>
-        </div>
-    </div>
-  </div> -->
 
       <div class="card">
         <div class="item item-text-wrap">
+
           <div style="text-align:center">
             <h2>{{_ "ShareThisLinkWithYourClass"}}</h2>
-
-            <p><b>{{_ "ShareThisLinkHelpsStudentsAndParentJoinYourClass"}}</b></p>
+            <p>{{_ "ShareThisLinkHelpsStudentsAndParentJoinYourClass"}}</p>
           </div>
+
           <div class="classCodeDiv">
             {{getShareLink}}
           </div>
+
           <div>
             <button class="button button-block button-positive shareBtn">
-              <i class="icon ion-android-share-alt">{{_ "Share" }}</i>
+              <i class="icon ion-ios-upload-outline"> {{_ "Share" }}</i>
             </button>
             <!-- <button style="button button-block button-positive" onclick="window.plugins.socialsharing.share('Message only')">message only</button> -->
             <button class="button button-block button-positive copyBth">
               {{_ "Copy"}}
             </button>
           </div>
-
-
         </div>
       </div>
-
-
 
     {{/ionContent}}
   {{/ionView}}

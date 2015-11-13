@@ -298,7 +298,12 @@ Router.route('ChatInvite', {
 
 Router.route('ShareInvite', {
   // controller: 'ClassWithIdController',
-  path: "class/:classCode/invite/share"
+  path: "class/:classCode/invite/share",
+  waitOn: function () {
+    return [
+      Meteor.subscribe('class', this.params.classCode)
+    ];
+  }
 });
 
 Router.route('classEdit', {
@@ -427,9 +432,9 @@ Router.route('About',{
   path:"about"
 });
 
-Router.route('InviteUser',{
+Router.route('HowToInvite',{
     layoutTemplate:'',
-    path:"help/inviteuser"
+    path:"help/howtoinvite"
   
   }
 );

@@ -1,8 +1,7 @@
 {
   "env": {
-    "ROOT_URL": "http://uat.littlegenius.io:8080",
-    "PORT": 8080,
-    //"WEB_URL": "http://esprit.io/",
+    "ROOT_URL": "http://uat.littlegenius.io",
+    "PORT": 80,
 
     //"MONGO_URL": "mongodb://localhost:27017/littlegenius",
     "MONGO_URL": "mongodb://lgdb:genie123@c247.alcatraz.1.mongolayer.com:10247,alcatraz.1.mongolayer.com:10247,alcatraz.0.mongolayer.com:10247/littlegenius?replicaSet=set-56286b556228d9247c000ffa",

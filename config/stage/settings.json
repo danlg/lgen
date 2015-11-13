@@ -12,9 +12,9 @@
       }
     },
 
-    "ROOT_URL": "http://uat.littlegenius.io:8080",
-    "WEB_URL": "http://esprit.io/",
-    "PORT": 8080
+    "ROOT_URL": "http://uat.littlegenius.io",
+    "PORT": 80,
+    "SHARE_URL": "http://go.gogen.ie"
   },
 
   "GOOGLE_CLIENT_ID": "122417300165-4i555ct1kvrf8fesec9bp1f9vprdrlef.apps.googleusercontent.com",

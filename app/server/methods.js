@@ -94,7 +94,7 @@ Meteor.methods({
   },
 
   classinvite: function (classObj, targetFirstEmail) {
-    var acceptLink = Meteor.settings.WEB_URL + classObj.classCode;
+    var acceptLink = Meteor.settings.public.SHARE_URL + "/" + classObj.classCode;
     var acceptLinkEncoded = encodeURI(acceptLink);
     var first = Meteor.user().profile.firstname;
     var last = Meteor.user().profile.lastname;
@@ -282,7 +282,7 @@ Meteor.methods({
   },
 
   getShareLink: function (classCode) {
-    return Meteor.settings.WEB_URL + classCode;
+    return Meteor.settings.public.SHARE_URL + "/" + classCode;
   },
 
   giveComment: function (commentObj) {
@@ -309,7 +309,8 @@ Meteor.methods({
   },
 
   getPpLink: function (lang) {
-    return Meteor.settings.WEB_URL + "legal/" + lang + ".privacy.html";
+    //this is broken and not called
+    return Meteor.settings.public.SHARE_URL + "/legal/" + lang + ".privacy.html";
   },
 
   updateProfileByPath: function (path, value) {

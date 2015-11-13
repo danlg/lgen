@@ -2,31 +2,36 @@
   "name": "littlegenius",
   "scripts": {
     "start": "meteor --settings ../config/stage/settings.json",
-    "ios": "meteor run ios -v --settings ../config/stage/settings.json --mobile-server=http://uat.littlegenius.io:8080",
-    "ios-device": "meteor run -v ios-device --settings ../config/stage/settings.json --mobile-server=http://uat.littlegenius.io:8080",
+    "ios-local": "meteor run ios -v --settings ../config/stage/settings.json",
+    "ios": "meteor run ios -v --settings ../config/stage/settings.json --mobile-server=http://uat.littlegenius.io:80",
+    "ios-device": "meteor run -v ios-device --settings ../config/stage/settings.json --mobile-server=http://uat.littlegenius.io:80",
 
     "build-apk": "./build-android.sh $1",
     "sign-apk": "./sign-android.sh $1",
 
-    "android": "meteor run android --settings ../config/stage/settings.json --mobile-server=http://uat.littlegenius.io:8080",
-    "android-device": "meteor run android-device --settings ../config/stage/settings.json --mobile-server=http://uat.littlegenius.io:8080",
+    "android": "meteor run android --settings ../config/stage/settings.json --mobile-server=http://uat.littlegenius.io:80",
+    "android-device": "meteor run android-device --settings ../config/stage/settings.json --mobile-server=http://uat.littlegenius.io:80",
 
-    "local" : "meteor -v --settings ../config/stage/settings.json",
+    "local" : "meteor --settings ../config/stage/settings.json",
 
     "localdev" : "meteor -v --settings ../config/development/settings.json",
 
     "runlocal-android-emulator": "meteor run android -v --settings ../config/development/settings.json",
-    "build": "NODE_ENV=production VULCANIZE=true meteor build ../myapp-dist --server=https://api.myapp.com/ --mobile-settings settings-production.json",
+    "build-example": "NODE_ENV=production VULCANIZE=true meteor build ../myapp-dist --server=https://api.myapp.com/ --mobile-settings settings-production.json",
 
-    "build-uat":  "meteor build .meteor/local -v --mobile-settings=../config/stage/settings.json --server=http://uat.littlegenius.io:8080",
+    "build-uat":  "meteor build ../build  --mobile-settings=../config/stage/settings.json --server=http://uat.littlegenius.io:80",
+    "build-uat2":  "meteor build .meteor/local -v --mobile-settings=../config/stage/settings.json --server=http://uat.littlegenius.io:80",
 
     "deploy-ko":  "cd ../dist && scp app.tar.gz lg@uat.littlegenius.io:~/app && ssh lg@uat.littlegenius.io \"cd app && tar xzvf app.tar.gz\"",
-    "listplugins": "ls -lrt .meteor/local/cordova-build/plugins",
+
+    "deploy"   : "cd ../config/stage && DEBUG=* mup deploy    --config=mup.json --settings=settings.json",
+
     "setup"    : "cd ../config/stage && DEBUG=* mup setup   --config=mup.json --settings=settings.json",
     "stop"     : "cd ../config/stage && DEBUG=* mup stop   --config=mup.json --settings=settings.json",
     "restart"  : "cd ../config/stage && DEBUG=* mup restart   --config=mup.json --settings=settings.json",
-    "deploy"   : "cd ../config/stage && DEBUG=* mup deploy    --config=mup.json --settings=settings.json",
     "reconfig" : "cd ../config/stage && DEBUG=* mup reconfig  --config=mup.json --settings=settings.json",
-    "logs"     : "cd ../config/stage && DEBUG=* mup logs  "
+    "logs"     : "cd ../config/stage && DEBUG=* mup logs  ",
+
+    "listplugins": "ls -lrt .meteor/local/cordova-build/plugins"
   }
 }
