@@ -109,7 +109,7 @@ Template.ClassPanel.rendered = function () {
             type: 'button-positive',
             onTap: function () {
               IonPopup.close();
-              Router.go('InviteUser');
+              Router.go('HowToInvite');
             }
           },
           {
