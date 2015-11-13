@@ -244,7 +244,12 @@ Router.route('JoinClass', {
 });
 Router.route('ClassInvitation', {
   // controller: 'ClassWithIdController',
-  path: "class/:classCode/invite"
+  path: "class/:classCode/invite",
+  waitOn: function () {
+    return [
+      Meteor.subscribe('class', this.params.classCode)
+    ];
+  }
 });
 
 Router.route('EmailInvite', {
@@ -295,6 +300,7 @@ Router.route('ShareInvite', {
   // controller: 'ClassWithIdController',
   path: "class/:classCode/invite/share"
 });
+
 Router.route('classEdit', {
   /*controller: 'ClassWithIdController',*/
   // layoutTemplate: "NavBarScreenLayout",

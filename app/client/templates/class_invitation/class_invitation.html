@@ -1,7 +1,8 @@
 <template name="ClassInvitation">
 
-  <!-- {{#contentFor "headerTitle"}}      <h1 class="title">{{classObj}}</h1>
-    {{/contentFor}} -->
+   {{#contentFor "headerTitle"}}
+     <h1 class="title">{{getClassName}} </h1>
+    {{/contentFor}}
 
   {{#contentFor "headerButtonLeft"}}
     {{>ionNavBackButton text=" "}}
@@ -13,20 +14,37 @@
   {{#ionView}}
     {{#ionContent}}
 
-      <div class="row row-center" style="height:60vh">
-        <div class="col" style="text-align:center">
-          <h2>{{_ "How_would_you_like_to_add_new_members"}}</h2>
+      <div class="row row-center" style="height:50vh">
+        <div class="col h3 " style="text-align:center; display: inline">
+           {{_ "How_would_you_like_to_add_new_members" }} to <div style="color:#acda46;display: inline">{{ getClassName}}</div>?
         </div>
       </div>
-      <ul class="list">
-        <li class="item">{{_ "InClassInstructions"}}</li>
-        <a href="{{pathFor 'ShareInvite' classCode=getclassCode }}">
-          <li class="item">{{_ "ShareALink" }}</li>
+
+
+      <h2 class="list">
+        <a class="item item-icon-left item-icon-right"
+           href="{{pathFor 'ShareInvite' classCode=getclassCode }}">
+          <!-- http://ionicframework.com/docs/components/#item-icons -->
+            <i class="icon ion-ios-upload-outline"></i>
+            <h2 class="headline-title" >{{_ "ShareALink" }}</h2>
+            <p> {{_ "EmailPostEmbed"}}</p>
+            <i class="icon ion-ios-arrow-forward"></i>
         </a>
-        <a href="{{pathFor 'EmailInvite' classCode=getclassCode }}">
-          <li class="item">{{_ "SendEmailInvitations"}}</li>
+        <a class="item item-icon-left item-icon-right">
+          <i class="icon ion-chatboxes"></i>
+          <h2 class="headline-title">{{_ "InClassInstructions"}}</h2>
+          <p> {{_ "ShowClass"}}</p>
+          <p></p>
+          <i class="icon ion-ios-arrow-forward"></i>
         </a>
-      </ul>
+        <a class="item item-icon-left item-icon-right"
+           href="{{pathFor 'EmailInvite' classCode=getclassCode }}">
+          <i class="icon ion-ios-email-outline"></i>
+          <h2 class="headline-title">{{_ "SendEmailInvitations"}}</h2>
+          <p> {{_ "UseContact"}}</p>
+          <i class="icon ion-ios-arrow-forward"></i>
+        </a>
+      </h2>
 
     {{/ionContent}}
   {{/ionView}}
