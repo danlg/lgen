@@ -43,7 +43,6 @@ Meteor.methods({
       log.error(e);
     }
   },
-
   chatroomEmail: function(recipientUser,orginateUser,content){
     //log.info(recipientUser);
     //log.info(orginateUser);
@@ -61,8 +60,16 @@ Meteor.methods({
         if (recipientUser.services.google) {
           if (recipientUser.services.google.verified_email) {
             log.info("try sending chat room mail to " + recipientUser.emails[0].address);
+            
+            var chatRoomRecepientArr = [];
+            var chatRoomRecepient = { 
+                email: recipientUser.emails[0].address,
+                name:  recipientUser.profile.name
+            }
+            chatRoomRecepientArr.push(chatRoomRecepient);
+            
             try {
-              Mandrill.messages.send(chatroomEmailTemplate(recipientUser.emails[0].address, recipientUser.profile.name, orginateUser.profile.name, content));
+              Mandrill.messages.send(messageEmailTemplate(chatRoomRecepientArr, orginateUser.profile.name, content));
             }
             catch (e) {
               log.error(e);
@@ -144,6 +151,7 @@ Meteor.methods({
         userId: {$in: flattenArray}
       }
     });
+    sendEmailMessageToClasses(flattenArray,arrayOfClasses,msg,Meteor.user());
   },
 
   updateMsgRating: function (type, msgId, classObj) {
@@ -325,3 +333,46 @@ Meteor.methods({
   }
 
 });
+
+
+sendEmailMessageToClasses = function(targetUserids, classes, message, originateUser){
+  
+  //if it is a solely image or voice message, exit early.
+  if(message == ""){
+    return;
+  }
+  
+  var arrayOfTargetUsers = Meteor.users.find({ _id: { $in: targetUserids } }).fetch();
+  log.info(arrayOfTargetUsers);
+
+  var classRecepientArr = [];
+  arrayOfTargetUsers.forEach(function (targetUser) {
+    
+    if (targetUser.profile.email) {
+      if (targetUser.services) {
+        if (targetUser.services.google) {
+          if (targetUser.services.google.verified_email) {
+            
+            var classRecepient = {
+              email: targetUser.emails[0].address,
+              name: targetUser.profile.name
+            }
+            classRecepientArr.push(classRecepient);
+          }
+        }
+      }
+    }
+  });
+
+  //extract and join all the classes name to a single string
+  var allClassName = lodash.flatten(lodash.map(classes, 'className')).join();
+
+  try {
+    Mandrill.messages.send(messageEmailTemplate(classRecepientArr, originateUser.profile.name, message, allClassName));
+    log.info(classRecepientArr.length + " email(s) are sent for class(es) " + allClassName + " msg: " + message);
+  }
+  catch (e) {
+    log.error(e);
+  }  
+      
+}

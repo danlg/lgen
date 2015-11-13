@@ -1,22 +1,31 @@
-chatroomEmailTemplate = function (RecipientUserEmail, RecipientUserName, OriginateUserName,content) {
+//template for email messaging of chat room and class 
+messageEmailTemplate = function (RecipientUsers, OriginateUserName,content, className) {
 
-  var date = new Date();
-
+  var bccList = [];
+  RecipientUsers.forEach(function(RecipientUser, index, array){
+    var bcc = {};
+    bcc.email =  RecipientUser.email;
+    bcc.name =   RecipientUser.name;
+    bcc.type = "bcc";
+    bccList.push(bcc);
+  });
+    
+  var subject =  "New message from " + OriginateUserName;
+  if(className){
+    subject = subject + " class - " + className;
+  }
   return {
     "message": {
       "merge_language": "handlebars",
       "html": content ,
       "text": "Example text content",
-      "subject": "You have a new message from " + OriginateUserName,
+      "subject": subject,
       "from_email": Meteor.settings.FROM_EMAIL,
-      "from_name": OriginateUserName,
-      "to": [{
-        "email": RecipientUserEmail,
-        "name": RecipientUserName,
-        "type": "to"
-      }],
+      "from_name": Meteor.settings.FROM_NAME,
+      "to": bccList
     }
   };
+  
 };
 
 addClassMailTemplate = function (to, classname, classCode) {
