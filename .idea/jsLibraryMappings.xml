@@ -3,5 +3,6 @@
   <component name="JavaScriptLibraryMappings">
     <includedPredefinedLibrary name="ECMAScript 6" />
     <includedPredefinedLibrary name="Meteor project library" />
+    <includedPredefinedLibrary name="Node.js Globals" />
   </component>
 </project>
