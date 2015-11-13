@@ -1,13 +1,13 @@
 var democlass = "mathfun";
 
-Template.InviteUser.rendered = function()
+Template.HowToInvite.rendered = function()
 {
    var sim = document.getElementById("inputClassCodeSimulation");
    type(democlass,sim);
    Session.set("hasSeenTheTourForStudent", true);
 };
 
-Template.InviteUser.helpers ({
+Template.HowToInvite.helpers ({
   getShareURLdemo : function() {
     //the following not harcoded link is not pretty and too long because of http://
     //this is just a demo...
