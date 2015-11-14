@@ -3,19 +3,13 @@
     <h1 class="title"> {{ _ "JoinAClass" }}</h1>
   {{/contentFor}}
 
-
-
-
   {{#contentFor "headerButtonLeft"}}
     {{>ionNavBackButton text=" " }}
   {{/contentFor}}
 
-
-
   {{#contentFor "headerButtonRight"}}
     <button class="button button-clear button-entering button-active doneClassBtn">{{_ "Done"}}</button>
   {{/contentFor}}
-
 
   {{#ionView}}
     {{#ionContent}}
@@ -31,7 +25,7 @@
                <br/><span class='class-code'>@{{this.classCode}}</span> 
               </div>
               <div class="col leaveBtn" data-classId="{{_id}}">
-                Leave
+                {{_ "Leave"}}
               </div>
             </div>
           </li>

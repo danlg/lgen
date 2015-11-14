@@ -4,21 +4,14 @@ var joinform;
 /*****************************************************************************/
 Template.JoinClass.events({
   'click .joinBtn': function () {
-    
-
-    var classCodeInput = $(".classCodeInput").val().trim();
-
-    if(classCodeInput == ""){
-      
+    var classCodeInput = $(".classCodeInput").val().trim().toLowerCase();
+    if(classCodeInput === ""){
       alert(TAPi18n.__("JoinAClassByInputClassCode"));
-
       return false;
     }
-    
     if(AutoForm.validateForm("joinClassForm")==false){
       return;
     }
-      
     Meteor.call("class/search", classCodeInput, function (error, result) {
       if (error) {
         log.error("error", error);
@@ -28,19 +21,16 @@ Template.JoinClass.events({
       } else {
         IonLoading.show();
         $(joinform).submit();
-
         if (Meteor.user().profile.firstclassjoined) {
           analytics.track("First Class Joined", {
             date: new Date(),
           });
-
           Meteor.call("updateProfileByPath", 'profile.firstclassjoined', false);
         }
-
       }
     });
-
   },
+
   'click .leaveBtn': function (e) {
     var classId = $(e.target).attr("data-classId");
     Meteor.call('class/leave', classId);
@@ -66,8 +56,6 @@ Template.JoinClass.created = function () {
 
 Template.JoinClass.rendered = function () {
   joinform = this.$("#joinClassForm");
-
-
 };
 
 Template.JoinClass.destroyed = function () {
@@ -75,6 +63,6 @@ Template.JoinClass.destroyed = function () {
 
 Template.ionNavBar.events({
   'click .doneClassBtn': function (e, template) {
-    Router.go('TabClasses')
+    Router.go('TabClasses');
   }
 });
