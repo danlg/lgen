@@ -17,12 +17,20 @@ messageEmailTemplate = function (RecipientUsers, OriginateUserName,content, clas
   return {
     "message": {
       "merge_language": "handlebars",
-      "html": content ,
       "text": "Example text content",
       "subject": subject,
       "from_email": Meteor.settings.FROM_EMAIL,
       "from_name": Meteor.settings.FROM_NAME,
-      "to": bccList
+      "to": bccList,
+      "html": Spacebars.toHTML(
+                                {
+                                 content:content,
+                                 GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag="en") ,
+                                 UnsubscribeEmailNotificaiton: TAPi18n.__("UnsubscribeEmailNotificaiton", {}, lang_tag="en")
+                                },
+                                Assets.getText("messageEmailTemplate.html")
+                              )
+ 
     }
   };
   
