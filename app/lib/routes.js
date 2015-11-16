@@ -418,8 +418,9 @@ Router.route('Commend', {
     Meteor.subscribe('getJoinedClassCreatedByMeByUserId', this.params._id);
   }
 });
-Router.route('FeedBack', {
+Router.route('Feedback', {
   // layoutTemplate: "NavBarScreenLayout",
+  path:"feedback"
 });
 
 Router.route('Help',{
