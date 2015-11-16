@@ -5,7 +5,7 @@ App.info({
   author: 'Little Genius Education',
   email: 'contact@littlegenius.io',
   website: 'http://app.littlegenius.io',
-  version: '0.91.90117',
+  version: '0.91.90118',
   buildNumber: '100'
 });
 
