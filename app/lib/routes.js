@@ -9,7 +9,8 @@ var OnBeforeActions;
 OnBeforeActions = {
   LoginRequired: function (pause) {
     if (!Meteor.userId()) {
-      Router.go('Login');
+      log.info("login required");
+      Router.go('Login',{},{query: 'loginToContinue=1'});
       this.next();
     } else {
       this.next();
@@ -123,6 +124,11 @@ Router.route('Login', {
   path: "/",
   waitOn:function () {
     Accounts.loginServicesConfigured();
+  },
+  data :function(){
+    return {
+      loginToContinue: this.params.query.loginToContinue
+    };
   }
 });
 
