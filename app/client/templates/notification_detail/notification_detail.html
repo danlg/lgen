@@ -1,20 +1,19 @@
 <template name="NotificationDetail">
   {{#contentFor "headerTitle"}}
-    <h1 class="title">Notification Detail</h1>
+    <!--TODO remove hardcode NotificationDetail-->
+    <h1 class="title">Notification detail</h1>
   {{/contentFor}}
 
   {{#contentFor "headerButtonLeft"}}
     {{>ionNavBackButton text=" "}}
   {{/contentFor}}
 
-
-
   {{#contentFor "headerButtonRight"}}
 
     <div style="position: absolute; right: 0;">
 
       <a href="" class="button button-clear button-entering button-active "><i
-        class="icon ion-android-share-alt"></i></a>
+        class="icon ion-ios-upload-outline"></i></a>
     </div>
 
   {{/contentFor}}
@@ -26,7 +25,8 @@
 
         </div>
         <div class="item">
-          Sent To:
+          <!--TODO remove hardcode NotificationDetail-->
+          Send to:
         </div>
         <div class="item">
           {{classObj.className}}

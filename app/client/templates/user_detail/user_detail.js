@@ -60,30 +60,36 @@ Template.UserDetail.helpers({
     } else if (!isHigherThan13 && !higherThirteenClass) {
       return true;
     }
-
-
     return false;
   },
   classCode: function (argument) {
     return Router.current().params.classCode || "";
   },
-  note: function (argument) {
+  getnote: function (argument) {
     return lodash.get(Commend.findOne({
         userId: Router.current().params._id,
         classId: Router.current().params.classId
-      }), 'comment') || "No note yet!";
+      }), 'comment') || TAPi18n.__("No_private_note_yet");
   },
   classId: function (argument) {
     return Router.current().params.classId || "";
   },
+
   canEmail: function (argument) {
     var user = Meteor.users.findOne({_id: Router.current().params._id});
-    return lodash.get(user, 'profile.email') || false;
+    var flag = lodash.get(user, 'profile.email') || false;
+    return flag ?  "checked" : "";
   },
+
   canPush: function (argument) {
     var user = Meteor.users.findOne({_id: Router.current().params._id});
-    return lodash.get(user, 'profile.push') || false;
+    var flag =  lodash.get(user, 'profile.push') || false;
+    return flag ?  "checked" : "";
   }
+  //,
+  //checked: function (type) {
+  //  return lodash.get(Meteor.user(), 'profile.' + type) ? "checked" : "";
+  //}
 
 });
 
