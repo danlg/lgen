@@ -22,10 +22,10 @@
             <h2>{{_ "ShareThisLinkWithYourClass"}}</h2>
             <p>{{_ "ShareThisLinkHelpsStudentsAndParentJoinYourClass"}}</p>
           </div>
-
-          <div class="classCodeDiv">
-            {{getShareLink}}
-          </div>
+          
+          <input id='shareLink' readonly value='{{getShareLink}}' class="classCodeDiv" />
+            
+         
 
           <div>
             <button class="button button-block button-positive shareBtn">
