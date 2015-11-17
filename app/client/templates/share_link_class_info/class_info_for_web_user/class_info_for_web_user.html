@@ -1,0 +1,24 @@
+<template name='ClassInformationForWebUser'>
+	
+  <h2 class="title">Find Your Class</h2>
+  <div class="row">
+    <div class="col-xs-8 col-xs-offset-2">
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1">@</span>
+        <input  type="text" class="form-control classSearch" placeholder="Class Code" aria-describedby="basic-addon1" style="height:50px" value="{{classCode}}" >
+      </div>
+      <br>
+      {{#if notFound}}
+      <div style="color:#df5989" >Uh oh! We couldn't find a class matching this code. Every class has a unique code. Please contact your teacher to double check instructions for your class.</div>
+      {{/if}}
+      <br>
+      <br>
+        <button class="btn btn-primary btn-lg enterBtn" {{ableClick}} > {{classOwnName}} </button>
+
+    </div>
+
+
+
+
+  </div>
+</template>

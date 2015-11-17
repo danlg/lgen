@@ -82,6 +82,8 @@ Meteor.methods({
           log.error("class is not found.")
           return false;
       }
+    }else{
+      log.error("there is no input");
     }
     return false;
   },

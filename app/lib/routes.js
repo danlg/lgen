@@ -82,7 +82,7 @@ OnBeforeActions = {
 };
 
 Router.onBeforeAction(OnBeforeActions.LoginRequired, {
-  except: ['language', 'Login', 'EmailSignup', 'EmailSignin', 'role', 'Testing', 'Test2']
+  except: ['language', 'Login', 'EmailSignup', 'EmailSignin', 'role', 'Testing', 'Test2','ClassInformationForWebUser']
 });
 
 
@@ -452,3 +452,14 @@ Router.route('NotificationSetting', {
   // layoutTemplate: "NavBarScreenLayout",
 });
 
+Router.route('join/:classCode?', {
+  name: 'ClassInformationForWebUser',
+
+  layoutTemplate:'',
+  waitOn: function () {   
+    return [
+      Meteor.subscribe('personCreateClass', this.params.classCode),
+      Meteor.subscribe('class', this.params.classCode)
+    ];
+  }
+});

@@ -29,6 +29,9 @@ Template.EmailSignup.helpers({
 /* EmailSignup: Lifecycle Hooks */
 /*****************************************************************************/
 Template.EmailSignup.created = function () {
+  var classToBeJoined = Session.get("search");
+  log.info(classToBeJoined);
+  
   $("body").removeClass('modal-open');
 };
 
@@ -49,7 +52,7 @@ Template.ionNavBar.events({
      });*/
 
     // AutoForm.submitFormById("#signupform");
-
+    
     var userObj = {};
     userObj.profile = {};
     userObj.email = $(".email").val();
@@ -71,8 +74,34 @@ Template.ionNavBar.events({
         if (err) {
           alert(err.reason);
           log.error(err);
-        } else {
-          Router.go("TabClasses");
+        } else{
+          
+          var classToBeJoined = Session.get("search");
+          
+          if (classToBeJoined) {
+
+            var doc = {classCode: classToBeJoined};
+            //help user to join class directly and router go to the class page
+            Meteor.call("class/join", doc, function (error, result) {
+
+              log.info(error);
+              log.info(result);
+              if (error) {
+                log.error("error", error);
+                Router.go("TabClasses");
+              } else {
+                Session.set("search","");
+                log.info("Redirecting you to the class");
+                Router.go("classDetail",{classCode : classToBeJoined});
+              }
+            });
+
+          } else {
+            Router.go("TabClasses");
+          }
+          
+          
+
         }
       });
 

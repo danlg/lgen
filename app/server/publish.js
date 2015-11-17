@@ -29,12 +29,16 @@ Meteor.publish('getClassMsgId', function (msgId) {
   });
 });
 Meteor.publish('personCreateClass', function (classCode) {
-  var ownId = _.pick(Classes.findOne({
-    classCode: classCode
-  }), 'createBy');
-  return Meteor.users.find({
-    _id: ownId.createBy
-  });
+  var targetClass = Classes.findOne({classCode: classCode});
+  
+  if(targetClass){
+    var ownId = _.pick(targetClass, 'createBy');
+    return Meteor.users.find({
+      _id: ownId.createBy
+    });
+  }else{
+    return;
+  }
 });
 
 
