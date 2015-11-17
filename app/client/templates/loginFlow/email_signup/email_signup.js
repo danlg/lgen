@@ -76,29 +76,7 @@ Template.ionNavBar.events({
           log.error(err);
         } else{
           
-          var classToBeJoined = Session.get("search");
-          
-          if (classToBeJoined) {
-
-            var doc = {classCode: classToBeJoined};
-            //help user to join class directly and router go to the class page
-            Meteor.call("class/join", doc, function (error, result) {
-
-              log.info(error);
-              log.info(result);
-              if (error) {
-                log.error("error", error);
-                Router.go("TabClasses");
-              } else {
-                Session.set("search","");
-                log.info("Redirecting you to the class");
-                Router.go("classDetail",{classCode : classToBeJoined});
-              }
-            });
-
-          } else {
-            Router.go("TabClasses");
-          }
+           routeToTabClassesOrClassDetail();
           
           
 
