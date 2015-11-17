@@ -12,13 +12,41 @@
     {{#ionContent}}
       <div class="list">
 
-        <a href="{{ pathFor 'MyAccount'  }}"><div class="item item-icon-left item-icon-right"><i class="icon ion-person"></i> {{_ "MyAccount"}}<i class="icon ion-ios-arrow-forward"></i></div></a>
-        <a href="{{ pathFor 'NotificationSetting' }}"><div class="item item-icon-left item-icon-right"> <i class="icon ion-chatbubbles"></i> {{_ 'Notification'}}<i class="icon ion-ios-arrow-forward"></i></div></a>
-        <a href="{{pathFor 'Feedback'}}"><div class="item item-icon-left item-icon-right"><i class="icon ion-ios-paper-outline"></i> {{_ "Feedback"}}<i class="icon ion-ios-arrow-forward"></i></div></a>
-        <div class="item item-icon-left item-icon-right love"><i class="icon ion-heart genius-color"></i> {{_ "LoveLittleGenius"}}<i class="icon ion-ios-arrow-forward"></i></div>
-        <a href="{{ pathFor 'Help' }}"><div class="item item-icon-left item-icon-right"> <i class="icon ion-help-buoy"></i> {{_ 'Help'}}<i class="icon ion-ios-arrow-forward"></i></div></a>
-        <a href="{{ pathFor 'About' }}"><div class="item item-icon-left item-icon-right"> <i class="icon ion-ios-information-outline"></i> {{_ 'About'}}<i class="icon ion-ios-arrow-forward"></i></div></a>
-        <div class="item item-icon-left item-icon-right signOut"><i class="icon ion-log-out"></i> {{_ "SignOut"}}<i class="icon ion-ios-arrow-forward"></i></div>
+        <a href="{{ pathFor 'MyAccount'  }}"><div class="item item-icon-left item-icon-right">
+          <!--<i class="icon ion-person translucid"></i> {{_ "MyAccount"}}<i class="icon ion-ios-arrow-forward"></i></div></a>-->
+          <i class="icon ion-ios-person-outline translucid"></i> {{_ "MyAccount"}}
+          <i class="icon ion-ios-arrow-forward translucid"></i></div></a>
+        <a href="{{ pathFor 'NotificationSetting' }}"><div class="item item-icon-left item-icon-right">
+          <!--<i class="icon ion-chatboxes translucid"></i> {{_ 'Notification'}}<i class="icon ion-ios-arrow-forward"></i></div></a>-->
+          <!--<i class="icon ion-chatboxes translucid"></i> {{_ 'Notification'}}<i class="icon ion-ios-arrow-forward"></i></div></a>-->
+          <i class="icon ion-ios-chatboxes-outline translucid"></i> {{_ 'Notification'}}
+          <i class="icon ion-ios-arrow-forward translucid"></i></div></a>
+        <a href="{{pathFor 'Feedback'}}"><div class="item item-icon-left item-icon-right">
+            <!--<i class="icon ion-ios-paper-outline translucid"></i> {{_ "Feedback"}}<i class="icon ion-ios-arrow-forward"></i></div></a>-->
+            <!--<i class="icon ion-edit translucid"></i> {{_ "Feedback"}}<i class="icon ion-ios-arrow-forward"></i></div></a>-->
+            <i class="icon ion-ios-compose-outline translucid"></i> {{_ "Feedback"}}
+          <i class="icon ion-ios-arrow-forward translucid"></i></div></a>
+
+        <a href="{{ pathFor 'Help' }}"><div class="item item-icon-left item-icon-right">
+          <i class="icon ion-help-buoy translucid"></i> {{_ 'Help'}}
+          <i class="icon ion-ios-arrow-forward translucid"></i></div></a>
+
+        <div class="item item-icon-left item-icon-right love">
+          <!--<i class="icon ion-android-favorite-outline genius-color"></i>-->
+          <!--android outline very nice-->
+          <!--<i class="icon ion-ios-heart-outline genius-color"></i>-->
+          <i class="icon ion-heart genius-color"></i>
+          {{_ "LoveLittleGenius"}}
+          <i class="icon ion-ios-arrow-forward translucid"></i>
+        </div>
+
+        <div class="item item-divider"> </div>
+        <a href="{{ pathFor 'About' }}"><div class="item item-icon-left item-icon-right">
+          <i class="icon ion-ios-information-outline translucid"></i> {{_ 'About'}}
+          <i class="icon ion-ios-arrow-forward translucid"></i></div></a>
+        <div class="item item-icon-left item-icon-right signOut">
+          <i class="icon ion-log-out translucid"></i> {{_ "SignOut"}}
+          <i class="icon ion-ios-arrow-forward translucid"></i></div>
 
       </div>
     {{/ionContent}}
