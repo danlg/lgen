@@ -9,14 +9,23 @@ Template.MyAccount.events({});
 Template.MyAccount.helpers({
   current: function () {
     return Meteor.user();
-  },
-  email: function () {
+  }
+  , email: function () {
     //log.info(_.deep(Meteor.user(),'firstname'));
     return Meteor.user().emails[0].address;
-  },
-  editprofile: Schema.editprofile,
-  profile: function () {
+  }
+  , editprofile: Schema.editprofile
+  , profile: function () {
     return Meteor.user().profile;
+  }
+  , getFirstNamePlaceHolder: function(){
+    return TAPi18n.__("FirstNamePlaceHolder");
+  }
+  , getLastNamePlaceHolder: function(){
+    return TAPi18n.__("LastNamePlaceHolder");
+  }
+  , getEmailPlaceHolder: function(){
+    return TAPi18n.__("EmailPlaceHolder");
   }
 
 });

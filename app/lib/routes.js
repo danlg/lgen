@@ -169,7 +169,7 @@ Router.route('TabChat', {
 Router.route('TabYou', {
   // controller: 'MainApplicationController',
   // action: "you"
-  path: "You"
+  path: "you"
 });
 
 
@@ -354,7 +354,9 @@ Router.route('UserDetail', {
 
 });
 
-Router.route('MyAccount');
+Router.route('MyAccount',{
+  path:"myaccount"
+});
 
 Router.route('SendMessage', {
   /*controller: 'MessageController',*/

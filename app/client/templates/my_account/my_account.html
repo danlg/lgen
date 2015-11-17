@@ -1,105 +1,43 @@
 <template name="MyAccount">
-
   {{#contentFor "headerTitle"}}
     <h1 class="title">{{_ "MyAccount"}}</h1>
   {{/contentFor}}
-
-
-
 
   {{#contentFor "headerButtonLeft"}}
     {{>ionNavBackButton text=" "}}
   {{/contentFor}}
 
-
-
   {{#contentFor "headerButtonRight"}}
     <button class="button button-clear button-entering button-active editAccountBtn">{{_ "Update"}}</button>
   {{/contentFor}}
 
-
-
   {{#ionView}}
     {{#ionContent}}
 
-
-
-      <!-- {{#autoForm collection="Meteor.users" id="updateUser" type="update" doc=current}}
-
-        {{> afObjectField name='profile.name'}}
-
-   <ul class="list ">
-
-
-    <li class="item item-input">
-      {{> afFieldInput name="className" placeholder="Class Name"}}
-    </li>
-
-
-    <li class="item item-input">
-      {{> afFieldInput name="classCode" placeholder="@classcode"}}
-    </li>
-
-
-
-
-
-  </ul>
-
-
-
-{{/autoForm}} -->
-
-
       {{#autoForm schema=editprofile id="editprofile" resetOnSuccess=false type="method" doc=this meteormethod="profile/edit"  }}
 
-        <!-- <div class="list">
-  <div class="item item-input">
-    {{> afFieldInput name="firstname" placeholder="First Name" value=profile.firstname  }}
-  </div>
-  <div class="item item-input">
-    {{> afFieldInput name="lastname" placeholder="Last Name" value=profile.lastname }}
-  </div>
-  <div class="item item-input">
-    {{> afFieldInput name="location" placeholder="Location" value="Hong Kong"   }}
-  </div>
-  <div class="item item-input">
-    {{> afFieldInput name="email" placeholder="" value=email  }}
-  </div>
-</div> -->
-
         <div class="list">
+
           <label class="item item-input item-stacked-label">
-            <span class="input-label">{{_ "firstname"}}</span>
-            {{> afFieldInput name="firstname"  value=profile.firstname  }}
+            <!--<span class="input-label">{{_ "firstname"}}</span>-->
+            {{> afFieldInput name="firstname"  placeholder=getFirstNamePlaceHolder value=profile.firstname  }}
           </label>
           <label class="item item-input item-stacked-label">
-            <span class="input-label">{{_ "lastname"}}</span>
-            {{> afFieldInput name="lastname"  value=profile.lastname }}
+            <!--<span class="input-label">{{_ "lastname"}}</span>-->
+            {{> afFieldInput name="lastname"   placeholder=getLastNamePlaceHolder value=profile.lastname }}
           </label>
           <label class="item item-input item-stacked-label">
-            <span class="input-label">Email</span>
-            {{> afFieldInput name="email" value=email  }}
+            <!--<span class="input-label">Email</span>-->
+            {{> afFieldInput name="email" placeholder=getEmailPlaceHolder value=email  }}
           </label>
           
           <label class="item item-input item-stacked-label">
-            <span class="input-label">Role</span>  
+            <!--<span class="input-label">Role</span>  -->
             <p>{{profile.role}}</p>
           </label>   
                  
         </div>
-
-
-
-
       {{/autoForm}}
-
-      <!-- <a href="">
-        <button class="button">Change password</button>
-      </a> -->
-
-
-
 
     {{/ionContent}}
   {{/ionView}}

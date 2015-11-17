@@ -102,6 +102,11 @@
   "Copy": "Copier",
   "SendInvitations": "Envoyez les invitations",
   "invite": "invite",
+
+  "FirstNamePlaceHolder": "Prénom",
+  "LastNamePlaceHolder": "Nom",
+  "EmailPlaceHolder": "Votre adresse e-mail",
+
   "firstname": "Prénom",
   "lastname": "Nom",
   "password": "Mot de passe",
