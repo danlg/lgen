@@ -36,15 +36,13 @@ Template.ShareInvite.events({
           });           
         }
         else {
-         //any other browsers that does not support copy & paste yet.
+         //any other browsers that does not support copy & paste yet. Android browser is not working
           IonPopup.alert({
             title: 'Oops',
             template: 'Long press on the link to copy or Press Crtl·C to copy',
             okText: 'Got It.'
           }); 
         }             
-      }else{
-        alert("Copied");
       }
       
     }
