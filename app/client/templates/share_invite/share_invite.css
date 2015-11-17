@@ -11,5 +11,7 @@
   -moz-border-radius: 5px;
   border-radius: 5px;
   padding: 20px;
-  background-color: rgb(196, 196, 196);
+  background-color: rgb(196, 196, 196) !important;
+  font-size: 18px;
+  cursor: copy !important;
 }
