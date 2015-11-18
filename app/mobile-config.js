@@ -12,6 +12,9 @@ App.info({
 App.setPreference('Orientation', 'portrait');
 App.setPreference('ios-orientation-iphone', 'portrait');
 App.accessRule('*');
+//here add CDN later
+App.accessRule('https://goo.gl/*');
+//http://stackoverflow.com/questions/29934218/external-images-not-being-displayed-in-android-app-meteor-cordova
 App.setPreference('StatusBarOverlaysWebView', 'true');
 App.setPreference('StatusBarStyle', 'lightcontent');
 App.setPreference('android-targetSdkVersion', '22');

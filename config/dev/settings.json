@@ -10,8 +10,11 @@
         "token": "9566b1a8aad8f17497bfe5846eefb8dc",
         "people": true
       }
-    }
+    },
 
+    "ROOT_URL": "http://localhost:3000",
+    "PORT": 3000,
+    "SHARE_URL": "http://go.lgen.me"
   },
 
   "GOOGLE_CLIENT_ID": "122417300165-4i555ct1kvrf8fesec9bp1f9vprdrlef.apps.googleusercontent.com",
