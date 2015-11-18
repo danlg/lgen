@@ -105,6 +105,18 @@ Template.ClassDetail.rendered = function () {
   Meteor.call('getFullNameById', classObj.createBy, function (err, data) {
     return teacherName.set(data);
   });
+
+  //greet first-time user
+  if(Meteor.user().profile.firstclassjoined){
+     IonPopup.alert({
+      title: 'Nice!',
+      template: 'You have just joined you first class.',
+      okText: 'Good'
+    });
+    //set the flag to false so it would not show again
+    Meteor.users.update(Meteor.userId(), {$set: {"profile.firstclassjoined": false}}); 
+  }
+  
 };
 
 Template.ClassDetail.destroyed = function () {
