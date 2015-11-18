@@ -6,7 +6,7 @@ Template.Role.events({
     var $this = $(e.target);
     if (Meteor.user()) {
       Meteor.call('user/role/update', $this.data('role'), function () {
-        Router.go('TabClasses');
+       routeToTabClassesOrClassDetail();
       });
     } else {
       Router.go('EmailSignin', {role: $this.data('role')});
@@ -43,7 +43,22 @@ Template._modal.events({
 
     if (Meteor.userId()) {
       Meteor.call('user/role/update', role, function () {
-        Router.go('TabClasses');
+        
+        //invite user to download the app if they are using web version
+        if(!Meteor.isCordova){
+          if(role === "Teacher"){
+            log.info("redirect to app promote for teacher");           
+            Router.go('HowToInvite');
+          }else{
+            //todo congratulate
+            //popup to download app
+            routeToTabClassesOrClassDetail();
+          }
+        }
+        else{
+          routeToTabClassesOrClassDetail();
+        }
+        
       });
     }
     else {

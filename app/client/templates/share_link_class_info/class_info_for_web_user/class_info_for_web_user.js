@@ -31,7 +31,7 @@ Template.ClassInformationForWebUser.events({
 
     }else{
        log.info("user is NOT logged in");
-       Router.go('Login',{},{query: 'loginToContinue=1'});
+       Router.go('Login');
       //redirect user to login page
     }
     

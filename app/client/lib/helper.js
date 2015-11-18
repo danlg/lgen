@@ -19,9 +19,15 @@ Template.registerHelper('formatTime', function(time) {
 //how to create a global function in meteor template
 //http://stackoverflow.com/questions/29364591/how-to-create-a-global-function-in-meteor-template
 //You need to make your function a global identifier to be able to call it across multiple files :
+
+
+//if user has pending class to join, join and redirect user to the class page.
+//else, redirect use to tab classes
 routeToTabClassesOrClassDetail = function(){
-    
+          
+          log.info("routeToTabClassesOrClassDetail");  
           var classToBeJoined = Session.get("search");
+          log.info(classToBeJoined);
           if (classToBeJoined) {
 
             var doc = {classCode: classToBeJoined};

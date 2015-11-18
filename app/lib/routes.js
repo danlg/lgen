@@ -100,7 +100,7 @@ Router.onBeforeAction(OnBeforeActions.roleRequired, {
 Router.onBeforeAction('loading');
 Router.onBeforeAction(OnBeforeActions.checkLanguage);
 Router.onBeforeAction(OnBeforeActions.checkDob, {
-  only: ['TabClasses']
+  only: ['TabClasses','classDetail']
 });
 
 // Router.onBeforeAction(function (argument) {

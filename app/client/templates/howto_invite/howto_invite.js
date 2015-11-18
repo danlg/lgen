@@ -1,5 +1,13 @@
 var democlass = "mathfun";
 
+Template.HowToInvite.events({
+  
+  'click .redirect-button':function(){
+     routeToTabClassesOrClassDetail();
+  }
+ 
+});
+
 Template.HowToInvite.rendered = function()
 {
    var sim = document.getElementById("inputClassCodeSimulation");

@@ -31,7 +31,8 @@ Template.EmailSignup.helpers({
 Template.EmailSignup.created = function () {
   var classToBeJoined = Session.get("search");
   log.info(classToBeJoined);
-  
+  log.info("chosen role: " + Router.current().params.role);
+ 
   $("body").removeClass('modal-open');
 };
 
@@ -52,13 +53,13 @@ Template.ionNavBar.events({
      });*/
 
     // AutoForm.submitFormById("#signupform");
-    
+    var role = Router.current().params.role;
     var userObj = {};
     userObj.profile = {};
     userObj.email = $(".email").val();
     userObj.profile.firstname = $(".fn").val();
     userObj.profile.lastname = $(".ln").val();
-    userObj.profile.role = Router.current().params.role;
+    userObj.profile.role = role;
     userObj.profile.dob = $("#dobInput").val() || "";
 
     if (!validateEmail(userObj.email)) {
@@ -75,8 +76,22 @@ Template.ionNavBar.events({
           alert(err.reason);
           log.error(err);
         } else{
-          
-           routeToTabClassesOrClassDetail();
+        
+        
+        //invite user to download the app if they are using web version
+        if(!Meteor.isCordova){
+          if(role === "Teacher"){
+            log.info("redirect to app promote for teacher");           
+            Router.go('HowToInvite');
+          }else{
+            //todo congratulate
+            //popup to download app
+            routeToTabClassesOrClassDetail();
+          }
+        }
+        else{
+          routeToTabClassesOrClassDetail();
+        }
           
           
 

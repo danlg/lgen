@@ -4,18 +4,23 @@
 
 Template.Login.events({
   'click .gmailLoginBtn': function () {
-    log.info("Meteor user /logged in ?" + Meteor.user());
+    log.info("Meteor user /logged in ?");
+    log.info( Meteor.user());
     //if (!
     //for details see, http://www.helptouser.com/code/29008008-meteor-js-google-account-filter-email-and-force-account-choser.html
     //and also https://github.com/meteor/meteor/wiki/OAuth-for-mobile-Meteor-clients
+    
+    
     Meteor.loginWithGoogle(
       {
         forceApprovalPrompt: true,
         requestPermissions: ['email'],
-        loginStyle: 'redirect',
+        loginStyle: 'popup',
         requestOfflineToken: true
       }
-      , function (err) {
+      ,function (err) { // <-- the callback would NOT be called. It only works if loginStyle is popup
+                        //see https://github.com/meteor/meteor/blob/devel/packages/accounts-oauth/oauth_client.js Line 16
+       
         if (err) {
           // set a session variable to display later if there is a login error
           Session.set('loginError', 'reason: ' + err.reason + ' message: ' + err.message || 'Unknown error');
@@ -29,10 +34,17 @@ Template.Login.events({
           var loginServicesConfigured = Accounts.loginServicesConfigured();
           log.info('loginServicesConfigured='+loginServicesConfigured);
 
-          if (Meteor.user().profile.role !== "")
-            Router.go('TabClasses');
-          else
+          log.info(Meteor.user())
+          
+          if (Meteor.user().profile.role !== ""){
+            log.info("user has role")
+            routeToTabClassesOrClassDetail();
+          }
+          else{
+            //first time user
+            log.info("user does not have role")
             Router.go('role');
+          }
         }
       });
     //)
@@ -59,7 +71,9 @@ Template.Login.helpers({});
 Template.Login.created = function () {
   // alert("created");
   if (Meteor.userId()) {
-    Router.go("TabClasses");
+     //debugger;
+     Router.go('TabClasses');
+     
   }
 };
 
