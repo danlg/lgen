@@ -12,7 +12,7 @@ Template.HowToInvite.helpers ({
     //the following not harcoded link is not pretty and too long because of http://
     //this is just a demo...
     //return Meteor.settings.public.SHARE_URL + "/join/"+ democlass;
-    return "gogen.ie" +"/join/"+ democlass;
+    return "lgen.me" +"/join/"+ democlass;
   }
 });
 

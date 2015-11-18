@@ -15,7 +15,7 @@
 
     "ROOT_URL": "http://app.littlegenius.io",
     "PORT": 80,
-    "SHARE_URL": "http://gogen.ie"
+    "SHARE_URL": "http://lgen.me"
   },
 
   "FROM_EMAIL": "no-reply@littlegenius.io",

@@ -14,7 +14,7 @@
 
     "ROOT_URL": "http://uat.littlegenius.io",
     "PORT": 80,
-    "SHARE_URL": "http://go.gogen.ie"
+    "SHARE_URL": "http://go.lgen.me"
   },
 
   "GOOGLE_CLIENT_ID": "122417300165-4i555ct1kvrf8fesec9bp1f9vprdrlef.apps.googleusercontent.com",
