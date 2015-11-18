@@ -40,6 +40,7 @@ cfs:upload-http@0.0.20
 cfs:worker@0.1.4
 check@1.1.0
 coffeescript@1.0.11
+dburles:spacebars-tohtml@1.0.1
 ddp@1.2.2
 ddp-client@1.2.1
 ddp-common@1.2.2

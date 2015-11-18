@@ -83,3 +83,4 @@ ejson
 spacebars
 check
 meteorhacks:npm
+dburles:spacebars-tohtml
