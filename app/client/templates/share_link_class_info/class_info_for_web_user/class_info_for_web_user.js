@@ -119,7 +119,15 @@ Template.ClassInformationForWebUser.onCreated(function () {
 });
 
 Template.ClassInformationForWebUser.onRendered(function () {
+  
+  //if the classcode in the path is not existed(i.e no result return from suscription), redirect user to find you class page instead.
+  if(Classes.find().count() < 1){
+    Router.go('ClassSearchInformationForWebUser');
+  }
+  
+  
   if(Router.current().params.classCode){
+    log.info(Router.current().params.classCode);
     Session.set("search",Router.current().params.classCode);
   }
   if(Router.current().params.query.rid){

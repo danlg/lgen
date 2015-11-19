@@ -37,7 +37,9 @@ Meteor.publish('personCreateClass', function (classCode) {
       _id: ownId.createBy
     });
   }else{
-    return;
+    //http://stackoverflow.com/questions/25709362/stuck-on-loading-template
+    //this.ready() indicates nothing return; you cannot use return "" or return null in such case
+    this.ready();
   }
 });
 
