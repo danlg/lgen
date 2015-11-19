@@ -48,7 +48,7 @@
           STYLE 1
         ============================================================ */
         .style-1 input[type="text"], .style-1 input[type="password"]{
-          padding: 10px;
+          padding: 0px 5px;
           border: solid 1px gainsboro;
           -webkit-transition: box-shadow 0.3s, border 0.3s;
           -moz-transition: box-shadow 0.3s, border 0.3s;
@@ -97,6 +97,8 @@
             </div>
             <br>
             <button class="button button-block button-stable signUpBtn">Sign Up</button>
+            
+            <a href={{pathFor 'EmailSignin'}} style='margin:0 auto;display:block;text-align:center;' class="signInBtn">Current User with email? Sign in here</a>
             <br/>
             <hr class='withOr'/>
             
