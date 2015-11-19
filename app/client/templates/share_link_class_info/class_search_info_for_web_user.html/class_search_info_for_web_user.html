@@ -12,16 +12,60 @@
   {{#ionView}}
     {{#ionContent}}
 
+    <style>
+
+        input[type="text"] {
+          display: block;
+          margin: 0;
+          width: 100%;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          appearance: none;
+          -webkit-box-shadow: none;
+          -moz-box-shadow: none;
+          box-shadow: none;
+          -webkit-border-radius: none;
+          -moz-border-radius: none;
+          -ms-border-radius: none;
+          -o-border-radius: none;
+          border-radius: none;
+          border-style: solid;
+          border-width: 1px;
+        }
+        input[type="text"]:focus {
+          outline: none;
+        }
+        
+        /* ============================================================
+          STYLE 1
+        ============================================================ */
+        .style-1 input[type="text"] {
+          padding: 10px;
+          border: solid 1px gainsboro;
+          -webkit-transition: box-shadow 0.3s, border 0.3s;
+          -moz-transition: box-shadow 0.3s, border 0.3s;
+          -o-transition: box-shadow 0.3s, border 0.3s;
+          transition: box-shadow 0.3s, border 0.3s;
+        }
+        .style-1 input[type="text"]:focus, .style-1 input[type="text"].focus {
+          border: solid 1px #ACDA46;
+        }  
+        
+         .style-1 i{
+
+          color: #aaa;
+        }            
+   </style>
    <div class="card padding" style='width:300px;position:fixed;left:0;right:0;margin:0 auto;top:30%;height:200px;'>
 
       <div class='' style='text-align:center;'>
           <div class='' >
             <h4>Find your class</h4>
             <br>
-            <div style='display:table;margin:0 auto;'>
+            <div class='style-1' style='width:100%;margin:0 auto;'>
               <label class="white-background">
-                <i  style='display:inline-block;width:20px;' class="icon ion-at placeholder-icon"></i>
-               <input style='display:inline-block;width:100px;' type='text' placeholder="Class code"/>              
+                <i  style='display:inline-block;width:20px;' class="icon ion-at"></i>
+               <input class='' style='display:inline-block;width:80%;' type='text' placeholder="Class code"/>              
               </label>
             </div>
             <br>
