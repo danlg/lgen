@@ -4,10 +4,7 @@ Session.setDefault("Referral",false);
 /* Home: Event Handlers */
 /*****************************************************************************/
 Template.ClassInformationForWebUser.events({
-  'keyup .classSearch':function(e){
-    Session.set("search",$(e.target).val().trim());
-  },
-  'click .enterBtn':function () {
+  'click .signUpBtn':function () {
     
     if(Meteor.user()){
       log.info("user is logged in");
@@ -32,11 +29,15 @@ Template.ClassInformationForWebUser.events({
     }else{
       log.info("user is NOT logged in");
       
-      //Router.go('Login');
-      //redirect user to login page
+      var role= ""; //role would be chosen by user later on
+      var fn= $('.first-name').val();
+      var ln=$('.last-name').val();
+      var email=$('.email').val();
+      var pw=$('.password').val();
+
+      registerNewUser(email,fn,ln,pw);
     }
-    
-    //Router.go('email',{classCode:Session.get('search')});
+   
   }
 });
 

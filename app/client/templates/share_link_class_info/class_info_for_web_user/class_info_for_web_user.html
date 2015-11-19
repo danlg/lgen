@@ -78,19 +78,21 @@
             <div class="list style-1">
               <label class="item item-input item-stacked-label">
                 <span class="input-label">First Name</span>
-                <input type="text" placeholder="">
+                <input class='first-name' type="text" placeholder="">
               </label>
               <label class="item item-input item-stacked-label">
                 <span class="input-label">Last Name</span>
-                <input type="text" placeholder="">
-              </label>              
+                <input class='last-name' type="text" placeholder="">
+              </label>  
+
+                                                     
               <label class="item item-input item-stacked-label">
                 <span class="input-label">Email</span>
-                <input type="text" placeholder="email@school.edu">
+                <input class='email' type="text" placeholder="email@school.edu">
               </label>
               <label class="item item-input item-stacked-label">
                 <span class="input-label">Choose password</span>
-                <input type="text" placeholder="Password">
+                <input class='password' type="password" placeholder="Password">
               </label>
             </div>
             <br>
@@ -99,7 +101,7 @@
             <hr class='withOr'/>
             
             <br/>
-            <button class="button button-block button-stable signUpBtn">Sign Up with Google</button>   
+            <button class="button button-block button-stable signUpGmailBtn">Sign Up with Google</button>   
             <br/>
             <p style='text-align:center;'>By signing up, you agree to our <b><a href="{{pathFor 'TermsOfService'}}"> Terms of Service</a></b>
              and <b><a href="{{pathFor 'PrivacyPolicy'}}">Privacy Policy</a></b></p>

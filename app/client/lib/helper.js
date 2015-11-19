@@ -50,3 +50,40 @@ routeToTabClassesOrClassDetail = function(){
             Router.go("TabClasses");
           }
 }
+
+registerNewUser = function(email,firstname,lastname,password){
+    
+    
+    var userObj = {};
+    userObj.profile = {};
+    userObj.email = email;
+    userObj.profile.firstname = firstname;
+    userObj.profile.lastname = lastname;
+    userObj.profile.role = ""; //role would be chosen by user later
+    //userObj.profile.dob = $("#dobInput").val() || "";
+
+    if (!validateEmail(userObj.email)) {
+      alert("Incorrect Email");
+    } else if (password.length < 4) {
+      alert("At least 3 characters Password");
+    } else {
+      Accounts.createUser({
+        email: userObj.email,
+        password: password,
+        profile: userObj.profile
+      }, function (err) {
+        if (err) {
+          alert(err.reason);
+          log.error(err);
+        } else{
+       
+           Router.go('role');
+        
+          
+          
+
+        }
+      });
+
+    }
+}
