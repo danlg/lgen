@@ -18,7 +18,6 @@
 
           <div class="listview-container">
 
-
             <a href="{{pathFor 'AddClass'  }}">
               <div class="row row-center add-join-bar">
                 <div class="col col-90">{{_ "ClassesIOwn"}}</div>
@@ -30,23 +29,36 @@
 
             <div class="listview">
 
-
-
               {{#if notCreateEmptyList}}
 
                 <ul class="list">
                   {{#each createdClass}}
                     <a href={{ pathFor 'ClassPanel'   }}>
-                      <li class="item">
+                      <div class="item item-icon-left" style="padding-top: 7px; padding-bottom: 7px">
+                        <!--the below works :-->
+                        <!--<i class="icon ion-android-favorite-outline genius-color"></i>-->
+                        <!--now let's try to customize with emojione !-->
+                        <!--http://git.emojione.com/demos/1.5.2/jsshortnametoimage.html-->
+                        <!--https://atmospherejs.com/emojione/emojione -->
+                         <!--<i class="icon">{{> emojione ':sunny:'}})</i>-->
+                        <!--https://github.com/Ranks/emojione/tree/master/lib/emojione-awesome-->
+
+                        <!--<i class="icon e1a-sun_with_face e1a-1x"></i>-->
+                        <i class="icon {{classavatar_icon}} e1a-1x emojicon"></i>
+                        <!--{{#if classavatar}}-->
+                          <!--<i class="icon {{emojione {{this.classavatar}} }} e1a-1x emojicon"></i>-->
+                        <!--{{else}}-->
+                          <!--<i class="icon e1a-green_apple e1a-1x emojicon"></i>-->
+                        <!--{{/if}}-->
+
                         {{this.className}}
                         <br/><span class='class-code'>@{{this.classCode}}</span>
-                      </li>
+                      </div>
                     </a>
                   {{/each}}
                 </ul>
 
               {{else}}
-
 
                 <div class="row row-center listview-nth">
                   <div class="col">
