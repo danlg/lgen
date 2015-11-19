@@ -1,24 +1,68 @@
 <template name='ClassInformationForWebUser'>
 	
-  <h2 class="title">Find Your Class</h2>
-  <div class="row">
-    <div class="col-xs-8 col-xs-offset-2">
-      <div class="input-group">
-        <span class="input-group-addon" id="basic-addon1">@</span>
-        <input  type="text" class="form-control classSearch" placeholder="Class Code" aria-describedby="basic-addon1" style="height:50px" value="{{classCode}}" >
+  {{#contentFor "headerButtonLeft"}}
+     <h1 class="title"> Little Genius </h1>
+  {{/contentFor}}
+  
+    {{#ionView class='background-wallpaper'}}
+    {{#ionContent }}
+
+    <style>
+      hr{
+             padding: 0; border: none;  border-top: 1px solid rgba(0, 0, 0, 0.1);
+           border-bottom: 1px solid rgba(255, 255, 255, 0.3); text-align: center;      
+      }
+        hr.withOr {
+           padding: 0; border: none;  border-top: 1px solid rgba(0, 0, 0, 0.1);
+           border-bottom: 1px solid rgba(255, 255, 255, 0.3); text-align: center;
+            }
+
+
+      hr.withOr:after 
+      { content: "OR"; display: inline-block; position: relative; top: -2em; font-size: 0.5em; padding: 0 0.25em; background:
+      white; }       
+   </style>
+  
+   <div class="card padding" style=''>
+
+      <div class='' >
+          <div class='' >
+            <h4 style='text-align:center;'>{{classOwnName}}</h4>
+            <hr/>
+            <div class="list">
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">First Name</span>
+                <input type="text" placeholder="">
+              </label>
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">Last Name</span>
+                <input type="text" placeholder="">
+              </label>              
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">Email</span>
+                <input type="text" placeholder="email@schoo.edu">
+              </label>
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">Choose a password</span>
+                <input type="text" placeholder="Password">
+              </label>
+            </div>
+            <br>
+            <button class="button button-block button-stable signUpBtn">Sign Up</button>
+            <br/>
+            <hr class='withOr'/>
+            
+            <br/>
+            <button class="button button-block button-stable signUpBtn">Sign Up with Google</button>   
+            <br/>
+            <p style='text-align:center;'>By signing up, you agree to our <b>Terms of Service</b> and <b>Privacy Policy</b></p>
+                     
+          </div>
       </div>
-      <br>
-      {{#if notFound}}
-      <div style="color:#df5989" >Uh oh! We couldn't find a class matching this code. Every class has a unique code. Please contact your teacher to double check instructions for your class.</div>
-      {{/if}}
-      <br>
-      <br>
-        <button class="btn btn-primary btn-lg enterBtn" {{ableClick}} > {{classOwnName}} </button>
-
+          
     </div>
-
-
-
-
-  </div>
+   
+    {{/ionContent}}
+  {{/ionView}} 
+  
 </template>

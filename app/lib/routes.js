@@ -460,8 +460,6 @@ Router.route('join/', {
 
 Router.route('join/:classCode?', {
   name: 'ClassInformationForWebUser',
-
-  layoutTemplate:'',
   waitOn: function () {   
     return [
       Meteor.subscribe('personCreateClass', this.params.classCode),
