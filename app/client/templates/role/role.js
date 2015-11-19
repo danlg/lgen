@@ -6,7 +6,7 @@ Template.Role.events({
     var $this = $(e.target);
     if (Meteor.user()) {
       Meteor.call('user/role/update', $this.data('role'), function () {
-       routeToTabClassesOrClassDetail();
+       routeToTabClasses();
       });
     } else {
       Router.go('EmailSignin', {role: $this.data('role')});
@@ -52,11 +52,11 @@ Template._modal.events({
           }else{
             //todo congratulate
             //popup to download app
-            routeToTabClassesOrClassDetail();
+            routeToTabClasses();
           }
         }
         else{
-          routeToTabClassesOrClassDetail();
+          routeToTabClasses();
         }
         
       });

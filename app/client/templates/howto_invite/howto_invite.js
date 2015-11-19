@@ -3,7 +3,7 @@ var democlass = "mathfun";
 Template.HowToInvite.events({
   
   'click .redirect-button':function(){
-     routeToTabClassesOrClassDetail();
+     routeToTabClasses();
   }
  
 });

@@ -32,7 +32,7 @@ Template.ionNavBar.events({
         log.error(err);
       }
       else {
-        routeToTabClassesOrClassDetail();
+        routeToTabClasses();
       }
     });
   }

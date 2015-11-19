@@ -21,34 +21,29 @@ Template.registerHelper('formatTime', function(time) {
 //You need to make your function a global identifier to be able to call it across multiple files :
 
 
-//if user has pending class to join, join and redirect user to the class page.
-//else, redirect use to tab classes
-routeToTabClassesOrClassDetail = function(){
+//if user has pending class to join, join and redirect user to tab classes.
+//else, just redirect use to tab classes
+routeToTabClasses = function(){
           
-          log.info("routeToTabClassesOrClassDetail");  
+          log.info("routeToTabClasses");  
           var classToBeJoined = Session.get("search");
           log.info(classToBeJoined);
           if (classToBeJoined) {
 
             var doc = {classCode: classToBeJoined};
-            //help user to join class directly and router go to the class page
+            //help user to join class
             Meteor.call("class/join", doc, function (error, result) {
 
               log.info(error);
               log.info(result);
               if (error) {
-                log.error("error", error);
-                Router.go("TabClasses");
+                log.error("error", error);          
               } else {
                 Session.set("search","");
-                log.info("Redirecting you to the class");
-                Router.go("classDetail",{classCode : classToBeJoined});
               }
             });
-
-          } else {
-            Router.go("TabClasses");
           }
+          Router.go("TabClasses");
 }
 
 registerNewUser = function(email,firstname,lastname,password){
@@ -60,7 +55,6 @@ registerNewUser = function(email,firstname,lastname,password){
     userObj.profile.firstname = firstname;
     userObj.profile.lastname = lastname;
     userObj.profile.role = ""; //role would be chosen by user later
-    //userObj.profile.dob = $("#dobInput").val() || "";
 
     if (!validateEmail(userObj.email)) {
       alert("Incorrect Email");
@@ -114,7 +108,7 @@ registerOrLoginWithGoogle = function(){
           
           if (Meteor.user().profile.role !== ""){
             log.info("user has role")
-            routeToTabClassesOrClassDetail();
+            routeToTabClasses();
           }
           else{
             //first time user

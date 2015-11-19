@@ -86,11 +86,11 @@ Template.ionNavBar.events({
           }else{
             //todo congratulate
             //popup to download app
-            routeToTabClassesOrClassDetail();
+            routeToTabClasses();
           }
         }
         else{
-          routeToTabClassesOrClassDetail();
+          routeToTabClasses();
         }
           
           
