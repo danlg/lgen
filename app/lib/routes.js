@@ -83,7 +83,8 @@ OnBeforeActions = {
 
 Router.onBeforeAction(OnBeforeActions.LoginRequired, {
   except: ['language', 'Login', 'EmailSignup', 'EmailSignin', 'role',
-   'Testing', 'Test2','ClassInformationForWebUser','ClassSearchInformationForWebUser']
+   'Testing', 'Test2','ClassInformationForWebUser','ClassSearchInformationForWebUser',
+   'TermsOfService','PrivacyPolicy']
 });
 
 
