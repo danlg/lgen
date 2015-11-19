@@ -30,8 +30,9 @@ Template.ClassInformationForWebUser.events({
       });
 
     }else{
-       log.info("user is NOT logged in");
-       Router.go('Login');
+      log.info("user is NOT logged in");
+      
+      //Router.go('Login');
       //redirect user to login page
     }
     
@@ -71,7 +72,7 @@ Template.ClassInformationForWebUser.helpers({
       return "Enter";
     }else{
       var teacher =  Meteor.users.findOne({_id:classObj.createBy});
-      return "Join "+teacher.profile.firstname+" "+ teacher.profile.lastname+"'s class";
+      return "Join "+teacher.profile.firstname+" "+ teacher.profile.lastname+"'s "+ classObj.className + " class";
     }
 
   },
