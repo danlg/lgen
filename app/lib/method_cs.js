@@ -127,6 +127,16 @@ Meteor.methods({
     Chat.update(chatRoomId, {$push: {messagesObj: pushObj}});
   },
 
+  'getUserNameById': function (userid) {
+    var rawResult= Meteor.users.findOne({_id: userid});
+    
+    if(rawResult){
+      return rawResult.profile.name;
+    }else{
+      return "";
+    }
+  },
+  
   'getUserByIdArr': function (chatIds) {
     lodash.pull(chatIds, Meteor.userId());
     return Meteor.users.findOne({_id: {$in: chatIds}});
