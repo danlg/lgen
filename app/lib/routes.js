@@ -82,7 +82,8 @@ OnBeforeActions = {
 };
 
 Router.onBeforeAction(OnBeforeActions.LoginRequired, {
-  except: ['language', 'Login', 'EmailSignup', 'EmailSignin', 'role', 'Testing', 'Test2','ClassInformationForWebUser']
+  except: ['language', 'Login', 'EmailSignup', 'EmailSignin', 'role',
+   'Testing', 'Test2','ClassInformationForWebUser','ClassSearchInformationForWebUser']
 });
 
 
@@ -450,6 +451,10 @@ Router.route('HowToInvite',{
 
 Router.route('NotificationSetting', {
   // layoutTemplate: "NavBarScreenLayout",
+});
+
+Router.route('join/', {
+  name: 'ClassSearchInformationForWebUser'
 });
 
 Router.route('join/:classCode?', {
