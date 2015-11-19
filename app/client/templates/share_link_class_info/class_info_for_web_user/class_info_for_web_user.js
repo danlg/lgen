@@ -38,7 +38,36 @@ Template.ClassInformationForWebUser.events({
       registerNewUser(email,fn,ln,pw);
     }
    
-  }
+  },
+  'click .signUpGmailBtn':function () {
+    
+    if(Meteor.user()){
+      log.info("user is logged in");
+      
+      var doc = {};
+      doc.classCode = Session.get("search");
+      
+      //if existing user, help user to join class directly and router go to the class page
+      Meteor.call("class/join", doc , function (error, result) {
+        
+        log.info(error);
+        log.info(result);
+        if (error) {
+          log.error("error", error);
+        }else{
+         
+          log.info("Redirecting you to the class");
+          Router.go("classDetail",{classCode : doc.classCode});          
+        }
+      });
+
+    }else{
+      log.info("user is NOT logged in");
+      
+      registerOrLoginWithGoogle();
+    }
+   
+  }  
 });
 
 /*****************************************************************************/

@@ -76,14 +76,51 @@ registerNewUser = function(email,firstname,lastname,password){
           alert(err.reason);
           log.error(err);
         } else{
-       
+           
+           //if create user is successful, user than needs to choose their role
            Router.go('role');
         
-          
-          
-
         }
       });
 
     }
+}
+
+registerOrLoginWithGoogle = function(){
+     Meteor.loginWithGoogle(
+      {
+        forceApprovalPrompt: true,
+        requestPermissions: ['email'],
+        loginStyle: 'popup',
+        requestOfflineToken: true
+      }
+      ,function (err) { // <-- the callback would NOT be called. It only works if loginStyle is popup
+                        //see https://github.com/meteor/meteor/blob/devel/packages/accounts-oauth/oauth_client.js Line 16
+       
+        if (err) {
+          // set a session variable to display later if there is a login error
+          Session.set('loginError', 'reason: ' + err.reason + ' message: ' + err.message || 'Unknown error');
+          alert(err.message + ":" + err.reason);
+          log.error('loginWithGoogle err'+ err.reason +" msg="+ err.message);
+          var loginServicesConfigured = Accounts.loginServicesConfigured();
+          log.info('loginServicesConfigured='+loginServicesConfigured);
+        }
+        else {
+          log.info('loginWithGoogle OK');
+          var loginServicesConfigured = Accounts.loginServicesConfigured();
+          log.info('loginServicesConfigured='+loginServicesConfigured);
+
+          log.info(Meteor.user())
+          
+          if (Meteor.user().profile.role !== ""){
+            log.info("user has role")
+            routeToTabClassesOrClassDetail();
+          }
+          else{
+            //first time user
+            log.info("user does not have role")
+            Router.go('role');
+          }
+        }
+      });   
 }
