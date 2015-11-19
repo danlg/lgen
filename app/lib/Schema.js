@@ -154,7 +154,7 @@ Schema.profile = {
   lastname: "",
   role: "",
   dob: "",
-  email: true,
+  email: false, //default as false so user needs to opt it to receive email message notificaiton
   push: true,
   firstchat: true,
   firstinvitation: true,
