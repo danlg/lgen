@@ -3,50 +3,40 @@
     <h1 class="title"> {{_ "AddClass"}} </h1>
   {{/contentFor}}
 
-
-
-
   {{#contentFor "headerButtonLeft"}}
     {{>ionNavBackButton text=" "}}
   {{/contentFor}}
-
-
 
   {{#contentFor "headerButtonRight"}}
     <button class="button button-clear button-entering button-active addClassBtn">{{_ "Add"}}</button>
   {{/contentFor}}
 
-
-
   {{#ionView}}
     {{#ionContent}}
-
       {{#autoForm  validation="keyup" collection="Classes" id="insertClass" type="insert"}}
-
-
         <ul class="list " style="margin-bottom:0;">
           <li class="item item-input">
-                   
             {{> afFieldInput name="className" placeholder="Class Name" }}
-            
             {{#if afFieldIsInvalid name='className'}}
               <br><span class="help-block">{{afFieldMessage name='className'}}</span>
-            {{/if}}             
+            {{/if}}
           </li>
-         <li class="" >
+
+          <li class="" >
             <div class="bar bar-header item-input-inset">
               <label class="item-input-wrapper white-background">
                 <i class="icon ion-at placeholder-icon"></i>
                 {{> afFieldInput name="classCode" class="classCodeInput" placeholder="Class Code" }}
                 {{#if afFieldIsInvalid name='classCode'}}
-                   <br><span class="help-block ">{{afFieldMessage name='classCode'}}</span>
-                {{/if}}                   
+                  <br><span class="help-block ">{{afFieldMessage name='classCode'}}</span>
+                {{/if}}
               </label>
-
             </div>
-         </li>          
-  
+          </li>
 
+          <li class="item item-input">
+            {{> afFieldInput name="classavatar" placeholder="green_apple" }}
+          </li>
 
           <li class="item item-toggle">
             <span class="description">{{_ "AnyoneInThisClassCanStartAChat"}}</span>

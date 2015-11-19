@@ -130,6 +130,12 @@ ClassesSchema = new SimpleSchema({
         this.unset();
       }
     }
+  },
+
+  classavatar:{
+    type: String,
+    trim:true,
+    optional: true,
   }
 
 

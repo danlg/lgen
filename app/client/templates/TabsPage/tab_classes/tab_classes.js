@@ -1,6 +1,11 @@
 /*****************************************************************************/
 /* TabClasses: Event Handlers */
 /*****************************************************************************/
+
+function createdClassImpl() {
+  return Classes.find({createBy: Meteor.userId()});
+}
+
 Template.TabClasses.events({});
 
 /*****************************************************************************/
@@ -16,11 +21,21 @@ Template.TabClasses.helpers({
   joinedClass: function () {
     return Classes.find({joinedUserId: {$in: [Meteor.userId()]}});
   },
-  createdClass: function () {
-    return Classes.find({createBy: Meteor.userId()});
-  },
+
   isTeacher: function () {
     return Meteor.user().profile.role === "Teacher";
+  },
+
+  createdClass: createdClassImpl,
+
+  classavatar_icon: function() {
+    var ava =  (this.classavatar) ? true : false;
+    if (ava) {
+      return "e1a-" + this.classavatar;
+    }
+    else{ //default
+      return "e1a-green_apple";
+    }
   }
 
 
