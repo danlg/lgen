@@ -160,5 +160,6 @@ Schema.profile = {
   firstinvitation: true,
   firstpicture: true,
   firstclassjoined: true,
+  hybridapppromote:false,
   referral: 0
 };
