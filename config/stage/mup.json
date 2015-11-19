@@ -3,12 +3,10 @@
     "ROOT_URL": "http://uat.littlegenius.io",
     "PORT": 80,
 
-    //"MONGO_URL": "mongodb://localhost:27017/littlegenius",
     "MONGO_URL": "mongodb://lgdb:genie123@c247.alcatraz.1.mongolayer.com:10247,alcatraz.1.mongolayer.com:10247,alcatraz.0.mongolayer.com:10247/littlegenius?replicaSet=set-56286b556228d9247c000ffa",
     "MONGO_OPLOG_URL": "mongodb://lgdb:genie123@c247.alcatraz.1.mongolayer.com:10247,alcatraz.1.mongolayer.com:10247,alcatraz.0.mongolayer.com:10247/local?authSource=littlegenius"
 
   },
-
   //stage
   "servers": [
     {
@@ -23,6 +21,6 @@
   "setupPhantom": true,
   "enableUploadProgressBar": true,
   "appName": "littlegenius",
-  "app": "/Users/dan/DEV/github8/lgen/app",
+  "app": "/Users/dan/DEV/clean/lgen/app",
   "deployCheckWaitTime": 15
 }

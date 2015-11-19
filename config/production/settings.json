@@ -1,11 +1,8 @@
 {
   "public": {
-
-
     "persistent_session": {
       "default_method": "persistent"
     },
-
     "analyticsSettings": {
       "Mixpanel": {
         "token": "9566b1a8aad8f17497bfe5846eefb8dc",
@@ -22,14 +19,14 @@
   "FROM_NAME": "Little Genius",
   "FEEDBACK_EMAIL": "feedback@littlegenius.io",
 
-  "MONGO_URL": "mongodb://geniedb:genie123@cockney.3.mongolayer.com:10233,cockney.2.mongolayer.com:10233/genie?replicaSet=set-55e8023231f767440700040b",
-  "MONGO_OPLOG_URL": "mongodb://geniedb:genie123@cockney.3.mongolayer.com:10233,cockney.2.mongolayer.com:10233/local?authSource=genie",
+  "MONGO_URL": "xxxxxx",
+  "MONGO_OPLOG_URL": "xxxx",
 
-  "GOOGLE_CLIENT_ID": "122417300165-bq0l4khepcibitqksgrmkuvqrdintiuc.apps.googleusercontent.com",
-  "GOOGLE_SECRET": "kCwDY5lY6wWz8KsGB4fTVwNp",
+  "GOOGLE_CLIENT_ID": "xxxxx",
+  "GOOGLE_SECRET": "xxxxx",
 
   "MANDRILL_USERNAME": "dan@littlegenius.io",
-  "MANDRILL_KEY": "GBt6d5ggNEP7969s9j9DyA",
+  "MANDRILL_KEY": "xxxxxx",
   "MANDRILL_PORT": 587
 
 }
