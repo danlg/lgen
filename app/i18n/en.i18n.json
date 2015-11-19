@@ -13,6 +13,7 @@
   "Cancel": "Cancel",
   "CantJoinTheClassYouOwn":"You can't join the class you own.",
   "Chat": "Chat",
+  "Chat_settings": "Chat settings",
   "ClassCode": "Class Code",
   "Class_details": "Class details",
   "Classes": "Classes",
@@ -111,11 +112,26 @@
   "email": "Email",
   "Done": "Done",
   "OfficeHours": "Office Hours",
+  "OfficeHoursExplanation": "You can set office hours to manage when you can be contacted",
   "TimeDays": "Time Days",
   "PUSH": "Push notification",
   "Notification": "Notification",
   "ReceivingMessagesVia": "Receiving messages via:",
+
+  "Monday":"Monday",
+  "Tuesday":"Tuesday",
+  "Wednesday":"Wednesday",
+  "Thursday":"Thursday",
+  "Friday":"Friday",
+  "Saturday":"Saturday",
+  "Sunday":"Sunday",
+  "Chat settings":"Chat settings",
+
+
   "schemas": {
+    "WorkTimeSelection":{
+
+    },
     "emailSignup": {
       "firstname": {
         "placeholder": "First name"

@@ -120,6 +120,7 @@ Schema.chatSetting = new SimpleSchema({
     type: String,
     optional: true,
   },
+  //workHourTime.weeks is actually work days
   'workHourTime.weeks': {
     type: [String],
     optional: true,

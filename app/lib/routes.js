@@ -181,10 +181,11 @@ Router.route('Chatoption', {
     Meteor.subscribe('createdClassByMe');
   }
 });
-Router.route('WorkTimeSelection', {
+/*Router.route('WorkTimeSelection', {
   // layoutTemplate: "NavBarScreenLayout",
   path: "chat/option/weeksTime",
 });
+*/
 Router.route('Notification', {
   // layoutTemplate: "NavBarScreenLayout",
   path: "notice/:msgCode",

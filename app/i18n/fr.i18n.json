@@ -13,6 +13,7 @@
   "Cancel": "Annul.",
   "CantJoinTheClassYouOwn":"Vous ne pouvez pas joindre votre propre groupe",
   "Chat": "Discussion",
+  "Chat_settings": "Paramètres des discussions",
   "ClassCode": "Code de la classe",
   "Class_details": "Détails de la classe",
   "Classes": "Classes",
@@ -113,10 +114,26 @@
   "email": "Email",  
   "Done": "OK",
   "OfficeHours": "Heure de bureau",
+  "OfficeHoursExplanation": "Vous pouvez fixer les horaires pendant lesquels les membres de votre groupe peuvent vous contacter",
   "TimeDays": "Horaires",
   "Notification": "Notification",
   "ReceivingMessagesVia": "Recevoir les messages par",
+
+  "Monday":"Lundi",
+  "Tuesday":"Mardi",
+  "Wednesday":"Mercredi",
+  "Thursday":"Jeudi",
+  "Friday":"Vendredi",
+  "Saturday":"Samedi",
+  "Sunday":"Dimanche",
+  "Chat settings":"Paramètres des discuss.",
+
   "schemas": {
+    "WorkTimeSelection":{
+      //putting the name of days here doesn't seem to work...
+
+    },
+
     "emailSignup": {
       "firstname": {
         "placeholder": "Prénom"

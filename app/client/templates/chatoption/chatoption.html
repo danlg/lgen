@@ -9,21 +9,18 @@
   {{/contentFor}}
 
   {{#contentFor "headerTitle"}}
-    <h1 class="title">Chat Setting</h1>
+    <h1 class="title"> {{_ "Chat_settings"}}</h1>
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
     <!-- <button  class="button button-clear button-entering button-active ChatoptionSave">Save</button> -->
   {{/contentFor}}
 
-
-
-
-
   {{#ionView}}
     {{#ionContent}}
 
       <div class="list">
+        <div class="item item-divider"> {{_ "OfficeHoursExplanation"}} </div>
         {{#autoForm schema=chatSetting resetOnSuccess="false" doc=optionObj id="chatOptionUpdate" type="method" meteormethod="chat/setting/update"}}
 
           <div class="item item-toggle">
@@ -37,15 +34,7 @@
             </label>
           </div>
 
-
-          <!-- <a href="{{ pathFor 'WorkTimeSelection' }}">
-            <div class="item workHourTimeCol {{ishide}}">
-                work time
-            </div>
-          </a> -->
-
-          <a class="workHourTimeCol item  {{ishide}}" href="{{ pathFor 'WorkTimeSelection' }}">
-
+          <a class="workHourTimeCol item  {{ishidden}}" >
             {{_ "TimeDays"}}
             <span class="item-note">
               <div>{{getTimeRange}}</div>
@@ -53,33 +42,89 @@
             </span>
           </a>
 
-
-          <!--
-          <div class="item" >
-            <div class="row row-center" style="height:20vh;">
-              <div class="col">Can other Teacher talk with you?</div>
-            </div>
-          </div>
-          <div class="item" style="text-align:right">
-            <span class="checkall button">Allow All</span>
-          </div>
-
-          {{#each createdClassByMe}}
-
-
-          <li class="item item-toggle">
-           {{className}}
-           <label class="toggle">
-             <input class="classCb" type="checkbox" value="{{_id}}">
-             <div class="track">
-               <div class="handle"></div>
-             </div>
-           </label>
+          <li class="item item-input {{ishidden}}">
+            <div>From</div>
+            <input type="time" class="from" value={{workHourTimeObj.from}}>
+            <div>to</div>
+            <input type="time" class="to" value={{workHourTimeObj.to}}>
           </li>
 
-          {{/each}} -->
+          <div class="{{ishidden}}">
+            <div class="item item-divider">  </div>
 
+            <li class="item item-toggle">
+              {{_ "Monday" }}
+              <label class="toggle toggle-positive">
+                <input class="timeCb" type="checkbox" {{checked "1" }} value="1">
 
+                <div class="track">
+                  <div class="handle"></div>
+                </div>
+              </label>
+            </li>
+
+            <li class="item item-toggle">
+              {{_ "Tuesday" }}
+              <label class="toggle toggle-positive">
+                <input class="timeCb" type="checkbox" {{checked "2" }} value="2">
+
+                <div class="track">
+                  <div class="handle"></div>
+                </div>
+              </label>
+            </li>
+            <li class="item item-toggle">
+              {{_ "Wednesday" }}
+              <label class="toggle toggle-positive">
+                <input class="timeCb" type="checkbox" {{checked "3" }} value="3">
+
+                <div class="track">
+                  <div class="handle"></div>
+                </div>
+              </label>
+            </li>
+            <li class="item item-toggle">
+              {{_ "Thursday" }}
+              <label class="toggle toggle-positive">
+                <input class="timeCb" type="checkbox" {{checked "4" }} value="4">
+
+                <div class="track">
+                  <div class="handle"></div>
+                </div>
+              </label>
+            </li>
+            <li class="item item-toggle">
+              {{_ "Friday" }}
+              <label class="toggle toggle-positive">
+                <input class="timeCb" type="checkbox" {{checked "5" }} value="5">
+
+                <div class="track">
+                  <div class="handle"></div>
+                </div>
+              </label>
+            </li>
+
+            <li class="item item-toggle">
+              {{_ "Saturday" }}
+              <label class="toggle toggle-positive">
+                <input class="timeCb" type="checkbox" {{checked "6" }} value="6">
+
+                <div class="track">
+                  <div class="handle"></div>
+                </div>
+              </label>
+            </li>
+            <li class="item item-toggle">
+              {{_ "Sunday" }}
+              <label class="toggle toggle-positive">
+                <input class="timeCb" type="checkbox" {{checked "7" }} value="7">
+
+                <div class="track">
+                  <div class="handle"></div>
+                </div>
+              </label>
+            </li>
+          </div>
 
         {{/autoForm}}
 
