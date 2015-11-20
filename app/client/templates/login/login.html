@@ -17,27 +17,22 @@
       </div>
 
       <div class="login-footer">
-        <div>
-          <div class="padding-horizontal">
-            <!-- <a href="{{ pathFor 'role' }}" class="button button-block button-positive" > -->
-            <a href="" class="button button-block button-calm button-login" data-ion-modal="_modal">
+        <div class="row responsive-sm" >
+          <div class="col no-padding" style='margin-bottom:0;'>
+             <a href="" class="button button-block button-calm button-login" data-ion-modal="_modal">
               {{_ "SignUp"}}
-            </a>
-          </div>
-          <div class="padding-horizontal">
+            </a></div>
+          <div class="col  no-padding" style='margin-bottom:0;'>
             <a href="{{ pathFor 'EmailSignin' }}" class="button button-block button-calm button-login">
               {{_ "Login"}}
-            </a>
-          </div>
-        </div>
-
-        <div class="padding-horizontal">
-          <a class="button button-block button-calm button-login gmailLoginBtn">
+            </a></div>
+          <div class="col no-padding" style='margin-bottom:0;'>
+            <a class="button button-block button-calm button-login gmailLoginBtn">
             <i class="icon ion-social-google"></i>
             {{_ "Gmaillogin"}}
-          </a>
+          </a></div>
+        </div>  
         </div>
-      </div>
 
 
     {{/ionContent}}
