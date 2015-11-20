@@ -109,9 +109,9 @@ Template.ClassDetail.rendered = function () {
   //greet first-time user
   if(Meteor.user().profile.firstclassjoined){
      IonPopup.alert({
-      title: 'Nice!',
-      template: 'You have just joined you first class.',
-      okText: 'Good'
+      title: TAPi18n.__("Congratulations"),
+      template: TAPi18n.__("JoinedFirstClass"),
+      okText: TAPi18n.__("OKay")
     });
     //set the flag to false so it would not show again
     Meteor.users.update(Meteor.userId(), {$set: {"profile.firstclassjoined": false}}); 
