@@ -31,16 +31,16 @@ Template.ShareInvite.events({
          //https://zenorocha.github.io/clipboard.js/        
           IonPopup.alert({
             title: 'Oops',
-            template: 'Press ⌘·C to copy',
-            okText: 'Got It.'
+            template: TAPi18n.__("PressCrtlCToCopyMac"),
+            okText: TAPi18n.__("OKayGotIt")
           });           
         }
         else {
          //any other browsers that does not support copy & paste yet. Android browser is not working
           IonPopup.alert({
             title: 'Oops',
-            template: 'Long press on the link to copy or Press Crtl·C to copy',
-            okText: 'Got It.'
+            template: TAPi18n.__("PressCtrlCorLongPressToCopy"),
+            okText: TAPi18n.__("OKayGotIt")
           }); 
         }             
       }

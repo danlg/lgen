@@ -58,9 +58,11 @@ Template.TabClasses.rendered = function () {
     if (Meteor.user().profile.hybridapppromote == false){
       //promote the app once if they havent try the hybrid apps 
       IonPopup.alert({
-        title: 'Do you know?',
-        template: 'We have an app version which is even better. You can download it from <b><a href="http://google.com">App Store</a></b> or  <b><a href="http://google.com">Google Play</a></b> today!',//TODO: actual google play or app store link
-        okText: 'Thanks'
+        title: TAPi18n.__("DoYouKnow"),
+        template: TAPi18n.__("WeHaveAppVersion") + ' \
+        <b><a href="'+Meteor.settings.public.APP_STORE_URL+'">App Store</a></b> \
+         ,  <b><a href="'+Meteor.settings.public.GOOGLE_PLAY_URL+'">Google Play</a></b>!',//TODO: actual google play or app store link
+        okText: TAPi18n.__("OKayGotIt")
       });    
       
       //set the flag to true so it would not show again

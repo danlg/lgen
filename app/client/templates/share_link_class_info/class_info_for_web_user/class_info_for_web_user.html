@@ -77,36 +77,38 @@
             <hr/>
             <div class="list style-1">
               <label class="item item-input item-stacked-label">
-                <span class="input-label">First Name</span>
+                <span class="input-label">{{_ "firstname"}}</span>
                 <input class='first-name' type="text" placeholder="">
               </label>
               <label class="item item-input item-stacked-label">
-                <span class="input-label">Last Name</span>
+                <span class="input-label">{{_ "lastname"}}</span>
                 <input class='last-name' type="text" placeholder="">
               </label>  
 
                                                      
               <label class="item item-input item-stacked-label">
-                <span class="input-label">Email</span>
+                <span class="input-label">{{_ "email"}}</span>
                 <input class='email' type="text" placeholder="email@school.edu">
               </label>
               <label class="item item-input item-stacked-label">
-                <span class="input-label">Choose password</span>
+                <span class="input-label">{{_ "password"}}</span>
                 <input class='password' type="password" placeholder="Password">
               </label>
             </div>
             <br>
-            <button class="button button-block button-stable signUpBtn">Sign Up</button>
+            <button class="button button-block button-stable signUpBtn">{{_ "SignUp"}}</button>
             
             <a href={{pathFor 'EmailSignin'}} style='margin:0 auto;display:block;text-align:center;' class="signInBtn">Current User with email? Sign in here</a>
             <br/>
             <hr class='withOr'/>
             
             <br/>
-            <button class="button icon-left ion-social-google-outline button-block button-stable signUpGmailBtn">Sign Up with Google</button>   
+            <button class="button icon-left ion-social-google-outline button-block button-stable signUpGmailBtn">{{_ "Gmaillogin"}}</button>   
             <br/>
-            <p style='text-align:center;'>By signing up, you agree to our <b><a href="{{pathFor 'TermsOfService'}}"> Terms of Service</a></b>
-             and <b><a href="{{pathFor 'PrivacyPolicy'}}">Privacy Policy</a></b></p>
+            <p style='text-align:center;'>{{_ "SignUpAgreeToTOSAndPP"}}
+              <b><a href="{{pathFor 'TermsOfService'}}">{{_ "Terms_of_service"}}</a></b>
+             , <b><a href="{{pathFor 'PrivacyPolicy'}}">{{_ "Privacy_policy"}}</a></b>
+             </p>
                      
           </div>
       </div>
