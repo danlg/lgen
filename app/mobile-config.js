@@ -37,28 +37,28 @@ App.icons({
   // App icon (required for all apps)
   // @1x: iPad 2 and iPad mini icon: 76 x 76
   // 'ipad': 'resources/ios/Icon-72.png',
-  'ipad': 'resources/ios/logo-litegreen-76.png',
+  'ipad': 'resources/ios/logo-icon-76.png',
   // @2x: iPad and iPad mini icon: 152 x 152//'ipad_2x': 'resources/ios/Icon-72@2x.png'
-  'ipad_2x': 'resources/ios/logo-litegreen-152.png',
+  'ipad_2x': 'resources/ios/logo-icon-152.png',
 
   //'iphone': 'resources/ios/Icon.png',
 
   // 'iphone_2x': 'resources/ios/Icon@2x.png',
   // iPhone_2x: iPhone 4s, iPhone 5,6 : 120 x 120
-  'iphone_2x': 'resources/ios/logo-litegreen-120.png',
+  'iphone_2x': 'resources/ios/logo-icon-120.png',
 
   //iPhone_3x: iPhone 6 Plus : 180 x 180
   //'iphone_3x': 'resources/ios/Icon@2x.png',
-  'iphone_3x': 'resources/ios/logo-litegreen-180.png',
+  'iphone_3x': 'resources/ios/logo-icon-180.png',
 
   //App icon for the App Store (required for all apps)
   //1024 x 1024 for all device
 
   // Android
-  'android_ldpi': 'resources/icons/logo-120.png',
-  'android_mdpi': 'resources/icons/logo-120.png',
-  'android_hdpi': 'resources/icons/logo-120.png',
-  'android_xhdpi': 'resources/icons/logo-120.png'
+  'android_ldpi': 'resources/icons/logo-icon-120.png',
+  'android_mdpi': 'resources/icons/logo-icon-120.png',
+  'android_hdpi': 'resources/icons/logo-icon-120.png',
+  'android_xhdpi': 'resources/icons/logo-icon-120.png'
 });
 
 App.launchScreens({
