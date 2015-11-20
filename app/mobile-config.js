@@ -41,7 +41,7 @@ App.icons({
   // @2x: iPad and iPad mini icon: 152 x 152//'ipad_2x': 'resources/ios/Icon-72@2x.png'
   'ipad_2x': 'resources/ios/logo-litegreen-152.png',
 
-  'iphone': 'resources/ios/Icon.png',
+  //'iphone': 'resources/ios/Icon.png',
 
   // 'iphone_2x': 'resources/ios/Icon@2x.png',
   // iPhone_2x: iPhone 4s, iPhone 5,6 : 120 x 120
