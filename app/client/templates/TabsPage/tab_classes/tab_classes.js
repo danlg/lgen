@@ -49,25 +49,24 @@ Template.TabClasses.created = function () {
 
 Template.TabClasses.rendered = function () {
   
-  //promote the app once
-  if(Meteor.user().profile.hybridapppromote == false){
-    
-    IonPopup.confirm({
-      title: 'Do you know?',
-      template: 'We have an app version to donwload. Click OK to download it',
-      onOk: function() {
-        log.info('Confirmed');
-        Router.go('http://google.com/'); //TODO: actual google play or app store link
-      },
-      onCancel: function() {
-        log.info('Cancelled');
-      }
-    });    
-    
-    //set the flag to true so it would not show again
-    Meteor.users.update(Meteor.userId(), {$set: {"profile.hybridapppromote": true}}); 
-  }    
-  
+
+  if (Meteor.isCordova) {
+    //set the flag to true. there is no need to pop this up if user is already using the mobile app
+    Meteor.users.update(Meteor.userId(), { $set: { "profile.hybridapppromote": true } });
+  } else {
+
+    if (Meteor.user().profile.hybridapppromote == false){
+      //promote the app once if they havent try the hybrid apps 
+      IonPopup.alert({
+        title: 'Do you know?',
+        template: 'We have an app version which is even better. You can download it from <b><a href="http://google.com">App Store</a></b> or  <b><a href="http://google.com">Google Play</a></b> today!',//TODO: actual google play or app store link
+        okText: 'Thanks'
+      });    
+      
+      //set the flag to true so it would not show again
+      Meteor.users.update(Meteor.userId(), { $set: { "profile.hybridapppromote": true } });
+    }
+  }
 
 };
 
