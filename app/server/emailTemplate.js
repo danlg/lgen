@@ -133,11 +133,11 @@ feedback = function (content) {
 
 };
 
-inviteClassMailTemplateTest = function (to, classObj) {
+inviteClassMailTemplate = function (to, classObj) {
 
   var first = Meteor.user().profile.firstname;
   var last = Meteor.user().profile.lastname;
-  var acceptLink = Meteor.settings.public.SHARE_URL + "/" + classObj.classCode;
+  var acceptLink = Meteor.settings.public.SHARE_URL + "/join/" + classObj.classCode;
   var acceptLinkEncoded = encodeURI(acceptLink);
 
   return {
@@ -146,24 +146,8 @@ inviteClassMailTemplateTest = function (to, classObj) {
       "subject": "Please join class",
       "html": Spacebars.toHTML(
               {
-                title:"New class ready!",
-                content:
-                  "<p class=\"p1\" style=\"margin: 0.0px 0.0px 0.0px 0.0px;font: 30.0px Helvetica;color: #008f00;\">Little Genius<\/p>\r\n" +
-                  "<p class=\"p2\" style=\"margin: 0.0px 0.0px 0.0px 0.0px;font: 30.0px Arial;color: #343b42;\">Please join {{classname}}! " +
-                  "<\/p>\r\n<p class=\"p3\" style=\"margin: 0.0px 0.0px 0.0px 0.0px;font: 13.0px Arial;\">" +
-                  "I\'m using\u00A0Little Genius to send important updates, last minute changes, and class" +
-                  "\u00A0assignments for {{classname}} (our class code is @{{classcode}}).<\/p>" +
-                  "\r\n<p class=\"p4\" style=\"margin: 0.0px 0.0px 0.0px 0.0px;text-align: center;font: 20.0px Arial;color: #008f00;\"><a href=\"{{acceptLink}}\">" +
-                  "Accept {{first}} {{last}}\'s request<\/a><\/p>\r\n<p class=\"p5\" style=\"margin: 0.0px 0.0px 0.0px 0.0px;font: 13.0px Arial;min-height: 15.0px;\"><br>" +
-                  "<\/p>\r\n<p class=\"p3\" style=\"margin: 0.0px 0.0px 0.0px 0.0px;font: 13.0px Arial;\">Thanks for joining,\u00A0<\/p>\r\n" +
-                  "<p class=\"p3\" style=\"margin: 0.0px 0.0px 0.0px 0.0px;font: 13.0px Arial;\">" +
-                  "{{first}} {{last}}<\/p>\r\n<p class=\"p5\" style=\"margin: 0.0px 0.0px 0.0px 0.0px;font: 13.0px Arial;min-height: 15.0px;\"><br><\/p>\r\n" +
-                  "<p class=\"p6\" style=\"margin: 0.0px 0.0px 0.0px 0.0px;font: 13.0px Arial;color: #353535;\"><span class=\"s2\" style=\"color: #000000;\">" +
-                  "P.S. <a href=\"{{ROOT_URL}}\"><span class=\"s3\" style=\"text-decoration: underline;color: #008f00;\">" +
-                  "Little Genius<\/span><\/a> is a free, safe, easy-to-use communication tool t<\/span>hat helps me connect with you instantly. " +
-                  "You can choose to receive my updates by the Little Genius app or email<\/p>\r\n" +
-                  "<p>\r\n  " +
-                  "<img style=\"width:150px;\" src=\"http:\/\/{{ROOT_URL}}\/img\/icon-hd-email.png\" alt=\"\" \/>\r\n<\/p>\r\n",          
+                title:"Join {{first}} {{last}}'s {{classname}} class",
+                content:  Assets.getText("inviteClassMailTemplate.html"),          
                 GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag="en") ,
                 UnsubscribeEmailNotificaiton: TAPi18n.__("UnsubscribeEmailNotificaiton", {}, lang_tag="en")              
               },

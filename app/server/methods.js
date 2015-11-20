@@ -102,10 +102,10 @@ Meteor.methods({
     var last = Meteor.user().profile.lastname;
     log.info("send invite");
     log.info(first+last+" "+acceptLinkEncoded+" TO: "+"  "+ targetFirstEmail);
-    log.info(inviteClassMailTemplateTest(targetFirstEmail, classObj));
+    log.info(inviteClassMailTemplate(targetFirstEmail, classObj));
     if (lodash.get(Meteor.user(), "profile.email")) {
       try {
-        Mandrill.messages.send(inviteClassMailTemplateTest(targetFirstEmail, classObj));
+        Mandrill.messages.send(inviteClassMailTemplate(targetFirstEmail, classObj));
       }
       catch (e) {
         log.error(e);
