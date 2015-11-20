@@ -84,7 +84,9 @@ Meteor.methods({
     var classObj = Classes.findOne( {_id: _id});
     if (lodash.get(Meteor.user(), "profile.email")) {
       try {
-        retrieveContent("en");
+        
+        log.info("addClassMail");
+        //retrieveContent("en");
         Mandrill.messages.send(addClassMailTemplate(to, classObj.className, classObj.classCode));
       }
       catch (e) {
@@ -94,7 +96,7 @@ Meteor.methods({
   },
 
   classinvite: function (classObj, targetFirstEmail) {
-    var acceptLink = Meteor.settings.public.SHARE_URL + "/" + classObj.classCode;
+    var acceptLink = Meteor.settings.public.SHARE_URL + "/join/" + classObj.classCode;
     var acceptLinkEncoded = encodeURI(acceptLink);
     var first = Meteor.user().profile.firstname;
     var last = Meteor.user().profile.lastname;
