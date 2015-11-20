@@ -109,7 +109,8 @@ $button-positive-border: darken($positive, 10%) !default;
 $button-positive-active-bg: darken($positive, 10%) !default;
 $button-positive-active-border: darken($positive, 10%) !default;
 
-$button-calm-bg: transparent !default;
+//$button-calm-bg: transparent !default;
+$button-calm-bg: white !default;
 $button-calm-text: #20b3be !important;
 $button-calm-border: #20b3be !default;
 $button-calm-active-bg: #20b3be !default;
