@@ -36,10 +36,22 @@ $positive: #ACDA46;
   font-size: 5rem;
 }
 
-.bg {
-  background-image: url("img/login.jpg");
-  background-size: cover;
-  background-position: center;
+
+
+@media screen and (orientation:portrait) {
+  
+  .responsive-bg {
+    background-image: url("img/login.jpg");
+    background-size: cover;
+    background-position: center;
+  }  
+}
+@media screen and (orientation:landscape) {
+  .responsive-bg {
+    background-image: url("img/teacher-hi5-orig.jpg");
+    background-size: cover;
+    background-position: center;
+  }    
 }
 
 .wallpaper {
