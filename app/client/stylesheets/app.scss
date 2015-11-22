@@ -44,14 +44,32 @@ $positive: #ACDA46;
     background-image: url("img/login.jpg");
     background-size: cover;
     background-position: center;
-  }  
+  }
+
+  .motto {
+    font-family: HelveticaNeue-Light, sans-serif;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.5em;
+    padding-top: 50%;
+    text-align: center;
+  }
 }
 @media screen and (orientation:landscape) {
   .responsive-bg {
     background-image: url("img/teacher-hi5-orig.jpg");
     background-size: cover;
     background-position: center;
-  }    
+  }
+
+  .motto {
+    font-family: HelveticaNeue-Light, sans-serif;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.5em;
+    padding-top: 30%;
+    text-align: center;
+  }
 }
 
 .wallpaper {
