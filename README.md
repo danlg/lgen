@@ -99,3 +99,33 @@ To install it:
 `sudo apt-get install balance`
 `sudo mkdir -m 01777 /var/run/balance/`
 then run `balance-start.sh` (custom shell script)
+
+#Building notes#
+from martijnwalraven, MDG
+https://forums.meteor.com/t/ios-test-flight-with-meteor-bug/7613/8
+A mobile client decides where to connect to based on the settings in the generated index.html. 
+These settings take their values based on environment variables that can either be set directly or be controlled with 
+command options.
+
+If you're using meteor build, you can specify the server to connect to with the --server option (this is similar to the 
+--mobile-server option for meteor run). This sets the ROOT_URL and DDP_DEFAULT_CONNECTION_URL in the generated index.html.
+
+Because subsequent updates delivered through Hot Code Push replace the initially bundled index.html with a freshly 
+generated one, the server should also be configured with the right connection URL. Otherwise, the client may not be able
+ to connect, or perhaps connect to the wrong server, after a Hot Code Push.
+
+Using meteor deploy takes care of setting these values automatically, so there is no need to specify anything in that 
+case.. But when deploying on your own server, you have to make sure to set at least the ROOT_URL environment variable 
+(DDP_DEFAULT_CONNECTION_URL defaults to the same value). For Meteor Up, you can configure this in mup.json.
+
+For a deployed app, view source on http://<domain>/__cordova/index.html to see what configuration variables it sets 
+(look for __meteor_runtime_config__).
+
+#Advanced Build Customization#
+Most of the build configuration can be done in Mobile Configuration file starting from Meteor 0.9.4.
+
+Sometimes you might need to override parts of the Cordova project that Meteor generates for you in the project/.meteor/local/cordova-build directory. For example, you might need to add some files to the build process in an ad-hoc way.
+
+For these and other advanced purposes we have created a special top-level folder called cordova-build-override. The whole file tree of this directory will be cp -R (copied overwriting existing files) to the Cordova project right before the build and compilation step.
+
+For example: if you want to have a customized `config.xml`, you can put it in project/cordova-build-override/config.xml.

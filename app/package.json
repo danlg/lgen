@@ -2,9 +2,10 @@
   "name": "littlegenius",
   "scripts": {
     "start": "meteor --settings ../config/stage/settings.json",
-    "ios-local": "meteor run ios -v --settings ../config/dev/settings.json",
-    "ios": "meteor run ios -v --settings ../config/stage/settings.json --mobile-server=http://uat.littlegenius.io:80",
-    "ios-device": "meteor run -v ios-device --settings ../config/stage/settings.json --mobile-server=http://uat.littlegenius.io:80",
+
+    "ios-local": "rm -rf .meteor/local; meteor run ios -v --settings ../config/dev/settings.json",
+    "ios-uat": "rm -rf .meteor/local; meteor run ios -v --settings ../config/stage/settings.json --mobile-server=http://uat.littlegenius.io:80",
+    "ios-device-uat": "rm -rf .meteor/local; meteor run -v ios-device --settings ../config/stage/settings.json --mobile-server=http://uat.littlegenius.io:80",
 
     "build-apk": "./build-android.sh $1",
     "sign-apk": "./sign-android.sh $1",
