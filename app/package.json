@@ -20,7 +20,7 @@
     "runlocal-android-emulator": "meteor run android -v --settings ../config/dev/settings.json",
     "build-example": "NODE_ENV=production VULCANIZE=true meteor build ../myapp-dist --server=https://api.myapp.com/ --mobile-settings settings-production.json",
 
-    "build-uat":  "meteor build ../build  --mobile-settings=../config/stage/settings.json --server=http://uat.littlegenius.io:80",
+    "build-uat":  "rm -rf .meteor/local; meteor build ../build  --mobile-settings=../config/stage/settings.json --server=http://uat.littlegenius.io:80",
     "build-uat2":  "meteor build .meteor/local -v --mobile-settings=../config/stage/settings.json --server=http://uat.littlegenius.io:80",
 
     "deploy-ko":  "cd ../dist && scp app.tar.gz lg@uat.littlegenius.io:~/app && ssh lg@uat.littlegenius.io \"cd app && tar xzvf app.tar.gz\"",
