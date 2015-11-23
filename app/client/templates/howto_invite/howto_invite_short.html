@@ -1,0 +1,86 @@
+<template name="HowToInviteShort">
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">Little Genius</h1> {{/contentFor}} {{#contentFor "headerButtonRight"}}
+
+{{/contentFor}}
+  {{#ionContent}}
+
+    {{#ionSlideBox}}
+      {{#ionSlide}}
+
+        <div class="invite-user heading item text-center padding" style='background-color:white;height:60%;position:relative;'>
+          <div class="padding strong">{{_ "DownloadTheApp"}}</div>
+          <div>
+            <img style='width:150px;height:150px;margin:0 auto;'  src="/img/icon-hd-email.png" alt='Little Genius'/>
+          </div>
+          <div class="row" style="position:absolute;bottom:0px;">
+            <div class="col col-10"></div>
+            <div class="col" style='overflow:hidden;white-space: nowrap'>
+              <img style='max-width:50%;max-height:50%;display:inline;' src="/img/App_Store_grey.svg" alt='App Store'/>
+              <img style='max-width:50%;max-height:50%;display:inline;' src="/img/get_it_on_google_play_grey.svg" alt='Google Play'/>
+            </div>
+            <div class="col col-10"></div>
+          </div>
+        </div>
+        <div class="item" style='background-color:#ACDA46;height:40%;'>
+          <div class='text-center padding' ><i class="icon ion-ios-download-outline" style='font-size:3.2em;'></i></div>
+          <div class='text-center' style='font-size:smaller' > {{_ "AskParentAndStudentToDownloadApp"}} </div>
+        </div>
+      {{/ionSlide}}
+
+      {{#ionSlide}}
+        <div class="item text-center padding" style='background-color:lightgray;height:60%;'>
+          <div class="padding strong">{{_ "InClassInstructions"}}</div>
+
+          <!--bounding box http://stackoverflow.com/questions/9994493/scale-image-to-fit-a-bounding-box/10016640#10016640-->
+          <div class='device'>
+            <div class='device-content'>
+
+              <div class="bar bar-header item-input-inset">
+                <label class="item-input-wrapper white-background">
+                  <i class="icon ion-at placeholder-icon"></i>
+                  <input id='inputClassCodeSimulation' placeholder='{{_ "JoinAClassByInputClassCode"}}'/>
+                </label>
+                <button class="button button-light joinBtn">
+                  {{_ "Join"}}
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="item" style='background-color:#00bfff;height:40%;'>
+          <div class='text-center padding' ><i class="icon ion-ios-chatboxes-outline" style='font-size:3.2em;'></i></div>
+          <div class='text-center' style='font-size:smaller' > {{_ "StudentAndParentCanJoinByClassCode"}} </div>
+        </div>
+      {{/ionSlide}}
+
+
+      {{#ionSlide}}
+        <div class="item text-center padding" style='background-color:#fff;height:40%;'>
+          <div class="padding strong">{{_ "OKayGotIt"}}</div>
+          <div>
+            <img style='width:150px;height:150px;margin:0 auto;'  src="/img/icon-hd-email.png" alt='Little Genius'/>
+          </div>
+        </div>
+        <div class="item" style='background-color:#fff;height:20%;border-width:0px;'>
+        </div>
+        <div class="item" style='background-color:lightgray;height:40%;'>
+          <div class='text-center padding' ><i class="icon ion-ios-checkmark-outline" style='font-size:3.2em;'></i></div>
+          <div class='text-center' style='font-size:smaller' > {{_ "EnjoyTheApp"}} </div>
+          <button class="redirect-button button button-full button-positive">
+            {{_ "OKay"}}
+          </button>
+        </div>
+      {{/ionSlide}}
+
+    {{/ionSlideBox}}
+
+  {{/ionContent}}
+
+
+</template>

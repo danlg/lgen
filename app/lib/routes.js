@@ -447,7 +447,15 @@ Router.route('About',{
 Router.route('HowToInvite',{
     layoutTemplate:'',
     path:"help/howtoinvite"
-  
+  }
+);
+
+Router.route('HowToInviteShort/:classCode'
+  , {
+    name: 'HowToInviteShort',
+    layoutTemplate:'',
+    path:"help/joininapp/:classCode"
+    //, classCode2: function(){ return this.params.classCode;}
   }
 );
 
