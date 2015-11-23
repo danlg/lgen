@@ -100,39 +100,25 @@ Schema.sendMsg = new SimpleSchema({
 
 Schema.weeks = new SimpleSchema({
   mon:{
-    type:Boolean,
-    defaultValue: false,
-    label:"Monday"
+    type:Boolean
   },
   tue:{
-    type:Boolean,
-    defaultValue: false,
-    label:"Tuesday"
+    type:Boolean
   },  
   wed:{
-    type:Boolean,
-    defaultValue: false,
-    label:"Wednesday"
+    type:Boolean
   },
   thu:{
-    type:Boolean,
-    defaultValue: false,
-    label:"Thursday"
+    type:Boolean
   },
   fri:{
-    type:Boolean,
-    defaultValue: false,
-    label:"Friday"
+    type:Boolean
   },
   sat:{
-    type:Boolean,
-    defaultValue: false,
-    label:"Saturday"
+    type:Boolean
   },
   sun:{
-    type:Boolean,
-    defaultValue: false,
-    label:"Sunday"
+    type:Boolean
   },       
     
 })
