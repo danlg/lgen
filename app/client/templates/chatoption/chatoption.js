@@ -150,6 +150,8 @@ Template.Chatoption.helpers({
 
 
 Template.Chatoption.rendered = function () {
+  
+ 
 };
 
 Template.Chatoption.destroyed = function () {
@@ -158,7 +160,7 @@ Template.Chatoption.destroyed = function () {
 
 Template.ionNavBar.events({
   'click .ChatoptionSave': function (e, template) {
-
+    AutoForm.submitFormById("#chatOptionUpdate");
   },
 
   'click .ChatoptionCancel': function (argument) {
