@@ -26,7 +26,7 @@
   "MANDRILL_KEY": "GBt6d5ggNEP7969s9j9DyA",
   "MANDRILL_PORT": 587,
 
-  "FROM_EMAIL": "no-reply@littlegenius.io",
+  "FROM_EMAIL": "contactemail@littlegenius.io",
   "FROM_NAME": "Little Genius",
   "FEEDBACK_EMAIL": "feedback@littlegenius.io"
 }

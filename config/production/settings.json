@@ -15,7 +15,7 @@
     "SHARE_URL": "http://lgen.me"
   },
 
-  "FROM_EMAIL": "no-reply@littlegenius.io",
+  "FROM_EMAIL": "contactemail@littlegenius.io",
   "FROM_NAME": "Little Genius",
   "FEEDBACK_EMAIL": "feedback@littlegenius.io",
 
