@@ -13,7 +13,7 @@
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
-    <!-- <button  class="button button-clear button-entering button-active ChatoptionSave">Save</button> -->
+   <button  class="button button-clear button-entering button-active ChatoptionSave">Save</button>
   {{/contentFor}}
 
   {{#ionView}}
@@ -44,10 +44,10 @@
 
           <li class="item item-input {{ishidden}}">
           
-          {{> afQuickField type='time' name='workHourTime.from'}}           
+          {{> afQuickField style='width:100px;' class='datepicker' type='time' name='workHourTime.from'}}           
           
             
-           {{> afQuickField  type='time'   name='workHourTime.to'}}             
+           {{> afQuickField style='width:100px;' class='datepicker'  type='time' name='workHourTime.to'}}             
           
           </li>
 
@@ -128,7 +128,7 @@
             </li>                        
           </div>
 
-          <input type="submit" />
+       
         {{/autoForm}}
 
       </div>
