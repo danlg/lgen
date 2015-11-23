@@ -5,7 +5,7 @@
   {{/contentFor}}
 
   {{#contentFor "headerTitle"}}
-    <h1 class="title">{{_"DateOfBirth"}}</h1>
+    <h1 class="title">{{_ "DateOfBirth"}}</h1>
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
@@ -16,7 +16,7 @@
     {{#ionContent}}
 
       <div class="row row-center " style="height:60vh">
-        <div class="col" style="text-align:center"><h3>{{_"Whatisyourdateofbirth"}}}</h3></div>
+        <div class="col" style="text-align:center"><h3>{{_ "Whatisyourdateofbirth"}}</h3></div>
       </div>
 
 
@@ -25,11 +25,11 @@
           <div class="dobplaceholder">{{_ "DateOfBirth"}}</div>
           <!-- {{> afFieldInput name="dob" type='text' onfocus="(this.type='date')"  }} -->
           <!-- <input type="date" placeholder="Date Of Birth" onfocus="this.type='date'" class="dob" > -->
-          <input type="date" placeholder="Date Of Birth" class="dob " id="dobInput" value="">
+          <input type="date" placeholder="{{_ "DateOfBirth"}}" class="dob " id="dobInput" value="">
         </label>
         <br><br>
         <button class="button button-block button-positive Confirm">
-          Confirm
+          {{_ "OK_lets_get_started"}}
         </button>
       </div>
 
