@@ -50,6 +50,7 @@ Template.Chatoption.created = function () {
   }
   //new code from work_time_selection.js
   var optionObj = Session.get('optionObj');
+  log.info(optionObj);
   if (Meteor.user()["profile.chatSetting.workHourTime"]) {
     optionObj.workHourTime = Meteor.user().profile.chatSetting.workHourTime;
     Session.set('optionObj', optionObj);
@@ -126,11 +127,19 @@ Template.Chatoption.helpers({
 
   getWeeks: function (argument) {
     var weeks = lodash.get(Session.get('optionObj'), "workHourTime.weeks") || [];
+    log.info(weeks);
+    
     if (weeks.length < 1) {
       return "";
     } else {
-      var weeksName = lodash.map(weeks, getWeekName);
-      return lodash(weeksName).toString();
+      
+      
+
+       var weeksName = lodash.mapKeys(weeks, getWeekName);
+      log.info(weeksName);
+        var weeksNameFilter = lodash.pick(weeksName, lodash.identity);
+        log.info(weeksNameFilter);
+      return lodash.keys(weeksNameFilter).toString();
     }
   }
 });
@@ -178,7 +187,10 @@ Template.ionNavBar.events({
 });
 
 
-function getWeekName(week) {
+function getWeekName(value,key) {
+  
+  //log.info(value);
+  //log.info(key);  
   var weekday = new Array(8);
   weekday[0] = "Monday";
   weekday[1] = "Mon";
@@ -189,6 +201,22 @@ function getWeekName(week) {
   weekday[6] = "Sat";
   weekday[7] = "Sun";
   
-  log.info("Today is " + weekday[week]);
-  return weekday[week];
+  if(key == "mon"){
+   return weekday[1];   
+  }else if(key == "tue"){
+   return weekday[2];       
+  }else if(key == "wed"){
+   return weekday[3];       
+  }else if(key == "thu"){
+   return weekday[4];       
+  }else if(key == "fri"){
+   return weekday[5];       
+  }  
+  else if(key == "sat"){
+   return weekday[6];       
+  }else{
+    return weekday[7];      
+  }
+  
+
 }

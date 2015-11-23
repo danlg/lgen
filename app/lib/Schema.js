@@ -98,6 +98,45 @@ Schema.sendMsg = new SimpleSchema({
 });
 
 
+Schema.weeks = new SimpleSchema({
+  mon:{
+    type:Boolean,
+    defaultValue: false,
+    label:"Monday"
+  },
+  tue:{
+    type:Boolean,
+    defaultValue: false,
+    label:"Tuesday"
+  },  
+  wed:{
+    type:Boolean,
+    defaultValue: false,
+    label:"Wednesday"
+  },
+  thu:{
+    type:Boolean,
+    defaultValue: false,
+    label:"Thursday"
+  },
+  fri:{
+    type:Boolean,
+    defaultValue: false,
+    label:"Friday"
+  },
+  sat:{
+    type:Boolean,
+    defaultValue: false,
+    label:"Saturday"
+  },
+  sun:{
+    type:Boolean,
+    defaultValue: false,
+    label:"Sunday"
+  },       
+    
+})
+
 Schema.chatSetting = new SimpleSchema({
   workHour: {
     type: Boolean,
@@ -122,7 +161,7 @@ Schema.chatSetting = new SimpleSchema({
   },
   //workHourTime.weeks is actually work days
   'workHourTime.weeks': {
-    type: [String],
+    type: Schema.weeks,
     optional: true,
   },
   allowChat: {

@@ -43,10 +43,12 @@
           </a>
 
           <li class="item item-input {{ishidden}}">
-            <div>From</div>
-            <input type="time" class="from" value={{workHourTimeObj.from}}>
-            <div>to</div>
-            <input type="time" class="to" value={{workHourTimeObj.to}}>
+          
+          {{> afQuickField type='time' name='workHourTime.from'}}           
+          
+            
+           {{> afQuickField  type='time'   name='workHourTime.to'}}             
+          
           </li>
 
           <div class="{{ishidden}}">
@@ -55,7 +57,7 @@
             <li class="item item-toggle">
               {{_ "Monday" }}
               <label class="toggle toggle-positive">
-                <input class="timeCb" type="checkbox" {{checked "1" }} value="1">
+               {{> afFieldInput type="boolean-checkbox2"  name="workHourTime.weeks.mon"}}
 
                 <div class="track">
                   <div class="handle"></div>
@@ -66,7 +68,7 @@
             <li class="item item-toggle">
               {{_ "Tuesday" }}
               <label class="toggle toggle-positive">
-                <input class="timeCb" type="checkbox" {{checked "2" }} value="2">
+               {{> afFieldInput type="boolean-checkbox2"  name="workHourTime.weeks.tue"}}
 
                 <div class="track">
                   <div class="handle"></div>
@@ -76,7 +78,7 @@
             <li class="item item-toggle">
               {{_ "Wednesday" }}
               <label class="toggle toggle-positive">
-                <input class="timeCb" type="checkbox" {{checked "3" }} value="3">
+               {{> afFieldInput type="boolean-checkbox2"  name="workHourTime.weeks.wed"}}
 
                 <div class="track">
                   <div class="handle"></div>
@@ -86,7 +88,7 @@
             <li class="item item-toggle">
               {{_ "Thursday" }}
               <label class="toggle toggle-positive">
-                <input class="timeCb" type="checkbox" {{checked "4" }} value="4">
+               {{> afFieldInput type="boolean-checkbox2"  name="workHourTime.weeks.thu"}}
 
                 <div class="track">
                   <div class="handle"></div>
@@ -96,7 +98,7 @@
             <li class="item item-toggle">
               {{_ "Friday" }}
               <label class="toggle toggle-positive">
-                <input class="timeCb" type="checkbox" {{checked "5" }} value="5">
+               {{> afFieldInput type="boolean-checkbox2"  name="workHourTime.weeks.fri"}}
 
                 <div class="track">
                   <div class="handle"></div>
@@ -107,7 +109,7 @@
             <li class="item item-toggle">
               {{_ "Saturday" }}
               <label class="toggle toggle-positive">
-                <input class="timeCb" type="checkbox" {{checked "6" }} value="6">
+               {{> afFieldInput type="boolean-checkbox2"  name="workHourTime.weeks.sat"}}
 
                 <div class="track">
                   <div class="handle"></div>
@@ -117,15 +119,16 @@
             <li class="item item-toggle">
               {{_ "Sunday" }}
               <label class="toggle toggle-positive">
-                <input class="timeCb" type="checkbox" {{checked "7" }} value="7">
+               {{> afFieldInput type="boolean-checkbox2"  name="workHourTime.weeks.sun"}}
 
                 <div class="track">
                   <div class="handle"></div>
                 </div>
               </label>
-            </li>
+            </li>                        
           </div>
 
+          <input type="submit" />
         {{/autoForm}}
 
       </div>
