@@ -26,7 +26,7 @@ messageEmailTemplate = function (RecipientUsers, OriginateUserName,content, clas
                                 {
                                  title:content,
                                  GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag="en") ,
-                                 UnsubscribeEmailNotificaiton: TAPi18n.__("UnsubscribeEmailNotificaiton", {}, lang_tag="en")
+                                  UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag="en")
                                 },
                                 Assets.getText("messageEmailMasterTemplate.html")
                               )
@@ -36,23 +36,23 @@ messageEmailTemplate = function (RecipientUsers, OriginateUserName,content, clas
   
 };
 
-addClassMailTemplate = function (to, classname, classCode) {
+newClassMailTemplate = function (to, classname, classCode) {
+  var titlestr = "Your class" + classname + " is ready!";
 
   return {
     "message": {
       "merge_language": "handlebars",
       "html": Spacebars.toHTML(
         {
-          title:"New Class is ready!",
-          content: Assets.getText("addClassMailTemplate.html"),          
+          title: titlestr,
+          content: Assets.getText("newClass_MailTemplate.html"),
           GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag="en") ,
-          UnsubscribeEmailNotificaiton: TAPi18n.__("UnsubscribeEmailNotificaiton", {}, lang_tag="en")
+          UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag="en")
         },
         Assets.getText("messageEmailMasterTemplate.html")
-        
       ),
       "text": "Example text content",
-      "subject": "New class ready!",
+      "subject": titlestr,
       "from_email": Meteor.settings.FROM_EMAIL,
       "from_name": Meteor.settings.FROM_NAME,
       "to": [{
@@ -149,7 +149,7 @@ inviteClassMailTemplate = function (to, classObj) {
                 title:"Join {{first}} {{last}}'s {{classname}} class",
                 content:  Assets.getText("inviteClassMailTemplate.html"),          
                 GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag="en") ,
-                UnsubscribeEmailNotificaiton: TAPi18n.__("UnsubscribeEmailNotificaiton", {}, lang_tag="en")              
+                UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag="en")
               },
               Assets.getText("messageEmailMasterTemplate.html")
         ),

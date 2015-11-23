@@ -85,9 +85,9 @@ Meteor.methods({
     if (lodash.get(Meteor.user(), "profile.email")) {
       try {
         
-        log.info("addClassMail");
+        log.info("newClassMail:" + classObj.classCode);
         //retrieveContent("en");
-        Mandrill.messages.send(addClassMailTemplate(to, classObj.className, classObj.classCode));
+        Mandrill.messages.send(newClassMailTemplate(to, classObj.className, classObj.classCode));
       }
       catch (e) {
         log.error("add class mail: " + e);
