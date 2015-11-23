@@ -129,3 +129,9 @@ Sometimes you might need to override parts of the Cordova project that Meteor ge
 For these and other advanced purposes we have created a special top-level folder called cordova-build-override. The whole file tree of this directory will be cp -R (copied overwriting existing files) to the Cordova project right before the build and compilation step.
 
 For example: if you want to have a customized `config.xml`, you can put it in project/cordova-build-override/config.xml.
+
+#Build notes#
+
+The `npm run build-uat` is not working to build the mobile iOS client. The problem is that the connection to the remote server 
+doesn't work (Hence a blank screen, which is not temporary). For some reason `npm run ios-device-uat` must be 
+run to build it.
