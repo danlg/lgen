@@ -14,47 +14,7 @@ Template.Chatoption.events({
 
 /* Chatoption: Created Handlers */
 Template.Chatoption.created = function () {
-  //clean up optionObj session 
-  Session.set("optionObj", {});
-  
-  //if user has set chatsetting before, retrieve it and set it to session
-  if (Meteor.user() && Meteor.user().profile && Meteor.user().profile.chatSetting) {
-    var newOptionObj = lodash.assign(Meteor.user().profile.chatSetting, Session.get("optionObj"));
-    Session.set("optionObj", newOptionObj);
-  }
-  
-  //get the latest session
-  var optionObj = Session.get('optionObj');
-  log.info(optionObj);
-  
-  //append workHourTime setting to the session if user has set it before
-  if (Meteor.user() && Meteor.user()["profile.chatSetting.workHourTime"]) {
-    optionObj.workHourTime = Meteor.user().profile.chatSetting.workHourTime;
-    Session.set('optionObj', optionObj);
-  }
-  else if (!optionObj.workHourTime) { //else, define default value to the user via the session
-    var workHourTime = {};
-    workHourTime.from = "08:00";
-    workHourTime.to = "18:00";
-    workHourTime.weeks = {
-      mon:true,
-      tue:true,
-      wed:true,
-      thu:true,
-      fri:true,
-      sat:false,
-      sun:false
-    };
-    optionObj.workHourTime = workHourTime;
-    Session.set('optionObj', optionObj);
-   
-  }
-  else if (optionObj.workHourTime){
-    log.info("optionObj.workHourTime set");
-  }
-  else{
-    log.warn("optionObj.workHourTime NO set");
-  }   
+
 
 };
 
@@ -111,7 +71,25 @@ Template.Chatoption.helpers({
 /* Chatoption: Lifecycle Hooks */
 /*****************************************************************************/
 Template.Chatoption.rendered = function () {
+
+  //hack possibly implement with a callback called when Meteor.user() is ready 
+  //http://stackoverflow.com/questions/14847575/meteor-user-profile-can-only-read-after-refresh?rq=1
+  Meteor.autorun(function(handle) {
+    if (Meteor.user()) {
+      if (Meteor.user().profile) {
+        optionObjSetup();
+        handle.stop()
+      }
+      else {
+        setTimeout(function(){
+          if (!Meteor.user().profile) {
   
+          }
+        }, 300)
+      }
+    }
+  })  
+
 };
 
 Template.Chatoption.destroyed = function () {
@@ -157,4 +135,50 @@ function getWeekName(value,key) {
   }
   
 
+}
+
+
+var optionObjSetup = function(){
+  
+    //clean up optionObj session 
+  Session.set("optionObj", {});
+  
+  //if user has set chatsetting before, retrieve it and set it to session
+  if (Meteor.user() && Meteor.user().profile && Meteor.user().profile.chatSetting) {
+    var newOptionObj = lodash.assign(Meteor.user().profile.chatSetting, Session.get("optionObj"));
+    Session.set("optionObj", newOptionObj);
+  }
+  
+  //get the latest session
+  var optionObj = Session.get('optionObj');
+  log.info(optionObj);
+  
+  //append workHourTime setting to the session if user has set it before
+  if (Meteor.user() && Meteor.user()["profile.chatSetting.workHourTime"]) {
+    optionObj.workHourTime = Meteor.user().profile.chatSetting.workHourTime;
+    Session.set('optionObj', optionObj);
+  }
+  else if (!optionObj.workHourTime) { //else, define default value to the user via the session
+    var workHourTime = {};
+    workHourTime.from = "08:00";
+    workHourTime.to = "18:00";
+    workHourTime.weeks = {
+      mon:true,
+      tue:true,
+      wed:true,
+      thu:true,
+      fri:true,
+      sat:false,
+      sun:false
+    };
+    optionObj.workHourTime = workHourTime;
+    Session.set('optionObj', optionObj);
+   
+  }
+  else if (optionObj.workHourTime){
+    log.info("optionObj.workHourTime set");
+  }
+  else{
+    log.warn("optionObj.workHourTime NO set");
+  }     
 }
