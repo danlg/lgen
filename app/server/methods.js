@@ -137,7 +137,15 @@ Meteor.methods({
     }, {
       validate: false
     });
-
+    
+    if(!msg){
+      if (msgObj.imageArr && msgObj.imageArr.length>0){
+               msg="New image";
+      }
+      if (msgObj.soundArr && msgObj.soundArr.length>0){
+               msg="New sound";
+      }
+    }
     var arrayOfClasses = Classes.find({classCode: {$in: target}}).fetch();
     var arrayOfTarget = lodash.map(arrayOfClasses, 'joinedUserId');
     var flattenArray = lodash.flatten(arrayOfTarget);
