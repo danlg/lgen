@@ -1,11 +1,8 @@
 <template name="Chatoption">
 
   {{#contentFor "headerButtonLeft"}}
-    <!-- {{>ionNavBackButton href='TabChat' class="ChatoptionCancel" }} -->
-    <button
-      class="buttons button button-clear back-button pull-left ChatoptionCancel button-entering button-active ChatoptionCancel">
-      <i class="icon ion-android-arrow-back"></i>
-    </button>
+  
+     {{>ionNavBackButton href='TabChat' class="ChatoptionCancel" }} 
   {{/contentFor}}
 
   {{#contentFor "headerTitle"}}
@@ -44,10 +41,10 @@
 
           <li class="item item-input {{ishidden}}">
           
-          {{> afQuickField defaultValue="0800" style='width:120px;' class='datepicker' type='time' name='workHourTime.from'}}           
+          {{> afQuickField  style='width:120px;' class='datepicker' type='time' name='workHourTime.from'}}           
           
             
-           {{> afQuickField defaultValue="1800" style='width:120px;' class='datepicker'  type='time' name='workHourTime.to'}}             
+           {{> afQuickField style='width:120px;' class='datepicker'  type='time' name='workHourTime.to'}}             
           
           </li>
 
@@ -57,7 +54,7 @@
             <li class="item item-toggle">
               {{_ "Monday" }}
               <label class="toggle toggle-positive">
-               {{> afFieldInput defaultValue="true" type="boolean-checkbox2"  name="workHourTime.weeks.mon"}}
+               {{> afFieldInput  type="boolean-checkbox2"  name="workHourTime.weeks.mon"}}
 
                 <div class="track">
                   <div class="handle"></div>
@@ -68,7 +65,7 @@
             <li class="item item-toggle">
               {{_ "Tuesday" }}
               <label class="toggle toggle-positive">
-               {{> afFieldInput defaultValue="true" type="boolean-checkbox2"  name="workHourTime.weeks.tue"}}
+               {{> afFieldInput  type="boolean-checkbox2"  name="workHourTime.weeks.tue"}}
 
                 <div class="track">
                   <div class="handle"></div>
@@ -78,7 +75,7 @@
             <li class="item item-toggle">
               {{_ "Wednesday" }}
               <label class="toggle toggle-positive">
-               {{> afFieldInput defaultValue="true" type="boolean-checkbox2"  name="workHourTime.weeks.wed"}}
+               {{> afFieldInput type="boolean-checkbox2"  name="workHourTime.weeks.wed"}}
 
                 <div class="track">
                   <div class="handle"></div>
@@ -98,7 +95,7 @@
             <li class="item item-toggle">
               {{_ "Friday" }}
               <label class="toggle toggle-positive">
-               {{> afFieldInput defaultValue="true" type="boolean-checkbox2"  name="workHourTime.weeks.fri"}}
+               {{> afFieldInput  type="boolean-checkbox2"  name="workHourTime.weeks.fri"}}
 
                 <div class="track">
                   <div class="handle"></div>
