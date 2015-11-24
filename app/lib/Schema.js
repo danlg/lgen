@@ -98,31 +98,6 @@ Schema.sendMsg = new SimpleSchema({
 });
 
 
-Schema.weeks = new SimpleSchema({
-  mon:{
-    type:Boolean
-  },
-  tue:{
-    type:Boolean
-  },  
-  wed:{
-    type:Boolean
-  },
-  thu:{
-    type:Boolean
-  },
-  fri:{
-    type:Boolean
-  },
-  sat:{
-    type:Boolean
-  },
-  sun:{
-    type:Boolean
-  },       
-    
-})
-
 Schema.chatSetting = new SimpleSchema({
   workHour: {
     type: Boolean,
@@ -145,11 +120,17 @@ Schema.chatSetting = new SimpleSchema({
     type: String,
     optional: true,
   },
-  //workHourTime.weeks is actually work days
+  
+  //define an array of boolean
+  //https://github.com/aldeed/meteor-simple-schema/issues/277
   'workHourTime.weeks': {
-    type: Schema.weeks,
+    type: Array,
     optional: true,
+    minCount: 7
   },
+ 'workHourTime.weeks.$':{
+   type:Boolean
+ } ,
   allowChat: {
     type: [String],
     optional: true,

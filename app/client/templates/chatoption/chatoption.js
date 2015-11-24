@@ -58,11 +58,10 @@ Template.Chatoption.helpers({
     if (weeks.length < 1) {
       return "";
     } else {
-      var weeksName = lodash.mapKeys(weeks, getWeekName);
-      log.info(weeksName);
-      var weeksNameFilter = lodash.pick(weeksName, lodash.identity);
-      log.info(weeksNameFilter);
-      return lodash.keys(weeksNameFilter).toString();
+      
+      //filter weeks ary, only day that are enabled is remained. Then get their name using getWeekName
+      var weeksName = lodash(weeks).filter(function(n){return n ==true}).map(getWeekName);
+      return weeksName.toString();
     }
   }
 });
@@ -103,38 +102,16 @@ Template.ionNavBar.events({
 });
 
 
-function getWeekName(value,key) {
-  
-  //log.info(value);
-  //log.info(key);  
-  var weekday = new Array(8);
-  weekday[0] = "Monday";
-  weekday[1] = "Mon";
-  weekday[2] = "Tue";
-  weekday[3] = "Wed";
-  weekday[4] = "Thu";
-  weekday[5] = "Fri";
-  weekday[6] = "Sat";
-  weekday[7] = "Sun";
-  
-  if(key == "mon"){
-   return weekday[1];   
-  }else if(key == "tue"){
-   return weekday[2];       
-  }else if(key == "wed"){
-   return weekday[3];       
-  }else if(key == "thu"){
-   return weekday[4];       
-  }else if(key == "fri"){
-   return weekday[5];       
-  }  
-  else if(key == "sat"){
-   return weekday[6];       
-  }else{
-    return weekday[7];      
-  }
-  
-
+function getWeekName(value,index) { 
+  var weekday = new Array(7);
+  weekday[0] = "Mon";
+  weekday[1] = "Tue";
+  weekday[2] = "Wed";
+  weekday[3] = "Thu";
+  weekday[4] = "Fri";
+  weekday[5] = "Sat";
+  weekday[6] = "Sun";
+  return weekday[index];
 }
 
 
@@ -162,15 +139,15 @@ var optionObjSetup = function(){
     var workHourTime = {};
     workHourTime.from = "08:00";
     workHourTime.to = "18:00";
-    workHourTime.weeks = {
-      mon:true,
-      tue:true,
-      wed:true,
-      thu:true,
-      fri:true,
-      sat:false,
-      sun:false
-    };
+    workHourTime.weeks = [
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      false
+    ];
     optionObj.workHourTime = workHourTime;
     Session.set('optionObj', optionObj);
    

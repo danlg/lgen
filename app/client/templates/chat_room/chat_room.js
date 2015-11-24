@@ -223,28 +223,30 @@ Template.ChatRoom.helpers({
   },
 
   targertWorkingTime: function (argument) {
+    var displayOffline = false;
     var target = Meteor.users.findOne({_id: {$ne: Meteor.userId()}});
     if (target.profile.role === "Teacher") {
       if (target.profile.chatSetting && target.profile.chatSetting.workHour) {
+        
+        debugger;
         var workHourTime = target.profile.chatSetting.workHourTime;
+        var dayOfWeek = moment().day();
         var fromMoment = moment(workHourTime.from, "HH:mm");
         var toMoment = moment(workHourTime.to, "HH:mm");
         var range = moment.range(fromMoment, toMoment);
+
+        //if today is not in work day
+        if(!workHourTime.weeks[dayOfWeek-1]){
+            displayOffline = true;
+        }           
+        //if currently not in work hour
         if (!range.contains(moment())) {
-          // var height = $(".list.chatroomList").height();
-          // height.replace("px","");
-          // height= height - 60;
-          // log.info(height);
-          // $(".list.chatroomList").height(height+"px");
-          needReduce = true;
+            displayOffline = true;
         }
-        else {
-          needReduce = false;
-        }
-        return !range.contains(moment());
+     
       }
     }
-    return false;
+    return displayOffline;
   },
 
   getSound: function (argument) {
