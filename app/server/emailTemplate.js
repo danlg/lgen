@@ -9,8 +9,8 @@ messageEmailTemplate = function (RecipientUsers, OriginateUserName,content, clas
     bcc.type = "bcc";
     bccList.push(bcc);
   });
-    
-  var subject =  "New message from " + OriginateUserName;
+  //TODO localize me !
+  var subject =  "New message from " + OriginateUserName + " via Little Genius";
   if(className){
     subject = subject + " class - " + className;
   }
@@ -37,8 +37,11 @@ messageEmailTemplate = function (RecipientUsers, OriginateUserName,content, clas
 };
 
 newClassMailTemplate = function (to, classname, classCode) {
-  var titlestr = "Your class" + classname + " is ready!";
-
+  var titlestr = "Your class " + classname + " is ready!";
+  //Meteor.user().emails[0].address
+  log.info("Sending new newClassMailTemplate:"+ classCode);
+  //var titlestr = TAPi18n.__("your_class_is_ready_classname", classname);
+  log.info("Sending new newClassMailTemplate:AFTER TAP"+ classCode);
   return {
     "message": {
       "merge_language": "handlebars",
@@ -51,13 +54,13 @@ newClassMailTemplate = function (to, classname, classCode) {
         },
         Assets.getText("messageEmailMasterTemplate.html")
       ),
-      "text": "Example text content",
+      "text": "No plain text for now just html",
       "subject": titlestr,
       "from_email": Meteor.settings.FROM_EMAIL,
       "from_name": Meteor.settings.FROM_NAME,
       "to": [{
         "email": to,
-        "name": "Recipient Name",
+        "name": to,
         "type": "to"
       }],
       "global_merge_vars": [
@@ -98,9 +101,9 @@ testMail = function (to, classname) {
       "from_name": Meteor.settings.FROM_NAME,
       "to": [{
         "email": email,
-        "name": "Recipient Name",
+        "name": email,
         "type": "to"
-      }],
+      }]
     }
   };
 };
@@ -116,12 +119,12 @@ feedback = function (content) {
         "merge_language": "handlebars",
         "html": "<h3> Feedback From " + fullName + " </h3><p>" + content + "</p>",
         "text": "Example text content",
-        "subject": "Feedback from user!",
+        "subject": "Feedback from " + fullName,
         "from_email": Meteor.settings.FROM_EMAIL,
-        "from_name": Meteor.settings.FROM_NAME,
+        "from_name": fullName,
         "to": [{
           "email": Meteor.settings.FEEDBACK_EMAIL,
-          "name": "Recipient Name",
+          "name":  Meteor.settings.FEEDBACK_EMAIL,
           "type": "to"
         }]
       }
@@ -146,6 +149,7 @@ inviteClassMailTemplate = function (to, classObj) {
       "subject": "Please join class",
       "html": Spacebars.toHTML(
               {
+                //TODO localize me
                 title:"Join {{first}} {{last}}'s {{classname}} class",
                 content:  Assets.getText("inviteClassMailTemplate.html"),          
                 GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag="en") ,
@@ -158,7 +162,7 @@ inviteClassMailTemplate = function (to, classObj) {
       "from_name": Meteor.settings.FROM_NAME,
        "to": [{
         "email": to,
-        "name": "Recipient Name",
+        "name": to,
         "type": "to"
       }],
       "global_merge_vars": [
