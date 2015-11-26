@@ -13,15 +13,7 @@ Template.LoadingSpinner.helpers({});
 /* LoadingSpinner: Lifecycle Hooks */
 /*****************************************************************************/
 Template.LoadingSpinner.onCreated(function () {
-  // loading = true;
-  // Meteor.setTimeout(function(){
-  //   if(loading){
-  //     IonLoading.show({
-  //     });
-  //   }
-  // }, 100);
-
-  IonLoading.show();
+  //IonLoading.show();
 });
 
 Template.LoadingSpinner.onRendered(function () {
@@ -33,5 +25,5 @@ Template.LoadingSpinner.onDestroyed(function () {
   //   IonLoading.hide();
   //   loading =false;
   // }
-  IonLoading.hide();
+  //IonLoading.hide();
 });

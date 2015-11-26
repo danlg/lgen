@@ -1,6 +1,6 @@
 Router.configure({
   layoutTemplate: 'MasterLayout',
-  loadingTemplate: 'LoadingSpinner',
+  //loadingTemplate: 'LoadingSpinner',
   notFoundTemplate: 'NotFound'
 });
 
@@ -10,7 +10,7 @@ OnBeforeActions = {
   LoginRequired: function (pause) {
     if (!Meteor.userId()) {
       log.info("login required");
-      Router.go('Login',{},{query: 'loginToContinue=1'});
+      Router.go('Login');
       this.next();
     } else {
       this.next();
