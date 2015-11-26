@@ -85,3 +85,4 @@ check
 meteorhacks:npm
 dburles:spacebars-tohtml
 practicalmeteor:wkwebview
+meteorhacks:fast-render
