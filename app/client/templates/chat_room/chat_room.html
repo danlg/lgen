@@ -31,8 +31,8 @@
           <div class="item {{isMine}}">
             {{#if isText}}
               <div class="bubble">
-                {{#autolink}}{{text}}{{/autolink}}
-                <br/><span class='timestamp'>{{formatTime sendAt}}</span>
+                {{#autolink}}<pre>{{text}}</pre>{{/autolink}}
+                <span class='timestamp'>{{formatTime sendAt}}</span>
                
               </div>
 
