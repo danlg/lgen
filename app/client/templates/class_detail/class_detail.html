@@ -24,7 +24,7 @@
 
 
   {{#ionView}}
-    {{#ionContent class='background-wallpaper'}}
+    {{#ionContent class='background-wallpaper class-detail'}}
 
 
 
@@ -60,7 +60,7 @@
             <div class="item less-top-bottom-padding">
               <div>
                 <!--<span>{{teacherName}} : </span>-->
-                <span>{{content}}</span>
+                <span class='content'>{{#autolink}}{{content}}{{/autolink}}</span>
                               
               </div>
               <div>

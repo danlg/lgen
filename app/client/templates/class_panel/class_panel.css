@@ -10,6 +10,10 @@
   
 }
 
+.messageList .content > a {
+  	color:#148FE9 !important; 
+}
+
 .button-bar-button{
   
   padding-bottom:2% !important;

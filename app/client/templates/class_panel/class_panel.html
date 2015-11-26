@@ -67,7 +67,7 @@
               <div class="item less-top-bottom-padding">
                 <div>
                   <!--<div>{{teacherName}}:</div>>-->                 
-                  <div>{{content}}</div>
+                  <div class='content'>{{#autolink}}{{content}}{{/autolink}}</div>
                   <div>
                     {{#if havePic}}
                       {{#each imageArr}}
