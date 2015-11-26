@@ -29,7 +29,7 @@ Template.ClassUsers.helpers({
   },
 
   emptyList: function () {
-    return Meteor.users.find({_id: {$nin: [Meteor.userId()]}}).fetch().length < 1;
+    return Meteor.users.find({_id: {$nin: [Meteor.userId()]}}).count() == 0 ;
   },
 
   classObj: function (argument) {

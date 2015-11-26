@@ -13,10 +13,10 @@ Template.TabClasses.events({});
 /*****************************************************************************/
 Template.TabClasses.helpers({
   notCreateEmptyList: function () {
-    return Classes.find({createBy: Meteor.userId()}).fetch().length > 0
+    return Classes.find({createBy: Meteor.userId()}).count() > 0
   },
   notJoinedEmptyList: function () {
-    return Classes.find({joinedUserId: {$in: [Meteor.userId()]}}).fetch().length > 0
+    return Classes.find({joinedUserId: {$in: [Meteor.userId()]}}).count() > 0
   },
   joinedClass: function () {
     return Classes.find({joinedUserId: {$in: [Meteor.userId()]}});
