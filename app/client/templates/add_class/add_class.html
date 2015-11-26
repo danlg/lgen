@@ -34,8 +34,12 @@
             </div>
           </li>
 
-          <li class="item item-input">
-            {{> afFieldInput name="classavatar" placeholder="green_apple" }}
+          <li class="item item-input">       
+           {{> afFieldInput name="classavatar" placeholder="green_apple" value=getClassIcon }}
+            
+            <button class="button button-clear" data-ion-modal="ClassIconChoose">
+              Pick an icon
+            </button>           
           </li>
 
           <li class="item item-toggle">

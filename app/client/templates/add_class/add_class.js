@@ -68,3 +68,16 @@ Template.ionNavBar.events({
      });*/
   }
 });
+
+Template.AddClass.helpers({
+  
+  getClassIcon:function(){
+    var chosenIcon = Session.get('chosenIcon');
+    if(chosenIcon){
+      return chosenIcon;
+    }else{
+      //default set as green apple
+      return "green_apple";
+    }
+  }
+});
