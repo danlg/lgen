@@ -16,13 +16,23 @@
       {{#autoForm collection="Classes" id="updateClass" type="update" doc=classObj   }}
 
         <ul class="list ">
-          <li class="item item-input">
-            {{> afFieldInput name="className" placeholder="{{_ 'ClassName'  }}" }}
-          </li>
-          <li class="item item-input">
-            @ {{classObj.classCode }}
-          </li>
-
+          <li class="item">
+            <div class='row'>
+              <div class='col col-50'>
+                {{> afFieldInput name="classavatar" style='display:none;' value=getNewlyChosenAvatar }}    
+                {{#if getNewlyChosenAvatar}}
+                  <i id='pick-an-icon-btn' class="icon e1a-{{getNewlyChosenAvatar}} e1a-5x emojicon"></i>
+                {{else}}                
+                  <i id='pick-an-icon-btn' class="icon e1a-{{classObj.classavatar}} e1a-5x emojicon"></i>    
+                {{/if}}                
+              </div>
+              <div class='col col-50'>
+                <h3>{{> afFieldInput name="className" }}</h3>
+                 <br/>
+                <h3>@ {{classObj.classCode }}</h3>
+              </div>   
+            </div>            
+          </li>          
           <li class="item item-toggle">
             {{_ "AnyoneInThisClassCanStartAChat"}}
 
@@ -33,7 +43,6 @@
               </div>
             </label>
           </li>
-
           <li class="item item-toggle">
             {{_ "IWillOnlyMessagePeople13AndOlder"}}
             <label class="toggle">
@@ -42,20 +51,7 @@
                 <div class="handle"></div>
               </div>
             </label>
-          </li>
-          <li class="item item-input">
-             <i class="icon e1a-{{classObj.classavatar}} e1a-1x emojicon"></i>           
-            {{#if getNewlyChosenAvatar}}
-                <b>></b> <i class="icon e1a-{{getNewlyChosenAvatar}} e1a-1x emojicon"></i>                
-            {{/if}}
-          </li>
-          <li class="item item-input">
-            
-            {{> afFieldInput name="classavatar" placeholder="green_apple" value=getNewlyChosenAvatar }}
-            <button id='pick-an-icon-btn' type='button' class="button button-clear">
-              Pick an new icon
-            </button>           
-          </li>            
+          </li> 
           <!--TODO change this localization + give a better name too complicated-->
           <!--<li class="item item-toggle">
             {{_ "Allow_this_class_to_be_searched" }}
