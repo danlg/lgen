@@ -1,3 +1,8 @@
+/* icon chooser
+* input parameters:
+* sessionToBeSet: icon user choose would be set to this session.
+* iconListToGet:  the icon list html string to be retrieved would be stored to this session
+*/
 Template.ClassIconChoose.events({
 	
 	'click .emojicon': function(event){
