@@ -34,12 +34,9 @@
             </div>
           </li>
 
-          <li class="item item-input">       
-           {{> afFieldInput name="classavatar" placeholder="green_apple" value=getClassAvatar }}
-            
-            <button type='button' id='pick-an-icon-btn' class="button button-clear">
-              Pick an icon
-            </button>           
+          <li class="item">    
+           {{> afFieldInput name="classavatar" style='display:none;' placeholder="green_apple" value=getClassAvatar }}
+           <i id='pick-an-icon-btn' class="icon e1a-{{getClassAvatar}} e1a-4x emojicon"></i> 
           </li>
 
           <li class="item item-toggle">
