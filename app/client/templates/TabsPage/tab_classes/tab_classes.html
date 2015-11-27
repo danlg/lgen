@@ -93,10 +93,11 @@
               <ul class="list">
                 {{#each joinedClass}}
                   <a href={{ pathFor 'classDetail'   }}>
-                    <li class="item">
+                    <div class="item item-icon-left" style="padding-top: 7px; padding-bottom: 7px">
+                      <i class="icon {{classavatar_icon}} e1a-1x emojicon"></i>
                       {{this.className}}
-                      <br/><span class='class-code'>@{{this.classCode}}</span>                     
-                    </li>
+                      <br/><span class='class-code'>@{{this.classCode}}</span>
+                    </div>
                   </a>
                 {{/each}}
               </ul>
