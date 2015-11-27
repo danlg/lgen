@@ -7,8 +7,7 @@ var form;
 Template.AddClass.events({
   
     'keyup input[name=className]': function(event, template){
-      
-        
+ 
         var lastName = getLastnameOfCurrentUser(3);
         var className = $(event.target).val();
         
@@ -27,9 +26,11 @@ Template.AddClass.events({
         //everytime user input in className, we do a validation to the class code
         var isValidate = AutoForm.validateField("insertClass","classCode");
         
-        
-        
-
+    },
+    'click #pick-an-icon-btn':function(){
+      var parentDataContext= {iconListToGet:"iconListForClass",sessionToBeSet:"chosenIconForNewClass"};
+      
+      IonModal.open("ClassIconChoose", parentDataContext);  
     }
   
   
@@ -72,7 +73,7 @@ Template.ionNavBar.events({
 Template.AddClass.helpers({
   
   getClassIcon:function(){
-    var chosenIcon = Session.get('chosenIcon');
+    var chosenIcon = Session.get('chosenIconForNewClass');
     if(chosenIcon){
       return chosenIcon;
     }else{
