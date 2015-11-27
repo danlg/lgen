@@ -1,3 +1,33 @@
+Template.registerHelper('iconChooseHelper',function(iconArray){
+   var COLUMN = 4;
+   log.info(iconArray);
+   var output=[];
+   if(iconArray){    
+       var iconArrayLength = iconArray.length;   
+       iconArray.forEach(function(currentValue,index){
+         if((index+1) % COLUMN == 1){
+             output.push( "<div class='row'>" );
+         }  
+         output.push( "<div class='col'><a data-dismiss='modal'><i title='"+currentValue+"' class='icon e1a-"+currentValue+" e1a-5x emojicon'></i></a></div>" );
+         if((index+1) % COLUMN == 0){     
+             output.push( "</div>" );
+         }
+         
+         if((index+1) == iconArrayLength){
+             var remainCols = (index+1) % COLUMN;     
+             while(remainCols > 0){
+                 output.push("<div class='col'></div>");
+                 if(remainCols == 1){
+                     output.push("</div>");
+                 }
+                 remainCols--;
+             }          
+         }  
+       });    
+   }
+   return output.join("");  
+});
+
 Template.registerHelper('formatTime', function(time) {
 
     var dateString="";
@@ -15,6 +45,8 @@ Template.registerHelper('formatTime', function(time) {
     return dateString;    
   
 });
+
+
 
 //how to create a global function in meteor template
 //http://stackoverflow.com/questions/29364591/how-to-create-a-global-function-in-meteor-template
