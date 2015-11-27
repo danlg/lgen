@@ -1,6 +1,4 @@
 var form;
-
-
 /*****************************************************************************/
 /* AddClass: Event Handlers */
 /*****************************************************************************/
@@ -39,7 +37,18 @@ Template.AddClass.events({
 /*****************************************************************************/
 /* AddClass: Helpers */
 /*****************************************************************************/
-Template.AddClass.helpers({});
+Template.AddClass.helpers({
+  
+  getClassAvatar:function(){
+    var chosenIcon = Session.get('chosenIconForNewClass');
+    if(chosenIcon){
+      return chosenIcon;
+    }else{
+      //default set as green apple
+      return "green_apple";
+    }
+  }
+});
 
 /*****************************************************************************/
 /* AddClass: Lifecycle Hooks */
@@ -53,6 +62,7 @@ Template.AddClass.rendered = function () {
 };
 
 Template.AddClass.destroyed = function () {
+  delete Session.keys['chosenIconForNewClass'];
 };
 
 Template.ionNavBar.events({
@@ -70,15 +80,3 @@ Template.ionNavBar.events({
   }
 });
 
-Template.AddClass.helpers({
-  
-  getClassIcon:function(){
-    var chosenIcon = Session.get('chosenIconForNewClass');
-    if(chosenIcon){
-      return chosenIcon;
-    }else{
-      //default set as green apple
-      return "green_apple";
-    }
-  }
-});

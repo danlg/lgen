@@ -13,7 +13,12 @@ Template.ClassEdit.events({
     Meteor.call("class/delete", Classes.findOne(), function () {
       Router.go('TabClasses');
     });
-  }
+  },
+    'click #pick-an-icon-btn':function(){
+      var parentDataContext= {iconListToGet:"iconListForClass",sessionToBeSet:"chosenIconForEditClass"};
+      
+      IonModal.open("ClassIconChoose", parentDataContext);  
+    }
 });
 
 /*****************************************************************************/
@@ -29,6 +34,12 @@ Template.ClassEdit.helpers({
   classId: function () {
     return Classes.findOne()._id;
   },
+  getNewlyChosenAvatar:function(){
+    var chosenIcon = Session.get('chosenIconForEditClass');
+    if(chosenIcon){
+      return chosenIcon;
+    }
+  }
 });
 
 /*****************************************************************************/
@@ -41,6 +52,7 @@ Template.ClassEdit.rendered = function () {
 };
 
 Template.ClassEdit.destroyed = function () {
+  delete Session.keys['chosenIconForEditClass'];
 };
 
 Template.ionNavBar.events({
