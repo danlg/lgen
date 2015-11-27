@@ -151,6 +151,10 @@ Schema.editprofile = new SimpleSchema({
   email: {
     type: String,
     regEx: SimpleSchema.RegEx.Email,
+  },
+  useravatar:{
+    type: String,
+    optional:true
   }
 });
 
@@ -167,5 +171,5 @@ Schema.profile = {
   firstpicture: true,
   firstclassjoined: true,
   hybridapppromote:false,
-  referral: 0
+  referral: 0,
 };

@@ -15,17 +15,27 @@
     {{#ionContent}}
 
       {{#autoForm schema=editprofile id="editprofile" resetOnSuccess=false type="method" doc=this meteormethod="profile/edit"  }}
+        <div class="list">     
+          <div class='row'>
+              {{> afFieldInput name="useravatar" style='display:none;' value=getYouAvatar }}  
+              {{#if getYouAvatar}}
+               <div class='col col-50'  style='text-align:center;'>
+                <br/>
+                <i id='pick-an-icon-btn' class="icon e1a-{{getYouAvatar}} e1a-5x emojicon"></i>
+               </div> 
+              {{else}}
+               <div id='pick-an-icon-btn' class='col col-50'  style='text-align:center;' >              
+                <p> Choose an avatar</p>  
+                <i class='icon ion-ios-person-outline' style='font-size:5em;'></i>
+               </div>  
+              {{/if}}                       
+            <div class='col col-50'>
+               {{> afFieldInput name="firstname"  placeholder=getFirstNamePlaceHolder value=profile.firstname  }}         
+              <br/>
+               {{> afFieldInput name="lastname"   placeholder=getLastNamePlaceHolder value=profile.lastname }}
+            </div>            
+          </div>
 
-        <div class="list">
-
-          <label class="item item-input item-stacked-label">
-            <!--<span class="input-label">{{_ "firstname"}}</span>-->
-            {{> afFieldInput name="firstname"  placeholder=getFirstNamePlaceHolder value=profile.firstname  }}
-          </label>
-          <label class="item item-input item-stacked-label">
-            <!--<span class="input-label">{{_ "lastname"}}</span>-->
-            {{> afFieldInput name="lastname"   placeholder=getLastNamePlaceHolder value=profile.lastname }}
-          </label>
           <label class="item item-input item-stacked-label">
             <!--<span class="input-label">Email</span>-->
             {{> afFieldInput name="email" placeholder=getEmailPlaceHolder value=email  }}

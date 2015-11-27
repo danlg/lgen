@@ -1,7 +1,14 @@
 /*****************************************************************************/
 /* MyAccount: Event Handlers */
 /*****************************************************************************/
-Template.MyAccount.events({});
+Template.MyAccount.events({
+  
+    'click #pick-an-icon-btn':function(){
+      var parentDataContext= {iconListToGet:"iconListForYou",sessionToBeSet:"chosenIconForYou"};
+      IonModal.open("ClassIconChoose", parentDataContext);  
+    }
+  
+});
 
 /*****************************************************************************/
 /* MyAccount: Helpers */
@@ -27,6 +34,13 @@ Template.MyAccount.helpers({
   , getEmailPlaceHolder: function(){
     return TAPi18n.__("EmailPlaceHolder");
   }
+  , getYouAvatar:function(){
+    
+    var chosenIcon = Session.get('chosenIconForYou');
+    if(chosenIcon){
+      return chosenIcon;
+    }
+  }
 
 });
 
@@ -34,12 +48,19 @@ Template.MyAccount.helpers({
 /* MyAccount: Lifecycle Hooks */
 /*****************************************************************************/
 Template.MyAccount.created = function () {
+  
+  if(Meteor.user() && Meteor.user().profile){
+    if(Meteor.user().profile.useravatar){
+      Session.set('chosenIconForYou', Meteor.user().profile.useravatar)
+    }
+  } 
 };
 
 Template.MyAccount.rendered = function () {
 };
 
 Template.MyAccount.destroyed = function () {
+  delete Session.keys['chosenIconForYou'];
 };
 
 Template.ionNavBar.events({
