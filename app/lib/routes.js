@@ -126,13 +126,13 @@ Router.route('Login', {
   path: "/",
   waitOn:function () {
     Accounts.loginServicesConfigured();
-  },
-  data :function(){
-    return {
-      loginToContinue: this.params.query.loginToContinue
-    };
-  },
-  fastRender: true
+  }
+  //data :function(){
+  //  return {
+  //    loginToContinue: this.params.query.loginToContinue
+  //  };
+  //},
+  //fastRender: true
 });
 
 Router.route('/email-signin', {
