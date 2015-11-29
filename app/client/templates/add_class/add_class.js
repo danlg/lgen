@@ -25,13 +25,11 @@ Template.AddClass.events({
         var isValidate = AutoForm.validateField("insertClass","classCode");
         
     },
+
     'click #pick-an-icon-btn':function(){
       var parentDataContext= {iconListToGet:"iconListForClass",sessionToBeSet:"chosenIconForNewClass"};
-      
       IonModal.open("ClassIconChoose", parentDataContext);  
     }
-  
-  
 });
 
 /*****************************************************************************/

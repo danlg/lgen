@@ -5,9 +5,9 @@ Template.MyAccount.events({
   
     'click #pick-an-icon-btn':function(){
       var parentDataContext= {iconListToGet:"iconListForYou",sessionToBeSet:"chosenIconForYou"};
-      IonModal.open("ClassIconChoose", parentDataContext);  
+      IonModal.open("YouIconChoose", parentDataContext);
     }
-  
+
 });
 
 /*****************************************************************************/
@@ -34,8 +34,8 @@ Template.MyAccount.helpers({
   , getEmailPlaceHolder: function(){
     return TAPi18n.__("EmailPlaceHolder");
   }
+
   , getYouAvatar:function(){
-    
     var chosenIcon = Session.get('chosenIconForYou');
     if(chosenIcon){
       return chosenIcon;

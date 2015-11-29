@@ -4,21 +4,21 @@
 /*****************************************************************************/
 Template.ClassEdit.events({
   'click .removeAllUserBtn': function () {
-
     Meteor.call("class/deleteUser", Classes.findOne(), function () {
       alert("success removed!");
     });
   },
+
   'click .removeClass': function () {
     Meteor.call("class/delete", Classes.findOne(), function () {
       Router.go('TabClasses');
     });
   },
-    'click #pick-an-icon-btn':function(){
-      var parentDataContext= {iconListToGet:"iconListForClass",sessionToBeSet:"chosenIconForEditClass"};
-      
-      IonModal.open("ClassIconChoose", parentDataContext);  
-    }
+
+  'click #pick-an-icon-btn':function(){
+    var parentDataContext= {iconListToGet:"iconListForClass",sessionToBeSet:"chosenIconForEditClass"};
+    IonModal.open("ClassIconChoose", parentDataContext);
+  }
 });
 
 /*****************************************************************************/

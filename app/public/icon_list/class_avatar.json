@@ -1,6 +1,6 @@
 [
 		"cat",
-		"smiley_cat",
+    "smiley_cat",
 		"dog",
 		"tiger",
 		"ghost",
@@ -26,9 +26,11 @@
 		"star",
 		"sunny",
 		"sun_with_face",
+    "wink",
 		"sunflower",
 		"palm_tree",
 		"hearts",
+		"green_heart",
 		"earth_africa",
 		"earth_americas",
 		"earth_asia",
@@ -37,6 +39,7 @@
 		"flag_kr",
 	  "flag_jp",
 		"flag_fr",
+		"flag_es",
 		"flag_gb",
 		"flag_hk",
 		"flag_au",
@@ -46,6 +49,8 @@
 		"pen_fountain",
 		"pencil2",
 		"paintbrush",
+	  "art",
+	  "performing_arts",
 		"paperclip",
 		"microscope",
 		"triangular_ruler",
@@ -53,7 +58,7 @@
 		"satellite_orbital",
 		"airplane",
 		"rocket",
-		"computer",
+	  "computer",
 		"bulb",
 		"soccer",
 		"basketball",
@@ -64,6 +69,5 @@
 		"cherries",
 		"hot_pepper",
 		"lemon",
-		"apple",
-		"sushi"			
+		"apple"
 ]
