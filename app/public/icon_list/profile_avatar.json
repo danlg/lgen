@@ -16,7 +16,6 @@
 		"tropical_fish",
 		"speak_no_evil",
 		"beetle",
-		"dove",
 		"feet",
 		"space_invader",
 		"ok_hand",
@@ -30,6 +29,7 @@
 		"sunflower",
 		"palm_tree",
 		"hearts",
+	  "green_heart",
 		"earth_africa",
 		"earth_americas",
 		"earth_asia",
@@ -74,5 +74,5 @@
 		"lemon",
 		"apple",
 	  "watermelon",
-		"sushi"			
+		"sushi"
 ]
