@@ -28,17 +28,20 @@
                     placeholder="{{_ "Take_a_private_note"}}"
                     class="Comments">{{Comments}}</textarea>
         </div>
-
-        {{#each getJoinedClassCreatedByMe}}
-          <div class="item item-icon-left removeStd" data-classid="{{_id}}">
-            <i class="icon ion-minus-circled" style="color:red"></i>
-            {{className}}
-          </div>
-        {{/each}}
+        <!--TODO merge the display of joined classes function into the UserDetail template -->
+        <!--plus the implementation of class removal is actually buggy ! so remove it for now-->
+        <!--See GitHub: Removal of joined class by teacher is not working #138-->
+        <!--<div class="list">-->
+          <!--<div class="item item-divider"> {{_ "Joined_Classes"}} </div>-->
+          <!--{{#each getJoinedClassCreatedByMe}}-->
+          <!--<div class="item item-icon-left removeStd" data-classid="{{_id}}">-->
+            <!--<i class="icon ion-minus-circled" style="color:red"></i>-->
+            <!--{{className}}-->
+          <!--</div>-->
+          <!--{{/each}}-->
+        <!--</div>-->
 
       </div>
-
-
 
     {{/ionContent}}
   {{/ionView}}
