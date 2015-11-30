@@ -18,7 +18,18 @@ Mandrill.config({
 
 /*log.info(Mandrill.users.ping());*/
 
+Accounts.emailTemplates.verifyEmail={
+  
+  html: function (user, url) {
+  log.info(user.profile.role);
+  var role = user.profile.role;
 
-Accounts.emailTemplates.verifyEmail.html = function (user, url) {
-  return '<h1>welcome to Little Genius :) </h1><br> <h1>You re going to love it!</h1> <p>The first step is to <a href="' + url + '">verify your email</a>.</p>';
-};
+  return verificationEmailTemplate(role,user,url);
+  },
+  from:function(){
+    return "no-reply@littlegenius.io"
+  },
+  subject:function(){
+    return "Verify your email now - Little Genius"
+  }
+}

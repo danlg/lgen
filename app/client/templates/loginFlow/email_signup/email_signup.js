@@ -32,7 +32,7 @@ Template.EmailSignup.created = function () {
   var classToBeJoined = Session.get("search");
   log.info(classToBeJoined);
   log.info("chosen role: " + Router.current().params.role);
- 
+
   $("body").removeClass('modal-open');
 };
 
@@ -76,24 +76,24 @@ Template.ionNavBar.events({
           alert(err.reason);
           log.error(err);
         } else{
-        
-        
+
+
         //invite user to download the app if they are using web version
         if(!Meteor.isCordova){
           if(role === "Teacher"){
-            log.info("redirect to app promote for teacher");           
+            log.info("redirect to app promote for teacher");
             Router.go('HowToInvite');
           }else{
             //todo congratulate
             //popup to download app
-            routeToTabClasses();
+             Router.go('EmailVerification');
           }
         }
         else{
-          routeToTabClasses();
+          Router.go('EmailVerification');
         }
-          
-          
+
+
 
         }
       });

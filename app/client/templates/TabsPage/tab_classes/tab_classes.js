@@ -48,28 +48,37 @@ Template.TabClasses.created = function () {
 };
 
 Template.TabClasses.rendered = function () {
+
   
-
-  if (Meteor.isCordova) {
-    //set the flag to true. there is no need to pop this up if user is already using the mobile app
-    Meteor.users.update(Meteor.userId(), { $set: { "profile.hybridapppromote": true } });
-  } else {
-
-    if (Meteor.user().profile.hybridapppromote == false){
-      //promote the app once if they havent try the hybrid apps 
-      IonPopup.alert({
-        title: TAPi18n.__("DoYouKnow"),
-        template: TAPi18n.__("WeHaveAppVersion") + ' \
-        <b><a href="'+Meteor.settings.public.APP_STORE_URL+'">App Store</a></b> \
-         ,  <b><a href="'+Meteor.settings.public.GOOGLE_PLAY_URL+'">Google Play</a></b>!',//TODO: actual google play or app store link
-        okText: TAPi18n.__("OKayGotIt")
-      });    
-      
-      //set the flag to true so it would not show again
-      Meteor.users.update(Meteor.userId(), { $set: { "profile.hybridapppromote": true } });
+  //if user is registered with meteor account
+  if (typeof Meteor.user().emails[0].verified !== 'undefined') {
+    //if email is not yet verfied
+    if (Meteor.user().emails[0].verified == false) {
+      Router.go('EmailVerification');
     }
   }
+  
+  //if sign up by google oauth or user's email is already verified
+  if(typeof Meteor.user().emails[0].verified == 'undefined' || Meteor.user().emails[0].verified){ 
+    if (Meteor.isCordova) {
+      //set the flag to true. there is no need to pop this up if user is already using the mobile app
+      Meteor.users.update(Meteor.userId(), { $set: { "profile.hybridapppromote": true } });
+    } else {
+      if (Meteor.user().profile.hybridapppromote == false) {
+        //promote the app once if they havent try the hybrid apps
+        IonPopup.alert({
+          title: TAPi18n.__("DoYouKnow"),
+          template: TAPi18n.__("WeHaveAppVersion") + ' \
+        <b><a href="'+ Meteor.settings.public.APP_STORE_URL + '">App Store</a></b> \
+         ,  <b><a href="'+ Meteor.settings.public.GOOGLE_PLAY_URL + '">Google Play</a></b>!',//TODO: actual google play or app store link
+          okText: TAPi18n.__("OKayGotIt")
+        });
 
+        //set the flag to true so it would not show again
+        Meteor.users.update(Meteor.userId(), { $set: { "profile.hybridapppromote": true } });
+      }
+    }
+  }
 };
 
 Template.TabClasses.destroyed = function () {

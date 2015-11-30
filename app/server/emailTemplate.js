@@ -48,7 +48,7 @@ newClassMailTemplate = function (to, classname, classCode) {
       "html": Spacebars.toHTML(
         {
           title: titlestr,
-          content: Assets.getText("newClass_MailTemplate.html"),
+          content: Assets.getText("lang/en/newClass_MailTemplate.html"),
           GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag="en") ,
           UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag="en")
         },
@@ -151,7 +151,7 @@ inviteClassMailTemplate = function (to, classObj) {
               {
                 //TODO localize me
                 title:"Join {{first}} {{last}}'s {{classname}} class",
-                content:  Assets.getText("inviteClassMailTemplate.html"),          
+                content:  Assets.getText("lang/en/inviteClassMailTemplate.html"),          
                 GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag="en") ,
                 UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag="en")
               },
@@ -197,9 +197,70 @@ inviteClassMailTemplate = function (to, classObj) {
       ]     
     }
   };
+};
 
+verificationEmailTemplate = function(role,userObj,verificationURL){
 
-
-
+      if(role == "Teacher"){
+        var firstPass = Spacebars.toHTML(
+              {
+                //TODO localize me
+                title:"",
+                content:  Assets.getText("lang/en/emailVerifyTemplate.Teacher.html"),          
+                GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag="en") ,
+                UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag="en")
+              },
+              Assets.getText("messageEmailMasterTemplate.html")
+           
+        );       
+        return Spacebars.toHTML(
+          {
+            firstName:  userObj.profile.firstname,
+            verificationURL: verificationURL
+          }
+          ,firstPass
+        );           
+      }else if(role == "Student"){
+         var firstPass = Spacebars.toHTML(
+              {
+                //TODO localize me
+                title:"Verify your email address - Little Genius",
+                content:  Assets.getText("lang/en/emailVerifyTemplate.Student.html"),          
+                GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag="en") ,
+                UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag="en")
+              },
+              Assets.getText("messageEmailMasterTemplate.html")
+        );
+                
+        var secondPass = Spacebars.toHTML(
+          {
+            firstName:  userObj.profile.firstname,
+            verificationURL: verificationURL
+          }
+          ,firstPass
+        );   
+        //log.info(secondPass);
+        return secondPass;               
+      }else{
+        var firstPass =  Spacebars.toHTML(
+              {
+                //TODO localize me
+                title:"Verify your email address - Little Genius",
+                content:  Assets.getText("lang/en/emailVerifyTemplate.Parent.html"),          
+                GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag="en") ,
+                UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag="en")
+              },
+              Assets.getText("messageEmailMasterTemplate.html")
+        );
+        var secondPass = Spacebars.toHTML(
+          {
+            firstName:  userObj.profile.firstname,
+            verificationURL: verificationURL
+          }
+          ,firstPass
+        );   
+        //log.info(secondPass);
+        return secondPass;                 
+      }
 };
 

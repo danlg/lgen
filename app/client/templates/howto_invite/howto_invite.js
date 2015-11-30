@@ -3,7 +3,15 @@ var democlass = "mathfun";
 Template.HowToInvite.events({
   
   'click .redirect-button':function(){
-     routeToTabClasses();
+    //if user is registered with meteor account
+    if (typeof Meteor.user().emails[0].verified !== 'undefined') {
+      //if email is not yet verfied
+      if (Meteor.user().emails[0].verified == false) {
+        Router.go('EmailVerification');
+      }
+    } else { //else redirect to classes
+      routeToTabClasses();
+    }      
   }
  
 });

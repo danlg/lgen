@@ -498,3 +498,5 @@ Router.route('join/:classCode?', {
   },
   fastRender: true
 });
+
+Router.route('EmailVerification');
