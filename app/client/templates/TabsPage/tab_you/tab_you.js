@@ -1,6 +1,6 @@
 Template.TabYou.events({
   'click .signOut': function () {
-    log.info("logout:" + Meteor.userid());
+    log.info("logout:" + Meteor.userId());
     Meteor.logout(
       function (err) {
         Router.go('Login');
