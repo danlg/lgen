@@ -10,6 +10,7 @@ App.info({
   buildNumber: '100'
 });
 
+
 App.setPreference('Orientation', 'portrait');
 App.setPreference('ios-orientation-iphone', 'portrait');
 App.accessRule('*');
