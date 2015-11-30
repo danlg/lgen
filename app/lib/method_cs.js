@@ -66,7 +66,7 @@ Meteor.methods({
       var classCode = doc.classCode.trim().toLowerCase();
       var query = {};
       query.classCode = classCode;
-      log.info("class/join:" + query);
+      log.info("class/join:'" + classCode +"'");
       var classDetail = Classes.findOne(query);
       //log.info(classDetail);
       if (classDetail) {
@@ -79,7 +79,7 @@ Meteor.methods({
           return true;
         }
       } else { //class is not found
-          log.error("class is not found.")
+          log.error("classcode '" + classCode + "' not found")
           return false;
       }
     }else{
