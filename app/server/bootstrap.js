@@ -18,7 +18,7 @@ Meteor.startup(function () {
     ]
   });
 
-  var log = log4js.getLogger('lg');
+  log = log4js.getLogger('lg');//global variable
   log.setLevel('INFO');
 
   log.info("Using env DDP_DEFAULT_CONNECTION_URL="+ Meteor.settings.DDP_DEFAULT_CONNECTION_URL);
