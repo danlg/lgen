@@ -46,7 +46,7 @@ Template.ClassPanel.helpers({
     return action.length > 0;
   },
   createBy: function () {
-    return classCode.createBy;
+    return classObj.createBy;
   },
   teacherName: function () {
     return teacherName.get();
