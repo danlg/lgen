@@ -1,10 +1,88 @@
 <template name='EmailVerification'>
-    {{#ionView}}
-      {{#ionContent}}
-        <h3>We have sent you a verification email to {{emailadressBeingVerified}}</h3>
-        <p>Please open it to finish the registration.</p>
-        <p> <a> Click here </a> to resend verification email if you do not receive it within 15 minutes.</p>
+    {{#ionView class='background-wallpaper'}}
 
+    <style>
+      hr{
+             padding: 0; border: none;  border-top: 1px solid rgba(0, 0, 0, 0.1);
+           border-bottom: 1px solid rgba(255, 255, 255, 0.3); text-align: center;      
+      }
+        hr.withOr {
+           padding: 0; border: none;  border-top: 1px solid rgba(0, 0, 0, 0.1);
+           border-bottom: 1px solid rgba(255, 255, 255, 0.3); text-align: center;
+            }
+
+
+      hr.withOr:after 
+      { content: "OR"; display: inline-block; position: relative; top: -1em; font-size: 0.8em; padding: 0 0.25em; background:
+      white; } 
+      
+        input[type="text"],input[type="passowrd"] {
+          display: block;
+          margin: 0;
+          width: 100%;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          appearance: none;
+          -webkit-box-shadow: none;
+          -moz-box-shadow: none;
+          box-shadow: none;
+          -webkit-border-radius: none;
+          -moz-border-radius: none;
+          -ms-border-radius: none;
+          -o-border-radius: none;
+          border-radius: none;
+          border-style: solid;
+          border-width: 1px;
+        }
+        input[type="text"]:focus,input[type="passowrd"]:focus {
+          outline: none;
+        }
+        
+        /* ============================================================
+          STYLE 1
+        ============================================================ */
+        .style-1 input[type="text"], .style-1 input[type="password"]{
+          padding: 0px 5px;
+          border: solid 1px gainsboro;
+          -webkit-transition: box-shadow 0.3s, border 0.3s;
+          -moz-transition: box-shadow 0.3s, border 0.3s;
+          -o-transition: box-shadow 0.3s, border 0.3s;
+          transition: box-shadow 0.3s, border 0.3s;
+        }
+        .style-1 input[type="text"]:focus, .style-1 input[type="text"].focus, .style-1 input[type="password"]:focus, .style-1 input[type="password"].focus {
+          border: solid 1px #ACDA46;
+        }  
+        
+         .style-1 i{
+
+          color: #aaa;
+        } 
+        
+        .style-1 label{
+          border-color:white;
+        }         
+   </style>
+       
+      {{#ionContent}}
+        <div class="card padding" style=''>
+            <h3>We have sent you a verification email to {{unverifyEmail}}</h3>
+            <p>Open it to finish registration.</p>
+ 
+            <div class="list style-1">    
+                <div class="item item-icon-left resendVerifyEmail">
+                <i class="icon ion-ios-email-outline translucid"></i> Resend Verify Email
+                </div>           
+                <input class='updateEmail' type="text" placeholder="Input change email"/>
+                <div class="item item-icon-left  updateEmailBtn">
+                <i class="icon ion-edit translucid"></i> Change and Resend Verify Email
+                </div>            
+                <div class="item item-icon-left  signOut">
+                <i class="icon ion-log-out translucid"></i> {{_ "SignOut"}}
+                </div>
+            </div>
+                        
+
+       </div>
       {{/ionContent}}
     {{/ionView}}
 </template>

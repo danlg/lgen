@@ -341,7 +341,19 @@ Meteor.methods({
 
   addReferral: function (userId) {
     Meteor.users.update(Meteor.userId(), {$inc: {'profile.referral': 1}});
-  }
+  },
+  resendVerificationEmail: function(email){
+      log.info(Meteor.userId());
+      if (email) {
+       var newEmailArray = [];
+       newEmailArray.push({address:email,verified:false});
+       Meteor.users.update(Meteor.userId(), {$set: {emails: newEmailArray}});
+       
+        Accounts.sendVerificationEmail(Meteor.userId(), email);
+      } else {
+        Accounts.sendVerificationEmail(Meteor.userId());
+      }
+  }  
 
 });
 
