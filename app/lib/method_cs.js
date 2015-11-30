@@ -33,7 +33,7 @@ Meteor.methods({
     var query = {};
     if (classCode) {
       query.classCode = classCode.trim().toLowerCase() ;
-      log.info(query);
+      //log.debug(query);
       return Classes.findOne(query) ? false : true;
     }
     return false;
@@ -68,7 +68,7 @@ Meteor.methods({
       query.classCode = classCode;
       log.info("class/join:" + query);
       var classDetail = Classes.findOne(query);
-      log.info(classDetail);
+      //log.info(classDetail);
       if (classDetail) {
         if (classDetail.createBy === Meteor.userId()) {
           log.error("you can't join the class you own.")

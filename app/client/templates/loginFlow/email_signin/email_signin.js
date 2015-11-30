@@ -32,6 +32,7 @@ Template.ionNavBar.events({
         log.error(err);
       }
       else {
+        log.info("login:meteor:" + Meteor.userId());
         routeToTabClasses();
       }
     });

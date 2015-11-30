@@ -9,7 +9,7 @@ var OnBeforeActions;
 OnBeforeActions = {
   LoginRequired: function (pause) {
     if (!Meteor.userId()) {
-      log.info("login required");
+      log.warn("login required");
       Router.go('Login');
       this.next();
     } else {
