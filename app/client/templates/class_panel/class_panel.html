@@ -33,12 +33,12 @@
 
   {{#ionView}}
     {{#ionContent}}
-
+<!-- -->
         <div class="button-bar">
           <a class="button button-bar-button" href="{{ pathFor 'ClassUsers' classCode=classObj.classCode }}">
             <i class="icon ion-ios-people"></i>
             <div class="smaller">
-            <!-- bug see https://github.com/TAPevents/tap-i18n/issues/50 -->
+            <!--bug see https://github.com/TAPevents/tap-i18n/issues/50-->
               {{#if isPlural classObj.joinedUserId.length }}
                 <div>{{ classObj.joinedUserId.length }} {{_ "Subscriber_plural" }} </div>
               {{else}}
@@ -56,6 +56,7 @@
             </div>
           </a>
         </div>
+    <!---->
 
         <div class="list messageList background-wallpaper"  id="messageList">
           {{#each classObj.messagesObj}}
@@ -107,16 +108,16 @@
                 
                 <p>
                   {{#if isNotEmpty star}}
-                    <a href="#" class="subdued">{{star.length}} <i class="ion-ios-star"></i></a>
+                    <a href="#" class="subdued">{{star.length}} <i class="ion-ios-star colored"></i></a>
                   {{/if}}
                   {{#if isNotEmpty checked}}
-                    <a href="#" class="subdued">{{checked.length}} <i class="ion-checkmark-round"></i></a>
+                    <a href="#" class="subdued">{{checked.length}} <i class="ion-checkmark-round colored"></i></a>
                   {{/if}}
                   {{#if isNotEmpty close}}
-                    <a href="#" class="subdued">{{close.length}} <i class="ion-close-round"></i></a>
+                    <a href="#" class="subdued">{{close.length}} <i class="ion-close-round colored"></i></a>
                   {{/if}}
                   {{#if isNotEmpty help}}
-                    <a href="#" class="subdued">{{help.length}} <i class="ion-help"></i></a>
+                    <a href="#" class="subdued">{{help.length}} <i class="ion-help colored"></i></a>
                   {{/if}}
                   <span class='timestamp'>{{formatTime sendAt}}</span>  
                 </p>
