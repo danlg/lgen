@@ -75,7 +75,6 @@ blaze-html-templates
 session
 tracker
 logging
-votercircle:winston
 practicalmeteor:loglevel
 reload
 random
@@ -87,3 +86,8 @@ dburles:spacebars-tohtml
 practicalmeteor:wkwebview
 meteorhacks:fast-render
 konecty:autolinker
+
+
+
+
+npm-container

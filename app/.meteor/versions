@@ -105,6 +105,7 @@ mongo@1.1.3
 mongo-id@1.0.1
 mongo-livedata@1.0.9
 npm-bcrypt@0.7.8_2
+npm-container@1.2.0
 npm-mongo@1.4.39_1
 oauth@1.1.6
 oauth2@1.1.5
@@ -142,7 +143,6 @@ u2622:persistent-session@0.4.4
 ui@1.0.8
 underscore@1.0.4
 url@1.0.5
-votercircle:winston@0.0.3
 webapp@1.2.3
 webapp-hashing@1.0.5
 wylio:mandrill@1.0.1
