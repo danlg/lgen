@@ -92,7 +92,11 @@ $positive: #ACDA46;
 @import 'meteoric_ionic-sass/ionic';
 @import 'meteoric_ionicons-sass/ionicons';
 
-// .content.overflow-scroll { bottom: 0px !important; }
+//for Wkwebview ?
+//see https://github.com/meteoric/meteor-ionic/issues/321
+//.content.overflow-scroll.has-header {
+//  bottom: 0px !important;
+//}
 
 a {
   text-decoration: none !important;

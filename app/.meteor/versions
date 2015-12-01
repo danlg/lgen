@@ -114,7 +114,6 @@ okgrow:analytics@0.4.3
 ordered-dict@1.0.4
 practicalmeteor:chai@2.1.0_1
 practicalmeteor:loglevel@1.2.0_2
-practicalmeteor:wkwebview@0.1.2
 promise@0.5.1
 raix:eventemitter@0.1.3
 raix:eventstate@0.0.4
