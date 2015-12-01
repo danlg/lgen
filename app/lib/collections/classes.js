@@ -15,11 +15,11 @@ ClassesSchema = new SimpleSchema({
     trim:true,
     unique: true,
     min: 3,
-    regEx: /^[a-z0-9]+$/,
+    regEx: /^[a-zA-Z0-9]+$/,
     custom: function () {
       if (Meteor.isClient && this.isSet && this.isInsert) {
 
-        var inputClassCode = this.value;
+        var inputClassCode = this.value.trim.toLowerCase();
    
         Meteor.call("class/classCodeIsAvailable", this.value, function (err, result) {
           
