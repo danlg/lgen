@@ -83,7 +83,6 @@ spacebars
 check
 meteorhacks:npm
 dburles:spacebars-tohtml
-meteorhacks:fast-render
 konecty:autolinker
 
 

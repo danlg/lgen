@@ -166,8 +166,7 @@ Router.route('TabChat', {
    Meteor.subscribe('getAllMyChatRooms');
    },*/
 
-  path: "/chat",
-  fastRender: true  
+  path: "/chat" 
 });
 
 Router.route('TabYou', {
@@ -182,8 +181,7 @@ Router.route('Chatoption', {
   path: "/chat/option",
   waitOn: function () {
     Meteor.subscribe('createdClassByMe');
-  },
-  fastRender: true
+  }
 });
 /*Router.route('WorkTimeSelection', {
   // layoutTemplate: "NavBarScreenLayout",
@@ -195,8 +193,7 @@ Router.route('Notification', {
   path: "/notice/:msgCode",
   waitOn: function () {
     Meteor.subscribe('getClassMsgId', this.params.msgCode);
-  },
-  fastRender: true
+  }
 });
 Router.route('ClassPanelMsgNotice', {
   // layoutTemplate: "NavBarScreenLayout",
@@ -207,16 +204,14 @@ Router.route('ClassPanelMsgNotice', {
       Meteor.subscribe('images'),
       Meteor.subscribe('sounds')
     ];
-  },
-  fastRender: true
+  }
 });
 Router.route('NotificationDetail', {
   // layoutTemplate: "NavBarScreenLayout",
   path: "/notice/:msgCode/detail",
   waitOn: function () {
     Meteor.subscribe('getClassMsgId', this.params.msgCode);
-  },
-  fastRender: true
+  }
 });
 
 Router.route('ClassInformation', {
@@ -227,8 +222,7 @@ Router.route('ClassInformation', {
       Meteor.subscribe('personCreateClass', this.params.classCode),
       Meteor.subscribe('class', this.params.classCode)
     ];
-  },
-  fastRender: true
+  }
 });
 
 
@@ -241,8 +235,7 @@ Router.route('TabClasses', {
       Meteor.subscribe('joinedClass'),
       Meteor.subscribe('createdClassByMe')
     ];
-  },
-  fastRender: true
+  }
 
 });
 
@@ -257,8 +250,7 @@ Router.route('JoinClass', {
   path: "/class/join",
   waitOn: function () {
     Meteor.subscribe('joinedClass');
-  },
-  fastRender: true
+  }
 });
 Router.route('ClassInvitation', {
   // controller: 'ClassWithIdController',
@@ -267,8 +259,7 @@ Router.route('ClassInvitation', {
     return [
       Meteor.subscribe('class', this.params.classCode)
     ];
-  },
-  fastRender: true
+  }
 });
 
 Router.route('EmailInvite', {
@@ -277,8 +268,7 @@ Router.route('EmailInvite', {
   path: "/class/:classCode/invite-email",
   waitOn: function () {
     return Meteor.subscribe('class', this.params.classCode);
-  },
-  fastRender: true
+  }
 });
 
 Router.route('ChatRoom', {
@@ -290,8 +280,7 @@ Router.route('ChatRoom', {
       Meteor.subscribe('sounds'),
       Meteor.subscribe('chatRoomWithUser', this.params.chatRoomId)
     ];
-  },
-  fastRender: true
+  }
 });
 
 
@@ -305,8 +294,7 @@ Router.route('classDetail', {
       Meteor.subscribe('images'),
       Meteor.subscribe('sounds')
     ];
-  },
-  fastRender: true
+  }
 });
 
 Router.route('ChatInvite', {
@@ -315,8 +303,7 @@ Router.route('ChatInvite', {
   waitOn: function () {
     /*Meteor.subscribe('joinedClass');*/
     return Meteor.subscribe('getAllJoinedClassesUser');
-  },
-  fastRender: true
+  }
 });
 
 Router.route('ShareInvite', {
@@ -326,8 +313,7 @@ Router.route('ShareInvite', {
     return [
       Meteor.subscribe('class', this.params.classCode)
     ];
-  },
-  fastRender: true
+  }
 });
 
 Router.route('classEdit', {
@@ -336,8 +322,7 @@ Router.route('classEdit', {
   path: "/class/:classCode/edit",
   waitOn: function () {
     return Meteor.subscribe('class', this.params.classCode);
-  },
-  fastRender: true
+  }
 });
 
 Router.route('ClassUsers', {
@@ -345,8 +330,7 @@ Router.route('ClassUsers', {
   // layoutTemplate: "NavBarScreenLayout",
   waitOn: function () {
     return Meteor.subscribe('getClassroomWithJoinedUserByClassCode', this.params.classCode);
-  },
-  fastRender: true
+  }
 });
 
 Router.route('UserDetail', {
@@ -388,8 +372,7 @@ Router.route('SendMessage', {
       Meteor.subscribe('images'),
       Meteor.subscribe('sounds')
     ];
-  },
-  fastRender: true
+  }
 });
 
 Router.route('MessageClassSelection', {
@@ -397,8 +380,7 @@ Router.route('MessageClassSelection', {
   path: "/message/classselect",
   waitOn: function () {
     return Meteor.subscribe('createdClassByMe');
-  },
-  fastRender: true
+  }
 });
 
 Router.route('ClassPanel', {
@@ -412,8 +394,7 @@ Router.route('ClassPanel', {
       Meteor.subscribe('sounds')
     ];
 
-  },
-  fastRender: true
+  }
 
 });
 
@@ -441,8 +422,7 @@ Router.route('Commend', {
     Meteor.subscribe('getUserById', this.params._id);
     Meteor.subscribe('getCommentsByClassIdNId', this.params.classId, this.params._id);
     Meteor.subscribe('getJoinedClassCreatedByMeByUserId', this.params._id);
-  },
-  fastRender: true
+  }
 });
 Router.route('Feedback', {
   // layoutTemplate: "NavBarScreenLayout",
@@ -495,8 +475,7 @@ Router.route('join/:classCode?', {
       Meteor.subscribe('personCreateClass', this.params.classCode),
       Meteor.subscribe('class', this.params.classCode)
     ];
-  },
-  fastRender: true
+  }
 });
 
 Router.route('EmailVerification');
