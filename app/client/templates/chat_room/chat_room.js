@@ -196,6 +196,8 @@ Template.ChatRoom.helpers({
   },
 
   getName: function (profile) {
+   // var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
+    //arr.
     var userObj = Meteor.users.findOne({_id: {$nin: [Meteor.userId()]}});
     return getFullNameByProfileObj(userObj.profile);
   },
