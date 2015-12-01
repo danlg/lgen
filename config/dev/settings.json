@@ -14,7 +14,7 @@
 
     "ROOT_URL": "http://localhost:3000",
     "PORT": 3000,
-    "SHARE_URL": "http://go.lgen.me",
+    "SHARE_URL": "http://uat.littlegenius.io",
     "GOOGLE_PLAY_URL":"http://google.com",
     "APP_STORE_URL":"http://google.com"
   },
