@@ -19,7 +19,7 @@ ClassesSchema = new SimpleSchema({
     custom: function () {
       if (Meteor.isClient && this.isSet && this.isInsert) {
 
-        var inputClassCode = this.value.trim.toLowerCase();
+        var inputClassCode = this.value.trim().toLowerCase();
    
         Meteor.call("class/classCodeIsAvailable", this.value, function (err, result) {
           
