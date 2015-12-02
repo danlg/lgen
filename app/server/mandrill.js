@@ -16,20 +16,25 @@ Mandrill.config({
 });
 
 
-/*log.info(Mandrill.users.ping());*/
 
-Accounts.emailTemplates.verifyEmail={
-  
+
+Accounts.emailTemplates.verifyEmail= {
   html: function (user, url) {
-  log.info(user.profile.role);
-  var role = user.profile.role;
-
-  return verificationEmailTemplate(role,user,url);
-  },
-  from:function(){
-    return "no-reply@littlegenius.io"
-  },
-  subject:function(){
-    return "Verify your email now - Little Genius"
+    log.info(user.profile.role);
+    var role = user.profile.role;
+    return verificationEmailTemplate(role,user,url);
   }
-}
+
+  , siteName: function () {
+    return "Little Genius";
+  }
+
+  , from:function() {
+    return "Little Genius <contactemail@littlegenius.io>";
+  }
+
+  , subject:function() {
+    //TODO LOCALIZE
+    return "Welcome to Little Genius  - Please verify your email";
+  }
+};
