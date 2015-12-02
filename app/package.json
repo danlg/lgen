@@ -10,8 +10,8 @@
     "ios-local": "rm -rf .meteor/local && meteor run ios -v --settings ../config/dev/settings.json",
     "ios-device-local": "rm -rf .meteor/local && meteor run ios-device -v --settings ../config/dev/settings.json",
 
-    "ios-uat": "rm -rf .meteor/local && meteor run ios -v --settings ../config/stage/settings.json --mobile-server=http://uat.littlegenius.io:80",
-    "ios-device-uat": "rm -rf .meteor/local && meteor run -v ios-device --settings ../config/stage/settings.json --mobile-server=http://uat.littlegenius.io:80",
+    "ios-uat": "rm -rf .meteor/local && meteor run ios -v --settings ../config/stage/settings.json --mobile-server=http://uat.littlegenius.io:80 -p 4000",
+    "ios-device-uat": "rm -rf .meteor/local && meteor run -v ios-device --settings ../config/stage/settings.json --mobile-server=http://uat.littlegenius.io:80 -p 4000",
 
     "build-apk": "./build-android.sh $1",
     "sign-apk": "./sign-android.sh $1",
