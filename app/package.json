@@ -13,6 +13,9 @@
     "ios-uat": "rm -rf .meteor/local && meteor run ios -v --settings ../config/stage/settings.json --mobile-server=http://uat.littlegenius.io:80 -p 4000",
     "ios-device-uat": "rm -rf .meteor/local && meteor run -v ios-device --settings ../config/stage/settings.json --mobile-server=http://uat.littlegenius.io:80 -p 4000",
 
+    "ios-prd": "rm -rf .meteor/local && meteor run ios -v --settings ../config/production/settings.json --mobile-server=http://app.littlegenius.io:80 -p 5000",
+    "ios-device-prd": "rm -rf .meteor/local && meteor run -v ios-device --settings ../config/production/settings.json --mobile-server=http://app.littlegenius.io:80 -p 5000",
+
     "build-apk": "./build-android.sh $1",
     "sign-apk": "./sign-android.sh $1",
 
