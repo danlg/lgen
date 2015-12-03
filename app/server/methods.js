@@ -108,6 +108,7 @@ Meteor.methods({
         Mandrill.messages.send(inviteClassMailTemplate(targetFirstEmail, classObj));
       }
       catch (e) {
+        log.error("classinvite:couldn't send invite email:classCode:"+ classObj.classCodefirst+ ":to:"+ targetFirstEmail );
         log.error(e);
       }
     }
