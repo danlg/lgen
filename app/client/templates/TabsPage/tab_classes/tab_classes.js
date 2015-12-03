@@ -56,12 +56,7 @@ Template.TabClasses.rendered = function () {
       Router.go('EmailVerification');
     }
   }
-
-  if (Meteor.user().profile.hybridapppromote == false)
-  {
-    Router.go('Tour');
-  }
-  
+  //we do not need to show the tour as it is shown before login
   //if sign up by google oauth or user's email is already verified
   if(typeof Meteor.user().emails[0].verified == 'undefined'
     || Meteor.user().emails[0].verified)
@@ -86,6 +81,38 @@ Template.TabClasses.rendered = function () {
       }
     }
   }
+  HowToInviteTour();
+};
+
+var HowToInviteTour = function () {
+  Meteor.call('getUserCreateClassesCount', function (err, count) {
+    var createdClassCount = count;
+    log.info(createdClassCount);
+    var hasSeenTheTour = Session.get("hasSeenTheTour");
+    log.info(" has user seen the tour? " + hasSeenTheTour);
+    if (createdClassCount == 1 && !hasSeenTheTour ) {
+      IonPopup.show({
+        title: TAPi18n.__("Congratulations"),
+        template: TAPi18n.__("InviteTeacherToLearnHowToAdd"),
+        buttons: [
+          {
+            text: 'OK',
+            type: 'button-positive',
+            onTap: function () {
+              IonPopup.close();
+              Router.go('HowToInvite');
+            }
+          },
+          {
+            text: 'Later', type: 'button-light',
+            onTap: function () {
+              IonPopup.close();
+            }
+          }
+        ]
+      });
+    }
+  });
 };
 
 Template.TabClasses.destroyed = function () {

@@ -20,22 +20,21 @@
         </div>
       </div>
 
-
       <h2 class="list">
-        <a class="item item-icon-left item-icon-right"
-           href="{{pathFor 'ShareInvite' classCode=getclassCode }}">
-          <!-- http://ionicframework.com/docs/components/#item-icons -->
-            <i class="icon ion-ios-upload-outline"></i>
-            <h2 class="headline-title" >{{_ "ShareALink" }}</h2>
-            <p> {{_ "EmailPostEmbed"}}</p>
-            <i class="icon ion-ios-arrow-forward"></i>
-        </a>
         <a class="item item-icon-left item-icon-right"
            href="{{pathFor 'HowToInviteShort' classCode=getclassCode }}">
           <i class="icon ion-chatboxes"></i>
           <h2 class="headline-title">{{_ "InClassInstructions"}}</h2>
           <p> {{_ "ShowClass"}}</p>
           <p></p>
+          <i class="icon ion-ios-arrow-forward"></i>
+        </a>
+        <a class="item item-icon-left item-icon-right"
+           href="{{pathFor 'ShareInvite' classCode=getclassCode }}">
+          <!-- http://ionicframework.com/docs/components/#item-icons -->
+          <i class="icon ion-ios-upload-outline"></i>
+          <h2 class="headline-title" >{{_ "ShareALink" }}</h2>
+          <p> {{_ "EmailPostEmbed"}}</p>
           <i class="icon ion-ios-arrow-forward"></i>
         </a>
         <a class="item item-icon-left item-icon-right"

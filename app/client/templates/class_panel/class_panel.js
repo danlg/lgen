@@ -1,12 +1,10 @@
 var text = new ReactiveVar('');
 var classObj;
-var teacherName = ReactiveVar("");
 
 var soundArr = ReactiveVar([]);
 var isRecording = false;
 var media = "";
 var isPlayingSound = false;
-var tempClassCode;
 /*****************************************************************************/
 /* ClassPanel: Event Handlers */
 /*****************************************************************************/
@@ -48,9 +46,6 @@ Template.ClassPanel.helpers({
   createBy: function () {
     return classObj.createBy;
   },
-  teacherName: function () {
-    return teacherName.get();
-  },
   className: function () {
     return classObj.className;
   },
@@ -81,55 +76,9 @@ Template.ClassPanel.helpers({
 /* ClassPanel: Lifecycle Hooks */
 /*****************************************************************************/
 Template.ClassPanel.created = function () {
-  
-
-
 };
 
 Template.ClassPanel.rendered = function () {
-  Meteor.call('getFullNameById', classObj.createBy, function (err, data) {
-    return teacherName.set(data);
-  });
-  
-  this.currentClassCode = new ReactiveVar( classObj.classCode );
-  tempClassCode = classObj.classCode;
-  
-  Meteor.call('getUserCreateClassesCount', function (err, count) {
-
-    var createdClassCount = count;
-    log.info(createdClassCount);
-    var hasSeenTheTour = Session.get("hasSeenTheTourForStudent");
-    log.info(" has user seen the tour? " + hasSeenTheTour);
-    if (createdClassCount == 1 && hasSeenTheTour != true) {
-
-      
-      IonPopup.show({
-        title: TAPi18n.__("Congratulations"),
-        template: TAPi18n.__("InviteTeacherToLearnHowToAdd"),
-        buttons: [
-          {
-            text: 'OK',
-            type: 'button-positive',
-            onTap: function () {
-              IonPopup.close();
-              Router.go('HowToInvite');
-            }
-          },
-          {
-            text: 'Later',
-            type: 'button-light',
-            onTap: function () {
-              IonPopup.close();
-            }
-          }
-        ]
-      });
-
-    }
-
-  });
-  
-
 
 };
 

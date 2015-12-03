@@ -217,9 +217,7 @@ Meteor.methods({
     return name;
   },
   getUserCreateClassesCount: function(){
-    
-      return Classes.find({createBy: Meteor.userId()}).count();   
-      
+      return Classes.find({createBy: Meteor.userId()}).count();
   },
   chatSendImage: function (file, chatRoomId) {
     Images.insert(file, function (err, fileObj) {
