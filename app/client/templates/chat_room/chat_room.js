@@ -357,12 +357,8 @@ function onSuccess(imageURI) {
               }
             });
             
-            //get another person's user object in 1 to 1 chatroom. 
-            var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
-            var currentUserIdIndex = arr.indexOf(Meteor.userId());
-            arr.splice(currentUserIdIndex, 1);
-            
-            var targetUserObj = Meteor.users.findOne(arr[0]);               
+            //get another person's user object in 1 to 1 chatroom.             
+            var targetUserObj = getAnotherUser();               
             var targetId = targetUserObj._id;
             var query = {};
             query.userId = targetId;
@@ -426,10 +422,7 @@ function onResolveSuccess(fileEntry) {
         });
 
         //get another person's user object in 1 to 1 chatroom. 
-        var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
-        var currentUserIdIndex = arr.indexOf(Meteor.userId());
-        arr.splice(currentUserIdIndex, 1);
-        var targetUserObj = Meteor.users.findOne(arr[0]);          
+        var targetUserObj = getAnotherUser();         
         var targetId = targetUserObj._id;
         
         var query = {};
@@ -528,13 +521,16 @@ function imageAction() {
   window.plugins.actionsheet.show(options, callback);
 }
 
-//call by chatroom helpers
+////get another person's user object in 1 to 1 chatroom. call by chatroom helpers
 function getAnotherUser(){
-            //get another person's user object in 1 to 1 chatroom. 
+            //find all userids in this chat rooms
             var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
+            
+            //find and remove the userid of the current user
             var currentUserIdIndex = arr.indexOf(Meteor.userId());
             arr.splice(currentUserIdIndex, 1);
             
+            //return another user's user object
             var targetUserObj = Meteor.users.findOne(arr[0]);  
             return   targetUserObj;
 }
