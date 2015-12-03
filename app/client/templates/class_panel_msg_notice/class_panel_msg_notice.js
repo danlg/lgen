@@ -34,11 +34,11 @@ Template.ClassPanelMsgNotice.events({
 /*****************************************************************************/
 Template.ClassPanelMsgNotice.helpers({
   classObj: function () {
-    classObj = Classes.findOne();
+    classObj =Classes.findOne({'messagesObj.msgId':Router.current().params.msgCode});
     return classObj;
   },
   msgObj: function () {
-    var msgArr = Classes.findOne().messagesObj;
+    var msgArr = Classes.findOne({'messagesObj.msgId':Router.current().params.msgCode}).messagesObj;
     var filtedArr = lodash.findByValues(msgArr, "msgId", Router.current().params.msgCode);
     return filtedArr[0];
   },
@@ -52,10 +52,10 @@ Template.ClassPanelMsgNotice.helpers({
     return userObj._id == Meteor.userId() ? "You" : userObj.profile.firstname + " " + userObj.profile.lastname;
   },
   star: function () {
-    return Classes.findOne().messagesObj.star;
+    return Classes.findOne({'messagesObj.msgId':Router.current().params.msgCode}).messagesObj.star;
   },
   allMan: function () {
-    var msgArr = Classes.findOne().messagesObj;
+    var msgArr = Classes.findOne({'messagesObj.msgId':Router.current().params.msgCode}).messagesObj;
     var arr = [];
     var filtedArr = lodash.findByValues(msgArr, "msgId", Router.current().params.msgCode);
 
