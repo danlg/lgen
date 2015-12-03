@@ -192,13 +192,19 @@ Template.ChatRoom.helpers({
 
   userProfile: function () {
     var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
-    return lodash.reject(arr, {_id: Meteor.userId()})[0];
+    var currentUserIdIndex = arr.indexOf(Meteor.userId());
+    arr.splice(currentUserIdIndex, 1);
+    
+    var userObj = Meteor.users.findOne(arr[0]);
+    return userObj
   },
-
-  getName: function (profile) {
-   // var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
-    //arr.
-    var userObj = Meteor.users.findOne({_id: {$nin: [Meteor.userId()]}});
+  
+  getName: function (profile) { //getNameOfAnotherPerson in 1 to 1 chatroom.
+    var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
+    var currentUserIdIndex = arr.indexOf(Meteor.userId());
+    arr.splice(currentUserIdIndex, 1);
+    
+    var userObj = Meteor.users.findOne(arr[0]);
     return getFullNameByProfileObj(userObj.profile);
   },
 
