@@ -49,7 +49,6 @@ Template.TabClasses.created = function () {
 
 Template.TabClasses.rendered = function () {
 
-  
   //if user is registered with meteor account
   if (typeof Meteor.user().emails[0].verified !== 'undefined') {
     //if email is not yet verfied
@@ -57,13 +56,21 @@ Template.TabClasses.rendered = function () {
       Router.go('EmailVerification');
     }
   }
+
+  if (Meteor.user().profile.hybridapppromote == false)
+  {
+    Router.go('Tour');
+  }
   
   //if sign up by google oauth or user's email is already verified
-  if(typeof Meteor.user().emails[0].verified == 'undefined' || Meteor.user().emails[0].verified){ 
+  if(typeof Meteor.user().emails[0].verified == 'undefined'
+    || Meteor.user().emails[0].verified)
+  {
     if (Meteor.isCordova) {
       //set the flag to true. there is no need to pop this up if user is already using the mobile app
       Meteor.users.update(Meteor.userId(), { $set: { "profile.hybridapppromote": true } });
-    } else {
+    }
+    else {
       if (Meteor.user().profile.hybridapppromote == false) {
         //promote the app once if they havent try the hybrid apps
         IonPopup.alert({

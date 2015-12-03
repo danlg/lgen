@@ -16,7 +16,7 @@ OnBeforeActions = {
     }
   },
   roleRequired: function () {
-    if (!Meteor.user().profile.role) {
+    if (Meteor.user() && !Meteor.user().profile.role) {
       Router.go('role');
       this.next();
     } else {
@@ -74,7 +74,7 @@ OnBeforeActions = {
 Router.onBeforeAction(OnBeforeActions.LoginRequired, {
   except: ['language', 'Login', 'EmailSignup', 'EmailSignin', 'role',
    'Testing', 'Test2','ClassInformationForWebUser','ClassSearchInformationForWebUser',
-   'TermsOfService','PrivacyPolicy']
+   'TermsOfService','PrivacyPolicy','Tour']
 });
 
 Router.onBeforeAction(OnBeforeActions.LoginedRedirect, {only: ['language']});
@@ -87,8 +87,16 @@ Router.onBeforeAction(OnBeforeActions.checkDob, {
   only: ['TabClasses','classDetail']
 });
 
+Router.route('Tour',{
+    layoutTemplate:'',//otherwise we get a green header on the page
+    //path:"tour"
+    path:"/"
+  }
+);
+
 Router.route('Login', {
-  path: "/",
+  path: "/login",
+  //path: "/",
   waitOn:function () {
     Accounts.loginServicesConfigured();
   }
@@ -98,7 +106,7 @@ Router.route('/email-signin', {
   name: "EmailSignin"
 });
 Router.route('EmailSignup', {
-  path: "email-signup/:role",
+  path: "email-signup/:role"
 });
 
 Router.route('/role', {
@@ -117,6 +125,10 @@ Router.route('TabChat', {
 
 Router.route('TabYou', {
   path: "you"
+});
+
+Router.route('MyAccount',{
+  path:"myaccount"
 });
 
 Router.route('Chatoption', {
@@ -279,10 +291,6 @@ Router.route('UserDetail', {
     subList.push(Meteor.subscribe('getJoinedClassByUserId', this.params._id));
     return subList;
   }
-});
-
-Router.route('MyAccount',{
-  path:"myaccount"
 });
 
 Router.route('SendMessage', {
