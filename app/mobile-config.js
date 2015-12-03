@@ -6,7 +6,7 @@ App.info({
   email: 'contact@littlegenius.io',
   website: 'http://app.littlegenius.io',
   //todo sync this with config.xml
-  version: '1.0.91101',
+  version: '1.0.91102',
   buildNumber: '100'
 });
 
