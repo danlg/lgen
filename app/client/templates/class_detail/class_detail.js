@@ -43,18 +43,14 @@ Template.ClassDetail.events({
 /*****************************************************************************/
 Template.ClassDetail.helpers({
   classObj: function () {
-    classObj = Classes.findOne();
+    classObj = Classes.findOne({classCode: Router.current().params.classCode});
     return classObj;
-  },
-  classCode: function () {
-    var classObj = Classes.findOne();
-    return classObj.classCode;
   },
   className: function () {
     return classObj.className;
   },
   getClassName: function () {
-    return Classes.findOne().className;
+    return Classes.findOne({classCode: Router.current().params.classCode}).className;
   },
   actions: function () {
     return ["star", "checked", "close", "help"];
@@ -69,7 +65,7 @@ Template.ClassDetail.helpers({
     return lodash.includes(lodash.map(action, "_id"), Meteor.userId()) ? "colored" : "";
   },
   getMessagesObj: function () {
-    var classObj = Classes.findOne();
+    var classObj = Classes.findOne({classCode: Router.current().params.classCode});
     if (classObj.messagesObj.length > 0) {
       return classObj.messagesObj;
     } else {

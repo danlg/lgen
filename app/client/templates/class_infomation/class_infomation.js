@@ -14,10 +14,11 @@ Template.ClassInformation.events({
 /*****************************************************************************/
 Template.ClassInformation.helpers({
   classObj: function () {
-    return Classes.findOne();
+    return Classes.findOne({classCode: Router.current().params.classCode});
   },
   teacher: function () {
-    return Meteor.users.findOne({_id: {$nin: [Meteor.userId()]}});
+    var teacherUserid = Classes.findOne({classCode: Router.current().params.classCode}).createBy;
+    return Meteor.users.findOne(teacherUserid);
   }
 });
 
