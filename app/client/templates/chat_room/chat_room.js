@@ -23,7 +23,8 @@ Template.ChatRoom.events({
           var text = $('.inputBox').val();
           $('.inputBox').val("");
           
-          var targetUser = Meteor.users.findOne({_id: {$nin: [Meteor.userId()]}});
+
+          var targetUser = getAnotherUser();        
           var targetId = targetUser._id;
           
           var query = {};
@@ -87,8 +88,9 @@ Template.ChatRoom.events({
               log.error("error", error);
             }
           });
-
-          var targetId = Meteor.users.findOne({_id: {$nin: [Meteor.userId()]}})._id;
+          
+          var targetUser = getAnotherUser();    
+          var targetId = targetUser._id;
           var query = {};
           query.userId = targetId;
 
@@ -191,20 +193,13 @@ Template.ChatRoom.helpers({
   },
 
   userProfile: function () {
-    var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
-    var currentUserIdIndex = arr.indexOf(Meteor.userId());
-    arr.splice(currentUserIdIndex, 1);
-    
-    var userObj = Meteor.users.findOne(arr[0]);
+    //get another person's user object in 1 to 1 chatroom.     
+    var userObj = getAnotherUser();
     return userObj
   },
   
-  getName: function (profile) { //getNameOfAnotherPerson in 1 to 1 chatroom.
-    var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
-    var currentUserIdIndex = arr.indexOf(Meteor.userId());
-    arr.splice(currentUserIdIndex, 1);
-    
-    var userObj = Meteor.users.findOne(arr[0]);
+  getName: function (profile) {    
+    var userObj = getAnotherUser();
     return getFullNameByProfileObj(userObj.profile);
   },
 
@@ -226,13 +221,15 @@ Template.ChatRoom.helpers({
   },
 
   isWorkOff: function (argument) {
-    var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
-    var targetUserObj = lodash.reject(arr, {_id: Meteor.userId()})[0];
+    
+    //get another person's user object in 1 to 1 chatroom.     
+    var targetUserObj = getAnotherUser();
+
   },
 
   targertWorkingTime: function (argument) {
     var displayOffline = false;
-    var target = Meteor.users.findOne({_id: {$ne: Meteor.userId()}});
+    var target = getAnotherUser();
     if (target.profile.role === "Teacher") {
       if (target.profile.chatSetting && target.profile.chatSetting.workHour) {
         
@@ -359,7 +356,14 @@ function onSuccess(imageURI) {
                 log.error("error", error);
               }
             });
-            var targetId = Meteor.users.findOne({_id: {$nin: [Meteor.userId()]}})._id;
+            
+            //get another person's user object in 1 to 1 chatroom. 
+            var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
+            var currentUserIdIndex = arr.indexOf(Meteor.userId());
+            arr.splice(currentUserIdIndex, 1);
+            
+            var targetUserObj = Meteor.users.findOne(arr[0]);               
+            var targetId = targetUserObj._id;
             var query = {};
             query.userId = targetId;
             var notificationObj = {};
@@ -420,7 +424,14 @@ function onResolveSuccess(fileEntry) {
             log.error("error", error);
           }
         });
-        var targetId = Meteor.users.findOne({_id: {$nin: [Meteor.userId()]}})._id;
+
+        //get another person's user object in 1 to 1 chatroom. 
+        var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
+        var currentUserIdIndex = arr.indexOf(Meteor.userId());
+        arr.splice(currentUserIdIndex, 1);
+        var targetUserObj = Meteor.users.findOne(arr[0]);          
+        var targetId = targetUserObj._id;
+        
         var query = {};
         query.userId = targetId;
         var notificationObj = {};
@@ -517,3 +528,13 @@ function imageAction() {
   window.plugins.actionsheet.show(options, callback);
 }
 
+//call by chatroom helpers
+function getAnotherUser(){
+            //get another person's user object in 1 to 1 chatroom. 
+            var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
+            var currentUserIdIndex = arr.indexOf(Meteor.userId());
+            arr.splice(currentUserIdIndex, 1);
+            
+            var targetUserObj = Meteor.users.findOne(arr[0]);  
+            return   targetUserObj;
+}
