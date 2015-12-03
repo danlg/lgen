@@ -1,0 +1,65 @@
+<template name="Tour">
+  <!--{{#contentFor "headerTitle"}}-->
+    <!--<h1 class="title">Little Genius</h1> {{/contentFor}} {{#contentFor "headerButtonRight"}}-->
+
+<!--{{/contentFor}}-->
+  <!--{{#ionContent}}-->
+  {{#ionSlideBox}}
+
+    <!--slide 1-->
+    {{#ionSlide}}
+      <div class="heading text-center">
+        <div><img class="tourstyle" src="/img/tour/1.reach-class.jpg"/></div>
+      </div>
+    {{/ionSlide}}
+    <!--slide 2-->
+    {{#ionSlide}}
+      <div class="heading text-center">
+        <div><img class="tourstyle" src="/img/tour/2.shakeaspeare.jpg"/></div>
+      </div>
+    {{/ionSlide}}
+    <!--slide 3-->
+    {{#ionSlide}}
+      <div class="heading text-center">
+        <div><img class="tourstyle" src="/img/tour/3.einstein.jpg"/></div>
+      </div>
+    {{/ionSlide}}
+    <!--slide 4-->
+    {{#ionSlide}}
+      <div class="heading text-center">
+        <div><img class="tourstyle" src="/img/tour/4.chat-newton.jpg"/></div>
+      </div>
+    {{/ionSlide}}
+    <!--slide 5-->
+    {{#ionSlide}}
+      <div class="heading text-center">
+        <div><img class="tourstyle" src="/img/tour/5.no-more-admin.png"/></div>
+      </div>
+    {{/ionSlide}}
+    <!--slide 6-->
+    {{#ionSlide}}
+      <div class="heading text-center">
+        <div><img class="tourstyle" src="/img/tour/6.office-hours.jpg"/></div>
+      </div>
+    {{/ionSlide}}
+   <!--Last one-->
+    {{#ionSlide}}
+      <div class="item text-center padding" style="background-color:#fff; height:90vw;vertical-align: middle">
+        <div class="padding">
+          <img style="width:200px; height:200px;margin:0 auto;margin-top: 60px;" src="/img/icon-hd-email.png" alt="Little Genius">
+        </div>
+        <!--div class="padding strong">OK got it</div-->
+        <div class="item" style="background-color:#fff; border-width:0;">
+        </div></div>
+      <div class="item" style="background-color:#ACDA46; height:100vw">
+        <div class="text-center padding"><i class="icon ion-ios-checkmark-outline" style="font-size:3.2em;"></i></div>
+        <div class="text-center strong" style=""> {{_ "EnjoyTheApp"}} </div>
+        <button class="redirect-button button button-full button-positive strong" style="background-color:#fff; color:#000">
+          {{_ "OKay"}}
+        </button>
+      </div>
+    {{/ionSlide}}
+
+  {{/ionSlideBox}}
+  <!--{{/ionContent}}-->
+</template>
