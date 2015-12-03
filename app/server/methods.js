@@ -100,9 +100,9 @@ Meteor.methods({
     var acceptLinkEncoded = encodeURI(acceptLink);
     var first = Meteor.user().profile.firstname;
     var last = Meteor.user().profile.lastname;
-    log.info("send invite");
-    log.info(first+last+" "+acceptLinkEncoded+" TO: "+"  "+ targetFirstEmail);
-    log.info(inviteClassMailTemplate(targetFirstEmail, classObj));
+    log.info("classinvite:classCode:"+ classObj.classCodefirst+":from:"+last+ ":to:"+ targetFirstEmail + ":URI:"+acceptLinkEncoded);
+    //do not log the CONTENT of every message sent !
+    //log.info(inviteClassMailTemplate(targetFirstEmail, classObj));
     if (lodash.get(Meteor.user(), "profile.email")) {
       try {
         Mandrill.messages.send(inviteClassMailTemplate(targetFirstEmail, classObj));
