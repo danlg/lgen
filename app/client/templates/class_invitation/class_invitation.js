@@ -20,7 +20,7 @@ Template.ClassInvitation.helpers({
 /* ClassInvitation: Lifecycle Hooks */
 /*****************************************************************************/
 Template.ClassInvitation.created = function () {
-   classObj = Classes.findOne();
+   classObj = Classes.findOne({classCode: Router.current().params.classCode});
 };
 
 Template.ClassInvitation.rendered = function () {

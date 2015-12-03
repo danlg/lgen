@@ -14,9 +14,7 @@ Template.ClassPanel.events({
   'change .chooseType': function (evt) {
     var type = $(evt.target).val();
     var msgId = $(evt.target).data('mgsid');
-    var classObj = Classes.findOne({
-      classCode: Router.current().params.classCode
-    });
+    var classObj = Classes.findOne({classCode: Router.current().params.classCode});
     Meteor.call("updateMsgRating", type, msgId, classObj);
   },
   'keyup .search': function () {
@@ -38,9 +36,7 @@ Template.ClassPanel.events({
 /*****************************************************************************/
 Template.ClassPanel.helpers({
   classObj: function () {
-    var classObj = Classes.findOne({
-    classCode: Router.current().params.classCode
-  });
+    var classObj = Classes.findOne({classCode: Router.current().params.classCode});
     return classObj;
   },
   classCode: function () {
@@ -92,9 +88,7 @@ Template.ClassPanel.created = function () {
 
 Template.ClassPanel.rendered = function () {
 
-  var classObj = Classes.findOne({
-    classCode: Router.current().params.classCode
-  });
+  var classObj = Classes.findOne({classCode: Router.current().params.classCode});
   log.info(classObj);     
   Meteor.call('getFullNameById', classObj.createBy, function (err, data) {
     return teacherName.set(data);

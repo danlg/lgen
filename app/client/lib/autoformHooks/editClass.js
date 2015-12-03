@@ -5,19 +5,6 @@ var postHooks = {
     }
   },
   onSuccess: function (operation, result, template) {
-    // display success, reset form status
-
-    /*classObj = Classes.findOne({_id:result});
-
-     Meteor.call(
-     'addClassMail',
-     Meteor.user().emails[0].address,
-     classObj.className,
-     function(err,res){
-     err?alert(err.reason);:Router.go('TabClasses');
-     });*/
-    // alert("update success");
-
 
     Router.go("TabClasses");
 

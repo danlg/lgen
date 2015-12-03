@@ -17,12 +17,11 @@ Template.ClassInformation.helpers({
     /*log.info(Classes.find().count());
     log.info(Classes.find().fetch());
     log.info(Classes.findOne());*/
-    return Classes.findOne({
-    classCode: Router.current().params.classCode
-  });
+    return Classes.findOne({classCode: Router.current().params.classCode});
   },
   teacher: function () {
-    return Meteor.users.findOne({_id: {$nin: [Meteor.userId()]}});
+    var teacherUserid = Classes.findOne({classCode: Router.current().params.classCode}).createBy;
+    return Meteor.users.findOne(teacherUserid);
   }
 });
 
