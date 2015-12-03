@@ -8,7 +8,7 @@ var classObj;
 Template.EmailInvite.events({
   'click .inviteBtn': function (e) {
 
-    var classObj = Classes.findOne();
+    var classObj = Classes.findOne({classCode: Router.current().params.classCode});
 
 
     var id = $(e.target).data("id");
@@ -29,13 +29,6 @@ Template.EmailInvite.events({
         Meteor.call("updateProfileByPath", 'profile.firstinvitation', false);
       }
 
-      // Meteor.call("addInvitedPplId",id , function(error, result){
-      //   if(error){
-      //     log.error("error", error);
-      //   }else{
-      //
-      //   }
-      // });
 
     });
 
@@ -71,7 +64,7 @@ Template.EmailInvite.helpers({
 
   },
   classObj: function () {
-    return Classes.findOne();
+    return Classes.findOne({classCode: Router.current().params.classCode});
   },
   inviteClassSchema: Schema.inviteClass,
   contactList: function () {

@@ -83,11 +83,14 @@ spacebars
 check
 meteorhacks:npm
 dburles:spacebars-tohtml
-meteorhacks:fast-render
 konecty:autolinker
 launch-screen
 
 
+
+
+
+meteorhacks:subs-manager
 
 
 npm-container

@@ -4,13 +4,13 @@
 /*****************************************************************************/
 Template.ClassEdit.events({
   'click .removeAllUserBtn': function () {
-    Meteor.call("class/deleteUser", Classes.findOne(), function () {
+    Meteor.call("class/deleteUser", Classes.findOne({classCode: Router.current().params.classCode}), function () {
       alert("success removed!");
     });
   },
 
   'click .removeClass': function () {
-    Meteor.call("class/delete", Classes.findOne(), function () {
+    Meteor.call("class/delete", Classes.findOne({classCode: Router.current().params.classCode}), function () {
       Router.go('TabClasses');
     });
   },
@@ -32,7 +32,7 @@ Template.ClassEdit.helpers({
     return Classes.findOne({classCode: Router.current().params.classCode});
   },
   classId: function () {
-    return Classes.findOne()._id;
+    return Classes.findOne({classCode: Router.current().params.classCode})._id;
   },
   getNewlyChosenAvatar:function(){
     var chosenIcon = Session.get('chosenIconForEditClass');

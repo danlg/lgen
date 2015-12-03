@@ -1,10 +1,12 @@
 var text = new ReactiveVar('');
 var classObj;
 
+
 var soundArr = ReactiveVar([]);
 var isRecording = false;
 var media = "";
 var isPlayingSound = false;
+
 /*****************************************************************************/
 /* ClassPanel: Event Handlers */
 /*****************************************************************************/
@@ -12,7 +14,7 @@ Template.ClassPanel.events({
   'change .chooseType': function (evt) {
     var type = $(evt.target).val();
     var msgId = $(evt.target).data('mgsid');
-    var classObj = Router.current().data().classObj;
+    var classObj = Classes.findOne({classCode: Router.current().params.classCode});
     Meteor.call("updateMsgRating", type, msgId, classObj);
   },
   'keyup .search': function () {
@@ -34,11 +36,11 @@ Template.ClassPanel.events({
 /*****************************************************************************/
 Template.ClassPanel.helpers({
   classObj: function () {
-    classObj = Classes.findOne();
+    var classObj = Classes.findOne({classCode: Router.current().params.classCode});
     return classObj;
   },
   classCode: function () {
-    return Classes.findOne().classCode;
+    return Router.current().params.classCode
   },
   isNotEmpty: function (action) {
     return action.length > 0;
@@ -76,10 +78,13 @@ Template.ClassPanel.helpers({
 /* ClassPanel: Lifecycle Hooks */
 /*****************************************************************************/
 Template.ClassPanel.created = function () {
+  
+
+
 };
 
 Template.ClassPanel.rendered = function () {
-
+ 
 };
 
 Template.ClassPanel.destroyed = function () {

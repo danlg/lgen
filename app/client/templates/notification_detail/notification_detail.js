@@ -8,12 +8,12 @@ Template.NotificationDetail.events({});
 /*****************************************************************************/
 Template.NotificationDetail.helpers({
   msgObj: function () {
-    var classes = Classes.findOne();
+    var classes = Classes.findOne({'messagesObj.msgId':Router.current().params.msgCode});
     var msgObj = classes.messagesObj;
     return lodash.find(msgObj, 'msgId', Router.current().params.msgCode);
   },
   classObj: function () {
-    return Classes.findOne();
+    return Classes.findOne({'messagesObj.msgId':Router.current().params.msgCode});
   }
 });
 
