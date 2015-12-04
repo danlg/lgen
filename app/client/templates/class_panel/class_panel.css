@@ -5,8 +5,8 @@
 	
   overflow-x: hidden;
   overflow-y: auto;
-  /*height: calc(100% - 113px);*/
-  height: calc(100% - 43px);
+  height: calc(100% - 113px);
+  /*height: calc(100% - 43px);*/
   bottom: 0;
   
 }
