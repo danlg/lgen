@@ -28,9 +28,12 @@
          
 
           <div>
-            <button class="button button-block button-positive shareBtn">
-              <i class="icon ion-ios-upload-outline"> {{_ "Share" }}</i>
-            </button>
+            {{#if isCordova}}
+              <!--display share button only if using cordova in android and ios-->
+              <button class="button button-block button-positive shareBtn">
+                <i class="icon ion-ios-upload-outline"> {{_ "Share" }}</i>
+              </button>
+            {{/if}}
             <!-- <button style="button button-block button-positive" onclick="window.plugins.socialsharing.share('Message only')">message only</button> -->
             <button class="button button-block button-positive copyBth">
               {{_ "Copy"}}
