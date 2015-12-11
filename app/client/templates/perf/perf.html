@@ -1,0 +1,15 @@
+<template name="Perf">
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title"></h1>
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}
+      <div class="list">
+          {{> serverFacts}}
+      </div>
+    {{/ionContent}}
+  {{/ionView}}
+
+</template>
