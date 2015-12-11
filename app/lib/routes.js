@@ -32,14 +32,6 @@ OnBeforeActions = {
       this.next();
     }
   },
-  AdminRequired:function(){
-    if (Meteor.user() && Meteor.user().admin) {
-      this.next();
-    } else {
-      Router.go('Login');
-      this.next();
-    }    
-  },
   checkLanguage: function (pause) {
     if (Meteor.isCordova) {
       var pattern = /-.*/g;
@@ -83,13 +75,13 @@ OnBeforeActions = {
 Router.onBeforeAction(OnBeforeActions.LoginRequired, {
   except: ['language', 'Login', 'EmailSignup', 'EmailSignin', 'role',
    'Testing', 'Test2','ClassInformationForWebUser','ClassSearchInformationForWebUser',
-   'TermsOfService','PrivacyPolicy','Tour']
+   'TermsOfService','PrivacyPolicy','Tour','Perf']
 });
 
 Router.onBeforeAction(OnBeforeActions.LoginedRedirect, {only: ['language']});
 Router.onBeforeAction(OnBeforeActions.roleRequired, {only: ['TabChat']} );
 Router.onBeforeAction(OnBeforeActions.roleRequired, {only: ['TabClasses'] });
-Router.onBeforeAction(OnBeforeActions.AdminRequired, {only: ['Perf'] });
+
 
 Router.onBeforeAction('loading');
 Router.onBeforeAction(OnBeforeActions.checkLanguage);
