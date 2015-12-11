@@ -28,5 +28,11 @@
 
   "FROM_EMAIL": "contactemail@littlegenius.io",
   "FROM_NAME": "Little Genius",
-  "FEEDBACK_EMAIL": "feedback@littlegenius.io"
+  "FEEDBACK_EMAIL": "feedback@littlegenius.io",
+
+  "kadira": { 
+    "appId": "R3JDmnkKytkupQkcQ", 
+    "appSecret": "15a08f72-98be-4f21-a004-f282f5aa343e" 
+  }
+
 }
