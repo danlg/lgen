@@ -113,7 +113,8 @@ registerOrLoginWithGoogle = function(){
          if (err) {
           // set a session variable to display later if there is a login error
           Session.set('loginError', 'reason: ' + err.reason + ' message: ' + err.message || 'Unknown error');
-          alert(err.message + ":" + err.reason);
+          //alert(err.message + ":" + err.reason);
+          alert('Sorry. Google Login is not available at the moment because it is unable to connect to the Internet.')
           log.error('login:google:'+ err.reason +" msg="+ err.message);
         }
         else {
