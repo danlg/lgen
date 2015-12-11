@@ -355,6 +355,10 @@ Router.route('About',{
   path:"about"
 });
 
+Router.route('Report',{
+  path: "report"
+});
+
 Router.route('HowToInvite',{
     layoutTemplate:'',
     path:"help/howtoinvite"
@@ -369,8 +373,10 @@ Router.route('HowToInviteShort/:classCode'
   }
 );
 
-Router.route('NotificationSetting', {
-});
+Router.route('NotificationSetting' , {
+    path: "notifsetting"
+  }
+);
 
 Router.route('join/', {
   name: 'ClassSearchInformationForWebUser'

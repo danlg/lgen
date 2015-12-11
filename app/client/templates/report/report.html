@@ -1,0 +1,54 @@
+<template name="Report">
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">{{_ "Report_desc"}}</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton text=" "}}
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}
+
+      <div class="report">
+        <ul class="list">
+          <li class="item item-divider">
+            {{_ "Report_subtitle"}}
+
+          </li>
+          <li class="item">
+
+            <span>Respect and safety are at the heart of any meaningful community, so the safety and well-being of our
+            community is our highest priority. Everyone plays an important role in this effort.
+<br><br>
+            We strongly encourage all of our users, whether you’re an Organizer (e.g., teacher, administrator, coach),
+            Subscriber (e.g., student, parent, athlete), or Organization (e.g., school, district, PTA group)
+            to report any inappropriate content or other threatening use of Little Genius’s Services.
+<br><br>
+            If you need to report anyone to Little Genius in any violations of these Guidelines or our Terms of service,
+            you can contact us at
+              <a href="mailto:report@littlegenius.io" target="_top" style='color: darkgreen !important;font-weight:bold'>
+                report@littlegenius.io</a>.
+              <br><br>
+              Fair play usage is the rule of the game and we may suspend the account of the member in violation of the Terms of Service.
+<br><br>
+            In order to keep our community safe, here’s a reminder of what to avoid:
+            </span>
+              <ul style="list-style-type:disc; padding: 10px 20px">
+                <li>Profanity</li>
+                <li>Harassment, bullying, and gossip</li>
+                <li>Pretending to be someone else</li>
+                <li>Spamming subscribers</li>
+                <li>Threatening harm to yourself or others</li>
+                <li>Using Little Genius for commercial purposes</li>
+                <li>Nudity or sexually suggestive content of any kind </li>
+              </ul>
+          </li>
+
+        </ul>
+      </div>
+
+    {{/ionContent}}
+  {{/ionView}}
+</template>
