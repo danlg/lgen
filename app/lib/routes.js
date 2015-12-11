@@ -32,6 +32,14 @@ OnBeforeActions = {
       this.next();
     }
   },
+  AdminRequired:function(){
+    if (Meteor.user() && Meteor.user().admin) {
+      this.next();
+    } else {
+      Router.go('Login');
+      this.next();
+    }    
+  },
   checkLanguage: function (pause) {
     if (Meteor.isCordova) {
       var pattern = /-.*/g;
@@ -81,6 +89,7 @@ Router.onBeforeAction(OnBeforeActions.LoginRequired, {
 Router.onBeforeAction(OnBeforeActions.LoginedRedirect, {only: ['language']});
 Router.onBeforeAction(OnBeforeActions.roleRequired, {only: ['TabChat']} );
 Router.onBeforeAction(OnBeforeActions.roleRequired, {only: ['TabClasses'] });
+Router.onBeforeAction(OnBeforeActions.AdminRequired, {only: ['Perf'] });
 
 Router.onBeforeAction('loading');
 Router.onBeforeAction(OnBeforeActions.checkLanguage);
@@ -387,3 +396,5 @@ Router.route('join/:classCode?', {
 });
 
 Router.route('EmailVerification');
+
+Router.route('Perf');

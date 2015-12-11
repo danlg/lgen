@@ -48,4 +48,10 @@ Meteor.startup(function () {
     log.error("Unknown Meteor.settings.GOOGLE_CLIENT_ID");
   }
 
+  //only user with admin key and the value set as true can view the facts in perf page
+  Facts.setUserIdFilter(function (userId) {
+    var user = Meteor.users.findOne(userId);
+    return user && user.admin;
+  });
+  
 });
