@@ -194,7 +194,7 @@ Router.map(function(){
   });
   
   this.route('ClassPanel',{
-    path: "/class/:classCode",
+    path: "/class/:classCode/panel",
     waitOn: function () {
       return [
         Meteor.subscribe('class', this.params.classCode),
@@ -208,7 +208,7 @@ Router.map(function(){
 
 
 Router.route('AddClass', {
-  path: "class/add"
+  path: "/class/add"
 });
 
 Router.route('JoinClass', {
