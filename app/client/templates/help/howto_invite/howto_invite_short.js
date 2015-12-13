@@ -4,7 +4,7 @@ var classCodeLocal = "";
 
 Template.HowToInviteShort.events({
   'click .redirect-button':function(){
-     routeToTabClasses();
+     Router.go("ClassPanel",{classCode :classCodeLocal});
   }
 });
 
