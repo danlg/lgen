@@ -58,13 +58,15 @@
           <textarea dir="auto" name="msg" maxlength="5000" class="inputBox msgBox autogrow-short" placeholder=""></textarea>
           <button style="min-height:0;border:0;padding:0;margin:0;border-radius:6px;width:100px;display:none;{{isShown}}" class="send-msg-btn-class sendMsgBtn button icon  ion-paper-airplane "></button>
           <span class='mediaButtonGroup' style='width:107px;{{isHidden}}'>
-                    <span class="file image-btn-class" style='display:inline;padding:10px;'>
-                        <i class="icon ion-ios-camera-outline imageIcon {{ isDisabled 'camera' }} "></i>
-                        <input type="file" id="imageBtn" accept="image/*;capture=camera" capture="camera" {{ isDisabled 'camera' }}>
-                      </span>
-          <span class="file voice voice-btn-class {{ isDisabled 'voice' }} " style='display:inline;padding:10px;'>
-                        <i class="icon  ion-ios-mic-outline {{ isDisabled 'voice' }} "></i>
-                      </span>
+            <span class="file image-btn-class" style='display:inline;padding:10px;'>
+              <i class="icon ion-ios-camera-outline imageIcon {{ isDisabled 'camera' }} "></i>
+              <input type="file" id="imageBtn" accept="image/*;capture=camera" capture="camera" {{ isDisabled 'camera' }}>
+            </span>
+            {{#if isCordova}}
+            <span class="file voice voice-btn-class {{ isDisabled 'voice' }} " style='display:inline;padding:10px;'>
+              <i class="icon  ion-ios-mic-outline {{ isDisabled 'voice' }} "></i>
+            </span>
+            {{/if}}
           </span>
         </div>
    
@@ -115,11 +117,13 @@
                 <input type="file" id="imageBtn" accept="image/*;capture=camera" capture="camera" {{ isDisabled 'camera' }}>
               </div>
             </div>
+            {{#if isCordova}}
             <div class="col col-10">
               <div class="file voice {{ isDisabled 'voice' }} ">
                 <i class="icon  ion-mic-a {{ isDisabled 'voice' }} "></i>
               </div>
             </div>
+            {{/if}}
           </div>
         </div>
 
