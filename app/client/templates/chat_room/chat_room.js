@@ -455,25 +455,6 @@ function fail(error) {
   log.error('fail: ' + error.code);
 }
 
-function playAudio(url, callback) {
-  // Play the audio file at url
-  // log.info(callback);
-  var my_media = new Media(url,
-    // success callback
-    function () {
-      log.info("playAudio():Audio Success");
-      callback();
-      log.info("calledback");
-    },
-    // error callback
-    function (err) {
-      log.error("playAudio():Audio Error: " + err);
-    }
-  );
-  // Play audio
-  my_media.play({numberOfLoops: 1});
-}
-
 var callback = function (buttonIndex) {
   setTimeout(function () {
     // like other Cordova plugins (prompt, confirm) the buttonIndex is 1-based (first button is index 1)

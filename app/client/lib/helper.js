@@ -95,6 +95,30 @@ registerNewUser = function(email,firstname,lastname,password){
         }
       });
     }
+
+};
+
+
+playAudio = function(url, callback) {
+  
+  // Play the audio file at url
+     log.info(callback);
+  var my_media = new Media(url,
+    // success callback
+    function () {
+      log.info("playAudio():Audio Success");
+      callback();
+      log.info("calledback");
+    },
+    // error callback
+    function (err) {
+      log.error("playAudio():Audio Error: " + err);
+    }
+  );
+  // Play audio
+  my_media.play({
+    numberOfLoops: 1
+  });
 };
 
 registerOrLoginWithGoogle = function(){
@@ -131,3 +155,5 @@ registerOrLoginWithGoogle = function(){
         }
       });   
 };
+
+
