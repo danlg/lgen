@@ -321,6 +321,13 @@ Template.SendMessage.helpers({
   },
   isCordova: function(){
     return Meteor.isCordova;
+  },
+  withExtraRightPadding:function(){
+    if(!Meteor.isCordova){
+      return "padding-right:40px;"
+    }else{
+      return "";
+    }
   }
 });
 

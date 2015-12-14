@@ -101,15 +101,15 @@
           <textarea style="" dir="auto" name="msg" maxlength="5000"
                     class="inputBox autogrow-short" placeholder=""></textarea>
           <button style="min-height:0;border:0;padding:0;margin:0;border-radius:6px;width:100px;display:none;" class="sendBtn button icon  ion-paper-airplane "></button>
-          <span class='mediaButtonGroup' style='width:107px;'>
+          <span class='mediaButtonGroup'>
             
-                <span class="file " style='display:inline;padding:10px;'>
+                <span class="file " style='display:inline;padding:10px;{{withExtraRightPadding}}'>
                   <i class="icon ion-ios-camera-outline imageIcon "></i>
                   <input type="file" id="imageBtn" accept="image/*;capture=camera" capture="camera">
                 </span>
           
                 {{#if isCordova}}
-                  <span class="file voice" style='display:inline;padding:10px;'>
+                  <span class="file voice" style='display:inline;padding:10px;padding-right:40px;'>
                     <i class="icon  ion-ios-mic-outline "></i>
                   </span>
                 {{/if}}

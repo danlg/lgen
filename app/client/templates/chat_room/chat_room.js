@@ -190,6 +190,13 @@ Template.ChatRoom.helpers({
   isCordova: function(){
     return Meteor.isCordova;
   },
+  withExtraRightPadding:function(){
+    if(!Meteor.isCordova){
+      return "padding-right:40px;"
+    }else{
+      return "";
+    }
+  },  
   isMine: function () {
     return this.from === Meteor.userId() ? "mine" : "notmine";
   },
