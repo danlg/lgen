@@ -46,7 +46,7 @@ Template.TabYou.events({
     }//end of isCordova
     else{
       //if is not cordova, try to send via user email client
-      window.location.href = "mailto:mail@example.org?body="+text;
+      window.location.href = "mailto:?body="+text;
     }
     
   }
