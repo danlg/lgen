@@ -1,3 +1,4 @@
+/*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 // server code
 /*Mandrill.config({
  username: Meteor.settings.MANDRILL_API_USER,  // the email address you log into Mandrill with. Only used to set MAIL_URL.

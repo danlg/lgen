@@ -1,3 +1,4 @@
+/*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 /*****************************************************************************/
 /* NotificationDetail: Event Handlers */
 /*****************************************************************************/

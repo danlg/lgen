@@ -1,3 +1,4 @@
+/*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 var classObj;
 var isRecording = false;
 var media = "";

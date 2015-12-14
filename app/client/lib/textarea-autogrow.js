@@ -1,8 +1,6 @@
 (function ($) {
   /**
-   * Auto-growing textareas; technique ripped from Facebook
-   *
-   *
+   * Auto-growing textareas;
    * http://github.com/jaz303/jquery-grab-bag/tree/master/javascripts/jquery.autogrow-textarea.js
    */
   $.fn.autogrow = function (options) {

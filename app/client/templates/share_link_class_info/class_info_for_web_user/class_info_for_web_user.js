@@ -1,3 +1,4 @@
+/*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 Session.setDefault("search","");
 Session.setDefault("Referral",false);
 /*****************************************************************************/
