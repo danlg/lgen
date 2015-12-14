@@ -1,3 +1,4 @@
+/*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 getUserLanguage = function () {
   // Put here the logic for determining the user language
 

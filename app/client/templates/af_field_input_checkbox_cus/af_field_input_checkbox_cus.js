@@ -1,3 +1,5 @@
+/*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
+
 /*****************************************************************************/
 /* AfFieldInputCheckboxCus: Event Handlers */
 /*****************************************************************************/

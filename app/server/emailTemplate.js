@@ -1,4 +1,5 @@
-//template for email messaging of chat room and class 
+/*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
+//template for email messaging of chat room and class
 messageEmailTemplate = function (RecipientUsers, OriginateUserName,content, className) {
 
   var bccList = [];

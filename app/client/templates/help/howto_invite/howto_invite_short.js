@@ -1,4 +1,5 @@
-//var democlass = "mathfun";
+/*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
+
 //todo refactor to avoid copy paste code
 var classCodeLocal = "";
 

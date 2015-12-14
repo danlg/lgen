@@ -1,3 +1,4 @@
+/*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 //return an array of objects according to key, value, or key and value matching
 getObjects = function (obj, key, val) {
   var objects = [];

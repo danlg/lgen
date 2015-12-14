@@ -1,3 +1,4 @@
+/*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 /* icon chooser
 * input parameters:
 * sessionToBeSet: icon user choose would be set to this session.
