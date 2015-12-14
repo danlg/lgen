@@ -353,7 +353,34 @@ Meteor.methods({
       } else {
         Accounts.sendVerificationEmail(Meteor.userId());
       }
-  }  
+  },
+  getUserList:function(){
+    if(Meteor.user().admin){
+      var result = Meteor.users.find({}).fetch();
+      return result;
+    }else{
+      return "";
+    }
+  },
+  getClassList:function(){
+    if(Meteor.user().admin){
+      var result = Classes.find({}).fetch();
+      return result;
+    }else{
+      return "";
+    }    
+  },
+  getSetting:function(){
+    if(Meteor.user().admin){
+      var result = Meteor.settings.public;
+      var resultWrapInArray = [];
+      resultWrapInArray.push(result);
+      
+      return resultWrapInArray;
+    }else{
+      return [];
+    }    
+  }    
 
 });
 

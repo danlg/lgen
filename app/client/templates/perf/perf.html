@@ -6,9 +6,26 @@
 
   {{#ionView}}
     {{#ionContent}}
+    <style>
+        table, th, td {
+          border: 1px solid black;
+        }
+    </style>
+  
       <div class="list">
           {{> serverFacts}}
+          <button class='getUserList'>get user list</button>
+         
+       {{> reactiveTable class="table" collection=userListArray settings=userListSettings}}
+         
+          <button class='getClassList'>get class list</button>
+      
+{{> reactiveTable class="table" collection=classListArray}}
+
+          <button class='getSetting'>get setting</button>
+          {{> reactiveTable class="table" collection=settingArray settings=settingsSettings}}
       </div>
+     
     {{/ionContent}}
   {{/ionView}}
 
