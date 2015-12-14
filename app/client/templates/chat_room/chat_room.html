@@ -108,11 +108,12 @@
                   <input type="file" id="imageBtn" accept="image/*;capture=camera" capture="camera">
                 </span>
           
-            
-                <span class="file voice" style='display:inline;padding:10px;'>
-                  <i class="icon  ion-ios-mic-outline "></i>
-                </span>
-           
+                {{#if isCordova}}
+                  <span class="file voice" style='display:inline;padding:10px;'>
+                    <i class="icon  ion-ios-mic-outline "></i>
+                  </span>
+                {{/if}}
+                
           </span>
         </div>
         {{/if}}

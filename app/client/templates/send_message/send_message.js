@@ -319,6 +319,9 @@ Template.SendMessage.helpers({
     }else{
       return "";
     }    
+  },
+  isCordova: function(){
+    return Meteor.isCordova;
   }
 });
 
