@@ -65,10 +65,20 @@
                 {{#if this.isUploaded}}
                   {{#if this.hasStored 'sounds'}}
                     {{#if  this.url}}
-                      <div class="bubble sound-bubble">
-                        <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}"></a>
-                        <br/><span  class='timestamp'>{{formatTime  ../sendAt}}</span>                       
-                      </div>
+                      {{#if isCordova}}
+                        <div class="bubble sound-bubble">
+                          <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}"></a>
+                          <br/><span  class='timestamp'>{{formatTime  ../sendAt}}</span>                       
+                        </div>                      
+                      {{else}}
+                        <div class="bubble sound-bubble">
+                          <audio controls>
+                            <source src="{{this.url}}" type="audio/wav">
+                          </audio>
+                          <br/><span  class='timestamp'>{{formatTime  ../sendAt}}</span>                       
+                        </div>                       
+                      {{/if}}
+
                     {{/if}}
                   {{/if}}
                 {{/if}}

@@ -187,7 +187,9 @@ Template.ChatRoom.helpers({
   chatRoomProfile: function () {
     return Chat.findOne({_id: Router.current().params.chatRoomId});
   },
-
+  isCordova: function(){
+    return Meteor.isCordova;
+  },
   isMine: function () {
     return this.from === Meteor.userId() ? "mine" : "notmine";
   },
