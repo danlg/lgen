@@ -27,6 +27,20 @@ Template.ClassPanel.events({
   'click .imgThumbs': function (e) {
     var imageFullSizePath = $(e.target).data('fullsizeimage');
     IonModal.open('imageModal', {src: imageFullSizePath});
+  },
+  'click .playBtn': function (e) {
+    if (!isPlayingSound) {
+      isPlayingSound = true;
+      var playname = $(e.target).data('clipid');
+      //  $(e.target).attr('class','icon ion-stop');
+      $(e.target).attr('class', 'button button-icon icon ion-stop ');
+
+      // alert("startPlay");
+      playAudio(Sounds.findOne(playname).url(), function (argument) {
+        $(e.target).attr('class', 'button button-icon icon ion-play playBtn');
+        isPlayingSound = false;
+      });
+    }
   }
   
 });
@@ -70,6 +84,9 @@ Template.ClassPanel.helpers({
   }
   , isZero: function (count) {
     return count === 0;
+  },
+  isCordova: function(){
+    return Meteor.isCordova;
   }
 
 });
