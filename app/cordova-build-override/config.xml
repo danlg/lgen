@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
-<widget id="io.littlegenius.genie" version="1.0.91103"  android-versionCode="100" ios-CFBundleVersion="100" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>LittleGenius</name>
+<widget id="io.littlegenius.genie" version="1.0.91104"  android-versionCode="100" ios-CFBundleVersion="100" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>Little Genius</name>
   <description>Instant, free, simple communication for teachers, students and parents</description>
-  <author href="http://app.littlegenius.io" email="contact@littlegenius.io">Little Genius Education</author>
+  <author href="http://app.littlegenius.io" email="hello@littlegenius.io">Little Genius Education</author>
   <preference name="webviewbounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
   <preference name="deployment-target" value="8.0"/>
   <preference name="AutoHideSplashScreen" value="false"/>
   <preference name="SplashScreen" value="screen"/>
-  <preference name="SplashScreenDelay" value="7000"/>
+  <preference name="SplashScreenDelay" value="5000"/>
   <preference name="StatusBarOverlaysWebView" value="true"/>
   <preference name="StatusBarStyle" value="lightcontent"/>
   <preference name="Orientation" value="portrait"/>
