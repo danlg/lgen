@@ -85,10 +85,21 @@
                       {{#with getSound}}
                         {{#if this.isUploaded}}
                           {{#if this.hasStored 'sounds'}}
-                            <div class="bubble">
-                              <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}"></a>
-                              <!-- <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a> -->
-                            </div>
+                            {{#if  this.url}}
+                              {{#if isCordova}}
+                                <div class="bubble">
+                                  <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}"></a>
+                                  <!-- <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a> -->
+                                </div>                    
+                              {{else}}
+                                <div class="bubble">
+                                  <audio controls>
+                                    <source src="{{this.url}}" type="audio/wav">
+                                  </audio>
+                                  <!-- <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a> -->
+                                </div>                                                                                    
+                              {{/if}}
+                            {{/if}} 
                           {{/if}}
                         {{/if}}
                       {{/with}}
