@@ -85,9 +85,19 @@ Template.ShareInvite.created = function () {
 
   classObj = Classes.findOne({classCode: Router.current().params.classCode});
   shareLink.set (link + "/join/"+ classObj.classCode);
+  
 };
 
 Template.ShareInvite.rendered = function () {
+  $('#shareLinkQRcode').qrcode({
+    size: 200,
+    text:shareLink.get(),
+    ecLevel: 'H',
+    fill: '#436100', 
+    mode:4,
+    mSize: 0.3,  
+    image:$('#img-buffer')[0]
+  });
 };
 
 Template.ShareInvite.destroyed = function () {
