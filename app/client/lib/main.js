@@ -24,7 +24,9 @@ Meteor.startup(function () {
     }
   });
   
-
+  toastr.options = {
+    "positionClass": "toast-bottom-full-width"
+  }
   
 });
 
@@ -36,7 +38,7 @@ AutoForm.submitFormById = function (id) {
 
 Accounts.onEmailVerificationLink(function (token) {
   Accounts.verifyEmail(token, function (err) {
-    err ? alert(err.reason) : Router.go('TabClasses');
+    err ? toastr.error(err.reason) : Router.go('TabClasses');
   });
 });
 

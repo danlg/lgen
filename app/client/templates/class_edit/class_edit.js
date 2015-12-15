@@ -6,7 +6,7 @@
 Template.ClassEdit.events({
   'click .removeAllUserBtn': function () {
     Meteor.call("class/deleteUser", Classes.findOne({classCode: Router.current().params.classCode}), function () {
-      alert("success removed!");
+      toastr.success("success removed!");
     });
   },
 

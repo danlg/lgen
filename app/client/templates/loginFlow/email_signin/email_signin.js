@@ -29,7 +29,7 @@ Template.ionNavBar.events({
     Meteor.loginWithPassword(loginObj.email, loginObj.pwd, function (err) {
       // err?alert(err.reason);Router.go('TabClasses');
       if (err){
-        alert("user not found");
+        toastr.error("user not found");
         log.error(err);
       }
       else {

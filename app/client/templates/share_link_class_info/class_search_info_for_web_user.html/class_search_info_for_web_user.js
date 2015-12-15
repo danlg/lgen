@@ -18,7 +18,7 @@ Template.ClassSearchInformationForWebUser.events({
         log.error("error", error);
       }
       if (!result) {
-        alert(TAPi18n.__("NoClass"));
+        toastr.error(TAPi18n.__("NoClass"));
       } else {
           var classResult =result;
           

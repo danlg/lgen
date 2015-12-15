@@ -7,7 +7,7 @@ Template.JoinClass.events({
   'click .joinBtn': function () {
     var classCodeInput = $(".classCodeInput").val().trim().toLowerCase();
     if(classCodeInput === ""){
-      alert(TAPi18n.__("JoinAClassByInputClassCode"));
+      toastr.warning(TAPi18n.__("JoinAClassByInputClassCode"));
       return false;
     }
     if(AutoForm.validateForm("joinClassForm")==false){
@@ -18,7 +18,7 @@ Template.JoinClass.events({
         log.error("error", error);
       }
       if (!result) {
-        alert(TAPi18n.__("NoClass"));
+        toastr.error(TAPi18n.__("NoClass"));
       } else {
         IonLoading.show();
         $(joinform).submit();

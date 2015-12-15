@@ -36,7 +36,7 @@ Template.Language.created = function () {
 
       },
       function () {
-        alert('Error getting language\n');
+        toastr.error('Error getting language\n');
       }
     );
     // 	navigator.globalization.getLocaleName(

@@ -14,7 +14,7 @@ var postHooks = {
   },
   onError: function (formType, error) {
     log.error(error);
-    alert(error.reason);
+    toastr.error(error.reason);
   }
 };
 
