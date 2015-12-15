@@ -20,12 +20,7 @@ Template.EmailInvite.events({
 
 
     Meteor.call( "classinvite", classObj, targetFirstEmail, function (err) {
-      
-      if(err){
-        console.log(err);
-      }
-      
-             
+                   
       alert("Invite Success");
 
       if (Meteor.user().profile.firstinvitation) {
@@ -35,8 +30,6 @@ Template.EmailInvite.events({
 
         Meteor.call("updateProfileByPath", 'profile.firstinvitation', false);
       }
-      
-      
 
     });
 
@@ -63,8 +56,10 @@ Template.EmailInvite.events({
         });
         Meteor.call("updateProfileByPath", 'profile.firstinvitation', false);
       }  
+      
       searchText.set('');    
-      $(".searchbar").val('');    
+      $(".searchbar").val('');  
+      isInputAnEmail.set(false);  
     });    
   }
 

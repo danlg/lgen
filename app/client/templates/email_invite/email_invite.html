@@ -32,11 +32,11 @@
       }
     </style>
 
-    <ul class="list">
-      <div class="item item-input">
+    <ul class="list" >
+      <div class="item item-input" style='max-height:50px;'>
         <i class="icon ion-search placeholder-icon"></i>
         <input type="search" class="searchbar" placeholder="search or input emails">
-        <button class='inviteBtnWithEmail {{displayInviteButton}}'> {{_ "invite"}}</button>
+        <button class='button button-positive inviteBtnWithEmail {{displayInviteButton}}'> {{_ "invite"}}</button>
       </div>
       {{#each contactList}}
         {{#if isSearched this}}
