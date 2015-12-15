@@ -37,7 +37,7 @@ Template.EmailInvite.events({
   'keyup .searchbar': function () {
     searchText.set($(".searchbar").val());
     
-    var emailRegex = /.+@.+/ ;
+    var emailRegex = /.+@.+\..+/ ;
     if( emailRegex.test(searchText.get()) ){
         //display invite button
         isInputAnEmail.set(true);
