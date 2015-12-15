@@ -5,31 +5,21 @@ var joinform;
 /*****************************************************************************/
 Template.JoinClass.events({
   'click .joinBtn': function () {
-    var classCodeInput = $(".classCodeInput").val().trim().toLowerCase();
-    if(classCodeInput === ""){
+    var classCodeInput = $(".classCodeInput").val().trim();
+    if (classCodeInput === "") {
       alert(TAPi18n.__("JoinAClassByInputClassCode"));
       return false;
     }
-    if(AutoForm.validateForm("joinClassForm")==false){
+    if (AutoForm.validateForm("joinClassForm") == false) {
       return;
     }
-    Meteor.call("class/search", classCodeInput, function (error, result) {
-      if (error) {
-        log.error("error", error);
-      }
-      if (!result) {
-        alert(TAPi18n.__("NoClass"));
-      } else {
-        IonLoading.show();
-        $(joinform).submit();
-        if (Meteor.user().profile.firstclassjoined) {
-          analytics.track("First Class Joined", {
-            date: new Date(),
-          });
-          Meteor.call("updateProfileByPath", 'profile.firstclassjoined', false);
-        }
-      }
-    });
+    //the form validation will check the uniqueness of the class no need to add login in the client side
+    $(joinform).submit();
+    //TODO analytics to be moved in the server side and counter instead of flag
+    if (Meteor.user().profile.firstclassjoined) {
+      analytics.track("First Class Joined", { date: new Date()});
+      Meteor.call("updateProfileByPath", 'profile.firstclassjoined', false);
+    }
   },
 
   'click .leaveBtn': function (e) {

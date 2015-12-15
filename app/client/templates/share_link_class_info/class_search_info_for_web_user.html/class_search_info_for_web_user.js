@@ -3,7 +3,7 @@ Session.set("search","");
 
 Template.ClassSearchInformationForWebUser.events({
   'keyup .classSearchTextBox':function(e){
-    Session.set("search",$(e.target).val().trim());
+    Session.set("search",$(e.target).val());
   },
   'click .enterBtn':function () {
    
@@ -21,9 +21,8 @@ Template.ClassSearchInformationForWebUser.events({
         alert(TAPi18n.__("NoClass"));
       } else {
           var classResult =result;
-          
           Meteor.call('getUserNameById',classResult.createBy,function(error,result){
-  
+               //todo localize
               var text = 'Join '+ result + "'s "+ classResult.className;
               $('.enterBtn').text(text);
               $('.enterBtn').addClass('readyToJoin');

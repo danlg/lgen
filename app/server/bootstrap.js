@@ -1,8 +1,7 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 Meteor.startup(function () {
-
-
-  Push.debug = true;
+  //Push.debug = true;
+  //SimpleSchema.debug = true;
 
   var log4js = Meteor.npmRequire('log4js');
 //console log is loaded by default, so you won't normally need to do this

@@ -6,18 +6,14 @@ Schema.joinClass = new SimpleSchema({
   classCode: {
     type: String,
     custom:function(){
-      
       if (Meteor.isClient && this.isSet){
-        
          Meteor.call("class/searchExact", this.value, function (err, result) {
-          
-          var isMyClass = result;
-        
-          if (isMyClass) {
-            AutoForm.getValidationContext("joinClassForm").resetValidation();           
-            AutoForm.getValidationContext("joinClassForm").addInvalidKeys([{ name:  "classCode",type:  "notYourClass" }]);      
-          }
-
+          // validation cannot join your own class done on the server side
+          // var isMyClass = result;
+          //if (isMyClass) {
+          //  AutoForm.getValidationContext("joinClassForm").resetValidation();
+          //  AutoForm.getValidationContext("joinClassForm").addInvalidKeys([{ name:  "classCode",type:  "notYourClass" }]);
+          //}
         });       
       }
     }
@@ -43,12 +39,12 @@ Schema.emailSignup = new SimpleSchema({
   },
   password: {
     type: String,
-    min: 8,
+    min: 4,
   },
   confirmPassword: {
     type: String,
     label: "Enter the password again",
-    min: 8,
+    min: 4,
     custom: function () {
       if (this.value !== this.field('password').value) {
         return "passwordMismatch";

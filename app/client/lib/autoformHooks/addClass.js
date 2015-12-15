@@ -4,6 +4,10 @@ var postHooks = {
       if (!doc.classCode) {
         doc.classCode = getClassCodeNew(doc.className);
       }
+      //console.log("1.doc.classCode BEFOR="+doc.classCode);
+      // THIS IS WHAT PREVENTS TO INSERT class code IN UPPER CASE
+      doc.classCode = doc.classCode.trim().toLowerCase();
+      //console.log("2.doc.classCode AFTER="+doc.classCode);
       doc.joinedUserId = [];
       doc.messagesObj = [];
       return doc;
@@ -22,7 +26,7 @@ var postHooks = {
   },
 
   onError: function (formType, error) {
-    alert(error.reason);
+    alert("Cannot add class, please try again");
   },
 
   beginSubmit: function () {

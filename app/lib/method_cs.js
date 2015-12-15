@@ -1,5 +1,17 @@
+/*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 /*
  Client and Server Methods */
+//we factor the code in this method
+var classSearchImpl = function (classCode) {
+  if (classCode) {
+    log.info ("class/search:"+ classCode.trim());
+    var regexp = new RegExp("^" + classCode.trim()+ "$", "i");
+    var resultset = Classes.findOne({"classCode":  {$regex: regexp} });//OK
+    return resultset || false;
+    //query.createBy = {$ne: Meteor.userId()};
+  }
+  return false;
+};
 
 Meteor.methods({
 
@@ -29,61 +41,50 @@ Meteor.methods({
     });
   },
 
-  'class/classCodeIsAvailable': function (classCode) {
-    var query = {};
-    if (classCode) {
-      query.classCode = classCode.trim().toLowerCase() ;
-      //log.debug(query);
-      return Classes.findOne(query) ? false : true;
-    }
-    return false;
-  },
+  //todo remove redundant API function
+  'class/classCodeIsAvailable': function(classCode) { return !classSearchImpl(classCode); },
   
-  'class/search': function (classCode) {
-    var query = {};
-    if (classCode) {
-      query.classCode = classCode.trim().toLowerCase();
-      query.createBy = {$ne: Meteor.userId()};
-      log.info("class/search:"+ query);
-      return Classes.findOne(query) || false;
-    }
-    return false;
-  },
+  'class/search': classSearchImpl,
 
-  'class/searchExact': function (classCode) {
-    var query = {};
-    if (classCode) {
-      query.classCode = classCode.trim().toLowerCase();
-      log.info(query);
-      return Classes.findOne(query) || false;
-    }
-    return false;
-  },
+  //todo remove redundant API function
+  'class/searchExact': classSearchImpl,
 
   'class/join': function (doc) {
-    
     if (doc && doc.classCode) {
-      var classCode = doc.classCode.trim().toLowerCase();
-      var query = {};
-      query.classCode = classCode;
-      log.info("class/join:'" + classCode +"'");
-      var classDetail = Classes.findOne(query);
-      //log.info(classDetail);
-      if (classDetail) {
-        if (classDetail.createBy === Meteor.userId()) {
-          log.error("you can't join the class you own.")
+      log.info ("class/join:"+ doc.classCode.trim());
+      var classCode = doc.classCode.trim();
+      var regexp = new RegExp("^" + classCode.trim()+ "$", "i");
+      var resultset   = Classes.findOne({"classCode":  {$regex: regexp} });//OK
+      // Creates a regex of: /^classCode$/i
+      //log.info("class/join0:'" + classCode +"'");
+
+      //log.info ("class/join1:"+ resultset);
+
+      //var query = {};
+      //query.classCode = regexp;
+      //var res = Classes.findOne(query);//OK
+      if (resultset) {
+        if (resultset.createBy === Meteor.userId()) {
+          log.warn("class/join: can't join the class you own:"+classCode+":from user:"+Meteor.userId());
           return false;
         }
         else{
-          Classes.update(doc, { $addToSet: { "joinedUserId": Meteor.userId() } });
+          log.info("User " + Meteor.userId() + " attempting to join class "+ doc.classCode);
+          //log.info("Server?"+Meteor.isServer);
+          //this was the trick to make it case insensitive
+          Classes.update(
+            {"classCode":  {$regex: regexp} },
+            { $addToSet: { "joinedUserId": Meteor.userId() }
+            });
           return true;
         }
       } else { //class is not found
-          log.error("classcode '" + classCode + "' not found")
-          return false;
+        log.info("classcode '" + classCode + "' not found");
+        //log.info("Server?"+Meteor.isServer);
+        return false;
       }
     }else{
-      log.error("there is no input");
+      log.warn("there is no input");
     }
     return false;
   },
