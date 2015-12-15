@@ -17,6 +17,7 @@
   "Chat": "Chat",
   "Chat_settings": "Chat settings",
   "ClassCode": "Class code",
+  "ClassCodeErrorMessage": "Only lower case letter (a-z) or digit (0-9) are accepted in class code e.g. math123. But the class name is free of choice.",
   "ClassName": "Class name",
   "Class_details": "Class details",
   "Classes": "Classes",

@@ -15,17 +15,13 @@ ClassesSchema = new SimpleSchema({
     trim:true,
     unique: true,
     min: 3,
-    regEx: /^[a-zA-Z0-9]+$/,
+    regEx: /^[a-z0-9]+$/,
     custom: function () {
+      var inputClassCode = this.value.trim();
       if (Meteor.isClient && this.isSet && this.isInsert) {
-
-        var inputClassCode = this.value.trim().toLowerCase();
-   
-        Meteor.call("class/classCodeIsAvailable", this.value, function (err, result) {
-          
+        Meteor.call("class/classCodeIsAvailable", inputClassCode, function (err, result) {
           var classCodeSuggestion = inputClassCode +""+ getRandomInt(0,99);
           var isAvailable = result;
-        
           if (isAvailable == false) {
             AutoForm.getValidationContext("insertClass").resetValidation();           
             AutoForm.getValidationContext("insertClass").addInvalidKeys([{ name:  "classCode",
@@ -33,7 +29,6 @@ ClassesSchema = new SimpleSchema({
                                                                            value: classCodeSuggestion }]);      
             return "problem";
           }
-
         });
       }
     }
@@ -80,30 +75,7 @@ ClassesSchema = new SimpleSchema({
     optional: true,
     blackbox: true
   },
-  /*"messagesObj.$.msgId":{
-   type:String
-   },
-   "messagesObj.$.sentAt":{
-   type:Date,
-   autoValue: function() {
-   return new Date;
-   }
-   },*/
-  /*"messagesObj.$.content":{
-   type:String
-   },
-   "messagesObj.$.like":{
-   type:[String]
-   },
-   "messagesObj.$.dislike":{
-   type:[String]
-   },*/
-  /*"messagesObj.$.msgRating":{
-   type:[Object]
-   },
-   "messagesObj.$.msgRating.$.type":{
-   type:String
-   },*/
+
   createBy: {
     type: String,
     optional: false,
@@ -144,6 +116,22 @@ ClassesSchema = new SimpleSchema({
 ClassesSchema.i18n("schemas.ClassesSchema");
 Classes.attachSchema(ClassesSchema);
 
+var msgStringError = TAPi18n.__("ClassCodeErrorMessage", {}, lang_tag="en");
+//https://github.com/aldeed/meteor-simple-schema#customizing-validation-messages
+//custom validation message
+ClassesSchema.messages({
+  regEx: [
+    {msg: msgStringError }
+    //{msg: "Only lower case (a-z) or digit (0-9) are accepted in class code e.g. math123. But you can set the class name you want"}
+    //{msg: "[label] must contain only lower case letter without space"}
+    //, {exp: ClassesSchema.RegEx, msg: "[label] must contain only lower case letter exp"}
+  ]
+});
+
+ClassesSchema.messages({
+  //todo localize
+  notUniqueAndSuggestClasscode:"[label] is not unique. You may try [value]"
+});
 
 if (Meteor.isServer) {
   //TODO see issue #105
@@ -179,7 +167,3 @@ if (Meteor.isServer) {
     }
   });
 }
-
-ClassesSchema.messages({
-  notUniqueAndSuggestClasscode:"[label] is not unique. You may try [value]"
-});
