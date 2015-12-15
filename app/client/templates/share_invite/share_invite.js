@@ -44,6 +44,8 @@ Template.ShareInvite.events({
             okText: TAPi18n.__("OKayGotIt")
           }); 
         }             
+      }else{
+         toastr.success("Copied!");
       }
       
     }

@@ -184,7 +184,7 @@ Template.SendMessage.events({
      
     if(msg == "" && mediaObj.imageArr.length == 0 && mediaObj.soundArr.length == 0){
       
-      alert("please input some message");
+      toastr.warning("please input some message");
       
     }else if(target.length > 0) {
       Meteor.call('sendMsg', target, msg, mediaObj, function () {
@@ -211,7 +211,7 @@ Template.SendMessage.events({
         document.getElementsByClassName("inputBox")[0].updateAutogrow();     
       });
     } else {
-      alert("no class select!");
+      toastr.error("no class select!");
     }
   },
   'keyup .inputBox':function(){
@@ -374,7 +374,7 @@ Template.ionNavBar.events({
     
     if(msg == "" && mediaObj.imageArr.length == 0 && mediaObj.soundArr.length == 0){
       
-      alert("please input some message");
+      toastr.error("please input some message");
       
     }    
     else if (target.length > 0) {
@@ -395,7 +395,7 @@ Template.ionNavBar.events({
       }
 
     } else {
-      alert("no class select!");
+      toastr.error("no class select!");
     }
   }
 });
@@ -456,7 +456,7 @@ function onSuccess(imageURI) {
 }
 
 function onFail(message) {
-  alert('Failed because: ' + message);
+  toastr.error('Failed because: ' + message);
 }
 
 

@@ -21,7 +21,7 @@ Template.EmailInvite.events({
 
     Meteor.call( "classinvite", classObj, targetFirstEmail, function (err) {
                    
-      alert("Invite Success");
+      toastr.success("Invite Success");
 
       if (Meteor.user().profile.firstinvitation) {
         analytics.track("First Invitation", {
@@ -49,7 +49,7 @@ Template.EmailInvite.events({
     var classObj = Classes.findOne({classCode: Router.current().params.classCode});
     var email = searchText.get();
     Meteor.call( "classinvite", classObj, email, function (err) {
-      alert("Invite Success");
+      toastr.success("Invite Success");
       if (Meteor.user().profile.firstinvitation) {
         analytics.track("First Invitation", {
           date: new Date(),
@@ -173,5 +173,5 @@ function onSuccess(contacts) {
 }
 
 function onError(contactError) {
-  alert('onError!');
+  toastr.error('onError!');
 }

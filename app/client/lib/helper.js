@@ -78,9 +78,9 @@ registerNewUser = function(email,firstname,lastname,password){
     userObj.profile.role = ""; //role would be chosen by user later
 
     if (!validateEmail(userObj.email)) {
-      alert("Incorrect Email");
+      toastr.error("Incorrect Email");
     } else if (password.length < 4) {
-      alert("At least 3 characters Password");
+      toastr.error("At least 3 characters Password");
     } else {
       Accounts.createUser({
         email: userObj.email,
@@ -88,7 +88,7 @@ registerNewUser = function(email,firstname,lastname,password){
         profile: userObj.profile
       }, function (err) {
         if (err) {
-          alert(err.reason);
+          toastr.error(err.reason);
           log.error(err);
         } else{
            //if create user is successful, user than needs to choose their role
@@ -139,7 +139,7 @@ registerOrLoginWithGoogle = function(){
           // set a session variable to display later if there is a login error
           Session.set('loginError', 'reason: ' + err.reason + ' message: ' + err.message || 'Unknown error');
           //alert(err.message + ":" + err.reason);
-          alert('Sorry. Google Login is not available at the moment because it is unable to connect to the Internet.')
+          toastr.error('Sorry. Google Login is not available at the moment because it is unable to connect to the Internet.')
           log.error('login:google:'+ err.reason +" msg="+ err.message);
         }
         else {

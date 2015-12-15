@@ -7,7 +7,7 @@ Template.JoinClass.events({
   'click .joinBtn': function () {
     var classCodeInput = $(".classCodeInput").val().trim();
     if (classCodeInput === "") {
-      alert(TAPi18n.__("JoinAClassByInputClassCode"));
+      toastr.warning(TAPi18n.__("JoinAClassByInputClassCode"));
       return false;
     }
     if (AutoForm.validateForm("joinClassForm") == false) {

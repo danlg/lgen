@@ -7,10 +7,10 @@ var postHooks = {
   },
   onSuccess: function (operation, result, template) {
     // display success, reset form status
-    alert("success");
+    toastr.success("success");
   },
   onError: function (formType, error) {
-    alert(error.reason);
+    toastr.error(error.reason);
     // log.error(error);
   }
 };

@@ -396,7 +396,7 @@ function onSuccess(imageURI) {
 }
 
 function onFail(message) {
-  alert('Failed because: ' + message);
+  toastr.error('Failed because: ' + message);
 }
 // Record audio
 function onFileSystemSuccess(fileSystem) {

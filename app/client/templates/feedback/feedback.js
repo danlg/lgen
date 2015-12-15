@@ -19,9 +19,9 @@ Template.ionNavBar.events({
     Meteor.call("feedback", $(".feedbackContent").val(), function (err, result) {
       IonLoading.hide();
       if (err)
-        alert(err.reason);
+        toastr.error(err.reason);
       else {
-        alert(TAPi18n.__("Thanks_for_sharing"));
+        toastr.success(TAPi18n.__("Thanks_for_sharing"));
       }
     });
   }

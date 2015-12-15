@@ -64,9 +64,9 @@ Template.ionNavBar.events({
     userObj.profile.dob = $("#dobInput").val() || "";
 
     if (!validateEmail(userObj.email)) {
-      alert("Incorrect Email");
+      toastr.error("Incorrect Email");
     } else if ($(".pwd").val().length < 4) {
-      alert("At least 3 characters Password");
+      toastr.error("At least 3 characters Password");
     } else {
       Accounts.createUser({
         email: userObj.email,
@@ -74,7 +74,7 @@ Template.ionNavBar.events({
         profile: userObj.profile
       }, function (err) {
         if (err) {
-          alert(err.reason);
+          toastr.error(err.reason);
           log.error(err);
         } else {
           //invite user to download the app if they are using web version
