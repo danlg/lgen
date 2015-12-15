@@ -22,12 +22,21 @@
   {{#ionContent}}
 
 
-
+    <style>
+      .showInviteBtn{
+        display: block;
+      }
+      
+      .hideInviteBtn{
+        display: none;
+      }
+    </style>
 
     <ul class="list">
       <div class="item item-input">
         <i class="icon ion-search placeholder-icon"></i>
-        <input type="search" class="searchbar" placeholder="search">
+        <input type="search" class="searchbar" placeholder="search or input emails">
+        <button class='inviteBtnWithEmail {{displayInviteButton}}'> {{_ "invite"}}</button>
       </div>
       {{#each contactList}}
         {{#if isSearched this}}

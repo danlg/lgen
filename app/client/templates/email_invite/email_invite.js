@@ -3,6 +3,7 @@ var contactList = ReactiveVar("");
 var contactsObj;
 var searchText = ReactiveVar("");
 var classObj;
+var isInputAnEmail = ReactiveVar(false);
 /*****************************************************************************/
 /* EmailInvite: Event Handlers */
 /*****************************************************************************/
@@ -19,7 +20,12 @@ Template.EmailInvite.events({
 
 
     Meteor.call( "classinvite", classObj, targetFirstEmail, function (err) {
-
+      
+      if(err){
+        console.log(err);
+      }
+      
+             
       alert("Invite Success");
 
       if (Meteor.user().profile.firstinvitation) {
@@ -29,13 +35,37 @@ Template.EmailInvite.events({
 
         Meteor.call("updateProfileByPath", 'profile.firstinvitation', false);
       }
-
+      
+      
 
     });
 
   },
   'keyup .searchbar': function () {
     searchText.set($(".searchbar").val());
+    
+    var emailRegex = /.+@.+/ ;
+    if( emailRegex.test(searchText.get()) ){
+        //display invite button
+        isInputAnEmail.set(true);
+    }else{
+        isInputAnEmail.set(false);
+    }
+  },
+  'click .inviteBtnWithEmail':function(){
+    var classObj = Classes.findOne({classCode: Router.current().params.classCode});
+    var email = searchText.get();
+    Meteor.call( "classinvite", classObj, email, function (err) {
+      alert("Invite Success");
+      if (Meteor.user().profile.firstinvitation) {
+        analytics.track("First Invitation", {
+          date: new Date(),
+        });
+        Meteor.call("updateProfileByPath", 'profile.firstinvitation', false);
+      }  
+      searchText.set('');    
+      $(".searchbar").val('');    
+    });    
   }
 
 
@@ -98,6 +128,13 @@ Template.EmailInvite.helpers({
 
 
     return lodash.includes(name.toUpperCase(), searchText.get().toUpperCase()) || lodash.includes(targetFirstEmail.toUpperCase(), searchText.get().toUpperCase());
+  },
+  displayInviteButton : function(){
+    if(isInputAnEmail.get()){
+      return "showInviteBtn";
+    }else{
+      return "hideInviteBtn";      
+    }
   }
 });
 

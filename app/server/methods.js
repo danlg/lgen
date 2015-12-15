@@ -104,15 +104,16 @@ Meteor.methods({
     log.info("classinvite:classCode:"+ classObj.classCode+":from:"+last+ ":to:"+ targetFirstEmail + ":URI:"+acceptLinkEncoded);
     //do not log the CONTENT of every message sent !
     //log.info(inviteClassMailTemplate(targetFirstEmail, classObj));
-    if (lodash.get(Meteor.user(), "profile.email")) {
+  
       try {
+        log.info('here?');
         Mandrill.messages.send(inviteClassMailTemplate(targetFirstEmail, classObj));
       }
       catch (e) {
         log.error("classinvite:couldn't send invite email:classCode:"+ classObj.classCode+ ":to:"+ targetFirstEmail );
         log.error(e);
       }
-    }
+    
   },
 
   sendMsg: function (target, msg, mediaObj, classId) {
