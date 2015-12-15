@@ -106,7 +106,6 @@ Meteor.methods({
     //log.info(inviteClassMailTemplate(targetFirstEmail, classObj));
   
       try {
-        log.info('here?');
         Mandrill.messages.send(inviteClassMailTemplate(targetFirstEmail, classObj));
       }
       catch (e) {
