@@ -1,4 +1,19 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
+
+var isAndroid = function() {
+  //https://github.com/apache/cordova-plugin-device/blob/master/src/android/Device.java
+  //http://stackoverflow.com/questions/32076642/meteor-device-detection-android-or-ios
+  return Meteor.isCordova && (device.platform.toLowerCase().indexOf("android") > -1);
+};
+
+var isIOS = function() {
+  //http://stackoverflow.com/questions/32076642/meteor-device-detection-android-or-ios
+  return Meteor.isCordova && (device.platform.toLowerCase().indexOf("ios") > -1);
+};
+
+Template.registerHelper('isAndroid', isAndroid);
+Template.registerHelper('isIOS', isIOS);
+
 Template.registerHelper('iconChooseHelper',function(iconArray){
    var COLUMN = 4;
    log.info(iconArray);
