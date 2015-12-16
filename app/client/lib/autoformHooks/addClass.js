@@ -17,12 +17,12 @@ var postHooks = {
     });
     Meteor.call('addClassMail', Meteor.user().emails[0].address, result, function (err, res) {
       IonLoading.hide();
-      err ? alert(err.reason) : Router.go('TabClasses');
+      err ? toastr.error(err.reason) : Router.go('TabClasses');
     });
   },
 
   onError: function (formType, error) {
-    alert(error.reason);
+    toastr.error(error.reason);
   },
 
   beginSubmit: function () {
