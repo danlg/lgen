@@ -8,7 +8,7 @@ App.info({
   website: 'http://app.littlegenius.io',
   //todo sync this with config.xml
   version: '1.0.91105',
-  buildNumber: '100'
+  buildNumber: '101'
 });
 
 
