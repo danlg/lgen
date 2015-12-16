@@ -14,18 +14,26 @@
           <div>
             <img style='width:150px;height:150px;margin:0 auto;'  src="/img/icon-hd-email.png" alt='Little Genius'/>
           </div>
-          <div class="row" style="position:absolute;bottom:0px;">
-            <div class="col col-10"></div>
-            <div class="col" style='overflow:hidden;white-space: nowrap'>
-              <img style='max-width:50%;max-height:50%;display:inline;' src="/img/App_Store_grey.svg" alt='App Store'/>
-              <img style='max-width:50%;max-height:50%;display:inline;' src="/img/get_it_on_google_play_grey.svg" alt='Google Play'/>
+
+          {{#unless isIOS}}
+            <div class="row" style="position:absolute;bottom:0px;">
+              <div class="col col-10"></div>
+              <div class="col" style='overflow:hidden;white-space: nowrap'>
+                <img style='max-width:50%;max-height:50%;display:inline;' src="/img/App_Store_grey.svg" alt='App Store'/>
+                <img style='max-width:50%;max-height:50%;display:inline;' src="/img/get_it_on_google_play_grey.svg" alt='Google Play'/>
+              </div>
+              <div class="col col-10"></div>
             </div>
-            <div class="col col-10"></div>
-          </div>
+          {{/unless}}
+
         </div>
         <div class="item" style='background-color:#ACDA46;height:40%;'>
           <div class='text-center padding' ><i class="icon ion-ios-download-outline" style='font-size:3.2em;'></i></div>
-          <div class='text-center' style='' > {{_ "AskParentAndStudentToDownloadApp"}} </div>
+          {{#if isIOS}}
+            <div class='text-center' style='' > {{_ "AskParentAndStudentToDownloadApp_IOS"}} </div>
+          {{else}}
+            <div class='text-center' style='' > {{_ "AskParentAndStudentToDownloadApp"}} </div>
+          {{/if}}
         </div>
       {{/ionSlide}}
 
