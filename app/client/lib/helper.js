@@ -88,7 +88,7 @@ registerNewUser = function(email,firstname,lastname,password){
         profile: userObj.profile
       }, function (err) {
         if (err) {
-          toastr.error(err.reason);
+          toastr.error(err.message);
           log.error(err);
         } else{
            //if create user is successful, user than needs to choose their role
@@ -136,11 +136,13 @@ registerOrLoginWithGoogle = function(){
          var loginServicesConfigured = Accounts.loginServicesConfigured();
          log.info('loginServicesConfigured='+loginServicesConfigured);
          if (err) {
-          // set a session variable to display later if there is a login error
-          Session.set('loginError', 'reason: ' + err.reason + ' message: ' + err.message || 'Unknown error');
-          //alert(err.message + ":" + err.reason);
-          toastr.error('Sorry. Google Login is not available at the moment because it is unable to connect to the Internet.')
-          log.error('login:google:'+ err.reason +" msg="+ err.message);
+          if(err.message){
+           toastr.error(err.message);
+          }else{
+           toastr.error('Sorry. Google Login is not available at the moment because it is unable to connect to the Internet.');           
+          }
+
+          log.error("login:google: msg="+ err.message);
         }
         else {
           log.info("login:google:" + Meteor.userId());

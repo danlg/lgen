@@ -10,7 +10,7 @@ var postHooks = {
     toastr.success("success");
   },
   onError: function (formType, error) {
-    toastr.error(error.reason);
+    toastr.error(error.message);
     // log.error(error);
   }
 };
