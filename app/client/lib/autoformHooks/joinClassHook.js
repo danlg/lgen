@@ -9,7 +9,7 @@ var postHooks = {
     IonLoading.hide();
   },
   onError: function (formType, error) {
-    alert(error.reason);
+    toastr.error(error.reason);
   }
 };
 

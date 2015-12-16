@@ -9,7 +9,7 @@ Images = new FS.Collection("images", {
       contentTypes: ['image/*']
     },
     onInvalid: function (message) {
-      alert(message);
+      toastr.error(message);
     }
   }
 });

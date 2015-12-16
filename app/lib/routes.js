@@ -55,7 +55,7 @@ OnBeforeActions = {
             });
         },
         function () {
-          alert('Error getting language\n');
+          toastr.error('Error getting language\n');
         }
       );
     }

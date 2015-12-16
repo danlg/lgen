@@ -21,12 +21,12 @@ var postHooks = {
     });
     Meteor.call('addClassMail', Meteor.user().emails[0].address, result, function (err, res) {
       IonLoading.hide();
-      err ? alert(err.reason) : Router.go('TabClasses');
+      err ? toastr.error(err.reason) : Router.go('TabClasses');
     });
   },
 
   onError: function (formType, error) {
-    alert("Cannot add class, please try again");
+    toastr.error("Cannot add class, please try again");
   },
 
   beginSubmit: function () {

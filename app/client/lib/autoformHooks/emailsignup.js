@@ -9,7 +9,7 @@ var postHooks = {
 
   },
   onError: function (formType, error) {
-    alert(error.reason);
+    toastr.error(error.reason);
   }
 };
 
