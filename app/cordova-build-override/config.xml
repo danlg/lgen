@@ -75,4 +75,8 @@
     <splash src="resources/android_xhdpi_portrait.splash.png" width="720" height="960" density="port-xhdpi"/>
     <!--<splash src="resources/android_xhdpi_landscape.splash.png" width="960" height="720" density="land-xhdpi"/>-->
   </platform>
+  <universal-links>
+      <host name="uat.littlegenius.io"/>
+      <host name="app.littlegenius.io"/>      
+  </universal-links>  
 </widget>
