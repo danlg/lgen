@@ -561,13 +561,12 @@ function showPreview(filetype){
     
     $('.preview').show();
  
-    //decrease the height of message list to give space to input box panel   
+    //increase the height of input box panel
     if(filetype && filetype == "image"){
-      $('.messageList').height($('.messageList').height() - 95);        
+     $('.messageList').css({'height':'calc(100% - 208px )'})         
     }else{
-      $('.messageList').height($('.messageList').height() - 67);       
+     $('.messageList').css({'height':'calc(100% - 180px )'})        
     }  
-    
     //http://stackoverflow.com/questions/10503606/scroll-to-bottom-of-div-on-page-load-jquery
     $('.messageList').scrollTop($('.messageList').prop("scrollHeight") );   
 }
@@ -576,12 +575,7 @@ function hidePreview(filetype){
     
     $('.preview').hide();
    
-    //increase the height of message list to get back space from input box panel  
-    if(filetype && filetype == "image"){
-        $('.messageList').height($('.messageList').height() + 95);          
-    }else{
-       $('.messageList').height($('.messageList').height() + 67);           
-    }
+    $('.messageList').css({'height':'calc(100% - 113px )'})
     
     //http://stackoverflow.com/questions/10503606/scroll-to-bottom-of-div-on-page-load-jquery   
     $('.messageList').scrollTop($('.messageList').prop("scrollHeight") );   
