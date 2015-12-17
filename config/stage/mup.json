@@ -1,6 +1,6 @@
 {
   "env": {
-    "ROOT_URL": "http://uat.littlegenius.io",
+    "ROOT_URL": "https://uat.littlegenius.io",
     "PORT": 80
 
   },
@@ -19,5 +19,8 @@
   "enableUploadProgressBar": true,
   "appName": "littlegenius",
   "app": "/Users/dan/DEV/clean/lgen/app",
-  "deployCheckWaitTime": 15
+  "deployCheckWaitTime": 15,
+  "ssl":{
+    "pem":"./ssl.pem"
+  }
 }
