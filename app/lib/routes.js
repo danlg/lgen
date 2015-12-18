@@ -252,7 +252,10 @@ Router.route('classDetail', {
 Router.route('ChatInvite', {
   path: "/chat-invite",
   waitOn: function () {
-    return Meteor.subscribe('getAllJoinedClassesUser');
+    return [
+      Meteor.subscribe('getAllJoinedClassesUser'),
+      Meteor.subscribe('getAllJoinedClassesCreateBy')
+    ];
   }
 });
 

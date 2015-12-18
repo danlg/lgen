@@ -99,23 +99,44 @@ Meteor.publish('getAllMyChatRooms', function () {
 
 //get all users that have joined current teacher's classes
 Meteor.publish('getAllJoinedClassesUser', function () {
-  log.info("getAllJoinedClassesUser");
-
+  //find the classes create by teacher using teacher's userid
   var classes = Classes.find({
-    createBy: this.userId //find the classes create by teacher using teacher's userid
+    createBy: this.userId 
   }).fetch(); //fetch is used to extract the result to an array.
   
-  var arr = lodash.map(classes, 'joinedUserId'); //extract only the joinedUserId fields to another array
+  //extract only the joinedUserId fields to another array  
+  var arr = lodash.map(classes, 'joinedUserId'); 
 
-  arr = lodash.pull(lodash.flatten(arr), this.userId); //flatten the array from 2D to 1D array for easy use
+  //flatten the array from 2D to 1D array for easy use
+  arr = lodash.pull(lodash.flatten(arr), this.userId); 
   
- 
-  
+  //in the above arr, it contains a list of userid who have joined the class, so we use this list
+  //to search the users' info in Meteor.users
   return Meteor.users.find({
     _id: {
       $in: arr
     }
   });
+});
+
+//get all the users who have created my joined classes'
+Meteor.publish('getAllJoinedClassesCreateBy', function () {
+  //find the classes I have joined by my userid  
+  var myJoinedClasses =  Classes.find({
+    joinedUserId: this.userId 
+  }).fetch();;
+  
+  // extra the createBy fields to another array
+  var arr = lodash.map(myJoinedClasses, 'createBy'); 
+  
+  //in the above arr, it contains a list of userid who have created the class, so we use this list
+  //to search the users' info in Meteor.users
+  return Meteor.users.find({ 
+    _id: {
+      $in: arr 
+    }
+  });  
+  
 });
 
 
