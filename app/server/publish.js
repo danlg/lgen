@@ -121,13 +121,36 @@ Meteor.publish('getAllJoinedClassesUser', function () {
 
 //get all the users who have created my joined classes'
 Meteor.publish('getAllJoinedClassesCreateBy', function () {
-  //find the classes I have joined by my userid
-  //and the class creator allows anyone in this class to start a chat   
-  var myJoinedClasses =  Classes.find({
-    joinedUserId: this.userId,
-    anyoneCanChat: true 
-  }).fetch();;
+
+  //if user is a student and is below 13, set isStudentBelow13 as true
+  var currentUser = Meteor.users.findOne(this.userId);
+  var isStudentBelow13 = false;
+  if(currentUser.profile.role == "Student"){
+    var dob = currentUser.profile.dob;
+    var age = moment().diff(dob,'years');
+    if(age < 13){
+      isStudentBelow13 = true;
+      log.info("isStudentBelow13:true:dob:"+dob+":age:"+age);
+    }
+  }
   
+  //find the classes I have joined by my userid
+  //and the class creator allows anyone in this class to start a chat    
+  var myJoinedClasses;
+  if(isStudentBelow13){
+    myJoinedClasses = Classes.find({
+      joinedUserId: this.userId,
+      anyoneCanChat: true,
+      higherThirteen: false //since the current user is younger than 13, 
+                            //the classes with higherThirteen as true would not be searched
+    }).fetch();;       
+  }else{
+    myJoinedClasses = Classes.find({
+      joinedUserId: this.userId,
+      anyoneCanChat: true
+    }).fetch();;    
+  }
+    
   // extra the createBy fields to another array
   var arr = lodash.map(myJoinedClasses, 'createBy'); 
   
