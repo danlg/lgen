@@ -244,7 +244,7 @@ Template.ChatRoom.helpers({
     if (target.profile.role === "Teacher") {
       if (target.profile.chatSetting && target.profile.chatSetting.workHour) {
         
-        debugger;
+        
         var workHourTime = target.profile.chatSetting.workHourTime;
         var dayOfWeek = moment().day();
         var fromMoment = moment(workHourTime.from, "HH:mm");
