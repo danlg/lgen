@@ -121,9 +121,11 @@ Meteor.publish('getAllJoinedClassesUser', function () {
 
 //get all the users who have created my joined classes'
 Meteor.publish('getAllJoinedClassesCreateBy', function () {
-  //find the classes I have joined by my userid  
+  //find the classes I have joined by my userid
+  //and the class creator allows anyone in this class to start a chat   
   var myJoinedClasses =  Classes.find({
-    joinedUserId: this.userId 
+    joinedUserId: this.userId,
+    anyoneCanChat: true 
   }).fetch();;
   
   // extra the createBy fields to another array
