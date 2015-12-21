@@ -322,6 +322,17 @@ Template.ChatRoom.rendered = function () {
     return onscroll();
   });
 
+  //open external url by inapp browser. If not using inapp browser, user cannot go back to the chat screen
+  //https://blog.nraboy.com/2014/12/open-dynamic-links-using-cordova-inappbrowser/
+  document.onclick = function (e) {
+      e = e ||  window.event;
+      var element = e.target || e.srcElement;
+  
+      if (element.tagName == 'A') {
+          window.open(element.href, "_blank", "location=yes");
+          return false;
+      }
+  };
   // if(needReduce){
   //   var height = $(".list.chatroomList").height();
   //   height= height - 60;
