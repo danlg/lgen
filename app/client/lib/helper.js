@@ -11,6 +11,8 @@ var isIOS = function() {
   return Meteor.isCordova && (device.platform.toLowerCase().indexOf("ios") > -1);
 };
 
+
+
 Template.registerHelper('isAndroid', isAndroid);
 Template.registerHelper('isIOS', isIOS);
 
