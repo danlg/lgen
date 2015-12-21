@@ -14,6 +14,38 @@ var isIOS = function() {
 Template.registerHelper('isAndroid', isAndroid);
 Template.registerHelper('isIOS', isIOS);
 
+Template.registerHelper('docPreview',function(url){
+
+    var linkList = [];
+    Autolinker.link(url,{
+      
+      replaceFn : function(autolinker,match){
+        switch(match.getType()){
+          case 'url':
+            linkList.push(match.getUrl());
+            
+        }
+      }
+    });
+    
+    if(linkList.length>0){
+         var fileURL = linkList[0];
+         if( lodash.endsWith(fileURL,'pdf') 
+             || lodash.endsWith(fileURL,'doc') || lodash.endsWith(fileURL,'docx')
+             || lodash.endsWith(fileURL,'ppt') || lodash.endsWith(fileURL,'pptx')
+             || lodash.endsWith(fileURL,'xls') || lodash.endsWith(fileURL,'xlsx')             
+            ){
+          return  "<iframe src='https://docs.google.com/viewer?url=" + linkList[0] + "&embedded=true'></iframe>";          
+         }else{
+          return ""; 
+         }
+    }else{
+      return "";
+    }
+  
+  
+});
+
 Template.registerHelper('iconChooseHelper',function(iconArray){
    var COLUMN = 4;
    log.info(iconArray);
@@ -172,3 +204,34 @@ registerOrLoginWithGoogle = function(){
       });   
 };
 
+function ping(ip, callback) {
+
+    if (!this.inUse) {
+        this.status = 'unchecked';
+        this.inUse = true;
+        this.callback = callback;
+        this.ip = ip;
+        var _that = this;
+        this.img = new Image();
+        this.img.onload = function () {
+            _that.inUse = false;
+            _that.callback('responded');
+
+        };
+        this.img.onerror = function (e) {
+            if (_that.inUse) {
+                _that.inUse = false;
+                _that.callback('responded', e);
+            }
+
+        };
+        this.start = new Date().getTime();
+        this.img.src = ip;
+        this.timer = setTimeout(function () {
+            if (_that.inUse) {
+                _that.inUse = false;
+                _that.callback('timeout');
+            }
+        }, 1500);
+    }
+}
