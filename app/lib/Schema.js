@@ -101,21 +101,21 @@ Schema.chatSetting = new SimpleSchema({
     optional: true,
     autoform: {
       afFieldInput: {
-        type: "boolean-checkbox2",
-      },
+        type: "boolean-checkbox2"
+      }
     }
   },
   workHourTime: {
     type: Object,
-    optional: true,
+    optional: true
   },
   'workHourTime.from': {
     type: String,
-    optional: true,
+    optional: true
   },
   'workHourTime.to': {
     type: String,
-    optional: true,
+    optional: true
   },
   
   //define an array of boolean
@@ -130,7 +130,7 @@ Schema.chatSetting = new SimpleSchema({
  } ,
   allowChat: {
     type: [String],
-    optional: true,
+    optional: true
   }
 });
 
@@ -147,7 +147,7 @@ Schema.editprofile = new SimpleSchema({
   },
   email: {
     type: String,
-    regEx: SimpleSchema.RegEx.Email,
+    regEx: SimpleSchema.RegEx.Email
   },
   useravatar:{
     type: String,
@@ -168,5 +168,6 @@ Schema.profile = {
   firstpicture: true,
   firstclassjoined: true,
   hybridapppromote:false,
-  referral: 0,
+  hasUserSeenTour:false,
+  referral: 0
 };
