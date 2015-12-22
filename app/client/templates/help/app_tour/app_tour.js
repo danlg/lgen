@@ -11,7 +11,11 @@ Template.Tour.events({
      if (Meteor.user() && (!Meteor.user().profile.hasUserSeenTour)) {
        //set the flag to true so it would not show again
         Meteor.users.update(Meteor.userId(), { $set: { "profile.hasUserSeenTour": true } });
+        
      }
+     
+     //even if user is not registered, still can route to login pages.
+     routeToTabClasses();
   }
  
 });
