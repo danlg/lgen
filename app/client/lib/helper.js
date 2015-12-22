@@ -17,19 +17,24 @@ Template.registerHelper('isAndroid', isAndroid);
 Template.registerHelper('isIOS', isIOS);
 
 Template.registerHelper('docPreview',function(url){
-
+    //no document preview on android for now
+    if(isAndroid() == true){
+        //do nothing since google docs viewer does not work on cordova android
+        //see https://github.com/phonegap/phonegap/wiki/iFrame-Usage
+        //it seems to due to the fact that in android corodva's iframe:
+        //it Can't use XmlHttpRequests to set document data
+        return "";
+    }
+    
     var linkList = [];
     Autolinker.link(url,{
-      
       replaceFn : function(autolinker,match){
         switch(match.getType()){
           case 'url':
-            linkList.push(match.getUrl());
-            
+            linkList.push(match.getUrl());      
         }
       }
     });
-    
     if(linkList.length>0){
          var fileURL = linkList[0];
          if( lodash.endsWith(fileURL,'pdf') 
@@ -43,9 +48,7 @@ Template.registerHelper('docPreview',function(url){
          }
     }else{
       return "";
-    }
-  
-  
+    } 
 });
 
 Template.registerHelper('iconChooseHelper',function(iconArray){
