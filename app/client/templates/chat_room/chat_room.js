@@ -180,39 +180,41 @@ Template.ChatRoom.events({
     //    $(e.target).attr('class','icon ion-play');
     //  },false);
   },
-  'click .bubble a':function(e){
-   //open external url via cordova inappbrowser plugin so user can go back to the chat screen
-   //https://blog.nraboy.com/2014/12/open-dynamic-links-using-cordova-inappbrowser/
-        
-      e = e ||  window.event;
+  'click .bubble a': function (e) {
+      //open external url via cordova inappbrowser plugin so user can go back to the chat screen
+      //https://blog.nraboy.com/2014/12/open-dynamic-links-using-cordova-inappbrowser/      
       var element = e.target || e.srcElement;
-  
+
       if (element.tagName == 'A') {
-          if(element.href){
-            var fileURL = element.href;
+          if (element.href) {
+              var fileURL = element.href;
             
-            //since IOS has built-in document viewer, we just pass the url directly to the system to handle it.
-            if(isIOS()){
-                window.open(fileURL, "_system", "location=no");
-            }else{
-                //for android or web, they dont have built-in document viewer, we pass the modified the url to point to
-                // google docs viewer and open it on system browser
-                //if it is a normal document url
-                if( lodash.endsWith(fileURL,'pdf') 
-                    || lodash.endsWith(fileURL,'doc') || lodash.endsWith(fileURL,'docx')
-                    || lodash.endsWith(fileURL,'ppt') || lodash.endsWith(fileURL,'pptx')
-                    || lodash.endsWith(fileURL,'xls') || lodash.endsWith(fileURL,'xlsx')             
-                  ){
-                        var modifiedFileURL = "https://docs.google.com/viewer?embedded=false&url="+fileURL+"";
-                            window.open(modifiedFileURL, "_system", "location=no,height=200");
-                }else{
-                     //if it is other file type that google docs viewer can't handle, user would be prompted to download the file.
-                     window.open(fileURL, "_system", "location=no");                   
-                }                      
-            }
-            return false;
+              //since IOS has built-in document viewer, we just pass the url directly to the system to handle it.
+              //for android, they dont have built-in document viewer, although google docs viewer can be used,
+              //the performance is sub-optimal.
+              //so we just just pass the url directly to the system. The system will let user choose to donwload it
+              //and open it in android native app
+              //like adobe reader for pdf or quickoffice for office files.            
+              if (isIOS() || isAndroid()) {
+                  window.open(fileURL, "_system", "location=no");
+              } else { //for web, they dont have built-in document viewer, we pass the modified the url to point to
+                  // google docs viewer
+                
+                  //if it is a normal document url                
+                  if (lodash.endsWith(fileURL, 'doc') || lodash.endsWith(fileURL, 'docx')
+                      || lodash.endsWith(fileURL, 'ppt') || lodash.endsWith(fileURL, 'pptx')
+                      || lodash.endsWith(fileURL, 'xls') || lodash.endsWith(fileURL, 'xlsx')
+                      ) {
+                      var modifiedFileURL = "https://docs.google.com/viewer?embedded=true&url=" + fileURL + "";
+                      window.open(modifiedFileURL, "_system", "location=no,height=200");
+                  } else {
+                      //if it is other file type that google docs viewer can't handle, user would be prompted to download the file.
+                      window.open(fileURL, "_system", "location=no");
+                  }
+              }
+              return false;
           }
-      }      
+      }
   }
 });
 
