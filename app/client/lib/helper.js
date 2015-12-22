@@ -11,7 +11,41 @@ var isIOS = function() {
   return Meteor.isCordova && (device.platform.toLowerCase().indexOf("ios") > -1);
 };
 
-
+var googleDocsURLToEmbedReadyURLHTML = function(originalURL){
+           var fileURL = originalURL;
+           var outputHTML = "";
+           //if it is a google word
+           if( lodash.startsWith(fileURL,"https://docs.google.com/document") ){
+                if( lodash.endsWith(fileURL,"pub") ){
+                    outputHTML =  "<iframe src='"+ fileURL + "?embedded=true'></iframe>";                    
+                }else{
+                      //if the URL is not embed ready,we need to do some modification
+                      var modifiedFileURL =  fileURL.replace("edit","pub");
+                      outputHTML =  "<iframe src='"+ modifiedFileURL + "?embedded=true'></iframe>";    
+                }       
+           //if it is a google excel
+           }else if( lodash.startsWith(fileURL,"https://docs.google.com/spreadsheets")  ){
+              if(lodash.endsWith(fileURL,"pub")){        
+               outputHTML =  "<iframe src='https://docs.google.com/viewer?url=" + fileURL + "?output=pdf&embedded=true'></iframe>";                 
+              }else{
+               //if the URL is not embed ready,we need to do some modification                  
+                var modifiedFileURL =  fileURL.replace("pubhtml","pub");
+               outputHTML =  "<iframe src='https://docs.google.com/viewer?url=" + modifiedFileURL + "?output=pdf&embedded=true'></iframe>";    
+              }
+           //if it is a google powerpoint
+           }else if( lodash.startsWith(fileURL,"https://docs.google.com/presentation") ){
+              if(lodash.endsWith(fileURL,"embed")){
+                outputHTML =  "<iframe src='" + fileURL + "&embedded=true'></iframe>";                          
+              }else{
+                //if the URL is not embed ready,we need to do some modification   
+                 modifiedFileURL =  fileURL.replace("pub","embed");
+                outputHTML =  "<iframe src='" + modifiedFileURL + "&embedded=true'></iframe>";                    
+              }     
+           }else{
+               //something not yet support. do nothing
+           }
+        return outputHTML;
+}
 
 Template.registerHelper('isAndroid', isAndroid);
 Template.registerHelper('isIOS', isIOS);
@@ -37,13 +71,21 @@ Template.registerHelper('docPreview',function(url){
     });
     if(linkList.length>0){
          var fileURL = linkList[0];
+         
+         //if it is a normal document url
          if( lodash.endsWith(fileURL,'pdf') 
              || lodash.endsWith(fileURL,'doc') || lodash.endsWith(fileURL,'docx')
              || lodash.endsWith(fileURL,'ppt') || lodash.endsWith(fileURL,'pptx')
              || lodash.endsWith(fileURL,'xls') || lodash.endsWith(fileURL,'xlsx')             
             ){
-          return  "<iframe src='https://docs.google.com/viewer?url=" + linkList[0] + "&embedded=true'></iframe>";          
-         }else{
+          return  "<iframe src='https://docs.google.com/viewer?url=" + fileURL + "&embedded=true'></iframe>";
+         
+         //if it is a google docs url      
+         }else if(lodash.startsWith(fileURL,'https://docs.google.com/')){
+           var embedReadyURLHTML =  googleDocsURLToEmbedReadyURLHTML(fileURL);
+           return embedReadyURLHTML;
+         }
+         else{
           return ""; 
          }
     }else{
