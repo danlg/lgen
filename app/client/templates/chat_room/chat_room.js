@@ -189,15 +189,19 @@ Template.ChatRoom.events({
           if (element.href) {
               var fileURL = element.href;
             
-              //since IOS has built-in document viewer, we just pass the url directly to the system to handle it.
+              //since IOS has built-in document viewer, we just pass the url directly to the system to handle it.   
+              if ( isIOS() ) {
+                  //use _blank will open the link via inappbrowser, so no address bar would be shown
+                  window.open(fileURL, "_blank", "location=no");
+              }else if( isAndroid() ){
+                  
               //for android, they dont have built-in document viewer, although google docs viewer can be used,
               //the performance is sub-optimal.
               //so we just just pass the url directly to the system. The system will let user choose to donwload it
               //and open it in android native app
-              //like adobe reader for pdf or quickoffice for office files.            
-              if (isIOS() || isAndroid()) {
-                  window.open(fileURL, "_system", "location=no");
-              } else { //for web, they dont have built-in document viewer, we pass the modified the url to point to
+              //like adobe reader for pdf or quickoffice for office files.                   
+                  window.open(fileURL, "_system", "location=no");                  
+              }else { //for web, they dont have built-in document viewer, we pass the modified the url to point to
                   // google docs viewer
                 
                   //if it is a normal document url                
@@ -206,9 +210,10 @@ Template.ChatRoom.events({
                       || lodash.endsWith(fileURL, 'xls') || lodash.endsWith(fileURL, 'xlsx')
                       ) {
                       var modifiedFileURL = "https://docs.google.com/viewer?embedded=true&url=" + fileURL + "";
-                      window.open(modifiedFileURL, "_system", "location=no,height=200");
+                      window.open(modifiedFileURL, "_system", "location=no");
                   } else {
                       //if it is other file type that google docs viewer can't handle, user would be prompted to download the file.
+                      //modern desktop browser has built-in pdf viewer, so pdf will be opened here
                       window.open(fileURL, "_system", "location=no");
                   }
               }
