@@ -24,14 +24,16 @@
   {{#ionView}}
     {{#ionContent}}
 
-
+    
       <div class="list chatroomList background-wallpaper" id="chatroomList">
         {{#each chatRoomProfile.messagesObj}}
           
           <div class="item {{isMine}}">
             {{#if isText}}
               <div class="bubble">
+                {{{docPreview text}}}                
                 {{#autolink}}<pre>{{text}}</pre>{{/autolink}}
+
                 <span class='timestamp'>{{formatTime sendAt}}</span>
                
               </div>

@@ -99,23 +99,69 @@ Meteor.publish('getAllMyChatRooms', function () {
 
 //get all users that have joined current teacher's classes
 Meteor.publish('getAllJoinedClassesUser', function () {
-  log.info("getAllJoinedClassesUser");
-
+  //find the classes create by teacher using teacher's userid
   var classes = Classes.find({
-    createBy: this.userId //find the classes create by teacher using teacher's userid
+    createBy: this.userId 
   }).fetch(); //fetch is used to extract the result to an array.
   
-  var arr = lodash.map(classes, 'joinedUserId'); //extract only the joinedUserId fields to another array
+  //extract only the joinedUserId fields to another array  
+  var arr = lodash.map(classes, 'joinedUserId'); 
 
-  arr = lodash.pull(lodash.flatten(arr), this.userId); //flatten the array from 2D to 1D array for easy use
+  //flatten the array from 2D to 1D array for easy use
+  arr = lodash.pull(lodash.flatten(arr), this.userId); 
   
- 
-  
+  //in the above arr, it contains a list of userid who have joined the class, so we use this list
+  //to search the users' info in Meteor.users
   return Meteor.users.find({
     _id: {
       $in: arr
     }
   });
+});
+
+//get all the users who have created my joined classes'
+Meteor.publish('getAllJoinedClassesCreateBy', function () {
+
+  //if user is a student and is below 13, set isStudentBelow13 as true
+  var currentUser = Meteor.users.findOne(this.userId);
+  var isStudentBelow13 = false;
+  if(currentUser.profile.role == "Student"){
+    var dob = currentUser.profile.dob;
+    var age = moment().diff(dob,'years');
+    if(age < 13){
+      isStudentBelow13 = true;
+      log.info("isStudentBelow13:true:dob:"+dob+":age:"+age);
+    }
+  }
+  
+  //find the classes I have joined by my userid
+  //and the class creator allows anyone in this class to start a chat    
+  var myJoinedClasses;
+  if(isStudentBelow13){
+    myJoinedClasses = Classes.find({
+      joinedUserId: this.userId,
+      anyoneCanChat: true,
+      higherThirteen: false //since the current user is younger than 13, 
+                            //the classes with higherThirteen as true would not be searched
+    }).fetch();;       
+  }else{
+    myJoinedClasses = Classes.find({
+      joinedUserId: this.userId,
+      anyoneCanChat: true
+    }).fetch();;    
+  }
+    
+  // extra the createBy fields to another array
+  var arr = lodash.map(myJoinedClasses, 'createBy'); 
+  
+  //in the above arr, it contains a list of userid who have created the class, so we use this list
+  //to search the users' info in Meteor.users
+  return Meteor.users.find({ 
+    _id: {
+      $in: arr 
+    }
+  });  
+  
 });
 
 

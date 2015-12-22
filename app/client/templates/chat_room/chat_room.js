@@ -244,7 +244,7 @@ Template.ChatRoom.helpers({
     if (target.profile.role === "Teacher") {
       if (target.profile.chatSetting && target.profile.chatSetting.workHour) {
         
-        debugger;
+        
         var workHourTime = target.profile.chatSetting.workHourTime;
         var dayOfWeek = moment().day();
         var fromMoment = moment(workHourTime.from, "HH:mm");
@@ -322,6 +322,17 @@ Template.ChatRoom.rendered = function () {
     return onscroll();
   });
 
+  //open external url by system browser. If not using system browser via cordova inappbrowser plugin, user cannot go back to the chat screen
+  //https://blog.nraboy.com/2014/12/open-dynamic-links-using-cordova-inappbrowser/
+  document.onclick = function (e) {
+      e = e ||  window.event;
+      var element = e.target || e.srcElement;
+  
+      if (element.tagName == 'A') {
+          window.open(element.href, "_system", "location=yes");
+          return false;
+      }
+  };
   // if(needReduce){
   //   var height = $(".list.chatroomList").height();
   //   height= height - 60;
