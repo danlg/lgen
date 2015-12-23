@@ -233,6 +233,7 @@ Router.route('ChatRoom', {
     return [
       Meteor.subscribe('images'),
       Meteor.subscribe('sounds'),
+      Meteor.subscribe('documents'),
       Meteor.subscribe('chatRoomWithUser', this.params.chatRoomId)
     ];
   }

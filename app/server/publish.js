@@ -200,7 +200,9 @@ Meteor.publish("images", function () {
 Meteor.publish("sounds", function () {
   return Sounds.find();
 });
-
+Meteor.publish("documents",function(){
+  return Documents.find();
+})
 
 Meteor.publishComposite('chatRoomWithUser', function (chatRoomId) {
   return {

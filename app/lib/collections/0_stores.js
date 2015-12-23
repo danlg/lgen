@@ -45,3 +45,5 @@ Stores.thumbs = new FS.Store.GridFS("thumbs", {
 });
 
 Stores.any = new FS.Store.GridFS("any");
+
+Stores.documents = new FS.Store.GridFS("documents");

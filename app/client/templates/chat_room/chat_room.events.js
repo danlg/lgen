@@ -117,6 +117,52 @@ Template.ChatRoom.events({
       });
     });
   },
+  'change #documentBtn': function (event, template) {
+    FS.Utility.eachFile(event, function (file) {
+      Documents.insert(file, function (err, fileObj) {
+        if (err) {
+          // handle error
+          log.error(err);
+        }
+        else {
+          var pushObj = {};
+          pushObj.from = Meteor.userId();
+          pushObj.sendAt = moment().format('x');
+          pushObj.text = "";
+          pushObj.document = fileObj._id;
+          Meteor.call("chat/sendImage", Router.current().params.chatRoomId, pushObj, function (error, result) {
+            if (error) {
+              log.error("error", error);
+            }
+          });
+          
+          var targetUser = getAnotherUser();    
+          var targetId = targetUser._id;
+          var query = {};
+          query.userId = targetId;
+
+          var notificationObj = {
+              from: getFullNameByProfileObj(Meteor.user().profile),
+              title: getFullNameByProfileObj(Meteor.user().profile),
+              text : "Document",
+              query: query,
+              sound: 'default',
+              payload: {
+                sound: 'Hello World',
+                type: 'chat'                  
+              }
+          };
+          Meteor.call("serverNotification", notificationObj);
+          if (Meteor.user().profile.firstdocument) {
+            analytics.track("First Document", {
+              date: new Date(),
+            });
+            Meteor.call("updateProfileByPath", 'profile.firstdocument', false);
+          }
+        }
+      });
+    });
+  },
 
   'click .imgThumbs': function (e) {
     var imageFullSizePath = $(e.target).data('fullsizeimage');
@@ -222,164 +268,6 @@ Template.ChatRoom.events({
       }
   }
 });
-
-/*****************************************************************************/
-/* ChatRoom: Helpers */
-/*****************************************************************************/
-Template.ChatRoom.helpers({
-  chatRoomProfile: function () {
-    return Chat.findOne({_id: Router.current().params.chatRoomId});
-  },
-  isCordova: function(){
-    return Meteor.isCordova;
-  },
-  withExtraRightPadding:function(){
-    if(!Meteor.isCordova){
-      return "padding-right:40px;"
-    }else{
-      return "";
-    }
-  },  
-  isMine: function () {
-    return this.from === Meteor.userId() ? "mine" : "notmine";
-  },
-
-  userProfile: function () {
-    //get another person's user object in 1 to 1 chatroom.     
-    var userObj = getAnotherUser();
-    return userObj
-  },
-  
-  getName: function (profile) {    
-    var userObj = getAnotherUser();
-    return getFullNameByProfileObj(userObj.profile);
-  },
-
-  isText: function () {
-    return this.text !== "";
-  },
-
-  isImage: function () {
-    return this.image && this.image !== "";
-  },
-
-  isSound: function (argument) {
-    return this.sound && this.sound !== "";
-  },
-
-  getImage: function () {
-    var ImageId = this.image.replace("/cfs/files/images/", "");
-    return Images.findOne(ImageId);
-  },
-
-  isWorkOff: function (argument) {
-    
-    //get another person's user object in 1 to 1 chatroom.     
-    var targetUserObj = getAnotherUser();
-
-  },
-
-  targertWorkingTime: function (argument) {
-    var displayOffline = false;
-    var target = getAnotherUser();
-    if (target.profile.role === "Teacher") {
-      if (target.profile.chatSetting && target.profile.chatSetting.workHour) {
-        
-        
-        var workHourTime = target.profile.chatSetting.workHourTime;
-        var dayOfWeek = moment().day();
-        var fromMoment = moment(workHourTime.from, "HH:mm");
-        var toMoment = moment(workHourTime.to, "HH:mm");
-        var range = moment.range(fromMoment, toMoment);
-
-        //if today is not in work day
-        if(!workHourTime.weeks[dayOfWeek-1]){
-            displayOffline = true;
-        }           
-        //if currently not in work hour
-        if (!range.contains(moment())) {
-            displayOffline = true;
-        }
-     
-      }
-    }
-    return displayOffline;
-  },
-
-  getSound: function (argument) {
-    // var SoundId = this.image.replace("/cfs/files/sounds/","");
-    return Sounds.findOne(this.sound);
-  },
-
-  soundsCollection: function (argument) {
-    return Sounds.find();
-  }
-
-});
-
-/*****************************************************************************/
-/* ChatRoom: Lifecycle Hooks */
-/*****************************************************************************/
-Template.ChatRoom.created = function () {
-};
-
-Template.ChatRoom.rendered = function () {
-  //$(".list.chatroomList").height("100%");
-  //$(".list.chatroomList").height(($(".list.chatroomList").height() - 123) + "px");
-  $(".inputBox").autogrow();
-  chatroomList = this.find('.chatroomList');
-  template = this;
-  template.atBottom = true;
-  var onscroll;
-  onscroll = _.throttle(function () {
-    return template.atBottom = chatroomList.scrollTop >= chatroomList.scrollHeight - chatroomList.clientHeight;
-  }, 200);
-  Meteor.setInterval(function () {
-    if (template.atBottom) {
-      chatroomList.scrollTop = chatroomList.scrollHeight - chatroomList.clientHeight;
-    }
-  }, 100);
-
-  chatroomList.addEventListener('touchstart', function () {
-    return template.atBottom = false;
-  });
-
-  chatroomList.addEventListener('touchend', function () {
-    return onscroll();
-  });
-
-  chatroomList.addEventListener('scroll', function () {
-    template.atBottom = false;
-    return onscroll();
-  });
-
-  chatroomList.addEventListener('mousewheel', function () {
-    template.atBottom = false;
-    return onscroll();
-  });
-
-  chatroomList.addEventListener('wheel', function () {
-    template.atBottom = false;
-    return onscroll();
-  });
-
-
-  // if(needReduce){
-  //   var height = $(".list.chatroomList").height();
-  //   height= height - 60;
-  //   log.info(height);
-  //   $(".list.chatroomList").height(height+"px");
-  //   needReduce = false;
-  // }else{
-  //   var height = $(".list.chatroomList").height();
-  //   height= height + 60;
-  //   log.info(height);
-  //   $(".list.chatroomList").height(height+"px");
-  // }
-};
-
-Template.ChatRoom.destroyed = function () {
-};
 
 function onSuccess(imageURI) {
   // var image = document.getElementById('myImage');

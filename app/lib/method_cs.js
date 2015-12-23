@@ -120,11 +120,12 @@ Meteor.methods({
     //Mandrill.messages.send
   },
 
-  'chat/sendImage': function (chatRoomId, pushObj) {
+  'chat/sendImage': function (chatRoomId, pushObj) {  
     //  var pushObj = {};
     //    pushObj.from = Meteor.userId();
     //    pushObj.sendAt = moment().format('x');
     //    pushObj.text = text;
+    //todo: change the name of this method to chat/appendMessageObj to reflect its usage
     Chat.update(chatRoomId, {$push: {messagesObj: pushObj}});
   },
 
