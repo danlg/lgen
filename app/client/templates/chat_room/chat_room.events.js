@@ -117,6 +117,15 @@ Template.ChatRoom.events({
       });
     });
   },
+  'click #documentBtn':function(e){
+    if (Meteor.isCordova) {
+      if (window.device.platform === "Android") {
+        e.preventDefault();
+        fileChooser.open(successCallback, failureCallback);  
+      }
+    }      
+   
+  },
   'change #documentBtn': function (event, template) {
     FS.Utility.eachFile(event, function (file) {
       Documents.insert(file, function (err, fileObj) {
@@ -455,4 +464,66 @@ function getAnotherUser(){
             //return another user's user object
             var targetUserObj = Meteor.users.findOne(arr[0]);  
             return   targetUserObj;
+}
+
+var successCallback = function(uri){
+    
+    fileChooser.open(function(uri) {
+        log.info(uri);
+        window.FilePath.resolveNativePath(uri, function(localFileUri) {
+            window.resolveLocalFileSystemURL("file://" + localFileUri, function(fileEntry) {
+                
+                //alert('do something');
+                log.info(localFileUri);
+                fileEntry.file(function (file) {
+                    var newFile = new FS.File(file);
+
+                    Documents.insert(newFile, function (err, fileObj) {
+                    if (err) {
+                        //handle error
+                        log.error("insert error" + err);
+                    }
+                    else {
+                        //handle success depending what you need to do
+                        console.dir(fileObj);
+                        var pushObj = {};
+                        pushObj.from = Meteor.userId();
+                        pushObj.sendAt = moment().format('x');
+                        pushObj.text = "";
+                        pushObj.document = fileObj._id;
+                        Meteor.call("chat/sendImage", Router.current().params.chatRoomId, pushObj, function (error, result) {
+                        if (error) {
+                            log.error("error", error);
+                        }
+                        });
+
+                        //get another person's user object in 1 to 1 chatroom. 
+                        var targetUserObj = getAnotherUser();         
+                        var targetId = targetUserObj._id;
+                        
+                        var query = {};
+                        query.userId = targetId;
+                        var notificationObj = {};
+                        notificationObj.from = getFullNameByProfileObj(Meteor.user().profile);
+                        notificationObj.title = getFullNameByProfileObj(Meteor.user().profile);
+                        notificationObj.text = "Sound";
+                        notificationObj.query = query;
+                        notificationObj.sound = 'default';
+                        notificationObj.payload = {
+                        sound: 'Hello World',
+                        type: 'chat'
+                        };
+                        Meteor.call("serverNotification", notificationObj);
+                    }
+                    });
+                });                
+            });
+        });        
+    });
+}
+
+var failureCallback = function(uri){
+    
+   alert(uri);
+
 }
