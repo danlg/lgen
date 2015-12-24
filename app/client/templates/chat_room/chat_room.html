@@ -42,7 +42,7 @@
             {{#if isDocument}}
                  {{#with getDocument}}         
                         <div class="bubble">
-                          <a href='{{this.url}}'>Open Document</a>
+                          <a href='{{this.url}}'> <i class="icon ion-ios-download-outline"></i>&nbsp;{{this.name}}</a>
                           <br/><span  class='timestamp'>{{formatTime  ../sendAt}}</span>                       
                         </div>                        
                  {{/with}}        
