@@ -468,7 +468,7 @@ function getAnotherUser(){
 
 var successCallback = function(uri){
     
-    fileChooser.open(function(uri) {
+
         log.info(uri);
         window.FilePath.resolveNativePath(uri, function(localFileUri) {
             window.resolveLocalFileSystemURL("file://" + localFileUri, function(fileEntry) {
@@ -519,7 +519,7 @@ var successCallback = function(uri){
                 });                
             });
         });        
-    });
+
 }
 
 var failureCallback = function(uri){
