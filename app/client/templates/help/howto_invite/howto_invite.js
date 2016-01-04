@@ -21,7 +21,7 @@ Template.HowToInvite.rendered = function()
 {
    var sim = document.getElementById("inputClassCodeSimulation");
    type(democlass,sim);
-   Session.set("hasSeenTheTour", true);
+   Session.set("hasSeenHowToInviteTour", true);
 };
 
 Template.HowToInvite.helpers ({

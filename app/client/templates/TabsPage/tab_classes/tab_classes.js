@@ -89,9 +89,9 @@ var HowToInviteTour = function () {
   Meteor.call('getUserCreateClassesCount', function (err, count) {
     var createdClassCount = count;
     log.info(createdClassCount);
-    var hasSeenTheTour = Session.get("hasSeenTheTour");
-    log.info(" has user seen the tour? " + hasSeenTheTour);
-    if (createdClassCount == 1 && !hasSeenTheTour ) {
+    var hasSeenHowToInviteTour = Session.get("hasSeenHowToInviteTour");
+    log.info(" has user seen the tour? " + hasSeenHowToInviteTour);
+    if (createdClassCount == 1 && !hasSeenHowToInviteTour ) {
       IonPopup.show({
         title: TAPi18n.__("Congratulations"),
         template: TAPi18n.__("InviteTeacherToLearnHowToAdd"),
