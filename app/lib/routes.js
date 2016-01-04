@@ -33,6 +33,7 @@ OnBeforeActions = {
       this.next();
     }
   },
+  
   checkLanguage: function (pause) {
     if (Meteor.isCordova) {
       var pattern = /-.*/g;
@@ -70,19 +71,31 @@ OnBeforeActions = {
     } else {
       this.next();
     }
+  },
+  hasUserSeenAppTour:function(){
+    //if login user has seen app tour before, we will redirect the user directly to class page
+    //this checking should only be enabled if user access the page from root path '/'
+    //it should not enabled if user access the page from You > Help
+    if (Meteor.user() && Meteor.user().profile.hasUserSeenTour) {
+      Router.go("TabClasses");
+        this.next();
+    }else{ //we show the tour
+        this.next();
+    }        
   }
 };
 
+//the following routes does not require login to access
 Router.onBeforeAction(OnBeforeActions.LoginRequired, {
   except: ['language', 'Login', 'EmailSignup', 'EmailSignin', 'role',
    'Testing', 'Test2','ClassInformationForWebUser','ClassSearchInformationForWebUser',
-   'TermsOfService','PrivacyPolicy','Tour','Perf']
+   'TermsOfService','PrivacyPolicy','TourFromHomePage','Perf']
 });
 
 Router.onBeforeAction(OnBeforeActions.LoginedRedirect, {only: ['language']});
 Router.onBeforeAction(OnBeforeActions.roleRequired, {only: ['TabChat']} );
 Router.onBeforeAction(OnBeforeActions.roleRequired, {only: ['TabClasses'] });
-
+Router.onBeforeAction(OnBeforeActions.hasUserSeenAppTour, {only: ['TourFromHomePage'] });
 
 Router.onBeforeAction('loading');
 Router.onBeforeAction(OnBeforeActions.checkLanguage);
@@ -90,16 +103,22 @@ Router.onBeforeAction(OnBeforeActions.checkDob, {
   only: ['TabClasses','classDetail']
 });
 
-Router.route('Tour',{
-    layoutTemplate:'',//otherwise we get a green header on the page
-    //path:"tour"
+Router.route('TourFromHomePage',{
+    layoutTemplate:'',//otherwise we get a green header on the page,
+    template:"Tour",
     path:"/"
+  }
+);
+
+Router.route('Tour',{
+    layoutTemplate:'',//otherwise we get a green header on the page,
+    template:"Tour",
+    path:"/tour"
   }
 );
 
 Router.route('Login', {
   path: "/login",
-  //path: "/",
   waitOn:function () {
     Accounts.loginServicesConfigured();
   }
