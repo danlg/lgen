@@ -49,14 +49,26 @@
             <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a>
           </div>
           {{/if}} {{/unless}} {{/with}} {{/each}}
-      
+          {{#each uploadDocuments}} 
+           {{#with getDocument}}
+
+            <div class="bubble">
+             <a href="{{this.url}}">Doc Preview</a>
+            </div>
+
+           {{/with}}
+          {{/each}}      
         </div>
               
         <div style="display:none;"> {{ arrToString searchObj.selectArrName }}</div>
         <div class="item item-input input-box-panel  {{messageBox}}" style="">
           <textarea dir="auto" name="msg" maxlength="5000" class="inputBox msgBox autogrow-short" placeholder="{{isPlaceHolder}}"></textarea>
           <button style="min-height:0;border:0;padding:0;margin:0;border-radius:6px;width:100px;display:none;{{isShown}}" class="send-msg-btn-class sendMsgBtn button icon  ion-paper-airplane "></button>
-          <span class='mediaButtonGroup' style='{{isHidden}}'>
+          <span class='mediaButtonGroup' style='{{isHidden}};width:240px;'>
+            <span class="file " style='display:inline-block;padding:10px;'>
+                <i class="icon ion-ios-upload-outline imageIcon"></i>
+                <input type="file" id="documentBtn" accept=".pdf, .doc, .docx, .ppt, .pptx, .xls , .xlsx">
+            </span>              
             <span class="file image-btn-class" style='display:inline;padding:10px;{{withExtraRightPadding}}'>
               <i class="icon ion-ios-camera-outline imageIcon {{ isDisabled 'camera' }} "></i>
               <input type="file" id="imageBtn" accept="image/*;capture=camera" capture="camera" {{ isDisabled 'camera' }}>
@@ -85,17 +97,31 @@
             <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}">
             <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a>
           </div>
-          {{/unless}} {{/with}} {{/each}} {{#each uploadSound}} {{#with FS.GetFile "sounds" this}}
+          {{/unless}} {{/with}}
+          {{/each}}
+          
+          {{#each uploadSound}} {{#with FS.GetFile "sounds" this}}
           <!-- In here, we can use the FS.File instance methods that work as helpers, such as {{url}} or {{isImage}} -->
-          {{#unless this.isUploaded}} {{> LoadingSpinner}} {{else}} {{#if url}}
+          {{#unless this.isUploaded}} {{> LoadingSpinner}} {{else}}
+          {{#if url}}
           <div class="bubble">
             <!-- <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}" >
                       <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a> -->
             <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}" data-clipurl="{{url}}"></a>
             <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a>
           </div>
-          {{/if}} {{/unless}} {{/with}} {{/each}}
+          {{/if}} {{/unless}} {{/with}}
+          {{/each}}
       
+          {{#each uploadDocuments}} 
+           {{#with getDocument}}
+
+            <div class="bubble">
+             <a href="{{this.url}}">Doc Preview</a>
+            </div>
+
+           {{/with}}
+          {{/each}}
         </div>
              
         <a href="{{pathFor 'MessageClassSelection' }}">

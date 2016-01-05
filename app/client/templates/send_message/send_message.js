@@ -5,6 +5,7 @@ Session.setDefault("sendMessageSelectedClasses", {
 });
 var imageArr = ReactiveVar([]);
 var soundArr = ReactiveVar([]);
+var documentArr = ReactiveVar([]);
 var isRecording = false;
 var media = "";
 var isPlayingSound = false;
@@ -131,40 +132,11 @@ Template.SendMessage.events({
 
     //https://github.com/CollectionFS/Meteor-CollectionFS
     //Image is inserted from here via FS.Utility
-    FS.Utility.eachFile(event, function (file) {
-
-      Images.insert(file, function (err, fileObj) {
-        if (err) {
-          // handle error
-          log.error(err);
-        } else {
-
-          // alert(fileObj._id);
-          var arr = imageArr.get();
-          arr.push(fileObj._id);
-          imageArr.set(arr);
-          
-            log.info(fileObj.name());
-            log.info(fileObj.extension());
-            log.info(fileObj.size());
+    Application.FileHandler.imageUpload(event,'class',imageArr.get(),function(result){
         
-            log.info(fileObj.type());
-            log.info(fileObj.updatedAt());
-
-          if (Meteor.user().profile.firstpicture) {
-            analytics.track("First Picture", {
-              date: new Date(),
-            });
-
-            Meteor.call("updateProfileByPath", 'profile.firstpicture', false);
-          }
-          
-
-          
-        }
-      });
+        imageArr.set(result);
     });
-    
+
     showPreview("image");
 
 
@@ -217,6 +189,23 @@ Template.SendMessage.events({
   'keyup .inputBox':function(){
     log.info("input box keyup");
     sendBtnMediaButtonToggle();
+  },
+  'click #documentBtn':function(e){
+    if (Meteor.isCordova) {
+      if (window.device.platform === "Android") {
+        e.preventDefault();
+        Application.FileHandler.documentUploadForAndroid(e);
+        
+      }
+    }      
+   
+  },
+  'change #documentBtn': function (event, template) {
+      Application.FileHandler.documentUpload(event,'class',documentArr.get(),function(result){ 
+          log.info(result);
+          documentArr.set(result);
+      });
+      showPreview();
   }  
 });
 
@@ -273,21 +262,18 @@ Template.SendMessage.helpers({
       return lodash(arr).toString();
     }
   },
-  uploadPic: function (argument) {
-    
-    log.info(imageArr.get().length);
-    log.info(imageArr.get());
-    
-    var tempArr = imageArr.get();
-
-  
-  
-           
+  uploadPic: function (argument) {      
     return imageArr.get();
   },
   uploadSound: function (argument) {
     return soundArr.get();
   },
+  uploadDocument: function(argument){
+    return documentArr.get();  
+  },
+  uploadDocuments: function(argument){
+    return documentArr.get();  
+  },  
   getImage: function () {
     var id = this.toString();
     return Images.findOne(id);
@@ -295,6 +281,10 @@ Template.SendMessage.helpers({
   getSound: function () {
     var id = this.toString();
     return Sounds.findOne(id);
+  },
+  getDocument: function(){
+    var id = this.toString();
+    return Documents.findOne(id);      
   },
   isDisabled: function (type) {
     switch (type) {
