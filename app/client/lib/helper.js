@@ -11,6 +11,14 @@ isIOS = function() {
   return Meteor.isCordova && (device.platform.toLowerCase().indexOf("ios") > -1);
 };
 
+isCordova = function(){
+  return Meteor.isCordova;
+};
+
+Template.registerHelper('isAndroid', isAndroid);
+Template.registerHelper('isIOS', isIOS);
+Template.registerHelper('isCordova', isCordova);
+
 var googleDocsURLToEmbedReadyURLHTML = function(originalURL){
            var fileURL = originalURL;
            var outputHTML = "";
@@ -45,10 +53,8 @@ var googleDocsURLToEmbedReadyURLHTML = function(originalURL){
                //something not yet support. do nothing
            }
         return outputHTML;
-}
+};
 
-Template.registerHelper('isAndroid', isAndroid);
-Template.registerHelper('isIOS', isIOS);
 
 Template.registerHelper('docPreview',function(url){
     //no document preview on android for now

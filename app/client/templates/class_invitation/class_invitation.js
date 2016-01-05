@@ -14,9 +14,6 @@ Template.ClassInvitation.helpers({
   },
   getClassName: function () {
     return classObj.className;
-  },
-  isCordova: function(){
-    return Meteor.isCordova;
   }
 });
 

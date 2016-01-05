@@ -6,9 +6,6 @@ Template.ChatRoom.helpers({
   chatRoomProfile: function () {
     return Chat.findOne({_id: Router.current().params.chatRoomId});
   },
-  isCordova: function(){
-    return Meteor.isCordova;
-  },
   withExtraRightPadding:function(){
     if(!Meteor.isCordova){
       return "padding-right:40px;"

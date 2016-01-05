@@ -320,8 +320,9 @@ Template.SendMessage.helpers({
       return "";
     }    
   },
-  isCordova: function(){
-    return Meteor.isCordova;
+  isPlaceHolder: function(){
+    // we put the placeholder to guide user only for web version
+    return Meteor.isCordova ? "" : TAPi18n.__("Type_Message_Here");
   },
   withExtraRightPadding:function(){
     if(!Meteor.isCordova){

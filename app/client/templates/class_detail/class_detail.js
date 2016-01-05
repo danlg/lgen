@@ -89,10 +89,7 @@ Template.ClassDetail.helpers({
   getSound: function () {
     var id = this.toString();
     return Sounds.findOne(id);
-  },
-  isCordova: function(){
-    return Meteor.isCordova;
-  },
+  }
 });
 
 /*****************************************************************************/

@@ -106,6 +106,7 @@
   "Teacher": "Teacher",
   "Terms_of_service": "Terms of service",
   "Thanks_for_sharing": "Many thanks for giving us feedback to continuously improve our services",
+  "Type_Message_Here": "Type your message here",
   "Unsubsribe": "Unsubscribe",
   "UnsubscribeEmailNotification":"If you prefer not to receive email notification, go to Menu: You > Notification > Uncheck Email",
   "Update": "Update",
@@ -123,7 +124,9 @@
 
   "FirstNamePlaceHolder": "First name",
   "LastNamePlaceHolder": "Last name",
-  "EmailPlaceHolder": "Your contact email",
+  "OrganizationPlaceHolder": "My school or organization",
+  "CityPlaceHolder": "My city",
+  "EmailPlaceHolder": "My contact email",
 
   "firstname": "First name",
   "lastname": "Last name",

@@ -85,9 +85,6 @@ Template.ClassPanel.helpers({
   }
   , isZero: function (count) {
     return count === 0;
-  },
-  isCordova: function(){
-    return Meteor.isCordova;
   }
 
 });

@@ -69,9 +69,6 @@ Template.ShareInvite.helpers({
   },
   getShareLink: function () {
     return  shareLink.get();
-  },
-  isCordova:function(){
-    return Meteor.isCordova;
   }
 
 });
