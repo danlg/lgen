@@ -42,6 +42,10 @@ Template.ClassPanel.events({
         isPlayingSound = false;
       });
     }
+  },
+  'click a': function (e) {
+      Application.FileHandler.openFile(e);
+      e.preventDefault();
   }
   
 });
