@@ -1,238 +1,286 @@
 
 
 Application.FileHandler = {};
-Application.FileHandler = (function() {
+Application.FileHandler = (function () {
 
 
     return {
-        openFile : function(e)
-            {
-                //open external url via cordova inappbrowser plugin so user can go back to the chat screen
-                //https://blog.nraboy.com/2014/12/open-dynamic-links-using-cordova-inappbrowser/                  
-                var element = e.target || e.srcElement;
+        openFile: function (e) {
+            //open external url via cordova inappbrowser plugin so user can go back to the chat screen
+            //https://blog.nraboy.com/2014/12/open-dynamic-links-using-cordova-inappbrowser/                  
+            var element = e.target || e.srcElement;
 
-                if (element.tagName == 'A') {
-                    if (element.href) {
-                        var fileURL = element.href;
+            if (element.tagName == 'A') {
+                if (element.href) {
+                    var fileURL = element.href;
                         
-                        //since IOS has built-in document viewer, we just pass the url directly to the system to handle it.   
-                        if ( isIOS() ) {
-                            //use _blank will open the link via inappbrowser, so no address bar would be shown
-                            window.open(fileURL, "_blank", "location=no");
-                        }else if( isAndroid() ){
+                    //since IOS has built-in document viewer, we just pass the url directly to the system to handle it.   
+                    if (isIOS()) {
+                        //use _blank will open the link via inappbrowser, so no address bar would be shown
+                        window.open(fileURL, "_blank", "location=no");
+                    } else if (isAndroid()) {
                             
                         //for android, they dont have built-in document viewer, although google docs viewer can be used,
                         //the performance is sub-optimal.
                         //so we just just pass the url directly to the system. The system will let user choose to donwload it
                         //and open it in android native app
                         //like adobe reader for pdf or quickoffice for office files.                   
-                            window.open(fileURL, "_system", "location=no");                  
-                        }else { //for web, they dont have built-in document viewer, we pass the modified the url to point to
-                            // google docs viewer
+                        window.open(fileURL, "_system", "location=no");
+                    } else { //for web, they dont have built-in document viewer, we pass the modified the url to point to
+                        // google docs viewer
                             
-                            //if it is a normal document url                
-                            if (lodash.endsWith(fileURL, 'doc') || lodash.endsWith(fileURL, 'docx')
-                                || lodash.endsWith(fileURL, 'ppt') || lodash.endsWith(fileURL, 'pptx')
-                                || lodash.endsWith(fileURL, 'xls') || lodash.endsWith(fileURL, 'xlsx')
-                                ) {
-                                var modifiedFileURL = "https://docs.google.com/viewer?embedded=true&url=" + fileURL + "";
-                                window.open(modifiedFileURL, "_system", "location=no");
-                            } else {
-                                //if it is other file type that google docs viewer can't handle, user would be prompted to download the file.
-                                //modern desktop browser has built-in pdf viewer, so pdf will be opened here
-                                window.open(fileURL, "_system", "location=no");
-                            }
+                        //if it is a normal document url                
+                        if (lodash.endsWith(fileURL, 'doc') || lodash.endsWith(fileURL, 'docx')
+                            || lodash.endsWith(fileURL, 'ppt') || lodash.endsWith(fileURL, 'pptx')
+                            || lodash.endsWith(fileURL, 'xls') || lodash.endsWith(fileURL, 'xlsx')
+                            ) {
+                            var modifiedFileURL = "https://docs.google.com/viewer?embedded=true&url=" + fileURL + "";
+                            window.open(modifiedFileURL, "_system", "location=no");
+                        } else {
+                            //if it is other file type that google docs viewer can't handle, user would be prompted to download the file.
+                            //modern desktop browser has built-in pdf viewer, so pdf will be opened here
+                            window.open(fileURL, "_system", "location=no");
                         }
-                        return false;
                     }
+                    return false;
                 }
-            },
-        imageUpload : function(event)
-        {
-            FS.Utility.eachFile(event, function (file) {
-            Images.insert(file, function (err, fileObj) {
-                if (err) {
-                // handle error
-                log.error(err);
-                }
-                else {
-                var pushObj = {};
-                pushObj.from = Meteor.userId();
-                pushObj.sendAt = moment().format('x');
-                pushObj.text = "";
-                pushObj.image = fileObj._id;
-                Meteor.call("chat/sendImage", Router.current().params.chatRoomId, pushObj, function (error, result) {
-                    if (error) {
-                    log.error("error", error);
-                    }
-                });
-                
-                var targetUser = getAnotherUser();    
-                var targetId = targetUser._id;
-                var query = {};
-                query.userId = targetId;
-
-                var notificationObj = {};
-                notificationObj.from = getFullNameByProfileObj(Meteor.user().profile);
-                notificationObj.title = getFullNameByProfileObj(Meteor.user().profile);
-                notificationObj.text = "Image";
-                notificationObj.query = query;
-                notificationObj.sound = 'default';
-                notificationObj.payload = {
-                    sound: 'Hello World',
-                    type: 'chat'
-                };
-                Meteor.call("serverNotification", notificationObj);
-                if (Meteor.user().profile.firstpicture) {
-                    analytics.track("First Picture", {
-                    date: new Date(),
-                    });
-                    Meteor.call("updateProfileByPath", 'profile.firstpicture', false);
-                }
-                }
-            });
-            });
+            }
         },
-        imageUploadForAndroidAndIOS: function(e){
-            var onSuccess = function (imageURI) {
-            // var image = document.getElementById('myImage');
-            // image.src = "data:image/jpeg;base64," + imageData;
-            // alert(imageData);
-            window.resolveLocalFileSystemURI(imageURI,
-                function (fileEntry) {
-                // alert("got image file entry: " + fileEntry.fullPath);
-                // log.info(fileEntry.)
-                fileEntry.file(function (file) {
-                    // alert(file);
-                    log.info(file);
-                    Images.insert(file, function (err, fileObj) {
+        imageUpload: function (event, category, currentImageArray, callback) {
+            FS.Utility.eachFile(event, function (file) {
+                Images.insert(file, function (err, fileObj) {
                     if (err) {
                         // handle error
                         log.error(err);
                     }
                     else {
-                        var pushObj = {};
-                        pushObj.from = Meteor.userId();
-                        pushObj.sendAt = moment().format('x');
-                        pushObj.text = "";
-                        pushObj.image = fileObj._id;
 
-                        Meteor.call("chat/sendImage", Router.current().params.chatRoomId, pushObj, function (error, result) {
-                        if (error) {
-                            log.error("error", error);
+                        if (category == "chat") {
+                            var pushObj = {};
+                            pushObj.from = Meteor.userId();
+                            pushObj.sendAt = moment().format('x');
+                            pushObj.text = "";
+                            pushObj.image = fileObj._id;
+                            Meteor.call("chat/sendImage", Router.current().params.chatRoomId, pushObj, function (error, result) {
+                                if (error) {
+                                    log.error("error", error);
+                                }
+                            });
+
+                            var targetUser = getAnotherUser();
+                            var targetId = targetUser._id;
+                            var query = {};
+                            query.userId = targetId;
+
+                            var notificationObj = {};
+                            notificationObj.from = getFullNameByProfileObj(Meteor.user().profile);
+                            notificationObj.title = getFullNameByProfileObj(Meteor.user().profile);
+                            notificationObj.text = "Image";
+                            notificationObj.query = query;
+                            notificationObj.sound = 'default';
+                            notificationObj.payload = {
+                                sound: 'Hello World',
+                                type: 'chat'
+                            };
+                            Meteor.call("serverNotification", notificationObj);
+                            if (Meteor.user().profile.firstpicture) {
+                                analytics.track("First Picture", {
+                                    date: new Date(),
+                                });
+                                Meteor.call("updateProfileByPath", 'profile.firstpicture', false);
+                            }
+                        } else if (category == "class") {
+                            // alert(fileObj._id);
+                            var arr = currentImageArray;
+                            arr.push(fileObj._id);
+
+                            log.info(fileObj.name());
+                            log.info(fileObj.extension());
+                            log.info(fileObj.size());
+
+                            log.info(fileObj.type());
+                            log.info(fileObj.updatedAt());
+
+                            if (Meteor.user().profile.firstpicture) {
+                                analytics.track("First Picture", {
+                                    date: new Date(),
+                                });
+
+                                Meteor.call("updateProfileByPath", 'profile.firstpicture', false);
+                            }
+                            log.info(fileObj._id);
+                            callback(arr);
                         }
-                        });
-                        
-                        //get another person's user object in 1 to 1 chatroom.             
-                        var targetUserObj = getAnotherUser();               
-                        var targetId = targetUserObj._id;
-                        var query = {};
-                        query.userId = targetId;
-                        var notificationObj = {};
-                        notificationObj.from = getFullNameByProfileObj(Meteor.user().profile);
-                        notificationObj.title = getFullNameByProfileObj(Meteor.user().profile);
-                        notificationObj.text = "Image";
-                        notificationObj.query = query;
-                        notificationObj.sound = 'default';
-                        notificationObj.payload = {
-                        sound: 'Hello World',
-                        type: 'chat'
-                        };
-                        Meteor.call("serverNotification", notificationObj);
+
                     }
-                    });
                 });
-                },
-                function () {
-                //error
-                // alert("ada");
-                }
-            );
+            });
+        },
+        imageUploadForAndroidAndIOS: function (e) {
+            var onSuccess = function (imageURI) {
+                // var image = document.getElementById('myImage');
+                // image.src = "data:image/jpeg;base64," + imageData;
+                // alert(imageData);
+                window.resolveLocalFileSystemURI(imageURI,
+                    function (fileEntry) {
+                        // alert("got image file entry: " + fileEntry.fullPath);
+                        // log.info(fileEntry.)
+                        fileEntry.file(function (file) {
+                            // alert(file);
+                            log.info(file);
+                            Images.insert(file, function (err, fileObj) {
+                                if (err) {
+                                    // handle error
+                                    log.error(err);
+                                }
+                                else {
+                                    var pushObj = {};
+                                    pushObj.from = Meteor.userId();
+                                    pushObj.sendAt = moment().format('x');
+                                    pushObj.text = "";
+                                    pushObj.image = fileObj._id;
+
+                                    Meteor.call("chat/sendImage", Router.current().params.chatRoomId, pushObj, function (error, result) {
+                                        if (error) {
+                                            log.error("error", error);
+                                        }
+                                    });
+                        
+                                    //get another person's user object in 1 to 1 chatroom.             
+                                    var targetUserObj = getAnotherUser();
+                                    var targetId = targetUserObj._id;
+                                    var query = {};
+                                    query.userId = targetId;
+                                    var notificationObj = {};
+                                    notificationObj.from = getFullNameByProfileObj(Meteor.user().profile);
+                                    notificationObj.title = getFullNameByProfileObj(Meteor.user().profile);
+                                    notificationObj.text = "Image";
+                                    notificationObj.query = query;
+                                    notificationObj.sound = 'default';
+                                    notificationObj.payload = {
+                                        sound: 'Hello World',
+                                        type: 'chat'
+                                    };
+                                    Meteor.call("serverNotification", notificationObj);
+                                }
+                            });
+                        });
+                    },
+                    function () {
+                        //error
+                        // alert("ada");
+                    }
+                    );
             }
 
             var onFail = function (message) {
-            toastr.error('Failed because: ' + message);
+                toastr.error('Failed because: ' + message);
             }
             var callback = function (buttonIndex) {
-            setTimeout(function () {
-                // like other Cordova plugins (prompt, confirm) the buttonIndex is 1-based (first button is index 1)
-                //  alert('button index clicked: ' + buttonIndex);
-                switch (buttonIndex) {
-                case 1:
-                    navigator.camera.getPicture(onSuccess, onFail, {
-                    quality: 50,
-                    destinationType: Camera.DestinationType.FILE_URI,
-                    limit: 1
-                    });
-                    break;
-                case 2:
-                    navigator.camera.getPicture(onSuccess, onFail, {
-                    quality: 50,
-                    destinationType: Camera.DestinationType.FILE_URI,
-                    sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
-                    limit: 1
-                    });
-                    break;
-                default:
+                setTimeout(function () {
+                    // like other Cordova plugins (prompt, confirm) the buttonIndex is 1-based (first button is index 1)
+                    //  alert('button index clicked: ' + buttonIndex);
+                    switch (buttonIndex) {
+                        case 1:
+                            navigator.camera.getPicture(onSuccess, onFail, {
+                                quality: 50,
+                                destinationType: Camera.DestinationType.FILE_URI,
+                                limit: 1
+                            });
+                            break;
+                        case 2:
+                            navigator.camera.getPicture(onSuccess, onFail, {
+                                quality: 50,
+                                destinationType: Camera.DestinationType.FILE_URI,
+                                sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
+                                limit: 1
+                            });
+                            break;
+                        default:
 
-                }
-            });
-            };            
+                    }
+                });
+            };
             var options = {
                 'buttonLabels': ['Take Photo From Camera', 'Select From Gallery'],
                 'androidEnableCancelButton': true, // default false
                 'winphoneEnableCancelButton': true, // default false
                 'addCancelButtonWithLabel': 'Cancel'
             };
-            window.plugins.actionsheet.show(options, callback);            
+            window.plugins.actionsheet.show(options, callback);
         },
-        documentUpload: function(event){
+        documentUpload: function (event,category,currentDocumentArray,callback) {
             FS.Utility.eachFile(event, function (file) {
-            Documents.insert(file, function (err, fileObj) {
-                if (err) {
-                // handle error
-                log.error(err);
-                }
-                else {
-                var pushObj = {};
-                pushObj.from = Meteor.userId();
-                pushObj.sendAt = moment().format('x');
-                pushObj.text = "";
-                pushObj.document = fileObj._id;
-                Meteor.call("chat/sendImage", Router.current().params.chatRoomId, pushObj, function (error, result) {
-                    if (error) {
-                    log.error("error", error);
+                Documents.insert(file, function (err, fileObj) {
+                    if (err) {
+                        // handle error
+                        log.error(err);
+                    }
+                    else {
+                        
+                        if(category == 'chat'){
+                            var pushObj = {};
+                            pushObj.from = Meteor.userId();
+                            pushObj.sendAt = moment().format('x');
+                            pushObj.text = "";
+                            pushObj.document = fileObj._id;
+                            Meteor.call("chat/sendImage", Router.current().params.chatRoomId, pushObj, function (error, result) {
+                                if (error) {
+                                    log.error("error", error);
+                                }
+                            });
+
+                            var targetUser = getAnotherUser();
+                            var targetId = targetUser._id;
+                            var query = {};
+                            query.userId = targetId;
+
+                            var notificationObj = {
+                                from: getFullNameByProfileObj(Meteor.user().profile),
+                                title: getFullNameByProfileObj(Meteor.user().profile),
+                                text: "Document",
+                                query: query,
+                                sound: 'default',
+                                payload: {
+                                    sound: 'Hello World',
+                                    type: 'chat'
+                                }
+                            };
+                            Meteor.call("serverNotification", notificationObj);
+                            if (Meteor.user().profile.firstdocument) {
+                                analytics.track("First Document", {
+                                    date: new Date(),
+                                });
+                                Meteor.call("updateProfileByPath", 'profile.firstdocument', false);
+                            }                            
+                        }else if (category =='class'){
+                            var arr = currentDocumentArray;
+                            log.info(currentDocumentArray);
+                            arr.push(fileObj._id);
+
+                            log.info(fileObj.name());
+                            log.info(fileObj.extension());
+                            log.info(fileObj.size());
+
+                            log.info(fileObj.type());
+                            log.info(fileObj.updatedAt());
+
+                            if (Meteor.user().profile.firstdocument) {
+                                analytics.track("First Document", {
+                                    date: new Date(),
+                                });
+
+                                Meteor.call("updateProfileByPath", 'profile.firstdocument', false);
+                            }
+                            log.info(fileObj._id);
+                            callback(arr);                           
+                        }
+
                     }
                 });
-                
-                var targetUser = getAnotherUser();    
-                var targetId = targetUser._id;
-                var query = {};
-                query.userId = targetId;
-
-                var notificationObj = {
-                    from: getFullNameByProfileObj(Meteor.user().profile),
-                    title: getFullNameByProfileObj(Meteor.user().profile),
-                    text : "Document",
-                    query: query,
-                    sound: 'default',
-                    payload: {
-                        sound: 'Hello World',
-                        type: 'chat'                  
-                    }
-                };
-                Meteor.call("serverNotification", notificationObj);
-                if (Meteor.user().profile.firstdocument) {
-                    analytics.track("First Document", {
-                    date: new Date(),
-                    });
-                    Meteor.call("updateProfileByPath", 'profile.firstdocument', false);
-                }
-                }
             });
-            });            
         },
-        documentUploadForAndroid: function(e){         
+        documentUploadForAndroid: function (e) {
             var successCallback = function (uri) {
                 log.info(uri);
                 window.FilePath.resolveNativePath(uri, function (localFileUri) {
@@ -290,8 +338,8 @@ Application.FileHandler = (function() {
 
                 alert(uri);
 
-            }            
-           fileChooser.open(successCallback, failureCallback);  
+            }
+            fileChooser.open(successCallback, failureCallback);
         }
     };
 })();

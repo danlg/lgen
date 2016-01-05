@@ -73,7 +73,7 @@ Template.ChatRoom.events({
   },
 
   'change #imageBtn': function (event, template) {
-      Application.FileHandler.imageUpload(e);
+      Application.FileHandler.imageUpload(event,'chat');
   },
   'click #documentBtn':function(e){
     if (Meteor.isCordova) {
@@ -86,7 +86,7 @@ Template.ChatRoom.events({
    
   },
   'change #documentBtn': function (event, template) {
-      Application.FileHandler.documentUpload(event);
+      Application.FileHandler.documentUpload(event,'chat');
   },
 
   'click .imgThumbs': function (e) {

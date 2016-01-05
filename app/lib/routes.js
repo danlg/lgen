@@ -165,7 +165,8 @@ Router.route('ClassPanelMsgNotice', {
     return [
       Meteor.subscribe('getClassMsgId', this.params.msgCode),
       Meteor.subscribe('images'),
-      Meteor.subscribe('sounds')
+      Meteor.subscribe('sounds'),
+      Meteor.subscribe('documents')   
     ];
   }
 });
@@ -211,7 +212,8 @@ Router.map(function(){
       return [
         Meteor.subscribe('class', this.params.classCode),
         Meteor.subscribe('images'),
-        Meteor.subscribe('sounds')
+        Meteor.subscribe('sounds'),
+        Meteor.subscribe('documents')       
       ];
     }    
   });
@@ -324,7 +326,8 @@ Router.route('SendMessage', {
     return [
       Meteor.subscribe('createdClassByMe'),
       Meteor.subscribe('images'),
-      Meteor.subscribe('sounds')
+      Meteor.subscribe('sounds'),
+      Meteor.subscribe('documents')
     ];
   }
 });
