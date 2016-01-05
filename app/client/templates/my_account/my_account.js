@@ -32,6 +32,12 @@ Template.MyAccount.helpers({
   , getLastNamePlaceHolder: function(){
     return TAPi18n.__("LastNamePlaceHolder");
   }
+  , getOrganizationPlaceHolder: function(){
+    return TAPi18n.__("OrganizationPlaceHolder");
+  }
+  , getCityPlaceHolder: function(){
+    return TAPi18n.__("CityPlaceHolder");
+  }
   , getEmailPlaceHolder: function(){
     return TAPi18n.__("EmailPlaceHolder");
   }

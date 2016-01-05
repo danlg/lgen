@@ -1,7 +1,6 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 Schema = {};
 
-
 Schema.joinClass = new SimpleSchema({
   classCode: {
     type: String,
@@ -21,25 +20,19 @@ Schema.joinClass = new SimpleSchema({
 });
 
 Schema.joinClass.messages({
-  
   notYourClass: "You cant join the class you own"
-  
 });
 
 Schema.emailSignup = new SimpleSchema({
-  firstname: {
-    type: String
-  },
-  lastname: {
-    type: String
-  },
+  firstname: { type: String },
+  lastname:  { type: String },
   email: {
     type: String,
-    regEx: SimpleSchema.RegEx.Email,
+    regEx: SimpleSchema.RegEx.Email
   },
   password: {
     type: String,
-    min: 4,
+    min: 4
   },
   confirmPassword: {
     type: String,
@@ -51,13 +44,10 @@ Schema.emailSignup = new SimpleSchema({
       }
     }
   },
-  role: {
-    type: String
-  },
-  dob: {
-    type: String,
-    optional: true
-  }
+  organization: { type: String, optional:true },
+  city:         { type: String, optional:true },
+  role: { type: String },
+  dob:  { type: String, optional: true }
 });
 
 Schema.leaveClass = new SimpleSchema({
@@ -141,10 +131,10 @@ Schema.editprofile = new SimpleSchema({
   lastname: {
     type: String
   },
-  location: {
-    type: String,
-    optional: true
-  },
+  organization: { type: String, optional:true },
+  city:         { type: String, optional:true },
+  //location not used ?
+  //location:     { type: String, optional: true },
   email: {
     type: String,
     regEx: SimpleSchema.RegEx.Email
@@ -161,6 +151,8 @@ Schema.profile = {
   lastname: "",
   role: "",
   dob: "",
+  organization: "",
+  city: "",
   email: false, //default as false so user needs to opt it to receive email message notificaiton
   push: true,
   firstchat: true,

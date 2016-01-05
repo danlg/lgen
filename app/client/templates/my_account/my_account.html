@@ -37,10 +37,16 @@
           </div>
 
           <label class="item item-input item-stacked-label">
-            <!--<span class="input-label">Email</span>-->
             {{> afFieldInput name="email" placeholder=getEmailPlaceHolder value=email  }}
           </label>
-          
+          <!--todo add country-->
+          <label class="item item-input item-stacked-label">
+            {{> afFieldInput name="organization" placeholder=getOrganizationPlaceHolder value=profile.organization  }}
+          </label>
+          <label class="item item-input item-stacked-label">
+            {{> afFieldInput name="city" placeholder=getCityPlaceHolder value=profile.city  }}
+          </label>
+
           <label class="item item-input item-stacked-label">
             <!--<span class="input-label">Role</span>  -->
             <p>{{profile.role}}</p>
