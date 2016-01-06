@@ -1,17 +1,16 @@
 {
   "env": {
-    "ROOT_URL": "http://app.littlegenius.io",
-    "PORT": 80,
-
-    "MONGO_URL": "mongodb://lgdb:g0ni0123!!@alcatraz.1.mongolayer.com:10270,alcatraz.0.mongolayer.com:10270/littlegenius?replicaSet=set-564d98c6f5a6b08363000cd2",
-    "MONGO_OPLOG_URL": "mongodb://lgdb:g0ni0123!!@alcatraz.1.mongolayer.com:10270,alcatraz.0.mongolayer.com:10270/local?authSource=littlegenius"
+    "ROOT_URL": "http://app.gosmartix.com",
+    "PORT": 80
   },
   //production
+  //use only to
+  //             "mup reconfig" !!!
   "servers": [
     {
-      "host": "app.littlegenius.io",
-      "username": "lg",
-      "password": "g0ni0123"
+      "host": "app.gosmartix.com",
+      "username": "root",
+      "password": "lgen124"
     }
   ],
   "setupMongo": false,
@@ -20,6 +19,6 @@
   "setupPhantom": true,
   "enableUploadProgressBar": true,
   "appName": "littlegenius",
-  "app": "/Users/dan/DEV/clean/lgen/app",
+  "app": "/Users/dan/DEV/PRD/lgen/app",
   "deployCheckWaitTime": 15
 }

@@ -5,28 +5,26 @@
     },
     "analyticsSettings": {
       "Mixpanel": {
-        "token": "9566b1a8aad8f17497bfe5846eefb8dc",
+        "token": "ed2cc0f567e1d57a89cc4aceb93811ec",
         "people": true
       }
     },
 
-    "ROOT_URL": "http://app.littlegenius.io",
+    "ROOT_URL": "http://app.gosmartix.com",
     "PORT": 80,
-    "SHARE_URL": "http://lgen.me"
+    "SHARE_URL": "http://app.gosmartix.com",
+    "GOOGLE_PLAY_URL":"http://google.com",
+    "APP_STORE_URL":"http://google.com"
   },
 
-  "FROM_EMAIL": "contactemail@littlegenius.io",
-  "FROM_NAME": "Little Genius",
-  "FEEDBACK_EMAIL": "feedback@littlegenius.io",
-
-  "MONGO_URL": "xxxxxx",
-  "MONGO_OPLOG_URL": "xxxx",
-
-  "GOOGLE_CLIENT_ID": "xxxxx",
-  "GOOGLE_SECRET": "xxxxx",
+  "GOOGLE_CLIENT_ID": "122417300165-bq0l4khepcibitqksgrmkuvqrdintiuc.apps.googleusercontent.com",
+  "GOOGLE_SECRET": "kCwDY5lY6wWz8KsGB4fTVwNp",
 
   "MANDRILL_USERNAME": "dan@littlegenius.io",
-  "MANDRILL_KEY": "xxxxxx",
-  "MANDRILL_PORT": 587
+  "MANDRILL_KEY": "GBt6d5ggNEP7969s9j9DyA",
+  "MANDRILL_PORT": 587,
 
+  "FROM_EMAIL": "contactemail@littlegenius.io",
+  "FROM_NAME": "Little Geniqqus",
+  "FEEDBACK_EMAIL": "feedback@littlegenius.io"
 }
