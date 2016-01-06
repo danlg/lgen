@@ -99,7 +99,12 @@ Template.ClassDetail.helpers({
     return Sounds.findOne(id);
   },
   haveDocument: function () {
-    return this.documentArr.length > 0;
+    //existing message may not have documentArr attribute
+    if(this.documentArr){
+        return this.documentArr.length > 0;
+    }else{
+        return false;
+    }
   },
   getDocument: function () {
     var id = this.toString();
