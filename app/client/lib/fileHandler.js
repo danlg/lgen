@@ -280,7 +280,7 @@ Application.FileHandler = (function () {
                 });
             });
         },
-        documentUploadForAndroid: function (e) {
+        documentUploadForAndroid: function (e,category,currentDocumentArray,callback) {
             var successCallback = function (uri) {
                 log.info(uri);
                 window.FilePath.resolveNativePath(uri, function (localFileUri) {
@@ -295,37 +295,61 @@ Application.FileHandler = (function () {
                                     //handle error
                                     log.error("insert error" + err);
                                 }
-                                else {
-                                    //handle success depending what you need to do
-                                    console.dir(fileObj);
-                                    var pushObj = {};
-                                    pushObj.from = Meteor.userId();
-                                    pushObj.sendAt = moment().format('x');
-                                    pushObj.text = "";
-                                    pushObj.document = fileObj._id;
-                                    Meteor.call("chat/sendImage", Router.current().params.chatRoomId, pushObj, function (error, result) {
-                                        if (error) {
-                                            log.error("error", error);
+                                else {   
+                                    if( category == 'chat'){
+                                        //handle success depending what you need to do
+                                        console.dir(fileObj);
+                                        var pushObj = {};
+                                        pushObj.from = Meteor.userId();
+                                        pushObj.sendAt = moment().format('x');
+                                        pushObj.text = "";
+                                        pushObj.document = fileObj._id;
+                                        Meteor.call("chat/sendImage", Router.current().params.chatRoomId, pushObj, function (error, result) {
+                                            if (error) {
+                                                log.error("error", error);
+                                            }
+                                        });
+
+                                        //get another person's user object in 1 to 1 chatroom. 
+                                        var targetUserObj = getAnotherUser();
+                                        var targetId = targetUserObj._id;
+
+                                        var query = {};
+                                        query.userId = targetId;
+                                        var notificationObj = {};
+                                        notificationObj.from = getFullNameByProfileObj(Meteor.user().profile);
+                                        notificationObj.title = getFullNameByProfileObj(Meteor.user().profile);
+                                        notificationObj.text = "Document";
+                                        notificationObj.query = query;
+                                        notificationObj.sound = 'default';
+                                        notificationObj.payload = {
+                                            sound: 'Hello World',
+                                            type: 'chat'
+                                        };
+                                        Meteor.call("serverNotification", notificationObj);                                        
+                                    }else if (category == 'class'){
+                                        var arr = currentDocumentArray;
+                                        log.info(currentDocumentArray);
+                                        arr.push(fileObj._id);
+
+                                        log.info(fileObj.name());
+                                        log.info(fileObj.extension());
+                                        log.info(fileObj.size());
+
+                                        log.info(fileObj.type());
+                                        log.info(fileObj.updatedAt());
+
+                                        if (Meteor.user().profile.firstdocument) {
+                                            analytics.track("First Document", {
+                                                date: new Date(),
+                                            });
+
+                                            Meteor.call("updateProfileByPath", 'profile.firstdocument', false);
                                         }
-                                    });
+                                        log.info(fileObj._id);
+                                        callback(arr);                                           
+                                    }
 
-                                    //get another person's user object in 1 to 1 chatroom. 
-                                    var targetUserObj = getAnotherUser();
-                                    var targetId = targetUserObj._id;
-
-                                    var query = {};
-                                    query.userId = targetId;
-                                    var notificationObj = {};
-                                    notificationObj.from = getFullNameByProfileObj(Meteor.user().profile);
-                                    notificationObj.title = getFullNameByProfileObj(Meteor.user().profile);
-                                    notificationObj.text = "Sound";
-                                    notificationObj.query = query;
-                                    notificationObj.sound = 'default';
-                                    notificationObj.payload = {
-                                        sound: 'Hello World',
-                                        type: 'chat'
-                                    };
-                                    Meteor.call("serverNotification", notificationObj);
                                 }
                             });
                         });
@@ -339,6 +363,7 @@ Application.FileHandler = (function () {
                 alert(uri);
 
             }
+            
             fileChooser.open(successCallback, failureCallback);
         }
     };

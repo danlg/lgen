@@ -197,8 +197,11 @@ Template.SendMessage.events({
     if (Meteor.isCordova) {
       if (window.device.platform === "Android") {
         e.preventDefault();
-        Application.FileHandler.documentUploadForAndroid(e);
-        
+        Application.FileHandler.documentUploadForAndroid(event,'class',documentArr.get(),function(result){ 
+            log.info(result);
+            documentArr.set(result);
+        });
+        showPreview();        
       }
     }      
    
