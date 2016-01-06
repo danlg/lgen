@@ -1,11 +1,11 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 App.info({
   id: 'io.littlegenius.genie',
-  name: 'LittleGenius',
+  name: 'Smartix',
   description: 'Instant, free, simple communication for teachers, students and parents',
   author: 'Little Genius Education',
   email: 'contact@littlegenius.io',
-  website: 'http://app.littlegenius.io',
+  website: 'http://app.gosmartix.com',
   //todo sync this with config.xml
   version: '1.0.91105',
   buildNumber: '101'

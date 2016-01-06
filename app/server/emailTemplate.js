@@ -11,7 +11,7 @@ messageEmailTemplate = function (RecipientUsers, OriginateUserName,content, clas
     bccList.push(bcc);
   });
   //TODO localize me !
-  var subject =  "New message from " + OriginateUserName + " via Little Genius";
+  var subject =  "New message from " + OriginateUserName + " via Smartix";
   if(className){
     subject = subject + " class - " + className;
   }
@@ -29,7 +29,7 @@ messageEmailTemplate = function (RecipientUsers, OriginateUserName,content, clas
                                  GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag="en") ,
                                   UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag="en")
                                 },
-                                Assets.getText("messageEmailMasterTemplate.html")
+                                Assets.getText("emailMessageMasterTemplate.html")
                               )
  
     }
@@ -53,7 +53,7 @@ newClassMailTemplate = function (to, classname, classCode) {
           GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag="en") ,
           UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag="en")
         },
-        Assets.getText("messageEmailMasterTemplate.html")
+        Assets.getText("emailMessageMasterTemplate.html")
       ),
       "text": "No plain text for now just html",
       "subject": titlestr,
@@ -156,7 +156,7 @@ inviteClassMailTemplate = function (to, classObj) {
                 GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag="en") ,
                 UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag="en")
               },
-              Assets.getText("messageEmailMasterTemplate.html")
+              Assets.getText("emailMessageMasterTemplate.html")
         ),
 
       "from_email": Meteor.settings.FROM_EMAIL,
@@ -209,7 +209,7 @@ verificationEmailTemplate = function(role,userObj,verificationURL){
                 GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag="en") ,
                 UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag="en")
               },
-              Assets.getText("messageEmailMasterTemplate.html")
+              Assets.getText("emailMessageMasterTemplate.html")
         );       
         return Spacebars.toHTML(
           {

@@ -2,17 +2,17 @@
 
 meteor add-platform ios
 rm -rf .meteor/local/cordova-build
-rm -rf ../LittleGenius-build
+rm -rf ../Smartix-build
    #npm run ios-prd run
 
 case "$1" in
         prd)
             echo "Building " $1
-            rm -rf .meteor/local/cordova-build && NODE_ENV=production meteor run ios --settings ../config/production/settings.json --mobile-server=http://app.littlegenius.io:80 -p 5000
+            rm -rf .meteor/local/cordova-build && NODE_ENV=production meteor run ios --settings ../config/production/settings.json --mobile-server=http://app.gosmartix.com:80 -p 5000
             ;;
         uat)
             echo "Building " $1
-            rm -rf .meteor/local/cordova-build && meteor run ios --settings ../config/stage/settings.json --mobile-server=http://uat.littlegenius.io:80 -p 4000
+            rm -rf .meteor/local/cordova-build && meteor run ios --settings ../config/stage/settings.json --mobile-server=http://uat.gosmartix.com:80 -p 4000
             ;;
         *)
             echo $"Usage: $0 {uat|prd}"
@@ -25,18 +25,18 @@ esac
 echo "running here post build"
 
 # Set some plist attr for new xcode compile
-PLIST=.meteor/local/cordova-build/platforms/ios/LittleGenius/LittleGenius-Info.plist
+PLIST=.meteor/local/cordova-build/platforms/ios/Smartix/Smartix-Info.plist
 
 /usr/libexec/PlistBuddy -c "Add :NSAppTransportSecurity dict" $PLIST
 /usr/libexec/PlistBuddy -c "Add :NSAppTransportSecurity:NSAllowsArbitraryLoads bool YES" $PLIST
 #/usr/libexec/PlistBuddy -c "Add :LSApplicationQueriesSchemes array" $PLIST
 #/usr/libexec/PlistBuddy -c "Add :LSApplicationQueriesSchemes:0 string 'fbauth'" $PLIST
-/usr/libexec/PlistBuddy -c "Set :CFBundleDisplayName Little Genius" $PLIST
+/usr/libexec/PlistBuddy -c "Set :CFBundleDisplayName Smartix" $PLIST
 # Set buildnumber as cur date in seconds
 #DATE=$(date +%s)
 #/usr/libexec/PlistBuddy -c "Set :CFBundleVersion $DATE" $PLIST
 
-open .meteor/local/cordova-build/platforms/ios/LittleGenius.xcodeproj
+open .meteor/local/cordova-build/platforms/ios/Smartix.xcodeproj
 #echo '- Change provisioning profiles'
 #echo '- Convert icons to use Asset Catalog'
 #echo '- Add more icons'

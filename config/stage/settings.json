@@ -12,9 +12,9 @@
       }
     },
 
-    "ROOT_URL": "http://uat.littlegenius.io",
+    "ROOT_URL": "http://uat.gosmartix.com",
     "PORT": 80,
-    "SHARE_URL": "http://uat.littlegenius.io",
+    "SHARE_URL": "http://uat.gosmartix.com",
     "GOOGLE_PLAY_URL":"http://google.com",
     "APP_STORE_URL":"http://google.com"
   },
@@ -27,7 +27,7 @@
   "MANDRILL_PORT": 587,
 
   "FROM_EMAIL": "contactemail@littlegenius.io",
-  "FROM_NAME": "Little Genius",
+  "FROM_NAME": "Smartix",
   "FEEDBACK_EMAIL": "feedback@littlegenius.io",
 
   "kadira": { 

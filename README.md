@@ -27,7 +27,7 @@ dan@LG1:/Applications/Xcode7.app/Contents/Developer/Platforms/iPhoneOS.platform/
 Enablebitcode to false
 - End OF DEPRECATION 
 
-TO DO change the build process as it now works with iOS 9.1 SDK provided that the following block is added to LittleGenius-Info.plist
+TO DO change the build process as it now works with iOS 9.1 SDK provided that the following block is added to Smartix-Info.plist
 
 <key>NSAppTransportSecurity</key>
 <dict>
@@ -87,8 +87,8 @@ The app uses DigitalOcean boxes for the app server.
 Both are colocated in San Francisco DigitalOcean datacenter (not available in Asia).
 
 ## INFRASTRUCTURE ##
-The UAT server is `uat.littlegenius.io`
-The production server is `app.littlegenius.io`
+The UAT server is `uat.gosmartix.com`
+The production server is `app.gosmartix.com`
 They use a floating IPs. See https://www.digitalocean.com/company/blog/floating-ips-start-architecting-your-applications-for-high-availability/
 
 #Server side#

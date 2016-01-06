@@ -14,17 +14,17 @@ Template.TabYou.events({
       switch (Meteor.user().profile.role) {
         //TODO localization English hardcoded for recommendation, with template i18n, see doc on how to insert variable
         case "Teacher":
-            text = "Hey! \r\n\r\nI have been using Little Genius to text my students and parents without sharing my " +
+            text = "Hey! \r\n\r\nI have been using Smartix to text my students and parents without sharing my " +
             "personal phone number.\r\nYou have to try it! It saves time, students love it and it is free! " +
             "\r\nHere is the link: " + Meteor.settings.public.SHARE_URL + "?rid=" + Meteor.userId();
           break;
         case "Student":
-            text = "Hey!\r\n\r\nMy teachers have been using the Little Genius app to message our class before " +
+            text = "Hey!\r\n\r\nMy teachers have been using the Smartix app to message our class before " +
             "assignments are due, share photos and update us with last minute changes. You should tell your teachers about it! " +
             "It\'s really helpful and free.\r\nHere is the link: " + Meteor.settings.public.SHARE_URL + "?rid=" + Meteor.userId() + "\"\r\n";
           break;
         case "Parent":
-            text = "Hey!\r\n\r\nOur school teachers have been using the Little Genius app to message our class before " +
+            text = "Hey!\r\n\r\nOur school teachers have been using the Smartix app to message our class before " +
             "assignments are due, share photos and update us with last minute changes. You should tell your school teachers about it! " +
             "It\'s really helpful and free.\r\nHere is the link: " + Meteor.settings.public.SHARE_URL + "?rid=" + Meteor.userId() + "\"\r\n";
           break;

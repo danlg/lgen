@@ -27,15 +27,15 @@ Accounts.emailTemplates.verifyEmail= {
   }
 
   , siteName: function () {
-    return "Little Genius";
+    return "Smartix";
   }
 
   , from:function() {
-    return "Little Genius <contactemail@littlegenius.io>";
+    return "Smartix <contactemail@littlegenius.io>";
   }
 
   , subject:function() {
     //TODO LOCALIZE
-    return "Welcome to Little Genius  - Please verify your email";
+    return "Welcome to Smartix  - Please verify your email";
   }
 };

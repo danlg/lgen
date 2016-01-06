@@ -1,13 +1,13 @@
 {
   "env": {
-    "ROOT_URL": "http://uat.littlegenius.io",
+    "ROOT_URL": "http://uat.gosmartix.com",
     "PORT": 80
 
   },
   //stage
   "servers": [
     {
-      "host": "uat.littlegenius.io",
+      "host": "uat.gosmartix.com",
       "username": "root",
       "password": "lgen123"
     }
