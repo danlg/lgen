@@ -201,7 +201,7 @@ Template.SendMessage.events({
             log.info(result);
             documentArr.set(result);
         });
-        showPreview();        
+        showPreview('document');        
       }
     }      
    
@@ -211,7 +211,7 @@ Template.SendMessage.events({
           log.info(result);
           documentArr.set(result);
       });
-      showPreview();
+      showPreview('document');
   }  
 });
 
@@ -561,7 +561,10 @@ function showPreview(filetype){
     //increase the height of input box panel
     if(filetype && filetype == "image"){
      $('.messageList').css({'height':'calc(100% - 208px )'})         
-    }else{
+    }else if(filetype && filetype == "document") {
+     $('.messageList').css({'height':'calc(100% - 151px )'})        
+    }  
+    else{
      $('.messageList').css({'height':'calc(100% - 180px )'})        
     }  
     //http://stackoverflow.com/questions/10503606/scroll-to-bottom-of-div-on-page-load-jquery

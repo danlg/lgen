@@ -364,7 +364,13 @@ Application.FileHandler = (function () {
 
             }
             
-            fileChooser.open(successCallback, failureCallback);
+            //check if fileChooser is existed. Since it is a cordova package, old client may not have it.
+            if(fileChooser){
+                fileChooser.open(successCallback, failureCallback);               
+            }else{
+               toastr.warning("Please update the app to the latest version for document upload in Android");
+            }
+
         }
     };
 })();
