@@ -153,6 +153,7 @@ Template.ChatRoom.events({
   },
   'click .bubble a': function (e) {
       Application.FileHandler.openFile(e);
+      e.preventDefault();
   }
 });
 
