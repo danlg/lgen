@@ -3,6 +3,42 @@
 Application.FileHandler = {};
 Application.FileHandler = (function () {
 
+    var directDocumentMessage = function (documentArray){
+        
+        if (Meteor.user().profile.firstdocument) {
+            analytics.track("First Document", {
+                date: new Date(),
+            });
+
+            Meteor.call("updateProfileByPath", 'profile.firstdocument', false);
+        }        
+        var target = Session.get('sendMessageSelectedClasses').selectArrId;
+        log.info(target);
+        var msg = "";
+        var mediaObj = {};
+        mediaObj.imageArr = [];
+        mediaObj.soundArr = [];
+        mediaObj.documentArr = documentArray;
+        if(msg == "" && mediaObj.imageArr.length == 0 && mediaObj.soundArr.length
+        == 0 && mediaObj.documentArr.length == 0 ){
+        
+        toastr.warning("please input some message");
+        
+        }else if(target.length > 0) {
+        Meteor.call('sendMsg', target, msg, mediaObj, function () {
+            Session.set("sendMessageSelectedClasses", {
+            selectArrName: [],
+            selectArrId: []
+            });
+            
+                                       
+        });
+        } else {
+        toastr.error("no class select!");
+        }  
+        
+        return true;      
+    }
 
     return {
         openFile: function (e) {
@@ -255,25 +291,8 @@ Application.FileHandler = (function () {
                             }                            
                         }else if (category =='class'){
                             var arr = currentDocumentArray;
-                            log.info(currentDocumentArray);
                             arr.push(fileObj._id);
-
-                            log.info(fileObj.name());
-                            log.info(fileObj.extension());
-                            log.info(fileObj.size());
-
-                            log.info(fileObj.type());
-                            log.info(fileObj.updatedAt());
-
-                            if (Meteor.user().profile.firstdocument) {
-                                analytics.track("First Document", {
-                                    date: new Date(),
-                                });
-
-                                Meteor.call("updateProfileByPath", 'profile.firstdocument', false);
-                            }
-                            log.info(fileObj._id);
-                            callback(arr);                           
+                            callback(directDocumentMessage(arr))                                   
                         }
 
                     }
@@ -329,25 +348,8 @@ Application.FileHandler = (function () {
                                         Meteor.call("serverNotification", notificationObj);                                        
                                     }else if (category == 'class'){
                                         var arr = currentDocumentArray;
-                                        log.info(currentDocumentArray);
                                         arr.push(fileObj._id);
-
-                                        log.info(fileObj.name());
-                                        log.info(fileObj.extension());
-                                        log.info(fileObj.size());
-
-                                        log.info(fileObj.type());
-                                        log.info(fileObj.updatedAt());
-
-                                        if (Meteor.user().profile.firstdocument) {
-                                            analytics.track("First Document", {
-                                                date: new Date(),
-                                            });
-
-                                            Meteor.call("updateProfileByPath", 'profile.firstdocument', false);
-                                        }
-                                        log.info(fileObj._id);
-                                        callback(arr);                                           
+                                        callback(directDocumentMessage(arr))  ;                                  
                                     }
 
                                 }

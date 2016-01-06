@@ -105,7 +105,7 @@ Template.SendMessage.events({
     
     hidePreview("image");
 
-    
+    //TODO: clean up file if cancel by user
 
   },
   'click .ion-close-circled.voice': function (e) {
@@ -123,6 +123,8 @@ Template.SendMessage.events({
     soundArr.set(array);
 
     hidePreview();
+    
+    //TODO: clean up file if cancel by user    
   },
   'click .imgThumbs': function (e) {
     var imageFullSizePath = $(e.target).data('fullsizeimage');
@@ -198,20 +200,20 @@ Template.SendMessage.events({
       if (window.device.platform === "Android") {
         e.preventDefault();
         Application.FileHandler.documentUploadForAndroid(event,'class',documentArr.get(),function(result){ 
-            log.info(result);
-            documentArr.set(result);
-        });
-        showPreview('document');        
+          if(result){
+              documentArr.set([]);
+          }
+        });  
       }
     }      
    
   },
   'change #documentBtn': function (event, template) {
-      Application.FileHandler.documentUpload(event,'class',documentArr.get(),function(result){ 
-          log.info(result);
-          documentArr.set(result);
+      Application.FileHandler.documentUpload(event,'class',documentArr.get(),function(result){
+          if(result){
+              documentArr.set([]);
+          }
       });
-      showPreview('document');
   }  
 });
 
