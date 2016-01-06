@@ -120,3 +120,17 @@ getNewRecordFile = function () {
 getRandomInt = function (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+////get another person's user object in 1 to 1 chatroom. call by chatroom helpers
+getAnotherUser = function (){
+            //find all userids in this chat rooms
+            var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
+            
+            //find and remove the userid of the current user
+            var currentUserIdIndex = arr.indexOf(Meteor.userId());
+            arr.splice(currentUserIdIndex, 1);
+            
+            //return another user's user object
+            var targetUserObj = Meteor.users.findOne(arr[0]);  
+            return   targetUserObj;
+}

@@ -247,14 +247,18 @@ Application.FileHandler = (function () {
         },
         documentUpload: function (event,category,currentDocumentArray,callback) {
             FS.Utility.eachFile(event, function (file) {
+                //log.info(file);
                 Documents.insert(file, function (err, fileObj) {
                     if (err) {
                         // handle error
                         log.error(err);
                     }
-                    else {
+                    else {                        
+                        //for reason unknown, filename cannot be inserted directly if using iphone cordova,
+                        //so we explicitly set the file obj name here.      
+                        fileObj.name(file.name);
                         
-                        if(category == 'chat'){
+                        if(category == 'chat'){                           
                             var pushObj = {};
                             pushObj.from = Meteor.userId();
                             pushObj.sendAt = moment().format('x');
@@ -267,7 +271,7 @@ Application.FileHandler = (function () {
                             });
 
                             var targetUser = getAnotherUser();
-                            var targetId = targetUser._id;
+                            var targetId = targetUser._id;                            
                             var query = {};
                             query.userId = targetId;
 
@@ -289,7 +293,7 @@ Application.FileHandler = (function () {
                                 });
                                 Meteor.call("updateProfileByPath", 'profile.firstdocument', false);
                             }                            
-                        }else if (category =='class'){
+                        }else if (category =='class'){                                      
                             var arr = currentDocumentArray;
                             arr.push(fileObj._id);
                             callback(directDocumentMessage(arr))                                   
