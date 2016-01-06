@@ -266,7 +266,8 @@ Router.route('classDetail', {
     return [
       Meteor.subscribe('class', this.params.classCode),
       Meteor.subscribe('images'),
-      Meteor.subscribe('sounds')
+      Meteor.subscribe('sounds'),
+      Meteor.subscribe('documents')      
     ];
   }
 });

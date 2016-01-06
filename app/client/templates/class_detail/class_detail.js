@@ -36,6 +36,14 @@ Template.ClassDetail.events({
         isPlayingSound = false;
       });
     }
+  },
+  'click .content .item .content a': function (e) {
+      Application.FileHandler.openFile(e);
+      e.preventDefault();
+  },
+  'click .content .item .document a': function (e) {
+      Application.FileHandler.openFile(e);
+      e.preventDefault();
   }
 });
 
@@ -89,6 +97,13 @@ Template.ClassDetail.helpers({
   getSound: function () {
     var id = this.toString();
     return Sounds.findOne(id);
+  },
+  haveDocument: function () {
+    return this.documentArr.length > 0;
+  },
+  getDocument: function () {
+    var id = this.toString();
+    return Documents.findOne(id);
   }
 });
 

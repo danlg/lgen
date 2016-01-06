@@ -114,6 +114,22 @@
                       {{/each}}
                     {{/if}}
                   </div>
+                  <div>
+                    {{#if haveDocument}}
+                      {{#each documentArr}}
+                        {{#with getDocument}}
+                          {{#if this.isUploaded}}
+                            {{#if this.hasStored 'documents'}}                           
+                                <div class="bubble">
+                                <a href='{{this.url}}'> <i class="icon ion-ios-download-outline"></i>&nbsp;{{this.name}}</a>
+                                <br/><span  class='timestamp'>{{formatTime  ../sendAt}}</span>                       
+                                </div>                                   
+                            {{/if}}                      
+                          {{/if}}
+                        {{/with}}
+                      {{/each}}
+                    {{/if}}                      
+                  </div>
                 </div>
                 
                 <p>

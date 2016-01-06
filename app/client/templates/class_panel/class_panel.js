@@ -43,7 +43,7 @@ Template.ClassPanel.events({
       });
     }
   },
-  'click a': function (e) {
+  'click .messageList .item a': function (e) {
       Application.FileHandler.openFile(e);
       e.preventDefault();
   }
@@ -83,8 +83,15 @@ Template.ClassPanel.helpers({
   getSound: function () {
     var id = this.toString();
     return Sounds.findOne(id);
-  }
-  , isPlural: function (count) {
+  },
+  haveDocument: function () {
+    return this.documentArr.length > 0;
+  },
+  getDocument: function () {
+    var id = this.toString();
+    return Documents.findOne(id);
+  },
+  isPlural: function (count) {
     return count > 1;
   }
   , isZero: function (count) {

@@ -128,6 +128,8 @@ Meteor.methods({
     msgObj.help  = [];
     msgObj.imageArr = mediaObj.imageArr;
     msgObj.soundArr = mediaObj.soundArr;
+    msgObj.documentArr = mediaObj.documentArr;
+    
     Classes.update({
       classCode: {
         $in: target
@@ -146,6 +148,9 @@ Meteor.methods({
       }
       if (msgObj.soundArr && msgObj.soundArr.length>0){
                msg="New sound";
+      }
+      if (msgObj.documentArr && msgObj.documentArr.length>0){
+               msg="New document";
       }
     }
     var arrayOfClasses = Classes.find({classCode: {$in: target}}).fetch();

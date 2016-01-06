@@ -132,7 +132,8 @@ Template.SendMessage.events({
 
     //https://github.com/CollectionFS/Meteor-CollectionFS
     //Image is inserted from here via FS.Utility
-    Application.FileHandler.imageUpload(event,'class',imageArr.get(),function(result){
+    Application.FileHandler.imageUpload(event,'class',imageArr.get(),
+    function(result){
         
         imageArr.set(result);
     });
@@ -153,8 +154,9 @@ Template.SendMessage.events({
     var mediaObj = {};
     mediaObj.imageArr = imageArr.get();
     mediaObj.soundArr = soundArr.get();
-     
-    if(msg == "" && mediaObj.imageArr.length == 0 && mediaObj.soundArr.length == 0){
+    mediaObj.documentArr = documentArr.get();
+    if(msg == "" && mediaObj.imageArr.length == 0 && mediaObj.soundArr.length
+       == 0 && mediaObj.documentArr.length == 0 ){
       
       toastr.warning("please input some message");
       
@@ -167,13 +169,14 @@ Template.SendMessage.events({
         
         //input parameters clean up
         imageArr.set([]);
-        soundArr.set([]);        
+        soundArr.set([]); 
+        documentArr.set([]);       
         $(".msgBox").val("");
         
         //hide Preview according to attached file type
         if(mediaObj.imageArr.length > 0){
           hidePreview("image");
-        }else if(mediaObj.soundArr.length > 0){
+        }else if(mediaObj.soundArr.length > 0 || mediaObj.documentArr.length > 0){
           hidePreview();
         }else{
           //do nothing
@@ -297,14 +300,14 @@ Template.SendMessage.helpers({
     }
   },
   isHidden: function(){
-    if(imageArr.get().length > 0 || soundArr.get().length > 0){
+    if(imageArr.get().length > 0 || soundArr.get().length > 0 || documentArr.get().length > 0){
       return "display:none;"
     }else{
       return "";
     }
   },
   isShown: function(){
-    if(imageArr.get().length > 0 || soundArr.get().length > 0){
+    if(imageArr.get().length > 0 || soundArr.get().length > 0  || documentArr.get().length > 0 ){
       return "display:block !important;"
     }else{
       return "";
