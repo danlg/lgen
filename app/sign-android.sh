@@ -4,7 +4,7 @@
 export PASSWORD=$1
 export APK_PATH=.meteor/local/cordova-build/platforms/android/build
 export UNSIGNED_APK=$APK_PATH/outputs/apk/android-release-unsigned.apk
-export SIGNED_APK=$APK_PATH/littlegenius-release-signed.apk
+export SIGNED_APK=$APK_PATH/smartix-release-signed.apk
 
 rm -f $SIGNED_APK
 jarsigner -storepass $PASSWORD -verbose -digestalg SHA1 $UNSIGNED_APK io.littlegenius.genie
