@@ -64,12 +64,12 @@
         <div class="item item-input input-box-panel  {{messageBox}}" style="">
           <textarea dir="auto" name="msg" maxlength="5000" class="inputBox msgBox autogrow-short" placeholder="{{isPlaceHolder}}"></textarea>
           <button style="min-height:0;border:0;padding:0;margin:0;border-radius:6px;width:100px;display:none;{{isShown}}" class="send-msg-btn-class sendMsgBtn button icon  ion-paper-airplane "></button>
-          <span class='mediaButtonGroup' style='{{isHidden}};width:240px;'>
-            <span class="file " style='display:inline-block;padding:10px;'>
+          <span class='mediaButtonGroup' style='display:inherit;{{isHidden}}'>
+            <span class="file " style='display:inline-block;padding:10px;padding-right:20px;'>
                 <i class="icon ion-ios-upload-outline imageIcon"></i>
                 <input type="file" id="documentBtn" accept=".pdf, .doc, .docx, .ppt, .pptx, .xls , .xlsx">
             </span>              
-            <span class="file image-btn-class" style='display:inline;padding:10px;{{withExtraRightPadding}}'>
+            <span class="file image-btn-class" style='display:inline;padding:10px;padding-right:20px;{{withExtraRightPadding}}'>
               <i class="icon ion-ios-camera-outline imageIcon {{ isDisabled 'camera' }} "></i>
               <input type="file" id="imageBtn" accept="image/*;capture=camera" capture="camera" {{ isDisabled 'camera' }}>
             </span>
@@ -117,7 +117,7 @@
            {{#with getDocument}}
 
             <div class="bubble">
-             <a href="{{this.url}}">Doc Preview</a>
+             <a href="{{this.url}}"><i class="icon ion-ios-upload-outline"></i>&nbsp;{{this.name}}</a>
             </div>
 
            {{/with}}
@@ -133,9 +133,16 @@
         <label class="item item-input {{messageBox}}" style="height:40vh">
           <textarea class="msgBox" placeholder="{{_'message'}}" style="height:100%;font-size:20px;"></textarea>
         </label>
-      
+
         <div class="">
+            
           <div class="row">
+            <div class="col col-10">
+              <div class="file ">
+                <i class="icon ion-ios-upload-outline imageIcon"></i>
+                <input type="file" id="documentBtn" accept=".pdf, .doc, .docx, .ppt, .pptx, .xls , .xlsx">
+              </div>
+            </div>              
             <div class="col col-10">
               <div class="file ">
                 <i class="icon ion-image imageIcon {{ isDisabled 'camera' }} "></i>
