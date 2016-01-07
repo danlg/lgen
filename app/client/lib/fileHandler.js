@@ -52,8 +52,10 @@ Application.FileHandler = (function () {
                         
                     //since IOS has built-in document viewer, we just pass the url directly to the system to handle it.   
                     if (isIOS()) {
-                        //use _blank will open the link via inappbrowser, so no address bar would be shown
-                        window.open(fileURL, "_blank", "location=no");
+                        //use _blank will open the link via inappbrowser, so no address bar would be shown. But file cannot be zoom-in and zoom-out
+                        //use _system will open the link via safari, there is address bar. File can be zoom-in and out and pan freely.
+                        //there is a back button to back to the app.
+                        window.open(fileURL, "_system", "location=no");
                     } else if (isAndroid()) {
                             
                         //for android, they dont have built-in document viewer, although google docs viewer can be used,
