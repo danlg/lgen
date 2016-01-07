@@ -62,7 +62,12 @@ Template.ChatRoom.events({
     //$(".chatroomList").css(height, "(100% - " + height + "px )");
     sendBtnMediaButtonToggle(); 
   },
-
+  'paste .inputBox':function(){
+    log.info("input box paste");
+    
+    //http://stackoverflow.com/questions/9857801/how-to-get-the-new-value-of-a-textarea-input-field-on-paste
+    window.setTimeout(sendBtnMediaButtonToggle, 100);    
+  },  
   'click #imageBtn': function (e) {
     if (Meteor.isCordova) {
       if (window.device.platform === "Android") {

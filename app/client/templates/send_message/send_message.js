@@ -195,6 +195,13 @@ Template.SendMessage.events({
     log.info("input box keyup");
     sendBtnMediaButtonToggle();
   },
+  'paste .inputBox':function(e){
+    log.info("input box paste");
+    
+    //http://stackoverflow.com/questions/9857801/how-to-get-the-new-value-of-a-textarea-input-field-on-paste
+    window.setTimeout(sendBtnMediaButtonToggle, 100);
+
+  },  
   'click #documentBtn':function(e){
     if (Meteor.isCordova) {
       if (window.device.platform === "Android") {
