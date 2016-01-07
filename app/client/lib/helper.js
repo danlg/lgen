@@ -28,26 +28,34 @@ var googleDocsURLToEmbedReadyURLHTML = function(originalURL){
                     outputHTML =  "<iframe src='"+ fileURL + "?embedded=true'></iframe>";                    
                 }else{
                       //if the URL is not embed ready,we need to do some modification
-                      var modifiedFileURL =  fileURL.replace("edit","pub");
-                      outputHTML =  "<iframe src='"+ modifiedFileURL + "?embedded=true'></iframe>";    
+                      /*var modifiedFileURL =  fileURL.replace("edit","pub");
+                      outputHTML =  "<iframe src='"+ modifiedFileURL + "?embedded=true'></iframe>"; */
+                      
+                      //the above does not work well. so there will be no preview.
+                      //do nothing             
                 }       
            //if it is a google excel
            }else if( lodash.startsWith(fileURL,"https://docs.google.com/spreadsheets")  ){
               if(lodash.endsWith(fileURL,"pub")){        
                outputHTML =  "<iframe src='https://docs.google.com/viewer?url=" + fileURL + "?output=pdf&embedded=true'></iframe>";                 
-              }else{
-               //if the URL is not embed ready,we need to do some modification                  
-                var modifiedFileURL =  fileURL.replace("pubhtml","pub");
-               outputHTML =  "<iframe src='https://docs.google.com/viewer?url=" + modifiedFileURL + "?output=pdf&embedded=true'></iframe>";    
+              }else if(lodash.endsWith(fileURL,"pubhtml")){
+                    var nohtmlurl = fileURL.replace("pubhtml","pub")
+                    outputHTML =  "<iframe src='https://docs.google.com/viewer?url=" + nohtmlurl + "?output=pdf&embedded=true'></iframe>";   
+              }
+              else{
+               //the above does not work well. so there will be no preview.
+               //do nothing                                   
               }
            //if it is a google powerpoint
            }else if( lodash.startsWith(fileURL,"https://docs.google.com/presentation") ){
               if(lodash.endsWith(fileURL,"embed")){
                 outputHTML =  "<iframe src='" + fileURL + "&embedded=true'></iframe>";                          
-              }else{
-                //if the URL is not embed ready,we need to do some modification   
-                 modifiedFileURL =  fileURL.replace("pub","embed");
-                outputHTML =  "<iframe src='" + modifiedFileURL + "&embedded=true'></iframe>";                    
+              }else if(fileURL.indexOf("pub") !=-1){
+                outputHTML =  "<iframe src='" + fileURL.replace("pub","embed") + "&embedded=true'></iframe>";                   
+              }
+              else{          
+               //the above does not work well. so there will be no preview.
+               //do nothing                                                 
               }     
            }else{
                //something not yet support. do nothing
