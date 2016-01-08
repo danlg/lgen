@@ -26,3 +26,16 @@
   font-size: smaller;
 }
 
+.messageList .card .extraInfo{
+    max-height:  0px; 
+    z-index:  -1;
+    opacity:            0;
+    -webkit-transition: all 0.5s ; /* Safari */
+    transition: all 0.5s ;   
+}
+
+.messageList .card .extraInfo.expand{
+    opacity:            1;
+    max-height: 9999px;
+    z-index:   99;           
+}

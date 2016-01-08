@@ -35,12 +35,12 @@ Template.ClassPanelMsgNotice.events({
 /*****************************************************************************/
 Template.ClassPanelMsgNotice.helpers({
   classObj: function () {
-    classObj =Classes.findOne({'messagesObj.msgId':Router.current().params.msgCode});
+    classObj =Classes.findOne({'messagesObj.msgId':this.msgCode});
     return classObj;
   },
   msgObj: function () {
-    var msgArr = Classes.findOne({'messagesObj.msgId':Router.current().params.msgCode}).messagesObj;
-    var filtedArr = lodash.findByValues(msgArr, "msgId", Router.current().params.msgCode);
+    var msgArr = Classes.findOne({'messagesObj.msgId':this.msgCode}).messagesObj;
+    var filtedArr = lodash.findByValues(msgArr, "msgId", this.msgCode);
     return filtedArr[0];
   },
   className: function () {
@@ -53,12 +53,12 @@ Template.ClassPanelMsgNotice.helpers({
     return userObj._id == Meteor.userId() ? "You" : userObj.profile.firstname + " " + userObj.profile.lastname;
   },
   star: function () {
-    return Classes.findOne({'messagesObj.msgId':Router.current().params.msgCode}).messagesObj.star;
+    return Classes.findOne({'messagesObj.msgId':this.msgCode}).messagesObj.star;
   },
   allMan: function () {
-    var msgArr = Classes.findOne({'messagesObj.msgId':Router.current().params.msgCode}).messagesObj;
+    var msgArr = Classes.findOne({'messagesObj.msgId':this.msgCode}).messagesObj;
     var arr = [];
-    var filtedArr = lodash.findByValues(msgArr, "msgId", Router.current().params.msgCode);
+    var filtedArr = lodash.findByValues(msgArr, "msgId", this.msgCode);
 
     arr.push(filtedArr[0].star);
     arr.push(filtedArr[0].close);
