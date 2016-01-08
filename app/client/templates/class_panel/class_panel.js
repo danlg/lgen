@@ -22,8 +22,21 @@ Template.ClassPanel.events({
     text.set($('.search').val());
     log.info(text.get());
   },
-  'click .list .card': function () {
-    Router.go('ClassPanelMsgNotice', {msgCode: this.msgId});
+  'click .list .card': function (e) {
+    //Router.go('ClassPanelMsgNotice', {msgCode: this.msgId});
+    
+    if(e.target.tagName == 'A' || e.target.tagName == "IMG"){
+        //do nothing if user click on a link or an image    
+    }else{
+    
+        console.log(e);
+        if($(e.currentTarget).children('.extraInfo').hasClass('expand')){
+        $(e.currentTarget).children('.extraInfo').removeClass('expand');      
+        }else{
+        $(e.currentTarget).children('.extraInfo').addClass('expand');
+        }
+    }
+    
   },
   'click .imgThumbs': function (e) {
     var imageFullSizePath = $(e.target).data('fullsizeimage');
@@ -44,6 +57,10 @@ Template.ClassPanel.events({
     }
   },
   'click .messageList .item .content a': function (e) {
+      Application.FileHandler.openFile(e);
+      e.preventDefault();
+  },
+  'click .messageList .item .bubble a': function (e) {
       Application.FileHandler.openFile(e);
       e.preventDefault();
   }
