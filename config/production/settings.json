@@ -10,9 +10,9 @@
       }
     },
 
-    "ROOT_URL": "http://app.gosmartix.com",
+    "ROOT_URL": "https://app.gosmartix.com",
     "PORT": 80,
-    "SHARE_URL": "http://app.gosmartix.com",
+    "SHARE_URL": "https://app.gosmartix.com",
     "GOOGLE_PLAY_URL":"http://google.com",
     "APP_STORE_URL":"http://google.com"
   },

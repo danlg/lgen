@@ -1,6 +1,6 @@
 {
   "env": {
-    "ROOT_URL": "http://app.gosmartix.com",
+    "ROOT_URL": "https://app.gosmartix.com",
     "PORT": 80
   },
   //production

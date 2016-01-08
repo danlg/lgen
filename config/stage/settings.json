@@ -12,9 +12,9 @@
       }
     },
 
-    "ROOT_URL": "http://uat.gosmartix.com",
+    "ROOT_URL": "https://uat.gosmartix.com",
     "PORT": 80,
-    "SHARE_URL": "http://uat.gosmartix.com",
+    "SHARE_URL": "https://uat.gosmartix.com",
     "GOOGLE_PLAY_URL":"http://google.com",
     "APP_STORE_URL":"http://google.com"
   },

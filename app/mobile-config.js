@@ -5,7 +5,7 @@ App.info({
   description: 'Instant, free, simple communication for teachers, students and parents',
   author: 'Little Genius Education',
   email: 'contact@littlegenius.io',
-  website: 'http://app.gosmartix.com',
+  website: 'https://app.gosmartix.com',
   //todo sync this with config.xml
   version: '1.0.2.91106',
   buildNumber: '101'

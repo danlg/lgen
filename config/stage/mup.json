@@ -1,6 +1,6 @@
 {
   "env": {
-    "ROOT_URL": "http://uat.gosmartix.com",
+    "ROOT_URL": "https://uat.gosmartix.com",
     "PORT": 80
 
   },
