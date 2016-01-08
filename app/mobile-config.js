@@ -7,7 +7,7 @@ App.info({
   email: 'contact@littlegenius.io',
   website: 'http://app.gosmartix.com',
   //todo sync this with config.xml
-  version: '1.0.91105',
+  version: '1.0.2.91106',
   buildNumber: '101'
 });
 
