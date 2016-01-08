@@ -3,6 +3,9 @@
     "ROOT_URL": "https://app.gosmartix.com",
     "PORT": 80
   },
+  "ssl": {
+     "pem": "./app.gosmartix.com.pem"
+  },
   //production
   //use only to
   //             "mup reconfig" !!!
@@ -10,7 +13,7 @@
     {
       "host": "app.gosmartix.com",
       "username": "root",
-      "password": "lgen124"
+      "password": "xxxxx"
     }
   ],
   "setupMongo": false,

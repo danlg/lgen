@@ -4,6 +4,9 @@
     "PORT": 80
 
   },
+  "ssl": {
+    "pem": "./uat.gosmartix.com.pem"
+  },
   //stage
   "servers": [
     {
