@@ -22,7 +22,7 @@ Template.ClassPanel.events({
     text.set($('.search').val());
     log.info(text.get());
   },
-  'click .list.card': function () {
+  'click .list .card': function () {
     Router.go('ClassPanelMsgNotice', {msgCode: this.msgId});
   },
   'click .imgThumbs': function (e) {
@@ -43,7 +43,7 @@ Template.ClassPanel.events({
       });
     }
   },
-  'click .messageList .item a': function (e) {
+  'click .messageList .item .content a': function (e) {
       Application.FileHandler.openFile(e);
       e.preventDefault();
   }
