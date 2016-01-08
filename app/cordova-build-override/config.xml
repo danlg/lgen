@@ -5,7 +5,7 @@
   <author href="http://app.gosmartix.com" email="hello@littlegenius.io">Little Genius Education</author>
   <preference name="webviewbounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
-  <preference name="deployment-target" value="8.0"/>
+  <preference name="deployment-target" value="7.0"/>
   <preference name="AutoHideSplashScreen" value="false"/>
   <preference name="SplashScreen" value="screen"/>
   <preference name="SplashScreenDelay" value="5000"/>
