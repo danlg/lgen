@@ -12,7 +12,7 @@ case "$1" in
             ;;
         uat)
             echo "Building " $1
-            rm -rf .meteor/local/cordova-build && meteor run ios --settings ../config/stage/settings.json --mobile-server=https://uat.gosmartix.com:80 -p 4000
+            rm -rf .meteor/local/cordova-build && meteor run ios --settings ../config/stage/settings.json --mobile-server=https://uat.gosmartix.com -p 4000
             ;;
         *)
             echo $"Usage: $0 {uat|prd}"

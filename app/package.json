@@ -10,8 +10,8 @@
     "ios-local": "rm -rf .meteor/local && meteor run ios --settings ../config/dev/settings.json",
     "ios-device-local": "rm -rf .meteor/local && meteor run ios-device -v --settings ../config/dev/settings.json",
 
-    "ios-uat": "rm -rf .meteor/local && meteor run ios -v --settings ../config/stage/settings.json --mobile-server=https://uat.gosmartix.com:80 -p 4000",
-    "ios-device-uat": "rm -rf .meteor/local && meteor run -v ios-device --settings ../config/stage/settings.json --mobile-server=https://uat.gosmartix.com:80 -p 4000",
+    "ios-uat": "rm -rf .meteor/local && meteor run ios -v --settings ../config/stage/settings.json --mobile-server=https://uat.gosmartix.com -p 4000",
+    "ios-device-uat": "rm -rf .meteor/local && meteor run -v ios-device --settings ../config/stage/settings.json --mobile-server=https://uat.gosmartix.com -p 4000",
 
     "ios-prd": "rm -rf .meteor/local && NODE_ENV=production meteor run ios -v --settings ../config/production/settings.json --mobile-server=https://app.gosmartix.com:80 -p 5000",
     "ios-device-prd": "rm -rf .meteor/local && NODE_ENV=production meteor run -v ios-device --settings ../config/production/settings.json --mobile-server=https://app.gosmartix.com:80 -p 5000",
@@ -19,8 +19,8 @@
     "build-apk": "./build-android.sh $1",
     "sign-apk": "./sign-android.sh $1",
 
-    "android": "meteor run android --settings ../config/stage/settings.json --mobile-server=https://uat.gosmartix.com:80",
-    "android-device": "meteor run android-device --settings ../config/stage/settings.json --mobile-server=https://uat.gosmartix.com:80",
+    "android": "meteor run android --settings ../config/stage/settings.json --mobile-server=https://uat.gosmartix.com",
+    "android-device": "meteor run android-device --settings ../config/stage/settings.json --mobile-server=https://uat.gosmartix.com",
 
     "local" : "meteor --settings ../config/dev/settings.json",
 
@@ -29,8 +29,8 @@
     "runlocal-android-emulator": "meteor run android -v --settings ../config/dev/settings.json",
     "build-example": "NODE_ENV=production VULCANIZE=true meteor build ../myapp-dist --server=https://api.myapp.com/ --mobile-settings settings-production.json",
 
-    "build-uat":  "rm -rf ../build && meteor build ../build  --mobile-settings=../config/stage/settings.json --server=https://uat.gosmartix.com:80",
-    "build-uat2":  "meteor build .meteor/local -v --mobile-settings=../config/stage/settings.json --server=https://uat.gosmartix.com:80",
+    "build-uat":  "rm -rf ../build && meteor build ../build  --mobile-settings=../config/stage/settings.json --server=https://uat.gosmartix.com",
+    "build-uat2":  "meteor build .meteor/local -v --mobile-settings=../config/stage/settings.json --server=https://uat.gosmartix.com",
 
     "deploy-ko":  "cd ../dist && scp app.tar.gz lg@uat.gosmartix.com:~/app && ssh lg@uat.gosmartix.com \"cd app && tar xzvf app.tar.gz\"",
 

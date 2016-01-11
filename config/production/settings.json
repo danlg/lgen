@@ -11,7 +11,7 @@
     },
 
     "ROOT_URL": "https://app.gosmartix.com",
-    "PORT": 80,
+    "PORT": 443,
     "SHARE_URL": "https://app.gosmartix.com",
     "GOOGLE_PLAY_URL":"http://google.com",
     "APP_STORE_URL":"http://google.com"
