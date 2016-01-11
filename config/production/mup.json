@@ -1,10 +1,7 @@
 {
   "env": {
     "ROOT_URL": "https://app.gosmartix.com",
-    "PORT": 443
-  },
-  "ssl": {
-     "pem": "./app.gosmartix.com.pem"
+    "PORT": 80
   },
   //production
   //use only to

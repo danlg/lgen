@@ -1,11 +1,7 @@
 {
   "env": {
     "ROOT_URL": "https://uat.gosmartix.com",
-    "PORT": 443
-
-  },
-  "ssl": {
-    "pem": "./uat.gosmartix.com.pem"
+    "PORT": 80
   },
   //stage
   "servers": [

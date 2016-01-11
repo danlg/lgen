@@ -25,6 +25,6 @@
   "MANDRILL_PORT": 587,
 
   "FROM_EMAIL": "contactemail@littlegenius.io",
-  "FROM_NAME": "Little Geniqqus",
+  "FROM_NAME": "Smartix",
   "FEEDBACK_EMAIL": "feedback@littlegenius.io"
 }
