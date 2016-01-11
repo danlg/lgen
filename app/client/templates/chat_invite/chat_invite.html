@@ -3,7 +3,7 @@
     <h1 class="title">{{_ "Chat"}} </h1>
   {{/contentFor}}
   {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton text=" "}}
+    {{>ionNavBackButton path="TabChat"  text=" "}}
   {{/contentFor}}
   {{#contentFor "headerButtonRight"}}
     <div style="position: absolute; right: 0;">
@@ -13,6 +13,10 @@
   {{/contentFor}}
 
   {{#ionView}}
+              {{#ionTabs style="android" class=""}}
+                {{> ionTab title="1-to-1 Chat" class="active" path='ChatInvite' }}
+                {{> ionTab title="Group Chat"  path='GroupChatInvite' }}
+            {{/ionTabs}}  
     {{#ionContent}}
 
       <div class="list">
@@ -31,7 +35,7 @@
 
           <div class="item item-input">
             <i class="icon ion-search placeholder-icon"></i>
-            <input type="search" class="searchbar" placeholder="{{_ "Search"}}">
+            <input type="search" class="searchbar" placeholder="Search by names">
           </div>
 
           {{#each this}}

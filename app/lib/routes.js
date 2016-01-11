@@ -282,6 +282,15 @@ Router.route('ChatInvite', {
   }
 });
 
+Router.route('GroupChatInvite', {
+    path: "/group-chat-invite",
+    waitOn: function(){
+        return [
+            Meteor.subscribe('createdClassByMe')
+        ]
+    }
+});
+
 Router.route('ShareInvite', {
   path: "/class/:classCode/invite/share",
   waitOn: function () {
@@ -424,3 +433,4 @@ Router.route('join/:classCode?', {
 Router.route('EmailVerification');
 
 Router.route('Perf');
+
