@@ -2,12 +2,12 @@
 App.info({
   id: 'io.littlegenius.genie',
   name: 'Smartix',
-  description: 'Instant, free, simple communication for teachers, students and parents',
+  description: 'Instant, safe, simple communication for teachers, students and parents',
   author: 'Little Genius Education',
   email: 'contact@littlegenius.io',
   website: 'https://app.gosmartix.com',
   //todo sync this with config.xml
-  version: '1.0.2.91107',
+  version: '1.0.2.91108',
   buildNumber: '101'
 });
 
