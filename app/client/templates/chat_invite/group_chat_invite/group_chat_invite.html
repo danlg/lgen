@@ -28,11 +28,8 @@
                 </div>
                 {{#each this}}
                     {{#if isSearchable}}
-                        <div class="item item-checkbox">
-                            <label class="checkbox">
-                            <input type="radio" name="className" class="targetCB" value="{{_id}}"
-                                    data-className="{{className}}">
-                            </label>
+                        <div class="classItem item item-checkbox">
+                            <i id='pick-an-icon-btn' class="icon e1a-{{classavatar}} e1a-5x emojicon"></i>                            
                             {{className}}
                         </div>              
                     {{/if}}
@@ -40,11 +37,6 @@
              {{/with}}
 
       </div>
-
-      <div class="bar bar-footer bar-stable startChatBtn {{shouldhide}} ">
-        <div class="title">{{_ "Next"}}</div>
-      </div>
-
       <!-- <a href="{{pathFor 'ChatRoom' }}" class="button"></a> -->
     {{/ionContent}}
   {{/ionView}}

@@ -23,9 +23,22 @@ Template.ChatRoom.helpers({
     return userObj
   },
   
-  getName: function (profile) {    
-    var userObj = getAnotherUser();
-    return getFullNameByProfileObj(userObj.profile);
+  getName: function (profile) {
+    
+    if(getTotalChatRoomUserCount() > 2){
+       var userObjArr =  getAllUser();
+       var nameArr = [];
+       //log.info(userObjArr);
+       userObjArr.map(function(userObj){
+           //log.info(userObj.profile);
+            var name = getFullNameByProfileObj(userObj.profile);
+            nameArr.push(name);
+       })
+    return nameArr.toString();       
+    }else{
+        var userObj = getAnotherUser();
+        return getFullNameByProfileObj(userObj.profile);        
+    }
   },
 
   isText: function () {
@@ -111,4 +124,23 @@ function getAnotherUser(){
             //return another user's user object
             var targetUserObj = Meteor.users.findOne(arr[0]);  
             return   targetUserObj;
+}
+
+function getAllUser(){
+            //find all userids in this chat rooms
+            var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
+            //log.info(arr);
+            //return all user objects
+            var targetUsers =  Meteor.users.find({
+                 _id :{ $in: arr}
+            }).fetch();
+            return targetUsers;
+          
+}
+
+function getTotalChatRoomUserCount(){
+            //find all userids in this chat rooms
+            var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
+            // log.info(arr);    
+            return arr.length;    
 }

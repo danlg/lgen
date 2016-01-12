@@ -8,11 +8,19 @@ var searchString = ReactiveVar("");
 /* ChatInvite: Event Handlers */
 /*****************************************************************************/
 Template.GroupChatInvite.events({
+  'click .classItem':function(){
+    
+    log.info(this);
+    Router.go('GroupChatInviteChooser',{classCode:this.classCode});
+    
+  },
   'click .startChatBtn': function () {
     /*var chatArr =  $('.js-example-basic-multiple').val();*/
+    /*
       Meteor.call('chatCreate', targetIds.get(), function (err, data) {
       Router.go('ChatRoom', {chatRoomId: data});
-    });
+    });*/
+    
     /*log.info($('.js-example-basic-multiple').val());*/
   },
 
