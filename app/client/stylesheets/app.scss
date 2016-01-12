@@ -137,3 +137,27 @@ pre{
   background-size:cover; 
   margin-bottom:0px;
 }
+
+/* attached image is shown without higher or wider than the screen */
+.modal img{
+    max-width:100vw;
+    max-height:100vh;
+}
+
+/* can scroll to the bottom of a modal even in large device*/
+@media (min-width: 680px){
+        .modal {
+            display: block;
+            position: absolute;
+            top: 0;
+            right:0;
+            bottom:0;
+            left:0;
+            z-index: 10;
+            overflow: hidden;
+            min-height: 100%;
+            width: 100%;
+            background-color: #fff;
+    }
+}
+
