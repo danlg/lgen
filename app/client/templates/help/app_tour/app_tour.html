@@ -12,7 +12,7 @@
     {{/ionSlide}}
     <!--slide 2-->
     {{#ionSlide}}
-      <div class="heading text-center tourstyle t2-shakeaspeare"></div>
+      <div class="heading text-center tourstyle t2-shakeaspeare"></div>      
     {{/ionSlide}}
     <!--slide 3-->
     {{#ionSlide}}
@@ -50,8 +50,11 @@
           {{_ "OKay"}}
         </button>
       </div>
-    {{/ionSlide}}
-
+    {{/ionSlide}} 
   {{/ionSlideBox}}
+  <button class="redirect-button button button-light" style='position:absolute;bottom:5px;right:5px;border-radius:20%;min-height:0px;min-width:0px;z-index:1;'>
+    <!--z-index is set as 1 so it is higher than the slider-->
+    {{_ "Skip"}}
+  </button>    
   <!--{{/ionContent}}-->
 </template>
