@@ -43,6 +43,7 @@ cfs:worker@0.1.4
 check@1.1.0
 chrismbeckett:toastr@2.1.2_1
 coffeescript@1.0.11
+cordova-only@0.0.1
 dburles:spacebars-tohtml@1.0.1
 ddp@1.2.2
 ddp-client@1.2.1
@@ -144,6 +145,7 @@ u2622:persistent-session@0.4.4
 ui@1.0.8
 underscore@1.0.4
 url@1.0.5
+web-only@0.0.1
 webapp@1.2.3
 webapp-hashing@1.0.5
 wylio:mandrill@1.0.1

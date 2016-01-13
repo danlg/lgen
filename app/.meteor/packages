@@ -98,3 +98,5 @@ facts
 aslagle:reactive-table
 chrismbeckett:toastr
 force-ssl
+cordova-only
+web-only
