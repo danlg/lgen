@@ -8,7 +8,7 @@ Template.ClassInformationForWebUser.events({
   'click .signUpBtn':function () {
     
     if(Meteor.user()){
-      log.info("user is logged in");
+      log.info("user is logged in=" + Meteor.userId());
       
       var doc = {};
       doc.classCode = Session.get("search");
