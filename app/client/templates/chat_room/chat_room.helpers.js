@@ -22,6 +22,11 @@ Template.ChatRoom.helpers({
     var userObj = getAnotherUser();
     return userObj
   },
+  getGroupOrCorrespondentAvatar : function () {
+    //get other person's avatar (todo add  group avatar lookup when implemented)
+    var userObj = getAnotherUser();
+    return userObj.profile && userObj.profile.useravatar;
+  },
   
   getName: function (profile) {    
     var userObj = getAnotherUser();

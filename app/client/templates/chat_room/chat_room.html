@@ -1,7 +1,10 @@
 <template name="ChatRoom">
 
   {{#contentFor "headerTitle"}}
-    <h1 class="title">{{getName}}</h1>
+    <h1 class="title">
+      <i class="icon e1a-{{getGroupOrCorrespondentAvatar}} e1a-2x emojicon"></i>
+      {{getName}}
+    </h1>
   {{/contentFor}}
 
 
