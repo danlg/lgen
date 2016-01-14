@@ -32,10 +32,11 @@
 
           {{#each this}}
             {{#if isHide }}
-              <a href="{{ pathFor 'ChatRoom' chatRoomId=_id }}">
-                <div class="item">
-                  <h2>{{chatroomMenberName  }}</h2>
 
+              <a href="{{ pathFor 'ChatRoom' chatRoomId=_id }}">
+                <div class="item item-icon-left" style="padding-top: 3px; padding-bottom: 3px">
+                  <i class="icon {{chatRoomUserAvatar}} e1a-1x emojicon"></i>
+                  <h2>{{chatroomMenberName  }}</h2>
                   <div class="description">{{lasttext messagesObj}}</div>
                 </div>
               </a>

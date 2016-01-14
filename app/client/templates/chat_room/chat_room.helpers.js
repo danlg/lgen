@@ -25,12 +25,12 @@ Template.ChatRoom.helpers({
   getGroupOrCorrespondentAvatar : function () {
     //get other person's avatar (todo add  group avatar lookup when implemented)
     var userObj = getAnotherUser();
-    return userObj.profile && userObj.profile.useravatar;
+    return userObj && userObj.profile && userObj.profile.useravatar;
   },
   
   getName: function (profile) {    
     var userObj = getAnotherUser();
-    return getFullNameByProfileObj(userObj.profile);
+    return userObj && getFullNameByProfileObj(userObj.profile);
   },
 
   isText: function () {
@@ -107,13 +107,15 @@ Template.ChatRoom.helpers({
 ////get another person's user object in 1 to 1 chatroom. call by chatroom helpers
 function getAnotherUser(){
             //find all userids in this chat rooms
-            var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
-            
-            //find and remove the userid of the current user
-            var currentUserIdIndex = arr.indexOf(Meteor.userId());
-            arr.splice(currentUserIdIndex, 1);
-            
-            //return another user's user object
-            var targetUserObj = Meteor.users.findOne(arr[0]);  
-            return   targetUserObj;
+  var query = Chat.findOne({_id: Router.current().params.chatRoomId});
+  if (query) {
+    var arr = query.chatIds;
+    //find and remove the userid of the current user
+    var currentUserIdIndex = arr.indexOf(Meteor.userId());
+    arr.splice(currentUserIdIndex, 1);
+
+    //return another user's user object
+    var targetUserObj = Meteor.users.findOne(arr[0]);
+    return targetUserObj;
+  }
 }

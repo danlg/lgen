@@ -29,31 +29,19 @@ Template.TabChat.helpers({
       return false;
     }
   },
+  //this implementation smells
   'chatroomMenberName': function () {
-    var string = [];
-
-
-    // var userObjArr = lodash.reject(chatIds,{_id:Meteor.userId()});
-    // userObjArr =  lodash.map(userObjArr,'profile');
-    // lodash.forEach(userObjArr,function(el,index){
-    //   var name = el.firstname +" "+ el.lastname;
-    //   string.push(name);
-    // });
-    // return lodash(string).toString();
-
+    var names = [];
     var userObjArr = Meteor.users.find({_id: {$in: this.chatIds}}).fetch();
-
     lodash.forEach(userObjArr, function (el, index) {
       if (el._id !== Meteor.userId()) {
         var name = getFullNameByProfileObj(el.profile);
-        string.push(name);
+        names.push(name);
       }
     });
-
-    return lodash(string).toString();
-
-
+    return lodash(names).toString();
   },
+
   'lasttext': function (messagesObj) {
     var len = messagesObj.length;
     if (len > 0)
@@ -63,47 +51,41 @@ Template.TabChat.helpers({
 
   },
   'isHide': function (chatIds) {
-
     var chatIdsLocal = chatIds;
-
     if (text.get() !== "") {
-
-      var string = [];
-
+      var names = [];
       var userObjArr = Meteor.users.find({_id: {$in: this.chatIds}}).fetch();
-
       lodash.forEach(userObjArr, function (el, index) {
         if (el._id !== Meteor.userId()) {
           var name = getFullNameByProfileObj(el.profile);
-          string.push(name);
+          names.push(name);
         }
       });
-
-
-      //
-      //
-      // var usersArr = lodash.remove(chatIds,function (el) {
-      //   return el === Meteor.userId();
-      // });
-      // var userObjArr =  Meteor.users.find({_id:{$in:usersArr } }).fetch();
-      //
-      // lodash.forEach(userObjArr,function(el,index){
-      //   var name = getFullNameByProfileObj(el.profile);
-      //   string.push(name);
-      // });
-      //
-
-
-      if (lodash.includes(lodash(string).toString().toUpperCase(), text.get().toUpperCase())) {
+      if (lodash.includes(lodash(names).toString().toUpperCase(), text.get().toUpperCase())) {
         return true;
       } else {
         return false;
       }
-
     } else {
       return true;
     }
+  },
 
+  'chatRoomUserAvatar': function () {
+    var avatars = [];
+    var userObjArr = Meteor.users.find({_id: {$in: this.chatIds}}).fetch();
+    lodash.forEach(userObjArr, function (el, index) {
+      if (el._id !== Meteor.userId()) {
+        var avatar = el.profile.useravatar;
+        if (avatar){
+          avatars.push("e1a-" + avatar)
+        }
+        else{
+          avatars.push("e1a-green_apple");
+        }
+      }
+    });
+    return lodash(avatars).toString();
   }
 });
 
