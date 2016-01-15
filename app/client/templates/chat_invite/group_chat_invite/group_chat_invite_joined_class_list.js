@@ -14,9 +14,12 @@ Template.GroupChatInviteChooser.events({
         var selectedChatIds = [];
         var checkboxes = $("input[type='checkbox']");
         checkboxes.map(function(){
-            selectedChatIds.push(this.value);
+            //only add the user id if the checkbox is checked
+            if(this.checked){
+                selectedChatIds.push(this.value);                
+            }
+
         })
-        selectedChatIds.push(Meteor.userId());
         Meteor.call('chatCreate', selectedChatIds, function (err, data) {
          Router.go('ChatRoom', {chatRoomId: data});
         });        
