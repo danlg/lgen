@@ -153,6 +153,18 @@ Template.registerHelper('formatTime', function(time) {
     return dateString;
 });
 
+Template.registerHelper('formatDate', function(time) {
+    var dateString="";
+    if(time){  
+      //log.info(this);
+      var fullUnixTime = time;
+      if (fullUnixTime){
+        var trimUnixTime = fullUnixTime.substr(0,10);
+        dateString = moment.unix(trimUnixTime).format('YYYY-MM-DD');
+      }       
+    }
+    return dateString;
+});
 
 //how to create a global function in meteor template
 //http://stackoverflow.com/questions/29364591/how-to-create-a-global-function-in-meteor-template
