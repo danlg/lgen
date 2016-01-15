@@ -160,7 +160,10 @@ Template.registerHelper('formatDate', function(time) {
       var fullUnixTime = time;
       if (fullUnixTime){
         var trimUnixTime = fullUnixTime.substr(0,10);
-        dateString = moment.unix(trimUnixTime).format('YYYY-MM-DD');
+        var userLanguage = TAPi18n.getLanguage();
+        moment.locale(userLanguage);
+        
+        dateString = moment.unix(trimUnixTime).format('LL');
       }       
     }
     return dateString;
