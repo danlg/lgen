@@ -84,4 +84,8 @@ Template.ChatInvite.rendered = function () {
 };
 
 Template.ChatInvite.destroyed = function () {
+ targetStringVar = ReactiveVar([]);
+ targetString = [];
+ targetIds = ReactiveVar([]);
+ searchString = ReactiveVar("");   
 };

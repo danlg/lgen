@@ -1,0 +1,35 @@
+<template name="GroupChatInviteWrapper">
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">{{_ "GroupChatInvite"}} </h1>
+  {{/contentFor}}
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton path="TabChat" text=" "}}
+  {{/contentFor}}
+  {{#ionContent}}
+   <div>
+      <div>
+        {{> UI.contentBlock}}
+       
+      </div>
+      <button class='checkAllBtn'>Check / Uncheck All </button>
+      <button class='createChatBtn'>Create Chat</button>
+   </div>
+   {{/ionContent}}
+</template>
+
+<template name="GroupChatInviteChooserEachPerson">
+    <div class='person'>
+        <input type='checkbox' name="person" value="{{_id}}" data-userid='{{_id}}'>
+        <i id='pick-an-icon-btn' class="icon e1a-{{profile.useravatar}} e1a-5x emojicon"></i>
+        {{profile.firstname}}
+        {{profile.lastname}}
+    </div>
+</template>
+
+<template name='GroupChatInviteChooser'>
+    {{#GroupChatInviteWrapper}}
+       {{#each joinedClassPeople}}
+        {{> GroupChatInviteChooserEachPerson}}
+       {{/each}}
+    {{/GroupChatInviteWrapper}} 
+</template>

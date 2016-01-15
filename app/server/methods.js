@@ -199,16 +199,19 @@ Meteor.methods({
   },
 
   chatCreate: function (chatArr) {
-    /*var _id = lodash.first(chatArr);*/
-    // var arrOfUser = Meteor.users.find({_id:{$in:chatArr}}).fetch();
-    // arrOfUser.push(Meteor.user());
+    //user who create this chat is also added into the chat
     chatArr.push(Meteor.userId());
-    var res = Chat.findOne({chatIds: {$all: chatArr}});
+    
+    //try to find if there is existing room
+    //size needs to be specified, or else a wrong result of larger chat room group may be found
+    //http://stackoverflow.com/questions/6165121/mongodb-query-an-array-for-an-exact-element-match-but-may-be-out-of-order/6165143#6165143
+    var res = Chat.findOne({chatIds: {$size : chatArr.length, $all: chatArr}});
     if (res) {
+      //return the existing chat room id if there is one
       return res._id;
     }
     else {
-      //no room exists
+      //no room exists. create a new one
       var newRoom = Chat.insert({chatIds: chatArr, messagesObj: []});
       return newRoom;
     }

@@ -84,6 +84,13 @@ getLastnameOfCurrentUser = function(requiredCharLength){
 
 
 getFullNameByProfileObj = function (profile) {
+  if(!profile ){
+      return "";
+  }
+  
+  if(!profile.firstname || !profile.lastname){
+       return "";
+  }
   return profile.firstname + " " + profile.lastname;
 };
 getFullNameOfCurrentUser = function () {

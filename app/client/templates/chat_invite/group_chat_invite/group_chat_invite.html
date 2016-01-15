@@ -1,0 +1,43 @@
+<template name="GroupChatInvite">
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">{{_ "Chat"}} </h1>
+  {{/contentFor}}
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton path="TabChat" text=" "}}
+  {{/contentFor}}
+  {{#contentFor "headerButtonRight"}}
+    <div style="position: absolute; right: 0;">
+      <!-- <button  class="button button-clear button-entering button-active sendMsgBtn">Send</button> -->
+      <!-- <button  class="button button-clear button-entering button-active msgDoneClassBtn {{doneClassBtnStatus}}">Done</button> -->
+    </div>
+  {{/contentFor}}
+
+  {{#ionView}}
+              {{#ionTabs style="android" class=""}}
+                {{> ionTab title="1-to-1 Chat"  path='ChatInvite' }}
+                {{> ionTab title="Group Chat" class="active"  path='GroupChatInvite' }}
+            {{/ionTabs}}  
+    {{#ionContent}}
+
+      <div class="list">
+
+             {{#with myclasses}}
+                <div class="item item-input">
+                    <i class="icon ion-search placeholder-icon"></i>
+                    <input type="search" class="searchbar" placeholder="Search by classes">
+                </div>
+                {{#each this}}
+                    {{#if isSearchable}}
+                        <div class="classItem item item-checkbox">
+                            <i id='pick-an-icon-btn' class="icon e1a-{{classavatar}} e1a-5x emojicon"></i>                            
+                            {{className}}
+                        </div>              
+                    {{/if}}
+                {{/each}}                
+             {{/with}}
+
+      </div>
+      <!-- <a href="{{pathFor 'ChatRoom' }}" class="button"></a> -->
+    {{/ionContent}}
+  {{/ionView}}
+</template>
