@@ -16,7 +16,9 @@ Template.ChatRoom.helpers({
   isMine: function () {
     return this.from === Meteor.userId() ? "mine" : "notmine";
   },
-
+  isMineBoolean: function (currentUserId) {
+    return currentUserId === Meteor.userId() ? true : false;
+  },
   userProfile: function () {
     //get another person's user object in 1 to 1 chatroom.     
     var userObj = getAnotherUser();
@@ -27,7 +29,10 @@ Template.ChatRoom.helpers({
     var userObj = getAnotherUser();
     return userObj && userObj.profile && userObj.profile.useravatar;
   },
-  
+  getUserById:function(userId){
+    var targetUserObj = Meteor.users.findOne(userId);
+    return targetUserObj;      
+  },
   getName: function (profile) {
     
     if(getTotalChatRoomUserCount() > 2){
@@ -120,8 +125,7 @@ Template.ChatRoom.helpers({
 
 ////get another person's user object in 1 to 1 chatroom. call by chatroom helpers
 function getAnotherUser(){
-            //find all userids in this chat rooms
-<<<<<<< HEAD
+  //find all userids in this chat rooms
   var query = Chat.findOne({_id: Router.current().params.chatRoomId});
   if (query) {
     var arr = query.chatIds;
@@ -133,16 +137,6 @@ function getAnotherUser(){
     var targetUserObj = Meteor.users.findOne(arr[0]);
     return targetUserObj;
   }
-=======
-            var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
-            
-            //find and remove the userid of the current user
-            var currentUserIdIndex = arr.indexOf(Meteor.userId());
-            arr.splice(currentUserIdIndex, 1);
-            
-            //return another user's user object
-            var targetUserObj = Meteor.users.findOne(arr[0]);  
-            return   targetUserObj;
 }
 
 function getAllUser(){
@@ -162,5 +156,4 @@ function getTotalChatRoomUserCount(){
             var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
             // log.info(arr);    
             return arr.length;    
->>>>>>> multiPersonChat
 }
