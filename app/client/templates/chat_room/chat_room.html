@@ -24,8 +24,13 @@
 
     
       <div class="list chatroomList background-wallpaper" id="chatroomList">
-        {{#each chatRoomProfile.messagesObj}}
-          
+        {{#with chatRoomMessageGroupByDate chatRoomProfile.messagesObj}}
+           {{#each this}}
+                
+                {{#each this}}
+          {{#if isFirstMessageInADate @index}}
+                 <div class='date-bubble'>{{formatDate sendAt}}</div>
+          {{/if}}          
           <div class="item {{isMine}}">
             {{#if isText}}
               <div class="bubble">
@@ -101,7 +106,10 @@
               {{/with}}
             {{/if}}
           </div>        
-        {{/each}}
+        
+                {{/each}}
+           {{/each}}
+        {{/with}}        
       </div>
 
       <div class="list inputBoxList">
