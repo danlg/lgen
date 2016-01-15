@@ -24,12 +24,14 @@
  
   bottom: 0;
   margin-bottom:0px;
+  text-align: center;
   .item {
   
     border-color: transparent;
     background-color: transparent;
     padding:1px 16px 1px 16px;    
   }
+  
 
 }
 
@@ -181,9 +183,9 @@
 }
 
 .date-bubble{
+    display:inline-block;
     
     margin: 0 auto;
-    width: 20%;
     background: #DDD;
 
     position: relative;
@@ -198,7 +200,7 @@
     border-radius:         3px;
     font-family: sans-serif;
     font-size:80%;
-    text-align: center;  
+    white-space: nowrap;
 }
 .ion-image::before,
 .ion-mic-a::before,
