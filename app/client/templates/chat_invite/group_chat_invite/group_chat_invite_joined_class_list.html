@@ -5,6 +5,7 @@
   {{#contentFor "headerButtonLeft"}}
     {{>ionNavBackButton path="GroupChatInvite" text=" "}}
   {{/contentFor}}
+  {{#ionView}}
   {{#ionContent}}
    <div>
     <style>
@@ -20,16 +21,23 @@
         {{> UI.contentBlock}}
        
       </div>
-    <div class="bar bar-footer">
-        <div class='button-bar'>
-            <button class="checkAllBtn button">Check / Uncheck All</button>
-            <button class="createChatBtn button {{ shouldhide }}">Create Chat</button>
-        </div>
-
-    </div>    
+  
 
    </div>
    {{/ionContent}}
+   
+    
+   {{/ionView}}
+  
+   {{#ionFooterBar class='dummy'}}
+   
+        <div class='button-bar'>
+            <button class="checkAllBtn button">Check / Uncheck All</button>
+            <button class="createChatBtn button {{ shouldDisplay }}">Create Chat</button>
+        </div>    
+        
+   {{/ionFooterBar}}
+
 </template>
 
 <template name="GroupChatInviteChooserEachPerson">

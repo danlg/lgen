@@ -32,6 +32,7 @@ Template.GroupChatInviteChooser.events({
         var selectedChatIds = targetIds.get();
         Meteor.call('chatCreate', selectedChatIds, function (err, data) {
          Router.go('ChatRoom', {chatRoomId: data});
+         targetIds.set([]); 
         });        
     },
     'change .targetCB': function (e) {
@@ -64,7 +65,7 @@ Template.GroupChatInviteChooser.helpers({
 });
 
 Template.GroupChatInviteWrapper.helpers({
-  shouldhide: function () {
+  shouldDisplay: function () {
       log.info("here");
     var selectedChatIds = targetIds.get();     
     log.info(selectedChatIds.length)

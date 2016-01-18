@@ -60,8 +60,8 @@ Template.ChatInvite.helpers({
     return targetStringVar.get();
   },
 
-  shouldhide: function () {
-    return targetIds.get().length > 0 ? "" : "hide";
+  shouldDisplay: function () {
+    return targetIds.get().length > 0 ? true : false;
   },
 
   isSearchable: function () {

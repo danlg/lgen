@@ -59,11 +59,14 @@
 
       </div>
 
-      <div class="bar bar-footer bar-stable startChatBtn {{shouldhide}} ">
-        <div class="title">{{_ "Next"}}</div>
-      </div>
+
 
       <!-- <a href="{{pathFor 'ChatRoom' }}" class="button"></a> -->
     {{/ionContent}}
   {{/ionView}}
+  {{#if shouldDisplay}}
+    {{#ionFooterBar class='startChatBtn bar-stable'}}   
+            <div class="title">{{_ "Next"}}</div>
+    {{/ionFooterBar}}
+  {{/if}}
 </template>
