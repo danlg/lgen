@@ -1,3 +1,10 @@
+/*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
+
+var targetStringVar = ReactiveVar([]);
+var targetString = [];
+var targetIds = ReactiveVar([]);
+var searchString = ReactiveVar("");
+
 Template.GroupChatInviteChooser.events({
     'click .checkAllBtn':function(e){
         var checkboxes = $("input[type='checkbox']");
@@ -8,9 +15,8 @@ Template.GroupChatInviteChooser.events({
         } else {        
           checkboxes.prop('checked', true);
           checkAllBtn.addClass('IsChecked');
-        }            
-    },
-    'click .createChatBtn':function(){
+        }
+        
         var selectedChatIds = [];
         var checkboxes = $("input[type='checkbox']");
         checkboxes.map(function(){
@@ -19,11 +25,29 @@ Template.GroupChatInviteChooser.events({
                 selectedChatIds.push(this.value);                
             }
 
-        })
+        }); 
+        targetIds.set(selectedChatIds);                  
+    },
+    'click .createChatBtn':function(){
+        var selectedChatIds = targetIds.get();
         Meteor.call('chatCreate', selectedChatIds, function (err, data) {
          Router.go('ChatRoom', {chatRoomId: data});
         });        
-    }
+    },
+    'change .targetCB': function (e) {
+        log.info('change');
+        var selectedChatIds = [];
+        var checkboxes = $("input[type='checkbox']");
+        checkboxes.map(function(){
+            //only add the user id if the checkbox is checked
+            if(this.checked){
+                selectedChatIds.push(this.value);                
+            }
+
+        }); 
+        targetIds.set(selectedChatIds);
+        log.info(targetIds.get());
+    },
 });
 Template.GroupChatInviteChooser.helpers({
   'joinedClassPeople': function () {
@@ -34,7 +58,17 @@ Template.GroupChatInviteChooser.helpers({
         _id :{ $in:  targetClass.joinedUserId}
     });
     
-    log.info(result);
+    //log.info(result);
     return result;
   }
+});
+
+Template.GroupChatInviteWrapper.helpers({
+  shouldhide: function () {
+      log.info("here");
+    var selectedChatIds = targetIds.get();     
+    log.info(selectedChatIds.length)
+    return selectedChatIds.length > 0 ? "" : "hide";
+  }   
+    
 });

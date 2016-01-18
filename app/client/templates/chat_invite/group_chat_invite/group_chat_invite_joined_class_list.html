@@ -3,26 +3,45 @@
     <h1 class="title">{{_ "GroupChatInvite"}} </h1>
   {{/contentFor}}
   {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton path="TabChat" text=" "}}
+    {{>ionNavBackButton path="GroupChatInvite" text=" "}}
   {{/contentFor}}
   {{#ionContent}}
    <div>
+    <style>
+    .hide {
+        display: none !important;
+    }        
+    </style>
+    <div class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="search" class="searchbar" placeholder="Search by names">
+    </div>       
       <div>
         {{> UI.contentBlock}}
        
       </div>
-      <button class='checkAllBtn'>Check / Uncheck All </button>
-      <button class='createChatBtn'>Create Chat</button>
+    <div class="bar bar-footer">
+        <div class='button-bar'>
+            <button class="checkAllBtn button">Check / Uncheck All</button>
+            <button class="createChatBtn button {{ shouldhide }}">Create Chat</button>
+        </div>
+
+    </div>    
+
    </div>
    {{/ionContent}}
 </template>
 
 <template name="GroupChatInviteChooserEachPerson">
-    <div class='person'>
-        <input type='checkbox' name="person" value="{{_id}}" data-userid='{{_id}}'>
-        <i id='pick-an-icon-btn' class="icon e1a-{{profile.useravatar}} e1a-5x emojicon"></i>
+    <div class='item item-checkbox person'>
+        <label class="checkbox">
+        <input class="targetCB"  type='checkbox' name="person" value="{{_id}}" data-userid='{{_id}}'>
+
+        </label>
+        
+        <i id='pick-an-icon-btn' class="icon e1a-{{profile.useravatar}} e1a-3x emojicon"></i>
         {{profile.firstname}}
-        {{profile.lastname}}
+        {{profile.lastname}}        
     </div>
 </template>
 
