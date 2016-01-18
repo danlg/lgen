@@ -110,7 +110,7 @@ Template.registerHelper('docPreview',function(url){
          else if(youtubeId != false){
            
            log.info('yep...show user the youtube iframe')
-           return '<iframe width="640" height="360" src="https://www.youtube.com/embed/'+ youtubeId +'?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>';
+           return '<iframe width="100%" height="360" src="https://www.youtube.com/embed/'+ youtubeId +'?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>';
          }
          else{
           return ""; 
