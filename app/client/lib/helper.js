@@ -15,6 +15,12 @@ isCordova = function(){
   return Meteor.isCordova;
 };
 
+function youtube_parser(url){
+    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+    var match = url.match(regExp);
+    return (match&&match[7].length==11)? match[7] : false;
+}
+
 Template.registerHelper('isAndroid', isAndroid);
 Template.registerHelper('isIOS', isIOS);
 Template.registerHelper('isCordova', isCordova);
@@ -84,7 +90,9 @@ Template.registerHelper('docPreview',function(url){
       }
     });
     if(linkList.length>0){
-         var fileURL = linkList[0];
+         var fileURL = linkList[0];         
+         //http://stackoverflow.com/questions/3452546/javascript-regex-how-to-get-youtube-video-id-from-url
+         var youtubeId = youtube_parser(fileURL);
          
          //if it is a normal document url
          if( lodash.endsWith(fileURL,'pdf') 
@@ -98,6 +106,11 @@ Template.registerHelper('docPreview',function(url){
          }else if(lodash.startsWith(fileURL,'https://docs.google.com/')){
            var embedReadyURLHTML =  googleDocsURLToEmbedReadyURLHTML(fileURL);
            return embedReadyURLHTML;
+         }
+         else if(youtubeId != false){
+           
+           log.info('yep...show user the youtube iframe')
+           return '<iframe width="640" height="360" src="https://www.youtube.com/embed/'+ youtubeId +'?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>';
          }
          else{
           return ""; 
