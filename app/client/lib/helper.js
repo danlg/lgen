@@ -71,14 +71,7 @@ var googleDocsURLToEmbedReadyURLHTML = function(originalURL){
 
 
 Template.registerHelper('docPreview',function(url){
-    //no document preview on android for now
-    if(isAndroid() == true){
-        //do nothing since google docs viewer does not work on cordova android
-        //see https://github.com/phonegap/phonegap/wiki/iFrame-Usage
-        //it seems to due to the fact that in android corodva's iframe:
-        //it Can't use XmlHttpRequests to set document data
-        return "";
-    }
+
     
     var linkList = [];
     Autolinker.link(url,{
@@ -94,6 +87,14 @@ Template.registerHelper('docPreview',function(url){
          //http://stackoverflow.com/questions/3452546/javascript-regex-how-to-get-youtube-video-id-from-url
          var youtubeId = youtube_parser(fileURL);
          
+        //no document preview on android for now except it is a youtube link
+        if(isAndroid() == true && youtubeId == false){
+            //do nothing since google docs viewer does not work on cordova android
+            //see https://github.com/phonegap/phonegap/wiki/iFrame-Usage
+            //it seems to due to the fact that in android corodva's iframe:
+            //it Can't use XmlHttpRequests to set document data
+            return "";
+        }         
          //if it is a normal document url
          if( lodash.endsWith(fileURL,'pdf') 
              || lodash.endsWith(fileURL,'doc') || lodash.endsWith(fileURL,'docx')
