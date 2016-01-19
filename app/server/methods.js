@@ -198,7 +198,7 @@ Meteor.methods({
     }
   },
 
-  chatCreate: function (chatArr) {
+  chatCreate: function (chatArr,chatObjExtra) {
     //user who create this chat is also added into the chat
     chatArr.push(Meteor.userId());
     
@@ -212,7 +212,22 @@ Meteor.methods({
     }
     else {
       //no room exists. create a new one
-      var newRoom = Chat.insert({chatIds: chatArr, messagesObj: []});
+      var newRoom;
+      var ChatObj = {chatIds: chatArr, messagesObj: []};
+      
+      //extra property for chat room, currently use during create of group chat room only.
+      if(chatObjExtra){
+          
+          if(chatObjExtra.chatRoomName && chatObjExtra.chatRoomName !=""){
+              ChatObj.chatRoomName = chatObjExtra.chatRoomName;
+          }
+                
+          if(chatObjExtra.chatRoomAvatar && chatObjExtra.chatRoomAvatar !=""){
+              ChatObj.chatRoomAvatar = chatObjExtra.chatRoomAvatar;              
+          }
+      }      
+      newRoom = Chat.insert(ChatObj);          
+      
       return newRoom;
     }
   },

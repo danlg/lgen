@@ -1,6 +1,6 @@
 <template name="GroupChatInviteWrapper">
   {{#contentFor "headerTitle"}}
-    <h1 class="title">{{_ "GroupChatInvite"}} </h1>
+    <h1 class="title"> Group Chat </h1>
   {{/contentFor}}
   {{#contentFor "headerButtonLeft"}}
     {{>ionNavBackButton path="GroupChatInvite" text=" "}}
@@ -13,6 +13,22 @@
         display: none !important;
     }        
     </style>
+    <div class='row'>
+        {{#if getYouAvatar}}
+        <div class='col col-50'  style='text-align:center;'>
+        <br/>
+        <i id='pick-an-icon-btn' class="icon e1a-{{getYouAvatar}} e1a-5x emojicon"></i>
+        </div> 
+        {{else}}
+        <div id='pick-an-icon-btn' class='col col-50'  style='text-align:center;' >              
+        <p> Choose a group avatar (optional)</p>  
+        <i class='icon ion-ios-person-outline' style='font-size:5em;'></i>
+        </div>  
+        {{/if}}                       
+    <div class='col col-50'>
+        <input id='group-chatroom-name' type="search" class="group-chatroom-name" placeholder="Group name (optional)">
+    </div>            
+    </div>    
     <div class="item item-input">
         <i class="icon ion-search placeholder-icon"></i>
         <input type="search" class="searchbar" placeholder="Search by names">

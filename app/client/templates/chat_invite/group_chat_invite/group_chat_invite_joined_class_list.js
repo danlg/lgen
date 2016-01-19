@@ -30,9 +30,15 @@ Template.GroupChatInviteChooser.events({
     },
     'click .createChatBtn':function(){
         var selectedChatIds = targetIds.get();
-        Meteor.call('chatCreate', selectedChatIds, function (err, data) {
+        var chatObjExtra = {
+            chatRoomAvatar: Session.get('chosenIconForGroupChat'),
+            chatRoomName: document.getElementById("group-chatroom-name").value
+        };
+        
+        Meteor.call('chatCreate', selectedChatIds, chatObjExtra, function (err, data) {
          Router.go('ChatRoom', {chatRoomId: data});
          targetIds.set([]); 
+         Session.set('chosenIconForGroupChat','');
         });        
     },
     'change .targetCB': function (e) {
@@ -49,6 +55,10 @@ Template.GroupChatInviteChooser.events({
         targetIds.set(selectedChatIds);
         log.info(targetIds.get());
     },
+    'click #pick-an-icon-btn':function(){
+      var parentDataContext= {iconListToGet:"iconListForClass",sessionToBeSet:"chosenIconForGroupChat"};
+      IonModal.open("ClassIconChoose", parentDataContext);
+    }    
 });
 Template.GroupChatInviteChooser.helpers({
   'joinedClassPeople': function () {
@@ -62,6 +72,7 @@ Template.GroupChatInviteChooser.helpers({
     //log.info(result);
     return result;
   }
+
 });
 
 Template.GroupChatInviteWrapper.helpers({
@@ -69,7 +80,12 @@ Template.GroupChatInviteWrapper.helpers({
       log.info("here");
     var selectedChatIds = targetIds.get();     
     log.info(selectedChatIds.length)
-    return selectedChatIds.length > 0 ? "" : "hide";
-  }   
+    return selectedChatIds.length > 1 ? "" : "hide";
+  } , getYouAvatar:function(){
+    var chosenIcon = Session.get('chosenIconForGroupChat');
+    if(chosenIcon){
+      return chosenIcon;
+    }
+  }
     
 });

@@ -8,6 +8,14 @@ Chat.attachSchema(new SimpleSchema({
   messagesObj: {
     type: [Object],
     blackbox: true
+  },
+  chatRoomName:{
+    type: String,
+    optional: true
+  },
+  chatRoomAvatar:{
+    type: String, 
+    optional: true
   }
 }));
 
