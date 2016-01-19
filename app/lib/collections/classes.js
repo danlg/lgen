@@ -129,8 +129,7 @@ ClassesSchema.messages({
 });
 
 ClassesSchema.messages({
-  //todo localize
-  notUniqueAndSuggestClasscode:"[label] is not unique. You may try [value]"
+  notUniqueAndSuggestClasscode: "[label] " + TAPi18n.__("Class_code_not_available") +  " [value]"
 });
 
 if (Meteor.isServer) {
