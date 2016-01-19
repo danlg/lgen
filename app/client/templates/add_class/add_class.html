@@ -16,7 +16,7 @@
       {{#autoForm  validation="keyup" collection="Classes" id="insertClass" type="insert"}}
         <ul class="list " style="margin-bottom:0;">
           <li class="item item-input">
-            {{> afFieldInput name="className" placeholder="Class Name" }}
+            {{> afFieldInput name="className" placeholder=(_ "Type_Class_Name" ) }}
             {{#if afFieldIsInvalid name='className'}}
               <br><span class="help-block">{{afFieldMessage name='className'}}</span>
             {{/if}}
@@ -26,7 +26,7 @@
             <div class="bar bar-header item-input-inset">
               <label class="item-input-wrapper white-background">
                 <i class="icon ion-at placeholder-icon"></i>
-                {{> afFieldInput name="classCode" class="classCodeInput" placeholder="Class Code" }}
+                {{> afFieldInput name="classCode" class="classCodeInput" placeholder=(_ "Type_Class_Code" ) }}
                 {{#if afFieldIsInvalid name='classCode'}}
                   <br><span class="help-block ">{{afFieldMessage name='classCode'}}</span>
                 {{/if}}
