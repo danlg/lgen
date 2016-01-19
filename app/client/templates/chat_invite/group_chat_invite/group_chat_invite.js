@@ -60,3 +60,10 @@ Template.GroupChatInvite.helpers({
     return targetIds.get().length > 0 ? "" : "hide";
   },
 });
+
+Template.GroupChatInvite.destroyed = function () {
+ targetStringVar = ReactiveVar([]);
+ targetString = [];
+ targetIds = ReactiveVar([]);
+ searchString = ReactiveVar("");   
+};

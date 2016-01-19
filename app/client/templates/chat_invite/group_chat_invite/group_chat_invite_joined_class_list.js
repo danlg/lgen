@@ -89,3 +89,10 @@ Template.GroupChatInviteWrapper.helpers({
   }
     
 });
+
+Template.GroupChatInviteChooser.destroyed = function () {
+ targetStringVar = ReactiveVar([]);
+ targetString = [];
+ targetIds = ReactiveVar([]);
+ searchString = ReactiveVar("");   
+};
