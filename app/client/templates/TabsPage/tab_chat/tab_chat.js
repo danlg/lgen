@@ -72,9 +72,12 @@ Template.TabChat.helpers({
 
   },
   'isHide': function (chatIds) {
-    var chatIdsLocal = chatIds;
+    //var chatIdsLocal = chatIds;
     if (text.get() !== "") {
+        
       var names = [];
+      
+      //get all user names in a chatroom
       var userObjArr = Meteor.users.find({_id: {$in: this.chatIds}}).fetch();
       lodash.forEach(userObjArr, function (el, index) {
         if (el._id !== Meteor.userId()) {
@@ -82,11 +85,19 @@ Template.TabChat.helpers({
           names.push(name);
         }
       });
+      
+      //get chatroom name
+      if(this.chatRoomName){
+          names.push(this.chatRoomName);
+      }
+      
+      //find if search string is included in the names string
       if (lodash.includes(lodash(names).toString().toUpperCase(), text.get().toUpperCase())) {
         return true;
       } else {
         return false;
       }
+      
     } else {
       return true;
     }
