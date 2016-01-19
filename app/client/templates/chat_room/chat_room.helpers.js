@@ -49,31 +49,54 @@ Template.ChatRoom.helpers({
     return userObj
   },
   getGroupOrCorrespondentAvatar : function () {
-    //get other person's avatar (todo add  group avatar lookup when implemented)
-    var userObj = getAnotherUser();
-    return userObj && userObj.profile && userObj.profile.useravatar;
+    var chat = Chat.findOne({_id: Router.current().params.chatRoomId});
+    if(chat.chatRoomAvatar){
+        return chat.chatRoomAvatar;       
+    }else{
+        //get other person's avatar
+        var userObj = getAnotherUser();
+        return userObj && userObj.profile && userObj.profile.useravatar;        
+    }
   },
   getUserById:function(userId){
     var targetUserObj = Meteor.users.findOne(userId);
     return targetUserObj;      
   },
-  getName: function (profile) {
-    
+  getName: function (profile) {  
     if(getTotalChatRoomUserCount() > 2){
-       var userObjArr =  getAllUser();
-       var nameArr = [];
-       //log.info(userObjArr);
-       userObjArr.map(function(userObj){
-           //log.info(userObj.profile);
-            var name = getFullNameByProfileObj(userObj.profile);
-            nameArr.push(name);
-       })
-    return nameArr.toString();       
+       var chat = Chat.findOne({_id: Router.current().params.chatRoomId});  
+       if(chat.chatRoomName){
+           return chat.chatRoomName;
+       }else{
+            var maxNumberOfDisplayName = 2;           
+            var userObjArr =  getAllUser();
+            var nameArr = [];
+            
+            if(userObjArr.length > 2){
+                lodash.forEach(userObjArr, function (el, index) {
+                        if( index < maxNumberOfDisplayName){
+                            var name = getFullNameByProfileObj(el.profile);
+                            nameArr.push(name);
+                        }
+                }); 
+                
+                if(userObjArr.length > maxNumberOfDisplayName){
+                    nameArr.push(" and "+ (userObjArr.length - maxNumberOfDisplayName) + " others..." );
+                }   
+            }else{
+                lodash.forEach(userObjArr, function (el, index) {
+                if (el._id !== Meteor.userId()) {
+                    var name = getFullNameByProfileObj(el.profile);
+                    nameArr.push(name);
+                }
+                });            
+            }
+            return nameArr.toString();             
+       }  
     }else{
         var userObj = getAnotherUser();
         return userObj &&  getFullNameByProfileObj(userObj.profile);        
     }
-
   },
 
   isText: function () {

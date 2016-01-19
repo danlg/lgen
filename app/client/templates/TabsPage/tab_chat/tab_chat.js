@@ -30,15 +30,36 @@ Template.TabChat.helpers({
     }
   },
   //this implementation smells
-  'chatroomMenberName': function () {
+  'chatroomMemberName': function () {
     var names = [];
-    var userObjArr = Meteor.users.find({_id: {$in: this.chatIds}}).fetch();
-    lodash.forEach(userObjArr, function (el, index) {
-      if (el._id !== Meteor.userId()) {
-        var name = getFullNameByProfileObj(el.profile);
-        names.push(name);
-      }
-    });
+    if(this.chatRoomName){
+        names.push(this.chatRoomName);
+    }else{
+        var maxNumberOfDisplayName = 2;
+        var userObjArr = Meteor.users.find({_id: {$in: this.chatIds}}).fetch();
+        
+        if(userObjArr.length > 2){
+            lodash.forEach(userObjArr, function (el, index) {
+                    if( index < maxNumberOfDisplayName){
+                        var name = getFullNameByProfileObj(el.profile);
+                        names.push(name);
+                    }
+            }); 
+            
+            if(userObjArr.length > maxNumberOfDisplayName){
+                names.push(" and "+ (userObjArr.length - maxNumberOfDisplayName) + " others..." );
+            }   
+        }else{
+            lodash.forEach(userObjArr, function (el, index) {
+            if (el._id !== Meteor.userId()) {
+                var name = getFullNameByProfileObj(el.profile);
+                names.push(name);
+            }
+            });            
+        }  
+    }
+
+
     return lodash(names).toString();
   },
 
@@ -73,18 +94,23 @@ Template.TabChat.helpers({
 
   'chatRoomUserAvatar': function () {
     var avatars = [];
-    var userObjArr = Meteor.users.find({_id: {$in: this.chatIds}}).fetch();
-    lodash.forEach(userObjArr, function (el, index) {
-      if (el._id !== Meteor.userId()) {
-        var avatar = el.profile.useravatar;
-        if (avatar){
-          avatars.push("e1a-" + avatar)
+    
+    if(this.chatRoomAvatar){
+        avatars.push("e1a-"+ this.chatRoomAvatar);
+    }else{
+        var userObjArr = Meteor.users.find({_id: {$in: this.chatIds}}).fetch();
+        lodash.forEach(userObjArr, function (el, index) {
+        if (el._id !== Meteor.userId()) {
+            var avatar = el.profile.useravatar;
+            if (avatar){
+            avatars.push("e1a-" + avatar)
+            }
+            else{
+            avatars.push("e1a-green_apple");
+            }
         }
-        else{
-          avatars.push("e1a-green_apple");
-        }
-      }
-    });
+        });
+    }
     return lodash(avatars).toString();
   }
 });
