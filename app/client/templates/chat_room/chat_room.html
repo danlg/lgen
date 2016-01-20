@@ -24,108 +24,108 @@
 
     
       <div class="list chatroomList background-wallpaper" id="chatroomList">
-        {{#with chatRoomMessageGroupByDate chatRoomProfile.messagesObj}}
+        {{#with messagesGroupByDate chatRoomProfile.messagesObj}}
            {{#each this}}
                 
                 {{#each this}}
-          {{#if isFirstMessageInADate @index}}
-                 <div class='date-bubble'>{{formatDate sendAt}}</div>
-          {{/if}}          
-          <div class="item {{isMine}}">
-            {{#if isText}}
-              <div class="bubble">
-                {{#if isMineBoolean from}}
-                {{else}}
-                    {{#with getUserById from}}
-                        <div class='username'><i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>{{profile.firstname}} {{profile.lastname}}</div><br/>
+                {{#if isFirstMessageInADate @index}}
+                       <div class='date-bubble-wrapper'> <div class='date-bubble'>{{formatDate sendAt}}</div> </div>
+                {{/if}}               
+                <div class="item {{isMine}}">
+                    {{#if isText}}
+                    <div class="bubble">
+                        {{#if isMineBoolean from}}
+                        {{else}}
+                            {{#with getUserById from}}
+                                <div class='username'><i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>{{profile.firstname}} {{profile.lastname}}</div><br/>
+                            {{/with}}
+                        {{/if}}                 
+                        {{{docPreview text}}}                
+                        {{#autolink}}<pre>{{text}}</pre>{{/autolink}}
+
+                        <span class='timestamp'>{{formatTime sendAt}}</span>
+                    
+                    </div>
+
+                    {{/if}}
+                    {{#if isDocument}}
+                        {{#with getDocument}}  
+                                {{#if this.isUploaded}}
+                                    {{#if this.hasStored 'documents'}}
+                                        <div class="bubble">
+                                        {{#if isMineBoolean ../from}}
+                                        {{else}}
+                                            {{#with getUserById ../from}}
+                                                <div class='username'><i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>{{profile.firstname}}</div><br/>
+                                            {{/with}}
+                                        {{/if}}                                          
+                                        <a href='{{this.url}}'> <i class="icon ion-paperclip"></i>&nbsp;{{this.name}}</a>
+                                        <br/><span  class='timestamp'>{{formatTime  ../sendAt}}</span>                       
+                                        </div>
+                                    {{else}}
+                                        {{> LoadingSpinner}}                                                          
+                                    {{/if}}
+                                {{else}}
+                                    {{> LoadingSpinner}}
+                                {{/if}}                               
+                        {{/with}}        
+                    {{/if}}
+                    {{#if isImage}}
+                    {{#with FS.GetFile "images" this.image}}
+                    
+                    <!--read the below to know how to access parent scope value-->
+                    <!--https://www.discovermeteor.com/blog/a-guide-to-meteor-templates-data-contexts/-->  
+                    <style>.bubble.image-bubble.image{{@index}}:after{content:"{{formatTime  ../sendAt}}";white-space: nowrap;}</style>
+                        <div class="bubble image-bubble image{{@index}}">
+                        {{#if isMineBoolean ../from}}
+                        {{else}}
+                            {{#with getUserById ../from}}
+                                <div class='username'><i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>{{profile.firstname}}</div><br/>
+                            {{/with}}
+                        {{/if}}                        
+                        <!--http://stackoverflow.com/questions/10426786/div-gets-extra-height-for-no-reason-->
+                        <img style='display:block;' src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs responsive-img" data-fullsizeimage="{{this.url  }}"> 
+                        </div>
                     {{/with}}
-                {{/if}}                 
-                {{{docPreview text}}}                
-                {{#autolink}}<pre>{{text}}</pre>{{/autolink}}
 
-                <span class='timestamp'>{{formatTime sendAt}}</span>
-               
-              </div>
-
-            {{/if}}
-            {{#if isDocument}}
-                 {{#with getDocument}}  
+                    {{/if}}
+                    {{#if isSound}}
+                    {{#with getSound}}
                         {{#if this.isUploaded}}
-                             {{#if this.hasStored 'documents'}}
-                                <div class="bubble">
+                        {{#if this.hasStored 'sounds'}}
+                            {{#if  this.url}}
+                            {{#if isCordova}}
+                                <div class="bubble sound-bubble">
                                 {{#if isMineBoolean ../from}}
                                 {{else}}
                                     {{#with getUserById ../from}}
                                         <div class='username'><i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>{{profile.firstname}}</div><br/>
                                     {{/with}}
-                                {{/if}}                                          
-                                <a href='{{this.url}}'> <i class="icon ion-paperclip"></i>&nbsp;{{this.name}}</a>
+                                {{/if}}                                  
+                                <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}"></a>
                                 <br/><span  class='timestamp'>{{formatTime  ../sendAt}}</span>                       
-                                </div>
-                              {{else}}
-                                   {{> LoadingSpinner}}                                                          
-                             {{/if}}
-                        {{else}}
-                             {{> LoadingSpinner}}
-                        {{/if}}                               
-                 {{/with}}        
-            {{/if}}
-            {{#if isImage}}
-              {{#with FS.GetFile "images" this.image}}
-              
-              <!--read the below to know how to access parent scope value-->
-              <!--https://www.discovermeteor.com/blog/a-guide-to-meteor-templates-data-contexts/-->  
-              <style>.bubble.image-bubble.image{{@index}}:after{content:"{{formatTime  ../sendAt}}";white-space: nowrap;}</style>
-                <div class="bubble image-bubble image{{@index}}">
-                {{#if isMineBoolean ../from}}
-                {{else}}
-                    {{#with getUserById ../from}}
-                        <div class='username'><i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>{{profile.firstname}}</div><br/>
+                                </div>                      
+                            {{else}}
+                                <div class="bubble sound-bubble">
+                                {{#if isMineBoolean ../from}}
+                                {{else}}
+                                    {{#with getUserById ../from}}
+                                        <div class='username'><i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>{{profile.firstname}}</div><br/>
+                                    {{/with}}
+                                {{/if}}                                  
+                                <audio controls>
+                                    <source src="{{this.url}}" type="audio/wav">
+                                </audio>
+                                <br/><span  class='timestamp'>{{formatTime  ../sendAt}}</span>                       
+                                </div>                       
+                            {{/if}}
+
+                            {{/if}}
+                        {{/if}}
+                        {{/if}}
                     {{/with}}
-                {{/if}}                        
-                  <!--http://stackoverflow.com/questions/10426786/div-gets-extra-height-for-no-reason-->
-                  <img style='display:block;' src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs responsive-img" data-fullsizeimage="{{this.url  }}"> 
-                </div>
-              {{/with}}
-
-            {{/if}}
-            {{#if isSound}}
-              {{#with getSound}}
-                {{#if this.isUploaded}}
-                  {{#if this.hasStored 'sounds'}}
-                    {{#if  this.url}}
-                      {{#if isCordova}}
-                        <div class="bubble sound-bubble">
-                        {{#if isMineBoolean ../from}}
-                        {{else}}
-                            {{#with getUserById ../from}}
-                                <div class='username'><i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>{{profile.firstname}}</div><br/>
-                            {{/with}}
-                        {{/if}}                                  
-                          <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}"></a>
-                          <br/><span  class='timestamp'>{{formatTime  ../sendAt}}</span>                       
-                        </div>                      
-                      {{else}}
-                        <div class="bubble sound-bubble">
-                        {{#if isMineBoolean ../from}}
-                        {{else}}
-                            {{#with getUserById ../from}}
-                                <div class='username'><i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>{{profile.firstname}}</div><br/>
-                            {{/with}}
-                        {{/if}}                                  
-                          <audio controls>
-                            <source src="{{this.url}}" type="audio/wav">
-                          </audio>
-                          <br/><span  class='timestamp'>{{formatTime  ../sendAt}}</span>                       
-                        </div>                       
-                      {{/if}}
-
                     {{/if}}
-                  {{/if}}
-                {{/if}}
-              {{/with}}
-            {{/if}}
-          </div>        
+                </div>        
         
                 {{/each}}
            {{/each}}

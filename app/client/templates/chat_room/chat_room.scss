@@ -182,26 +182,8 @@
   }  
 }
 
-.date-bubble{
-    display:inline-block;
-    
-    margin: 0 auto;
-    background: #DDD;
 
-    position: relative;
-    max-width: 85vw;
-    margin-top:10px;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    padding-right: 10px;
-    padding-left: 10px;
-    -moz-border-radius:    3px;
-    -webkit-border-radius: 3px;
-    border-radius:         3px;
-    font-family: sans-serif;
-    font-size:80%;
-    white-space: nowrap;
-}
+
 .ion-image::before,
 .ion-mic-a::before,
 .ion-paperclip::before {
