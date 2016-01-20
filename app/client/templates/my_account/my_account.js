@@ -11,13 +11,13 @@ Template.MyAccount.events({
     },
     'keyup #organization':function(e){
         var inputOrganization = e.target.value;
-        log.info(e.target.value);
+        //log.info(e.target.value);
         if(inputOrganization == ""){
             similarOrganizations.set([]);              
         }else{
             Meteor.call("getSimilarOrganizations",inputOrganization,function(error,result){
                 if(result){
-                  similarOrganizations.set(result);  
+                  similarOrganizations.set(lodash.uniq(result));  
                 }
             });                
         }
@@ -27,10 +27,7 @@ Template.MyAccount.events({
         //db.users.find({name: /^pa/}) //like 'pa%' 
     },
     'click .suggestedOrganization' :function(e){
-        log.info(e);
-         var clickedSuggestOrganization = e.target.innerText;
-         log.info("yep: " + clickedSuggestOrganization);
-         
+         var clickedSuggestOrganization = e.target.innerText;         
          document.getElementById("organization").value = clickedSuggestOrganization;
          similarOrganizations.set([]);  
          
