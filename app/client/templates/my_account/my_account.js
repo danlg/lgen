@@ -27,7 +27,9 @@ Template.MyAccount.events({
         //db.users.find({name: /^pa/}) //like 'pa%' 
     },
     'click .suggestedOrganization' :function(e){
-         var clickedSuggestOrganization = e.target.innerText;         
+         var clickedSuggestOrganization =   $('.suggestedOrganization').first().text().trim();
+         //var clickedSuggestOrganization = e.target.innerText;    
+              
          document.getElementById("organization").value = clickedSuggestOrganization;
          similarOrganizations.set([]);  
          
