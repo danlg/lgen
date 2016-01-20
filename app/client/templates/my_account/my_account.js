@@ -1,4 +1,5 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
+var similarOrganizations = ReactiveVar([]);
 /*****************************************************************************/
 /* MyAccount: Event Handlers */
 /*****************************************************************************/
@@ -7,6 +8,32 @@ Template.MyAccount.events({
     'click #pick-an-icon-btn':function(){
       var parentDataContext= {iconListToGet:"iconListForYou",sessionToBeSet:"chosenIconForYou"};
       IonModal.open("YouIconChoose", parentDataContext);
+    },
+    'keyup #organization':function(e){
+        var inputOrganization = e.target.value;
+        log.info(e.target.value);
+        if(inputOrganization == ""){
+            similarOrganizations.set([]);              
+        }else{
+            Meteor.call("getSimilarOrganizations",inputOrganization,function(error,result){
+                if(result){
+                  similarOrganizations.set(result);  
+                }
+            });
+            /*
+            var regexp = new RegExp("^"+inputOrganization,"i");
+            var rawResultSet = Meteor.users.find({"profile.organization":  {$regex: regexp} }).fetch();//OK
+            log.info(rawResultSet);
+            var resultSet = lodash.pluck(rawResultSet,'profile.organization')
+            log.info(resultSet);
+            
+            similarOrganizations.set(resultSet); */           
+            
+        }
+
+        //Find School name from School Entity
+        //School.find()({'schoolNames.schoolName': /^pa/})
+        //db.users.find({name: /^pa/}) //like 'pa%' 
     }
 
 });
@@ -47,6 +74,16 @@ Template.MyAccount.helpers({
     if(chosenIcon){
       return chosenIcon;
     }
+  }, countriesWithValueOnly:function(){
+      var countriesObj = CountryCodes.getList();
+      var optionsCountries = [];
+      lodash.forOwn(countriesObj,function(countryName,countryCode){
+          
+        optionsCountries.push({label:countryName,value:countryCode});         
+      });
+     return optionsCountries;
+  },getSimilarOrganizations:function(){
+      return similarOrganizations.get();
   }
 
 });
@@ -60,10 +97,13 @@ Template.MyAccount.created = function () {
     if(Meteor.user().profile.useravatar){
       Session.set('chosenIconForYou', Meteor.user().profile.useravatar)
     }
+
+        
   } 
 };
 
 Template.MyAccount.rendered = function () {
+
 };
 
 Template.MyAccount.destroyed = function () {

@@ -41,12 +41,27 @@
           </label>
           <!--todo add country-->
           <label class="item item-input item-stacked-label">
-            {{> afFieldInput name="organization" placeholder=getOrganizationPlaceHolder value=profile.organization  }}
+            {{> afFieldInput id='organization' name="organization" placeholder=getOrganizationPlaceHolder value=profile.organization  }}
+          </label>
+          <label>
+              {{#if getSimilarOrganizations}}
+              Are you looking for:
+              {{/if}}
+              {{#each getSimilarOrganizations}}
+               <label class="item item-input item-stacked-label">
+               {{this}}<button>Yes</button>
+              </label>     
+              {{/each}}
+          
           </label>
           <label class="item item-input item-stacked-label">
             {{> afFieldInput name="city" placeholder=getCityPlaceHolder value=profile.city  }}
           </label>
-
+          <label class="item item-input item-stacked-label">
+            <div id='country-code-select'>
+            {{> afFieldInput name="country" firstOption="(Select a Country)" options=countriesWithValueOnly value=profile.country}}                
+            </div>
+          </label>
           <label class="item item-input item-stacked-label">
             <!--<span class="input-label">Role</span>  -->
             <p>{{profile.role}}</p>

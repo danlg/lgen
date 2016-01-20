@@ -162,6 +162,16 @@ Meteor.methods({
   'profileUpdateByObj': function (user) {
     var usersProfile = user.profile;
     Meteor.users.update(Meteor.userId(), {$set: {profile: usersProfile}});
+  },
+  'getSimilarOrganizations':function(inputOrganizationKeyword){
+      
+            var regexp = new RegExp("^"+inputOrganizationKeyword,"i");
+            var rawResultSet = Meteor.users.find({"profile.organization":  {$regex: regexp} }).fetch();//OK
+            log.info(rawResultSet);
+            var resultSet = lodash.pluck(rawResultSet,'profile.organization')
+            log.info(resultSet);  
+            
+            return resultSet;    
   }
 
 });
