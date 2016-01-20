@@ -19,21 +19,21 @@ Template.MyAccount.events({
                 if(result){
                   similarOrganizations.set(result);  
                 }
-            });
-            /*
-            var regexp = new RegExp("^"+inputOrganization,"i");
-            var rawResultSet = Meteor.users.find({"profile.organization":  {$regex: regexp} }).fetch();//OK
-            log.info(rawResultSet);
-            var resultSet = lodash.pluck(rawResultSet,'profile.organization')
-            log.info(resultSet);
-            
-            similarOrganizations.set(resultSet); */           
-            
+            });                
         }
 
         //Find School name from School Entity
         //School.find()({'schoolNames.schoolName': /^pa/})
         //db.users.find({name: /^pa/}) //like 'pa%' 
+    },
+    'click .suggestedOrganization' :function(e){
+        log.info(e);
+         var clickedSuggestOrganization = e.target.innerText;
+         log.info("yep: " + clickedSuggestOrganization);
+         
+         document.getElementById("organization").value = clickedSuggestOrganization;
+         similarOrganizations.set([]);  
+         
     }
 
 });
