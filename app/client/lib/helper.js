@@ -21,6 +21,30 @@ function youtube_parser(url){
     return (match&&match[7].length==11)? match[7] : false;
 }
 
+Template.registerHelper('isFirstMessageInADate',function(index){
+    //if it is the first item in the messages's subarray
+    if(index == 0){
+        return true;
+    }else{
+        return false;
+    }    
+});
+
+Template.registerHelper('messagesGroupByDate',function(messages){
+      var tempArr = [];  
+      messages.map(function(message){
+        log.info(message);
+        var date = moment.unix(message.sendAt.substr(0,10)).format("YYYY-MM-DD");
+        message.date = date;
+        tempArr.push(message)
+      });
+       
+      var result = lodash.groupBy(tempArr,'date');
+      var resultArray = [];
+      resultArray = lodash.values(result);
+      log.info(resultArray);
+      return resultArray;     
+});
 Template.registerHelper('isAndroid', isAndroid);
 Template.registerHelper('isIOS', isIOS);
 Template.registerHelper('isCordova', isCordova);

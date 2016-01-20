@@ -29,146 +29,134 @@
 
 
       {{#with getMessagesObj}}
+         {{#with messagesGroupByDate this}}
 
+         {{#each this}}
+            {{#each this}}
+                {{#if isFirstMessageInADate @index}}
+                       <div class='date-bubble-wrapper'> <div class='date-bubble'>{{formatDate sendAt}}</div> </div>
+                {{/if}}                       
+                <div class="list card less-top-bottom-padding less-top-bottom-margin">
+                     
+                <!-- <div class="item ">
+                    <div class="row" style="padding:0">
+                        <div class="col" style="padding:0"><h2>{{getClassName}}</h2></div>
+                        <div class="col" style="padding:0;text-align:right">{{createdAt}}</div>
+                    </div>
+                    </div>-->
 
-        {{#each this}}
-
-          <!-- <label class="item item-input item-select">
-      <div class="input-label">
-        {{content}}
-      </div>
-      <select id="{{msgId}}" class="chooseType" data-mgsid={{msgId}}>
-          <option value="">select</option>
-          <option value="like">good</option>
-          <option value="dislike">bad</option>
-      </select>
-      <div>like:{{like.length}}</div>
-      <div>dislike:{{dislike.length}}</div>
-
-
-    </label> -->
-
-          <div class="list card less-top-bottom-padding">
-
-           <!-- <div class="item ">
-              <div class="row" style="padding:0">
-                <div class="col" style="padding:0"><h2>{{getClassName}}</h2></div>
-                <div class="col" style="padding:0;text-align:right">{{createdAt}}</div>
-              </div>
-            </div>-->
-
-            <div class="item less-top-bottom-padding">
-              <div>
-                {{{docPreview content}}}                     
-                {{#autolink}}<span class='content'><pre>{{content}}</pre></span>{{/autolink}}
-              </div>
-              <div>
-                <div>
-                  {{#if havePic}}
-                    {{#each imageArr}}
-                      {{#with getImage}}
-                        {{#if this.isUploaded}}
-                          {{#if this.hasStored 'images'}}
-                            <div class="">
-                              <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs responsive-img"
-                                   data-fullsizeimage="{{this.url  }}">
-                              <!-- <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a> -->
-                            </div>
-                          {{/if}}
+                    <div class="item less-top-bottom-padding">
+                    <div>
+                        {{{docPreview content}}}                     
+                        {{#autolink}}<span class='content'><pre>{{content}}</pre></span>{{/autolink}}
+                    </div>
+                    <div>
+                        <div>
+                        {{#if havePic}}
+                            {{#each imageArr}}
+                            {{#with getImage}}
+                                {{#if this.isUploaded}}
+                                {{#if this.hasStored 'images'}}
+                                    <div class="">
+                                    <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs responsive-img"
+                                        data-fullsizeimage="{{this.url  }}">
+                                    <!-- <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a> -->
+                                    </div>
+                                {{/if}}
+                                {{/if}}
+                            {{/with}}
+                            {{/each}}
                         {{/if}}
-                      {{/with}}
-                    {{/each}}
-                  {{/if}}
-                </div>
-                <div>
-                  {{#if haveSound}}
-                    {{#each soundArr}}
-                      {{#with getSound}}
-                        {{#if this.isUploaded}}
-                          {{#if this.hasStored 'sounds'}}
-                            {{#if  this.url}}
-                              {{#if isCordova}}
-                                <div class="bubble">
-                                  <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}"></a>
-                                  <!-- <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a> -->
-                                </div>                    
-                              {{else}}
-                                <div class="bubble">
-                                  <audio controls>
-                                    <source src="{{this.url}}" type="audio/wav">
-                                  </audio>
-                                  <!-- <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a> -->
-                                </div>                                                                                    
-                              {{/if}}
-                            {{/if}} 
-                          {{/if}}
+                        </div>
+                        <div>
+                        {{#if haveSound}}
+                            {{#each soundArr}}
+                            {{#with getSound}}
+                                {{#if this.isUploaded}}
+                                {{#if this.hasStored 'sounds'}}
+                                    {{#if  this.url}}
+                                    {{#if isCordova}}
+                                        <div class="bubble">
+                                        <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}"></a>
+                                        <!-- <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a> -->
+                                        </div>                    
+                                    {{else}}
+                                        <div class="bubble">
+                                        <audio controls>
+                                            <source src="{{this.url}}" type="audio/wav">
+                                        </audio>
+                                        <!-- <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a> -->
+                                        </div>                                                                                    
+                                    {{/if}}
+                                    {{/if}} 
+                                {{/if}}
+                                {{/if}}
+                            {{/with}}
+                            {{/each}}
                         {{/if}}
-                      {{/with}}
-                    {{/each}}
-                  {{/if}}
-                </div>
-                <div class='document'>
-                {{#if haveDocument}}
-                    {{#each documentArr}}
-                    {{#with getDocument}}
-                        {{#if this.isUploaded}}
-                        {{#if this.hasStored 'documents'}}                           
-                            <div class="bubble">
-                            <a href='{{this.url}}'> <i class="icon ion-ios-download-outline"></i>&nbsp;{{this.name}}</a>
-                            <br/><span  class='timestamp'>{{formatTime  ../sendAt}}</span>                       
-                            </div>                                   
+                        </div>
+                        <div class='document'>
+                        {{#if haveDocument}}
+                            {{#each documentArr}}
+                            {{#with getDocument}}
+                                {{#if this.isUploaded}}
+                                {{#if this.hasStored 'documents'}}                           
+                                    <div class="bubble">
+                                    <a href='{{this.url}}'> <i class="icon ion-ios-download-outline"></i>&nbsp;{{this.name}}</a>
+                                    <br/><span  class='timestamp'>{{formatTime  ../sendAt}}</span>                       
+                                    </div>                                   
+                                {{/if}}                      
+                                {{/if}}
+                            {{/with}}
+                            {{/each}}
                         {{/if}}                      
+                        </div>                
+                    </div>
+                    
+
+                    <p>
+                        {{#if isNotEmpty star}}
+                        <a href="#" class="subdued">{{star.length}} <i class="ion-ios-star colored"></i></a>
                         {{/if}}
-                    {{/with}}
-                    {{/each}}
-                {{/if}}                      
-                </div>                
-              </div>
-              
+                        {{#if isNotEmpty checked}}
+                        <a href="#" class="subdued">{{checked.length}} <i class="ion-checkmark-round colored"></i></a>
+                        {{/if}}
+                        {{#if isNotEmpty close}}
+                        <a href="#" class="subdued">{{close.length}} <i class="ion-close-round colored"></i></a>
+                        {{/if}}
+                        {{#if isNotEmpty help}}
+                        <a href="#" class="subdued">{{help.length}} <i class="ion-help colored"></i></a>
+                        {{/if}}
+                        <span class='timestamp'>{{formatTime sendAt}}</span>  
+                    </p>
+                    </div>
 
-              <p>
-                {{#if isNotEmpty star}}
-                  <a href="#" class="subdued">{{star.length}} <i class="ion-ios-star colored"></i></a>
-                {{/if}}
-                {{#if isNotEmpty checked}}
-                  <a href="#" class="subdued">{{checked.length}} <i class="ion-checkmark-round colored"></i></a>
-                {{/if}}
-                {{#if isNotEmpty close}}
-                  <a href="#" class="subdued">{{close.length}} <i class="ion-close-round colored"></i></a>
-                {{/if}}
-                {{#if isNotEmpty help}}
-                  <a href="#" class="subdued">{{help.length}} <i class="ion-help colored"></i></a>
-                {{/if}}
-                 <span class='timestamp'>{{formatTime sendAt}}</span>  
-              </p>
-            </div>
+                    <div class="item tabs tabs-secondary tabs-icon-left">
+                    <a class="tab-item" data-msgId={{msgId}} data-action="checked" href="#">
+                        <i class="icon ion-checkmark-round {{isSelectAction checked}}"></i>
+                    </a>
+                    <a class="tab-item" data-msgId={{msgId}} data-action="close" href="#">
+                        <i class="icon ion-close-round {{isSelectAction close}}"></i>
+                    </a>
+                    <a class="tab-item" data-msgId={{msgId}} data-action="star" href="#">
+                        <i class="icon ion-ios-star {{isSelectAction star}}"></i>
+                    </a>
+                    <a class="tab-item" data-msgId={{msgId}} data-action="help" href="#">
+                        <i class="icon ion-help {{isSelectAction help}}"></i>
+                    </a>
+                    </div>
+                </div>
+                {{/each}}
+            {{/each}}
 
-            <div class="item tabs tabs-secondary tabs-icon-left">
-              <a class="tab-item" data-msgId={{msgId}} data-action="checked" href="#">
-                <i class="icon ion-checkmark-round {{isSelectAction checked}}"></i>
-              </a>
-              <a class="tab-item" data-msgId={{msgId}} data-action="close" href="#">
-                <i class="icon ion-close-round {{isSelectAction close}}"></i>
-              </a>
-              <a class="tab-item" data-msgId={{msgId}} data-action="star" href="#">
-                <i class="icon ion-ios-star {{isSelectAction star}}"></i>
-              </a>
-              <a class="tab-item" data-msgId={{msgId}} data-action="help" href="#">
-                <i class="icon ion-help {{isSelectAction help}}"></i>
-              </a>
-            </div>
-          </div>
+            {{else}}
 
-        {{/each}}
+                <div class="item">
+                {{_ "No_message_yet"}}
+                </div>
 
-      {{else}}
-
-        <div class="item">
-          {{_ "No_message_yet"}}
-        </div>
-
+        {{/with}}
       {{/with}}
-
     {{/ionContent}}
   {{/ionView}}
 </template>
