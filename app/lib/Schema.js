@@ -133,6 +133,7 @@ Schema.editprofile = new SimpleSchema({
   },
   organization: { type: String, optional:true },
   city:         { type: String, optional:true },
+  country:{type:String,optional:true},
   //location not used ?
   //location:     { type: String, optional: true },
   email: {
