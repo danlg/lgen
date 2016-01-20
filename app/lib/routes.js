@@ -297,6 +297,7 @@ Router.route('GroupChatInviteChooser', {
         return [
             Meteor.subscribe('createdClassByMe'),
             Meteor.subscribe('getAllJoinedClassesUser'),
+            Meteor.subscribe('getAllMyChatRooms')
         ]
     }
 });

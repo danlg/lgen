@@ -167,9 +167,9 @@ Meteor.methods({
       
             var regexp = new RegExp("^"+inputOrganizationKeyword,"i");
             var rawResultSet = Meteor.users.find({"profile.organization":  {$regex: regexp} }).fetch();//OK
-            log.info(rawResultSet);
+            //log.info(rawResultSet);
             var resultSet = lodash.pluck(rawResultSet,'profile.organization')
-            log.info(resultSet);  
+            //log.info(resultSet);  
             
             return resultSet;    
   }
