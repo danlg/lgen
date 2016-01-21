@@ -23,6 +23,9 @@ Accounts.onCreateUser(function (options, user) {
     });
     user.profile.firstname = user.services.google.given_name;
     user.profile.lastname = user.services.google.family_name;
+    
+    //explicitiy set that when account is login by google oauth, role is empty
+    user.profile.role = "";
   }
   else {
     // we wait for Meteor to create the user before sending an email
