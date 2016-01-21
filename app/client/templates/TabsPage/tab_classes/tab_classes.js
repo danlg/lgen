@@ -55,6 +55,8 @@ Template.TabClasses.rendered = function () {
     //if email is not yet verfied
     if (Meteor.user().emails[0].verified == false) {
       Router.go('EmailVerification');
+      
+      return;
     }
   }
   //we do not need to show the tour as it is shown before login
