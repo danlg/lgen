@@ -59,6 +59,11 @@ OnBeforeActions = {
           toastr.error('Error getting language\n');
         }
       );
+    }else{
+        var languagePereferences = navigator.languages;
+        if(languagePereferences){
+          TAPi18n.setLanguage(languagePereferences[0]);
+        }     
     }
     this.next();
   },

@@ -1,10 +1,11 @@
 <template name="MasterLayout">
   {{#ionBody}}
-
+   
     {{#unless isActiveRoute regex='language|Login'}}
       {{> ionNavBar}}
     {{/unless}}
     {{#ionNavView}}
+      {{> status}}
       {{> yield}}
     {{/ionNavView}}
     {{#if isActiveRoute regex='TabChat|TabYou|TabClasses'}}
