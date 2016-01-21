@@ -4,15 +4,20 @@ var democlass = "mathfun";
 Template.HowToInvite.events({
   
   'click .redirect-button':function(){
+    log.info("i am clicked");
+    
+    /* the below is already done in tab classes and it seems there is some publish/sub issue here so it is commented out
     //if user is registered with meteor account
     if (typeof Meteor.user().emails[0].verified !== 'undefined') {
+      //Meteor.user() is ready while Meteor.user().emails is not ready
       //if email is not yet verfied
       if (Meteor.user().emails[0].verified == false) {
         Router.go('EmailVerification');
       }
     } else { //else redirect to classes
-      routeToTabClasses();
-    }      
+          routeToTabClasses();
+    } */    
+    routeToTabClasses();
   }
  
 });
