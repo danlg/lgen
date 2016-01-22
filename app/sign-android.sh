@@ -7,7 +7,7 @@ export UNSIGNED_APK=$APK_PATH/outputs/apk/android-release-unsigned.apk
 export SIGNED_APK=$APK_PATH/smartix-release-signed.apk
 
 rm -f $SIGNED_APK
-jarsigner -storepass $PASSWORD -verbose -digestalg SHA1 $UNSIGNED_APK io.littlegenius.genie
+jarsigner -storepass $PASSWORD -verbose -digestalg SHA1 $UNSIGNED_APK com.gosmartix.smartix
 if [ $? -eq 0 ]; then
     echo "OK: APK $SIGNED_APK signed successfully"
 else
