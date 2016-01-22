@@ -28,6 +28,9 @@ Meteor.startup(function () {
     "positionClass": "toast-bottom-full-width"
   }
   
+  //use by francocatena:status,using template status_ionic
+  Status.setTemplate('ionic');
+  
 });
 
 AutoForm.setDefaultTemplate('plain');
