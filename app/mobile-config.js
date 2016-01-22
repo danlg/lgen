@@ -8,7 +8,7 @@ App.info({
   website: 'https://app.gosmartix.com',
   //todo sync this with config.xml
   version: '1.0.292000',
-  buildNumber: '101'
+  buildNumber: '103'
 });
 
 
