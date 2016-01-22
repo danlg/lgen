@@ -163,8 +163,17 @@
                           </audio>
                           <br/><span  class='timestamp'>{{formatTime  ../sendAt}}</span>                       
                         </div>                       
-                      {{/if}}
-                </div>        
+                      {{/if}}<!--end of if isCordova>
+                      
+                      {{/if}}<!--end of if this.url-->
+                      {{/if}}<!--end of if this.hasStored 'sounds'-->
+                      {{/if}}<!--end of if this.isUploaded-->
+                      
+                      {{/with}}<!--end of with getSound>
+                      {{/if}}<!--end of if isSound-->
+                      
+                  
+                </div><!--end of item-->        
         
                 {{/each}}
            {{/each}}
