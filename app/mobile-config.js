@@ -1,6 +1,6 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 App.info({
-  id: 'io.littlegenius.genie',
+  id: 'com.gosmartix.smartix',
   name: 'Smartix',
   description: 'Instant, safe, simple communication for teachers, students and parents',
   author: 'Little Genius Education',
