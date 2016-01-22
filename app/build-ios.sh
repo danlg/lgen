@@ -8,7 +8,7 @@ rm -rf ../Smartix-build
 case "$1" in
         prd)
             echo "Building " $1
-            rm -rf .meteor/local/cordova-build && NODE_ENV=production meteor run ios --settings ../config/production/settings.json --mobile-server=https://app.gosmartix.com:80 -p 5000
+            rm -rf .meteor/local/cordova-build && NODE_ENV=production meteor run ios --settings ../config/production/settings.json --mobile-server=https://app.gosmartix.com -p 5000
             ;;
         uat)
             echo "Building " $1
