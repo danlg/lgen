@@ -93,18 +93,37 @@ Template.ChatRoom.helpers({
         
         var workHourTime = target.profile.chatSetting.workHourTime;
         var dayOfWeek = moment().day();
-        var fromMoment = moment(workHourTime.from, "HH:mm");
-        var toMoment = moment(workHourTime.to, "HH:mm");
-        var range = moment.range(fromMoment, toMoment);
+        
+        var currentDate = new Date();
+        var currentHour = currentDate.getHours();
+        var currentMinute = currentDate.getMinutes();
+        
+        var fromHour = workHourTime.from.split(':')
+        var fromMomentHour = parseInt(fromHour[0]);
+        var fromMomentMinute = parseInt(fromHour[1]);
+        
+        var toHour = workHourTime.to.split(':');
+        var toMomentHour = parseInt(toHour[0]);
+        var toMomentMinute = parseInt(toHour[1]);
+        
+        //not using range plugin to do the calcuation since the api is not available when usingg i18n moment
+        //var fromMoment = moment(workHourTime.from, "HH:mm");
+        //var toMoment = moment(workHourTime.to, "HH:mm");
+        //var range = moment.range(fromMoment, toMoment);
 
         //if today is not in work day
         if(!workHourTime.weeks[dayOfWeek-1]){
             displayOffline = true;
         }           
-        //if currently not in work hour
-        if (!range.contains(moment())) {
+        //if too early
+        if (currentHour < fromMomentHour || (currentHour ==  fromMomentHour &&  currentMinute < fromMomentMinute) ) {
             displayOffline = true;
         }
+        //if too late
+        if( currentHour > toMomentHour ||  (currentHour ==  toMomentHour && currentMinute > toMomentMinute) ){
+             displayOffline = true;
+        }
+
      
       }
     }
