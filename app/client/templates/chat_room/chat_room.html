@@ -35,6 +35,12 @@
           <div class="item {{isMine}}">
             {{#if isText}}
               <div class="bubble">
+                {{#if isMineBoolean from}}
+                {{else}}
+                    {{#with getUserById from}}
+                        <div class='username'><i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>{{profile.firstname}}</div><br/>
+                    {{/with}}
+                {{/if}}                 
                 {{{docPreview text}}}                
                 {{#autolink}}<pre>{{text}}</pre>{{/autolink}}
 
@@ -90,7 +96,14 @@
 
                              {{#if this.hasStored 'documents'}}
                                 <div class="bubble">
-                                <a href='{{this.url}}'> <i class="icon ion-paperclip"></i>&nbsp;{{this.name}}</a>
+
+                                {{#if isMineBoolean ../from}}
+                                {{else}}
+                                    {{#with getUserById ../from}}
+                                        <div class='username'><i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>{{profile.firstname}}</div><br/>
+                                    {{/with}}
+                                {{/if}}                                          
+                                <a href='{{this.url}}'> <i class="icon ion-ios-download-outline"></i>&nbsp;{{this.name}}</a>
                                 <br/><span  class='timestamp'>{{formatTime  ../sendAt}}</span>                       
                                 </div>
                               {{else}}
@@ -102,51 +115,54 @@
                  {{/with}}        
             {{/if}}
             {{#if isImage}}
-              <!-- {{#with getImage}}
-                {{#if this.isUploaded}}
-                  {{#if this.hasStored 'images'}}
-                        <div class="bubble">
-                          <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}" >
-                        </div>
-                        {{/if}}
-                {{/if}}
-              {{/with}} -->
               {{#with FS.GetFile "images" this.image}}
               
               <!--read the below to know how to access parent scope value-->
               <!--https://www.discovermeteor.com/blog/a-guide-to-meteor-templates-data-contexts/-->  
               <style>.bubble.image-bubble.image{{@index}}:after{content:"{{formatTime  ../sendAt}}";white-space: nowrap;}</style>
                 <div class="bubble image-bubble image{{@index}}">
-                  
+                {{#if isMineBoolean ../from}}
+                {{else}}
+                    {{#with getUserById ../from}}
+                        <div class='username'><i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>{{profile.firstname}}</div><br/>
+                    {{/with}}
+                {{/if}}                        
                   <!--http://stackoverflow.com/questions/10426786/div-gets-extra-height-for-no-reason-->
                   <img style='display:block;' src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs responsive-img" data-fullsizeimage="{{this.url  }}"> 
                 </div>
               {{/with}}
 
             {{/if}}
-                        {{#if isSound}}
-                        {{#with getSound}}
-                            {{#if this.isUploaded}}
-                            {{#if this.hasStored 'sounds'}}
-                                {{#if  this.url}}
-                                {{#if isCordova}}
-                                    <div class="bubble sound-bubble">
-                                    <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}"></a>
-                                    <br/><span  class='timestamp'>{{formatTime  ../sendAt}}</span>                       
-                                    </div>                      
-                                {{else}}
-                                    <div class="bubble sound-bubble">
-                                    <audio controls>
-                                        <source src="{{this.url}}" type="audio/wav">
-                                    </audio>
-                                    <br/><span  class='timestamp'>{{formatTime  ../sendAt}}</span>                       
-                                    </div>                       
-                                {{/if}}
 
-                                {{/if}}
-                            {{/if}}
-                            {{/if}}
-                      {{/with}}
+            {{#if isSound}}
+              {{#with getSound}}
+                {{#if this.isUploaded}}
+                  {{#if this.hasStored 'sounds'}}
+                    {{#if  this.url}}
+                      {{#if isCordova}}
+                        <div class="bubble sound-bubble">
+                        {{#if isMineBoolean ../from}}
+                        {{else}}
+                            {{#with getUserById ../from}}
+                                <div class='username'><i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>{{profile.firstname}}</div><br/>
+                            {{/with}}
+                        {{/if}}                                  
+                          <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}"></a>
+                          <br/><span  class='timestamp'>{{formatTime  ../sendAt}}</span>                       
+                        </div>                      
+                      {{else}}
+                        <div class="bubble sound-bubble">
+                        {{#if isMineBoolean ../from}}
+                        {{else}}
+                            {{#with getUserById ../from}}
+                                <div class='username'><i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>{{profile.firstname}}</div><br/>
+                            {{/with}}
+                        {{/if}}                                  
+                          <audio controls>
+                            <source src="{{this.url}}" type="audio/wav">
+                          </audio>
+                          <br/><span  class='timestamp'>{{formatTime  ../sendAt}}</span>                       
+                        </div>                       
                       {{/if}}
                 </div>        
         

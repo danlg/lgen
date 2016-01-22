@@ -16,7 +16,9 @@ Template.ChatRoom.helpers({
   isMine: function () {
     return this.from === Meteor.userId() ? "mine" : "notmine";
   },
-
+  isMineBoolean: function (currentUserId) {
+    return currentUserId === Meteor.userId() ? true : false;
+  },
   userProfile: function () {
     //get another person's user object in 1 to 1 chatroom.     
     var userObj = getAnotherUser();
@@ -27,10 +29,26 @@ Template.ChatRoom.helpers({
     var userObj = getAnotherUser();
     return userObj && userObj.profile && userObj.profile.useravatar;
   },
-  
-  getName: function (profile) {    
-    var userObj = getAnotherUser();
-    return userObj && getFullNameByProfileObj(userObj.profile);
+  getUserById:function(userId){
+    var targetUserObj = Meteor.users.findOne(userId);
+    return targetUserObj;      
+  },
+  getName: function (profile) {
+    
+    if(getTotalChatRoomUserCount() > 2){
+       var userObjArr =  getAllUser();
+       var nameArr = [];
+       //log.info(userObjArr);
+       userObjArr.map(function(userObj){
+           //log.info(userObj.profile);
+            var name = getFullNameByProfileObj(userObj.profile);
+            nameArr.push(name);
+       })
+    return nameArr.toString();       
+    }else{
+        var userObj = getAnotherUser();
+        return userObj &&  getFullNameByProfileObj(userObj.profile);        
+    }
   },
 
   isText: function () {
@@ -106,7 +124,7 @@ Template.ChatRoom.helpers({
 
 ////get another person's user object in 1 to 1 chatroom. call by chatroom helpers
 function getAnotherUser(){
-            //find all userids in this chat rooms
+
   var query = Chat.findOne({_id: Router.current().params.chatRoomId});
   if (query) {
     var arr = query.chatIds;
@@ -118,4 +136,23 @@ function getAnotherUser(){
     var targetUserObj = Meteor.users.findOne(arr[0]);
     return targetUserObj;
   }
+}
+
+function getAllUser(){
+            //find all userids in this chat rooms
+            var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
+            //log.info(arr);
+            //return all user objects
+            var targetUsers =  Meteor.users.find({
+                 _id :{ $in: arr}
+            }).fetch();
+            return targetUsers;
+          
+}
+
+function getTotalChatRoomUserCount(){
+            //find all userids in this chat rooms
+            var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
+            // log.info(arr);    
+            return arr.length;    
 }
