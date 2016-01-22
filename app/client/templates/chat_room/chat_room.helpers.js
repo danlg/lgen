@@ -34,7 +34,10 @@ Template.ChatRoom.helpers({
     return targetUserObj;      
   },
   getName: function (profile) {
-    
+
+        var userObj = getAnotherUser();
+        return userObj &&  getFullNameByProfileObj(userObj.profile);     
+   /*         
     if(getTotalChatRoomUserCount() > 2){
        var userObjArr =  getAllUser();
        var nameArr = [];
@@ -48,7 +51,7 @@ Template.ChatRoom.helpers({
     }else{
         var userObj = getAnotherUser();
         return userObj &&  getFullNameByProfileObj(userObj.profile);        
-    }
+    }*/
   },
 
   isText: function () {
