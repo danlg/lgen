@@ -30,7 +30,9 @@
                 {{#each this}}
 
           {{#if isFirstMessageInADate @index}}
-                 <div class='date-bubble'>{{formatDate sendAt}}</div>
+                <div class='date-bubble-wrapper'>
+                    <div class='date-bubble'>{{formatDate sendAt}}</div>
+                 </div>
           {{/if}}          
           <div class="item {{isMine}}">
             {{#if isText}}
