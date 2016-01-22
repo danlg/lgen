@@ -65,6 +65,7 @@ okgrow:analytics
 
 momentjs:moment
 benmgreene:moment-range
+jeeeyul:moment-with-langs
 raix:push
 cfs:ui
 standard-minifiers
@@ -100,6 +101,7 @@ chrismbeckett:toastr
 force-ssl
 cordova-only
 web-only
-jeeeyul:moment-with-langs
+
 3stack:country-codes
 francocatena:status
+
