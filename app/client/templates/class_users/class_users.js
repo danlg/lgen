@@ -15,7 +15,10 @@ Template.ClassUsers.events({
 /*****************************************************************************/
 Template.ClassUsers.helpers({
   usersProfile: function () {
-    var users = Meteor.users.find({_id: {$nin: [Meteor.userId()]}}).fetch();
+    var classObj = Classes.findOne({classCode: Router.current().params.classCode});
+    var userArray = classObj.joinedUserId;
+    //select users from Meteor who is not current user and has joined this class
+    var users = Meteor.users.find({$and: [{_id: { $ne: Meteor.userId()}}, {_id: {$in: userArray}}] } ).fetch();
     /*return lodash.findByValuesNested(users,'profile','firstname',text.get())*/
     return users;
   },
@@ -30,7 +33,10 @@ Template.ClassUsers.helpers({
   },
 
   emptyList: function () {
-    return Meteor.users.find({_id: {$nin: [Meteor.userId()]}}).count() == 0 ;
+    var classObj = Classes.findOne({classCode: Router.current().params.classCode});
+    var userArray = classObj.joinedUserId;
+    //select users from Meteor who is not current user and has joined this class
+    return Meteor.users.find({$and: [{_id: { $ne: Meteor.userId()}}, {_id: {$in: userArray}}] }).count() == 0 ;
   },
 
   classObj: function (argument) {
