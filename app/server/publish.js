@@ -248,7 +248,7 @@ Meteor.publishComposite('allMyChatRoomWithUser', function () {
   };
 });
 
-
+/*
 Meteor.publishComposite('getClassroomWithJoinedUserByClassCode', function (classCode) {
   return {
     find: function () {
@@ -271,3 +271,4 @@ Meteor.publishComposite('getClassroomWithJoinedUserByClassCode', function (class
     ]
   };
 });
+*/

@@ -326,7 +326,9 @@ Router.route('classEdit', {
 Router.route('ClassUsers', {
   path: "/class/:classCode/users",
   waitOn: function () {
-    return Meteor.subscribe('getClassroomWithJoinedUserByClassCode', this.params.classCode);
+    return [Meteor.subscribe('class', this.params.classCode),
+            Meteor.subscribe('getJoinedClassUser', this.params.classCode)
+    ];
   }
 });
 
