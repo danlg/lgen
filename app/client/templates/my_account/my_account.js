@@ -1,5 +1,6 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 var similarOrganizations = ReactiveVar([]);
+var similarCities = ReactiveVar([]);
 /*****************************************************************************/
 /* MyAccount: Event Handlers */
 /*****************************************************************************/
@@ -27,11 +28,31 @@ Template.MyAccount.events({
         //db.users.find({name: /^pa/}) //like 'pa%' 
     },
     'click .suggestedOrganization' :function(e){
-         var clickedSuggestOrganization =   $('.suggestedOrganization').first().text().trim();
+         var clickedSuggestOrganization =   $(e.target).text().trim();
          //var clickedSuggestOrganization = e.target.innerText;    
               
          document.getElementById("organization").value = clickedSuggestOrganization;
          similarOrganizations.set([]);  
+         
+    },
+    'keyup #city':function(e){
+        var inputCity = e.target.value;
+        log.info(e.target.value);
+        if(inputCity == ""){
+            similarCities.set([]);              
+        }else{
+            Meteor.call("getSimilarCities",inputCity,function(error,result){
+                if(result){
+                  similarCities.set(lodash.uniq(result));  
+                }
+            });                
+        }
+    },
+    'click .suggestedCities' :function(e){
+         var clickedSuggestCities =   $(e.target).text().trim();
+                 
+         document.getElementById("city").value = clickedSuggestCities;
+         similarCities.set([]);  
          
     }
 
@@ -83,6 +104,8 @@ Template.MyAccount.helpers({
      return optionsCountries;
   },getSimilarOrganizations:function(){
       return similarOrganizations.get();
+  },getSimilarCities:function(){
+      return similarCities.get();
   }
 
 });

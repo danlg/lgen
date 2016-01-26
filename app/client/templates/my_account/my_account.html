@@ -55,8 +55,18 @@
           
           </label>
           <label class="item item-input item-stacked-label">
-            {{> afFieldInput name="city" placeholder=getCityPlaceHolder value=profile.city  }}
+            {{> afFieldInput id='city' name="city" placeholder=getCityPlaceHolder value=profile.city  }}
           </label>
+          <label>
+              {{#if getSimilarCities}}
+              Are you looking for:
+              {{/if}}
+              {{#each getSimilarCities}}
+               <label class="item item-input item-stacked-label suggestedCities">
+               {{this}}
+              </label>     
+              {{/each}}    
+          </label>          
           <label class="item item-input item-stacked-label">
             <div id='country-code-select'>
             {{> afFieldInput type='select' name="country" firstOption="(Select a Country)" options=countriesWithValueOnly value=profile.country}}                

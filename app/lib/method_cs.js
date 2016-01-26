@@ -172,6 +172,16 @@ Meteor.methods({
             //log.info(resultSet);  
             
             return resultSet;    
+  },
+  'getSimilarCities':function(inputCityKeyword){
+      
+            var regexp = new RegExp("^"+inputCityKeyword,"i");
+            var rawResultSet = Meteor.users.find({"profile.city":  {$regex: regexp} }).fetch();//OK
+            //log.info(rawResultSet);
+            var resultSet = lodash.pluck(rawResultSet,'profile.city')
+            //log.info(resultSet);  
+            
+            return resultSet;    
   }
 
 });
