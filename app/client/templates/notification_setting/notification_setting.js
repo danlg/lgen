@@ -45,6 +45,25 @@ Template.NotificationSetting.events({
 Template.NotificationSetting.helpers({
   checked: function (type) {
     return lodash.get(Meteor.user(), 'profile.' + type) ? "checked" : "";
+  },
+  isEmailVerified: function(){
+      
+        //if user is registered with meteor account
+        if(Meteor.user())
+        {
+            if(Meteor.user().emails){
+                    if (typeof Meteor.user().emails[0].verified !== 'undefined') {
+                        //if email is not yet verfied
+                        if (Meteor.user().emails[0].verified == false) {
+                            return false;
+                        }else{
+                            return true;
+                        }
+                }
+            }
+        }else{
+            return true;
+        }         
   }
 });
 

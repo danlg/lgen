@@ -18,16 +18,27 @@
           <li class="item item-divider">
             {{_ "How_would_you_like_to_receive_notification"}}
           </li>
-          <li class="item item-toggle">
-            {{_ "Email"}}
+          
+           
+            {{#if isEmailVerified}}
+            <li class="item item-toggle">
+             <span>{{_ "Email"}}</span>
             <label class="toggle toggle-positive">
               <input type="checkbox" class="cb" data-type='email' {{checked 'email'}} >
 
               <div class="track">
                 <div class="handle"></div>
               </div>
-            </label>
-          </li>
+            </label> 
+            </li>          
+            {{else}}
+                <li class="item">
+                    <a href='/EmailVerification'><span>{{_ "Email"}}</span>
+                    <p><span class='genius-color'>Finish verification</span> to be notified by email</p>
+                    </a>
+                </li>
+            {{/if}}
+          
           <li class="item item-toggle">
             {{_ "PUSH"}}
             <label class="toggle toggle-positive">
