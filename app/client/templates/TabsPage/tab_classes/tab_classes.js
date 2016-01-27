@@ -50,15 +50,17 @@ Template.TabClasses.created = function () {
 
 Template.TabClasses.rendered = function () {
 
-  //if user is registered with meteor account
-  if (typeof Meteor.user().emails[0].verified !== 'undefined') {
+
+  //if user is registered with meteor account <-- this logic is disabled so new user is easier to get started
+  /*if (typeof Meteor.user().emails[0].verified !== 'undefined') {
     //if email is not yet verfied
     if (Meteor.user().emails[0].verified == false) {
       Router.go('EmailVerification');
       
       return;
     }
-  }
+  }*/
+  
   //we do not need to show the tour as it is shown before login
   //if sign up by google oauth or user's email is already verified
   if(typeof Meteor.user().emails[0].verified == 'undefined'

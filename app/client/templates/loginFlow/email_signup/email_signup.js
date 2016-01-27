@@ -85,11 +85,11 @@ Template.ionNavBar.events({
             } else {
               //todo congratulate
               //popup to download app
-              Router.go('EmailVerification');
+               routeToTabClasses();
             }
           }
           else {
-            Router.go('EmailVerification');
+            routeToTabClasses();
           }
         }
       });
