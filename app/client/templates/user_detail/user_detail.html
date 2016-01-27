@@ -59,15 +59,15 @@
         {{/if}}
       </div>
 
-    {{#if canChat }}
-
-        <div class="bar bar-footer bar-stable">
-          <div class="title talkToBtn" data-userId="{{userId}}">
-            {{_ "Message"}} {{userPofile.profile.firstname}} {{userPofile.profile.lastname}}</div>
-        </div>
-    {{/if}}
-
     {{/ionContent}}
   {{/ionView}}
 
+   {{#ionFooterBar class='dummy bar-stable'}}
+    {{#if canChat }}      
+          <div class="title talkToBtn" data-userId="{{userId}}">
+            {{_ "Message"}} {{userPofile.profile.firstname}} {{userPofile.profile.lastname}}</div>
+        
+    {{/if}}           
+   {{/ionFooterBar}}
+   
 </template>

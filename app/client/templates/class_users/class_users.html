@@ -51,13 +51,15 @@
         {{/if}}
       </div>
 
-      <a href="{{ pathFor 'ShareInvite' classCode=classObj.classCode }}">
-        <div class="bar bar-footer bar-stable">
-          <div class="title">{{_ "Addstudentsandparents"}}</div>
-        </div>
-      </a>
-
     {{/ionContent}}
   {{/ionView}}
-
+   {{#ionFooterBar class='dummy bar-stable'}}
+   
+        
+            <a class="" href="{{ pathFor 'ShareInvite' classCode=classObj.classCode }}">
+                <div class='title'>{{_ "Addstudentsandparents"}}</div>
+            </a>
+         
+        
+   {{/ionFooterBar}}
 </template>
