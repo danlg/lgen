@@ -4,13 +4,18 @@
 /*****************************************************************************/
 Template.EmailVerification.created = function () {
 
-   if(Meteor.user().emails[0].verified){    
-         routeToTabClasses();
-   }
- 
 };
 
-Template.EmailVerification.rendered = function () {};
+Template.EmailVerification.rendered = function () {
+ 
+  //this page would be redirected by reactivity depend on verified Boolean of the email
+  var self = this;
+  self.autorun(function() {
+      if(Meteor.user().emails[0].verified){    
+         routeToTabClasses();
+     }
+   });
+};
 Template.EmailVerification.destroyed = function () {};
 
 Template.EmailVerification.events({
