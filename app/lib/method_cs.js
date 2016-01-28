@@ -97,7 +97,11 @@ Meteor.methods({
     Classes.update({classCode: classCode}, {$pull: {"joinedUserId": Meteor.userId()}});
   },
 
-  'class/deleteUser': function (classObj) {
+  'class/deleteUser': function (classObj,userid) {
+    Classes.update(classObj, {$pull: {"joinedUserId": userid}});
+  },
+
+  'class/deleteAllUser': function (classObj) {
     Classes.update(classObj, {$set: {joinedUserId: []}});
   },
 

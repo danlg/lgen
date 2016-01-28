@@ -77,6 +77,8 @@
   "PressCtrlCorLongPressToCopy":"Long press on the link to copy or Press Crtl·C to copy",  
   "PressCrtlCToCopyMac":"Press ⌘·C to copy",
   "Privacy_policy": "Privacy policy",
+  "Remove":"Remove",
+  "RemoveUser":"Remove a member",  
   "RemoveAllUsers": "Remove all members",
   "RemoveClass": "Remove class",
   "Report": "Report",

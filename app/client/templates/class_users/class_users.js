@@ -7,6 +7,23 @@ var text = ReactiveVar('');
 Template.ClassUsers.events({
   'keyup .searchbar': function (el) {
     text.set($(".searchbar").val());
+  },
+  'click .user-item':function(e){
+      //log.info(this);
+      //log.info(e);
+      var userid = this._id;
+      var classObj = Classes.findOne({classCode: Router.current().params.classCode})      
+      if($(e.target).hasClass('remove-member-btn') ){
+          //log.info('btn');
+            //remove this memeber here
+            Meteor.call("class/deleteUser", classObj,userid , function () {
+                 toastr.success("success removed!");
+            });          
+      }else{
+          //log.info('panel');
+          Router.go('UserDetail',{_id : userid, classCode : classObj.classCode, classId : classObj._id});
+          
+      }
   }
 });
 

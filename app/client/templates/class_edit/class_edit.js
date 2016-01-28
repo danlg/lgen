@@ -4,8 +4,11 @@
 /* ClassEdit: Event Handlers */
 /*****************************************************************************/
 Template.ClassEdit.events({
+  'click .removeUserBtn': function () {
+      Router.go('ClassUsers',{classCode: Router.current().params.classCode});
+  },    
   'click .removeAllUserBtn': function () {
-    Meteor.call("class/deleteUser", Classes.findOne({classCode: Router.current().params.classCode}), function () {
+    Meteor.call("class/deleteAllUser", Classes.findOne({classCode: Router.current().params.classCode}), function () {
       toastr.success("success removed!");
     });
   },
