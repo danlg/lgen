@@ -39,12 +39,11 @@
 
           {{#each usersProfile}}
             {{#if isSearched this}}
-                <div class="item item-button-right less-top-bottom-padding user-item">
+                <div class="item item-icon-right less-top-bottom-padding user-item">
                   {{this.profile.firstname}} {{this.profile.lastname}} <br>
                   <div style="font-size: smaller;color:grey"> {{this.profile.role}}</div>
-                  <button style='top:3px;' class="remove-member-btn button button-assertive button-outline icon-left ion-android-remove-circle  button-small ">
-                      <span style="font-size: smaller;">{{_ "Remove"}}</span>
-                  </button>
+                  <i style='' class="icon assertive  ion-android-remove-circle remove-member-btn ">                   
+                  </i>
                 </div>            
             {{/if}}
           {{/each}}

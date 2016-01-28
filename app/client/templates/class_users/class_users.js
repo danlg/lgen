@@ -12,13 +12,37 @@ Template.ClassUsers.events({
       //log.info(this);
       //log.info(e);
       var userid = this._id;
-      var classObj = Classes.findOne({classCode: Router.current().params.classCode})      
+      var userFullname = this.profile.firstname+ " " + this.profile.lastname;
+      var classObj = Classes.findOne({classCode: Router.current().params.classCode});
+          
       if($(e.target).hasClass('remove-member-btn') ){
           //log.info('btn');
-            //remove this memeber here
-            Meteor.call("class/deleteUser", classObj,userid , function () {
-                 toastr.success("success removed!");
-            });          
+            //TAPi18n.__("Congratulations"),
+            //prompt for remove user confirmation
+            IonPopup.show({
+                title:  TAPi18n.__("TheFollowingMemberWouldBeRemoved") +": "+ userFullname,
+                buttons: [
+                {
+                    text: TAPi18n.__("Confirm"),
+                    type: 'button-assertive',
+                    onTap: function () {
+                    IonPopup.close();
+
+                        //remove this memeber here
+                        Meteor.call("class/deleteUser", classObj,userid , function () {
+                            toastr.success("success removed!");
+                        });                   
+                    }
+                },
+                {
+                    text: TAPi18n.__("Cancel"), type: 'button',
+                    onTap: function () {
+                    IonPopup.close();
+                    }
+                }
+                ]
+            });            
+         
       }else{
           //log.info('panel');
           Router.go('UserDetail',{_id : userid, classCode : classObj.classCode, classId : classObj._id});
