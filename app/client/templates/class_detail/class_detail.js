@@ -1,9 +1,11 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 var classObj;
 var teacherName = ReactiveVar("");
+var teacherAvatar = ReactiveVar("");
 var isRecording = false;
 var media = "";
 var isPlayingSound = false;
+var isAtTop = ReactiveVar(true);
 /*****************************************************************************/
 /* ClassDetail: Event Handlers */
 /*****************************************************************************/
@@ -84,6 +86,9 @@ Template.ClassDetail.helpers({
   teacherName: function () {
     return teacherName.get();
   },
+  teacherAvatar: function(){
+    return teacherAvatar.get();     
+  },
   havePic: function () {
     return this.imageArr.length > 0;
   },
@@ -109,6 +114,13 @@ Template.ClassDetail.helpers({
   getDocument: function () {
     var id = this.toString();
     return Documents.findOne(id);
+  },
+  atTop:function(){
+      if(isAtTop.get()){
+          return true;
+      }else{
+          return false;
+      }
   }
 });
 
@@ -122,7 +134,10 @@ Template.ClassDetail.rendered = function () {
   Meteor.call('getFullNameById', classObj.createBy, function (err, data) {
     return teacherName.set(data);
   });
-
+  Meteor.call('getAvatarById', classObj.createBy, function (err, data) {
+    log.info(data);
+    return teacherAvatar.set(data);
+  });
   //greet first-time user
   if(Meteor.user().profile.firstclassjoined){
      IonPopup.alert({
@@ -134,6 +149,14 @@ Template.ClassDetail.rendered = function () {
     Meteor.users.update(Meteor.userId(), {$set: {"profile.firstclassjoined": false}}); 
   }
   
+    $( ".class-detail" ).scroll(function() {
+       if($('.class-detail').scrollTop() >75){
+          isAtTop.set(false);
+      }else{
+          isAtTop.set(true);
+      }    
+    });
+
 };
 
 Template.ClassDetail.destroyed = function () {

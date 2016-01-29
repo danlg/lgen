@@ -241,6 +241,16 @@ Meteor.methods({
     var name = userObj.profile.firstname + " " + userObj.profile.lastname;
     return name;
   },
+  getAvatarById: function(id){
+    var userObj = Meteor.users.findOne({_id: id});
+    
+    if(userObj && userObj.profile && userObj.profile.useravatar ){
+     return userObj.profile.useravatar;
+    }else{
+     return "green_apple";             
+    }
+
+  },
   getUserCreateClassesCount: function(){
       return Classes.find({createBy: Meteor.userId()}).count();
   },
