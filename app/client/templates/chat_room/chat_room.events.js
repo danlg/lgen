@@ -25,14 +25,14 @@ Template.ChatRoom.events({
           var text = $('.inputBox').val();
           $('.inputBox').val("");
           
-          //TODO : change to getAllUser() for sending notification
-          //to all users except current user 
+          //get all users except current user 
+          var targetUsersIds = getAllUserExceptCurrentUser();
           var targetUser = getAnotherUser();        
-          var targetId = targetUser._id;
-          
-          var query = {};
+          //var targetId = targetUser._id;
+                 
           sendBtnMediaButtonToggle();
-          query.userId = targetId;
+          var query = {};
+          query.userId = {$in: targetUsersIds};
           var notificationObj = {};
           notificationObj.from = getFullNameByProfileObj(Meteor.user().profile);
           notificationObj.title = getFullNameByProfileObj(Meteor.user().profile);
@@ -45,6 +45,7 @@ Template.ChatRoom.events({
           Meteor.call("serverNotification", notificationObj);
           document.getElementsByClassName("inputBox")[0].updateAutogrow();
           
+          //TODO : change to getAllUser() for sending group chat email
           //send chat email
           Meteor.call("chatroomEmail",targetUser,Meteor.user(),text);
         }
@@ -201,11 +202,13 @@ function onResolveSuccess(fileEntry) {
         //TODO : change to getAllUser() for sending notification
         //to all users except current user 
         //get another person's user object in 1 to 1 chatroom. 
+        //get all users except current user 
+        var targetUsersIds = getAllUserExceptCurrentUser();        
         var targetUserObj = getAnotherUser();         
-        var targetId = targetUserObj._id;
+        //var targetId = targetUserObj._id;
         
         var query = {};
-        query.userId = targetId;
+        query.userId = {$in: targetUsersIds};
         var notificationObj = {};
         notificationObj.from = getFullNameByProfileObj(Meteor.user().profile);
         notificationObj.title = getFullNameByProfileObj(Meteor.user().profile);
@@ -269,6 +272,24 @@ function getAllUser(){
             var targetUsers =  Meteor.users.find({
                  _id :{ $in: arr}
             }).fetch();
+            return targetUsers;
+          
+}
+
+function getAllUserExceptCurrentUser(){
+            //find all userids in this chat rooms
+            var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
+            //log.info(arr);
+            //return all user objects
+            var targetUsers =  Meteor.users.find({
+                 _id :{ $in: arr}
+            }).fetch();
+            
+            var index = targetUsers.indexOf(Meteor.userId());
+            if (index > -1) {
+                targetUsers.splice(index, 1);
+            }           
+            
             return targetUsers;
           
 }

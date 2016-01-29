@@ -294,11 +294,19 @@ Meteor.methods({
   },
 
   serverNotification: function (notificationObj) {
-    var userId = notificationObj.query.userId;
-    var userObj = Meteor.users.findOne(userId);
-    if (lodash.get(userObj, 'profile.push')) {
-      Push.send(notificationObj);
+    
+    //if is an object. i.e userId: {$in: flattenArray}
+    if(lodash.isPlainObject(notificationObj.query.userId) ){
+            Push.send(notificationObj);
+    }else{
+    //else if is just one userid
+        var userId = notificationObj.query.userId;
+        var userObj = Meteor.users.findOne(userId);
+        if (lodash.get(userObj, 'profile.push')) {
+            Push.send(notificationObj);
+        }             
     }
+
   },
 
   insertImageTest: function (filePath) {

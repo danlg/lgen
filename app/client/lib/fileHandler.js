@@ -109,12 +109,12 @@ Application.FileHandler = (function () {
                                 }
                             });
 
-                            //TODO : change to getAllUser() for sending notification
-                            //to all users except current user 
-                            var targetUser = getAnotherUser();
-                            var targetId = targetUser._id;
+                            //get all users except current user 
+                            var targetUsersIds = getAllUserExceptCurrentUser();                
+                            //var targetUser = getAnotherUser();
+                            //var targetId = targetUser._id;
                             var query = {};
-                            query.userId = targetId;
+                            query.userId = {$in: targetUsersIds};
 
                             var notificationObj = {};
                             notificationObj.from = getFullNameByProfileObj(Meteor.user().profile);
@@ -193,10 +193,11 @@ Application.FileHandler = (function () {
                                     //TODO : change to getAllUser() for sending notification
                                     //to all users except current user                         
                                     //get another person's user object in 1 to 1 chatroom.             
-                                    var targetUserObj = getAnotherUser();
-                                    var targetId = targetUserObj._id;
+                                    var targetUsersIds = getAllUserExceptCurrentUser();                                    
+                                    //var targetUserObj = getAnotherUser();
+                                    //var targetId = targetUserObj._id;
                                     var query = {};
-                                    query.userId = targetId;
+                                    query.userId = {$in: targetUsersIds};
                                     var notificationObj = {};
                                     notificationObj.from = getFullNameByProfileObj(Meteor.user().profile);
                                     notificationObj.title = getFullNameByProfileObj(Meteor.user().profile);
@@ -343,12 +344,14 @@ Application.FileHandler = (function () {
                                             }
                                         });
 
+                                        //get all users except current user 
+                                        var targetUsersIds = getAllUserExceptCurrentUser();
                                         //get another person's user object in 1 to 1 chatroom. 
-                                        var targetUserObj = getAnotherUser();
-                                        var targetId = targetUserObj._id;
+                                        //var targetUserObj = getAnotherUser();
+                                        //var targetId = targetUserObj._id;
 
                                         var query = {};
-                                        query.userId = targetId;
+                                        query.userId = {$in: targetUsersIds};
                                         var notificationObj = {};
                                         notificationObj.from = getFullNameByProfileObj(Meteor.user().profile);
                                         notificationObj.title = getFullNameByProfileObj(Meteor.user().profile);
