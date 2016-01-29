@@ -78,7 +78,6 @@ getLastnameOfCurrentUser = function(requiredCharLength){
     } else {
       trimlastname = "";
     }
-
     return trimlastname.toLowerCase();  
 };
 
@@ -87,12 +86,16 @@ getFullNameByProfileObj = function (profile) {
   if(!profile ){
       return "";
   }
-  
-  if(!profile.firstname || !profile.lastname){
-       return "";
-  }
   return profile.firstname + " " + profile.lastname;
 };
+
+getFirstName_ByProfileObj = function (profile) {
+  if(!profile ){
+      return "";
+  }
+  return profile.firstname ;
+};
+
 getFullNameOfCurrentUser = function () {
   var profile = Meteor.user().profile;
   return profile.firstname + " " + profile.lastname;

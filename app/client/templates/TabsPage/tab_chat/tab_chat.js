@@ -30,26 +30,34 @@ Template.TabChat.helpers({
     }
   },
   //this implementation smells
-  'chatroomMemberName': function () {
+  //duplicate of getChatRoomName //todo refactor
+  'chatroomMemberName': function ( maxDisplay) {
     var names = [];
+    var generatedString= "";
     if(this.chatRoomName){
         names.push(this.chatRoomName);
-    }else{
-        var maxNumberOfDisplayName = 2;
+        generatedString = names.toString();
+    }
+    else {
+        var maxNumberOfDisplayName = maxDisplay;
         var userObjArr = Meteor.users.find({_id: {$in: this.chatIds}}).fetch();
-        
         if(userObjArr.length > 2){
             lodash.forEach(userObjArr, function (el, index) {
                     if( index < maxNumberOfDisplayName){
-                        var name = getFullNameByProfileObj(el.profile);
+                        var name = getFirstName_ByProfileObj(el.profile);
                         names.push(name);
                     }
-            }); 
-            
-            if(userObjArr.length > maxNumberOfDisplayName){
-                names.push(" and "+ (userObjArr.length - maxNumberOfDisplayName) + " others..." );
-            }   
-        }else{
+            });
+          if(userObjArr.length > maxNumberOfDisplayName){
+            //var finalStr = TAPi18n.__("And_amp")+ (userObjArr.length - maxNumberOfDisplayName) + "...";
+            var finalStr = TAPi18n.__("And_amp")+ "...";
+            generatedString = names.toString() + finalStr;
+          }
+          else {
+            generatedString = names.toString();
+          }
+        }
+        else{
             lodash.forEach(userObjArr, function (el, index) {
             if (el._id !== Meteor.userId()) {
                 var name = getFullNameByProfileObj(el.profile);
@@ -58,9 +66,7 @@ Template.TabChat.helpers({
             });            
         }  
     }
-
-
-    return lodash(names).toString();
+    return generatedString;
   },
 
   'lasttext': function (messagesObj) {
@@ -74,9 +80,7 @@ Template.TabChat.helpers({
   'isHide': function (chatIds) {
     //var chatIdsLocal = chatIds;
     if (text.get() !== "") {
-        
       var names = [];
-      
       //get all user names in a chatroom
       var userObjArr = Meteor.users.find({_id: {$in: this.chatIds}}).fetch();
       lodash.forEach(userObjArr, function (el, index) {
@@ -85,19 +89,12 @@ Template.TabChat.helpers({
           names.push(name);
         }
       });
-      
       //get chatroom name
       if(this.chatRoomName){
           names.push(this.chatRoomName);
       }
-      
       //find if search string is included in the names string
-      if (lodash.includes(lodash(names).toString().toUpperCase(), text.get().toUpperCase())) {
-        return true;
-      } else {
-        return false;
-      }
-      
+      return !!lodash.includes(lodash(names).toString().toUpperCase(), text.get().toUpperCase());
     } else {
       return true;
     }

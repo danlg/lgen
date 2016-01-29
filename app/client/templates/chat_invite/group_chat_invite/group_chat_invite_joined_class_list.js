@@ -77,9 +77,9 @@ Template.GroupChatInviteChooser.helpers({
 
 Template.GroupChatInviteWrapper.helpers({
   shouldDisplay: function () {
-      log.info("here");
+      //log.info("here");
     var selectedChatIds = targetIds.get();     
-    log.info(selectedChatIds.length)
+    //log.info(selectedChatIds.length)
     return selectedChatIds.length > 1 ? "" : "hide";
   } , getYouAvatar:function(){
     var chosenIcon = Session.get('chosenIconForGroupChat');

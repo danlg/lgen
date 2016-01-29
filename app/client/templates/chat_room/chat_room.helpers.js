@@ -38,36 +38,43 @@ Template.ChatRoom.helpers({
     var targetUserObj = Meteor.users.findOne(userId);
     return targetUserObj;      
   },
-  getName: function (profile) {  
+  getChatRoomName: function () {
+    //we display the name of the chat room or the correspondent or the people in the group chat depending on the context
     if(getTotalChatRoomUserCount() > 2){
        var chat = Chat.findOne({_id: Router.current().params.chatRoomId});  
        if(chat.chatRoomName){
            return chat.chatRoomName;
        }else{
-            var maxNumberOfDisplayName = 2;           
+            var maxNumberOfDisplayName = 2;
             var userObjArr =  getAllUser();
-            var nameArr = [];
-            
+            var names = [];
+            var generatedString= "";
             if(userObjArr.length > 2){
                 lodash.forEach(userObjArr, function (el, index) {
                         if( index < maxNumberOfDisplayName){
-                            var name = getFullNameByProfileObj(el.profile);
-                            nameArr.push(name);
+                            var name = getFirstName_ByProfileObj(el.profile);
+                          names.push(name);
                         }
-                }); 
-                
+                });
                 if(userObjArr.length > maxNumberOfDisplayName){
-                    nameArr.push(" and "+ (userObjArr.length - maxNumberOfDisplayName) + " others..." );
-                }   
-            }else{
+                  //var finalStr = TAPi18n.__("And_amp")+ (userObjArr.length - maxNumberOfDisplayName) + "...";
+                  var finalStr = TAPi18n.__("And_amp")+ "...";
+                  generatedString = names.toString() + finalStr;
+                }
+                else {
+                  generatedString = names.toString(); //lodash(names).toString()
+                }
+            }
+            else{
                 lodash.forEach(userObjArr, function (el, index) {
                 if (el._id !== Meteor.userId()) {
                     var name = getFullNameByProfileObj(el.profile);
-                    nameArr.push(name);
+                  names.push(name);
                 }
-                });            
+                });
+              generatedString = names.toString();
             }
-            return nameArr.toString();             
+            return generatedString;
        }  
     }else{
         var userObj = getAnotherUser();
