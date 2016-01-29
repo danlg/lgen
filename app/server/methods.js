@@ -160,9 +160,12 @@ Meteor.methods({
     if (index > -1) {
       flattenArray.splice(index, 1);
     }
+    var senderFullname = Meteor.user().profile.firstname + " " + Meteor.user().profile.lastname;
+    var notificationTitle = "Message From " + senderFullname;
+    log.info(senderFullname);
     Push.send({
       from: 'push',
-      title: 'Message From Classroom',//TODO: change to first name lastname
+      title: notificationTitle,
       text: msg,
       query: {
         userId: {$in: flattenArray}
