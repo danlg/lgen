@@ -157,6 +157,39 @@ Template.ClassDetail.rendered = function () {
       }    
     });
 
+  /****track if there are any new messages *********/
+  var initialClassObj = Classes.findOne({classCode: Router.current().params.classCode});
+  var initialCount = classObj.messagesObj.length;
+  
+  //http://stackoverflow.com/questions/32461639/how-to-execute-a-callback-after-an-each-is-done
+  this.autorun(function(){
+    var latestClassObj = Classes.findOne({classCode: Router.current().params.classCode});
+   
+    // we need to register a dependency on the number of documents returned by the
+    // cursor to actually make this computation rerun everytime the count is altered
+    var latestCount = latestClassObj.messagesObj.length;
+    
+    Tracker.afterFlush(function(){
+        if(latestCount > initialCount){
+            var content = latestClassObj.messagesObj[latestCount-1].content;
+            toastr.info(content, "New Message",
+
+                {
+                    positionClass: "toast-top-center",
+                    "closeButton": true,
+                    "preventDuplicates": true,
+                    timeOut: 0,
+                    onclick: function () {
+                        log.info('you click me');
+                        $('.class-detail').scrollTop(999999);
+                    }
+                }
+           );
+            initialCount = latestCount;
+        }
+    }.bind(this));
+  }.bind(this));  
+  /****track if there are any new messages - END *********/
 };
 
 Template.ClassDetail.destroyed = function () {
