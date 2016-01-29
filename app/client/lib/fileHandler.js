@@ -109,6 +109,8 @@ Application.FileHandler = (function () {
                                 }
                             });
 
+                            //TODO : change to getAllUser() for sending notification
+                            //to all users except current user 
                             var targetUser = getAnotherUser();
                             var targetId = targetUser._id;
                             var query = {};
@@ -188,6 +190,8 @@ Application.FileHandler = (function () {
                                         }
                                     });
                         
+                                    //TODO : change to getAllUser() for sending notification
+                                    //to all users except current user                         
                                     //get another person's user object in 1 to 1 chatroom.             
                                     var targetUserObj = getAnotherUser();
                                     var targetId = targetUserObj._id;

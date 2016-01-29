@@ -162,7 +162,7 @@ Meteor.methods({
     }
     Push.send({
       from: 'push',
-      title: 'Message From Classroom',
+      title: 'Message From Classroom',//TODO: change to first name lastname
       text: msg,
       query: {
         userId: {$in: flattenArray}

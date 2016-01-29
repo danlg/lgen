@@ -25,7 +25,8 @@ Template.ChatRoom.events({
           var text = $('.inputBox').val();
           $('.inputBox').val("");
           
-
+          //TODO : change to getAllUser() for sending notification
+          //to all users except current user 
           var targetUser = getAnotherUser();        
           var targetId = targetUser._id;
           
@@ -197,6 +198,8 @@ function onResolveSuccess(fileEntry) {
           }
         });
 
+        //TODO : change to getAllUser() for sending notification
+        //to all users except current user 
         //get another person's user object in 1 to 1 chatroom. 
         var targetUserObj = getAnotherUser();         
         var targetId = targetUserObj._id;
@@ -258,3 +261,14 @@ function getAnotherUser(){
             return   targetUserObj;
 }
 
+function getAllUser(){
+            //find all userids in this chat rooms
+            var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
+            //log.info(arr);
+            //return all user objects
+            var targetUsers =  Meteor.users.find({
+                 _id :{ $in: arr}
+            }).fetch();
+            return targetUsers;
+          
+}
