@@ -1,0 +1,87 @@
+<template name="ChatRoomInformation">
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">{{_ "Chat_Room_details"}}</h1>
+  {{/contentFor}}
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton  text=" "}}
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}
+      <div class="list">       
+        <!--to-do allow moderator to edit the chat room settings-->
+        <!--{{#if isChatRoomModerator chatRoomProfile}}  
+            <div class='row'>
+                {{#if chatRoomProfile.chatRoomAvatar}}
+                <div class='col col-50'  style='text-align:center;'>
+                <br/>
+                <i id='pick-an-icon-btn' class="icon e1a-{{chatRoomProfile.chatRoomAvatar}} e1a-5x emojicon"></i>
+                </div> 
+                {{else}}
+                <div id='pick-an-icon-btn' class='col col-50'  style='text-align:center;' >              
+                <p> Choose a group avatar (optional)</p>  
+                <i class='icon ion-ios-person-outline' style='font-size:5em;'></i>
+                </div>  
+                {{/if}}                       
+            <div class='col col-50'>
+                <input value="{{chatRoomProfile.chatRoomName}}" id='group-chatroom-name' type="search" class="group-chatroom-name" placeholder="{{_ 'Group_name_optional'}}">
+            </div>            
+            </div>  
+        {{else}}-->        
+            <div class="item item-divider">
+            {{_ "ChatRoomName"}}
+            </div>
+            {{#if chatRoomProfile.chatRoomName}}
+            <div class="item">{{chatRoomProfile.chatRoomName}}</div>
+            {{else}}
+            <div class="item">This chat room has no name</div>        
+            {{/if}}
+            
+            <div class="item item-divider">
+            {{_ "ChatRoomAvatar"}}
+            </div>
+            
+            {{#if chatRoomProfile.chatRoomAvatar}}
+            <div class="item">{{chatRoomProfile.chatRoomAvatar}}</div>
+            {{else}}
+            <div class="item">This chat room has no avatar</div>        
+            {{/if}}            
+            
+        <!--{{/if}} -->   
+                        
+        <div class="item item-divider">
+          {{_ "Moderator"}}
+        </div>
+        <div class="item item-icon-left user-item">
+            {{#with getUserById chatRoomProfile.chatRoomModerator}}
+               <i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i> {{profile.firstname}} {{profile.lastname}}
+            {{/with}}
+        </div>
+          
+        <div class="item item-divider">
+          {{_ "In the Group"}}
+        </div>
+         {{> ChatRoomUsers chatRoomProfile=chatRoomProfile}}     
+
+      </div>
+
+    {{/ionContent}}
+  {{/ionView}}
+
+   {{#ionFooterBar class='dummy bar-stable'}}
+   
+        
+       {{#if isChatRoomModerator chatRoomProfile}} 
+        {{#with chatRoomProfile}} 
+        <div class="title deleteChatRoomBtn">Delete this Chat Room</div>
+        {{/with}}
+       {{else}}
+       <!--TODO: implement leave logic-->
+       <!--<div class="title">{{_ "Leave"}}</div>-->
+       {{/if}}
+         
+        
+   {{/ionFooterBar}}
+   
+</template>

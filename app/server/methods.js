@@ -228,7 +228,12 @@ Meteor.methods({
           if(chatObjExtra.chatRoomAvatar && chatObjExtra.chatRoomAvatar !=""){
               ChatObj.chatRoomAvatar = chatObjExtra.chatRoomAvatar;              
           }
-      }      
+          
+          if(chatObjExtra.chatRoomModerator && chatObjExtra.chatRoomModerator !=""){
+              ChatObj.chatRoomModerator = chatObjExtra.chatRoomModerator;
+          }
+      }
+      log.info(ChatObj); 
       newRoom = Chat.insert(ChatObj);          
       
       return newRoom;
@@ -424,7 +429,7 @@ Meteor.methods({
     }else{
       return [];
     }    
-  }    
+  }   
 
 });
 

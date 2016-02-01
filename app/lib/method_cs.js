@@ -112,7 +112,18 @@ Meteor.methods({
   'class/update': function (doc) {
     Classes.update({_id: doc._id}, {$set: doc});
   },
-  
+  'chat/delete' :function(chatRoomId){
+     
+     var chatToBeDeleted = Chat.findOne(chatRoomId);
+     //if this chatroom has moderator
+     if(chatToBeDeleted.chatRoomModerator){
+         //if current user is the moderatar
+         if(chatToBeDeleted.chatRoomModerator == Meteor.userId()){
+             //proceed to delete this chatroom
+             Chat.remove(chatToBeDeleted);
+         }
+     }   
+  },
   'chat/sendMessage': function (chatRoomId, text) {
     var pushObj = {};
     pushObj.from = Meteor.userId();

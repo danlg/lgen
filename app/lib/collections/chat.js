@@ -16,6 +16,10 @@ Chat.attachSchema(new SimpleSchema({
   chatRoomAvatar:{
     type: String, 
     optional: true
+  },
+  chatRoomModerator:{
+      type:String,
+      optional:true
   }
 }));
 

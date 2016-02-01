@@ -265,6 +265,15 @@ Router.route('ChatRoom', {
   }
 });
 
+Router.route('ChatRoomInformation', {
+  path: "/chat/:chatRoomId/info",
+  waitOn: function () {
+    return [
+      Meteor.subscribe('chatRoomWithUser', this.params.chatRoomId)
+    ];
+  }
+});
+
 Router.route('classDetail', {
   path: "/class/:classCode/detail",
   waitOn: function () {
