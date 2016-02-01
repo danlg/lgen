@@ -133,6 +133,7 @@ getRandomInt = function (min, max) {
 
 ////get another person's user object in 1 to 1 chatroom. call by chatroom helpers
 getAnotherUser = function (){
+  
             //find all userids in this chat rooms
   var query = Chat.findOne({_id: Router.current().params.chatRoomId});
   if (query)
@@ -146,4 +147,35 @@ getAnotherUser = function (){
             var targetUserObj = Meteor.users.findOne(arr[0]);  
             return   targetUserObj;
   }
+};
+
+getAllUser = function(){
+            //find all userids in this chat rooms
+            var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
+            //log.info(arr);
+            //return all user objects
+            var targetUsers =  Meteor.users.find({
+                 _id :{ $in: arr}
+            }).fetch();
+            return targetUsers;
+          
+};
+
+getAllUserExceptCurrentUser = function(){
+            debugger;
+            //find all userids in this chat rooms
+            var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
+            //log.info(arr);
+            //return all user objects
+            var targetUsers =  Meteor.users.find({
+                 _id :{ $in: arr}
+            }).fetch();
+            
+            var index = lodash.findIndex(targetUsers,{'_id':Meteor.userId()});
+            if (index > -1) {
+                targetUsers.splice(index, 1);
+            }           
+            
+            return targetUsers;
+          
 };

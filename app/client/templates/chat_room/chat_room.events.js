@@ -26,7 +26,8 @@ Template.ChatRoom.events({
           $('.inputBox').val("");
           
           //get all users except current user 
-          var targetUsersIds = getAllUserExceptCurrentUser();
+          var targetUsers = getAllUserExceptCurrentUser();
+          var targetUsersIds = lodash.pluck(targetUsers, '_id');            
           var targetUser = getAnotherUser();        
           //var targetId = targetUser._id;
                  
@@ -203,7 +204,8 @@ function onResolveSuccess(fileEntry) {
         //to all users except current user 
         //get another person's user object in 1 to 1 chatroom. 
         //get all users except current user 
-        var targetUsersIds = getAllUserExceptCurrentUser();        
+        var targetUsers = getAllUserExceptCurrentUser();
+        var targetUsersIds = lodash.pluck(targetUsers, '_id');      
         var targetUserObj = getAnotherUser();         
         //var targetId = targetUserObj._id;
         
@@ -264,32 +266,3 @@ function getAnotherUser(){
             return   targetUserObj;
 }
 
-function getAllUser(){
-            //find all userids in this chat rooms
-            var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
-            //log.info(arr);
-            //return all user objects
-            var targetUsers =  Meteor.users.find({
-                 _id :{ $in: arr}
-            }).fetch();
-            return targetUsers;
-          
-}
-
-function getAllUserExceptCurrentUser(){
-            //find all userids in this chat rooms
-            var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
-            //log.info(arr);
-            //return all user objects
-            var targetUsers =  Meteor.users.find({
-                 _id :{ $in: arr}
-            }).fetch();
-            
-            var index = targetUsers.indexOf(Meteor.userId());
-            if (index > -1) {
-                targetUsers.splice(index, 1);
-            }           
-            
-            return targetUsers;
-          
-}
