@@ -57,7 +57,12 @@
             </div>        
             <div class="item item-icon-left user-item">
                 {{#with getUserById chatRoomProfile.chatRoomModerator}}
-                <i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i> {{profile.firstname}} {{profile.lastname}}
+                    {{#if profile.useravatar}}
+                        <i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>
+                    {{else}}
+                        <i class="icon e1a-green_apple e1a-1x emojicon"></i>
+                    {{/if}}
+                {{profile.firstname}} {{profile.lastname}}
                 {{/with}}
             </div>
         {{else}}
