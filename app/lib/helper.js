@@ -162,7 +162,7 @@ getAllUser = function(){
 };
 
 getAllUserExceptCurrentUser = function(){
-            debugger;
+            
             //find all userids in this chat rooms
             var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
             //log.info(arr);
