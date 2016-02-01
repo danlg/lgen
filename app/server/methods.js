@@ -233,7 +233,7 @@ Meteor.methods({
               ChatObj.chatRoomModerator = chatObjExtra.chatRoomModerator;
           }
       }
-      log.info(ChatObj); 
+      //log.info(ChatObj); 
       newRoom = Chat.insert(ChatObj);          
       
       return newRoom;
