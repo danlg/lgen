@@ -40,8 +40,16 @@
                     <div class="bubble">
                         {{#if isMineBoolean from}}
                         {{else}}
-                            {{#with getUserById from}}
-                                <div class='username'><i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>{{profile.firstname}} {{profile.lastname}}</div><br/>
+                            {{#with getUserById from}}        
+                                <div class='username'>
+                                    {{#if profile.useravatar}}
+                                        <i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>
+                                    {{else}}
+                                        <i class="icon e1a-green_apple e1a-1x emojicon"></i>
+                                    {{/if}}
+                                    {{profile.firstname}} {{profile.lastname}}
+                                </div>
+                                <br/>                         
                             {{/with}}
                         {{/if}}                 
                         {{{docPreview text}}}                
