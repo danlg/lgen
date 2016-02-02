@@ -93,6 +93,17 @@ Template.TabChat.helpers({
       return "";
 
   },
+  'lasttextTime':function(messagesObj){
+    var len = messagesObj.length;
+    if (len > 0){
+      var message = messagesObj[len - 1];  
+      var userLanguage = TAPi18n.getLanguage();
+      moment.locale(userLanguage);     
+      return moment.unix(message.sendAt.substr(0,10)).fromNow();
+    }
+    else
+      return "New Chat";      
+  },
   'isHide': function (chatIds) {
     //var chatIdsLocal = chatIds;
     if (text.get() !== "") {
