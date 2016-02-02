@@ -3,11 +3,12 @@ getUserLanguage = function () {
   // Put here the logic for determining the user language
 
   var pattern = /-.*/g;
+  log.info("getUserLanguage");
 
   navigator.globalization.getPreferredLanguage(
     function (language) {
       // alert('language: ' + language.value + '\n');
-      log.info(language);
+      log.info("getPreferredLanguage:"+language);
       var lang = language.value.replace(pattern, "");
       return lang;
     },

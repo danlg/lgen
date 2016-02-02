@@ -12,26 +12,20 @@ OnBeforeActions = {
     if (!Meteor.userId()) {
       log.warn("login required");
       Router.go('Login');
-      this.next();
-    } else {
-      this.next();
     }
+    this.next();
   },
   roleRequired: function () {
     if (Meteor.user() && !Meteor.user().profile.role) {
       Router.go('role');
-      this.next();
-    } else {
-      this.next();
     }
+    this.next();
   },
   LoginedRedirect: function (pause) {
     if (Meteor.userId()) {
       Router.go('TabClasses');
-      this.next();
-    } else {
-      this.next();
     }
+    this.next();
   },
   
   checkLanguage: function (pause) {
@@ -40,7 +34,7 @@ OnBeforeActions = {
       navigator.globalization.getPreferredLanguage(
         function (language) {
           // alert('language: ' + language.value + '\n');
-          // log.info(language);
+          log.info("checkLanguage:cordova:'"+ language.value+ "'");
           var lang = language.value.replace(pattern, "");
 
           if (!lodash.has(TAPi18n.getLanguages(), lang))
@@ -59,10 +53,14 @@ OnBeforeActions = {
           toastr.error('Error getting language\n');
         }
       );
-    }else{
-        var languagePereferences = navigator.languages;
-        if(languagePereferences){
-          TAPi18n.setLanguage(languagePereferences[0]);
+    }
+    else
+    {
+        //debugger;
+        var languagePrefs = navigator.languages;
+        log.info("checkLanguage:web:langprefs:"+languagePrefs);
+        if(languagePrefs) {
+          TAPi18n.setLanguage(languagePrefs[0]);
         }     
     }
     this.next();
@@ -72,10 +70,8 @@ OnBeforeActions = {
     var role = lodash.get(Meteor.user(), "profile.role") || "";
     if (dob === "" && role === "Student") {
       Router.go('Dob');
-      this.next();
-    } else {
-      this.next();
     }
+    this.next();
   },
   hasUserSeenAppTour:function(){
     //if login user has seen app tour before, we will redirect the user directly to class page
@@ -83,10 +79,8 @@ OnBeforeActions = {
     //it should not enabled if user access the page from You > Help
     if (Meteor.user() && Meteor.user().profile.hasUserSeenTour) {
       Router.go("TabClasses");
-        this.next();
-    }else{ //we show the tour
-        this.next();
-    }        
+    }//we show the tour
+    this.next();
   }
 };
 
