@@ -21,10 +21,10 @@ Template.TabChat.helpers({
     return Meteor.user().profile.role === "Teacher";
   },
   'getAllMyChatRooms': function () {
-    var allchat = Chat.find();
-    totalResult = allchat.length;
+    var allchats = Chat.find({},{sort:{"messagesObj.sendAt":-1}});
+    totalResult = allchats.length;
     if (Chat.find().count() > 0) {
-      return allchat;
+      return allchats;
     } else {
       return false;
     }
