@@ -180,6 +180,11 @@ Template.ClassDetail.rendered = function () {
     }.bind(this));
   }.bind(this));  
   /****track if there are any new messages - END *********/
+  //toBottom if query
+  if(Router.current().params.query.toBottom){
+    //scroll to bottom
+    $('.class-detail').scrollTop(999999);      
+  }
 };
 
 Template.ClassDetail.destroyed = function () {

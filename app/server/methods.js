@@ -171,6 +171,22 @@ Meteor.methods({
         userId: {$in: flattenArray}
       }
     });
+    
+    //send notification via websocket using Streamy
+    flattenArray.map(function(userId){
+      //log.info("streamy"+userId);
+      var socketObj = Streamy.socketsForUsers(userId);
+      //log.info(socketObj);
+      
+      socketObj._sockets.map(function(socket){
+         Streamy.emit('newclassmessage', { from: senderFullname,
+                                           text: msg,
+                                           classCode: arrayOfClasses[0].classCode                                  
+         }, socket); 
+      });
+    });
+
+    
     sendEmailMessageToClasses(flattenArray,arrayOfClasses,msg,Meteor.user());
   },
 

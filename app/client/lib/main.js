@@ -31,6 +31,24 @@ Meteor.startup(function () {
   //use by francocatena:status,using template status_ionic
   Status.setTemplate('ionic');
   
+  //when receive a new class message, display a popup, which can be clicked
+  //and be redirected to that class
+  Streamy.on('newclassmessage', function(data) {
+    log.info(data);
+    toastr.info(data.text, data.from,
+            {
+                "closeButton": true,
+                "preventDuplicates": true,
+                timeOut: 0,
+                onclick: function () {
+                    log.info('you click me');
+                    //classCode
+                    Router.go('classDetail',{classCode:data.classCode},{query: "toBottom=true"});
+                    //$('.class-detail').scrollTop(999999);
+            }
+        }
+    );    
+  });  
 });
 
 AutoForm.setDefaultTemplate('plain');

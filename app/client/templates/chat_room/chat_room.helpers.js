@@ -43,14 +43,6 @@ Template.ChatRoom.helpers({
     return targetUserObj;      
   },
   getChatRoomName: function () {
-    
-    if(typeof getTotalChatRoomUserCount == 'function'){
-        
-    }else{
-        //return earlier
-        return;
-    }
-    
     //we display the name of the chat room or the correspondent or the people in the group chat depending on the context
     if(getTotalChatRoomUserCount() > 2){
        var chat = Chat.findOne({_id: Router.current().params.chatRoomId});  
