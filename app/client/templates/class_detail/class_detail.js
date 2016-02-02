@@ -171,20 +171,10 @@ Template.ClassDetail.rendered = function () {
     
     Tracker.afterFlush(function(){
         if(latestCount > initialCount){
-            var content = latestClassObj.messagesObj[latestCount-1].content;
-            toastr.info(content, "New Message",
-
-                {
-                    positionClass: "toast-top-center",
-                    "closeButton": true,
-                    "preventDuplicates": true,
-                    timeOut: 0,
-                    onclick: function () {
-                        log.info('you click me');
-                        $('.class-detail').scrollTop(999999);
-                    }
-                }
-           );
+            
+            //scroll to bottom
+            $('.class-detail').scrollTop(999999);
+            
             initialCount = latestCount;
         }
     }.bind(this));
