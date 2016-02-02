@@ -26,12 +26,16 @@ Template.ChatRoom.helpers({
   },
   getGroupOrCorrespondentAvatar : function () {
     var chat = Chat.findOne({_id: Router.current().params.chatRoomId});
-    if(chat.chatRoomAvatar){
-        return chat.chatRoomAvatar;       
+    if(chat){
+        if(chat.chatRoomAvatar){
+            return chat.chatRoomAvatar;       
+        }else{
+            //get other person's avatar
+            var userObj = getAnotherUser();
+            return userObj && userObj.profile && userObj.profile.useravatar;        
+        }
     }else{
-        //get other person's avatar
-        var userObj = getAnotherUser();
-        return userObj && userObj.profile && userObj.profile.useravatar;        
+        return "";
     }
   },
   getUserById:function(userId){
@@ -39,6 +43,14 @@ Template.ChatRoom.helpers({
     return targetUserObj;      
   },
   getChatRoomName: function () {
+    
+    if(typeof getTotalChatRoomUserCount == 'function'){
+        
+    }else{
+        //return earlier
+        return;
+    }
+    
     //we display the name of the chat room or the correspondent or the people in the group chat depending on the context
     if(getTotalChatRoomUserCount() > 2){
        var chat = Chat.findOne({_id: Router.current().params.chatRoomId});  
@@ -201,8 +213,13 @@ function getAllUser(){
 }
 
 function getTotalChatRoomUserCount(){
-            //find all userids in this chat rooms
-            var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
-            // log.info(arr);    
-            return arr.length;    
+            var chatObj = Chat.findOne({_id: Router.current().params.chatRoomId});
+            if(chatObj){
+                //find all userids in this chat rooms
+                var arr = chatObj.chatIds;
+                // log.info(arr);    
+                return arr.length;
+            }else{
+                return -1;
+            }  
 }
