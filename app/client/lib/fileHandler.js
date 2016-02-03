@@ -127,7 +127,9 @@ Application.FileHandler = (function () {
                                 sound: 'Hello World',
                                 type: 'chat'
                             };
-                            Meteor.call("serverNotification", notificationObj);
+                            Meteor.call("serverNotification", notificationObj,{
+                                chatRoomId:  Router.current().params.chatRoomId   
+                            });
                             if (Meteor.user().profile.firstpicture) {
                                 analytics.track("First Picture", {
                                     date: new Date(),
@@ -210,7 +212,9 @@ Application.FileHandler = (function () {
                                         sound: 'Hello World',
                                         type: 'chat'
                                     };
-                                    Meteor.call("serverNotification", notificationObj);
+                                    Meteor.call("serverNotification", notificationObj,{
+                                        chatRoomId:  Router.current().params.chatRoomId   
+                                    });
                                 }
                             });
                         });
@@ -299,7 +303,9 @@ Application.FileHandler = (function () {
                                     type: 'chat'
                                 }
                             };
-                            Meteor.call("serverNotification", notificationObj);
+                            Meteor.call("serverNotification", notificationObj,{
+                                chatRoomId:  Router.current().params.chatRoomId   
+                            });
                             if (Meteor.user().profile.firstdocument) {
                                 analytics.track("First Document", {
                                     date: new Date(),
@@ -365,7 +371,9 @@ Application.FileHandler = (function () {
                                             sound: 'Hello World',
                                             type: 'chat'
                                         };
-                                        Meteor.call("serverNotification", notificationObj);                                        
+                                        Meteor.call("serverNotification", notificationObj,{
+                                            chatRoomId:  Router.current().params.chatRoomId   
+                                        });                                      
                                     }else if (category == 'class'){
                                         var arr = currentDocumentArray;
                                         arr.push(fileObj._id);

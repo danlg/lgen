@@ -314,18 +314,55 @@ Meteor.methods({
     });
   },
 
-  serverNotification: function (notificationObj) {
+  serverNotification: function (notificationObj,inAppNotifyObj) {
+  
+    var notificationObjType;
+    var filteredUserIdsWhoEnablePushNotify = [];
     
     //if is an object. i.e userId: {$in: flattenArray}
     if(lodash.isPlainObject(notificationObj.query.userId) ){
+            notificationObjType="multiple";      
+            //only keep users who want to receive push notification
+                filteredUserIdsWhoEnablePushNotify = notificationObj.query.userId.$in.filter(function(eachUserId){
+                var userObj = Meteor.users.findOne(eachUserId);
+                if (lodash.get(userObj, 'profile.push')) {
+                   return true;
+                }else{
+                   return false;
+                }    
+            });
+            notificationObj.query.userId.$in = filteredUserIdsWhoEnablePushNotify;
             Push.send(notificationObj);
+
+
     }else{
     //else if is just one userid
+        notificationObjType="single";
         var userId = notificationObj.query.userId;
         var userObj = Meteor.users.findOne(userId);
         if (lodash.get(userObj, 'profile.push')) {
+            filteredUserIdsWhoEnablePushNotify.push(userId);
             Push.send(notificationObj);
         }             
+    }
+    
+    if(inAppNotifyObj && notificationObj.payload.type == 'chat'){
+        
+        var userIds = filteredUserIdsWhoEnablePushNotify;
+        
+        //send notification via websocket using Streamy
+        userIds.map(function(userId){
+            //log.info("streamy:newchatmessage:"+userId);
+            var socketObj = Streamy.socketsForUsers(userId);
+            //log.info(socketObj);
+            
+            socketObj._sockets.map(function(socket){
+                Streamy.emit('newchatmessage', { from: notificationObj.from,
+                                                text: notificationObj.text,
+                                                chatRoomId: inAppNotifyObj.chatRoomId                                  
+                }, socket); 
+            });
+        });        
     }
 
   },

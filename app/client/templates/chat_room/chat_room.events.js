@@ -43,7 +43,9 @@ Template.ChatRoom.events({
             type: 'chat'
           };
           notificationObj.query = query;
-          Meteor.call("serverNotification", notificationObj);
+          Meteor.call("serverNotification", notificationObj,{
+              chatRoomId:  Router.current().params.chatRoomId   
+          });
           document.getElementsByClassName("inputBox")[0].updateAutogrow();
           
           //TODO : change to getAllUser() for sending group chat email
@@ -227,7 +229,11 @@ function onResolveSuccess(fileEntry) {
         //   });
         //   Meteor.call("updateProfileByPath", 'profile.firstpicture',false);
         // }
-        Meteor.call("serverNotification", notificationObj);
+        Meteor.call("serverNotification", notificationObj,
+            {
+                chatRoomId:  Router.current().params.chatRoomId   
+            }
+        );
       }
     });
   });

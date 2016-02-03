@@ -41,14 +41,34 @@ Meteor.startup(function () {
                 "preventDuplicates": true,
                 timeOut: 0,
                 onclick: function () {
-                    log.info('you click me');
                     //classCode
                     Router.go('classDetail',{classCode:data.classCode},{query: "toBottom=true"});
                     //$('.class-detail').scrollTop(999999);
             }
         }
     );    
-  });  
+  }); 
+
+  //when receive a new chat message, display a popup, which can be clicked
+  //and be redirected to that chat
+  Streamy.on('newchatmessage', function(data) {  
+    if(Router.current().route.getName() == 'ChatRoom' && Router.current().params.chatRoomId == data.chatRoomId){
+        //do nothing. As user its already on that chat.
+    }else{
+        log.info(data);
+        toastr.info(data.text, data.from,
+                {           
+                    "closeButton": true,
+                    "preventDuplicates": true,
+                    timeOut: 0,
+                    onclick: function () {
+                        Router.go('ChatRoom',{chatRoomId:data.chatRoomId},{query: "toBottom=true"});
+                }
+            }
+        );
+    }    
+  });   
+
 });
 
 AutoForm.setDefaultTemplate('plain');
