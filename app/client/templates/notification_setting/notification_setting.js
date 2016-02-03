@@ -46,24 +46,17 @@ Template.NotificationSetting.helpers({
   checked: function (type) {
     return lodash.get(Meteor.user(), 'profile.' + type) ? "checked" : "";
   },
-  isEmailVerified: function(){
-      
+  isEmailVerified: function() {
         //if user is registered with meteor account
-        if(Meteor.user())
+        if( Meteor.user() )//the user is logged on but can also use a google account
         {
-            if(Meteor.user().emails){
-                    if (typeof Meteor.user().emails[0].verified !== 'undefined') {
-                        //if email is not yet verfied
-                        if (Meteor.user().emails[0].verified == false) {
-                            return false;
-                        }else{
-                            return true;
-                        }
-                }
-            }
-        }else{
-            return true;
-        }         
+            if(Meteor.user().emails) {
+                if (typeof Meteor.user().emails[0].verified !== 'undefined') {
+                    //if email is not yet verified
+                  return Meteor.user().emails[0].verified;
+                } else return true;//google
+            } else return false;
+        } else return true;
   }
 });
 
