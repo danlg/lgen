@@ -286,11 +286,12 @@ Application.FileHandler = (function () {
                                     log.error("error", error);
                                 }
                             });
-
-                            var targetUser = getAnotherUser();
-                            var targetId = targetUser._id;                            
+                            
+                            //get all users except current user                                     
+                            var targetUsers = getAllUserExceptCurrentUser();    
+                            var targetUsersIds = lodash.pluck(targetUsers, '_id');                                                   
                             var query = {};
-                            query.userId = targetId;
+                            query.userId = {$in: targetUsersIds};
 
                             var notificationObj = {
                                 from: getFullNameByProfileObj(Meteor.user().profile),
