@@ -119,9 +119,25 @@ Template.ChatRoom.helpers({
 
   },
 
-  targertWorkingTime: function (argument) {
+  targertWorkingTime: function (argument) {  
+    var currentChat = Chat.findOne({_id: Router.current().params.chatRoomId});
+    var target;
     var displayOffline = false;
-    var target = getAnotherUser();
+        
+    //if it is a group chat
+    if(currentChat.chatRoomModerator){
+        if(currentChat.chatRoomModerator == Meteor.userId()){  
+            //if current user is the moderator of the chatroom,
+            //this user is not limited by the office hour.
+            return displayOffline;      
+        }else{
+         target = Meteor.users.findOne( currentChat.chatRoomModerator );             
+        }
+
+    }else{ //if it is a one-to-one chat
+        target = getAnotherUser();
+    }
+
     if (target.profile.role === "Teacher") {
       if (target.profile.chatSetting && target.profile.chatSetting.workHour) {
         
@@ -161,7 +177,7 @@ Template.ChatRoom.helpers({
 
      
       }
-    }
+    }  
     return displayOffline;
   },
 
