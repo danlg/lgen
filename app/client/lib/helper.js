@@ -1,7 +1,7 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 
 isChinese = function(lang) {
-    return lang.toLowerCase()().includes("zh")
+    return lang.toLowerCase().includes("zh")
     || lang.toLowerCase()().includes("han");
 }
 
