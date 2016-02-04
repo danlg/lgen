@@ -157,6 +157,7 @@ Template.ClassDetail.rendered = function () {
       }    
     });
 
+  var classDetailClass = document.getElementsByClassName("class-detail")[0];
   /****track if there are any new messages *********/
   var initialClassObj = Classes.findOne({classCode: Router.current().params.classCode});
   var initialCount = classObj.messagesObj.length;
@@ -173,18 +174,34 @@ Template.ClassDetail.rendered = function () {
         if(latestCount > initialCount){
             
             //scroll to bottom
-            $('.class-detail').scrollTop(999999);
+            var classMessageListToBottomScrollTopValue = classDetailClass.scrollHeight - classDetailClass.clientHeight; 
+            classDetailClass.scrollTop = classMessageListToBottomScrollTopValue; 
             
             initialCount = latestCount;
         }
     }.bind(this));
   }.bind(this));  
-  /****track if there are any new messages - END *********/
-  //toBottom if query
+  /****track if there are any new messages - END *********/  
+  
+
+  //toBottom if query has toBottom
   if(Router.current().params.query.toBottom){
+    var template = this;
     //scroll to bottom
-    $('.class-detail').scrollTop(999999);      
+    this.autorun(function () {
+        if (template.subscriptionsReady()) {
+        Tracker.afterFlush(function () {
+            
+            //need to wrap the code inside autorun and subscriptionready
+            //see http://stackoverflow.com/questions/32291382/when-the-page-loads-scroll-down-not-so-simple-meteor-js
+            var classMessageListToBottomScrollTopValue = classDetailClass.scrollHeight - classDetailClass.clientHeight;            
+            //log.info(classMessageListToBottomScrollTopValue);
+            classDetailClass.scrollTop = classMessageListToBottomScrollTopValue;    
+        });
+        }
+    });         
   }
+  
 };
 
 Template.ClassDetail.destroyed = function () {
