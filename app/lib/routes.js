@@ -27,40 +27,97 @@ OnBeforeActions = {
     }
     this.next();
   },
-  
+
+  /*isTraditionalChinese(lang) {
+    return lang.toLower().includes("zh-tw")
+    lang.toLower().includes("zh-hk")
+    || lang.toLower().includes("hant");
+    //case zh not taken into account
+  },
+  isSimplifiedChinese(lang) {
+    return lang.toLower().includes("zh-cn")
+    || lang.toLower().includes("hans");
+  },*/
+
+  isChinese: function(lang) {
+    return lang.toLower().includes("zh")
+    || lang.toLower().includes("han");
+  },
+  isHan: function(lang)     { return lang.toLower().includes("han"); },
+
   checkLanguage: function (pause) {
+    // see https://developer.apple.com/library/ios/documentation/MacOSX/Conceptual/BPInternational/LanguageandLocaleIDs/LanguageandLocaleIDs.html
+    //itap18n doesn't support the iOS notation
+    //todo check that this is loaded when initializing screen on cordova
     if (Meteor.isCordova) {
-      var pattern = /-.*/g;
       navigator.globalization.getPreferredLanguage(
-        function (language) {
+        function (mobilePhoneLanguage) {
           // alert('language: ' + language.value + '\n');
-          log.info("checkLanguage:cordova:'"+ language.value+ "'");
-          var lang = language.value.replace(pattern, "");
+          log.info("checkLanguage:cordova:'"+ mobilePhoneLanguage.value+ "'");
+          var lang;
+          if (isChinese( mobilePhoneLanguage.value) ) {
+            var chineseMap = {};
+            chineseMap["zh-Hant"] = "zh-TW";
+            chineseMap["zh-HK"]   = "zh-TW";
+            chineseMap["zh-TW"]   = "zh-TW";
 
-          if (!lodash.has(TAPi18n.getLanguages(), lang))
+            chineseMap["zh-CN"]   = "zh-CN";
+            chineseMap["zh-Hans"] = "zh-CN";
+            //possible values are :'zh-HK', 'zh-Hans-HK','zh-CN', zh-Hans-CN
+            log.info("checkLanguage:cordova:ChineseMap:'" + lodash.toString (chineseMap));
+            log.info("checkLanguage:cordova:Chinese:'" + mobilePhoneLanguage.value + "'");
+            if (isHan(mobilePhoneLanguage.value)) {
+              //we remove the country
+              var langtmp = mobilePhoneLanguage.value.substr(0, min(7, mobilePhoneLanguage.value.length));
+              lang = chineseMap [langtmp];
+              log.info("checkLanguage:cordova:chineseMap:Han'" + langtmp + "->" +lang);
+            }
+            else {  //zh-HK,zh-CN,..
+              lang = chineseMap [mobilePhoneLanguage.value];
+              log.info("checkLanguage:cordova:chineseMap:NoHan'" + mobilePhoneLanguage.value + "->" +lang);
+            }
+          }
+          else {
+            var pattern = /-.*/g; //remove the country e.g. fr-HK => fr
+            lang = mobilePhoneLanguage.value.replace(pattern, "");
+          }
+          log.info("checkLanguage:TAPi18n.getLanguages:before'");
+          var supportedLanguages = TAPi18n.getLanguages();
+          log.info("checkLanguage:TAPi18n.getLanguages:after'");
+          log.info("checkLanguage:supportedLanguages:'"+ supportedLanguages+ "'");
+          if (!lodash.includes(supportedLanguages, lang))
+          {
+            log.warn("checkLanguage:Defaulting to English");
             lang = "en";
-
-          TAPi18n.setLanguage(lang)
-            .done(function () {
-              Session.setPersistent('lang', lang);
-            })
-            .fail(function (error_message) {
-              // Handle the situation
-              log.error(error_message);
-            });
+          }
+          else{
+            log.info("checkLanguage:Found lang mapping");
+          }
+          log.info("checkLanguage:setLang:'"+ lang+ "'");
+          i18Init(lang);
         },
         function () {
           toastr.error('Error getting language\n');
         }
       );
     }
-    else
+    else //web
     {
         //debugger;
         var languagePrefs = navigator.languages;
         log.info("checkLanguage:web:langprefs:"+languagePrefs);
         if(languagePrefs) {
-          TAPi18n.setLanguage(languagePrefs[0]);
+          if (!lodash.includes(languagePrefs, languagePrefs[0])) {
+            //log.info("Lodash1="+languagePrefs);
+            //log.info("Lodash2="+ languagePrefs[0]);
+            //log.info("Lodash3="+lodash.includes(languagePrefs, languagePrefs[0]));
+            lang = "en";
+          }
+          else {
+            //log.info("Lodash4="+ languagePrefs[0]);
+            lang = languagePrefs[0];
+          }
+          i18Init(lang);
         }     
     }
     this.next();
@@ -83,6 +140,30 @@ OnBeforeActions = {
     this.next();
   }
 };
+
+var i18Init = function (lang) {
+  TAPi18n.setLanguage(lang)
+  .done(function () {
+    log.info("checkLanguage:setLang:'"+ lang+ "'"+"OK");
+    Session.setPersistent('lang', lang);
+  })
+  .fail(function (error_message) {
+    // Handle the situation
+    log.error("checkLanguage:setLang:'"+ lang+ "'"+"KO");
+    log.error(error_message);
+  });
+};
+/*
+var i18Init = function () {
+  log.info("i18Init");
+  i18next.init({
+    lowerCaseLng: true,
+    whitelist: ['en', 'fr', 'zh-tw', 'zh-cn'],
+    load: 'currentOnly'
+    // other options
+  });
+};*/
+
 
 //the following routes does not require login to access
 Router.onBeforeAction(OnBeforeActions.LoginRequired, {
