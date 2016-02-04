@@ -185,7 +185,11 @@ Template.SendMessage.events({
         }
         sendBtnMediaButtonToggle(); 
         //force update autogrow
-        document.getElementsByClassName("inputBox")[0].updateAutogrow();     
+        document.getElementsByClassName("inputBox")[0].updateAutogrow(); 
+        
+        //scroll messagelist to bottom;
+        scrollMessageListToBottom();
+      
       });
     } else {
       toastr.error("no class select!");
@@ -209,6 +213,8 @@ Template.SendMessage.events({
         Application.FileHandler.documentUploadForAndroid(event,'class',documentArr.get(),function(result){ 
           if(result){
               documentArr.set([]);
+              window.setTimeout(scrollMessageListToBottom, 100);
+          
           }
         });  
       }
@@ -219,6 +225,7 @@ Template.SendMessage.events({
       Application.FileHandler.documentUpload(event,'class',documentArr.get(),function(result){
           if(result){
               documentArr.set([]);
+              window.setTimeout(scrollMessageListToBottom, 100);
           }
       });
   }  
@@ -601,4 +608,11 @@ function sendBtnMediaButtonToggle(){
     });
 
   }   
+}
+
+function scrollMessageListToBottom(){
+   //scroll messagelist to bottom;
+   var messageListDOM = document.getElementById("messageList");
+   var messageListDOMToBottomScrollTopValue = messageListDOM.scrollHeight - messageListDOM.clientHeight;
+   messageListDOM.scrollTop=messageListDOMToBottomScrollTopValue; 
 }
