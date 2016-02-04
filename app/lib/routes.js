@@ -61,8 +61,18 @@ OnBeforeActions = {
             log.info("checkLanguage:cordova:ChineseMap:'" + lodash.toString (chineseMap));
             log.info("checkLanguage:cordova:Chinese:'" + mobilePhoneLanguage.value + "'");
             if (isHan(mobilePhoneLanguage.value)) {
+              
               //we remove the country
-              var langtmp = mobilePhoneLanguage.value.substr(0, min(7, mobilePhoneLanguage.value.length));
+              var langPartsArray = mobilePhoneLanguage.value.split('-');
+              var langtmp;
+              if(langPartsArray.length > 2){
+                  langtmp = langPartsArray[0]+"-"+langPartsArray[1];
+              }else{
+                  langtmp = mobilePhoneLanguage.value;
+              }           
+              
+              //what is min?
+              //var langtmp = mobilePhoneLanguage.value.substr(0, min(7, mobilePhoneLanguage.value.length));
               lang = chineseMap [langtmp];
               log.info("checkLanguage:cordova:chineseMap:Han'" + langtmp + "->" +lang);
             }
@@ -78,8 +88,11 @@ OnBeforeActions = {
           log.info("checkLanguage:TAPi18n.getLanguages:before'");
           var supportedLanguages = TAPi18n.getLanguages();
           log.info("checkLanguage:TAPi18n.getLanguages:after'");
-          log.info("checkLanguage:supportedLanguages:'"+ supportedLanguages+ "'");
-          if (!lodash.includes(supportedLanguages, lang))
+          log.info("checkLanguage:supportedLanguages:before'"+ supportedLanguages+ "'");          
+          log.info(supportedLanguages);
+          log.info("checkLanguage:supportedLanguages:after'"+ supportedLanguages+ "'");          
+          //if (!lodash.includes(supportedLanguages, lang))
+          if( Object.keys(supportedLanguages).indexOf(lang) == -1 )
           {
             log.warn("checkLanguage:Defaulting to English");
             lang = "en";
