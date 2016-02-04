@@ -26,6 +26,10 @@ $positive: #ACDA46;
   color: #00bfff;
 }
 
+.description-plain {
+  font-size: 0.8rem;
+}
+
 .description {
   font-size: 0.8rem;
   color: #999;
@@ -183,4 +187,8 @@ pre{
         font-size:80%;
         white-space: nowrap;
     }    
+}
+
+.bar .title.title-twoline{
+    line-height: normal;
 }

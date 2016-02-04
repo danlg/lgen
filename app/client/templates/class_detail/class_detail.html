@@ -1,13 +1,14 @@
 <template name="ClassDetail">
 
   {{#contentFor "headerTitle"   }}
-    <h1 class="title">{{classObj.className}}@{{classObj.classCode}}
-        
-        {{#if atTop}}
-        {{else}}
-        by: {{teacherName}}
-        {{/if}}
-   </h1>
+    {{#if atTop}}
+        <h1 class="title">{{classObj.className}}@{{classObj.classCode}} </h1> 
+    {{else}}
+        <h1 class="title title-twoline">
+            <span>{{classObj.className}}</span>
+            <br/><span class='description-plain'>{{teacherName}}</span>
+        </h1>    
+    {{/if}}
   {{/contentFor}}
 
   {{#contentFor "headerButtonLeft"}}
