@@ -183,9 +183,6 @@ Template.ClassDetail.rendered = function () {
   }.bind(this));  
   /****track if there are any new messages - END *********/  
   
-
-  //toBottom if query has toBottom
-  if(Router.current().params.query.toBottom){
     var template = this;
     //scroll to bottom
     this.autorun(function () {
@@ -200,7 +197,7 @@ Template.ClassDetail.rendered = function () {
         });
         }
     });         
-  }
+  
   
 };
 
