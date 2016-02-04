@@ -2,7 +2,7 @@
 
 isChinese = function(lang) {
     return lang.toLowerCase().includes("zh")
-    || lang.toLowerCase()().includes("han");
+    || lang.toLowerCase().includes("han");
 }
 
 isHan = function(lang)     { return lang.toLowerCase().includes("han"); }
