@@ -39,12 +39,6 @@ OnBeforeActions = {
     || lang.toLower().includes("hans");
   },*/
 
-  isChinese: function(lang) {
-    return lang.toLower().includes("zh")
-    || lang.toLower().includes("han");
-  },
-  isHan: function(lang)     { return lang.toLower().includes("han"); },
-
   checkLanguage: function (pause) {
     // see https://developer.apple.com/library/ios/documentation/MacOSX/Conceptual/BPInternational/LanguageandLocaleIDs/LanguageandLocaleIDs.html
     //itap18n doesn't support the iOS notation

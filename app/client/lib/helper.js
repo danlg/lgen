@@ -1,5 +1,13 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 
+isChinese = function(lang) {
+    return lang.toLowerCase()().includes("zh")
+    || lang.toLowerCase()().includes("han");
+}
+
+isHan = function(lang)     { return lang.toLowerCase().includes("han"); }
+  
+  
 isAndroid = function() {
   //https://github.com/apache/cordova-plugin-device/blob/master/src/android/Device.java
   //http://stackoverflow.com/questions/32076642/meteor-device-detection-android-or-ios
