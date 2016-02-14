@@ -100,10 +100,13 @@ Schema.chatSetting = new SimpleSchema({
     optional: true
   },
   'workHourTime.from': {
+    //label: TAPi18n.__("From"),
+    label: "De",
     type: String,
     optional: true
   },
   'workHourTime.to': {
+    label: "A",
     type: String,
     optional: true
   },

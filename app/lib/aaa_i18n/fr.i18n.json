@@ -19,7 +19,7 @@
   "CantJoinTheClassYouOwn":"Vous ne pouvez pas joindre votre propre groupe",
   "Chat": "Discussion",
   "Chat_with": "Discute avec...",
-  "Chat_settings": "Paramètres des discussions",
+  "Chat_settings": "Paramètres des discuss.",
   "ChatRoomInfo":"Information des discussions",
   "ChatRoomName":"Nom de la discussion",
   "ClassCode": "Code de la classe",
@@ -165,6 +165,15 @@
   "Friday":"Vendredi",
   "Saturday":"Samedi",
   "Sunday":"Dimanche",
+
+  "From":"De",
+  "Mon":"Lun",
+  "Tue":"Mar",
+  "Wed":"Mer",
+  "Thu":"Jeu",
+  "Fri":"Ven",
+  "Sat":"Sam",
+  "Sun":"Dim",
   "Chat settings":"Paramètres des discuss.",
 
   "schemas": {

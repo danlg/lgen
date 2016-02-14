@@ -105,13 +105,13 @@ Template.ionNavBar.events({
 
 function getWeekName(value,index) { 
   var weekday = new Array(7);
-  weekday[0] = "Mon";
-  weekday[1] = "Tue";
-  weekday[2] = "Wed";
-  weekday[3] = "Thu";
-  weekday[4] = "Fri";
-  weekday[5] = "Sat";
-  weekday[6] = "Sun";
+  weekday[0] = TAPi18n.__("Mon");
+  weekday[1] = TAPi18n.__("Tue");
+  weekday[2] = TAPi18n.__("Wed");
+  weekday[3] = TAPi18n.__("Thu");
+  weekday[4] = TAPi18n.__("Fri");
+  weekday[5] = TAPi18n.__("Sat");
+  weekday[6] = TAPi18n.__("Sun");
   return weekday[index];
 }
 

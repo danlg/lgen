@@ -1,8 +1,7 @@
 <template name="Chatoption">
 
   {{#contentFor "headerButtonLeft"}}
-  
-     {{>ionNavBackButton href='TabChat' class="ChatoptionCancel" }} 
+     {{>ionNavBackButton text=" " href='TabChat' class="ChatoptionCancel" }}
   {{/contentFor}}
 
   {{#contentFor "headerTitle"}}
@@ -10,7 +9,7 @@
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
-   <button  class="button button-clear button-entering button-active ChatoptionSave">Save</button>
+   <button  class="button button-clear button-entering button-active ChatoptionSave">{{_ "Save" }}</button>
   {{/contentFor}}
 
   {{#ionView}}
@@ -40,12 +39,8 @@
           </a>
 
           <li class="item item-input {{ishidden}}">
-          
-          {{> afQuickField  style='width:120px;' class='datepicker' type='time' name='workHourTime.from'}}           
-          
-            
-           {{> afQuickField style='width:120px;' class='datepicker'  type='time' name='workHourTime.to'}}             
-          
+          {{> afQuickField  style='width:120px;' class='datepicker' type='time' name='workHourTime.from'}}
+           {{> afQuickField style='width:120px;' class='datepicker'  type='time' name='workHourTime.to'}}
           </li>
 
           <div class="{{ishidden}}">

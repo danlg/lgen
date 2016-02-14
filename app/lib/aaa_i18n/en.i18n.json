@@ -164,6 +164,15 @@
   "Friday":"Friday",
   "Saturday":"Saturday",
   "Sunday":"Sunday",
+
+  "Mon":"Mon",
+  "Tue":"Tue",
+  "Wed":"Wed",
+  "Thu":"Thu",
+  "Fri":"Fri",
+  "Sat":"Sat",
+  "Sun":"Sun",
+
   "Chat settings":"Chat settings",
 
 
