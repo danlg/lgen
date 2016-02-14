@@ -13,19 +13,7 @@ You need to install:
 - mup: npm install -g mup . The "app" directory path should be set to your actual one in `mup.json`.
 
 *for iOS:
-- DEPRECATED Build with iOS9.x SDK is now supported. 
-- XCode 6.4 / iOS 8.4 SDK to build:  http://developer.apple.com/devcenter/download.action?path=/Developer_Tools/Xcode_6.4/Xcode_6.4.dmg
- for other builds see http://stackoverflow.com/questions/10335747/how-to-download-xcode-4-5-6-7-and-get-the-dmg-file
- (XCode 7/ iOS 9 SDK cannot be used due to a prevention of clear http, workarounds found do not work on ioS8.4 just iOS9)
- This is a temporary workaround until SSL is implemented.
-http://adcdownload.apple.com/Developer_Tools/Xcode_6.4/Xcode_6.4.dmg
-http://adcdownload.apple.com/Developer_Tools/Command_Line_Tools_OS_X_10.10_for_Xcode_6.4/Command_Line_Tools_OS_X_10.10_for_Xcode_6.4.dmg
-
-Ensure that xcodebuild is pointing to 6.4
-How to add SDK 8.4 to XCode 7:
-dan@LG1:/Applications/Xcode7.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs$ ln -s /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk
-Enablebitcode to false
-- End OF DEPRECATION 
+- XCode 7 / iOS 9 SDK to submit to AppStore 
 
 TO DO change the build process as it now works with iOS 9.1 SDK provided that the following block is added to Smartix-Info.plist
 
@@ -35,14 +23,14 @@ TO DO change the build process as it now works with iOS 9.1 SDK provided that th
 	<true/>
 </dict>
 
-- XCode 7 / iOS 9 SDK to submit to AppStore (unfortunately you cannot use iOS SDK 8.4 with XCode7)
+
 
 *for Android:
 - Android Studio
 - API 22
 
 ## MOBILE REQUIREMENTS##
-- iOS >=8
+- iOS >=7 (will be 8 when we move to WKWebview)
 - Android >= Kitkat 4.4 / API level 19
 
 ## BUILD PROCESS ##
