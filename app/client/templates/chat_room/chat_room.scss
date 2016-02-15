@@ -32,6 +32,8 @@
     padding:1px 16px 1px 16px;    
   }
   
+  /*set z-index larger than 1 to fix the inputbox 3-lines bug*/
+  z-index:2;
 
 }
 
