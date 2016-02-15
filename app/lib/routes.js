@@ -102,6 +102,9 @@ OnBeforeActions = {
           }
           log.info("checkLanguage:setLang:'"+ lang+ "'");
           i18Init(lang);
+          
+         //update user language
+         Meteor.call("updateProfileByPath", 'profile.lang', lang);          
         },
         function () {
           toastr.error('Error getting language\n');
@@ -111,21 +114,53 @@ OnBeforeActions = {
     else //web
     {
         //debugger;
+        var lang;
         var languagePrefs = navigator.languages;
-        log.info("checkLanguage:web:langprefs:"+languagePrefs);
-        if(languagePrefs) {
-          if (!lodash.includes(languagePrefs, languagePrefs[0])) {
-            //log.info("Lodash1="+languagePrefs);
-            //log.info("Lodash2="+ languagePrefs[0]);
-            //log.info("Lodash3="+lodash.includes(languagePrefs, languagePrefs[0]));
+        
+        //safari does not support navigator.languages, so navigator.language is used instead
+        if(!languagePrefs){
+            var languageFromSafari = navigator.language;
+            var languageFromSafariInParts;
+            if(languageFromSafari.indexOf("-") > -1){
+                languageFromSafariInParts =  languageFromSafari.split('-');
+            }
+            if(languageFromSafari.indexOf("_") > -1){
+                languageFromSafariInParts =  languageFromSafari.split('_');
+            }
+            if(languageFromSafari.indexOf("zh") > -1){
+               languageFromSafari = languageFromSafariInParts[0] + "-" + languageFromSafariInParts[1].toUpperCase();
+            }else{
+               languageFromSafari = languageFromSafariInParts[0];
+            }
+            languagePrefs = [];
+            languagePrefs.push(languageFromSafari);
+        }
+        
+          log.info("checkLanguage:web:langprefs:"+languagePrefs);
+          lang = languagePrefs[0];
+          var supportedLanguages = TAPi18n.getLanguages();
+          //log.info("checkLanguage:TAPi18n.getLanguages:after'");
+          //log.info("checkLanguage:supportedLanguages:before'"+ supportedLanguages+ "'");          
+          //log.info(supportedLanguages);
+          //log.info("checkLanguage:supportedLanguages:after'"+ supportedLanguages+ "'");          
+          //if (!lodash.includes(supportedLanguages, lang))
+          if( Object.keys(supportedLanguages).indexOf(lang) == -1 )
+          {
+            log.warn("checkLanguage:Defaulting to English");
             lang = "en";
           }
-          else {
-            //log.info("Lodash4="+ languagePrefs[0]);
-            lang = languagePrefs[0];
+          else{
+            log.info("checkLanguage:Found lang mapping");
           }
+          
+          log.info("checkLanguage:setLang:'"+ lang+ "'");
           i18Init(lang);
-        }     
+         
+         if(Meteor.userId()){
+           //update user language
+           Meteor.call("updateProfileByPath", 'profile.lang', lang); 
+         }
+            
     }
     this.next();
   },
