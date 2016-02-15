@@ -47,7 +47,7 @@ OnBeforeActions = {
       navigator.globalization.getPreferredLanguage(
         function (mobilePhoneLanguage) {
           // alert('language: ' + language.value + '\n');
-          log.info("checkLanguage:cordova:'"+ mobilePhoneLanguage.value+ "'");
+          //log.info("checkLanguage:cordova:'"+ mobilePhoneLanguage.value+ "'");
           var lang;
           if (isChinese( mobilePhoneLanguage.value) ) {
             var chineseMap = {};
@@ -58,8 +58,8 @@ OnBeforeActions = {
             chineseMap["zh-CN"]   = "zh-CN";
             chineseMap["zh-Hans"] = "zh-CN";
             //possible values are :'zh-HK', 'zh-Hans-HK','zh-CN', zh-Hans-CN
-            log.info("checkLanguage:cordova:ChineseMap:'" + lodash.toString (chineseMap));
-            log.info("checkLanguage:cordova:Chinese:'" + mobilePhoneLanguage.value + "'");
+            //log.info("checkLanguage:cordova:ChineseMap:'" + lodash.toString (chineseMap));
+            //log.info("checkLanguage:cordova:Chinese:'" + mobilePhoneLanguage.value + "'");
             if (isHan(mobilePhoneLanguage.value)) {
               
               //we remove the country
@@ -74,23 +74,23 @@ OnBeforeActions = {
               //what is min?
               //var langtmp = mobilePhoneLanguage.value.substr(0, min(7, mobilePhoneLanguage.value.length));
               lang = chineseMap [langtmp];
-              log.info("checkLanguage:cordova:chineseMap:Han'" + langtmp + "->" +lang);
+              //log.info("checkLanguage:cordova:chineseMap:Han'" + langtmp + "->" +lang);
             }
             else {  //zh-HK,zh-CN,..
               lang = chineseMap [mobilePhoneLanguage.value];
-              log.info("checkLanguage:cordova:chineseMap:NoHan'" + mobilePhoneLanguage.value + "->" +lang);
+              //log.info("checkLanguage:cordova:chineseMap:NoHan'" + mobilePhoneLanguage.value + "->" +lang);
             }
           }
           else {
             var pattern = /-.*/g; //remove the country e.g. fr-HK => fr
             lang = mobilePhoneLanguage.value.replace(pattern, "");
           }
-          log.info("checkLanguage:TAPi18n.getLanguages:before'");
+          //log.info("checkLanguage:TAPi18n.getLanguages:before'");
           var supportedLanguages = TAPi18n.getLanguages();
-          log.info("checkLanguage:TAPi18n.getLanguages:after'");
-          log.info("checkLanguage:supportedLanguages:before'"+ supportedLanguages+ "'");          
-          log.info(supportedLanguages);
-          log.info("checkLanguage:supportedLanguages:after'"+ supportedLanguages+ "'");          
+          //log.info("checkLanguage:TAPi18n.getLanguages:after'");
+          //log.info("checkLanguage:supportedLanguages:before'"+ supportedLanguages+ "'");          
+          //log.info(supportedLanguages);
+          //log.info("checkLanguage:supportedLanguages:after'"+ supportedLanguages+ "'");          
           //if (!lodash.includes(supportedLanguages, lang))
           if( Object.keys(supportedLanguages).indexOf(lang) == -1 )
           {
