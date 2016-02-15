@@ -127,9 +127,12 @@ OnBeforeActions = {
             if(languageFromSafari.indexOf("_") > -1){
                 languageFromSafariInParts =  languageFromSafari.split('_');
             }
-            if(languageFromSafari.indexOf("zh") > -1){
+            if(languageFromSafari.indexOf("zh") > -1 && languageFromSafari.length == 2){
+               languageFromSafari = languageFromSafariInParts[0] + "-" + 'TW';
+            }else if(languageFromSafari.indexOf("zh") > -1){
                languageFromSafari = languageFromSafariInParts[0] + "-" + languageFromSafariInParts[1].toUpperCase();
-            }else{
+            }
+            else{
                languageFromSafari = languageFromSafariInParts[0];
             }
             languagePrefs = [];
@@ -138,6 +141,11 @@ OnBeforeActions = {
         
           log.info("checkLanguage:web:langprefs:"+languagePrefs);
           lang = languagePrefs[0];
+          
+          //fallback to zh-TW in this case
+          if(lang == 'zh'){
+              lang = 'zh-TW';
+          }
           var supportedLanguages = TAPi18n.getLanguages();
           //log.info("checkLanguage:TAPi18n.getLanguages:after'");
           //log.info("checkLanguage:supportedLanguages:before'"+ supportedLanguages+ "'");          
