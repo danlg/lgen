@@ -189,16 +189,38 @@ Template.ClassDetail.rendered = function () {
         if (template.subscriptionsReady()) {
         Tracker.afterFlush(function () {
             
-            //need to wrap the code inside autorun and subscriptionready
-            //see http://stackoverflow.com/questions/32291382/when-the-page-loads-scroll-down-not-so-simple-meteor-js
-            var classMessageListToBottomScrollTopValue = classDetailClass.scrollHeight - classDetailClass.clientHeight;            
-            //log.info(classMessageListToBottomScrollTopValue);
-            classDetailClass.scrollTop = classMessageListToBottomScrollTopValue;    
+                var imgReadyChecking = function(){
+                    var hasAllImagesLoaded =true;
+                    $('img').each(function(){
+                        if(this.complete){
+                            //log.info('loaded');
+                        }else{
+                            //log.info('not loaded');
+                            hasAllImagesLoaded = false;
+                        }
+                    });
+	                
+                    if(hasAllImagesLoaded){
+                        //log.info('scroll to bottom');
+                        //need to wrap the code inside autorun and subscriptionready
+                        //see http://stackoverflow.com/questions/32291382/when-the-page-loads-scroll-down-not-so-simple-meteor-js
+                        var classMessageListToBottomScrollTopValue = classDetailClass.scrollHeight - classDetailClass.clientHeight;            
+                        log.info(classMessageListToBottomScrollTopValue);
+                    	classDetailClass.scrollTop = classMessageListToBottomScrollTopValue; 
+                    	
+                    }else{
+                        //if not all images is fully loaded, scroll bottom would not work.
+                        //so we set a timer to do the imgReadyChecking again later
+                        setTimeout(imgReadyChecking, 1000);
+                    }                                  
+                };
+                //run immediately for the first time
+            	imgReadyChecking();
+               
         });
         }
     });         
-  
-  
+    
 };
 
 Template.ClassDetail.destroyed = function () {
