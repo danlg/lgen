@@ -127,7 +127,50 @@ Template.ClassPanel.created = function () {
 };
 
 Template.ClassPanel.rendered = function () {
- 
+
+    var template = this;
+    //scroll to bottom
+    this.autorun(function () {
+        if (template.subscriptionsReady()) {
+        Tracker.afterFlush(function () {
+            
+                var imgReadyChecking = function(){
+                    var hasAllImagesLoaded =true;
+
+                    $('img').each(function(){
+                        if(this.complete){
+                            //log.info('loaded');
+                        }else{
+                            //log.info('not loaded');
+                            hasAllImagesLoaded = false;
+                        }
+                    });
+	                
+                    if(hasAllImagesLoaded){
+                        log.info('scroll to bottom');
+                        //need to wrap the code inside autorun and subscriptionready
+                        //see http://stackoverflow.com/questions/32291382/when-the-page-loads-scroll-down-not-so-simple-meteor-js
+                        //scroll messagelist to bottom;
+
+
+                        var messageListDOM = document.getElementById("messageList");
+                        var messageListDOMToBottomScrollTopValue = messageListDOM.scrollHeight - messageListDOM.clientHeight;
+                        messageListDOM.scrollTop=messageListDOMToBottomScrollTopValue; 
+                        //$('#messageList').animate({scrollTop:messageListDOMToBottomScrollTopValue}, 300);
+                    	
+                    }else{
+                        log.info('run next time');
+                        //if not all images is fully loaded, scroll bottom would not work.
+                        //so we set a timer to do the imgReadyChecking again later
+                        setTimeout(imgReadyChecking, 1000);
+                    }                                  
+                };
+                //run for the first time
+            	imgReadyChecking();
+               
+        });
+        }
+    });  
 };
 
 Template.ClassPanel.destroyed = function () {
