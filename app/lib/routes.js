@@ -102,9 +102,12 @@ OnBeforeActions = {
           }
           log.info("checkLanguage:setLang:'"+ lang+ "'");
           i18Init(lang);
-          
-         //update user language
-         Meteor.call("updateProfileByPath", 'profile.lang', lang);          
+         
+         //&& ( !Meteor.user().profile.lang || Meteor.user().profile.lang =="")
+         if(Meteor.userId() ){
+           //update user language
+           Meteor.call("updateProfileByPath", 'profile.lang', lang); 
+         }       
         },
         function () {
           toastr.error('Error getting language\n');
@@ -163,8 +166,9 @@ OnBeforeActions = {
           
           log.info("checkLanguage:setLang:'"+ lang+ "'");
           i18Init(lang);
-         
-         if(Meteor.userId()){
+        
+         //&& ( !Meteor.user().profile.lang || Meteor.user().profile.lang =="")
+         if(Meteor.userId() ){
            //update user language
            Meteor.call("updateProfileByPath", 'profile.lang', lang); 
          }
