@@ -44,11 +44,56 @@ Meteor.methods({
       log.error(e);
     }
   },
-  chatroomEmail: function(recipientUser,orginateUser,content){
-    //log.info(recipientUser);
+  chatroomEmail: function(recipientUsers,orginateUser,content){
+    //log.info(recipientUsers);
     //log.info(orginateUser);
     //log.info(content);
     
+    //1. we filter and retain user who is opted to receive email
+    //2. we filter and retain user whose email is verified
+    //3. group recipient users by their lang, if they dont have lang, default it as en.
+    //4. Then we send email in batch per each lang
+    
+    var optInUsersGroupByLang = lodash.chain(recipientUsers)
+                                      .filter(function(user){
+                                        if(user.profile.email){
+                                            if(user.emails[0].verified || user.services.google.verified_email){
+                                                return true;
+                                            }   
+                                        }else{
+                                            return false;
+                                        }
+                                      })
+                                      .groupBy('profile.lang')
+                                      .value();
+    
+    log.info(optInUsersGroupByLang);
+    
+    for(var lang in optInUsersGroupByLang){
+        
+        var chatRoomRecepientArr = []; 
+        optInUsersGroupByLang[lang].map(function(eachUser){
+            var chatRoomRecepient = { 
+                email: eachUser.emails[0].address,
+                name:  eachUser.profile.firstname+ " " + eachUser.profile.lastname
+            }
+            chatRoomRecepientArr.push(chatRoomRecepient);            
+        });
+        
+        log.info(chatRoomRecepientArr);
+        log.info(lang);
+        
+        /*
+            try {
+              var emailTemplateByUserLangs = messageEmailTemplate(chatRoomRecepientArr, orginateUser.profile.name, content, lang);  
+              Mandrill.messages.send(emailTemplateByUserLangs);       
+            }
+            catch (e) {
+              log.error(e);
+            }
+        */        
+    }
+    /*
     //send to user only if they opt to receive email
     var isUserOptToReceiveEmail = recipientUser.profile.email;
     log.info(isUserOptToReceiveEmail);
@@ -57,8 +102,8 @@ Meteor.methods({
       
       //need to make sure the email is verfied. For now, to ensure that, only people login by google can be checked.
       //TODO: verify user's email address who is not registered with google acc.
-      if (recipientUser.services) {
-        if (recipientUser.services.google) {
+      if (recipientUser.emails) {
+        if (recipientUser.emails) {
           if (recipientUser.services.google.verified_email) {
             log.info("try sending chat room mail to " + recipientUser.emails[0].address);
             
@@ -70,7 +115,10 @@ Meteor.methods({
             chatRoomRecepientArr.push(chatRoomRecepient);
             
             try {
-              Mandrill.messages.send(messageEmailTemplate(chatRoomRecepientArr, orginateUser.profile.name, content));
+              var emailTemplateByUserLangs = messageEmailTemplate(chatRoomRecepientArr, orginateUser.profile.name, content);
+              emailTemplateByUserLangs.forEach(function(emailTemplateSingleLang) {
+                Mandrill.messages.send(emailTemplateSingleLang);
+              }, this); 
             }
             catch (e) {
               log.error(e);
@@ -78,7 +126,7 @@ Meteor.methods({
           }
         }
       }
-    }
+    }*/
   },
 
   addClassMail: function (to, _id) {
