@@ -1,8 +1,6 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
-//template for email messaging of chat room and class
-messageEmailTemplate = function (RecipientUsers, OriginateUserName,content, className) {
-
-   
+//template for email messaging of chat room and class. TODO: Refactor to support lang parameter
+messageEmailTemplate = function (RecipientUsers, OriginateUserName,content, className, lang) {
   var bccList = [];
   RecipientUsers.forEach(function(RecipientUser, index, array){
     var bcc = {};
@@ -17,12 +15,10 @@ messageEmailTemplate = function (RecipientUsers, OriginateUserName,content, clas
     subject = subject + " class - " + className;
   }
   
-  //TODO. add merge_vars
-  //TODO. remove Spaccebars.toHTML. try to refactor the code to let mandrill's handlerbars do the toHTML action
-  return {
+  return [{
     "message": {
       "merge_language": "handlebars",
-      "text": "Example text content",
+      "text": "",
       "subject": subject,
       "from_email": Meteor.settings.FROM_EMAIL,
       "from_name": Meteor.settings.FROM_NAME,
@@ -30,28 +26,14 @@ messageEmailTemplate = function (RecipientUsers, OriginateUserName,content, clas
       "html": Spacebars.toHTML(
                                 {
                                  title:content,
-                                 GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag="en") ,
-                                  UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag="en")
+                                 GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag= lang) ,
+                                  UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag= lang)
                                 },
                                 Assets.getText("emailMessageMasterTemplate.html")
                               )
  
     }
-  };
-
-  /*
-  return {
-    "message": {
-      "merge_language": "handlebars",
-      "text": "Example text content",
-      "subject": "testing",
-      "from_email": "testing",
-      "from_name": "testing",
-      "to": "testing",
-      "html": Assets.getText("emailMessageMasterTemplate.html")
-    }
-  }; 
-  */
+  }];
 };
 
 newClassMailTemplate = function (to, classname, classCode) {
