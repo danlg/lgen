@@ -48,9 +48,8 @@ Template.ChatRoom.events({
           });
           document.getElementsByClassName("inputBox")[0].updateAutogrow();
           
-          //TODO : change to getAllUser() for sending group chat email
-          //send chat email
-          Meteor.call("chatroomEmail",targetUser,Meteor.user(),text);
+          //send group chat email
+          Meteor.call("chatroomEmail",getAllUserExceptCurrentUser(),Meteor.user(),text);
         }
       });
     }
