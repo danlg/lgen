@@ -55,7 +55,18 @@ messageEmailTemplate = function (RecipientUsers, OriginateUserName,content, clas
 };
 
 newClassMailTemplate = function (to, classname, classCode) {
-  var titlestr = "Your class " + classname + " is ready!";
+  var emailLang = Meteor.user().profile.lang || "en";
+  var titlestr = TAPi18n.__("NewClassMailTitle",{class_name: classname},
+                            emailLang);
+  var newClassMailContent;
+  try{ //get the new class mail template of the specific lang
+       newClassMailContent = Assets.getText("lang/"+ emailLang +"/newClass_MailTemplate.html");
+     }catch(e){
+       log.info(e);
+       //fallback to english
+       newClassMailContent = Assets.getText("lang/en/newClass_MailTemplate.html");
+  }   
+  
   //Meteor.user().emails[0].address
   log.info("Sending new newClassMailTemplate:"+ classCode);
   //var titlestr = TAPi18n.__("your_class_is_ready_classname", classname);
@@ -66,13 +77,13 @@ newClassMailTemplate = function (to, classname, classCode) {
       "html": Spacebars.toHTML(
         {
           title: titlestr,
-          content: Assets.getText("lang/en/newClass_MailTemplate.html"),
-          GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag="en") ,
-          UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag="en")
+          content: newClassMailContent,
+          GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = emailLang) ,
+          UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = emailLang)
         },
         Assets.getText("emailMessageMasterTemplate.html")
       ),
-      "text": "No plain text for now just html",
+      "text": "",
       "subject": titlestr,
       "from_email": Meteor.settings.FROM_EMAIL,
       "from_name": Meteor.settings.FROM_NAME,
@@ -97,6 +108,10 @@ newClassMailTemplate = function (to, classname, classCode) {
         {
           "name": "ROOT_URL",
           "content": Meteor.settings.public.ROOT_URL
+        },
+        {
+            "name":"title",
+            "content":titlestr
         }
       ]
     }
@@ -223,6 +238,7 @@ verificationEmailTemplate = function(role,userObj,verificationURL){
         try{ //get the verfication template of the specific lang
             verifyEmailcontent = Assets.getText("lang/"+ emailLang +"/emailVerifyTemplate."+role+".html");
         }catch(e){
+       	    log.info(e);            
             //fallback to english
             verifyEmailcontent = Assets.getText("lang/en/emailVerifyTemplate."+role+".html");
         } 
