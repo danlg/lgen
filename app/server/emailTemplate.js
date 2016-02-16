@@ -2,6 +2,7 @@
 //template for email messaging of chat room and class
 messageEmailTemplate = function (RecipientUsers, OriginateUserName,content, className) {
 
+   
   var bccList = [];
   RecipientUsers.forEach(function(RecipientUser, index, array){
     var bcc = {};
@@ -15,6 +16,9 @@ messageEmailTemplate = function (RecipientUsers, OriginateUserName,content, clas
   if(className){
     subject = subject + " class - " + className;
   }
+  
+  //TODO. add merge_vars
+  //TODO. remove Spaccebars.toHTML. try to refactor the code to let mandrill's handlerbars do the toHTML action
   return {
     "message": {
       "merge_language": "handlebars",
@@ -34,7 +38,20 @@ messageEmailTemplate = function (RecipientUsers, OriginateUserName,content, clas
  
     }
   };
-  
+
+  /*
+  return {
+    "message": {
+      "merge_language": "handlebars",
+      "text": "Example text content",
+      "subject": "testing",
+      "from_email": "testing",
+      "from_name": "testing",
+      "to": "testing",
+      "html": Assets.getText("emailMessageMasterTemplate.html")
+    }
+  }; 
+  */
 };
 
 newClassMailTemplate = function (to, classname, classCode) {
@@ -201,13 +218,21 @@ inviteClassMailTemplate = function (to, classObj) {
 };
 
 verificationEmailTemplate = function(role,userObj,verificationURL){
+        var emailLang = userObj.profile.lang || "en";
+        var verifyEmailcontent;
+        try{ //get the verfication template of the specific lang
+            verifyEmailcontent = Assets.getText("lang/"+ emailLang +"/emailVerifyTemplate."+role+".html");
+        }catch(e){
+            //fallback to english
+            verifyEmailcontent = Assets.getText("lang/en/emailVerifyTemplate."+role+".html");
+        } 
         var firstPass = Spacebars.toHTML(
               {
                 //TODO localize me
                 title:"",
-                content:  Assets.getText("lang/en/emailVerifyTemplate."+role+".html"),          
-                GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag="en") ,
-                UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag="en")
+                content:  verifyEmailcontent,          
+                GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag=emailLang) ,
+                UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag=emailLang)
               },
               Assets.getText("emailMessageMasterTemplate.html")
         );       

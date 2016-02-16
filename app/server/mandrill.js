@@ -34,8 +34,9 @@ Accounts.emailTemplates.verifyEmail= {
     return "Smartix <contactemail@littlegenius.io>";
   }
 
-  , subject:function() {
-    //TODO LOCALIZE
-    return "Welcome to Smartix  - Please verify your email";
+  , subject:function(user) {
+    var subjectLang = user.profile.lang || "en";
+    var verifyEmailSubject = TAPi18n.__("VerifyEmailSubject", {}, lang_tag= subjectLang);
+    return verifyEmailSubject;
   }
 };
