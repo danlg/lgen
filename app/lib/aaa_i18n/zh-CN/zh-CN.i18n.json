@@ -51,6 +51,7 @@
   "Join":"加入",
   "JoinAClass": "加入课室",
   "JoinAClassByInputClassCode":"请输入想加入的课室号码",
+  "JoinCurrentUserClassMailTitle":"加入__first_name__ __last_name__的__class_name__课室",    
   "JoinedFirstClass":"恭喜! 你现已加入你的第一个课室.",
   "Joined_Classes": "已加入课室",
   "Leave": "离开",

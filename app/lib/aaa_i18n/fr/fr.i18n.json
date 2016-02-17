@@ -58,6 +58,7 @@
   "Join":"S'abonner",
   "JoinAClass": "Rejoindre une classe",
   "JoinAClassByInputClassCode":"Veuillez saisir le code de la classe pour s'y abonner",
+  "JoinCurrentUserClassMailTitle":"Join __first_name__ __last_name__'s __class_name__ class",  
   "JoinedFirstClass":"Bravo, vous venez de joindre votre première classe !",
   "Joined_Classes": "Classes rejointes",
   "Leave": "Quitter",

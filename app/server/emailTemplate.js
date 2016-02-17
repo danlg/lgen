@@ -167,23 +167,31 @@ feedback = function (content) {
 };
 
 inviteClassMailTemplate = function (to, classObj) {
-
+  var emailLang = Meteor.user().profile.lang || "en";
   var first = Meteor.user().profile.firstname;
   var last = Meteor.user().profile.lastname;
+  var inviteClassMail;
+  try{ //get the invite template of the specific lang
+     inviteClassMail = Assets.getText("lang/"+ emailLang +"/inviteClassMailTemplate.html");
+  }catch(e){
+     log.info(e);            
+     //fallback to english
+     inviteClassMail = Assets.getText("lang/en/inviteClassMailTemplate.html");
+  }   
   var acceptLink = Meteor.settings.public.SHARE_URL + "/join/" + classObj.classCode;
   var acceptLinkEncoded = encodeURI(acceptLink);
-
+  var emailTitle = TAPi18n.__("JoinCurrentUserClassMailTitle",{first_name: first ,
+                        last_name: last, class_name: classObj.className },emailLang); 
   return {
     "message":{
       "merge_language": "handlebars",
-      "subject": "Please join class",
+      "subject": emailTitle,
       "html": Spacebars.toHTML(
               {
-                //TODO localize me
-                title:"Join {{first}} {{last}}'s {{classname}} class",
-                content:  Assets.getText("lang/en/inviteClassMailTemplate.html"),          
-                GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag="en") ,
-                UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag="en")
+                title: emailTitle,
+                content:  inviteClassMail,          
+                GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = emailLang) ,
+                UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = emailLang)
               },
               Assets.getText("emailMessageMasterTemplate.html")
         ),

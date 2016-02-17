@@ -59,6 +59,7 @@
   "Join":"Join",
   "JoinAClass": "Join a class",
   "JoinAClassByInputClassCode":"Please input a class code to join",
+  "JoinCurrentUserClassMailTitle":"Join __first_name__ __last_name__'s __class_name__ class",
   "JoinedFirstClass":"Congrats! You have just joined you first class.",
   "Joined_Classes": "Joined classes",
   "Leave": "Leave",
