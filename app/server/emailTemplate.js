@@ -1,6 +1,9 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 //template for email messaging of chat room and class. TODO: Refactor to support lang parameter
-messageEmailTemplate = function (RecipientUsers, OriginateUserName,content, className, lang) {
+messageEmailTemplate = function (RecipientUsers, OriginateUser,content, options) {
+  
+  var originateUserName = OriginateUser.profile.firstname+ " "+OriginateUser.profile.lastname;
+  options.lang = options.lang || 'en';
   var bccList = [];
   RecipientUsers.forEach(function(RecipientUser, index, array){
     var bcc = {};
@@ -9,13 +12,25 @@ messageEmailTemplate = function (RecipientUsers, OriginateUserName,content, clas
     bcc.type = "bcc";
     bccList.push(bcc);
   });
-  //TODO localize me !
-  var subject =  "New message from " + OriginateUserName + " via Smartix";
-  if(className){
-    subject = subject + " class - " + className;
+  var subject;
+  if(options.type == 'class'){
+   //log.info(options.className);
+   subject = TAPi18n.__("NewClassMessageMailTitle",
+                        {
+                         class_name: options.className
+                        },
+                        options.lang);
+  }else{
+   if(options.chatRoomName){
+       options.chatRoomName = "@"+options.chatRoomName ;
+   }else{
+     options.chatRoomName = "";  
+   }
+   subject = TAPi18n.__("NewChatMessageMailTitle",{user_name: originateUserName ,
+                        chat_room_name: options.chatRoomName},options.lang);      
   }
   
-  return [{
+  return {
     "message": {
       "merge_language": "handlebars",
       "text": "",
@@ -26,14 +41,14 @@ messageEmailTemplate = function (RecipientUsers, OriginateUserName,content, clas
       "html": Spacebars.toHTML(
                                 {
                                  title:content,
-                                 GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag= lang) ,
-                                  UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag= lang)
+                                 GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag= options.lang) ,
+                                  UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag= options.lang)
                                 },
                                 Assets.getText("emailMessageMasterTemplate.html")
                               )
  
     }
-  }];
+  };
 };
 
 newClassMailTemplate = function (to, classname, classCode) {

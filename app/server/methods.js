@@ -83,15 +83,18 @@ Meteor.methods({
         log.info(chatRoomRecepientArr);
         log.info(lang);
         
-        /*
+        
             try {
-              var emailTemplateByUserLangs = messageEmailTemplate(chatRoomRecepientArr, orginateUser.profile.name, content, lang);  
+              var emailTemplateByUserLangs = messageEmailTemplate(chatRoomRecepientArr, orginateUser, content, {
+                                                type:'chat',
+                                                lang:lang
+                                             });  
               Mandrill.messages.send(emailTemplateByUserLangs);       
             }
             catch (e) {
               log.error(e);
             }
-        */        
+               
     }
     /*
     //send to user only if they opt to receive email
@@ -545,34 +548,49 @@ sendEmailMessageToClasses = function(targetUserids, classes, message, originateU
   var arrayOfTargetUsers = Meteor.users.find({ _id: { $in: targetUserids } }).fetch();
   log.info(arrayOfTargetUsers);
 
-  var classRecepientArr = [];
-  arrayOfTargetUsers.forEach(function (targetUser) {
-    
-    if (targetUser.profile.email) {
-      if (targetUser.services) {
-        if (targetUser.services.google) {
-          if (targetUser.services.google.verified_email) {
-            
-            var classRecepient = {
-              email: targetUser.emails[0].address,
-              name: targetUser.profile.name
-            }
-            classRecepientArr.push(classRecepient);
-          }
-        }
-      }
-    }
-  });
+    var optInUsersGroupByLang = lodash.chain(arrayOfTargetUsers)
+                                      .filter(function(user){
+                                        if(user.profile.email){
+                                            if(user.emails[0].verified || user.services.google.verified_email){
+                                                return true;
+                                            }   
+                                        }else{
+                                            return false;
+                                        }
+                                      })
+                                      .groupBy('profile.lang')
+                                      .value();
 
   //extract and join all the classes name to a single string
-  var allClassName = lodash.flatten(lodash.map(classes, 'className')).join();
-
-  try {
-    Mandrill.messages.send(messageEmailTemplate(classRecepientArr, originateUser.profile.name, message, allClassName));
-    log.info(classRecepientArr.length + " email(s) are sent for class(es) " + allClassName + " msg: " + message);
-  }
-  catch (e) {
-    log.error(e);
-  }  
+  var allClassNameJoined = lodash.flatten(lodash.map(classes, 'className')).join();
+  log.info(allClassNameJoined); 
+    for(var lang in optInUsersGroupByLang){
+        
+        var classRecepientArr = []; 
+        optInUsersGroupByLang[lang].map(function(eachUser){
+            var classRoomRecepient = { 
+                email: eachUser.emails[0].address,
+                name:  eachUser.profile.firstname+ " " + eachUser.profile.lastname
+            }
+            classRecepientArr.push(classRoomRecepient);            
+        });
+        
+        log.info(classRecepientArr);
+        log.info(lang);
+        
+        
+            try {
+              var emailTemplateByUserLangs = messageEmailTemplate(classRecepientArr, originateUser, message, {
+                                                type:'class',
+                                                lang: lang,
+                                                className: allClassNameJoined
+                                             });  
+              Mandrill.messages.send(emailTemplateByUserLangs);       
+            }
+            catch (e) {
+              log.error(e);
+            }
+               
+    }
       
 }
