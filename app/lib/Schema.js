@@ -101,12 +101,13 @@ Schema.chatSetting = new SimpleSchema({
   },
   'workHourTime.from': {
     //label: TAPi18n.__("From"),
-    label: "De",
+    //todo localize this Direct method call. TAPi18n doesn;t Tap roll back French localization
+    //label: "From",
     type: String,
     optional: true
   },
   'workHourTime.to': {
-    label: "A",
+    //label: "To",
     type: String,
     optional: true
   },

@@ -39,8 +39,10 @@
           </a>
 
           <li class="item item-input {{ishidden}}">
-          {{> afQuickField  style='width:120px;' class='datepicker' type='time' name='workHourTime.from'}}
-           {{> afQuickField style='width:120px;' class='datepicker'  type='time' name='workHourTime.to'}}
+            <label>{{_ "From" }}:</label>
+            {{> afQuickField  style='width:120px;' class='datepicker' type='time' name='workHourTime.from' label=' '}}
+            <label>{{_ "To" }}:</label>
+            {{> afQuickField style='width:120px;' class='datepicker'  type='time' name='workHourTime.to' label=' '}}
           </li>
 
           <div class="{{ishidden}}">

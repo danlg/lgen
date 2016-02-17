@@ -162,6 +162,9 @@
   "Notification": "Notification",
   "ReceivingMessagesVia": "Receiving messages via:",
 
+  "From":"From",
+  "To"  :"To",
+
   "Monday":"Monday",
   "Tuesday":"Tuesday",
   "Wednesday":"Wednesday",

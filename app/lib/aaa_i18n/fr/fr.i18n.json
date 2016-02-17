@@ -163,6 +163,9 @@
   "Notification": "Notification",
   "ReceivingMessagesVia": "Recevoir les messages par",
 
+  "From":"De",
+  "To"  :"A",
+
   "Monday":"Lundi",
   "Tuesday":"Mardi",
   "Wednesday":"Mercredi",
@@ -171,7 +174,6 @@
   "Saturday":"Samedi",
   "Sunday":"Dimanche",
 
-  "From":"De",
   "Mon":"Lun",
   "Tue":"Mar",
   "Wed":"Mer",
@@ -179,6 +181,7 @@
   "Fri":"Ven",
   "Sat":"Sam",
   "Sun":"Dim",
+
   "Chat settings":"Paramètres des discuss.",
 
   "schemas": {
