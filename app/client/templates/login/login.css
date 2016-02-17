@@ -20,7 +20,14 @@
   padding-top: 2%;
 }
 
+.selectLang{
+    display: none;
+}
 
+/* show select language option for web */
+.platform-web .selectLang{
+    display: block;
+}
 
 /*.button-outline {*/
 .button-login {
