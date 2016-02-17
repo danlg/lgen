@@ -36,6 +36,15 @@ Template.Login.created = function () {
 Template.Login.rendered = function () {
   // videojs('bg-video').Background();
   // alert("rendered");
+  
+  /* Populate select dropdown list and then allow user to switch lang on web. TODO
+  var languagesObj = TAPi18n.getLanguages();
+  lodash.forOwn(languagesObj,function(eachLangObj,key){
+      log.info(eachLangObj);
+      log.info(key);
+      $('#selectLangDropdownList').append($('<option>').text(eachLangObj.name).attr('value', key));
+  });*/
+  
 };
 
 Template.Login.destroyed = function () {
