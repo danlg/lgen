@@ -73,7 +73,7 @@
   "Motto2": "instant messaging",
   "Motto3": "for school",
   "Next":  "Next",
-  "NewChatMessageMailTitle":"__user_name____chat_room_name__ sends you a message",    
+  "NewChatMessageMailTitle":"__user_name__  __chat_room_name__ sends you a message",
   "NewClassMailTitle":"Your class __class_name__ is ready!",
   "NewClassMessageMailTitle":"Message from class __class_name__",  
   "NoClass":  "No class found",
