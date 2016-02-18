@@ -9,7 +9,8 @@ var documentArr = ReactiveVar([]);
 var isRecording = false;
 var media = "";
 var isPlayingSound = false;
-var messageListOriginalHeight;
+var messageListBaseBorrow = 133;
+var messageListHeightBorrower = ReactiveVar([]);
 
 /*var arr = [];*/
 /*var selectArr = ReactiveVar("");
@@ -86,7 +87,7 @@ Template.SendMessage.events({
 
       }
 
-      showPreview();
+      showPreview('voice');
     }
 
   },
@@ -122,7 +123,7 @@ Template.SendMessage.events({
 
     soundArr.set(array);
 
-    hidePreview();
+    hidePreview('voice');
     
     //TODO: clean up file if cancel by user    
   },
@@ -174,21 +175,15 @@ Template.SendMessage.events({
         soundArr.set([]); 
         documentArr.set([]);       
         $(".msgBox").val("");
+
+        hidePreview('all');
         
-        //hide Preview according to attached file type
-        if(mediaObj.imageArr.length > 0){
-          hidePreview("image");
-        }else if(mediaObj.soundArr.length > 0 || mediaObj.documentArr.length > 0){
-          hidePreview();
-        }else{
-          //do nothing
-        }
         sendBtnMediaButtonToggle(); 
         //force update autogrow
         document.getElementsByClassName("inputBox")[0].updateAutogrow(); 
         
         //scroll messagelist to bottom;
-        scrollMessageListToBottom();
+        window.setTimeout(scrollMessageListToBottom, 100);
       
       });
     } else {
@@ -354,7 +349,6 @@ Template.SendMessage.created = function () {
 
 Template.SendMessage.rendered = function () {
   $(".msgBox").autogrow();
-  messageListOriginalHeight = $("#messageList").height();
 };
 
 Template.SendMessage.destroyed = function () {
@@ -570,28 +564,67 @@ function imageAction() {
 }
 
 function showPreview(filetype){
-    log.info("show preview");
+    log.info("show preview:filetype:"+filetype);
     
-    $('.preview').show();
- 
+    $('.preview'+'.'+filetype).show();
+    var totalExtraBorrow;
+    var totalBorrow;
+    var calcValue;
+    var borrower = messageListHeightBorrower.get();
     //increase the height of input box panel
     if(filetype && filetype == "image"){
-     $('.messageList').css({'height':'calc(100% - 208px )'})         
+     //borrow 95px from messageList
+     borrower.push({type:filetype,height:95});          
     }else if(filetype && filetype == "document") {
-     $('.messageList').css({'height':'calc(100% - 151px )'})        
-    }  
-    else{
-     $('.messageList').css({'height':'calc(100% - 180px )'})        
-    }  
+     //borrow 38px from messageList
+     borrower.push({type:filetype,height:38});     
+     //$('.messageList').css({'height':'calc(100% - 151px )'})        
+    }else if(filetype == "setting"){
+     //borrow 20px from messageList
+     borrower.push({type:filetype,height:20});          
+    }
+    else{ //filetype == voice
+     //borrow 67px from messageList
+     borrower.push({type:filetype,height:67});     
+     //$('.messageList').css({'height':'calc(100% - 180px )'})        
+    }
+    messageListHeightBorrower.set(borrower);
+    var totalExtraBorrow = 0;
+    borrower.map(function(obj){
+        totalExtraBorrow = totalExtraBorrow + obj.height;
+    })
+    totalBorrow = messageListBaseBorrow + totalExtraBorrow;
+    calcValue = "calc(100% - "+totalBorrow+"px)";
+    $('.messageList').css({'height':calcValue});
+      
     //http://stackoverflow.com/questions/10503606/scroll-to-bottom-of-div-on-page-load-jquery
     $('.messageList').scrollTop($('.messageList').prop("scrollHeight") );   
 }
 function hidePreview(filetype){
-    log.info("close preview");
-    
-    $('.preview').hide();
+    log.info("hide preview:filetype:"+filetype);
+    var borrower = messageListHeightBorrower.get();
+
+    if(filetype == "all"){
+        borrower = [];
+        $('.preview').hide();    
+    }else{
+        lodash.remove(borrower,function(obj){
+            if(obj.type == filetype){
+              return true;
+         }
+        });
+        $('.preview'+'.'+filetype).hide();       
+    }
+    messageListHeightBorrower.set(borrower);
    
-    $('.messageList').css({'height':'calc(100% - 113px )'})
+    var totalExtraBorrow = 0;
+    borrower.map(function(obj){
+        totalExtraBorrow = totalExtraBorrow + obj.height;
+    })
+    var totalBorrow = messageListBaseBorrow + totalExtraBorrow;
+    var calcValue = "calc(100% - "+totalBorrow+"px)";
+     
+    $('.messageList').css({'height':calcValue});
     
     //http://stackoverflow.com/questions/10503606/scroll-to-bottom-of-div-on-page-load-jquery   
     $('.messageList').scrollTop($('.messageList').prop("scrollHeight") );   
@@ -615,4 +648,5 @@ function scrollMessageListToBottom(){
    var messageListDOM = document.getElementById("messageList");
    var messageListDOMToBottomScrollTopValue = messageListDOM.scrollHeight - messageListDOM.clientHeight;
    messageListDOM.scrollTop=messageListDOMToBottomScrollTopValue; 
+   $('.messageList').scrollTop($('.messageList').prop("scrollHeight") );  
 }
