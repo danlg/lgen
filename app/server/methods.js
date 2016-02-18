@@ -96,40 +96,6 @@ Meteor.methods({
             }
                
     }
-    /*
-    //send to user only if they opt to receive email
-    var isUserOptToReceiveEmail = recipientUser.profile.email;
-    log.info(isUserOptToReceiveEmail);
-  
-    if (isUserOptToReceiveEmail) {
-      
-      //need to make sure the email is verfied. For now, to ensure that, only people login by google can be checked.
-      //TODO: verify user's email address who is not registered with google acc.
-      if (recipientUser.emails) {
-        if (recipientUser.emails) {
-          if (recipientUser.services.google.verified_email) {
-            log.info("try sending chat room mail to " + recipientUser.emails[0].address);
-            
-            var chatRoomRecepientArr = [];
-            var chatRoomRecepient = { 
-                email: recipientUser.emails[0].address,
-                name:  recipientUser.profile.name
-            }
-            chatRoomRecepientArr.push(chatRoomRecepient);
-            
-            try {
-              var emailTemplateByUserLangs = messageEmailTemplate(chatRoomRecepientArr, orginateUser.profile.name, content);
-              emailTemplateByUserLangs.forEach(function(emailTemplateSingleLang) {
-                Mandrill.messages.send(emailTemplateSingleLang);
-              }, this); 
-            }
-            catch (e) {
-              log.error(e);
-            }
-          }
-        }
-      }
-    }*/
   },
 
   addClassMail: function (to, _id) {
@@ -213,7 +179,7 @@ Meteor.methods({
     }
     var senderFullname = Meteor.user().profile.firstname + " " + Meteor.user().profile.lastname;
     var notificationTitle = "Message From " + senderFullname;
-    log.info(senderFullname);
+    log.info("sendmsg:senderFullName:"+senderFullname);
     Push.send({
       from: 'push',
       title: notificationTitle,
@@ -546,8 +512,9 @@ sendEmailMessageToClasses = function(targetUserids, classes, message, originateU
   }
   
   var arrayOfTargetUsers = Meteor.users.find({ _id: { $in: targetUserids } }).fetch();
+  log.info("sendEmailMessageToClasses:arrayOfTargetUsers:start");
   log.info(arrayOfTargetUsers);
-
+  log.info("sendEmailMessageToClasses:arrayOfTargetUsers:end");
     var optInUsersGroupByLang = lodash.chain(arrayOfTargetUsers)
                                       .filter(function(user){
                                         if(user.profile.email){
@@ -563,7 +530,7 @@ sendEmailMessageToClasses = function(targetUserids, classes, message, originateU
 
   //extract and join all the classes name to a single string
   var allClassNameJoined = lodash.flatten(lodash.map(classes, 'className')).join();
-  log.info(allClassNameJoined); 
+  log.info("sendEmailMessageToClasses:className:"+allClassNameJoined); 
     for(var lang in optInUsersGroupByLang){
         
         var classRecepientArr = []; 
@@ -575,8 +542,9 @@ sendEmailMessageToClasses = function(targetUserids, classes, message, originateU
             classRecepientArr.push(classRoomRecepient);            
         });
         
+        log.info("sendEmailMessageToClasses:classRecepientArr:lang:"+lang+":start");
         log.info(classRecepientArr);
-        log.info(lang);
+        log.info("sendEmailMessageToClasses:classRecepientArr:lang:"+lang+":end");      
         
         
             try {
