@@ -170,9 +170,12 @@ Template.ClassPanel.rendered = function () {
                
         });
         }
-    });  
+    });
+    
+    Session.set('hasFooter',false);
 };
 
 Template.ClassPanel.destroyed = function () {
+    Session.set('hasFooter',true);
 };
 

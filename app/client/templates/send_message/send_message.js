@@ -11,7 +11,7 @@ var media = "";
 var isPlayingSound = false;
 var messageListBaseBorrow = 133;
 var messageListHeightBorrower = ReactiveVar([]);
-
+var canVote = ReactiveVar(true);
 /*var arr = [];*/
 /*var selectArr = ReactiveVar("");
  var selecting = ReactiveVar(false);*/
@@ -20,6 +20,13 @@ var messageListHeightBorrower = ReactiveVar([]);
 /* SendMessage: Event Handlers */
 /*****************************************************************************/
 Template.SendMessage.events({
+  'click #voteOption':function(e){
+      if($('input#voteOption:checked').length > 0){
+          canVote.set(true);
+      }else{
+          canVote.set(false);
+      }      
+  },
   'click #imageBtn': function (e) {
 
    
@@ -302,6 +309,13 @@ Template.SendMessage.helpers({
   getDocument: function(){
     var id = this.toString();
     return Documents.findOne(id);      
+  },
+  isVotingTypeDisabled:function(){
+      if(canVote.get() == true){
+          return "";
+      }else{
+          return "display:none;";
+      }
   },
   isDisabled: function (type) {
     switch (type) {

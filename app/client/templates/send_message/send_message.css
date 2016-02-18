@@ -23,3 +23,12 @@
   padding:0 !important;
   
 }
+
+.extra-options select{
+    height: 18px;
+}
+
+.extra-options select[disabled]{
+    font-size:smaller;
+    background: none;
+}
