@@ -172,10 +172,10 @@ Template.ClassPanel.rendered = function () {
         }
     });
     
-    Session.set('hasFooter',false);
+   // Session.set('hasFooter',false);
 };
 
 Template.ClassPanel.destroyed = function () {
-    Session.set('hasFooter',true);
+  //  Session.set('hasFooter',true);
 };
 

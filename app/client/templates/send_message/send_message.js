@@ -20,8 +20,8 @@ var canVote = ReactiveVar(true);
 /* SendMessage: Event Handlers */
 /*****************************************************************************/
 Template.SendMessage.events({
-  'click #voteOption':function(e){
-      if($('input#voteOption:checked').length > 0){
+  'click #allowVote':function(e){
+      if($('input#allowVote:checked').length > 0){
           canVote.set(true);
       }else{
           canVote.set(false);
@@ -162,6 +162,17 @@ Template.SendMessage.events({
     log.info(target);
     var msg = $(".msgBox").val();
     var mediaObj = {};
+    mediaObj.allowComment = document.getElementById('allowComment').checked;
+    mediaObj.allowVote = document.getElementById('allowVote').checked;  
+    if(mediaObj.allowVote){
+     mediaObj.voteType = document.querySelector('input[name="voteTypeOption"]:checked').value;   
+    }else{
+     mediaObj.voteType = "";
+    }
+    log.info("sendMsg:allowComment:"+mediaObj.allowComment);
+    log.info("sendMsg:allowVote:"+mediaObj.allowComment);
+    log.info("sendMsg:voteType:"+mediaObj.voteType);
+           
     mediaObj.imageArr = imageArr.get();
     mediaObj.soundArr = soundArr.get();
     mediaObj.documentArr = documentArr.get();

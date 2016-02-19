@@ -68,15 +68,16 @@
               
         <div style="display:none;"> {{ arrToString searchObj.selectArrName }}</div>
 
-        <div class="extra-options setting">
-             <small>can:
-             <label style='font-size:small'><!--<i class="icon  ion-chatbox"></i>--><input type="checkbox" name="commentOption" value="comment" checked="checked">comment</label>
-             <label style='font-size:small'><!--<i class="icon  ion-android-checkbox-outline  "></i>--><input id='voteOption' type="checkbox" name="voteOption" value="vote" checked="checked">vote</label>
-            <label style='font-size:small;{{isVotingTypeDisabled}}' data-ion-popover="_myPopover">
-                <button style='font-size:small;height:18px;'>{{currentVoteOption}}✓,x,?,★</button>
-            </label>             
-             <!--<label><select {{isVotingTypeDisabled}}><option>✓,x,?,★</option><option>A,B,C,D</option><option>Customize</option></select> </label> -->  
-             </small>
+        <div class="extra-options setting" style='overflow:hidden;white-space:nowrap;'>
+             <span style='font-size:x-small'>{{_ "Can"}}:</span>
+             <label style='font-size:smaller'><!--<i class="icon  ion-chatbox"></i>--><input id='allowComment' type="checkbox" name="allowComment" value="comment" checked="checked">{{_ "Comment"}}</label>
+             <label style='font-size:smaller'><!--<i class="icon  ion-android-checkbox-outline  "></i>--><input id='allowVote' type="checkbox" name="allowVote" value="vote" checked="checked">{{_ "Vote"}}</label>
+            {{#unless isVotingTypeDisabled}}
+                <label style='font-size:x-small;'><input type="radio" name="voteTypeOption" value="checkedStarCloseHelp" checked="checked"> ✓,x,★,? </label>
+                <label style='font-size:x-small;'><input type="radio" name="voteTypeOption" value="checkedClose">✓/x</label>                 
+                <label style='font-size:x-small;'><input type="radio" name="voteTypeOption" value="abcd"> A,B,C,D</label>
+            {{/unless}}            
+             
         </div>        
         <div class="item item-input input-box-panel  {{messageBox}}" style="">
           <textarea dir="auto" name="msg" maxlength="5000" class="inputBox msgBox autogrow-short" placeholder="{{isPlaceHolder}}"></textarea>
@@ -198,23 +199,3 @@
 
 </template>
 
-<template name="_myPopover">
-  {{#ionPopover}}
-    <div class="content">
-      <div class="list">
-        <a class="item item-icon-right">
-          ✓,x,?,★
-          {{> ionIcon icon="ios-arrow-right"}}
-        </a>
-        <a class="item item-icon-right">
-          A,B,C,D
-          {{> ionIcon icon="ios-arrow-right"}}
-        </a>
-        <a class="item item-icon-right">
-          Customize
-          {{> ionIcon icon="ios-arrow-right"}}
-        </a>
-      </div>
-    </div>
-  {{/ionPopover}}
-</template>
