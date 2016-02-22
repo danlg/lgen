@@ -251,4 +251,39 @@ a.tooltips.point-to-left span:after {
 
 .popover{
     height:50px;
+   background-color: lightgrey;
+padding: 0px 0px 10px 10px;   
 }
+
+ .popover {
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.08); }
+ .popover, .popover .bar-header {
+  border-radius: 10px; }
+.popover .scroll-content {
+  margin: 8px 0;
+  border-radius: 10px; }
+ .popover .scroll-content.has-header {
+  margin-top: 0; }
+ .popover-arrow {
+  position: absolute;
+  display: block;
+  top: -17px;
+  width: 30px;
+  height: 19px;
+  overflow: hidden; }
+ .popover-arrow:after {
+    position: absolute;
+    top: 12px;
+    left: 5px;
+    width: 20px;
+    height: 20px;
+    background-color: lightgrey;
+    border-radius: 3px;
+    content: '';
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg); }
+ .popover-bottom .popover-arrow {
+  top: auto;
+  bottom: -10px; }
+.popover-bottom .popover-arrow:after {
+    top: -6px; }
