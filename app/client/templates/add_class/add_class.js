@@ -62,11 +62,7 @@ Template.AddClass.events({
     'click #pick-an-icon-btn':function(){
       var parentDataContext= {iconListToGet:"iconListForClass",sessionToBeSet:"chosenIconForNewClass"};
       IonModal.open("ClassIconChoose", parentDataContext);  
-    },
-    'click #pick-an-icon-help-btn':function(){
-       $('#pick-an-icon-help-btn').addClass('activated');
-       setTimeout(function(){$('#pick-an-icon-help-btn').removeClass('activated'); },3000)
-    }  
+    } 
 });
 
 /*****************************************************************************/
@@ -98,8 +94,8 @@ Template.AddClass.rendered = function () {
 
   form = this.$("#insertClass");
   $(".checked").attr("checked", "checked");
-   setTimeout(function(){ $('#pick-an-icon-help-btn').addClass('activated'); },1500) 
-  setTimeout(function(){$('#pick-an-icon-help-btn').removeClass('activated'); },5000)  
+  //setTimeout(function(){ $('#pick-an-icon-help-btn').addClass('activated'); },1500) 
+  //setTimeout(function(){$('#pick-an-icon-help-btn').removeClass('activated'); },5000)  
 };
 
 Template.AddClass.destroyed = function () {

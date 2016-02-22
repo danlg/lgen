@@ -193,6 +193,7 @@ pre{
     line-height: normal;
 }
 
+/*
 .tooltip {
   z-index: 1001;
   pointer-events: none;
@@ -234,7 +235,7 @@ a.tooltips.activated span {
   z-index: 999;
 }
 
-/*point to left triangle*/
+
 a.tooltips.point-to-left span:after {
   content: '';
   position: absolute;
@@ -246,4 +247,8 @@ a.tooltips.point-to-left span:after {
   border-style: solid;
   border-width: 5px 10px 5px 0;
   border-color: transparent #000000 transparent transparent;
+}*/
+
+.popover{
+    height:50px;
 }

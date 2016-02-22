@@ -16,13 +16,23 @@
    
       {{#autoForm  validation="keyup" collection="Classes" id="insertClass" type="insert"}}
         <ul class="list " style="margin-bottom:0;">
-          <li class="item item-input">
-            {{> afFieldInput name="className" placeholder=(_ "Type_Class_Name" ) }}
-            {{#if afFieldIsInvalid name='className'}}
-              <br><span class="help-block">{{afFieldMessage name='className'}}</span>
-            {{/if}}
+          <li class="" >
+             <div class="bar bar-header item-input-inset">
+                 <label class="item-input-wrapper white-background">
+                 <style>
+                     .item-input-wrapper input{
+                         width:97% !important;
+                     }    
+                 </style>
+                 <i class="icon placeholder-icon"></i>
+                {{> afFieldInput name="className" placeholder=(_ "Type_Class_Name" ) }}
+                {{#if afFieldIsInvalid name='className'}}
+                 <br><span class="help-block">{{afFieldMessage name='className'}}</span>
+                {{/if}}
+                <a data-ion-popover="inputClassNamePopover"><i class='icon ion-ios-help' ></i></a>
+                </label>
+            </div>
           </li>
-          {{ > tooltips }}
           <li class="" >
             <div class="bar bar-header item-input-inset">
               <label class="item-input-wrapper white-background">
@@ -31,14 +41,16 @@
                 {{#if afFieldIsInvalid name='classCode'}}
                   <br><span class="help-block ">{{afFieldMessage name='classCode'}}</span>
                 {{/if}}
+                <a data-ion-popover="inputClassCodePopover"><i class='icon ion-ios-help' ></i></a>
               </label>
             </div>
           </li>
 
           <li class="item">    
            {{> afFieldInput name="classavatar" style='display:none;' placeholder="green_apple" value=getClassAvatar }}
-           <i id='pick-an-icon-btn' class="icon e1a-{{getClassAvatar}} e1a-4x emojicon"></i> 
-           <a id='pick-an-icon-help-btn' class="tooltips point-to-left" href="#"><i class='icon ion-ios-help' ></i><span>Click on the apple to choose a class icon!</span></a>
+           <i id='pick-an-icon-btn' class="icon e1a-{{getClassAvatar}} e1a-4x emojicon"></i>
+           
+           <a data-ion-popover="addClassChooseIconPopover"><i class='icon ion-ios-help' ></i></a>
           </li>
 
           <li class="item item-toggle">
@@ -80,4 +92,22 @@
 
     {{/ionContent}}
   {{/ionView}}
+</template>
+
+<template name="inputClassNamePopover">
+  {{#ionPopover}}   
+          You can input a class name here
+  {{/ionPopover}}
+</template>
+
+<template name="inputClassCodePopover">
+  {{#ionPopover}}   
+          You can input a class code here
+  {{/ionPopover}}
+</template>
+
+<template name="addClassChooseIconPopover">
+  {{#ionPopover}}   
+          You can pick a class icon here
+  {{/ionPopover}}
 </template>
