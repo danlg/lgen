@@ -192,3 +192,58 @@ pre{
 .bar .title.title-twoline{
     line-height: normal;
 }
+
+.tooltip {
+  z-index: 1001;
+  pointer-events: none;
+  transition: opacity .1s ease-out;
+  opacity: 0;
+
+  &.hide {
+    opacity: 0;
+  }
+
+  &.show {
+    opacity: 1;
+  }
+}
+
+a.tooltips {
+  position: relative;
+  display: inline;
+}
+a.tooltips span {
+  position: absolute;
+  width:140px;
+  color: #FFFFFF;
+  background: #000000;
+  height: 45px;
+  line-height: 14px;
+  text-align: center;
+  visibility: hidden;
+  opacity: 0;
+  left:0;
+  border-radius: 3px;
+  transition: all 0.5s ease;
+}
+
+a.tooltips.activated span {
+  visibility: visible;
+  opacity: 0.8;
+  left:0;  
+  z-index: 999;
+}
+
+/*point to left triangle*/
+a.tooltips.point-to-left span:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  margin-left: -8px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 5px 10px 5px 0;
+  border-color: transparent #000000 transparent transparent;
+}

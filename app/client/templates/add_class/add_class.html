@@ -13,6 +13,7 @@
 
   {{#ionView}}
     {{#ionContent}}
+   
       {{#autoForm  validation="keyup" collection="Classes" id="insertClass" type="insert"}}
         <ul class="list " style="margin-bottom:0;">
           <li class="item item-input">
@@ -21,7 +22,7 @@
               <br><span class="help-block">{{afFieldMessage name='className'}}</span>
             {{/if}}
           </li>
-
+          {{ > tooltips }}
           <li class="" >
             <div class="bar bar-header item-input-inset">
               <label class="item-input-wrapper white-background">
@@ -37,6 +38,7 @@
           <li class="item">    
            {{> afFieldInput name="classavatar" style='display:none;' placeholder="green_apple" value=getClassAvatar }}
            <i id='pick-an-icon-btn' class="icon e1a-{{getClassAvatar}} e1a-4x emojicon"></i> 
+           <a id='pick-an-icon-help-btn' class="tooltips point-to-left" href="#"><i class='icon ion-ios-help' ></i><span>Click on the apple to choose a class icon!</span></a>
           </li>
 
           <li class="item item-toggle">
