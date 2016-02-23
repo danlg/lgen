@@ -98,7 +98,6 @@ meteorhacks:kadira@2.24.1
 meteorhacks:meteorx@1.4.1
 meteorhacks:npm@1.5.0
 meteorhacks:subs-manager@1.6.2
-meteoric:ionic@0.1.19
 meteoric:ionic-sass@0.1.9
 meteoric:ionicons-sass@0.1.6
 meteorspark:util@0.2.0
@@ -144,6 +143,7 @@ stevezhu:lodash@3.10.1
 tap:i18n@1.7.0
 templating@1.1.5
 templating-tools@1.0.0
+terenceng2010:ionic@0.2.0
 tracker@1.0.9
 u2622:persistent-session@0.4.4
 ui@1.0.8
