@@ -251,8 +251,9 @@ a.tooltips.point-to-left span:after {
 
 .popover{
     height:auto;
-    background-color: lightgrey;
-    padding: 0px 0px 10px 10px;   
+    background-color: black;
+    padding: 0px 0px 10px 10px;
+    color:white;   
 }
 
  .popover {
@@ -277,11 +278,13 @@ a.tooltips.point-to-left span:after {
     left: 5px;
     width: 20px;
     height: 20px;
-    background-color: lightgrey;
+    background-color: black;
     border-radius: 3px;
     content: '';
     -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg); }
+    transform: rotate(-45deg);
+    color:white;
+    }
  .popover-bottom .popover-arrow {
   top: auto;
   bottom: -10px; }
