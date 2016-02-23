@@ -10,9 +10,9 @@
   {{else}}
     {{#ionTabs style="ios"}}
       <!-- {{> ionTab title="Home" path="Home" iconOff="ios-home-outline" iconOn="ios-home"}} -->
-      {{> ionTab title=_Classes path="TabClasses" iconOff="ios-people-outline" iconOn="ios-people"}}
-      {{> ionTab title=_Chat    path="TabChat" iconOff="ios-chatbubble-outline" iconOn="ios-chatbubble" badgeNumber=_chatNumber }}
-      {{> ionTab title=_You     path="TabYou" iconOff="ios-gear-outline" iconOn="ios-gear"}}
+      {{> ionTab class='class-ionTab' title=_Classes path="TabClasses" iconOff="ios-people-outline" iconOn="ios-people"}}
+      {{> ionTab class='chat-ionTab' title=_Chat    path="TabChat" iconOff="ios-chatbubble-outline" iconOn="ios-chatbubble" badgeNumber=_chatNumber }}
+      {{> ionTab class='you-ionTab' title=_You     path="TabYou" iconOff="ios-gear-outline" iconOn="ios-gear"}}
     {{/ionTabs}}
   {{/if}}
 </template>
