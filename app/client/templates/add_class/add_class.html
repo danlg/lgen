@@ -19,7 +19,7 @@
           <li class="" >
              <div class="bar bar-header item-input-inset">
                  <label class="item-input-wrapper white-background">
-                <a data-text='{{_ AddClassClassNameTooltip}}'  data-ion-tooltip="ionTooltip"><i class='icon ion-ios-help' ></i></a>
+                <a data-text='{{_ "AddClassClassNameTooltip"}}'  data-ion-tooltip="ionTooltip"><i class='icon ion-ios-help' ></i></a>
                  <i class="icon placeholder-icon"></i>
                 {{> afFieldInput name="className" placeholder=(_ "Type_Class_Name" ) }}
                 {{#if afFieldIsInvalid name='className'}}
@@ -32,7 +32,7 @@
           <li class="" >
             <div class="bar bar-header item-input-inset">
               <label class="item-input-wrapper white-background">
-                <a data-text='{{_ AddClassClassCodeTooltip}}'  data-ion-tooltip="ionTooltip"><i class='icon ion-ios-help' ></i></a>                  
+                <a data-text='{{_ "AddClassClassCodeTooltip"}}'  data-ion-tooltip="ionTooltip"><i class='icon ion-ios-help' ></i></a>                  
                 &nbsp;
                 <i class="icon ion-at placeholder-icon"></i>
                 {{> afFieldInput name="classCode" class="classCodeInput" placeholder=(_ "Type_Class_Code" ) }}
@@ -45,7 +45,7 @@
           </li>
 
           <li class="item">  
-           <a data-text="{{_ AddClassChooseIconTooltip}}" data-ion-tooltip="ionTooltip"><i class='icon ion-ios-help' ></i></a>                
+           <a data-text='{{_ "AddClassChooseIconTooltip"}}' data-ion-tooltip="ionTooltip"><i class='icon ion-ios-help' ></i></a>                
            {{> afFieldInput name="classavatar" style='display:none;' placeholder="green_apple" value=getClassAvatar }}
            <i id='pick-an-icon-btn' class="icon e1a-{{getClassAvatar}} e1a-4x emojicon"></i>
            
