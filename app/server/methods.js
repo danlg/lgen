@@ -137,7 +137,11 @@ Meteor.methods({
     var date = moment().format('x');
     // msgObj.msgId = CryptoJS.SHA1(date + msg).toString().substring(0, 6);
     msgObj.msgId = Random.id();
-    msgObj.sendAt = date;
+    msgObj.createdAt = new Date();
+    msgObj.createdBy = Meteor.userId();
+    msgObj.lastUpdatedAt = new Date();
+    msgObj.lastUpdatedBy = Meteor.userId();
+    msgObj.sendAt = date; //backward compatability
     msgObj.content = msg;
     
     //new msg sent would have voting type, option and content in vote object. 
@@ -197,9 +201,6 @@ Meteor.methods({
        //VoteOptions will need to be defined by user.
    }
     
-    
-
-    msgObj.comments=[];
     Classes.update({
       classCode: {
         $in: target
@@ -286,7 +287,30 @@ Meteor.methods({
       );
     }
   },
-
+  addCommentToClassAnnoucement :function(msgId,classObj,comment){
+  //e.g Meteor.call('addCommentToClassAnnoucement','Hv4WrMysxGfeCEDRu',{_id:'GgWku5L8D9kLXjFyR'},'hi')
+      var targetClass ={
+          _id: classObj._id,
+          
+          messagesObj:{
+            $elemMatch: {
+                msgId: msgId,
+                'comment.allowComment':true
+            }              
+          }
+      }
+        
+      var newCommentObj ={ _id: Random.id(),
+                            comment:comment,
+                            createdAt:new Date(),
+                            createdBy:Meteor.userId(),
+                            isShown:true,
+                            lastUpdatedBy:Meteor.userId(),
+                            lastUpdatedAt:new Date()
+                          };
+      
+      Classes.update( targetClass,{$push: {'messagesObj.$.comment.comments': newCommentObj}} );
+  },
   chatCreate: function (chatArr,chatObjExtra) {
     //user who create this chat is also added into the chat
     chatArr.push(Meteor.userId());
@@ -302,8 +326,10 @@ Meteor.methods({
     else {
       //no room exists. create a new one
       var newRoom;
-      var ChatObj = {chatIds: chatArr, messagesObj: []};
       
+      //TODO: add createdAt,lastUpdatedAt field in chat collection
+      //var ChatObj = {chatIds: chatArr, messagesObj: [], createdAt: new Date(), createdBy: Meteor.userId(), lastUpdatedAt: new Date(),lastUpdatedBy: Meteor.userId()};
+      var ChatObj = {chatIds: chatArr, messagesObj: []};
       //extra property for chat room, currently use during create of group chat room only.
       if(chatObjExtra){
           
