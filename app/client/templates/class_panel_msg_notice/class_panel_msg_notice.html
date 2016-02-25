@@ -13,8 +13,8 @@
         <div class=" ">
 
           <div class="item">
-            {{#with msgObj}}
-            {{#each this.vote.voteOptions}}
+            {{#with msgObj.vote}}
+                {{#each voteOptions}}
                     <a href="#" class="subdued">{{this.votes.length}}
                         
                         {{#with tryShowVoteOptionIcon ../voteType voteOption}}
@@ -29,7 +29,7 @@
                     {{/each}}
                     </a>                                                     
 
-            {{/each }}
+               {{/each }}
             {{/with}}             
             {{#each msgObj.checked}}
               <div><i class="ion-checkmark-round colored"></i> {{getName this}} </div>
