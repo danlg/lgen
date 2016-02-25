@@ -149,9 +149,10 @@
                     </p>
                     </div>
                     
-                    <!--Voting Area-->                  
-                    <div class="item tabs tabs-secondary tabs-icon-left">
+                    <!--Voting Area-->                 
+                    
                     {{#if star}}
+                    <div class="item tabs tabs-secondary tabs-icon-left">
                         <a class="tab-item" data-msgId={{msgId}} data-action="checked" href="#">
                             <i class="icon ion-checkmark-round {{isSelectAction checked}}"></i>
                         </a>
@@ -163,12 +164,17 @@
                         </a>
                         <a class="tab-item" data-msgId={{msgId}} data-action="help" href="#">
                             <i class="icon ion-help {{isSelectAction help}}"></i>
-                        </a>                   
+                        </a>
+                         </div>                   
                     {{else}}
-                         {{> VoteChange vote=this.vote messageId=msgId}}                     
+                        {{#if this.vote.allowVote}}
+                        <div class="item tabs tabs-secondary tabs-icon-left">
+                         {{> VoteChange vote=this.vote messageId=msgId}}
+                        </div>                     
+                        {{/if}}
                     {{/if}}
                         
-                    </div>
+                   
                     <!--Voting Area End-->
                     
                     <!--Display existing comments-->
@@ -187,14 +193,14 @@
                     <!--Display existing comments end-->
 
                     <!--Add comment-->
-                    
+                    {{#if this.comment.allowComment}}
                         <div class="item item-input-inset">
                             <label class="item-input-wrapper">
                                 <input type="text" class="" placeholder="What you think?">
                             </label>
                             <button class='button button-small button-positive add-comment-annoucement'>Comment</button>
                         </div>                    
-                    
+                    {{/if}}
                     <!--Add comment end-->
                                         
                     
