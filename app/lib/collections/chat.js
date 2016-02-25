@@ -20,7 +20,11 @@ Chat.attachSchema(new SimpleSchema({
   chatRoomModerator:{
       type:String,
       optional:true
-  }
+  },
+  createdAt:{ type: Date, optional:true},
+  createdBy:{type:String, optional:true},
+  lastUpdatedAt:{type:Date, optional:true},
+  lastUpdatedBy:{type:String, optional:true}
 }));
 
 if (Meteor.isServer) {

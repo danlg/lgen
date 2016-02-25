@@ -164,41 +164,31 @@ Meteor.methods({
         voteOptions:[]
     };
     
-    var VoteOption = function (optionName,iconName) {
+    var VoteOption = function (optionName) {
         this.voteOption = optionName;
-        this.voteOptionIcon = iconName;
+        //this.voteOptionIcon = iconName;
         this.votes = []; //where user obj is pushed into;
     };
     
     var VoteOptions = function(voteOptions){
         var arrayOfVoteOptions = [];
-        voteOptions.map(function(eachVoteOption){
-            
-            if(eachVoteOption.name){
-                arrayOfVoteOptions.push( new VoteOption(eachVoteOption.name,eachVoteOption.icon || ""));                
-            }else{
-                arrayOfVoteOptions.push( new VoteOption(eachVoteOption, ""));                
-            }
-
+        voteOptions.map(function(eachVoteOption){                   
+          arrayOfVoteOptions.push( new VoteOption(eachVoteOption));                
         });
         return arrayOfVoteOptions;
     }
    log.info(msgObj.vote.voteType);
    if(msgObj.vote.voteType == 'checkedStarCloseHelp'){
-       msgObj.vote.voteOptions = new VoteOptions([{name:'star',icon:"ion-ios-star"},
-                                                  {name:'checked',icon:"ion-checkmark-round"},
-                                                  {name:'close',icon:"ion-close-round"},
-                                                  {name:'help',icon:"ion-help"}
-                                                ]);
-       log.info(msgObj.vote.voteOptions);                                         
+       msgObj.vote.voteOptions = new VoteOptions(['star','checked','close','help']);
+       //log.info(msgObj.vote.voteOptions);                                         
    }else if(msgObj.vote.voteType == 'checkedClose'){
-       msgObj.vote.voteOptions = new VoteOptions([{name:'checked',icon:"ion-checkmark-round"},
-                                                  {name:'close',icon:"ion-close-round"}]);       
+       msgObj.vote.voteOptions = new VoteOptions(['checked','close']);       
    }else if(msgObj.vote.voteType == 'abcd'){
        msgObj.vote.voteOptions = new VoteOptions(['A','B','C','D']);         
    }else{
        //future extension point for futher customization.
        //VoteOptions will need to be defined by user.
+       
    }
     
     Classes.update({
@@ -327,9 +317,9 @@ Meteor.methods({
       //no room exists. create a new one
       var newRoom;
       
-      //TODO: add createdAt,lastUpdatedAt field in chat collection
-      //var ChatObj = {chatIds: chatArr, messagesObj: [], createdAt: new Date(), createdBy: Meteor.userId(), lastUpdatedAt: new Date(),lastUpdatedBy: Meteor.userId()};
-      var ChatObj = {chatIds: chatArr, messagesObj: []};
+      //add createdAt,lastUpdatedAt field in chat collection
+      var ChatObj = {chatIds: chatArr, messagesObj: [], createdAt: new Date(), createdBy: Meteor.userId(), lastUpdatedAt: new Date(),lastUpdatedBy: Meteor.userId()};
+      //var ChatObj = {chatIds: chatArr, messagesObj: []};
       //extra property for chat room, currently use during create of group chat room only.
       if(chatObjExtra){
           
