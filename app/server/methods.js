@@ -252,29 +252,74 @@ Meteor.methods({
   },
 
   updateMsgRating: function (type, msgId, classObj) {
-    var arr = ["star", "checked", "close", "help"];
-    var selector = {};
-    selector.classCode = classObj.classCode;
-    selector.messagesObj = {
-      $elemMatch: {
-        msgId: msgId
-      }
-    };
-    _.forEach(arr, function (element, index) {
-      var updateObj = {};
-      updateObj['messagesObj.$.' + element] = {_id: Meteor.userId()};
-      Classes.update(
-        selector,
-        {$pull: updateObj}
-      );
-    });
-    if (type) {
-      var updateObj2 = {};
-      updateObj2['messagesObj.$.' + type] = Meteor.user();
-      Classes.update(
-        {classCode: classObj.classCode, messagesObj: {$elemMatch: {msgId: msgId}}},
-        {$push: updateObj2}
-      );
+      
+    if(classObj.star){
+        var arr = ["star", "checked", "close", "help"];
+        var selector = {};
+        selector.classCode = classObj.classCode;
+        selector.messagesObj = {
+        $elemMatch: {
+            msgId: msgId
+        }
+        };
+        _.forEach(arr, function (element, index) {
+        var updateObj = {};
+        updateObj['messagesObj.$.' + element] = {_id: Meteor.userId()};
+        Classes.update(
+            selector,
+            {$pull: updateObj}
+        );
+        });
+        if (type) {
+        var updateObj2 = {};
+        updateObj2['messagesObj.$.' + type] = Meteor.user();
+        Classes.update(
+            {classCode: classObj.classCode, messagesObj: {$elemMatch: {msgId: msgId}}},
+            {$push: updateObj2}
+        );
+        }
+    }else{
+        
+        var updateObj = {};
+        var selector = {classCode:classObj.classCode,messagesObj:{$elemMatch:{msgId:msgId}}}
+        var currentMessage = Classes.findOne({classCode:classObj.classCode});
+        log.info(currentMessage);
+        var msgIndex = lodash.findIndex(currentMessage.messagesObj,{'msgId':msgId});
+        log.info(msgIndex);
+        updateObj['messagesObj.$.vote.voteOptions.0.votes'] = {_id: Meteor.userId()};
+        Classes.update(
+            selector,
+            {$pull: updateObj}
+        );
+        
+        updateObj['messagesObj.$.vote.voteOptions.1.votes'] = {_id: Meteor.userId()};
+        Classes.update(
+            selector,
+            {$pull: updateObj}
+        );  
+
+        updateObj['messagesObj.$.vote.voteOptions.2.votes'] = {_id: Meteor.userId()};
+        Classes.update(
+            selector,
+            {$pull: updateObj}
+        );  
+        updateObj['messagesObj.$.vote.voteOptions.3.votes'] = {_id: Meteor.userId()};
+        Classes.update(
+            selector,
+            {$pull: updateObj}
+        );          
+       
+        if (type) {
+        var voteIndex = lodash.findIndex(currentMessage.messagesObj[msgIndex].vote.voteOptions,{'voteOption':type});
+        var updateObj2 = {};
+        updateObj2['messagesObj.'+msgIndex+'.vote.voteOptions.'+voteIndex+'.votes'] = Meteor.user();
+        //var elemMatchStr = 'messagesObj.'+msgIndex+'.vote.voteOption.'+voteIndex;
+        //log.info(elemMatchStr);
+        Classes.update(
+            {classCode: classObj.classCode},
+            {$push: updateObj2}
+        );
+        }             
     }
   },
   addCommentToClassAnnoucement :function(msgId,classObj,comment){
