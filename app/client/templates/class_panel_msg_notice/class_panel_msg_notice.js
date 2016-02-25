@@ -29,6 +29,10 @@ Template.ClassPanelMsgNotice.helpers({
   isNotEmpty: function (action) {
     return action.length > 0;
   },
+  getNameById: function (userId) {
+    var userObj = Meteor.users.findOne(userId);
+    return userObj._id == Meteor.userId() ? "You" : userObj.profile.firstname + " " + userObj.profile.lastname;
+  },
   getName: function (userObj) {
     return userObj._id == Meteor.userId() ? "You" : userObj.profile.firstname + " " + userObj.profile.lastname;
   },
@@ -62,6 +66,28 @@ Template.ClassPanelMsgNotice.helpers({
   getSound: function () {
     var id = this.toString();
     return Sounds.findOne(id);
+  },
+  tryShowVoteOptionIcon : function(voteType,voteOption){
+      var voteCountObj = {voteOptionText : voteOption};
+      if(voteType == "checkedStarCloseHelp"){     
+          if(voteOption =="star"){
+            voteCountObj.ionicIcon = "ion-ios-star";
+          }else if(voteOption =="checked"){
+            voteCountObj.ionicIcon = "ion-checkmark-round";
+          }else if(voteOption =="close"){
+            voteCountObj.ionicIcon = "ion-close-round";  
+          }else if(voteOption =="help"){
+            voteCountObj.ionicIcon = "ion-help";
+          }
+      }else if(voteType == "checkedClose"){
+          if(voteOption == "checked"){
+            voteCountObj.ionicIcon = "ion-checkmark-round";
+          }else if(voteOption == "close"){
+            voteCountObj.ionicIcon = "ion-close-round";    
+          }
+      }
+      
+      return voteCountObj;
   }
 });
 
