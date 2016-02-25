@@ -137,7 +137,11 @@ Meteor.methods({
     var date = moment().format('x');
     // msgObj.msgId = CryptoJS.SHA1(date + msg).toString().substring(0, 6);
     msgObj.msgId = Random.id();
-    msgObj.sendAt = date;
+    msgObj.createdAt = new Date();
+    msgObj.createdBy = Meteor.userId();
+    msgObj.lastUpdatedAt = new Date();
+    msgObj.lastUpdatedBy = Meteor.userId();
+    msgObj.sendAt = date; //backward compatability
     msgObj.content = msg;
     
     //new msg sent would have voting type, option and content in vote object. 
@@ -160,46 +164,33 @@ Meteor.methods({
         voteOptions:[]
     };
     
-    var VoteOption = function (optionName,iconName) {
+    var VoteOption = function (optionName) {
         this.voteOption = optionName;
-        this.voteOptionIcon = iconName;
+        //this.voteOptionIcon = iconName;
         this.votes = []; //where user obj is pushed into;
     };
     
     var VoteOptions = function(voteOptions){
         var arrayOfVoteOptions = [];
-        voteOptions.map(function(eachVoteOption){
-            
-            if(eachVoteOption.name){
-                arrayOfVoteOptions.push( new VoteOption(eachVoteOption.name,eachVoteOption.icon || ""));                
-            }else{
-                arrayOfVoteOptions.push( new VoteOption(eachVoteOption, ""));                
-            }
-
+        voteOptions.map(function(eachVoteOption){                   
+          arrayOfVoteOptions.push( new VoteOption(eachVoteOption));                
         });
         return arrayOfVoteOptions;
     }
    log.info(msgObj.vote.voteType);
    if(msgObj.vote.voteType == 'checkedStarCloseHelp'){
-       msgObj.vote.voteOptions = new VoteOptions([{name:'star',icon:"ion-ios-star"},
-                                                  {name:'checked',icon:"ion-checkmark-round"},
-                                                  {name:'close',icon:"ion-close-round"},
-                                                  {name:'help',icon:"ion-help"}
-                                                ]);
-       log.info(msgObj.vote.voteOptions);                                         
+       msgObj.vote.voteOptions = new VoteOptions(['star','checked','close','help']);
+       //log.info(msgObj.vote.voteOptions);                                         
    }else if(msgObj.vote.voteType == 'checkedClose'){
-       msgObj.vote.voteOptions = new VoteOptions([{name:'checked',icon:"ion-checkmark-round"},
-                                                  {name:'close',icon:"ion-close-round"}]);       
+       msgObj.vote.voteOptions = new VoteOptions(['checked','close']);       
    }else if(msgObj.vote.voteType == 'abcd'){
        msgObj.vote.voteOptions = new VoteOptions(['A','B','C','D']);         
    }else{
        //future extension point for futher customization.
        //VoteOptions will need to be defined by user.
+       
    }
     
-    
-
-    msgObj.comments=[];
     Classes.update({
       classCode: {
         $in: target
@@ -286,7 +277,30 @@ Meteor.methods({
       );
     }
   },
-
+  addCommentToClassAnnoucement :function(msgId,classObj,comment){
+  //e.g Meteor.call('addCommentToClassAnnoucement','Hv4WrMysxGfeCEDRu',{_id:'GgWku5L8D9kLXjFyR'},'hi')
+      var targetClass ={
+          _id: classObj._id,
+          
+          messagesObj:{
+            $elemMatch: {
+                msgId: msgId,
+                'comment.allowComment':true
+            }              
+          }
+      }
+        
+      var newCommentObj ={ _id: Random.id(),
+                            comment:comment,
+                            createdAt:new Date(),
+                            createdBy:Meteor.userId(),
+                            isShown:true,
+                            lastUpdatedBy:Meteor.userId(),
+                            lastUpdatedAt:new Date()
+                          };
+      
+      Classes.update( targetClass,{$push: {'messagesObj.$.comment.comments': newCommentObj}} );
+  },
   chatCreate: function (chatArr,chatObjExtra) {
     //user who create this chat is also added into the chat
     chatArr.push(Meteor.userId());
@@ -302,8 +316,10 @@ Meteor.methods({
     else {
       //no room exists. create a new one
       var newRoom;
-      var ChatObj = {chatIds: chatArr, messagesObj: []};
       
+      //add createdAt,lastUpdatedAt field in chat collection
+      var ChatObj = {chatIds: chatArr, messagesObj: [], createdAt: new Date(), createdBy: Meteor.userId(), lastUpdatedAt: new Date(),lastUpdatedBy: Meteor.userId()};
+      //var ChatObj = {chatIds: chatArr, messagesObj: []};
       //extra property for chat room, currently use during create of group chat room only.
       if(chatObjExtra){
           

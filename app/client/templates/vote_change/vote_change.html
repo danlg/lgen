@@ -1,0 +1,16 @@
+<template name='VoteChange'>
+    {{#each vote.voteOptions}}
+        <a class="tab-item" data-msgId={{../messageId}}  data-action="{{voteOption}}" href="#">
+            {{#with tryShowVoteOptionIcon ../vote.voteType voteOption}}
+                {{#if this.ionicIcon}}
+                    <i class="icon {{this.ionicIcon}} {{ this.voteOptionText}}"></i>
+                {{else}}
+                    <span class="{{ this.voteOptionText}}">
+                        {{this.voteOptionText}}
+                    </span>
+                {{/if}}
+            {{/with}}
+        </a>                                                        
+    {{/each }}    
+       
+</template>

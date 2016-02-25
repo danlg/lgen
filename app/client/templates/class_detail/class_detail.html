@@ -129,65 +129,75 @@
                     
 
                     <p>
-                        {{#with this.vote}}
-                            {{#each this.voteOptions}}
-                                
-                                    <a href="#" class="subdued">{{this.votes.length}}
-                                        {{#if isVoteOptionWithIcon this.voteOptionIcon}} 
-                                            <i class="{{this.voteOptionIcon}} colored"></i>
-                                        {{else}}
-                                            {{this.voteOption}}
-                                        {{/if}}
-                                    </a>
-                                
-                            {{/each }}
-                        {{/with }}
-                        <!--{{#if isNotEmpty star}}
-                        <a href="#" class="subdued">{{star.length}} <i class="ion-ios-star colored"></i></a>
+                        {{#if star}}
+                            {{#if isNotEmpty star}}
+                            <a href="#" class="subdued">{{star.length}} <i class="ion-ios-star colored"></i></a>
+                            {{/if}}
+                            {{#if isNotEmpty checked}}
+                            <a href="#" class="subdued">{{checked.length}} <i class="ion-checkmark-round colored"></i></a>
+                            {{/if}}
+                            {{#if isNotEmpty close}}
+                            <a href="#" class="subdued">{{close.length}} <i class="ion-close-round colored"></i></a>
+                            {{/if}}
+                            {{#if isNotEmpty help}}
+                            <a href="#" class="subdued">{{help.length}} <i class="ion-help colored"></i></a>
+                            {{/if}}                        
+                        {{else}}
+                            {{> VoteDisplay this.vote}}                       
                         {{/if}}
-                        {{#if isNotEmpty checked}}
-                        <a href="#" class="subdued">{{checked.length}} <i class="ion-checkmark-round colored"></i></a>
-                        {{/if}}
-                        {{#if isNotEmpty close}}
-                        <a href="#" class="subdued">{{close.length}} <i class="ion-close-round colored"></i></a>
-                        {{/if}}
-                        {{#if isNotEmpty help}}
-                        <a href="#" class="subdued">{{help.length}} <i class="ion-help colored"></i></a>
-                        {{/if}}-->
                         <span class='timestamp'>{{formatTime sendAt}}</span>  
                     </p>
                     </div>
                     
                     <!--Voting Area-->                  
                     <div class="item tabs tabs-secondary tabs-icon-left">
-                    {{#with this.vote}}
-                        {{#each this.voteOptions}}
-                            <a class="tab-item" data-msgId={{msgId}} data-action="{{this.voteOption}}" href="#">
-                                {{#if isVoteOptionWithIcon this.voteOptionIcon}} 
-                                <i class="icon {{this.voteOptionIcon}} {{isSelectAction this.voteOption}}">
-                                </i>
-                                {{else}}
-                                <span class="{{isSelectAction this.voteOption}}">
-                                    {{this.voteOption}}
-                                </span>
-                                {{/if}}
-                            </a>                                                        
-                        {{/each }}
-                    {{/with }}                          
-                    <!--<a class="tab-item" data-msgId={{msgId}} data-action="checked" href="#">
-                        <i class="icon ion-checkmark-round {{isSelectAction checked}}"></i>
-                    </a>
-                    <a class="tab-item" data-msgId={{msgId}} data-action="close" href="#">
-                        <i class="icon ion-close-round {{isSelectAction close}}"></i>
-                    </a>
-                    <a class="tab-item" data-msgId={{msgId}} data-action="star" href="#">
-                        <i class="icon ion-ios-star {{isSelectAction star}}"></i>
-                    </a>
-                    <a class="tab-item" data-msgId={{msgId}} data-action="help" href="#">
-                        <i class="icon ion-help {{isSelectAction help}}"></i>
-                    </a>-->
+                    {{#if star}}
+                        <a class="tab-item" data-msgId={{msgId}} data-action="checked" href="#">
+                            <i class="icon ion-checkmark-round {{isSelectAction checked}}"></i>
+                        </a>
+                        <a class="tab-item" data-msgId={{msgId}} data-action="close" href="#">
+                            <i class="icon ion-close-round {{isSelectAction close}}"></i>
+                        </a>
+                        <a class="tab-item" data-msgId={{msgId}} data-action="star" href="#">
+                            <i class="icon ion-ios-star {{isSelectAction star}}"></i>
+                        </a>
+                        <a class="tab-item" data-msgId={{msgId}} data-action="help" href="#">
+                            <i class="icon ion-help {{isSelectAction help}}"></i>
+                        </a>                   
+                    {{else}}
+                         {{> VoteChange vote=this.vote messageId=msgId}}                     
+                    {{/if}}
+                        
                     </div>
                     <!--Voting Area End-->
+                    
+                    <!--Display existing comments-->
+                    {{#with this.comment}}
+                        {{#each this.comments}}
+                            <!--TODO: show full comments list on another page, limit number of comments on this page-->
+                            <div class="item less-top-bottom-padding {{@index}}">
+                             {{#if this.isShown}}
+                                {{this.comment}} by {{this.createdBy}} at {{this.createdAt}}
+                             {{else}}
+                                This comment is hidden.
+                             {{/if}}
+                            </div>
+                        {{/each}}
+                    {{/with}}
+                    <!--Display existing comments end-->
+
+                    <!--Add comment-->
+                    
+                        <div class="item item-input-inset">
+                            <label class="item-input-wrapper">
+                                <input type="text" class="" placeholder="What you think?">
+                            </label>
+                            <button class='button button-small button-positive add-comment-annoucement'>Comment</button>
+                        </div>                    
+                    
+                    <!--Add comment end-->
+                                        
+                    
                 </div>
                 {{/each}}
             {{/each}}
