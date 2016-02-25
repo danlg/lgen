@@ -5,9 +5,14 @@
                 {{#if this.ionicIcon}}
                     <i class="icon {{this.ionicIcon}} {{isSelectAction ../votes}}"></i>
                 {{else}}
-                    <span class="{{ this.voteOptionText}}">
-                        {{this.voteOptionText}}
-                    </span>
+                 
+                      {{#if isSelectAction ../votes}}
+                      <span style='font-size:x-large;'> <b>{{this.voteOptionText}}</b></span>
+                      {{else}}
+                        <span style='font-size:x-large;'>{{this.voteOptionText}}</span>
+                      {{/if}}
+
+                    
                 {{/if}}
             {{/with}}
         </a>                                                        
