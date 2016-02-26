@@ -177,33 +177,47 @@
                    
                     <!--Voting Area End-->
                     
+                    <!--Display comments count-->
+                    {{#if this.comment.allowComment}}
+                    <div class="item less-top-bottom-padding">
+                        <a class='smaller comment-counter subdued'>{{this.comment.comments.length}} comments</a>
+                    </div>
+                    <!--<div  class="item less-top-bottom-padding">
+                        <button class='button button-small commentToggleBtn'><i class='icon ion-chatbox'></i>Comment</button>
+                    </div>-->
+                    {{/if}}
+                    <!--Display comments count end-->
+                    
+                    <section data-msgid={{msgId}} class="commentSection hidden">
                     <!--Display existing comments-->
+                    
                     {{#with this.comment}}
                         {{#each this.comments}}
-                            <!--TODO: show full comments list on another page, limit number of comments on this page-->
-                            <div class="item less-top-bottom-padding {{@index}}">
-                             {{#if this.isShown}}
-                                {{this.comment}} by {{this.createdBy}} at {{this.createdAt}}
+                            <div class="item item-avatar less-top-bottom-padding {{@index}} ">
+                              {{#if this.isShown}}                     
+                               <h3>{{getNameById this.createdBy}}</h3>
+                               <p> {{this.comment}}</p>
+                               <p> {{formatTimeFromNow this.createdAt}}</p>
                              {{else}}
-                                This comment is hidden.
+                               <p> This comment is hidden.</p>
                              {{/if}}
                             </div>
                         {{/each}}
                     {{/with}}
                     <!--Display existing comments end-->
 
+
+                    </section>                    
                     <!--Add comment-->
                     {{#if this.comment.allowComment}}
                         <div class="item item-input-inset">
                             <label class="item-input-wrapper">
-                                <input type="text" class="" placeholder="What you think?">
+                                <input class='add-comment-annoucement-textbox' data-msgid={{msgId}} type="text" placeholder="...">
                             </label>
-                            <button class='button button-small button-positive add-comment-annoucement'>Comment</button>
+                            <button data-msgid={{msgId}} class='button button-small button-positive add-comment-annoucement'>Comment</button>
                         </div>                    
                     {{/if}}
-                    <!--Add comment end-->
-                                        
-                    
+                    <!--Add comment end-->                    
                 </div>
                 {{/each}}
             {{/each}}

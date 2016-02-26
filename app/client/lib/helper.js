@@ -186,15 +186,42 @@ Template.registerHelper('iconChooseHelper',function(iconArray){
    return output.join("");  
 });
 
+Template.registerHelper('formatTimeFromNow', function(time) {
+    var dateString="";
+    var userLanguage = TAPi18n.getLanguage();
+    moment.locale(userLanguage);    
+    if(time){
+      if( moment( new Date(time)).isValid() ){
+           dateString = moment(time).fromNow();
+      }else{
+        //log.info(this);
+        var fullUnixTime = time;
+        if (fullUnixTime){
+            var trimUnixTime = fullUnixTime.substr(0,10);
+            dateString = moment.unix(trimUnixTime).fromNow();
+        }  
+          
+      }
+      
+    }
+    return dateString;
+});
+
 Template.registerHelper('formatTime', function(time) {
     var dateString="";
-    if(time){  
-      //log.info(this);
-      var fullUnixTime = time;
-      if (fullUnixTime){
-        var trimUnixTime = fullUnixTime.substr(0,10);
-        dateString = moment.unix(trimUnixTime).format('h:mm a');
-      }       
+    if(time){
+      if( moment( new Date(time)).isValid() ){
+           dateString = moment(time).format('h:mm a');
+      }else{
+        //log.info(this);
+        var fullUnixTime = time;
+        if (fullUnixTime){
+            var trimUnixTime = fullUnixTime.substr(0,10);
+            dateString = moment.unix(trimUnixTime).format('h:mm a');
+        }  
+          
+      }
+      
     }
     return dateString;
 });

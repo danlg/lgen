@@ -286,24 +286,24 @@ Meteor.methods({
         log.info(currentMessage);
         var msgIndex = lodash.findIndex(currentMessage.messagesObj,{'msgId':msgId});
         log.info(msgIndex);
-        updateObj['messagesObj.$.vote.voteOptions.0.votes'] = {_id: Meteor.userId()};
+        updateObj['messagesObj.$.vote.voteOptions.0.votes'] = Meteor.userId();
         Classes.update(
             selector,
             {$pull: updateObj}
         );
         
-        updateObj['messagesObj.$.vote.voteOptions.1.votes'] = {_id: Meteor.userId()};
+        updateObj['messagesObj.$.vote.voteOptions.1.votes'] = Meteor.userId();
         Classes.update(
             selector,
             {$pull: updateObj}
         );  
 
-        updateObj['messagesObj.$.vote.voteOptions.2.votes'] = {_id: Meteor.userId()};
+        updateObj['messagesObj.$.vote.voteOptions.2.votes'] = Meteor.userId();
         Classes.update(
             selector,
             {$pull: updateObj}
         );  
-        updateObj['messagesObj.$.vote.voteOptions.3.votes'] = {_id: Meteor.userId()};
+        updateObj['messagesObj.$.vote.voteOptions.3.votes'] = Meteor.userId();
         Classes.update(
             selector,
             {$pull: updateObj}
@@ -312,7 +312,7 @@ Meteor.methods({
         if (type) {
         var voteIndex = lodash.findIndex(currentMessage.messagesObj[msgIndex].vote.voteOptions,{'voteOption':type});
         var updateObj2 = {};
-        updateObj2['messagesObj.'+msgIndex+'.vote.voteOptions.'+voteIndex+'.votes'] = Meteor.user();
+        updateObj2['messagesObj.'+msgIndex+'.vote.voteOptions.'+voteIndex+'.votes'] = Meteor.userId();
         //var elemMatchStr = 'messagesObj.'+msgIndex+'.vote.voteOption.'+voteIndex;
         //log.info(elemMatchStr);
         Classes.update(

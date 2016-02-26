@@ -46,7 +46,20 @@ Template.ClassDetail.events({
   'click .content .item .document a': function (e) {
       Application.FileHandler.openFile(e);
       e.preventDefault();
-  }
+  },
+  'click .add-comment-annoucement':function(e){
+      log.info(e);
+      var text = $(e.target).parent().find('.add-comment-annoucement-textbox').val();
+      var msgId = $(e.target).data().msgid;
+      Meteor.call('addCommentToClassAnnoucement',msgId, {_id:classObj._id},text)
+      
+  },
+  'click .commentToggleBtn':function(e){
+    toggleCommentSection(e);
+  },
+  'click .comment-counter':function(e){
+    toggleCommentSection(e);
+  }  
 });
 
 /*****************************************************************************/
@@ -129,6 +142,10 @@ Template.ClassDetail.helpers({
       }else{
           return false;
       }
+  },
+  getNameById: function (userId) {
+    var userObj = Meteor.users.findOne(userId);
+    return userObj._id == Meteor.userId() ? "You" : userObj.profile.firstname + " " + userObj.profile.lastname;
   }
 });
 
@@ -254,4 +271,14 @@ function playAudio(url, callback) {
   my_media.play({
     numberOfLoops: 1
   });
+}
+
+
+function toggleCommentSection(e){
+      var commentSection = $(e.target).parent().parent().find('section.commentSection');
+      if(commentSection.hasClass('hidden')){
+          commentSection.removeClass('hidden')
+      }else{
+          commentSection.addClass('hidden');
+      }    
 }

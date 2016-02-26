@@ -411,7 +411,8 @@ Router.route('classDetail', {
       Meteor.subscribe('class', this.params.classCode),
       Meteor.subscribe('images'),
       Meteor.subscribe('sounds'),
-      Meteor.subscribe('documents')      
+      Meteor.subscribe('documents'),
+      Meteor.subscribe('getJoinedClassUser', this.params.classCode)       
     ];
   }
 });

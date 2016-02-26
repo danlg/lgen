@@ -71,8 +71,8 @@ $positive: #ACDA46;
 //}
 
 a {
-  text-decoration: none !important;
-  color: #333 !important;
+  text-decoration: none;
+  color: #333;
 }
 
 pre{
@@ -102,6 +102,10 @@ pre{
     .button.button-light{
       font-size: smaller;
     }
+}
+
+.smaller {
+  font-size: smaller;
 }
 
 .larger{
