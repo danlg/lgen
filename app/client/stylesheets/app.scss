@@ -70,6 +70,13 @@ $positive: #ACDA46;
 //  bottom: 0px !important;
 //}
 
+/*for android vitual keyboard, so that it wont overlap with the textbox user clicks*/
+/*also do changes on ionKeyboard.js*/
+/*for detail, check https://github.com/meteoric/meteor-ionic/issues/130*/
+body.keyboard-open .platform-android .content.overflow-scroll {
+  bottom: 0px !important;
+}
+
 a {
   text-decoration: none;
   color: #333;
@@ -294,3 +301,4 @@ a.tooltips.point-to-left span:after {
   bottom: -10px; }
 .popover-bottom .popover-arrow:after {
     top: -6px; }
+    
