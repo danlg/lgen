@@ -41,7 +41,7 @@ Template.registerHelper('isFirstMessageInADate',function(index){
 Template.registerHelper('messagesGroupByDate',function(messages){
       var tempArr = [];  
       messages.map(function(message){
-        log.info(message);
+        //log.info(message);
         var date = moment.unix(message.sendAt.substr(0,10)).format("YYYY-MM-DD");
         message.date = date;
         tempArr.push(message)
@@ -50,7 +50,7 @@ Template.registerHelper('messagesGroupByDate',function(messages){
       var result = lodash.groupBy(tempArr,'date');
       var resultArray = [];
       resultArray = lodash.values(result);
-      log.info(resultArray);
+      //log.info(resultArray);
       return resultArray;     
 });
 Template.registerHelper('isAndroid', isAndroid);
