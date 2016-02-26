@@ -129,7 +129,9 @@
                     
 
                     <p>
-                        {{#if star}}
+                        {{#if this.vote}}
+                            {{> VoteDisplay this.vote}} 
+                        {{else}}
                             {{#if isNotEmpty star}}
                             <a href="#" class="subdued">{{star.length}} <i class="ion-ios-star colored"></i></a>
                             {{/if}}
@@ -141,37 +143,34 @@
                             {{/if}}
                             {{#if isNotEmpty help}}
                             <a href="#" class="subdued">{{help.length}} <i class="ion-help colored"></i></a>
-                            {{/if}}                        
-                        {{else}}
-                            {{> VoteDisplay this.vote}}                       
+                            {{/if}}                                                   
                         {{/if}}
                         <span class='timestamp'>{{formatTime sendAt}}</span>  
                     </p>
                     </div>
                     
-                    <!--Voting Area-->                 
-                    
-                    {{#if star}}
-                    <div class="item tabs tabs-secondary tabs-icon-left">
-                        <a class="tab-item" data-msgId={{msgId}} data-action="checked" href="#">
-                            <i class="icon ion-checkmark-round {{isSelectAction checked}}"></i>
-                        </a>
-                        <a class="tab-item" data-msgId={{msgId}} data-action="close" href="#">
-                            <i class="icon ion-close-round {{isSelectAction close}}"></i>
-                        </a>
-                        <a class="tab-item" data-msgId={{msgId}} data-action="star" href="#">
-                            <i class="icon ion-ios-star {{isSelectAction star}}"></i>
-                        </a>
-                        <a class="tab-item" data-msgId={{msgId}} data-action="help" href="#">
-                            <i class="icon ion-help {{isSelectAction help}}"></i>
-                        </a>
-                         </div>                   
-                    {{else}}
+                    <!--Voting Area-->                              
+                    {{#if this.vote}}
                         {{#if this.vote.allowVote}}
                         <div class="item tabs tabs-secondary tabs-icon-left">
                          {{> VoteChange vote=this.vote messageId=msgId}}
                         </div>                     
-                        {{/if}}
+                        {{/if}}                   
+                    {{else}}  
+                        <div class="item tabs tabs-secondary tabs-icon-left">
+                            <a class="tab-item" data-msgId={{msgId}} data-action="checked" href="#">
+                                <i class="icon ion-checkmark-round {{isSelectAction checked}}"></i>
+                            </a>
+                            <a class="tab-item" data-msgId={{msgId}} data-action="close" href="#">
+                                <i class="icon ion-close-round {{isSelectAction close}}"></i>
+                            </a>
+                            <a class="tab-item" data-msgId={{msgId}} data-action="star" href="#">
+                                <i class="icon ion-ios-star {{isSelectAction star}}"></i>
+                            </a>
+                            <a class="tab-item" data-msgId={{msgId}} data-action="help" href="#">
+                                <i class="icon ion-help {{isSelectAction help}}"></i>
+                            </a>
+                        </div>                    
                     {{/if}}
                         
                    

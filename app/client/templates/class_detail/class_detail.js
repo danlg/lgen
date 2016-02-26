@@ -86,8 +86,8 @@ Template.ClassDetail.helpers({
     return classCode.createBy;
   },
   isSelectAction: function (action) {
-    return "";
-    //return lodash.includes(lodash.map(action, "_id"), Meteor.userId()) ? "colored" : "";
+    //return "";
+    return lodash.includes(lodash.map(action, "_id"), Meteor.userId()) ? "colored" : "";
   },
   getMessagesObj: function () {
     var classObj = Classes.findOne({classCode: Router.current().params.classCode});

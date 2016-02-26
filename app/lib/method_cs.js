@@ -202,32 +202,7 @@ Meteor.methods({
 
   updateMsgRating: function (type, msgId, classObj) {
       
-    if(classObj.star){
-        var arr = ["star", "checked", "close", "help"];
-        var selector = {};
-        selector.classCode = classObj.classCode;
-        selector.messagesObj = {
-        $elemMatch: {
-            msgId: msgId
-        }
-        };
-        _.forEach(arr, function (element, index) {
-        var updateObj = {};
-        updateObj['messagesObj.$.' + element] = {_id: Meteor.userId()};
-        Classes.update(
-            selector,
-            {$pull: updateObj}
-        );
-        });
-        if (type) {
-        var updateObj2 = {};
-        updateObj2['messagesObj.$.' + type] = Meteor.user();
-        Classes.update(
-            {classCode: classObj.classCode, messagesObj: {$elemMatch: {msgId: msgId}}},
-            {$push: updateObj2}
-        );
-        }
-    }else{
+    if(classObj.comment){
         
         var updateObj = {};
         var selector = {classCode:classObj.classCode,messagesObj:{$elemMatch:{msgId:msgId}}}
@@ -266,6 +241,32 @@ Meteor.methods({
         //log.info(elemMatchStr);
         Classes.update(
             {classCode: classObj.classCode},
+            {$push: updateObj2}
+        );
+        }        
+
+    }else{
+        var arr = ["star", "checked", "close", "help"];
+        var selector = {};
+        selector.classCode = classObj.classCode;
+        selector.messagesObj = {
+        $elemMatch: {
+            msgId: msgId
+        }
+        };
+        _.forEach(arr, function (element, index) {
+        var updateObj = {};
+        updateObj['messagesObj.$.' + element] = {_id: Meteor.userId()};
+        Classes.update(
+            selector,
+            {$pull: updateObj}
+        );
+        });
+        if (type) {
+        var updateObj2 = {};
+        updateObj2['messagesObj.$.' + type] = Meteor.user();
+        Classes.update(
+            {classCode: classObj.classCode, messagesObj: {$elemMatch: {msgId: msgId}}},
             {$push: updateObj2}
         );
         }             

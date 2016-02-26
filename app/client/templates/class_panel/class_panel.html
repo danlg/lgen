@@ -142,7 +142,9 @@
                     </div>
                     
                     <p>
-                        {{#if star}}
+                        {{#if this.vote}}
+                          {{> VoteDisplay this.vote}}    
+                        {{else}}
                             {{#if isNotEmpty star}}
                             <a href="#" class="subdued">{{star.length}} <i class="ion-ios-star colored"></i></a>
                             {{/if}}
@@ -154,9 +156,7 @@
                             {{/if}}
                             {{#if isNotEmpty help}}
                             <a href="#" class="subdued">{{help.length}} <i class="ion-help colored"></i></a>
-                            {{/if}}                        
-                        {{else}}
-                            {{> VoteDisplay this.vote}}                       
+                            {{/if}}                                               
                         {{/if}}   
                     <span class='timestamp'>{{formatTime sendAt}}</span>  
                     </p>
