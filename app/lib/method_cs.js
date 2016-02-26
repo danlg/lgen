@@ -201,9 +201,39 @@ Meteor.methods({
   },
 
   updateMsgRating: function (type, msgId, classObj) {
-      
-    if(classObj.comment){
-        
+    var filtedArr = lodash.findByValues(classObj.messagesObj, "msgId", msgId);
+    
+    if(filtedArr[0].checked){
+ 
+         
+        var arr = ["star", "checked", "close", "help"];
+        var selector = {};
+        selector.classCode = classObj.classCode;
+        selector.messagesObj = {
+        $elemMatch: {
+            msgId: msgId
+        }
+        };
+        _.forEach(arr, function (element, index) {
+        var updateObj = {};
+        updateObj['messagesObj.$.' + element] = {_id: Meteor.userId()};
+        Classes.update(
+            selector,
+            {$pull: updateObj}
+        );
+        });
+        if (type) {
+        var updateObj2 = {};
+        updateObj2['messagesObj.$.' + type] = Meteor.user();
+        Classes.update(
+            {classCode: classObj.classCode, messagesObj: {$elemMatch: {msgId: msgId}}},
+            {$push: updateObj2}
+        );
+        }    
+               
+       
+
+    }else{
         var updateObj = {};
         var selector = {classCode:classObj.classCode,messagesObj:{$elemMatch:{msgId:msgId}}}
         var currentMessage = Classes.findOne({classCode:classObj.classCode});
@@ -243,33 +273,7 @@ Meteor.methods({
             {classCode: classObj.classCode},
             {$push: updateObj2}
         );
-        }        
-
-    }else{
-        var arr = ["star", "checked", "close", "help"];
-        var selector = {};
-        selector.classCode = classObj.classCode;
-        selector.messagesObj = {
-        $elemMatch: {
-            msgId: msgId
-        }
-        };
-        _.forEach(arr, function (element, index) {
-        var updateObj = {};
-        updateObj['messagesObj.$.' + element] = {_id: Meteor.userId()};
-        Classes.update(
-            selector,
-            {$pull: updateObj}
-        );
-        });
-        if (type) {
-        var updateObj2 = {};
-        updateObj2['messagesObj.$.' + type] = Meteor.user();
-        Classes.update(
-            {classCode: classObj.classCode, messagesObj: {$elemMatch: {msgId: msgId}}},
-            {$push: updateObj2}
-        );
-        }             
+        }          
     }
   },
   addCommentToClassAnnoucement :function(msgId,classObj,comment){
