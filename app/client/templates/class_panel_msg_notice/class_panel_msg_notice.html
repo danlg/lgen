@@ -63,14 +63,14 @@
                             <p> {{comment}}</p>
                             <p> {{formatTimeFromNow createdAt}}</p>
                             <button data-msgid='{{../msgId}}' data-commentid='{{_id}}' data-action='hide' class="commentShownToggle button button-assertive">
-                             Hide
+                             {{_ "Hide"}}
                             </button>
                         {{else}}
                             <h3>{{getNameById createdBy}}</h3>
-                            <p><i style='color:red;' class="ion-ios-flag-outline colored">This comment is hidden from students.</i><br/>{{comment}}</p>
+                            <p><i style='color:red;' class="ion-ios-flag-outline colored">{{_ "ThisCommentIsHiddenFromJoinedMembers"}}</i><br/>{{comment}}</p>
                             <p> {{formatTimeFromNow createdAt}}</p>
                             <button data-msgid='{{../msgId}}' data-commentid='{{_id}}' data-action='show' class="commentShownToggle button button-positive">
-                            Show
+                            {{_ "Show"}}
                             </button>                        
                         {{/if}}
                     </div>

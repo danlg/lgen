@@ -179,7 +179,7 @@
                     <!--Display comments count-->
                     {{#if this.comment.allowComment}}
                     <div class="item less-top-bottom-padding">
-                        <a class='smaller comment-counter subdued'>{{this.comment.comments.length}} comments</a>
+                        <a class='smaller comment-counter subdued'>{{_ "CommentCounter" comment_count=this.comment.comments.length }}</a>
                     </div>
                     <!--<div  class="item less-top-bottom-padding">
                         <button class='button button-small commentToggleBtn'><i class='icon ion-chatbox'></i>Comment</button>
@@ -201,7 +201,7 @@
                                </div>
                              {{else}}
                               <div class="item item-avatar less-top-bottom-padding {{@index}} " style='min-height:0px'>
-                               <p> This comment is hidden.</p>
+                               <p> {{_ "ThisCommentIsHidden"}}</p>
                               </div>
                              {{/if}}
                             
@@ -217,7 +217,7 @@
                             <label class="item-input-wrapper">
                                 <input class='add-comment-annoucement-textbox' data-msgid={{msgId}} type="text" placeholder="...">
                             </label>
-                            <button data-msgid={{msgId}} class='button button-small button-positive add-comment-annoucement'>Comment</button>
+                            <button data-msgid={{msgId}} class='button button-small button-positive add-comment-annoucement'>{{_ "Comment"}}</button>
                         </div>                    
                     {{/if}}
                     <!--Add comment end-->                    

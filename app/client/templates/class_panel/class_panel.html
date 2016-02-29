@@ -161,7 +161,7 @@
                     <span class='timestamp'>{{formatTime sendAt}}</span>  
                     <span>
                          {{#if this.comment.allowComment}}
-                             <a class='smaller comment-counter subdued'>{{this.comment.comments.length}} comments</a>
+                             <a class='smaller comment-counter subdued'>{{_ "CommentCounter" comment_count=this.comment.comments.length }}</a>
                          {{/if}}
                         
                     </span>
