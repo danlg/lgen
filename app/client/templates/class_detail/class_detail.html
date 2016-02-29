@@ -192,15 +192,19 @@
                     
                     {{#with this.comment}}
                         {{#each this.comments}}
-                            <div class="item item-avatar less-top-bottom-padding {{@index}} ">
-                              {{#if this.isShown}}                     
-                               <h3>{{getNameById this.createdBy}}</h3>
-                               <p> {{this.comment}}</p>
-                               <p> {{formatTimeFromNow this.createdAt}}</p>
+                          
+                              {{#if this.isShown}}
+                               <div class="item item-avatar less-top-bottom-padding {{@index}} ">                    
+                                <h3>{{getNameById this.createdBy}}</h3>
+                                <p> {{this.comment}}</p>
+                                <p> {{formatTimeFromNow this.createdAt}}</p>
+                               </div>
                              {{else}}
+                              <div class="item item-avatar less-top-bottom-padding {{@index}} " style='min-height:0px'>
                                <p> This comment is hidden.</p>
+                              </div>
                              {{/if}}
-                            </div>
+                            
                         {{/each}}
                     {{/with}}
                     <!--Display existing comments end-->

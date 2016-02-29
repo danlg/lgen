@@ -51,7 +51,11 @@ Template.ClassDetail.events({
       log.info(e);
       var text = $(e.target).parent().find('.add-comment-annoucement-textbox').val();
       var msgId = $(e.target).data().msgid;
-      Meteor.call('addCommentToClassAnnoucement',msgId, {_id:classObj._id},text)
+      Meteor.call('addCommentToClassAnnoucement',msgId, {_id:classObj._id},text, function (argument) {
+     
+         $(e.target).parent().find('.add-comment-annoucement-textbox').val('');
+         showCommentSection(e);
+      });
       
   },
   'click .commentToggleBtn':function(e){
@@ -281,4 +285,11 @@ function toggleCommentSection(e){
       }else{
           commentSection.addClass('hidden');
       }    
+}
+
+function showCommentSection(e){
+      var commentSection = $(e.target).parent().parent().find('section.commentSection');
+      if(commentSection.hasClass('hidden')){
+          commentSection.removeClass('hidden')
+      }
 }
