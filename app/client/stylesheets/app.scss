@@ -78,8 +78,8 @@ body.keyboard-open .platform-android .content.overflow-scroll {
 }
 
 a {
-  text-decoration: none;
-  color: #333;
+  text-decoration: none !important;
+  color: #333  !important;
 }
 
 pre{
