@@ -398,20 +398,7 @@ Meteor.methods({
     }else{
       return [];
     }    
-  },
-  showHideComment:function(isShown,classid,messageid,commentid){
-     var currentClassObj = Classes.findOne(classid);
-     var currentMessagesObjIndex = lodash.findIndex(currentClassObj.messagesObj,{"msgId":messageid});
-     var currentCommentObjIndex = lodash.findIndex(currentClassObj.messagesObj[currentMessagesObjIndex].comment.comments,{"_id":commentid});
-     
-     //currentClassObj.messagesObj[currentMessagesObjIndex].comment.comments[currentCommentObjIndex].isShown = isShown;
-     
-     var modifier = { $set: {} };
-     modifier.$set['messagesObj.'+currentMessagesObjIndex+'.comment.comments.'+currentCommentObjIndex+'.isShown'] = isShown;
-     
-     Classes.update(classid, modifier,{validate: false});
-     
-  }  
+  }
 
 });
 
