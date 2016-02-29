@@ -53,6 +53,31 @@
 
 
           </div>
+          <section class='comment-section'>
+            <!--Display existing comments-->
+            {{#with msgObj}}
+                {{#each comment.comments}}
+                    <div class="item item-button-right less-top-bottom-padding {{@index}} ">
+                        {{#if isShown}}                     
+                            <h3>{{getNameById createdBy}}</h3>
+                            <p> {{comment}}</p>
+                            <p> {{formatTimeFromNow createdAt}}</p>
+                            <button data-msgid='{{../msgId}}' data-commentid='{{_id}}' data-action='hide' class="commentShownToggle button button-assertive">
+                             Hide
+                            </button>
+                        {{else}}
+                            <h3>{{getNameById createdBy}}</h3>
+                            <p><i style='color:red;' class="ion-ios-flag-outline colored">This comment is hidden from students.</i><br/>{{comment}}</p>
+                            <p> {{formatTimeFromNow createdAt}}</p>
+                            <button data-msgid='{{../msgId}}' data-commentid='{{_id}}' data-action='show' class="commentShownToggle button button-positive">
+                            Show
+                            </button>                        
+                        {{/if}}
+                    </div>
+                {{/each}}
+            {{/with}}
+            <!--Display existing comments end-->                      
+          </section>
 
         </div>
 

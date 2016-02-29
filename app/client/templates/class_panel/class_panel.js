@@ -25,8 +25,8 @@ Template.ClassPanel.events({
   'click .list .card': function (e) {
     //Router.go('ClassPanelMsgNotice', {msgCode: this.msgId});
     
-    if(e.target.tagName == 'A' || e.target.tagName == "IMG"){
-        //do nothing if user click on a link or an image    
+    if(e.target.tagName == 'A' || e.target.tagName == "IMG" || e.target.tagName == "BUTTON"){
+        //do nothing if user click on a link or an image or a button   
     }else{
     
         console.log(e);
@@ -63,6 +63,17 @@ Template.ClassPanel.events({
   'click .messageList .item .bubble a': function (e) {
       Application.FileHandler.openFile(e);
       e.preventDefault();
+  },
+  'click .commentShownToggle':function(e){
+      var actionObj = $(e.target).data();
+      var classObj = Classes.findOne({classCode: Router.current().params.classCode});
+      if(actionObj.action == 'hide'){   
+         log.info("hide comment id:" + actionObj.commentid + " "+ actionObj.msgid +" "+ classObj._id);
+         Meteor.call('showHideComment',false,classObj._id,actionObj.msgid,actionObj.commentid)  ; 
+      }else{      
+         log.info("show comment id:" + actionObj.commentid+ " "+ actionObj.msgid+" "+ classObj._id);
+         Meteor.call('showHideComment',true,classObj._id,actionObj.msgid,actionObj.commentid)  ; 
+      }
   }
   
 });

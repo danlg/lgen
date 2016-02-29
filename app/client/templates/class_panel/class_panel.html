@@ -157,8 +157,14 @@
                             {{#if isNotEmpty help}}
                             <a href="#" class="subdued">{{help.length}} <i class="ion-help colored"></i></a>
                             {{/if}}                                               
-                        {{/if}}   
+                        {{/if}} 
                     <span class='timestamp'>{{formatTime sendAt}}</span>  
+                    <span>
+                         {{#if this.comment.allowComment}}
+                             <a class='smaller comment-counter subdued'>{{this.comment.comments.length}} comments</a>
+                         {{/if}}
+                        
+                    </span>
                     </p>
                     
                 </div>
