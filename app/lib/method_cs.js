@@ -360,64 +360,80 @@ Meteor.methods({
        
    }
     
-    Classes.update({
-      classCode: {
-        $in: target
-      }
-    }, {
-      $push: {
-        messagesObj: msgObj
-      }
-    }, {
-      validate: false
-    });
-    
-    if(!msg){
-      if (msgObj.imageArr && msgObj.imageArr.length>0){
-               msg="New image";
-      }
-      if (msgObj.soundArr && msgObj.soundArr.length>0){
-               msg="New sound";
-      }
-      if (msgObj.documentArr && msgObj.documentArr.length>0){
-               msg="New document";
-      }
-    }
-    var arrayOfClasses = Classes.find({classCode: {$in: target}}).fetch();
-    var arrayOfTarget = lodash.map(arrayOfClasses, 'joinedUserId');
-    var flattenArray = lodash.flatten(arrayOfTarget);
-    var index = flattenArray.indexOf(Meteor.userId());
-    if (index > -1) {
-      flattenArray.splice(index, 1);
-    }
-    var senderFullname = Meteor.user().profile.firstname + " " + Meteor.user().profile.lastname;
-    var notificationTitle = "Message From " + senderFullname;
-    log.info("sendmsg:senderFullName:"+senderFullname);
-    Push.send({
-      from: 'push',
-      title: notificationTitle,
-      text: msg,
-      query: {
-        userId: {$in: flattenArray}
-      }
-    });
-    
-    //send notification via websocket using Streamy
-    flattenArray.map(function(userId){
-      //log.info("streamy"+userId);
-      var socketObj = Streamy.socketsForUsers(userId);
-      //log.info(socketObj);
-      
-      socketObj._sockets.map(function(socket){
-         Streamy.emit('newclassmessage', { from: senderFullname,
-                                           text: msg,
-                                           classCode: arrayOfClasses[0].classCode                                  
-         }, socket); 
-      });
-    });
 
-    
-    sendEmailMessageToClasses(flattenArray,arrayOfClasses,msg,Meteor.user());
+    var currentUserId = Meteor.userId();
+    var currentUserObj = Meteor.user();
+    //latency compensation
+    //https://www.discovermeteor.com/blog/advanced-latency-compensation/
+    if(Meteor.isServer){
+        Meteor.defer(function(){
+            if(!msg){
+            if (msgObj.imageArr && msgObj.imageArr.length>0){
+                    msg="New image";
+            }
+            if (msgObj.soundArr && msgObj.soundArr.length>0){
+                    msg="New sound";
+            }
+            if (msgObj.documentArr && msgObj.documentArr.length>0){
+                    msg="New document";
+            }
+            }     
+            //send push notification
+            var arrayOfClasses = Classes.find({classCode: {$in: target}}).fetch();
+            var arrayOfTarget = lodash.map(arrayOfClasses, 'joinedUserId');
+            var flattenArray = lodash.flatten(arrayOfTarget);
+            var index = flattenArray.indexOf(currentUserId);
+            if (index > -1) {
+            flattenArray.splice(index, 1);
+            }
+            var senderFullname = currentUserObj.profile.firstname + " " + currentUserObj.profile.lastname;
+            var notificationTitle = "Message From " + senderFullname;
+            log.info("sendmsg:senderFullName:"+senderFullname);
+            Push.send({
+            from: 'push',
+            title: notificationTitle,
+            text: msg,
+            query: {
+                userId: {$in: flattenArray}
+            }
+            });
+            //send push notification end
+            
+            //send notification via websocket using Streamy
+            flattenArray.map(function(userId){
+            //log.info("streamy"+userId);
+            var socketObj = Streamy.socketsForUsers(userId);
+            //log.info(socketObj);
+            
+            socketObj._sockets.map(function(socket){
+                Streamy.emit('newclassmessage', { from: senderFullname,
+                                                text: msg,
+                                                classCode: arrayOfClasses[0].classCode                                  
+                }, socket); 
+            });
+            });
+            //send notification via websocket using Streamy end
+            
+            //send email notification
+            sendEmailMessageToClasses(flattenArray,arrayOfClasses,msg,currentUserObj);
+            //send email notification end            
+        });
+        
+      
+    }
+        
+     //update classes collection
+     return Classes.update({
+                classCode: {
+                    $in: target
+                }
+                }, {
+                $push: {
+                    messagesObj: msgObj
+                }
+                }, {
+                validate: false
+                });  
   },
   showHideComment:function(isShown,classid,messageid,commentid){
      var currentClassObj = Classes.findOne(classid);
