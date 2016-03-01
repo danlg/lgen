@@ -239,7 +239,7 @@ Meteor.methods({
         var currentMessage = Classes.findOne({classCode:classObj.classCode});
         //log.info(currentMessage);
         var msgIndex = lodash.findIndex(currentMessage.messagesObj,{'msgId':msgId});
-        log.info(msgIndex);
+        //log.info(msgIndex);
         updateObj['messagesObj.$.vote.voteOptions.0.votes'] = Meteor.userId();
         Classes.update(
             selector,
@@ -347,13 +347,15 @@ Meteor.methods({
         return arrayOfVoteOptions;
     }
    log.info(msgObj.vote.voteType);
-   if(msgObj.vote.voteType == 'checkedStarCloseHelp'){
-       msgObj.vote.voteOptions = new VoteOptions(['star','checked','close','help']);
+   if(msgObj.vote.voteType == 'heartNoEvilStarQuestion'){
+       msgObj.vote.voteOptions = new VoteOptions(['heart','noevil','star','question']);
        //log.info(msgObj.vote.voteOptions);                                         
-   }else if(msgObj.vote.voteType == 'checkedClose'){
-       msgObj.vote.voteOptions = new VoteOptions(['checked','close']);       
-   }else if(msgObj.vote.voteType == 'abcd'){
-       msgObj.vote.voteOptions = new VoteOptions(['A','B','C','D']);         
+   }else if(msgObj.vote.voteType == 'yesNo'){
+       msgObj.vote.voteOptions = new VoteOptions(['yes','no']);       
+   }else if(msgObj.vote.voteType == 'likeDislike'){
+       msgObj.vote.voteOptions = new VoteOptions(['like','dislike']);         
+   }else if(msgObj.vote.voteType == 'oneTwoThreeFour'){
+       msgObj.vote.voteOptions = new VoteOptions(['one','two','three','four']);        
    }else{
        //future extension point for futher customization.
        //VoteOptions will need to be defined by user.
