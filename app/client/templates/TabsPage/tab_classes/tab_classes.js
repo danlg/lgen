@@ -105,7 +105,7 @@ var HowToInviteTour = function () {
             type: 'button-positive',
             onTap: function () {
               IonPopup.close();
-              Router.go('HowToInvite');
+              Router.go('HowToInviteShort',{classCode: Classes.findOne().classCode });
             }
           },
           {
