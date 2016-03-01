@@ -17,6 +17,7 @@ Template.HowToInviteShort.rendered = function()
 {
    var sim = document.getElementById("inputClassCodeSimulation");
    type(classCodeLocal,sim);
+   Session.set("hasSeenHowToInviteTour", true);
 };
 
 //adopt from: http://stackoverflow.com/questions/23688149/simulate-the-look-of-typing-not-the-actual-keypresses-in-javascript
