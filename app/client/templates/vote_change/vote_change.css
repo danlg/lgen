@@ -1,0 +1,18 @@
+.votingSection i.other-vote-option{
+    -webkit-filter: grayscale(100%); /* Chrome, Safari, Opera */
+    filter: grayscale(100%);        
+}
+
+.votingSection i.e1a-one.current-vote-option,
+.votingSection i.e1a-two.current-vote-option,
+.votingSection i.e1a-three.current-vote-option,
+.votingSection i.e1a-four.current-vote-option{
+    -webkit-filter: brightness(0.5); /* Chrome, Safari, Opera */
+    filter: brightness(0.5);      
+}
+
+.votingSection [class*=ion-]{
+    height:auto;
+    width:auto;
+    font-size: x-large;
+}
