@@ -297,10 +297,7 @@ Router.route('ClassPanelMsgNotice', {
   path: "/panel/notice/:msgCode",
   waitOn: function () {
     return [
-      Meteor.subscribe('getClassMsgId', this.params.msgCode),
-      Meteor.subscribe('images'),
-      Meteor.subscribe('sounds'),
-      Meteor.subscribe('documents')   
+      Meteor.subscribe('getClassMsgId', this.params.msgCode)
     ];
   }
 });

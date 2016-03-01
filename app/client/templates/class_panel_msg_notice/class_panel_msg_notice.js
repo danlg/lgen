@@ -19,9 +19,9 @@ Template.ClassPanelMsgNotice.helpers({
     return classObj;
   },
   msgObj: function () {
-    var msgArr = Classes.findOne({'messagesObj.msgId':this.msgCode}).messagesObj;
-    var filtedArr = lodash.findByValues(msgArr, "msgId", this.msgCode);
-    return filtedArr[0];
+    //var msgArr = Classes.findOne({'messagesObj.msgId':this.msgCode}).messagesObj;
+    //var filtedArr = lodash.findByValues(msgArr, "msgId", this.msgCode);
+    return this.inputMessageObj;
   },
   className: function () {
     return classObj.className;
@@ -37,10 +37,10 @@ Template.ClassPanelMsgNotice.helpers({
     return userObj._id == Meteor.userId() ? "You" : userObj.profile.firstname + " " + userObj.profile.lastname;
   },
   star: function () {
-    return Classes.findOne({'messagesObj.msgId':this.msgCode}).messagesObj.star;
+    return this.inputMessageObj.star;
   },
   allMan: function () {
-    var msgArr = Classes.findOne({'messagesObj.msgId':this.msgCode}).messagesObj;
+    var msgArr = this.inputMessageObj;
     var arr = [];
     var filtedArr = lodash.findByValues(msgArr, "msgId", this.msgCode);
 
