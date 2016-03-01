@@ -68,14 +68,30 @@
               
         <div style="display:none;"> {{ arrToString searchObj.selectArrName }}</div>
 
-        <div class="extra-options setting" style='overflow:hidden;white-space:nowrap;'>
-             <span style='font-size:x-small'>{{_ "Can"}}:</span>
-             <label style='font-size:smaller'><!--<i class="icon  ion-chatbox"></i>--><input id='allowComment' type="checkbox" name="allowComment" value="comment" checked="checked">{{_ "Comment"}}</label>
-             <label style='font-size:smaller'><!--<i class="icon  ion-android-checkbox-outline  "></i>--><input id='allowVote' type="checkbox" name="allowVote" value="vote" checked="checked">{{_ "Vote"}}</label>
+        <div class="extra-options setting" style='overflow:hidden;white-space:nowrap;background-color: #EBE4D9  !important;'>
+            <a data-text='{{_ "HelpReply"}}'  data-ion-tooltip="ionTooltip"><i class='icon ion-ios-help' ></i></a>
+            <span style='font-size:x-small'><b>{{_ "Reply"}}:</b></span>
+             <label style='font-size:smaller'><!--<i class="icon  ion-chatbox"></i>--><input id='allowComment' type="checkbox" name="allowComment" value="comment" checked="checked"> {{_ "Comment"}}</label>
+             <label style='font-size:smaller'><!--<i class="icon  ion-android-checkbox-outline  "></i>--><input id='allowVote' type="checkbox" name="allowVote" value="vote" checked="checked"> {{_ "Vote"}}</label>
             {{#unless isVotingTypeDisabled}}
-                <label style='font-size:x-small;'><input type="radio" name="voteTypeOption" value="checkedStarCloseHelp" checked="checked"> ✓,x,★,? </label>
-                <label style='font-size:x-small;'><input type="radio" name="voteTypeOption" value="checkedClose">✓/x</label>                 
-                <label style='font-size:x-small;'><input type="radio" name="voteTypeOption" value="abcd"> A,B,C,D</label>
+                <br>
+                <label style='font-size:x-small;'><input type="radio" name="voteTypeOption" value="checkedStarCloseHelp" checked="checked">
+                  <i class="icon e1a-hearts e1a-1x emojicon"></i>
+                  <i class="icon e1a-thumbsdown_tone2 e1a-1x emojicon"></i>
+                  <!--<i class="icon e1a-x e1a-1x emojicon"></i>-->
+                  <i class="icon e1a-star e1a-1x emojicon"></i>
+                  <i class="icon e1a-grey_question e1a-1x emojicon"></i>
+                </label>
+                <label style='font-size:x-small;'><input type="radio" name="voteTypeOption" value="abcd">
+                  <i class="icon e1a-one e1a-1x emojicon"></i>
+                  <i class="icon e1a-two e1a-1x emojicon"></i>
+                  <i class="icon e1a-three e1a-1x emojicon"></i>
+                  <i class="icon e1a-four e1a-1x emojicon"></i>
+                </label>
+                <label style='font-size:x-small;'><input type="radio" name="voteTypeOption" value="checkedClose">
+                  <i class="icon e1a-hearts e1a-1x emojicon"></i>
+                  <i class="icon e1a-thumbsdown_tone2 e1a-1x emojicon"></i>
+                </label>
             {{/unless}}            
              
         </div>        

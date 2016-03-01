@@ -25,7 +25,6 @@
                 {{#if afFieldIsInvalid name='className'}}
                  <br><span class="help-block">{{afFieldMessage name='className'}}</span>
                 {{/if}}
-
                 </label>
             </div>
           </li>
@@ -33,13 +32,11 @@
             <div class="bar bar-header item-input-inset">
               <label class="item-input-wrapper white-background">
                 <a data-text='{{_ "AddClassClassCodeTooltip"}}'  data-ion-tooltip="ionTooltip"><i class='icon ion-ios-help' ></i></a>                  
-                &nbsp;
-                <i class="icon ion-at placeholder-icon"></i>
+                <i class="icon placeholder-icon"></i>
                 {{> afFieldInput name="classCode" class="classCodeInput" placeholder=(_ "Type_Class_Code" ) }}
                 {{#if afFieldIsInvalid name='classCode'}}
                   <br><span class="help-block ">{{afFieldMessage name='classCode'}}</span>
                 {{/if}}
-
               </label>
             </div>
           </li>
