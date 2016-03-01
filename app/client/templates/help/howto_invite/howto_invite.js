@@ -5,18 +5,7 @@ Template.HowToInvite.events({
   
   'click .redirect-button':function(){
     log.info("i am clicked");
-    
-    /* the below is already done in tab classes and it seems there is some publish/sub issue here so it is commented out
-    //if user is registered with meteor account
-    if (typeof Meteor.user().emails[0].verified !== 'undefined') {
-      //Meteor.user() is ready while Meteor.user().emails is not ready
-      //if email is not yet verfied
-      if (Meteor.user().emails[0].verified == false) {
-        Router.go('EmailVerification');
-      }
-    } else { //else redirect to classes
-          routeToTabClasses();
-    } */    
+
     routeToTabClasses();
   }
  
@@ -34,7 +23,7 @@ Template.HowToInvite.helpers ({
     //the following not harcoded link is not pretty and too long because of http://
     //this is just a demo...
     //return Meteor.settings.public.SHARE_URL + "/join/"+ democlass;
-    return "lgen.me" +"/join/"+ democlass;
+    return "gosmartix.com" +"/join/"+ democlass;
   }
 });
 
