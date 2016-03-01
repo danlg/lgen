@@ -23,8 +23,8 @@ Template.TabClasses.helpers({
     return Classes.find({joinedUserId: {$in: [Meteor.userId()]}});
   },
 
-  isTeacher: function () {
-    return Meteor.user().profile.role === "Teacher";
+  canCreateClass: function () {
+    return true;
   },
 
   createdClass: createdClassImpl,
