@@ -24,6 +24,15 @@
   
 }
 
+.extra-options{
+    display: flex;
+    justify-content: space-around;
+}
+
+.extra-options .line-break {
+  width: 100%;
+}
+
 .extra-options select{
     height: 18px;
 }
