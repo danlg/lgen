@@ -129,9 +129,16 @@ Template.ClassPanel.helpers({
   },
   isPlural: function (count) {
     return count > 1;
-  }
-  , isZero: function (count) {
+  },
+  isZero: function (count) {
     return count === 0;
+  },
+  showByDefaultIfWithComments:function(){
+      if(this.comment.comments.length){
+          return "expand";
+      }else{
+          return "";
+      }
   }
 
 });
