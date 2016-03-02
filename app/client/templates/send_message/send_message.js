@@ -23,8 +23,23 @@ Template.SendMessage.events({
   'click #allowVote':function(e){
       if($('input#allowVote:checked').length > 0){
           canVote.set(true);
+          
+        if(lodash.findIndex(borrower,{type:"vote-options"}) == -1){
+            var borrower = messageListHeightBorrower.get();
+            borrower.push({type:"vote-options",height:20});
+            messageListHeightBorrower.set(borrower);
+            updateMessageListHeight();           
+        }         
       }else{
           canVote.set(false);
+          var borrower = messageListHeightBorrower.get();
+          lodash.remove(borrower, function (obj) {
+              if (obj.type == "vote-options") {
+                  return true;
+              }
+          });
+          messageListHeightBorrower.set(borrower);
+          updateMessageListHeight();             
       }      
   },
   'click #imageBtn': function (e) {
@@ -322,7 +337,7 @@ Template.SendMessage.helpers({
     return Documents.findOne(id);      
   },
   isVotingTypeDisabled:function(){
-      if(canVote.get() == true){
+      if(canVote.get() == true){         
           return "";
       }else{
           return "display:none;";
@@ -374,6 +389,16 @@ Template.SendMessage.created = function () {
 
 Template.SendMessage.rendered = function () {
   $(".msgBox").autogrow();
+  //log.info(canVote.get());
+  if(canVote.get()){
+    var borrower = messageListHeightBorrower.get();
+    if(lodash.findIndex(borrower,{type:"vote-options"}) == -1){
+        borrower.push({type:"vote-options",height:20});
+        messageListHeightBorrower.set(borrower);
+        updateMessageListHeight();           
+    }
+  }
+    
 };
 
 Template.SendMessage.destroyed = function () {
@@ -386,6 +411,8 @@ Template.SendMessage.destroyed = function () {
     selectArrName: [],
     selectArrId: []
   });
+  canVote.set(true);
+  messageListHeightBorrower.set([]);
 };
 
 //for the separated send message page
@@ -592,9 +619,7 @@ function showPreview(filetype){
     log.info("show preview:filetype:"+filetype);
     
     $('.preview'+'.'+filetype).show();
-    var totalExtraBorrow;
-    var totalBorrow;
-    var calcValue;
+
     var borrower = messageListHeightBorrower.get();
     //increase the height of input box panel
     if(filetype && filetype == "image"){
@@ -614,13 +639,8 @@ function showPreview(filetype){
      //$('.messageList').css({'height':'calc(100% - 180px )'})        
     }
     messageListHeightBorrower.set(borrower);
-    var totalExtraBorrow = 0;
-    borrower.map(function(obj){
-        totalExtraBorrow = totalExtraBorrow + obj.height;
-    })
-    totalBorrow = messageListBaseBorrow + totalExtraBorrow;
-    calcValue = "calc(100% - "+totalBorrow+"px)";
-    $('.messageList').css({'height':calcValue});
+
+    updateMessageListHeight();
       
     //http://stackoverflow.com/questions/10503606/scroll-to-bottom-of-div-on-page-load-jquery
     $('.messageList').scrollTop($('.messageList').prop("scrollHeight") );   
@@ -631,6 +651,10 @@ function hidePreview(filetype){
 
     if(filetype == "all"){
         borrower = [];
+
+        if(canVote.get()){
+            borrower.push({type:"vote-options",height:20});         
+        }        
         $('.preview').hide();    
     }else{
         lodash.remove(borrower,function(obj){
@@ -642,14 +666,7 @@ function hidePreview(filetype){
     }
     messageListHeightBorrower.set(borrower);
    
-    var totalExtraBorrow = 0;
-    borrower.map(function(obj){
-        totalExtraBorrow = totalExtraBorrow + obj.height;
-    })
-    var totalBorrow = messageListBaseBorrow + totalExtraBorrow;
-    var calcValue = "calc(100% - "+totalBorrow+"px)";
-     
-    $('.messageList').css({'height':calcValue});
+    updateMessageListHeight();
     
     //http://stackoverflow.com/questions/10503606/scroll-to-bottom-of-div-on-page-load-jquery   
     $('.messageList').scrollTop($('.messageList').prop("scrollHeight") );   
@@ -674,4 +691,20 @@ function scrollMessageListToBottom(){
    var messageListDOMToBottomScrollTopValue = messageListDOM.scrollHeight - messageListDOM.clientHeight;
    messageListDOM.scrollTop=messageListDOMToBottomScrollTopValue; 
    $('.messageList').scrollTop($('.messageList').prop("scrollHeight") );  
+}
+
+function updateMessageListHeight(){
+    var totalExtraBorrow = 0;
+    var totalBorrow;
+    var calcValue;
+        
+    var borrower = messageListHeightBorrower.get();
+    
+    borrower.map(function(obj){
+        totalExtraBorrow = totalExtraBorrow + obj.height;
+    })
+    totalBorrow = messageListBaseBorrow + totalExtraBorrow;
+    calcValue = "calc(100% - "+totalBorrow+"px)";
+    $('.messageList').css({'height':calcValue});   
+     
 }
