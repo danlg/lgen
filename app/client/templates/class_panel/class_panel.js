@@ -74,6 +74,14 @@ Template.ClassPanel.events({
          log.info("show comment id:" + actionObj.commentid+ " "+ actionObj.msgid+" "+ classObj._id);
          Meteor.call('showHideComment',true,classObj._id,actionObj.msgid,actionObj.commentid)  ; 
       }
+  },
+  'click .comment-counter':function(e){
+      
+        if($(e.currentTarget).parents( ".list .card" ).children('.extraInfo').hasClass('expand')){
+        $(e.currentTarget).parents( ".list .card" ).children('.extraInfo').removeClass('expand');      
+        }else{
+        $(e.currentTarget).parents( ".list .card" ).children('.extraInfo').addClass('expand');
+        }      
   }
   
 });
