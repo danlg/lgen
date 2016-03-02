@@ -4,6 +4,8 @@ Template.TabYou.events({
     log.info("logout:" + Meteor.userId());
     Meteor.logout(
       function (err) {
+        //remove all session variables when logout
+        Session.clear();
         Router.go('Login');
       }
     );
