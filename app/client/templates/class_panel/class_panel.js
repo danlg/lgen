@@ -33,7 +33,14 @@ Template.ClassPanel.events({
         if($(e.currentTarget).children('.extraInfo').hasClass('expand')){
         $(e.currentTarget).children('.extraInfo').removeClass('expand');      
         }else{
-        $(e.currentTarget).children('.extraInfo').addClass('expand');
+         $(e.currentTarget).children('.extraInfo').addClass('expand');
+         
+         window.setTimeout(function(){
+             
+            document.getElementById("messageList").scrollTop = document.getElementById("messageList").scrollTop + $(e.currentTarget).offset().top - 115;
+             
+         },1000);
+
         }
     }
     
@@ -80,7 +87,15 @@ Template.ClassPanel.events({
         if($(e.currentTarget).parents( ".list .card" ).children('.extraInfo').hasClass('expand')){
         $(e.currentTarget).parents( ".list .card" ).children('.extraInfo').removeClass('expand');      
         }else{
-        $(e.currentTarget).parents( ".list .card" ).children('.extraInfo').addClass('expand');
+            $(e.currentTarget).parents( ".list .card" ).children('.extraInfo').addClass('expand');
+            
+            window.setTimeout(function(){
+                
+            document.getElementById("messageList").scrollTop = document.getElementById("messageList").scrollTop + $(e.currentTarget).offset().top - 115;
+                
+            },1000);
+            
+        
         }      
   }
   
