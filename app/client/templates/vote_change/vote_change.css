@@ -1,3 +1,6 @@
+.votingSection .tab-item{
+    opacity:1;
+}
 .votingSection i.other-vote-option{
     -webkit-filter: grayscale(100%); /* Chrome, Safari, Opera */
     filter: grayscale(100%);        
