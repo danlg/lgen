@@ -34,8 +34,8 @@ Template.VoteDisplay.helpers({
             voteCountObj.ionicIcon = "e1a-hearts";
           }else if(voteOption =="noevil"){
             voteCountObj.ionicIcon = "e1a-see_no_evil";
-          }else if(voteOption =="star"){
-            voteCountObj.ionicIcon = "e1a-star";  
+          //}else if(voteOption =="star"){
+          //  voteCountObj.ionicIcon = "e1a-star";
           }else if(voteOption =="question"){
             voteCountObj.ionicIcon = "e1a-grey_question";
           }

@@ -348,7 +348,9 @@ Meteor.methods({
     }
    log.info(msgObj.vote.voteType);
    if(msgObj.vote.voteType == 'heartNoEvilStarQuestion'){
-       msgObj.vote.voteOptions = new VoteOptions(['heart','noevil','star','question']);
+       msgObj.vote.voteOptions = new VoteOptions(['heart','noevil',
+         //'star',
+         'question']);
        //log.info(msgObj.vote.voteOptions);                                         
    }else if(msgObj.vote.voteType == 'yesNo'){
        msgObj.vote.voteOptions = new VoteOptions(['yes','no']);       
