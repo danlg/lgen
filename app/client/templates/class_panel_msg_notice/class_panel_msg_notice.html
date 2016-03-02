@@ -14,12 +14,12 @@
 
           <div class="item">
             {{#with msgObj.vote}}
-            <div class="row">
+            
             
                 {{#each voteOptions}}
-                    
+                    <div class="row">
                     <div class="col">                                  
-                        <a href="#" class="subdued">{{this.votes.length}}        
+                        <a href="#" class="subdued">{{this.votes.length}}</a>        
                             {{#with tryShowVoteOptionIcon ../voteType voteOption}}
                                 {{#if this.ionicIcon}}
                                     <i class="{{this.ionicIcon}} colored"></i>
@@ -27,13 +27,16 @@
                                     {{this.voteOptionText}}
                                 {{/if}}
                             {{/with}}
-                        {{#each this.votes}}      
-                            <br/>{{getNameById this}}
+                    </div>
+                    <div class="col col-75">  
+                        {{#each this.votes}}
+                            {{getNameById this}}&nbsp;&nbsp;
                         {{/each}}
-                        </a>                                                     
+                                                                             
+                    </div>
                     </div>
                {{/each }}  
-            </div>
+          
             {{/with}}             
             {{#each msgObj.checked}}
               <div><i class="ion-checkmark-round colored"></i> {{getName this}} </div>
