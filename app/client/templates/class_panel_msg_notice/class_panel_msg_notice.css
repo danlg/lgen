@@ -4,3 +4,9 @@
     font-size: 12px !important;
     line-height: 26px !important;
 }
+
+.comment-section .item p {
+    overflow: visible;
+    text-overflow: ellipsis;
+    white-space: normal;
+}
