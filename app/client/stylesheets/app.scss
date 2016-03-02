@@ -261,10 +261,11 @@ a.tooltips.point-to-left span:after {
 }*/
 
 .popover{
-    height:auto;
-    background-color: black;
-    padding: 0px 0px 10px 10px;
-    color:white;   
+    height:auto !important;
+    background-color: black !important;
+    padding: 0px 0px 10px 10px  !important;
+    color:white  !important;
+    margin-top:12px !important;
 }
 
  .popover {
@@ -289,12 +290,12 @@ a.tooltips.point-to-left span:after {
     left: 5px;
     width: 20px;
     height: 20px;
-    background-color: black;
+    background-color: black  !important;
     border-radius: 3px;
     content: '';
     -webkit-transform: rotate(-45deg);
     transform: rotate(-45deg);
-    color:white;
+    color:white  !important;
     }
  .popover-bottom .popover-arrow {
   top: auto;
