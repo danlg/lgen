@@ -133,6 +133,8 @@ Meteor.methods({
     Chat.update(chatRoomId, {$push: {messagesObj: pushObj}, $set:{lastUpdatedAt:new Date(),lastUpdatedBy:Meteor.userId()}} );
     //TODO send email
     //Mandrill.messages.send
+    
+    return pushObj;
   },
 
   'chat/sendImage': function (chatRoomId, pushObj) { 
@@ -451,7 +453,12 @@ Meteor.methods({
      
      Classes.update(classid, modifier,{validate: false});
      
-  }  
+  },
+  setMessageAsRead:function(updateNotificationObj){
+      log.info("trySetMessageAsRead")
+      log.info(updateNotificationObj);
+      Notifications.update({_id:updateNotificationObj._id},updateNotificationObj);
+  }
 
 });
 

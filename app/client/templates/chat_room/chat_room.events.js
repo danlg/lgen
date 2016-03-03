@@ -50,6 +50,20 @@ Template.ChatRoom.events({
           
           //send group chat email
           Meteor.call("chatroomEmail",getAllUserExceptCurrentUser(),Meteor.user(),text);
+        
+          targetUsers.map(function(eachTargetUser){
+            Notifications.insert({
+                eventType:"newchatroommessage",
+                userId: eachTargetUser._id,
+                hasRead: false,
+                chatroomId: Router.current().params.chatRoomId,
+                messageCreateTimestamp: data.createdAt,
+                messageCreateTimestampUnixTime: data.sendAt,
+                messageCreateByUserId: Meteor.userId()
+      
+            });              
+          });
+
         }
       });
     }

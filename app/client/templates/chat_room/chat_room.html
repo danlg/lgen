@@ -48,9 +48,12 @@
                                         <i class="icon e1a-green_apple e1a-1x emojicon"></i>
                                     {{/if}}
                                     {{profile.firstname}} {{profile.lastname}}
+                                    <i style='larger' class="icon {{isNewMessage ../sendAt}}"></i>
+                                    
                                 </div>
                                 <br/>                         
                             {{/with}}
+                            
                         {{/if}}                 
                         {{{docPreview text}}}                
                         {{#autolink}}<pre>{{text}}</pre>{{/autolink}}
