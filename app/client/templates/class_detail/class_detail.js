@@ -59,6 +59,7 @@ Template.ClassDetail.events({
      
          $(e.target).parent().find('.add-comment-annoucement-textbox').val('');
          showCommentSection(e);
+         document.getElementsByClassName("class-detail")[0].scrollTop = document.getElementsByClassName("class-detail")[0].scrollTop + $(e.target).offset().top - 43;                      
       });
       
   },
