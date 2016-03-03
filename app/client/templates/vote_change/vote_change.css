@@ -19,3 +19,7 @@
     width:auto;
     font-size: x-large;
 }
+
+.votingSection .ion-help.colored{
+    color:orange;
+}

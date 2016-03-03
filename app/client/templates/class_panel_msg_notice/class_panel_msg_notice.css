@@ -10,3 +10,8 @@
     text-overflow: ellipsis;
     white-space: normal;
 }
+
+.ClassPanelMsgNotice .ion-help.colored{
+    color:orange;
+    padding-left: 5px;
+}

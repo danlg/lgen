@@ -25,7 +25,7 @@ Template.VoteChange.helpers({
           //}else if(voteOption =="star"){
           //  voteCountObj.ionicIcon = "e1a-star";
           }else if(voteOption =="question"){
-            voteCountObj.ionicIcon = "e1a-question";
+            voteCountObj.ionicIcon = "ion-help";
           }
       }else if(voteType == "yesNo"){
           if(voteOption == "yes"){

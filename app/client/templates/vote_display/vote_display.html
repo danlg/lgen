@@ -5,7 +5,7 @@
                 
                 {{#with tryShowVoteOptionIcon ../voteType voteOption}}
                     {{#if this.ionicIcon}}
-                         <i class="{{this.ionicIcon}} colored"></i>
+                         <i class="{{this.ionicIcon}} colored vote-display-option"></i>
                     {{else}}
                         {{this.voteOptionText}}
                     {{/if}}
@@ -16,7 +16,7 @@
                 <a href="#" class="subdued">{{this.votes.length}}
                     {{#with tryShowVoteOptionIcon ../voteType voteOption}}
                         {{#if this.ionicIcon}}
-                            <i class="{{this.ionicIcon}} colored"></i>
+                            <i class="{{this.ionicIcon}} colored vote-display-option"></i>
                         {{else}}
                             {{this.voteOptionText}}
                         {{/if}}
