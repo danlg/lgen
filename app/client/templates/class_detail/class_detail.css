@@ -8,3 +8,7 @@
 .class-detail .content a{
 	color:#148FE9 !important; 
 }
+
+.class-detail .commentSection .item p{
+    white-space: inherit;
+}
