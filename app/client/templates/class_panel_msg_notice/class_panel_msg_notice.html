@@ -62,19 +62,25 @@
                 {{#each comment.comments}}
                     <div class="item item-button-right less-top-bottom-padding {{@index}} ">
                         {{#if isShown}}                     
-                            <h3>{{getNameById createdBy}}</h3>
+                            <div style='display: flex;justify-content: space-between;align-items: baseline;'>
+                                <h3>{{getNameById createdBy}} </h3>
+                            <button data-msgid='{{../msgId}}' data-commentid='{{_id}}' data-action='hide' class="commentShownToggle button button-hide">
+                                {{_ "Hide"}}
+                            </button>
+                            </div>                            
                             <p> {{comment}}</p>
                             <p> {{formatTimeFromNow createdAt}}</p>
-                            <button data-msgid='{{../msgId}}' data-commentid='{{_id}}' data-action='hide' class="commentShownToggle button button-hide">
-                             {{_ "Hide"}}
-                            </button>
+
                         {{else}}
-                            <h3>{{getNameById createdBy}}</h3>
+                            <div style='display: flex;justify-content: space-between;align-items: baseline;'>
+                                <h3>{{getNameById createdBy}} </h3>
+                            <button data-msgid='{{../msgId}}' data-commentid='{{_id}}' data-action='show' class="commentShownToggle button button-positive">
+                                {{_ "Show"}}
+                            </button> 
+                            </div>                             
                             <p><i style='color:red;' class="ion-ios-flag-outline colored">{{_ "ThisCommentIsHiddenFromJoinedMembers"}}</i><br/>{{comment}}</p>
                             <p> {{formatTimeFromNow createdAt}}</p>
-                            <button data-msgid='{{../msgId}}' data-commentid='{{_id}}' data-action='show' class="commentShownToggle button button-positive">
-                            {{_ "Show"}}
-                            </button>                        
+                      
                         {{/if}}
                     </div>
                 {{/each}}

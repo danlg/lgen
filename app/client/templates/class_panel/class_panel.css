@@ -16,6 +16,10 @@
   	color:#148FE9 !important; 
 }
 
+.button-bar{
+    max-height:75px;
+}
+
 .button-bar-button{
   
   padding-bottom:2% !important;
