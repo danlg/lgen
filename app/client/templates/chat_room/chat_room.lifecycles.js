@@ -2,11 +2,12 @@
 /*****************************************************************************/
 /* ChatRoom: Lifecycle Hooks */
 /*****************************************************************************/
-
+var currentChatroomId;
 Template.ChatRoom.created = function () {
 };
 
 Template.ChatRoom.rendered = function () {
+   currentChatroomId = Router.current().params.chatRoomId;
   //$(".list.chatroomList").height("100%");
   //$(".list.chatroomList").height(($(".list.chatroomList").height() - 123) + "px");
   $(".inputBox").autogrow();
@@ -63,23 +64,14 @@ Template.ChatRoom.rendered = function () {
 
 Template.ChatRoom.destroyed = function () {
     
-    debugger;
+    log.info('destroy chat room!');
     //var chatRoomId = Router.current().params.chatRoomId;
     // hasRead => false to true (start)
-    var chatRoomObj = Chat.findOne();
+                   
+    Meteor.call('setAllMessagesAsRead',currentChatroomId);
+             
+     
     
-    chatRoomObj.messagesObj.map(function(eachMessageObj){ 
-     var result = Notifications.findOne({'messageCreateTimestampUnixTime': eachMessageObj.sendAt});
-     if(result){
-         if(result.hasRead == false){
-             
-             result.hasRead = true;
-             
-             Meteor.call('setMessageAsRead',result);
-            // Notifications.update({'messageCreateTimestampUnixTime': eachMessageObj.sendAt},result);
-         }
-     }
-    });
     
     
 

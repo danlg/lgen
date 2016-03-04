@@ -152,6 +152,14 @@ Template.TabChat.helpers({
 
     }
     return lodash(avatars).toString();
+  },
+  'newMessageCounter':function(chatroomId){
+   // log.info(chatroomId);
+   var newMessageCount =  Notifications.find({'chatroomId':chatroomId,'hasRead':false}).count();
+      
+   if(newMessageCount > 0 ){
+       return '<span class="badge" style="background-color: #ef473a;color: #fff;">'+ newMessageCount +'</span>'
+   }
   }
 });
 

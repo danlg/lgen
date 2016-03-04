@@ -458,6 +458,10 @@ Meteor.methods({
       log.info("trySetMessageAsRead")
       log.info(updateNotificationObj);
       Notifications.update({_id:updateNotificationObj._id},updateNotificationObj);
+  },
+  setAllMessagesAsRead:function(chatRoomId){
+      log.info("trySetMessageAsRead")
+      log.info(Notifications.update({chatroomId:chatRoomId,userId:Meteor.userId()},{ $set: { hasRead: true } },{multi:true}));
   }
 
 });
