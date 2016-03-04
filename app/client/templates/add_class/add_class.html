@@ -12,25 +12,25 @@
   {{/contentFor}}
 
   {{#ionView}}
-    {{#ionContent}}
+    
    
       {{#autoForm  validation="keyup" collection="Classes" id="insertClass" type="insert"}}
-        <ul class="list " style="margin-bottom:0;">
-          <li class="" >
-             <div class="bar bar-header item-input-inset">
-                 <label class="item-input-wrapper white-background">
-                <a data-text='{{_ "AddClassClassNameTooltip"}}'  data-ion-tooltip="ionTooltip"><i class='icon ion-ios-help' ></i></a>
-                 <i class="icon placeholder-icon"></i>
+        <ul class="list " style="margin-bottom:0;bottom: 0px !important;">
+          <li class="" style='  bottom: 0px !important;'>
+             <div class="bar bar-header item-input-inset" style='  bottom: 0px !important;'>
+                 <label class="item-input-wrapper white-background" style='  bottom: 0px !important;'>
+                <a style='  bottom: 0px !important;' data-text='{{_ "AddClassClassNameTooltip"}}'  data-ion-tooltip="ionTooltip"><i class='icon ion-ios-help' ></i></a>
+                 <i style='  bottom: 0px !important;' class="icon placeholder-icon"></i>
                 {{> afFieldInput name="className" placeholder=(_ "Type_Class_Name" ) }}
                 {{#if afFieldIsInvalid name='className'}}
-                 <br><span class="help-block">{{afFieldMessage name='className'}}</span>
+                 <br><span style='  bottom: 0px !important;' class="help-block">{{afFieldMessage name='className'}}</span>
                 {{/if}}
                 </label>
             </div>
           </li>
-          <li class="" >
-            <div class="bar bar-header item-input-inset">
-              <label class="item-input-wrapper white-background">
+          <li class="" style='  bottom: 0px !important;'>
+            <div class="bar bar-header item-input-inset" style='  bottom: 0px !important;'>
+              <label class="item-input-wrapper white-background" style='  bottom: 0px !important;'>
                 <a data-text='{{_ "AddClassClassCodeTooltip"}}'  data-ion-tooltip="ionTooltip"><i class='icon ion-ios-help' ></i></a>                  
                 <i class="icon placeholder-icon"></i>
                 {{> afFieldInput name="classCode" class="classCodeInput" placeholder=(_ "Type_Class_Code" ) }}
@@ -86,6 +86,6 @@
 
       {{/autoForm}}
 
-    {{/ionContent}}
+    
   {{/ionView}}
 </template>
