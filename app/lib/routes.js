@@ -232,7 +232,7 @@ Router.onBeforeAction(OnBeforeActions.roleRequired, {only: ['TabClasses'] });
 Router.onBeforeAction(OnBeforeActions.hasUserSeenAppTour, {only: ['TourFromHomePage'] });
 
 Router.onBeforeAction('loading');
-Router.onBeforeAction(OnBeforeActions.checkLanguage);
+Router.onRun(OnBeforeActions.checkLanguage);
 Router.onBeforeAction(OnBeforeActions.checkDob, {
   only: ['TabClasses','classDetail']
 });
