@@ -74,10 +74,9 @@ $positive: #ACDA46;
 //}
 
 /*for android vitual keyboard, so that it wont overlap with the textbox user clicks*/
-/*for ios vitual keyboard, so that content wont become blank when user click textboxs*/
 /*also do changes on ionKeyboard.js*/
 /*for detail, check https://github.com/meteoric/meteor-ionic/issues/130*/
-body.keyboard-open .content.overflow-scroll {
+body.keyboard-open .platform-android .content.overflow-scroll {
   bottom: 0px !important;
 }
 
