@@ -3,7 +3,7 @@
     {{#ionTabs style="android" class="tabs-background-positive tabs-color-light"}}
       <!-- {{> ionTab title="Home" path="Home" icon="android-home"}} -->
       {{> ionTab title=_Classes path="TabClasses" icon="android-people"}}
-      {{> ionTab title=_Chat    path="TabChat" icon="android-chat" badgeNumber=_chatNumber }}
+      {{> ionTab title=_Chat    path="TabChat" icon="android-chat" badgeNumber=sumOfNewChatMessageCounter }}
       {{> ionTab title=_You     path="TabYou" icon="gear-b"}}
 
     {{/ionTabs}}
@@ -11,7 +11,7 @@
     {{#ionTabs style="ios"}}
       <!-- {{> ionTab title="Home" path="Home" iconOff="ios-home-outline" iconOn="ios-home"}} -->
       {{> ionTab class='class-ionTab' title=_Classes path="TabClasses" iconOff="ios-people-outline" iconOn="ios-people"}}
-      {{> ionTab class='chat-ionTab' title=_Chat    path="TabChat" iconOff="ios-chatbubble-outline" iconOn="ios-chatbubble" badgeNumber=_chatNumber }}
+      {{> ionTab class='chat-ionTab' title=_Chat    path="TabChat" iconOff="ios-chatbubble-outline" iconOn="ios-chatbubble" badgeNumber=sumOfNewChatMessageCounter }}
       {{> ionTab class='you-ionTab' title=_You     path="TabYou" iconOff="ios-gear-outline" iconOn="ios-gear"}}
     {{/ionTabs}}
   {{/if}}

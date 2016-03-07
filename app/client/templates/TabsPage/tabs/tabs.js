@@ -23,6 +23,15 @@ Template.Tabs.helpers({
     } else {
       return Session.get("chatUnreadNumber");
     }
+  },
+  'sumOfNewChatMessageCounter': function(){
+   var newMessageCount =  Notifications.find({'eventType':'newchatroommessage','hasRead':false}).count();
+      
+   if(newMessageCount > 0 ){
+       return newMessageCount;
+   }else{
+       return false;
+   }
   }
 });
 

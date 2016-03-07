@@ -6,7 +6,7 @@
  */
 
 Meteor.publish('notifications', function () {
-  log.info("publish:notificaitons:"+ this.userId);
+  //log.info("publish:notificaitons:"+ this.userId);
   return Notifications.find({
     userId: this.userId
   });

@@ -51,6 +51,7 @@ Template.ChatRoom.events({
           //send group chat email
           Meteor.call("chatroomEmail",getAllUserExceptCurrentUser(),Meteor.user(),text);
         
+          //add notifications to db
           targetUsers.map(function(eachTargetUser){
             Notifications.insert({
                 eventType:"newchatroommessage",

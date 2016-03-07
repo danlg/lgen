@@ -306,3 +306,8 @@ a.tooltips.point-to-left span:after {
 .popover-bottom .popover-arrow:after {
     top: -6px; }
     
+.badge.badge-assertive {
+    left: calc(50% + 13px);
+    width: auto;
+    display: inline-table ;   
+}
