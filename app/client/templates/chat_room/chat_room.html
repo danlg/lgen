@@ -71,7 +71,16 @@
                                         {{#if isMineBoolean ../from}}
                                         {{else}}
                                             {{#with getUserById ../from}}
-                                                <div class='username'><i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>{{profile.firstname}}</div><br/>
+                                                <div class='username'> 
+                                                    {{#if profile.useravatar}}
+                                                        <i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>
+                                                    {{else}}
+                                                        <i class="icon e1a-green_apple e1a-1x emojicon"></i>
+                                                    {{/if}}
+                                                    {{profile.firstname}} {{profile.lastname}}
+                                                    <i style='larger' class="icon {{isNewMessage ../../sendAt}}"></i>
+                                                </div>
+                                             <br/>
                                             {{/with}}
                                         {{/if}}                                          
                                         <a href='{{this.url}}'> <i class="icon ion-paperclip"></i>&nbsp;{{this.name}}</a>
@@ -85,6 +94,7 @@
                                 {{/if}}                               
                         {{/with}}        
                     {{/if}}
+                    
                     {{#if isImage}}
                     {{#with FS.GetFile "images" this.image}}
                     
@@ -95,7 +105,16 @@
                         {{#if isMineBoolean ../from}}
                         {{else}}
                             {{#with getUserById ../from}}
-                                <div class='username'><i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>{{profile.firstname}}</div><br/>
+                                <div class='username'> 
+                                    {{#if profile.useravatar}}
+                                        <i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>
+                                    {{else}}
+                                        <i class="icon e1a-green_apple e1a-1x emojicon"></i>
+                                    {{/if}}
+                                    {{profile.firstname}} {{profile.lastname}}
+                                    <i style='larger' class="icon {{isNewMessage ../../sendAt}}"></i>
+                                </div>
+                                <br/>
                             {{/with}}
                         {{/if}}                        
                         <!--http://stackoverflow.com/questions/10426786/div-gets-extra-height-for-no-reason-->
@@ -114,7 +133,16 @@
                                 {{#if isMineBoolean ../from}}
                                 {{else}}
                                     {{#with getUserById ../from}}
-                                        <div class='username'><i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>{{profile.firstname}}</div><br/>
+                                        <div class='username'> 
+                                            {{#if profile.useravatar}}
+                                                <i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>
+                                            {{else}}
+                                                <i class="icon e1a-green_apple e1a-1x emojicon"></i>
+                                            {{/if}}
+                                            {{profile.firstname}} {{profile.lastname}}
+                                            <i style='larger' class="icon {{isNewMessage ../../sendAt}}"></i>
+                                        </div>
+                                        <br/>
                                     {{/with}}
                                 {{/if}}                                  
                                 <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}"></a>

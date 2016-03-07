@@ -11,63 +11,18 @@ var needReduce = false;
 Template.ChatRoom.events({
   
   'click .sendBtn': function () {
-    if (Meteor.user().profile.firstchat) {
-      analytics.track("First Chat", {
-        date: new Date(),
-      });
-      Meteor.call("updateProfileByPath", 'profile.firstchat', false);
-    }
+    
     var text = $('.inputBox').val();
-    template.atBottom = true;
-    if (!lodash.isEmpty(text)) {
-      Meteor.call('chat/sendMessage', Router.current().params.chatRoomId, text, function (err, data) {
-        if (!err) {
-          var text = $('.inputBox').val();
-          $('.inputBox').val("");
-          
-          //get all users except current user 
-          var targetUsers = getAllUserExceptCurrentUser();
-          var targetUsersIds = lodash.pluck(targetUsers, '_id');            
-          var targetUser = getAnotherUser();        
-          //var targetId = targetUser._id;
-                 
-          sendBtnMediaButtonToggle();
-          var query = {};
-          query.userId = {$in: targetUsersIds};
-          var notificationObj = {};
-          notificationObj.from = getFullNameByProfileObj(Meteor.user().profile);
-          notificationObj.title = getFullNameByProfileObj(Meteor.user().profile);
-          notificationObj.text = text;
-          notificationObj.payload = {
-            sound: 'Hello World',
-            type: 'chat'
-          };
-          notificationObj.query = query;
-          Meteor.call("serverNotification", notificationObj,{
-              chatRoomId:  Router.current().params.chatRoomId   
-          });
-          document.getElementsByClassName("inputBox")[0].updateAutogrow();
-          
-          //send group chat email
-          Meteor.call("chatroomEmail",getAllUserExceptCurrentUser(),Meteor.user(),text);
-        
-          //add notifications to db
-          targetUsers.map(function(eachTargetUser){
-            Notifications.insert({
-                eventType:"newchatroommessage",
-                userId: eachTargetUser._id,
-                hasRead: false,
-                chatroomId: Router.current().params.chatRoomId,
-                messageCreateTimestamp: data.createdAt,
-                messageCreateTimestampUnixTime: data.sendAt,
-                messageCreateByUserId: Meteor.userId()
-      
-            });              
-          });
-
-        }
-      });
-    }
+    
+    if(!lodash.isEmpty(text)){
+        ChatRoomMessageSender(Router.current().params.chatRoomId,'text',text,{},getAllUserExceptCurrentUser(),function(){
+            
+            template.atBottom = true;
+            $('.inputBox').val("");
+            sendBtnMediaButtonToggle();
+            document.getElementsByClassName("inputBox")[0].updateAutogrow();
+        });
+    }    
   },
   'click .imageIcon': function (argument) {
     // alert("asd");
@@ -204,50 +159,10 @@ function onResolveSuccess(fileEntry) {
         var fileURL = {
           "file": "/cfs/files/files/" + fileObj._id
         };
-        log.info(fileURL.file);
-        var pushObj = {};
-        pushObj.from = Meteor.userId();
-        pushObj.sendAt = moment().format('x');
-        pushObj.text = "";
-        pushObj.sound = fileObj._id;
-        Meteor.call("chat/sendImage", Router.current().params.chatRoomId, pushObj, function (error, result) {
-          if (error) {
-            log.error("error", error);
-          }
-        });
-
-        //TODO : change to getAllUser() for sending notification
-        //to all users except current user 
-        //get another person's user object in 1 to 1 chatroom. 
-        //get all users except current user 
-        var targetUsers = getAllUserExceptCurrentUser();
-        var targetUsersIds = lodash.pluck(targetUsers, '_id');      
-        var targetUserObj = getAnotherUser();         
-        //var targetId = targetUserObj._id;
-        
-        var query = {};
-        query.userId = {$in: targetUsersIds};
-        var notificationObj = {};
-        notificationObj.from = getFullNameByProfileObj(Meteor.user().profile);
-        notificationObj.title = getFullNameByProfileObj(Meteor.user().profile);
-        notificationObj.text = "Sound";
-        notificationObj.query = query;
-        notificationObj.sound = 'default';
-        notificationObj.payload = {
-          sound: 'Hello World',
-          type: 'chat'
-        };
-        // if(Meteor.user().profile.firstpicture){
-        //   analytics.track("First Picture", {
-        //     date: new Date(),
-        //   });
-        //   Meteor.call("updateProfileByPath", 'profile.firstpicture',false);
-        // }
-        Meteor.call("serverNotification", notificationObj,
-            {
-                chatRoomId:  Router.current().params.chatRoomId   
-            }
-        );
+        log.info(fileURL.file);     
+        ChatRoomMessageSender(Router.current().params.chatRoomId,'voice','New Voice',{_id: fileObj._id},
+            getAllUserExceptCurrentUser()
+        );            
       }
     });
   });
