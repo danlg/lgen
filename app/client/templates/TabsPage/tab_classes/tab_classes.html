@@ -77,6 +77,8 @@
                 {{#each joinedClass}}
                   <a href={{ pathFor 'classDetail'   }}>
                     <div class="item item-icon-left" style="padding-top: 7px; padding-bottom: 7px">
+                      {{{newMessageCounter this.classCode}}}
+                      
                       <i class="icon {{classavatar_icon}} e1a-1x emojicon"></i>
                       {{this.className}}
                       <br/><span class='class-code'>@{{this.classCode}}</span>

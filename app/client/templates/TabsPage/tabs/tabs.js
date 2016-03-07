@@ -32,6 +32,15 @@ Template.Tabs.helpers({
    }else{
        return false;
    }
+  },
+  'sumOfNewClassMessageCounter': function(){
+   var newMessageCount =  Notifications.find({'eventType':'newclassmessage','hasRead':false}).count();
+      
+   if(newMessageCount > 0 ){
+       return newMessageCount;
+   }else{
+       return false;
+   }
   }
 });
 

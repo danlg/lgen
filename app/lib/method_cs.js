@@ -424,7 +424,22 @@ Meteor.methods({
             
             //send email notification
             sendEmailMessageToClasses(flattenArray,arrayOfClasses,msg,currentUserObj);
-            //send email notification end            
+            //send email notification end   
+            
+            //add notifications to notifications collections
+            flattenArray.map(function(eachTargetUserId){
+                Notifications.insert({
+                    eventType:"newclassmessage",
+                    userId: eachTargetUserId,
+                    hasRead: false,
+                    classCode: arrayOfClasses[0].classCode,
+                    messageId: msgObj.msgId,
+                    messageCreateTimestamp: msgObj.createdAt,
+                    messageCreateTimestampUnixTime: msgObj.sendAt,
+                    messageCreateByUserId: currentUserId
+                });
+            }); 
+            //add notifications to notifications collections ends                   
         });
         
       

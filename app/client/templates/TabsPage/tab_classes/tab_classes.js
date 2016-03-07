@@ -37,8 +37,15 @@ Template.TabClasses.helpers({
     else{ //default
       return "e1a-green_apple";
     }
+  },
+  'newMessageCounter':function(classCode){
+   // log.info(chatroomId);
+   var newMessageCount =  Notifications.find({'classCode':classCode,'hasRead':false}).count();
+      
+   if(newMessageCount > 0 ){
+       return '<span class="badge" style="background-color: #ef473a;color: #fff;">'+ newMessageCount +'</span>'
+   }
   }
-
 
 });
 
