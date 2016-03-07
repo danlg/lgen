@@ -71,41 +71,34 @@
         <div class="extra-options setting padding-horizontal" style='overflow:hidden;white-space:nowrap;background-color: #EBE4D9  !important;'>
             <div>
               <a data-text='{{_ "HelpReply"}}'  data-ion-tooltip="ionTooltip"><i class='icon ion-ios-help' ></i></a>
-              <span style='font-size:smaller'><b>{{_ "Reply"}}:</b></span>
+              <span data-text='{{_ "HelpReply"}}'  data-ion-tooltip="ionTooltip" style='font-size:smaller'><b>{{_ "Reply"}}:</b></span>
             </div>
-            <label style='font-size:smaller'><!--<i class="icon  ion-chatbox"></i>-->
+            <label onclick="" style='font-size:smaller'><!--<i class="icon  ion-chatbox"></i>-->
               <input id='allowComment' type="checkbox" name="allowComment" value="comment" checked="checked"> {{_ "Comment"}}</label>
-            <label style='font-size:smaller'><!--<i class="icon  ion-android-checkbox-outline  "></i>-->
+            <label onclick="" style='font-size:smaller'><!--<i class="icon  ion-android-checkbox-outline  "></i>-->
               <input id='allowVote' type="checkbox" name="allowVote" value="vote" checked="checked"> {{_ "Vote"}}</label>
         </div>
           {{#unless isVotingTypeDisabled}}
           <div class="extra-options setting padding-horizontal" style='overflow:hidden;white-space:nowrap;background-color: #EBE4D9  !important;'>     
-                <label style='font-size:x-small;display: flex;align-items: center;line-height:inherit;'><input type="radio" name="voteTypeOption" value="heartNoEvilStarQuestion" checked="checked">
-                  <i class="icon e1a-hearts e1a-2x emojicon"></i>
-                  <i class="icon e1a-see_no_evil e1a-2x emojicon"></i>
-                  <!--<i class="icon e1a-x e1a-2x emojicon"></i>-->
-                  <!--<i class="icon e1a-star e1a-2x emojicon"></i>-->
-                  <!--<i class="icon e1a-grey_question e1a-2x emojicon"></i>-->
-                    <i class="icon ion-help" style="
+                <label onclick="" style='font-size:x-small;display: flex;align-items: center;line-height:inherit;'><input type="radio" name="voteTypeOption" value="heartNoEvilStarQuestion" checked="checked">
+                  <i  class="icon e1a-hearts e1a-2x emojicon"></i>
+                  <i  class="icon e1a-see_no_evil e1a-2x emojicon"></i>
+                  <i class="icon ion-help" style="
                         font-size: 25px;
                         height: 27px;
                         color:orange;
                         padding-left: 5px;
                     "></i>
                 </label>
-                <label style='font-size:x-small;display: flex;align-items: center;line-height:inherit;'><input type="radio" name="voteTypeOption" value="oneTwoThreeFour">
-                  <i class="icon e1a-one e1a-2x emojicon"></i>
-                  <i class="icon e1a-two e1a-2x emojicon"></i>
+                <label onclick="" style='font-size:x-small;display: flex;align-items: center;line-height:inherit;'><input type="radio" name="voteTypeOption" value="oneTwoThreeFour">
+                  <i  class="icon e1a-one e1a-2x emojicon"></i>
+                  <i  class="icon e1a-two e1a-2x emojicon"></i>
                   <i class="icon e1a-three e1a-2x emojicon"></i>
-                  <i class="icon e1a-four e1a-2x emojicon"></i>
+                  <i  class="icon e1a-four e1a-2x emojicon"></i>
                 </label>
-                <!--<label style='font-size:x-small;'><input type="radio" name="voteTypeOption" value="likeDislike">-->
-                  <!--<i class="icon e1a-hearts e1a-2x emojicon"></i>-->
-                  <!--<i class="icon e1a-see_no_evil e1a-2x emojicon"></i>-->
-                <!--</label>-->
-                <label style='font-size:x-small;display: flex;align-items: center;line-height:inherit;'><input type="radio" name="voteTypeOption" value="yesNo">
+                <label onclick="" style='font-size:x-small;display: flex;align-items: center;line-height:inherit;'><input type="radio" name="voteTypeOption" value="yesNo">
                   <i class="icon e1a-white_check_mark e1a-2x emojicon"></i>
-                  <i class="icon e1a-negative_squared_cross_mark e1a-2x emojicon"></i>
+                  <i  class="icon e1a-negative_squared_cross_mark e1a-2x emojicon"></i>
                 </label>
                        
              

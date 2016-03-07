@@ -305,4 +305,12 @@ a.tooltips.point-to-left span:after {
   bottom: -10px; }
 .popover-bottom .popover-arrow:after {
     top: -6px; }
-    
+
+/*http://stackoverflow.com/questions/5421659/html-label-command-doesnt-work-in-iphone-browser*/
+/* make element insides label to be clickable. a fix for mobile safari */
+label { cursor: pointer; }
+  
+label span,label i {
+  pointer-events: none;
+}
+/* make element insides label to be clickable. a fix for mobile safari end*/
