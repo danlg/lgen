@@ -155,6 +155,18 @@ Template.ClassDetail.helpers({
   getNameById: function (userId) {
     var userObj = Meteor.users.findOne(userId);
     return userObj._id == Meteor.userId() ? "You" : userObj.profile.firstname + " " + userObj.profile.lastname;
+  },
+  isNewMessage:function(sendAt){   
+     var result = Notifications.findOne({'eventType':'newclassmessage','messageCreateTimestampUnixTime':sendAt});       
+     //backward comptability
+     if(!result){
+         return "";
+     }  
+     if(result.hasRead == false){
+         return 'ion-email-unread';
+     }else{
+         return "";
+     }
   }
 });
 
@@ -258,6 +270,8 @@ Template.ClassDetail.rendered = function () {
 };
 
 Template.ClassDetail.destroyed = function () {
+
+  Meteor.call('setAllClassMessagesAsRead',classObj.classCode);
 
 };
 

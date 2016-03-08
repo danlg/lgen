@@ -471,14 +471,18 @@ Meteor.methods({
      Classes.update(classid, modifier,{validate: false});
      
   },
-  setMessageAsRead:function(updateNotificationObj){
-      log.info("trySetMessageAsRead")
+  setChatMessageAsRead:function(updateNotificationObj){
+      log.info("trySetChatMessageAsRead")
       log.info(updateNotificationObj);
       Notifications.update({_id:updateNotificationObj._id},updateNotificationObj);
   },
-  setAllMessagesAsRead:function(chatRoomId){
-      log.info("trySetMessageAsRead")
+  setAllChatMessagesAsRead:function(chatRoomId){
+      log.info("trySetChatMessagesAsRead")
       log.info(Notifications.update({chatroomId:chatRoomId,userId:Meteor.userId()},{ $set: { hasRead: true } },{multi:true}));
+  },
+  setAllClassMessagesAsRead:function(classCode){
+      log.info("trySetClassMessagesAsRead")
+      log.info(Notifications.update({classCode:classCode,userId:Meteor.userId()},{ $set: { hasRead: true } },{multi:true}));
   }
 
 });

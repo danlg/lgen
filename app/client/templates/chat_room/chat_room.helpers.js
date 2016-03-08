@@ -191,7 +191,7 @@ Template.ChatRoom.helpers({
   },
   
   isNewMessage:function(sendAt){   
-     var result = Notifications.findOne({'messageCreateTimestampUnixTime':sendAt});       
+     var result = Notifications.findOne({"eventType":"newchatroommessage",'messageCreateTimestampUnixTime':sendAt});       
      //backward comptability
      if(!result){
          return "";

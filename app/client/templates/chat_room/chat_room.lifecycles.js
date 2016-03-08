@@ -64,16 +64,11 @@ Template.ChatRoom.rendered = function () {
 
 Template.ChatRoom.destroyed = function () {
     
-    log.info('destroy chat room!');
+    //log.info('destroy chat room!');
     //var chatRoomId = Router.current().params.chatRoomId;
     // hasRead => false to true (start)
                    
-    Meteor.call('setAllMessagesAsRead',currentChatroomId);
+    Meteor.call('setAllChatMessagesAsRead',currentChatroomId);
              
-     
-    
-    
-    
-
      // hasRead => false to true (end)  
 };
