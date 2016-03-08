@@ -8,40 +8,31 @@ Template.ChatRoom.created = function () {
 Template.ChatRoom.rendered = function () {
 
 var imgReadyChecking = function(){
-
-    var allImages = document.getElementsByTagName("img");
-    for (var i=0; i<allImages.length; i++){
-                     
-        allImages[i].addEventListener('load', function() {
-            //console.log('My width is: ', this.naturalWidth);
-            //console.log('My height is: ', this.naturalHeight);
-            this.style.width  = this.naturalWidth+"px";             
-            this.style.height = this.naturalHeight+"px";
-            this.width        = this.naturalWidth;
-            this.height       = this.naturalHeight;
-            this.alt = "";
-            this.title = "";            
-            window.setTimeout(function(){
-                var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight; 
-                chatroomList.scrollTop = chatroomListToBottomScrollTopValue;                   
-            }, 200);                      
-        });
-        
+    var hasAllImagesLoaded =true;
+    $('img').each(function(){
+        if(this.complete){
+            //log.info('loaded');
+        }else{
+            //log.info('not loaded');
+            hasAllImagesLoaded = false;
+        }
+    });
+    
+    if(hasAllImagesLoaded){
+        //log.info('scroll to bottom');
+        //need to wrap the code inside autorun and subscriptionready
+        //see http://stackoverflow.com/questions/32291382/when-the-page-loads-scroll-down-not-so-simple-meteor-js
+        //scroll to bottom
         window.setTimeout(function(){
             var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight; 
             chatroomList.scrollTop = chatroomListToBottomScrollTopValue;                   
-        }, 200);          
-    }       
-
-    window.setTimeout(function(){
-        var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight; 
-        chatroomList.scrollTop = chatroomListToBottomScrollTopValue;                   
-    }, 200);  
-
-    
-
-
-                                    
+        }, 200);
+        
+    }else{
+        //if not all images is fully loaded, scroll bottom would not work.
+        //so we set a timer to do the imgReadyChecking again later
+        setTimeout(imgReadyChecking, 1000);
+    }                                  
 };   
   //$(".list.chatroomList").height("100%");
   //$(".list.chatroomList").height(($(".list.chatroomList").height() - 123) + "px");
@@ -63,12 +54,22 @@ var imgReadyChecking = function(){
         if(latestCount > initialCount){
                 
             //scroll to bottom
+            //scroll to bottom
             $(".image-bubble img").last().get(0).alt = "loading";
             $(".image-bubble img").last().get(0).title  = "loading";
             $(".image-bubble img").last().get(0).width  = "300";   
-            $(".image-bubble img").last().get(0).height  = "300";      
-                                            
-            imgReadyChecking();
+            $(".image-bubble img").last().get(0).height  = "300";
+            
+           
+            $(".image-bubble img").last().on('load', function () {
+                $(".image-bubble img").last().get(0).width  =   $(".image-bubble img").last().get(0).naturalWidth;
+                $(".image-bubble img").last().get(0).height  = $(".image-bubble img").last().get(0).naturalHeight;
+                var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight; 
+                chatroomList.scrollTop = chatroomListToBottomScrollTopValue;                         
+             });
+            var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight; 
+            chatroomList.scrollTop = chatroomListToBottomScrollTopValue;                                   
+            //imgReadyChecking();
 
             
             initialCount = latestCount;
