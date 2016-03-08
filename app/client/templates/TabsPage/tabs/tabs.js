@@ -33,11 +33,12 @@ Template.Tabs.helpers({
        return false;
    }
   },
-  'sumOfNewClassMessageCounter': function(){
+  'sumOfNewClassMessageAndCommentCounter': function(){
    var newMessageCount =  Notifications.find({'eventType':'newclassmessage','hasRead':false}).count();
-      
-   if(newMessageCount > 0 ){
-       return newMessageCount;
+   var newCommentCount =  Notifications.find({'eventType':'newclasscomment','hasRead':false}).count();
+        
+   if(newMessageCount+newCommentCount > 0 ){
+       return (newMessageCount+newCommentCount);
    }else{
        return false;
    }

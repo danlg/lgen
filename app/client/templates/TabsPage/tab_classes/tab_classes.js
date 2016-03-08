@@ -40,7 +40,15 @@ Template.TabClasses.helpers({
   },
   'newMessageCounter':function(classCode){
    // log.info(chatroomId);
-   var newMessageCount =  Notifications.find({'classCode':classCode,'hasRead':false}).count();
+   var newMessageCount =  Notifications.find({"eventType" : "newclassmessage",'classCode':classCode,'hasRead':false}).count();
+      
+   if(newMessageCount > 0 ){
+       return '<span class="badge" style="background-color: #ef473a;color: #fff;">'+ newMessageCount +'</span>'
+   }
+  },
+  'newCommentCounter':function(classCode){
+   // log.info(chatroomId);
+   var newMessageCount =  Notifications.find({"eventType" : "newclasscomment",'classCode':classCode,'hasRead':false}).count();
       
    if(newMessageCount > 0 ){
        return '<span class="badge" style="background-color: #ef473a;color: #fff;">'+ newMessageCount +'</span>'

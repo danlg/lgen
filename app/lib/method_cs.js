@@ -303,6 +303,19 @@ Meteor.methods({
                           };
       
       Classes.update( targetClass,{$push: {'messagesObj.$.comment.comments': newCommentObj}} );
+      
+      var updatedClass=  Classes.findOne(targetClass);
+      Notifications.insert({
+         eventType:"newclasscomment",
+         userId: updatedClass.createBy,
+         hasRead: false,
+         classid: updatedClass._id,
+         classCode: updatedClass.classCode,
+         commentId: newCommentObj._Id,
+         messageCreateTimestamp: newCommentObj.createdAt,
+         messageCreateTimestampUnixTime: moment(newCommentObj.createdAt).unix(),
+         messageCreateByUserId: Meteor.userId()
+     });      
   },
 
   sendMsg: function (target, msg, mediaObj, classId) {
@@ -478,11 +491,15 @@ Meteor.methods({
   },
   setAllChatMessagesAsRead:function(chatRoomId){
       log.info("trySetChatMessagesAsRead")
-      log.info(Notifications.update({chatroomId:chatRoomId,userId:Meteor.userId()},{ $set: { hasRead: true } },{multi:true}));
+      log.info(Notifications.update({ "eventType" : "newchatroommessage",chatroomId:chatRoomId,userId:Meteor.userId()},{ $set: { hasRead: true } },{multi:true}));
   },
   setAllClassMessagesAsRead:function(classCode){
       log.info("trySetClassMessagesAsRead")
-      log.info(Notifications.update({classCode:classCode,userId:Meteor.userId()},{ $set: { hasRead: true } },{multi:true}));
+      log.info(Notifications.update({ "eventType" : "newclassmessage",classCode:classCode,userId:Meteor.userId()},{ $set: { hasRead: true } },{multi:true}));
+  },
+  setAllClassCommentsAsRead:function(classCode){
+      log.info("trySetClassCommentsAsRead")
+      log.info(Notifications.update({ "eventType" : "newclasscomment",classCode:classCode,userId:Meteor.userId()},{ $set: { hasRead: true } },{multi:true}));
   }
 
 });

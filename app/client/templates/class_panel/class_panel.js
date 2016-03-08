@@ -1,7 +1,7 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 var text = new ReactiveVar('');
 var classObj;
-
+var currentClassCode;
 
 var soundArr = ReactiveVar([]);
 var isRecording = false;
@@ -168,7 +168,7 @@ Template.ClassPanel.created = function () {
 };
 
 Template.ClassPanel.rendered = function () {
-
+    currentClassCode = Classes.findOne({classCode: Router.current().params.classCode}).classCode;
     var template = this;
     //scroll to bottom
     this.autorun(function () {
@@ -218,5 +218,6 @@ Template.ClassPanel.rendered = function () {
 
 Template.ClassPanel.destroyed = function () {
   //  Session.set('hasFooter',true);
+  Meteor.call('setAllClassCommentsAsRead',currentClassCode);
 };
 
