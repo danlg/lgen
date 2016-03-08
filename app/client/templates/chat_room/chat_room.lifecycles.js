@@ -55,18 +55,26 @@ var imgReadyChecking = function(){
                 
             //scroll to bottom
             //scroll to bottom
-            $(".image-bubble img").last().get(0).alt = "loading";
-            $(".image-bubble img").last().get(0).title  = "loading";
-            $(".image-bubble img").last().get(0).width  = "300";   
-            $(".image-bubble img").last().get(0).height  = "300";
+            var lastImageElement = $(".image-bubble img").last().get(0);
             
+            
+            if(lastImageElement){
+            lastImageElement.alt = "loading";
+            lastImageElement.title  = "loading";
+            lastImageElement.width  = "300";   
+            lastImageElement.height  = "300";
+            lastImageElement.style.width  = "300px";   
+            lastImageElement.style.height  = "300px";            
            
             $(".image-bubble img").last().on('load', function () {
-                $(".image-bubble img").last().get(0).width  =   $(".image-bubble img").last().get(0).naturalWidth;
-                $(".image-bubble img").last().get(0).height  = $(".image-bubble img").last().get(0).naturalHeight;
+                lastImageElement.width  =   lastImageElement.naturalWidth;
+                lastImageElement.height  = lastImageElement.naturalHeight;
+                lastImageElement.style.width  = lastImageElement.naturalWidth+"px";
+                lastImageElement.style.height  = lastImageElement.naturalHeight+"px";                
                 var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight; 
                 chatroomList.scrollTop = chatroomListToBottomScrollTopValue;                         
              });
+           }
             var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight; 
             chatroomList.scrollTop = chatroomListToBottomScrollTopValue;                                   
             //imgReadyChecking();
