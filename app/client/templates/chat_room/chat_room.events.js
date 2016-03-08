@@ -18,7 +18,7 @@ Template.ChatRoom.events({
       Meteor.call("updateProfileByPath", 'profile.firstchat', false);
     }
     var text = $('.inputBox').val();
-    template.atBottom = true;
+    //template.atBottom = true;
     if (!lodash.isEmpty(text)) {
       Meteor.call('chat/sendMessage', Router.current().params.chatRoomId, text, function (err, data) {
         if (!err) {
