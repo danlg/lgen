@@ -60,6 +60,41 @@ Template.ChatRoom.rendered = function () {
   //   log.info(height);
   //   $(".list.chatroomList").height(height+"px");
   // }
+ 
+
+
+
+  $(".inputBox").autogrow();
+  var chatroomList = this.find('.chatroomList');
+  
+  var initialChatObj = Chat.findOne({_id: Router.current().params.chatRoomId});
+  var initialCount = initialChatObj.messagesObj.length;
+  
+  //http://stackoverflow.com/questions/32461639/how-to-execute-a-callback-after-an-each-is-done
+  this.autorun(function(){
+    var latestChatObj = Chat.findOne({_id: Router.current().params.chatRoomId});
+   
+    // we need to register a dependency on the number of documents returned by the
+    // cursor to actually make this computation rerun everytime the count is altered
+    var latestCount = latestChatObj.messagesObj.length;
+    
+    Tracker.afterFlush(function(){
+        if(latestCount > initialCount){
+
+        log.info('show new message bubble');
+        $('.new-message-bubble').remove();
+
+        var newMessageBubbleText = '<div class="date-bubble-wrapper new-message-bubble"> <div class="date-bubble"><i class="icon ion-android-arrow-dropdown"></i>new messages<i class="icon ion-android-arrow-dropdown"></i> </div> </div>';
+        $('i.ion-email-unread').first().parents('div.item').before(newMessageBubbleText);
+            
+            initialCount = latestCount;
+        }
+    }.bind(this));
+  }.bind(this));  
+  /****track if there are any new messages - END *********/   
+
+  var newMessageBubbleText = '<div class="date-bubble-wrapper new-message-bubble"> <div class="date-bubble"><i class="icon ion-android-arrow-dropdown"></i>new messages<i class="icon ion-android-arrow-dropdown"></i> </div> </div>';
+ $('i.ion-email-unread').first().parents('div.item').before(newMessageBubbleText);
 };
 
 Template.ChatRoom.destroyed = function () {
