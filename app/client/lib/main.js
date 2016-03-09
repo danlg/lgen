@@ -3,7 +3,9 @@ Meteor.startup(function () {
 		window.alert = navigator.notification.alert;
 	}else{
        //requestPermission for desktop notification
-       Notification.requestPermission(); 
+       if ('Notification' in window) {
+        Notification.requestPermission(); 
+       }
     }
   
   log = loglevel.createLogger('lg');
@@ -38,45 +40,40 @@ Meteor.startup(function () {
   //and be redirected to that class
   Streamy.on('newclassmessage', function(data) {
     log.info(data);
-    toastr.info(data.text, data.from,
-            {
-                "closeButton": true,
-                "preventDuplicates": true,
-                timeOut: 0,
-                onclick: function () {
-                    //classCode
-                    Router.go('classDetail',{classCode:data.classCode},{query: "toBottom=true"});
-                    //$('.class-detail').scrollTop(999999);
-            }
+    //determine if browser support Notification API
+    if('Notification' in window && Notification.permission == 'granted'){
+        
+        //if Notification API is supported
+        var pathToRouteObj ={
+            routeName:'classDetail',
+            params: {classCode:data.classCode},
+            query: {query: "toBottom=true"},
         }
-    );    
+        spawnDesktopNotification(data.text,'',data.from,pathToRouteObj);        
+    }else{
+        //else, use in-app toastr
+        toastr.info(data.text, data.from,
+                {
+                    "closeButton": true,
+                    "preventDuplicates": true,
+                    timeOut: 0,
+                    onclick: function () {
+                        //classCode
+                        Router.go('classDetail',{classCode:data.classCode},{query: "toBottom=true"});
+                        //$('.class-detail').scrollTop(999999);
+                }
+            }
+        );
+    }
+      
   }); 
 
   //when receive a new chat message, display a popup, which can be clicked
   //and be redirected to that chat
   Streamy.on('newchatmessage', function(data) {  
-    if(Router.current().route.getName() == 'ChatRoom' && Router.current().params.chatRoomId == data.chatRoomId){
-        //do nothing. As user its already on that chat.
-    }else{
-        log.info(data);
-        toastr.info(data.text, data.from,
-                {           
-                    "closeButton": true,
-                    "preventDuplicates": true,
-                    timeOut: 0,
-                    onclick: function () {
-                        Router.go('ChatRoom',{chatRoomId:data.chatRoomId},{query: "toBottom=true"});
-                }
-            }
-        );
-        
-
-        
-        
-    } 
-    //desktop notification
-    if ('Notification' in window) {
-        // API supported
+    //determine if browser support Notification API
+    if ('Notification' in window && Notification.permission == 'granted') {
+        //if Notification API is supported
         var pathToRouteObj ={
             routeName:'ChatRoom',
             params: {chatRoomId:data.chatRoomId},
@@ -84,7 +81,22 @@ Meteor.startup(function () {
         }
         spawnDesktopNotification(data.text,'',data.from,pathToRouteObj);
     } else {
-        // API not supported
+        //else, use in-app toastr
+        if(Router.current().route.getName() == 'ChatRoom' && Router.current().params.chatRoomId == data.chatRoomId){
+            //do nothing. As user its already on that chat.
+        }else{
+            log.info(data);
+            toastr.info(data.text, data.from,
+                    {           
+                        "closeButton": true,
+                        "preventDuplicates": true,
+                        timeOut: 0,
+                        onclick: function () {
+                            Router.go('ChatRoom',{chatRoomId:data.chatRoomId},{query: "toBottom=true"});
+                    }
+                }
+            );      
+        }         
     }        
 
       
