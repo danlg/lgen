@@ -49,7 +49,7 @@ Meteor.startup(function () {
             params: {classCode:data.classCode},
             query: {query: "toBottom=true"},
         }
-        spawnDesktopNotification(data.text,'',data.from,pathToRouteObj);        
+        spawnDesktopNotification(data.text,'/img/logo-new.png',data.from,pathToRouteObj);        
     }else{
         //else, use in-app toastr
         toastr.info(data.text, data.from,
@@ -79,7 +79,7 @@ Meteor.startup(function () {
             params: {chatRoomId:data.chatRoomId},
             query: {query: "toBottom=true"},
         }
-        spawnDesktopNotification(data.text,'',data.from,pathToRouteObj);
+        spawnDesktopNotification(data.text,'/img/logo-new.png',data.from,pathToRouteObj);
     } else {
         //else, use in-app toastr
         if(Router.current().route.getName() == 'ChatRoom' && Router.current().params.chatRoomId == data.chatRoomId){
