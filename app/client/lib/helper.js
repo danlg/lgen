@@ -1,5 +1,33 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 
+//Desktop Notification
+//https://developer.mozilla.org/en/docs/Web/API/notification
+//https://developer.mozilla.org/en-US/docs/Web/API/Notification/close
+spawnDesktopNotification = function(theBody,theIcon,theTitle,pathToRouteObj) {
+  var options = {
+      body: theBody,
+      icon: theIcon
+  }
+  var n = new Notification(theTitle,options);
+  n.onclick = function(){
+      if(pathToRouteObj){
+          if(pathToRouteObj.routeName){
+            if(pathToRouteObj.params){
+              if(pathToRouteObj.query){
+                 Router.go(pathToRouteObj.routeName,pathToRouteObj.params,pathToRouteObj.query);
+              }else{
+                 Router.go(pathToRouteObj.routeName,pathToRouteObj.params);   
+              }  
+            }else{
+                 Router.go(pathToRouteObj.routeName);                 
+            }                      
+          }
+      }
+      
+      n.close();
+  }
+}
+
 isChinese = function(lang) {
     return lang.toLowerCase().includes("zh")
     || lang.toLowerCase().includes("han");

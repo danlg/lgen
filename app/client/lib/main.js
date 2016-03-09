@@ -1,7 +1,10 @@
 Meteor.startup(function () {
 	if (Meteor.isCordova) {
 		window.alert = navigator.notification.alert;
-	}
+	}else{
+       //requestPermission for desktop notification
+       Notification.requestPermission(); 
+    }
   
   log = loglevel.createLogger('lg');
   log.info("log initialized on client");
@@ -66,8 +69,27 @@ Meteor.startup(function () {
                 }
             }
         );
-    }    
+        
+
+        
+        
+    } 
+    //desktop notification
+    if ('Notification' in window) {
+        // API supported
+        var pathToRouteObj ={
+            routeName:'ChatRoom',
+            params: {chatRoomId:data.chatRoomId},
+            query: {query: "toBottom=true"},
+        }
+        spawnDesktopNotification(data.text,'',data.from,pathToRouteObj);
+    } else {
+        // API not supported
+    }        
+
+      
   });   
+  
 
 });
 
