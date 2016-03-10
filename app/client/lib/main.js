@@ -12,23 +12,26 @@ Meteor.startup(function () {
   log.info("log initialized on client");
   log.setLevel("info");
   
-  //todo add 'startup' listener
-	Push.addListener('message', function(notification) {
-		// Called on every message
-		log.info(JSON.stringify(notification));
-		var payload = notification.payload;
-    if (payload.type === "chat") {
-      if (Router.current().route.getName() !== "TabChat") {
-        var badge = Session.get("chatUnreadNumber");
-        badge++;
-        Session.set("chatUnreadNumber", badge);
-      }
-      else {
-        Session.set("chatUnreadNumber", 0);
-      }
-    }
+  //Route to specific view on click of notificaitons
+  //https://github.com/raix/push/issues/110
+  Push.addListener('startup', function(notification) {
+   var payload = notification.payload;   
+   //if it is a new chat message
+   if(payload.type === 'chat'){
+      if(payload.chatRoomId){
+         Router.go('ChatRoom',{chatRoomId:payload.chatRoomId},{query: "toBottom=true"});          
+      }      
+   }
+   //if it is a new class annoucement
+   if(payload.type === 'class'){
+      if(payload.classCode){
+        Router.go('classDetail',{classCode:payload.classCode},{query: "toBottom=true"});          
+      }             
+   }
+   
   });
-  
+
+    
   toastr.options = {
     "positionClass": "toast-bottom-full-width"
   }

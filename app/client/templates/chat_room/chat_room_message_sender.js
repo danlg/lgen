@@ -41,7 +41,8 @@ ChatRoomMessageSender = function(chatRoomId,messageType,messageText,messageAttac
             text: messageText,
             payload:{
                 sound: 'Hello World',
-                type: 'chat'
+                type: 'chat',
+                chatRoomId: chatRoomId
             },
             query:{userId:{$in: targetUsersIds}}
         };

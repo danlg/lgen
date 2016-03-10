@@ -414,6 +414,10 @@ Meteor.methods({
             from: 'push',
             title: notificationTitle,
             text: msg,
+            payload:{
+                type: 'class',
+                classCode: arrayOfClasses[0].classCode                
+            },
             query: {
                 userId: {$in: flattenArray}
             }
