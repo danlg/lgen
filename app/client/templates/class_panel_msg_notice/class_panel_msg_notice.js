@@ -120,6 +120,18 @@ Template.ClassPanelMsgNotice.helpers({
       }
       
       return voteCountObj;
+  },
+  isNewComment:function(createdAt){   
+     var result = Notifications.findOne({"eventType":"newclasscomment",'messageCreateTimestamp':createdAt});       
+     //backward comptability
+     if(!result){
+         return "";
+     }  
+     if(result.hasRead == false){
+         return 'ion-email-unread';
+     }else{
+         return "";
+     }
   }
 });
 

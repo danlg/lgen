@@ -98,44 +98,12 @@ Application.FileHandler = (function () {
                     else {
 
                         if (category == "chat") {
-                            var pushObj = {};
-                            pushObj.from = Meteor.userId();
-                            pushObj.sendAt = moment().format('x');
-                            pushObj.text = "";
-                            pushObj.image = fileObj._id;
-                            Meteor.call("chat/sendImage", Router.current().params.chatRoomId, pushObj, function (error, result) {
-                                if (error) {
-                                    log.error("error", error);
-                                }
-                            });
+                            
+                            ChatRoomMessageSender(Router.current().params.chatRoomId,'image','New Image',{_id: fileObj._id},
+                                getAllUserExceptCurrentUser()
+                            );
+                            
 
-                            //get all users except current user 
-                            var targetUsers = getAllUserExceptCurrentUser(); 
-                            var targetUsersIds = lodash.pluck(targetUsers, '_id');                                             
-                            //var targetUser = getAnotherUser();
-                            //var targetId = targetUser._id;
-                            var query = {};
-                            query.userId = {$in: targetUsersIds};
-
-                            var notificationObj = {};
-                            notificationObj.from = getFullNameByProfileObj(Meteor.user().profile);
-                            notificationObj.title = getFullNameByProfileObj(Meteor.user().profile);
-                            notificationObj.text = "Image";
-                            notificationObj.query = query;
-                            notificationObj.sound = 'default';
-                            notificationObj.payload = {
-                                sound: 'Hello World',
-                                type: 'chat'
-                            };
-                            Meteor.call("serverNotification", notificationObj,{
-                                chatRoomId:  Router.current().params.chatRoomId   
-                            });
-                            if (Meteor.user().profile.firstpicture) {
-                                analytics.track("First Picture", {
-                                    date: new Date(),
-                                });
-                                Meteor.call("updateProfileByPath", 'profile.firstpicture', false);
-                            }
                         } else if (category == "class") {
                             // alert(fileObj._id);
                             var arr = currentImageArray;
@@ -181,40 +149,9 @@ Application.FileHandler = (function () {
                                     log.error(err);
                                 }
                                 else {
-                                    var pushObj = {};
-                                    pushObj.from = Meteor.userId();
-                                    pushObj.sendAt = moment().format('x');
-                                    pushObj.text = "";
-                                    pushObj.image = fileObj._id;
-
-                                    Meteor.call("chat/sendImage", Router.current().params.chatRoomId, pushObj, function (error, result) {
-                                        if (error) {
-                                            log.error("error", error);
-                                        }
-                                    });
-                        
-                                    //TODO : change to getAllUser() for sending notification
-                                    //to all users except current user                         
-                                    //get another person's user object in 1 to 1 chatroom.             
-                                    var targetUsers = getAllUserExceptCurrentUser();
-                                    var targetUsersIds = lodash.pluck(targetUsers, '_id');                                                                        
-                                    //var targetUserObj = getAnotherUser();
-                                    //var targetId = targetUserObj._id;
-                                    var query = {};
-                                    query.userId = {$in: targetUsersIds};
-                                    var notificationObj = {};
-                                    notificationObj.from = getFullNameByProfileObj(Meteor.user().profile);
-                                    notificationObj.title = getFullNameByProfileObj(Meteor.user().profile);
-                                    notificationObj.text = "Image";
-                                    notificationObj.query = query;
-                                    notificationObj.sound = 'default';
-                                    notificationObj.payload = {
-                                        sound: 'Hello World',
-                                        type: 'chat'
-                                    };
-                                    Meteor.call("serverNotification", notificationObj,{
-                                        chatRoomId:  Router.current().params.chatRoomId   
-                                    });
+                                    ChatRoomMessageSender(Router.current().params.chatRoomId,'image','New Image',{_id: fileObj._id},
+                                        getAllUserExceptCurrentUser()
+                                    );
                                 }
                             });
                         });
@@ -275,44 +212,12 @@ Application.FileHandler = (function () {
                         //so we explicitly set the file obj name here.      
                         fileObj.name(file.name);
                         
-                        if(category == 'chat'){                           
-                            var pushObj = {};
-                            pushObj.from = Meteor.userId();
-                            pushObj.sendAt = moment().format('x');
-                            pushObj.text = "";
-                            pushObj.document = fileObj._id;
-                            Meteor.call("chat/sendImage", Router.current().params.chatRoomId, pushObj, function (error, result) {
-                                if (error) {
-                                    log.error("error", error);
-                                }
-                            });
+                        if(category == 'chat'){
                             
-                            //get all users except current user                                     
-                            var targetUsers = getAllUserExceptCurrentUser();    
-                            var targetUsersIds = lodash.pluck(targetUsers, '_id');                                                   
-                            var query = {};
-                            query.userId = {$in: targetUsersIds};
-
-                            var notificationObj = {
-                                from: getFullNameByProfileObj(Meteor.user().profile),
-                                title: getFullNameByProfileObj(Meteor.user().profile),
-                                text: "Document",
-                                query: query,
-                                sound: 'default',
-                                payload: {
-                                    sound: 'Hello World',
-                                    type: 'chat'
-                                }
-                            };
-                            Meteor.call("serverNotification", notificationObj,{
-                                chatRoomId:  Router.current().params.chatRoomId   
-                            });
-                            if (Meteor.user().profile.firstdocument) {
-                                analytics.track("First Document", {
-                                    date: new Date(),
-                                });
-                                Meteor.call("updateProfileByPath", 'profile.firstdocument', false);
-                            }                            
+                            ChatRoomMessageSender(Router.current().params.chatRoomId,'document','New Document',{_id: fileObj._id},
+                                getAllUserExceptCurrentUser()
+                            );                                                    
+                           
                         }else if (category =='class'){                                      
                             var arr = currentDocumentArray;
                             arr.push(fileObj._id);
@@ -342,39 +247,9 @@ Application.FileHandler = (function () {
                                     if( category == 'chat'){
                                         //handle success depending what you need to do
                                         console.dir(fileObj);
-                                        var pushObj = {};
-                                        pushObj.from = Meteor.userId();
-                                        pushObj.sendAt = moment().format('x');
-                                        pushObj.text = "";
-                                        pushObj.document = fileObj._id;
-                                        Meteor.call("chat/sendImage", Router.current().params.chatRoomId, pushObj, function (error, result) {
-                                            if (error) {
-                                                log.error("error", error);
-                                            }
-                                        });
-
-                                        //get all users except current user                                     
-                                        var targetUsers = getAllUserExceptCurrentUser();
-                                        var targetUsersIds = lodash.pluck(targetUsers, '_id');                                          
-                                        //get another person's user object in 1 to 1 chatroom. 
-                                        //var targetUserObj = getAnotherUser();
-                                        //var targetId = targetUserObj._id;
-
-                                        var query = {};
-                                        query.userId = {$in: targetUsersIds};
-                                        var notificationObj = {};
-                                        notificationObj.from = getFullNameByProfileObj(Meteor.user().profile);
-                                        notificationObj.title = getFullNameByProfileObj(Meteor.user().profile);
-                                        notificationObj.text = "Document";
-                                        notificationObj.query = query;
-                                        notificationObj.sound = 'default';
-                                        notificationObj.payload = {
-                                            sound: 'Hello World',
-                                            type: 'chat'
-                                        };
-                                        Meteor.call("serverNotification", notificationObj,{
-                                            chatRoomId:  Router.current().params.chatRoomId   
-                                        });                                      
+                                        ChatRoomMessageSender(Router.current().params.chatRoomId,'document','New Document',{_id: fileObj._id},
+                                            getAllUserExceptCurrentUser()
+                                        );                                         
                                     }else if (category == 'class'){
                                         var arr = currentDocumentArray;
                                         arr.push(fileObj._id);

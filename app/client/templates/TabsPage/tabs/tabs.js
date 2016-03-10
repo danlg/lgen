@@ -23,6 +23,25 @@ Template.Tabs.helpers({
     } else {
       return Session.get("chatUnreadNumber");
     }
+  },
+  'sumOfNewChatMessageCounter': function(){
+   var newMessageCount =  Notifications.find({'eventType':'newchatroommessage','hasRead':false}).count();
+      
+   if(newMessageCount > 0 ){
+       return newMessageCount;
+   }else{
+       return false;
+   }
+  },
+  'sumOfNewClassMessageAndCommentCounter': function(){
+   var newMessageCount =  Notifications.find({'eventType':'newclassmessage','hasRead':false}).count();
+   var newCommentCount =  Notifications.find({'eventType':'newclasscomment','hasRead':false}).count();
+        
+   if(newMessageCount+newCommentCount > 0 ){
+       return (newMessageCount+newCommentCount);
+   }else{
+       return false;
+   }
   }
 });
 

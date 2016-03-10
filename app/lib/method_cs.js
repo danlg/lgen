@@ -133,9 +133,12 @@ Meteor.methods({
     Chat.update(chatRoomId, {$push: {messagesObj: pushObj}, $set:{lastUpdatedAt:new Date(),lastUpdatedBy:Meteor.userId()}} );
     //TODO send email
     //Mandrill.messages.send
+    
+    return pushObj;
   },
 
-  'chat/sendImage': function (chatRoomId, pushObj) { 
+  'chat/sendImage': function (chatRoomId, pushObj) {
+    pushObj.sendAt = moment().format('x');
     pushObj.createdAt = new Date(); 
     //  var pushObj = {};
     //    pushObj.from = Meteor.userId();
@@ -143,6 +146,7 @@ Meteor.methods({
     //    pushObj.text = text;
     //todo: change the name of this method to chat/appendMessageObj to reflect its usage
     Chat.update(chatRoomId, {$push: {messagesObj: pushObj},$set:{lastUpdatedAt:new Date(),lastUpdatedBy:Meteor.userId()}} );
+    return pushObj;
   },
 
   'getUserNameById': function (userid) {
@@ -299,6 +303,19 @@ Meteor.methods({
                           };
       
       Classes.update( targetClass,{$push: {'messagesObj.$.comment.comments': newCommentObj}} );
+      
+      var updatedClass=  Classes.findOne(targetClass);
+      Notifications.insert({
+         eventType:"newclasscomment",
+         userId: updatedClass.createBy,
+         hasRead: false,
+         classid: updatedClass._id,
+         classCode: updatedClass.classCode,
+         commentId: newCommentObj._Id,
+         messageCreateTimestamp: newCommentObj.createdAt,
+         messageCreateTimestampUnixTime: moment(newCommentObj.createdAt).unix(),
+         messageCreateByUserId: Meteor.userId()
+     });      
   },
 
   sendMsg: function (target, msg, mediaObj, classId) {
@@ -397,6 +414,10 @@ Meteor.methods({
             from: 'push',
             title: notificationTitle,
             text: msg,
+            payload:{
+                type: 'class',
+                classCode: arrayOfClasses[0].classCode                
+            },
             query: {
                 userId: {$in: flattenArray}
             }
@@ -420,7 +441,22 @@ Meteor.methods({
             
             //send email notification
             sendEmailMessageToClasses(flattenArray,arrayOfClasses,msg,currentUserObj);
-            //send email notification end            
+            //send email notification end   
+            
+            //add notifications to notifications collections
+            flattenArray.map(function(eachTargetUserId){
+                Notifications.insert({
+                    eventType:"newclassmessage",
+                    userId: eachTargetUserId,
+                    hasRead: false,
+                    classCode: arrayOfClasses[0].classCode,
+                    messageId: msgObj.msgId,
+                    messageCreateTimestamp: msgObj.createdAt,
+                    messageCreateTimestampUnixTime: msgObj.sendAt,
+                    messageCreateByUserId: currentUserId
+                });
+            }); 
+            //add notifications to notifications collections ends                   
         });
         
       
@@ -451,7 +487,24 @@ Meteor.methods({
      
      Classes.update(classid, modifier,{validate: false});
      
-  }  
+  },
+  setChatMessageAsRead:function(updateNotificationObj){
+      log.info("trySetChatMessageAsRead")
+      log.info(updateNotificationObj);
+      Notifications.update({_id:updateNotificationObj._id},updateNotificationObj);
+  },
+  setAllChatMessagesAsRead:function(chatRoomId){
+      log.info("trySetChatMessagesAsRead")
+      log.info(Notifications.update({ "eventType" : "newchatroommessage",chatroomId:chatRoomId,userId:Meteor.userId()},{ $set: { hasRead: true } },{multi:true}));
+  },
+  setAllClassMessagesAsRead:function(classCode){
+      log.info("trySetClassMessagesAsRead")
+      log.info(Notifications.update({ "eventType" : "newclassmessage",classCode:classCode,userId:Meteor.userId()},{ $set: { hasRead: true } },{multi:true}));
+  },
+  setAllClassCommentsAsRead:function(classCode){
+      log.info("trySetClassCommentsAsRead")
+      log.info(Notifications.update({ "eventType" : "newclasscomment",classCode:classCode,userId:Meteor.userId()},{ $set: { hasRead: true } },{multi:true}));
+  }
 
 });
 

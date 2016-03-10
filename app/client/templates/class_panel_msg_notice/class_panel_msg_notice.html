@@ -61,6 +61,7 @@
             {{#with msgObj}}
                 {{#each comment.comments}}
                     <div class="item item-button-right less-top-bottom-padding {{@index}} ">
+                        <i class="icon {{isNewComment createdAt}}"></i>
                         {{#if isShown}}                     
                             <div style='display: flex;justify-content: space-between;align-items: baseline;'>
                                 <h3>{{getNameById createdBy}} </h3>

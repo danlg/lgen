@@ -188,6 +188,19 @@ Template.ChatRoom.helpers({
 
   soundsCollection: function (argument) {
     return Sounds.find();
+  },
+  
+  isNewMessage:function(sendAt){   
+     var result = Notifications.findOne({"eventType":"newchatroommessage",'messageCreateTimestampUnixTime':sendAt});       
+     //backward comptability
+     if(!result){
+         return "";
+     }  
+     if(result.hasRead == false){
+         return 'ion-email-unread';
+     }else{
+         return "";
+     }
   }
 
 });
