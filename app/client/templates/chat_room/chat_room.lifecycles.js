@@ -7,63 +7,40 @@ Template.ChatRoom.created = function () {
 };
 
 Template.ChatRoom.rendered = function () {
+
    currentChatroomId = Router.current().params.chatRoomId;
+
+
+var imgReadyChecking = function(){
+    var hasAllImagesLoaded =true;
+    $('img').each(function(){
+        if(this.complete){
+            //log.info('loaded');
+        }else{
+            //log.info('not loaded');
+            hasAllImagesLoaded = false;
+        }
+    });
+    
+    if(hasAllImagesLoaded){
+        //log.info('scroll to bottom');
+        //need to wrap the code inside autorun and subscriptionready
+        //see http://stackoverflow.com/questions/32291382/when-the-page-loads-scroll-down-not-so-simple-meteor-js
+        //scroll to bottom
+        window.setTimeout(function(){
+            var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight; 
+            chatroomList.scrollTop = chatroomListToBottomScrollTopValue;                   
+        }, 200);
+        
+    }else{
+        //if not all images is fully loaded, scroll bottom would not work.
+        //so we set a timer to do the imgReadyChecking again later
+        setTimeout(imgReadyChecking, 1000);
+    }                                  
+};   
+
   //$(".list.chatroomList").height("100%");
   //$(".list.chatroomList").height(($(".list.chatroomList").height() - 123) + "px");
-  $(".inputBox").autogrow();
-  var chatroomList = this.find('.chatroomList');
-  template = this;
-  template.atBottom = true;
-  var onscroll;
-  onscroll = _.throttle(function () {
-    return template.atBottom = chatroomList.scrollTop >= chatroomList.scrollHeight - chatroomList.clientHeight;
-  }, 200);
-  Meteor.setInterval(function () {
-    if (template.atBottom) {
-      chatroomList.scrollTop = chatroomList.scrollHeight - chatroomList.clientHeight;
-    }
-  }, 100);
-
-  chatroomList.addEventListener('touchstart', function () {
-    return template.atBottom = false;
-  });
-
-  chatroomList.addEventListener('touchend', function () {
-    return onscroll();
-  });
-
-  chatroomList.addEventListener('scroll', function () {
-    template.atBottom = false;
-    return onscroll();
-  });
-
-  chatroomList.addEventListener('mousewheel', function () {
-    template.atBottom = false;
-    return onscroll();
-  });
-
-  chatroomList.addEventListener('wheel', function () {
-    template.atBottom = false;
-    return onscroll();
-  });
-
-
-  // if(needReduce){
-  //   var height = $(".list.chatroomList").height();
-  //   height= height - 60;
-  //   log.info(height);
-  //   $(".list.chatroomList").height(height+"px");
-  //   needReduce = false;
-  // }else{
-  //   var height = $(".list.chatroomList").height();
-  //   height= height + 60;
-  //   log.info(height);
-  //   $(".list.chatroomList").height(height+"px");
-  // }
- 
-
-
-
   $(".inputBox").autogrow();
   var chatroomList = this.find('.chatroomList');
   
@@ -80,18 +57,60 @@ Template.ChatRoom.rendered = function () {
     
     Tracker.afterFlush(function(){
         if(latestCount > initialCount){
+                
+            //scroll to bottom
+            //scroll to bottom
+            var lastImageElement = $(".image-bubble img").last().get(0);
+            
+            
+            if(lastImageElement){
+            lastImageElement.alt = "loading";
+            lastImageElement.title  = "loading";
+            lastImageElement.width  = "300";   
+            lastImageElement.height  = "300";
+            lastImageElement.style.width  = "300px";   
+            lastImageElement.style.height  = "300px";            
+           
+            $(".image-bubble img").last().on('load', function () {
+                lastImageElement.width  =   lastImageElement.naturalWidth;
+                lastImageElement.height  = lastImageElement.naturalHeight;
+                lastImageElement.style.width  = lastImageElement.naturalWidth+"px";
+                lastImageElement.style.height  = lastImageElement.naturalHeight+"px";                
+                var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight; 
+                chatroomList.scrollTop = chatroomListToBottomScrollTopValue;                         
+             });
+           }
+            var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight; 
+            chatroomList.scrollTop = chatroomListToBottomScrollTopValue;                                   
+            //imgReadyChecking();
 
-        log.info('show new message bubble');
+         log.info('show new message bubble');
         $('.new-message-bubble').remove();
 
         var newMessageBubbleText = '<div class="date-bubble-wrapper new-message-bubble"> <div class="date-bubble"><i class="icon ion-android-arrow-dropdown"></i>new messages<i class="icon ion-android-arrow-dropdown"></i> </div> </div>';
         $('i.ion-email-unread').first().parents('div.item').before(newMessageBubbleText);
-            
+                   
             initialCount = latestCount;
         }
     }.bind(this));
   }.bind(this));  
-  /****track if there are any new messages - END *********/   
+  /****track if there are any new messages - END *********/  
+  
+  
+    var template = this;
+    //scroll to bottom
+    this.autorun(function () {
+        if (template.subscriptionsReady()) {
+        Tracker.afterFlush(function () {
+            
+
+                //run immediately for the first time
+            	imgReadyChecking();
+               
+        });
+        }
+    }); 
+  
 
   var newMessageBubbleText = '<div class="date-bubble-wrapper new-message-bubble"> <div class="date-bubble"><i class="icon ion-android-arrow-dropdown"></i>new messages<i class="icon ion-android-arrow-dropdown"></i> </div> </div>';
  $('i.ion-email-unread').first().parents('div.item').before(newMessageBubbleText);

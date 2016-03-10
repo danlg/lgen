@@ -13,7 +13,7 @@ Template.ChatRoom.events({
   'click .sendBtn': function () {
     
     var text = $('.inputBox').val();
-    
+
     if(!lodash.isEmpty(text)){
         ChatRoomMessageSender(Router.current().params.chatRoomId,'text',text,{},getAllUserExceptCurrentUser(),function(){
             
@@ -23,6 +23,7 @@ Template.ChatRoom.events({
             document.getElementsByClassName("inputBox")[0].updateAutogrow();
         });
     }    
+
   },
   'click .imageIcon': function (argument) {
     // alert("asd");
