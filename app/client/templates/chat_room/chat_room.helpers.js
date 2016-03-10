@@ -197,7 +197,7 @@ Template.ChatRoom.helpers({
          return "";
      }  
      if(result.hasRead == false){
-         return 'ion-email-unread';
+         return 'ion-record';
      }else{
          return "";
      }

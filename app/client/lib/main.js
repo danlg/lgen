@@ -34,7 +34,15 @@ Meteor.startup(function () {
 
       
   toastr.options = {
-    "positionClass": "toast-bottom-full-width"
+    "positionClass": "toast-top-full-width",
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "slideDown",
+    "hideMethod": "slideUp"
   }
   
   //use by francocatena:status,using template status_ionic
@@ -59,7 +67,6 @@ Meteor.startup(function () {
                     {
                         "closeButton": true,
                         "preventDuplicates": true,
-                        timeOut: 0,
                         onclick: function () {
                             //classCode
                             Router.go('classDetail',{classCode:data.classCode},{query: "toBottom=true"});
@@ -97,7 +104,6 @@ Meteor.startup(function () {
                         {           
                             "closeButton": true,
                             "preventDuplicates": true,
-                            timeOut: 0,
                             onclick: function () {
                                 Router.go('ChatRoom',{chatRoomId:data.chatRoomId},{query: "toBottom=true"});
                         }
