@@ -31,7 +31,8 @@ Meteor.startup(function () {
    
   });
 
-    
+
+      
   toastr.options = {
     "positionClass": "toast-bottom-full-width"
   }
@@ -39,34 +40,71 @@ Meteor.startup(function () {
   //use by francocatena:status,using template status_ionic
   Status.setTemplate('ionic');
   
+  var notificaitonId = -1;
   //when receive a new class message, display a popup, which can be clicked
   //and be redirected to that class
   Streamy.on('newclassmessage', function(data) {
     log.info(data);
-    //determine if browser support Notification API
+    var shouldFallback = false;
+    var pathToRouteObj ={
+        routeName:'classDetail',
+        params: {classCode:data.classCode},
+        query: {query: "toBottom=true"},
+    }    
+    //In Desktop, determine if browser support Notification API
     if('Notification' in window && Notification.permission == 'granted'){
         
         //if Notification API is supported
-        var pathToRouteObj ={
-            routeName:'classDetail',
-            params: {classCode:data.classCode},
-            query: {query: "toBottom=true"},
-        }
+
         spawnDesktopNotification(data.text,'/img/logo-new.png',data.from,pathToRouteObj);        
     }else{
-        //else, use in-app toastr
-        toastr.info(data.text, data.from,
-                {
-                    "closeButton": true,
-                    "preventDuplicates": true,
-                    timeOut: 0,
-                    onclick: function () {
-                        //classCode
-                        Router.go('classDetail',{classCode:data.classCode},{query: "toBottom=true"});
-                        //$('.class-detail').scrollTop(999999);
+        //In mobile, try to use local notification
+        if(cordova && cordova.plugins && cordova.plugins.notification){
+            cordova.plugins.notification.local.registerPermission(function (granted) {
+                if(granted){
+                   cordova.plugins.notification.local.schedule({
+                          id: ++notificaitonId,
+                          title: data.from,
+                          message: data.text,
+                          data: pathToRouteObj,
+
+                   });
+                   
+                    cordova.plugins.notification.local.on("click", function (localNotify) {
+                        //debugger;
+                        cordova.plugins.notification.local.clear(localNotify.id, function() {
+                            if (localNotify.data) {
+                                log.info(localNotify.data);
+                                var localNotifyParsed = JSON.parse(localNotify.data);
+                                Router.go(localNotifyParsed.routeName,localNotifyParsed.params,localNotifyParsed.query);
+                            }
+                        });                       
+
+                        
+                    });                       
+                }else{
+                    shouldFallback = true;
                 }
-            }
-        );
+            });
+        }else{
+            shouldFallback = true;            
+        }
+  
+        if(shouldFallback){
+        //if both desktop notification, local notificaiton are all not available, use toastr
+            toastr.info(data.text, data.from,
+                    {
+                        "closeButton": true,
+                        "preventDuplicates": true,
+                        timeOut: 0,
+                        onclick: function () {
+                            //classCode
+                            Router.go('classDetail',{classCode:data.classCode},{query: "toBottom=true"});
+                            //$('.class-detail').scrollTop(999999);
+                    }
+                }
+            );
+        }
     }
       
   }); 
@@ -75,35 +113,69 @@ Meteor.startup(function () {
   //and be redirected to that chat
   Streamy.on('newchatmessage', function(data) {  
     //determine if browser support Notification API
+    var shouldFallback = false;
+    var pathToRouteObj ={
+        routeName:'ChatRoom',
+        params: {chatRoomId:data.chatRoomId},
+        query: {query: "toBottom=true"},
+    };
     if ('Notification' in window && Notification.permission == 'granted') {
         //if Notification API is supported
-        var pathToRouteObj ={
-            routeName:'ChatRoom',
-            params: {chatRoomId:data.chatRoomId},
-            query: {query: "toBottom=true"},
-        }
+
         spawnDesktopNotification(data.text,'/img/logo-new.png',data.from,pathToRouteObj);
     } else {
-        //else, use in-app toastr
-        if(Router.current().route.getName() == 'ChatRoom' && Router.current().params.chatRoomId == data.chatRoomId){
-            //do nothing. As user its already on that chat.
-        }else{
-            log.info(data);
-            toastr.info(data.text, data.from,
-                    {           
-                        "closeButton": true,
-                        "preventDuplicates": true,
-                        timeOut: 0,
-                        onclick: function () {
-                            Router.go('ChatRoom',{chatRoomId:data.chatRoomId},{query: "toBottom=true"});
-                    }
+         //In mobile, try to use local notification
+        if(cordova && cordova.plugins && cordova.plugins.notification){
+            cordova.plugins.notification.local.registerPermission(function (granted) {
+                if(granted){
+                   cordova.plugins.notification.local.schedule({
+                          id: ++notificaitonId,
+                          title: data.from,
+                          message: data.text,
+                          data: pathToRouteObj
+                   });
+                   
+                    cordova.plugins.notification.local.on("click", function (localNotify) {
+                     //debugger;
+                        cordova.plugins.notification.local.clear(localNotify.id, function() {
+                            if (localNotify.data) {
+                                log.info(localNotify.data);
+                                var localNotifyParsed = JSON.parse(localNotify.data);
+                                Router.go(localNotifyParsed.routeName,localNotifyParsed.params,localNotifyParsed.query);
+                            }
+                        });      
+                    });   
+                }else{
+                    shouldFallback = true;
                 }
-            );      
-        }         
+            });
+        }else{
+            shouldFallback = true;            
+        }
+        
+        if(shouldFallback){
+        //if both desktop notification, local notificaiton are all not available, use toastr            
+            if(Router.current().route.getName() == 'ChatRoom' && Router.current().params.chatRoomId == data.chatRoomId){
+                //do nothing. As user its already on that chat.
+            }else{
+                log.info(data);
+                toastr.info(data.text, data.from,
+                        {           
+                            "closeButton": true,
+                            "preventDuplicates": true,
+                            timeOut: 0,
+                            onclick: function () {
+                                Router.go('ChatRoom',{chatRoomId:data.chatRoomId},{query: "toBottom=true"});
+                        }
+                    }
+                );      
+            }             
+        }       
+        
     }        
 
       
-  });   
+  }); 
   
 
 });
