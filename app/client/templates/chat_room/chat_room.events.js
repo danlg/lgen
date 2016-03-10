@@ -17,7 +17,6 @@ Template.ChatRoom.events({
     if(!lodash.isEmpty(text)){
         ChatRoomMessageSender(Router.current().params.chatRoomId,'text',text,{},getAllUserExceptCurrentUser(),function(){
             
-            template.atBottom = true;
             $('.inputBox').val("");
             sendBtnMediaButtonToggle();
             document.getElementsByClassName("inputBox")[0].updateAutogrow();
