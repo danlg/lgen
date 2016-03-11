@@ -87,8 +87,12 @@ var imgReadyChecking = function(){
          log.info('show new message bubble');
         $('.new-message-bubble').remove();
 
-        var newMessageBubbleText = '<div class="date-bubble-wrapper new-message-bubble"> <div class="date-bubble"><i class="icon ion-android-arrow-dropdown"></i>NEW MESSAGES<i class="icon ion-android-arrow-dropdown"></i><hr/> </div> </div>';
-        $('i.ion-record').first().parents('div.item').before(newMessageBubbleText);
+            var newMessageBubbleText = '<div class="new-message-bubble"> <div class=""><i class="icon ion-android-arrow-dropdown"></i>NEW MESSAGES<i class="icon ion-android-arrow-dropdown"></i> </div> </div>';
+            
+            window.setTimeout(function(
+
+            ){ $('i.ion-record').first().parents('div.item').before(newMessageBubbleText);},500);
+
                    
             initialCount = latestCount;
         }
@@ -112,7 +116,7 @@ var imgReadyChecking = function(){
     }); 
   
 
-  var newMessageBubbleText = '<div class="date-bubble-wrapper new-message-bubble"> <div class="date-bubble"><i class="icon ion-android-arrow-dropdown"></i>NEW MESSAGES<i class="icon ion-android-arrow-dropdown"></i><hr/> </div> </div>';
+  var newMessageBubbleText = '<div class="new-message-bubble"> <div class=""><i class="icon ion-android-arrow-dropdown"></i>NEW MESSAGES<i class="icon ion-android-arrow-dropdown"></i> </div> </div>';
  $('i.ion-record').first().parents('div.item').before(newMessageBubbleText);
 };
 

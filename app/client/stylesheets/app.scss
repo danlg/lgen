@@ -322,6 +322,21 @@ label span,label i {
 }
 /* make element insides label to be clickable. a fix for mobile safari end*/
 
+#toast-container>div{
+    -webkit-border-radius: 0px;
+    border-radius: 0px; 
+}
+#toast-container.toast-top-full-width>div {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.toast-info {
+    background-color: black;
+    
+}
+
 .toast-close-button{
    font-size: xx-large; 
 }
