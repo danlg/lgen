@@ -9,7 +9,7 @@ Template.MasterLayout.onCreated(function () {
   
   //update total unread badge counter on IOS
   this.autorun(function(){
-      var totalUnreadBadgeCount = Notifications.find({'userId': Meteor.userId(),'hasRead':false}).count();
+      var totalUnreadBadgeCount = getTotalUnreadNotificationCount();
       log.info('setTotalUnreadBadgeCount:'+totalUnreadBadgeCount);
       if(isIOS){
           Push.setBadge(totalUnreadBadgeCount);

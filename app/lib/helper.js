@@ -1,4 +1,9 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
+getTotalUnreadNotificationCount = function(){
+    
+    return Notifications.find({'userId': Meteor.userId(),'hasRead':false}).count();
+}
+
 getUserLanguage = function () {
   // Put here the logic for determining the user language
 

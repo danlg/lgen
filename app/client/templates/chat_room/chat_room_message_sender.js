@@ -44,7 +44,8 @@ ChatRoomMessageSender = function(chatRoomId,messageType,messageText,messageAttac
                 type: 'chat',
                 chatRoomId: chatRoomId
             },
-            query:{userId:{$in: targetUsersIds}}
+            query:{userId:{$in: targetUsersIds}},
+            badge: getTotalUnreadNotificationCount()
         };
         Meteor.call("serverNotification", notificationObj,{
             chatRoomId: chatRoomId
