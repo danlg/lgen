@@ -16,3 +16,7 @@ Template.MasterLayout.onCreated(function () {
       }  
   });
 });
+
+Template.MasterLayout.onRendered(function () {
+    IonSideMenu.snapper.settings({touchToDrag: false});
+});
