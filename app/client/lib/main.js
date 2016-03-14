@@ -12,6 +12,11 @@ Meteor.startup(function () {
   log.info("log initialized on client");
   log.setLevel("info");
   
+  Push.addListener('badge', function(notification) {
+     // Called when message got a badge
+     Push.setBadge(notification.badge);   
+  });
+      
   //Route to specific view on click of notificaitons
   //https://github.com/raix/push/issues/110
   Push.addListener('startup', function(notification) {

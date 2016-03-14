@@ -445,7 +445,7 @@ Meteor.methods({
             query: {
                 userId: {$in: flattenArray}
             },
-            badge: getTotalUnreadNotificationCount()
+            badge: getTotalUnreadNotificationCount(currentUserId)
             });
             //send push notification end
             

@@ -1,7 +1,10 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
-getTotalUnreadNotificationCount = function(){
-    
-    return Notifications.find({'userId': Meteor.userId(),'hasRead':false}).count();
+getTotalUnreadNotificationCount = function(currentUserId){
+    if(currentUserId){
+     return Notifications.find({'userId': currentUserId,'hasRead':false}).count();          
+    }else{
+     return Notifications.find({'userId': Meteor.userId(),'hasRead':false}).count();        
+    }
 }
 
 getUserLanguage = function () {
