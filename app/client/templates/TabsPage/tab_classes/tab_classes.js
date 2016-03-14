@@ -4,7 +4,7 @@
 /*****************************************************************************/
 
 function createdClassImpl() {
-  return Classes.find({createBy: Meteor.userId()});
+  return Classes.find({createBy: Meteor.userId()},{sort:{"messagesObj.sendAt":-1}});
 }
 
 Template.TabClasses.events({});
@@ -20,11 +20,14 @@ Template.TabClasses.helpers({
     return Classes.find({joinedUserId: {$in: [Meteor.userId()]}}).count() > 0
   },
   joinedClass: function () {
-    return Classes.find({joinedUserId: {$in: [Meteor.userId()]}});
+    return Classes.find({joinedUserId: {$in: [Meteor.userId()]}},{sort:{"messagesObj.sendAt":-1}});
   },
 
   canCreateClass: function () {
-    return true;
+    if(Meteor.user().profile.role === "Teacher" || Meteor.user().profile.role === "Parent"){
+     return true;        
+    }
+
   },
 
   createdClass: createdClassImpl,
@@ -53,6 +56,17 @@ Template.TabClasses.helpers({
    if(newMessageCount > 0 ){
        return '<span class="badge" style="background-color: #ef473a;color: #fff;">'+ newMessageCount +'</span>'
    }
+  },
+  'lasttextTime':function(messagesObj){
+    var len = messagesObj.length;
+    if (len > 0){
+      var message = messagesObj[len - 1];  
+      var userLanguage = TAPi18n.getLanguage();
+      moment.locale(userLanguage);     
+      return moment.unix(message.sendAt.substr(0,10)).fromNow();
+    }
+    else
+      return "New Class";      
   }
 
 });
