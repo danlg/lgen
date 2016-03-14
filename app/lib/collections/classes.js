@@ -108,6 +108,30 @@ ClassesSchema = new SimpleSchema({
     type: String,
     trim:true,
     optional: true,
+  },
+
+  lastUpdatedBy: {
+    type: String,
+    optional: false,
+    autoform: {
+      omit: true
+    },
+    autoValue: function () {
+      if (this.isInsert)
+        return Meteor.userId();
+    }
+
+  },
+  lastUpdatedAt: {
+    type: Date,
+    autoform: {
+      omit: true
+    },
+    autoValue: function () {
+      if (this.isInsert) {
+        return new Date();
+      }
+    }
   }
 
 

@@ -231,7 +231,12 @@ Meteor.methods({
         updateObj2['messagesObj.$.' + type] = Meteor.user();
         Classes.update(
             {classCode: classObj.classCode, messagesObj: {$elemMatch: {msgId: msgId}}},
-            {$push: updateObj2}
+            {$push: updateObj2,
+             $set: {
+                        'lastUpdatedBy':voteUpdatedBy,
+                        'lastUpdatedAt':voteUpdatedAt
+                    }
+            }
         );
         }    
                
@@ -273,9 +278,18 @@ Meteor.methods({
         updateObj2['messagesObj.'+msgIndex+'.vote.voteOptions.'+voteIndex+'.votes'] = Meteor.userId();
         //var elemMatchStr = 'messagesObj.'+msgIndex+'.vote.voteOption.'+voteIndex;
         //log.info(elemMatchStr);
+
+        var voteUpdatedBy = Meteor.userId();
+        var voteUpdatedAt = new Date();
+        var messageObj
         Classes.update(
             {classCode: classObj.classCode},
-            {$push: updateObj2}
+            {$push: updateObj2,
+             $set: {
+                        'lastUpdatedBy':voteUpdatedBy,
+                        'lastUpdatedAt':voteUpdatedAt
+                    }
+            }
         );
         }          
     }
@@ -292,18 +306,28 @@ Meteor.methods({
             }              
           }
       }
-        
+      
+      var commentUpdatedBy = Meteor.userId();
+      var commentUpdatedAt = new Date();
       var newCommentObj ={ _id: Random.id(),
                             comment:comment,
-                            createdAt:new Date(),
-                            createdBy:Meteor.userId(),
+                            createdAt:commentUpdatedAt,
+                            createdBy:commentUpdatedBy,
                             isShown:true,
-                            lastUpdatedBy:Meteor.userId(),
-                            lastUpdatedAt:new Date()
+                            lastUpdatedBy:commentUpdatedBy,
+                            lastUpdatedAt:commentUpdatedAt
                           };
       
-      Classes.update( targetClass,{$push: {'messagesObj.$.comment.comments': newCommentObj}} );
-      
+      //push new comment and at the same time update lastUpdatedAt fields
+      Classes.update( targetClass,{$push: {'messagesObj.$.comment.comments': newCommentObj},
+                                   $set: {'messagesObj.$.lastUpdatedAt': commentUpdatedAt,
+                                          'messagesObj.$.lastUpdatedBy': commentUpdatedBy,
+                                          'lastUpdatedBy':commentUpdatedBy,
+                                          'lastUpdatedAt':commentUpdatedAt} },
+                                    {
+                                     validate: false
+                                    } );
+            
       var updatedClass=  Classes.findOne(targetClass);
       Notifications.insert({
          eventType:"newclasscomment",
@@ -461,16 +485,20 @@ Meteor.methods({
         
       
     }
-        
+     
      //update classes collection
      return Classes.update({
                 classCode: {
                     $in: target
                 }
                 }, {
-                $push: {
-                    messagesObj: msgObj
-                }
+                    $push: {
+                        messagesObj: msgObj
+                    },
+                    $set: {
+                            'lastUpdatedBy':currentUserId,
+                            'lastUpdatedAt':msgObj.createdAt
+                    }
                 }, {
                 validate: false
                 });  

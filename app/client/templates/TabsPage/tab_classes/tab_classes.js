@@ -4,7 +4,7 @@
 /*****************************************************************************/
 
 function createdClassImpl() {
-  return Classes.find({createBy: Meteor.userId()},{sort:{"messagesObj.sendAt":-1}});
+  return Classes.find({createBy: Meteor.userId()},{sort:{"lastUpdatedAt":-1}});
 }
 
 Template.TabClasses.events({});
@@ -20,7 +20,7 @@ Template.TabClasses.helpers({
     return Classes.find({joinedUserId: {$in: [Meteor.userId()]}}).count() > 0
   },
   joinedClass: function () {
-    return Classes.find({joinedUserId: {$in: [Meteor.userId()]}},{sort:{"messagesObj.sendAt":-1}});
+    return Classes.find({joinedUserId: {$in: [Meteor.userId()]}},{sort:{"lastUpdatedAt":-1}});
   },
 
   canCreateClass: function () {
@@ -57,16 +57,12 @@ Template.TabClasses.helpers({
        return '<span class="badge" style="background-color: #ef473a;color: #fff;">'+ newMessageCount +'</span>'
    }
   },
-  'lasttextTime':function(messagesObj){
-    var len = messagesObj.length;
-    if (len > 0){
-      var message = messagesObj[len - 1];  
-      var userLanguage = TAPi18n.getLanguage();
-      moment.locale(userLanguage);     
-      return moment.unix(message.sendAt.substr(0,10)).fromNow();
+  'lasttextTime':function(lastUpdatedAtDate){
+    if (lastUpdatedAtDate){  
+      return moment(lastUpdatedAtDate).fromNow();
     }
     else
-      return "New Class";      
+      return "";      
   }
 
 });
