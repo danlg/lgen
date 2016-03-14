@@ -332,9 +332,14 @@ label span,label i {
     margin-right: auto;
 }
 
+
 .toast-info {
-    background-color: black;
-    
+    background-color: #E6E6E6;
+    opacity: 1 !important;   
+}
+
+.toast-info div,.toast-info button{
+    color:black;
 }
 
 .toast-close-button{
