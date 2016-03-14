@@ -3,9 +3,16 @@ Template.MasterLayout.helpers({});
 
 Template.MasterLayout.events({});
 
-Template.MasterLayout.events({});
-
 Template.MasterLayout.onCreated(function () {
   // Use this.subscribe inside onCreated callback
   this.subscribe("notifications");
+  
+  //update total unread badge counter on IOS
+  this.autorun(function(){
+      var totalUnreadBadgeCount = Notifications.find({'userId': Meteor.userId(),'hasRead':false}).count();
+      log.info('setTotalUnreadBadgeCount:'+totalUnreadBadgeCount);
+      if(isIOS){
+          Push.setBadge(totalUnreadBadgeCount);
+      }  
+  });
 });
