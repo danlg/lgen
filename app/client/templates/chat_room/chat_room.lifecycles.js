@@ -106,17 +106,15 @@ var imgReadyChecking = function(){
     this.autorun(function () {
         if (template.subscriptionsReady()) {
         Tracker.afterFlush(function () {
-            
-
                 //run immediately for the first time
             	imgReadyChecking();
-               
         });
         }
-    }); 
-  
+    });
 
-  var newMessageBubbleText = '<div class="new-message-bubble"> <div class=""><i class="icon ion-android-arrow-dropdown"></i>NEW MESSAGES<i class="icon ion-android-arrow-dropdown"></i> </div> </div>';
+  var newMessageBubbleText = '<div class="new-message-bubble"> <div class="">' +
+    '<i class="icon ion-android-arrow-dropdown"></i> NEW MESSAGES ' +
+    '<i class="icon ion-android-arrow-dropdown"></i> </div> </div>';
  $('i.ion-record').first().parents('div.item').before(newMessageBubbleText);
 };
 
