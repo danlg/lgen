@@ -11,5 +11,6 @@ cordova-plugin-globalization@1.0.1
 cordova-plugin-media@https://github.com/mike623/cordova-plugin-media.git#d0b118a007aa746e515f134d292c4ffb256345bb
 cordova-plugin-vibration@1.2.0
 cordova-plugin-x-socialsharing@5.0.5
+cordova-plugin-splashscreen@3.2.1
 de.appplant.cordova.plugin.local-notification@https://github.com/danlg/LocalNotification.git
 nl.x-services.plugins.actionsheet@https://github.com/EddyVerbruggen/cordova-plugin-actionsheet.git#df5e89e54d5142c964c1139db6fe813a01125825
