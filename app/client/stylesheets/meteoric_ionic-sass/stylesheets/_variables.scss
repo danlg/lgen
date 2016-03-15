@@ -375,10 +375,10 @@ $item-default-active-border: $item-light-active-border !default;
 // Item Editing
 // -------------------------------
 
-$item-edit-transition-duration: 250ms !default;
+$item-edit-transition-duration: 150ms !default;
 $item-edit-transition-function: ease-in-out !default;
 
-$item-remove-transition-duration: 300ms !default;
+$item-remove-transition-duration: 150ms !default;
 $item-remove-transition-function: ease-in !default;
 $item-remove-descendents-transition-function: cubic-bezier(.25, .81, .24, 1) !default;
 
@@ -542,7 +542,7 @@ $range-default-track-bg: #ccc !default;
 
 $menu-bg: #fff !default;
 $menu-width: 275px !default;
-$menu-animation-speed: 200ms !default;
+$menu-animation-speed: 150ms !default;
 
 $menu-side-shadow: -1px 0px 2px rgba(0, 0, 0, 0.2), 1px 0px 2px rgba(0, 0, 0, 0.2) !default;
 
