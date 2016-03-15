@@ -5,7 +5,7 @@
 */
 
 .modal-backdrop {
-  @include transition(background-color 300ms ease-in-out);
+  @include transition(background-color 150ms ease-in-out);
   position: fixed;
   top: 0;
   left: 0;
