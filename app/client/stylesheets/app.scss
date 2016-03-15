@@ -332,6 +332,9 @@ label span,label i {
     margin-right: auto;
 }
 
+#toast-container > .toast-info {
+    background-image: none !important;
+}
 
 .toast-info {
     background-color: #E6E6E6;
