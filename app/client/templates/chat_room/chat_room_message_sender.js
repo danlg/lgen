@@ -34,27 +34,11 @@ ChatRoomMessageSender = function(chatRoomId,messageType,messageText,messageAttac
         }
 
         //four types of notification would be sent
-        //1. send push notification and in-app notification
-        var notificationObj = {
-            from : getFullNameByProfileObj(Meteor.user().profile),
-            title : getFullNameByProfileObj(Meteor.user().profile),
-            text: messageText,
-            payload:{
-                sound: 'Hello World',
-                type: 'chat',
-                chatRoomId: chatRoomId
-            },
-            query:{userId:{$in: targetUsersIds}},
-            badge: getTotalUnreadNotificationCount()
-        };
-        Meteor.call("serverNotification", notificationObj,{
-            chatRoomId: chatRoomId
-        });
-
-        //2. send group chat email
+        
+        //1. send group chat email
         Meteor.call("chatroomEmail",targetUsers,Meteor.user(),messageText);
 
-        //3. add notification to notifications collection
+        //2. add notification to notifications collection
         //add notifications to db
         targetUsers.map(function(eachTargetUser){
             Notifications.insert({
@@ -65,9 +49,28 @@ ChatRoomMessageSender = function(chatRoomId,messageType,messageText,messageAttac
                 messageCreateTimestamp: result.createdAt,
                 messageCreateTimestampUnixTime: result.sendAt,
                 messageCreateByUserId: Meteor.userId()
+            },function(){
+                
+                //3. send push notification and in-app notification
+                var notificationObj = {
+                    from : getFullNameByProfileObj(Meteor.user().profile),
+                    title : getFullNameByProfileObj(Meteor.user().profile),
+                    text: messageText,
+                    payload:{
+                        sound: 'Hello World',
+                        type: 'chat',
+                        chatRoomId: chatRoomId
+                    },
+                    query:{userId:eachTargetUser._id},
+                    badge: getTotalUnreadNotificationCount(eachTargetUser._id)
+                };
+                Meteor.call("serverNotification", notificationObj,{
+                    chatRoomId: chatRoomId
+                });             
+                
             });
         });
-        //send analytics
+        //4. send analytics
         if(messageType == 'text'){
           if (Meteor.user().profile.firstchat) {
           analytics.track("First Chat", {

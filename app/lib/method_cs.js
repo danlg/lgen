@@ -434,19 +434,7 @@ Meteor.methods({
             var senderFullname = currentUserObj.profile.firstname + " " + currentUserObj.profile.lastname;
             var notificationTitle = "Message From " + senderFullname;
             log.info("sendmsg:senderFullName:"+senderFullname);
-            Push.send({
-            from: 'push',
-            title: notificationTitle,
-            text: msg,
-            payload:{
-                type: 'class',
-                classCode: arrayOfClasses[0].classCode                
-            },
-            query: {
-                userId: {$in: flattenArray}
-            },
-            badge: getTotalUnreadNotificationCount(currentUserId)
-            });
+
             //send push notification end
             
             //send notification via websocket using Streamy
@@ -479,6 +467,23 @@ Meteor.methods({
                     messageCreateTimestamp: msgObj.createdAt,
                     messageCreateTimestampUnixTime: msgObj.sendAt,
                     messageCreateByUserId: currentUserId
+                },function(){
+                    
+                    //send push notification
+                    Push.send({
+                    from: 'push',
+                    title: notificationTitle,
+                    text: msg,
+                    payload:{
+                        type: 'class',
+                        classCode: arrayOfClasses[0].classCode                
+                    },
+                    query: {
+                        userId: eachTargetUserId
+                    },
+                    badge: getTotalUnreadNotificationCount(eachTargetUserId)
+                    });                   
+                    //send push notification end
                 });
             }); 
             //add notifications to notifications collections ends                   
