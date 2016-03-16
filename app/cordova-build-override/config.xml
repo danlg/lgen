@@ -5,10 +5,10 @@
   <author href="https://app.gosmartix.com" email="hello@littlegenius.io">Little Genius Education</author>
   <preference name="webviewbounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
-  <preference name="deployment-target" value="7.0"/>
+  <preference name="deployment-target" value="8.4"/>
   <preference name="AutoHideSplashScreen" value="true"/>
   <preference name="SplashScreen" value="screen"/>
-  <preference name="SplashScreenDelay" value="2000"/>
+  <preference name="SplashScreenDelay" value="3000"/>
   <preference name="StatusBarOverlaysWebView" value="true"/>
   <preference name="StatusBarStyle" value="lightcontent"/>
   <preference name="Orientation" value="portrait"/>
