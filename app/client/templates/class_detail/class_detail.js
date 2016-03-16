@@ -6,6 +6,7 @@ var isRecording = false;
 var media = "";
 var isPlayingSound = false;
 var isAtTop = ReactiveVar(true);
+var initialLoadItems = ReactiveVar(10);
 /*****************************************************************************/
 /* ClassDetail: Event Handlers */
 /*****************************************************************************/
@@ -68,7 +69,10 @@ Template.ClassDetail.events({
   },
   'click .comment-counter':function(e){
     toggleCommentSection(e);
-  }  
+  },
+  'click .load-prev-msg':function(){
+     initialLoadItems.set(initialLoadItems.get()+10);
+  }
 });
 
 /*****************************************************************************/
@@ -100,8 +104,16 @@ Template.ClassDetail.helpers({
   },
   getMessagesObj: function () {
     var classObj = Classes.findOne({classCode: Router.current().params.classCode});
+    
     if (classObj.messagesObj.length > 0) {
-      return classObj.messagesObj;
+       var totalLengthOfMessagesObj = classObj.messagesObj.length;
+       var filterMessages = lodash.filter(classObj.messagesObj,function(num,currentIndex){
+           if( (totalLengthOfMessagesObj - (currentIndex+1)) < initialLoadItems.get()){
+               return true;
+           }
+       });
+       return filterMessages;
+       
     } else {
       return false;
     }
@@ -174,6 +186,7 @@ Template.ClassDetail.helpers({
 /* ClassDetail: Lifecycle Hooks */
 /*****************************************************************************/
 Template.ClassDetail.created = function () {
+
 };
 
 Template.ClassDetail.rendered = function () {
@@ -270,7 +283,7 @@ Template.ClassDetail.rendered = function () {
 };
 
 Template.ClassDetail.destroyed = function () {
-
+  initialLoadItems.set(10);  
   Meteor.call('setAllClassMessagesAsRead',classObj.classCode);
 
 };
