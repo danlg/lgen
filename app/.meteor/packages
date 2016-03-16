@@ -68,7 +68,6 @@ benmgreene:moment-range
 jeeeyul:moment-with-langs
 raix:push
 cfs:ui
-standard-minifiers
 meteor-base
 mobile-experience
 mongo
@@ -107,3 +106,5 @@ francocatena:status
 
 yuukan:streamy
 spiderable
+standard-minifier-css
+standard-minifier-js
