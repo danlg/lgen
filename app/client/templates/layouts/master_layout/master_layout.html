@@ -4,7 +4,7 @@
     {{#unless isActiveRoute regex='language|Login'}}
       {{> ionNavBar name="smartix"}}
     {{/unless}}
-    {{#ionNavView}}
+    {{#ionNavView transition='false'}}
       {{> status}}
       {{> yield}}
     {{/ionNavView}}

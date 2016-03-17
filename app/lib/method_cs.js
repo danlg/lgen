@@ -205,8 +205,9 @@ Meteor.methods({
   },
 
   updateMsgRating: function (type, msgId, classObj) {
+    log.info("updateMsgRating:",type,msgId,classObj);
     var filtedArr = lodash.findByValues(classObj.messagesObj, "msgId", msgId);
-    
+    log.info("updateMsgRating:filtedArr",filtedArr);    
     if(filtedArr[0].checked){
  
          

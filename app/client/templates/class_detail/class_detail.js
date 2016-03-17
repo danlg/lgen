@@ -6,7 +6,8 @@ var isRecording = false;
 var media = "";
 var isPlayingSound = false;
 var isAtTop = ReactiveVar(true);
-var initialLoadItems = ReactiveVar(10);
+var initialLoadItems = ReactiveVar(20);
+var loadedItems = 0;
 /*****************************************************************************/
 /* ClassDetail: Event Handlers */
 /*****************************************************************************/
@@ -17,6 +18,8 @@ Template.ClassDetail.events({
     
     if(msgId && action){
         IonLoading.show();
+        
+        log.info("clickvotebtn:",classObj);
         Meteor.call('updateMsgRating', action, msgId, classObj, function (argument) {
         IonLoading.hide();
         });        
@@ -71,7 +74,18 @@ Template.ClassDetail.events({
     toggleCommentSection(e);
   },
   'click .load-prev-msg':function(){
-     initialLoadItems.set(initialLoadItems.get()+10);
+     //initialLoadItems.set(initialLoadItems.get()+10);
+   
+    var loadExtraItems = 5;
+    for(var i =0; i < loadExtraItems ; i++){
+        if(classObj.messagesObj.length-1 - initialLoadItems.get() - loadedItems - i >= 0){
+         Blaze.render(Blaze.With(classObj.messagesObj[classObj.messagesObj.length-1 - initialLoadItems.get() - loadedItems - i],function(){return Template.ClassDetailMessage}), $('.class-detail').get(0),$('.list.card').first().get(0));
+        }
+        /* Blaze.renderWithData(Template.ClassDetailMessage, 
+        classObj.messagesObj[initialLoadItems.get() - i], $('.class-detail').get(0),$('.list.card').first().get(0));  */           
+    }
+    loadedItems = loadedItems + loadExtraItems; 
+
   }
 });
 
@@ -124,32 +138,6 @@ Template.ClassDetail.helpers({
   teacherAvatar: function(){
     return teacherAvatar.get();     
   },
-  havePic: function () {
-    return this.imageArr.length > 0;
-  },
-  getImage: function () {
-    var id = this.toString();
-    return Images.findOne(id);
-  },
-  haveSound: function () {
-    return this.soundArr.length > 0;
-  },
-  getSound: function () {
-    var id = this.toString();
-    return Sounds.findOne(id);
-  },
-  haveDocument: function () {
-    //existing message may not have documentArr attribute
-    if(this.documentArr){
-        return this.documentArr.length > 0;
-    }else{
-        return false;
-    }
-  },
-  getDocument: function () {
-    var id = this.toString();
-    return Documents.findOne(id);
-  },
   atTop:function(){
       if(isAtTop.get()){
           return true;
@@ -167,18 +155,6 @@ Template.ClassDetail.helpers({
   getNameById: function (userId) {
     var userObj = Meteor.users.findOne(userId);
     return userObj._id == Meteor.userId() ? "You" : userObj.profile.firstname + " " + userObj.profile.lastname;
-  },
-  isNewMessage:function(sendAt){   
-     var result = Notifications.findOne({'eventType':'newclassmessage','messageCreateTimestampUnixTime':sendAt});       
-     //backward comptability
-     if(!result){
-         return "";
-     }  
-     if(result.hasRead == false){
-         return 'ion-record';
-     }else{
-         return "";
-     }
   }
 });
 
@@ -283,7 +259,8 @@ Template.ClassDetail.rendered = function () {
 };
 
 Template.ClassDetail.destroyed = function () {
-  initialLoadItems.set(10);  
+  initialLoadItems.set(10);
+  loadedItems = 0;
   Meteor.call('setAllClassMessagesAsRead',classObj.classCode);
 
 };
