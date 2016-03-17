@@ -1,5 +1,6 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 var classObj;
+var classObjReactive = ReactiveVar({});
 var teacherName = ReactiveVar("");
 var teacherAvatar = ReactiveVar("");
 var isRecording = false;
@@ -17,11 +18,22 @@ Template.ClassDetail.events({
     var action = $(e.target.parentNode).data("action");
     
     if(msgId && action){
-        IonLoading.show();
+     
         
         log.info("clickvotebtn:",classObj);
-        Meteor.call('updateMsgRating', action, msgId, classObj, function (argument) {
-        IonLoading.hide();
+        Meteor.call('updateMsgRating', action, msgId, classObj, function (error,result) {
+            
+            if(!$(e.target).parents('.list.card').hasClass('reactive')){
+                //get new self from Classes
+                var currentMsgObjLate = lodash.findByValues(Classes.findOne({classCode: Router.current().params.classCode}).messagesObj, "msgId", msgId);
+                log.info('currentMsgObjLate',currentMsgObjLate);
+                
+                //render new self to DOM
+                Blaze.render(Blaze.With(currentMsgObjLate[0],function(){return Template.ClassDetailMessage}), $('.class-detail').get(0),$(e.target).parents('.list.card').get(0));
+                
+                //remove the old self from DOM
+                $(e.target).parents('.list.card').remove();
+            }    
         });        
     }
 
@@ -78,13 +90,14 @@ Template.ClassDetail.events({
    
     var loadExtraItems = 5;
     for(var i =0; i < loadExtraItems ; i++){
-        if(classObj.messagesObj.length-1 - initialLoadItems.get() - loadedItems - i >= 0){
-         Blaze.render(Blaze.With(classObj.messagesObj[classObj.messagesObj.length-1 - initialLoadItems.get() - loadedItems - i],function(){return Template.ClassDetailMessage}), $('.class-detail').get(0),$('.list.card').first().get(0));
+        if(classObjReactive.get().messagesObj.length-1 - initialLoadItems.get() - loadedItems - i >= 0){
+         Blaze.render(Blaze.With(classObjReactive.get().messagesObj[classObjReactive.get().messagesObj.length-1 - initialLoadItems.get() - loadedItems - i],function(){return Template.ClassDetailMessage}), $('.class-detail').get(0),$('.list.card').first().get(0));
         }
         /* Blaze.renderWithData(Template.ClassDetailMessage, 
         classObj.messagesObj[initialLoadItems.get() - i], $('.class-detail').get(0),$('.list.card').first().get(0));  */           
     }
     loadedItems = loadedItems + loadExtraItems; 
+    classObjReactive.set(Classes.findOne({classCode: Router.current().params.classCode}));
 
   }
 });
@@ -95,6 +108,7 @@ Template.ClassDetail.events({
 Template.ClassDetail.helpers({
   classObj: function () {
     classObj = Classes.findOne({classCode: Router.current().params.classCode});
+    classObjReactive.set(Classes.findOne({classCode: Router.current().params.classCode}));
     return classObj;
   },
   className: function () {
@@ -126,8 +140,11 @@ Template.ClassDetail.helpers({
                return true;
            }
        });
-       return filterMessages;
-       
+       var reactiveFilterMsgs = filterMessages.map(function(eachFilterMessage){
+            eachFilterMessage.reactive = "reactive";
+            return eachFilterMessage;
+       });
+       return reactiveFilterMsgs;
     } else {
       return false;
     }
@@ -262,7 +279,7 @@ Template.ClassDetail.destroyed = function () {
   initialLoadItems.set(10);
   loadedItems = 0;
   Meteor.call('setAllClassMessagesAsRead',classObj.classCode);
-
+  classObjReactive.set({});
 };
 
 function playAudio(url, callback) {
