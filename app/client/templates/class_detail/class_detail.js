@@ -139,7 +139,7 @@ Template.ClassDetail.helpers({
        
        for(var i = 0; i < extraFilterMessages.length; i++){
                 var prevFilterMsg = extraFilterMessages[i];
-                if(extraFilterMessages.length > 1 && i - extraFilterMessages.length != 1){
+                if(extraFilterMessages.length > 1 &&  (extraFilterMessages.length - (i+1)) >= 1){
                    
                     var nextFilterMsg = extraFilterMessages[i+1];
                     
@@ -153,7 +153,7 @@ Template.ClassDetail.helpers({
                     if(currentDate != nextDate){
                         prevFilterMsg.showTimestamp = true;
                     }
-                }else{
+                }else if(extraFilterMessages.length == 1){
                     prevFilterMsg.showTimestamp = true;
                 }
                 
