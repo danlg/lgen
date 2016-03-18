@@ -137,17 +137,45 @@ Template.ClassDetail.helpers({
            }
        });       
        
-       extraFilterMessages.map(function(eachFilterMsg){
-           
-            if (localClassMessagesCollection.findOne({msgId:eachFilterMsg.msgId}) != null) {
-                localClassMessagesCollection.update({msgId:eachFilterMsg.msgId}, {
-                $set: eachFilterMsg
-                });
-            } else {
-                localClassMessagesCollection.insert(eachFilterMsg);
-            }           
-           
-       });
+       for(var i = 0; i < extraFilterMessages.length; i++){
+                var prevFilterMsg = extraFilterMessages[i];
+                if(extraFilterMessages.length > 1 && i - extraFilterMessages.length != 1){
+                   
+                    var nextFilterMsg = extraFilterMessages[i+1];
+                    
+                    log.info('currentFilterMsg',prevFilterMsg);
+                    log.info('nextFilterMsg',nextFilterMsg);           
+                    var currentDate = moment.unix(prevFilterMsg.sendAt.substr(0,10)).format("YYYY-MM-DD");
+                    var nextDate = moment.unix(nextFilterMsg.sendAt.substr(0,10)).format("YYYY-MM-DD");
+                    
+                    log.info('currentDate',currentDate);
+                    log.info('nextDate',nextDate);
+                    if(currentDate != nextDate){
+                        prevFilterMsg.showTimestamp = true;
+                    }
+                }else{
+                    prevFilterMsg.showTimestamp = true;
+                }
+                
+                
+                          
+                if (localClassMessagesCollection.findOne({msgId:prevFilterMsg.msgId}) != null) {
+                    localClassMessagesCollection.update({msgId:prevFilterMsg.msgId}, {
+                    $set: prevFilterMsg
+                    });
+                } else {
+                    localClassMessagesCollection.insert(prevFilterMsg);
+                }                
+       }
+       log.info('extraFilterMessages',extraFilterMessages);
+      
+                
+               
+                
+      
+                
+                  
+   
       
       log.info('localClassMessagesCollection:count:',localClassMessagesCollection.find().count());
        
