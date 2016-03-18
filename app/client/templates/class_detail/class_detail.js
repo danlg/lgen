@@ -1,6 +1,6 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 var classObj;
-var classObjReactive = ReactiveVar({});
+//var classObjReactive = ReactiveVar({});
 var teacherName = ReactiveVar("");
 var teacherAvatar = ReactiveVar("");
 var isRecording = false;
@@ -8,7 +8,8 @@ var media = "";
 var isPlayingSound = false;
 var isAtTop = ReactiveVar(true);
 var initialLoadItems = ReactiveVar(20);
-var loadedItems = 0;
+var loadedItems = ReactiveVar(0);
+var loadExtraItems = 5;
 /*****************************************************************************/
 /* ClassDetail: Event Handlers */
 /*****************************************************************************/
@@ -25,14 +26,14 @@ Template.ClassDetail.events({
             
             if(!$(e.target).parents('.list.card').hasClass('reactive')){
                 //get new self from Classes
-                var currentMsgObjLate = lodash.findByValues(Classes.findOne({classCode: Router.current().params.classCode}).messagesObj, "msgId", msgId);
+                /*var currentMsgObjLate = lodash.findByValues(Classes.findOne({classCode: Router.current().params.classCode}).messagesObj, "msgId", msgId);
                 log.info('currentMsgObjLate',currentMsgObjLate);
                 
                 //render new self to DOM
                 Blaze.render(Blaze.With(currentMsgObjLate[0],function(){return Template.ClassDetailMessage}), $('.class-detail').get(0),$(e.target).parents('.list.card').get(0));
                 
                 //remove the old self from DOM
-                $(e.target).parents('.list.card').remove();
+                $(e.target).parents('.list.card').remove();*/
             }    
         });        
     }
@@ -87,17 +88,20 @@ Template.ClassDetail.events({
   },
   'click .load-prev-msg':function(){
      //initialLoadItems.set(initialLoadItems.get()+10);
+
+    
    
-    var loadExtraItems = 5;
-    for(var i =0; i < loadExtraItems ; i++){
-        if(classObjReactive.get().messagesObj.length-1 - initialLoadItems.get() - loadedItems - i >= 0){
-         Blaze.render(Blaze.With(classObjReactive.get().messagesObj[classObjReactive.get().messagesObj.length-1 - initialLoadItems.get() - loadedItems - i],function(){return Template.ClassDetailMessage}), $('.class-detail').get(0),$('.list.card').first().get(0));
+        for(var i =0; i < loadExtraItems ; i++){
+            if(Classes.findOne({classCode: Router.current().params.classCode}).messagesObj.length-1 - initialLoadItems.get() - loadedItems.get() - i >= 0){
+            Blaze.render(Blaze.With(Classes.findOne({classCode: Router.current().params.classCode}).messagesObj[Classes.findOne({classCode: Router.current().params.classCode}).messagesObj.length-1 - initialLoadItems.get() - loadedItems.get() - i],function(){return Template.ClassDetailMessage}), $('.class-detail').get(0),$('.list.card').first().get(0));
+            }
         }
-        /* Blaze.renderWithData(Template.ClassDetailMessage, 
-        classObj.messagesObj[initialLoadItems.get() - i], $('.class-detail').get(0),$('.list.card').first().get(0));  */           
-    }
-    loadedItems = loadedItems + loadExtraItems; 
-    classObjReactive.set(Classes.findOne({classCode: Router.current().params.classCode}));
+     
+     loadedItems.set( loadedItems.get() + loadExtraItems );       
+     
+    
+ 
+    //classObjReactive.set(Classes.findOne({classCode: Router.current().params.classCode}));
 
   }
 });
@@ -108,7 +112,7 @@ Template.ClassDetail.events({
 Template.ClassDetail.helpers({
   classObj: function () {
     classObj = Classes.findOne({classCode: Router.current().params.classCode});
-    classObjReactive.set(Classes.findOne({classCode: Router.current().params.classCode}));
+    //classObjReactive.set(Classes.findOne({classCode: Router.current().params.classCode}));
     return classObj;
   },
   className: function () {
@@ -132,7 +136,7 @@ Template.ClassDetail.helpers({
   },
   getMessagesObj: function () {
     var classObj = Classes.findOne({classCode: Router.current().params.classCode});
-    
+    log.info('getMessagesObj',classObj);
     if (classObj.messagesObj.length > 0) {
        var totalLengthOfMessagesObj = classObj.messagesObj.length;
        var filterMessages = lodash.filter(classObj.messagesObj,function(num,currentIndex){
@@ -144,6 +148,7 @@ Template.ClassDetail.helpers({
             eachFilterMessage.reactive = "reactive";
             return eachFilterMessage;
        });
+       Session.set("shouldReactiveCheck",true);
        return reactiveFilterMsgs;
     } else {
       return false;
@@ -183,6 +188,27 @@ Template.ClassDetail.created = function () {
 };
 
 Template.ClassDetail.rendered = function () {
+
+
+    Tracker.autorun(function(){ 
+       
+       if(!Session.equals("shouldReactiveCheck", true)){
+           return;
+       }
+       
+       log.info('remove not reactive item');
+        $('.list.card:not(.reactive)').remove();
+        
+        log.info(loadedItems.get());
+        for(var i =0; i < loadedItems.get() ; i++){
+            if(Classes.findOne({classCode: Router.current().params.classCode}).messagesObj.length-1 - initialLoadItems.get()  - i >= 0){
+            Blaze.render(Blaze.With(Classes.findOne({classCode: Router.current().params.classCode}).messagesObj[Classes.findOne({classCode: Router.current().params.classCode}).messagesObj.length-1 - initialLoadItems.get() - i],function(){return Template.ClassDetailMessage}), $('.class-detail').get(0),$('.list.card').first().get(0));
+            }
+        }
+        
+        Session.set("shouldReactiveCheck",false);      
+    });
+    
   Meteor.call('getFullNameById', classObj.createBy, function (err, data) {
     return teacherName.set(data);
   });
@@ -276,10 +302,13 @@ Template.ClassDetail.rendered = function () {
 };
 
 Template.ClassDetail.destroyed = function () {
-  initialLoadItems.set(10);
-  loadedItems = 0;
+    
+ initialLoadItems.set(20);
+ loadedItems.set(0); 
+ loadExtraItems = 5;    
+
   Meteor.call('setAllClassMessagesAsRead',classObj.classCode);
-  classObjReactive.set({});
+
 };
 
 function playAudio(url, callback) {
