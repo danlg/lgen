@@ -10,6 +10,8 @@ var isAtTop = ReactiveVar(true);
 var initialLoadItems = ReactiveVar(20);
 var loadedItems = ReactiveVar(0);
 var loadExtraItems = 5;
+var localClassMessagesCollection = new Meteor.Collection(null);
+
 /*****************************************************************************/
 /* ClassDetail: Event Handlers */
 /*****************************************************************************/
@@ -23,18 +25,7 @@ Template.ClassDetail.events({
         
         log.info("clickvotebtn:",classObj);
         Meteor.call('updateMsgRating', action, msgId, classObj, function (error,result) {
-            
-            if(!$(e.target).parents('.list.card').hasClass('reactive')){
-                //get new self from Classes
-                /*var currentMsgObjLate = lodash.findByValues(Classes.findOne({classCode: Router.current().params.classCode}).messagesObj, "msgId", msgId);
-                log.info('currentMsgObjLate',currentMsgObjLate);
-                
-                //render new self to DOM
-                Blaze.render(Blaze.With(currentMsgObjLate[0],function(){return Template.ClassDetailMessage}), $('.class-detail').get(0),$(e.target).parents('.list.card').get(0));
-                
-                //remove the old self from DOM
-                $(e.target).parents('.list.card').remove();*/
-            }    
+              
         });        
     }
 
@@ -74,9 +65,6 @@ Template.ClassDetail.events({
       var msgId = $(e.target).data().msgid;
       Meteor.call('addCommentToClassAnnoucement',msgId, {_id:classObj._id},text, function (argument) {
      
-         $(e.target).parent().find('.add-comment-annoucement-textbox').val('');
-         showCommentSection(e);
-         document.getElementsByClassName("class-detail")[0].scrollTop = document.getElementsByClassName("class-detail")[0].scrollTop + $(e.target).offset().top - 43;                      
       });
       
   },
@@ -88,14 +76,6 @@ Template.ClassDetail.events({
   },
   'click .load-prev-msg':function(){
      //initialLoadItems.set(initialLoadItems.get()+10);
-
-    
-   
-        for(var i =0; i < loadExtraItems ; i++){
-            if(Classes.findOne({classCode: Router.current().params.classCode}).messagesObj.length-1 - initialLoadItems.get() - loadedItems.get() - i >= 0){
-            Blaze.render(Blaze.With(Classes.findOne({classCode: Router.current().params.classCode}).messagesObj[Classes.findOne({classCode: Router.current().params.classCode}).messagesObj.length-1 - initialLoadItems.get() - loadedItems.get() - i],function(){return Template.ClassDetailMessage}), $('.class-detail').get(0),$('.list.card').first().get(0));
-            }
-        }
      
      loadedItems.set( loadedItems.get() + loadExtraItems );       
      
@@ -111,7 +91,8 @@ Template.ClassDetail.events({
 /*****************************************************************************/
 Template.ClassDetail.helpers({
   classObj: function () {
-    classObj = Classes.findOne({classCode: Router.current().params.classCode});
+    var latestClassObj = Classes.findOne({classCode: Router.current().params.classCode});
+    classObj = latestClassObj;
     //classObjReactive.set(Classes.findOne({classCode: Router.current().params.classCode}));
     return classObj;
   },
@@ -136,23 +117,51 @@ Template.ClassDetail.helpers({
   },
   getMessagesObj: function () {
     var classObj = Classes.findOne({classCode: Router.current().params.classCode});
+    
     log.info('getMessagesObj',classObj);
     if (classObj.messagesObj.length > 0) {
        var totalLengthOfMessagesObj = classObj.messagesObj.length;
+       
        var filterMessages = lodash.filter(classObj.messagesObj,function(num,currentIndex){
            if( (totalLengthOfMessagesObj - (currentIndex+1)) < initialLoadItems.get()){
                return true;
            }
        });
-       var reactiveFilterMsgs = filterMessages.map(function(eachFilterMessage){
-            eachFilterMessage.reactive = "reactive";
-            return eachFilterMessage;
+       
+       log.info('loadedItems',loadedItems.get());
+       var rangeFrom = totalLengthOfMessagesObj - initialLoadItems.get() - loadedItems.get();
+       var rangeTo   = totalLengthOfMessagesObj - initialLoadItems.get();       
+       var extraFilterMessages = lodash.filter(classObj.messagesObj,function(num,currentIndex){
+           if(currentIndex > rangeFrom && currentIndex < rangeTo){
+               return true;
+           }
+       });       
+       
+       extraFilterMessages.map(function(eachFilterMsg){
+           
+            if (localClassMessagesCollection.findOne({msgId:eachFilterMsg.msgId}) != null) {
+                localClassMessagesCollection.update({msgId:eachFilterMsg.msgId}, {
+                $set: eachFilterMsg
+                });
+            } else {
+                localClassMessagesCollection.insert(eachFilterMsg);
+            }           
+           
        });
-       Session.set("shouldReactiveCheck",true);
-       return reactiveFilterMsgs;
+      
+      log.info('localClassMessagesCollection:count:',localClassMessagesCollection.find().count());
+       
+       return filterMessages;
     } else {
       return false;
     }
+  },
+  getExtraMessagesObj:function(){
+      if(!localClassMessagesCollection){
+          localClassMessagesCollection = new Meteor.Collection(null);
+      }
+      return localClassMessagesCollection.find({},{sort:{"sendAt":1}});
+      
   },
   teacherName: function () {
     return teacherName.get();
@@ -188,26 +197,6 @@ Template.ClassDetail.created = function () {
 };
 
 Template.ClassDetail.rendered = function () {
-
-
-    Tracker.autorun(function(){ 
-       
-       if(!Session.equals("shouldReactiveCheck", true)){
-           return;
-       }
-       
-       log.info('remove not reactive item');
-        $('.list.card:not(.reactive)').remove();
-        
-        log.info(loadedItems.get());
-        for(var i =0; i < loadedItems.get() ; i++){
-            if(Classes.findOne({classCode: Router.current().params.classCode}).messagesObj.length-1 - initialLoadItems.get()  - i >= 0){
-            Blaze.render(Blaze.With(Classes.findOne({classCode: Router.current().params.classCode}).messagesObj[Classes.findOne({classCode: Router.current().params.classCode}).messagesObj.length-1 - initialLoadItems.get() - i],function(){return Template.ClassDetailMessage}), $('.class-detail').get(0),$('.list.card').first().get(0));
-            }
-        }
-        
-        Session.set("shouldReactiveCheck",false);      
-    });
     
   Meteor.call('getFullNameById', classObj.createBy, function (err, data) {
     return teacherName.set(data);
@@ -307,8 +296,8 @@ Template.ClassDetail.destroyed = function () {
  loadedItems.set(0); 
  loadExtraItems = 5;    
 
-  Meteor.call('setAllClassMessagesAsRead',classObj.classCode);
-
+ Meteor.call('setAllClassMessagesAsRead',classObj.classCode);
+ localClassMessagesCollection = null;
 };
 
 function playAudio(url, callback) {
