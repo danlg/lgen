@@ -185,9 +185,9 @@ Template.ClassPanel.helpers({
        });       
        extraFilterMessage = lodash.sortBy(extraFilterMessages,['sendAt']);
      
-      if(!localClassMessagesCollection){
-          localClassMessagesCollection = new Meteor.Collection(null);
-      }
+
+       localClassMessagesCollection = new Meteor.Collection(null);
+     
        
        for(var i = 0; i < extraFilterMessages.length; i++){
                 var currentFilterMsg = extraFilterMessages[i];
@@ -214,13 +214,8 @@ Template.ClassPanel.helpers({
                      currentFilterMsg.showTimestamp = false;
                 }
              
-                if (localClassMessagesCollection.findOne({msgId:currentFilterMsg.msgId}) != null) {
-                    localClassMessagesCollection.update({msgId:currentFilterMsg.msgId}, {
-                    $set: currentFilterMsg
-                    });
-                } else {
-                    localClassMessagesCollection.insert(currentFilterMsg);
-                }                
+                localClassMessagesCollection.insert(currentFilterMsg);
+                          
        }
        //log.info('extraFilterMessages',extraFilterMessages);
           
