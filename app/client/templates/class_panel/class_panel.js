@@ -7,6 +7,10 @@ var soundArr = ReactiveVar([]);
 var isRecording = false;
 var media = "";
 var isPlayingSound = false;
+var loadedItems = ReactiveVar(10);
+var loadExtraItems = 5;
+var localClassMessagesCollection = new Meteor.Collection(null);
+
 
 /*****************************************************************************/
 /* ClassPanel: Event Handlers */
@@ -97,6 +101,9 @@ Template.ClassPanel.events({
             
         
         }      
+  },
+  'click .load-prev-msg':function(){
+     loadedItems.set( loadedItems.get() + loadExtraItems );
   }
   
 });
@@ -154,6 +161,82 @@ Template.ClassPanel.helpers({
       }else{
           return "";
       }
+  },
+  getMessagesObj: function (inputClassObj) {
+    //debugger;
+    if(inputClassObj){
+        
+    }else{
+        return;
+    }
+    
+    var currentClassObj = inputClassObj;
+    
+    //log.info('getMessagesObj',classObj);
+    if (currentClassObj.messagesObj.length > 0) { 
+        
+       //log.info('loadedItems',loadedItems.get());
+       var rangeFrom = currentClassObj.messagesObj.length - loadedItems.get();
+       var rangeTo   = currentClassObj.messagesObj.length;       
+       var extraFilterMessages = lodash.filter(currentClassObj.messagesObj,function(num,currentIndex){
+           if(currentIndex > rangeFrom && currentIndex < rangeTo){
+               return true;
+           }
+       });       
+       extraFilterMessage = lodash.sortBy(extraFilterMessages,['sendAt']);
+     
+
+       localClassMessagesCollection = new Meteor.Collection(null);
+     
+       
+       for(var i = 0; i < extraFilterMessages.length; i++){
+                var currentFilterMsg = extraFilterMessages[i];
+                if(i == 0 || extraFilterMessages.length == 1){
+                    currentFilterMsg.showTimestamp = true;
+                }
+                else if(extraFilterMessages.length > 1){
+                   
+                    var prevFilterMsg = extraFilterMessages[i-1];
+                    
+                    //log.info('currentFilterMsg',currentFilterMsg);
+                    //log.info('nextFilterMsg',nextFilterMsg);           
+                    var currentDate = moment.unix(currentFilterMsg.sendAt.substr(0,10)).format("YYYY-MM-DD");
+                    var prevDate = moment.unix(prevFilterMsg.sendAt.substr(0,10)).format("YYYY-MM-DD");
+                    
+                    //log.info('currentDate',currentDate);
+                    //log.info('nextDate',nextDate);
+                    if(currentDate != prevDate){
+                        currentFilterMsg.showTimestamp = true;
+                    }else{
+                        currentFilterMsg.showTimestamp = false;
+                    }
+                }else{
+                     currentFilterMsg.showTimestamp = false;
+                }
+             
+                localClassMessagesCollection.insert(currentFilterMsg);
+                          
+       }
+       //log.info('extraFilterMessages',extraFilterMessages);
+          
+      //log.info('localClassMessagesCollection:count:',localClassMessagesCollection.find().count());
+
+      return localClassMessagesCollection.find({},{sort:{"sendAt":1}});
+    } else {
+      return false;
+    }
+  },
+  isLoadMoreButtonShow: function(){
+     
+      var currentClass= Classes.findOne({classCode: Router.current().params.classCode});
+      if(currentClass){
+        //log.info('reachTheEnd:loadedItems',loadedItems.get(),'classObjMessages',currentClass.messagesObj.length,'initialLoadItems',initialLoadItems.get());
+        if(loadedItems.get() > currentClass.messagesObj.length ){
+            return "hidden";
+        }else{
+            return "";
+        }
+      }
   }
 
 });
@@ -161,20 +244,30 @@ Template.ClassPanel.helpers({
 /*****************************************************************************/
 /* ClassPanel: Lifecycle Hooks */
 /*****************************************************************************/
-Template.ClassPanel.created = function () {
-  
+Template.ClassPanel.onCreated = function () {
+        
+  //log.info('onCreatedBe',this.subscriptionsReady());
 
+  //log.info('onCreatedAf',this.subscriptionsReady());
 
 };
 
 Template.ClassPanel.rendered = function () {
-    currentClassCode = Classes.findOne({classCode: Router.current().params.classCode}).classCode;
+   
+   log.info('rendered',this.subscriptionsReady());
+    
+   
     var template = this;
     //scroll to bottom
     this.autorun(function () {
         if (template.subscriptionsReady()) {
+       
+        
         Tracker.afterFlush(function () {
-            
+                
+                 if(classObj){
+                     currentClassCode = classObj.classCode;
+                 }
                 var imgReadyChecking = function(){
                     var hasAllImagesLoaded =true;
 
@@ -218,6 +311,9 @@ Template.ClassPanel.rendered = function () {
 
 Template.ClassPanel.destroyed = function () {
   //  Session.set('hasFooter',true);
+  loadedItems.set(10); 
+  loadExtraItems = 5;
   Meteor.call('setAllClassCommentsAsRead',currentClassCode);
+  localClassMessagesCollection = null;
 };
 

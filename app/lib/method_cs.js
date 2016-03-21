@@ -188,7 +188,7 @@ Meteor.methods({
             var regexp = new RegExp("^"+inputOrganizationKeyword,"i");
             var rawResultSet = Meteor.users.find({"profile.organization":  {$regex: regexp} }).fetch();//OK
             //log.info(rawResultSet);
-            var resultSet = lodash.pluck(rawResultSet,'profile.organization')
+            var resultSet = lodash.pluck(rawResultSet,'profile.organization');
             //log.info(resultSet);  
             
             return resultSet;    
@@ -198,15 +198,16 @@ Meteor.methods({
             var regexp = new RegExp("^"+inputCityKeyword,"i");
             var rawResultSet = Meteor.users.find({"profile.city":  {$regex: regexp} }).fetch();//OK
             //log.info(rawResultSet);
-            var resultSet = lodash.pluck(rawResultSet,'profile.city')
+            var resultSet = lodash.pluck(rawResultSet,'profile.city');
             //log.info(resultSet);  
             
             return resultSet;    
   },
 
   updateMsgRating: function (type, msgId, classObj) {
+    log.info("updateMsgRating:",type,msgId,classObj);
     var filtedArr = lodash.findByValues(classObj.messagesObj, "msgId", msgId);
-    
+    log.info("updateMsgRating:filtedArr",filtedArr);    
     if(filtedArr[0].checked){
  
          
@@ -305,7 +306,7 @@ Meteor.methods({
                 'comment.allowComment':true
             }              
           }
-      }
+      };
       
       var commentUpdatedBy = Meteor.userId();
       var commentUpdatedAt = new Date();
@@ -577,7 +578,7 @@ sendEmailMessageToClasses = function(targetUserids, classes, message, originateU
             var classRoomRecepient = { 
                 email: eachUser.emails[0].address,
                 name:  eachUser.profile.firstname+ " " + eachUser.profile.lastname
-            }
+            };
             classRecepientArr.push(classRoomRecepient);            
         });
         
@@ -599,5 +600,4 @@ sendEmailMessageToClasses = function(targetUserids, classes, message, originateU
             }
                
     }
-      
-}
+};

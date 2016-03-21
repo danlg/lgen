@@ -1,8 +1,14 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
+
+
+
+
 var subs = new SubsManager();
 Router.configure({
   layoutTemplate: 'MasterLayout',
-  notFoundTemplate: 'NotFound'
+  notFoundTemplate: 'NotFound',
+  loadingTemplate: 'Loading'
+
 });
 
 var OnBeforeActions;
@@ -340,15 +346,7 @@ Router.map(function(){
   
   this.route('ClassPanel',{
     path: "/class/:classCode/panel",
-    waitOn: function () {
-      return [
-        Meteor.subscribe('class', this.params.classCode),
-        Meteor.subscribe('images'),
-        Meteor.subscribe('sounds'),
-        Meteor.subscribe('documents'),
-        Meteor.subscribe('getJoinedClassUser', this.params.classCode)             
-      ];
-    }    
+  fastRender: true   
   });
   
 });
@@ -402,17 +400,10 @@ Router.route('ChatRoomInformation', {
   }
 });
 
+
 Router.route('classDetail', {
   path: "/class/:classCode/detail",
-  waitOn: function () {
-    return [
-      Meteor.subscribe('class', this.params.classCode),
-      Meteor.subscribe('images'),
-      Meteor.subscribe('sounds'),
-      Meteor.subscribe('documents'),
-      Meteor.subscribe('getJoinedClassUser', this.params.classCode)       
-    ];
-  }
+  fastRender: true
 });
 
 Router.route('ChatInvite', {

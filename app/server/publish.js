@@ -12,10 +12,11 @@ Meteor.publish('notifications', function () {
   });
 });
 
-Meteor.publish('class', function (classCode) {
-  return Classes.find({
-    classCode: classCode
-  });
+Meteor.publish('class', function () {
+  var result =  Classes.find({ $or: [{
+    joinedUserId: {"$in" : [this.userId]}
+  },{createBy: this.userId}]});
+  return result;
 });
 Meteor.publish('getClassByClassId', function (classId) {
   return Classes.find(classId);
@@ -187,16 +188,27 @@ Meteor.publish('getChatRoomMenbers', function () {
 });
 
 
-Meteor.publish('getJoinedClassUser', function (classCode) {
-  var classObj = Classes.findOne({
-    classCode: classCode
+Meteor.publish('getJoinedClassUser', function () {
+ 
+   var joinedClasses =  Classes.find({ $or: [{
+        joinedUserId: {"$in" : [this.userId]}
+    }, {createBy: this.userId} ]}).fetch();
+
+  //log.info(joinedClasses);
+  var allJoinedClassesUserId = [];
+  joinedClasses.map(function(currentClass){
+      Array.prototype.push.apply(allJoinedClassesUserId, currentClass.joinedUserId);
+      //allJoinedClassesUserId.concat(currentClass.joinedUserId);
   });
-  var joinedUserId = classObj.joinedUserId;
+
+  log.info(allJoinedClassesUserId);
+
+  //var joinedUserId = classObj.joinedUserId;
   return Meteor.users.find({
     _id: {
-      $in: joinedUserId
+      $in: allJoinedClassesUserId
     }
-  });
+  }, {fields: {'profile': 1,'_id':1}});
 });
 
 Meteor.publish("images", function () {

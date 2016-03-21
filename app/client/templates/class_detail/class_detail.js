@@ -1,11 +1,17 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 var classObj;
+//var classObjReactive = ReactiveVar({});
 var teacherName = ReactiveVar("");
 var teacherAvatar = ReactiveVar("");
 var isRecording = false;
 var media = "";
 var isPlayingSound = false;
 var isAtTop = ReactiveVar(true);
+//var initialLoadItems = ReactiveVar(20);
+var loadedItems = ReactiveVar(10);
+var loadExtraItems = 5;
+var localClassMessagesCollection = new Meteor.Collection(null);
+
 /*****************************************************************************/
 /* ClassDetail: Event Handlers */
 /*****************************************************************************/
@@ -15,9 +21,11 @@ Template.ClassDetail.events({
     var action = $(e.target.parentNode).data("action");
     
     if(msgId && action){
-        IonLoading.show();
-        Meteor.call('updateMsgRating', action, msgId, classObj, function (argument) {
-        IonLoading.hide();
+     
+        
+       // log.info("clickvotebtn:",classObj);
+        Meteor.call('updateMsgRating', action, msgId, classObj, function (error,result) {
+              
         });        
     }
 
@@ -52,14 +60,11 @@ Template.ClassDetail.events({
       e.preventDefault();
   },
   'click .add-comment-annoucement':function(e){
-      log.info(e);
+      //log.info(e);
       var text = $(e.target).parent().find('.add-comment-annoucement-textbox').val();
       var msgId = $(e.target).data().msgid;
       Meteor.call('addCommentToClassAnnoucement',msgId, {_id:classObj._id},text, function (argument) {
      
-         $(e.target).parent().find('.add-comment-annoucement-textbox').val('');
-         showCommentSection(e);
-         document.getElementsByClassName("class-detail")[0].scrollTop = document.getElementsByClassName("class-detail")[0].scrollTop + $(e.target).offset().top - 43;                      
       });
       
   },
@@ -68,7 +73,10 @@ Template.ClassDetail.events({
   },
   'click .comment-counter':function(e){
     toggleCommentSection(e);
-  }  
+  },
+  'click .load-prev-msg':function(){     
+     loadedItems.set( loadedItems.get() + loadExtraItems );       
+  }
 });
 
 /*****************************************************************************/
@@ -76,7 +84,9 @@ Template.ClassDetail.events({
 /*****************************************************************************/
 Template.ClassDetail.helpers({
   classObj: function () {
-    classObj = Classes.findOne({classCode: Router.current().params.classCode});
+    var latestClassObj = Classes.findOne({classCode: Router.current().params.classCode});
+    classObj = latestClassObj;
+    //classObjReactive.set(Classes.findOne({classCode: Router.current().params.classCode}));
     return classObj;
   },
   className: function () {
@@ -99,9 +109,65 @@ Template.ClassDetail.helpers({
     return lodash.includes(lodash.map(action, "_id"), Meteor.userId()) ? "colored" : "";
   },
   getMessagesObj: function () {
-    var classObj = Classes.findOne({classCode: Router.current().params.classCode});
-    if (classObj.messagesObj.length > 0) {
-      return classObj.messagesObj;
+    //debugger;
+    
+    var currentClassObj = Classes.findOne({classCode: Router.current().params.classCode});
+    
+    //log.info('getMessagesObj',classObj);
+    if (currentClassObj.messagesObj.length > 0) { 
+        
+       //log.info('loadedItems',loadedItems.get());
+       var rangeFrom = currentClassObj.messagesObj.length - loadedItems.get();
+       var rangeTo   = currentClassObj.messagesObj.length;       
+       var extraFilterMessages = lodash.filter(currentClassObj.messagesObj,function(num,currentIndex){
+           if(currentIndex > rangeFrom && currentIndex < rangeTo){
+               return true;
+           }
+       });       
+       extraFilterMessage = lodash.sortBy(extraFilterMessages,['sendAt']);
+     
+      if(!localClassMessagesCollection){
+          localClassMessagesCollection = new Meteor.Collection(null);
+      }
+       
+       for(var i = 0; i < extraFilterMessages.length; i++){
+                var currentFilterMsg = extraFilterMessages[i];
+                if(i == 0 || extraFilterMessages.length == 1){
+                    currentFilterMsg.showTimestamp = true;
+                }
+                else if(extraFilterMessages.length > 1){
+                   
+                    var prevFilterMsg = extraFilterMessages[i-1];
+                    
+                    //log.info('currentFilterMsg',currentFilterMsg);
+                    //log.info('nextFilterMsg',nextFilterMsg);           
+                    var currentDate = moment.unix(currentFilterMsg.sendAt.substr(0,10)).format("YYYY-MM-DD");
+                    var prevDate = moment.unix(prevFilterMsg.sendAt.substr(0,10)).format("YYYY-MM-DD");
+                    
+                    //log.info('currentDate',currentDate);
+                    //log.info('nextDate',nextDate);
+                    if(currentDate != prevDate){
+                        currentFilterMsg.showTimestamp = true;
+                    }else{
+                        currentFilterMsg.showTimestamp = false;
+                    }
+                }else{
+                     currentFilterMsg.showTimestamp = false;
+                }
+             
+                if (localClassMessagesCollection.findOne({msgId:currentFilterMsg.msgId}) != null) {
+                    localClassMessagesCollection.update({msgId:currentFilterMsg.msgId}, {
+                    $set: currentFilterMsg
+                    });
+                } else {
+                    localClassMessagesCollection.insert(currentFilterMsg);
+                }                
+       }
+       //log.info('extraFilterMessages',extraFilterMessages);
+          
+      //log.info('localClassMessagesCollection:count:',localClassMessagesCollection.find().count());
+
+      return localClassMessagesCollection.find({},{sort:{"sendAt":1}});
     } else {
       return false;
     }
@@ -111,32 +177,6 @@ Template.ClassDetail.helpers({
   },
   teacherAvatar: function(){
     return teacherAvatar.get();     
-  },
-  havePic: function () {
-    return this.imageArr.length > 0;
-  },
-  getImage: function () {
-    var id = this.toString();
-    return Images.findOne(id);
-  },
-  haveSound: function () {
-    return this.soundArr.length > 0;
-  },
-  getSound: function () {
-    var id = this.toString();
-    return Sounds.findOne(id);
-  },
-  haveDocument: function () {
-    //existing message may not have documentArr attribute
-    if(this.documentArr){
-        return this.documentArr.length > 0;
-    }else{
-        return false;
-    }
-  },
-  getDocument: function () {
-    var id = this.toString();
-    return Documents.findOne(id);
   },
   atTop:function(){
       if(isAtTop.get()){
@@ -156,17 +196,15 @@ Template.ClassDetail.helpers({
     var userObj = Meteor.users.findOne(userId);
     return userObj._id == Meteor.userId() ? "You" : userObj.profile.firstname + " " + userObj.profile.lastname;
   },
-  isNewMessage:function(sendAt){   
-     var result = Notifications.findOne({'eventType':'newclassmessage','messageCreateTimestampUnixTime':sendAt});       
-     //backward comptability
-     if(!result){
-         return "";
-     }  
-     if(result.hasRead == false){
-         return 'ion-record';
-     }else{
-         return "";
-     }
+  isLoadMoreButtonShow: function(){
+      var currentClass= Classes.findOne({classCode: Router.current().params.classCode});
+      
+      //log.info('reachTheEnd:loadedItems',loadedItems.get(),'classObjMessages',currentClass.messagesObj.length,'initialLoadItems',initialLoadItems.get());
+      if(loadedItems.get() > currentClass.messagesObj.length ){
+          return "hidden";
+      }else{
+          return "";
+      }
   }
 });
 
@@ -174,14 +212,18 @@ Template.ClassDetail.helpers({
 /* ClassDetail: Lifecycle Hooks */
 /*****************************************************************************/
 Template.ClassDetail.created = function () {
+
+
+
 };
 
 Template.ClassDetail.rendered = function () {
+    
   Meteor.call('getFullNameById', classObj.createBy, function (err, data) {
     return teacherName.set(data);
   });
   Meteor.call('getAvatarById', classObj.createBy, function (err, data) {
-    log.info(data);
+    //log.info(data);
     return teacherAvatar.set(data);
   });
   //greet first-time user
@@ -251,7 +293,7 @@ Template.ClassDetail.rendered = function () {
                         //need to wrap the code inside autorun and subscriptionready
                         //see http://stackoverflow.com/questions/32291382/when-the-page-loads-scroll-down-not-so-simple-meteor-js
                         var classMessageListToBottomScrollTopValue = classDetailClass.scrollHeight - classDetailClass.clientHeight;            
-                        log.info(classMessageListToBottomScrollTopValue);
+                        //log.info(classMessageListToBottomScrollTopValue);
                     	classDetailClass.scrollTop = classMessageListToBottomScrollTopValue; 
                     	
                     }else{
@@ -270,9 +312,13 @@ Template.ClassDetail.rendered = function () {
 };
 
 Template.ClassDetail.destroyed = function () {
+    
+ //initialLoadItems.set(20);
+ loadedItems.set(10); 
+ loadExtraItems = 5;    
 
-  Meteor.call('setAllClassMessagesAsRead',classObj.classCode);
-
+ Meteor.call('setAllClassMessagesAsRead',classObj.classCode);
+ localClassMessagesCollection = null;
 };
 
 function playAudio(url, callback) {

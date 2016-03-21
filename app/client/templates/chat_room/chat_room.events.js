@@ -133,6 +133,9 @@ Template.ChatRoom.events({
   'click .bubble a': function (e) {
       Application.FileHandler.openFile(e);
       e.preventDefault();
+  },
+  'click .load-prev-msg':function(event,template){     
+     template.loadedItems.set( template.loadedItems.get() + template.loadExtraItems );       
   }
 });
 

@@ -1,0 +1,2 @@
+Template.Loading.onRendered(function(){
+});
