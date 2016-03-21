@@ -4,6 +4,9 @@
 /*****************************************************************************/
 var currentChatroomId;
 Template.ChatRoom.created = function () {
+    this.loadedItems = new ReactiveVar(10);
+    this.loadExtraItems = 5;
+    this.localChatMessagesCollection = new Meteor.Collection(null);
 };
 
 Template.ChatRoom.rendered = function () {
@@ -123,7 +126,8 @@ Template.ChatRoom.destroyed = function () {
     //log.info('destroy chat room!');
     //var chatRoomId = Router.current().params.chatRoomId;
     // hasRead => false to true (start)
-                   
+    this.loadedItems.set(10);
+    this.localChatMessagesCollection = null;            
     Meteor.call('setAllChatMessagesAsRead',currentChatroomId);
              
      // hasRead => false to true (end)  

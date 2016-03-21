@@ -28,11 +28,9 @@
 
     
       <div class="list chatroomList background-wallpaper" id="chatroomList">
-        {{#with messagesGroupByDate chatRoomProfile.messagesObj}}
-           {{#each this}}
-                
-                {{#each this}}
-                {{#if isFirstMessageInADate @index}}
+         <div class='date-bubble-wrapper {{isLoadMoreButtonShow}}'><button class='load-prev-msg'>Load Previous Messages</button> </div>
+           {{#each chatRoomProfile}}
+                {{#if showTimestamp}}
                        <div class='date-bubble-wrapper'> <div class='date-bubble'>{{formatDate sendAt}}</div> </div>
                 {{/if}}               
                 <div class="item {{isMine}}">
@@ -170,9 +168,8 @@
                     {{/if}}
                 </div>        
         
-                {{/each}}
            {{/each}}
-        {{/with}}        
+            
       </div>
 
       <div class="list inputBoxList">
