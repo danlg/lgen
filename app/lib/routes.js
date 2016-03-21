@@ -2,21 +2,7 @@
 
 
 
- var imagesHandle;
- var soundsHandle; 
- var documentsHandle; 
- var classHandle;
- var getJoinedClassUserHandle;
- 
-if(Meteor.isClient){
-    Tracker.autorun(function(){
-        imagesHandle =    Meteor.subscribe('images');
-        soundsHandle =    Meteor.subscribe('sounds');
-        documentsHandle = Meteor.subscribe('documents'); 
-        classHandle =  Meteor.subscribe('class');
-        getJoinedClassUserHandle = Meteor.subscribe('getJoinedClassUser');   
-    });
-};
+
 var subs = new SubsManager();
 Router.configure({
   layoutTemplate: 'MasterLayout',

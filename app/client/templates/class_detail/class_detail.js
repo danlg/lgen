@@ -74,15 +74,8 @@ Template.ClassDetail.events({
   'click .comment-counter':function(e){
     toggleCommentSection(e);
   },
-  'click .load-prev-msg':function(){
-     //initialLoadItems.set(initialLoadItems.get()+10);
-     
+  'click .load-prev-msg':function(){     
      loadedItems.set( loadedItems.get() + loadExtraItems );       
-     
-    
- 
-    //classObjReactive.set(Classes.findOne({classCode: Router.current().params.classCode}));
-
   }
 });
 
@@ -219,6 +212,8 @@ Template.ClassDetail.helpers({
 /* ClassDetail: Lifecycle Hooks */
 /*****************************************************************************/
 Template.ClassDetail.created = function () {
+
+
 
 };
 

@@ -4,6 +4,9 @@ Template.MasterLayout.helpers({});
 Template.MasterLayout.events({});
 
 Template.MasterLayout.onCreated(function () {
+  
+  log.info('master layout hi');
+  log.info(Meteor.userId());
   // Use this.subscribe inside onCreated callback
   this.subscribe("notifications");
   
@@ -15,4 +18,16 @@ Template.MasterLayout.onCreated(function () {
           Push.setBadge(totalUnreadBadgeCount);
       }  
   });
+  
+  this.subscribe('images');
+  this.subscribe('sounds');
+  this.subscribe('documents'); 
+  this.subscribe('class',function(){
+     
+     
+      
+  });
+  this.subscribe('getJoinedClassUser');   
+ 
+  
 });

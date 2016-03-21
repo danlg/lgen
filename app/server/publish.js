@@ -13,9 +13,10 @@ Meteor.publish('notifications', function () {
 });
 
 Meteor.publish('class', function () {
-  return Classes.find({
+  var result =  Classes.find({ $or: [{
     joinedUserId: {"$in" : [this.userId]}
-  });
+  },{createBy: this.userId}]});
+  return result;
 });
 Meteor.publish('getClassByClassId', function (classId) {
   return Classes.find(classId);
