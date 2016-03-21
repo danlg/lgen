@@ -1,4 +1,5 @@
 <template name="ClassPanel">
+
   {{#contentFor "headerTitle"}}
     <!-- new code to display classCode in small
     <div>
@@ -13,8 +14,12 @@
     -->
 
     <h1 class="title">
+     {{#if Template.subscriptionsReady}}
       <i class="icon e1a-{{classObj.classavatar}} e1a-2x emojicon"></i>
       {{classObj.className}}
+     {{else}}
+       Loading
+      {{/if}}
     </h1>
 
   {{/contentFor}}
@@ -24,16 +29,19 @@
   {{#contentFor "headerButtonRight"}}
 
     <div style="position: absolute; right: 0;">
-
+      {{#if Template.subscriptionsReady}}
       <a href="{{pathFor 'classEdit' classCode=classObj.classCode  }}"
          class="button button-clear button-entering button-active "><i class="icon ion-ios-information-outline"></i></a>
-
+      {{else}}
+      Loading
+      {{/if}}
     </div>
   {{/contentFor}}
 
   {{#ionView}}
     {{#ionContent}}
 <!-- -->
+     {{#if Template.subscriptionsReady}}    
         <div class="button-bar">
           <a class="button button-bar-button" href="{{ pathFor 'ClassUsers' classCode=classObj.classCode }}">
             <i class="icon ion-ios-people"></i>
@@ -58,11 +66,12 @@
         </div>
     <!---->
 
+       
         <div class="list messageList background-wallpaper"  id="messageList">
-           {{#with messagesGroupByDate classObj.messagesObj}}
-            {{#each this}}
+           <div class='date-bubble-wrapper {{isLoadMoreButtonShow}}'><button class='load-prev-msg'>Load Previous Messages</button> </div>            
+           {{#with getMessagesObj classObj}}
                {{#each this}}
-                {{#if isFirstMessageInADate @index}}
+                {{#if showTimestamp}}
                        <div class='date-bubble-wrapper'> <div class='date-bubble'>{{formatDate sendAt}}</div> </div>
                 {{/if}}                 
                 <div class="item card less-top-bottom-padding less-top-bottom-margin">
@@ -175,15 +184,15 @@
                 </div>
                 <!-- </a> -->
               {{/each}}
-            {{/each}}
           {{/with}}
         </div>
-
+        
+        
         {{> SendMessage callFromClassPanel=true }}
-     
+     {{else}}
+      Loading
       
-      
-      
+      {{/if}}
     {{/ionContent}}
   {{/ionView}}
 </template>
