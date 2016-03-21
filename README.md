@@ -123,3 +123,8 @@ For example: if you want to have a customized `config.xml`, you can put it in pr
 The `npm run build-uat` is not working to build the mobile iOS client. The problem is that the connection to the remote server 
 doesn't work (Hence a blank screen, which is not temporary). For some reason `npm run ios-device-uat` must be 
 run to build it.
+
+#Run bud
+```bud -c /opt/littlegenius/config/bud.conf.json -d```
+See wiki
+https://github.com/danlg/lgen/wiki/Installing-bud-for-TLS-1.2-support
