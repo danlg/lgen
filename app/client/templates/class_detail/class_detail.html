@@ -38,9 +38,9 @@
        <h2>{{teacherName}}</h2>
        <!--<p>{{_ "Teacher"}}</p>-->
     </a>     
-        <div class='date-bubble-wrapper'> <div class='date-bubble'><button class='load-prev-msg'>Load Previous Messages</button></div> </div>
+        <div class='date-bubble-wrapper {{isLoadMoreButtonShow}}'> <div class='date-bubble'><button class='load-prev-msg'>Load Previous Messages</button></div> </div>
      
-      {{#with getExtraMessagesObj}}
+      {{#with getMessagesObj}}
        
             {{#each this}}
                {{> ClassDetailMessage }}
@@ -48,25 +48,7 @@
           
         
       {{/with}}
-              
-      {{#with getMessagesObj}}
-         {{#with messagesGroupByDate this}}
-         
-         {{#each this}}
-            {{#each this}}
-                  {{> ClassDetailMessage }}
-                {{/each}}
-            {{/each}}
-
-            {{else}}
-
-                <div class="item">
-                {{_ "No_message_yet"}}
-                </div>
-
-        {{/with}}
-      {{/with}}     
-     
+                  
     {{/ionContent}}
   {{/ionView}}
 </template>

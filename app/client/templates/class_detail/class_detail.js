@@ -7,8 +7,8 @@ var isRecording = false;
 var media = "";
 var isPlayingSound = false;
 var isAtTop = ReactiveVar(true);
-var initialLoadItems = ReactiveVar(20);
-var loadedItems = ReactiveVar(0);
+//var initialLoadItems = ReactiveVar(20);
+var loadedItems = ReactiveVar(10);
 var loadExtraItems = 5;
 var localClassMessagesCollection = new Meteor.Collection(null);
 
@@ -23,7 +23,7 @@ Template.ClassDetail.events({
     if(msgId && action){
      
         
-        log.info("clickvotebtn:",classObj);
+       // log.info("clickvotebtn:",classObj);
         Meteor.call('updateMsgRating', action, msgId, classObj, function (error,result) {
               
         });        
@@ -60,7 +60,7 @@ Template.ClassDetail.events({
       e.preventDefault();
   },
   'click .add-comment-annoucement':function(e){
-      log.info(e);
+      //log.info(e);
       var text = $(e.target).parent().find('.add-comment-annoucement-textbox').val();
       var msgId = $(e.target).data().msgid;
       Meteor.call('addCommentToClassAnnoucement',msgId, {_id:classObj._id},text, function (argument) {
@@ -116,80 +116,68 @@ Template.ClassDetail.helpers({
     return lodash.includes(lodash.map(action, "_id"), Meteor.userId()) ? "colored" : "";
   },
   getMessagesObj: function () {
-    var classObj = Classes.findOne({classCode: Router.current().params.classCode});
+    //debugger;
     
-    log.info('getMessagesObj',classObj);
-    if (classObj.messagesObj.length > 0) {
-       var totalLengthOfMessagesObj = classObj.messagesObj.length;
-       
-       var filterMessages = lodash.filter(classObj.messagesObj,function(num,currentIndex){
-           if( (totalLengthOfMessagesObj - (currentIndex+1)) < initialLoadItems.get()){
-               return true;
-           }
-       });
-       
-       log.info('loadedItems',loadedItems.get());
-       var rangeFrom = totalLengthOfMessagesObj - initialLoadItems.get() - loadedItems.get();
-       var rangeTo   = totalLengthOfMessagesObj - initialLoadItems.get();       
-       var extraFilterMessages = lodash.filter(classObj.messagesObj,function(num,currentIndex){
+    var currentClassObj = Classes.findOne({classCode: Router.current().params.classCode});
+    
+    //log.info('getMessagesObj',classObj);
+    if (currentClassObj.messagesObj.length > 0) { 
+        
+       //log.info('loadedItems',loadedItems.get());
+       var rangeFrom = currentClassObj.messagesObj.length - loadedItems.get();
+       var rangeTo   = currentClassObj.messagesObj.length;       
+       var extraFilterMessages = lodash.filter(currentClassObj.messagesObj,function(num,currentIndex){
            if(currentIndex > rangeFrom && currentIndex < rangeTo){
                return true;
            }
        });       
-       
-       for(var i = 0; i < extraFilterMessages.length; i++){
-                var prevFilterMsg = extraFilterMessages[i];
-                if(extraFilterMessages.length > 1 &&  (extraFilterMessages.length - (i+1)) >= 1){
-                   
-                    var nextFilterMsg = extraFilterMessages[i+1];
-                    
-                    log.info('currentFilterMsg',prevFilterMsg);
-                    log.info('nextFilterMsg',nextFilterMsg);           
-                    var currentDate = moment.unix(prevFilterMsg.sendAt.substr(0,10)).format("YYYY-MM-DD");
-                    var nextDate = moment.unix(nextFilterMsg.sendAt.substr(0,10)).format("YYYY-MM-DD");
-                    
-                    log.info('currentDate',currentDate);
-                    log.info('nextDate',nextDate);
-                    if(currentDate != nextDate){
-                        prevFilterMsg.showTimestamp = true;
-                    }
-                }else if(extraFilterMessages.length == 1){
-                    prevFilterMsg.showTimestamp = true;
-                }
-                
-                
-                          
-                if (localClassMessagesCollection.findOne({msgId:prevFilterMsg.msgId}) != null) {
-                    localClassMessagesCollection.update({msgId:prevFilterMsg.msgId}, {
-                    $set: prevFilterMsg
-                    });
-                } else {
-                    localClassMessagesCollection.insert(prevFilterMsg);
-                }                
-       }
-       log.info('extraFilterMessages',extraFilterMessages);
-      
-                
-               
-                
-      
-                
-                  
-   
-      
-      log.info('localClassMessagesCollection:count:',localClassMessagesCollection.find().count());
-       
-       return filterMessages;
-    } else {
-      return false;
-    }
-  },
-  getExtraMessagesObj:function(){
+       extraFilterMessage = lodash.sortBy(extraFilterMessages,['sendAt']);
+     
       if(!localClassMessagesCollection){
           localClassMessagesCollection = new Meteor.Collection(null);
       }
+       
+       for(var i = 0; i < extraFilterMessages.length; i++){
+                var currentFilterMsg = extraFilterMessages[i];
+                if(i == 0 || extraFilterMessages.length == 1){
+                    currentFilterMsg.showTimestamp = true;
+                }
+                else if(extraFilterMessages.length > 1){
+                   
+                    var prevFilterMsg = extraFilterMessages[i-1];
+                    
+                    //log.info('currentFilterMsg',currentFilterMsg);
+                    //log.info('nextFilterMsg',nextFilterMsg);           
+                    var currentDate = moment.unix(currentFilterMsg.sendAt.substr(0,10)).format("YYYY-MM-DD");
+                    var prevDate = moment.unix(prevFilterMsg.sendAt.substr(0,10)).format("YYYY-MM-DD");
+                    
+                    //log.info('currentDate',currentDate);
+                    //log.info('nextDate',nextDate);
+                    if(currentDate != prevDate){
+                        currentFilterMsg.showTimestamp = true;
+                    }else{
+                        currentFilterMsg.showTimestamp = false;
+                    }
+                }else{
+                     currentFilterMsg.showTimestamp = false;
+                }
+             
+                if (localClassMessagesCollection.findOne({msgId:currentFilterMsg.msgId}) != null) {
+                    localClassMessagesCollection.update({msgId:currentFilterMsg.msgId}, {
+                    $set: currentFilterMsg
+                    });
+                } else {
+                    localClassMessagesCollection.insert(currentFilterMsg);
+                }                
+       }
+       //log.info('extraFilterMessages',extraFilterMessages);
+          
+      //log.info('localClassMessagesCollection:count:',localClassMessagesCollection.find().count());
+
       return localClassMessagesCollection.find({},{sort:{"sendAt":1}});
-      
+    } else {
+      return false;
+    }
   },
   teacherName: function () {
     return teacherName.get();
@@ -214,6 +202,16 @@ Template.ClassDetail.helpers({
   getNameById: function (userId) {
     var userObj = Meteor.users.findOne(userId);
     return userObj._id == Meteor.userId() ? "You" : userObj.profile.firstname + " " + userObj.profile.lastname;
+  },
+  isLoadMoreButtonShow: function(){
+      var currentClass= Classes.findOne({classCode: Router.current().params.classCode});
+      
+      //log.info('reachTheEnd:loadedItems',loadedItems.get(),'classObjMessages',currentClass.messagesObj.length,'initialLoadItems',initialLoadItems.get());
+      if(loadedItems.get() > currentClass.messagesObj.length ){
+          return "hidden";
+      }else{
+          return "";
+      }
   }
 });
 
@@ -230,7 +228,7 @@ Template.ClassDetail.rendered = function () {
     return teacherName.set(data);
   });
   Meteor.call('getAvatarById', classObj.createBy, function (err, data) {
-    log.info(data);
+    //log.info(data);
     return teacherAvatar.set(data);
   });
   //greet first-time user
@@ -300,7 +298,7 @@ Template.ClassDetail.rendered = function () {
                         //need to wrap the code inside autorun and subscriptionready
                         //see http://stackoverflow.com/questions/32291382/when-the-page-loads-scroll-down-not-so-simple-meteor-js
                         var classMessageListToBottomScrollTopValue = classDetailClass.scrollHeight - classDetailClass.clientHeight;            
-                        log.info(classMessageListToBottomScrollTopValue);
+                        //log.info(classMessageListToBottomScrollTopValue);
                     	classDetailClass.scrollTop = classMessageListToBottomScrollTopValue; 
                     	
                     }else{
@@ -320,8 +318,8 @@ Template.ClassDetail.rendered = function () {
 
 Template.ClassDetail.destroyed = function () {
     
- initialLoadItems.set(20);
- loadedItems.set(0); 
+ //initialLoadItems.set(20);
+ loadedItems.set(10); 
  loadExtraItems = 5;    
 
  Meteor.call('setAllClassMessagesAsRead',classObj.classCode);
