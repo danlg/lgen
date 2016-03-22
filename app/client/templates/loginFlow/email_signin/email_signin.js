@@ -23,7 +23,10 @@ Template.EmailSignin.events({
   },
   'click .forget-password-btn':function(event,template){
       Router.go('EmailForgetPwd');
-  }     
+  },
+  'click .google-login-btn':function(event,template){
+    registerOrLoginWithGoogle();
+  }    
 });
 
 /*****************************************************************************/

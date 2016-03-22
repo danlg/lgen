@@ -4,7 +4,7 @@
   {{/contentFor}}
 
   {{#contentFor "headerTitle"}}
-    <h1 class="title">{{_"SignIn"}}</h1>
+    <h1 class="title">Welcome back!</h1>
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
@@ -19,7 +19,12 @@
     {{#ionContent}}
 
 
-      <div class="sign-form">
+      <div class="sign-form" style='text-align:center;'>
+        <button class="button button-full button-calm google-login-btn" style='color:white;'>
+            <i class="icon ion-social-google"></i>
+            Login With Google
+        </button>
+        OR          
         <div class="list ">
           <label class="item item-input">
             <input id='email' type="email" value='{{email}}' placeholder="{{_"Email"}}">

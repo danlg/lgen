@@ -9,7 +9,7 @@ Template.EmailSignup.events({
   'blur #dobInput': function (argument) {
     if ($("#dobInput").val() === "")
       $(".dobplaceholder").show();
-  }
+  } 
 });
 
 /*****************************************************************************/
@@ -46,7 +46,7 @@ Template.EmailSignup.rendered = function () {
 Template.EmailSignup.destroyed = function () {
 };
 
-Template.ionNavBar.events({
+Template.EmailSignup.events({
   'click .createBtn': function () {
     /*var userObj =  createVM.toJS();
      Meteor.call('user/create', createVM.toJS(), function(err) {
@@ -85,5 +85,8 @@ Template.ionNavBar.events({
         }
       });
     }
-  }
+  },
+  'click .google-login-btn':function(event,template){
+    registerOrLoginWithGoogle();
+  } 
 });
