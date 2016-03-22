@@ -1,6 +1,6 @@
 ChatRoomMessageSender = function(chatRoomId,messageType,messageText,messageAttachmentObject,targetUsers,callback){
 
-    var targetUsersIds = lodash.pluck(targetUsers, '_id');
+    var targetUsersIds = lodash.map(targetUsers, '_id');
     var pushObj = {
         from:  Meteor.userId(),
         sendAt: moment().format('x'),

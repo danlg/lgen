@@ -188,7 +188,7 @@ Meteor.methods({
             var regexp = new RegExp("^"+inputOrganizationKeyword,"i");
             var rawResultSet = Meteor.users.find({"profile.organization":  {$regex: regexp} }).fetch();//OK
             //log.info(rawResultSet);
-            var resultSet = lodash.pluck(rawResultSet,'profile.organization');
+            var resultSet = lodash.map(rawResultSet,'profile.organization');
             //log.info(resultSet);  
             
             return resultSet;    
@@ -198,7 +198,7 @@ Meteor.methods({
             var regexp = new RegExp("^"+inputCityKeyword,"i");
             var rawResultSet = Meteor.users.find({"profile.city":  {$regex: regexp} }).fetch();//OK
             //log.info(rawResultSet);
-            var resultSet = lodash.pluck(rawResultSet,'profile.city');
+            var resultSet = lodash.map(rawResultSet,'profile.city');
             //log.info(resultSet);  
             
             return resultSet;    
