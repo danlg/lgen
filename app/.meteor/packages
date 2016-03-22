@@ -46,7 +46,6 @@ meteoric:ionicons-sass
 
 reactive-var
 
-meteorhacks:kadira
 
 u2622:persistent-session
 
@@ -106,5 +105,3 @@ francocatena:status
 
 yuukan:streamy
 spiderable
-standard-minifier-css
-standard-minifier-js
