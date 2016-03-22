@@ -12,19 +12,19 @@ Template.EmailForgetPwd.events({
       Accounts.forgotPassword({email: template.email.get()}, function(err) {
         if (err) {
           if (err.message === 'User not found [403]') {
-            toastr.error("user not found");
+            toastr.error(TAPi18n.__("EmailNotFound"));
             console.log('This email does not exist.');
           } else {
             toastr.error("We are sorry but something went wrong");             
             console.log('We are sorry but something went wrong.',err.message);
           }
         } else {
-          toastr.info("Email Sent. Check your mailbox.");  
+          toastr.info(TAPi18n.__("EmailSentCheckMailBox"));  
           console.log('Email Sent. Check your mailbox.');
         }
       });
      }else{
-          toastr.info("Is the email correct?");   
+          toastr.info(TAPi18n.__("EmailFormatNotCorrect"));   
      }
   }   
 });
