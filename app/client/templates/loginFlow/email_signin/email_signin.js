@@ -2,7 +2,29 @@
 /*****************************************************************************/
 /* EmailSignin: Event Handlers */
 /*****************************************************************************/
-Template.EmailSignin.events({});
+Template.EmailSignin.events({
+  'input #email':function(event,template){
+      template.email.set($("#email").val());
+  },
+  'input #password':function(event,template){
+      template.password.set($("#password").val());
+  },
+  'click .loginBtn': function (event,template) {
+    Meteor.loginWithPassword(template.email.get(), template.password.get(), function (err) {
+      if (err){
+        toastr.error("user not found");
+        log.error(err);
+      }
+      else {
+        log.info("login:meteor:" + Meteor.userId());
+        routeToTabClasses();
+      }
+    });
+  },
+  'click .forget-password-btn':function(event,template){
+      Router.go('EmailForgetPwd');
+  }     
+});
 
 /*****************************************************************************/
 /* EmailSignin: Helpers */
@@ -13,29 +35,13 @@ Template.EmailSignin.helpers({});
 /* EmailSignin: Lifecycle Hooks */
 /*****************************************************************************/
 Template.EmailSignin.created = function () {
+    this.email = new ReactiveVar("");
+    this.password = new ReactiveVar("");
 };
 
 Template.EmailSignin.rendered = function () {
-  loginVM.bind(this);
 };
 
 Template.EmailSignin.destroyed = function () {
 };
 
-Template.ionNavBar.events({
-  'click .loginBtn': function () {
-    var loginObj = loginVM.toJS();
-    // loginObj.email = loginObj.email.toUpperCase();
-    Meteor.loginWithPassword(loginObj.email, loginObj.pwd, function (err) {
-      // err?alert(err.reason);Router.go('TabClasses');
-      if (err){
-        toastr.error("user not found");
-        log.error(err);
-      }
-      else {
-        log.info("login:meteor:" + Meteor.userId());
-        routeToTabClasses();
-      }
-    });
-  }
-});

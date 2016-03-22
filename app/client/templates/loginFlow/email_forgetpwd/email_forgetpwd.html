@@ -1,10 +1,10 @@
-<template name="EmailSignin">
+<template name="EmailForgetPwd">
   {{#contentFor "headerButtonLeft"}}
     {{>ionNavBackButton path='Login' text=" "}}
   {{/contentFor}}
 
   {{#contentFor "headerTitle"}}
-    <h1 class="title">{{_"SignIn"}}</h1>
+    <h1 class="title">{{_"ForgetPassword"}}Forget Password</h1>
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
@@ -19,19 +19,15 @@
     {{#ionContent}}
 
 
-      <div class="sign-form">
+      <div class="forget-password-form">
         <div class="list ">
           <label class="item item-input">
             <input id='email' type="email" value='{{email}}' placeholder="{{_"Email"}}">
           </label>
-          <label class="item item-input">
-            <input id='password' type="password" value='{{password}}' placeholder="{{_"Password"}}">
-          </label>
         </div>
-        <button class="button button-full button-positive loginBtn">
-        {{_ "Login"}}
+        <button class="button button-full button-positive reset-password-btn">
+        Send Reset Password Email
         </button>        
-        <a class='forget-password-btn'>Forget Password?</a>
       </div>
     {{/ionContent}}
   {{/ionView}}

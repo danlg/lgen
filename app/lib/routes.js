@@ -227,7 +227,7 @@ var i18Init = function () {
 
 //the following routes does not require login to access
 Router.onBeforeAction(OnBeforeActions.LoginRequired, {
-  except: ['language', 'Login', 'EmailSignup', 'EmailSignin', 'role',
+  except: ['language', 'Login', 'EmailSignup', 'EmailSignin','EmailForgetPwd','EmailResetPwd', 'role',
    'Testing', 'Test2','ClassInformationForWebUser','ClassSearchInformationForWebUser',
    'TermsOfService','PrivacyPolicy','TourFromHomePage','Perf']
 });
@@ -262,6 +262,14 @@ Router.route('Login', {
   waitOn:function () {
     Accounts.loginServicesConfigured();
   }
+});
+
+Router.route('/email-reset-password', {
+  name: "EmailResetPwd"
+});
+
+Router.route('/email-forget-password', {
+  name: "EmailForgetPwd"
 });
 
 Router.route('/email-signin', {

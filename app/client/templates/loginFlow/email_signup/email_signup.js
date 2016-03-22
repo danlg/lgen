@@ -66,7 +66,7 @@ Template.ionNavBar.events({
     if (!validateEmail(userObj.email)) {
       toastr.error("Incorrect Email");
     } else if ($(".pwd").val().length < 4) {
-      toastr.error("At least 3 characters Password");
+      toastr.error("At least 4 characters Password");
     } else {
       Accounts.createUser({
         email: userObj.email,
