@@ -4,7 +4,7 @@
   {{/contentFor}}
 
   {{#contentFor "headerTitle"}}
-    <h1 class="title">Reset Password</h1>
+    <h1 class="title">{{_ "ResetPassword"}}</h1>
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
@@ -22,15 +22,15 @@
       <div class="forget-password-form">
         <div class="list ">
           <label class="item item-input">
-            <input id="resetPasswordPassword" name="password" placeholder="New Password" type="password" >
+            <input id="resetPasswordPassword" name="password" placeholder="{{_ 'NewPassword'}}" type="password" >
           </label>
           <label class="item item-input">
-            <input id="resetPasswordPasswordConfirm" name="password-confirm" placeholder="Confirm" type="password" >
+            <input id="resetPasswordPasswordConfirm" name="password-confirm" placeholder="{{_ 'NewPasswordConfirm'}}" type="password" >
           </label>
                     
         </div>
         <button class="button button-full button-positive reset-password-btn">
-            Set New Password
+            {{_ "SetNewPassword"}}
         </button>        
       </div>
     {{/ionContent}}

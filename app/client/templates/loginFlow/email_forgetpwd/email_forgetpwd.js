@@ -12,14 +12,19 @@ Template.EmailForgetPwd.events({
       Accounts.forgotPassword({email: template.email.get()}, function(err) {
         if (err) {
           if (err.message === 'User not found [403]') {
+            toastr.error("user not found");
             console.log('This email does not exist.');
           } else {
+            toastr.error("We are sorry but something went wrong");             
             console.log('We are sorry but something went wrong.',err.message);
           }
         } else {
+          toastr.info("Email Sent. Check your mailbox.");  
           console.log('Email Sent. Check your mailbox.');
         }
       });
+     }else{
+          toastr.info("Is the email correct?");   
      }
   }   
 });

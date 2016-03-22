@@ -266,3 +266,18 @@ verificationEmailTemplate = function(role,userObj,verificationURL){
         );           
 };
 
+resetPasswordEmailTemplate = function(role,userObj,resetPwdEmailURL){
+  var emailLang = userObj.profile.lang || "en";
+
+  return Spacebars.toHTML(
+        {
+          title: TAPi18n.__("ResetPasswordEmailContent", {first_name:userObj.profile.firstname }, lang_tag= emailLang),
+          content: '<a href="'+resetPwdEmailURL+'">'+TAPi18n.__("ResetPasswordEmailButtonText", {}, lang_tag= emailLang)+'</a>',                               
+          GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag= emailLang) ,
+          UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag= emailLang)
+        },
+       Assets.getText("emailMessageMasterTemplate.html")
+  );  
+                           
+}; 
+

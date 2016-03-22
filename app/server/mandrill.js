@@ -40,3 +40,27 @@ Accounts.emailTemplates.verifyEmail= {
     return verifyEmailSubject;
   }
 };
+
+Accounts.emailTemplates.resetPassword ={
+  html: function (user, url) {
+    log.info(user.profile.role);
+    var role = user.profile.role;
+    
+    return resetPasswordEmailTemplate(role,user,url);
+  }
+
+  , siteName: function () {
+    return "Smartix";
+  }
+
+  , from:function() {
+    return "Smartix <contactemail@littlegenius.io>";
+  }
+
+  , subject:function(user) {
+    var subjectLang = user.profile.lang || "en";
+    
+    var resetPasswordEmailSubject = TAPi18n.__("ResetPasswordEmailSubject", {}, lang_tag= subjectLang);
+    return resetPasswordEmailSubject;
+  }     
+};
