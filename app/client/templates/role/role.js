@@ -7,7 +7,10 @@ Template.Role.events({
     var $this = $(e.target);
     if (Meteor.user()) {
       Meteor.call('user/role/update', $this.data('role'), function () {
-       routeToTabClasses();
+       
+       Session.set('registerFlow',true);
+       Router.go('MyAccount');       
+       //routeToTabClasses();
       });
     } else {
       Router.go('EmailSignin', {role: $this.data('role')});
@@ -44,9 +47,9 @@ Template._modal.events({
 
     if (Meteor.userId()) {
       Meteor.call('user/role/update', role, function () {
-        //invite user to download the app if they are using web version
-        //we are doing this in the tab classes
-        routeToTabClasses();
+        Session.set('registerFlow',true);
+        Router.go('MyAccount');         
+        //routeToTabClasses();
       });
     }
     else {

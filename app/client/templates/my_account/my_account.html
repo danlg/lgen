@@ -1,19 +1,40 @@
 <template name="MyAccount">
   {{#contentFor "headerTitle"}}
-    <h1 class="title">{{_ "MyAccount"}}</h1>
+    {{#if fromRegisterFlow}}
+        <h1 class="title">One Last Step</h1>       
+    {{else}}
+         <h1 class="title">{{_ "MyAccount"}}</h1> 
+    {{/if}}  
+
+    
   {{/contentFor}}
 
   {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton path='TabYou' text=" "}}
+    {{#if fromRegisterFlow}}
+        <button class="button button-clear button-entering button-active skip-account-btn">Skip</button>        
+    {{else}}
+        {{>ionNavBackButton path='TabYou' text=" "}}    
+    {{/if}}
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
-    <button class="button button-clear button-entering button-active editAccountBtn">{{_ "Update"}}</button>
+    {{#if fromRegisterFlow}}
+        <button class="button button-clear button-entering button-active finish-account-btn">Finish</button>        
+    {{else}}
+        <button class="button button-clear button-entering button-active editAccountBtn">{{_ "Update"}}</button>  
+    {{/if}}  
+
   {{/contentFor}}
 
   {{#ionView}}
     {{#ionContent}}
-
+    {{#if fromRegisterFlow}}
+        <div class="card">
+            <div class="item item-text-wrap smaller">
+            Personalize your experience by setting up avatar and telling us which school and country you are from. You can always change the information later in my account page.
+            </div>
+        </div>
+    {{/if}}  
       {{#autoForm schema=editprofile id="editprofile" resetOnSuccess=false type="method" doc=this meteormethod="profile/edit"  }}
         <div class="list">     
           <div class='row'>

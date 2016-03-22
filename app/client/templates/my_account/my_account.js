@@ -62,6 +62,9 @@ Template.MyAccount.events({
 /* MyAccount: Helpers */
 /*****************************************************************************/
 Template.MyAccount.helpers({
+  fromRegisterFlow:function(){
+    return Session.get('registerFlow');  
+  },
   current: function () {
     return Meteor.user();
   }
@@ -133,7 +136,46 @@ Template.MyAccount.destroyed = function () {
 };
 
 Template.ionNavBar.events({
-  'click .editAccountBtn': function () {
+  'click .editAccountBtn': function () { 
     AutoForm.submitFormById("#editprofile");
-  }
+  },
+  'click .skip-account-btn': function () {
+    
+    Session.set('registerFlow',false);
+    //invite user to download the app if they are using web version
+    if (!Meteor.isCordova) {
+        
+        if (Meteor.user().profile.role === "Teacher") {
+            log.info("redirect to app promote for teacher");
+            Router.go('HowToInvite');
+        } else {
+            //todo congratulate
+            //popup to download app
+            routeToTabClasses();
+        }
+    }
+    else {
+        routeToTabClasses();
+    }    
+
+  },  
+  'click .finish-account-btn': function () {  
+    AutoForm.submitFormById("#editprofile");
+ 
+    Session.set('registerFlow',false);
+    //invite user to download the app if they are using web version
+    if (!Meteor.isCordova) {
+        if (Meteor.user().profile.role === "Teacher") {
+            log.info("redirect to app promote for teacher");
+            Router.go('HowToInvite');
+        } else {
+            //todo congratulate
+            //popup to download app
+            routeToTabClasses();
+        }
+    }
+    else {
+        routeToTabClasses();
+    }    
+  }  
 });
