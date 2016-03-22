@@ -128,3 +128,19 @@ run to build it.
 ```bud -c /opt/littlegenius/config/bud.conf.json -d```
 See wiki
 https://github.com/danlg/lgen/wiki/Installing-bud-for-TLS-1.2-support
+
+#upgrade Meteor 1.3
+Install nvm: curl https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
+Install node 0.10.43: nvm install 0.10.43
+Install npm latest: npm -g install npm@latest
+
+#start Mongo
+/usr/bin/mongod --config /etc/mongod.conf
+
+#Manage services
+sudo apt-get install sysv-rc-conf
+sysv-rc-conf
+
+#Install custom version of mup to allow compilation on Linux x64
+https://github.com/danlg/meteor-up.git
+
