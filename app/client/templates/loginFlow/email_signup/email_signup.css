@@ -17,3 +17,16 @@
 ::-webkit-datetime-edit-text:not([aria-valuenow]) {
   color: transparent;
 }
+
+.role-selection{
+    background-color: white;
+}
+
+.role-selection.chosen-role{
+    background-color: #94c528;
+    -webkit-transition: background-color 1000ms ease;
+    -moz-transition: background-color 1000ms ease;
+    -o-transition: background-color 1000ms ease;
+    -ms-transition: background-color 1000ms ease;
+    transition: background-color 1000ms ease;    
+}

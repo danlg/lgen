@@ -21,7 +21,7 @@ Template.EmailSignup.helpers({
     return Schema.emailSignup;
   },
   isStudent: function () {
-    return Router.current().params.role === "Student";
+    return Template.instance().chosenRole.get() === "Student";
   }
 
 });
@@ -35,6 +35,8 @@ Template.EmailSignup.created = function () {
   log.info("chosen role: " + Router.current().params.role);
 
   $("body").removeClass('modal-open');
+  this.chosenRole = new ReactiveVar('');
+  log.info("chosen role: ",this.chosenRole.get());
 };
 
 Template.EmailSignup.rendered = function () {
@@ -47,14 +49,28 @@ Template.EmailSignup.destroyed = function () {
 };
 
 Template.EmailSignup.events({
-  'click .createBtn': function () {
+  'click .role-selection':function(event,template){
+      //$(event.target).data('role');
+      $(".role-selection").removeClass('chosen-role');
+      $(event.currentTarget).addClass('chosen-role');          
+      template.chosenRole.set($(event.currentTarget).data('role'));
+  },
+  'change #roleOptions':function(event,template){
+      template.chosenRole.set($("#roleOptions").val());
+      log.info("chosen role: ",template.chosenRole.get());
+  },
+  'click .createBtn': function (event,template) {
     /*var userObj =  createVM.toJS();
      Meteor.call('user/create', createVM.toJS(), function(err) {
      err ? alert(err.reason); : Router.go('TabChat');
      });*/
 
     // AutoForm.submitFormById("#signupform");
-    var role = Router.current().params.role;
+    var role = template.chosenRole.get();
+    if(role == ""){
+        toastr.info('Tell us whether you are a teacher, student or parent!');
+        return;
+    }
     var userObj = {};
     userObj.profile = {};
     userObj.email = $(".email").val();

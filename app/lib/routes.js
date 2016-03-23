@@ -272,11 +272,11 @@ Router.route('/email-forget-password', {
   name: "EmailForgetPwd"
 });
 
-Router.route('/email-signin', {
+Router.route('/logingate', {
   name: "EmailSignin"
 });
-Router.route('EmailSignup', {
-  path: "email-signup/:role"
+Router.route('/signup', {
+  name: "EmailSignup"
 });
 
 Router.route('/role', {
