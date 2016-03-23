@@ -26,10 +26,13 @@
   <access origin="cdv:*"/>
   <access origin="gap:*"/>
   <!--<access origin="http://meteor.local/*"/>-->
+  <access origin="https://goo.gl/*"/>
   <access origin="*://localhost/*"/>
   <access origin="*://10.0.2.2/*"/>
   <access origin="*"/>
-  <access origin="https://goo.gl/*"/>
+  <allow-navigation href="*" />
+  <allow-intent href="*" />
+
   <platform name="ios">
     <icon src="resources/iphone.icon.png" width="60" height="60"/>
     <icon src="resources/iphone.icon.png" width="29" height="29"/>
@@ -74,5 +77,6 @@
     <!--<splash src="resources/android_hdpi_landscape.splash.png" width="640" height="480" density="land-hdpi"/>-->
     <splash src="resources/android_xhdpi_portrait.splash.png" width="720" height="960" density="port-xhdpi"/>
     <!--<splash src="resources/android_xhdpi_landscape.splash.png" width="960" height="720" density="land-xhdpi"/>-->
+    
   </platform>
 </widget>
