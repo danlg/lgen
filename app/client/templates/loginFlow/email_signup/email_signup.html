@@ -1,6 +1,6 @@
 <template name="EmailSignup">
   {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton text=" " href="/" }}
+    {{>ionNavBackButton path='Login' text=" "}}
   {{/contentFor}}
 
   {{#contentFor "headerTitle"}}
@@ -20,16 +20,16 @@
       
     <button class="button button-full button-calm google-login-btn" style='color:white;'>
         <i class="icon ion-social-google"></i>
-        Sign up With Google
+      {{_ "SignUpWithGoogle"}}
     </button>      
-      <div style='width:100%;text-align:center;'>OR</div> 
+      <div style='width:100%;text-align:center;'>{{_ "OR"}}</div> 
       <div class="list">
         <label class="item item-input">
-            You are
+            {{_ "YouAre"}}
             <div class="row" style='text-align:center;'>
-                <div data-role='Teacher' class="role-selection col "><i class="icon ion-paintbrush"></i><br/>Teacher</div>
-                <div data-role='Student' class="role-selection col "><i class="icon ion-university"></i><br/>Student</div>
-                <div data-role='Parent' class="role-selection col  "><i class="icon ion-person"></i><br/>Parent</div>
+                <div data-role='Teacher' class="role-selection col "><i class="icon ion-paintbrush"></i><br/>{{_ "Teacher"}}</div>
+                <div data-role='Student' class="role-selection col "><i class="icon ion-university"></i><br/>{{_ "Student"}}</div>
+                <div data-role='Parent' class="role-selection col  "><i class="icon ion-person"></i><br/>{{_ "Parent"}}</div>
             </div>                        
         </label>           
         <div class="">
