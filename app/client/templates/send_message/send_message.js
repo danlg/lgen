@@ -20,6 +20,19 @@ var canVote = ReactiveVar(true);
 /* SendMessage: Event Handlers */
 /*****************************************************************************/
 Template.SendMessage.events({
+  'click .set-calendar':function(event,template){
+     IonPopup.show({
+      title: 'Set a calendar event',
+      templateName: 'CalendarEvent',
+      buttons: [{
+        text: 'Close me',
+        type: 'button-positive',
+        onTap: function() {
+          IonPopup.close();
+        }
+      }]
+    });
+  },
   'click #allowVote':function(e){
       if($('input#allowVote:checked').length > 0){
           canVote.set(true);
