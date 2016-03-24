@@ -69,6 +69,9 @@
         <div style="display:none;"> {{ arrToString searchObj.selectArrName }}</div>
 
         <div class="extra-options setting padding-horizontal" style='overflow:hidden;white-space:nowrap;background-color: #EBE4D9  !important;'>
+            {{#if calendarEventSet}}
+              <i class='icon ion-ios-calendar-outline cancel-calendar' ></i>
+            {{/if}}
             <div>
               <a data-text='{{_ "HelpReply"}}'  data-ion-tooltip="ionTooltip"><i class='icon ion-ios-help' ></i></a>
               <span data-text='{{_ "HelpReply"}}'  data-ion-tooltip="ionTooltip" style='font-size:smaller'><b>{{_ "Reply"}}:</b></span>

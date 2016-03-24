@@ -75,14 +75,20 @@
                        <div class='date-bubble-wrapper'> <div class='date-bubble'>{{formatDate sendAt}}</div> </div>
                 {{/if}}                 
                 <div class="item card less-top-bottom-padding less-top-bottom-margin">
-                <!-- <div class="item ">
+                 {{#with calendarEvent}}
+                 <div class="item ">
                     <div class="row" style="padding:0">
-                    <div class="col" style="padding:0"><h2>{{className}}</h2></div>
-                    <div class="col" style="padding:0;text-align:right">{{createdAt}}</div>
+                        <div class="col" style="padding:0"><h2><i class='icon ion-ios-calendar-outline' ></i>{{eventName}}</h2></div>
+                        <div class="col" style="padding:0"><h2><i class='icon ion-location' ></i>{{location}}</h2></div>
+                        <div class="col" style="padding:0;text-align:right">{{startDate}} at {{startDateTime}}</div>
+                        <div class="col" style="padding:0;text-align:right">{{endDate}} at {{endDateTime}}</div>                                                                   
+                        <div class="col" style="padding:0;text-align:right"><button>Add to calendar</button></div>
                     </div>
-                </div>-->
+                </div>
+                {{/with}}
                 <div class="item less-top-bottom-padding">
                     <div>
+                    
                     {{{docPreview content}}}    
                     {{#autolink}}<div class='content'><pre>{{content}}</pre></div>{{/autolink}}
                     <div>

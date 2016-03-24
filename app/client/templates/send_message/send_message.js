@@ -20,14 +20,31 @@ var canVote = ReactiveVar(true);
 /* SendMessage: Event Handlers */
 /*****************************************************************************/
 Template.SendMessage.events({
-  'click .set-calendar':function(event,template){
+  'click .cancel-calendar':function(event,template){
+    template.calendarEvent.set({});
+  },
+  'click .set-calendar':function(event,sendMsgtemplate){
      IonPopup.show({
       title: 'Set a calendar event',
       templateName: 'CalendarEvent',
       buttons: [{
-        text: 'Close me',
+        text: 'Set',
         type: 'button-positive',
-        onTap: function() {
+        onTap: function(event,template) {
+          
+          log.info($(template.firstNode).find('#event-name').val());
+          
+          sendMsgtemplate.calendarEvent.set({
+            eventName: $(template.firstNode).find('#event-name').val(),
+            location: $(template.firstNode).find('#location').val(),
+            startDate:$(template.firstNode).find('#start-date').val(),
+            startDateTime:$(template.firstNode).find('#start-date-time').val(),
+            endDate:$(template.firstNode).find('#end-date').val(),
+            endDateTime:$(template.firstNode).find('#end-date-time').val()       
+          });
+          
+          log.info(sendMsgtemplate.calendarEvent.get());
+          
           IonPopup.close();
         }
       }]
@@ -182,7 +199,7 @@ Template.SendMessage.events({
     
 
   },
-  'click .sendMsgBtn': function () {
+  'click .sendMsgBtn': function (event,template) {
     /*var target  = $(".js-example-basic-multiple").val();*/
 
 
@@ -204,8 +221,9 @@ Template.SendMessage.events({
     mediaObj.imageArr = imageArr.get();
     mediaObj.soundArr = soundArr.get();
     mediaObj.documentArr = documentArr.get();
+    mediaObj.calendarEvent = template.calendarEvent.get();
     if(msg == "" && mediaObj.imageArr.length == 0 && mediaObj.soundArr.length
-       == 0 && mediaObj.documentArr.length == 0 ){
+       == 0 && mediaObj.documentArr.length == 0 &&  mediaObj.calendarEvent == {}){
       
       toastr.warning("please input some message");
       
@@ -221,9 +239,9 @@ Template.SendMessage.events({
         soundArr.set([]); 
         documentArr.set([]);       
         $(".msgBox").val("");
-
+        template.calendarEvent.set({});
         hidePreview('all');
-        
+
         sendBtnMediaButtonToggle(); 
         //force update autogrow
         document.getElementsByClassName("inputBox")[0].updateAutogrow(); 
@@ -276,6 +294,16 @@ Template.SendMessage.events({
 /* SendMessage: Helpers */
 /*****************************************************************************/
 Template.SendMessage.helpers({
+  
+  calendarEventSet:function(){ 
+   // log.info(Template.instance().calendarEvent);
+  
+   if($.isEmptyObject(Template.instance().calendarEvent.get())){
+     return false;
+   }else{
+     return true;
+   }
+  },
   messageBox: function () {
     return "";
   },
@@ -398,6 +426,7 @@ Template.SendMessage.helpers({
 /*****************************************************************************/
 Template.SendMessage.created = function () {
 
+    this.calendarEvent = new ReactiveVar({});
 };
 
 Template.SendMessage.rendered = function () {
