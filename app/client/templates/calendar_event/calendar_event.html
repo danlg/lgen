@@ -1,31 +1,38 @@
 <template name='CalendarEvent'>
-	
+	    <form>
         <div class="list ">
           <label class="item item-input">
-            <input id='event-name' type="text" value='' placeholder="Event Name">
+            <input id='event-name' type="text" value=''
+            oninvalid="setCustomValidity('Event Name cannot be emptied')"
+            oninput="setCustomValidity('')"  placeholder="Event Name" 
+            required />
           </label>
           <label class="item item-input">
-            <input id='location' type="text" value='' placeholder="Location">
+            <input id='location' type="text"
+             value='' placeholder="Location">
           </label>
           <label class="item item-input">
             Start Date
-            <input id='start-date' type="date" value='' placeholder="Start Date">
+            <input id='start-date' type="date" value='' oninvalid="setCustomValidity('Start Date cannot be emptied')"
+            oninput="setCustomValidity('')" placeholder="Start Date" required>
           </label>
           <label class="item item-input">
             At&nbsp;&nbsp;
-            <input id='start-date-time' type="time" value='' placeholder="Start Date Time">
+            <input id='start-date-time' type="time" value='' oninvalid="setCustomValidity('Start Date Time cannot be emptied')"
+            oninput="setCustomValidity('')" placeholder="Start Date Time" required>
           </label>        
           <label class="item item-input">
             End Date
-            <input id='end-date' type="date" value='' placeholder="End Date">
+            <input id='end-date' type="date" value='' placeholder="End Date" >
           </label>
           <label class="item item-input">
             To&nbsp;&nbsp;
-            <input id='end-date-time' type="time" value='' placeholder="End Date Time">
+            <input id='end-date-time' type="time" value='' placeholder="End Date Time" >
           </label>          
           <!--<label class="item item-input">
             <input id='content' type="text" value='{{email}}' placeholder="Content">
-          </label>-->	  		  	  
+          </label>-->
+          <button class='hidden' >Submit</button>  		  	  
         </div>	
-	
+	    </form>
 </template>

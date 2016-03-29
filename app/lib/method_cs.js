@@ -356,7 +356,7 @@ Meteor.methods({
     msgObj.content = msg;
     
     //TODO: store in DB as Date instead of string for startDate and endDate.
-    if(!$.isEmptyObject(mediaObj.calendarEvent)){
+    if(mediaObj.calendarEvent.eventName){
       
      msgObj.calendarEvent = mediaObj.calendarEvent;
     

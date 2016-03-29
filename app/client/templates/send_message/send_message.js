@@ -34,6 +34,20 @@ Template.SendMessage.events({
           
           log.info($(template.firstNode).find('#event-name').val());
           
+         // $(template.firstNode).find('.hidden').click();
+          if($(template.firstNode).find('#event-name').get(0).checkValidity() &&
+          $(template.firstNode).find('#location').get(0).checkValidity() &&
+          $(template.firstNode).find('#start-date').get(0).checkValidity() &&
+          $(template.firstNode).find('#start-date-time').get(0).checkValidity() &&
+          $(template.firstNode).find('#end-date').get(0).checkValidity() &&
+          $(template.firstNode).find('#end-date-time').get(0).checkValidity())
+          {
+              
+          }else{
+              toastr.info('Please fill the form');
+              return;
+          }
+          
           sendMsgtemplate.calendarEvent.set({
             eventName: $(template.firstNode).find('#event-name').val(),
             location: $(template.firstNode).find('#location').val(),
