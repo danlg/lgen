@@ -94,7 +94,7 @@ localstorage@1.0.7
 logging@1.0.10
 manuel:isdev@1.0.0
 manuel:reactivearray@1.0.5
-manuel:viewmodel@4.0.5
+manuel:viewmodel@4.0.6
 manuel:viewmodel-debug@2.6.3
 mdg:validation-error@0.2.0
 meteor@1.1.12
