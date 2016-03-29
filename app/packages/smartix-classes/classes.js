@@ -1,5 +1,8 @@
+/**
+ * The global namespace/collection for Classes.
+ * @namespace Classes
+ */
 Classes = new Mongo.Collection('classes');
-
 
 ClassesSchema = new SimpleSchema({
   className: {
