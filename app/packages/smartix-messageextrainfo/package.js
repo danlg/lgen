@@ -1,5 +1,5 @@
 Package.describe({
-  name: "smartix:messagedetail",
+  name: "smartix:messageextrainfo",
   summary: "",
   version: "0.0.1",
   documentation:'README.md'

@@ -4,16 +4,16 @@ var isRecording = false;
 var media = "";
 var isPlayingSound = false;
 /*****************************************************************************/
-/* MessageExtraInfo: Event Handlers */
+/* MessageDetail: Event Handlers */
 /*****************************************************************************/
-Template.MessageExtraInfo.events({
+Template.MessageDetail.events({
 
 });
 
 /*****************************************************************************/
-/* MessageExtraInfo: Helpers */
+/* MessageDetail: Helpers */
 /*****************************************************************************/
-Template.MessageExtraInfo.helpers({
+Template.MessageDetail.helpers({
   classObj: function () {
     classObj =Classes.findOne({'messagesObj.msgId':this.msgCode});
     return classObj;
