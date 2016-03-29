@@ -108,3 +108,5 @@ spiderable
 smartix:sendmessage
 smartix:calendarevent
 smartix:messagedetail
+smartix:votechange
+smartix:votedisplay

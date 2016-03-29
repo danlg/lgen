@@ -140,6 +140,8 @@ sha@1.0.4
 smartix:calendarevent@0.0.1
 smartix:messagedetail@0.0.1
 smartix:sendmessage@0.0.1
+smartix:votechange@0.0.1
+smartix:votedisplay@0.0.1
 spacebars@1.0.7
 spacebars-compiler@1.0.7
 spiderable@1.0.9
