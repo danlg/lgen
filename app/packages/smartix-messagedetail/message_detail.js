@@ -4,16 +4,16 @@ var isRecording = false;
 var media = "";
 var isPlayingSound = false;
 /*****************************************************************************/
-/* ClassPanelMsgNotice: Event Handlers */
+/* MessageDetail: Event Handlers */
 /*****************************************************************************/
-Template.ClassPanelMsgNotice.events({
+Template.MessageDetail.events({
 
 });
 
 /*****************************************************************************/
-/* ClassPanelMsgNotice: Helpers */
+/* MessageDetail: Helpers */
 /*****************************************************************************/
-Template.ClassPanelMsgNotice.helpers({
+Template.MessageDetail.helpers({
   classObj: function () {
     classObj =Classes.findOne({'messagesObj.msgId':this.msgCode});
     return classObj;
