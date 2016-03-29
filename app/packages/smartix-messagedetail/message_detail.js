@@ -1,4 +1,4 @@
-Template.ClassDetailMessage.helpers({
+Template.MessageDetail.helpers({
   getImage: function () {
     var id = this.toString();
     return Images.findOne(id);

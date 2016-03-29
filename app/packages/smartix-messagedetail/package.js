@@ -1,5 +1,5 @@
 Package.describe({
-  name: "smartix:messageextrainfo",
+  name: "smartix:messagedetail",
   summary: "",
   version: "0.0.1",
   documentation:'README.md'
@@ -11,7 +11,6 @@ Package.onUse(function(api) {
      api.use('reactive-var','client');
      api.use('session', 'client');
      api.use('templating', 'client');
-     api.addFiles('message_extra_info.css','client');
-     api.addFiles('message_extra_info.html','client');
-     api.addFiles('message_extra_info.js','client');     
+     api.addFiles('message_detail.html','client');
+     api.addFiles('message_detail.js','client');  
 });
