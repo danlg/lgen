@@ -27,7 +27,7 @@ Template.ClassPanel.events({
     log.info(text.get());
   },
   'click .list .card': function (e) {
-    //Router.go('MessageDetail', {msgCode: this.msgId});
+    //Router.go('MessageExtraInfo', {msgCode: this.msgId});
     
     if(e.target.tagName == 'A' || e.target.tagName == "IMG" || e.target.tagName == "BUTTON"){
         //do nothing if user click on a link or an image or a button   

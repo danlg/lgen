@@ -11,7 +11,7 @@
     white-space: normal;
 }
 
-.MessageDetail .ion-help.colored{
+.MessageExtraInfo .ion-help.colored{
     color:orange;
     padding-left: 5px;
 }
