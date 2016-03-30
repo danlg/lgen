@@ -324,15 +324,7 @@ Router.route('NotificationDetail', {
   }
 });
 
-Router.route('ClassInformation', {
-  path: "/class/:classCode/info",
-  waitOn: function () {
-    return [
-      Meteor.subscribe('personCreateClass', this.params.classCode),
-      Meteor.subscribe('class', this.params.classCode)
-    ];
-  }
-});
+
 
 Router.map(function(){
   this.route('TabChat',{
@@ -351,34 +343,13 @@ Router.map(function(){
       ];
     }    
   });
-  
-  this.route('ClassPanel',{
-    path: "/class/:classCode/panel",
-  fastRender: true   
-  });
-  
+    
 });
 
 
-Router.route('AddClass', {
-  path: "/class/add"
-});
 
-Router.route('JoinClass', {
-  path: "/class/join",
-  waitOn: function () {
-    subs.subscribe('joinedClass');
-  }
-});
 
-Router.route('ClassInvitation', {
-  path: "/class/:classCode/invite",
-  waitOn: function () {
-    return [
-      Meteor.subscribe('class', this.params.classCode)
-    ];
-  }
-});
+
 
 Router.route('EmailInvite', {
   path: "/class/:classCode/invite-email",
@@ -409,10 +380,6 @@ Router.route('ChatRoomInformation', {
 });
 
 
-Router.route('classDetail', {
-  path: "/class/:classCode/detail",
-  fastRender: true
-});
 
 Router.route('ChatInvite', {
   path: "/chat-invite",
@@ -453,66 +420,7 @@ Router.route('ShareInvite', {
   }
 });
 
-Router.route('classEdit', {
-  path: "/class/:classCode/edit",
-  waitOn: function () {
-    return Meteor.subscribe('class', this.params.classCode);
-  }
-});
 
-Router.route('ClassUsers', {
-  path: "/class/:classCode/users",
-  waitOn: function () {
-    return [Meteor.subscribe('class', this.params.classCode),
-            Meteor.subscribe('getJoinedClassUser', this.params.classCode)
-    ];
-  }
-});
-
-
-
-Router.route('SendMessage', {
-  path: "/message/send/:classCode?",
-  waitOn: function () {
-    return [
-      Meteor.subscribe('createdClassByMe'),
-      Meteor.subscribe('images'),
-      Meteor.subscribe('sounds'),
-      Meteor.subscribe('documents')
-    ];
-  }
-});
-
-Router.route('MessageClassSelection', {
-  path: "/message/classselect",
-  waitOn: function () {
-    return Meteor.subscribe('createdClassByMe');
-  }
-});
-
-
-Router.route('Testing', {
-  waitOn: function () {
-    return [
-      Meteor.subscribe('images'),
-      Meteor.subscribe('sounds')
-    ];
-  },
-});
-
-Router.route('Test2', {
-  controller: "TestController",
-});
-
-Router.route('Commend', {
-  path: "/comment/:classId/:_id/",
-  waitOn: function (argument) {
-    Meteor.subscribe('getClassByClassId', this.params.classId);
-    Meteor.subscribe('getUserById', this.params._id);
-    Meteor.subscribe('getCommentsByClassIdNId', this.params.classId, this.params._id);
-    Meteor.subscribe('getJoinedClassCreatedByMeByUserId', this.params._id);
-  }
-});
 
 Router.route('Feedback', {
   path:"feedback"

@@ -8,6 +8,7 @@ Package.describe({
 
 Package.onUse(function(api) {
      api.versionsFrom("1.2");
+     api.use('iron:router');
      api.use('reactive-var','client');
      api.use('session', 'client');
      api.use('templating', 'client');
@@ -17,4 +18,5 @@ Package.onUse(function(api) {
      api.addFiles('send_message.js','client');     
 
      api.addFiles('method.js','server');    
+     api.addFiles('route.js');
 });

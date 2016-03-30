@@ -267,6 +267,8 @@ Template.ClassPanel.rendered = function () {
                 
                  if(classObj){
                      currentClassCode = classObj.classCode;
+                 }else{
+                      currentClassCode =Router.current().params.classCode;
                  }
                 var imgReadyChecking = function(){
                     var hasAllImagesLoaded =true;
