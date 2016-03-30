@@ -12,10 +12,12 @@ Meteor.methods({
     msgObj.content = msg;
     
     //TODO: store in DB as Date instead of string for startDate and endDate.
-    if(mediaObj.calendarEvent.eventName){
-      
-     msgObj.calendarEvent = mediaObj.calendarEvent;
-    
+    if(mediaObj.calendarEvent){
+        if(mediaObj.calendarEvent.eventName){
+        
+        msgObj.calendarEvent = mediaObj.calendarEvent;
+        
+        }
     }
     //new msg sent would have voting type, option and content in vote object. 
     //This is kept for backward-comptability and reference

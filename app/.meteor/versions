@@ -138,6 +138,7 @@ service-configuration@1.0.5
 session@1.1.1
 sha@1.0.4
 smartix:calendarevent@0.0.1
+smartix:chat@0.0.1
 smartix:classes@0.0.1
 smartix:loginflow@0.0.1
 smartix:messagedetail@0.0.1

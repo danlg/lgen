@@ -22,8 +22,6 @@ Template.Chatoption.created = function () {
 /* Chatoption: Helpers */
 Template.Chatoption.helpers({
   chatSetting: Schema.chatSetting,
-  /*??????? is chatSetting persisted? maybe it is due to the bug of optionObj.workHourTime not defined*/
-  createdClassByMe: Classes.find(),
 
   optionObj: function (argument) {
     log.info(Session.get('optionObj'));
