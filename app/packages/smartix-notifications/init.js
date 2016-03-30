@@ -1,5 +1,4 @@
-//TODO: implement smartix:master-ui and do the subscription here
-/*Template.MasterLayout.onCreated(function () {
+Template.MasterLayout.onCreated(function () {
   
 
 
@@ -15,4 +14,4 @@
       }  
   });
   
-});*/
+});
