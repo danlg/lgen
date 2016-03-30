@@ -483,3 +483,12 @@ Router.route('EmailVerification');
 
 Router.route('Perf');
 
+Router.route('PrivateNote', {
+  path: "/private-note/:classId/:_id/",
+  waitOn: function (argument) {
+    Meteor.subscribe('getClassByClassId', this.params.classId);
+    Meteor.subscribe('getUserById', this.params._id);
+    Meteor.subscribe('getCommentsByClassIdNId', this.params.classId, this.params._id);
+    Meteor.subscribe('getJoinedClassCreatedByMeByUserId', this.params._id);
+  }
+});

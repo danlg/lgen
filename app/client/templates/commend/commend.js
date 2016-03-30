@@ -1,7 +1,7 @@
 /*****************************************************************************/
-/* Commend: Event Handlers */
+/* PrivateNote: Event Handlers */
 /*****************************************************************************/
-Template.Commend.events({
+Template.PrivateNote.events({
   'click .removeStd': function (e) {
     var dataObject = {};
     var classId = $(e.target).data('classid');
@@ -20,9 +20,9 @@ Template.Commend.events({
 });
 
 /*****************************************************************************/
-/* Commend: Helpers */
+/* PrivateNote: Helpers */
 /*****************************************************************************/
-Template.Commend.helpers({
+Template.PrivateNote.helpers({
   username: function (argument) {
     var userObj = Meteor.users.findOne(Router.current().params._id);
     return getFullNameByProfileObj(userObj.profile);
@@ -39,15 +39,15 @@ Template.Commend.helpers({
 });
 
 /*****************************************************************************/
-/* Commend: Lifecycle Hooks */
+/* PrivateNote: Lifecycle Hooks */
 /*****************************************************************************/
-Template.Commend.onCreated(function () {
+Template.PrivateNote.onCreated(function () {
 });
 
-Template.Commend.onRendered(function () {
+Template.PrivateNote.onRendered(function () {
 });
 
-Template.Commend.onDestroyed(function () {
+Template.PrivateNote.onDestroyed(function () {
 });
 
 Template.ionNavBar.events({
