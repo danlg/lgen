@@ -40,8 +40,7 @@ Template.EmailSignup.created = function () {
 };
 
 Template.EmailSignup.rendered = function () {
-  /*createVM.bind(this);
-   createVM.role(this.data.role);*/
+
 
 };
 
@@ -60,10 +59,7 @@ Template.EmailSignup.events({
       log.info("chosen role: ",template.chosenRole.get());
   },
   'click .createBtn': function (event,template) {
-    /*var userObj =  createVM.toJS();
-     Meteor.call('user/create', createVM.toJS(), function(err) {
-     err ? alert(err.reason); : Router.go('TabChat');
-     });*/
+
 
     // AutoForm.submitFormById("#signupform");
     var role = template.chosenRole.get();
