@@ -21,7 +21,7 @@ Package.onUse(function(api) {
      api.addFiles('notifications.js');
      api.addFiles('init.js','client');         
      api.addFiles('publications.js', 'server');
-
+     api.addFiles('methods_cs.js');
      api.export('Notifications');
 
 });

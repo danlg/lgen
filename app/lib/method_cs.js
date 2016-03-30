@@ -295,7 +295,7 @@ Meteor.methods({
                                     } );
             
       var updatedClass=  Classes.findOne(targetClass);
-      Notifications.insert({
+      Meteor.call('insertNotification',{
          eventType:"newclasscomment",
          userId: updatedClass.createBy,
          hasRead: false,
@@ -305,7 +305,8 @@ Meteor.methods({
          messageCreateTimestamp: newCommentObj.createdAt,
          messageCreateTimestampUnixTime: moment(newCommentObj.createdAt).unix(),
          messageCreateByUserId: Meteor.userId()
-     });      
+     });
+       
   },
   showHideComment:function(isShown,classid,messageid,commentid){
      var currentClassObj = Classes.findOne(classid);
@@ -320,23 +321,7 @@ Meteor.methods({
      Classes.update(classid, modifier,{validate: false});
      
   },
-  setChatMessageAsRead:function(updateNotificationObj){
-      log.info("trySetChatMessageAsRead")
-      log.info(updateNotificationObj);
-      Notifications.update({_id:updateNotificationObj._id},updateNotificationObj);
-  },
-  setAllChatMessagesAsRead:function(chatRoomId){
-      log.info("trySetChatMessagesAsRead")
-      log.info(Notifications.update({ "eventType" : "newchatroommessage",chatroomId:chatRoomId,userId:Meteor.userId()},{ $set: { hasRead: true } },{multi:true}));
-  },
-  setAllClassMessagesAsRead:function(classCode){
-      log.info("trySetClassMessagesAsRead")
-      log.info(Notifications.update({ "eventType" : "newclassmessage",classCode:classCode,userId:Meteor.userId()},{ $set: { hasRead: true } },{multi:true}));
-  },
-  setAllClassCommentsAsRead:function(classCode){
-      log.info("trySetClassCommentsAsRead")
-      log.info(Notifications.update({ "eventType" : "newclasscomment",classCode:classCode,userId:Meteor.userId()},{ $set: { hasRead: true } },{multi:true}));
-  }
+
 
 });
 
