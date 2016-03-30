@@ -252,15 +252,27 @@ Router.route('Login', {
   }
 });
 
-
-
 Router.route('/role', {
   name: "role"
 });
 
+Router.route('TabClasses', {
+    path: "/classes",
+    waitOn: function(argument) {
+        return [
+            subs.subscribe('joinedClass'),
+            subs.subscribe('createdClassByMe')
+        ];
+    }
+});
 
-
-
+Router.route('TabChat', {
+    waitOn: function() {
+        return subs.subscribe('allMyChatRoomWithUser');
+    },
+    path: "/chat"
+});
+  
 Router.route('TabYou', {
   path: "you"
 });
@@ -298,33 +310,6 @@ Router.route('NotificationDetail', {
     Meteor.subscribe('getClassMsgId', this.params.msgCode);
   }
 });
-
-
-
-Router.map(function(){
-  this.route('TabChat',{
-    waitOn: function () {
-      return subs.subscribe('allMyChatRoomWithUser');
-    },
-    path: "/chat"     
-  });  
-  
-  this.route('TabClasses',{
-    path: "/classes",
-    waitOn: function (argument) {
-      return [
-        subs.subscribe('joinedClass'),
-        subs.subscribe('createdClassByMe')
-      ];
-    }    
-  });
-    
-});
-
-
-
-
-
 
 
 
