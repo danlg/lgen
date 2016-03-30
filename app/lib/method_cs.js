@@ -150,10 +150,10 @@ Meteor.methods({
   },
 
   'getUserNameById': function (userid) {
-    var rawResult= Meteor.users.findOne({_id: userid});
+    var rawResult= Meteor.users.findOne({_id: userid}); 
     
     if(rawResult){
-      return rawResult.profile.name;
+      return rawResult.profile.firstname+" "+rawResult.profile.lastname;
     }else{
       return "";
     }

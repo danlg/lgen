@@ -338,12 +338,7 @@ Router.map(function(){
 
 
 
-Router.route('EmailInvite', {
-  path: "/class/:classCode/invite-email",
-  waitOn: function () {
-    return Meteor.subscribe('class', this.params.classCode);
-  }
-});
+
 
 Router.route('ChatRoom', {
   path: "/chat/:chatRoomId",
@@ -398,14 +393,7 @@ Router.route('GroupChatInviteChooser', {
     }
 });
 
-Router.route('ShareInvite', {
-  path: "/class/:classCode/invite/share",
-  waitOn: function () {
-    return [
-      Meteor.subscribe('class', this.params.classCode)
-    ];
-  }
-});
+
 
 
 
@@ -452,19 +440,7 @@ Router.route('NotificationSetting' , {
   }
 );
 
-Router.route('join/', {
-  name: 'ClassSearchInformationForWebUser'
-});
 
-Router.route('join/:classCode?', {
-  name: 'ClassInformationForWebUser',
-  waitOn: function () {   
-    return [
-      Meteor.subscribe('personCreateClass', this.params.classCode),
-      Meteor.subscribe('class', this.params.classCode)
-    ];
-  }
-});
 
 
 Router.route('Perf');

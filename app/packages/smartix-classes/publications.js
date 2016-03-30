@@ -7,6 +7,11 @@ Meteor.publish('class', function () {
 Meteor.publish('getClassByClassId', function (classId) {
   return Classes.find(classId);
 });
+
+Meteor.publish('getClassByClassCode', function (classCode) {
+  return Classes.find({classCode: classCode});
+});
+
 Meteor.publish('getClassMsgId', function (msgId) {
   return Classes.find({
     messagesObj: {
@@ -18,7 +23,7 @@ Meteor.publish('getClassMsgId', function (msgId) {
 });
 Meteor.publish('personCreateClass', function (classCode) {
   var targetClass = Classes.findOne({classCode: classCode});
-  
+  log.info(targetClass);
   if(targetClass){
     var ownId = _.pick(targetClass, 'createBy');
     return Meteor.users.find({
