@@ -98,39 +98,6 @@ Meteor.methods({
     }
   },
 
-  addClassMail: function (to, _id) {
-    var classObj = Classes.findOne( {_id: _id});
-    if (lodash.get(Meteor.user(), "profile.email")) {
-      try {
-        
-        log.info("newClassMail:" + classObj.classCode);
-        //retrieveContent("en");
-        Mandrill.messages.send(newClassMailTemplate(to, classObj.className, classObj.classCode));
-      }
-      catch (e) {
-        log.error("add class mail: " + e);
-      }
-    }
-  },
-
-  classinvite: function (classObj, targetFirstEmail) {
-    var acceptLink = Meteor.settings.public.SHARE_URL + "/join/" + classObj.classCode;
-    var acceptLinkEncoded = encodeURI(acceptLink);
-    var first = Meteor.user().profile.firstname;
-    var last = Meteor.user().profile.lastname;
-    log.info("classinvite:classCode:"+ classObj.classCode+":from:"+last+ ":to:"+ targetFirstEmail + ":URI:"+acceptLinkEncoded);
-    //do not log the CONTENT of every message sent !
-    //log.info(inviteClassMailTemplate(targetFirstEmail, classObj));
-  
-      try {
-        Mandrill.messages.send(inviteClassMailTemplate(targetFirstEmail, classObj));
-      }
-      catch (e) {
-        log.error("classinvite:couldn't send invite email:classCode:"+ classObj.classCode+ ":to:"+ targetFirstEmail );
-        log.error(e);
-      }
-    
-  },
   chatCreate: function (chatArr,chatObjExtra) {
     //user who create this chat is also added into the chat
     chatArr.push(Meteor.userId());
@@ -176,21 +143,7 @@ Meteor.methods({
     Meteor.users.update({_id: Meteor.userId()}, {$set: {'profile.chatSetting': doc}}, {validate: false});
   },
 
-  getFullNameById: function (id) {
-    var userObj = Meteor.users.findOne({_id: id});
-    var name = userObj.profile.firstname + " " + userObj.profile.lastname;
-    return name;
-  },
-  getAvatarById: function(id){
-    var userObj = Meteor.users.findOne({_id: id});
-    
-    if(userObj && userObj.profile && userObj.profile.useravatar ){
-     return userObj.profile.useravatar;
-    }else{
-     return "green_apple";             
-    }
 
-  },
   getUserCreateClassesCount: function(){
       return Classes.find({createBy: Meteor.userId()}).count();
   },
@@ -311,6 +264,7 @@ Meteor.methods({
   },
 
   getShareLink: function (classCode) {
+  //not in use
     return Meteor.settings.public.SHARE_URL + "/" + classCode;
   },
 
@@ -361,18 +315,7 @@ Meteor.methods({
   addReferral: function (userId) {
     Meteor.users.update(Meteor.userId(), {$inc: {'profile.referral': 1}});
   },
-  resendVerificationEmail: function(email){
-      log.info(Meteor.userId());
-      if (email) {
-       var newEmailArray = [];
-       newEmailArray.push({address:email,verified:false});
-       Meteor.users.update(Meteor.userId(), {$set: {emails: newEmailArray}});
-       
-        Accounts.sendVerificationEmail(Meteor.userId(), email);
-      } else {
-        Accounts.sendVerificationEmail(Meteor.userId());
-      }
-  },
+
   getUserList:function(){
     if(Meteor.user().admin){
       var result = Meteor.users.find({}).fetch();

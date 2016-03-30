@@ -17,6 +17,7 @@ Package.onUse(function(api) {
      api.use('smartix:classes');
      
      api.addFiles('route.js');
+     api.addFiles('methods.js','server');
      
      api.addFiles(['components/email_invite/email_invite.html',
                    'components/email_invite/email_invite.js',

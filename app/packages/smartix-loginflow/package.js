@@ -17,6 +17,7 @@ Package.onUse(function(api) {
      api.use('templating', 'client');
 
      api.addFiles('route.js');
+     api.addFiles('methods.js','server');
      
      api.addFiles(['components/dob/dob.html',
                    'components/dob/dob.js'],'client');

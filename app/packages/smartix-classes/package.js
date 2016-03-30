@@ -19,6 +19,7 @@ Package.onUse(function(api) {
      api.addFiles('publications.js','server');
      api.addFiles('route.js');
      api.addFiles('schema.js')
+     api.addFiles('methods.js','server');
      
      api.addFiles(['components/class_edit/class_edit.html',
                    'components/class_edit/class_edit.js'],'client');
@@ -49,7 +50,7 @@ Package.onUse(function(api) {
      api.addFiles(['components/add_class/add_class.html',
                    'components/add_class/add_class.js'],'client');  
      
-;
+     
                                            
      api.export('Classes');
      api.export('Schema');
