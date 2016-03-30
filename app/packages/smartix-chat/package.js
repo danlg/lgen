@@ -15,7 +15,9 @@ Package.onUse(function(api) {
      api.use('reactive-var','client');
      api.use('session', 'client');
      api.use('templating', 'client');
-     api.use('fourseven:scss@2.0.0','client');    
+     api.use('fourseven:scss@2.0.0','client'); 
+     api.use('smartix:notifications');
+        
      api.addFiles('publications.js','server');
      api.addFiles('chat.js');
      api.addFiles('route.js');

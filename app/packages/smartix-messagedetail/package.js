@@ -11,6 +11,7 @@ Package.onUse(function(api) {
      api.use('reactive-var','client');
      api.use('session', 'client');
      api.use('templating', 'client');
+     api.use('smartix:notifications');     
      api.addFiles('message_detail.html','client');
      api.addFiles('message_detail.js','client');  
 });

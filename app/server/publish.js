@@ -5,14 +5,6 @@
  * });
  */
 
-Meteor.publish('notifications', function () {
-  //log.info("publish:notificaitons:"+ this.userId);
-  return Notifications.find({
-    userId: this.userId
-  });
-});
-
-
 Meteor.publish('getCommentsByClassIdNId', function (classId, _id) {
   return Commend.find({"userId": _id, "classId": classId});
 });
