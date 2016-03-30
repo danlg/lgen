@@ -264,26 +264,13 @@ Router.route('Login', {
   }
 });
 
-Router.route('/email-reset-password', {
-  name: "EmailResetPwd"
-});
 
-Router.route('/email-forget-password', {
-  name: "EmailForgetPwd"
-});
-
-Router.route('/logingate', {
-  name: "EmailSignin"
-});
-Router.route('/signup', {
-  name: "EmailSignup"
-});
 
 Router.route('/role', {
   name: "role"
 });
 
-Router.route('Dob');
+
 
 
 Router.route('TabYou', {
@@ -479,7 +466,6 @@ Router.route('join/:classCode?', {
   }
 });
 
-Router.route('EmailVerification');
 
 Router.route('Perf');
 
