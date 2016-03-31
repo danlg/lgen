@@ -46,26 +46,26 @@ Template.ChatRoom.events({
     if (Meteor.isCordova) {
       if (window.device.platform === "Android") {
         e.preventDefault();
-        Application.FileHandler.imageUploadForAndroidAndIOS();
+        Smartix.FileHandler.imageUploadForAndroidAndIOS();
       }
     }
   },
 
   'change #imageBtn': function (event, template) {
-      Application.FileHandler.imageUpload(event,'chat');
+      Smartix.FileHandler.imageUpload(event,'chat');
   },
   'click #documentBtn':function(e){
     if (Meteor.isCordova) {
       if (window.device.platform === "Android") {
         e.preventDefault();
-        Application.FileHandler.documentUploadForAndroid(e,'chat');
+        Smartix.FileHandler.documentUploadForAndroid(e,'chat');
         
       }
     }      
    
   },
   'change #documentBtn': function (event, template) {
-      Application.FileHandler.documentUpload(event,'chat');
+      Smartix.FileHandler.documentUpload(event,'chat');
   },
 
   'click .imgThumbs': function (e) {
@@ -131,7 +131,7 @@ Template.ChatRoom.events({
     //  },false);
   },
   'click .bubble a': function (e) {
-      Application.FileHandler.openFile(e);
+      Smartix.FileHandler.openFile(e);
       e.preventDefault();
   },
   'click .load-prev-msg':function(event,template){     

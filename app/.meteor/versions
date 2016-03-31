@@ -140,8 +140,9 @@ sha@1.0.4
 smartix:calendarevent@0.0.1
 smartix:chat@0.0.1
 smartix:classes@0.0.1
-smartix:iconchooser@0.0.1
 smartix:core@0.0.1
+smartix:filehandler@0.0.1
+smartix:iconchooser@0.0.1
 smartix:loginflow@0.0.1
 smartix:messagedetail@0.0.1
 smartix:messageextrainfo@0.0.1

@@ -68,11 +68,11 @@ Template.ClassPanel.events({
     }
   },
   'click .messageList .item .content a': function (e) {
-      Application.FileHandler.openFile(e);
+      Smartix.FileHandler.openFile(e);
       e.preventDefault();
   },
   'click .messageList .item .bubble a': function (e) {
-      Application.FileHandler.openFile(e);
+      Smartix.FileHandler.openFile(e);
       e.preventDefault();
   },
   'click .commentShownToggle':function(e){

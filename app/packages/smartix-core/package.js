@@ -96,7 +96,8 @@ Package.onUse(function(api) {
     api.use('accounts-oauth');
     api.use('accounts-password'); 
     api.use('jquery');
-               
+    
+    api.addFiles('_app.js','client');         
     api.addFiles('init.js','client');
 
     api.export('log');

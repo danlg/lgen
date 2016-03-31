@@ -52,11 +52,11 @@ Template.ClassDetail.events({
     }
   },
   'click .content .item .content a': function (e) {
-      Application.FileHandler.openFile(e);
+      Smartix.FileHandler.openFile(e);
       e.preventDefault();
   },
   'click .content .item .document a': function (e) {
-      Application.FileHandler.openFile(e);
+      Smartix.FileHandler.openFile(e);
       e.preventDefault();
   },
   'click .add-comment-annoucement':function(e){

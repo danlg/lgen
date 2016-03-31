@@ -121,3 +121,4 @@ smartix:notifications
 smartix:ui-master
 smartix:core
 smartix:iconchooser
+smartix:filehandler

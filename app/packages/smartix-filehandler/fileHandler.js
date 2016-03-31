@@ -1,7 +1,6 @@
-
-
-Application.FileHandler = {};
-Application.FileHandler = (function () {
+Smartix = Smartix || {};
+Smartix.FileHandler = {};
+Smartix.FileHandler = (function () {
 
     var directDocumentMessage = function (documentArray){
         
