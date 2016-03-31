@@ -43,7 +43,7 @@ Accounts.emailTemplates.verifyEmail= {
   html: function (user, url) {
     log.info(user.profile.role);
     var role = user.profile.role;
-    return verificationEmailTemplate(role,user,url);
+    return Smartix.verificationEmailTemplate(role,user,url);
   }
 
   , siteName: function () {
@@ -66,7 +66,7 @@ Accounts.emailTemplates.resetPassword ={
     log.info(user.profile.role);
     var role = user.profile.role;
     
-    return resetPasswordEmailTemplate(role,user,url);
+    return Smartix.resetPasswordEmailTemplate(role,user,url);
   }
 
   , siteName: function () {

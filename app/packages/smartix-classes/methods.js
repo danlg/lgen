@@ -7,7 +7,7 @@ Meteor.methods({
         
         log.info("newClassMail:" + classObj.classCode);
         //retrieveContent("en");
-        Mandrill.messages.send(newClassMailTemplate(to, classObj.className, classObj.classCode));
+        Mandrill.messages.send(Smartix.newClassMailTemplate(to, classObj.className, classObj.classCode));
       }
       catch (e) {
         log.error("add class mail: " + e);

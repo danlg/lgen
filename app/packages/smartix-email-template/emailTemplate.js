@@ -1,6 +1,7 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 //template for email messaging of chat room and class. TODO: Refactor to support lang parameter
-messageEmailTemplate = function (RecipientUsers, OriginateUser,content, options) {
+Smartix = Smartix || {};
+Smartix.messageEmailTemplate = function (RecipientUsers, OriginateUser,content, options) {
   
   var originateUserName = OriginateUser.profile.firstname+ " "+OriginateUser.profile.lastname;
   options.lang = options.lang || 'en';
@@ -51,7 +52,7 @@ messageEmailTemplate = function (RecipientUsers, OriginateUser,content, options)
   };
 };
 
-newClassMailTemplate = function (to, classname, classCode) {
+Smartix.newClassMailTemplate = function (to, classname, classCode) {
   var emailLang = Meteor.user().profile.lang || "en";
   var titlestr = TAPi18n.__("NewClassMailTitle",{class_name: classname},
                             emailLang);
@@ -116,7 +117,7 @@ newClassMailTemplate = function (to, classname, classCode) {
 };
 
 
-testMail = function (to, classname) {
+Smartix.testMail = function (to, classname) {
 
   var date = new Date();
   var email = "dan@littlegenius.io";
@@ -138,7 +139,7 @@ testMail = function (to, classname) {
   };
 };
 
-feedback = function (content) {
+Smartix.feedback = function (content) {
   if (Meteor.settings && Meteor.settings.FEEDBACK_EMAIL)
   {
     var email = Meteor.settings.FEEDBACK_EMAIL;
@@ -166,7 +167,7 @@ feedback = function (content) {
 
 };
 
-inviteClassMailTemplate = function (to, classObj) {
+Smartix.inviteClassMailTemplate = function (to, classObj) {
   var emailLang = Meteor.user().profile.lang || "en";
   var first = Meteor.user().profile.firstname;
   var last = Meteor.user().profile.lastname;
@@ -237,7 +238,7 @@ inviteClassMailTemplate = function (to, classObj) {
   };
 };
 
-verificationEmailTemplate = function(role,userObj,verificationURL){
+Smartix.verificationEmailTemplate = function(role,userObj,verificationURL){
         var emailLang = userObj.profile.lang || "en";
         var verifyEmailcontent;
         try{ //get the verfication template of the specific lang
@@ -266,7 +267,7 @@ verificationEmailTemplate = function(role,userObj,verificationURL){
         );           
 };
 
-resetPasswordEmailTemplate = function(role,userObj,resetPwdEmailURL){
+Smartix.resetPasswordEmailTemplate = function(role,userObj,resetPwdEmailURL){
   var emailLang = userObj.profile.lang || "en";
 
   return Spacebars.toHTML(

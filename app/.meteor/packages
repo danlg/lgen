@@ -122,3 +122,4 @@ smartix:ui-master
 smartix:core
 smartix:iconchooser
 smartix:filehandler
+smartix:email-template

@@ -28,7 +28,7 @@ Meteor.methods({
 
   testEmail: function () {
     try {
-      Mandrill.messages.send(testMail("", ""));
+      Mandrill.messages.send(Smartix.testMail("", ""));
     }
     catch (e) {
       log.error(e);
@@ -38,7 +38,7 @@ Meteor.methods({
   feedback: function (content) {
     // feedback@littlegenius.io
     try {
-      Mandrill.messages.send(feedback(content));
+      Mandrill.messages.send(Smartix.feedback(content));
     }
     catch (e) {
       log.error(e);
@@ -85,7 +85,7 @@ Meteor.methods({
         
         
             try {
-              var emailTemplateByUserLangs = messageEmailTemplate(chatRoomRecepientArr, orginateUser, content, {
+              var emailTemplateByUserLangs = Smartix.messageEmailTemplate(chatRoomRecepientArr, orginateUser, content, {
                                                 type:'chat',
                                                 lang:lang
                                              });  

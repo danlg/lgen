@@ -9,7 +9,7 @@ Meteor.methods({
     //log.info(inviteClassMailTemplate(targetFirstEmail, classObj));
   
       try {
-        Mandrill.messages.send(inviteClassMailTemplate(targetFirstEmail, classObj));
+        Mandrill.messages.send(Smartix.inviteClassMailTemplate(targetFirstEmail, classObj));
       }
       catch (e) {
         log.error("classinvite:couldn't send invite email:classCode:"+ classObj.classCode+ ":to:"+ targetFirstEmail );
