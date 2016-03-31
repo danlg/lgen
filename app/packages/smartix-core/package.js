@@ -1,5 +1,5 @@
 Package.describe({
-	name: 'smartix:lib',
+	name: 'smartix:core',
 	version: '0.0.1',
 	summary: 'Smartix libraries'
 });

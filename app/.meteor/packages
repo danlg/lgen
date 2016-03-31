@@ -119,5 +119,5 @@ smartix:sharer
 smartix:tour
 smartix:notifications
 smartix:ui-master
-smartix:lib
+smartix:core
 smartix:iconchooser
