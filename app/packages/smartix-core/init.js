@@ -1,3 +1,6 @@
+log = loglevel.createLogger('lg');
+log.info("log initialized on client");
+log.setLevel("info");
 Meteor.startup(function () {
 	if (Meteor.isCordova) {
 		window.alert = navigator.notification.alert;
@@ -8,9 +11,7 @@ Meteor.startup(function () {
        }
     }
   
-  log = loglevel.createLogger('lg');
-  log.info("log initialized on client");
-  log.setLevel("info");
+
   
   Push.addListener('badge', function(notification) {
      // Called when message got a badge
@@ -125,27 +126,28 @@ Meteor.startup(function () {
 
 });
 
+
 AutoForm.setDefaultTemplate('plain');
 
-AutoForm.submitFormById = function (id) {
-  $(id).submit();
+AutoForm.submitFormById = function(id) {
+    $(id).submit();
 };
 
-Accounts.onEmailVerificationLink(function (token) {
-  Accounts.verifyEmail(token, function (err) {
-    err ? toastr.error(err.reason) : Router.go('TabClasses');
-  });
+Accounts.onEmailVerificationLink(function(token) {
+    Accounts.verifyEmail(token, function(err) {
+        err ? toastr.error(err.reason) : Router.go('TabClasses');
+    });
 });
 
-Accounts.onResetPasswordLink(function(token,done){
-    Session.set('resetPasswordToken',token);
-    Router.go('EmailResetPwd'); 
+Accounts.onResetPasswordLink(function(token, done) {
+    Session.set('resetPasswordToken', token);
+    Router.go('EmailResetPwd');
 });
 
-Accounts.onLogin(function (argument) {
-  // analytics.track("Login", {
-  //   date: new Date(),
-  // });
+Accounts.onLogin(function(argument) {
+    // analytics.track("Login", {
+    //   date: new Date(),
+    // });
 });
 
 // Meteor.AppCache.config({

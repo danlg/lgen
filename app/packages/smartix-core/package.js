@@ -6,7 +6,7 @@ Package.describe({
 
 Package.onUse(function(api) {
 	api.versionsFrom('1.2');
-
+    api.use('practicalmeteor:loglevel')
     api.use('iron:router');
     api.use('tap:i18n');
     api.use('reactive-var','client');
@@ -15,7 +15,7 @@ Package.onUse(function(api) {
     api.use('fourseven:scss@2.0.0','client'); 
     
     api.addFiles('route.js');
-    
+  
     api.addFiles([
                     'client/templates/about/about.html',
                     'client/templates/about/about.js',                    
@@ -81,5 +81,24 @@ Package.onUse(function(api) {
                  ]);
 	api.use('tap:i18n');
 	api.imply('tap:i18n');
+    
+    
+    //initialize dependency
+    api.use('yuukan:streamy');
+    api.use('chrismbeckett:toastr');
+    api.use('raix:push');
+    api.use('francocatena:status');
+    api.use('aldeed:autoform','client');
+    api.use('aldeed:collection2');
+    api.use('aldeed:simple-schema');
+    api.use('accounts-base');
+    api.use('accounts-google');
+    api.use('accounts-oauth');
+    api.use('accounts-password'); 
+    api.use('jquery');
+               
+    api.addFiles('init.js','client');
+
+    api.export('log');
     
 });

@@ -18,6 +18,7 @@ Package.onUse(function(api) {
          "jquery"
      ], "client");
      api.use('smartix:ui-master', 'client');
+     api.use('practicalmeteor:loglevel')
      api.addFiles('notifications.js');
      api.addFiles('init.js','client');         
      api.addFiles('publications.js', 'server');
