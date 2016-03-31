@@ -7,6 +7,7 @@ Package.describe({
 
 Package.onUse(function(api) {
      api.versionsFrom("1.2"); 
+     api.use('smartix:core'); 
      api.addFiles('fileHandler.js','client');
      api.export('Smartix');
 

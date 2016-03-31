@@ -57,7 +57,7 @@ Template.TabChat.helpers({
         if(userObjArr.length > 2){ 
             lodash.forEach(userObjArr, function (el, index) {
                     if( index < maxNumberOfDisplayName){
-                        var name = getFirstName_ByProfileObj(el.profile);
+                        var name = Smartix.helpers.getFirstName_ByProfileObj(el.profile);
                         names.push(name);
                     }
             });
@@ -75,7 +75,7 @@ Template.TabChat.helpers({
             
             //get another user's full name
             if (el._id !== Meteor.userId()) {
-                var name = getFullNameByProfileObj(el.profile);
+                var name = Smartix.helpers.getFullNameByProfileObj(el.profile);
                 names.push(name);    
             }});
             
@@ -112,7 +112,7 @@ Template.TabChat.helpers({
       var userObjArr = Meteor.users.find({_id: {$in: this.chatIds}}).fetch();
       lodash.forEach(userObjArr, function (el, index) {
         if (el._id !== Meteor.userId()) {
-          var name = getFullNameByProfileObj(el.profile);
+          var name = Smartix.helpers.getFullNameByProfileObj(el.profile);
           names.push(name);
         }
       });

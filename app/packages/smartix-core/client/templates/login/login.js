@@ -11,7 +11,7 @@ Template.Login.events({
     //for details see, http://www.helptouser.com/code/29008008-meteor-js-google-account-filter-email-and-force-account-choser.html
     //and also https://github.com/meteor/meteor/wiki/OAuth-for-mobile-Meteor-clients
     
-    registerOrLoginWithGoogle();
+    Smartix.helpers.registerOrLoginWithGoogle();
 
   }
 });

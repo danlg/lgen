@@ -66,7 +66,7 @@ Meteor.startup(function () {
     //In Desktop, determine if browser support Notification API
     if('Notification' in window && Notification.permission == 'granted'){
         //if Notification API is supported
-        spawnDesktopNotification(data.text,'/img/logo-new.png',data.from,pathToRouteObj);        
+        Smartix.helpers.spawnDesktopNotification(data.text,'/img/logo-new.png',data.from,pathToRouteObj);        
     }else{      
         //if both desktop notification are all not available, use toastr
             toastr.info(data.text, data.from,
@@ -98,7 +98,7 @@ Meteor.startup(function () {
     if ('Notification' in window && Notification.permission == 'granted') {
         //if Notification API is supported
 
-        spawnDesktopNotification(data.text,'/img/logo-new.png',data.from,pathToRouteObj);
+        Smartix.helpers.spawnDesktopNotification(data.text,'/img/logo-new.png',data.from,pathToRouteObj);
     } else {
         
         //if both desktop notification, are all not available, use toastr            

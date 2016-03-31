@@ -45,7 +45,7 @@ Template.ClassDetail.events({
       $(e.target).attr('class', 'button button-icon icon ion-stop ');
 
       // alert("startPlay");
-      playAudio(Sounds.findOne(playname).url(), function (argument) {
+      Smartix.helpers.playAudio(Sounds.findOne(playname).url(), function (argument) {
         $(e.target).attr('class', 'button button-icon icon ion-play playBtn');
         isPlayingSound = false;
       });

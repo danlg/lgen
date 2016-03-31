@@ -145,7 +145,7 @@ Meteor.methods({
         var userObj = Meteor.users.findOne(userId);
         if (lodash.get(userObj, 'profile.push')) {
             filteredUserIdsWhoEnablePushNotify.push(userId);
-            notificationObj.badge = getTotalUnreadNotificationCount(userId);
+            notificationObj.badge = Smartix.helpers.getTotalUnreadNotificationCount(userId);
             Push.send(notificationObj);
         }             
     }

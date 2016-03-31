@@ -16,7 +16,7 @@ Template.AddClass.events({
   
     'keyup input[name=className]': function(event, template){
  
-        var lastName = getLastnameOfCurrentUser(3);
+        var lastName = Smartix.helpers.getLastnameOfCurrentUser(3);
         var className = $(event.target).val();
         
         //if user deletes all input in class name, leave the class code field blank.

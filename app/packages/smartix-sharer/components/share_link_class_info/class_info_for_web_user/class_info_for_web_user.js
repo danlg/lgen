@@ -36,7 +36,7 @@ Template.ClassInformationForWebUser.events({
       var email=$('.email').val();
       var pw=$('.password').val();
 
-      registerNewUser(email,fn,ln,pw);
+      Smartix.helpers.registerNewUser(email,fn,ln,pw);
     }
    
   },
@@ -65,7 +65,7 @@ Template.ClassInformationForWebUser.events({
     }else{
       log.info("user is NOT logged in");
       
-      registerOrLoginWithGoogle();
+      Smartix.helpers.registerOrLoginWithGoogle();
     }
    
   }  

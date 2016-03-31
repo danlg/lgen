@@ -118,7 +118,7 @@ Meteor.methods({
             //send notification via websocket using Streamy end
             
             //send email notification
-            sendEmailMessageToClasses(flattenArray,arrayOfClasses,msg,currentUserObj);
+            Smartix.sendEmailMessageToClasses(flattenArray,arrayOfClasses,msg,currentUserObj);
             //send email notification end   
             
             //add notifications to notifications collections
@@ -146,7 +146,7 @@ Meteor.methods({
                     query: {
                         userId: eachTargetUserId
                     },
-                    badge: getTotalUnreadNotificationCount(eachTargetUserId)
+                    badge: Smartix.helpers.getTotalUnreadNotificationCount(eachTargetUserId)
                     });                   
                     //send push notification end
                 });

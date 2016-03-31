@@ -111,7 +111,7 @@ Template.SendMessage.events({
       // log.info(Sounds.findOne(playname));
       log.info(soundUrl);
       log.info("startPlay");
-      playAudio(soundUrl, function (argument) {
+      Smartix.helpers.playAudio(soundUrl, function (argument) {
         log.info("finishPlay");
         $(e.target).attr('class', 'button button-icon icon ion-play playBtn');
         isPlayingSound = false;
@@ -123,7 +123,7 @@ Template.SendMessage.events({
     if (!isRecording) {
 
       log.info('startRec');
-      media = getNewRecordFile();
+      media = Smartix.helpers.getNewRecordFile();
       media.startRecord();
       isRecording = true;
       $(".icon.ion-ios-mic-outline").attr("class", "icon ion-stop");

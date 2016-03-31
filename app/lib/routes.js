@@ -1,8 +1,4 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
-
-
-
-
 var subs = new SubsManager();
 Router.configure({
   layoutTemplate: 'MasterLayout',
@@ -55,7 +51,7 @@ OnBeforeActions = {
           // alert('language: ' + language.value + '\n');
           //log.info("checkLanguage:cordova:'"+ mobilePhoneLanguage.value+ "'");
           var lang;
-          if (isChinese( mobilePhoneLanguage.value) ) {
+          if (Smartix.helpers.isChinese( mobilePhoneLanguage.value) ) {
             var chineseMap = {};
             chineseMap["zh-Hant"] = "zh-TW";
             chineseMap["zh-HK"]   = "zh-TW";
@@ -66,7 +62,7 @@ OnBeforeActions = {
             //possible values are :'zh-HK', 'zh-Hans-HK','zh-CN', zh-Hans-CN
             //log.info("checkLanguage:cordova:ChineseMap:'" + lodash.toString (chineseMap));
             //log.info("checkLanguage:cordova:Chinese:'" + mobilePhoneLanguage.value + "'");
-            if (isHan(mobilePhoneLanguage.value)) {
+            if (Smartix.helpers.isHan(mobilePhoneLanguage.value)) {
               
               //we remove the country
               var langPartsArray = mobilePhoneLanguage.value.split('-');
@@ -300,11 +296,6 @@ Router.route('NotificationDetail', {
   waitOn: function () {
     Meteor.subscribe('getClassMsgId', this.params.msgCode);
   }
-});
-
-
-Router.route('Report',{
-  path: "report"
 });
 
 

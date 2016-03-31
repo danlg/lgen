@@ -15,7 +15,9 @@ Package.onUse(function(api) {
     api.use('fourseven:scss@2.0.0','client'); 
     
     api.addFiles('route.js');
-  
+
+    api.addFiles('client/templates/report/report.html','client');
+                 
     api.addFiles([
                     'client/templates/about/about.html',
                     'client/templates/about/about.js',                    
@@ -98,9 +100,19 @@ Package.onUse(function(api) {
     api.use('jquery');
     
     api.addFiles('_app.js','client');         
-    api.addFiles('client/init.js','client');
+    api.addFiles('client/init.js','client');       
     api.addFiles('server/init.js','server');
+    api.addFiles([
+                  'client/autoformHooks/addClass.js',
+                  'client/autoformHooks/chatSetting.js',
+                  'client/autoformHooks/editClass.js',
+                  'client/autoformHooks/emailInvite.js',
+                  'client/autoformHooks/emailsignup.js',
+                  'client/autoformHooks/joinClassHook.js',
+                  'client/autoformHooks/profileEdit.js',
+                 ],'client');
+        
     
     api.export('log');
-    
+    api.export('Smartix');    
 });

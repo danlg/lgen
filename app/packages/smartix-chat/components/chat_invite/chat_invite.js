@@ -50,7 +50,7 @@ Template.ChatInvite.helpers({
   },
 
   userName: function (profile) {
-    return getFullNameByProfileObj(profile);
+    return Smartix.helpers.getFullNameByProfileObj(profile);
   },
 
   targetCB: function () {
@@ -65,7 +65,7 @@ Template.ChatInvite.helpers({
   },
 
   isSearchable: function () {
-    return lodash.includes(getFullNameByProfileObj(this.profile).toUpperCase(), searchString.get().toUpperCase());
+    return lodash.includes(Smartix.helpers.getFullNameByProfileObj(this.profile).toUpperCase(), searchString.get().toUpperCase());
   }
 });
 

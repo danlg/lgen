@@ -143,7 +143,7 @@ Smartix.feedback = function (content) {
   if (Meteor.settings && Meteor.settings.FEEDBACK_EMAIL)
   {
     var email = Meteor.settings.FEEDBACK_EMAIL;
-    var fullName = getFullNameOfCurrentUser();
+    var fullName = Smartix.helpers.getFullNameOfCurrentUser();
     log.info("Sending feedback to " + Meteor.settings.FEEDBACK_EMAIL + " from " + fullName);
     return {
       "message": {

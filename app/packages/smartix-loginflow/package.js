@@ -15,7 +15,8 @@ Package.onUse(function(api) {
      api.use('reactive-var','client');
      api.use('session', 'client');
      api.use('templating', 'client');
-
+     api.use('smartix:lib');
+     
      api.addFiles('route.js');
      api.addFiles('methods.js','server');
      

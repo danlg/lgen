@@ -144,6 +144,7 @@ smartix:core@0.0.1
 smartix:email-template@0.0.1
 smartix:filehandler@0.0.1
 smartix:iconchooser@0.0.1
+smartix:lib@0.0.1
 smartix:loginflow@0.0.1
 smartix:messagedetail@0.0.1
 smartix:messageextrainfo@0.0.1

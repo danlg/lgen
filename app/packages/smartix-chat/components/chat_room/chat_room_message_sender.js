@@ -53,8 +53,8 @@ ChatRoomMessageSender = function(chatRoomId,messageType,messageText,messageAttac
                 
                 //3. send push notification and in-app notification
                 var notificationObj = {
-                    from : getFullNameByProfileObj(Meteor.user().profile),
-                    title : getFullNameByProfileObj(Meteor.user().profile),
+                    from : Smartix.helpers.getFullNameByProfileObj(Meteor.user().profile),
+                    title : Smartix.helpers.getFullNameByProfileObj(Meteor.user().profile),
                     text: messageText,
                     payload:{
                         sound: 'Hello World',
@@ -62,7 +62,7 @@ ChatRoomMessageSender = function(chatRoomId,messageType,messageText,messageAttac
                         chatRoomId: chatRoomId
                     },
                     query:{userId:eachTargetUser._id},
-                    badge: getTotalUnreadNotificationCount(eachTargetUser._id)
+                    badge: Smartix.helpers.getTotalUnreadNotificationCount(eachTargetUser._id)
                 };
                 Meteor.call("serverNotification", notificationObj,{
                     chatRoomId: chatRoomId

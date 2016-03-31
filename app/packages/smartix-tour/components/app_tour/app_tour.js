@@ -8,7 +8,7 @@ Template.Tour.events({
      }
      
      //even if user is not registered, still can route to login pages.
-     routeToTabClasses();
+     Smartix.helpers.routeToTabClasses();
   }
  
 });

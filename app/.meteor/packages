@@ -105,6 +105,8 @@ francocatena:status
 
 yuukan:streamy
 spiderable
+smartix:core
+smartix:lib
 smartix:userdetail
 smartix:sendmessage
 smartix:calendarevent
@@ -119,7 +121,6 @@ smartix:sharer
 smartix:tour
 smartix:notifications
 smartix:ui-master
-smartix:core
 smartix:iconchooser
 smartix:filehandler
 smartix:email-template

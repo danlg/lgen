@@ -75,7 +75,7 @@ Template.EmailSignup.events({
     userObj.profile.role = role;
     userObj.profile.dob = $("#dobInput").val() || "";
 
-    if (!validateEmail(userObj.email)) {
+    if (!Smartix.helpers.validateEmail(userObj.email)) {
       toastr.error("Incorrect Email");
     } else if ($(".pwd").val().length < 4) {
       toastr.error("At least 4 characters Password");
@@ -99,6 +99,6 @@ Template.EmailSignup.events({
     }
   },
   'click .google-login-btn':function(event,template){
-    registerOrLoginWithGoogle();
+    Smartix.helpers.registerOrLoginWithGoogle();
   } 
 });

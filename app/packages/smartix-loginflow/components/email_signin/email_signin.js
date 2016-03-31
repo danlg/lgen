@@ -17,7 +17,7 @@ Template.EmailSignin.events({
       }
       else {
         log.info("login:meteor:" + Meteor.userId());
-        routeToTabClasses();
+        Smartix.helpers.routeToTabClasses();
       }
     });
   },
@@ -25,7 +25,7 @@ Template.EmailSignin.events({
       Router.go('EmailForgetPwd');
   },
   'click .google-login-btn':function(event,template){
-    registerOrLoginWithGoogle();
+    Smartix.helpers.registerOrLoginWithGoogle();
   }    
 });
 

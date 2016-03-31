@@ -8,6 +8,7 @@ Package.describe({
 
 Package.onUse(function(api) {
      api.versionsFrom("1.2"); 
+     api.use('smartix:core'); 
      api.addAssets('emailMessageMasterTemplate.html','server');
      api.addAssets([
          

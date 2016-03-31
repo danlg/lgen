@@ -15,7 +15,7 @@ Template.ChatRoom.events({
     var text = $('.inputBox').val();
 
     if(!lodash.isEmpty(text)){
-        ChatRoomMessageSender(Router.current().params.chatRoomId,'text',text,{},getAllUserExceptCurrentUser(),function(){
+        ChatRoomMessageSender(Router.current().params.chatRoomId,'text',text,{},Smartix.helpers.getAllUserExceptCurrentUser(),function(){
             
             $('.inputBox').val("");
             sendBtnMediaButtonToggle();
@@ -76,7 +76,7 @@ Template.ChatRoom.events({
   'click .voice': function (argument) {
     if (!isRecording) {
       log.info('startRec');
-      media = getNewRecordFile();
+      media = Smartix.helpers.getNewRecordFile();
       media.startRecord();
       isRecording = true;
       $(".ion-ios-mic-outline").attr("class", "icon ion-stop");
@@ -120,7 +120,7 @@ Template.ChatRoom.events({
      
       $(e.target).attr('class', 'button button-icon icon ion-stop playBtn');
       // alert("startPlay");
-      playAudio(Sounds.findOne(playname).url(), function (argument) {
+      Smartix.helpers.playAudio(Sounds.findOne(playname).url(), function (argument) {
         //  alert("callback!");
         $(e.target).attr('class', 'button button-icon icon ion-play playBtn');
         isPlayingSound = false;
@@ -164,7 +164,7 @@ function onResolveSuccess(fileEntry) {
         };
         log.info(fileURL.file);     
         ChatRoomMessageSender(Router.current().params.chatRoomId,'voice','New Voice',{_id: fileObj._id},
-            getAllUserExceptCurrentUser()
+            Smartix.helpers.getAllUserExceptCurrentUser()
         );            
       }
     });

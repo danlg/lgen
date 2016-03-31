@@ -24,3 +24,7 @@ Router.route('Login', {
     Accounts.loginServicesConfigured();
   }
 });
+
+Router.route('Report',{
+  path: "report"
+});

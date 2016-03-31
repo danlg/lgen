@@ -1,5 +1,5 @@
 Smartix = Smartix || {};
-Smartix.FileHandler = {};
+Smartix.FileHandler = Smartix.FileHandler || {};
 Smartix.FileHandler = (function () {
 
     var directDocumentMessage = function (documentArray){
@@ -59,7 +59,7 @@ Smartix.FileHandler = (function () {
                         }else{
                          window.open(fileURL, "_system", "location=no");                            
                         }
-                    } else if (isAndroid()) {
+                    } else if (Smartix.helpers.isAndroid()) {
                             
                         //for android, they dont have built-in document viewer, although google docs viewer can be used,
                         //the performance is sub-optimal.
@@ -99,7 +99,7 @@ Smartix.FileHandler = (function () {
                         if (category == "chat") {
                             
                             ChatRoomMessageSender(Router.current().params.chatRoomId,'image','New Image',{_id: fileObj._id},
-                                getAllUserExceptCurrentUser()
+                                Smartix.helpers.getAllUserExceptCurrentUser()
                             );
                             
 
@@ -149,7 +149,7 @@ Smartix.FileHandler = (function () {
                                 }
                                 else {
                                     ChatRoomMessageSender(Router.current().params.chatRoomId,'image','New Image',{_id: fileObj._id},
-                                        getAllUserExceptCurrentUser()
+                                        Smartix.helpers.getAllUserExceptCurrentUser()
                                     );
                                 }
                             });
@@ -214,7 +214,7 @@ Smartix.FileHandler = (function () {
                         if(category == 'chat'){
                             
                             ChatRoomMessageSender(Router.current().params.chatRoomId,'document','New Document',{_id: fileObj._id},
-                                getAllUserExceptCurrentUser()
+                                Smartix.helpers.getAllUserExceptCurrentUser()
                             );                                                    
                            
                         }else if (category =='class'){                                      
@@ -247,7 +247,7 @@ Smartix.FileHandler = (function () {
                                         //handle success depending what you need to do
                                         console.dir(fileObj);
                                         ChatRoomMessageSender(Router.current().params.chatRoomId,'document','New Document',{_id: fileObj._id},
-                                            getAllUserExceptCurrentUser()
+                                            Smartix.helpers.getAllUserExceptCurrentUser()
                                         );                                         
                                     }else if (category == 'class'){
                                         var arr = currentDocumentArray;

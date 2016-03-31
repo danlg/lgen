@@ -79,7 +79,7 @@ Template.ChatRoom.helpers({
   },
   userProfile: function () {
     //get another person's user object in 1 to 1 chatroom.     
-    var userObj = getAnotherUser();
+    var userObj = Smartix.helpers.getAnotherUser();
     return userObj
   },
   getGroupOrCorrespondentAvatar : function () {
@@ -89,7 +89,7 @@ Template.ChatRoom.helpers({
             return chat.chatRoomAvatar;       
         }else{
             //get other person's avatar
-            var userObj = getAnotherUser();
+            var userObj = Smartix.helpers.getAnotherUser();
             return userObj && userObj.profile && userObj.profile.useravatar;        
         }
     }else{
@@ -108,13 +108,13 @@ Template.ChatRoom.helpers({
            return chat.chatRoomName;
        }else{
             var maxNumberOfDisplayName = 2;
-            var userObjArr =  getAllUser();
+            var userObjArr =  Smartix.helpers.getAllUser();
             var names = [];
             var generatedString= "";
             if(userObjArr.length > 2){
                 lodash.forEach(userObjArr, function (el, index) {
                         if( index < maxNumberOfDisplayName){
-                            var name = getFirstName_ByProfileObj(el.profile);
+                            var name = Smartix.helpers.getFirstName_ByProfileObj(el.profile);
                           names.push(name);
                         }
                 });
@@ -130,7 +130,7 @@ Template.ChatRoom.helpers({
             else{
                 lodash.forEach(userObjArr, function (el, index) {
                 if (el._id !== Meteor.userId()) {
-                    var name = getFullNameByProfileObj(el.profile);
+                    var name = Smartix.helpers.getFullNameByProfileObj(el.profile);
                   names.push(name);
                 }
                 });
@@ -139,8 +139,8 @@ Template.ChatRoom.helpers({
             return generatedString;
        }  
     }else{
-        var userObj = getAnotherUser();
-        return userObj &&  getFullNameByProfileObj(userObj.profile);        
+        var userObj = Smartix.helpers.getAnotherUser();
+        return userObj &&  Smartix.helpers.getFullNameByProfileObj(userObj.profile);        
     }
   },
 
@@ -173,7 +173,7 @@ Template.ChatRoom.helpers({
   isWorkOff: function (argument) {
     
     //get another person's user object in 1 to 1 chatroom.     
-    var targetUserObj = getAnotherUser();
+    var targetUserObj = Smartix.helpers.getAnotherUser();
 
   },
 
@@ -193,7 +193,7 @@ Template.ChatRoom.helpers({
         }
 
     }else{ //if it is a one-to-one chat
-        target = getAnotherUser();
+        target = Smartix.helpers.getAnotherUser();
     }
 
     if (target.profile.role === "Teacher") {

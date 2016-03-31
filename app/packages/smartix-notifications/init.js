@@ -7,9 +7,9 @@ Template.MasterLayout.onCreated(function () {
   
   //update total unread badge counter on IOS
   this.autorun(function(){
-      var totalUnreadBadgeCount = getTotalUnreadNotificationCount();
+      var totalUnreadBadgeCount = Smartix.helpers.getTotalUnreadNotificationCount();
       log.info('setTotalUnreadBadgeCount:'+totalUnreadBadgeCount);
-      if(isIOS){
+      if(Smartix.helpers.isIOS()){
           Push.setBadge(totalUnreadBadgeCount);
       }  
   });

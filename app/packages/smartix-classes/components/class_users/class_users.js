@@ -65,7 +65,7 @@ Template.ClassUsers.helpers({
   },
 
   isSearched: function (userObj) {
-    var name = getFullNameByProfileObj(userObj.profile);
+    var name = Smartix.helpers.getFullNameByProfileObj(userObj.profile);
     if (text.get() === "") {
       return true;
     } else {

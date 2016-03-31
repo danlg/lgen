@@ -8,7 +8,7 @@ Template.EmailForgetPwd.events({
   },
   'click .reset-password-btn': function (event,template) {
      
-     if(validateEmail(template.email.get())){    
+     if(Smartix.helpers.validateEmail(template.email.get())){    
       Accounts.forgotPassword({email: template.email.get()}, function(err) {
         if (err) {
           if (err.message === 'User not found [403]') {

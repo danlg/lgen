@@ -325,8 +325,9 @@ Meteor.methods({
 
 });
 
+Smartix = Smartix || {};
 
-sendEmailMessageToClasses = function(targetUserids, classes, message, originateUser){
+Smartix.sendEmailMessageToClasses = function(targetUserids, classes, message, originateUser){
   
   //if it is a solely image or voice message, exit early.
   if(message == ""){

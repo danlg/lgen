@@ -25,7 +25,7 @@ Template.PrivateNote.events({
 Template.PrivateNote.helpers({
   username: function (argument) {
     var userObj = Meteor.users.findOne(Router.current().params._id);
-    return getFullNameByProfileObj(userObj.profile);
+    return Smartix.helpers.getFullNameByProfileObj(userObj.profile);
   },
   Comments: function () {
     return lodash.get(Commend.findOne({

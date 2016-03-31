@@ -23,7 +23,7 @@ ClassesSchema = new SimpleSchema({
       var inputClassCode = this.value.trim();
       if (Meteor.isClient && this.isSet && this.isInsert) {
         Meteor.call("class/classCodeIsAvailable", inputClassCode, function (err, result) {
-          var classCodeSuggestion = inputClassCode +""+ getRandomInt(0,99);
+          var classCodeSuggestion = inputClassCode +""+ Smartix.helpers.getRandomInt(0,99);
           var isAvailable = result;
           if (isAvailable == false) {
             AutoForm.getValidationContext("insertClass").resetValidation();           
