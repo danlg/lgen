@@ -98,8 +98,9 @@ Package.onUse(function(api) {
     api.use('jquery');
     
     api.addFiles('_app.js','client');         
-    api.addFiles('init.js','client');
-
+    api.addFiles('client/init.js','client');
+    api.addFiles('server/init.js','server');
+    
     api.export('log');
     
 });

@@ -1,9 +1,5 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
-Meteor.startup(function () {
-  //Push.debug = true;
-  //SimpleSchema.debug = true;
-
-  var log4js = Meteor.npmRequire('log4js');
+var log4js = Meteor.npmRequire('log4js');
 //console log is loaded by default, so you won't normally need to do this
   log4js.replaceConsole();
   log4js.loadAppender('file');
@@ -17,8 +13,15 @@ Meteor.startup(function () {
         , category: 'lg' }
     ]
   });
+log = log4js.getLogger('lg');//global variable
 
-  log = log4js.getLogger('lg');//global variable
+Meteor.startup(function () {
+  //Push.debug = true;
+  //SimpleSchema.debug = true;
+
+
+
+
   log.setLevel('INFO');
 
   log.info("Using env DDP_DEFAULT_CONNECTION_URL="+ Meteor.settings.DDP_DEFAULT_CONNECTION_URL);

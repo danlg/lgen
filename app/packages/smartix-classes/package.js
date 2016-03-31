@@ -15,6 +15,8 @@ Package.onUse(function(api) {
      api.use('session', 'client');
      api.use('templating', 'client');
      api.use('fourseven:scss@2.0.0','client');    
+     api.use('smartix:core');
+     
      api.addFiles('classes.js'); 
      api.addFiles('publications.js','server');
      api.addFiles('route.js');
