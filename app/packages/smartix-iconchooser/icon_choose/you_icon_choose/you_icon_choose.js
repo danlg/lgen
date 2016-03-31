@@ -4,7 +4,7 @@
 * sessionToBeSet: icon user choose would be set to this session.
 * iconListToGet:  the icon list html string to be retrieved would be stored to this session
 */
-Template.ClassIconChoose.events({
+Template.YouIconChoose.events({
 	
 	'click .emojicon': function(event){
 		var clickedIconValue = $(event.target).attr('title');
@@ -17,27 +17,29 @@ Template.ClassIconChoose.events({
 	}
 });
 
-Template.ClassIconChoose.helpers({
-	getClassIconList:function(){
+Template.YouIconChoose.helpers({
+	getYouIconList:function(){
 		return Session.get(this.iconListToGet);
 	}
 });
 
-/*****************************************************************************/
-/* ClassIconChoose: Lifecycle Hooks */
-/*****************************************************************************/
-Template.ClassIconChoose.created = function () {
+Template.YouIconChoose.created = function () {
 	var inputParameters = Template.parentData(0);
-	$.getJSON('/icon_list/class_avatar.json',function(result){
+	//TODO this should be the only thing being in child Object class
+	//the rest should be in base class IconChoose
+	//base class for YouIconChoose and ClassIconChoose
+	//do not want any side effect with Session so duplicate code for now....
+    
+	$.getJSON('/packages/smartix_iconchooser/icon_list/profile_avatar.json',function(result){
 		Session.set(inputParameters.iconListToGet, result);
 	});	
 };
 
-Template.ClassIconChoose.rendered = function () {
+Template.YouIconChoose.rendered = function () {
 
 
 };
 
-Template.ClassIconChoose.destroyed = function () {
+Template.YouIconChoose.destroyed = function () {
 };
 
