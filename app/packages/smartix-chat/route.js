@@ -1,3 +1,10 @@
+Router.route('Chatoption', {
+  path: "/chat/option",
+  waitOn: function () {
+    Meteor.subscribe('createdClassByMe');
+  }
+});
+
 Router.route('ChatRoom', {
   path: "/chat/:chatRoomId",
   waitOn: function () {
@@ -51,9 +58,3 @@ Router.route('GroupChatInviteChooser', {
     }
 });
 
-Router.route('Chatoption', {
-  path: "/chat/option",
-  waitOn: function () {
-    subs.subscribe('createdClassByMe');
-  }
-});
