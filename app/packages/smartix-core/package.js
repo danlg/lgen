@@ -6,9 +6,64 @@ Package.describe({
 
 Package.onUse(function(api) {
 	api.versionsFrom('1.2');
+
+    api.use('iron:router');
+    api.use('tap:i18n');
+    api.use('reactive-var','client');
+    api.use('session', 'client');    
     api.use('templating', 'client');
     api.use('fourseven:scss@2.0.0','client'); 
     
+    api.addFiles('route.js');
+    
+    api.addFiles([
+                    'client/templates/about/about.html',
+                    'client/templates/about/about.js',                    
+                 ],
+                'client');
+
+    api.addFiles([
+                    'client/templates/connection_status/connection_status.html',                  
+                 ],
+                'client');
+ 
+     api.addFiles([
+                    'client/templates/feedback/feedback.html',
+                    'client/templates/feedback/feedback.js',
+                    'client/templates/feedback/feedback.css',                                       
+                 ],
+                'client');
+
+     api.addFiles([
+                    'client/templates/help/help.html',                                    
+                 ],
+                'client');
+
+     api.addFiles([
+                    'client/templates/legal/en.privacy.html',
+                    'client/templates/legal/en.tandc.html',
+                    'client/templates/legal/fr.privacy.html',
+                    'client/templates/legal/fr.tandc.html',                                                                                               
+                 ],
+                'client');
+
+     api.addFiles([
+                    'client/templates/login/login.html',
+                    'client/templates/login/login.js',   
+                    'client/templates/login/login.css',                                           
+                    'client/templates/login/loginResponsiveimageLandscape.css',                       
+                    'client/templates/login/loginResponsiveimagePotrait.css',                                                           
+                 ],
+                'client');
+
+     api.addFiles([
+                    'client/templates/shared/loading/loading.html',
+                    'client/templates/shared/loading/loading.js',
+                    'client/templates/shared/not_found/not_found.html',
+                    'client/templates/shared/not_found/not_found.js',                                                                                                                                    
+                 ],
+                'client');
+                                                                                                  
     //lanaguage-specific app tour image
     api.addFiles([
                     'i18n/fr/app_tour_image.fr.scss',

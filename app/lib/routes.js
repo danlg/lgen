@@ -245,12 +245,7 @@ Router.onBeforeAction(OnBeforeActions.checkDob, {
 
 
 
-Router.route('Login', {
-  path: "/login",
-  waitOn:function () {
-    Accounts.loginServicesConfigured();
-  }
-});
+
 
 Router.route('/role', {
   name: "role"
@@ -308,28 +303,6 @@ Router.route('NotificationDetail', {
 });
 
 
-
-
-Router.route('Feedback', {
-  path:"feedback"
-});
-
-Router.route('Help',{
-  path:"help"
-});
-
-Router.route('TermsOfService',{
-  path:"terms-of-service"
-});
-
-Router.route('PrivacyPolicy',{
-  path:"privacy-policy"
-});
-
-Router.route('About',{
-  path:"about"
-});
-
 Router.route('Report',{
   path: "report"
 });
@@ -340,7 +313,6 @@ Router.route('NotificationSetting' , {
     path: "notifsetting"
   }
 );
-
 
 Router.route('Perf');
 
