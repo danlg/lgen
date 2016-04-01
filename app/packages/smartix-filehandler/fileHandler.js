@@ -231,7 +231,12 @@ Smartix.FileHandler = (function () {
             var successCallback = function (uri) {
                 log.info(uri);
                 window.FilePath.resolveNativePath(uri, function (localFileUri) {
-                    window.resolveLocalFileSystemURL("file://" + localFileUri, function (fileEntry) {
+                    var filePathPrepend = "";
+                    if(localFileUri.indexOf("file:///")!=0){
+                            filePathPrepend = "file:///";
+                            
+                    }                        
+                    window.resolveLocalFileSystemURL(filePathPrepend + localFileUri, function (fileEntry) {
                             
                         //alert('do something');
                         log.info(localFileUri);
