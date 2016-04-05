@@ -45,8 +45,6 @@ Accounts.onCreateUser(function (options, user) {
 });
 
 
-
-
     Meteor.methods({
        'smartix:accounts-global/createGlobalUser':function(options){
            
@@ -62,15 +60,20 @@ Accounts.onCreateUser(function (options, user) {
           
        },
        'smartix:accounts-global/updateGlobalUser':function(user,options){
+           
+           //var updateOptions = {};
+           //updateOptions.firstName = options.firstName;
+           
            if(Meteor.userId() == user ||
               Roles.userIsInRole(Meteor.userId(),'admin','system') ||
               Roles.userIsInRole(Meteor.userId(),'admin','global')
              )
            {
-              var ModifiedDoc = lodash.assign(Meteor.users.findOne(user), options.doc);
-               Meteor.users.update({_id: user}, ModifiedDoc );
-               
-               Roles.setUserRoles(user,options.roles,options.group)
+              //console.log(options.doc);
+              var ModifiedDoc = lodash.merge(Meteor.users.findOne(user), options);              
+              //console.log(ModifiedDoc);
+              Meteor.users.update({_id: user},  ModifiedDoc );
+       
            }           
        },      
        'smartix:accounts-global/deleteGlobalUser':function(user){

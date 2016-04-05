@@ -130,7 +130,15 @@ Meteor.methods({
   },
 
   'profile/edit': function (doc) {
+    
+    //console.log('profile/edit','only changes would be inputted',doc);
     var email = doc.email;
+    doc = lodash.omit(doc, 'email')   
+    Meteor.call('smartix:accounts-global/updateGlobalUser',Meteor.userId(),{
+       profile: doc 
+    });
+    
+    /*var email = doc.email;
     doc = lodash.omit(doc, 'email');
     var _id = Meteor.userId();
     var ModifiedDoc = lodash.assign(Meteor.user().profile, doc);
@@ -140,7 +148,7 @@ Meteor.methods({
 
     if (!lodash.includes(emailarr, email)) {
       Meteor.users.update({_id: Meteor.user()._id}, {$push: {emails: {address: email, "verified": false}}});
-    }
+    }*/
     /*Meteor.users.update({_id:Meteor.userId()},{$set:{'emails.$.items.0.address':}});*/
   },
 
