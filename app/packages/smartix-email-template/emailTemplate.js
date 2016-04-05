@@ -1,5 +1,6 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 //template for email messaging of chat room and class. TODO: Refactor to support lang parameter
+//console.log('emailTemp','is Smartix exist?',Smartix || {});
 Smartix = Smartix || {};
 Smartix.messageEmailTemplate = function (RecipientUsers, OriginateUser,content, options) {
   

@@ -99,7 +99,7 @@ Package.onUse(function(api) {
     api.use('accounts-password'); 
     api.use('jquery');
     
-    api.addFiles('_app.js','client');         
+    api.addFiles('_app.js');         
     api.addFiles('client/init.js','client');       
     api.addFiles('server/init.js','server');
     api.addFiles([

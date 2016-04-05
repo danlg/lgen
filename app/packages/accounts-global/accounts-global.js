@@ -85,7 +85,7 @@ Accounts.onCreateUser(function (options, user) {
     });
 }
 
-
+//console.log('ac-global','is Smartix exist?',Smartix || {});
 Smartix = Smartix || {};
 Smartix.Accounts = Smartix.Accounts || {};
 Smartix.Accounts.registerOrLoginWithGoogle  = function(){

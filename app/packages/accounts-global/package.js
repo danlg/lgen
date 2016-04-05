@@ -18,8 +18,8 @@ Package.onUse(function(api) {
   api.use('accounts-google');  
   api.use('alanning:roles');
   api.use('stevezhu:lodash@4.6.1');
+  api.use('smartix:core'); 
   api.use('smartix:accounts-usernames');
-  api.use('smartix:core');
   api.addFiles('accounts-global.js');
   
   api.export('Smartix');

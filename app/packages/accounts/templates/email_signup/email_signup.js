@@ -75,8 +75,8 @@ Template.EmailSignup.events({
     userObj.profile.role = role;
     userObj.profile.dob = $("#dobInput").val() || "";
 
-    //if (!Smartix.helpers.validateEmail(userObj.email)) {
-    if (false) {
+    //if () {
+    if (!Smartix.helpers.validateEmail(userObj.email)) {
       toastr.error("Incorrect Email");
     } else if ($(".pwd").val().length < 4) {
       toastr.error("At least 4 characters Password");
@@ -92,9 +92,11 @@ Template.EmailSignup.events({
           log.error(err);
         } else {
           
-          Session.set('registerFlow',true);
-          Router.go('MyAccount');
-          
+          //since now we call account.createUser on server-side, we need to do login here.
+          Meteor.loginWithPassword(userObj.email,$('.pwd').val(),function(){
+            Session.set('registerFlow',true);
+            Router.go('MyAccount');              
+          });
 
         }
       });

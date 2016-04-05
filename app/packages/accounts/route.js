@@ -17,6 +17,6 @@ Router.route('Dob');
 
 Router.route('EmailVerification');
 
-Router.route('/',{
+Router.route('/splash',{
     name: "LoginSplash"
 })

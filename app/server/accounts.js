@@ -9,7 +9,7 @@
 //var loginServicesConfigured = Accounts.loginServicesConfigured();
 //log.info('loginServicesConfigured =' + loginServicesConfigured);
 
-Accounts.onCreateUser(function (options, user) {
+/*Accounts.onCreateUser(function (options, user) {
   // analytics.track("Sign Up", {
   //   date: new Date(),
   // });
@@ -34,7 +34,7 @@ Accounts.onCreateUser(function (options, user) {
     }, 2 * 1000);
   }
   return user;
-});
+});*/
 
 
 

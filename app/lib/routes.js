@@ -13,7 +13,7 @@ OnBeforeActions = {
   LoginRequired: function (pause) {
     if (!Meteor.userId()) {
       log.warn("login required");
-      Router.go('Login');
+      Router.go('LoginSplash');
     }
     this.next();
   },
@@ -225,7 +225,7 @@ var i18Init = function () {
 Router.onBeforeAction(OnBeforeActions.LoginRequired, {
   except: ['language', 'Login', 'EmailSignup', 'EmailSignin','EmailForgetPwd','EmailResetPwd', 'role',
    'Testing', 'Test2','ClassInformationForWebUser','ClassSearchInformationForWebUser',
-   'TermsOfService','PrivacyPolicy','TourFromHomePage','Perf']
+   'TermsOfService','PrivacyPolicy','TourFromHomePage','Perf','LoginSplash']
 });
 
 Router.onBeforeAction(OnBeforeActions.LoginedRedirect, {only: ['language']});

@@ -1,3 +1,4 @@
+//console.log('filehandler','is Smartix exist?',Smartix || {});
 Smartix = Smartix || {};
 Smartix.FileHandler = Smartix.FileHandler || {};
 Smartix.FileHandler = (function () {

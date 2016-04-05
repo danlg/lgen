@@ -1,4 +1,5 @@
 if(Meteor.isServer){
+    //console.log('ac-username','is Smartix exist?',Smartix || {});
     Smartix = Smartix || {};
     Smartix.Accounts = Smartix.Accounts || {};
     Smartix.Accounts.helpers = Smartix.Accounts.helpers || {};
