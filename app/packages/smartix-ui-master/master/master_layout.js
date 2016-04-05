@@ -9,6 +9,7 @@ Template.MasterLayout.onCreated(function () {
   this.subscribe('sounds');
   this.subscribe('documents'); 
   this.subscribe('class');
-  this.subscribe('getJoinedClassUser');   
-     
+  this.subscribe('getJoinedClassUser');  
+   
+  this.subscribe('globalUsersBasicInfo');
 });

@@ -21,7 +21,7 @@ Package.onUse(function(api) {
   api.use('smartix:core'); 
   api.use('smartix:accounts-usernames');
   api.addFiles('accounts-global.js');
-  
+  api.addFiles('publications.js','server');
   api.export('Smartix');
 });
 
