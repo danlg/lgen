@@ -18,13 +18,6 @@ Router.route('Feedback', {
   path:"feedback"
 });
 
-Router.route('Login', {
-  path: "/login",
-  waitOn:function () {
-    Accounts.loginServicesConfigured();
-  }
-});
-
 Router.route('Report',{
   path: "report"
 });

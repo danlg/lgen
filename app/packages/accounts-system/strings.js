@@ -1,0 +1,1 @@
+NO_PERMISSION_ERROR = 'Sorry but you dont have the proper permission for this action'

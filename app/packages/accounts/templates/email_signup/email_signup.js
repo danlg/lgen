@@ -31,12 +31,12 @@ Template.EmailSignup.helpers({
 /*****************************************************************************/
 Template.EmailSignup.created = function () {
   var classToBeJoined = Session.get("search");
-  log.info(classToBeJoined);
-  log.info("chosen role: " + Router.current().params.role);
+  console.log(classToBeJoined);
+  console.log("chosen role: " + Router.current().params.role);
 
   $("body").removeClass('modal-open');
   this.chosenRole = new ReactiveVar('');
-  log.info("chosen role: ",this.chosenRole.get());
+  console.log("chosen role: ",this.chosenRole.get());
 };
 
 Template.EmailSignup.rendered = function () {
@@ -56,7 +56,7 @@ Template.EmailSignup.events({
   },
   'change #roleOptions':function(event,template){
       template.chosenRole.set($("#roleOptions").val());
-      log.info("chosen role: ",template.chosenRole.get());
+      console.log("chosen role: ",template.chosenRole.get());
   },
   'click .createBtn': function (event,template) {
 
@@ -75,12 +75,14 @@ Template.EmailSignup.events({
     userObj.profile.role = role;
     userObj.profile.dob = $("#dobInput").val() || "";
 
-    if (!Smartix.helpers.validateEmail(userObj.email)) {
+    //if (!Smartix.helpers.validateEmail(userObj.email)) {
+    if (false) {
       toastr.error("Incorrect Email");
     } else if ($(".pwd").val().length < 4) {
       toastr.error("At least 4 characters Password");
     } else {
-      Accounts.createUser({
+        
+      Meteor.call('smartix:accounts-global/createGlobalUser',{
         email: userObj.email,
         password: $('.pwd').val(),
         profile: userObj.profile
@@ -96,9 +98,25 @@ Template.EmailSignup.events({
 
         }
       });
+     /* Accounts.createUser({
+        email: userObj.email,
+        password: $('.pwd').val(),
+        profile: userObj.profile
+      }, function (err) {
+        if (err) {
+          toastr.error(err.reason);
+          log.error(err);
+        } else {
+          
+          Session.set('registerFlow',true);
+          Router.go('MyAccount');
+          
+
+        }
+      });*/
     }
   },
   'click .google-login-btn':function(event,template){
-    Smartix.helpers.registerOrLoginWithGoogle();
+    Smartix.Accounts.registerOrLoginWithGoogle();
   } 
 });

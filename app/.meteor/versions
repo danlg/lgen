@@ -3,6 +3,7 @@ accounts-base@1.2.2
 accounts-google@1.0.6
 accounts-oauth@1.1.8
 accounts-password@1.1.4
+alanning:roles@1.2.15
 aldeed:autoform@5.8.1
 aldeed:collection2@2.9.1
 aldeed:collection2-core@1.1.1
@@ -137,6 +138,10 @@ routepolicy@1.0.6
 service-configuration@1.0.5
 session@1.1.1
 sha@1.0.4
+smartix:accounts@0.0.1
+smartix:accounts-global@0.0.1
+smartix:accounts-system@0.0.1
+smartix:accounts-usernames@0.0.1
 smartix:calendarevent@0.0.1
 smartix:chat@0.0.1
 smartix:classes@0.0.1
@@ -145,7 +150,6 @@ smartix:email-template@0.0.1
 smartix:filehandler@0.0.1
 smartix:iconchooser@0.0.1
 smartix:lib@0.0.1
-smartix:loginflow@0.0.1
 smartix:messagedetail@0.0.1
 smartix:messageextrainfo@0.0.1
 smartix:notifications@0.0.1

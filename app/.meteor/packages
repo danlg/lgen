@@ -116,7 +116,7 @@ smartix:votechange
 smartix:votedisplay
 smartix:classes
 smartix:chat
-smartix:loginflow
+
 smartix:sharer
 smartix:tour
 smartix:notifications
@@ -124,3 +124,8 @@ smartix:ui-master
 smartix:iconchooser
 smartix:filehandler
 smartix:email-template
+
+smartix:accounts
+smartix:accounts-global
+smartix:accounts-system
+smartix:accounts-usernames
