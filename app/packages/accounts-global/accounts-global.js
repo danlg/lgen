@@ -69,10 +69,16 @@ Accounts.onCreateUser(function (options, user) {
               Roles.userIsInRole(Meteor.userId(),'admin','global')
              )
            {
+              //if it is normal user, cannot change self's role 
+              if(!Roles.userIsInRole(Meteor.userId(),'admin','system') && !Roles.userIsInRole(Meteor.userId(),'admin','global')){
+                 delete options.roles;
+              }
               //console.log(options.doc);
+              
+              //`lodash.merge` would do a recursive operations to update the fields passed from `options`.
               var ModifiedDoc = lodash.merge(Meteor.users.findOne(user), options);              
               //console.log(ModifiedDoc);
-              Meteor.users.update({_id: user},  ModifiedDoc );
+              Meteor.users.update({_id: user},  ModifiedDoc  );
        
            }           
        },      
