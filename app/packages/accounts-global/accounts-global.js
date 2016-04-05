@@ -82,7 +82,7 @@ Accounts.onCreateUser(function (options, user) {
        
            }           
        },      
-       'smartix:accounts-global/deleteGlobalUser':function(user){
+       'smartix:accounts-global/hardDeleteGlobalUser':function(user){
            if(Meteor.userId() == user ||
               Roles.userIsInRole(Meteor.userId(),'admin','system') ||
               Roles.userIsInRole(Meteor.userId(),'admin','global')
@@ -90,7 +90,21 @@ Accounts.onCreateUser(function (options, user) {
               Meteor.users.remove(user);
            }
        },       
-        
+       'smartix:accounts-global/deleteGlobalUser':function(user){
+           if(Meteor.userId() == user ||
+              Roles.userIsInRole(Meteor.userId(),'admin','system') ||
+              Roles.userIsInRole(Meteor.userId(),'admin','global')
+             ){
+              
+              //Perform `update` operation using `alanning:roles`,
+              //removing the appropriate object from the `roles` array
+              Roles.removeUsersFromRoles(user,['user'],'global')
+              
+              //Soft-delete user
+              Meteor.users.update({_id: user},  {$set: {softDelete : true}}  );
+               
+            }
+       },        
     });
 }
 
