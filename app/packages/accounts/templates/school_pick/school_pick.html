@@ -1,0 +1,43 @@
+<template name="SchoolPick">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton path='LoginSplash' text=" "}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">Login to...</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+   <!-- <button class="button button-clear button-entering button-active loginBtn">{{_ "Login"}}</button>-->
+  {{/contentFor}}
+
+
+  {{#ionView}}
+    {{#ionContent}}
+        {{#if inGlobal}}
+            <div class="card school-card " data-school-id='global'>
+                <div class="item item-icon-left">
+                    <i class='icon ion-earth'></i>
+                    <h2>General Account</h2>                       
+                </div>           
+            </div>        
+        {{/if}}
+        
+        {{#each schools}}
+            {{#if active}}
+                <div class="card school-card" data-school-id='{{id}}'>
+                    
+                    <div class="item item-avatar">
+                        {{#with getSchoolLogo}}
+                            <img src="{{this.url}}" />
+                        {{/with}}
+                        <h2>{{name}}</h2>                       
+                    </div>
+                    
+                </div>
+            {{/if}}  
+        {{/each}}
+    {{/ionContent}}
+  {{/ionView}}
+
+</template>

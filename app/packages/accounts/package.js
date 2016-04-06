@@ -23,7 +23,7 @@ Package.onUse(function(api) {
   api.use('aldeed:collection2');
   api.use('aldeed:simple-schema');
   api.use('reactive-var', 'client');
-  api.use('session', 'client');  
+  api.use('session');  
   api.use('smartix:core');
   //template dependency ends
   
@@ -56,7 +56,10 @@ Package.onUse(function(api) {
 
   api.addFiles(['templates/email_resetpwd/email_resetpwd.html',
       'templates/email_resetpwd/email_resetpwd.js'], 'client');
-                                   
+
+  api.addFiles(['templates/school_pick/school_pick.html',
+      'templates/school_pick/school_pick.js'], 'client');
+                                         
   api.addFiles('route.js');
 });
 
