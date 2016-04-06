@@ -23,8 +23,8 @@ Package.onUse(function(api) {
   api.addFiles('methods.js','server');
   api.addFiles('publications.js','server');
   
-  api.addFiles(['templates/related_users/related_users.html',
-                'templates/related_users/related_users.js']
+  api.addFiles(['templates/related_users_mobile/related_users_mobile.html',
+                'templates/related_users_mobile/related_users_mobile.js']
                ,'client');
                
   api.export('Relationships');
