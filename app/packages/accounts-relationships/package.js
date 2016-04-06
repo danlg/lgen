@@ -13,6 +13,7 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
   api.use('ecmascript');
+  api.use('templating');
   api.use('aldeed:collection2');
   api.use('aldeed:simple-schema'); 
   api.use('alanning:roles@1.2.15');
@@ -21,6 +22,11 @@ Package.onUse(function(api) {
   api.addFiles('relationships.js');
   api.addFiles('methods.js','server');
   api.addFiles('publications.js','server');
+  
+  api.addFiles(['templates/related_users/related_users.html',
+                'templates/related_users/related_users.js']
+               ,'client');
+               
   api.export('Relationships');
 });
 
