@@ -2,8 +2,24 @@ Meteor.publish(
    'globalUsersBasicInfo', function(){
         if(Roles.userIsInRole(this.userId,'user','global')){
             console.log('try subscribe to globalUsersBasicInfo');
+            var currentUserId = this.userId;
+            var usersInRole = Roles.getUsersInRole('user','global').fetch();
+           
+            var usersIDInRole = lodash.map(usersInRole,'_id');
+            //console.log(usersIDInRole);
             
-            return Roles.getUsersInRole('user','global',
+            //filter out current user since mergebox only work on top-level
+            var filteredUsersIDInRole = usersIDInRole.filter(function(value){
+               //console.log(value);
+               //console.log(this.userId);
+               if(value == currentUserId){  
+                   return false;
+               }else{
+                   return true;
+               }
+            });
+            console.log(filteredUsersIDInRole);
+            return Meteor.users.find({_id: {"$in" : filteredUsersIDInRole }},
                 {
                     fields: { 
                         'profile.firstname':1,
@@ -13,7 +29,7 @@ Meteor.publish(
                 }
             );                       
         }else{
-            console.log('unanthorized subscription to globalUsersBasicInfo',this.userId);
+            //console.log('unanthorized subscription to globalUsersBasicInfo',this.userId);
         }
     }
 );
