@@ -5,10 +5,10 @@
 Relationships = new Mongo.Collection('relationships');
 
 RelationshipsSchema = new SimpleSchema({
-   from :{
+   parent:{
        type:String,
    },
-   to :{
+   child:{
        type:String,
    },
    type:{

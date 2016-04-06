@@ -12,4 +12,6 @@ Template.MasterLayout.onCreated(function () {
   this.subscribe('getJoinedClassUser');  
    
   this.subscribe('globalUsersBasicInfo');
+  this.subscribe('userRelationships',Meteor.userId());
+  
 });

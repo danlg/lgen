@@ -8,33 +8,58 @@ if(Meteor.isServer){
               Roles.userIsInRole(Meteor.userId(),'admin',options.namespace) ||
               Roles.userIsInRole(Meteor.userId(),'admin','system')
            ){
-               
-              if(lodash.find(Roles.getGroupsForUser(options.from),function(grp){grp == options.namespace}) &&
-                 lodash.find(Roles.getGroupsForUser(options.to),function(grp){grp == options.namespace})
-                ){
-                   options.type = options.type.replace(/[0-9]/g, '');
-                   options.type = options.type.toLowerCase();
-                   Relationships.insert({
-                                          from: options.from,
-                                          to: options.to,
-                                          namespace: options.namespace,
-                                          type: options.type,
-                                          name: options.name
-                                        });  
-                }
+              //console.log('caller is authed');
+              
+              var parentUserGroups = Roles.getGroupsForUser(options.parent);
+              var childUserGroups = Roles.getGroupsForUser(options.child);
+              
+              //console.log(parentUserGroups);
+              //console.log(childUserGroups);
+              if(lodash.includes(parentUserGroups,options.namespace) == false){
+                  console.log('userId:',options.parent,'does not belong to group:',options.namespace);
+                  return;
+              }
+              
+              if(lodash.includes(childUserGroups,options.namespace) == false){
+                  console.log('userId:',options.child,'does not belong to group:',options.namespace);
+                  return;
+              }
+              
+              if (Relationships.findOne({
+                  parent: options.parent,
+                  child: options.child,
+                  namespace: options.namespace,
+              })) {
+                  console.log('there is already existing parent-child relationship bewteen this two persons');
+                  return;
+              }
+              
+              options.type = options.type.replace(/[0-9]/g, '');
+              options.type = options.type.toLowerCase();
+              return Relationships.insert({
+                  parent: options.parent,
+                  child: options.child,
+                  namespace: options.namespace,
+                  type: options.type,
+                  name: options.name
+              });  
+                
                           
-           } 
+           }else{
+               console.log('caller is not authed');
+               return;
+           }
          
        },
        'smartix:accounts-relationships/editRelationship':function(id,options){
-           
+           //to be implemented
        },      
-       'smartix:accounts-relationships/removeRelationship':function(options){
+       'smartix:accounts-relationships/removeRelationship':function(id){
            if(
               Roles.userIsInRole(Meteor.userId(),'admin',options.namespace) ||
               Roles.userIsInRole(Meteor.userId(),'admin','system')
            ){
-              Relationships.remove({ from: options.from, to: options.to, namespace: options.namespace,type: options.type, name: options.name });               
+              Relationships.remove(id);               
            }           
 
        },           
