@@ -81,15 +81,7 @@ Accounts.onCreateUser(function (options, user) {
               Meteor.users.update({_id: user},  ModifiedDoc  );
        
            }           
-       },      
-       'smartix:accounts-global/hardDeleteGlobalUser':function(user){
-           if(Meteor.userId() == user ||
-              Roles.userIsInRole(Meteor.userId(),'admin','system') ||
-              Roles.userIsInRole(Meteor.userId(),'admin','global')
-             ){
-              Meteor.users.remove(user);
-           }
-       },       
+       },         
        'smartix:accounts-global/deleteGlobalUser':function(user){
            if(Meteor.userId() == user ||
               Roles.userIsInRole(Meteor.userId(),'admin','system') ||
@@ -100,8 +92,8 @@ Accounts.onCreateUser(function (options, user) {
               //removing the appropriate object from the `roles` array
               Roles.removeUsersFromRoles(user,['user'],'global')
               
-              //Soft-delete user
-              Meteor.users.update({_id: user},  {$set: {softDelete : true}}  );
+              //Soft-delete user should not be done in school-level
+              // Meteor.users.update({_id: user},  {$set: {deleted : true}}  );
                
             }
        },        
