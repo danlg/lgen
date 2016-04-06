@@ -9,6 +9,7 @@ Schema.profile = {
   dob: "",
   city: "",
   lang: "",
+  tel:"",
   email: false, //default as false so user needs to opt it to receive email message notificaiton
   push: true,
   firstchat: true,
