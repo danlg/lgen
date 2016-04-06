@@ -1,0 +1,34 @@
+<template name="RelatedUsersMobile">
+    <div class="item item-divider"> Family </div>
+    <div class="list">
+    
+    {{#each relationships}}
+        
+        <div class="item item-icon-right less-top-bottom-padding user-item">                     
+
+            {{#if userIsChildOrParent}}       
+                {{#if userIsParent parent}}
+                    {{getChildNameById child}}
+                    <div style="font-size: smaller;color:grey">child @ {{namespace}} </div>
+                {{/if}}
+                        
+                {{#if userIsChild child}}
+                    {{getParentNameById parent}}
+                    <div style="font-size: smaller;color:grey">{{type}} ({{name}}) @ {{namespace}} </div>               
+                {{/if}}
+            {{else}}
+                <!-- is admin-->
+                <p>Parent:       {{getParentNameById parent}}</p>
+                <p>Child:        {{getChildNameById child}} </p>
+                <p>Type:         {{type}}</p>
+                <p>Type Name:    {{name}}</p>
+                <p>Namespace:    {{namespace}} </p>
+                <i data-relationship-id={{_id}} style='' class="icon assertive  ion-android-remove-circle remove-relationship-btn ">                   
+                </i>               
+            {{/if}}
+            
+
+        </div>               
+    {{/each}}
+    </div>
+</template>

@@ -4,7 +4,7 @@ Template.MasterLayout.helpers({});
 Template.MasterLayout.events({});
 
 Template.MasterLayout.onCreated(function () {
-    
+
   this.subscribe('images');
   this.subscribe('sounds');
   this.subscribe('documents'); 
@@ -12,6 +12,11 @@ Template.MasterLayout.onCreated(function () {
   this.subscribe('getJoinedClassUser');  
    
   this.subscribe('globalUsersBasicInfo');
-  this.subscribe('userRelationships',Meteor.userId());
+  
+  var self = this;
+  self.autorun(function(){
+      self.subscribe('userRelationships',Meteor.userId());  
+  })
+
   
 });
