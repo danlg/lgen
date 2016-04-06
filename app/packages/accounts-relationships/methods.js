@@ -55,11 +55,15 @@ if(Meteor.isServer){
            //to be implemented
        },      
        'smartix:accounts-relationships/removeRelationship':function(id){
+           
+           var targetRelationship = Relationships.findOne(id);
            if(
-              Roles.userIsInRole(Meteor.userId(),'admin',options.namespace) ||
+              Roles.userIsInRole(Meteor.userId(),'admin',targetRelationship.namespace) ||
               Roles.userIsInRole(Meteor.userId(),'admin','system')
            ){
               Relationships.remove(id);               
+           }else{
+               console.log('not authed to remove relationship');
            }           
 
        },           
