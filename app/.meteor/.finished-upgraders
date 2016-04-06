@@ -11,3 +11,25 @@ notices-for-facebook-graph-api-2
 1.2.0-cordova-changes
 1.2.0-breaking-changes
 1.3.0-split-minifiers-package
+
+_________
+* These packages have been updated to new versions that are not backwards
+compatible.
+app: updated to Meteor 1.3.
+
+Changes to your project's package version selections from updating package versions:
+
+jeeeyul:moment-with-langs  upgraded from 2.10.6 to 2.12.1
+manuel:viewmodel           upgraded from 4.0.5 to 4.0.12
+manuel:viewmodel-debug     upgraded from 2.6.3 to 2.6.4
+
+
+The following top-level dependencies were not updated to the very latest version available:
+ * fourseven:scss 2.1.1 (3.4.1 is available)
+ * meteoric:ionic-sass 0.1.9 (0.3.0 is available)
+ * meteoric:ionicons-sass 0.1.6 (0.1.7 is available)
+
+Newer versions of the following indirect dependencies are available:
+ * iron:middleware-stack 1.0.11 (1.1.0 is available)
+ * mdg:validation-error 0.2.0 (0.5.1 is available)
+To update one or more of these packages, pass their names to `meteor update`.
