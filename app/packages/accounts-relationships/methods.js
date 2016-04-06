@@ -16,15 +16,27 @@ if(Meteor.isServer){
               //console.log(parentUserGroups);
               //console.log(childUserGroups);
               if(lodash.includes(parentUserGroups,options.namespace) == false){
-                  console.log('userId:',options.parent,'does not belong to group:',options.namespace);
+                  console.log('userId:',options.parent,'does not belong to school:',options.namespace);
                   return;
               }
               
               if(lodash.includes(childUserGroups,options.namespace) == false){
-                  console.log('userId:',options.child,'does not belong to group:',options.namespace);
+                  console.log('userId:',options.child,'does not belong to school:',options.namespace);
                   return;
               }
               
+              /* uncomment when accounts-schools implemented
+              var parentApprovedSchools = Meteor.users.findOne(options.parent).schools;
+              if(lodash.includes(parentApprovedSchools,options.namespace == false)){
+                  console.log('userId:',options.child,'does not approve to the school:',options.namespace);
+                  return;
+              }  
+              var childApprovedSchools = Meteor.users.findOne(options.child).schools;
+              if(lodash.includes(childApprovedSchools,options.namespace == false)){
+                  console.log('userId:',options.child,'does not approve to the school:',options.namespace);
+                  return;
+              }*/     
+                       
               if (Relationships.findOne({
                   parent: options.parent,
                   child: options.child,
@@ -33,6 +45,7 @@ if(Meteor.isServer){
                   console.log('there is already existing parent-child relationship bewteen this two persons');
                   return;
               }
+              
               
               options.type = options.type.replace(/[0-9]/g, '');
               options.type = options.type.toLowerCase();
