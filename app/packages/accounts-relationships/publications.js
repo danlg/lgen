@@ -1,9 +1,10 @@
 //publish specific user's relationships
 Meteor.publish('userRelationships', function(userId) {
-    
-  if(userId == this.userId || Roles.userIsInRole(this.userId,'admin','system'))
-  //return relationships belong to the current user, as a parent or as a child
-  return Relationships.find({ $or: [ { parent: userId }, { child: userId } ] }); 
+  //console.log('user try subscribe relationships',userId);
+  if(userId == this.userId || Roles.userIsInRole(this.userId,'admin','system')){
+    //return relationships belong to the current user, as a parent or as a child
+    return Relationships.find({ $or: [ { parent: userId }, { child: userId } ] });       
+  }
 });
 
 //publish users' relationships in a namespace for admin usage

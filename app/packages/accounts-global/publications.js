@@ -1,7 +1,7 @@
 Meteor.publish( 
    'globalUsersBasicInfo', function(){
         if(Roles.userIsInRole(this.userId,'user','global')){
-            console.log('try subscribe to globalUsersBasicInfo');
+            //console.log('try subscribe to globalUsersBasicInfo');
             var currentUserId = this.userId;
             var usersInRole = Roles.getUsersInRole('user','global').fetch();
            
@@ -18,7 +18,9 @@ Meteor.publish(
                    return true;
                }
             });
-            console.log(filteredUsersIDInRole);
+            //console.log(filteredUsersIDInRole);
+            
+            //TODO: soft-delete filtered => deleteAt
             return Meteor.users.find({_id: {"$in" : filteredUsersIDInRole }},
                 {
                     fields: { 
