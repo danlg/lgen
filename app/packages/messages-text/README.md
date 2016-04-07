@@ -16,7 +16,7 @@ In addition to the schema defined in `smartix:messages`, messages of type `text`
 * Create Text Message
 * Edit Text Message
 
-## Client-side Function
+## Client-side Functions
 
 ## Server-Side Functions
 

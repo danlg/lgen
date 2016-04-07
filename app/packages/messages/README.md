@@ -58,6 +58,6 @@ Undeletes a message (of any type).
 
 ## Exports
 
-### `Messages.ValidTypes`
+### `Messages.validTypes`
 
 An array of all the valid message types. Each package that adds a new message type should add their type to this array.

@@ -13,6 +13,8 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
   api.use('ecmascript');
+  api.use('smartix:groups');
+  api.use('emojione:emojione@2.1.3');
   api.addFiles('messages-addons-poll.js');
 });
 
