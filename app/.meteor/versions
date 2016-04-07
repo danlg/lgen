@@ -141,8 +141,10 @@ sha@1.0.4
 smartix:accounts@0.0.1
 smartix:accounts-global@0.0.1
 smartix:accounts-relationships@0.0.1
+smartix:accounts-schools@0.0.1
 smartix:accounts-system@0.0.1
 smartix:accounts-usernames@0.0.1
+
 smartix:calendarevent@0.0.1
 smartix:chat@0.0.1
 smartix:classes@0.0.1
