@@ -7,7 +7,8 @@ Template.SchoolPick.helpers({
     return Images.findOne(logoId);
   },
   inGlobal:function(){
-      if(Roles.userIsInRole(Meteor.userId(),['user'],'global')){
+      if(Roles.userIsInRole(Meteor.userId(),['user'],'global')
+         || Roles.userIsInRole(Meteor.userId(),['admin'],'global')){
           return true;
       }else{
           return false;
