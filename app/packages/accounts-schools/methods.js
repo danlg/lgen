@@ -47,8 +47,15 @@ if(Meteor.isServer){
             }
             Roles.setUserRoles(users,roles,school);  
         },
+        'smartix:accounts-schools/pendingApproveSchool':function(school,user){
+            if(!Smartix.accounts.isUserSchoolAdmin(school) && !Smartix.accounts.isUserSystemAdmin()){
+                return;
+            }              
+            Meteor.users.update(user,{ $addToSet: { pendingSchools: schoolId } });            
+        },         
         'smartix:accounts-schools/approveSchool':function(schoolId){
             
+            Meteor.users.update(Meteor.userId(),{ $pull: { pendingSchools: schoolId } }); 
             Meteor.users.update(Meteor.userId(),{ $addToSet: { schools: schoolId } });            
         }, 
         'smartix:accounts-schools/revokeSchool':function(schoolId){

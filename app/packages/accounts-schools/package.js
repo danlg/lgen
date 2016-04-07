@@ -24,7 +24,9 @@ Package.onUse(function(api) {
   api.addFiles('strings.js','server');  
   api.addFiles('roles.js','server');
   api.addFiles('accounts-schools.js');
-  api.addFiles('methods.js','server');  
+  api.addFiles('methods.js','server');
+  api.addFiles('publications.js','server');
+      
   api.export('Smartix');
 });
 

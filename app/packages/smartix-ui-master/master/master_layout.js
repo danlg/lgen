@@ -8,9 +8,12 @@ Template.MasterLayout.onCreated(function () {
   this.subscribe('images');
   this.subscribe('sounds');
   this.subscribe('documents'); 
+  
+  //TODO: subscription to be filtered based on selected school
   this.subscribe('class');
   this.subscribe('getJoinedClassUser');  
-   
+  
+  this.subscribe('userPendingApprovedSchools');
   this.subscribe('globalUsersBasicInfo');
   
   var self = this;

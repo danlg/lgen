@@ -37,6 +37,20 @@
                 </div>
             {{/if}}  
         {{/each}}
+        {{#each pendingSchools}}
+            {{#if active}}
+                <div class="card school-card" data-school-id='{{id}}'>
+                    
+                    <div class="item item-avatar">
+                        {{#with getSchoolLogo}}
+                            <img src="{{this.url}}" />
+                        {{/with}}
+                        <h2>{{name}}</h2>                       
+                    </div>
+                    
+                </div>
+            {{/if}}  
+        {{/each}}        
     {{/ionContent}}
   {{/ionView}}
 
