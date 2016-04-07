@@ -1,0 +1,1 @@
+SCHOOL_ROLES=['student','parent','teacher','admin'];
