@@ -11,19 +11,21 @@ if(Meteor.isServer){
                 return;
             }
             
-            var existUser = Meteor.users.findOne({'emails.0.address':options.email})
-            if(existUser){
-                //console.log(TRY_ADD_ROLE_TO_EXISTING_USR)
-                Roles.addUsersToRoles(existUser,options.role,school);     
-            }else{
-                var id =  Accounts.createUser({
-                    email: options.email,
-                    password: options.password,
-                    profile: options.profile,
-                    username: Smartix.accounts.helpers.generateUniqueUserName(options.profile.firstname,options.profile.lastname)
-                });
-                
-                Roles.addUsersToRoles(id,options.role,school);    
+            if(options.email){
+                var existUser = Meteor.users.findOne({'emails.0.address':options.email})
+                if(existUser){
+                    //console.log(TRY_ADD_ROLE_TO_EXISTING_USR)
+                    Roles.addUsersToRoles(existUser,options.role,school);     
+                }else{
+                    var id =  Accounts.createUser({
+                        email: options.email,
+                        password: options.password,
+                        profile: options.profile,
+                        username: Smartix.accounts.helpers.generateUniqueUserName(options.profile.firstname,options.profile.lastname)
+                    });
+                    
+                    Roles.addUsersToRoles(id,options.role,school);    
+                }
             }
             
         },
