@@ -1,9 +1,9 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
-Template.MasterLayout.helpers({});
+Template.AppLayout.helpers({});
 
-Template.MasterLayout.events({});
+Template.AppLayout.events({});
 
-Template.MasterLayout.onCreated(function () {
+Template.AppLayout.onCreated(function() {
 
   this.subscribe('images');
   this.subscribe('sounds');

@@ -1,10 +1,10 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 var subs = new SubsManager();
+
 Router.configure({
-  layoutTemplate: 'MasterLayout',
+  layoutTemplate: 'AppLayout',
   notFoundTemplate: 'NotFound',
   loadingTemplate: 'Loading'
-
 });
 
 var OnBeforeActions;
