@@ -7,7 +7,11 @@ Template.MasterLayout.helpers({
         if(schoolBackgroundColor && schoolTextColor){
             var customStyle = `
                                 <style>                    
-                                    .bar.bar-stable,.button.button-stable,.tabs,.button-bar .button-bar-button,
+                                    .bar.bar-stable,
+                                    .button.button-stable,
+                                    .button.button-positive,
+                                    .tabs,
+                                    .button-bar .button-bar-button,
                                     .input-box-panel .button
                                     {background-color:${schoolBackgroundColor};color:${schoolTextColor};}
                                     
