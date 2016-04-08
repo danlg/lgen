@@ -3,7 +3,7 @@ Template.AppLayout.onCreated(function () {
   // Use this.subscribe inside onCreated callback
   this.subscribe("notifications");
   
-  //update total unread badge counter on IOS
+  // Update total unread badge counter on IOS
   this.autorun(function(){
       var totalUnreadBadgeCount = Smartix.helpers.getTotalUnreadNotificationCount();
       log.info('setTotalUnreadBadgeCount:'+totalUnreadBadgeCount);
@@ -11,5 +11,4 @@ Template.AppLayout.onCreated(function () {
           Push.setBadge(totalUnreadBadgeCount);
       }  
   });
-  
 });

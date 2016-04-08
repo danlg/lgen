@@ -9,14 +9,12 @@ Template.AppLayout.onCreated(function() {
   this.subscribe('sounds');
   this.subscribe('documents'); 
   this.subscribe('class');
-  this.subscribe('getJoinedClassUser');  
-   
+  this.subscribe('getJoinedClassUser');
   this.subscribe('globalUsersBasicInfo');
   
   var self = this;
-  self.autorun(function(){
-      self.subscribe('userRelationships',Meteor.userId());  
-  })
+  self.autorun(function() {
+      self.subscribe('userRelationships', Meteor.userId());  
+  });
 
-  
 });

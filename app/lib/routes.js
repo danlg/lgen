@@ -1,4 +1,3 @@
-/*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 var subs = new SubsManager();
 
 Router.configure({
@@ -7,9 +6,7 @@ Router.configure({
   loadingTemplate: 'Loading'
 });
 
-var OnBeforeActions;
-
-OnBeforeActions = {
+var OnBeforeActions = {
   LoginRequired: function (pause) {
     if (!Meteor.userId()) {
       log.warn("login required");
@@ -69,7 +66,7 @@ OnBeforeActions = {
               var langtmp;
               if(langPartsArray.length > 2){
                   langtmp = langPartsArray[0]+"-"+langPartsArray[1];
-              }else{
+              } else {
                   langtmp = mobilePhoneLanguage.value;
               }           
               
@@ -77,8 +74,7 @@ OnBeforeActions = {
               //var langtmp = mobilePhoneLanguage.value.substr(0, min(7, mobilePhoneLanguage.value.length));
               lang = chineseMap [langtmp];
               //log.info("checkLanguage:cordova:chineseMap:Han'" + langtmp + "->" +lang);
-            }
-            else {  //zh-HK,zh-CN,..
+            } else {  //zh-HK,zh-CN,..
               lang = chineseMap [mobilePhoneLanguage.value];
               //log.info("checkLanguage:cordova:chineseMap:NoHan'" + mobilePhoneLanguage.value + "->" +lang);
             }
@@ -94,15 +90,14 @@ OnBeforeActions = {
           //log.info(supportedLanguages);
           //log.info("checkLanguage:supportedLanguages:after'"+ supportedLanguages+ "'");          
           //if (!lodash.includes(supportedLanguages, lang))
-          if( Object.keys(supportedLanguages).indexOf(lang) == -1 )
-          {
+          if (Object.keys(supportedLanguages).indexOf(lang) == -1 ) {
             log.warn("checkLanguage:Defaulting to English");
             lang = "en";
-          }
-          else{
+          } else {
             log.info("checkLanguage:Found lang mapping");
           }
-          log.info("checkLanguage:setLang:'"+ lang+ "'");
+
+          log.info("checkLanguage:setLang:'" + lang + "'");
           i18Init(lang);
          
          //&& ( !Meteor.user().profile.lang || Meteor.user().profile.lang =="")
@@ -238,10 +233,6 @@ Router.onRun(OnBeforeActions.checkLanguage);
 Router.onBeforeAction(OnBeforeActions.checkDob, {
   only: ['TabClasses','classDetail']
 });
-
-
-
-
 
 Router.route('/role', {
   name: "role"
