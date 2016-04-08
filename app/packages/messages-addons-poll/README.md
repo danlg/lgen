@@ -88,14 +88,16 @@ Change the name of an option in the poll
 
 Remove options from a poll
 
+#### Arguments
 
+* `options` *[String]* - An array of options to remove
 
+#### Implementation
 
-
-
-
-
-
+* Use `canUserAttachAddon()` from the `smartix:messages-addons` package to check the user has permissions to attach this add-on (this assumes the user has permissions to remove)
+* Checks that all the options specified in the `options` argument exists in the document's `options` array. If not, throw an error indicating thatone of the options does not exists
+* Pull the elements in the `options` argument from the `options` array.
+* Remove all properties namd in the `options` array from the object
 
 ### `castVote()`
 
