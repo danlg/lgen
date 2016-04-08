@@ -1,3 +1,11 @@
+Smartix = Smartix || {};
+
+Smartix.Accounts = Smartix.Accounts || {};
+
+Smartix.Accounts.listUserSchools = function () {
+  
+}
+
 if(Meteor.isServer){
     Meteor.methods({
         'smartix:accounts/deleteUser':function(id){

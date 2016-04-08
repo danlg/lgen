@@ -55,10 +55,12 @@ Counts the number of schools/*global*/system instances where the user has a role
 
 ### Arguments
 
-None
+* `id` *String* - `_id` of the user to query for
 
 #### Implementation
 
+* Checks if `id` belongs to a user, if not, use the `_id` of the currently-logged in user
+* If `id` does not point to a valid user, and no user is logged-in, return `false`
 * Return the count of the `roles` array (a property of the user's document)
 
 ### `listUserSchools()`
@@ -67,10 +69,12 @@ Returns a list of all the schools for which the current user plays a role.
 
 ### Arguments
 
-None
+* `id` *String* - `_id` of the user to query for
 
 #### Implementation
 
+* Checks if `id` belongs to a user, if not, use the `_id` of the currently-logged in user
+* If `id` does not point to a valid user, and no user is logged-in, return `false`
 * Using the `mySchools()` publication from the `smartix:schools` package, return all the schools
 
 ## Server-side Methods
