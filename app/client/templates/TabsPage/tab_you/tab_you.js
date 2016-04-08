@@ -6,7 +6,7 @@ Template.TabYou.events({
       function (err) {
         //remove all session variables when logout
         Session.clear();
-        Router.go('Login');
+        Router.go('LoginSplash');
       }
     );
   },
