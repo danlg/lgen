@@ -39,15 +39,19 @@ Template.AppLayout.onCreated(function() {
   this.subscribe('sounds');
   this.subscribe('documents'); 
   
+  
   //TODO: subscription to be filtered based on selected school
   this.subscribe('class');
   this.subscribe('getJoinedClassUser');  
   this.subscribe('userPendingApprovedSchools');
   this.subscribe('globalUsersBasicInfo');
   
+
+  
   var self = this;
   self.autorun(function() {
-      self.subscribe('userRelationships', Meteor.userId());  
+      self.subscribe('userRelationships', Meteor.userId()); 
+      self.subscribe('mySchools'); 
   });
 
 });

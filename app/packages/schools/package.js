@@ -14,7 +14,7 @@ Package.onUse(function(api) {
   api.use('aldeed:simple-schema'); 
   api.use('alanning:roles@1.2.15');
     
-  api.use('smartix:accounts');
+  api.use('smartix:accounts',null,{unordered:true});
   api.use('smartix:accounts-schools');
   api.use('smartix:accounts-system');
   api.use('easy:search');

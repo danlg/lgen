@@ -29,7 +29,7 @@ Package.onUse(function(api) {
   
   api.use('smartix:accounts-usernames');
   //temporary comment out, as there is circular dependency
-  //api.use('smartix:schools');
+  api.use('smartix:schools',null,{unordered:true});
   api.addFiles('accounts.js');
   api.addFiles(['templates/login_splash/login.html',
       'templates/login_splash/login.css',
