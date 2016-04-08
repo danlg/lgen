@@ -85,6 +85,7 @@ Delete group
 
 #### Implementation
 
+* Checks that `id` is a string
 * `remove` the group
 
 ### `addUsersToGroup()`
@@ -98,6 +99,7 @@ Add user(s) to group
 
 #### Implementation
 
+* Checks that `id` is a String and `users` is an array of Strings
 * Remove duplicates from the `users` array
 * Push the new users to the existing array using `$each` modifier with `$addToSet`
 

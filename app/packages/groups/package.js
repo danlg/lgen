@@ -9,6 +9,9 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
   api.use('ecmascript');
+  api.use('check');
+  api.use('accounts-base');
+  api.use('stevezhu:lodash@4.6.1');
   api.addFiles('groups.js');
 });
 
