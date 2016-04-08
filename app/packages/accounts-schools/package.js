@@ -13,7 +13,21 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
   api.use('ecmascript');
+  api.use('alanning:roles');  
+  api.use('smartix:core');
+  
+  //retrieve user schema
+  api.use('smartix:accounts-global');
+  //generate username
+  api.use('smartix:accounts-usernames');      
+  api.use('smartix:accounts-system');
+  api.addFiles('strings.js','server');  
+  api.addFiles('roles.js','server');
   api.addFiles('accounts-schools.js');
+  api.addFiles('methods.js','server');
+  api.addFiles('publications.js','server');
+      
+  api.export('Smartix');
 });
 
 Package.onTest(function(api) {

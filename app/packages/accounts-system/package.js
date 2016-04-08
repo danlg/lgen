@@ -14,7 +14,8 @@ Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
   api.use('ecmascript');
   api.use('accounts-base');
-  api.use('accounts-password');    
+  api.use('accounts-password');
+  api.use('smartix:core');  
   api.use('alanning:roles');
   api.addFiles('accounts-system.js');
   api.addFiles('strings.js');

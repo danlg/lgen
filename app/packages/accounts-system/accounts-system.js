@@ -37,4 +37,11 @@ if (Meteor.isServer) {
     });
 }  
 
+Smartix = Smartix || {};
+Smartix.accounts = Smartix.accounts || {};
 
+Smartix.accounts.isUserSystemAdmin = function(user){
+    
+    var userToBeChecked = user || Meteor.userId();
+    return Roles.userIsInRole(userToBeChecked,'admin','system');
+}
