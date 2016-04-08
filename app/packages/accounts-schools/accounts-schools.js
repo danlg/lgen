@@ -1,7 +1,7 @@
 Smartix = Smartix || {};
-Smartix.accounts = Smartix.accounts || {};
+Smartix.Accounts = Smartix.Accounts || {};
 
-Smartix.accounts.isUserSchoolAdmin = function(namespace,user){
+Smartix.Accounts.isUserSchoolAdmin = function(namespace,user){
     
     var userToBeChecked = user || Meteor.userId();
     return Roles.userIsInRole(userToBeChecked,'admin',namespace);

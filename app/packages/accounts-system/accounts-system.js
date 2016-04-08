@@ -38,9 +38,9 @@ if (Meteor.isServer) {
 }  
 
 Smartix = Smartix || {};
-Smartix.accounts = Smartix.accounts || {};
+Smartix.Accounts = Smartix.Accounts || {};
 
-Smartix.accounts.isUserSystemAdmin = function(user){
+Smartix.Accounts.isUserSystemAdmin = function(user){
     
     var userToBeChecked = user || Meteor.userId();
     return Roles.userIsInRole(userToBeChecked,'admin','system');

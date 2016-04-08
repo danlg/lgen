@@ -119,6 +119,6 @@ Template.EmailSignup.events({
     }
   },
   'click .google-login-btn':function(event,template){
-    Smartix.accounts.registerOrLoginWithGoogle();
+    Smartix.Accounts.registerOrLoginWithGoogle();
   } 
 });
