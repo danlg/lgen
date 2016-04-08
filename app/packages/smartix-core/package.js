@@ -53,8 +53,8 @@ Package.onUse(function(api) {
                     'client/templates/login/login.html',
                     'client/templates/login/login.js',   
                     'client/templates/login/login.css',                                           
-                    'client/templates/login/loginResponsiveimageLandscape.css',                       
-                    'client/templates/login/loginResponsiveimagePotrait.css',                                                           
+                    'client/templates/login/loginResponsiveImageLandscape.css',                       
+                    'client/templates/login/loginResponsiveImagePotrait.css',                                                           
                  ],
                 'client');
 
