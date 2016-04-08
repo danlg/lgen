@@ -82,7 +82,11 @@ body.keyboard-open .platform-android .content.overflow-scroll {
 
 a {
   text-decoration: none !important;
-  color: #333  !important;
+  /*color: #333  !important;*/
+}
+
+.tab-classes a{
+  color: #333 
 }
 
 pre{
