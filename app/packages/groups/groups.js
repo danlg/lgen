@@ -61,19 +61,19 @@ Smartix.Groups.editGroup = function (id, options) {
 		updateObj.users = options.users;
 	}
 	if(options.namespace) {
-		check(options.users, String);
+		check(options.namespace, String);
 		updateObj.namespace = options.namespace;
 	}
 	if(options.type) {
-		check(options.users, String);
+		check(options.type, String);
 		updateObj.type = options.type;
 	}
 	if(options.name) {
-		check(options.users, String);
+		check(options.name, String);
 		updateObj.name = options.name;
 	}
 	if(options.addons) {
-		check(options.users, [String]);
+		check(options.addons, [String]);
 		updateObj.addons = options.addons;
 	}
 
