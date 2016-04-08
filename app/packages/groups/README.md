@@ -17,6 +17,8 @@ Internal package. Provides the concept of groups to other packages such as `smar
 
 ## Schema
 
+The schema is for reference only, child packages can specify fields not specified below.
+
 * `id*` *String* - Unique identifier
 * `users*` *[String]* - Array of users' `id`. Can be empty.
 * `namespace*` *String*

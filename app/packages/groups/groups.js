@@ -25,29 +25,20 @@ Smartix.Groups = Smartix.Groups || {};
 
 Smartix.Groups.Collection = new new Mongo.Collection("smartix:groups");
 
-Smartix.Groups.Schema = new SimpleSchema({
-	users: {
-		type: [String]
-	},
-	namespace: {
-		type: String
-	},
-	type: {
-		type: String
-	},
-	name: {
-		type: String,
-		optional: true
-	},
-	addons: {
-		type: [String],
-		optional: true
-	}
-})
-
 Smartix.Groups.createGroup = function (options) {
-	// Checks the object conforms to the schema
-	check(options, Smartix.Groups.Schema);
+	// Checks the object contains all required fields
+	if(!(options.users && options.namespace && options.type)) {
+		return false;
+	}
+	check(options.users, [String]);
+	check(options.namespace, String);
+	check(options.type, String);
+	if(options.name) {
+		check(options.name, String);
+	}
+	if(options.addons) {
+		check(options.addons, [String]);
+	}
 
 	// Remove duplicates from the `users` array
 	options.users = _.uniq(options.users);
