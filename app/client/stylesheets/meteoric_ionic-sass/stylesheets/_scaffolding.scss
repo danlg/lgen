@@ -10,7 +10,7 @@
 }
 
 html {
-  overflow: hidden;
+  /*overflow: hidden;*/
   -ms-touch-action: pan-y;
   touch-action: pan-y;
 }
@@ -27,7 +27,7 @@ body,
   right: 0;
   bottom: 0;
   left: 0;
-  overflow: hidden;
+  /*overflow: hidden;*/
 
   margin: 0;
   padding: 0;
@@ -98,7 +98,7 @@ body.grade-c {
 }
 
 // hide webkit scrollbars
-::-webkit-scrollbar {
+.ionic-body ::-webkit-scrollbar {
   display: none;
 }
 

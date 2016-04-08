@@ -66,8 +66,9 @@ Create a new school.
 
 #### Arguments
 
-* `admin` *[String]* - An array of admin user(s) for the school
 * `options` *Object* - properties of the new school
+* `admins` *[String]* - An array of admin user(s) for the school
+
 
 #### Implementation
 
