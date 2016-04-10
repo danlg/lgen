@@ -25,7 +25,7 @@ Smartix.Accounts.removeNonExistentUsers = function (users) {
     // to include only existing users
     return _.filter(users, function (userId, i, array) {
       return Meteor.users.findOne({_id: userId});
-    }
+    });
   }
 }
 
