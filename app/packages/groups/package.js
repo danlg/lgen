@@ -12,6 +12,7 @@ Package.onUse(function(api) {
   api.use('check');
   api.use('accounts-base');
   api.use('stevezhu:lodash@4.6.1');
+  api.use('smartix:accounts@0.0.1');
   api.addFiles('groups.js');
 });
 

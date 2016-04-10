@@ -34,40 +34,34 @@ Smartix.Groups.createGroup = function (options) {
 Smartix.Groups.editGroup = function (id, options) {
 
 	// Checks the new object properties conforms to the schema
-	var updateObj = {};
 	if(options.users) {
 		check(options.users, [String]);
-		updateObj.users = options.users;
+
+		// Remove duplicates from the `users` array
+		options.users = _.uniq(options.users);
 	}
 	if(options.namespace) {
 		check(options.namespace, String);
-		updateObj.namespace = options.namespace;
 	}
 	if(options.type) {
 		check(options.type, String);
-		updateObj.type = options.type;
 	}
 	if(options.name) {
 		check(options.name, String);
-		updateObj.name = options.name;
 	}
 	if(options.addons) {
 		check(options.addons, [String]);
-		updateObj.addons = options.addons;
+
+		// Remove duplicates from the `addons` arrays
+		// ensuring only one (the first encountered) add-on of each type is included
+		options.addons = _.uniqBy(options.addons, 'type');
 	}
-
-	// Remove duplicates from the `users` array
-	updateObj.users = _.uniq(updateObj.users);
-
-	// Remove duplicates from the `addons` arrays
-	// ensuring only one (the first encountered) add-on of each type is included
-	updateObj.addons = _.uniqBy(updateObj.addons, 'type');
 
 	// Update the group object using `$set`
 	Smartix.Groups.Collection.update({
 		_id: id
 	}, {
-		$set: updateObj
+		$set: options
 	});
 }
 
