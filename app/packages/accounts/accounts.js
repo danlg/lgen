@@ -3,7 +3,9 @@ Smartix = Smartix || {};
 Smartix.Accounts = Smartix.Accounts || {};
 
 Smartix.Accounts.listUserSchools = function () {
-  
+        
+        var userToBeChecked = user || Meteor.userId();
+        return Roles.getGroupsForUser(userToBeChecked);  
 }
 
 Smartix.Accounts.removeNonExistentUsers = function (users) {

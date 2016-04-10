@@ -1,7 +1,7 @@
 if(Meteor.isServer){
     Meteor.methods({
         'smartix:accounts-schools/createSchoolUser':function(school,options){
-            if(!Smartix.accounts.isUserSchoolAdmin(school) && !Smartix.accounts.isUserSystemAdmin()){
+            if(!Smartix.Accounts.isUserSchoolAdmin(school) && !Smartix.Accounts.isUserSystemAdmin()){
                 console.log(NOT_AUTH);
                 return;
             }
@@ -21,7 +21,7 @@ if(Meteor.isServer){
                         email: options.email,
                         password: options.password,
                         profile: options.profile,
-                        username: Smartix.accounts.helpers.generateUniqueUserName(options.profile.firstname,options.profile.lastname)
+                        username: Smartix.Accounts.helpers.generateUniqueUserName(options.profile.firstname,options.profile.lastname)
                     });
                     
                     Roles.addUsersToRoles(id,options.role,school);    
@@ -30,38 +30,30 @@ if(Meteor.isServer){
             
         },
         'smartix:accounts-schools/assignSchoolRole':function(school,users,roles){
-            if(!Smartix.accounts.isUserSchoolAdmin(school)  && !Smartix.accounts.isUserSystemAdmin()){
+            if(!Smartix.Accounts.isUserSchoolAdmin(school)  && !Smartix.Accounts.isUserSystemAdmin()){
                 return;
             }
             
             Roles.addUsersToRoles(users,roles,school);                
         }, 
         'smartix:accounts-schools/retractSchoolRole':function(school,users,roles){
-            if(!Smartix.accounts.isUserSchoolAdmin(school)  && !Smartix.accounts.isUserSystemAdmin()){
+            if(!Smartix.Accounts.isUserSchoolAdmin(school)  && !Smartix.Accounts.isUserSystemAdmin()){
                 return;
             }
             
             Roles.removeUsersFromRoles(users,roles,school);            
         },
         'smartix:accounts-schools/editSchoolRole':function(school,users,roles){
-            if(!Smartix.accounts.isUserSchoolAdmin(school)  && !Smartix.accounts.isUserSystemAdmin()){
+            if(!Smartix.Accounts.isUserSchoolAdmin(school)  && !Smartix.Accounts.isUserSystemAdmin()){
                 return;
             }
             Roles.setUserRoles(users,roles,school);  
-        },
-        'smartix:accounts-schools/pendingApproveSchool':function(school,user){
-            if(!Smartix.accounts.isUserSchoolAdmin(school) && !Smartix.accounts.isUserSystemAdmin()){
-                return;
-            }              
-            Meteor.users.update(user,{ $addToSet: { pendingSchools: schoolId } });            
-        },         
+        },     
         'smartix:accounts-schools/approveSchool':function(schoolId){
-            
-            Meteor.users.update(Meteor.userId(),{ $pull: { pendingSchools: schoolId } }); 
             Meteor.users.update(Meteor.userId(),{ $addToSet: { schools: schoolId } });            
         }, 
         'smartix:accounts-schools/revokeSchool':function(schoolId){
-
+            
             Meteor.users.update(Meteor.userId(),{ $pull: { schools: schoolId } });                           
         },                                               
     });

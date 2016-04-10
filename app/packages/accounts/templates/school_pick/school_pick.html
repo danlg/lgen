@@ -25,7 +25,7 @@
         
         {{#each schools}}
             {{#if active}}
-                <div class="card school-card" data-school-id='{{id}}'>
+                <div class="card school-card" data-school-id='{{_id}}'>
                     
                     <div class="item item-avatar">
                         {{#with getSchoolLogo}}
@@ -39,7 +39,7 @@
         {{/each}}
         {{#each pendingSchools}}
             {{#if active}}
-                <div class="card school-card" data-school-id='{{id}}'>
+                <div class="card school-card" data-school-id='{{_id}}'>
                     
                     <div class="item item-avatar">
                         {{#with getSchoolLogo}}

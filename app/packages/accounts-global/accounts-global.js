@@ -54,7 +54,7 @@ Accounts.onCreateUser(function (options, user) {
                 email: options.email,
                 password: options.password,
                 profile: options.profile,
-                username: Smartix.accounts.helpers.generateUniqueUserName(options.profile.firstname,options.profile.lastname)
+                username: Smartix.Accounts.helpers.generateUniqueUserName(options.profile.firstname,options.profile.lastname)
             });
             
             Roles.addUsersToRoles(id,['user'],'global');
@@ -103,8 +103,8 @@ Accounts.onCreateUser(function (options, user) {
 
 //console.log('ac-global','is Smartix exist?',Smartix || {});
 Smartix = Smartix || {};
-Smartix.accounts = Smartix.accounts || {};
-Smartix.accounts.registerOrLoginWithGoogle  = function(){
+Smartix.Accounts = Smartix.Accounts || {};
+Smartix.Accounts.registerOrLoginWithGoogle  = function(){
         Meteor.loginWithGoogle(
         {
             forceApprovalPrompt: true,
