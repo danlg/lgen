@@ -16,8 +16,8 @@ All fields from `smartix:groups`
 
 Plus these additional fields:
 
-* `url` *String* - An unique name of the newsgroup that'll be used to construct the URL. Must contain only alphanumeric characters and/or hyphens (`-`).
-* `admin` *[String]* - An array of the `id`s of admin user(s) for this group. Must contain at least one admin.
+* `url` *String* - An unique name of the newsgroup that'll be used to construct the URL. Must contain only alphanumeric characters and/or hyphens (`-`), and must be at least 3 characters long.
+* `admins` *[String]* - An array of the `id`s of admin user(s) for this group. Must contain at least one admin.
 * `comments` *Boolean* - Whether comments are allowed for this group. Defaults to `false`
 
 ## Functional Requirements
@@ -66,7 +66,7 @@ Create a new newsgroup.
 * Checks that the currently-logged in user has administrative priviledges for the namespace it specified (i.e. either the admin for the school, or the system admin). Throw an appropriate error if not.
 * Checks the `url` is unique for this namespace
 * Add the `type` property and set it to `newsgroup`
-* Add the `admin` property and assign to it a single-member array, where the only element is the `id` of the currently-logged in user
+* Add the `admins` property and assign to it a single-member array, where the only element is the `id` of the currently-logged in user
 * Add the `comments` property and set it to `false`
 * Passes the modified group object to `Smartix.Groups.createGroup()`, which is provided by the `smartix:groups` package.
 
@@ -84,7 +84,7 @@ Edit an existing newsgroup.
 * Checks the arguments are of the specified type, convert it if not
 * Checks that the currently-logged in user has administrative priviledges for the namespace of the existing newsgroup (i.e. either the admin for the school, or the system admin). Throw an appropriate error if not.
 * If the `options` contains a `url` property, checks the `url` is still unique for this namespace
-* If the `options` contains the `admin` property:
+* If the `options` contains the `admins` property:
   * Ensure the array is not empty
   * loop through the array to ensure the `id`(s) point to valid user objects, and that at least one school admin remains in the array
 * Remove the `namespace` and `type` properties from `options`, if they exists
