@@ -21,9 +21,9 @@ In addition to the schema defined in `smartix:messages`, messages of type `artic
 
 ## Server-Side Functions
 
-### Add Valid type to `Messages.ValidTypes` array
+### Add Valid type to `Smartix.Messages.ValidTypes` array
 
-Add `type` to `Messages.ValidTypes` array (from `smartix:messages` package) on initialization
+Add `type` to `Smartix.Messages.ValidTypes` array (from `smartix:messages` package) on initialization
 
 ## Server-side Methods
 
