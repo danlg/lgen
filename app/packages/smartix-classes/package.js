@@ -16,6 +16,7 @@ Package.onUse(function(api) {
      api.use('templating', 'client');
      api.use('fourseven:scss@2.0.0','client');    
      api.use('smartix:core');
+     api.use('smartix:accounts-schools');
      
      api.addFiles('classes.js'); 
      api.addFiles('publications.js','server');
