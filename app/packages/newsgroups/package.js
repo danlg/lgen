@@ -9,6 +9,9 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
   api.use('ecmascript');
+  api.use('smartix:accounts@0.0.1');
+  api.use('smartix:accounts-schools@0.0.1');
+  api.use('smartix:groups@0.0.1');
   api.addFiles('newsgroups.js');
 });
 
