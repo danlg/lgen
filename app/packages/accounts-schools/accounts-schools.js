@@ -7,7 +7,7 @@ Smartix.Accounts.isUserSchoolAdmin = function(namespace,user){
     return Roles.userIsInRole(userToBeChecked,'admin',namespace);
 }
 
-Smartix.accounts.isUserSchoolAdminForGroup = function(id){
+Smartix.Accounts.isUserSchoolAdminForGroup = function(id){
 
 	// Checks that `id` is of type String
 	check(id, String);
@@ -23,7 +23,7 @@ Smartix.accounts.isUserSchoolAdminForGroup = function(id){
 	}
 
 	// If the user is not an admin of the school, return `false`
-	if(!Smartix.accounts.isUserSchoolAdmin(existingGroup.namespace)) {
+	if(!Smartix.Accounts.isUserSchoolAdmin(existingGroup.namespace)) {
 		return false;
 	}
 

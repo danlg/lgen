@@ -62,7 +62,7 @@ Smartix.Newsgroup.createNewsgroup = function (users, namespace, name, url) {
 	// administrative priviledges for the namespace it specified
 	// (i.e. either the admin for the school, or the system admin)
 
-	if(!Smartix.accounts.isUserSchoolAdmin(namespace)) {
+	if(!Smartix.Accounts.isUserSchoolAdmin(namespace)) {
 		return false;
 		// Optional: Throw an appropriate error if not
 	}
@@ -111,7 +111,7 @@ Smartix.Newsgroup.editNewsgroup = function (id, options) {
 	// administrative priviledges for the namespace it specified
 	// (i.e. either the admin for the school, or the system admin)
 
-	if(!Smartix.accounts.isUserSchoolAdmin(namespace)) {
+	if(!Smartix.Accounts.isUserSchoolAdmin(namespace)) {
 		return false;
 		// Optional: Throw an appropriate error if not
 	}
@@ -191,7 +191,7 @@ Smartix.Newsgroup.deleteNewsgroup = function (id) {
 	// Checks that the currently-logged in user has
 	// administrative priviledges for the namespace it specified
 	// (i.e. either the admin for the school, or the system admin)
-	Smartix.accounts.isUserSchoolAdminForGroup(id);
+	Smartix.Accounts.isUserSchoolAdminForGroup(id);
 
 	// Remove the newsgroup specified
 	Smartix.Groups.deleteGroup(id);
@@ -208,7 +208,7 @@ Smartix.Newsgroup.addUsersToGroup = function (id, users) {
 	// Checks that the currently-logged in user has
 	// administrative priviledges for the namespace it specified
 	// (i.e. either the admin for the school, or the system admin)
-	Smartix.accounts.isUserSchoolAdminForGroup(id);
+	Smartix.Accounts.isUserSchoolAdminForGroup(id);
 
 	// Add users to group
 	Smartix.Groups.addUsersToGroup(id, users);
@@ -225,7 +225,7 @@ Smartix.Newsgroup.removeUsersToGroup = function (id, users) {
 	// Checks that the currently-logged in user has
 	// administrative priviledges for the namespace it specified
 	// (i.e. either the admin for the school, or the system admin)
-	Smartix.accounts.isUserSchoolAdminForGroup(id);
+	Smartix.Accounts.isUserSchoolAdminForGroup(id);
 
 	// Add users to group
 	Smartix.Groups.removeUsersFromGroup(id, users);
