@@ -6,7 +6,7 @@ if(Meteor.isServer){
                 return;
             }
             
-            if(!lodash.includes(SCHOOL_ROLES,options.role)){
+            if(!lodash.includes(Smartix.Accounts.ValidSchoolRoles, options.role)){
                 console.log(NOT_VALID_ROLE);
                 return;
             }
