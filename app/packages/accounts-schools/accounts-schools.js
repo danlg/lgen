@@ -7,6 +7,12 @@ Smartix.Accounts.isUserSchoolAdmin = function(namespace,user){
     return Roles.userIsInRole(userToBeChecked,'admin',namespace);
 }
 
+Smartix.Accounts.isUserSchoolTeacherOrAdmin = function(namespace,user){
+    
+    var userToBeChecked = user || Meteor.userId();
+    return Roles.userIsInRole(userToBeChecked,['admin', 'teacher'],namespace);
+}
+
 Smartix.Accounts.isUserSchoolAdminForGroup = function(id){
 
 	// Checks that `id` is of type String
@@ -28,4 +34,8 @@ Smartix.Accounts.isUserSchoolAdminForGroup = function(id){
 	}
 
 	return true;
+}
+Smartix.Accounts.isUserSchoolMember = function(user, school) {
+    var userToBeChecked = user || Meteor.userId();
+    return Roles.userIsInRole(userToBeChecked, Smartix.Accounts.ValidSchoolRoles, school);
 }
