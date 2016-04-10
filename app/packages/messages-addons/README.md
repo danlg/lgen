@@ -11,7 +11,7 @@ Manages add-ons.
 
 ## Server-side Functions
 
-All functions are to be exported under `Messages.addOns`.
+All functions are to be exported under `Smartix.Messages.Addons`.
 
 ### `canUserAttachAddon()`
 
@@ -20,7 +20,7 @@ Checks whether the currently-logged in user can attach an add-on of a specified 
 #### Arguments
 
 * `message` *String* - the `id` of the message
-* `types` *[String]* - an array with the type(s) of add-on to attach. Each element must be a valid type found in the `Messages.addOns.validTypes` array
+* `types` *[String]* - an array with the type(s) of add-on to attach. Each element must be a valid type found in the `Smartix.Messages.Addons.ValidTypes` array
 
 #### Implementation
 
@@ -36,7 +36,7 @@ Attach an empty add-on of the defined type to a message.
 #### Arguments
 
 * `message` *String* - the `id` of the message
-* `types` *[String]* - an array with the type(s) of add-on to attach. Each element must be a valid type found in the `Messages.addOns.validTypes` array
+* `types` *[String]* - an array with the type(s) of add-on to attach. Each element must be a valid type found in the `Smartix.Messages.Addons.ValidTypes` array
 
 #### Implementation
 
@@ -50,7 +50,7 @@ Detach addon(s) from the message
 #### Arguments
 
 * `message` *String* - the `id` of the message
-* `types` *String* - an array with the type(s) of add-on to detach. Each element must be a valid type found in the `Messages.addOns.validTypes` array
+* `types` *String* - an array with the type(s) of add-on to detach. Each element must be a valid type found in the `Smartix.Messages.Addons.ValidTypes` array
 
 #### Implementation
 
@@ -71,6 +71,6 @@ Same as `detachAddon()` above.
 
 ## Other Exports
 
-### `Messages.addOns.validTypes`
+### `Smartix.Messages.Addons.ValidTypes`
 
 An array of all the valid message add-on types. Each package that adds a new add-on type should add their type to this array.
