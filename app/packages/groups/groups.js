@@ -1,24 +1,3 @@
-var removeNonExistentUsers = function (users) {
-	// Checks `users` is an array of Strings
-	check(users, [String]);
-
-	// Checks if all the users exists
-	if (users.length === Meteor.users.find({
-		_id: {
-			$in: users
-		}
-	}).count()) {
-		// If all users exists, return the `users` as-is
-		return users;
-	} else {
-		// if not all users exists, filter the `users` array
-		// to include only existing users
-		return _.filter(users, function (userId, i, array) {
-			return Meteor.users.findOne({_id: userId});
-		}
-	}
-}
-
 Smartix = Smartix || {};
 
 Smartix.Groups = Smartix.Groups || {};
@@ -109,7 +88,7 @@ Smartix.Groups.addUsersToGroup = function (id, users) {
 	check(users, [String]);
 
 	// Remove non-existent users from array
-	users = removeNonExistentUsers(users);
+	users = Smartix.Accounts.removeNonExistentUsers(users);
 
 	// Push (using `$addToSet`) the new users to the existing `users` array
 	Smartix.Groups.Collection.update({
