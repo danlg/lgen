@@ -1,4 +1,4 @@
-#1.2 (target end of dev 19-April => release: 6-April)
+#1.2 (target end of dev 19-April => release: 6-May)
 Premium features:
 - Absence management (parent notice to warn that child will be absent and integration with 3rd party provider to reconcile)
 - School management
