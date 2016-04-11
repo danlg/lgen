@@ -44,11 +44,14 @@ if (Meteor.isServer) {
       theemail = user._id;
     }
     //we want to track when and who has signed up so we can send a welcome email
-    analytics.track("Sign Up", {
-      date: new Date(),
-      email: theemail,
-      verified: verified
-    });
+
+    if ( user.username !== "admin") {
+      analytics.track("Sign Up", {
+        date: new Date(),
+        email: theemail,
+        verified: verified
+      });
+    } //else{console.log("not tracking admin user creation"+ user.username); }
     return user;
   });
 

@@ -1,17 +1,18 @@
 var createFirstSystemAdmin = function() {
     // Create first system admin user when initializing
     if (Roles.getUsersInRole('admin','system').count() ==0) {
-    
         var id;
         var initialPw = Random.id();
         id = Accounts.createUser({
             username: 'admin',
-            password: initialPw,
+            password: 'admin'
         });
+        //TODO prompt to change password the first time you logon
         Roles.addUsersToRoles(id, ['admin'], 'system');
-        console.log('system admin has been created: ', "admin" ," ",initialPw);
+        //warning not secure !! remove this logging code in prod
+        //console.log('system admin has been created: ', "admin" ," ",initialPw);
     }
-}
+};
 
 if (Meteor.isServer) {
     Meteor.methods({
@@ -28,7 +29,7 @@ if (Meteor.isServer) {
                 return;
             }
             Roles.removeUsersToRoles(users,'admin','system');                       
-        }, 
+        }
     });
 }
 
@@ -42,7 +43,6 @@ Smartix = Smartix || {};
 Smartix.Accounts = Smartix.Accounts || {};
 
 Smartix.Accounts.isUserSystemAdmin = function(user){
-    
     var userToBeChecked = user || Meteor.userId();
     return Roles.userIsInRole(userToBeChecked,'admin','system');
-}
+};

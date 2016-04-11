@@ -20,6 +20,7 @@ Package.onUse(function(api) {
   api.use('stevezhu:lodash@4.6.1');
   api.use('smartix:core'); 
   api.use('smartix:accounts-usernames');
+  api.use('okgrow:analytics@1.0.5');
   api.addFiles('accounts-global.js');
   api.addFiles('publications.js','server');
   api.export('Smartix');
