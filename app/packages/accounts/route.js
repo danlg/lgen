@@ -13,6 +13,19 @@ Router.onBeforeAction(SchoolRequired, {
    'TermsOfService','PrivacyPolicy','TourFromHomePage','Perf','LoginSplash']
 });
 
+CheckDob = function(){
+    var dob = lodash.get(Meteor.user(), "profile.dob") || "";
+    var role = lodash.get(Meteor.user(), "profile.role") || "";
+    if ( dob === "" && ( lodash.includes( Roles.getRolesForUser( Meteor.userId() ) , 'student' ) ) ){
+      Router.go('Dob');
+    }
+    this.next();    
+}
+
+Router.onBeforeAction(CheckDob, {
+  only: ['TabClasses','classDetail']
+});
+
 Router.route('/email-reset-password', {
   name: "EmailResetPwd"
 });

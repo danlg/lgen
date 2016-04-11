@@ -145,8 +145,12 @@ Template.ionNavBar.events({
     //invite user to download the app if they are using web version
     if (!Meteor.isCordova) {
         
-        if (Meteor.user().profile.role === "Teacher") {
-            log.info("redirect to app promote for teacher");
+        
+        if (Roles.userIsInRole(Meteor.userId(),'teacher') ||
+            Roles.userIsInRole(Meteor.userId(),'parent') ||
+            Roles.userIsInRole(Meteor.userId(),'user')
+           ) {
+            log.info("redirect to how to invite");
             Router.go('HowToInvite');
         } else {
             //todo congratulate
@@ -165,8 +169,12 @@ Template.ionNavBar.events({
     Session.set('registerFlow',false);
     //invite user to download the app if they are using web version
     if (!Meteor.isCordova) {
-        if (Meteor.user().profile.role === "Teacher") {
-            log.info("redirect to app promote for teacher");
+   
+        if (Roles.userIsInRole(Meteor.userId(),'teacher') ||
+            Roles.userIsInRole(Meteor.userId(),'parent') ||
+            Roles.userIsInRole(Meteor.userId(),'user')
+           ) {
+            log.info("redirect to how to invite");
             Router.go('HowToInvite');
         } else {
             //todo congratulate
@@ -176,6 +184,6 @@ Template.ionNavBar.events({
     }
     else {
         Smartix.helpers.routeToTabClasses();
-    }    
+    }   
   }  
 });

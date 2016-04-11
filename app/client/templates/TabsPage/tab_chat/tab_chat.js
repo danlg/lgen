@@ -17,8 +17,25 @@ Template.TabChat.events({
 /* TabChat: Helpers */
 /*****************************************************************************/
 Template.TabChat.helpers({
-  IAMTeacher: function (argument) {
-    return Meteor.user().profile.role === "Teacher";
+  'displayChatOption': function () {
+    var currentSchoolId =  Session.get('pickedSchoolId') ;
+    
+    //global only have single role => user , so create class is always available
+    if(!currentSchoolId || currentSchoolId == 'global'){
+        return true;
+    } else {
+        //In a school context, only teacher or parent can create class
+        if( lodash.includes( Roles.getRolesForUser( Meteor.userId(), currentSchoolId ) , 'teacher' ) || 
+            lodash.includes( Roles.getRolesForUser( Meteor.userId(), currentSchoolId ) , 'parent' ) 
+          ){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+
+    
   },
   'getAllMyChatRooms': function () {
     var allchats = Chat.find({},{sort:{"messagesObj.sendAt":-1}});

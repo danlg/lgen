@@ -173,14 +173,6 @@ var OnBeforeActions = {
     }
     this.next();
   },
-  checkDob: function (pause) {
-    var dob = lodash.get(Meteor.user(), "profile.dob") || "";
-    var role = lodash.get(Meteor.user(), "profile.role") || "";
-    if (dob === "" && role === "Student") {
-      Router.go('Dob');
-    }
-    this.next();
-  },
   hasUserSeenAppTour:function(){
     //if login user has seen app tour before, we will redirect the user directly to class page
     //this checking should only be enabled if user access the page from root path '/'
@@ -230,9 +222,6 @@ Router.onBeforeAction(OnBeforeActions.hasUserSeenAppTour, {only: ['TourFromHomeP
 
 Router.onBeforeAction('loading');
 Router.onRun(OnBeforeActions.checkLanguage);
-Router.onBeforeAction(OnBeforeActions.checkDob, {
-  only: ['TabClasses','classDetail']
-});
 
 Router.route('/role', {
   name: "role"
