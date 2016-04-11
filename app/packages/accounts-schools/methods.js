@@ -50,11 +50,13 @@ if(Meteor.isServer){
             Roles.setUserRoles(users,roles,school);  
         },     
         'smartix:accounts-schools/approveSchool':function(schoolId){
-            Meteor.users.update(Meteor.userId(),{ $addToSet: { schools: schoolId } });            
+            var updateCount = Meteor.users.update(Meteor.userId(),{ $addToSet: { schools: schoolId } });
+            return updateCount;    
         }, 
         'smartix:accounts-schools/revokeSchool':function(schoolId){
             
-            Meteor.users.update(Meteor.userId(),{ $pull: { schools: schoolId } });                           
+            var updateCount = Meteor.users.update(Meteor.userId(),{ $pull: { schools: schoolId } });
+            return updateCount;                              
         },                                               
     });
 }
