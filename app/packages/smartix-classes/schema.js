@@ -2,6 +2,8 @@ Smartix = Smartix || {};
 
 Smartix.Class = Smartix.Class || {};
 
+Smartix.Class.AutoformSchema = Smartix.Class.AutoformSchema || {};
+
 Smartix.Class.AutoformSchema.joinClass = new SimpleSchema({
   classCode: {
     type: String
