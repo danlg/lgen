@@ -3,12 +3,13 @@ var createFirstSystemAdmin = function() {
     if (Roles.getUsersInRole('admin','system').count() ==0) {
     
         var id;
+        var initialPw = Random.id();
         id = Accounts.createUser({
             username: 'admin',
-            password: "admin",
+            password: initialPw,
         });
         Roles.addUsersToRoles(id, ['admin'], 'system');
-        console.log('system admin has been created: ',id);
+        console.log('system admin has been created: ', "admin" ," ",initialPw);
     }
 }
 

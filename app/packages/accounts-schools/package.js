@@ -12,6 +12,7 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
+  api.use('random');  
   api.use('ecmascript');
   api.use('alanning:roles');  
   api.use('smartix:core');
