@@ -31,6 +31,19 @@ Smartix.Accounts.removeNonExistentUsers = function (users) {
 
 if(Meteor.isServer){
     Meteor.methods({
+        'smartix:accounts/getUserInfo':function(id,namespace){
+           var targetUser = Meteor.users.findOne(id);
+           
+            if(
+              targetUser._id == Meteor.userId() || 
+              Roles.userIsInRole(Meteor.userId(),'admin','system') ||
+              (Roles.userIsInRole(Meteor.userId(),'admin',namespace) && lodash.includes(Roles.getGroupsForUser(id),namespace))
+             ){
+              
+              return targetUser;
+               
+            }            
+        },
         'smartix:accounts/deleteUser':function(id){
            var targetUser = Meteor.users.findOne(id);
            
@@ -43,8 +56,8 @@ if(Meteor.isServer){
               //Roles.removeUsersFromRoles(user,['user'],'global')
               
               //Soft-delete user should not be done in school-level
-               Meteor.users.update({_id: user},  {$set: {deleted : true,deletedAt: (new Date()).getTime()}}  );
-               
+               var updateCount = Meteor.users.update({_id: user},  {$set: {deleted : true,deletedAt: (new Date()).getTime()}}  );
+               return updateCount;
             }
                       
         },
@@ -56,7 +69,7 @@ if(Meteor.isServer){
            
            if(Meteor.userId() == id ||
               Roles.userIsInRole(Meteor.userId(),'admin','system') ||
-              Roles.userIsInRole(Meteor.userId(),'admin',namespace)
+              (Roles.userIsInRole(Meteor.userId(),'admin',namespace) && lodash.includes(Roles.getGroupsForUser(id),namespace))
              )
            {
               //if it is normal user, cannot change self's role 

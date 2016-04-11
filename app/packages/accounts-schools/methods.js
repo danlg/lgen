@@ -3,29 +3,44 @@ if(Meteor.isServer){
         'smartix:accounts-schools/createSchoolUser':function(school,options){
             if(!Smartix.Accounts.isUserSchoolAdmin(school) && !Smartix.Accounts.isUserSystemAdmin()){
                 console.log(NOT_AUTH);
-                return;
+                throw new Meteor.Error("not-auth", NOT_AUTH);
+
             }
             
             if(!lodash.includes(Smartix.Accounts.ValidSchoolRoles, options.role)){
                 console.log(NOT_VALID_ROLE);
-                return;
+                throw new Meteor.Error("not-valid-role", NOT_VALID_ROLE);
             }
             
             if(options.email){
                 var existUser = Meteor.users.findOne({'emails.0.address':options.email})
                 if(existUser){
                     //console.log(TRY_ADD_ROLE_TO_EXISTING_USR)
-                    Roles.addUsersToRoles(existUser,options.role,school);     
+                    Roles.addUsersToRoles(existUser,options.role,school);
+                    return existUser;     
                 }else{
+                    var initPw = Random.id(6)
                     var id =  Accounts.createUser({
                         email: options.email,
-                        password: options.password,
+                        password: options.password || initPw,
                         profile: options.profile,
                         username: Smartix.Accounts.helpers.generateUniqueUserName(options.profile.firstname,options.profile.lastname)
-                    });
-                    
-                    Roles.addUsersToRoles(id,options.role,school);    
+                    }); 
+                    Roles.addUsersToRoles(id,options.role,school);
+                    Meteor.users.update(id,{ $addToSet: { schools: school } });
+                    return {userObj:Meteor.users.findOne(id),initialPassword: options.password || initPw};
+                                           
                 }
+            }else{
+                    var initPw = Random.id(6);
+                    var id =  Accounts.createUser({
+                        password: options.password || initPw,
+                        profile: options.profile,
+                        username: Smartix.Accounts.helpers.generateUniqueUserName(options.profile.firstname,options.profile.lastname)
+                    }); 
+                    Roles.addUsersToRoles(id,options.role,school);
+                    Meteor.users.update(id,{ $addToSet: { schools: school } });  
+                    return {userObj:Meteor.users.findOne(id),initialPassword: options.password || initPw};                                        
             }
             
         },
@@ -50,11 +65,13 @@ if(Meteor.isServer){
             Roles.setUserRoles(users,roles,school);  
         },     
         'smartix:accounts-schools/approveSchool':function(schoolId){
-            Meteor.users.update(Meteor.userId(),{ $addToSet: { schools: schoolId } });            
+            var updateCount = Meteor.users.update(Meteor.userId(),{ $addToSet: { schools: schoolId } });
+            return updateCount;    
         }, 
         'smartix:accounts-schools/revokeSchool':function(schoolId){
             
-            Meteor.users.update(Meteor.userId(),{ $pull: { schools: schoolId } });                           
+            var updateCount = Meteor.users.update(Meteor.userId(),{ $pull: { schools: schoolId } });
+            return updateCount;                              
         },                                               
     });
 }

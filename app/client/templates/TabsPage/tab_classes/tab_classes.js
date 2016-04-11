@@ -33,10 +33,21 @@ Template.TabClasses.helpers({
   },
 
   canCreateClass: function () {
-    if (
-        Meteor.user().profile.role === "Teacher"
-        || Meteor.user().profile.role === "Parent"){
-     return true;
+     
+    var currentSchoolId =  Session.get('pickedSchoolId') ;
+    
+    //global only have single role => user , so chat option is always available
+    if(!currentSchoolId || currentSchoolId == 'global'){
+        return true;
+    } else {
+        //In a school context, only teacher or parent can have chat option
+        if( lodash.includes( Roles.getRolesForUser( Meteor.userId(), currentSchoolId ) , 'teacher' ) || 
+            lodash.includes( Roles.getRolesForUser( Meteor.userId(), currentSchoolId ) , 'parent' ) 
+          ){
+            return true;
+        } else {
+            return false;
+        }
     }
   },
 

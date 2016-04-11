@@ -39,7 +39,9 @@ Accounts.onCreateUser(function (options, user) {
   else {
     // we wait for Meteor to create the user before sending an email
     Meteor.setTimeout(function () {
-      Accounts.sendVerificationEmail(user._id);
+      if(user.emails){
+        Accounts.sendVerificationEmail(user._id);          
+      }
     }, 2 * 1000);
   }
   return user;
@@ -58,6 +60,8 @@ Accounts.onCreateUser(function (options, user) {
             });
             
             Roles.addUsersToRoles(id,['user'],'global');
+            
+            return id;
           
        },
        'smartix:accounts-global/updateGlobalUser':function(user,options){
@@ -79,8 +83,9 @@ Accounts.onCreateUser(function (options, user) {
               //`lodash.merge` would do a recursive operations to update the fields passed from `options`.
               var ModifiedDoc = lodash.merge(Meteor.users.findOne(user), options);              
               //console.log(ModifiedDoc);
-              Meteor.users.update({_id: user},  ModifiedDoc  );
-       
+              var updateCount = Meteor.users.update({_id: user},  ModifiedDoc  );
+              
+              return updateCount;
            }           
        },         
        'smartix:accounts-global/deleteGlobalUser':function(user){

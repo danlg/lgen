@@ -1,9 +1,26 @@
 if(Meteor.isServer){
     
     Meteor.methods({
-       
+        'smartix:accounts-relationships/getRelationship':function(id){
+            var targetRelationship = Relationships.findOne(id);
+            if(!targetRelationship){
+                return;
+            }
+            
+            if (
+                Meteor.userId() == targetRelationship.parent || Meteor.userId() == targetRelationship.child ||
+                Roles.userIsInRole(Meteor.userId(), 'admin', 'system') ||
+                Roles.userIsInRole(Meteor.userId(), 'admin', targetRelationship.namespace) 
+            ) {
+                return targetRelationship;
+            }        
+        },       
        'smartix:accounts-relationships/createRelationship':function(options){
-         
+           if(options){
+               
+           }else{
+                  throw new Meteor.Error("require-options", "pass an object with parent,child,namespace,type,name to createRelationship");      
+           }
            if(
               Roles.userIsInRole(Meteor.userId(),'admin',options.namespace) ||
               Roles.userIsInRole(Meteor.userId(),'admin','system')
@@ -16,26 +33,28 @@ if(Meteor.isServer){
               //console.log(parentUserGroups);
               //console.log(childUserGroups);
               if(lodash.includes(parentUserGroups,options.namespace) == false){
+                  
                   console.log('userId:',options.parent,'does not belong to school:',options.namespace);
-                  return;
+                  throw new Meteor.Error("parent-not-belong-to-school", "Parent does not belong to school"+options.namespace);
               }
               
               if(lodash.includes(childUserGroups,options.namespace) == false){
                   console.log('userId:',options.child,'does not belong to school:',options.namespace);
-                  return;
+                  throw new Meteor.Error("child-not-belong-to-school", "Child does not belong to school"+options.namespace)
               }
               
-              /* uncomment when accounts-schools implemented
+             
               var parentApprovedSchools = Meteor.users.findOne(options.parent).schools;
               if(lodash.includes(parentApprovedSchools,options.namespace == false)){
-                  console.log('userId:',options.child,'does not approve to the school:',options.namespace);
-                  return;
+                  console.log('userId:',options.parent,'does not approve to the school:',options.namespace);
+                  throw new Meteor.Error("parent-not-approve-to-school", "Parent hasn't approved to school"+options.namespace)
+
               }  
               var childApprovedSchools = Meteor.users.findOne(options.child).schools;
               if(lodash.includes(childApprovedSchools,options.namespace == false)){
                   console.log('userId:',options.child,'does not approve to the school:',options.namespace);
-                  return;
-              }*/     
+                  throw new Meteor.Error("child-not-approve-to-school", "Child hasn't approved to school"+options.namespace)
+              }     
                        
               if (Relationships.findOne({
                   parent: options.parent,
@@ -43,7 +62,8 @@ if(Meteor.isServer){
                   namespace: options.namespace,
               })) {
                   console.log('there is already existing parent-child relationship bewteen this two persons');
-                  return;
+                  throw new Meteor.Error("existing-parent-child-relationship", "existing parent-child relationship bewteen this two persons");
+
               }
               
               
@@ -56,11 +76,10 @@ if(Meteor.isServer){
                   type: options.type,
                   name: options.name
               });  
-                
-                          
+                                    
            }else{
                console.log('caller is not authed');
-               return;
+               throw new Meteor.Error("caller-not-authed", "caller is not authed");
            }
          
        },
@@ -69,6 +88,12 @@ if(Meteor.isServer){
        },      
        'smartix:accounts-relationships/removeRelationship':function(id){
            
+           if(id){
+               
+           }else{
+             throw new Meteor.Error("required-relationship-id", "pass relationship object or relationship id to remove it");    
+           }
+              
            var targetRelationship = Relationships.findOne(id);
            if(
               Roles.userIsInRole(Meteor.userId(),'admin',targetRelationship.namespace) ||
@@ -77,6 +102,7 @@ if(Meteor.isServer){
               Relationships.remove(id);               
            }else{
                console.log('not authed to remove relationship');
+               throw new Meteor.Error("caller-not-authed", "caller is not authed");               
            }           
 
        },           

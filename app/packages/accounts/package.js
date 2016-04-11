@@ -30,7 +30,10 @@ Package.onUse(function(api) {
   api.use('smartix:accounts-usernames');
   //temporary comment out, as there is circular dependency
   api.use('smartix:schools',null,{unordered:true});
+  
   api.addFiles('accounts.js');
+  api.addFiles('Schema.js');
+  
   api.addFiles(['templates/login_splash/login.html',
       'templates/login_splash/login.css',
       'templates/login_splash/login.js',
@@ -59,7 +62,10 @@ Package.onUse(function(api) {
 
   api.addFiles(['templates/school_pick/school_pick.html',
       'templates/school_pick/school_pick.js'], 'client');
-                                         
+ 
+  api.addFiles(['templates/my_account/my_account.html',
+      'templates/my_account/my_account.js'], 'client');
+                                               
   api.addFiles('route.js');
 });
 

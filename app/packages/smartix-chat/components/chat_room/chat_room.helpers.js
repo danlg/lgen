@@ -196,7 +196,10 @@ Template.ChatRoom.helpers({
         target = Smartix.helpers.getAnotherUser();
     }
 
-    if (target.profile.role === "Teacher") {
+    if (Role.userIsInRole(target,'user',currentChat.namespace) ||
+        Role.userIsInRole(target,'teacher',currentChat.namespace) ||
+        Role.userIsInRole(target,'parent',currentChat.namespace)
+       ) {
       if (target.profile.chatSetting && target.profile.chatSetting.workHour) {
         
         
