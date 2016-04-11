@@ -22,12 +22,11 @@ Schema.profile = {
 };
 
 Accounts.onCreateUser(function (options, user) {
-  // analytics.track("Sign Up", {
-  //   date: new Date(),
-  // });
+
   user.profile = options.profile || {};
   user.profile = lodash.assign(Schema.profile, user.profile);
-
+  var theemail;
+  var verified = false;
   if (user.services.hasOwnProperty('google')) {
     user.emails = [];
     user.emails.push({
@@ -35,15 +34,24 @@ Accounts.onCreateUser(function (options, user) {
     });
     user.profile.firstname = user.services.google.given_name;
     user.profile.lastname = user.services.google.family_name;
+    theemail = user.services.google.email;
+    verified = true;
   }
   else {
     // we wait for Meteor to create the user before sending an email
     Meteor.setTimeout(function () {
       if(user.emails){
-        Accounts.sendVerificationEmail(user._id);          
+        Accounts.sendVerificationEmail(user._id);
       }
     }, 2 * 1000);
+    theemail= user._id;
   }
+  //we want to track when and who has signed up so we can send a welcome email
+  analytics.track("Sign Up", {
+    date: new Date(),
+    email: theemail,
+    verified: verified
+  });
   return user;
 });
 
