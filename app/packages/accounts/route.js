@@ -37,3 +37,7 @@ Router.route('/splash',{
 })
 
 Router.route('SchoolPick');
+
+Router.route('/myaccount',{
+    name:"MyAccount"
+});

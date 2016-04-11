@@ -259,10 +259,6 @@ Router.route('TabYou', {
   path: "you"
 });
 
-Router.route('MyAccount',{
-  path:"myaccount"
-});
-
 
 
 Router.route('Notification', {
