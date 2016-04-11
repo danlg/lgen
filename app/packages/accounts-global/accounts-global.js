@@ -58,6 +58,8 @@ Accounts.onCreateUser(function (options, user) {
             });
             
             Roles.addUsersToRoles(id,['user'],'global');
+            
+            return id;
           
        },
        'smartix:accounts-global/updateGlobalUser':function(user,options){
@@ -79,8 +81,9 @@ Accounts.onCreateUser(function (options, user) {
               //`lodash.merge` would do a recursive operations to update the fields passed from `options`.
               var ModifiedDoc = lodash.merge(Meteor.users.findOne(user), options);              
               //console.log(ModifiedDoc);
-              Meteor.users.update({_id: user},  ModifiedDoc  );
-       
+              var updateCount = Meteor.users.update({_id: user},  ModifiedDoc  );
+              
+              return updateCount;
            }           
        },         
        'smartix:accounts-global/deleteGlobalUser':function(user){
