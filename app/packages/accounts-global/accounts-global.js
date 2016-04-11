@@ -1,145 +1,145 @@
-if(Meteor.isServer){
+if (Meteor.isServer) {
 
+  Schema = Schema || {};
+  Schema.profile = {
+    firstname: "",
+    lastname: "",
+    dob: "",
+    city: "",
+    lang: "",
+    tel: "",
+    email: false, //default as false so user needs to opt it to receive email message notificaiton
+    push: true,
+    firstchat: true,
+    firstinvitation: true,
+    firstpicture: true,
+    firstclassjoined: true,
+    hybridapppromote: false,
+    hasUserSeenTour: false,
+    referral: 0
+  };
 
-   
-Schema = Schema || {};
-Schema.profile = {
-  firstname: "",
-  lastname: "",
-  dob: "",
-  city: "",
-  lang: "",
-  tel:"",
-  email: false, //default as false so user needs to opt it to receive email message notificaiton
-  push: true,
-  firstchat: true,
-  firstinvitation: true,
-  firstpicture: true,
-  firstclassjoined: true,
-  hybridapppromote:false,
-  hasUserSeenTour:false,
-  referral: 0
-};
+  Accounts.onCreateUser(function (options, user) {
+    user.profile = options.profile || {};
+    user.profile = lodash.assign(Schema.profile, user.profile);
+    var theemail;
+    var verified = false;
+    if (user.services.hasOwnProperty('google')) {
+      user.emails = [];
+      user.emails.push({
+        address: user.services.google.email
+      });
+      user.profile.firstname = user.services.google.given_name;
+      user.profile.lastname = user.services.google.family_name;
+      theemail = user.services.google.email;
+      verified = true;
+    }
+    else {
+      // we wait for Meteor to create the user before sending an email
+      Meteor.setTimeout(function () {
+        if (user.emails) {
+          Accounts.sendVerificationEmail(user._id);
+        }
+      }, 2 * 1000);
+      theemail = user._id;
+    }
+    //we want to track when and who has signed up so we can send a welcome email
 
-Accounts.onCreateUser(function (options, user) {
-  // analytics.track("Sign Up", {
-  //   date: new Date(),
-  // });
-  user.profile = options.profile || {};
-  user.profile = lodash.assign(Schema.profile, user.profile);
+    if ( user.username !== "admin") {
+      analytics.track("Sign Up", {
+        date: new Date(),
+        email: theemail,
+        verified: verified
+      });
+    } //else{console.log("not tracking admin user creation"+ user.username); }
+    return user;
+  });
 
-  if (user.services.hasOwnProperty('google')) {
-    user.emails = [];
-    user.emails.push({
-      address: user.services.google.email
-    });
-    user.profile.firstname = user.services.google.given_name;
-    user.profile.lastname = user.services.google.family_name;
-  }
-  else {
-    // we wait for Meteor to create the user before sending an email
-    Meteor.setTimeout(function () {
-      if(user.emails){
-        Accounts.sendVerificationEmail(user._id);          
+  Meteor.methods({
+
+    'smartix:accounts-global/createGlobalUser': function (options) {
+      var id = Accounts.createUser({
+        email: options.email,
+        password: options.password,
+        profile: options.profile,
+        username: Smartix.Accounts.helpers.generateUniqueUserName(options.profile.firstname, options.profile.lastname)
+      });
+      Roles.addUsersToRoles(id, ['user'], 'global');
+      return id;
+    },
+
+    'smartix:accounts-global/updateGlobalUser': function (user, options) {
+      //var updateOptions = {};
+      //updateOptions.firstName = options.firstName;
+
+      if (Meteor.userId() == user ||
+        Roles.userIsInRole(Meteor.userId(), 'admin', 'system') ||
+        Roles.userIsInRole(Meteor.userId(), 'admin', 'global')
+      ) {
+        //if it is normal user, cannot change self's role
+        if (!Roles.userIsInRole(Meteor.userId(), 'admin', 'system') && !Roles.userIsInRole(Meteor.userId(), 'admin', 'global')) {
+          delete options.roles;
+        }
+        //console.log(options.doc);
+
+        //`lodash.merge` would do a recursive operations to update the fields passed from `options`.
+        var ModifiedDoc = lodash.merge(Meteor.users.findOne(user), options);
+        //console.log(ModifiedDoc);
+        return Meteor.users.update({_id: user}, ModifiedDoc);
       }
-    }, 2 * 1000);
-  }
-  return user;
-});
+    },
 
+    'smartix:accounts-global/deleteGlobalUser': function (user) {
+      if (Meteor.userId() == user ||
+        Roles.userIsInRole(Meteor.userId(), 'admin', 'system') ||
+        Roles.userIsInRole(Meteor.userId(), 'admin', 'global')
+      ) {
 
-    Meteor.methods({
-       'smartix:accounts-global/createGlobalUser':function(options){
-           
-           
-            var id =  Accounts.createUser({
-                email: options.email,
-                password: options.password,
-                profile: options.profile,
-                username: Smartix.Accounts.helpers.generateUniqueUserName(options.profile.firstname,options.profile.lastname)
-            });
-            
-            Roles.addUsersToRoles(id,['user'],'global');
-            
-            return id;
-          
-       },
-       'smartix:accounts-global/updateGlobalUser':function(user,options){
-           
-           //var updateOptions = {};
-           //updateOptions.firstName = options.firstName;
-           
-           if(Meteor.userId() == user ||
-              Roles.userIsInRole(Meteor.userId(),'admin','system') ||
-              Roles.userIsInRole(Meteor.userId(),'admin','global')
-             )
-           {
-              //if it is normal user, cannot change self's role 
-              if(!Roles.userIsInRole(Meteor.userId(),'admin','system') && !Roles.userIsInRole(Meteor.userId(),'admin','global')){
-                 delete options.roles;
-              }
-              //console.log(options.doc);
-              
-              //`lodash.merge` would do a recursive operations to update the fields passed from `options`.
-              var ModifiedDoc = lodash.merge(Meteor.users.findOne(user), options);              
-              //console.log(ModifiedDoc);
-              var updateCount = Meteor.users.update({_id: user},  ModifiedDoc  );
-              
-              return updateCount;
-           }           
-       },         
-       'smartix:accounts-global/deleteGlobalUser':function(user){
-           if(Meteor.userId() == user ||
-              Roles.userIsInRole(Meteor.userId(),'admin','system') ||
-              Roles.userIsInRole(Meteor.userId(),'admin','global')
-             ){
-              
-              //Perform `update` operation using `alanning:roles`,
-              //removing the appropriate object from the `roles` array
-              Roles.removeUsersFromRoles(user,['user'],'global')
-              
-              //Soft-delete user should not be done in school-level
-              // Meteor.users.update({_id: user},  {$set: {deleted : true}}  );
-               
-            }
-       },        
-    });
+        //Perform `update` operation using `alanning:roles`,
+        //removing the appropriate object from the `roles` array
+        Roles.removeUsersFromRoles(user, ['user'], 'global');
+
+        //Soft-delete user should not be done in school-level
+        // Meteor.users.update({_id: user},  {$set: {deleted : true}}  );
+      }
+    }
+  });
 }
 
+//client and server ?
 //console.log('ac-global','is Smartix exist?',Smartix || {});
 Smartix = Smartix || {};
 Smartix.Accounts = Smartix.Accounts || {};
-Smartix.Accounts.registerOrLoginWithGoogle  = function(){
-        Meteor.loginWithGoogle(
-        {
-            forceApprovalPrompt: true,
-            requestPermissions: ['email'],
-            loginStyle: 'popup',
-            requestOfflineToken: true
+Smartix.Accounts.registerOrLoginWithGoogle = function () {
+  Meteor.loginWithGoogle(
+    {
+      forceApprovalPrompt: true,
+      requestPermissions: ['email'],
+      loginStyle: 'popup',
+      requestOfflineToken: true
+    }
+    , function (err) { // <-- the callback would NOT be called. It only works if loginStyle is popup
+      //see https://github.com/meteor/meteor/blob/devel/packages/accounts-oauth/oauth_client.js Line 16
+      var loginServicesConfigured = Accounts.loginServicesConfigured();
+      console.log('loginServicesConfigured=' + loginServicesConfigured);
+      if (err) {
+        // set a session variable to display later if there is a login error
+        Session.set('loginError', 'reason: ' + err.reason + ' message: ' + err.message || 'Unknown error');
+        //alert(err.message + ":" + err.reason);
+        toastr.error('Sorry. Google Login is not available at the moment because it is unable to connect to the Internet.')
+        console.log('login:google:' + err.reason + " msg=" + err.message);
+      }
+      else {
+        console.log("login:google:" + Meteor.userId());
+        if (Meteor.user().profile.role !== "") {
+          console.log("user has role");
+          Smartix.helpers.routeToTabClasses();
         }
-        ,function (err) { // <-- the callback would NOT be called. It only works if loginStyle is popup
-                            //see https://github.com/meteor/meteor/blob/devel/packages/accounts-oauth/oauth_client.js Line 16
-
-            var loginServicesConfigured = Accounts.loginServicesConfigured();
-            console.log('loginServicesConfigured='+loginServicesConfigured);
-            if (err) {
-            // set a session variable to display later if there is a login error
-            Session.set('loginError', 'reason: ' + err.reason + ' message: ' + err.message || 'Unknown error');
-            //alert(err.message + ":" + err.reason);
-            toastr.error('Sorry. Google Login is not available at the moment because it is unable to connect to the Internet.')
-            console.log('login:google:'+ err.reason +" msg="+ err.message);
-            }
-            else {
-            console.log("login:google:" + Meteor.userId());
-            if (Meteor.user().profile.role !== ""){
-                console.log("user has role");
-                Smartix.helpers.routeToTabClasses();
-            }
-            else{
-                //first time user
-                console.log("user does not have role");
-                Router.go('role');
-            }
-            }
-        });   
-    };
+        else {
+          //first time user
+          console.log("user does not have role");
+          Router.go('role');
+        }
+      }
+    });
+};
