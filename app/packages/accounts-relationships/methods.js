@@ -43,17 +43,18 @@ if(Meteor.isServer){
                   throw new Meteor.Error("child-not-belong-to-school", "Child does not belong to school"+options.namespace)
               }
               
-              /* uncomment when accounts-schools implemented
+             
               var parentApprovedSchools = Meteor.users.findOne(options.parent).schools;
               if(lodash.includes(parentApprovedSchools,options.namespace == false)){
-                  console.log('userId:',options.child,'does not approve to the school:',options.namespace);
-                  return;
+                  console.log('userId:',options.parent,'does not approve to the school:',options.namespace);
+                  throw new Meteor.Error("parent-not-approve-to-school", "Parent hasn't approved to school"+options.namespace)
+
               }  
               var childApprovedSchools = Meteor.users.findOne(options.child).schools;
               if(lodash.includes(childApprovedSchools,options.namespace == false)){
                   console.log('userId:',options.child,'does not approve to the school:',options.namespace);
-                  return;
-              }*/     
+                  throw new Meteor.Error("child-not-approve-to-school", "Child hasn't approved to school"+options.namespace)
+              }     
                        
               if (Relationships.findOne({
                   parent: options.parent,
