@@ -13,21 +13,21 @@
           </label>
           <label class="item item-input">
             Start Date
-            <input id='start-date' type="date" value='' oninvalid="setCustomValidity('Start Date cannot be emptied')"
+            <input id='start-date' type="date" value='{{getTodayDate}}' oninvalid="setCustomValidity('Start Date cannot be emptied')"
             oninput="setCustomValidity('')" placeholder="Start Date" required>
           </label>
           <label class="item item-input">
             At&nbsp;&nbsp;
-            <input id='start-date-time' type="time" value='' oninvalid="setCustomValidity('Start Date Time cannot be emptied')"
+            <input id='start-date-time' type="time" value='{{getCurrentTime}}' oninvalid="setCustomValidity('Start Date Time cannot be emptied')"
             oninput="setCustomValidity('')" placeholder="Start Date Time" required>
           </label>        
           <label class="item item-input">
             End Date
-            <input id='end-date' type="date" value='' placeholder="End Date" >
+            <input id='end-date' type="date" value='{{getTodayDate}}' placeholder="End Date" >
           </label>
           <label class="item item-input">
             To&nbsp;&nbsp;
-            <input id='end-date-time' type="time" value='' placeholder="End Date Time" >
+            <input id='end-date-time' type="time" value='{{getCurrentTime}}' placeholder="End Date Time" >
           </label>          
           <!--<label class="item item-input">
             <input id='content' type="text" value='{{email}}' placeholder="Content">
