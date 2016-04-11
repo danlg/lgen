@@ -43,7 +43,7 @@
 
           <li class="item">  
            <a data-text='{{_ "AddClassChooseIconTooltip"}}' data-ion-tooltip="ionTooltip"><i class='icon ion-ios-help' ></i></a>                
-           {{> afFieldInput name="classavatar" style='display:none;' placeholder="green_apple" value=getClassAvatar }}
+           {{> afFieldInput name="classAvatar" style='display:none;' placeholder="green_apple" value=getClassAvatar }}
            <i id='pick-an-icon-btn' class="icon e1a-{{getClassAvatar}} e1a-4x emojicon"></i>
            
 
@@ -65,7 +65,7 @@
             <span class="description">{{_ "IWillOnlyMessagePeople13AndOlder"}}</span>
 
             <label class="toggle">
-              {{> afFieldInput name="higherThirteen" class="checked"  }}
+              {{> afFieldInput name="ageRestricted" class="checked"  }}
               <div class="track">
                 <div class="handle"></div>
               </div>

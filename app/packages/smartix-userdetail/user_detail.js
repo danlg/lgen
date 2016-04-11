@@ -18,7 +18,9 @@ Template.UserDetail.helpers({
   userPofile: function () {
     return Meteor.users.findOne({_id: Router.current().params._id});
   },
-  hisJoinedClasses: Classes.find(),
+  hisJoinedClasses: Smartix.Groups.Collection.find({
+      type: 'class'
+  }),
   userId: function (argument) {
     return Router.current().params._id;
   },
@@ -40,25 +42,28 @@ Template.UserDetail.helpers({
     var isHigherThan13 = now.diff(age, 'years') > 12;
 
 
-    var higherThirteenClass;
+    var ageRestrictedClass;
     if (Router.current().params.classCode) {
-      var classObj = Classes.findOne({classCode: Router.current().params.classCode});
-      higherThirteenClass = classObj.higherThirteen;
+      var classObj = Smartix.Groups.Collection.findOne({
+          type: 'class',
+          classCode: Router.current().params.classCode
+        });
+      ageRestrictedClass = classObj.ageRestricted;
     } else {
-      higherThirteenClass = true;
+      ageRestrictedClass = true;
     }
 
     if (isHigherThan13) {
       return true;
     }
 
-    if (!higherThirteenClass) {
+    if (!ageRestrictedClass) {
       return true;
     }
 
-    if (higherThirteenClass && isHigherThan13) {
+    if (ageRestrictedClass && isHigherThan13) {
       return true;
-    } else if (!isHigherThan13 && !higherThirteenClass) {
+    } else if (!isHigherThan13 && !ageRestrictedClass) {
       return true;
     }
     return false;

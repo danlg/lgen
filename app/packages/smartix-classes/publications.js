@@ -1,134 +1,108 @@
-Meteor.publish('class', function () {
-  var result =  Classes.find({ $or: [{
-    joinedUserId: {"$in" : [this.userId]}
-  },{createBy: this.userId}]});
-  return result;
-});
-Meteor.publish('getClassByClassId', function (classId) {
-  return Classes.find(classId);
-});
+_ = lodash;
 
-Meteor.publish('getClassByClassCode', function (classCode) {
-  return Classes.find({classCode: classCode});
-});
-
-Meteor.publish('getClassMsgId', function (msgId) {
-  return Classes.find({
-    messagesObj: {
-      $elemMatch: {
-        msgId: msgId
-      }
-    }
-  });
-});
-Meteor.publish('personCreateClass', function (classCode) {
-  var targetClass = Classes.findOne({classCode: classCode});
-  log.info(targetClass);
-  if(targetClass){
-    var ownId = _.pick(targetClass, 'createBy');
-    return Meteor.users.find({
-      _id: ownId.createBy
+// Returns a cursor of a single class,
+// Identified by `_id`
+Meteor.publish('smartix:classes/classById', function (id) {
+    return Smartix.Groups.Collection.find({
+        _id: id,
+        type: 'class'
     });
-  }else{
-    //http://stackoverflow.com/questions/25709362/stuck-on-loading-template
-    //this.ready() indicates nothing return; you cannot use return "" or return null in such case
-    this.ready();
-  }
 });
 
-
-Meteor.publish('joinedClass', function () {
-  return Classes.find({
-    joinedUserId: this.userId
-  });
+// Returns a cursor of a single class,
+// Identified by `classCode`
+Meteor.publish('smartix:classes/classByClassCode', function (classCode) {
+    return Smartix.Groups.Collection.find({
+        classCode: classCode,
+        type: 'class'
+    });
 });
 
-//get all users that have joined current teacher's classes
-Meteor.publish('getAllJoinedClassesUser', function () {
-  //find the classes create by teacher using teacher's userid
-  var classes = Classes.find({
-    createBy: this.userId 
-  }).fetch(); //fetch is used to extract the result to an array.
-  
-  //extract only the joinedUserId fields to another array  
-  var arr = lodash.map(classes, 'joinedUserId'); 
+// Returns a cursor of all classes where
+// the current user is a member or an admin
+Meteor.publish('smartix:classes/associatedClasses', function () {
+    return Smartix.Groups.Collection.find({
+        type: 'class',
+        $or: [{
+            users: this.userId
+        }, {
+            admins: this.userId
+        }]
+    });
+});
 
-  //flatten the array from 2D to 1D array for easy use
-  arr = lodash.pull(lodash.flatten(arr), this.userId); 
-  
-  //in the above arr, it contains a list of userid who have joined the class, so we use this list
-  //to search the users' info in Meteor.users
-  return Meteor.users.find({
+// Returns a cursor of all classes where
+// the current user is a member
+Meteor.publish('joinedClasses', function () {
+    return Smartix.Groups.Collection.find({
+        type: 'class',
+        users: this.userId
+    });
+});
+
+// Returns a cursor of all users that have joined ANY one of the current teacher's classes
+Meteor.publish('smartix:classes/allUsersWhoHaveJoinedYourClasses', function () {
+    // Find all classes where the current user is an admin
+    // Limit the fields returned to `users`
+    // Fetch as an array
+    var classes = Smartix.Groups.Collection.find({
+    type: 'class',
+    admins: this.userId 
+    }, {
+        fields: {
+            users: 1
+        }
+    }).fetch();
+
+    // Extract all the users from the `users` property
+    // from all classes into another array  
+    var users = _.flatMap(classes, 'users');
+
+    // Remove the current user from the list of users
+    users = _.pull(users, this.userId); 
+
+    // Return a cursor of all users in the `users` array
+    return Meteor.users.find({
     _id: {
-      $in: arr
+        $in: arr
     }
-  });
+    });
 });
 
-//get all the users who have created my joined classes'
-Meteor.publish('getAllJoinedClassesCreateBy', function () {
+// Return a cursor of all admins of classes you have joined
+Meteor.publish('smartix:classes/adminsOfJoinedClasses', function () {
+    var joinedClasses = Smartix.Groups.Collection.find({
+        users: this.userId
+    }).fetch();
 
-  //if user is a student and is below 13, set isStudentBelow13 as true
-  var currentUser = Meteor.users.findOne(this.userId);
-  var isStudentBelow13 = false;
-  if(currentUser.profile.role == "Student"){
-    var dob = currentUser.profile.dob;
-    var age = moment().diff(dob,'years');
-    if(age < 13){
-      isStudentBelow13 = true;
-      log.info("isStudentBelow13:true:dob:"+dob+":age:"+age);
-    }
-  }
-  
-  //find the classes I have joined by my userid
-  //and the class creator allows anyone in this class to start a chat    
-  var myJoinedClasses;
-  if(isStudentBelow13){
-    myJoinedClasses = Classes.find({
-      joinedUserId: this.userId,
-      anyoneCanChat: true,
-      higherThirteen: false //since the current user is younger than 13, 
-                            //the classes with higherThirteen as true would not be searched
-    }).fetch();;       
-  }else{
-    myJoinedClasses = Classes.find({
-      joinedUserId: this.userId,
-      anyoneCanChat: true
-    }).fetch();;    
-  }
-    
-  // extra the createBy fields to another array
-  var arr = lodash.map(myJoinedClasses, 'createBy'); 
-  
-  //in the above arr, it contains a list of userid who have created the class, so we use this list
-  //to search the users' info in Meteor.users
-  return Meteor.users.find({ 
-    _id: {
-      $in: arr 
-    }
-  });  
-  
+
+    // Extract all the users from the `users` property
+    // from all classes into another array  
+    var admins = _.flatMap(joinedClasses, 'admins');
+
+    // Returns a cursor of all users in the `admins` array
+    return Meteor.users.find({ 
+        _id: {
+            $in: joinedClasses 
+        }
+    });
 });
 
-Meteor.publish('getJoinedClassUser', function () {
- 
-   var joinedClasses =  Classes.find({ $or: [{
-        joinedUserId: {"$in" : [this.userId]}
-    }, {createBy: this.userId} ]}).fetch();
-
-  //log.info(joinedClasses);
-  var allJoinedClassesUserId = [];
-  joinedClasses.map(function(currentClass){
-      Array.prototype.push.apply(allJoinedClassesUserId, currentClass.joinedUserId);
-      //allJoinedClassesUserId.concat(currentClass.joinedUserId);
-  });
-
-  log.info(allJoinedClassesUserId);
-
-  //var joinedUserId = classObj.joinedUserId;
-  return Meteor.users.find({
-    _id: {
-      $in: allJoinedClassesUserId
+// Returns a cursor of all admin users of a class
+Meteor.publish('smartix:classes/adminsOfClass', function (classCode) {
+    var targetClass = Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: classCode
+    });
+    if (targetClass) {
+        return Meteor.users.find({
+            _id: {
+                $in: targetClass.admins
+            }
+        });
+    } else {
+        //http://stackoverflow.com/questions/25709362/stuck-on-loading-template
+        //this.ready() indicates nothing return; you cannot use return "" or return null in such case
+        this.ready();
     }
-  }, {fields: {'profile': 1,'_id':1}});
 });

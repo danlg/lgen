@@ -24,14 +24,15 @@ All fields from `smartix:groups`
 * `users*` *[String]* - Array of users' `id`. Can be empty.
 * `namespace*` *String*
 * `type*` *String*
-* `name` *String* - Human-readable name
+* `className` *String* - Human-readable name
 * `addons` *[String]* - The list of add-on types allowed
 
 Plus these additional fields:
 
-* `url` *String* - An unique name of the class that'll be used to construct the URL. Must contain only alphanumeric characters and/or hyphens (`-`), and must be at least 3 characters long.
+* `classCode` *String* - An unique name of the class that'll be used to construct the URL. Must contain only alphanumeric characters and/or hyphens (`-`), and must be at least 3 characters long.
 * `admins` *[String]* - An array of the `id`s of admin user(s) for this group. Must contain at least one admin.
 * `comments` *Boolean* - Whether comments are allowed for this group. Defaults to `false`
+* `ageRestricted` *Boolean* - Whether the class should be restricted to users aged 13 or above
 
 ## Functional Requirements
 
@@ -69,8 +70,8 @@ Create a new class.
 
 * `users` *[String]* - an array of user `id`s to be added to the class
 * `namespace` *String* - the `id` of the school for which this class belongs to
-* `name` *String* - Human-readable name of the class (e.g. Meteor 101)
-* `url` *String* - `meteor-101`
+* `className` *String* - Human-readable name of the class (e.g. Meteor 101)
+* `classCode` *String* - `meteor-101`
 
 #### Implementation
 
@@ -80,7 +81,7 @@ Create a new class.
   * Teacher for the school (namespace) specified
   * if the namespace is `global`, all users pass
   Throw an appropriate error if not.
-* Checks the `url` is unique for this namespace
+* Checks the `classCode` is unique for this namespace
 * Add the `type` property and set it to `class`
 * Add the `admins` property and assign to it a single-member array, where the only element is the `id` of the currently-logged in user
 * Add the `comments` property and set it to `true`
@@ -102,7 +103,7 @@ Edit an existing class.
   * Admin for the school (namespace) specified
   * One of the admins for the class
   Throw an appropriate error if not.
-* If the `options` contains a `url` property, checks the `url` is still unique for this namespace
+* If the `options` contains a `classCode` property, checks the `classCode` is still unique for this namespace
 * If the `options` contains the `admins` property:
   * Ensure the array is not empty
   * loop through the array to ensure the `id`(s) point to valid user objects, and that at least one school admin remains in the array

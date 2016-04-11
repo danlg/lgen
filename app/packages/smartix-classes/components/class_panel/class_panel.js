@@ -19,7 +19,10 @@ Template.ClassPanel.events({
   'change .chooseType': function (evt) {
     var type = $(evt.target).val();
     var msgId = $(evt.target).data('mgsid');
-    var classObj = Classes.findOne({classCode: Router.current().params.classCode});
+    var classObj = Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: Router.current().params.classCode
+    });
     Meteor.call("updateMsgRating", type, msgId, classObj);
   },
   'keyup .search': function () {
@@ -77,7 +80,10 @@ Template.ClassPanel.events({
   },
   'click .commentShownToggle':function(e){
       var actionObj = $(e.target).data();
-      var classObj = Classes.findOne({classCode: Router.current().params.classCode});
+      var classObj = Smartix.Groups.Collection.findOne({
+          type: 'class',
+          classCode: Router.current().params.classCode
+        });
       if(actionObj.action == 'hide'){   
          log.info("hide comment id:" + actionObj.commentid + " "+ actionObj.msgid +" "+ classObj._id);
          Meteor.call('showHideComment',false,classObj._id,actionObj.msgid,actionObj.commentid)  ; 
@@ -113,7 +119,10 @@ Template.ClassPanel.events({
 /*****************************************************************************/
 Template.ClassPanel.helpers({
   classObj: function () {
-    var classObj = Classes.findOne({classCode: Router.current().params.classCode});
+    var classObj = Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: Router.current().params.classCode
+    });
     return classObj;
   },
   classCode: function () {
@@ -121,9 +130,6 @@ Template.ClassPanel.helpers({
   },
   isNotEmpty: function (action) {
     return action.length > 0;
-  },
-  createBy: function () {
-    return classObj.createBy;
   },
   className: function () {
     return classObj.className;
@@ -228,7 +234,10 @@ Template.ClassPanel.helpers({
   },
   isLoadMoreButtonShow: function(){
      
-      var currentClass= Classes.findOne({classCode: Router.current().params.classCode});
+      var currentClass = Smartix.Groups.Collection.findOne({
+          type: 'class',
+          classCode: Router.current().params.classCode
+        });
       if(currentClass){
         //log.info('reachTheEnd:loadedItems',loadedItems.get(),'classObjMessages',currentClass.messagesObj.length,'initialLoadItems',initialLoadItems.get());
         if(loadedItems.get() > currentClass.messagesObj.length ){

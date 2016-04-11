@@ -102,7 +102,10 @@ Meteor.methods({
 
 
   getUserCreateClassesCount: function(){
-      return Classes.find({createBy: Meteor.userId()}).count();
+      return Smartix.Groups.Collection.find({
+          type: 'class',
+          admins: Meteor.userId()
+        }).count();
   },
 
 
@@ -222,7 +225,13 @@ Meteor.methods({
     log.info(dataObject.userId);
     log.info(dataObject.classId);
     // Commend.remove(dataObject);
-    Classes.update({_id: dataObject.classId}, {$pull: {joinedUserId: dataObject.userId}});
+    Smartix.Groups.Collection.update({
+        _id: dataObject.classId
+    }, {
+        $pull: {
+            users: dataObject.userId
+        }
+    });
   },
 
   getPpLink: function (lang) {
@@ -254,15 +263,17 @@ Meteor.methods({
     if(Meteor.user().admin){
       var result = Meteor.users.find({}).fetch();
       return result;
-    }else{
+    } else {
       return "";
     }
   },
   getClassList:function(){
     if(Meteor.user().admin){
-      var result = Classes.find({}).fetch();
+      var result = Smartix.Groups.Collection.find({
+          type: 'class'
+      }).fetch();
       return result;
-    }else{
+    } else {
       return "";
     }    
   },
@@ -273,7 +284,7 @@ Meteor.methods({
       resultWrapInArray.push(result);
       
       return resultWrapInArray;
-    }else{
+    } else {
       return [];
     }    
   }

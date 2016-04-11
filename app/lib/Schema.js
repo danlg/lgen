@@ -1,19 +1,6 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 Schema = Schema || {};
 
-Schema.sendMsg = new SimpleSchema({
-  sendTarget: {
-    type: [String],
-    autoform: {
-      type: "selectize",
-      afFieldInput: {
-        multiple: true,
-        selectizeOptions: {"asd": 123}
-      }
-    }
-  }
-});
-
 Schema.editprofile = new SimpleSchema({
   firstname: {
     type: String

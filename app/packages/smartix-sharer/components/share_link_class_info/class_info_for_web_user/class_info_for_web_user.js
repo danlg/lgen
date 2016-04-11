@@ -82,33 +82,51 @@ Template.ClassInformationForWebUser.helpers({
       return "";
     }
   },
-  notFound:function(){
+  notFound: function(){
 
       var classCode =  new RegExp('^'+Session.get("search"),'i');
-      return Classes.find({classCode:classCode}).count()>0 || Session.get("search")==="" ?false:true;
+      return Smartix.Groups.Collection.find({
+          type: 'class',
+          classCode:classCode
+        }).count() > 0 || Session.get("search") === "" ? false : true;
 
   },
   ableClick:function(){
     var classCode =  Session.get("search");
     log.info(classCode);
-    log.info(Classes.find().count());
-    log.info(Classes.find({classCode:classCode}).count());
+    log.info(Smartix.Groups.Collection.find({
+        type: 'class'
+    }).count());
+    log.info(Smartix.Groups.Collection.find({
+        type: 'class',
+        classCode:classCode
+    }).count());
     
-    return Classes.find({classCode:classCode}).count()>0?"":"disabled";
+    return Smartix.Groups.Collection.find({
+        type: 'class',
+        classCode:classCode
+    }).count() > 0 ? "" : "disabled";
   },
   classOwnName:function() {
     var classCode =  Session.get("search");
-    var classObj = Classes.findOne({classCode:classCode});
-    if(classObj===undefined){
+    var classObj = Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode:classCode
+    });
+    if(classObj === undefined) {
       return "Enter";
-    }else{
-      var teacher =  Meteor.users.findOne({_id:classObj.createBy});
-      return "Join "+teacher.profile.firstname+" "+ teacher.profile.lastname+"'s "+ classObj.className + " class";
+    } else {
+      var teacher =  Meteor.users.findOne({
+          _id: {
+              $in: classObj.admins
+          }
+        });
+      return "Join " + teacher.profile.firstname + " " + teacher.profile.lastname + "'s " + classObj.className + " class";
     }
 
   },
   isDisable:function () {
-    return Router.current().params.classCode?"disabled":"";
+    return Router.current().params.classCode ? "disabled" : "";
   }
 
 });
@@ -122,8 +140,12 @@ Template.ClassInformationForWebUser.onCreated(function () {
 Template.ClassInformationForWebUser.onRendered(function () {
   
   //if the classcode in the path is not existed(i.e no result return from suscription), redirect user to find you class page instead.
-  if(Classes.find().count() < 1){
-    log.info(Classes.find().count());
+  if(Smartix.Groups.Collection.find({
+      type: 'class'
+  }).count() < 1){
+    log.info(Smartix.Groups.Collection.find({
+        type: 'class'
+    }).count());
     Router.go('ClassSearchInformationForWebUser');
   }
   

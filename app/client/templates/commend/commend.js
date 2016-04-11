@@ -34,7 +34,11 @@ Template.PrivateNote.helpers({
       }), 'comment') || "";
   },
   getJoinedClassCreatedByMe: function (argument) {
-    return Classes.find({joinedUserId: Router.current().params._id, createBy: Meteor.userId()});
+    return Smartix.Groups.Collection.find({
+        type: 'class',
+        users: Router.current().params._id,
+        admins: Meteor.userId()
+    });
   }
 });
 

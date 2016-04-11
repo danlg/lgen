@@ -4,7 +4,8 @@ Smartix.Class = Smartix.Class || {};
 
 Smartix.Class.Schema = new SimpleSchema({
 	users: {
-		type: [String]
+		type: [String],
+        defaultValue: []
 	},
 	namespace: {
 		type: String
@@ -15,8 +16,9 @@ Smartix.Class.Schema = new SimpleSchema({
 			return 'class'
 		}
 	},
-	name: {
+	className: {
 		type: String,
+        trim: true,
 		optional: true
 	},
 	addons: {
@@ -24,19 +26,101 @@ Smartix.Class.Schema = new SimpleSchema({
 		optional: true,
 		defaultValue: {}
 	},
-	url: {
-		type: String,
-		regEx: /^[a-zA-Z0-9-]{3,}$/
-	},
+    classCode: {
+        type: String,
+        trim: true,
+        unique: true,
+        regEx: /^[a-zA-Z0-9-]{3,}$/,
+        custom: function () {
+            var inputClassCode = this.value.trim();
+            if (Meteor.isClient && this.isSet && this.isInsert) {
+                if(Smartix.Class.searchForClassWithClassCode(inputClassCode)) {
+                    // If a class with the classCode already exists
+                    // Invalidate Autoform and provides a suggestion
+                    AutoForm.getValidationContext("insertClass").resetValidation();
+                    AutoForm.getValidationContext("insertClass").addInvalidKeys([{
+                        name: "classCode",
+                        type: "notUniqueAndSuggestClasscode",
+                        value: inputClassCode + "" + Smartix.helpers.getRandomInt(0,99)
+                    }]);
+                }
+            }
+        }
+    },
 	admins: {
 		type: [String],
-		minCount: 1
+		minCount: 1,
+        autoform: {
+            omit: true
+        }
 	},
 	comments: {
 		type: Boolean,
 		defaultValue: true
-	}
+	},
+    ageRestricted: {
+        type: Boolean,
+        autoform: {
+            afFieldInput: {
+                type: "boolean-checkbox2"
+            }
+        }
+    },
+    createdAt: {
+        type: Date,
+        autoform: {
+            omit: true
+        },
+        autoValue: function () {
+            if (this.isInsert) {
+                return new Date();
+            } else if (this.isUpsert) {
+                return {$setOnInsert: new Date()};
+            }
+        }
+    },
+    classAvatar:{
+        type: String,
+        trim: true,
+        optional: true
+    },
+    lastUpdatedBy: {
+        type: String,
+        optional: false,
+        autoform: {
+            omit: true
+        },
+        autoValue: function () {
+            return Meteor.userId();
+        }
+    },
+    lastUpdatedAt: {
+        type: Date,
+        autoform: {
+            omit: true
+        },
+        autoValue: function () {
+            return new Date();
+        }
+    }
 });
+
+Smartix.Class.searchForClassWithClassCode = function (classCode) {
+    // Checks that `classCode` conforms to the schema before searching
+    var classCodePattern = new RegExp(/^[a-zA-Z0-9-]{3,}$/);
+    
+    if (typeof classCode === "string"
+        && classCodePattern.test(classCode)) {
+            
+        // Returns the class object or `undefined`
+        return Smartix.Groups.Collection.findOne({
+            classCode: {
+                $regex: new RegExp("^" + classCode.trim()+ "$", "i")
+            }
+        });
+    }
+    return false;
+}
 
 Smartix.Class.getClassesOfUser = function (id) {
 	if(Match.test(id, String)) {
@@ -72,7 +156,7 @@ Smartix.Class.isClassAdmin = function (userId, classId) {
     return false;
 }
 
-Smartix.Class.createClass = function (users, namespace, name, url) {
+Smartix.Class.createClass = function (users, namespace, className, classCode) {
 
 	// Checks that the namespace is either `global`
     // or the currently-logged in user is one of the following:
@@ -90,8 +174,10 @@ Smartix.Class.createClass = function (users, namespace, name, url) {
 	newClass.users = users;
 	newClass.namespace = namespace;
 	newClass.type = 'class';
-	newClass.name = name;
-	newClass.url = url;
+	newClass.className = className.trim();
+	newClass.classCode = classCode.trim();
+    
+    // Make the current user as the admin
 	newClass.admins = [
 		Meteor.userId()
 	];
@@ -105,19 +191,19 @@ Smartix.Class.createClass = function (users, namespace, name, url) {
 	// Remove duplicates from the `users` array
 	newClass.users = _.uniq(newClass.users);
 	
-	// Checks the `url` is unique for this namespace
+	// Checks the `classCode` is unique for this namespace
 	if(Smartix.Groups.Collection.find({
 		namespace: newClass.namesapce,
-		url: newClass.url
+		classCode: /^newClass.classCode$/i
 	}).count() > 0) {
 		return false;
-		// Optional: Throw error saying URL already exists
+		// Optional: Throw error saying classCode already exists
 	};
 
-	return Smartix.Groups.createGroup(newsgroup);
+	return Smartix.Groups.createGroup(newClass);
 }
 
-Smartix.Newsgroup.editClass = function (classId, options) {
+Smartix.Class.editClass = function (classId, options) {
 
 	// Checks that `id` is of type String
 	check(classId, String);
@@ -149,13 +235,13 @@ Smartix.Newsgroup.editClass = function (classId, options) {
 		updateObj.users = Smartix.Accounts.removeNonExistentUsers(options.users);
 	}
 
-	if (options.name) {
-		check(options.name, String);
-		updateObj.name = options.name;
+	if (options.className) {
+		check(options.className, String);
+		updateObj.className = options.className;
 	}
 
-	if (options.url) {
-		check(options.url, Match.Where(function(str){
+	if (options.classCode) {
+		check(options.classCode, Match.Where(function(str){
 			check(str, String);
 
 			// Regex checks for alphanumeric string (hyphen allowed)
@@ -164,16 +250,16 @@ Smartix.Newsgroup.editClass = function (classId, options) {
 			return regexp.test(str);
 		}));
 
-		// Checks the `url` is unique for this namespace
+		// Checks the `classCode` is unique for this namespace
 		if(Smartix.Groups.Collection.find({
 			namespace: existingClass.namesapce,
-			url: updateObj.url
+			classCode: updateObj.classCode
 		}).count() > 0) {
 			return false;
-			// OPTIONAL: Throw error saying URL already exists
+			// OPTIONAL: Throw error saying classCode already exists
 		};
 
-		updateObj.url = options.url;
+		updateObj.classCode = options.classCode;
 	}
 
 	if (options.admins) {
@@ -217,7 +303,7 @@ Smartix.Class.deleteClass = function (id) {
 		// Optional: Throw an appropriate error if not
 	}
 
-	// Remove the newsgroup specified
+	// Remove the class specified
 	Smartix.Groups.deleteGroup(id);
 }
 
@@ -243,7 +329,7 @@ Smartix.Class.addUsersToClass = function (id, users) {
 	Smartix.Groups.addUsersToGroup(id, users);
 }
 
-Smartix.Newsgroup.removeUsersToGroup = function (id, users) {
+Smartix.Class.removeUsersFromClass = function (id, users) {
 	
 	// Checks that `id` is of type String
 	check(id, String);
@@ -264,3 +350,28 @@ Smartix.Newsgroup.removeUsersToGroup = function (id, users) {
 	// Add users to class
 	Smartix.Groups.removeUsersFromGroup(id, users);
 }
+
+
+
+
+/////////////////////////////////
+// OLD CODE TO BE SORTED LATER //
+/////////////////////////////////
+
+Smartix.Class.Schema.i18n("schemas.ClassesSchema");
+
+var msgStringError = TAPi18n.__("ClassCodeErrorMessage", {}, lang_tag="en");
+//https://github.com/aldeed/meteor-simple-schema#customizing-validation-messages
+//custom validation message
+Smartix.Class.Schema.messages({
+  regEx: [
+    {msg: msgStringError }
+    //{msg: "Only lower case (a-z) or digit (0-9) are accepted in class code e.g. math123. But you can set the class name you want"}
+    //{msg: "[label] must contain only lower case letter without space"}
+    //, {exp: ClassesSchema.RegEx, msg: "[label] must contain only lower case letter exp"}
+  ]
+});
+
+Smartix.Class.Schema.messages({
+    notUniqueAndSuggestClasscode: "[label] " + TAPi18n.__("Class_code_not_available") +  " [value]"
+});

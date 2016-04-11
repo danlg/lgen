@@ -84,25 +84,25 @@ Template.ClassDetail.events({
 /*****************************************************************************/
 Template.ClassDetail.helpers({
   classObj: function () {
-    var latestClassObj = Classes.findOne({classCode: Router.current().params.classCode});
+    var latestClassObj = Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: Router.current().params.classCode
+    });
     classObj = latestClassObj;
-    //classObjReactive.set(Classes.findOne({classCode: Router.current().params.classCode}));
+    //classObjReactive.set(Smartix.Groups.Collection.findOne({classCode: Router.current().params.classCode}));
     return classObj;
   },
   className: function () {
     return classObj.className;
   },
   getClassName: function () {
-    return Classes.findOne({classCode: Router.current().params.classCode}).className;
+    return Smartix.Groups.Collection.findOne({classCode: Router.current().params.classCode}).className;
   },
   actions: function () {
     return ["star", "checked", "close", "help"];
   },
   isNotEmpty: function (action) {
     return action.length > 0;
-  },
-  createBy: function () {
-    return classCode.createBy;
   },
   isSelectAction: function (action) {
     //return "";
@@ -111,7 +111,10 @@ Template.ClassDetail.helpers({
   getMessagesObj: function () {
     //debugger;
     
-    var currentClassObj = Classes.findOne({classCode: Router.current().params.classCode});
+    var currentClassObj = Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: Router.current().params.classCode
+    });
     
     //log.info('getMessagesObj',classObj);
     if (currentClassObj.messagesObj.length > 0) { 
@@ -197,7 +200,10 @@ Template.ClassDetail.helpers({
     return userObj._id == Meteor.userId() ? "You" : userObj.profile.firstname + " " + userObj.profile.lastname;
   },
   isLoadMoreButtonShow: function(){
-      var currentClass= Classes.findOne({classCode: Router.current().params.classCode});
+      var currentClass= Smartix.Groups.Collection.findOne({
+          type: 'class',
+          classCode: Router.current().params.classCode
+        });
       
       //log.info('reachTheEnd:loadedItems',loadedItems.get(),'classObjMessages',currentClass.messagesObj.length,'initialLoadItems',initialLoadItems.get());
       if(loadedItems.get() > currentClass.messagesObj.length ){
@@ -219,10 +225,10 @@ Template.ClassDetail.created = function () {
 
 Template.ClassDetail.rendered = function () {
     
-  Meteor.call('getFullNameById', classObj.createBy, function (err, data) {
+  Meteor.call('getFullNameById', classObj.admins[0], function (err, data) {
     return teacherName.set(data);
   });
-  Meteor.call('getAvatarById', classObj.createBy, function (err, data) {
+  Meteor.call('getAvatarById', classObj.admins[0], function (err, data) {
     //log.info(data);
     return teacherAvatar.set(data);
   });
@@ -247,12 +253,18 @@ Template.ClassDetail.rendered = function () {
 
   var classDetailClass = document.getElementsByClassName("class-detail")[0];
   /****track if there are any new messages *********/
-  var initialClassObj = Classes.findOne({classCode: Router.current().params.classCode});
+  var initialClassObj = Smartix.Groups.Collection.findOne({
+      type: 'class',
+      classCode: Router.current().params.classCode
+    });
   var initialCount = classObj.messagesObj.length;
   
   //http://stackoverflow.com/questions/32461639/how-to-execute-a-callback-after-an-each-is-done
   this.autorun(function(){
-    var latestClassObj = Classes.findOne({classCode: Router.current().params.classCode});
+    var latestClassObj = Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: Router.current().params.classCode
+    });
    
     // we need to register a dependency on the number of documents returned by the
     // cursor to actually make this computation rerun everytime the count is altered

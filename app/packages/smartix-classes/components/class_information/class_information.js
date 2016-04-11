@@ -15,24 +15,17 @@ Template.ClassInformation.events({
 /*****************************************************************************/
 Template.ClassInformation.helpers({
   classObj: function () {
-    return Classes.findOne({classCode: Router.current().params.classCode});
+    return Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: Router.current().params.classCode});
   },
   teacher: function () {
-    var teacherUserid = Classes.findOne({classCode: Router.current().params.classCode}).createBy;
-    return Meteor.users.findOne(teacherUserid);
+    var teacherUser = Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: Router.current().params.classCode
+    });
+    if(teacherUser) {
+        return Meteor.users.findOne(teacherUserId.admins[0]);
+    }
   }
 });
-
-/*****************************************************************************/
-/* ClassInformation: Lifecycle Hooks */
-/*****************************************************************************/
-Template.ClassInformation.created = function () {
-};
-
-Template.ClassInformation.rendered = function () {
-
-
-};
-
-Template.ClassInformation.destroyed = function () {
-};

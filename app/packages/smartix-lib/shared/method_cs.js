@@ -1,17 +1,6 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 /*
  Client and Server Methods */
-//we factor the code in this method
-var classSearchImpl = function (classCode) {
-  if (classCode) {
-    log.info ("class/search:"+ classCode.trim());
-    var regexp = new RegExp("^" + classCode.trim()+ "$", "i");
-    var resultset = Classes.findOne({"classCode":  {$regex: regexp} });//OK
-    return resultset || false;
-    //query.createBy = {$ne: Meteor.userId()};
-  }
-  return false;
-};
 
 Meteor.methods({
 
@@ -40,14 +29,10 @@ Meteor.methods({
       else return true;
     });
   },
+  'class/search': Smartix.Class.searchForClassWithClassCode,
 
   //todo remove redundant API function
-  'class/classCodeIsAvailable': function(classCode) { return !classSearchImpl(classCode); },
-  
-  'class/search': classSearchImpl,
-
-  //todo remove redundant API function
-  'class/searchExact': classSearchImpl,
+  'class/searchExact': Smartix.Class.searchForClassWithClassCode,
 
   'class/join': function (doc) {
     if (doc && doc.classCode) {
@@ -64,7 +49,7 @@ Meteor.methods({
       //query.classCode = regexp;
       //var res = Classes.findOne(query);//OK
       if (resultset) {
-        if (resultset.createBy === Meteor.userId()) {
+        if (resultset.admins.indexOf(Meteor.userId()) > -1) {
           log.warn("class/join: can't join the class you own:"+classCode+":from user:"+Meteor.userId());
           return false;
         }
@@ -74,7 +59,7 @@ Meteor.methods({
           //this was the trick to make it case insensitive
           Classes.update(
             {"classCode":  {$regex: regexp} },
-            { $addToSet: { "joinedUserId": Meteor.userId() }
+            { $addToSet: { users: Meteor.userId() }
             });
           return true;
         }
@@ -83,26 +68,26 @@ Meteor.methods({
         //log.info("Server?"+Meteor.isServer);
         return false;
       }
-    }else{
+    } else {
       log.warn("there is no input");
     }
     return false;
   },
 
   'class/leave': function (classId) {
-    Classes.update({_id: classId}, {$pull: {"joinedUserId": Meteor.userId()}});
+    Classes.update({_id: classId}, {$pull: {users: Meteor.userId()}});
   },
 
   'class/leaveByCode': function (classCode) {
-    Classes.update({classCode: classCode}, {$pull: {"joinedUserId": Meteor.userId()}});
+    Classes.update({classCode: classCode}, {$pull: {users: Meteor.userId()}});
   },
 
   'class/deleteUser': function (classObj,userid) {
-    Classes.update(classObj, {$pull: {"joinedUserId": userid}});
+    Classes.update(classObj, {$pull: {users: userid}});
   },
 
   'class/deleteAllUser': function (classObj) {
-    Classes.update(classObj, {$set: {joinedUserId: []}});
+    Classes.update(classObj, {$set: {users: []}});
   },
 
   'class/delete': function (classObj) {
@@ -305,7 +290,7 @@ Meteor.methods({
       var updatedClass=  Classes.findOne(targetClass);
       Meteor.call('insertNotification',{
          eventType:"newclasscomment",
-         userId: updatedClass.createBy,
+         userId: updatedClass.admins[0],
          hasRead: false,
          classid: updatedClass._id,
          classCode: updatedClass.classCode,

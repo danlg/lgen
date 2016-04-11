@@ -15,7 +15,7 @@
 
     <h1 class="title">
      {{#if Template.subscriptionsReady}}
-      <i class="icon e1a-{{classObj.classavatar}} e1a-2x emojicon"></i>
+      <i class="icon e1a-{{classObj.classAvatar}} e1a-2x emojicon"></i>
       {{classObj.className}}
      {{else}}
        Loading
@@ -47,13 +47,13 @@
             <i class="icon ion-ios-people"></i>
             <div class="smaller">
             <!--bug see https://github.com/TAPevents/tap-i18n/issues/50-->
-              {{#if isPlural classObj.joinedUserId.length }}
-                <div>{{ classObj.joinedUserId.length }} {{_ "Subscriber_plural" }} </div>
+              {{#if isPlural classObj.users.length }}
+                <div>{{ classObj.users.length }} {{_ "Subscriber_plural" }} </div>
               {{else}}
-                {{#if isZero classObj.joinedUserId.length }}
+                {{#if isZero classObj.users.length }}
                   <div> {{_ "No_subscriber" }} </div>
                 {{else}}
-                  <div>{{ classObj.joinedUserId.length }} {{_ "Subscriber" }} </div>
+                  <div>{{ classObj.users.length }} {{_ "Subscriber" }} </div>
                 {{/if}}
               {{/if}}
             </div>

@@ -10,7 +10,7 @@ Template.ClassSearchInformationForWebUser.events({
    if($('.enterBtn').hasClass('readyToJoin')){
    
       Router.go('ClassInformationForWebUser',{classCode: Session.get('search') });
-   }else{
+   } else {
    
     var classCodeInput = Session.get('search');
     Meteor.call("class/searchExact", classCodeInput, function (error, result) {
@@ -21,7 +21,7 @@ Template.ClassSearchInformationForWebUser.events({
         toastr.error(TAPi18n.__("NoClass"));
       } else {
           var classResult =result;
-          Meteor.call('getUserNameById',classResult.createBy,function(error,result){
+          Meteor.call('getUserNameById',classResult.admins[0],function(error,result){
                //todo localize
               var text = 'Join '+ result + "'s "+ classResult.className;
               $('.enterBtn').text(text);

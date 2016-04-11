@@ -1,7 +1,9 @@
 Meteor.methods({
- 
-   addClassMail: function (to, _id) {
-    var classObj = Classes.findOne( {_id: _id});
+    
+    addClassMail: function (to, id) {
+        var classObj = Smartix.Groups.Collection.findOne({
+            _id: id
+        });
     if (lodash.get(Meteor.user(), "profile.email")) {
       try {
         
@@ -15,16 +17,18 @@ Meteor.methods({
     }
   },   
   getFullNameById: function (id) {
-    var userObj = Meteor.users.findOne({_id: id});
+    var userObj = Meteor.users.findOne({
+        _id: id
+    });
     var name = userObj.profile.firstname + " " + userObj.profile.lastname;
     return name;
   },    
   getAvatarById: function(id){
     var userObj = Meteor.users.findOne({_id: id});
     
-    if(userObj && userObj.profile && userObj.profile.useravatar ){
+    if (userObj && userObj.profile && userObj.profile.useravatar){
      return userObj.profile.useravatar;
-    }else{
+    } else {
      return "green_apple";             
     }
 

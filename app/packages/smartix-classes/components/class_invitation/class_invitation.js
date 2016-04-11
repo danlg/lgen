@@ -1,32 +1,12 @@
-/*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
-var classObj;
-/*****************************************************************************/
-/* ClassInvitation: Event Handlers */
-/*****************************************************************************/
-Template.ClassInvitation.events({});
-
-/*****************************************************************************/
-/* ClassInvitation: Helpers */
-/*****************************************************************************/
 Template.ClassInvitation.helpers({
-  getclassCode: function (argument) {
+  classCode: function (argument) {
     return Router.current().params.classCode;
   },
-  getClassName: function () {
-    return classObj.className;
+  className: function () {
+    var classObj = Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: Router.current().params.classCode
+    });
+    return classObj ? classObj.className : "";
   }
 });
-
-/*****************************************************************************/
-/* ClassInvitation: Lifecycle Hooks */
-/*****************************************************************************/
-Template.ClassInvitation.created = function () {
-   classObj = Classes.findOne({classCode: Router.current().params.classCode});
-};
-
-Template.ClassInvitation.rendered = function () {
-
-};
-
-Template.ClassInvitation.destroyed = function () {
-};

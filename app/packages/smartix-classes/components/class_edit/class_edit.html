@@ -19,11 +19,11 @@
           <li class="item">
             <div class='row'>
               <div class='col col-50'>
-                {{> afFieldInput name="classavatar" style='display:none;' value=getNewlyChosenAvatar }}    
+                {{> afFieldInput name="classAvatar" style='display:none;' value=getNewlyChosenAvatar }}    
                 {{#if getNewlyChosenAvatar}}
                   <i id='pick-an-icon-btn' class="icon e1a-{{getNewlyChosenAvatar}} e1a-5x emojicon"></i>
                 {{else}}                
-                  <i id='pick-an-icon-btn' class="icon e1a-{{classObj.classavatar}} e1a-5x emojicon"></i>    
+                  <i id='pick-an-icon-btn' class="icon e1a-{{classObj.classAvatar}} e1a-5x emojicon"></i>    
                 {{/if}}                
               </div>
               <div class='col col-50'>
@@ -46,24 +46,12 @@
           <li class="item item-toggle">
             {{_ "IWillOnlyMessagePeople13AndOlder"}}
             <label class="toggle">
-              {{> afFieldInput name="higherThirteen" }}
+              {{> afFieldInput name="ageRestricted" }}
               <div class="track">
                 <div class="handle"></div>
               </div>
             </label>
-          </li> 
-          <!--TODO change this localization + give a better name too complicated-->
-          <!--<li class="item item-toggle">
-            {{_ "Allow_this_class_to_be_searched" }}
-            <label class="toggle">
-              {{> afFieldInput name="canBeSearch" }}
-              <div class="track">
-                <div class="handle"></div>
-              </div>
-            </label>
-          </li> -->
-
-
+          </li>
         </ul>
 
       {{/autoForm}}

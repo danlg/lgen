@@ -89,8 +89,13 @@ Meteor.methods({
             }
             }     
             //send push notification
-            var arrayOfClasses = Classes.find({classCode: {$in: target}}).fetch();
-            var arrayOfTarget = lodash.map(arrayOfClasses, 'joinedUserId');
+            var arrayOfClasses = Smartix.Groups.Collection.find({
+                type: 'class',
+                classCode: {
+                    $in: target
+                }
+            }).fetch();
+            var arrayOfTarget = lodash.map(arrayOfClasses, 'users');
             var flattenArray = lodash.flatten(arrayOfTarget);
             var index = flattenArray.indexOf(currentUserId);
             if (index > -1) {
@@ -158,7 +163,7 @@ Meteor.methods({
     }
      
      //update classes collection
-     return Classes.update({
+     return Smartix.Groups.Collection.update({
                 classCode: {
                     $in: target
                 }

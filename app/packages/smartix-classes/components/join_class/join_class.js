@@ -32,10 +32,13 @@ Template.JoinClass.events({
 /* JoinClass: Helpers */
 /*****************************************************************************/
 Template.JoinClass.helpers({
-  leaveClassSchema: Schema.leaveClass,
-  joinClassSchema: Schema.joinClass,
-  joinClassArr: function () {
-    return Classes.find({joinedUserId: {$in: [Meteor.userId()]}});
+  leaveClassSchema: Smartix.Class.AutoformSchema.leaveClass,
+  joinClassSchema: Smartix.Class.AutoformSchema.joinClass,
+  joinedClasses: function () {
+    return Smartix.Groups.Collection.find({
+        type: 'class',
+        users: Meteor.userId()
+    });
   }
 });
 

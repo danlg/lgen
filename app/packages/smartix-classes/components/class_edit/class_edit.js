@@ -8,13 +8,19 @@ Template.ClassEdit.events({
       Router.go('ClassUsers',{classCode: Router.current().params.classCode});
   },    
   'click .removeAllUserBtn': function () {
-    Meteor.call("class/deleteAllUser", Classes.findOne({classCode: Router.current().params.classCode}), function () {
+    Meteor.call("class/deleteAllUser", Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: Router.current().params.classCode
+    }), function () {
       toastr.success("success removed!");
     });
   },
 
   'click .removeClass': function () {
-    Meteor.call("class/delete", Classes.findOne({classCode: Router.current().params.classCode}), function () {
+    Meteor.call("class/delete", Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: Router.current().params.classCode
+    }), function () {
       Router.go('TabClasses');
     });
   },
@@ -30,13 +36,22 @@ Template.ClassEdit.events({
 /*****************************************************************************/
 Template.ClassEdit.helpers({
   classCode: function () {
-    return Classes.findOne({classCode: Router.current().params.classCode});
+    return Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: Router.current().params.classCode
+    });
   },
   classObj: function () {
-    return Classes.findOne({classCode: Router.current().params.classCode});
+    return Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: Router.current().params.classCode
+    });
   },
   classId: function () {
-    return Classes.findOne({classCode: Router.current().params.classCode})._id;
+    return Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: Router.current().params.classCode
+    })._id;
   },
   getNewlyChosenAvatar:function(){
     var chosenIcon = Session.get('chosenIconForEditClass');

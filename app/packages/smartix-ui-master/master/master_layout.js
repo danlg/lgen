@@ -41,8 +41,8 @@ Template.AppLayout.onCreated(function() {
   
   
   //TODO: subscription to be filtered based on selected school
-  this.subscribe('class');
-  this.subscribe('getJoinedClassUser');  
+  this.subscribe('smartix:classes/associatedClasses');
+  this.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');
   this.subscribe('userPendingApprovedSchools');
   this.subscribe('globalUsersBasicInfo');
   

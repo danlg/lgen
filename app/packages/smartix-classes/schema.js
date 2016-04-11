@@ -1,36 +1,25 @@
-/*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
-Schema = Schema || {};
+Smartix = Smartix || {};
 
-Schema.joinClass = new SimpleSchema({
-  classCode: {
-    type: String,
-    custom:function(){
-      if (Meteor.isClient && this.isSet){
-         Meteor.call("class/searchExact", this.value, function (err, result) {
-          // validation cannot join your own class done on the server side
-          // var isMyClass = result;
-          //if (isMyClass) {
-          //  AutoForm.getValidationContext("joinClassForm").resetValidation();
-          //  AutoForm.getValidationContext("joinClassForm").addInvalidKeys([{ name:  "classCode",type:  "notYourClass" }]);
-          //}
-        });       
-      }
-    }
-  }
-});
+Smartix.Class = Smartix.Class || {};
 
-Schema.joinClass.messages({
-  notYourClass: "You cant join the class you own"
-});
-
-
-Schema.leaveClass = new SimpleSchema({
+Smartix.Class.AutoformSchema.joinClass = new SimpleSchema({
   classCode: {
     type: String
   }
 });
 
-Schema.inviteClass = new SimpleSchema({
+Smartix.Class.AutoformSchema.joinClass.messages({
+  notYourClass: "You cant join the class you own"
+});
+
+
+Smartix.Class.AutoformSchema.leaveClass = new SimpleSchema({
+  classCode: {
+    type: String
+  }
+});
+
+Smartix.Class.AutoformSchema.inviteClass = new SimpleSchema({
   emailOrName: {
     type: String
   },
@@ -43,19 +32,3 @@ Schema.inviteClass = new SimpleSchema({
     }
   }
 });
-
-
-Schema.sendMsg = new SimpleSchema({
-  sendTarget: {
-    type: [String],
-    autoform: {
-      type: "selectize",
-      afFieldInput: {
-        multiple: true,
-        selectizeOptions: {"asd": 123}
-      }
-    }
-  }
-});
-
-

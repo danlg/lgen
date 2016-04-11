@@ -15,11 +15,14 @@ Template.MessageExtraInfo.events({
 /*****************************************************************************/
 Template.MessageExtraInfo.helpers({
   classObj: function () {
-    classObj =Classes.findOne({'messagesObj.msgId':this.msgCode});
+    classObj = Smartix.Groups.Collection.findOne({
+        type: 'class',
+        'messagesObj.msgId':this.msgCode
+    });
     return classObj;
   },
   msgObj: function () {
-    //var msgArr = Classes.findOne({'messagesObj.msgId':this.msgCode}).messagesObj;
+    //var msgArr = Smartix.Groups.Collection.findOne({type:'class', 'messagesObj.msgId':this.msgCode}).messagesObj;
     //var filtedArr = lodash.findByValues(msgArr, "msgId", this.msgCode);
     return this.inputMessageObj;
   },

@@ -18,7 +18,7 @@ Package.onUse(function(api) {
      api.use('smartix:core');
      api.use('smartix:accounts-schools');
      
-     api.addFiles('classes.js'); 
+     api.addFiles('smartix-classes.js');
      api.addFiles('publications.js','server');
      api.addFiles('route.js');
      api.addFiles('schema.js')
@@ -53,8 +53,5 @@ Package.onUse(function(api) {
      api.addFiles(['components/add_class/add_class.html',
                    'components/add_class/add_class.js'],'client');  
      
-     
-                                           
-     api.export('Classes');
-     api.export('Schema');
+     api.export('Smartix');
 });

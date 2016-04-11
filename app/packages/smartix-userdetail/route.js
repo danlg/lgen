@@ -3,7 +3,7 @@ Router.route('UserDetail', {
   waitOn: function () {
     var subList = [];
     if (this.params.classCode) {
-      subList.push(Meteor.subscribe('class', this.params.classCode));
+      subList.push(Meteor.subscribe('smartix:classes/classByClassCode', this.params.classCode));
     }
     if (this.params.classId) {
       subList.push(Meteor.subscribe('getCommentsByClassIdNId', this.params.classId, this.params._id));

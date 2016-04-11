@@ -46,8 +46,9 @@ Template.GroupChatInvite.events({
 
 Template.GroupChatInvite.helpers({
   'myclasses': function () {
-    return Classes.find({
-        createBy: Meteor.userId()
+    return Smartix.Groups.Collection.find({
+        type: 'class',
+        admins: Meteor.userId()
     });
   },
   isSearchable: function () {

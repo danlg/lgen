@@ -31,7 +31,9 @@ Template.MessageClassSelection.events({
 /*****************************************************************************/
 Template.MessageClassSelection.helpers({
   createdClasses: function () {
-    return Classes.find();
+    return Smartix.Groups.Collection.find({
+        type: 'class'
+    });
   },
   searchresult: function (className) {
     return lodash.includes(className, searchText.get()) ? "" : "hide"

@@ -80,7 +80,10 @@ Template.ShareInvite.created = function () {
   var link = Meteor.settings.public.SHARE_URL;
   log.info ("Setting SHARE_URL="+link);
 
-  classObj = Classes.findOne({classCode: Router.current().params.classCode});
+  classObj = Smartix.Groups.Collection.findOne({
+      type: 'class',
+      classCode: Router.current().params.classCode
+    });
   shareLink.set (link + "/join/"+ classObj.classCode);
 };
 

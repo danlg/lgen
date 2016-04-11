@@ -10,7 +10,10 @@ var isInputAnEmail = ReactiveVar(false);
 Template.EmailInvite.events({
   'click .inviteBtn': function (e) {
 
-    var classObj = Classes.findOne({classCode: Router.current().params.classCode});
+    var classObj = Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: Router.current().params.classCode
+    });
 
 
     var id = $(e.target).data("id");
@@ -46,7 +49,10 @@ Template.EmailInvite.events({
     }
   },
   'click .inviteBtnWithEmail':function(){
-    var classObj = Classes.findOne({classCode: Router.current().params.classCode});
+    var classObj = Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: Router.current().params.classCode
+    });
     var email = searchText.get();
     Meteor.call( "classinvite", classObj, email, function (err) {
       toastr.success("Invite Success");
@@ -90,9 +96,12 @@ Template.EmailInvite.helpers({
 
   },
   classObj: function () {
-    return Classes.findOne({classCode: Router.current().params.classCode});
+    return Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: Router.current().params.classCode
+    });
   },
-  inviteClassSchema: Schema.inviteClass,
+  inviteClassSchema: Smartix.Class.AutoformSchema.inviteClass,
   contactList: function () {
     return contactList.get();
   },

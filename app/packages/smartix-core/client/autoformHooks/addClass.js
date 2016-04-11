@@ -8,8 +8,7 @@ var postHooks = {
       // THIS IS WHAT PREVENTS TO INSERT class code IN UPPER CASE
       doc.classCode = doc.classCode.trim().toLowerCase();
       //console.log("2.doc.classCode AFTER="+doc.classCode);
-      doc.joinedUserId = [];
-      doc.messagesObj = [];
+      doc.users = [];
       return doc;
     }
   },

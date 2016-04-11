@@ -9,7 +9,8 @@ Package.onUse(function(api) {
     api.versionsFrom("1.2");
     api.use('smartix:core'); 
     api.use('templating','client');
-    api.use('stevezhu:lodash');    
+    api.use('stevezhu:lodash');
+    api.use('smartix:classes');
     api.addFiles('client/helper.js','client');
     api.addFiles('shared/helper.js');
     api.addFiles('shared/find-in-json.js');

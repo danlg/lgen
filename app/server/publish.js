@@ -16,21 +16,24 @@ Meteor.publish('getUserById', function (userId) {
 });
 
 Meteor.publish('getJoinedClassByUserId', function (userId) {
-  return Classes.find({
-    joinedUserId: userId
+  return Smartix.Groups.Collection.find({
+      type: 'class',
+    users: userId
   });
 });
 
 Meteor.publish('getJoinedClassCreatedByMeByUserId', function (userId) {
-  return Classes.find({
-    joinedUserId: userId,
-    createBy: this.userId
+  return Smartix.Groups.Collection.find({
+      type: 'class',
+    users: userId,
+    admins: this.userId
   });
 });
 
 Meteor.publish('createdClassByMe', function () {
-  return Classes.find({
-    createBy: this.userId
+  return Smartix.Groups.Collection.find({
+      type: 'class',
+    admins: this.userId
   });
 });
 

@@ -2,11 +2,11 @@
 
   {{#contentFor "headerTitle"}}
     <!-- bug see https://github.com/TAPevents/tap-i18n/issues/50 -->
-    {{#if isPlural classObj.joinedUserId.length }}
-      <h1 class="title">{{classObj.joinedUserId.length}} {{_ "Subscriber_plural"}}</h1>
+    {{#if isPlural classObj.users.length }}
+      <h1 class="title">{{classObj.users.length}} {{_ "Subscriber_plural"}}</h1>
     {{else}}
-      <!--<h1 class="title">{{classObj.joinedUserId.length}} {{_ "Subscriber" count=classObj.joinedUserId.length}}</h1>-->
-      <h1 class="title">{{classObj.joinedUserId.length}} {{_ "Subscriber"}}</h1>
+      <!--<h1 class="title">{{classObj.users.length}} {{_ "Subscriber" count=classObj.users.length}}</h1>-->
+      <h1 class="title">{{classObj.users.length}} {{_ "Subscriber"}}</h1>
     {{/if}}
   {{/contentFor}}
 

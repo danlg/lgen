@@ -3,10 +3,6 @@
 /* TabClasses: Event Handlers */
 /*****************************************************************************/
 
-function createdClassImpl() {
-  return Classes.find({createBy: Meteor.userId()},{sort:{"lastUpdatedAt":-1}});
-}
-
 Template.TabClasses.events({});
 
 /*****************************************************************************/
@@ -14,28 +10,51 @@ Template.TabClasses.events({});
 /*****************************************************************************/
 Template.TabClasses.helpers({
   notCreateEmptyList: function () {
-    return Classes.find({createBy: Meteor.userId()}).count() > 0
+    return Smartix.Groups.Collection.find({
+        type: 'class',
+        admins: Meteor.userId()
+    }).count() > 0
   },
   notJoinedEmptyList: function () {
-    return Classes.find({joinedUserId: {$in: [Meteor.userId()]}}).count() > 0
+    return Smartix.Groups.Collection.find({
+        type: 'class',
+        users: Meteor.userId()
+    }).count() > 0
   },
   joinedClass: function () {
-    return Classes.find({joinedUserId: {$in: [Meteor.userId()]}},{sort:{"lastUpdatedAt":-1}});
+    return Smartix.Groups.Collection.find({
+        type: 'class',
+        users: Meteor.userId()
+    }, {
+        sort:{
+            "lastUpdatedAt":-1
+        }
+    });
   },
 
   canCreateClass: function () {
-    if(Meteor.user().profile.role === "Teacher" || Meteor.user().profile.role === "Parent"){
-     return true;        
+    if (
+        Meteor.user().profile.role === "Teacher"
+        || Meteor.user().profile.role === "Parent"){
+     return true;
     }
-
   },
 
-  createdClass: createdClassImpl,
+  createdClass: function () {
+    return Smartix.Groups.Collection.find({
+    admins: Meteor.userId()
+    }, {
+        sort: {
+            "lastUpdatedAt": -1
+        }
 
-  classavatar_icon: function() {
-    var ava =  (this.classavatar) ? true : false;
+    });
+  },
+
+  classAvatarIcon: function() {
+    var ava =  (this.classAvatar) ? true : false;
     if (ava) {
-      return "e1a-" + this.classavatar;
+      return "e1a-" + this.classAvatar;
     }
     else{ //default
       return "e1a-green_apple";

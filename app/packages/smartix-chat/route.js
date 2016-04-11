@@ -32,8 +32,8 @@ Router.route('ChatInvite', {
   path: "/chat-invite",
   waitOn: function () {
     return [
-      Meteor.subscribe('getAllJoinedClassesUser'),
-      Meteor.subscribe('getAllJoinedClassesCreateBy')
+      Meteor.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses'),
+      Meteor.subscribe('smartix:classes/adminsOfJoinedClasse')
     ];
   }
 });
@@ -52,7 +52,7 @@ Router.route('GroupChatInviteChooser', {
     waitOn: function(){
         return [
             Meteor.subscribe('createdClassByMe'),
-            Meteor.subscribe('getAllJoinedClassesUser'),
+            Meteor.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses'),
             Meteor.subscribe('getAllMyChatRooms')
         ]
     }

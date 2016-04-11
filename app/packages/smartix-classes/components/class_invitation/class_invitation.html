@@ -1,7 +1,7 @@
 <template name="ClassInvitation">
 
    {{#contentFor "headerTitle"}}
-     <h1 class="title">{{getClassName}} </h1>
+     <h1 class="title">{{className}} </h1>
     {{/contentFor}}
 
   {{#contentFor "headerButtonLeft"}}
@@ -16,13 +16,13 @@
 
       <div class="row row-center" style="height:50vh">
         <div class="col h3 " style="text-align:center; display: inline">
-           {{_ "How_would_you_like_to_add_new_members" }} to <div style="color:#acda46;display: inline">{{ getClassName}}</div>?
+           {{_ "How_would_you_like_to_add_new_members" }} to <div style="color:#acda46;display: inline">{{className}}</div>?
         </div>
       </div>
 
       <h2 class="list">
         <a class="item item-icon-left item-icon-right"
-           href="{{pathFor 'HowToInviteShort' classCode=getclassCode }}">
+           href="{{pathFor 'HowToInviteShort' classCode=classCode }}">
           <i class="icon ion-chatboxes"></i>
           <h2 class="headline-title">{{_ "InClassInstructions"}}</h2>
           <p> {{_ "ShowClass"}}</p>
@@ -30,7 +30,7 @@
           <i class="icon ion-ios-arrow-forward"></i>
         </a>
         <a class="item item-icon-left item-icon-right"
-           href="{{pathFor 'ShareInvite' classCode=getclassCode }}">
+           href="{{pathFor 'ShareInvite' classCode=classCode }}">
           <!-- http://ionicframework.com/docs/components/#item-icons -->
           <i class="icon ion-ios-upload-outline"></i>
           <h2 class="headline-title" >{{_ "ShareALink" }}</h2>
@@ -39,7 +39,7 @@
         </a>
         
         <a class="item item-icon-left item-icon-right"
-           href="{{pathFor 'EmailInvite' classCode=getclassCode }}">
+           href="{{pathFor 'EmailInvite' classCode=classCode }}">
           <i class="icon ion-ios-email-outline"></i>
           <h2 class="headline-title">{{_ "SendEmailInvitations"}}</h2>
           <p> {{_ "UseContact"}}</p>

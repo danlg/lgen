@@ -13,7 +13,10 @@ Template.ClassUsers.events({
       //log.info(e);
       var userid = this._id;
       var userFullname = this.profile.firstname+ " " + this.profile.lastname;
-      var classObj = Classes.findOne({classCode: Router.current().params.classCode});
+      var classObj = Smartix.Groups.Collection.findOne({
+          type: 'class',
+          classCode: Router.current().params.classCode
+        });
           
       if($(e.target).hasClass('remove-member-btn') ){
           //log.info('btn');
@@ -56,8 +59,11 @@ Template.ClassUsers.events({
 /*****************************************************************************/
 Template.ClassUsers.helpers({
   usersProfile: function () {
-    var classObj = Classes.findOne({classCode: Router.current().params.classCode});
-    var userArray = classObj.joinedUserId;
+    var classObj = Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: Router.current().params.classCode
+    });
+    var userArray = classObj.users;
     //select users from Meteor who is not current user and has joined this class
     var users = Meteor.users.find({$and: [{_id: { $ne: Meteor.userId()}}, {_id: {$in: userArray}}] } ).fetch();
     /*return lodash.findByValuesNested(users,'profile','firstname',text.get())*/
@@ -74,14 +80,20 @@ Template.ClassUsers.helpers({
   },
 
   emptyList: function () {
-    var classObj = Classes.findOne({classCode: Router.current().params.classCode});
-    var userArray = classObj.joinedUserId;
+    var classObj = Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: Router.current().params.classCode
+    });
+    var userArray = classObj.users;
     //select users from Meteor who is not current user and has joined this class
     return Meteor.users.find({$and: [{_id: { $ne: Meteor.userId()}}, {_id: {$in: userArray}}] }).count() == 0 ;
   },
 
   classObj: function (argument) {
-    return Classes.findOne({classCode: Router.current().params.classCode});
+    return Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: Router.current().params.classCode
+    });
   },
 
   isPlural: function (count) {
@@ -93,7 +105,7 @@ Template.ClassUsers.helpers({
 /* ClassUsers: Lifecycle Hooks */
 /*****************************************************************************/
 Template.ClassUsers.created = function () {
-  // classObj.set(Classes.findOne({classCode:Router.current().params.classCode}));
+  // classObj.set(Smartix.Groups.Collection.findOne({type: 'class', classCode:Router.current().params.classCode}));
 };
 
 Template.ClassUsers.rendered = function () {

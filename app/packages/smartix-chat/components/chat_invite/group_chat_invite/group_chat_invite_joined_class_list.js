@@ -64,14 +64,16 @@ Template.GroupChatInviteChooser.events({
 Template.GroupChatInviteChooser.helpers({
   'joinedClassPeople': function () {
     
-    var targetClass = Classes.findOne({classCode: Router.current().params.classCode});
-    //log.info(targetClass);
-    var result =  Meteor.users.find({
-        _id :{ $in:  targetClass.joinedUserId}
+    var targetClass = Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: Router.current().params.classCode
     });
     
-    //log.info(result);
-    return result;
+    return Meteor.users.find({
+        _id: {
+            $in: targetClass.users
+        }
+    });
   }
 
 });

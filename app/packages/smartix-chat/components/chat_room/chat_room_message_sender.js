@@ -8,22 +8,14 @@ ChatRoomMessageSender = function(chatRoomId,messageType,messageText,messageAttac
         text:""
 
     };
-    if(messageType == 'text'){
+    if (messageType == 'text') {
         pushObj.text = messageText;
-
-    }else if(messageType == 'voice'){
+    } else if (messageType == 'voice') {
         pushObj.sound = messageAttachmentObject._id
-
-    }else if(messageType == 'image'){
+    } else if (messageType == 'image') {
         pushObj.image = messageAttachmentObject._id
-
-
-    }else if (messageType =='document'){
+    } else if (messageType =='document') {
         pushObj.document = messageAttachmentObject._id
-
-    }else
-    {
-
     }
 
     //add message to chat collection
