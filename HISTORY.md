@@ -7,6 +7,7 @@ Premium features:
 - Classes management
 - School personalization
 - School contacts
+- Internal School - Plan mapping with premium features mapping management (i.e. in plans School X=> Plan Y && feature Z => Plan Y)
 
 #1.1 (target end of dev: 18-April => release: 25-April)
 - New scalable architecture
