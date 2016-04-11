@@ -8,7 +8,7 @@ if(Meteor.isServer){
             }
             
             if (
-                Meteor.userId == targetRelationship.parent || Meteor.userId == targetRelationship.child ||
+                Meteor.userId() == targetRelationship.parent || Meteor.userId() == targetRelationship.child ||
                 Roles.userIsInRole(Meteor.userId(), 'admin', 'system') ||
                 Roles.userIsInRole(Meteor.userId(), 'admin', targetRelationship.namespace) 
             ) {
