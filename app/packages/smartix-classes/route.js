@@ -7,7 +7,7 @@ Router.route('/class/:classCode/info', {
     },
     waitOn: function () {
         return [
-            Meteor.subscribe('personCreateClass', this.params.classCode),
+            Meteor.subscribe('smartix:classes/adminsOfClass', this.params.classCode),
             Meteor.subscribe('smartix:classes/classByClassCode', this.params.classCode)
         ];
     }
@@ -28,8 +28,9 @@ Router.route('classEdit', {
 Router.route('ClassUsers', {
   path: "/class/:classCode/users",
   waitOn: function () {
-    return [Meteor.subscribe('smartix:classes/classByClassCode', this.params.classCode),
-            Meteor.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses')
+    return [
+        Meteor.subscribe('smartix:classes/classByClassCode', this.params.classCode),
+        Meteor.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses')
     ];
   }
 });
