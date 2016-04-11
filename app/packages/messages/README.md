@@ -14,7 +14,7 @@ For the same reason, we should not allow the editing of messages. We can simulat
 * `type*` *String* - The type of message. Different types are defined by other packages. E.g. `messages-text` defines the `text` type, `messages-voice` defines the `voice` type
 * `data` *Object* - A blackbox object to store any data specific to the message type
 * `hidden*` *Boolean* - Whether the message is hidden from non-admin users
-* `createdAt*` *Int* - UNIX timestamp of the message creation date
+* `createdAt*` *Date* - (Mongo creates this automatically)
 * `deletedAt*` *Int* - UNIX timestamp of the message deletion date (required for soft-deletion)
 * `addons*` *[Object]* - Every object is added by an add-on, each object must have a `type` property indicating the type of add-on. There can only be one of each type in the `addons` array.
 * `versions` *[String]* - An array of message `id` for previous versions of the message. Used to simulate editing a message. (See note above)

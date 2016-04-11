@@ -21,10 +21,6 @@ Smartix.Messages.Schema = new SimpleSchema({
 		type: Boolean,
 		defaultValue: false
 	},
-	createdAt: {
-		type: Number,
-		decimal: false
-	},
 	deletedAt: {
 		type: Number,
 		decimal: false,
@@ -49,7 +45,7 @@ Smartix.Messages.Schema = new SimpleSchema({
 		type: [String],
 		defaultValue: []
 	}
-})
+});
 
 Smartix.Messages.createMessage = function (message) {
 	// Clean the `message` object

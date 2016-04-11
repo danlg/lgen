@@ -2,12 +2,14 @@
 
 ## Functional Requirements
 
+TODO: Need to decide where to check for permissions
+
 * Create Text Message
 * Edit Text Message
 
 ## Schema
 
-In addition to the schema defined in `smartix:messages`, messages of type `text` must have, in addition, the following fields:
+In addition to the schema defined in `smartix:messages`, messages of type `text` must have, in the `data` property, an object with the following fields:
 
 * `text` *String* - Text of the message
 
@@ -18,15 +20,25 @@ In addition to the schema defined in `smartix:messages`, messages of type `text`
 
 ## Client-side Functions
 
+All server-side functions should be namespaced under `Smartix.Messages.Text`
+
+### `createMessage()`
+
+Make a `Meteor.call()` to `smartix:messages-text/createMessage()`
+
+### `editMessage()`
+
+Make a `Meteor.call()` to `smartix:messages-text/editMessage()`
+
 ## Server-Side Functions
 
 ### Add Valid type to `Smartix.Messages.ValidTypes` array
 
-Add `type` to `Smartix.Messages.ValidTypes` array (from `smartix:messages` package) on initialization
+Add `text` to `Smartix.Messages.ValidTypes` array (from `smartix:messages` package) on initialization
 
-## Server-side Methods
+All server-side functions should be namespaced under `Smartix.Messages.Text`
 
-### `createTextMessage()`
+### `createMessage()`
 
 Creates a message of type text
 
@@ -38,14 +50,13 @@ Creates a message of type text
 
 #### Implementation
 
-* Checks the currently-logged in user has permission to create a message in this group
 * Sanitize and validate arguments
 * Add `author` property and set to currently-logged in user
 * Add `type` property and set to `text`
 * Add `hidden` property and set to `false`
 * Check the types specified in `addons` are valid types
 
-### `editTextMessage()`
+### `editMessage()`
 
 Edit a text message. You are only allowed to edit the text of the message. To add/remove add-ons, call `attachAddon()` and `detachAddon()` from the `smartix:messages-addons` package
 
@@ -59,3 +70,15 @@ Edit a text message. You are only allowed to edit the text of the message. To ad
 * Checks the currently-logged in user has permission to create a message in this group
 * Sanitize and validate arguments
 * `update` the message document by `$set`ting the `text` property to the new value
+
+### Server-side Methods
+
+All server-side methods are to be namespaced under `smartix:messages-text/`
+
+### `createMessage()`
+
+Passes arguments to `Smartix.Messages.Text.createMessage()`
+
+### `editMessage()`
+
+Passes arguments to `Smartix.Messages.Text.editMessage()`
