@@ -10,9 +10,13 @@ Meteor.publish('mySchools', function() {
 });
 
 Meteor.publish('allSchools',function(){
-    //TODO 
+    if( Roles.userIsInRole( this.userId ,'admin','system') ){
+        return SmartixSchoolsCol.find();    
+    }
 });
 
 Meteor.publish('activeSchools',function(){
-    //TODO    
+    if( Roles.userIsInRole( this.userId ,'admin','system') ){
+        return SmartixSchoolsCol.find({active:true});    
+    }   
 });

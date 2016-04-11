@@ -28,38 +28,50 @@ if(Meteor.isServer){
             return;
         }
         
+        var schoolId;
         //TODO: logo pass upload image id
-        var schoolId = SmartixSchoolsCol.insert({
-            name: options.name,
-            username: options.username,
-            logo: options.logo,
-            tel: options.tel,
-            web: options.web,
-            email: options.email,
-            active: true,
-            preferences: {}                   
-        });         
-        
+        try{
+            schoolId = SmartixSchoolsCol.insert({
+                name: options.name,
+                username: options.username,
+                logo: options.logo,
+                tel: options.tel,
+                web: options.web,
+                email: options.email,
+                active: true,
+                preferences: {}                   
+            }); 
+        }catch(err){
+            throw err;
+        }
+            
+        var newAdmin = options.username;
+        var newAdminPassword = Random.id();
         if(admins){
             
             admins.map(function(eachAdmin){
                 Roles.addUsersToRoles(eachAdmin,'admin',schoolId);   
             })
+            
+            return {school:schoolId};
+            
         }else{
             //console.log('createSchoolUser',schoolId);
             Meteor.call('smartix:accounts-schools/createSchoolUser',schoolId,{
                 role:'admin',
-                username: options.username,
-                password: 'admin',
+                username: newAdmin,
+                password: newAdminPassword,
                 email:options.email,
                 profile:{
-                    firstname:options.username,
+                    firstname:newAdmin,
                     lastname:""
                 }       
             });
+            
+            return { school: schoolId, initialAdmin: { username: newAdmin, initialPassword: newAdminPassword } };
         }
         
-        return schoolId;
+        
         
     }else{
         console.log('caller is not authed');
