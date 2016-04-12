@@ -228,18 +228,12 @@ Router.route('/role', {
 });
 
 Router.route('TabClasses', {
-    path: "/classes",
-    waitOn: function(argument) {
-        return [
-            subs.subscribe('joinedClass'),
-            subs.subscribe('createdClassByMe')
-        ];
-    }
+    path: "/classes"
 });
 
 Router.route('TabChat', {
     waitOn: function() {
-        return subs.subscribe('allMyChatRoomWithUser');
+        return Meteor.subscribe('allMyChatRoomWithUser');
     },
     path: "/chat"
 });
