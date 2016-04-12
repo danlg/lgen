@@ -18,7 +18,8 @@ Package.onUse(function(api) {
     api.use('stevezhu:lodash@4.6.1');
     api.use('smartix:core');
     api.use('smartix:accounts-schools');
-
+    api.use('smartix:groups');
+    
     api.addFiles('smartix-classes.js');
     api.addFiles('publications.js','server');
     api.addFiles('route.js');
