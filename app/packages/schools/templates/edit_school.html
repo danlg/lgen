@@ -1,0 +1,30 @@
+<!--a stub for dev only. Usage: system admin to create/edit school. Expect: return of school id and school admin initial password-->
+<template name='EditSchool'>
+    <form>
+        <br><br><br><br><br>
+        School name:
+        <input id='name' type="text" name="name">
+        
+        <br> School user name:
+        <input id='username' type="text" name="username">
+        
+        <br> School logo:
+        <input id='school-logo' type="file" name="school-logo">
+        {{uploadedSchoolLogoId}}
+        {{#each uploadedSchoolLogo}}
+            {{this.url}}
+            <img src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="thumbnail" />        
+        {{/each}}
+        <br> telephone number:
+        <input id='tel' type="text" name="tel">
+        
+        <br> school website:
+        <input id='web' type="text" name="web">
+        
+        <br> school email:
+        <input id='email' type="text" name="email">
+        
+       <br>
+       <input id='edit-school-submit' type="button" value="Edit" >
+    </form>
+</template>
