@@ -2,7 +2,7 @@ Smartix = Smartix || {};
 
 Smartix.Groups = Smartix.Groups || {};
 
-Smartix.Groups.Collection = new new Mongo.Collection("smartix:groups");
+Smartix.Groups.Collection = new Mongo.Collection("smartix:groups");
 
 Smartix.Groups.createGroup = function (options) {
 	// Checks the object contains all required fields
