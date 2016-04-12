@@ -14,7 +14,7 @@ Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
   api.use('ecmascript');
   api.addFiles('classes-announcements.js');
-  api.addFiles('publications.js');
+  api.addFiles('publications.js','server');
 });
 
 Package.onTest(function(api) {
