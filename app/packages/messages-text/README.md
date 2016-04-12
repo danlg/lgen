@@ -63,13 +63,13 @@ Edit a text message. You are only allowed to edit the text of the message. To ad
 #### Arguments
 
 * `id` *String* - The `id` of the message
-* `text` *String* - The new text of the message
+* `newData` *String* - The new data of the message
 
 #### Implementation
 
 * Checks the currently-logged in user has permission to create a message in this group
 * Sanitize and validate arguments
-* `update` the message document by `$set`ting the `text` property to the new value
+* `update` the message document by `$set`ting the `data` property to the `newData` value
 
 ### Server-side Methods
 

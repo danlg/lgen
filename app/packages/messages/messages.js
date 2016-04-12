@@ -47,6 +47,10 @@ Smartix.Messages.Schema = new SimpleSchema({
 	}
 });
 
+Smartix.Messages.isValidType = function (type) {
+    return Smartix.Messages.ValidTypes.indexOf(type) > -1;
+}
+
 Smartix.Messages.createMessage = function (message) {
 	// Clean the `message` object
 	Smartix.Messages.Schema.clean(message);

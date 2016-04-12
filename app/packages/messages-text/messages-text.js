@@ -1,7 +1,5 @@
 _ = lodash;
 
-Smartix.Messages.ValidTypes = [];
-
 Smartix.Messages.Collection = new Mongo.Collection('smartix:messages');
 
 Smartix.Messages.ValidTypes = Smartix.Messages.ValidTypes || [];
@@ -18,9 +16,9 @@ Smartix.Messages.Text.Schema = new SimpleSchema([Smartix.Messages.Schema, {
     }
 }]);
 
-Smartix.Messages.Text.createMessage = function (group, text, addons) {
+Smartix.Messages.Text.createMessage = function (group, data, addons) {
     check(group, String);
-    check(text, String);
+    check(data.text, String);
     check(addons, [String]);
     
     var newMessage = {};
@@ -30,9 +28,7 @@ Smartix.Messages.Text.createMessage = function (group, text, addons) {
     // Add `author` property and set to currently-logged in user
     newMessage.author = Meteor.userId();
     newMessage.type = 'text';
-    newMessage.data = {
-        text: text
-    };
+    newMessage.data = data
     
     Smartix.Messages.Text.Schema.clean(newMessage);
     
@@ -42,15 +38,16 @@ Smartix.Messages.Text.createMessage = function (group, text, addons) {
     
 };
 
-Smartix.Messages.Text.editMessage = function (id, text) {
+Smartix.Messages.Text.editMessage = function (id, data) {
     check(id, String);
-    check(text, String);
+    check(data, Object);
+    check(data.text, String);
     
     Smartix.Messages.Collection.update({
         _id: id
     }, {
         $set: {
-            "data.text": text
+            data: data
         }
     })
 };

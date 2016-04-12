@@ -6,6 +6,13 @@ Because we should keep records of all messages (e.g. in cases where inappropriat
 
 For the same reason, we should not allow the editing of messages. We can simulate the editing of a message by deleting the previous message and creating a new message, adding the `id` of the previous message to the `versions` array, which stores all previous versions of the message.
 
+Each type of message should be namespaced using the `CapitalCase` of the name of the type. For example, if the `type` is `article`, the functions for that type should be namespaced under `Smartix.Messages.Article.`.
+
+The package for each type of message should provide at least the following functions:
+
+* `createMessage()`, which would be passed three parameters - `group`, `data` and `addons`
+* `editMessage()`, which would be passed two parameters - `id`, `data`
+
 ## Schema
 
 * `id*` *String* - Unique identifier for the message
