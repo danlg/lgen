@@ -11,9 +11,15 @@ Package.onUse(function(api) {
   api.use('ecmascript');
   api.use('check');
   api.use('accounts-base');
+  
+  //use smartix core as Smartix namespace is init there
+  api.use('smartix:core')
   api.use('stevezhu:lodash@4.6.1');
   api.use('smartix:accounts@0.0.1');
   api.addFiles('groups.js');
+  
+  //export Smartix so that Smartix.Groups is available
+  api.export('Smartix');
 });
 
 Package.onTest(function(api) {
