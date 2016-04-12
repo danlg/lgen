@@ -158,6 +158,7 @@ smartix:classes-announcements@0.0.1
 smartix:core@0.0.1
 smartix:email-template@0.0.1
 smartix:filehandler@0.0.1
+smartix:groups@0.0.1
 smartix:iconchooser@0.0.1
 smartix:lib@0.0.1
 smartix:messagedetail@0.0.1
