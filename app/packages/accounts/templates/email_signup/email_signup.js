@@ -86,12 +86,18 @@ Template.EmailSignup.events({
         email: userObj.email,
         password: $('.pwd').val(),
         profile: userObj.profile
-      }, function (err) {
+      }, function (err,result) {
         if (err) {
           toastr.error(err.reason);
           log.error(err);
         } else {
           
+            analytics.track("Sign Up", {
+                date: new Date(),
+                email: userObj.email,
+                verified: false
+            });
+              
           //since now we call account.createUser on server-side, we need to do login here.
           Meteor.loginWithPassword(userObj.email,$('.pwd').val(),function(){
             Session.set('registerFlow',true);
@@ -100,22 +106,6 @@ Template.EmailSignup.events({
 
         }
       });
-     /* Accounts.createUser({
-        email: userObj.email,
-        password: $('.pwd').val(),
-        profile: userObj.profile
-      }, function (err) {
-        if (err) {
-          toastr.error(err.reason);
-          log.error(err);
-        } else {
-          
-          Session.set('registerFlow',true);
-          Router.go('MyAccount');
-          
-
-        }
-      });*/
     }
   },
   'click .google-login-btn':function(event,template){

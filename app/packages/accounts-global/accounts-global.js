@@ -35,6 +35,7 @@ if (Meteor.isServer) {
       verified = true;
     }
     else {
+        
       // we wait for Meteor to create the user before sending an email
       Meteor.setTimeout(function () {
         if (user.emails) {
@@ -43,15 +44,18 @@ if (Meteor.isServer) {
       }, 2 * 1000);
       theemail = user._id;
     }
+    
+    //cant use okgrow:analytics at server-side
+    //https://github.com/okgrow/analytics/issues/73
     //we want to track when and who has signed up so we can send a welcome email
 
-    if ( user.username !== "admin") {
+    /*if ( user.username !== "admin") {
       analytics.track("Sign Up", {
         date: new Date(),
         email: theemail,
         verified: verified
       });
-    } //else{console.log("not tracking admin user creation"+ user.username); }
+    }*/ //else{console.log("not tracking admin user creation"+ user.username); }
     return user;
   });
 
