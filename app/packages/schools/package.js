@@ -10,9 +10,10 @@ Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
   api.use('ecmascript');
   api.use('templating'); 
-  api.use('iron:router');   
+  api.use('iron:router');
+  api.use('aldeed:simple-schema');     
   api.use('aldeed:collection2');
-  api.use('aldeed:simple-schema'); 
+
   api.use('alanning:roles@1.2.15');
   api.use('reactive-var','client');
   
