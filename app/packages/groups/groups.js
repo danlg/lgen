@@ -88,13 +88,13 @@ Smartix.Groups.addUsersToGroup = function (id, users) {
 	Smartix.Groups.Collection.update({
 		_id: id
 	}, {
-		{
+		
 			$addToSet: {
 				users: {
 					$each: users
 				}
 			}
-		}
+		
 	});
 
 	// TODO: Remove duplicates from the `users` array
@@ -111,13 +111,13 @@ Smartix.Groups.removeUsersFromGroup = function (id, users) {
 	Smartix.Groups.Collection.update({
 		_id: id
 	}, {
-		{
+		
 			$pull: {
 				users: {
 					$in: users
 				}
 			}
-		}
+		
 	});
 }
 
