@@ -64,7 +64,7 @@ Meteor.publish('smartix:classes/allUsersWhoHaveJoinedYourClasses', function () {
     // Return a cursor of all users in the `users` array
     return Meteor.users.find({
     _id: {
-        $in: arr
+        $in: users
     }
     });
 });
