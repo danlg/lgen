@@ -106,7 +106,11 @@ Template.ionNavBar.events({
   'click .addClassBtn': function (e, template) {
     
     if(AutoForm.validateForm("insertClass")){
+         console.log(' valid');
       $(form).submit();
+    }else{
+       $(form).submit(); 
+       console.log('not valid');
     }
     /*var email = getValues(Meteor.user(),"email").shift();
      var classname = AutoForm.getFieldValue("className","insertClass");

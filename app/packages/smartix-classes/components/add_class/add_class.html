@@ -14,7 +14,7 @@
   {{#ionView}}
     
       <!-- TODO: refactor to call Smartix.Class.createClass meteor methods equivalent-->
-      {{#autoForm  validation="keyup" schema="Smartix.Class.Schema" id="insertClass" type="insert"}}
+      {{#autoForm  validation="keyup" schema="Smartix.Class.Schema" id="insertClass" meteormethod='smartix:classes/createClass'}}
         <ul class="list " style="margin-bottom:0;padding-top:50px;">
           <li class="" >
              <div class="bar bar-header item-input-inset" >
