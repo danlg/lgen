@@ -3,7 +3,6 @@
     <div class="list">
     
     {{#each relationships}}
-        
         <div class="item item-icon-right less-top-bottom-padding user-item">                     
 
             {{#if userIsChildOrParent}}       
@@ -26,9 +25,10 @@
                 <i data-relationship-id={{_id}} style='' class="icon assertive  ion-android-remove-circle remove-relationship-btn ">                   
                 </i>               
             {{/if}}
-            
 
-        </div>               
+        </div>
+        {{else}}
+           No relationship record.           
     {{/each}}
     </div>
 </template>
