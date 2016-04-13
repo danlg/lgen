@@ -30,16 +30,12 @@ Smartix.Class.Schema = new SimpleSchema({
         regEx: /^[a-zA-Z0-9-]{3,}$/,
         custom: function () {
             var inputClassCode = this.value.trim();
-            if (Meteor.isClient && this.isSet && this.isInsert) {
+            if (Meteor.isServer && this.isSet ) {
                 if(Smartix.Class.searchForClassWithClassCode(inputClassCode)) {
                     // If a class with the classCode already exists
                     // Invalidate Autoform and provides a suggestion
-                    AutoForm.getValidationContext("insertClass").resetValidation();
-                    AutoForm.getValidationContext("insertClass").addInvalidKeys([{
-                        name: "classCode",
-                        type: "notUniqueAndSuggestClasscode",
-                        value: inputClassCode + "" + Smartix.helpers.getRandomInt(0,99)
-                    }]);
+                    console.log('classcode already exist');
+                    return 'classcode already exist';
                 }
             }
         }
@@ -82,18 +78,19 @@ Smartix.Class.Schema = new SimpleSchema({
 });
 
 Smartix.Class.searchForClassWithClassCode = function (classCode) {
+    console.log('Checks that `classCode` conforms to the schema before searching',classCode);
     // Checks that `classCode` conforms to the schema before searching
     var classCodePattern = new RegExp(/^[a-zA-Z0-9-]{3,}$/);
     
     if (typeof classCode === "string"
         && classCodePattern.test(classCode)) {
-            
-        // Returns the class object or `undefined`
-        return Smartix.Groups.Collection.findOne({
-            classCode: {
-                $regex: new RegExp("^" + classCode.trim()+ "$", "i")
-            }
+        
+        var existGroup = Smartix.Groups.Collection.findOne({
+            classCode: classCode
         });
+        console.log('existGroup',existGroup);
+        // Returns the class object or `undefined`
+        return existGroup;
     }
     return false;
 }
@@ -155,7 +152,9 @@ Smartix.Class.createClass = function (classObj) {
 	newClass.className = classObj.className.trim();
 	newClass.classCode = classObj.classCode.trim();
     newClass.ageRestricted = classObj.ageRestricted;
-    
+    if(classObj.classAvatar){
+        newClass.classAvatar = classObj.classAvatar;
+    }
     // Make the current user as the admin
 	newClass.admins = [
 		Meteor.userId()
@@ -341,7 +340,7 @@ Smartix.Class.Schema.i18n("schemas.ClassesSchema");
 
 var msgStringError = TAPi18n.__("ClassCodeErrorMessage", {}, lang_tag="en");
 //https://github.com/aldeed/meteor-simple-schema#customizing-validation-messages
-//custom validation message
+//custom validation message 
 Smartix.Class.Schema.messages({
   regEx: [
     {msg: msgStringError }

@@ -123,8 +123,17 @@ Template.ionNavBar.events({
     Smartix.Class.Schema.clean(newClassObj);
     
     check(newClassObj,Smartix.Class.Schema);
-    
-    Meteor.call('smartix:classes/createClass',newClassObj);
+        
+    Meteor.call('smartix:classes/createClass',newClassObj,function(err,result){
+      
+      if(err){
+          console.log(err);
+      }else{
+          console.log(result);
+          Router.go('TabClasses');
+      }
+        
+    });
     
     
     /*var email = getValues(Meteor.user(),"email").shift();
