@@ -39,7 +39,7 @@ Meteor.methods({
       log.info ("class/join:"+ doc.classCode.trim());
       var classCode = doc.classCode.trim();
       var regexp = new RegExp("^" + classCode.trim()+ "$", "i");
-      var resultset   = Classes.findOne({"classCode":  {$regex: regexp} });//OK
+      var resultset   = Smartix.Groups.Collection.findOne({"classCode":  {$regex: regexp} });//OK
       // Creates a regex of: /^classCode$/i
       //log.info("class/join0:'" + classCode +"'");
 
@@ -57,7 +57,7 @@ Meteor.methods({
           log.info("User " + Meteor.userId() + " attempting to join class "+ doc.classCode);
           //log.info("Server?"+Meteor.isServer);
           //this was the trick to make it case insensitive
-          Classes.update(
+          Smartix.Groups.Collection.update(
             {"classCode":  {$regex: regexp} },
             { $addToSet: { users: Meteor.userId() }
             });
