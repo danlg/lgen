@@ -196,10 +196,15 @@ Template.ChatRoom.helpers({
         target = Smartix.helpers.getAnotherUser();
     }
 
-    if (Role.userIsInRole(target,'user',currentChat.namespace) ||
-        Role.userIsInRole(target,'teacher',currentChat.namespace) ||
-        Role.userIsInRole(target,'parent',currentChat.namespace)
+    //console.log('target',target);
+    //TODO: migrate to Groups
+    if (
+        Roles.userIsInRole(target,'user',currentChat.namespace) ||
+        Roles.userIsInRole(target,'teacher',currentChat.namespace) ||
+        Roles.userIsInRole(target,'parent',currentChat.namespace)
        ) {
+      console.log('chat setting')
+      debugger;
       if (target.profile.chatSetting && target.profile.chatSetting.workHour) {
         
         
