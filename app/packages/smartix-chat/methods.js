@@ -1,13 +1,13 @@
 Meteor.methods({
 
-  chatCreate: function (chatArr,chatObjExtra) {
+  chatCreate: function (chatArr,chatObjExtra,namespace) {
     //user who create this chat is also added into the chat
     chatArr.push(Meteor.userId());
     
     //try to find if there is existing room
     //size needs to be specified, or else a wrong result of larger chat room group may be found
     //http://stackoverflow.com/questions/6165121/mongodb-query-an-array-for-an-exact-element-match-but-may-be-out-of-order/6165143#6165143
-    var res = Chat.findOne({chatIds: {$size : chatArr.length, $all: chatArr}});
+    var res = Smartix.Groups.Collection.findOne({users: {$size : chatArr.length, $all: chatArr}});
     if (res) {
       //return the existing chat room id if there is one
       return res._id;
@@ -17,7 +17,11 @@ Meteor.methods({
       var newRoom;
       
       //add createdAt,lastUpdatedAt field in chat collection
-      var ChatObj = {chatIds: chatArr, messagesObj: [], createdAt: new Date(), createdBy: Meteor.userId(), lastUpdatedAt: new Date(),lastUpdatedBy: Meteor.userId()};
+      var ChatObj = {users: chatArr, messagesObj: [],
+           createdAt: new Date(), createdBy: Meteor.userId(),
+            lastUpdatedAt: new Date(),lastUpdatedBy: Meteor.userId(),
+            namespace: namespace
+      };
       //var ChatObj = {chatIds: chatArr, messagesObj: []};
       //extra property for chat room, currently use during create of group chat room only.
       if(chatObjExtra){
@@ -34,8 +38,8 @@ Meteor.methods({
               ChatObj.chatRoomModerator = chatObjExtra.chatRoomModerator;
           }
       }
-      //log.info(ChatObj); 
-      newRoom = Chat.insert(ChatObj);          
+      log.info('Smartix.Chat.createChat',ChatObj); 
+      newRoom = Smartix.Chat.createChat(ChatObj);          
       
       return newRoom;
     }
@@ -64,7 +68,7 @@ Meteor.methods({
         pushObj.text = "";
         pushObj.image = fileObj._id;
 
-        Chat.update({_id: Router.current().params.chatRoomId}, {$push: {messagesObj: pushObj}});
+        Smartix.Groups.Collection.update({_id: Router.current().params.chatRoomId}, {$push: {messagesObj: pushObj}});
       }
     });
   },      

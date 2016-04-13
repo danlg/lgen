@@ -27,9 +27,9 @@ Router.route('ChatRoomInformation', {
 });
 
 
-
+//use user list from sub globalUsersBasicInfo
 Router.route('ChatInvite', {
-  path: "/chat-invite"
+  path: "/chat-invite",
 });
 
 Router.route('GroupChatInvite', {

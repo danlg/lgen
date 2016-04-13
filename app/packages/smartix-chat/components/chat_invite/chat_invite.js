@@ -10,7 +10,9 @@ var searchString = ReactiveVar("");
 Template.ChatInvite.events({
   'click .startChatBtn': function () {
     /*var chatArr =  $('.js-example-basic-multiple').val();*/
-      Meteor.call('chatCreate', targetIds.get(), function (err, data) {
+      console.log('targetIds', targetIds.get() );
+      Meteor.call('chatCreate', targetIds.get(),null, Session.get('pickedSchoolId'), function (err, data) {
+      
       Router.go('ChatRoom', {chatRoomId: data});
     });
     /*log.info($('.js-example-basic-multiple').val());*/
