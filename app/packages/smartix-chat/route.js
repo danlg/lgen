@@ -29,13 +29,7 @@ Router.route('ChatRoomInformation', {
 
 
 Router.route('ChatInvite', {
-  path: "/chat-invite",
-  waitOn: function () {
-    return [
-      Meteor.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses'),
-      Meteor.subscribe('smartix:classes/adminsOfJoinedClasse')
-    ];
-  }
+  path: "/chat-invite"
 });
 
 Router.route('GroupChatInvite', {
