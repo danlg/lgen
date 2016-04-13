@@ -78,6 +78,12 @@ Template.AddClass.helpers({
       //default set as green apple
       return "green_apple";
     }
+  },
+  getCurrentNameSpace:function(){
+      return Session.get('pickedSchoolId');
+  },
+  getAdmin:function(){
+      return [Meteor.userId()];
   }
 });
 
@@ -104,14 +110,23 @@ Template.AddClass.destroyed = function () {
 
 Template.ionNavBar.events({
   'click .addClassBtn': function (e, template) {
-    
-    if(AutoForm.validateForm("insertClass")){
-         console.log(' valid');
-      $(form).submit();
-    }else{
-       $(form).submit(); 
-       console.log('not valid');
+
+    var newClassObj = {
+        namespace: $('#namespace').val(),
+        className: $('#className').val(),
+        classCode: $('#classCode').val(),
+        admins: [Meteor.userId()],
+        classAvatar:$('#classAvatar').val(),
+        ageRestricted:$('#ageRestricted').is(':checked')
     }
+    
+    Smartix.Class.Schema.clean(newClassObj);
+    
+    check(newClassObj,Smartix.Class.Schema);
+    
+    Meteor.call('smartix:classes/createClass',newClassObj);
+    
+    
     /*var email = getValues(Meteor.user(),"email").shift();
      var classname = AutoForm.getFieldValue("className","insertClass");
 

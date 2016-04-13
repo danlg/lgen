@@ -34,11 +34,11 @@ Meteor.methods({
 
   }, 
   
-  'smartix:classes/createClass':function(doc){
+  'smartix:classes/createClass':function(classObj){
     
-    console.log('smartix:classes/createClass',doc);
+    console.log('smartix:classes/createClass',classObj);
     
-    //Smartix.Class.createClass(users, namespace, className, classCode);    
+    return Smartix.Class.createClass(classObj);    
   }
      
 });

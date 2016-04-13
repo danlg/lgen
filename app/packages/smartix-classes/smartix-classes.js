@@ -12,19 +12,16 @@ Smartix.Class.Schema = new SimpleSchema({
 	},
 	type: {
 		type: String,
-		autoValue: function () {
-			return 'class'
-		}
+		defaultValue: 'class'
 	},
 	className: {
 		type: String,
-        trim: true,
-		optional: true
+        trim: true
 	},
 	addons: {
 		type: [String],
 		optional: true,
-		defaultValue: {}
+		defaultValue: []
 	},
     classCode: {
         type: String,
@@ -49,34 +46,19 @@ Smartix.Class.Schema = new SimpleSchema({
     },
 	admins: {
 		type: [String],
-		minCount: 1,
-        autoform: {
-            omit: true
-        }
+		minCount: 1
 	},
 	comments: {
 		type: Boolean,
 		defaultValue: true
 	},
     ageRestricted: {
-        type: Boolean,
-        autoform: {
-            afFieldInput: {
-                type: "boolean-checkbox2"
-            }
-        }
+        type: Boolean
     },
     createdAt: {
         type: Date,
-        autoform: {
-            omit: true
-        },
         autoValue: function () {
-            if (this.isInsert) {
                 return new Date();
-            } else if (this.isUpsert) {
-                return {$setOnInsert: new Date()};
-            }
         }
     },
     classAvatar:{
@@ -87,18 +69,12 @@ Smartix.Class.Schema = new SimpleSchema({
     lastUpdatedBy: {
         type: String,
         optional: false,
-        autoform: {
-            omit: true
-        },
         autoValue: function () {
             return Meteor.userId();
         }
     },
     lastUpdatedAt: {
         type: Date,
-        autoform: {
-            omit: true
-        },
         autoValue: function () {
             return new Date();
         }
@@ -156,26 +132,29 @@ Smartix.Class.isClassAdmin = function (userId, classId) {
     return false;
 }
 
-Smartix.Class.createClass = function (users, namespace, className, classCode) {
+Smartix.Class.createClass = function (classObj) {
 
+    console.log('Smartix.Class.createClass',classObj);
+    
 	// Checks that the namespace is either `global`
     // or the currently-logged in user is one of the following:
     // * Admin for the school (namespace) specified
     // * Teacher for the school (namespace) specified
 
-	if(namespace !== 'global'
-        && !Smartix.Accounts.isUserSchoolTeacherOrAdmin(namespace)) {
+	if(classObj.namespace !== 'global'
+        && !Smartix.Accounts.isUserSchoolTeacherOrAdmin(classObj.namespace)) {
 		return false;
 		// Optional: Throw an appropriate error if not
 	}
 
 	// Creating class document to be inserted
 	var newClass = {};
-	newClass.users = users;
-	newClass.namespace = namespace;
+	newClass.users = classObj.users;
+	newClass.namespace = classObj.namespace;
 	newClass.type = 'class';
-	newClass.className = className.trim();
-	newClass.classCode = classCode.trim();
+	newClass.className = classObj.className.trim();
+	newClass.classCode = classObj.classCode.trim();
+    newClass.ageRestricted = classObj.ageRestricted;
     
     // Make the current user as the admin
 	newClass.admins = [
@@ -183,7 +162,7 @@ Smartix.Class.createClass = function (users, namespace, className, classCode) {
 	];
 
 	// Checks the arguments are of the specified type, convert it if not
-	Smartix.Class.Schema.clean(options);
+	Smartix.Class.Schema.clean(newClass);
 
 	// Checks are done in one go
 	check(newClass, Smartix.Class.Schema);
