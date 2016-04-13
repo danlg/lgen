@@ -75,27 +75,27 @@ Meteor.methods({
   },
 
   'class/leave': function (classId) {
-    Classes.update({_id: classId}, {$pull: {users: Meteor.userId()}});
+    Smartix.Groups.Collection.update({_id: classId}, {$pull: {users: Meteor.userId()}});
   },
 
   'class/leaveByCode': function (classCode) {
-    Classes.update({classCode: classCode}, {$pull: {users: Meteor.userId()}});
+    Smartix.Groups.Collection.update({classCode: classCode}, {$pull: {users: Meteor.userId()}});
   },
 
   'class/deleteUser': function (classObj,userid) {
-    Classes.update(classObj, {$pull: {users: userid}});
+    Smartix.Groups.Collection.update(classObj, {$pull: {users: userid}});
   },
 
   'class/deleteAllUser': function (classObj) {
-    Classes.update(classObj, {$set: {users: []}});
+    Smartix.Groups.Collection.update(classObj, {$set: {users: []}});
   },
 
   'class/delete': function (classObj) {
-    Classes.remove(classObj);
+    Smartix.Groups.Collection.remove(classObj);
   },
 
   'class/update': function (doc) {
-    Classes.update({_id: doc._id}, {$set: doc});
+    Smartix.Groups.Collection.update({_id: doc._id}, {$set: doc});
   },
 
 
@@ -180,7 +180,7 @@ Meteor.methods({
         _.forEach(arr, function (element, index) {
         var updateObj = {};
         updateObj['messagesObj.$.' + element] = {_id: Meteor.userId()};
-        Classes.update(
+        Smartix.Groups.Collection.update(
             selector,
             {$pull: updateObj}
         );
@@ -188,7 +188,7 @@ Meteor.methods({
         if (type) {
         var updateObj2 = {};
         updateObj2['messagesObj.$.' + type] = Meteor.user();
-        Classes.update(
+        Smartix.Groups.Collection.update(
             {classCode: classObj.classCode, messagesObj: {$elemMatch: {msgId: msgId}}},
             {$push: updateObj2,
              $set: {
@@ -204,29 +204,29 @@ Meteor.methods({
     }else{
         var updateObj = {};
         var selector = {classCode:classObj.classCode,messagesObj:{$elemMatch:{msgId:msgId}}}
-        var currentMessage = Classes.findOne({classCode:classObj.classCode});
+        var currentMessage = Smartix.Groups.Collection.findOne({classCode:classObj.classCode});
         //log.info(currentMessage);
         var msgIndex = lodash.findIndex(currentMessage.messagesObj,{'msgId':msgId});
         //log.info(msgIndex);
         updateObj['messagesObj.$.vote.voteOptions.0.votes'] = Meteor.userId();
-        Classes.update(
+        Smartix.Groups.Collection.update(
             selector,
             {$pull: updateObj}
         );
         
         updateObj['messagesObj.$.vote.voteOptions.1.votes'] = Meteor.userId();
-        Classes.update(
+        Smartix.Groups.Collection.update(
             selector,
             {$pull: updateObj}
         );  
 
         updateObj['messagesObj.$.vote.voteOptions.2.votes'] = Meteor.userId();
-        Classes.update(
+        Smartix.Groups.Collection.update(
             selector,
             {$pull: updateObj}
         );  
         updateObj['messagesObj.$.vote.voteOptions.3.votes'] = Meteor.userId();
-        Classes.update(
+        Smartix.Groups.Collection.update(
             selector,
             {$pull: updateObj}
         );          
@@ -241,7 +241,7 @@ Meteor.methods({
         var voteUpdatedBy = Meteor.userId();
         var voteUpdatedAt = new Date();
         var messageObj
-        Classes.update(
+        Smartix.Groups.Collection.update(
             {classCode: classObj.classCode},
             {$push: updateObj2,
              $set: {
@@ -278,7 +278,7 @@ Meteor.methods({
                           };
       
       //push new comment and at the same time update lastUpdatedAt fields
-      Classes.update( targetClass,{$push: {'messagesObj.$.comment.comments': newCommentObj},
+      Smartix.Groups.Collection.update( targetClass,{$push: {'messagesObj.$.comment.comments': newCommentObj},
                                    $set: {'messagesObj.$.lastUpdatedAt': commentUpdatedAt,
                                           'messagesObj.$.lastUpdatedBy': commentUpdatedBy,
                                           'lastUpdatedBy':commentUpdatedBy,
@@ -287,7 +287,7 @@ Meteor.methods({
                                      validate: false
                                     } );
             
-      var updatedClass=  Classes.findOne(targetClass);
+      var updatedClass=  Smartix.Groups.Collection.findOne(targetClass);
       Meteor.call('insertNotification',{
          eventType:"newclasscomment",
          userId: updatedClass.admins[0],
@@ -302,7 +302,7 @@ Meteor.methods({
        
   },
   showHideComment:function(isShown,classid,messageid,commentid){
-     var currentClassObj = Classes.findOne(classid);
+     var currentClassObj = Smartix.Groups.Collection.findOne(classid);
      var currentMessagesObjIndex = lodash.findIndex(currentClassObj.messagesObj,{"msgId":messageid});
      var currentCommentObjIndex = lodash.findIndex(currentClassObj.messagesObj[currentMessagesObjIndex].comment.comments,{"_id":commentid});
      
@@ -311,7 +311,7 @@ Meteor.methods({
      var modifier = { $set: {} };
      modifier.$set['messagesObj.'+currentMessagesObjIndex+'.comment.comments.'+currentCommentObjIndex+'.isShown'] = isShown;
      
-     Classes.update(classid, modifier,{validate: false});
+     Smartix.Groups.Collection.update(classid, modifier,{validate: false});
      
   },
 
