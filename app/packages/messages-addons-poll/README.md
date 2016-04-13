@@ -21,13 +21,20 @@ Detach poll can be done using `detachAddon()` from the `smartix:messages-addons`
 
 The votes for each object are stored inside properties with the same name as the option the user is voting for. The resulting object may look something similar to this:
 
-	{
-		"type": "poll",
-		"options": ['yes', 'no', 'maybe'],
-		"yes": ['d1ff5241a342647f', '8da10335c01c8584'],
-		"no": [],
-		"maybe": ['a6463e2c7d230b17']
-	}
+    {
+        "type": "poll",
+        "options": ['yes', 'no', 'maybe'],
+        "votes": [{
+            "option": "yes",
+            "users": ['d1ff5241a342647f', '8da10335c01c8584']
+        }, {
+            "option": "no",
+            "users": []
+        }, {
+            "option": "maybe",
+            "users": ['a6463e2c7d230b17']
+        }]
+    }
 
 ## Server-side Methods
 
