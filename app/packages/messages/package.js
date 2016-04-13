@@ -13,7 +13,10 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
   api.use('ecmascript');
+  api.use('mongo');
   api.use('stevezhu:lodash@4.6.1');
+  api.use('aldeed:simple-schema');
+  api.use('smartix:utilities');
   //use smartix core as Smartix namespace is init there
   api.use('smartix:core')  
   api.use('smartix:messages-addons@0.0.1', {unordered: true});
