@@ -16,11 +16,15 @@ Package.onUse(function(api) {
      api.use('session', 'client');
      api.use('templating', 'client');
      api.use('fourseven:scss@2.0.0','client');
+     api.use('alanning:roles','client');
+     api.use('smartix:core');
      api.use('smartix:lib');
+     api.use('smartix:classes');    
      api.use('smartix:notifications');
      
      api.addFiles('publications.js','server');
-     api.addFiles('chat.js');
+     //api.addFiles('chat.js');
+     api.addFiles('smartix-chat.js');
      api.addFiles('route.js');
      api.addFiles('schema.js')
      api.addFiles('methods.js','server');
@@ -59,7 +63,8 @@ Package.onUse(function(api) {
                    'components/chatoption/chatoption.js',
                    'components/chatoption/chatoption.css']
                    ,'client');  
-                                           
+     
+     api.export('Smartix');                                    
      api.export('Chat');
      api.export('Schema');
      api.export('ChatRoomMessageSender');

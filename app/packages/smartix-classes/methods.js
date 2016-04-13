@@ -32,5 +32,13 @@ Meteor.methods({
      return "green_apple";             
     }
 
-  },    
+  }, 
+  
+  'smartix:classes/createClass':function(classObj){
+    
+    console.log('smartix:classes/createClass',classObj);
+    
+    return Smartix.Class.createClass(classObj);    
+  }
+     
 });

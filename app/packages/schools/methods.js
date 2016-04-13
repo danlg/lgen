@@ -80,16 +80,21 @@ if (Meteor.isServer) {
         },
         'smartix:schools/editSchool': function(id, options) {
             var targetSchool = SmartixSchoolsCol.findOne(id);
+            //console.log('raw',targetSchool);
             if (
                 Roles.userIsInRole(Meteor.userId(), 'admin', 'system') ||
                 Roles.userIsInRole(Meteor.userId(), 'admin', id)
             ) {
-
+                // https://github.com/aldeed/meteor-simple-schema/issues/387
+                delete targetSchool._id;      
                 lodash.merge(targetSchool, options);
-                check(targetSchool, SchoolsSchema);
-
+                //console.log('afterMerge',targetSchool);        
+                SchoolsSchema.clean(targetSchool);              
+                check(targetSchool, SchoolsSchema);             
+                //console.log('afterClean',targetSchool);
+                
                 //return 1 if update success
-                return SmartixSchoolsCol.update(id, targetSchool);
+                return SmartixSchoolsCol.update(id, {$set: targetSchool });
 
             } else {
                 console.log('caller is not authed');

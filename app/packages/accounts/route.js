@@ -1,9 +1,17 @@
 
 SchoolRequired = function(){
     var userGroups = Roles.getGroupsForUser(Meteor.userId())
+    
+    //if user belongs to more than one group, the user needs to choose the school namespace
     if(userGroups.length > 1 && !Session.get('pickedSchoolId')){
         console.log(Session.get('pickedSchoolId'));
         Router.go('SchoolPick');
+    }else if(userGroups.length == 1){
+    //if user is only belonged to one group only, set pickedSchoolId automatically
+        Session.set('pickedSchoolId',userGroups[0]);
+    }else{
+    //if user does not belonged to any group, user still uses an old account that needs update
+    //assign user role in global group
     }
     this.next();
 }

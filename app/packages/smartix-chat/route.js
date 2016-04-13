@@ -27,15 +27,9 @@ Router.route('ChatRoomInformation', {
 });
 
 
-
+//use user list from sub globalUsersBasicInfo
 Router.route('ChatInvite', {
   path: "/chat-invite",
-  waitOn: function () {
-    return [
-      Meteor.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses'),
-      Meteor.subscribe('smartix:classes/adminsOfJoinedClasse')
-    ];
-  }
 });
 
 Router.route('GroupChatInvite', {

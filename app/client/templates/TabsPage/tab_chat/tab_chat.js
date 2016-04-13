@@ -38,13 +38,9 @@ Template.TabChat.helpers({
     
   },
   'getAllMyChatRooms': function () {
-    var allchats = Chat.find({},{sort:{"messagesObj.sendAt":-1}});
-    totalResult = allchats.length;
-    if (Chat.find().count() > 0) {
-      return allchats;
-    } else {
-      return false;
-    }
+    var allchats = Smartix.Groups.Collection.find({type:'chat'},{sort:{"messagesObj.sendAt":-1}});
+    return allchats;
+    
   },
   //this implementation smells
   //duplicate of getChatRoomName //todo refactor

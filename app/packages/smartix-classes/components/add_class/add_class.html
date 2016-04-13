@@ -1,91 +1,80 @@
 <template name="AddClass">
-  {{#contentFor "headerTitle"}}
-    <h1 class="title"> {{_ "AddClass"}} </h1>
-  {{/contentFor}}
-
-  {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton path='TabClasses' text=" "}}
-  {{/contentFor}}
-
-  {{#contentFor "headerButtonRight"}}
+    {{#contentFor "headerTitle"}}
+    <h1 class="title"> {{_ "AddClass"}} </h1> {{/contentFor}} {{#contentFor "headerButtonLeft"}} {{>ionNavBackButton path='TabClasses' text=" "}} {{/contentFor}}
+    {{#contentFor "headerButtonRight"}}
     <button class="button button-clear button-entering button-active addClassBtn">{{_ "Add"}}</button>
-  {{/contentFor}}
+    {{/contentFor}}
+        {{#ionBody}}
+        <!-- TODO: refactor to call Smartix.Class.createClass meteor methods equivalent-->
+        <form>
+            <ul class="list " style="margin-bottom:0;padding-top:50px;">
+                <li class="">
+                    <div class="bar bar-header item-input-inset">
+                        <label class="item-input-wrapper white-background">
+                            <a data-text='{{_ "AddClassClassNameTooltip"}}' data-ion-tooltip="ionTooltip"><i class='icon ion-ios-help' ></i></a>
+                            <i class="icon placeholder-icon"></i>
+                            <input id='className' type="text" name="className" placeholder={{_ "Type_Class_Name"}} />
 
-  {{#ionView}}
-    
-      <!-- TODO: refactor to call Smartix.Class.createClass meteor methods equivalent-->
-      {{#autoForm  validation="keyup" collection="Smartix.Groups.Collection" id="insertClass" type="insert"}}
-        <ul class="list " style="margin-bottom:0;padding-top:50px;">
-          <li class="" >
-             <div class="bar bar-header item-input-inset" >
-                 <label class="item-input-wrapper white-background" >
-                <a  data-text='{{_ "AddClassClassNameTooltip"}}'  data-ion-tooltip="ionTooltip"><i class='icon ion-ios-help' ></i></a>
-                 <i class="icon placeholder-icon"></i>
-                {{> afFieldInput name="className" placeholder=(_ "Type_Class_Name" ) }}
-                {{#if afFieldIsInvalid name='className'}}
-                 <br><span  class="help-block">{{afFieldMessage name='className'}}</span>
-                {{/if}}
-                </label>
+                        </label>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="bar bar-header item-input-inset">
+                        <label class="item-input-wrapper white-background">
+                            <a data-text='{{_ "AddClassClassCodeTooltip"}}' data-ion-tooltip="ionTooltip"><i class='icon ion-ios-help' ></i></a>
+                            <i class="icon placeholder-icon"></i>
+                            <input id='classCode' type="text" name="classCode" placeholder={{_ "Type_Class_Code"}}>
+                        </label>
+                    </div>
+                </li>
+
+                <li class="item">
+                    <a data-text='{{_ "AddClassChooseIconTooltip"}}' data-ion-tooltip="ionTooltip"><i class='icon ion-ios-help' ></i></a>
+
+                    <input id='classAvatar' type="text" name="name" placeholder="green_apple" value={{getClassAvatar}} />
+                    <i id='pick-an-icon-btn' class="icon e1a-{{getClassAvatar}} e1a-4x emojicon"></i>
+
+
+                </li>
+
+                <li class="item item-toggle">
+                    <span class="description">{{_ "AnyoneInThisClassCanStartAChat"}}</span>
+
+                    <label class="toggle">
+                        <input id='anyoneCanChat' type="checkbox" name="anyoneCanChat">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </li>
+
+
+                <li class="item item-toggle">
+                    <span class="description">{{_ "IWillOnlyMessagePeople13AndOlder"}}</span>
+
+                    <label class="toggle">
+                        <input id='ageRestricted' type="checkbox" name="ageRestricted">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </li>
+
+
+            </ul>
+
+            <div class="padding">
+                <span class="description">{{_ "addClassDescription"}}</span>
+                <input id='name' type="text" name="name">
             </div>
-          </li>
-          <li class="" >
-            <div class="bar bar-header item-input-inset" >
-              <label class="item-input-wrapper white-background" >
-                <a data-text='{{_ "AddClassClassCodeTooltip"}}'  data-ion-tooltip="ionTooltip"><i class='icon ion-ios-help' ></i></a>                  
-                <i class="icon placeholder-icon"></i>
-                {{> afFieldInput name="classCode" class="classCodeInput" placeholder=(_ "Type_Class_Code" ) }}
-                {{#if afFieldIsInvalid name='classCode'}}
-                  <br><span class="help-block ">{{afFieldMessage name='classCode'}}</span>
-                {{/if}}
-              </label>
+
+            <div class="padding">
+                <span class="description">{{_ "addClassTerm" }}</span>
             </div>
-          </li>
 
-          <li class="item">  
-           <a data-text='{{_ "AddClassChooseIconTooltip"}}' data-ion-tooltip="ionTooltip"><i class='icon ion-ios-help' ></i></a>                
-           {{> afFieldInput name="classAvatar" style='display:none;' placeholder="green_apple" value=getClassAvatar }}
-           <i id='pick-an-icon-btn' class="icon e1a-{{getClassAvatar}} e1a-4x emojicon"></i>
-           
+            <input id='namespace' type="text" name="namespace" value = {{getCurrentNameSpace}} /> 
 
-          </li>
-
-          <li class="item item-toggle">
-            <span class="description">{{_ "AnyoneInThisClassCanStartAChat"}}</span>
-
-            <label class="toggle">
-              {{> afFieldInput name="anyoneCanChat" class="checked"  }}
-              <div class="track">
-                <div class="handle"></div>
-              </div>
-            </label>
-          </li>
-
-
-          <li class="item item-toggle">
-            <span class="description">{{_ "IWillOnlyMessagePeople13AndOlder"}}</span>
-
-            <label class="toggle">
-              {{> afFieldInput name="ageRestricted" class="checked"  }}
-              <div class="track">
-                <div class="handle"></div>
-              </div>
-            </label>
-          </li>
-
-
-        </ul>
-
-        <div class="padding">
-          <span class="description">{{_ "addClassDescription"}}</span>
-        </div>
-
-
-        <div class="padding">
-          <span class="description">{{_ "addClassTerm" }}</span>
-        </div>
-
-      {{/autoForm}}
-
-    
-  {{/ionView}}
+            <input id='admins' type="text" name="admins" value = {{getAdmin}} />
+        </form>
+        {{/ionBody}}
 </template>

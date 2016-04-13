@@ -12,19 +12,16 @@ Smartix.Class.Schema = new SimpleSchema({
 	},
 	type: {
 		type: String,
-		autoValue: function () {
-			return 'class'
-		}
+		defaultValue: 'class'
 	},
 	className: {
 		type: String,
-        trim: true,
-		optional: true
+        trim: true
 	},
 	addons: {
 		type: [String],
 		optional: true,
-		defaultValue: {}
+		defaultValue: []
 	},
     classCode: {
         type: String,
@@ -33,50 +30,31 @@ Smartix.Class.Schema = new SimpleSchema({
         regEx: /^[a-zA-Z0-9-]{3,}$/,
         custom: function () {
             var inputClassCode = this.value.trim();
-            if (Meteor.isClient && this.isSet && this.isInsert) {
+            if (Meteor.isServer && this.isSet ) {
                 if(Smartix.Class.searchForClassWithClassCode(inputClassCode)) {
                     // If a class with the classCode already exists
                     // Invalidate Autoform and provides a suggestion
-                    AutoForm.getValidationContext("insertClass").resetValidation();
-                    AutoForm.getValidationContext("insertClass").addInvalidKeys([{
-                        name: "classCode",
-                        type: "notUniqueAndSuggestClasscode",
-                        value: inputClassCode + "" + Smartix.helpers.getRandomInt(0,99)
-                    }]);
+                    console.log('classcode already exist');
+                    return 'classcode already exist';
                 }
             }
         }
     },
 	admins: {
 		type: [String],
-		minCount: 1,
-        autoform: {
-            omit: true
-        }
+		minCount: 1
 	},
 	comments: {
 		type: Boolean,
 		defaultValue: true
 	},
     ageRestricted: {
-        type: Boolean,
-        autoform: {
-            afFieldInput: {
-                type: "boolean-checkbox2"
-            }
-        }
+        type: Boolean
     },
     createdAt: {
         type: Date,
-        autoform: {
-            omit: true
-        },
         autoValue: function () {
-            if (this.isInsert) {
                 return new Date();
-            } else if (this.isUpsert) {
-                return {$setOnInsert: new Date()};
-            }
         }
     },
     classAvatar:{
@@ -87,18 +65,12 @@ Smartix.Class.Schema = new SimpleSchema({
     lastUpdatedBy: {
         type: String,
         optional: false,
-        autoform: {
-            omit: true
-        },
         autoValue: function () {
             return Meteor.userId();
         }
     },
     lastUpdatedAt: {
         type: Date,
-        autoform: {
-            omit: true
-        },
         autoValue: function () {
             return new Date();
         }
@@ -106,18 +78,19 @@ Smartix.Class.Schema = new SimpleSchema({
 });
 
 Smartix.Class.searchForClassWithClassCode = function (classCode) {
+    console.log('Checks that `classCode` conforms to the schema before searching',classCode);
     // Checks that `classCode` conforms to the schema before searching
     var classCodePattern = new RegExp(/^[a-zA-Z0-9-]{3,}$/);
     
     if (typeof classCode === "string"
         && classCodePattern.test(classCode)) {
-            
-        // Returns the class object or `undefined`
-        return Smartix.Groups.Collection.findOne({
-            classCode: {
-                $regex: new RegExp("^" + classCode.trim()+ "$", "i")
-            }
+        
+        var existGroup = Smartix.Groups.Collection.findOne({
+            classCode: classCode
         });
+        console.log('existGroup',existGroup);
+        // Returns the class object or `undefined`
+        return existGroup;
     }
     return false;
 }
@@ -156,34 +129,39 @@ Smartix.Class.isClassAdmin = function (userId, classId) {
     return false;
 }
 
-Smartix.Class.createClass = function (users, namespace, className, classCode) {
+Smartix.Class.createClass = function (classObj) {
 
+    console.log('Smartix.Class.createClass',classObj);
+    
 	// Checks that the namespace is either `global`
     // or the currently-logged in user is one of the following:
     // * Admin for the school (namespace) specified
     // * Teacher for the school (namespace) specified
 
-	if(namespace !== 'global'
-        && !Smartix.Accounts.isUserSchoolTeacherOrAdmin(namespace)) {
+	if(classObj.namespace !== 'global'
+        && !Smartix.Accounts.isUserSchoolTeacherOrAdmin(classObj.namespace)) {
 		return false;
 		// Optional: Throw an appropriate error if not
 	}
 
 	// Creating class document to be inserted
 	var newClass = {};
-	newClass.users = users;
-	newClass.namespace = namespace;
+	newClass.users = classObj.users;
+	newClass.namespace = classObj.namespace;
 	newClass.type = 'class';
-	newClass.className = className.trim();
-	newClass.classCode = classCode.trim();
-    
+	newClass.className = classObj.className.trim();
+	newClass.classCode = classObj.classCode.trim();
+    newClass.ageRestricted = classObj.ageRestricted;
+    if(classObj.classAvatar){
+        newClass.classAvatar = classObj.classAvatar;
+    }
     // Make the current user as the admin
 	newClass.admins = [
 		Meteor.userId()
 	];
 
 	// Checks the arguments are of the specified type, convert it if not
-	Smartix.Class.Schema.clean(options);
+	Smartix.Class.Schema.clean(newClass);
 
 	// Checks are done in one go
 	check(newClass, Smartix.Class.Schema);
@@ -362,7 +340,7 @@ Smartix.Class.Schema.i18n("schemas.ClassesSchema");
 
 var msgStringError = TAPi18n.__("ClassCodeErrorMessage", {}, lang_tag="en");
 //https://github.com/aldeed/meteor-simple-schema#customizing-validation-messages
-//custom validation message
+//custom validation message 
 Smartix.Class.Schema.messages({
   regEx: [
     {msg: msgStringError }

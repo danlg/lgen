@@ -11,11 +11,14 @@ Package.onUse(function(api) {
     api.use('tap:i18n');
     api.use('aldeed:collection2');
     api.use('aldeed:simple-schema');
+
     api.use('reactive-var','client');
     api.use('session', 'client');
     api.use('templating', 'client');
     api.use('fourseven:scss@2.0.0','client');    
     api.use('stevezhu:lodash@4.6.1');
+    api.use('chrismbeckett:toastr');   
+   
     api.use('smartix:core');
     api.use('smartix:accounts-schools');
     api.use('smartix:groups');
