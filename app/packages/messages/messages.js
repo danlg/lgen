@@ -102,7 +102,10 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons) {
     check(groupId, String);
     check(messageType, String);
     check(data, Object);
-    check(addons, Match.Maybe([Object]));
+    
+    //Match.Maybe is only available at meteor 1.3
+    //https://github.com/meteor/meteor/issues/3876
+    check(addons, Match.OneOf(undefined,null,[Object]));
     
     /* ************************************** */
     /* CHECKS FOR PERMISSION TO POST IN GROUP */
@@ -122,7 +125,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons) {
     // Checks whether the currently logged-in user
     // has permission to create a message for the group
     // The logic behind this would be different for different group types
-    if(!Smartix[Smartix.Utilities.letterCaseToCapitalCase(group.type)].Messages.canCreateMessage(groupId, type)) {
+    if(!Smartix[Smartix.Utilities.letterCaseToCapitalCase(group.type)].Messages.canCreateMessage(groupId, group.type)) {
         return false;
         // OPTIONAL: Throw error saying you do not have
         // permission to create message for this group
