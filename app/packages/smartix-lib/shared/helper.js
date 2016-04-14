@@ -126,9 +126,9 @@ Smartix.helpers = Smartix.helpers || {};
     Smartix.helpers.getAnotherUser = function() {
 
         //find all userids in this chat rooms
-        var query = Chat.findOne({ _id: Router.current().params.chatRoomId });
+        var query = Smartix.Groups.Collection.findOne({ _id: Router.current().params.chatRoomId });
         if (query) {
-            var arr = query.chatIds;
+            var arr = query.users;
             //find and remove the userid of the current user
             var currentUserIdIndex = arr.indexOf(Meteor.userId());
             arr.splice(currentUserIdIndex, 1);
@@ -154,7 +154,7 @@ Smartix.helpers = Smartix.helpers || {};
     Smartix.helpers.getAllUserExceptCurrentUser = function() {
 
         //find all userids in this chat rooms
-        var arr = Chat.findOne({ _id: Router.current().params.chatRoomId }).chatIds;
+        var arr = Smartix.Groups.Collection.findOne({ _id: Router.current().params.chatRoomId }).users;
         //log.info(arr);
         //return all user objects
         var targetUsers = Meteor.users.find({
