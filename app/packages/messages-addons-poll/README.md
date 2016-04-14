@@ -97,6 +97,7 @@ Remove options from a poll
 
 #### Arguments
 
+* `messageId` *String* - The `_id` of the message to remove the options from
 * `options` *[String]* - An array of options to remove
 
 #### Implementation
@@ -112,7 +113,7 @@ Cast a vote for an option in the poll for the currently-logged in user.
 
 #### Arguments
 
-* `message` *String* - The `id` of the message for which the poll is attached to
+* `messageId` *String* - The `_id` of the message for which the poll is attached to
 * `option` *String* - The name of the option for which the current user is casting the vote for
 
 #### Implementation
@@ -132,7 +133,7 @@ Uncast a vote for an option in the poll for the currently-logged in user.
 
 #### Arguments
 
-* `message` *String* - The `id` of the message for which the poll is attached to
+* `messageId` *String* - The `_id` of the message for which the poll is attached to
 * `option` *String* - The name of the option for which the current user is uncasting the vote for
 
 #### Implementation
