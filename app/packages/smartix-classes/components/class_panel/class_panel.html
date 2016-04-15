@@ -69,8 +69,7 @@
        
         <div class="list messageList background-wallpaper"  id="messageList">
            <div class='date-bubble-wrapper {{isLoadMoreButtonShow}}'><button class='load-prev-msg'>Load Previous Messages</button> </div>            
-           {{#with getMessagesObj classObj}}
-               {{#each this}}
+               {{#each classMessages}}
                 {{#if showTimestamp}}
                        <div class='date-bubble-wrapper'> <div class='date-bubble'>{{formatDate sendAt}}</div> </div>
                 {{/if}}                 
@@ -89,8 +88,8 @@
                 <div class="item less-top-bottom-padding">
                     <div>
                     
-                    {{{docPreview content}}}    
-                    {{#autolink}}<div class='content'><pre>{{content}}</pre></div>{{/autolink}}
+                    {{{docPreview data.content}}}    
+                    {{#autolink}}<div class='content'><pre>{{data.content}}</pre></div>{{/autolink}}
                     <div>
                         {{#if havePic}}
                         {{#each imageArr}}
@@ -190,7 +189,6 @@
                 </div>
                 <!-- </a> -->
               {{/each}}
-          {{/with}}
         </div>
         
         

@@ -118,7 +118,9 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons) {
     
     // Checks if group exists
     if(!group) {
+        console.log('group not exist');
         return false;
+        
         // OPTIONAL: Throw error saying the group specified does not exists
     }
     
@@ -126,6 +128,8 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons) {
     // has permission to create a message for the group
     // The logic behind this would be different for different group types
     if(!Smartix[Smartix.Utilities.letterCaseToCapitalCase(group.type)].Messages.canCreateMessage(groupId, group.type)) {
+        
+        console.log('no permission to create message for this group');
         return false;
         // OPTIONAL: Throw error saying you do not have
         // permission to create message for this group
@@ -137,6 +141,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons) {
     
     // Checks that this type of message is valid
     if(!Smartix.Messages.isValidType(messageType)) {
+        console.log('type specified is not recognized');
         return false;
         // OPTIONAL: Throw error indicating the `type` specified is not recognized
     }
@@ -147,8 +152,9 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons) {
     message.author = Meteor.userId();
     message.type = messageType;
     message.data = data;
-    
-    Smartix.Messages.cleanAndValidate(message);
+   
+   //disable temp TODO
+   //Smartix.Messages.cleanAndValidate(message);
     
     /* ****************** */
     /* INSERT THE MESSAGE */
@@ -156,32 +162,46 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons) {
 
 	var newMessage = Smartix.Messages.Collection.insert(message);
     
+    //i.e of an addOn Obj:
+    //{type:'files'}
+    //{type:'images'}
+    //{type:'poll'}
+    //{type:'voice'}
+    //{type:'calendar'}
+    //{type:'comments'}
+    
+    //e.g:
+    //class's msg allow addons can be all of the above
+    //chat's  msg allow addons are files/images and/or voice
+    //news's  msg allow addons are files/images and/or voice
+    
+    console.log('newMessage',newMessage);
     if(addons) {
         
         /* ***************************************** */
         /* CHECKS FOR PERMISSION TO ATTACH THE ADDON */
         /* ***************************************** */
-        
-        if(!Smartix[Smartix.Utilities.letterCaseToCapitalCase(group.type)].Messages.canAttachAddons(groupId, addons)) {
+        //TODO
+        /*if(!Smartix[Smartix.Utilities.letterCaseToCapitalCase(group.type)].Messages.canAttachAddons(groupId, addons)) {
             return false;
             // OPTIONAL: Throw error saying you do not have
             // permission to attach an addon for this group
-        }
+        }*/
         
         // Checks that the group allows for this type of addon
         // If the addon type specified is not in
         // the array of allowed addons, return `false`
-        if(group.addons.indexOf(addon.type) < 0) {
+        //TODO
+        /*if(group.addons.indexOf(addon.type) < 0) {
             return false;
             // OPTIONAL: Throw error indicating the add-on
             // you are trying to attached in not an approved type
-        }
+        }*/
         
         /* ******************************************** */
         /* CHECKS THE VALIDITY OF THE ADDONS AND ATTACH */
         /* ******************************************** */
-        
-        Smartix.Messages.Addons.attachAddons(newMessage._id, addons);
+        Smartix.Messages.Addons.attachAddons(newMessage, addons);
     }
 }
 

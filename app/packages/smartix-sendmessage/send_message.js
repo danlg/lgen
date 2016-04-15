@@ -220,6 +220,11 @@ Template.SendMessage.events({
     var target = Session.get('sendMessageSelectedClasses').selectArrId;
     log.info(target);
     var msg = $(".msgBox").val();
+    
+    Meteor.call('smartix:messages/createMessage',target[0],'text',{content:msg});
+    
+    return;
+    
     var mediaObj = {};
     mediaObj.allowComment = document.getElementById('allowComment').checked;
     mediaObj.allowVote = document.getElementById('allowVote').checked;  
@@ -351,7 +356,7 @@ Template.SendMessage.helpers({
         log.info(getDefaultClass);
         var obj = {
           selectArrName: [getDefaultClass.className],
-          selectArrId: [getDefaultClass.classCode]
+          selectArrId: [getDefaultClass._id]
         };
 
         Session.set("sendMessageSelectedClasses", obj);

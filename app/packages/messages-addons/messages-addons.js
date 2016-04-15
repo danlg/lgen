@@ -6,6 +6,9 @@ Smartix.Messages.Addons = Smartix.Messages.Addons || {};
 
 Smartix.Messages.Addons.ValidTypes = Smartix.Messages.Addons.ValidTypes || [];
 
+//stub that should be removed by using the subpackages
+Smartix.Messages.Addons.ValidTypes.push('files','images','poll','voice','calendar','comments');
+
 Smartix.Messages.Addons.Schema = new SimpleSchema({
     type: {
         type: String,
@@ -89,11 +92,13 @@ Smartix.Messages.Addons.attachAndReplaceAddon = function (messageId, addon) {
 
 Smartix.Messages.Addons.cleanAndValidate = function (messageId, addon) {
     
+    console.log('cleanAndValidate validtypes:',Smartix.Messages.Addons.ValidTypes);
+    
     // Checks that the `messageId` is of type `String`
     check(messageId, String);
     
     // Checks that the type of addon is supported
-    check(addon, ObjectIncluding({
+    check(addon, Match.ObjectIncluding({
         type: Match.Where(function (x) {
             check(x, String);
             return Smartix.Messages.Addons.ValidTypes.indexOf(x) > -1;
@@ -101,11 +106,11 @@ Smartix.Messages.Addons.cleanAndValidate = function (messageId, addon) {
     }));
     
     // Clean the addon object
-    Smartix.Messages.Addons[Smartix.Utilities.letterCaseToCapitalCase(addon.type)].Schema.clean(addon);
+    //Smartix.Messages.Addons[Smartix.Utilities.letterCaseToCapitalCase(addon.type)].Schema.clean(addon);
     
     // Check the addon against the schema
     // provided by the child packages
-    check(addon, Smartix.Messages.Addons[Smartix.Utilities.letterCaseToCapitalCase(addon.type)].Schema);
+    //check(addon, Smartix.Messages.Addons[Smartix.Utilities.letterCaseToCapitalCase(addon.type)].Schema);
     
     return addon;
 }
