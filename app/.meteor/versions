@@ -163,6 +163,8 @@ smartix:iconchooser@0.0.1
 smartix:lib@0.0.1
 smartix:messagedetail@0.0.1
 smartix:messageextrainfo@0.0.1
+smartix:messages@0.0.1
+smartix:messages-addons@0.0.1
 smartix:notifications@0.0.1
 smartix:schools@0.0.1
 smartix:sendmessage@0.0.1
@@ -170,6 +172,7 @@ smartix:sharer@0.0.1
 smartix:tour@0.0.1
 smartix:ui-master@0.0.1
 smartix:userdetail@0.0.1
+smartix:utilities@0.0.1
 smartix:votechange@0.0.1
 smartix:votedisplay@0.0.1
 spacebars@1.0.7
