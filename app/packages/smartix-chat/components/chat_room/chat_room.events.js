@@ -193,7 +193,7 @@ function sendBtnMediaButtonToggle(){
 ////get another person's user object in 1 to 1 chatroom. call by chatroom helpers
 function getAnotherUser(){
             //find all userids in this chat rooms
-            var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
+            var arr = Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId}).chatIds;
             
             //find and remove the userid of the current user
             var currentUserIdIndex = arr.indexOf(Meteor.userId());

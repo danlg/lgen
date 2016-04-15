@@ -47,16 +47,26 @@ var imgReadyChecking = function(){
   $(".inputBox").autogrow();
   var chatroomList = this.find('.chatroomList');
   
-  var initialChatObj = Chat.findOne({_id: Router.current().params.chatRoomId});
-  var initialCount = initialChatObj.messagesObj.length;
+  var initialChatObj = Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId});
+  var initialCount; 
+  if(!initialChatObj.messagesObj){
+      initialCount = 0;
+  }else{
+      initialCount = initialChatObj.messagesObj.length;
+  }
   
   //http://stackoverflow.com/questions/32461639/how-to-execute-a-callback-after-an-each-is-done
   this.autorun(function(){
-    var latestChatObj = Chat.findOne({_id: Router.current().params.chatRoomId});
+    var latestChatObj = Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId});
    
     // we need to register a dependency on the number of documents returned by the
     // cursor to actually make this computation rerun everytime the count is altered
-    var latestCount = latestChatObj.messagesObj.length;
+    var latestCount;
+    if(!latestChatObj.messagesObj){
+        latestCount = 0;
+    }else{
+        latestCount = latestChatObj.messagesObj.length;
+    }
     
     Tracker.afterFlush(function(){
         if(latestCount > initialCount){

@@ -18,9 +18,14 @@ Package.onUse(function(api) {
   api.use('aldeed:simple-schema');
   api.use('smartix:utilities');
   //use smartix core as Smartix namespace is init there
-  api.use('smartix:core')  
-  api.use('smartix:messages-addons@0.0.1', {unordered: true});
+  api.use('smartix:core') 
+
+
   api.addFiles('messages.js');
+  api.addFiles('methods.js');
+  api.addFiles('publications.js','server');  
+  api.use('smartix:messages-addons@0.0.1', {unordered: true});  
+  api.use('smartix:messages-text', {unordered: true});    
   api.export('Smartix');
 });
 

@@ -6,12 +6,12 @@
 Template.ChatRoom.helpers({
   chatRoomProfile: function () {
     
-    var currentChatObj =  Chat.findOne({_id: Router.current().params.chatRoomId});
+    var currentChatObj =  Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId});
     if(!currentChatObj){
        return; 
     }
     //log.info('getMessagesObj',classObj);
-    if (currentChatObj.messagesObj.length > 0) { 
+    if (currentChatObj.messagesObj && currentChatObj.messagesObj.length > 0) { 
         
        //log.info('loadedItems',loadedItems.get());
        var rangeFrom = currentChatObj.messagesObj.length - Template.instance().loadedItems.get();
@@ -83,7 +83,7 @@ Template.ChatRoom.helpers({
     return userObj
   },
   getGroupOrCorrespondentAvatar : function () {
-    var chat = Chat.findOne({_id: Router.current().params.chatRoomId});
+    var chat = Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId});
     if(chat){
         if(chat.chatRoomAvatar){
             return chat.chatRoomAvatar;       
@@ -103,7 +103,7 @@ Template.ChatRoom.helpers({
   getChatRoomName: function () {
     //we display the name of the chat room or the correspondent or the people in the group chat depending on the context
     if(getTotalChatRoomUserCount() > 2){
-       var chat = Chat.findOne({_id: Router.current().params.chatRoomId});  
+       var chat = Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId});  
        if(chat.chatRoomName){
            return chat.chatRoomName;
        }else{
@@ -178,7 +178,7 @@ Template.ChatRoom.helpers({
   },
 
   targertWorkingTime: function (argument) {  
-    var currentChat = Chat.findOne({_id: Router.current().params.chatRoomId});
+    var currentChat = Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId});
     var target;
     var displayOffline = false;
         
@@ -204,7 +204,7 @@ Template.ChatRoom.helpers({
         Roles.userIsInRole(target,'parent',currentChat.namespace)
        ) {
       console.log('chat setting')
-      debugger;
+      //debugger;
       if (target.profile.chatSetting && target.profile.chatSetting.workHour) {
         
         
@@ -269,10 +269,15 @@ Template.ChatRoom.helpers({
      }
   },
   isLoadMoreButtonShow: function(){
-      var currentChat= Chat.findOne({_id: Router.current().params.chatRoomId});
-      
+      var currentChat= Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId});
+      var chatMessageLength;
+      if(currentChat.messagesObj){
+          chatMessageLength = currentChat.messagesObj.length;
+      }else{
+          chatMessageLength = 0;
+      }
       //log.info('reachTheEnd:loadedItems',loadedItems.get(),'classObjMessages',currentClass.messagesObj.length,'initialLoadItems',initialLoadItems.get());
-      if(Template.instance().loadedItems.get() > currentChat.messagesObj.length ){
+      if(Template.instance().loadedItems.get() > chatMessageLength ){
           return "hidden";
       }else{
           return "";
@@ -284,7 +289,7 @@ Template.ChatRoom.helpers({
 ////get another person's user object in 1 to 1 chatroom. call by chatroom helpers
 function getAnotherUser(){
   //find all userids in this chat rooms
-  var query = Chat.findOne({_id: Router.current().params.chatRoomId});
+  var query = Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId});
   if (query) {
     var arr = query.chatIds;
     //find and remove the userid of the current user
@@ -299,7 +304,7 @@ function getAnotherUser(){
 
 function getAllUser(){
             //find all userids in this chat rooms
-            var arr = Chat.findOne({_id: Router.current().params.chatRoomId}).chatIds;
+            var arr = Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId}).chatIds;
             //log.info(arr);
             //return all user objects
             var targetUsers =  Meteor.users.find({
@@ -310,10 +315,10 @@ function getAllUser(){
 }
 
 function getTotalChatRoomUserCount(){
-            var chatObj = Chat.findOne({_id: Router.current().params.chatRoomId});
+            var chatObj = Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId});
             if(chatObj){
                 //find all userids in this chat rooms
-                var arr = chatObj.chatIds;
+                var arr = chatObj.users;
                 // log.info(arr);    
                 return arr.length;
             }else{

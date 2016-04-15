@@ -55,7 +55,8 @@ Template.AppLayout.onCreated(function() {
     this.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');
     this.subscribe('userPendingApprovedSchools');
     this.subscribe('globalUsersBasicInfo');
-
+    
+    
 
 
     var self = this;

@@ -125,6 +125,19 @@ Template.ClassPanel.helpers({
     });
     return classObj;
   },
+  classMessages:function(){
+    var classObj = Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: Router.current().params.classCode
+    });
+    if(!classObj){
+        return;
+    }
+    var classMessages = Smartix.Messages.Collection.find({
+        group: classObj._id
+    });
+    return classMessages;      
+  },
   classCode: function () {
     return Router.current().params.classCode
   },
@@ -168,98 +181,34 @@ Template.ClassPanel.helpers({
           return "";
       }
   },
-  getMessagesObj: function (inputClassObj) {
-    //debugger;
-    if(inputClassObj){
-        
-    }else{
-        return;
-    }
-    
-    var currentClassObj = inputClassObj;
-    
-    //log.info('getMessagesObj',classObj);
-    if (currentClassObj.messagesObj.length > 0) { 
-        
-       //log.info('loadedItems',loadedItems.get());
-       var rangeFrom = currentClassObj.messagesObj.length - loadedItems.get();
-       var rangeTo   = currentClassObj.messagesObj.length;       
-       var extraFilterMessages = lodash.filter(currentClassObj.messagesObj,function(num,currentIndex){
-           if(currentIndex > rangeFrom && currentIndex < rangeTo){
-               return true;
-           }
-       });       
-       extraFilterMessage = lodash.sortBy(extraFilterMessages,['sendAt']);
-     
-
-       localClassMessagesCollection = new Meteor.Collection(null);
-     
-       
-       for(var i = 0; i < extraFilterMessages.length; i++){
-                var currentFilterMsg = extraFilterMessages[i];
-                if(i == 0 || extraFilterMessages.length == 1){
-                    currentFilterMsg.showTimestamp = true;
-                }
-                else if(extraFilterMessages.length > 1){
-                   
-                    var prevFilterMsg = extraFilterMessages[i-1];
-                    
-                    //log.info('currentFilterMsg',currentFilterMsg);
-                    //log.info('nextFilterMsg',nextFilterMsg);           
-                    var currentDate = moment.unix(currentFilterMsg.sendAt.substr(0,10)).format("YYYY-MM-DD");
-                    var prevDate = moment.unix(prevFilterMsg.sendAt.substr(0,10)).format("YYYY-MM-DD");
-                    
-                    //log.info('currentDate',currentDate);
-                    //log.info('nextDate',nextDate);
-                    if(currentDate != prevDate){
-                        currentFilterMsg.showTimestamp = true;
-                    }else{
-                        currentFilterMsg.showTimestamp = false;
-                    }
-                }else{
-                     currentFilterMsg.showTimestamp = false;
-                }
-             
-                localClassMessagesCollection.insert(currentFilterMsg);
-                          
-       }
-       //log.info('extraFilterMessages',extraFilterMessages);
-          
-      //log.info('localClassMessagesCollection:count:',localClassMessagesCollection.find().count());
-
-      return localClassMessagesCollection.find({},{sort:{"sendAt":1}});
-    } else {
-      return false;
-    }
-  },
-  isLoadMoreButtonShow: function(){
-     
-      var currentClass = Smartix.Groups.Collection.findOne({
-          type: 'class',
-          classCode: Router.current().params.classCode
-        });
-      if(currentClass){
-        //log.info('reachTheEnd:loadedItems',loadedItems.get(),'classObjMessages',currentClass.messagesObj.length,'initialLoadItems',initialLoadItems.get());
-        if(loadedItems.get() > currentClass.messagesObj.length ){
-            return "hidden";
-        }else{
-            return "";
-        }
-      }
-  }
 
 });
 
 /*****************************************************************************/
 /* ClassPanel: Lifecycle Hooks */
 /*****************************************************************************/
-Template.ClassPanel.onCreated = function () {
-        
+Template.ClassPanel.onCreated(function(){
+    
+   
+   var self = this;
+   
+    console.log(Router.current().params.classCode);
+    var classObj = Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: Router.current().params.classCode
+    });      
+    
+   this.autorun(function(){
+    self.subscribe('smartix:messages/groupMessages',classObj._id);    
+   })
+
   //log.info('onCreatedBe',this.subscriptionsReady());
 
   //log.info('onCreatedAf',this.subscriptionsReady());
+      
+});
 
-};
+
 
 Template.ClassPanel.rendered = function () {
    

@@ -38,7 +38,8 @@ Template.TabChat.helpers({
     
   },
   'getAllMyChatRooms': function () {
-    var allchats = Smartix.Groups.Collection.find({type:'chat'},{sort:{"messagesObj.sendAt":-1}});
+    var allchats = Smartix.Groups.Collection.find({type:'chat'},{sort:{"lastUpdatedAt":-1}});
+    //console.log('getAllMyChatRooms',allchats.fetch()    );
     return allchats;
     
   },
@@ -62,9 +63,10 @@ Template.TabChat.helpers({
         // => 1-to-1 chat
         //      => display another user's full name 
         
-        
+        console.log('users',this.users);
+        var userIds = this.users;
         var maxNumberOfDisplayName = maxDisplay;
-        var userObjArr = Meteor.users.find({_id: {$in: this.chatIds}}).fetch();
+        var userObjArr = Meteor.users.find({_id: {$in: this.users }}).fetch();
         
         //group chat
         if(userObjArr.length > 2){ 
@@ -99,6 +101,10 @@ Template.TabChat.helpers({
   },
 
   'lasttext': function (messagesObj) {
+    if(!messagesObj){
+        return "";
+    }
+    
     var len = messagesObj.length;
     if (len > 0)
       return messagesObj[len - 1].text;
@@ -107,6 +113,10 @@ Template.TabChat.helpers({
 
   },
   'lasttextTime':function(messagesObj){
+    if(!messagesObj){
+        return "New Chat";
+    }
+    
     var len = messagesObj.length;
     if (len > 0){
       var message = messagesObj[len - 1];  
@@ -122,7 +132,7 @@ Template.TabChat.helpers({
     if (text.get() !== "") {
       var names = [];
       //get all user names in a chatroom
-      var userObjArr = Meteor.users.find({_id: {$in: this.chatIds}}).fetch();
+      var userObjArr = Meteor.users.find({_id: {$in: this.users}}).fetch();
       lodash.forEach(userObjArr, function (el, index) {
         if (el._id !== Meteor.userId()) {
           var name = Smartix.helpers.getFullNameByProfileObj(el.profile);
@@ -146,7 +156,7 @@ Template.TabChat.helpers({
     if(this.chatRoomAvatar){
         avatars.push("e1a-"+ this.chatRoomAvatar);
     }else{    
-        var userObjArr = Meteor.users.find({_id: {$in: this.chatIds}}).fetch();       
+        var userObjArr = Meteor.users.find({_id: {$in: this.users}}).fetch();       
         if(userObjArr.length > 2){
             avatars.push("e1a-green_apple");
         }else{
