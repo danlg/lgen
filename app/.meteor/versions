@@ -153,6 +153,7 @@ smartix:accounts-usernames@0.0.1
 smartix:admin@0.0.1
 smartix:calendarevent@0.0.1
 smartix:chat@0.0.1
+smartix:chats-messages@0.0.1
 smartix:classes@0.0.1
 smartix:classes-announcements@0.0.1
 smartix:core@0.0.1

@@ -5,64 +5,14 @@
 /*****************************************************************************/
 Template.ChatRoom.helpers({
   chatRoomProfile: function () {
-    
-    var currentChatObj =  Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId});
-    if(!currentChatObj){
-       return; 
-    }
-    //log.info('getMessagesObj',classObj);
-    if (currentChatObj.messagesObj && currentChatObj.messagesObj.length > 0) { 
         
-       //log.info('loadedItems',loadedItems.get());
-       var rangeFrom = currentChatObj.messagesObj.length - Template.instance().loadedItems.get();
-       var rangeTo   = currentChatObj.messagesObj.length;       
-       var extraFilterMessages = lodash.filter(currentChatObj.messagesObj,function(num,currentIndex){
-           if(currentIndex > rangeFrom && currentIndex < rangeTo){
-               return true;
-           }
-       });       
-       extraFilterMessage = lodash.sortBy(extraFilterMessages,['sendAt']);
-     
-      
-          Template.instance().localChatMessagesCollection = new Meteor.Collection(null);
-      
-       
-       for(var i = 0; i < extraFilterMessages.length; i++){
-                var currentFilterMsg = extraFilterMessages[i];
-                if(i == 0 || extraFilterMessages.length == 1){
-                    currentFilterMsg.showTimestamp = true;
-                }
-                else if(extraFilterMessages.length > 1){
-                   
-                    var prevFilterMsg = extraFilterMessages[i-1];
-                    
-                    //log.info('currentFilterMsg',currentFilterMsg);
-                    //log.info('nextFilterMsg',nextFilterMsg);           
-                    var currentDate = moment.unix(currentFilterMsg.sendAt.substr(0,10)).format("YYYY-MM-DD");
-                    var prevDate = moment.unix(prevFilterMsg.sendAt.substr(0,10)).format("YYYY-MM-DD");
-                    
-                    //log.info('currentDate',currentDate);
-                    //log.info('nextDate',nextDate);
-                    if(currentDate != prevDate){
-                        currentFilterMsg.showTimestamp = true;
-                    }else{
-                        currentFilterMsg.showTimestamp = false;
-                    }
-                }else{
-                     currentFilterMsg.showTimestamp = false;
-                }
-             
-                Template.instance().localChatMessagesCollection.insert(currentFilterMsg);
-                            
-       }
-       //log.info('extraFilterMessages',extraFilterMessages);
-          
-      //log.info('localClassMessagesCollection:count:',localClassMessagesCollection.find().count());
-
-      return Template.instance().localChatMessagesCollection.find({},{sort:{"sendAt":1}});
-    } else {
-      return false;
-    }    
+    var chatMessages = Smartix.Messages.Collection.find({
+        group: Router.current().params.chatRoomId
+    });
+    
+    console.log(chatMessages.fetch());
+    
+    return chatMessages;   
   },
   withExtraRightPadding:function(){
     if(!Meteor.isCordova){
@@ -72,7 +22,7 @@ Template.ChatRoom.helpers({
     }
   },
   isMine: function () {
-    return this.from === Meteor.userId() ? "mine" : "notmine";
+    return this.author === Meteor.userId() ? "mine" : "notmine";
   },
   isMineBoolean: function (currentUserId) {
     return currentUserId === Meteor.userId() ? true : false;

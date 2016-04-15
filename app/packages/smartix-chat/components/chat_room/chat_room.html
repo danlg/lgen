@@ -36,9 +36,9 @@
                 <div class="item {{isMine}}">
                     {{#if isText}}
                     <div class="bubble">
-                        {{#if isMineBoolean from}}
+                        {{#if isMineBoolean author}}
                         {{else}}
-                            {{#with getUserById from}}        
+                            {{#with getUserById author}}        
                                 <div class='username'>
                                     {{#if profile.useravatar}}
                                         <i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>
@@ -53,8 +53,8 @@
                             {{/with}}
                             
                         {{/if}}                 
-                        {{{docPreview text}}}                
-                        {{#autolink}}<pre>{{text}}</pre>{{/autolink}}
+                        {{{docPreview data.content}}}                
+                        {{#autolink}}<pre>{{data.content}}</pre>{{/autolink}}
 
                         <span class='timestamp'>{{formatTime sendAt}}</span>
                     

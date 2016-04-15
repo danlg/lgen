@@ -18,8 +18,11 @@ ChatRoomMessageSender = function(chatRoomId,messageType,messageText,messageAttac
         pushObj.document = messageAttachmentObject._id
     }
 
+    Meteor.call('smartix:messages/createMessage',chatRoomId,messageType,{content:messageText});
+
+    
     //add message to chat collection
-    Meteor.call("chat/sendImage", chatRoomId, pushObj, function (error, result) {
+    /*Meteor.call("chat/sendImage", chatRoomId, pushObj, function (error, result) {
         //log.info(chatRoomId);
         if (error) {
                 log.error("error", error);
@@ -92,7 +95,7 @@ ChatRoomMessageSender = function(chatRoomId,messageType,messageText,messageAttac
 
         }
 
-    });
+    });*/
 
     //callback is for UI update e.g buttonToggle, autogrow inputbox refresh, clean up inputBox
     callback();

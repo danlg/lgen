@@ -115,65 +115,12 @@ Template.ClassDetail.helpers({
         type: 'class',
         classCode: Router.current().params.classCode
     });
-    
-    //log.info('getMessagesObj',classObj);
-    if (currentClassObj.messagesObj.length > 0) { 
-        
-       //log.info('loadedItems',loadedItems.get());
-       var rangeFrom = currentClassObj.messagesObj.length - loadedItems.get();
-       var rangeTo   = currentClassObj.messagesObj.length;       
-       var extraFilterMessages = lodash.filter(currentClassObj.messagesObj,function(num,currentIndex){
-           if(currentIndex > rangeFrom && currentIndex < rangeTo){
-               return true;
-           }
-       });       
-       extraFilterMessage = lodash.sortBy(extraFilterMessages,['sendAt']);
-     
-      if(!localClassMessagesCollection){
-          localClassMessagesCollection = new Meteor.Collection(null);
-      }
-       
-       for(var i = 0; i < extraFilterMessages.length; i++){
-                var currentFilterMsg = extraFilterMessages[i];
-                if(i == 0 || extraFilterMessages.length == 1){
-                    currentFilterMsg.showTimestamp = true;
-                }
-                else if(extraFilterMessages.length > 1){
-                   
-                    var prevFilterMsg = extraFilterMessages[i-1];
-                    
-                    //log.info('currentFilterMsg',currentFilterMsg);
-                    //log.info('nextFilterMsg',nextFilterMsg);           
-                    var currentDate = moment.unix(currentFilterMsg.sendAt.substr(0,10)).format("YYYY-MM-DD");
-                    var prevDate = moment.unix(prevFilterMsg.sendAt.substr(0,10)).format("YYYY-MM-DD");
-                    
-                    //log.info('currentDate',currentDate);
-                    //log.info('nextDate',nextDate);
-                    if(currentDate != prevDate){
-                        currentFilterMsg.showTimestamp = true;
-                    }else{
-                        currentFilterMsg.showTimestamp = false;
-                    }
-                }else{
-                     currentFilterMsg.showTimestamp = false;
-                }
-             
-                if (localClassMessagesCollection.findOne({msgId:currentFilterMsg.msgId}) != null) {
-                    localClassMessagesCollection.update({msgId:currentFilterMsg.msgId}, {
-                    $set: currentFilterMsg
-                    });
-                } else {
-                    localClassMessagesCollection.insert(currentFilterMsg);
-                }                
-       }
-       //log.info('extraFilterMessages',extraFilterMessages);
-          
-      //log.info('localClassMessagesCollection:count:',localClassMessagesCollection.find().count());
 
-      return localClassMessagesCollection.find({},{sort:{"sendAt":1}});
-    } else {
-      return false;
-    }
+    var classMessages = Smartix.Messages.Collection.find({
+        group: currentClassObj._id
+    });
+        
+    return classMessages;
   },
   teacherName: function () {
     return teacherName.get();
@@ -217,11 +164,19 @@ Template.ClassDetail.helpers({
 /*****************************************************************************/
 /* ClassDetail: Lifecycle Hooks */
 /*****************************************************************************/
-Template.ClassDetail.created = function () {
+Template.ClassDetail.onCreated(function () {
+    var self = this;
 
+    console.log(Router.current().params.classCode);
+    var classObj = Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: Router.current().params.classCode
+    });
 
-
-};
+    this.autorun(function () {
+        self.subscribe('smartix:messages/groupMessages', classObj._id);
+    });
+})
 
 Template.ClassDetail.rendered = function () {
     

@@ -7,6 +7,12 @@ Template.ChatRoom.created = function () {
     this.loadedItems = new ReactiveVar(10);
     this.loadExtraItems = 5;
     this.localChatMessagesCollection = new Meteor.Collection(null);
+
+    var self = this;
+
+    this.autorun(function () {
+        self.subscribe('smartix:messages/groupMessages', Router.current().params.chatRoomId);
+    });    
 };
 
 Template.ChatRoom.rendered = function () {
