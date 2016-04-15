@@ -14,8 +14,28 @@ Package.onUse(function(api) {
   api.use('less');
   api.use('iron:router');
   api.addFiles('client/layouts/admin-layout.html', 'client');
-  api.addFiles('admin.js');
-  api.addFiles('routes.js');
+  api.addFiles('client/templates/absence/absentees/absentees.html', 'client');
+  api.addFiles('client/templates/absence/absentees/absentees.js', 'client');
+  api.addFiles('client/templates/absence/expected/expected.html', 'client');
+  api.addFiles('client/templates/absence/expected/expected.js', 'client');
+  api.addFiles('client/templates/classes/add/add.html', 'client');
+  api.addFiles('client/templates/classes/add/add.js', 'client');
+  api.addFiles('client/templates/classes/import/import.html', 'client');
+  api.addFiles('client/templates/classes/import/import.js', 'client');
+  api.addFiles('client/templates/dashboard/dashboard.html', 'client');
+  api.addFiles('client/templates/dashboard/dashboard.js', 'client');
+  api.addFiles('client/templates/news/add/add.html', 'client');
+  api.addFiles('client/templates/news/add/add.js', 'client');
+  api.addFiles('client/templates/news/import/import.html', 'client');
+  api.addFiles('client/templates/news/import/import.js', 'client');
+  api.addFiles('client/templates/rss/rss.html', 'client');
+  api.addFiles('client/templates/rss/rss.js', 'client');
+  api.addFiles('client/templates/users/add/add.html', 'client');
+  api.addFiles('client/templates/users/add/add.js', 'client');
+  api.addFiles('client/templates/users/import/import.html', 'client');
+  api.addFiles('client/templates/users/import/import.js', 'client');
+  api.addFiles('client/templates/users/relationships/relationships.html', 'client');
+  api.addFiles('client/templates/users/relationships/relationships.js', 'client');
   api.addFiles('client/less/_bootstrap/alerts.import.less', 'client');
   api.addFiles('client/less/_bootstrap/badges.import.less', 'client');
   api.addFiles('client/less/_bootstrap/breadcrumbs.import.less', 'client');
@@ -234,6 +254,8 @@ Package.onUse(function(api) {
   api.addFiles('client/limitless/js/nicescroll.min.js', 'client');
   api.addFiles('client/limitless/js/app.js', 'client');
   api.addFiles('client/limitless/css/icomoon.css', 'client');
+  api.addFiles('admin.js');
+  api.addFiles('routes.js');
 });
 
 Package.onTest(function(api) {
