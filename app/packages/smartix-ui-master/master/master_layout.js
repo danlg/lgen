@@ -63,7 +63,6 @@ Template.AppLayout.onCreated(function() {
     self.autorun(function() {
         self.subscribe('userRelationships', Meteor.userId());
         self.subscribe('mySchools');
-        self.subscribe('smartix:messages/userMessages',Session.get('pickedSchoolId'));
     });
 
 });

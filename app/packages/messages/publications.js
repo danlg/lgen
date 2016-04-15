@@ -6,19 +6,15 @@ Meteor.publish('smartix:messages/messagesById', function (id) {
   });
 });
 
-Meteor.publish('smartix:messages/userMessages', function (namespace) {
+Meteor.publish('smartix:messages/groupMessages', function (groupId) {
   
   //find Groups that is:
   //1. in the current namespace and 
   //2a. either current user is one of the users in the group
   //2b. or     current user is one of the admins in the group
-  var groups = Smartix.Groups.Collection.find(
-    {$and: [{namespace:namespace},{$or: [ { users: this.userId }, { admins: this.userId} ]} ]},{ fields: { _id: 1 } }    
-  ).fetch();
-  
-  console.log('smartix:messages/userMessages',groups);
+  console.log('smartix:messages/groupMessages',groupId);
   
   return Smartix.Messages.Collection.find(
-    { group: { $in: lodash.map(groups,'_id')} }
+    { group: groupId }
   );
 });

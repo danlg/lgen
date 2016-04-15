@@ -129,7 +129,10 @@ Template.ClassPanel.helpers({
     var classObj = Smartix.Groups.Collection.findOne({
         type: 'class',
         classCode: Router.current().params.classCode
-    });    
+    });
+    if(!classObj){
+        return;
+    }
     var classMessages = Smartix.Messages.Collection.find({
         group: classObj._id
     });
@@ -184,13 +187,28 @@ Template.ClassPanel.helpers({
 /*****************************************************************************/
 /* ClassPanel: Lifecycle Hooks */
 /*****************************************************************************/
-Template.ClassPanel.onCreated = function () {
-        
+Template.ClassPanel.onCreated(function(){
+    
+   
+   var self = this;
+   
+    console.log(Router.current().params.classCode);
+    var classObj = Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: Router.current().params.classCode
+    });      
+    
+   this.autorun(function(){
+    self.subscribe('smartix:messages/groupMessages',classObj._id);    
+   })
+
   //log.info('onCreatedBe',this.subscriptionsReady());
 
   //log.info('onCreatedAf',this.subscriptionsReady());
+      
+});
 
-};
+
 
 Template.ClassPanel.rendered = function () {
    
