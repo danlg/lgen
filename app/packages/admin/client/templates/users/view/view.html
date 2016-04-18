@@ -1,0 +1,18 @@
+<template name="AdminUsersView">
+    <div class="panel panel-flat">
+        {{#with userData}}
+        <div class="panel-heading">
+            <h1>{{profile.firstName}} {{profile.lastName}}</h1>
+        </div>
+
+        <div class="panel-body">
+            <p>First Name: {{profile.firstName}}</p>
+            <p>Last Name: {{profile.lastName}}</p>
+            <p>Email: {{userEmail}}</p>
+            <p>Date of Birth: {{profile.dob}}</p>
+            <p>Telephone: {{profile.tel}}</p>
+            <p>Roles: {{userRoles}}</p>
+        </div>
+        {{/with}}
+    </div>
+</template>

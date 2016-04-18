@@ -81,21 +81,21 @@ Template.adminLayout.events({
         // Initialize mini sidebar 
         miniSidebar();
     },
-    'affix.bs.affix .sidebar-fixed', function () {
+    'affix.bs.affix .sidebar-fixed': function () {
         initScroll();
         resizeDetached();
         miniSidebar();
     },
-    'affix.bs.affix .sidebar-main, affix.bs.affix .sidebar-fixed', function () {
+    'affix.bs.affix .sidebar-main, affix.bs.affix .sidebar-fixed': function () {
         miniSidebar();
     },
-    'affix-top.bs.affix .sidebar-fixed', function () {
+    'affix-top.bs.affix .sidebar-fixed': function () {
         // When effixed top, remove scrollbar and its data
         removeScroll();
         $(".sidebar-fixed .sidebar-content").removeAttr('style').removeAttr('tabindex');
     },
     // Remove affix and scrollbar on mobile
-    'resize window', function() {
+    'resize window': function() {
         setTimeout(function() {            
             if($(window).width() <= 768) {
 

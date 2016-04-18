@@ -33,6 +33,7 @@ Package.onUse(function(api) {
   
   api.addFiles('accounts.js');
   api.addFiles('Schema.js');
+  api.addFiles('publications.js', 'server');
   
   api.addFiles(['templates/login_splash/login.html',
       'templates/login_splash/login.css',

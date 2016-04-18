@@ -34,10 +34,14 @@ Meteor.methods({
 
   }, 
   
-  'smartix:classes/createClass':function(classObj){
+  'smartix:classes/createClass':function(schoolName, classObj){
     
-    console.log('smartix:classes/createClass',classObj);
+    var schoolDoc = SmartixSchoolsCol.findOne({
+        username: schoolName
+    });
     
+    classObj.namespace = schoolDoc._id;
+
     return Smartix.Class.createClass(classObj);    
   }
      

@@ -46,7 +46,7 @@ if (Meteor.isServer) {
                 }
 
                 var newAdmin = options.username;
-                var newAdminPassword = Random.id();
+                var newAdminPassword = "admin";
                 if (admins) {
 
                     admins.map(function(eachAdmin) {

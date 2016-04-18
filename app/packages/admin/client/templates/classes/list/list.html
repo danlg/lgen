@@ -1,0 +1,16 @@
+<template name="AdminClassesSearch">
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h1>Search Classes</h1>
+        </div>
+
+        <div class="panel-body">
+            {{> EasySearch.Input index=classesIndex }}
+            <ul>
+                {{#EasySearch.Each index=classesIndex }}
+                    <li><a href="{{pathFor route='admin.classes.view' data=classCode}}">{{className}}</a></li>
+                {{/EasySearch.Each}}
+            </ul>
+        </div>
+    </div>
+</template>

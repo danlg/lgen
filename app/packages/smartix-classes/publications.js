@@ -1,5 +1,28 @@
 _ = lodash;
 
+// Returns a cursor of all classes,
+Meteor.publish('smartix:classes/allClasses', function () {
+    return Smartix.Groups.Collection.find({
+        type: 'class'
+    });
+});
+
+// Returns a cursor of all classes,
+Meteor.publish('smartix:classes/allClassesFromSchoolName', function (schoolName) {
+    var schoolDoc = SmartixSchoolsCol.findOne({
+        username: schoolName
+    });
+    if(schoolDoc) {
+        return Smartix.Groups.Collection.find({
+            namespace: schoolDoc._id,
+            type: 'class'
+        });
+    } else {
+        this.ready();
+    }
+    
+});
+
 // Returns a cursor of a single class,
 // Identified by `_id`
 Meteor.publish('smartix:classes/classById', function (id) {

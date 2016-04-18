@@ -5,3 +5,7 @@ Meteor.publish('smartix:classes-announcements/announcementsById', function (id) 
     _id: id
   });
 });
+
+Meteor.publish('smartix:classes-announcements/announcementsInClass', function (classCode) {
+    
+});

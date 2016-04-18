@@ -22,6 +22,7 @@ Package.onUse(function(api) {
   //generate username
   api.use('smartix:accounts-usernames');      
   api.use('smartix:accounts-system');
+  api.use('smartix:schools@0.0.1');
   api.addFiles('strings.js','server');  
   api.addFiles('roles.js','server');
   api.addFiles('accounts-schools.js');

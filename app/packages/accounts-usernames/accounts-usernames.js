@@ -4,7 +4,11 @@ if(Meteor.isServer){
     Smartix.Accounts = Smartix.Accounts || {};
     Smartix.Accounts.helpers = Smartix.Accounts.helpers || {};
 
-    Smartix.Accounts.helpers.generateUniqueUserName = function(firstname,lastname){
+    Smartix.Accounts.helpers.generateUniqueUserName = function(firstname, lastname){
+        // Check the arguments are of the correct type
+        check(firstname, String);
+        check(lastname, String);
+        
         //remove all non-ascii character
         var uniqueName = (firstname + lastname).replace(/[^\x00-\x7F]/g, "");
         
