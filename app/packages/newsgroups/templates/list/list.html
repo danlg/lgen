@@ -1,0 +1,39 @@
+<template name="NewsgroupsNewsList">
+  {{#contentFor "headerTitle"}}
+     <h1 class="title">News</h1>
+  {{/contentFor}}
+
+
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton text=" "}}
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}
+    <div class="list">
+
+       <div class="item item-divider">
+            JCC - Ganeynu Pre-school
+        </div>
+
+        <a class="item" href="#">
+            Butterfinger
+        </a>
+       <div class="item item-divider">
+           Borret Road - Elementary
+        </div>
+
+        <a class="item" href="#">
+            Butterfinger
+        </a>
+       <div class="item item-divider">
+         Shau Kei Wan - Elsa High
+        </div>
+
+        <a class="item" href="#">
+            Butterfinger
+        </a>        
+    </div>
+    {{/ionContent}}
+  {{/ionView}}
+</template>
