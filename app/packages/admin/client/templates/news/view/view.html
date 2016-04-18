@@ -1,0 +1,54 @@
+<template name="AdminNewsView">
+    {{#if Template.subscriptionsReady}}
+        <div class="panel panel-flat">
+            {{#with classData}}
+                <div class="panel-heading">
+                    <h1>{{className}}</h1>
+                </div>
+
+                <div class="panel-body">
+                    <p>Created At: {{createdAt}}</p>
+                    <p>Class Code: {{classCode}}</p>
+                    <p>Age Restricted: {{ageRestricted}}</p>
+                </div>
+                
+                <h3>Admins</h3>
+                {{#each admins}}
+                    {{#with userData this}}
+                        <li><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.firstName}} {{profile.lastName}}</a><button class="remove-admin">&times;</button></li>
+                    {{/with}}
+                {{/each}}
+                <input type="text" name="text" placeholder="Type the name of your new admin" />
+                
+                <h3>Users</h3>
+                {{#each users}}
+                    {{#with userData this}}
+                        <li><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.firstName}} {{profile.lastName}}</a><button class="remove-user">&times;</button></li>
+                    {{/with}}
+                {{/each}}
+                <input type="text" name="text" placeholder="Type the name of your new user" />
+            {{/with}}
+        </div>
+        
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h1>Class Announcements</h1>
+            </div>
+            <div class="panel-body">
+                {{#each announcements}}
+                    <p>Message</p>
+                {{/each}}
+                <div>
+                    <p>Create a new announcement</p>
+                    <div>
+                        <div>Text</div>
+                        <div>Article</div>
+                    </div>
+                    <div>
+                        <div>Poll</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   {{/if}}
+</template>
