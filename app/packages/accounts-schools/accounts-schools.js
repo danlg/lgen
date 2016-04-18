@@ -14,7 +14,8 @@ Smartix.Accounts.isUserSchoolAdmin = function(namespace, user){
 Smartix.Accounts.isUserSchoolTeacherOrAdmin = function(namespace,user){
     
     var userToBeChecked = user || Meteor.userId();
-    return Roles.userIsInRole(userToBeChecked,['admin', 'teacher'],namespace);
+    return Roles.userIsInRole(userToBeChecked,['admin', 'teacher'],namespace)
+        || Roles.userIsInRole(userToBeChecked,['admin'],'system');
 }
 
 Smartix.Accounts.isUserSchoolAdminForGroup = function(id){
