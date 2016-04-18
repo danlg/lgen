@@ -1,3 +1,18 @@
 <template name="AdminUsersImport">
-    <h1>Import Users</h1>
+<div class="panel panel-flat">
+    <div class="panel-heading">
+        <h1>Import Users</h1>
+    </div>
+
+    <div class="panel-body">
+        <p>Please import the user data as a <code>.csv</code> file with the first row being the headings. Please also ensure that the file is encoded in UTF-8.</p>
+        <div class="file-input file-input-new">
+            <div tabindex="500" class="btn btn-primary btn-file legitRipple">
+                <i class="icon-file-plus"></i> <span class="hidden-xs">Browse</span>
+                <input type="file" id="user-upload-file" class="file-input" data-show-caption="false"
+                data-show-upload="false">
+            </div>
+        </div>
+    </div>
+    </div>
 </template>

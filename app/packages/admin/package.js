@@ -13,6 +13,7 @@ Package.onUse(function(api) {
   api.use('jquery');
   api.use('less');
   api.use('iron:router');
+  api.use('harrison:papa-parse@1.1.1');
   api.use('alanning:roles@1.2.15');
   api.use('easy:search@2.0.9');
   api.use('smartix:lib@0.0.1');
@@ -61,6 +62,7 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/users/add/add.html', 'client');
   api.addFiles('client/templates/users/add/add.js', 'client');
   api.addFiles('client/templates/users/import/import.html', 'client');
+  api.addFiles('client/templates/users/import/import.css', 'client');
   api.addFiles('client/templates/users/import/import.js', 'client');
   api.addFiles('client/templates/users/relationships/relationships.html', 'client');
   api.addFiles('client/templates/users/relationships/relationships.js', 'client');
