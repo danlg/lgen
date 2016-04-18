@@ -6,10 +6,10 @@
 
         <div class="panel-body">
             <p>You can see existing newsgroups and users being subscribed to the newsgroups in here</p>
-            {{> EasySearch.Input index=classesIndex }}
+            {{> EasySearch.Input index=newsgroupsIndex }}
             <ul>
-                {{#EasySearch.Each index=classesIndex }}
-                    <li><a href="{{pathFor route='admin.newsgroups.view' data=routeData}}">{{className}}</a></li>
+                {{#EasySearch.Each index=newsgroupsIndex }}
+                    <li><a href="{{pathFor route='admin.newsgroups.view' data=routeData}}">{{name}}</a></li>
                 {{/EasySearch.Each}}
             </ul>
         </div>
