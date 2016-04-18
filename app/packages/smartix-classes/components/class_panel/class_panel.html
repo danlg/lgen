@@ -14,12 +14,10 @@
     -->
 
     <h1 class="title">
-     {{#if Template.subscriptionsReady}}
+  
       <i class="icon e1a-{{classObj.classAvatar}} e1a-2x emojicon"></i>
       {{classObj.className}}
-     {{else}}
-       Loading
-      {{/if}}
+
     </h1>
 
   {{/contentFor}}
@@ -29,12 +27,10 @@
   {{#contentFor "headerButtonRight"}}
 
     <div style="position: absolute; right: 0;">
-      {{#if Template.subscriptionsReady}}
+     
       <a href="{{pathFor 'classEdit' classCode=classObj.classCode  }}"
          class="button button-clear button-entering button-active "><i class="icon ion-ios-information-outline"></i></a>
-      {{else}}
-      Loading
-      {{/if}}
+
     </div>
   {{/contentFor}}
 
@@ -68,7 +64,7 @@
 
        {{#if Template.subscriptionsReady}}
         <div class="list messageList background-wallpaper"  id="messageList">
-           <div class='date-bubble-wrapper {{isLoadMoreButtonShow}}'><button class='load-prev-msg'>Load Previous Messages</button> </div>            
+           <!--<div class='date-bubble-wrapper {{isLoadMoreButtonShow}}'><button class='load-prev-msg'>Load Previous Messages</button> </div>          -->  
                {{#each classMessages}}
                 {{#if showTimestamp}}
                        <div class='date-bubble-wrapper'> <div class='date-bubble'>{{formatDate sendAt}}</div> </div>

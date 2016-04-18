@@ -36,13 +36,17 @@ Meteor.methods({
   
   'smartix:classes/createClass':function(schoolName, classObj){
     
-    var schoolDoc = SmartixSchoolsCol.findOne({
-        username: schoolName
-    });
-    
-    classObj.namespace = schoolDoc._id;
-
-    return Smartix.Class.createClass(classObj);    
+    //global does not have school doc
+    if(schoolName == 'global'){
+        classObj.namespace = 'global'; 
+    }else{                                                                                                    
+        var schoolDoc = SmartixSchoolsCol.findOne({                                                    
+            username: schoolName                                                                     
+        });                                                                                              
+                                                                                                  
+        classObj.namespace = schoolDoc._id;                                                       
+    }                                                                                           
+    return Smartix.Class.createClass(classObj);       
   }
      
 });
