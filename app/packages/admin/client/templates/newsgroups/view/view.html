@@ -3,12 +3,12 @@
         <div class="panel panel-flat">
             {{#with classData}}
                 <div class="panel-heading">
-                    <h1>{{className}}</h1>
+                    <h1>{{name}}</h1>
                 </div>
 
                 <div class="panel-body">
                     <p>Created At: {{createdAt}}</p>
-                    <p>Class Code: {{classCode}}</p>
+                    <p>Url: {{url}}</p>
                     <p>Age Restricted: {{ageRestricted}}</p>
                 </div>
                 
@@ -32,14 +32,17 @@
         
         <div class="panel panel-flat">
             <div class="panel-heading">
-                <h1>Class Announcements</h1>
+                <h1>Newsgroups News</h1>
             </div>
             <div class="panel-body">
-                {{#each announcements}}
-                    <p>Message</p>
+                {{#each news}}
+                
+                    <h3>{{data.title}}</h3>
+                    <p>{{data.content}}</p>
+                    
                 {{/each}}
                 <div>
-                    <p>Create a new announcement</p>
+                    <p>Create a new news</p>
                     <div>
                         <div>Text</div>
                         <div>Article</div>

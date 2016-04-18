@@ -32,3 +32,28 @@ Meteor.publish('newsForUser', function (limit,query,namespace) {
         );
 
 });
+
+// Returns a cursor of all classes,
+Meteor.publish('smartix:newsgroups/allNewsgroupsFromSchoolName', function (schoolName) {
+    var schoolDoc = SmartixSchoolsCol.findOne({
+        username: schoolName
+    });
+    if(schoolDoc) {
+        return Smartix.Groups.Collection.find({
+            namespace: schoolDoc._id,
+            type: 'newsgroup'
+        });
+    } else {
+        this.ready();
+    }
+    
+});
+
+// Returns a cursor of a single class,
+// Identified by `classCode`
+Meteor.publish('smartix:newsgroups/newsgroupByUrl', function (url) {
+    return Smartix.Groups.Collection.find({
+        url: url,
+        type: 'newsgroup'
+    });
+});
