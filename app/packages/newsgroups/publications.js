@@ -28,7 +28,7 @@ Meteor.publish('newsForUser', function (limit,query,namespace) {
         
         return Smartix.Messages.Collection.find(
             { group: { $in: lodash.map(groups, '_id') } },
-            {sort: [["createdAt", "desc"]], limit: limit}
+            {sort: {createdAt: -1}, limit: limit}
         );
 
 });
