@@ -1,3 +1,102 @@
 <template name="AdminAbsenceExpected">
-    <h1>Expected Absences</h1>
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h1>Expected Absences</h1>
+        </div>
+
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="control-label col-lg-2">Student Name</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" placeholder="Student's First/Last name">
+                    <span class="help-block">Filter students by first/last name</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">From</label>
+                <div class="col-md-10">
+                    <input class="form-control" type="date" name="date">
+                    <span class="help-block">Display entries from, and including, this date</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">To</label>
+                <div class="col-md-10">
+                    <input class="form-control" type="date" name="date">
+                    <span class="help-block">Display entries to, and including, this date</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2 text-semibold">Radio buttons</label>
+                <div class="col-md-10 row">
+                    <div class="col-md-12">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="radio-styled-color" class="control-success" checked="checked">
+                                Excused Late
+                            </label>
+                        </div>
+
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="radio-styled-color" class="control-success">
+                                Excused Absent
+                            </label>
+                        </div>
+
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="radio-styled-color" class="control-success">
+                                Excused Any
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Basic datatable -->
+    <div class="panel panel-flat">
+        <div class="panel-body">
+            These are the messages for which the parent/guardian of the student(s) have sent as notice that the student will be late/absent. Please acknowledge these messages as soon as possible.
+        </div>
+
+        <table class="table datatable-basic">
+            <thead>
+                <tr>
+                    <th>Status</th>
+                    <th>Late/Absent</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Class</th>
+                    <th>Date</th>
+                    <th>AM/PM</th>
+                    <th>Message</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><button class="label label-success">Acknowledged</button></td>
+                    <td>Late</td>
+                    <td>Marth</td>
+                    <td><a href="#">Enright</a></td>
+                    <td>4C</td>
+                    <td>22 Jun 2016</td>
+                    <td>AM</td>
+                    <td>Doctor's Appointment</td>
+                </tr>
+                <tr>
+                    <td><button class="label label-warning">Pending</button></td>
+                    <td>Late</td>
+                    <td>Marth</td>
+                    <td><a href="#">Enright</a></td>
+                    <td>4C</td>
+                    <td>22 Jun 2016</td>
+                    <td>AM</td>
+                    <td>Doctor's Appointment</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- /basic datatable -->
 </template>
