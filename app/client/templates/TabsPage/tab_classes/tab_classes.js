@@ -33,8 +33,11 @@ Template.TabClasses.helpers({
   },
 
   canCreateClass: function () {
-     
-    var currentSchoolId =  Session.get('pickedSchoolId') ;
+    
+    //for demo
+    return true;
+    
+    /*var currentSchoolId =  Session.get('pickedSchoolId') ;
     
     //global only have single role => user , so chat option is always available
     if(!currentSchoolId || currentSchoolId == 'global'){
@@ -48,7 +51,7 @@ Template.TabClasses.helpers({
         } else {
             return false;
         }
-    }
+    }*/
   },
 
   createdClass: function () {
