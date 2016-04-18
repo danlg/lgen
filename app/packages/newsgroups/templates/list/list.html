@@ -11,28 +11,24 @@
   {{#ionView}}
     {{#ionContent}}
     <div class="list">
-
-       <div class="item item-divider">
-            JCC - Ganeynu Pre-school
+       {{#each newsgroups}}
+        <div class="item item-divider">
+               {{name}}
         </div>
-
-        <a class="item" href="#">
-            Butterfinger
-        </a>
-       <div class="item item-divider">
-           Borret Road - Elementary
-        </div>
-
-        <a class="item" href="#">
-            Butterfinger
-        </a>
-       <div class="item item-divider">
-         Shau Kei Wan - Elsa High
-        </div>
-
-        <a class="item" href="#">
-            Butterfinger
-        </a>        
+         {{#with getNews}}     
+            {{#each this}}
+                <a class="item" href="#">
+                  <h2>{{data.title}}</h2>
+                  <p>{{data.content}}</p>                  
+                </a>              
+            {{else}}
+            
+                <a class="item" href="#">
+                    No News
+                </a>         
+            {{/each}}
+         {{/with}}      
+       {{/each}}   
     </div>
     {{/ionContent}}
   {{/ionView}}

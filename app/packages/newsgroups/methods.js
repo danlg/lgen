@@ -15,7 +15,7 @@ Meteor.methods({
         //console.log(userIds);
         
         //console.log(classObj);
-        var resultValue = Smartix.Newsgroup.createNewsgroup( lodash.map(userIds,'_id') , classObj.namespace, classObj.name, classObj.url)        
+        var resultValue = Smartix.Newsgroup.createNewsgroup( lodash.map(userIds,'_id') , classObj.namespace, classObj.className, classObj.url)        
         if(resultValue == -1){
              throw new Meteor.Error("newsgroups-existed", "Newsgroup already exist");   
         }

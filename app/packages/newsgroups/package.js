@@ -20,7 +20,7 @@ Package.onUse(function(api) {
   api.use('smartix:groups@0.0.1');
   api.addFiles('newsgroups.js');
   api.addFiles('methods.js','server');
-
+  api.addFiles('publications.js','server');
   api.addFiles('templates/list/list.html','client');  
   api.addFiles('templates/list/list.js','client');  
 
