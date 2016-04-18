@@ -110,3 +110,13 @@ Template.adminLayout.events({
         $(window).resize();
     }
 });
+
+Template.adminLayout.helpers({
+    routeData: function () {
+        if (Router && Router.current()) {
+            return {
+                school: Router.current().params.school
+            };
+        }
+    }
+});

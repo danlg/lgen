@@ -13,5 +13,13 @@ Template.AdminUsersSearch.onCreated(function () {
 Template.AdminUsersSearch.helpers({
   usersIndex: function () {
       return UsersIndex;
-  }
+  },
+  routeData: function () {
+        if (Router && Router.current()) {
+            return {
+                uid: this._id,
+                school: Router.current().params.school
+            };
+        }
+    }
 });

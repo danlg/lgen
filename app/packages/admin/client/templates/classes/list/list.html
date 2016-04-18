@@ -8,7 +8,7 @@
             {{> EasySearch.Input index=classesIndex }}
             <ul>
                 {{#EasySearch.Each index=classesIndex }}
-                    <li><a href="{{pathFor route='admin.classes.view' data=classCode}}">{{className}}</a></li>
+                    <li><a href="{{pathFor route='admin.classes.view' data=routeData}}">{{className}}</a></li>
                 {{/EasySearch.Each}}
             </ul>
         </div>

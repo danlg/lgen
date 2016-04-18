@@ -13,5 +13,13 @@ Template.AdminClassesSearch.onCreated(function () {
 Template.AdminClassesSearch.helpers({
   classesIndex: function () {
       return ClassesIndex;
-  }
+  },
+  routeData: function () {
+        if (Router && Router.current()) {
+            return {
+                classCode: this.classCode,
+                school: Router.current().params.school
+            };
+        }
+    }
 });

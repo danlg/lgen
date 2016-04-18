@@ -7,7 +7,8 @@ Package.describe({
 
 Package.onUse(function(api) {
     api.versionsFrom("1.2");
-    api.use('smartix:core'); 
+    api.use('iron:router');
+    api.use('smartix:core');
     api.use('templating','client');
     api.use('stevezhu:lodash');
     api.use('smartix:classes');

@@ -8,7 +8,7 @@
             {{> EasySearch.Input index=usersIndex }}
             <ul>
                 {{#EasySearch.Each index=usersIndex }}
-                    <li><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.firstName}} {{profile.lastName}}</a></li>
+                    <li><a href="{{pathFor 'admin.users.view' data=routeData}}">{{profile.firstName}} {{profile.lastName}}</a></li>
                 {{/EasySearch.Each}}
             </ul>
         </div>
