@@ -1,3 +1,56 @@
 <template name="AdminNewsAdd">
-    <h1>Add News Article</h1>
+    <style>
+        textarea {
+            border-width: 1px;
+            border-style: solid;
+            border-color:grey;         
+        }
+    </style>
+    <!-- Form horizontal -->
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h1>Add News article</h1>
+        </div>
+
+        <div class="panel-body">
+            <p class="content-group-lg">You may add new news article to your school by filling in the form below.</p>
+
+            <form class="form-horizontal" action="#">
+                <fieldset class="content-group">
+                    <legend class="text-bold">News Details</legend>
+                    
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Newsgroups to add the news</label>
+                        <div class="col-lg-10">
+                            <input type="checkbox" name="addNews-newsgroup" value="nw1"> newsgroup 1<br>
+                            <input type="checkbox" name="addNews-newsgroup" value="nw2" checked> newsgroup 2<br>
+                            <input type="checkbox" name="addNews-newsgroup" value="nw3"> newsgroup 3<br>                         
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">News Title</label>
+                        <div class="col-lg-10">
+                            <input id="addNews-title" type="text" class="form-control" placeholder="News Title">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">News Content</label>
+                        <div class="col-lg-10">
+                           <!-- <input id="addClass-code" type="text" class="form-control" placeholder="Class Code">-->
+                            <textarea id="addNews-content" rows="4" cols="50" placeholder="News Content">
+                            </textarea>                           
+                        </div>
+                    </div>
+                                        
+                </fieldset>
+                
+                <div class="text-right">
+                    <button id="addNews-submit" type="submit" class="btn btn-primary">Add News <i class="icon-arrow-right14 position-right"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- /form horizontal -->
 </template>
