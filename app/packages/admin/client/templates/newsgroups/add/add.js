@@ -19,7 +19,8 @@ Template.AdminNewsgroupsAdd.events({
         Meteor.call('smartix:newsgroups/createNewsgroup', Router.current().params.school, newNewsgroup,function(err,result){
             
             if(err){
-                toastr.info(err.error);
+                console.log(err);
+                toastr.info(err.reason);
             }else{
                 toastr.info('Newsgroup is created. Default to all school users');
             }

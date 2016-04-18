@@ -5,7 +5,7 @@ Smartix.Messages = Smartix.Messages || {};
 Smartix.Messages.ValidTypes = Smartix.Messages.ValidTypes || [];
 
 //stub
-Smartix.Messages.ValidTypes.push('text');
+Smartix.Messages.ValidTypes.push('text','article');
 
 Smartix.Messages.Collection = new Mongo.Collection('smartix:messages');
 
