@@ -1,0 +1,16 @@
+<template name="AdminNewsgroupsSearch">
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h1>Search Newsgroups</h1>
+        </div>
+
+        <div class="panel-body">
+            {{> EasySearch.Input index=classesIndex }}
+            <ul>
+                {{#EasySearch.Each index=classesIndex }}
+                    <li><a href="{{pathFor route='admin.newsgroups.view' data=routeData}}">{{className}}</a></li>
+                {{/EasySearch.Each}}
+            </ul>
+        </div>
+    </div>
+</template>

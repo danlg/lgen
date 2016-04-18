@@ -1,0 +1,48 @@
+<template name="AdminNewsgroupsAdd">
+    <!-- Form horizontal -->
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h1>Add Newsgroups</h1>
+        </div>
+
+        <div class="panel-body">
+            <p class="content-group-lg">You may add new newsgroup to your school by filling in the form below.</p>
+
+            <form class="form-horizontal" action="#">
+                <fieldset class="content-group">
+                    <legend class="text-bold">Newsgroup Details</legend>
+                    
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Newsgroup First Name</label>
+                        <div class="col-lg-10">
+                            <input id="addClass-name" type="text" class="form-control" placeholder="Class Name">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Newsgroup Code</label>
+                        <div class="col-lg-10">
+                            <input id="addClass-code" type="text" class="form-control" placeholder="Class Code">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Age-Restricted</label>
+                        <div class="col-lg-10">
+                            <div class="checkbox checkbox-switchery">
+                                <label>
+                                    <input id="addClass-ageRestricted" type="checkbox" class="switchery" checked="checked">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                
+                <div class="text-right">
+                    <button id="addClass-submit" type="submit" class="btn btn-primary">Add Newsgroup <i class="icon-arrow-right14 position-right"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- /form horizontal -->
+</template>

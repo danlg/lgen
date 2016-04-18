@@ -107,6 +107,42 @@ Router.route('/:school/admin/classes/import', {
     }
 });
 
+Router.route('/:school/admin/newsgroups/list', {
+    name: 'admin.newsgroups.list',
+    layoutTemplate: 'adminLayout',
+    template: 'AdminNewsgroupsSearch',
+    action: function () {
+        this.render('AdminNewsgroupsSearch');
+    }
+});
+
+Router.route('/:school/admin/newsgroups/view/:classCode', {
+    name: 'admin.newsgroups.view',
+    layoutTemplate: 'adminLayout',
+    template: 'AdminNewsgroupsView',
+    action: function () {
+        this.render('AdminNewsgroupsView');
+    }
+});
+
+Router.route('/:school/admin/newsgroups/add', {
+    name: 'admin.newsgroups.add',
+    layoutTemplate: 'adminLayout',
+    template: 'AdminNewsgroupsAdd',
+    action: function () {
+        this.render('AdminNewsgroupsAdd');
+    }
+});
+
+Router.route('/:school/admin/newsgroups/import', {
+    name: 'admin.newsgroups.import',
+    layoutTemplate: 'adminLayout',
+    template: 'AdminNewsgroupsImport',
+    action: function () {
+        this.render('AdminNewsgroupsImport');
+    }
+});
+
 Router.route('/:school/admin/news/add', {
     name: 'admin.news.add',
     layoutTemplate: 'adminLayout',

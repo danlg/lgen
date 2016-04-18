@@ -36,6 +36,15 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/classes/import/import.js', 'client');
   api.addFiles('client/templates/dashboard/dashboard.html', 'client');
   api.addFiles('client/templates/dashboard/dashboard.js', 'client');
+  api.addFiles('client/templates/newsgroups/list/index.js', ['client', 'server']);
+  api.addFiles('client/templates/newsgroups/list/list.html', 'client');
+  api.addFiles('client/templates/newsgroups/list/list.js', 'client');
+  api.addFiles('client/templates/newsgroups/view/view.html', 'client');
+  api.addFiles('client/templates/newsgroups/view/view.js', 'client');
+  api.addFiles('client/templates/newsgroups/add/add.html', 'client');
+  api.addFiles('client/templates/newsgroups/add/add.js', 'client');
+  api.addFiles('client/templates/newsgroups/import/import.html', 'client');
+  api.addFiles('client/templates/newsgroups/import/import.js', 'client');  
   api.addFiles('client/templates/news/add/add.html', 'client');
   api.addFiles('client/templates/news/add/add.js', 'client');
   api.addFiles('client/templates/news/import/import.html', 'client');
