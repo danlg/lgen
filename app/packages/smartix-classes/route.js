@@ -15,7 +15,13 @@ Router.route('/class/:classCode/info', {
 
 
 Router.route('classDetail', {
-  path: "/class/:classCode/detail"
+  path: "/class/:classCode/detail",
+    waitOn: function(){
+      return[
+        Meteor.subscribe('smartix:classes/associatedClasses'),
+        Meteor.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses')     
+      ]
+    } 
 });
 
 Router.route('classEdit', {

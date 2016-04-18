@@ -4,6 +4,9 @@ Smartix.Messages = Smartix.Messages || {};
 
 Smartix.Messages.ValidTypes = Smartix.Messages.ValidTypes || [];
 
+//stub
+Smartix.Messages.ValidTypes.push('text');
+
 Smartix.Messages.Collection = new Mongo.Collection('smartix:messages');
 
 Smartix.Messages.Schema = new SimpleSchema({
@@ -25,6 +28,12 @@ Smartix.Messages.Schema = new SimpleSchema({
 		type: Boolean,
 		defaultValue: false
 	},
+    createdAt:{
+        type: Date,
+        autoValue:function () {
+            return new Date();
+        }
+    },
 	deletedAt: {
 		type: Number,
 		decimal: false,
@@ -35,7 +44,7 @@ Smartix.Messages.Schema = new SimpleSchema({
 		defaultValue: [],
         custom: function () {
             if(!Array.isArray(this.value.type)) {
-                return "The Add-Ons field should be an array of objects";
+                return "Th e Add-Ons field should be an array of objects";
             }
             for (var i = 0; i < this.value.length; i++) {
                 if(typeof this.value.type[i] !== "string"
@@ -86,15 +95,15 @@ Smartix.Messages.cleanAndValidate = function (message) {
     Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)].Schema.clean(message);
     
     // Checks the data provided conforms to the schema for that message type
-    check(message, Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)].Schema);
+    //var result = check(message, Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)].Schema);
     
     // As a backup in case the child packages
     // Did not implement the schema correctly,
     // Clean the `message` object with the master `Smartix.Messages.Schema`
-	Smartix.Messages.Schema.clean(message);
+	//Smartix.Messages.Schema.clean(message);
 
 	// Checks that the `message` object conforms to the `Smartix.Messages.Schema`
-	check(message, Smartix.Messages.Schema);
+	//check(message, Smartix.Messages.Schema);
 }
 
 Smartix.Messages.createMessage = function (groupId, messageType, data, addons) {
@@ -153,8 +162,8 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons) {
     message.type = messageType;
     message.data = data;
    
-   //disable temp TODO
-   //Smartix.Messages.cleanAndValidate(message);
+    //disable temp TODO
+    Smartix.Messages.cleanAndValidate(message);
     
     /* ****************** */
     /* INSERT THE MESSAGE */

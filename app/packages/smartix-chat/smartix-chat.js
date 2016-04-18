@@ -11,9 +11,7 @@ Smartix.Chat.Schema = new SimpleSchema({
 	},
 	type: {
 		type: String,
-		autoValue: function () {
-			return 'chat'
-		}
+		defaultValue: 'chat'
 	},
 	name: {
 		type: String,

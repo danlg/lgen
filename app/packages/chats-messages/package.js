@@ -1,5 +1,5 @@
 Package.describe({
-  name: 'smartix:messages-addons',
+  name: 'smartix:chats-messages',
   version: '0.0.1',
   // Brief, one-line summary of the package.
   summary: '',
@@ -14,13 +14,15 @@ Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
   api.use('ecmascript');
   api.use('smartix:utilities');
-  api.use('smartix:messages-addons-images', {unordered: true}); 
-  api.addFiles('messages-addons.js');
+  api.use('smartix:chat');
+  api.use('smartix:messages');
+  api.addFiles('chats-messages.js');
+  api.addFiles('publications.js','server');
 });
 
 Package.onTest(function(api) {
   api.use('ecmascript');
   api.use('tinytest');
-  api.use('smartix:messages-addons');
-  api.addFiles('messages-addons-tests.js');
+  api.use('smartix:chats-messages');
+
 });

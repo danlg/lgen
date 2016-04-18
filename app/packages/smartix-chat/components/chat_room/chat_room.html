@@ -36,9 +36,9 @@
                 <div class="item {{isMine}}">
                     {{#if isText}}
                     <div class="bubble">
-                        {{#if isMineBoolean from}}
+                        {{#if isMineBoolean author}}
                         {{else}}
-                            {{#with getUserById from}}        
+                            {{#with getUserById author}}        
                                 <div class='username'>
                                     {{#if profile.useravatar}}
                                         <i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>
@@ -53,10 +53,10 @@
                             {{/with}}
                             
                         {{/if}}                 
-                        {{{docPreview text}}}                
-                        {{#autolink}}<pre>{{text}}</pre>{{/autolink}}
+                        {{{docPreview data.content}}}                
+                        {{#autolink}}<pre>{{data.content}}</pre>{{/autolink}}
 
-                        <span class='timestamp'>{{formatTime sendAt}}</span>
+                        <span class='timestamp'>{{formatTime createdAt}}</span>
                     
                     </div>
 
@@ -93,8 +93,9 @@
                         {{/with}}        
                     {{/if}}
                     
-                    {{#if isImage}}
-                    {{#with FS.GetFile "images" this.image}}
+                    
+                    {{#each addons}}
+                    {{#with FS.GetFile "images" fileId}}
                     
                     <!--read the below to know how to access parent scope value-->
                     <!--https://www.discovermeteor.com/blog/a-guide-to-meteor-templates-data-contexts/-->  
@@ -119,8 +120,8 @@
                         <img style='display:block;' src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs responsive-img" data-fullsizeimage="{{this.url  }}"> 
                         </div>
                     {{/with}}
-
-                    {{/if}}
+                    {{/each}}
+                    
                     {{#if isSound}}
                     {{#with getSound}}
                         {{#if this.isUploaded}}

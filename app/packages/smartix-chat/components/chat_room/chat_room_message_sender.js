@@ -12,14 +12,24 @@ ChatRoomMessageSender = function(chatRoomId,messageType,messageText,messageAttac
         pushObj.text = messageText;
     } else if (messageType == 'voice') {
         pushObj.sound = messageAttachmentObject._id
-    } else if (messageType == 'image') {
+    } else if (messageType == 'images') {
         pushObj.image = messageAttachmentObject._id
-    } else if (messageType =='document') {
+    } else if (messageType =='documents') {
         pushObj.document = messageAttachmentObject._id
     }
 
+    addons = [];
+    if(messageType == 'voice' || messageType == 'images' || messageType == 'document'){
+        addons.push({type:messageType,fileId:messageAttachmentObject._id})
+    }
+
+    Meteor.call('smartix:messages/createMessage',chatRoomId,messageType,{content:messageText},
+                addons
+               );
+
+    
     //add message to chat collection
-    Meteor.call("chat/sendImage", chatRoomId, pushObj, function (error, result) {
+    /*Meteor.call("chat/sendImage", chatRoomId, pushObj, function (error, result) {
         //log.info(chatRoomId);
         if (error) {
                 log.error("error", error);
@@ -92,7 +102,7 @@ ChatRoomMessageSender = function(chatRoomId,messageType,messageText,messageAttac
 
         }
 
-    });
+    });*/
 
     //callback is for UI update e.g buttonToggle, autogrow inputbox refresh, clean up inputBox
     callback();

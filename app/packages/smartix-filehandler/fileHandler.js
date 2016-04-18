@@ -99,7 +99,7 @@ Smartix.FileHandler = (function () {
 
                         if (category == "chat") {
                             
-                            ChatRoomMessageSender(Router.current().params.chatRoomId,'image','New Image',{_id: fileObj._id},
+                            ChatRoomMessageSender(Router.current().params.chatRoomId,'images','New Image',{_id: fileObj._id},
                                 Smartix.helpers.getAllUserExceptCurrentUser()
                             );
                             
@@ -149,7 +149,7 @@ Smartix.FileHandler = (function () {
                                     log.error(err);
                                 }
                                 else {
-                                    ChatRoomMessageSender(Router.current().params.chatRoomId,'image','New Image',{_id: fileObj._id},
+                                    ChatRoomMessageSender(Router.current().params.chatRoomId,'images','New Image',{_id: fileObj._id},
                                         Smartix.helpers.getAllUserExceptCurrentUser()
                                     );
                                 }
@@ -214,7 +214,7 @@ Smartix.FileHandler = (function () {
                         
                         if(category == 'chat'){
                             
-                            ChatRoomMessageSender(Router.current().params.chatRoomId,'document','New Document',{_id: fileObj._id},
+                            ChatRoomMessageSender(Router.current().params.chatRoomId,'documents','New Document',{_id: fileObj._id},
                                 Smartix.helpers.getAllUserExceptCurrentUser()
                             );                                                    
                            
@@ -252,7 +252,7 @@ Smartix.FileHandler = (function () {
                                     if( category == 'chat'){
                                         //handle success depending what you need to do
                                         console.dir(fileObj);
-                                        ChatRoomMessageSender(Router.current().params.chatRoomId,'document','New Document',{_id: fileObj._id},
+                                        ChatRoomMessageSender(Router.current().params.chatRoomId,'documents','New Document',{_id: fileObj._id},
                                             Smartix.helpers.getAllUserExceptCurrentUser()
                                         );                                         
                                     }else if (category == 'class'){

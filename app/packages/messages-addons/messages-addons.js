@@ -7,13 +7,14 @@ Smartix.Messages.Addons = Smartix.Messages.Addons || {};
 Smartix.Messages.Addons.ValidTypes = Smartix.Messages.Addons.ValidTypes || [];
 
 //stub that should be removed by using the subpackages
-Smartix.Messages.Addons.ValidTypes.push('files','images','poll','voice','calendar','comments');
+Smartix.Messages.Addons.ValidTypes.push('documents','images','poll','voice','calendar','comment');
 
 Smartix.Messages.Addons.Schema = new SimpleSchema({
     type: {
         type: String,
         allowedValues: Smartix.Messages.Addons.ValidTypes
     }
+    
 });
 
 Smartix.Messages.Addons.attachAddons = function (messageId, addons) {
@@ -23,7 +24,7 @@ Smartix.Messages.Addons.attachAddons = function (messageId, addons) {
     // Checks that the `addons` is of type `[Object]`
     check(addons, [Object]);
     
-    for (var i = 0; i < addons.length; i++) {
+     for (var i = 0; i < addons.length; i++) {
         Smartix.Messages.Addons.attachAndReplaceAddon(messageId, addons[i])
     }
 }
@@ -70,24 +71,26 @@ Smartix.Messages.Addons.attachAddon = function (messageId, types) {
 // Same as `Smartix.Messages.Addons.attachAddon`
 // But will replace the addon if it already exists
 Smartix.Messages.Addons.attachAndReplaceAddon = function (messageId, addon) {
+    console.log('attachAndReplaceAddon',messageId,addon);
+    
     addon = Smartix.Messages.Addons.cleanAndValidate(messageId, addon);
-    Smartix.Messages.Collection.update({
-        _id: messageId
-    }, {
+    var updateCount = Smartix.Messages.Collection.update({
+             _id: messageId
+        }, {
         $pull: {
-            "addons.type": addon.type
+            addons: { $elemMatch: { type: addon.type}} 
         }
-    }, function (error, n) {
-        if(!error) {
+    });
+    
+    if(updateCount == 0 || updateCount == 1){
             Smartix.Messages.Collection.update({
                 _id: messageId
             }, {
                 $push: {
                     addons: addon
                 }
-            });
-        }
-    });
+            });        
+    }
 }
 
 Smartix.Messages.Addons.cleanAndValidate = function (messageId, addon) {

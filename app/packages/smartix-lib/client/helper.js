@@ -323,9 +323,13 @@ Template.registerHelper('formatTimeFromNow', function(time) {
 Template.registerHelper('formatTime', function(time) {
     var dateString="";
     if(time){
+      
+      //if it is a valid javascript Date String
       if( moment( new Date(time)).isValid() ){
            dateString = moment(time).format('h:mm a');
       }else{
+          
+        //if it is a unix time string
         //log.info(this);
         var fullUnixTime = time;
         if (fullUnixTime){
