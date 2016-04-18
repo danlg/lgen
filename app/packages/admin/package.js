@@ -21,6 +21,7 @@ Package.onUse(function(api) {
   api.addFiles('routes.js', ['client', 'server']);
   api.addFiles('client/layouts/admin-layout.html', 'client');
   api.addFiles('client/layouts/admin-layout.js', 'client');
+  api.addFiles('client/layouts/admin-layout.css', 'client');
   api.addFiles('client/templates/absence/absentees/absentees.html', 'client');
   api.addFiles('client/templates/absence/absentees/absentees.js', 'client');
   api.addFiles('client/templates/absence/expected/expected.html', 'client');
@@ -30,6 +31,7 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/classes/list/list.js', 'client');
   api.addFiles('client/templates/classes/view/view.html', 'client');
   api.addFiles('client/templates/classes/view/view.js', 'client');
+  api.addFiles('client/templates/classes/view/view.css', 'client');
   api.addFiles('client/templates/classes/add/add.html', 'client');
   api.addFiles('client/templates/classes/add/add.js', 'client');
   api.addFiles('client/templates/classes/import/import.html', 'client');
@@ -269,6 +271,9 @@ Package.onUse(function(api) {
   api.addFiles('client/less/_main/core.less', 'client');
   api.addFiles('client/limitless/js/startup.js', 'client');
   api.addFiles('client/limitless/js/nicescroll.min.js', 'client');
+  api.addFiles('client/limitless/js/fab.min.js', 'client');
+  api.addFiles('client/limitless/js/extra_fab.js', 'client');
+  api.addFiles('client/limitless/js/datatable_basic.js', 'client');
   api.addFiles('client/limitless/js/app.js', 'client');
   api.addFiles('client/limitless/css/icomoon.css', 'client');
 });
