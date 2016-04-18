@@ -140,6 +140,8 @@ Smartix.Class.createClass = function (classObj) {
 
 	if(classObj.namespace !== 'global'
         && !Smartix.Accounts.isUserSchoolTeacherOrAdmin(classObj.namespace)) {
+			
+	 	console.log('no right to create class')
 		return false;
 		// Optional: Throw an appropriate error if not
 	}
