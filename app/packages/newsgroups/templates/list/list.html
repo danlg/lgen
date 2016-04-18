@@ -11,17 +11,14 @@
   {{#ionView}}
     {{#ionContent}}
     <div class="list">
-       {{#each newsgroups}}
-        <div class="item item-divider">
-               {{name}}
-        </div>
          {{#with getNews}}     
             {{#each this}}
                 <a class="item" href="#">
                   <h2>{{data.title}}</h2>
                   <p>{{data.content}}</p>
                   
-                    <p>{{formatDate createdAt}}</p>                   
+                  <p>{{formatDate createdAt}}</p>
+                  <p>{{getGroupName}}</p>                   
                 </a>              
             {{else}}
             
@@ -30,7 +27,7 @@
                 </a>         
             {{/each}}
          {{/with}}      
-       {{/each}}   
+      
     </div>
     {{/ionContent}}
   {{/ionView}}

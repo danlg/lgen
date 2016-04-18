@@ -7,11 +7,14 @@ Template.NewsgroupsNewsList.onCreated(function(){
 
 Template.NewsgroupsNewsList.helpers({
     
-    newsgroups: function(){
-        return Smartix.Groups.Collection.find({ type: 'newsgroup' });
-    },
     getNews:function(){
-        return Smartix.Messages.Collection.find({ group: this._id });
+        var newsgroups =  Smartix.Groups.Collection.find({ type: 'newsgroup' }).fetch(); 
+        var newsgroupsIds = lodash.map(newsgroups,'_id');
+        
+        return Smartix.Messages.Collection.find({ group: { $in: newsgroupsIds } } );
+    },
+    getGroupName:function(){
+       return Smartix.Groups.Collection.findOne(this.group).name;
     }
     
 })
