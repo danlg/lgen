@@ -27,6 +27,6 @@ Template.AdminUsersImport.helpers({
     }
 });
 
-Template.AdminUsersImport.onDestroy(function () {
+Template.AdminUsersImport.onDestroyed(function () {
     Session.set('imported-users', null);
 })

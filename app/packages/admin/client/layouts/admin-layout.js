@@ -16,38 +16,38 @@ function miniSidebar() {
     }
 }
 
-// Nice scroll
-// ------------------------------
+// // Nice scroll
+// // ------------------------------
 
-// Setup
-function initScroll() {
-    $(".sidebar-fixed .sidebar-content").niceScroll({
-        mousescrollstep: 100,
-        cursorcolor: '#ccc',
-        cursorborder: '',
-        cursorwidth: 3,
-        hidecursordelay: 100,
-        autohidemode: 'scroll',
-        horizrailenabled: false,
-        preservenativescrolling: false,
-        railpadding: {
-        	right: 0.5,
-        	top: 1.5,
-        	bottom: 1.5
-        }
-    });
-}
+// // Setup
+// function initScroll() {
+//     $(".sidebar-fixed .sidebar-content").niceScroll({
+//         mousescrollstep: 100,
+//         cursorcolor: '#ccc',
+//         cursorborder: '',
+//         cursorwidth: 3,
+//         hidecursordelay: 100,
+//         autohidemode: 'scroll',
+//         horizrailenabled: false,
+//         preservenativescrolling: false,
+//         railpadding: {
+//         	right: 0.5,
+//         	top: 1.5,
+//         	bottom: 1.5
+//         }
+//     });
+// }
 
-// Resize
-function resizeScroll() {
-	$('.sidebar-fixed .sidebar-content').getNiceScroll().resize();
-}
+// // Resize
+// function resizeScroll() {
+// 	$('.sidebar-fixed .sidebar-content').getNiceScroll().resize();
+// }
 
-// Remove
-function removeScroll() {
-	$(".sidebar-fixed .sidebar-content").getNiceScroll().remove();
-	$(".sidebar-fixed .sidebar-content").removeAttr('style').removeAttr('tabindex');
-}
+// // Remove
+// function removeScroll() {
+// 	$(".sidebar-fixed .sidebar-content").getNiceScroll().remove();
+// 	$(".sidebar-fixed .sidebar-content").removeAttr('style').removeAttr('tabindex');
+// }
 
 
 // Resize sidebar on scroll
@@ -91,7 +91,7 @@ Template.adminLayout.events({
     },
     'affix-top.bs.affix .sidebar-fixed': function () {
         // When effixed top, remove scrollbar and its data
-        removeScroll();
+        // removeScroll();
         $(".sidebar-fixed .sidebar-content").removeAttr('style').removeAttr('tabindex');
     },
     // Remove affix and scrollbar on mobile
@@ -100,7 +100,7 @@ Template.adminLayout.events({
             if($(window).width() <= 768) {
 
                 // Remove nicescroll on mobiles
-                removeScroll();
+                // removeScroll();
 
                 // Remove affix on mobile
                 $(window).off('.affix')

@@ -1,3 +1,12 @@
+Meteor.publish('newsgroups', function (newsgroups) {
+    return Smartix.Groups.Collection.find({
+        _id: {
+            $in: newsgroups
+        },
+        type: 'newsgroup'
+    });
+});
+
 Meteor.publish('newsInGroup', function (id,limit,query) {
 
 });

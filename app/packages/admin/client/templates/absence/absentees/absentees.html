@@ -1,3 +1,116 @@
 <template name="AdminAbsentees">
-    <h1>Absentees</h1>
+        <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h1>Absentees</h1>
+        </div>
+
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="control-label col-lg-2">Student Name</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" placeholder="Student's First/Last name">
+                    <span class="help-block">Filter students by first/last name</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">From</label>
+                <div class="col-md-10">
+                    <input class="form-control" type="date" name="date">
+                    <span class="help-block">Display entries from, and including, this date</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">To</label>
+                <div class="col-md-10">
+                    <input class="form-control" type="date" name="date">
+                    <span class="help-block">Display entries to, and including, this date</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2 text-semibold">Filter by Type</label>
+                <div class="col-md-10 row">
+                    <div class="col-md-12">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="radio-styled-color" class="control-success" checked="checked">
+                                Show Late
+                            </label>
+                        </div>
+
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="radio-styled-color" class="control-success">
+                                Show Absent
+                            </label>
+                        </div>
+
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="radio-styled-color" class="control-success">
+                                Show Any
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Basic datatable -->
+    <div class="panel panel-flat">
+        <div class="panel-body">
+            These are the messages for which the parent/guardian of the student(s) have sent as notice that the student will be late/absent. Please acknowledge these messages as soon as possible.
+        </div>
+
+        <table class="table datatable-basic">
+            <thead>
+                <tr>
+                    <th>Status</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Class</th>
+                    <th>Date</th>
+                    <th>Notified</th>
+                    <th>ETA</th>
+                    <th>Time Arrived</th>
+                    <th>Teacher</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><button class="label label-success">Approved</button></td>
+                    <td>Marth</td>
+                    <td>Enright</td>
+                    <td>4C</td>
+                    <td>22 Jun 2016</td>
+                    <td>09:32</td>
+                    <td></td>
+                    <td>11:30</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><button class="label label-warning">Pending Approval</button></td>
+                    <td>Marth</td>
+                    <td>Enright</td>
+                    <td>4C</td>
+                    <td>22 Jun 2016</td>
+                    <td>09:32</td>
+                    <td>12:00</td>
+                    <td>11:53</td>
+                    <td>Sarah Brightbart</td>
+                </tr>
+                <tr>
+                    <td><button class="label label-danger">Missing</button></td>
+                    <td>Marth</td>
+                    <td>Enright</td>
+                    <td>4C</td>
+                    <td>22 Jun 2016</td>
+                    <td>09:32</td>
+                    <td></td>
+                    <td>11:30</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- /basic datatable -->
 </template>
