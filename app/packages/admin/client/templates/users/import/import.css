@@ -10,3 +10,12 @@
     cursor: inherit;
     display: block;
 }
+
+#AdminUsersImport__file-input {
+    float: left;
+    margin-right: 12px;
+}
+
+#AdminUsersImport__preview-table {
+    margin-bottom: 32px;
+}

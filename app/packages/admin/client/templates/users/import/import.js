@@ -5,10 +5,28 @@ Template.AdminUsersImport.events({
         var file = files[0];
         var reader = new FileReader();
         reader.onload = function() {
-            var data = Papa.parse(this.result);
-            // console.log(this.result);
-            console.log(data);
+            var data = Papa.parse(this.result, {
+                header: true,
+                dynamicTyping: false,
+                skipEmptyLines: true,
+                complete: function (results, file) {
+                    Session.set('imported-users', results.data);
+                },
+                error: function (error, file) {
+                    console.log(error);
+                }
+            });
         }
         reader.readAsText(file);
     }
+});
+
+Template.AdminUsersImport.helpers({
+    importedUsers: function () {
+        return Session.get('imported-users');
+    }
+});
+
+Template.AdminUsersImport.onDestroy(function () {
+    Session.set('imported-users', null);
 })

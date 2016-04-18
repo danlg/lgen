@@ -67,6 +67,7 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/users/import/import.html', 'client');
   api.addFiles('client/templates/users/import/import.css', 'client');
   api.addFiles('client/templates/users/import/import.js', 'client');
+  api.addAssets('client/templates/users/import/MOCK_DATA.csv', 'client');
   api.addFiles('client/templates/users/relationships/relationships.html', 'client');
   api.addFiles('client/templates/users/relationships/relationships.js', 'client');
   api.addFiles('client/less/_bootstrap/alerts.import.less', 'client');
