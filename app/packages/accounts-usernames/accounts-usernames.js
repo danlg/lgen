@@ -5,6 +5,7 @@ if(Meteor.isServer){
     Smartix.Accounts.helpers = Smartix.Accounts.helpers || {};
 
     Smartix.Accounts.helpers.generateUniqueUserName = function(firstname, lastname){
+        //console.log('generateUniqueUserName',firstname,lastname);
         // Check the arguments are of the correct type
         check(firstname, String);
         check(lastname, String);

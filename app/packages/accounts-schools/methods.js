@@ -1,9 +1,18 @@
 if(Meteor.isServer){
     Meteor.methods({
         'smartix:accounts-schools/createSchoolUser': function(schoolName, options){
+            //find school by username first
             var schoolDoc = SmartixSchoolsCol.findOne({
                 username: schoolName
             });
+            
+            //in some occasion, it is easier to pass school id. e.g when school is just inserted, of which id is returned from insert method
+            if(!schoolDoc){
+                schoolDoc = SmartixSchoolsCol.findOne({
+                    _id: schoolName
+                });   
+            }
+            
             if (schoolDoc) {
                 return Smartix.Accounts.School.createUser(schoolDoc._id, options);
             } else {
