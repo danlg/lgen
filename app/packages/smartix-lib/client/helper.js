@@ -343,22 +343,28 @@ Template.registerHelper('formatTime', function(time) {
     return dateString;
 });
 
+
 Template.registerHelper('formatDate', function(time) {
     var dateString="";
-    if(time){  
-      //log.info(this);
-      var fullUnixTime = time;
-      if (fullUnixTime){
-        var trimUnixTime = fullUnixTime.substr(0,10);
-        var userLanguage = TAPi18n.getLanguage();
-        moment.locale(userLanguage);
+    if(time){
         
-        dateString = moment.unix(trimUnixTime).format('LL');
-      }       
+      if( moment( new Date(time)).isValid() ){
+           dateString = moment(time).format('LL');
+      }else{
+        //log.info(this);
+        var fullUnixTime = time;
+        if (fullUnixTime){
+            var trimUnixTime = fullUnixTime.substr(0,10);
+            var userLanguage = TAPi18n.getLanguage();
+            moment.locale(userLanguage);
+            
+            dateString = moment.unix(trimUnixTime).format('LL');
+        }             
+      }        
+    
     }
     return dateString;
 });
-
 
 
 function ping(ip, callback) {

@@ -1,0 +1,34 @@
+<template name="NewsgroupsNewsList">
+  {{#contentFor "headerTitle"}}
+     <h1 class="title">News</h1>
+  {{/contentFor}}
+
+
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton text=" "}}
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}
+    <div class="list">
+         {{#with getNews}}     
+            {{#each this}}
+                <a class="item" href="#">
+                  <h2>{{data.title}}</h2>
+                  <p>{{data.content}}</p>
+                  
+                  <p>{{formatDate createdAt}}</p>
+                  <p>{{getGroupName}}</p>                   
+                </a>              
+            {{else}}
+            
+                <a class="item" href="#">
+                    No News
+                </a>         
+            {{/each}}
+         {{/with}}      
+      
+    </div>
+    {{/ionContent}}
+  {{/ionView}}
+</template>

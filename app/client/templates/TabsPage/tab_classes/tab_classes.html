@@ -5,7 +5,10 @@
 
 
   {{#contentFor "headerButtonRight"}}
-    <!--disable send message button for all users -->   
+    <!--Newsgroups news-->
+    <a href="{{ pathFor 'newsgroups.news.list' }}" class="button button-clear button-entering button-active">
+      <i class="icon ion-android-notifications-none"></i>
+    </a>    
   {{/contentFor}}
 
   {{#ionView}}
