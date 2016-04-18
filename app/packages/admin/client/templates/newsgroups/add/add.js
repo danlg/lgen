@@ -1,19 +1,29 @@
 Template.AdminNewsgroupsAdd.events({
-    'click #addClass-submit': function (event, template) {
+    'click #addNewsgroup-submit': function (event, template) {
         event.preventDefault();
         
-        var newClass = {};
-        newClass.users = [];
-        newClass.type = 'class';
-        newClass.className = template.$('#addClass-name').eq(0).val();
-        newClass.classCode = template.$('#addClass-code').eq(0).val();
-        newClass.ageRestricted = template.$('#addClass-ageRestricted').eq(0).val();
+        var newNewsgroup = {};
+        newNewsgroup.users = [];
+        newNewsgroup.type = 'newsgroup';
+        newNewsgroup.className = template.$('#addNewsgroup-name').eq(0).val();
+        newNewsgroup.url = template.$('#addNewsgroup-code').eq(0).val();
+        newNewsgroup.ageRestricted = template.$('#addNewsgroup-ageRestricted').eq(0).val();
         
         
         // If the checkbox is selected,
         // Make ageRestricted `true`, otherwise `false`
-        newClass.ageRestricted = newClass.ageRestricted === "on" ? true : false;
+        newNewsgroup.ageRestricted = newNewsgroup.ageRestricted === "on" ? true : false;
         
-        Meteor.call('smartix:classes/createClass', Router.current().params.school, newClass);
+        console.log('newNewsgroupObj',newNewsgroup);
+        
+        Meteor.call('smartix:newsgroups/createNewsgroup', Router.current().params.school, newNewsgroup,function(err,result){
+            
+            if(err){
+                console.log(err);
+                toastr.info(err.reason);
+            }else{
+                toastr.info('Newsgroup is created. Default to all school users');
+            }
+        });
     }
 });

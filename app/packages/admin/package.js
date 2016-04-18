@@ -11,12 +11,15 @@ Package.onUse(function(api) {
   api.use('ecmascript');
   api.use('templating');
   api.use('jquery');
-  api.use('less');
+  api.use('less');    
   api.use('iron:router');
   api.use('harrison:papa-parse@1.1.1');
+  api.use('chrismbeckett:toastr');
   api.use('alanning:roles@1.2.15');
   api.use('easy:search@2.0.9');
   api.use('smartix:lib@0.0.1');
+  api.use('smartix:news@0.0.1');
+  api.use('smartix:newsgroups@0.0.1');     
   api.use('smartix:schools@0.0.1');
   api.use('smartix:accounts-schools@0.0.1');
   api.addFiles('routes.js', ['client', 'server']);

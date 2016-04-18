@@ -1,5 +1,5 @@
 Package.describe({
-  name: 'smartix:messages-article',
+  name: 'smartix:newsgroups-news',
   version: '0.0.1',
   // Brief, one-line summary of the package.
   summary: '',
@@ -13,18 +13,16 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
   api.use('ecmascript');
-  api.use('stevezhu:lodash@4.6.1');
-  api.use('smartix:core');
-  api.use('smartix:messages', {unordered: true});
-    
-  api.addFiles('messages-article.js');
- 
-  api.export('Smartix');  
+  api.use('smartix:utilities');
+  api.use('smartix:classes');
+  api.use('smartix:messages');
+  api.addFiles('newsgroups-news.js');
+  //api.addFiles('publications.js','server');
 });
 
 Package.onTest(function(api) {
   api.use('ecmascript');
   api.use('tinytest');
-  api.use('smartix:messages-article');
-  api.addFiles('messages-article-tests.js');
+  api.use('smartix:classes-announcements');
+  api.addFiles('classes-announcements-tests.js');
 });

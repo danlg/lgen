@@ -67,6 +67,7 @@ Smartix.Newsgroup.createNewsgroup = function (users, namespace, name, url) {
 		// Optional: Throw an appropriate error if not
 	}
 
+	
 	// Creating newsgroup document to be inserted
 	var newsgroup = {};
 	newsgroup.users = users;
@@ -77,26 +78,31 @@ Smartix.Newsgroup.createNewsgroup = function (users, namespace, name, url) {
 	newsgroup.admins = [
 		Meteor.userId()
 	];
-
+	
+	//TODO :remove hardcode
+	newsgroup.addons = [] ; //hard code for demo only
+	
 	// Checks the arguments are of the specified type, convert it if not
-	Smartix.Newsgroup.Schema.clean(options);
+	Smartix.Newsgroup.Schema.clean(newsgroup);
 
 	// Checks are done in one go
 	check(newsgroup, Smartix.Newsgroup.Schema);
 
 	// Remove duplicates from the `users` array
 	newsgroup.users = _.uniq(newsgroup.users);
-	
+
 	// Checks the `url` is unique for this namespace
 	if(Smartix.Groups.Collection.find({
-		namespace: newsgroup.namesapce,
+		namespace: namespace,
 		url: newsgroup.url
-	}).count() > 0) {
-		return false;
+	}).count() > 0){
+		return -1;
 		// Optional: Throw error saying URL already exists
-	};
+	} else {
+	    return Smartix.Groups.createGroup(newsgroup);
+	}
 
-	return Smartix.Groups.createGroup(newsgroup);
+
 }
 
 Smartix.Newsgroup.editNewsgroup = function (id, options) {
