@@ -58,7 +58,14 @@
     <!-- Basic datatable -->
     <div class="panel panel-flat">
         <div class="panel-body">
-            These are the messages for which the parent/guardian of the student(s) have sent as notice that the student will be late/absent. Please acknowledge these messages as soon as possible.
+            This table displays the student marked as late or absent by the system. It reconciles the absences with parents' notice. Please acknowledge these messages as soon as possible.
+          <table class="table datatable-basic">
+          <tbody>
+            <tr><td><button class="label label-success">Approved</button></td><td>Message acknowledged by the school.</td></tr>
+            <tr><td><button class="label label-info">Pending Approval</button></td><td>Excuse message received by parent but not yet acknowledged by the school.</td></tr>
+            <tr><td><button class="label label-danger">Missing</button></td><td>Absent/late not excused yet by parents.</td></tr>
+          </tbody>
+          </table>
         </div>
 
         <table class="table datatable-basic">
@@ -78,8 +85,8 @@
             <tbody>
                 <tr>
                     <td><button class="label label-success">Approved</button></td>
-                    <td>Marth</td>
-                    <td>Enright</td>
+                    <td>Simon</td>
+                    <td>Cohen</td>
                     <td>4C</td>
                     <td>22 Jun 2016</td>
                     <td>09:32</td>
@@ -88,7 +95,7 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td><button class="label label-warning">Pending Approval</button></td>
+                    <td><button class="label label-info">Pending Approval</button></td>
                     <td>Marth</td>
                     <td>Enright</td>
                     <td>4C</td>
@@ -100,8 +107,8 @@
                 </tr>
                 <tr>
                     <td><button class="label label-danger">Missing</button></td>
-                    <td>Marth</td>
-                    <td>Enright</td>
+                    <td>Sarah</td>
+                    <td>Levy</td>
                     <td>4C</td>
                     <td>22 Jun 2016</td>
                     <td>09:32</td>
