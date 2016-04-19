@@ -1,0 +1,60 @@
+.card.inline-card{
+    display: inline-block   
+}
+
+.card.square-card-small{
+    width:100px;
+    height:100px;
+}
+
+.card.square-card-middle{
+    width:150px;
+    height:150px;
+}
+
+.card.square-card-large{
+    width:200px;
+    height:200px;
+}
+
+.news-slidebox-wrapper{
+    height:150px;
+}
+
+.school-logo-wrapper{
+    height:300px;
+}
+.school-logo-wrapper .school-logo-background{
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1;
+
+  display: block;
+  background-image: url('http://www.carmel.edu.hk/modules/mod_image_show_gk4/cache/slider.Carmel%20School-31gk-is-98.jpg');
+  width: 100%;
+  height: 300px;
+
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+}
+
+.school-logo-wrapper .school-logo{
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    margin-top:  20px;
+    margin-left: 20px;
+    margin-right: 20px;   
+     
+    height: 200px;
+    text-align: center;
+}
+
+.school-logo-wrapper .school-logo img{
+    height: 100%;
+}

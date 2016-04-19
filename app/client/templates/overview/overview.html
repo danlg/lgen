@@ -1,0 +1,68 @@
+<template name='MobileSchoolOverview'>
+
+  {{#ionView}}
+    {{#ionContent}}
+
+      <div class='school-logo-wrapper'>
+        <div class='school-logo-background'>
+           
+        </div>          
+        <div class='school-logo'>
+            <img src='/img/carmel.png'/>
+        </div>
+                        
+      </div>
+      <div class='news-slidebox-wrapper'>
+        {{#ionSlideBox autoPlay=true showPager=false}}
+            {{#ionSlide class="light-bg"}}
+            <h3>Slide 1</h3>
+            {{/ionSlide}}
+            {{#ionSlide class="dark-bg"}}
+            <h3>Slide 2</h3>
+            {{/ionSlide}}
+            {{#ionSlide class="positive-bg"}}
+            <h3>Slide 3</h3>
+            {{/ionSlide}}
+        {{/ionSlideBox}}
+      </div>
+        {{#ionScroll direction="x" zooming=true locking=false style="width:100%;height:200px;overflow:hidden;" }}
+            <div style="width: 5000px; height: 5000px;">
+                <div class="card inline-card square-card-small">
+                    <div class="item item-text-wrap">
+                       NEWS <i class='icon ion-ios-paper-outline'></i>
+                       
+                    </div>
+                </div>
+                <div class="card inline-card square-card-small">
+                    <div class="item item-text-wrap">
+                        CLASSES <i class='icon ion-ios-book-outline'></i>
+                    </div>
+                </div>
+                <div class="card inline-card square-card-small">
+                    <div class="item item-text-wrap">
+                        ABSENCE <i class='icon ion-clock'></i>
+                    </div>
+                </div>
+                <div class="card inline-card square-card-small">
+                    <div class="item item-text-wrap">
+                        CALENDAR <i class='icon ion-android-calendar'></i>
+                    </div>
+                </div>
+                <div class="card inline-card square-card-small">
+                    <div class="item item-text-wrap">
+                        CONTACT <i class='icon ion-android-contacts'></i>
+                    </div>
+                </div>
+                <div class="card inline-card square-card-small">
+                    <div class="item item-text-wrap">
+                        MORE <i class='icon ion-more'></i>
+                    </div>
+                </div>                
+            </div>
+        {{/ionScroll}} 
+           
+    {{/ionContent}}
+  {{/ionView}}    
+
+
+</template>

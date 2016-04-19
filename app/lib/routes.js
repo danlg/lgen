@@ -286,3 +286,12 @@ Router.route('PrivateNote', {
     Meteor.subscribe('getJoinedClassCreatedByMeByUserId', this.params._id);
   }
 });
+
+Router.route('/:school/mobile/overview', {
+    name: 'mobile.school.overview',
+    layoutTemplate: 'AppLayout',
+    template: 'MobileSchoolOverview',
+    action: function () {
+        this.render('MobileSchoolOverview');
+    }
+});
