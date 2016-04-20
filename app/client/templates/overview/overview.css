@@ -18,6 +18,9 @@
 
 .card.square-card{
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;    
 }
 
 .card.square-card .item{
@@ -53,7 +56,7 @@
 }
 
 .square-cards-wrapper{
-  height:20vh;
+  height:25vh;
   display: flex;
   flex-wrap:  wrap;
   justify-content: space-around;
@@ -64,11 +67,11 @@
    text-align: center;
 }
 .news-slidebox-wrapper{
-    height:85px;
+    height:16vh;
 }
 
 .school-logo-wrapper{
-    height:200px;
+    height:25vh;
 }
 .school-logo-wrapper .school-logo-background{
   /*position: fixed;
@@ -80,7 +83,7 @@
   background-image: url('http://www.carmel.edu.hk/modules/mod_image_show_gk4/cache/slider.Carmel%20School-31gk-is-98.jpg');
   background-size: cover;
   width: 100%;
-  height: 200px; /* same as school-logo-wrapper*/
+  height: 25vh; /* same as school-logo-wrapper*/
 
   /*-webkit-filter: blur(5px);
   -moz-filter: blur(5px);
@@ -98,7 +101,7 @@
     margin-left: 20px;
     margin-right: 20px; */  
      
-    height: 200px;
+    height: 25vh;
     text-align: center;
 }
 
@@ -106,13 +109,19 @@
     height: 100%;
 }
 
+
 .news-slidebox-wrapper .slide-box-bg{
-    text-align: center;
-    height:100%;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
+    height:100%; 
+    width:100%;   
+    display:table;
 }
+
+.news-slidebox-wrapper .slide-box-bg .content{
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}
+
 
 /*.news-slidebox-wrapper .slide-box-bg.bg-1{
    background-image: url('http://boykinsbasketball.com/wp-content/uploads/2015/10/5451a9bac173c.preview-699.jpg');
