@@ -20,6 +20,7 @@ Package.onUse(function(api) {
     api.use('chrismbeckett:toastr');   
    
     api.use('smartix:core');
+    api.use('smartix:accounts-utilities@0.0.1');
     api.use('smartix:accounts-schools');
     api.use('smartix:groups');
     

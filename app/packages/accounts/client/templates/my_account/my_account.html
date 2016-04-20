@@ -1,0 +1,107 @@
+<template name="MyAccount">
+  {{#contentFor "headerTitle"}}
+    {{#if fromRegisterFlow}}
+        <h1 class="title">One Last Step</h1>       
+    {{else}}
+         <h1 class="title">{{_ "MyAccount"}}</h1> 
+    {{/if}}  
+
+    
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonLeft"}}
+    {{#if fromRegisterFlow}}
+        <button class="button button-clear button-entering button-active skip-account-btn">Skip</button>        
+    {{else}}
+        {{>ionNavBackButton path='TabYou' text=" "}}    
+    {{/if}}
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+    {{#if fromRegisterFlow}}
+        <button class="button button-clear button-entering button-active finish-account-btn">Finish</button>        
+    {{else}}
+        <button class="button button-clear button-entering button-active editAccountBtn">{{_ "Update"}}</button>  
+    {{/if}}  
+
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}
+    {{#if fromRegisterFlow}}
+        <div class="card">
+            <div class="item item-text-wrap smaller">
+            Personalize your experience by setting up avatar and telling us which school and country you are from. You can always change the information later in my account page.
+            </div>
+        </div>
+    {{/if}}  
+      {{#autoForm schema=editprofile id="editprofile" resetOnSuccess=false type="method" doc=this meteormethod="profile/edit"  }}
+        <div class="list">     
+          <div class='row'>
+              {{> afFieldInput name="useravatar" style='display:none;' value=getYouAvatar }}  
+              {{#if getYouAvatar}}
+               <div class='col col-50'  style='text-align:center;'>
+                <br/>
+                <i id='pick-an-icon-btn' class="icon e1a-{{getYouAvatar}} e1a-5x emojicon"></i>
+               </div> 
+              {{else}}
+               <div id='pick-an-icon-btn' class='col col-50'  style='text-align:center;' >              
+                <p> Choose an avatar</p>  
+                <i class='icon ion-ios-person-outline' style='font-size:5em;'></i>
+               </div>  
+              {{/if}}                       
+            <div class='col col-50'>
+               {{> afFieldInput name="firstname" placeholder=getFirstNamePlaceHolder value=profile.firstName }}
+              <br/>
+               {{> afFieldInput name="lastname" placeholder=getLastNamePlaceHolder value=profile.lastName }}
+            </div>            
+          </div>
+
+          <label class="item item-input item-stacked-label">
+            {{> afFieldInput name="email" placeholder=getEmailPlaceHolder value=email  }}
+          </label>
+          <!--todo add country-->
+          <label class="item item-input item-stacked-label">
+            {{> afFieldInput id='organization' name="organization" placeholder=getOrganizationPlaceHolder value=profile.organization  }}
+          </label>
+          <label>
+              {{#if getSimilarOrganizations}}
+              Are you looking for:
+              {{/if}}
+              {{#each getSimilarOrganizations}}
+               <label class="item item-input item-stacked-label suggestedOrganization">
+               {{this}}
+              </label>     
+              {{/each}}
+          
+          </label>
+          <label class="item item-input item-stacked-label">
+            {{> afFieldInput id='city' name="city" placeholder=getCityPlaceHolder value=city  }}
+          </label>
+          <label>
+              {{#if getSimilarCities}}
+              Are you looking for:
+              {{/if}}
+              {{#each getSimilarCities}}
+               <label class="item item-input item-stacked-label suggestedCities">
+               {{this}}
+              </label>     
+              {{/each}}    
+          </label>          
+          <label class="item item-input item-stacked-label">
+            <div id='country-code-select'>
+            {{> afFieldInput type='select' name="country" firstOption="(Select a Country)" options=countriesWithValueOnly value=profile.country}}                
+            </div>
+          </label>
+          <label class="item item-input item-stacked-label">
+            <!--<span class="input-label">Role</span>  -->
+            <p>{{profile.role}}</p>
+          </label>   
+                 
+        </div>
+      {{/autoForm}}
+      
+      {{> RelatedUsersMobile}}
+    {{/ionContent}}
+  {{/ionView}}
+</template>

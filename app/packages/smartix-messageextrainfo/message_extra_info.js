@@ -34,10 +34,10 @@ Template.MessageExtraInfo.helpers({
   },
   getNameById: function (userId) {
     var userObj = Meteor.users.findOne(userId);
-    return userObj._id == Meteor.userId() ? "You" : userObj.profile.firstname + " " + userObj.profile.lastname;
+    return userObj._id == Meteor.userId() ? "You" : userObj.profile.firstName + " " + userObj.profile.lastName;
   },
   getName: function (userObj) {
-    return userObj._id == Meteor.userId() ? "You" : userObj.profile.firstname + " " + userObj.profile.lastname;
+    return userObj._id == Meteor.userId() ? "You" : userObj.profile.firstName + " " + userObj.profile.lastName;
   },
   star: function () {
     return this.inputMessageObj.star;

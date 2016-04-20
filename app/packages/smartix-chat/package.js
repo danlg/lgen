@@ -7,6 +7,8 @@ Package.describe({
 
 Package.onUse(function(api) {
      api.versionsFrom("1.2");
+     api.use('check');
+     api.use('ecmascript');
      api.use('iron:router');
      api.use('tap:i18n');
      api.use('aldeed:collection2');
@@ -22,6 +24,10 @@ Package.onUse(function(api) {
      api.use('smartix:accounts-schools');      
      api.use('smartix:classes');    
      api.use('smartix:notifications');
+     api.use('smartix:accounts@0.0.1');
+     api.use('smartix:accounts-system@0.0.1');
+     api.use('smartix:accounts-schools@0.0.1');
+     api.use('smartix:accounts-utilities@0.0.1');
      
      api.addFiles('publications.js','server');
      //api.addFiles('chat.js');

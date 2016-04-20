@@ -172,7 +172,7 @@ Publishes information about class for a given namespace.
 
 #### Implementation
 
-* Checks that the currently-logged in user is a member of the school (namespace) using `Smartix.Accounts.isUserSchoolMember` from the `smartix:accounts-schools` package
+* Checks that the currently-logged in user is a member of the school (namespace) using `Smartix.Accounts.School.isMember` from the `smartix:accounts-schools` package
 * return the cursor for the `smartix:groups` collection , limited to the namespace specified
 
 ### `usersInClass()`
@@ -186,7 +186,7 @@ Publishes limited information (`id`, `firstName`, `lastName` and `email`) for th
 
 #### Implementation
 
-* Checks that the currently-logged in user is a member of the school (namespace) using `Smartix.Accounts.isUserSchoolMember` from the `smartix:accounts-schools` package
+* Checks that the currently-logged in user is a member of the school (namespace) using `SSmartix.Accounts.School.isMember` from the `smartix:accounts-schools` package
 * Retrieve the document object for the class using the `id` and `namespace` specified.
 * Return a cursor of the user collection, querying using the `users` array, and limited to the following fields:
   * `id`

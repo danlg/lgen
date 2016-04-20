@@ -1,3 +1,14 @@
+
+Meteor.publish('schoolInfo', function (schoolName) {
+    if(Smartix.Accounts.School.isMember(this.userId)) {
+        return SmartixSchoolsCol.find({
+            username: schoolName
+        });
+    } else {
+        this.ready();
+    }
+});
+
 Meteor.publish('mySchools', function() {
     if (this.userId) {
         var currentUserId = this.userId;

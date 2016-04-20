@@ -16,9 +16,9 @@ Template.JoinClass.events({
     //the form validation will check the uniqueness of the class no need to add login in the client side
     $(joinform).submit();
     //TODO analytics to be moved in the server side and counter instead of flag
-    if (Meteor.user().profile.firstclassjoined) {
+    if (Meteor.user().firstClassJoined) {
       analytics.track("First Class Joined", { date: new Date()});
-      Meteor.call("updateProfileByPath", 'profile.firstclassjoined', false);
+      Meteor.call("updateProfileByPath", 'firstClassJoined', false);
     }
   },
 

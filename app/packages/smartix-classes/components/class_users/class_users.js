@@ -12,7 +12,7 @@ Template.ClassUsers.events({
       //log.info(this);
       //log.info(e);
       var userid = this._id;
-      var userFullname = this.profile.firstname+ " " + this.profile.lastname;
+      var userFullname = this.profile.firstName + " " + this.profile.lastName;
       var classObj = Smartix.Groups.Collection.findOne({
           type: 'class',
           classCode: Router.current().params.classCode

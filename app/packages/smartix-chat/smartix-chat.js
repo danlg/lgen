@@ -1,3 +1,5 @@
+Match.Maybe = Match.Maybe || Match.Optional;
+
 Smartix = Smartix || {};
 
 Smartix.Chat = Smartix.Chat || {};
@@ -76,6 +78,19 @@ Smartix.Chat.getChatOfUser = function (id) {
 	}
 }
 
+Smartix.Chat.canCreateChat = function (namespace, currentUser) {
+    check(namespace, String);
+    check(currentUser, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    currentUser = currentUser || Meteor.userId();
+    
+    var userToBeChecked = userId || Meteor.userId();
+    return Smartix.Accounts.School.isTeacher(namespace, currentUser)
+        || Smartix.Accounts.School.isAdmin(namespace, currentUser)
+        || Smartix.Accounts.System.isAdmin(currentUser);
+}
+
 Smartix.Chat.createChat = function (chatObj) {
 
 	// Checks that the currently-logged in user has
@@ -83,7 +98,7 @@ Smartix.Chat.createChat = function (chatObj) {
 	// (i.e. either the admin for the school, or the system admin)
 
 	if(chatObj.namespace !== 'global'
-        && !Smartix.Accounts.isUserSchoolTeacherOrAdmin(chatObj.namespace)) {
+        && !Smartix.Chat.canCreateClass(chatObj.namespace)) {
 		return false;
 		// Optional: Throw an appropriate error if not
 	}
@@ -132,7 +147,7 @@ Smartix.Chat.editChat = function (id, options) {
 	// administrative priviledges for the namespace it specified
 	// (i.e. either the admin for the school, or the system admin)
 
-	if(!Smartix.Accounts.isUserSchoolAdmin(namespace)) {
+	if(!Smartix.Accounts.School.isAdmin(namespace)) {
 		return false;
 		// Optional: Throw an appropriate error if not
 	}
@@ -148,7 +163,7 @@ Smartix.Chat.editChat = function (id, options) {
 		check(options.users, [String]);
 
 		// Remove non-existent users
-		updateObj.users = Smartix.Accounts.removeNonExistentUsers(options.users);
+		updateObj.users = Smartix.Accounts.Utilities.removeNonExistentUsers(options.users);
 	}
 
 	if (options.name) {
@@ -186,7 +201,7 @@ Smartix.Chat.editChat = function (id, options) {
 		updateObj.admins = _.uniq(updateObj.admins);
 
 		// Remove non-existent users
-		updateObj.admins = Smartix.Accounts.removeNonExistentUsers(updateObj.admins);
+		updateObj.admins = Smartix.Accounts.Utilities.removeNonExistentUsers(updateObj.admins);
 
 		// Checks to see if there is at least one valid user
 		if (updateObj.admins.length < 1) {

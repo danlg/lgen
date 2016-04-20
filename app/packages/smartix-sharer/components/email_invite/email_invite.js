@@ -26,12 +26,12 @@ Template.EmailInvite.events({
                    
       toastr.success("Invite Success");
 
-      if (Meteor.user().profile.firstinvitation) {
+      if (Meteor.user().firstInvitation) {
         analytics.track("First Invitation", {
           date: new Date(),
         });
 
-        Meteor.call("updateProfileByPath", 'profile.firstinvitation', false);
+        Meteor.call("updateProfileByPath", 'firstInvitation', false);
       }
 
     });
@@ -56,11 +56,11 @@ Template.EmailInvite.events({
     var email = searchText.get();
     Meteor.call( "classinvite", classObj, email, function (err) {
       toastr.success("Invite Success");
-      if (Meteor.user().profile.firstinvitation) {
+      if (Meteor.user().firstInvitation) {
         analytics.track("First Invitation", {
           date: new Date(),
         });
-        Meteor.call("updateProfileByPath", 'profile.firstinvitation', false);
+        Meteor.call("updateProfileByPath", 'firstInvitation', false);
       }  
       
       searchText.set('');    

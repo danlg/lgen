@@ -2,6 +2,18 @@
 
 Account Management for the Smartix platform.
 
+## Workflow
+
+`smartix:accounts` will act as a central controller.
+
+If a school administrator requests to remove a user from a certain group, for example, it will ask the `smartix:accounts-school` to check for permissions; if this permission check passes, it will be passed back to `smartix:accounts`.
+
+If the system administrator requests to remove a user altogether, it will ask `smartix:accounts-system` to see if the user is a system administrator. If so, it will delete, otherwise it will throw an error.
+
+In all cases, client-side woul call the `smartix:accounts` package, which will determine subsequent actions.
+
+This way, the client would have a consistent calling method - instead of calling one method to add users to a school and another to add it to *global*, they would have only one method to remember. Also, this hides the backend architecture from the client, minimizing the risks that the platform would be exploited.
+
 ## Functional Requirements
 
 * Create first system admin user when initializing

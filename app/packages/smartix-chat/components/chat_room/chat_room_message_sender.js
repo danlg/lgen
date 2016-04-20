@@ -76,21 +76,21 @@ ChatRoomMessageSender = function(chatRoomId,messageType,messageText,messageAttac
         });
         //4. send analytics
         if(messageType == 'text'){
-          if (Meteor.user().profile.firstchat) {
+          if (Meteor.user().firstChat) {
           analytics.track("First Chat", {
               date: new Date(),
           });
-          Meteor.call("updateProfileByPath", 'profile.firstchat', false);
+          Meteor.call("updateProfileByPath", 'firstChat', false);
           }
         }else if(messageType == 'voice'){
 
 
         }else if(messageType == 'image'){
-          if (Meteor.user().profile.firstpicture) {
+          if (Meteor.user().firstPicture) {
               analytics.track("First Picture", {
                   date: new Date(),
               });
-              Meteor.call("updateProfileByPath", 'profile.firstpicture', false);
+              Meteor.call("updateProfileByPath", 'firstPicture', false);
           }
         }else if (messageType =='document'){
           if (Meteor.user().profile.firstdocument) {

@@ -79,12 +79,12 @@ Smartix.helpers.spawnDesktopNotification = function(theBody,theIcon,theTitle,pat
         Router.go("TabClasses");
     };
 
-    Smartix.helpers.registerNewUser = function(email,firstname,lastname,password){
+    Smartix.helpers.registerNewUser = function(email, firstName, lastName, password){
         var userObj = {};
         userObj.profile = {};
         userObj.email = email;
-        userObj.profile.firstname = firstname;
-        userObj.profile.lastname = lastname;
+        userObj.profile.firstName = firstName;
+        userObj.profile.lastName = lastName;
         userObj.profile.role = ""; //role would be chosen by user later
 
         if (!Smartix.helpers.validateEmail(userObj.email)) {
@@ -131,42 +131,7 @@ Smartix.helpers.spawnDesktopNotification = function(theBody,theIcon,theTitle,pat
             numberOfLoops: 1
         });
     };
-
-    Smartix.helpers.registerOrLoginWithGoogle = function(){
-        Meteor.loginWithGoogle(
-        {
-            forceApprovalPrompt: true,
-            requestPermissions: ['email'],
-            loginStyle: 'popup',
-            requestOfflineToken: true
-        }
-        ,function (err) { // <-- the callback would NOT be called. It only works if loginStyle is popup
-                            //see https://github.com/meteor/meteor/blob/devel/packages/accounts-oauth/oauth_client.js Line 16
-
-            var loginServicesConfigured = Accounts.loginServicesConfigured();
-            log.info('loginServicesConfigured='+loginServicesConfigured);
-            if (err) {
-            // set a session variable to display later if there is a login error
-            Session.set('loginError', 'reason: ' + err.reason + ' message: ' + err.message || 'Unknown error');
-            //alert(err.message + ":" + err.reason);
-            toastr.error('Sorry. Google Login is not available at the moment because it is unable to connect to the Internet.')
-            log.error('login:google:'+ err.reason +" msg="+ err.message);
-            }
-            else {
-            log.info("login:google:" + Meteor.userId());
-            if (Meteor.user().profile.role !== ""){
-                log.info("user has role");
-                Smartix.helpers.routeToTabClasses();
-            }
-            else{
-                //first time user
-                log.info("user does not have role");
-                Router.go('role');
-            }
-            }
-        });   
-    };
-
+    
 function youtube_parser(url){
     var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
     var match = url.match(regExp);

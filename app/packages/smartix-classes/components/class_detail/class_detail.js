@@ -144,7 +144,7 @@ Template.ClassDetail.helpers({
   },
   getNameById: function (userId) {
     var userObj = Meteor.users.findOne(userId);
-    return userObj._id == Meteor.userId() ? "You" : userObj.profile.firstname + " " + userObj.profile.lastname;
+    return userObj._id == Meteor.userId() ? "You" : userObj.profile.firstName + " " + userObj.profile.lastName;
   },
   isLoadMoreButtonShow: function(){
       var currentClass= Smartix.Groups.Collection.findOne({
@@ -188,14 +188,14 @@ Template.ClassDetail.rendered = function () {
     return teacherAvatar.set(data);
   });
   //greet first-time user
-  if(Meteor.user().profile.firstclassjoined){
+  if(Meteor.user().firstClassJoined){
      IonPopup.alert({
       title: TAPi18n.__("Congratulations"),
       template: TAPi18n.__("JoinedFirstClass"),
       okText: TAPi18n.__("OKay")
     });
     //set the flag to false so it would not show again
-    Meteor.users.update(Meteor.userId(), {$set: {"profile.firstclassjoined": false}}); 
+    Meteor.users.update(Meteor.userId(), {$set: {"firstClassJoined": false}}); 
   }
   
     $( ".class-detail" ).scroll(function() {

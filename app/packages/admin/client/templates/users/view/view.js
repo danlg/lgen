@@ -1,5 +1,9 @@
 Template.AdminUsersView.onCreated(function () {
-    this.subscribe('schoolUser', Router.current().params.school, Router.current().params.uid);
+    var self = this;
+    var schoolUsername = Router.current().params.school;
+    self.subscribe('schoolInfo', schoolUsername, function () {
+        this.subscribe('smartix:accounts/getUserInNamespace', schoolUsername, Router.current().params.uid);
+    });
     this.subscribe('mySchools');
 });
 

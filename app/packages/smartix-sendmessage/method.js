@@ -101,7 +101,7 @@ Meteor.methods({
             if (index > -1) {
             flattenArray.splice(index, 1);
             }
-            var senderFullname = currentUserObj.profile.firstname + " " + currentUserObj.profile.lastname;
+            var senderFullname = currentUserObj.profile.firstName + " " + currentUserObj.profile.lastName;
             var notificationTitle = "Message From " + senderFullname;
             log.info("sendmsg:senderFullName:"+senderFullname);
 

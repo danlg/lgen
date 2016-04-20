@@ -33,6 +33,7 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/classes/list/index.js', ['client', 'server']);
   api.addFiles('client/templates/classes/list/list.html', 'client');
   api.addFiles('client/templates/classes/list/list.js', 'client');
+  api.addFiles('client/templates/classes/view/index.js', 'client');
   api.addFiles('client/templates/classes/view/view.html', 'client');
   api.addFiles('client/templates/classes/view/view.js', 'client');
   api.addFiles('client/templates/classes/view/view.css', 'client');

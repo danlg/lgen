@@ -4,7 +4,7 @@
 Smartix = Smartix || {};
 Smartix.messageEmailTemplate = function (RecipientUsers, OriginateUser,content, options) {
   
-  var originateUserName = OriginateUser.profile.firstname+ " "+OriginateUser.profile.lastname;
+  var originateUserName = OriginateUser.profile.firstName+ " "+OriginateUser.profile.lastName;
   options.lang = options.lang || 'en';
   var bccList = [];
   RecipientUsers.forEach(function(RecipientUser, index, array){
@@ -54,7 +54,7 @@ Smartix.messageEmailTemplate = function (RecipientUsers, OriginateUser,content, 
 };
 
 Smartix.newClassMailTemplate = function (to, classname, classCode) {
-  var emailLang = Meteor.user().profile.lang || "en";
+  var emailLang = Meteor.user().lang || "en";
   var titlestr = TAPi18n.__("NewClassMailTitle",{class_name: classname},
                             emailLang);
   var newClassMailContent;
@@ -169,9 +169,9 @@ Smartix.feedback = function (content) {
 };
 
 Smartix.inviteClassMailTemplate = function (to, classObj) {
-  var emailLang = Meteor.user().profile.lang || "en";
-  var first = Meteor.user().profile.firstname;
-  var last = Meteor.user().profile.lastname;
+  var emailLang = Meteor.user().lang || "en";
+  var first = Meteor.user().profile.firstName;
+  var last = Meteor.user().profile.lastName;
   var inviteClassMail;
   try{ //get the invite template of the specific lang
      inviteClassMail = Assets.getText("lang/"+ emailLang +"/inviteClassMailTemplate.html");
@@ -240,7 +240,7 @@ Smartix.inviteClassMailTemplate = function (to, classObj) {
 };
 
 Smartix.verificationEmailTemplate = function(role,userObj,verificationURL){
-        var emailLang = userObj.profile.lang || "en";
+        var emailLang = userObj.lang || "en";
         var verifyEmailcontent;
         try{ //get the verfication template of the specific lang
             verifyEmailcontent = Assets.getText("lang/"+ emailLang +"/emailVerifyTemplate."+role+".html");
@@ -261,19 +261,19 @@ Smartix.verificationEmailTemplate = function(role,userObj,verificationURL){
         );       
         return Spacebars.toHTML(
           {
-            firstName:  userObj.profile.firstname,
+            firstName:  userObj.profile.firstName,
             verificationURL: verificationURL
           },
           firstPass
         );           
 };
 
-Smartix.resetPasswordEmailTemplate = function(role,userObj,resetPwdEmailURL){
-  var emailLang = userObj.profile.lang || "en";
+Smartix.resetPasswordEmailTemplate = function(role, userObj, resetPwdEmailURL){
+  var emailLang = userObj.lang || "en";
 
   return Spacebars.toHTML(
         {
-          title: TAPi18n.__("ResetPasswordEmailContent", {first_name:userObj.profile.firstname }, lang_tag= emailLang),
+          title: TAPi18n.__("ResetPasswordEmailContent", {first_name:userObj.profile.firstName }, lang_tag= emailLang),
           content: '<a href="'+resetPwdEmailURL+'">'+TAPi18n.__("ResetPasswordEmailButtonText", {}, lang_tag= emailLang)+'</a>',                               
           GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag= emailLang) ,
           UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag= emailLang)
