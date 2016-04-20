@@ -62,7 +62,7 @@ Smartix.Newsgroup.createNewsgroup = function (users, namespace, name, url) {
 	// administrative priviledges for the namespace it specified
 	// (i.e. either the admin for the school, or the system admin)
 
-	if(!Smartix.Accounts.isUserSchoolAdmin(namespace)) {
+	if(!Smartix.Accounts.School.isAdmin(namespace)) {
 		return false;
 		// Optional: Throw an appropriate error if not
 	}
@@ -117,7 +117,7 @@ Smartix.Newsgroup.editNewsgroup = function (id, options) {
 	// administrative priviledges for the namespace it specified
 	// (i.e. either the admin for the school, or the system admin)
 
-	if(!Smartix.Accounts.isUserSchoolAdmin(namespace)) {
+	if(!Smartix.Accounts.School.isAdmin(namespace)) {
 		return false;
 		// Optional: Throw an appropriate error if not
 	}
@@ -133,7 +133,7 @@ Smartix.Newsgroup.editNewsgroup = function (id, options) {
 		check(options.users, [String]);
 
 		// Remove non-existent users
-		updateObj.users = Smartix.Accounts.removeNonExistentUsers(options.users);
+		updateObj.users = Smartix.Accounts.Utilities.removeNonExistentUsers(options.users);
 	}
 
 	if (options.name) {
@@ -171,7 +171,7 @@ Smartix.Newsgroup.editNewsgroup = function (id, options) {
 		updateObj.admins = _.uniq(updateObj.admins);
 
 		// Remove non-existent users
-		updateObj.admins = Smartix.Accounts.removeNonExistentUsers(updateObj.admins);
+		updateObj.admins = Smartix.Accounts.Utilities.removeNonExistentUsers(updateObj.admins);
 
 		// Checks to see if there is at least one valid user
 		if (updateObj.admins.length < 1) {

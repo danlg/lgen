@@ -13,13 +13,17 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
   api.use('random');
+  api.use('check');
   api.use('ecmascript');
   api.use('accounts-base');
   api.use('accounts-password');
   api.use('smartix:core');  
   api.use('alanning:roles');
-  api.addFiles('accounts-system.js');
-  api.addFiles('strings.js');
+  api.use('stevezhu:lodash@4.6.1');
+  api.addFiles('lib/strings.js');
+  api.addFiles('server/accounts-system.js');
+  api.addFiles('server/methods.js');
+  api.addFiles('server/startup.js');
 });
 
 Package.onTest(function(api) {

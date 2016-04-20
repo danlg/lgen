@@ -23,7 +23,7 @@ Template.NotificationSetting.events({
 
         // if(type.toUpperCase()==="PUSH"){
         //
-        //   var tag = lodash.get(userObj,'profile.push')? "push notification activated "
+        //   var tag = lodash.get(userObj,'pushNotifications')? "push notification activated "
         //
         //   analytics.track(tag, {
         //     date: new Date(),

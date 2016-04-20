@@ -45,7 +45,7 @@
                                     {{else}}
                                         <i class="icon e1a-green_apple e1a-1x emojicon"></i>
                                     {{/if}}
-                                    {{profile.firstname}} {{profile.lastname}}
+                                    {{profile.firstName}} {{profile.lastName}}
                                     <i style='larger' class="icon {{isNewMessage ../sendAt}}  new-message-icon"></i>
                                     
                                 </div>
@@ -75,7 +75,7 @@
                                                     {{else}}
                                                         <i class="icon e1a-green_apple e1a-1x emojicon"></i>
                                                     {{/if}}
-                                                    {{profile.firstname}} {{profile.lastname}}
+                                                    {{profile.firstName}} {{profile.lastName}}
                                                     <i style='larger' class="icon {{isNewMessage ../../sendAt}} new-message-icon"></i>
                                                 </div>
                                              <br/>
@@ -110,7 +110,7 @@
                                     {{else}}
                                         <i class="icon e1a-green_apple e1a-1x emojicon"></i>
                                     {{/if}}
-                                    {{profile.firstname}} {{profile.lastname}}
+                                    {{profile.firstName}} {{profile.lastName}}
                                     <i style='larger' class="icon {{isNewMessage ../../sendAt}}  new-message-icon"></i>
                                 </div>
                                 <br/>
@@ -138,7 +138,7 @@
                                             {{else}}
                                                 <i class="icon e1a-green_apple e1a-1x emojicon"></i>
                                             {{/if}}
-                                            {{profile.firstname}} {{profile.lastname}}
+                                            {{profile.firstName}} {{profile.lastName}}
                                             <i style='larger' class="icon {{isNewMessage ../../sendAt}}  new-message-icon"></i>
                                         </div>
                                         <br/>
@@ -152,7 +152,7 @@
                                 {{#if isMineBoolean ../from}}
                                 {{else}}
                                     {{#with getUserById ../from}}
-                                        <div class='username'><i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>{{profile.firstname}}</div><br/>
+                                        <div class='username'><i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>{{profile.firstName}}</div><br/>
                                     {{/with}}
                                 {{/if}}                                  
                                 <audio controls>

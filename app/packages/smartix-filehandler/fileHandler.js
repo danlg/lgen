@@ -116,12 +116,12 @@ Smartix.FileHandler = (function () {
                             log.info(fileObj.type());
                             log.info(fileObj.updatedAt());
 
-                            if (Meteor.user().profile.firstpicture) {
+                            if (Meteor.user().firstPicture) {
                                 analytics.track("First Picture", {
                                     date: new Date(),
                                 });
 
-                                Meteor.call("updateProfileByPath", 'profile.firstpicture', false);
+                                Meteor.call("updateProfileByPath", 'firstPicture', false);
                             }
                             log.info(fileObj._id);
                             callback(arr);

@@ -56,7 +56,7 @@ Meteor.methods({
     
     var optInUsersGroupByLang = lodash.chain(recipientUsers)
                                       .filter(function(user){
-                                        if(user.profile.email){
+                                        if(user.emailNotifications){
                                             if(user.emails[0].verified || user.services.google.verified_email){
                                                 return true;
                                             }   
@@ -64,7 +64,7 @@ Meteor.methods({
                                             return false;
                                         }
                                       })
-                                      .groupBy('profile.lang')
+                                      .groupBy('lang')
                                       .value();
     
     log.info(optInUsersGroupByLang);
@@ -75,7 +75,7 @@ Meteor.methods({
         optInUsersGroupByLang[lang].map(function(eachUser){
             var chatRoomRecepient = { 
                 email: eachUser.emails[0].address,
-                name:  eachUser.profile.firstname+ " " + eachUser.profile.lastname
+                name:  eachUser.profile.firstName+ " " + eachUser.profile.lastName
             }
             chatRoomRecepientArr.push(chatRoomRecepient);            
         });
@@ -131,7 +131,7 @@ Meteor.methods({
             //only keep users who want to receive push notification
                 filteredUserIdsWhoEnablePushNotify = notificationObj.query.userId.$in.filter(function(eachUserId){
                 var userObj = Meteor.users.findOne(eachUserId);
-                if (lodash.get(userObj, 'profile.push')) {
+                if (lodash.get(userObj, 'pushNotifications')) {
                    return true;
                 }else{
                    return false;
@@ -146,7 +146,7 @@ Meteor.methods({
         notificationObjType="single";
         var userId = notificationObj.query.userId;
         var userObj = Meteor.users.findOne(userId);
-        if (lodash.get(userObj, 'profile.push')) {
+        if (lodash.get(userObj, 'pushNotifications')) {
             filteredUserIdsWhoEnablePushNotify.push(userId);
             notificationObj.badge = Smartix.helpers.getTotalUnreadNotificationCount(userId);
             Push.send(notificationObj);
@@ -256,7 +256,7 @@ Meteor.methods({
   },
 
   addReferral: function (userId) {
-    Meteor.users.update(Meteor.userId(), {$inc: {'profile.referral': 1}});
+    Meteor.users.update(Meteor.userId(), {$inc: {'referral': 1}});
   },
 
   getUserList:function(){

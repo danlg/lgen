@@ -126,10 +126,10 @@ Template.TabClasses.rendered = function () {
   {
     if (Meteor.isCordova) {
       //set the flag to true. there is no need to pop this up if user is already using the mobile app
-      Meteor.users.update(Meteor.userId(), { $set: { "profile.hybridapppromote": true } });
+      Meteor.users.update(Meteor.userId(), { $set: { "hybridAppPromote": true } });
     }
     else {
-      if (Meteor.user().profile.hybridapppromote == false) {
+      if (Meteor.user().hybridAppPromote == false) {
         //promote the app once if they havent try the hybrid apps
         IonPopup.alert({
           title: TAPi18n.__("DoYouKnow"),
@@ -140,7 +140,7 @@ Template.TabClasses.rendered = function () {
         });
 
         //set the flag to true so it would not show again
-        Meteor.users.update(Meteor.userId(), { $set: { "profile.hybridapppromote": true } });
+        Meteor.users.update(Meteor.userId(), { $set: { "hybridAppPromote": true } });
       }
     }
   }

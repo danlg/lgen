@@ -82,7 +82,7 @@ Smartix.Groups.addUsersToGroup = function (id, users) {
 	check(users, [String]);
 
 	// Remove non-existent users from array
-	users = Smartix.Accounts.removeNonExistentUsers(users);
+	users = Smartix.Accounts.Utilities.removeNonExistentUsers(users);
 
 	// Push (using `$addToSet`) the new users to the existing `users` array
 	Smartix.Groups.Collection.update({
@@ -134,4 +134,27 @@ Smartix.Groups.isUserInGroup = function (user, group) {
 		_id: group,
 		users: user
 	});
+}
+
+Smartix.Accounts.isUserSchoolAdminForGroup = function(id){
+
+	// Checks that `id` is of type String
+	check(id, String);
+    
+    // Get the existing group in order to get the namespace
+	var existingGroup = Smartix.Groups.Collection.findOne({
+		_id: id
+	});
+
+	// If there is no group with the `id` specified, return `false`
+	if(!existingGroup) {
+		return false;
+	}
+
+	// If the user is not an admin of the school, return `false`
+	if(!Smartix.Accounts.School.isAdmin(existingGroup.namespace)) {
+		return false;
+	}
+
+	return true;
 }

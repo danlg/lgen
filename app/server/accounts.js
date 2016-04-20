@@ -21,8 +21,8 @@
     user.emails.push({
       address: user.services.google.email
     });
-    user.profile.firstname = user.services.google.given_name;
-    user.profile.lastname = user.services.google.family_name;
+    user.profile.firstName = user.services.google.given_name;
+    user.profile.lastName = user.services.google.family_name;
     
     //explicitiy set that when account is login by google oauth, role is empty
     user.profile.role = "";
@@ -55,7 +55,7 @@ Accounts.emailTemplates.verifyEmail= {
   }
 
   , subject:function(user) {
-    var subjectLang = user.profile.lang || "en";
+    var subjectLang = user.lang || "en";
     var verifyEmailSubject = TAPi18n.__("VerifyEmailSubject", {}, lang_tag= subjectLang);
     return verifyEmailSubject;
   }
@@ -78,7 +78,7 @@ Accounts.emailTemplates.resetPassword ={
   }
 
   , subject:function(user) {
-    var subjectLang = user.profile.lang || "en";
+    var subjectLang = user.lang || "en";
     
     var resetPasswordEmailSubject = TAPi18n.__("ResetPasswordEmailSubject", {}, lang_tag= subjectLang);
     return resetPasswordEmailSubject;

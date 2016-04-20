@@ -62,10 +62,10 @@ Template.ClassInformationForWebUser.events({
         }
       });
 
-    }else{
+    } else {
       log.info("user is NOT logged in");
       
-      Smartix.helpers.registerOrLoginWithGoogle();
+      Smartix.Accounts.registerOrLoginWithGoogle();
     }
    
   }  
@@ -121,7 +121,7 @@ Template.ClassInformationForWebUser.helpers({
               $in: classObj.admins
           }
         });
-      return "Join " + teacher.profile.firstname + " " + teacher.profile.lastname + "'s " + classObj.className + " class";
+      return "Join " + teacher.profile.firstName + " " + teacher.profile.lastName + "'s " + classObj.className + " class";
     }
 
   },

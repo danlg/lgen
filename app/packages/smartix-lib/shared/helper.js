@@ -49,8 +49,8 @@ Smartix.helpers = Smartix.helpers || {};
     };
 
     Smartix.helpers.getClassCodeNew = function(className) {
-        var firstname = Meteor.user().profile.firstname;
-        var lastname = Meteor.user().profile.lastname;
+        var firstname = Meteor.user().profile.firstName;
+        var lastname = Meteor.user().profile.lastName;
         var name = firstname.substring(0, 1) + lastname.substring(0, 4);
         var fullname = name + className;
         return fullname.toLowerCase();
@@ -77,19 +77,19 @@ Smartix.helpers = Smartix.helpers || {};
         if (!profile) {
             return "";
         }
-        return profile.firstname + " " + profile.lastname;
+        return profile.firstName + " " + profile.lastName;
     };
 
     Smartix.helpers.getFirstName_ByProfileObj = function(profile) {
         if (!profile) {
             return "";
         }
-        return profile.firstname;
+        return profile.firstName;
     };
 
     Smartix.helpers.getFullNameOfCurrentUser = function() {
         var profile = Meteor.user().profile;
-        return profile.firstname + " " + profile.lastname;
+        return profile.firstName + " " + profile.lastName;
     };
 
     Smartix.helpers.validateEmail = function(email) {

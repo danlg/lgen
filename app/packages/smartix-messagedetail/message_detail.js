@@ -43,6 +43,6 @@ Template.MessageDetail.helpers({
   },
   getNameById: function (userId) {
     var userObj = Meteor.users.findOne(userId);
-    return userObj._id == Meteor.userId() ? "You" : userObj.profile.firstname + " " + userObj.profile.lastname;
+    return userObj._id == Meteor.userId() ? "You" : userObj.profile.firstName + " " + userObj.profile.lastName;
   }
 });

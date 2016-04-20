@@ -554,12 +554,12 @@ function onSuccess(imageURI) {
             
             imageArr.set(arr);
 
-            if (Meteor.user().profile.firstpicture) {
+            if (Meteor.user().firstPicture) {
               analytics.track("First Picture", {
                 date: new Date(),
               });
 
-              Meteor.call("updateProfileByPath", 'profile.firstpicture', false);
+              Meteor.call("updateProfileByPath", 'firstPicture', false);
             }
             
             showPreview("image");

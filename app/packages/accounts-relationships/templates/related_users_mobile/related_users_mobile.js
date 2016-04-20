@@ -4,11 +4,11 @@ Template.RelatedUsersMobile.helpers({
    },
    getParentNameById:function(userid){
        var usr =  Meteor.users.findOne(userid);
-       return usr.profile.firstname+" "+usr.profile.lastname;
+       return usr.profile.firstName + " " + usr.profile.lastName;
    },
    getChildNameById:function(userid){
        var usr =  Meteor.users.findOne(userid);
-       return usr.profile.firstname+" "+usr.profile.lastname;       
+       return usr.profile.firstName + " " + usr.profile.lastName;       
    },
    userIsChild:function(userid){
        if(Meteor.userId() == userid ){

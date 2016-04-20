@@ -39,5 +39,15 @@ Template.AdminClassesView.helpers({
                 });
             }
         }
+    },
+    classUserIndex: function () {
+        return ClassUsersIndex;
+    },
+    adminUserSearchInputAttributes: function () {
+        return {
+            placeholder: "Type the name of your new admin",
+            class: "form-control",
+            id: "AdminClassesView__add-admin-input"
+        }
     }
 });

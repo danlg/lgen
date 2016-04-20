@@ -1,9 +1,9 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 Template.Tour.events({
   'click .redirect-button': function() {
-     if (Meteor.user() && (!Meteor.user().profile.hasUserSeenTour)) {
+     if (Meteor.user() && (!Meteor.user().hasUserSeenTour)) {
        //set the flag to true so it would not show again
-        Meteor.users.update(Meteor.userId(), { $set: { "profile.hasUserSeenTour": true } });
+        Meteor.users.update(Meteor.userId(), { $set: { "hasUserSeenTour": true } });
         
      }
      

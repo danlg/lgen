@@ -4,12 +4,12 @@ Template.AdminUsersAdd.events({
         var newUserObj = {};
         newUserObj.profile = {};
         
-        newUserObj.email = template.$('#addUser-email').eq(0).val();
-        newUserObj.roles = template.$('#addUser-roles').eq(0).val();
+        var email = template.$('#addUser-email').eq(0).val();
+        var roles = template.$('#addUser-roles').eq(0).val();
         newUserObj.profile.firstName = template.$('#addUser-firstName').eq(0).val();
         newUserObj.profile.lastName = template.$('#addUser-lastName').eq(0).val();
-        newUserObj.profile.dob = template.$('#addUser-dob').eq(0).val();
-        newUserObj.profile.tel = template.$('#addUser-tel').eq(0).val();
+        newUserObj.dob = template.$('#addUser-dob').eq(0).val();
+        newUserObj.tel = template.$('#addUser-tel').eq(0).val();
         
         check(newUserObj, {
             email: String,
@@ -23,7 +23,11 @@ Template.AdminUsersAdd.events({
         && Router.current().params.school
         ) {
             // Call the Meteor method to create the school user
-            Meteor.call('smartix:accounts-schools/createSchoolUser', Router.current().params.school, newUserObj);
+            Meteor.call('smartix:accounts-schools/createSchoolUser',
+                email,
+                newUserObj,
+                Router.current().params.school,
+                roles);
         }
     }
 });

@@ -12,7 +12,8 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
-  api.use('random');  
+  api.use('random');
+  api.use('check');
   api.use('ecmascript');
   api.use('alanning:roles');  
   api.use('smartix:core');
@@ -23,11 +24,12 @@ Package.onUse(function(api) {
   api.use('smartix:accounts-usernames');      
   api.use('smartix:accounts-system');
   api.use('smartix:schools@0.0.1');
-  api.addFiles('strings.js','server');  
-  api.addFiles('roles.js','server');
+  api.addFiles('lib/strings.js', ['client', 'server']);
+  api.addFiles('lib/accounts-schools.js', ['client', 'server']);
   api.addFiles('accounts-schools.js');
-  api.addFiles('methods.js','server');
-  api.addFiles('publications.js','server');
+  api.addFiles('server/accounts-schools.js', 'server');
+  api.addFiles('server/methods.js', 'server');
+  api.addFiles('server/publications.js', 'server');
       
   api.export('Smartix');
 });

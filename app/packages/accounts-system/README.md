@@ -2,7 +2,7 @@
 
 ## Server-side functions
 
-### `createFirstSystemAdmin()`
+### `Smartix.Accounts.System.createFirstAdmin()`
 
 Creates the first system admin if one does not exist already.
 

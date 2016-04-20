@@ -1,7 +1,7 @@
 <template name="UserDetail">
 
   {{#contentFor "headerTitle"}}
-    <h1 class="title">{{userPofile.profile.firstname}} {{userPofile.profile.lastname}}</h1>
+    <h1 class="title">{{userPofile.profile.firstName}} {{userPofile.profile.lastName}}</h1>
   {{/contentFor}}
 
   {{#contentFor "headerButtonLeft"}}
@@ -65,7 +65,7 @@
    {{#ionFooterBar class='dummy bar-stable'}}
     {{#if canChat }}      
           <div class="title talkToBtn" data-userId="{{userId}}">
-            {{_ "Message"}} {{userPofile.profile.firstname}} {{userPofile.profile.lastname}}</div>
+            {{_ "Message"}} {{userPofile.profile.firstName}} {{userPofile.profile.lastname}}</div>
         
     {{/if}}           
    {{/ionFooterBar}}

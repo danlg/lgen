@@ -53,12 +53,9 @@ Template.AppLayout.onCreated(function() {
     //TODO: subscription to be filtered based on selected school
     this.subscribe('smartix:classes/associatedClasses');
     this.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');
-    this.subscribe('userPendingApprovedSchools');
-    this.subscribe('globalUsersBasicInfo');
+    this.subscribe('smartix:accounts/ownUserData');
+    this.subscribe('smartix:accounts/basicInfoOfAllUsersInNamespace', 'global');
     
-    
-
-
     var self = this;
     self.autorun(function() {
         self.subscribe('userRelationships', Meteor.userId());

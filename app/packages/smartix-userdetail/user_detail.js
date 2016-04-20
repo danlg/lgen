@@ -26,7 +26,7 @@ Template.UserDetail.helpers({
   },
   isStudentHigherThirteen: function () {
     var user = Meteor.users.findOne({_id: Router.current().params._id});
-    var age = moment(lodash.get(user, 'profile.dob')) || moment();
+    var age = moment(lodash.get(user, 'dob')) || moment();
     var now = moment();
     return now.diff(age, 'years') > 12;
   },
@@ -37,7 +37,7 @@ Template.UserDetail.helpers({
       return true;
     }
 
-    var age = moment(lodash.get(user, 'profile.dob')) || moment();
+    var age = moment(lodash.get(user, 'dob')) || moment();
     var now = moment();
     var isHigherThan13 = now.diff(age, 'years') > 12;
 
@@ -83,13 +83,13 @@ Template.UserDetail.helpers({
 
   canEmail: function (argument) {
     var user = Meteor.users.findOne({_id: Router.current().params._id});
-    var flag = lodash.get(user, 'profile.email') || false;
+    var flag = lodash.get(user, 'emailNotifications') || false;
     return flag ?  "checked" : "";
   },
 
   canPush: function (argument) {
     var user = Meteor.users.findOne({_id: Router.current().params._id});
-    var flag =  lodash.get(user, 'profile.push') || false;
+    var flag =  lodash.get(user, 'pushNotifications') || false;
     return flag ?  "checked" : "";
   }
   //,

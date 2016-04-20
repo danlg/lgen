@@ -103,7 +103,7 @@ Meteor.methods({
     var rawResult= Meteor.users.findOne({_id: userid}); 
     
     if(rawResult){
-      return rawResult.profile.firstname+" "+rawResult.profile.lastname;
+      return rawResult.profile.firstName+" "+rawResult.profile.lastName;
     }else{
       return "";
     }
@@ -119,10 +119,9 @@ Meteor.methods({
     //console.log('profile/edit','only changes would be inputted',doc);
     var email = doc.email;
     doc = lodash.omit(doc, 'email')   
-    Meteor.call('smartix:accounts-global/updateGlobalUser',Meteor.userId(),{
-       profile: doc 
+    Meteor.call('smartix:accounts/editUser', Meteor.userId(), {
+       profile: doc
     });
-    
     /*var email = doc.email;
     doc = lodash.omit(doc, 'email');
     var _id = Meteor.userId();
@@ -154,9 +153,9 @@ Meteor.methods({
   'getSimilarCities':function(inputCityKeyword){
       
             var regexp = new RegExp("^"+inputCityKeyword,"i");
-            var rawResultSet = Meteor.users.find({"profile.city":  {$regex: regexp} }).fetch();//OK
+            var rawResultSet = Meteor.users.find({"city":  {$regex: regexp} }).fetch();//OK
             //log.info(rawResultSet);
-            var resultSet = lodash.map(rawResultSet,'profile.city');
+            var resultSet = lodash.map(rawResultSet,'city');
             //log.info(resultSet);  
             
             return resultSet;    
@@ -333,7 +332,7 @@ Smartix.sendEmailMessageToClasses = function(targetUserids, classes, message, or
   log.info("sendEmailMessageToClasses:arrayOfTargetUsers:end");
     var optInUsersGroupByLang = lodash.chain(arrayOfTargetUsers)
                                       .filter(function(user){
-                                        if(user.profile.email){
+                                        if(user.emailNotifications){
                                             if(user.emails[0].verified || user.services.google.verified_email){
                                                 return true;
                                             }   
@@ -341,7 +340,7 @@ Smartix.sendEmailMessageToClasses = function(targetUserids, classes, message, or
                                             return false;
                                         }
                                       })
-                                      .groupBy('profile.lang')
+                                      .groupBy('lang')
                                       .value();
 
   //extract and join all the classes name to a single string
@@ -353,7 +352,7 @@ Smartix.sendEmailMessageToClasses = function(targetUserids, classes, message, or
         optInUsersGroupByLang[lang].map(function(eachUser){
             var classRoomRecepient = { 
                 email: eachUser.emails[0].address,
-                name:  eachUser.profile.firstname+ " " + eachUser.profile.lastname
+                name:  eachUser.profile.firstName+ " " + eachUser.profile.lastName
             };
             classRecepientArr.push(classRoomRecepient);            
         });

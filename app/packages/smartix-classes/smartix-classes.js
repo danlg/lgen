@@ -129,6 +129,19 @@ Smartix.Class.isClassAdmin = function (userId, classId) {
     return false;
 }
 
+Smartix.Chat.canCreateClass = function (namespace, currentUser) {
+    check(namespace, String);
+    check(currentUser, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    currentUser = currentUser || Meteor.userId();
+    
+    var userToBeChecked = userId || Meteor.userId();
+    return Smartix.Accounts.School.isTeacher(namespace, currentUser)
+        || Smartix.Accounts.School.isAdmin(namespace, currentUser)
+        || Smartix.Accounts.System.isAdmin(currentUser);
+}
+
 Smartix.Class.createClass = function (classObj) {
 
     console.log('Smartix.Class.createClass',classObj);
@@ -139,7 +152,7 @@ Smartix.Class.createClass = function (classObj) {
     // * Teacher for the school (namespace) specified
 
 	if(classObj.namespace !== 'global'
-        && !Smartix.Accounts.isUserSchoolTeacherOrAdmin(classObj.namespace)) {
+        && !Smartix.Chat.canCreateClass(classObj.namespace)) {
 			
 	 	console.log('no right to create class')
 		return false;
@@ -196,7 +209,7 @@ Smartix.Class.editClass = function (classId, options) {
     // * One of the admins for the class
 
 	if(Smartix.Class.isClassAdmin(Meteor.userId(), classId)
-        || !Smartix.Accounts.isUserSchoolAdmin(namespace)) {
+        || !Smartix.Accounts.School.isAdmin(namespace)) {
 		return false;
 		// Optional: Throw an appropriate error if not
 	}
@@ -212,7 +225,7 @@ Smartix.Class.editClass = function (classId, options) {
 		check(options.users, [String]);
 
 		// Remove non-existent users
-		updateObj.users = Smartix.Accounts.removeNonExistentUsers(options.users);
+		updateObj.users = Smartix.Accounts.Utilities.removeNonExistentUsers(options.users);
 	}
 
 	if (options.className) {
@@ -250,7 +263,7 @@ Smartix.Class.editClass = function (classId, options) {
 		updateObj.admins = _.uniq(updateObj.admins);
 
 		// Remove non-existent users
-		updateObj.admins = Smartix.Accounts.removeNonExistentUsers(updateObj.admins);
+		updateObj.admins = Smartix.Accounts.Utilities.removeNonExistentUsers(updateObj.admins);
 
 		// Checks to see if there is at least one valid user
 		if (updateObj.admins.length < 1) {
@@ -278,7 +291,7 @@ Smartix.Class.deleteClass = function (id) {
     // * One of the admins for the class
 
 	if(Smartix.Class.isClassAdmin(Meteor.userId(), classId)
-        || !Smartix.Accounts.isUserSchoolAdmin(namespace)) {
+        || !Smartix.Accounts.School.isAdmin(namespace)) {
 		return false;
 		// Optional: Throw an appropriate error if not
 	}
@@ -300,7 +313,7 @@ Smartix.Class.addUsersToClass = function (id, users) {
     // * One of the admins for the class
 
 	if(Smartix.Class.isClassAdmin(Meteor.userId(), classId)
-        || !Smartix.Accounts.isUserSchoolAdmin(namespace)) {
+        || !Smartix.Accounts.School.isAdmin(namespace)) {
 		return false;
 		// Optional: Throw an appropriate error if not
 	}
@@ -322,7 +335,7 @@ Smartix.Class.removeUsersFromClass = function (id, users) {
     // * One of the admins for the class
 
 	if(Smartix.Class.isClassAdmin(Meteor.userId(), classId)
-        || !Smartix.Accounts.isUserSchoolAdmin(namespace)) {
+        || !Smartix.Accounts.School.isAdmin(namespace)) {
 		return false;
 		// Optional: Throw an appropriate error if not
 	}

@@ -100,10 +100,10 @@ var OnBeforeActions = {
           log.info("checkLanguage:setLang:'" + lang + "'");
           i18Init(lang);
          
-         //&& ( !Meteor.user().profile.lang || Meteor.user().profile.lang =="")
+         //&& ( !Meteor.user().lang || Meteor.user().lang =="")
          if(Meteor.userId() ){
            //update user language
-           Meteor.call("updateProfileByPath", 'profile.lang', lang); 
+           Meteor.call("updateProfileByPath", 'lang', lang); 
          }       
         },
         function () {
@@ -164,10 +164,10 @@ var OnBeforeActions = {
           log.info("checkLanguage:setLang:'"+ lang+ "'");
           i18Init(lang);
         
-         //&& ( !Meteor.user().profile.lang || Meteor.user().profile.lang =="")
+         //&& ( !Meteor.user().lang || Meteor.user().lang =="")
          if(Meteor.userId() ){
            //update user language
-           Meteor.call("updateProfileByPath", 'profile.lang', lang); 
+           Meteor.call("updateProfileByPath", 'lang', lang); 
          }
             
     }
@@ -177,7 +177,7 @@ var OnBeforeActions = {
     //if login user has seen app tour before, we will redirect the user directly to class page
     //this checking should only be enabled if user access the page from root path '/'
     //it should not enabled if user access the page from You > Help
-    if (Meteor.user() && Meteor.user().profile.hasUserSeenTour) {
+    if (Meteor.user() && Meteor.user().hasUserSeenTour) {
       Router.go("TabClasses");
     }//we show the tour
     this.next();

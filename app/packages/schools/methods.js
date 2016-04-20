@@ -56,17 +56,18 @@ if (Meteor.isServer) {
                     return { school: schoolId };
 
                 } else {
-                    //console.log('createSchoolUser',schoolId);
-                    Meteor.call('smartix:accounts-schools/createSchoolUser', schoolId, {
-                        roles: ['admin'],
-                        username: newAdmin,
-                        password: newAdminPassword,
-                        email: options.email,
-                        profile: {
-                            firstName: newAdmin,
-                            lastName: ""
-                        }
-                    });
+                    Meteor.call('smartix:accounts-schools/createSchoolUser',
+                        options.email,
+                        {
+                            username: newAdmin,
+                            password: newAdminPassword,
+                            profile: {
+                                firstName: newAdmin,
+                                lastName: ""
+                            }
+                        },
+                        schoolId,
+                        ['admin']);
 
                     return { school: schoolId, initialAdmin: { username: newAdmin, initialPassword: newAdminPassword } };
                 }

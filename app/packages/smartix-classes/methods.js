@@ -4,7 +4,7 @@ Meteor.methods({
         var classObj = Smartix.Groups.Collection.findOne({
             _id: id
         });
-    if (lodash.get(Meteor.user(), "profile.email")) {
+    if (lodash.get(Meteor.user(), "emailNotifications")) {
       try {
         
         log.info("newClassMail:" + classObj.classCode);
@@ -20,7 +20,7 @@ Meteor.methods({
     var userObj = Meteor.users.findOne({
         _id: id
     });
-    var name = userObj.profile.firstname + " " + userObj.profile.lastname;
+    var name = userObj.profile.firstName + " " + userObj.profile.lastName;
     return name;
   },    
   getAvatarById: function(id){
