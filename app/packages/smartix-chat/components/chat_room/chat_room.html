@@ -120,6 +120,35 @@
                         <img style='display:block;' src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs responsive-img" data-fullsizeimage="{{this.url  }}"> 
                         </div>
                     {{/with}}
+                    {{#with FS.GetFile "documents" fileId}}  
+                            {{#if this.isUploaded}}
+                                {{#if this.hasStored 'documents'}}
+                                    <div class="bubble">
+                                    {{#if isMineBoolean ../from}}
+                                    {{else}}
+                                        {{#with getUserById ../from}}
+                                            <div class='username'> 
+                                                {{#if profile.useravatar}}
+                                                    <i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>
+                                                {{else}}
+                                                    <i class="icon e1a-green_apple e1a-1x emojicon"></i>
+                                                {{/if}}
+                                                {{profile.firstname}} {{profile.lastname}}
+                                                <i style='larger' class="icon {{isNewMessage ../../sendAt}} new-message-icon"></i>
+                                            </div>
+                                            <br/>
+                                        {{/with}}
+                                    {{/if}}                                          
+                                    <a href='{{this.url}}'> <i class="icon ion-paperclip"></i>&nbsp;{{this.name}}</a>
+                                    <br/><span  class='timestamp'>{{formatTime  ../sendAt}}</span>                       
+                                    </div>
+                                {{else}}
+                                    {{> LoadingSpinner}}                                                          
+                                {{/if}}
+                            {{else}}
+                                {{> LoadingSpinner}}
+                            {{/if}}                               
+                    {{/with}}                      
                     {{/each}}
                     
                     {{#if isSound}}

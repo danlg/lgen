@@ -19,10 +19,12 @@ ChatRoomMessageSender = function(chatRoomId,messageType,messageText,messageAttac
     }
 
     addons = [];
-    if(messageType == 'voice' || messageType == 'images' || messageType == 'document'){
-        addons.push({type:messageType,fileId:messageAttachmentObject._id})
+    if(messageType == 'voice' || messageType == 'images' || messageType == 'documents'){
+        addons.push({type:messageType,fileId:messageAttachmentObject._id});
+        messageType = "text";
     }
 
+    console.log(messageType);
     Meteor.call('smartix:messages/createMessage',chatRoomId,messageType,{content:messageText},
                 addons
                );
