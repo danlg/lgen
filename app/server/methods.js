@@ -2,34 +2,11 @@
 /* Server Only Methods */
 
 
-var key = Meteor.settings.SPARKPOST_KEY
+var key = 'ba01e5c4be18fed9b317e32c2e39beffad09dcf7'
   , SparkPost = Meteor.npmRequire('sparkpost')
   , client = new SparkPost(key);
 
 Meteor.methods({
-   /* Example:
-   * '/app/items/insert': function (item) {}
-   */
-
-//   ping: function () {
-//     this.unblock();
-//     try {
-//      log.info(Mandrill.users.ping());
-//     }
-//     catch (e) {
-//       log.error(e);
-//     }
-//   },
-
-//   ping2: function () {
-//     this.unblock();
-//     try {
-//       log.info(Mandrill.users.ping2());
-//     }
-//     catch (e) {
-//       log.error(e);
-//     }
-//   },
 
   testEmail: function () {
     try {
@@ -111,7 +88,16 @@ Meteor.methods({
         
         log.info("newClassMail:" + classObj.classCode);
         //retrieveContent("en");
-        client.transmissions.send(newClassMailTemplate(to, classObj.className, classObj.classCode));
+        client.transmissions.send(newClassMailTemplate(to, classObj.className, classObj.classCode),
+         function(err, res) {
+                if (err) {
+                    console.log('Whoops! Something went wrong');
+                    console.log(err);
+                } else {
+                    console.log('Woohoo! You just sent your first mailing!');
+                }
+            }
+        );
       }
       catch (e) {
         log.error("add class mail: " + e);
@@ -129,7 +115,15 @@ Meteor.methods({
     //log.info(inviteClassMailTemplate(targetFirstEmail, classObj));
   
       try {
-        client.transmissions.send(inviteClassMailTemplate(targetFirstEmail, classObj));
+        client.transmissions.send(inviteClassMailTemplate(targetFirstEmail, classObj),
+        function(err, res) {
+                    if (err) {
+                        console.log('Whoops! Something went wrong');
+                        console.log(err);
+                    } else {
+                        console.log('Woohoo! You just sent your first mailing!');
+                    }
+            });
       }
       catch (e) {
         log.error("classinvite:couldn't send invite email:classCode:"+ classObj.classCode+ ":to:"+ targetFirstEmail );
@@ -408,22 +402,4 @@ Meteor.methods({
   }
 
 });
-
-// Test Method for emails
-// Meteor.startup(function () {
-// try {
-//       client.transmissions.send(inviteClassMailTemplate(), function(err, res) {
-//             if (err) {
-//                 console.log('Whoops! Something went wrong');
-//                 console.log(err);
-//             } else {
-//                 console.log('Woohoo! You just sent your first mailing!');
-//             }
-//     });
-//     }
-//     catch (e) {
-//       log.error(e);
-//     }
-//  });
-
 

@@ -23,7 +23,7 @@ Accounts.emailTemplates.verifyEmail= {
   }
 
   , from:function() {
-    return "Smartix <contactemail@littlegenius.io>";
+    return "Smartix <dan@gosmartix.com>";
   }
 
   , subject:function(user) {
