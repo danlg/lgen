@@ -31,22 +31,25 @@ messageEmailTemplate = function (RecipientUsers, OriginateUser,content, options)
   }
   
   return {
-    "message": {
-      "merge_language": "handlebars",
+    transmissionBody: {
+      //"merge_language": "handlebars",
       "text": "",
-      "subject": subject,
-      "from_email": Meteor.settings.FROM_EMAIL,
-      "from_name": Meteor.settings.FROM_NAME,
-      "to": bccList,
-      "html": Spacebars.toHTML(
+      content: {
+            from: Meteor.settings.FROM_EMAIL,
+            //"from_name": Meteor.settings.FROM_NAME,
+            html: Spacebars.toHTML(
                                 {
                                  title:content,
                                  GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag= options.lang) ,
                                   UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag= options.lang)
                                 },
                                 Assets.getText("emailMessageMasterTemplate.html")
-                              )
- 
+                              ),
+            subject: subject,
+      },
+      recipients: [{
+            address: bccList
+      }]
     }
   };
 };
@@ -69,27 +72,29 @@ newClassMailTemplate = function (to, classname, classCode) {
   //var titlestr = TAPi18n.__("your_class_is_ready_classname", classname);
   log.info("Sending new newClassMailTemplate:AFTER TAP"+ classCode);
   return {
-    "message": {
-      "merge_language": "handlebars",
-      "html": Spacebars.toHTML(
-        {
-          title: titlestr,
-          content: newClassMailContent,
-          GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = emailLang) ,
-          UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = emailLang)
-        },
-        Assets.getText("emailMessageMasterTemplate.html")
-      ),
-      "text": "",
-      "subject": titlestr,
-      "from_email": Meteor.settings.FROM_EMAIL,
-      "from_name": Meteor.settings.FROM_NAME,
-      "to": [{
-        "email": to,
-        "name": to,
-        "type": "to"
+   transmissionBody: {
+    //   "merge_language": "handlebars",
+     content: {
+        from: Meteor.settings.FROM_EMAIL,
+        html: Spacebars.toHTML(
+            {
+            title: titlestr,
+            content: newClassMailContent,
+            GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = emailLang) ,
+            UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = emailLang)
+            },
+            Assets.getText("emailMessageMasterTemplate.html")
+        ),
+        subject: titlestr
+     },    
+      //"text": "",
+      //"from_name": Meteor.settings.FROM_NAME,
+      recipients: [{
+        address: 'aman96@gmail.com'
+        //"name": to,
+        //"type": "to"
       }],
-      "global_merge_vars": [
+      substitution_data: [
         {
           "name": "classname",
           "content": classname
@@ -116,23 +121,25 @@ newClassMailTemplate = function (to, classname, classCode) {
 };
 
 
-testMail = function (to, classname) {
+testMail = function () {
 
   var date = new Date();
-  var email = "dan@littlegenius.io";
+  var email = "aman96@gmail.com";
 
   return {
-    "message": {
-      "merge_language": "handlebars",
-      "html": "<h1>" + date + "</h1>",
-      "text": "Example text content",
-      "subject": "new class ready!",
-      "from_email": Meteor.settings.FROM_EMAIL,
-      "from_name": Meteor.settings.FROM_NAME,
-      "to": [{
-        "email": email,
-        "name": email,
-        "type": "to"
+    transmissionBody: {
+      //"merge_language": "handlebars",
+      content: {
+            from:'testing@sparkpostbox.com',
+            subject: "new class ready!",
+            html: "<h1>" + date + "</h1>",
+      },
+           //"text": "Example text content",
+      //"from_name": Meteor.settings.FROM_NAME,
+        recipients: [{
+        address: email
+        //"name": email,
+        //"type": "to"
       }]
     }
   };
@@ -145,17 +152,19 @@ feedback = function (content) {
     var fullName = getFullNameOfCurrentUser();
     log.info("Sending feedback to " + Meteor.settings.FEEDBACK_EMAIL + " from " + fullName);
     return {
-      "message": {
-        "merge_language": "handlebars",
-        "html": "<h3> Feedback From " + fullName + " </h3><p>" + content + "</p>",
-        "text": "Example text content",
-        "subject": "Feedback from " + fullName,
-        "from_email": Meteor.settings.FROM_EMAIL,
-        "from_name": fullName,
-        "to": [{
-          "email": Meteor.settings.FEEDBACK_EMAIL,
-          "name":  Meteor.settings.FEEDBACK_EMAIL,
-          "type": "to"
+      transmissionBody: {
+        //"merge_language": "handlebars",
+        content: {
+            html: "<h3> Feedback From " + fullName + " </h3><p>" + content + "</p>",
+            //"text": "Example text content",
+            subject: "Feedback from " + fullName,
+            from: Meteor.settings.FROM_EMAIL,
+            //"from_name": fullName,
+        },
+        recipients: [{
+          to: Meteor.settings.FEEDBACK_EMAIL,
+          //"name":  Meteor.settings.FEEDBACK_EMAIL,
+          //"type": "to"
         }]
       }
     };
@@ -183,10 +192,11 @@ inviteClassMailTemplate = function (to, classObj) {
   var emailTitle = TAPi18n.__("JoinCurrentUserClassMailTitle",{first_name: first ,
                         last_name: last, class_name: classObj.className },emailLang); 
   return {
-    "message":{
-      "merge_language": "handlebars",
-      "subject": emailTitle,
-      "html": Spacebars.toHTML(
+    transmissionBody:{
+      //"merge_language": "handlebars",
+      content: {
+      subject: emailTitle,
+      html: Spacebars.toHTML(
               {
                 title: emailTitle,
                 content:  inviteClassMail,          
@@ -195,13 +205,14 @@ inviteClassMailTemplate = function (to, classObj) {
               },
               Assets.getText("emailMessageMasterTemplate.html")
         ),
+       from: Meteor.settings.FROM_EMAIL,
+      //"from_name": Meteor.settings.FROM_NAME,
+      },
 
-      "from_email": Meteor.settings.FROM_EMAIL,
-      "from_name": Meteor.settings.FROM_NAME,
-       "to": [{
-        "email": to,
-        "name": to,
-        "type": "to"
+       recipients: [{
+        address: 'aman96@gmail.com',
+        //"name": to,
+        //"type": "to"
       }],
       "global_merge_vars": [
         {

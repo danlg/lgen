@@ -23,6 +23,8 @@
   "MANDRILL_USERNAME": "dan@littlegenius.io",
   "MANDRILL_KEY": "GBt6d5ggNEP7969s9j9DyA",
   "MANDRILL_PORT": 587,
+  
+   "SPARKPOST_KEY": "ba01e5c4be18fed9b317e32c2e39beffad09dcf7",
 
   "FROM_EMAIL": "contactemail@littlegenius.io",
   "FROM_NAME": "Smartix",
