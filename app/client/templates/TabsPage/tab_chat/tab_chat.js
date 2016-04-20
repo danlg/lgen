@@ -13,10 +13,14 @@ Template.TabChat.events({
   }
 });
 
+
 /*****************************************************************************/
 /* TabChat: Helpers */
 /*****************************************************************************/
 Template.TabChat.helpers({
+   'getCurrentSchool':function(){
+       return Session.get('pickedSchoolId');
+   },
   'displayChatOption': function () {
     var currentSchoolId =  Session.get('pickedSchoolId') ;
     

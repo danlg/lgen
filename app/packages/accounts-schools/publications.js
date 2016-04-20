@@ -27,6 +27,13 @@ Meteor.publish('allSchoolUsersPerRole', function (school) {
         username: school
     });
     
+    //else, try to get by school id
+    if(!schoolDoc){
+            schoolDoc = SmartixSchoolsCol.findOne({
+            _id: school
+        });
+    }
+    
     var allSchoolUsers = [];    
     //if user is a teacher:
     //can talk to another teacher

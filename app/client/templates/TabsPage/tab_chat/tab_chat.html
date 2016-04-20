@@ -7,7 +7,7 @@
 
   {{#contentFor "headerButtonRight"}}
     <div style="position: absolute; right: 0 ; width:25%; ">
-      <a href="{{ pathFor 'ChatInvite' }}" class="button button-clear button-entering button-active">
+      <a href="{{ pathFor 'ChatInvite' school=getCurrentSchool}}" class="button button-clear button-entering button-active">
         <i class="icon ion-chatbubble-working"></i>
       </a>
       {{#if displayChatOption}}
