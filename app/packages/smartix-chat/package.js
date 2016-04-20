@@ -19,6 +19,7 @@ Package.onUse(function(api) {
      api.use('alanning:roles','client');
      api.use('smartix:core');
      api.use('smartix:lib');
+     api.use('smartix:accounts-schools');      
      api.use('smartix:classes');    
      api.use('smartix:notifications');
      
