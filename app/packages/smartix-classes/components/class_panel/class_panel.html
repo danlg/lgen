@@ -1,5 +1,6 @@
 <template name="ClassPanel">
 
+  
   {{#contentFor "headerTitle"}}
     <!-- new code to display classCode in small
     <div>
@@ -33,36 +34,15 @@
 
     </div>
   {{/contentFor}}
-
+  
+  {{#if Template.subscriptionsReady}}
   {{#ionView}}
     {{#ionContent}}
-<!-- -->
-     {{#if Template.subscriptionsReady}}    
-        <div class="button-bar">
-          <a class="button button-bar-button" href="{{ pathFor 'ClassUsers' classCode=classObj.classCode }}">
-            <i class="icon ion-ios-people"></i>
-            <div class="smaller">
-            <!--bug see https://github.com/TAPevents/tap-i18n/issues/50-->
-              {{#if isPlural classObj.users.length }}
-                <div>{{ classObj.users.length }} {{_ "Subscriber_plural" }} </div>
-              {{else}}
-                {{#if isZero classObj.users.length }}
-                  <div> {{_ "No_subscriber" }} </div>
-                {{else}}
-                  <div>{{ classObj.users.length }} {{_ "Subscriber" }} </div>
-                {{/if}}
-              {{/if}}
-            </div>
-          </a>
-          <a class="button button-bar-button" href="{{pathFor 'ClassInvitation' classCode=classObj.classCode  }}"> <i class="icon ion-person-add"></i>
-            <div class="smaller">
-              <div>{{_ "AddMembers"}}</div>
-            </div>
-          </a>
-        </div>
-    <!---->
+ 
 
-       {{#if Template.subscriptionsReady}}
+  
+
+       
         <div class="list messageList background-wallpaper"  id="messageList">
            <!--<div class='date-bubble-wrapper {{isLoadMoreButtonShow}}'><button class='load-prev-msg'>Load Previous Messages</button> </div>          -->  
                {{#each classMessages}}
@@ -186,13 +166,11 @@
                 <!-- </a> -->
               {{/each}}
         </div>
-        {{/if}}
+        
         
         {{> SendMessage callFromClassPanel=true }}
-     {{else}}
-      Loading
-      
-      {{/if}}
+
     {{/ionContent}}
   {{/ionView}}
+  {{/if}}
 </template>

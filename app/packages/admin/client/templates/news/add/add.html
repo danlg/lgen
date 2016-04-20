@@ -9,7 +9,7 @@
     <!-- Form horizontal -->
     <div class="panel panel-flat">
         <div class="panel-heading">
-            <h1>Add News article</h1>
+            <h1>Add news article</h1>
         </div>
 
         <div class="panel-body">
@@ -17,10 +17,11 @@
 
             <form class="form-horizontal" action="#">
                 <fieldset class="content-group">
-                    <legend class="text-bold">News Details</legend>
+                   <!--todo lowercase legend-->
+                    <legend class="text-bold" style="text-transform:initial;">News details</legend>
                     
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Newsgroups to add the news</label>
+                        <label class="control-label col-lg-2">Add the news to newsgroup:</label>
                         <div class="col-lg-10">
                             <input type="checkbox" name="addNews-newsgroup" value="jccgps"> JCC - Ganeynu Pre-school 1<br>
                             <input type="checkbox" name="addNews-newsgroup" value="borret" checked> Borret Road - Elementary<br>
@@ -29,9 +30,9 @@
                     </div>
                     
                     <div class="form-group">
-                        <label class="control-label col-lg-2">News Title</label>
+                        <label class="control-label col-lg-2">News title</label>
                         <div class="col-lg-10">
-                            <input id="addNews-title" type="text" class="form-control" placeholder="News Title">
+                            <input id="addNews-title" type="text" class="form-control" placeholder="Type here the news title">
                         </div>
                     </div>
 
@@ -39,7 +40,7 @@
                         <label class="control-label col-lg-2">News Content</label>
                         <div class="col-lg-10">
                            <!-- <input id="addClass-code" type="text" class="form-control" placeholder="Class Code">-->
-                            <textarea id="addNews-content" rows="4" cols="50" placeholder="News Content">
+                            <textarea id="addNews-content" rows="4" cols="50" placeholder="Type here the news content">
                             </textarea>                           
                         </div>
                     </div>

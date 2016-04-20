@@ -1,5 +1,5 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
-var text = new ReactiveVar('');
+/*var text = new ReactiveVar('');
 var classObj;
 var currentClassCode;
 
@@ -9,7 +9,7 @@ var media = "";
 var isPlayingSound = false;
 var loadedItems = ReactiveVar(10);
 var loadExtraItems = 5;
-var localClassMessagesCollection = new Meteor.Collection(null);
+var localClassMessagesCollection = new Meteor.Collection(null);*/
 
 
 /*****************************************************************************/
@@ -126,6 +126,7 @@ Template.ClassPanel.helpers({
     return classObj;
   },
   classMessages:function(){
+    
     var classObj = Smartix.Groups.Collection.findOne({
         type: 'class',
         classCode: Router.current().params.classCode
@@ -142,27 +143,27 @@ Template.ClassPanel.helpers({
     return Router.current().params.classCode
   },
   isNotEmpty: function (action) {
-    return action.length > 0;
+    //return action.length > 0;
   },
   className: function () {
     return classObj.className;
   },
   havePic: function () {
-    return this.imageArr.length > 0;
+    //return this.imageArr.length > 0;
   },
   getImage: function () {
     var id = this.toString();
     return Images.findOne(id);
   },
   haveSound: function () {
-    return this.soundArr.length > 0;
+    //return this.soundArr.length > 0;
   },
   getSound: function () {
     var id = this.toString();
     return Sounds.findOne(id);
   },
   haveDocument: function () {
-    return this.documentArr.length > 0;
+    //return this.documentArr.length > 0;
   },
   getDocument: function () {
     var id = this.toString();
@@ -175,11 +176,11 @@ Template.ClassPanel.helpers({
     return count === 0;
   },
   showByDefaultIfWithComments:function(){
-      if(this.comment.comments.length){
+      /*if(this.comment.comments.length){
           return "expand";
       }else{
           return "";
-      }
+      }*/
   },
 
 });
@@ -193,18 +194,23 @@ Template.ClassPanel.onCreated(function(){
    var self = this;
    
     console.log(Router.current().params.classCode);
-    var classObj = Smartix.Groups.Collection.findOne({
-        type: 'class',
-        classCode: Router.current().params.classCode
-    });      
+     
     
-   this.autorun(function(){
-    self.subscribe('smartix:messages/groupMessages',classObj._id);    
-   })
+  
+       
+       
+    self.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');
+    self.subscribe('smartix:classes/associatedClasses',function(){
+        var classObj = Smartix.Groups.Collection.findOne({
+            type: 'class',
+            classCode: Router.current().params.classCode
+        });         
+        self.subscribe('smartix:messages/groupMessages',classObj._id); 
+    });
+           
+       
 
-  //log.info('onCreatedBe',this.subscriptionsReady());
 
-  //log.info('onCreatedAf',this.subscriptionsReady());
       
 });
 
@@ -212,10 +218,10 @@ Template.ClassPanel.onCreated(function(){
 
 Template.ClassPanel.rendered = function () {
    
-   log.info('rendered',this.subscriptionsReady());
+   //log.info('rendered',this.subscriptionsReady());
     
    
-    var template = this;
+    /*var template = this;
     //scroll to bottom
     this.autorun(function () {
         if (template.subscriptionsReady()) {
@@ -264,16 +270,16 @@ Template.ClassPanel.rendered = function () {
                
         });
         }
-    });
+    });*/
     
    // Session.set('hasFooter',false);
 };
 
 Template.ClassPanel.destroyed = function () {
   //  Session.set('hasFooter',true);
-  loadedItems.set(10); 
+ /* loadedItems.set(10); 
   loadExtraItems = 5;
   Meteor.call('setAllClassCommentsAsRead',currentClassCode);
-  localClassMessagesCollection = null;
+  localClassMessagesCollection = null;*/
 };
 

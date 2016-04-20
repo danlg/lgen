@@ -75,6 +75,7 @@ Template.ChatInvite.helpers({
 /* ChatInvite: Lifecycle Hooks */
 /*****************************************************************************/
 Template.ChatInvite.created = function () {
+      this.subscribe('allSchoolUsersPerRole', Router.current().params.school );
 };
 
 Template.ChatInvite.rendered = function () {

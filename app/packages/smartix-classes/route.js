@@ -51,13 +51,7 @@ Router.route('ClassInvitation', {
 });
 
 Router.route('ClassPanel',{
-    path: "/class/:classCode/panel",
-    waitOn: function(){
-      return[
-        Meteor.subscribe('smartix:classes/associatedClasses'),
-        Meteor.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses')     
-      ]
-    }  
+    path: "/class/:classCode/panel"
     
 });
 
