@@ -4,10 +4,10 @@
     {{#unless isActiveRoute regex='language|Login'}}
       {{> ionNavBar name="smartix"}}
     {{/unless}}
-    {{#ionNavView transition='false'}}
+   
       {{> status}}
       {{> yield}}
-    {{/ionNavView}}
+
     {{#if isActiveRoute regex='TabChat|TabYou|TabClasses'}}
       {{> Tabs}}
     {{/if}}
