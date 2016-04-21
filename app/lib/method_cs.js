@@ -573,8 +573,8 @@ sendEmailMessageToClasses = function(targetUserids, classes, message, originateU
   //extract and join all the classes name to a single string
   var allClassNameJoined = lodash.flatten(lodash.map(classes, 'className')).join();
   log.info("sendEmailMessageToClasses:className:"+allClassNameJoined); 
-    for(var lang in optInUsersGroupByLang){
-        
+   for(var lang in optInUsersGroupByLang){
+       console.log("HERE");
         var classRecepientArr = []; 
         optInUsersGroupByLang[lang].map(function(eachUser){
             var classRoomRecepient = { 
@@ -583,11 +583,6 @@ sendEmailMessageToClasses = function(targetUserids, classes, message, originateU
             }
             classRecepientArr.push(classRoomRecepient);            
         });
-            var test = {
-                email: 'aman96@gmail.com',
-                name:'Aman'
-            }
-            classRecepientArr.push(test);
         log.info("sendEmailMessageToClasses:classRecepientArr:lang:"+lang+":start");
         log.info(classRecepientArr);
         log.info("sendEmailMessageToClasses:classRecepientArr:lang:"+lang+":end");      
@@ -600,7 +595,6 @@ sendEmailMessageToClasses = function(targetUserids, classes, message, originateU
                                                 lang: lang,
                                                 className: allClassNameJoined
                                              });  
-                console.log(emailTemplateByUserLangs);
               client.transmissions.send(emailTemplateByUserLangs,
                 function(err, res) {
                     if (err) {
@@ -616,6 +610,6 @@ sendEmailMessageToClasses = function(targetUserids, classes, message, originateU
               log.error(e);
             }
                
-    }
+   }
       
 }
