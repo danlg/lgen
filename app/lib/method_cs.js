@@ -574,7 +574,6 @@ sendEmailMessageToClasses = function(targetUserids, classes, message, originateU
   var allClassNameJoined = lodash.flatten(lodash.map(classes, 'className')).join();
   log.info("sendEmailMessageToClasses:className:"+allClassNameJoined); 
    for(var lang in optInUsersGroupByLang){
-       console.log("HERE");
         var classRecepientArr = []; 
         optInUsersGroupByLang[lang].map(function(eachUser){
             var classRoomRecepient = { 
