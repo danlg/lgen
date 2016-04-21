@@ -148,8 +148,9 @@ Template.ClassPanel.helpers({
   className: function () {
     return classObj.className;
   },
-  havePic: function () {
-    //return this.imageArr.length > 0;
+  attachImages: function () {
+    var imageObjects =lodash.filter(this.addons, function(addon) { return addon.type =='images'; });
+    return lodash.map(imageObjects,'fileId');
   },
   getImage: function () {
     var id = this.toString();

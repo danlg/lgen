@@ -67,20 +67,21 @@
                     {{{docPreview data.content}}}    
                     {{#autolink}}<div class='content'><pre>{{data.content}}</pre></div>{{/autolink}}
                     <div>
-                        {{#if havePic}}
-                        {{#each imageArr}}
-                            {{#with getImage}}
-                            {{#if this.isUploaded}}
-                                {{#if this.hasStored 'images'}}
-                                <div class="">
-                                    <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs responsive-img" data-fullsizeimage="{{this.url  }}">
-                                    <!-- <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a> -->
-                                </div>
+                        
+                        
+                            {{#each attachImages}}
+                                {{#with getImage}}
+                                {{#if this.isUploaded}}
+                                    {{#if this.hasStored 'images'}}
+                                    <div class="">
+                                        <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs responsive-img" data-fullsizeimage="{{this.url  }}">
+                                        <!-- <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a> -->
+                                    </div>
+                                    {{/if}}
                                 {{/if}}
-                            {{/if}}
-                            {{/with}}
-                        {{/each}}
-                        {{/if}}
+                                {{/with}}
+                            {{/each}}
+                        
                     </div>
                     <div>
                         {{#if haveSound}}
