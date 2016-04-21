@@ -287,8 +287,8 @@ Template.SendMessage.events({
                 type:'calendar',
                 eventName: mediaObj.calendarEvent.eventName,
                 location:  mediaObj.calendarEvent.location,
-                startDate: mediaObj.calendarEvent.startDate ,
-                endDate:   mediaObj.calendarEvent.endDate
+                startDate: mediaObj.calendarEvent.startDate + " " + mediaObj.calendarEvent.startDateTime ,
+                endDate:   mediaObj.calendarEvent.endDate   +" " +  mediaObj.calendarEvent.endDateTime
             }
         );
         

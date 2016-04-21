@@ -50,7 +50,7 @@
                        <div class='date-bubble-wrapper'> <div class='date-bubble'>{{formatDate sendAt}}</div> </div>
                 {{/if}}                 
                 <div class="item card less-top-bottom-padding less-top-bottom-margin">
-                 {{#with calendarEvent}}
+                 {{#each attachCalendar}}
                  <div class="item ">
                     <div class="row" style="padding:0">
                         <div class="col" style="padding:0"><h2><i class='icon ion-ios-calendar-outline' ></i>{{eventName}}</h2></div>
@@ -60,7 +60,7 @@
                         <div class="col" style="padding:0;text-align:right"><button>Add to calendar</button></div>
                     </div>
                 </div>
-                {{/with}}
+                {{/each}}
                 <div class="item less-top-bottom-padding">
                     <div>
                     

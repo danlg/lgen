@@ -188,6 +188,10 @@ Template.ClassPanel.helpers({
           return "";
       }*/
   },
+  attachCalendar:function(){
+    var calendarObjs =lodash.filter(this.addons, function(addon) { return addon.type =='calendar'; });
+    return calendarObjs;       
+  }
 
 });
 
