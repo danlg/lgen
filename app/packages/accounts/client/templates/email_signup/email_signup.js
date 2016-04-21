@@ -44,18 +44,18 @@ Template.EmailSignup.destroyed = function () {
 Template.EmailSignup.events({
     var userObj = {};
     userObj.profile = {};
-    userObj.email = $(".email").val();
+    var email = $(".email").val();
     userObj.profile.firstName = $(".fn").val();
     userObj.profile.lastName = $(".ln").val();
     userObj.dob = $("#dobInput").val() || "";
 
     //if () {
-    if (!Smartix.helpers.validateEmail(userObj.email)) {
+    if (!Smartix.helpers.validateEmail(email)) {
       toastr.error("Incorrect Email");
     } else if ($(".pwd").val().length < 4) {
       toastr.error("At least 4 characters Password");
     } else {
-        Smartix.Accounts.createUser(userObj.email, {
+        Smartix.Accounts.createUser(email, {
         password: $('.pwd').val(),
         profile: userObj.profile
       }, 'global', 'user', null, function (err, result) {
