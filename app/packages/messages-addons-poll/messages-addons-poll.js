@@ -8,6 +8,8 @@ Smartix.Messages.Addons = Smartix.Messages.Addons || {};
 
 Smartix.Messages.Addons.ValidTypes = Smartix.Messages.Addons.ValidTypes || [];
 
+Smartix.Messages.Addons.Poll = {};
+
 Smartix.Messages.Addons.Poll.Type = 'poll';
 
 Smartix.Messages.Addons.ValidTypes = _.union(Smartix.Messages.Addons.ValidTypes, [Smartix.Messages.Addons.Poll.Type]);
@@ -30,12 +32,12 @@ Smartix.Messages.Addons.Poll.Schema = new SimpleSchema([Smartix.Messages.Addons.
         defaultValue: false
     },
     expires: {
-        type: Integer,
+        type: Number,
         optional: true
     }
 }]);
 
-Smartix.Message.Addons.Poll.canChangeVotes = function (messageId) {
+Smartix.Messages.Addons.Poll.canChangeVotes = function (messageId) {
     // Retrieve information about the message
     // including the group that it belongs to
     var message = Smartix.Messages.Collection.findOne({

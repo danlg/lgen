@@ -1,5 +1,5 @@
 Package.describe({
-  name: 'smartix:messages-addons-poll',
+  name: 'smartix:messages-addons-calendar',
   version: '0.0.1',
   // Brief, one-line summary of the package.
   summary: '',
@@ -13,18 +13,10 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
   api.use('ecmascript');
-  api.use('aldeed:simple-schema'); 
-  api.use('stevezhu:lodash@4.6.1');   
+  api.use('aldeed:simple-schema');  
   api.use('smartix:core');
-  api.use('smartix:groups');
-  api.use('emojione:emojione@2.1.3');
-  api.addFiles('messages-addons-poll.js');
+  api.addFiles('messages-addons-calendar.js');
   api.export('Smartix');
 });
 
-Package.onTest(function(api) {
-  api.use('ecmascript');
-  api.use('tinytest');
-  api.use('smartix:messages-addons-poll');
-  api.addFiles('messages-addons-poll-tests.js');
-});
+

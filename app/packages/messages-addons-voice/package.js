@@ -13,7 +13,10 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
   api.use('ecmascript');
+  api.use('aldeed:simple-schema');
+  api.use('smartix:core');    
   api.addFiles('messages-addons-voice.js');
+  api.export('Smartix');
 });
 
 Package.onTest(function(api) {

@@ -9,6 +9,8 @@ Smartix.Messages.Addons.ValidTypes = Smartix.Messages.Addons.ValidTypes || [];
 //stub that should be removed by using the subpackages
 Smartix.Messages.Addons.ValidTypes.push('documents','images','poll','voice','calendar','comment');
 
+
+
 Smartix.Messages.Addons.Schema = new SimpleSchema({
     type: {
         type: String,

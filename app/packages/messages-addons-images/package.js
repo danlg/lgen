@@ -14,8 +14,9 @@ Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
   api.use('ecmascript');
   api.use('smartix:core');
-  api.use('smartix:messages-addons', {unordered: true});  
+  api.use('aldeed:simple-schema');  
   api.addFiles('messages-addons-images.js');
+  api.export('Smartix');
 });
 
 Package.onTest(function(api) {

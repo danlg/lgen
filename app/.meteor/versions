@@ -65,6 +65,7 @@ ecmascript@0.4.2
 ecmascript-runtime@0.2.9
 ejson@1.0.10
 email@1.0.11
+emojione:emojione@2.1.4
 facts@1.0.7
 fastclick@1.0.10
 force-ssl@1.0.10
@@ -175,7 +176,10 @@ smartix:messagedetail@0.0.1
 smartix:messageextrainfo@0.0.1
 smartix:messages@0.0.1
 smartix:messages-addons@0.0.1
+smartix:messages-addons-calendar@0.0.1
+smartix:messages-addons-files@0.0.1
 smartix:messages-addons-images@0.0.1
+smartix:messages-addons-poll@0.0.1
 smartix:messages-article@0.0.1
 smartix:messages-schema@0.0.1
 smartix:messages-text@0.0.1

@@ -14,9 +14,14 @@ Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
   api.use('ecmascript');
   api.use('smartix:utilities');
-  api.use('aldeed:simple-schema');   
-  api.use('smartix:messages-addons-images', {unordered: true}); 
+  api.use('aldeed:simple-schema');
+  api.use('smartix:core');
+  api.use('smartix:messages-addons-files');
+  api.use('smartix:messages-addons-images');   
+  api.use('smartix:messages-addons-calendar');      
+  api.use('smartix:messages-addons-poll'); 
   api.addFiles('messages-addons.js');
+  api.export('Smartix');
 });
 
 Package.onTest(function(api) {

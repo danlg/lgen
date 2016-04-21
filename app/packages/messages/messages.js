@@ -7,7 +7,7 @@ Smartix.Messages.ValidTypes = Smartix.Messages.ValidTypes || [];
 
 Smartix.Messages.Collection = new Mongo.Collection('smartix:messages');
 
-
+console.log('message-addons-calendar@message',Smartix.Messages.Addons.Calendar.Schema);
 
 // Checks whether a type is supported
 Smartix.Messages.isValidType = function (type) {
