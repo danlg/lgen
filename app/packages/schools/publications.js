@@ -1,12 +1,20 @@
 
 Meteor.publish('schoolInfo', function (schoolName) {
-    if(Smartix.Accounts.School.isMember(this.userId)) {
-        return SmartixSchoolsCol.find({
-            username: schoolName
-        });
-    } else {
-        this.ready();
+    
+    check(schoolName, String);
+    
+    // Get school object
+    let schoolObj = SmartixSchoolsCol.findOne({
+        username: schoolName
+    });
+    if(schoolObj) {
+        if(Smartix.Accounts.School.isMember(this.userId, schoolObj._id)) {
+            return SmartixSchoolsCol.find({
+                username: schoolName
+            });
+        }
     }
+    this.ready();  
 });
 
 Meteor.publish('mySchools', function() {

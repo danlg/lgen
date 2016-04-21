@@ -31,6 +31,7 @@ Package.onUse(function(api) {
     // template dependency ends
     api.use('smartix:accounts-system');
     api.use('smartix:accounts-global');
+    api.use('smartix:accounts-schools');
     api.use('smartix:accounts-usernames');
 
     // temporary comment out, as there is circular dependency

@@ -4,9 +4,13 @@ Smartix.Accounts.School = Smartix.Accounts.School || {};
 
 Smartix.Accounts.School.VALID_USER_TYPES = ['student', 'parent', 'teacher', 'admin'];
 
-Smartix.Accounts.School.isMember = function(user, school) {
-    var userToBeChecked = user || Meteor.userId();
-    return Roles.userIsInRole(userToBeChecked, Smartix.Accounts.School.VALID_USER_TYPES, school);
+Smartix.Accounts.School.isMember = function(userId, schoolId) {
+    check(userId, String);
+    check(schoolId, String);
+    
+    userId = userId || Meteor.userId();
+    
+    return Roles.userIsInRole(userId, Smartix.Accounts.School.VALID_USER_TYPES, schoolId);
 }
 
 Smartix.Accounts.School.createUser = function (school, options) {
@@ -90,7 +94,7 @@ Smartix.Accounts.School.canGetUserInfo = function (userId, namespace, currentUse
     
     check(userId, String);
     check(namespace, String);    
-    check(currentUser, String);
+    check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
     currentUser = currentUser || Meteor.userId();
@@ -108,7 +112,7 @@ Smartix.Accounts.School.canRemoveUser = function (userId, namespace, currentUser
     
     check(userId, String);
     check(namespace, String);    
-    check(currentUser, String);
+    check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
     currentUser = currentUser || Meteor.userId();
@@ -125,7 +129,7 @@ Smartix.Accounts.School.canRemoveUser = function (userId, namespace, currentUser
 Smartix.Accounts.School.isAdmin = function (namespace, currentUser) {
     
     check(namespace, String);
-    check(currentUser, String);
+    check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
     currentUser = currentUser || Meteor.userId();
@@ -141,7 +145,7 @@ Smartix.Accounts.School.isAdmin = function (namespace, currentUser) {
 Smartix.Accounts.School.isTeacher = function (namespace, currentUser) {
     
     check(namespace, String);
-    check(currentUser, String);
+    check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
     currentUser = currentUser || Meteor.userId();
@@ -177,7 +181,10 @@ Smartix.Accounts.School.userHasApproved = function (namespace, userId) {
 Smartix.Accounts.School.canGetBasicInfoOfAllUsers = function (namespace, currentUser) {
     
     check(namespace, String);
-    check(currentUser, String);
+    check(currentUser, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    currentUser = currentUser || Meteor.userId();
     
     // Only school administrators and teachers can get basic info of all users in the namespace
     return Smartix.Accounts.School.isTeacher(namespace, currentUser)
@@ -187,7 +194,10 @@ Smartix.Accounts.School.canGetBasicInfoOfAllUsers = function (namespace, current
 Smartix.Accounts.School.canGetAllUsers = function (namespace, currentUser) {
     
     check(namespace, String);
-    check(currentUser, String);
+    check(currentUser, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    currentUser = currentUser || Meteor.userId();
     
     // Only school administrators and teachers can get basic info of all users in the namespace
     return Smartix.Accounts.School.isTeacher(namespace, currentUser)
@@ -198,7 +208,7 @@ hasPermission = Smartix.Accounts.School.canGetUserInfo = function (userId, names
     
     check(userId, String);
     check(namespace, String);
-    check(currentUser, String);
+    check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
     currentUser = currentUser || Meteor.userId();

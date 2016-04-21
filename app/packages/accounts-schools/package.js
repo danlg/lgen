@@ -25,7 +25,7 @@ Package.onUse(function(api) {
   api.use('smartix:accounts-system');
   api.use('smartix:schools@0.0.1');
   api.addFiles('lib/strings.js', ['client', 'server']);
-  api.addFiles('lib/accounts-schools.js', ['client', 'server']);
+  api.addFiles('client/accounts-schools.js', ['client']);
   api.addFiles('server/accounts-schools.js', 'server');
   api.addFiles('server/methods.js', 'server');
   api.addFiles('server/publications.js', 'server');

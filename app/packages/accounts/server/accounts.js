@@ -72,7 +72,7 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
     var userToAddRoleTo;
     
     // Checks if user already exists
-    if (Accounts.findUserByEmail(email) === null) {
+    if (Accounts.findUserByEmail(email) === undefined) {
         // If the user does not already exists, create a new user
         var newUserOptions = {};
         if (options.username) {
@@ -83,37 +83,39 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
         }
         if (options.profile) {
             if (options.profile.firstName) {
+                newUserOptions.profile = newUserOptions.profile || {};
                 newUserOptions.profile.firstName = options.profile.firstName;
             }
             if (options.profile.lastName) {
+                newUserOptions.profile = newUserOptions.profile || {};
                 newUserOptions.profile.lastName = options.profile.lastName;
             }
         }
         newUserOptions.email = email;
-        var newUserId = Accounts.createUser(newUserOptions, function () {
-            
-            var newUserUpdateObj = {};
-            if (options.dob) {
-                newUserOptions.dob = options.dob;
-            }
-            if (options.city) {
-                newUserOptions.city = options.city;
-            }
-            if (options.lang) {
-                newUserOptions.lang = options.lang;
-            }
-            if (options.tel) {
-                newUserOptions.tel = options.tel;
-            }
-            
-            Meteor.users.update({
-                _id: newUserId
-            }, {
-                $set: newUserOptions
-            });
-            
-            Accounts.sendEnrollmentEmail(newUserId);
-        })
+        var newUserId = Accounts.createUser(newUserOptions);
+        
+        var newUserUpdateObj = {};
+        
+        if (options.dob) {
+            newUserOptions.dob = options.dob;
+        }
+        if (options.city) {
+            newUserOptions.city = options.city;
+        }
+        if (options.lang) {
+            newUserOptions.lang = options.lang;
+        }
+        if (options.tel) {
+            newUserOptions.tel = options.tel;
+        }
+        
+        Meteor.users.update({
+            _id: newUserId
+        }, {
+            $set: newUserOptions
+        });
+        
+        Accounts.sendEnrollmentEmail(newUserId);
         userToAddRoleTo = newUserId;
     } else {
         // Otherwise, set `userToAddRoleTo` to the `_id` of the existing user
@@ -285,8 +287,12 @@ Smartix.Accounts.getUserInfo = function (id, namespace, currentUser) {
     return targetUser;
 }
 
-Smartix.Accounts.getAllUsersInNamespace = function (namespace) {
+Smartix.Accounts.getAllUsersInNamespace = function (namespace, currentUser) {
     check(namespace, String);
+    check(currentUser, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    currentUser = currentUser || Meteor.userId();
     
     var hasPermission;
     
@@ -294,15 +300,15 @@ Smartix.Accounts.getAllUsersInNamespace = function (namespace) {
     switch(namespace) {
         case 'system':
             // Check permissions on `smartix:accounts-system`
-            hasPermission = Smartix.Accounts.System.canGetAllUsers(this.userId);
+            hasPermission = Smartix.Accounts.System.canGetAllUsers(currentUser);
             break;
         case 'global':
             // Check permission on `smartix:accounts-global`
-            hasPermission = Smartix.Accounts.Global.canGetAllUsers(this.userId);
+            hasPermission = Smartix.Accounts.Global.canGetAllUsers(currentUser);
             break;
         default:
             // Pass checking permissions to `smartix:accounts-school`
-            hasPermission = Smartix.Accounts.School.canGetAllUsers(namespace, this.userId);
+            hasPermission = Smartix.Accounts.School.canGetAllUsers(namespace, currentUser);
     }
     
     if(hasPermission) {

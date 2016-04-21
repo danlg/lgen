@@ -58,7 +58,7 @@ Meteor.publish('smartix:accounts/basicInfoOfAllUsersInNamespace', function (name
 });
 
 Meteor.publish('smartix:accounts/allUsersInNamespace', function (namespace) {
-    var allUsers = Smartix.Accounts.getAllUsersInNamespace;
+    var allUsers = Smartix.Accounts.getAllUsersInNamespace(namespace, this.userId);
     if(allUsers) {
         return allUsers;
     } else {

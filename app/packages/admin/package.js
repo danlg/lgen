@@ -13,6 +13,7 @@ Package.onUse(function(api) {
   api.use('jquery');
   api.use('less');    
   api.use('iron:router');
+  api.use('aldeed:simple-schema');
   api.use('harrison:papa-parse@1.1.1');
   api.use('chrismbeckett:toastr');
   api.use('alanning:roles@1.2.15');

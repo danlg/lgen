@@ -11,11 +11,16 @@ Template.AdminUsersAdd.events({
         newUserObj.dob = new Date(template.$('#addUser-dob').eq(0).val());
         newUserObj.tel = template.$('#addUser-tel').eq(0).val();
         
+        // Check that the arguments are of the correct type
+        check(email, Match.Where(function (val) {
+            check(val, String);
+            return SimpleSchema.RegEx.Email.test(val);
+        }));
+        check(roles, [String]);
         check(newUserObj, {
-            email: String,
             profile: Object,
-            roles: [String]
             dob: Date,
+            tel: String
         });
         
         if (Router
