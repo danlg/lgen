@@ -33,6 +33,8 @@ Package.onUse(function(api) {
     api.use('smartix:accounts-global');
     api.use('smartix:accounts-schools');
     api.use('smartix:accounts-usernames');
+    
+    api.use('smartix:utilities');
 
     // temporary comment out, as there is circular dependency
     api.use('smartix:schools', null, { unordered: true });

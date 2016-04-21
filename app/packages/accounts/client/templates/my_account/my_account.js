@@ -134,6 +134,9 @@ Template.MyAccount.helpers({
       return similarOrganizations.get();
   },getSimilarCities:function(){
       return similarCities.get();
+  },
+  userRoles: function () {
+      return Roles.getRolesForUser(Meteor.userId(), Session.get('pickedSchoolId'));
   }
 
 });
