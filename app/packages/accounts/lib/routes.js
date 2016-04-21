@@ -65,7 +65,6 @@ CheckDob = function(){
     var userObj = Meteor.user();
     if(userObj) {
         var dob = userObj.dob;
-        var role = _.get(userObj, "profile.role", "");
         // If the user does not have their DOB set
         if (!!!dob
             // And they have the group of student in any school

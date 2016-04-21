@@ -85,7 +85,6 @@ Smartix.helpers.spawnDesktopNotification = function(theBody,theIcon,theTitle,pat
         userObj.email = email;
         userObj.profile.firstName = firstName;
         userObj.profile.lastName = lastName;
-        userObj.profile.role = ""; //role would be chosen by user later
 
         if (!Smartix.helpers.validateEmail(userObj.email)) {
         toastr.error("Incorrect Email");
@@ -98,11 +97,8 @@ Smartix.helpers.spawnDesktopNotification = function(theBody,theIcon,theTitle,pat
             profile: userObj.profile
         }, function (err) {
             if (err) {
-            toastr.error(err.reason);
-            log.error(err);
-            } else{
-            //if create user is successful, user than needs to choose their role
-            Router.go('role');
+                toastr.error(err.reason);
+                log.error(err);
             }
         });
         }

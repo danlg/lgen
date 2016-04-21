@@ -32,10 +32,8 @@ Template.UserDetail.helpers({
   },
   canChat: function () {
     var user = Meteor.users.findOne({_id: Router.current().params._id});
-
-    if (user.profile.role !== "Student") {
-      return true;
-    }
+    
+    // TODO: If user is admin or teacher, return `true` immediately
 
     var age = moment(lodash.get(user, 'dob')) || moment();
     var now = moment();

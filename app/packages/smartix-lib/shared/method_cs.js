@@ -19,16 +19,6 @@ Meteor.methods({
       }
     });
   },
-
-  'user/role/update': function (role) {
-    Meteor.users.update({_id: Meteor.userId()}, {$set: {'profile.role': role}}, function (err) {
-      if (err) {
-        log.error(err);
-        return err;
-      }
-      else return true;
-    });
-  },
   'class/search': Smartix.Class.searchForClassWithClassCode,
 
   //todo remove redundant API function
@@ -52,8 +42,7 @@ Meteor.methods({
         if (resultset.admins.indexOf(Meteor.userId()) > -1) {
           log.warn("class/join: can't join the class you own:"+classCode+":from user:"+Meteor.userId());
           return false;
-        }
-        else{
+        } else {
           log.info("User " + Meteor.userId() + " attempting to join class "+ doc.classCode);
           //log.info("Server?"+Meteor.isServer);
           //this was the trick to make it case insensitive
@@ -135,7 +124,6 @@ Meteor.methods({
     }*/
     /*Meteor.users.update({_id:Meteor.userId()},{$set:{'emails.$.items.0.address':}});*/
   },
-
   'profileUpdateByObj': function (user) {
     var usersProfile = user.profile;
     Meteor.users.update(Meteor.userId(), {$set: {profile: usersProfile}});
