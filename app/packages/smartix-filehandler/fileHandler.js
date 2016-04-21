@@ -5,13 +5,14 @@ Smartix.FileHandler = (function () {
     
     var directDocumentMessage = function (documentArray){
         
-        if (Meteor.user().profile.firstdocument) {
+        /*if (Meteor.user().profile.firstdocument) {
             analytics.track("First Document", {
                 date: new Date(),
             });
 
             Meteor.call("updateProfileByPath", 'profile.firstdocument', false);
-        }        
+        }  */ 
+             
         var target = Session.get('sendMessageSelectedClasses').selectArrId;
         log.info(target);
         var msg = "";
@@ -19,12 +20,15 @@ Smartix.FileHandler = (function () {
         mediaObj.imageArr = [];
         mediaObj.soundArr = [];
         mediaObj.documentArr = documentArray;
+        
         if(msg == "" && mediaObj.imageArr.length == 0 && mediaObj.soundArr.length
-        == 0 && mediaObj.documentArr.length == 0 ){
+            == 0 && mediaObj.documentArr.length == 0 ){
         
-        toastr.warning("please input some message");
+            toastr.warning("please input some message");
+            return;
+        }
         
-        }else if(target.length > 0) {
+        /*else if(target.length > 0) {
         Meteor.call('sendMsg', target, msg, mediaObj, function () {
             Session.set("sendMessageSelectedClasses", {
             selectArrName: [],
@@ -35,8 +39,19 @@ Smartix.FileHandler = (function () {
         });
         } else {
         toastr.error("no class select!");
-        }  
+        } */
         
+        addons = [];
+        //add documents to addons one by one if any
+        if(mediaObj.documentArr){
+            console.log('there is doc');
+            mediaObj.documentArr.map(function(eachDocument){
+                addons.push({type:'documents',fileId:eachDocument});
+            })
+        }        
+        
+        GeneralMessageSender(target[0],'text',msg, addons)
+            
         return true;      
     }
 

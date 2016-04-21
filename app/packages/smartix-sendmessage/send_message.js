@@ -260,6 +260,50 @@ Template.SendMessage.events({
             addons.push({type:'images',fileId:eachImage});
         })
     }
+ 
+    //add documents to addons one by one if any
+    if(mediaObj.documentArr){
+        console.log('there is doc');
+        mediaObj.documentArr.map(function(eachDocument){
+            addons.push({type:'documents',fileId:eachDocument});
+        })
+    }
+ 
+    //add voice to addons one by one if any
+    if(mediaObj.soundArr){
+        console.log('there is voice');
+        mediaObj.soundArr.map(function(eachDocument){
+            addons.push({type:'voice',fileId:eachDocument});
+        })
+    }
+    
+    //add calendar to addons one by one if any
+    if(mediaObj.calendarEvent){
+        console.log('there is calendar');
+        
+        //TBD
+        //addons.push({type:'calendar',??});
+        
+    }
+ 
+     //add comments to addons one by one if any
+    if(mediaObj.allowComment){
+        console.log('allowComment');
+        
+        //TBD
+        addons.push({type:'comments'});
+        
+    }
+
+     //add poll to addons one by one if any
+    if(mediaObj.allowVote){
+        console.log('allowVote');
+        
+        //TBD
+        //addons.push({type:'poll',??});
+        
+    } 
+                             
     /*else if(target.length > 0) {
       Meteor.call('sendMsg', target, msg, mediaObj, function () {
         Session.set("sendMessageSelectedClasses", {

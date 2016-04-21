@@ -111,8 +111,8 @@
                         {{/if}}
                     </div>
                     <div>
-                        {{#if haveDocument}}
-                        {{#each documentArr}}
+                        
+                        {{#each attachDocuments}}
                             {{#with getDocument}}
                             {{#if this.isUploaded}}
                                     {{#if this.hasStored 'documents'}}                           
@@ -128,7 +128,7 @@
                             {{/if}}
                             {{/with}}
                         {{/each}}
-                        {{/if}}                      
+                                              
                     </div>
                     </div>
                     
