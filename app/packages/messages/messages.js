@@ -66,7 +66,7 @@ Smartix.Messages.cleanAndValidate = function (message) {
 }
 
 Smartix.Messages.createMessage = function (groupId, messageType, data, addons) {
-    
+    console.log('Smartix.Messages.createMessage',groupId,messageType,data,addons);
     check(groupId, String);
     check(messageType, String);
     check(data, Object);
@@ -131,7 +131,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons) {
 	var newMessage = Smartix.Messages.Collection.insert(message);
     
     //i.e of an addOn Obj:
-    //{type:'files'}
+    //{type:'documents'}
     //{type:'images'}
     //{type:'poll'}
     //{type:'voice'}
@@ -150,21 +150,33 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons) {
         /* CHECKS FOR PERMISSION TO ATTACH THE ADDON */
         /* ***************************************** */
         
-        if(!Smartix[Smartix.Utilities.letterCaseToCapitalCase(group.type)].Messages.canAttachAddons(groupId, addons)) {
+        //Group-Type Addons check
+        //e.g This is class, so all addons are allowed. We input the newMessage Id , and the addons for the examination
+        
+        if(!Smartix[Smartix.Utilities.letterCaseToCapitalCase(group.type)].Messages.canAttachAddons(newMessage, addons)) {
+            console.log('not in canAttachAddons in this group type', Smartix.Utilities.letterCaseToCapitalCase(group.type));
             return false;
             // OPTIONAL: Throw error saying you do not have
             // permission to attach an addon for this group
         }
         
+        //Group-Type Instance Addons check. even  more restricted.
+        //e.g This is terence's class, which is more restricted that class admin cannot send msg with documents addons
+                
         // Checks that the group allows for this type of addon
         // If the addon type specified is not in
-        // the array of allowed addons, return `false`
-        //TODO
-        if(group.addons.indexOf(addon.type) < 0) {
-            return false;
-            // OPTIONAL: Throw error indicating the add-on
-            // you are trying to attached in not an approved type
-        }
+        // the array of allowed addons, return `false` 
+        addons.map(function(eachAddOn){
+            
+            if(group.addons.indexOf(eachAddOn.type) < 0) {
+                console.log('not in canAttachAddons in this specific group instance', Smartix.Utilities.letterCaseToCapitalCase(group.type));
+                return false;
+                // OPTIONAL: Throw error indicating the add-on
+                // you are trying to attached in not an approved type
+            }
+            
+        });
+
         
         /* ******************************************** */
         /* CHECKS THE VALIDITY OF THE ADDONS AND ATTACH */

@@ -2,16 +2,17 @@
 Smartix = Smartix || {};
 Smartix.FileHandler = Smartix.FileHandler || {};
 Smartix.FileHandler = (function () {
-
+    
     var directDocumentMessage = function (documentArray){
         
-        if (Meteor.user().profile.firstdocument) {
+        /*if (Meteor.user().profile.firstdocument) {
             analytics.track("First Document", {
                 date: new Date(),
             });
 
             Meteor.call("updateProfileByPath", 'profile.firstdocument', false);
-        }        
+        }  */ 
+             
         var target = Session.get('sendMessageSelectedClasses').selectArrId;
         log.info(target);
         var msg = "";
@@ -19,12 +20,15 @@ Smartix.FileHandler = (function () {
         mediaObj.imageArr = [];
         mediaObj.soundArr = [];
         mediaObj.documentArr = documentArray;
+        
         if(msg == "" && mediaObj.imageArr.length == 0 && mediaObj.soundArr.length
-        == 0 && mediaObj.documentArr.length == 0 ){
+            == 0 && mediaObj.documentArr.length == 0 ){
         
-        toastr.warning("please input some message");
+            toastr.warning("please input some message");
+            return;
+        }
         
-        }else if(target.length > 0) {
+        /*else if(target.length > 0) {
         Meteor.call('sendMsg', target, msg, mediaObj, function () {
             Session.set("sendMessageSelectedClasses", {
             selectArrName: [],
@@ -35,8 +39,19 @@ Smartix.FileHandler = (function () {
         });
         } else {
         toastr.error("no class select!");
-        }  
+        } */
         
+        addons = [];
+        //add documents to addons one by one if any
+        if(mediaObj.documentArr){
+            console.log('there is doc');
+            mediaObj.documentArr.map(function(eachDocument){
+                addons.push({type:'documents',fileId:eachDocument});
+            })
+        }        
+        
+        GeneralMessageSender(target[0],'text',msg, addons)
+            
         return true;      
     }
 
@@ -99,7 +114,7 @@ Smartix.FileHandler = (function () {
 
                         if (category == "chat") {
                             
-                            ChatRoomMessageSender(Router.current().params.chatRoomId,'images','New Image',{_id: fileObj._id},
+                            GeneralMessageSender(Router.current().params.chatRoomId,'text','New Image',[{type:'images',fileId: fileObj._id}],
                                 Smartix.helpers.getAllUserExceptCurrentUser()
                             );
                             
@@ -149,7 +164,7 @@ Smartix.FileHandler = (function () {
                                     log.error(err);
                                 }
                                 else {
-                                    ChatRoomMessageSender(Router.current().params.chatRoomId,'images','New Image',{_id: fileObj._id},
+                                    GeneralMessageSender(Router.current().params.chatRoomId,'text','New Image',[{type:'images',fileId: fileObj._id}],
                                         Smartix.helpers.getAllUserExceptCurrentUser()
                                     );
                                 }
@@ -214,7 +229,7 @@ Smartix.FileHandler = (function () {
                         
                         if(category == 'chat'){
                             
-                            ChatRoomMessageSender(Router.current().params.chatRoomId,'documents','New Document',{_id: fileObj._id},
+                            GeneralMessageSender(Router.current().params.chatRoomId,'text','New Document',[{type:'documents',fileId: fileObj._id}],
                                 Smartix.helpers.getAllUserExceptCurrentUser()
                             );                                                    
                            
@@ -252,7 +267,7 @@ Smartix.FileHandler = (function () {
                                     if( category == 'chat'){
                                         //handle success depending what you need to do
                                         console.dir(fileObj);
-                                        ChatRoomMessageSender(Router.current().params.chatRoomId,'documents','New Document',{_id: fileObj._id},
+                                        GeneralMessageSender(Router.current().params.chatRoomId,'documents','New Document',[{type:'documents',fileId: fileObj._id}],
                                             Smartix.helpers.getAllUserExceptCurrentUser()
                                         );                                         
                                     }else if (category == 'class'){

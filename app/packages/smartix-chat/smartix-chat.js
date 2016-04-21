@@ -112,7 +112,7 @@ Smartix.Chat.createChat = function (chatObj) {
 	Chat.admins = [
 		Meteor.userId()
 	];
-    Chat.addons = [];
+    Chat.addons = ['voice','images','documents'];
 
 	// Checks the arguments are of the specified type, convert it if not
 	Smartix.Chat.Schema.clean(Chat);

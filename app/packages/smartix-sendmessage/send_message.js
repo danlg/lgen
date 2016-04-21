@@ -221,10 +221,8 @@ Template.SendMessage.events({
     log.info(target);
     var msg = $(".msgBox").val();
     
-    Meteor.call('smartix:messages/createMessage',target[0],'text',{content:msg});
     
-    return;
-    
+    //receive addons stage
     var mediaObj = {};
     mediaObj.allowComment = document.getElementById('allowComment').checked;
     mediaObj.allowVote = document.getElementById('allowVote').checked;  
@@ -241,12 +239,72 @@ Template.SendMessage.events({
     mediaObj.soundArr = soundArr.get();
     mediaObj.documentArr = documentArr.get();
     mediaObj.calendarEvent = template.calendarEvent.get();
+    
+    //receive addons stage ends
+    
+    //if nothing is received from input
     if(msg == "" && mediaObj.imageArr.length == 0 && mediaObj.soundArr.length
-       == 0 && mediaObj.documentArr.length == 0 &&  mediaObj.calendarEvent == {}){
+       == 0 && mediaObj.documentArr.length == 0 &&  mediaObj.calendarEvent == {}
+      ){
       
       toastr.warning("please input some message");
       
-    }else if(target.length > 0) {
+    }
+    
+    addons = [];
+    
+    //add images to addons one by one if any
+    if(mediaObj.imageArr){
+        console.log('there is image');
+        mediaObj.imageArr.map(function(eachImage){
+            addons.push({type:'images',fileId:eachImage});
+        })
+    }
+ 
+    //add documents to addons one by one if any
+    if(mediaObj.documentArr){
+        console.log('there is doc');
+        mediaObj.documentArr.map(function(eachDocument){
+            addons.push({type:'documents',fileId:eachDocument});
+        })
+    }
+ 
+    //add voice to addons one by one if any
+    if(mediaObj.soundArr){
+        console.log('there is voice');
+        mediaObj.soundArr.map(function(eachDocument){
+            addons.push({type:'voice',fileId:eachDocument});
+        })
+    }
+    
+    //add calendar to addons one by one if any
+    if(mediaObj.calendarEvent){
+        console.log('there is calendar');
+        
+        //TBD
+        //addons.push({type:'calendar',??});
+        
+    }
+ 
+     //add comments to addons one by one if any
+    if(mediaObj.allowComment){
+        console.log('allowComment');
+        
+        //TBD
+        addons.push({type:'comments'});
+        
+    }
+
+     //add poll to addons one by one if any
+    if(mediaObj.allowVote){
+        console.log('allowVote');
+        
+        //TBD
+        //addons.push({type:'poll',??});
+        
+    } 
+                             
+    /*else if(target.length > 0) {
       Meteor.call('sendMsg', target, msg, mediaObj, function () {
         Session.set("sendMessageSelectedClasses", {
           selectArrName: [],
@@ -271,7 +329,17 @@ Template.SendMessage.events({
       });
     } else {
       toastr.error("no class select!");
-    }
+    }*/
+      
+    GeneralMessageSender(target[0],'text',msg, addons)
+    //Meteor.call('smartix:messages/createMessage',target[0],'text',{content:msg});
+    
+    
+    
+    
+
+    
+
   },
   'keyup .inputBox':function(){
     log.info("input box keyup");

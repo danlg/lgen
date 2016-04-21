@@ -148,8 +148,9 @@ Template.ClassPanel.helpers({
   className: function () {
     return classObj.className;
   },
-  havePic: function () {
-    //return this.imageArr.length > 0;
+  attachImages: function () {
+    var imageObjects =lodash.filter(this.addons, function(addon) { return addon.type =='images'; });
+    return lodash.map(imageObjects,'fileId');
   },
   getImage: function () {
     var id = this.toString();
@@ -162,8 +163,9 @@ Template.ClassPanel.helpers({
     var id = this.toString();
     return Sounds.findOne(id);
   },
-  haveDocument: function () {
-    //return this.documentArr.length > 0;
+  attachDocuments: function () {
+    var docObjs =lodash.filter(this.addons, function(addon) { return addon.type =='documents'; });
+    return lodash.map(docObjs,'fileId');
   },
   getDocument: function () {
     var id = this.toString();
