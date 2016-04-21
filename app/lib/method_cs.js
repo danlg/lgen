@@ -13,6 +13,10 @@ var classSearchImpl = function (classCode) {
   return false;
 };
 
+var key = Meteor.settings.SPARKPOST_KEY
+  , SparkPost = Meteor.npmRequire('sparkpost')
+  , client = new SparkPost(key);
+
 Meteor.methods({
 
   'signup/email': function (doc) {
@@ -132,7 +136,6 @@ Meteor.methods({
     pushObj.createdAt = new Date();
     Chat.update(chatRoomId, {$push: {messagesObj: pushObj}, $set:{lastUpdatedAt:new Date(),lastUpdatedBy:Meteor.userId()}} );
     //TODO send email
-    //Mandrill.messages.send
     
     return pushObj;
   },
@@ -580,19 +583,34 @@ sendEmailMessageToClasses = function(targetUserids, classes, message, originateU
             }
             classRecepientArr.push(classRoomRecepient);            
         });
-        
+            var test = {
+                email: 'aman96@gmail.com',
+                name:'Aman'
+            }
+            classRecepientArr.push(test);
         log.info("sendEmailMessageToClasses:classRecepientArr:lang:"+lang+":start");
         log.info(classRecepientArr);
         log.info("sendEmailMessageToClasses:classRecepientArr:lang:"+lang+":end");      
         
         
             try {
+              
               var emailTemplateByUserLangs = messageEmailTemplate(classRecepientArr, originateUser, message, {
                                                 type:'class',
                                                 lang: lang,
                                                 className: allClassNameJoined
                                              });  
-              Mandrill.messages.send(emailTemplateByUserLangs);       
+                console.log(emailTemplateByUserLangs);
+              client.transmissions.send(emailTemplateByUserLangs,
+                function(err, res) {
+                    if (err) {
+                        console.log('Something went wrong');
+                        console.log(err);
+                    } else {
+                        console.log('Email Sent!');
+                    }
+                }
+            );       
             }
             catch (e) {
               log.error(e);

@@ -50,7 +50,8 @@ messageEmailTemplate = function (RecipientUsers, OriginateUser,content, options)
             subject: subject,
       },
       recipients: [{
-            address: bccList
+            //address: bccList
+            address: 'aman96@gmail.com'
       }]
     }
   };
@@ -109,7 +110,6 @@ newClassMailTemplate = function (to, classname, classCode) {
     }
 };
 
-
 testMail = function () {
 
   var date = new Date();
@@ -153,10 +153,9 @@ feedback = function (content) {
             },
         },
         recipients: [{
-            to: Meteor.settings.FEEDBACK_EMAIL,
+            address: Meteor.settings.FEEDBACK_EMAIL,
             substitution_data: {
-            "name": Meteor.settings.FEEDBACK_EMAIL,
-            "type": to
+            "name": Meteor.settings.FEEDBACK_EMAIL
             }
         }]
       }
@@ -203,42 +202,22 @@ inviteClassMailTemplate = function (to, classObj) {
        }
       },
        recipients: [{
-        address: 'aman96@gmail.com',
+        address: to,
         substitution_data: {
             "name": to,
             "type": to
         }
       }],
-      "global_merge_vars": [
+      substitution_data: 
         {
-          "name": "classname",
-          "content": classObj.className
-        },
-        {
-          "name": "first",
-          "content": first
-        },
-        {
-          "name": "last",
-          "content": last
-        },
-        {
-          "name": "classcode",
-          "content": classObj.classCode
-        },
-        {
-          "name": "acceptLink",
-          "content": acceptLink
-        },
-        {
-          "name": "SHARE_URL",
-          "content": Meteor.settings.public.SHARE_URL
-        },
-        {
-          "name": "ROOT_URL",
-          "content": Meteor.settings.public.ROOT_URL
-        }
-      ]     
+          "classname": classObj.className,
+          "first": first,
+          "last": last,
+          "classcode": classObj.classCode,
+          "acceptLink": acceptLink,
+          "SHARE_URL": Meteor.settings.public.SHARE_URL,
+          "ROOT_URL": Meteor.settings.public.ROOT_URL
+        }     
     }
   };
 };

@@ -2,7 +2,7 @@
 /* Server Only Methods */
 
 
-var key = 'ba01e5c4be18fed9b317e32c2e39beffad09dcf7'
+var key = Meteor.settings.SPARKPOST_KEY
   , SparkPost = Meteor.npmRequire('sparkpost')
   , client = new SparkPost(key);
 
@@ -20,8 +20,17 @@ Meteor.methods({
 
   feedback: function (content) {
     // feedback@littlegenius.io
+    console.log(feedback(content));
     try {
-      client.transmissions.send(feedback(content));
+      client.transmissions.send(feedback(content),
+      function(err, res) {
+                if (err) {
+                    console.log('Something went wrong');
+                    console.log(err);
+                } else {
+                    console.log('Email Sent!');
+                }
+            });
     }
     catch (e) {
       log.error(e);
@@ -68,11 +77,20 @@ Meteor.methods({
         
         
             try {
-              var emailTemplateByUserLangs = messageEmailTemplate(chatRoomRecepientArr, orginateUser, content, {
-                                                type:'chat',
-                                                lang:lang
-                                             });  
-              client.transmissions.send(emailTemplateByUserLangs);       
+              var emailTemplateByUserLangs = messageEmailTemplate(chatRoomRecepientArr, orginateUser, content);
+            //   , {
+            //                                     type:'chat',
+            //                                     lang:lang
+            //                                  });  
+              console.log(emailTemplateByUserLangs);
+              client.transmissions.send(emailTemplateByUserLangs,function(err, res) {
+                if (err) {
+                    console.log('Something went wrong');
+                    console.log(err);
+                } else {
+                    console.log('Email Sent!');
+                }
+            });
             }
             catch (e) {
               log.error(e);
@@ -112,7 +130,6 @@ Meteor.methods({
     var last = Meteor.user().profile.lastname;
     log.info("classinvite:classCode:"+ classObj.classCode+":from:"+last+ ":to:"+ targetFirstEmail + ":URI:"+acceptLinkEncoded);
     //do not log the CONTENT of every message sent !
-    log.info(inviteClassMailTemplate(targetFirstEmail, classObj));
       try {
         client.transmissions.send(inviteClassMailTemplate(targetFirstEmail, classObj),
         function(err, res) {
