@@ -10,11 +10,7 @@
   {{#contentFor "headerButtonRight"}}
    <!-- <button class="button button-clear button-entering button-active createBtn"> {{_ "SignUp"}} </button>-->
   {{/contentFor}}
-
-
-
-
-
+  
   {{#ionView}}
     {{#ionContent}}
       
@@ -47,16 +43,14 @@
             <input type="email" placeholder="Email" class="email" required>
           </label>
         </div>
-        {{#if isStudent}}
-          <div>
-            <label class="item item-input doblabel" for="dobInput">
-              <div class="dobplaceholder"> {{_ "DateOfBirth"}}</div>
-              <!-- {{> afFieldInput name="dob" type='text' onfocus="(this.type='date')"  }} -->
-              <!-- <input type="date" placeholder="Date Of Birth" onfocus="this.type='date'" class="dob" > -->
-              <input type="date" placeholder="{{_ "DateOfBirth"}}" class="dob" id="dobInput" value="">
-            </label>
-          </div>
-        {{/if}}
+        <div>
+        <label class="item item-input doblabel" for="dobInput">
+            <div class="dobplaceholder"> {{_ "DateOfBirth"}}</div>
+            <!-- {{> afFieldInput name="dob" type='text' onfocus="(this.type='date')"  }} -->
+            <!-- <input type="date" placeholder="Date Of Birth" onfocus="this.type='date'" class="dob" > -->
+            <input type="date" placeholder="{{_ "DateOfBirth"}}" class="dob" id="dobInput" value="">
+        </label>
+        </div>
         <div class="">
           <label class="item item-input">
             <input type="password" placeholder="{{_ "password" }}" class="pwd" required>
