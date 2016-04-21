@@ -46,11 +46,14 @@ Roles.ifUserHasRoleInAnyGroup = function (userId, role) {
     
     var userHasRole = false;
     
-    _.each(userObj.roles, function (roles, group) {
-        if(!Array.isArray(group)) {
+    _.each(userObj.roles, function (rolesInGroup, group, groups) {
+        if(!Array.isArray(rolesInGroup)) {
             throw new Error('Roles are formatted incorrectly');
         }
-        if(roles.indexOf(role) > -1) {
+        // If the `role` specified as the argument of this function
+        // Matches any of the roles in in user's userObj
+        // Make `userHasRole` `true`
+        if(rolesInGroup.indexOf(role) > -1) {
             userHasRole = true;
         }
     });
@@ -63,9 +66,11 @@ CheckDob = function(){
     if(userObj) {
         var dob = userObj.dob;
         var role = _.get(userObj, "profile.role", "");
-        if (!!dob
+        // If the user does not have their DOB set
+        if (!!!dob
+            // And they have the group of student in any school
             && Roles.ifUserHasRoleInAnyGroup(userObj._id , 'student')) {
-        Router.go('Dob');
+            Router.go('Dob');
         }
     }
     this.next();

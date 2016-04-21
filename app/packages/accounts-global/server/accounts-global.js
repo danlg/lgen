@@ -84,7 +84,7 @@ Smartix.Accounts.Global.userHasApproved = function (userId) {
     return userDoc.schools.indexOf('global') > -1
 }
 
-Smartix.Accounts.System.canGetBasicInfoOfAllUsers = function (currentUser) {
+Smartix.Accounts.Global.canGetBasicInfoOfAllUsers = function (currentUser) {
     
     check(currentUser, String);
     
@@ -95,7 +95,7 @@ Smartix.Accounts.System.canGetBasicInfoOfAllUsers = function (currentUser) {
     return Smartix.Accounts.System.isAdmin(currentUser);
 }
 
-Smartix.Accounts.System.canGetAllUsers = function (currentUser) {
+Smartix.Accounts.Global.canGetAllUsers = function (currentUser) {
     
     check(currentUser, String);
     
@@ -106,7 +106,7 @@ Smartix.Accounts.System.canGetAllUsers = function (currentUser) {
     return Smartix.Accounts.System.isAdmin(currentUser);
 }
 
-Smartix.Accounts.System.canGetUserInfo = function (userId, currentUser) {
+Smartix.Accounts.Global.canGetUserInfo = function (userId, currentUser) {
     
     check(userId, String);
     check(currentUser, String);
