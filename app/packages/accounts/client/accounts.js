@@ -21,17 +21,5 @@ Smartix.Accounts.registerOrLoginWithGoogle = function () {
         toastr.error('Sorry. Google Login is not available at the moment because it is unable to connect to the Internet.')
         console.log('login:google:' + err.reason + " msg=" + err.message);
       }
-      else {
-        console.log("login:google:" + Meteor.userId());
-        if (Meteor.user().profile.role !== "") {
-          console.log("user has role");
-          Smartix.helpers.routeToTabClasses();
-        }
-        else {
-          //first time user
-          console.log("user does not have role");
-          Router.go('role');
-        }
-      }
     });
 };

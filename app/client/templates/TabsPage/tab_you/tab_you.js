@@ -13,25 +13,25 @@ Template.TabYou.events({
 
   'click .love': function (argument) {
       var text;
-      switch (Meteor.user().profile.role) {
-        //TODO localization English hardcoded for recommendation, with template i18n, see doc on how to insert variable
-        case "Teacher":
-            text = "Hey! \r\n\r\nI have been using Smartix to text my students and parents without sharing my " +
+      var userRoles = getRolesForUser(Meteor.userId(), Session.get('pickedSchoolId'));
+      
+      //TODO localization English hardcoded for recommendation, with template i18n, see doc on how to insert variable
+      if(userRoles.indexOf('admin') > -1) {
+          text = "Hey! \r\n\r\nI have been using Smartix to text my students and parents without sharing my " +
             "personal phone number.\r\nYou have to try it! It saves time, students love it and it is free! " +
             "\r\nHere is the link: " + Meteor.settings.public.SHARE_URL + "?rid=" + Meteor.userId();
-          break;
-        case "Student":
-            text = "Hey!\r\n\r\nMy teachers have been using the Smartix app to message our class before " +
-            "assignments are due, share photos and update us with last minute changes. You should tell your teachers about it! " +
-            "It\'s really helpful and free.\r\nHere is the link: " + Meteor.settings.public.SHARE_URL + "?rid=" + Meteor.userId() + "\"\r\n";
-          break;
-        case "Parent":
-            text = "Hey!\r\n\r\nOur school teachers have been using the Smartix app to message our class before " +
+      } else if(userRoles.indexOf('teacher') > -1) {
+          "Hey! \r\n\r\nI have been using Smartix to text my students and parents without sharing my " +
+            "personal phone number.\r\nYou have to try it! It saves time, students love it and it is free! " +
+            "\r\nHere is the link: " + Meteor.settings.public.SHARE_URL + "?rid=" + Meteor.userId();
+      } else if(userRoles.indexOf('parent') > -1) {
+          text = "Hey!\r\n\r\nOur school teachers have been using the Smartix app to message our class before " +
             "assignments are due, share photos and update us with last minute changes. You should tell your school teachers about it! " +
             "It\'s really helpful and free.\r\nHere is the link: " + Meteor.settings.public.SHARE_URL + "?rid=" + Meteor.userId() + "\"\r\n";
-          break;
-
-        default:
+      } else {
+          text = "Hey!\r\n\r\nMy teachers have been using the Smartix app to message our class before " +
+            "assignments are due, share photos and update us with last minute changes. You should tell your teachers about it! " +
+            "It\'s really helpful and free.\r\nHere is the link: " + Meteor.settings.public.SHARE_URL + "?rid=" + Meteor.userId() + "\"\r\n";
       }
       
     if (Meteor.isCordova) {
@@ -45,31 +45,10 @@ Template.TabYou.events({
           log.error("error", error);
         }
       });
-    }//end of isCordova
-    else{
-      //if is not cordova, try to send via user email client
+    } else {
+      // If is not cordova, try to send via user email client
       window.location.href = "mailto:?body="+text;
     }
     
   }
 });
-
-/*****************************************************************************/
-/* TabYou: Helpers */
-/*****************************************************************************/
-Template.TabYou.helpers({
-
-});
-
-/*****************************************************************************/
-/* TabYou: Lifecycle Hooks */
-/*****************************************************************************/
-Template.TabYou.created = function () {
-};
-
-Template.TabYou.rendered = function () {
-
-};
-
-Template.TabYou.destroyed = function () {
-};

@@ -94,8 +94,9 @@
             </div>
           </label>
           <label class="item item-input item-stacked-label">
-            <!--<span class="input-label">Role</span>  -->
-            <p>{{profile.role}}</p>
+              {{#each userRoles}}
+                <p>{{letterCaseToCapitalCase this}}</p>
+                {{/each}}
           </label>   
                  
         </div>

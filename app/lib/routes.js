@@ -14,12 +14,6 @@ var OnBeforeActions = {
     }
     this.next();
   },
-  roleRequired: function () {
-    if (Meteor.user() && !Meteor.user().profile.role) {
-      Router.go('role');
-    }
-    this.next();
-  },
   LoginedRedirect: function (pause) {
     if (Meteor.userId()) {
       Router.go('TabClasses');
@@ -216,8 +210,6 @@ Router.onBeforeAction(OnBeforeActions.LoginRequired, {
 });
 
 Router.onBeforeAction(OnBeforeActions.LoginedRedirect, {only: ['language']});
-Router.onBeforeAction(OnBeforeActions.roleRequired, {only: ['TabChat']} );
-Router.onBeforeAction(OnBeforeActions.roleRequired, {only: ['TabClasses'] });
 Router.onBeforeAction(OnBeforeActions.hasUserSeenAppTour, {only: ['TourFromHomePage'] });
 
 Router.onBeforeAction('loading');

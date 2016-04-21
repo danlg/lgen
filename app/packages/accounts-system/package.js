@@ -20,10 +20,10 @@ Package.onUse(function(api) {
   api.use('smartix:core');  
   api.use('alanning:roles');
   api.use('stevezhu:lodash@4.6.1');
-  api.addFiles('lib/strings.js');
-  api.addFiles('server/accounts-system.js');
-  api.addFiles('server/methods.js');
-  api.addFiles('server/startup.js');
+  api.addFiles('lib/strings.js', ['client', 'server']);
+  api.addFiles('server/accounts-system.js', 'server');
+  api.addFiles('server/methods.js', 'server');
+  api.addFiles('server/startup.js', 'server');
 });
 
 Package.onTest(function(api) {
