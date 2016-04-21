@@ -20,9 +20,9 @@ Package.onUse(function(api) {
   //use smartix core as Smartix namespace is init there
   api.use('smartix:core') 
 
-  api.use('smartix:messages-text', {unordered: true});
-  api.use('smartix:messages-article', {unordered: true});
-  api.use('smartix:messages-addons@0.0.1', {unordered: true}); 
+  api.use('smartix:messages-text');
+  api.use('smartix:messages-article');
+  api.use('smartix:messages-addons@0.0.1'); 
   api.addFiles('messages.js');
   api.addFiles('methods.js');
   api.addFiles('publications.js','server');  

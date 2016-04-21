@@ -59,6 +59,7 @@ Smartix.Messages.Schema = new SimpleSchema({
 
 // Checks whether a type is supported
 Smartix.Messages.isValidType = function (type) {
+    console.log('Smartix.Messages.isValidType',Smartix.Messages.ValidTypes);
     return Smartix.Messages.ValidTypes.indexOf(type) > -1;
 }
 
@@ -92,7 +93,11 @@ Smartix.Messages.cleanAndValidate = function (message) {
     Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)].Schema.clean(message);
     
     // Checks the data provided conforms to the schema for that message type
-    var result = check(message, Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)].Schema);
+    
+    var correspondingSchema = Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)].Schema
+    console.log( correspondingSchema )
+    
+    var result = check(message, correspondingSchema);
     
     // As a backup in case the child packages
     // Did not implement the schema correctly,
