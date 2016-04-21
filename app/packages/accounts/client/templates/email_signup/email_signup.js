@@ -26,22 +26,18 @@ Template.EmailSignup.helpers({
 /*****************************************************************************/
 /* EmailSignup: Lifecycle Hooks */
 /*****************************************************************************/
-Template.EmailSignup.created = function () {
+Template.EmailSignup.onCreated = function () {
   var classToBeJoined = Session.get("search");
   console.log(classToBeJoined);
 
   $("body").removeClass('modal-open');
 };
 
-Template.EmailSignup.rendered = function () {
-
-
-};
-
-Template.EmailSignup.destroyed = function () {
+Template.EmailSignup.onDestroyed = function () {
 };
 
 Template.EmailSignup.events({
+  'click .createBtn': function (event, template) {
     var userObj = {};
     userObj.profile = {};
     var email = $(".email").val();
