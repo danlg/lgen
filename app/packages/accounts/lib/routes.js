@@ -60,11 +60,13 @@ Roles.ifUserHasRoleInAnyGroup = function (userId, role) {
 
 CheckDob = function(){
     var userObj = Meteor.user();
-    var dob = userObj.dob;
-    var role = _.get(userObj, "profile.role", "");
-    if (!!dob
-        && Roles.ifUserHasRoleInAnyGroup(userObj._id , 'student')) {
-      Router.go('Dob');
+    if(userObj) {
+        var dob = userObj.dob;
+        var role = _.get(userObj, "profile.role", "");
+        if (!!dob
+            && Roles.ifUserHasRoleInAnyGroup(userObj._id , 'student')) {
+        Router.go('Dob');
+        }
     }
     this.next();
 }
