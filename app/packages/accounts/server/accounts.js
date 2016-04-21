@@ -115,7 +115,11 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
             $set: newUserOptions
         });
         
-        Accounts.sendEnrollmentEmail(newUserId);
+        try {
+            Accounts.sendEnrollmentEmail(newUserId);
+        } catch(e) {
+            console.log(e);
+        }
         userToAddRoleTo = newUserId;
     } else {
         // Otherwise, set `userToAddRoleTo` to the `_id` of the existing user
