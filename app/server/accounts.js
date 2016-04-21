@@ -25,7 +25,7 @@
     user.profile.lastName = user.services.google.family_name;
     
     //explicitiy set that when account is login by google oauth, role is empty
-    user.profile.role = "";
+    user.profile.role = ""; // <---- DEPRECATED SYNTAX
   }
   else {
     // we wait for Meteor to create the user before sending an email
@@ -39,11 +39,9 @@
 
 
 
-Accounts.emailTemplates.verifyEmail= {
+Accounts.emailTemplates.verifyEmail = {
   html: function (user, url) {
-    log.info(user.profile.role);
-    var role = user.profile.role;
-    return Smartix.verificationEmailTemplate(role,user,url);
+    return Smartix.verificationEmailTemplate(user, url);
   }
 
   , siteName: function () {
@@ -63,10 +61,7 @@ Accounts.emailTemplates.verifyEmail= {
 
 Accounts.emailTemplates.resetPassword ={
   html: function (user, url) {
-    log.info(user.profile.role);
-    var role = user.profile.role;
-    
-    return Smartix.resetPasswordEmailTemplate(role,user,url);
+    return Smartix.resetPasswordEmailTemplate(user, url);
   }
 
   , siteName: function () {

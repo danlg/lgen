@@ -239,21 +239,20 @@ Smartix.inviteClassMailTemplate = function (to, classObj) {
   };
 };
 
-Smartix.verificationEmailTemplate = function(role,userObj,verificationURL){
+Smartix.verificationEmailTemplate = function(role, userObj, verificationURL){
         var emailLang = userObj.lang || "en";
         var verifyEmailcontent;
-        try{ //get the verfication template of the specific lang
-            verifyEmailcontent = Assets.getText("lang/"+ emailLang +"/emailVerifyTemplate."+role+".html");
-        }catch(e){
-       	    log.info(e);            
-            //fallback to english
-            verifyEmailcontent = Assets.getText("lang/en/emailVerifyTemplate."+role+".html");
+        try {
+            // Get the verfication template of the specific lang
+            verifyEmailcontent = Assets.getText("lang/" + emailLang + "/emailVerifyTemplate.html");
+        } catch(e) {
+       	    log.info(e);
         } 
         var firstPass = Spacebars.toHTML(
               {
                 //TODO localize me
-                title:"",
-                content:  verifyEmailcontent,          
+                title: "",
+                content: verifyEmailcontent,          
                 GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag=emailLang) ,
                 UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag=emailLang)
               },
@@ -268,7 +267,7 @@ Smartix.verificationEmailTemplate = function(role,userObj,verificationURL){
         );           
 };
 
-Smartix.resetPasswordEmailTemplate = function(role, userObj, resetPwdEmailURL){
+Smartix.resetPasswordEmailTemplate = function(userObj, resetPwdEmailURL){
   var emailLang = userObj.lang || "en";
 
   return Spacebars.toHTML(
