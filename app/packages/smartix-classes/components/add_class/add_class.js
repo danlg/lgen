@@ -124,7 +124,7 @@ Template.ionNavBar.events({
     
     check(newClassObj,Smartix.Class.Schema);
         
-    Meteor.call('smartix:classes/createClass',$('#namespace').val(),newClassObj,function(err,result){
+    Meteor.call('smartix:classes/createClass', Router.current().params.school  ,newClassObj,function(err,result){
       
       if(err){
           console.log(err);

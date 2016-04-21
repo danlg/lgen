@@ -9,6 +9,14 @@ Template.TabClasses.events({});
 /* TabClasses: Helpers */
 /*****************************************************************************/
 Template.TabClasses.helpers({
+   'getCurrentSchool':function(){
+       return Session.get('pickedSchoolId');
+   },
+   'getCurrentSchoolName':function(){
+       Session.get('pickedSchoolId');
+       var pickSchool = SmartixSchoolsCol.findOne(Session.get('pickedSchoolId'));
+       return pickSchool.username;
+   },   
   notCreateEmptyList: function () {
     return Smartix.Groups.Collection.find({
         type: 'class',

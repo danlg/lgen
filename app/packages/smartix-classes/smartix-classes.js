@@ -136,7 +136,7 @@ Smartix.Class.canCreateClass = function (namespace, currentUser) {
     // Get the `_id` of the currently-logged in user
     currentUser = currentUser || Meteor.userId();
     
-    var userToBeChecked = userId || Meteor.userId();
+    var userToBeChecked = currentUser || Meteor.userId();
     return Smartix.Accounts.School.isTeacher(namespace, currentUser)
         || Smartix.Accounts.School.isAdmin(namespace, currentUser)
         || Smartix.Accounts.System.isAdmin(currentUser);
@@ -152,7 +152,7 @@ Smartix.Class.createClass = function (classObj) {
     // * Teacher for the school (namespace) specified
 
 	if(classObj.namespace !== 'global'
-        && !Smartix.Chat.canCreateClass(classObj.namespace)) {
+        && !Smartix.Class.canCreateClass(classObj.namespace)) {
 			
 	 	console.log('no right to create class')
 		return false;

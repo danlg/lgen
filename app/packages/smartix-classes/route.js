@@ -56,11 +56,11 @@ Router.route('ClassPanel',{
 });
 
 Router.route('AddClass', {
-  path: "/class/add"
+  path: ":school/class/add"
 });
 
 Router.route('JoinClass', {
-  path: "/class/join",
+  path: ":school/class/join",
   waitOn: function () {
     Meteor.subscribe('joinedClass');
   }

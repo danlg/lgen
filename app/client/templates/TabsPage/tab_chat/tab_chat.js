@@ -21,6 +21,11 @@ Template.TabChat.helpers({
    'getCurrentSchool':function(){
        return Session.get('pickedSchoolId');
    },
+   'getCurrentSchoolName':function(){
+       Session.get('pickedSchoolId');
+       var pickSchool = SmartixSchoolsCol.findOne(Session.get('pickedSchoolId'));
+       return pickSchool.username;
+   },   
   'displayChatOption': function () {
     var currentSchoolId =  Session.get('pickedSchoolId') ;
     
