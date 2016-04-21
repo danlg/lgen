@@ -35,8 +35,10 @@ messageEmailTemplate = function (RecipientUsers, OriginateUser,content, options)
       //"merge_language": "handlebars",
       "text": "",
       content: {
-            from: Meteor.settings.FROM_EMAIL,
-            //"from_name": Meteor.settings.FROM_NAME,
+            from: {
+                email: Meteor.settings.FROM_EMAIL,
+                name:  Meteor.settings.FROM_NAME   
+            },
             html: Spacebars.toHTML(
                                 {
                                  title:content,
@@ -73,9 +75,11 @@ newClassMailTemplate = function (to, classname, classCode) {
   log.info("Sending new newClassMailTemplate:AFTER TAP"+ classCode);
   return {
    transmissionBody: {
-    //   "merge_language": "handlebars",
      content: {
-        from: Meteor.settings.FROM_EMAIL,
+        from: {
+            email: Meteor.settings.FROM_EMAIL,
+            name: Meteor.settings.FROM_NAME
+        },
         html: Spacebars.toHTML(
             {
             title: titlestr,
@@ -86,38 +90,23 @@ newClassMailTemplate = function (to, classname, classCode) {
             Assets.getText("emailMessageMasterTemplate.html")
         ),
         subject: titlestr
-     },    
-      //"text": "",
-      //"from_name": Meteor.settings.FROM_NAME,
+     },     
       recipients: [{
-        address: 'aman96@gmail.com'
-        //"name": to,
-        //"type": "to"
-      }],
-      substitution_data: [
-        {
-          "name": "classname",
-          "content": classname
-        },
-        {
-          "name": "SHARE_URL",
-          "content": Meteor.settings.public.SHARE_URL,
-        },
-        {
-          "name": "classCode",
-          "content": classCode,
-        },
-        {
-          "name": "ROOT_URL",
-          "content": Meteor.settings.public.ROOT_URL
-        },
-        {
-            "name":"title",
-            "content":titlestr
+        address: to,
+        substitution_data: {
+            "name": to,
+            "type": to
         }
-      ]
+      }],
+      substitution_data: {     
+            "classname": classname,
+            "SHARE_URL": Meteor.settings.public.SHARE_URL,
+            "classCode": classCode,
+            "ROOT_URL": Meteor.settings.public.ROOT_URL,
+            "title":titlestr
+        }
+      }
     }
-  };
 };
 
 
@@ -128,18 +117,20 @@ testMail = function () {
 
   return {
     transmissionBody: {
-      //"merge_language": "handlebars",
       content: {
-            from:'testing@sparkpostbox.com',
+            from:{
+                email: 'testing@sparkpostbox.com',
+                name: Meteor.settings.FROM_NAME
+        },
             subject: "new class ready!",
             html: "<h1>" + date + "</h1>",
       },
-           //"text": "Example text content",
-      //"from_name": Meteor.settings.FROM_NAME,
         recipients: [{
-        address: email
-        //"name": email,
-        //"type": "to"
+        address: email,
+        substitution_data: {
+            "name": email,
+            "type": to
+        }
       }]
     }
   };
@@ -153,18 +144,20 @@ feedback = function (content) {
     log.info("Sending feedback to " + Meteor.settings.FEEDBACK_EMAIL + " from " + fullName);
     return {
       transmissionBody: {
-        //"merge_language": "handlebars",
         content: {
             html: "<h3> Feedback From " + fullName + " </h3><p>" + content + "</p>",
-            //"text": "Example text content",
             subject: "Feedback from " + fullName,
-            from: Meteor.settings.FROM_EMAIL,
-            //"from_name": fullName,
+            from: {
+                email: Meteor.settings.FROM_EMAIL,
+                name: fullName
+            },
         },
         recipients: [{
-          to: Meteor.settings.FEEDBACK_EMAIL,
-          //"name":  Meteor.settings.FEEDBACK_EMAIL,
-          //"type": "to"
+            to: Meteor.settings.FEEDBACK_EMAIL,
+            substitution_data: {
+            "name": Meteor.settings.FEEDBACK_EMAIL,
+            "type": to
+            }
         }]
       }
     };
@@ -193,7 +186,6 @@ inviteClassMailTemplate = function (to, classObj) {
                         last_name: last, class_name: classObj.className },emailLang); 
   return {
     transmissionBody:{
-      //"merge_language": "handlebars",
       content: {
       subject: emailTitle,
       html: Spacebars.toHTML(
@@ -205,14 +197,17 @@ inviteClassMailTemplate = function (to, classObj) {
               },
               Assets.getText("emailMessageMasterTemplate.html")
         ),
-       from: Meteor.settings.FROM_EMAIL,
-      //"from_name": Meteor.settings.FROM_NAME,
+       from: {
+           email: Meteor.settings.FROM_EMAIL,
+           name:  Meteor.settings.FROM_NAME
+       }
       },
-
        recipients: [{
         address: 'aman96@gmail.com',
-        //"name": to,
-        //"type": "to"
+        substitution_data: {
+            "name": to,
+            "type": to
+        }
       }],
       "global_merge_vars": [
         {

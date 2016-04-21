@@ -91,10 +91,10 @@ Meteor.methods({
         client.transmissions.send(newClassMailTemplate(to, classObj.className, classObj.classCode),
          function(err, res) {
                 if (err) {
-                    console.log('Whoops! Something went wrong');
+                    console.log('Something went wrong');
                     console.log(err);
                 } else {
-                    console.log('Woohoo! You just sent your first mailing!');
+                    console.log('Email Sent!');
                 }
             }
         );
@@ -112,16 +112,15 @@ Meteor.methods({
     var last = Meteor.user().profile.lastname;
     log.info("classinvite:classCode:"+ classObj.classCode+":from:"+last+ ":to:"+ targetFirstEmail + ":URI:"+acceptLinkEncoded);
     //do not log the CONTENT of every message sent !
-    //log.info(inviteClassMailTemplate(targetFirstEmail, classObj));
-  
+    log.info(inviteClassMailTemplate(targetFirstEmail, classObj));
       try {
         client.transmissions.send(inviteClassMailTemplate(targetFirstEmail, classObj),
         function(err, res) {
                     if (err) {
-                        console.log('Whoops! Something went wrong');
+                        console.log('Something went wrong');
                         console.log(err);
                     } else {
-                        console.log('Woohoo! You just sent your first mailing!');
+                        console.log('You just sent your mail!');
                     }
             });
       }
