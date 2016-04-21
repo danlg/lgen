@@ -85,7 +85,7 @@ Smartix.Chat.canCreateChat = function (namespace, currentUser) {
     // Get the `_id` of the currently-logged in user
     currentUser = currentUser || Meteor.userId();
     
-    var userToBeChecked = userId || Meteor.userId();
+    var userToBeChecked = currentUser || Meteor.userId();
     return Smartix.Accounts.School.isTeacher(namespace, currentUser)
         || Smartix.Accounts.School.isAdmin(namespace, currentUser)
         || Smartix.Accounts.System.isAdmin(currentUser);
@@ -98,7 +98,7 @@ Smartix.Chat.createChat = function (chatObj) {
 	// (i.e. either the admin for the school, or the system admin)
 
 	if(chatObj.namespace !== 'global'
-        && !Smartix.Chat.canCreateClass(chatObj.namespace)) {
+        && !Smartix.Chat.canCreateChat(chatObj.namespace)) {
 		return false;
 		// Optional: Throw an appropriate error if not
 	}
