@@ -291,16 +291,47 @@ Template.SendMessage.events({
         console.log('allowComment');
         
         //TBD
-        addons.push({type:'comments'});
+        addons.push({type:'comment'});
         
     }
 
      //add poll to addons one by one if any
     if(mediaObj.allowVote){
+        
+        var voteObj = {};
+        voteObj.type = "poll";
+        voteObj.votes = [];
         console.log('allowVote');
         
-        //TBD
-        //addons.push({type:'poll',??});
+        log.info(mediaObj.voteType);
+        
+        if(mediaObj.voteType == 'heartNoEvilStarQuestion'){
+            
+            voteObj.options =['heart','noevil','question'];
+                                             
+        }else if(mediaObj.voteType == 'yesNo'){
+            
+            voteObj.options = ['yes','no'];       
+            
+        }else if(mediaObj.voteType == 'likeDislike'){
+            
+            voteObj.options = ['like','dislike'];   
+                  
+        }else if(mediaObj.voteType == 'oneTwoThreeFour'){
+            
+            voteObj.options = ['one','two','three','four'];  
+                  
+        }else{
+            //future extension point for futher customization.
+            //VoteOptions will need to be defined by user.   
+        }
+        
+                    
+        voteObj.options.map(function(eachVoteOption){
+            voteObj.votes.push({option:eachVoteOption,users:[]});
+        }); 
+       
+        addons.push(voteObj);
         
     } 
                              

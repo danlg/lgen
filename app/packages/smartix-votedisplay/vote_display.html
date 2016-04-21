@@ -1,29 +1,8 @@
 <template name='VoteDisplay'>
-    {{#each this.voteOptions}}
-        {{#if optionShouldBeDisplayedEvenIfNoVote ../voteType}}
-            <a href="#" class="subdued">{{this.votes.length}}
-                
-                {{#with tryShowVoteOptionIcon ../voteType voteOption}}
-                    {{#if this.ionicIcon}}
-                         <i class="{{this.ionicIcon}} colored vote-display-option"></i>
-                    {{else}}
-                        {{this.voteOptionText}}
-                    {{/if}}
-                {{/with}}
-            </a>                                           
-        {{else}}
-            {{#if isNotEmpty this.votes}}  
-                <a href="#" class="subdued">{{this.votes.length}}
-                    {{#with tryShowVoteOptionIcon ../voteType voteOption}}
-                        {{#if this.ionicIcon}}
-                            <i class="{{this.ionicIcon}} colored vote-display-option"></i>
-                        {{else}}
-                            {{this.voteOptionText}}
-                        {{/if}}
-                    {{/with}}
-                </a>                                         
-            {{/if}}      
-        {{/if}}           
-
-    {{/each }}    
+    {{#each this.votes}}
+            <a href="#" class="subdued">{{this.users.length}}    
+               <i class="{{this.option}} colored vote-display-option"></i>  
+               <span class='stub-vote-option-display'>{{this.option}}</span>        
+            </a>          
+    {{/each}}  
 </template>

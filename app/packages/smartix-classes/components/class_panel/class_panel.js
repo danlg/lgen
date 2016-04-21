@@ -171,6 +171,10 @@ Template.ClassPanel.helpers({
     var id = this.toString();
     return Documents.findOne(id);
   },
+  attachVotes: function(){
+    var voteObjs =lodash.filter(this.addons, function(addon) { return addon.type =='poll'; });
+    return voteObjs;      
+  },
   isPlural: function (count) {
     return count > 1;
   },
