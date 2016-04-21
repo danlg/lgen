@@ -18,12 +18,16 @@ Package.onUse(function(api) {
   api.use('reactive-var','client');
   api.use('smartix:schools');
   
-  api.addAssets(['icons/absence.png',
-                 'icons/calendar.png',
-                 'icons/classes.png',
-                 'icons/contact.png',
+  api.addAssets([
                  'icons/more.png',
-                 'icons/news.png',
+                 
+                 
+                 'icons/attendance-black.svg',
+                 'icons/calendar.svg',
+                 'icons/class.svg',
+                 'icons/contact.svg',
+                 'icons/news.svg',
+                              
                 ],'client');
   api.addFiles(['templates/overview/overview.css','templates/overview/overview.html'],'client');
   api.addFiles('routes.js');
