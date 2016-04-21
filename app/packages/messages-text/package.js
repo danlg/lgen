@@ -10,12 +10,10 @@ Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
   api.use('ecmascript');
   api.use('stevezhu:lodash@4.6.1');
-  api.use('smartix:core');
-  api.use('smartix:messages', {unordered: true});
-  //api.addFiles('lib/messages-text.js');
+  api.use('aldeed:simple-schema'); 
+  
   api.addFiles('messages-text.js');
   
-  api.export('Smartix');
 });
 
 Package.onTest(function(api) {

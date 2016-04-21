@@ -4,9 +4,6 @@ Smartix.Messages = Smartix.Messages || {};
 
 Smartix.Messages.ValidTypes = Smartix.Messages.ValidTypes || [];
 
-//stub
-Smartix.Messages.ValidTypes.push('text','article');
-
 Smartix.Messages.Collection = new Mongo.Collection('smartix:messages');
 
 Smartix.Messages.Schema = new SimpleSchema({
@@ -62,6 +59,7 @@ Smartix.Messages.Schema = new SimpleSchema({
 
 // Checks whether a type is supported
 Smartix.Messages.isValidType = function (type) {
+    console.log('Smartix.Messages.isValidType',Smartix.Messages.ValidTypes);
     return Smartix.Messages.ValidTypes.indexOf(type) > -1;
 }
 
@@ -95,15 +93,19 @@ Smartix.Messages.cleanAndValidate = function (message) {
     Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)].Schema.clean(message);
     
     // Checks the data provided conforms to the schema for that message type
-    //var result = check(message, Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)].Schema);
+    
+    var correspondingSchema = Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)].Schema
+    console.log( correspondingSchema )
+    
+    var result = check(message, correspondingSchema);
     
     // As a backup in case the child packages
     // Did not implement the schema correctly,
     // Clean the `message` object with the master `Smartix.Messages.Schema`
-	//Smartix.Messages.Schema.clean(message);
+	Smartix.Messages.Schema.clean(message);
 
 	// Checks that the `message` object conforms to the `Smartix.Messages.Schema`
-	//check(message, Smartix.Messages.Schema);
+	check(message, Smartix.Messages.Schema);
 }
 
 Smartix.Messages.createMessage = function (groupId, messageType, data, addons) {
@@ -162,7 +164,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons) {
     message.type = messageType;
     message.data = data;
    
-    //disable temp TODO
+   
     Smartix.Messages.cleanAndValidate(message);
     
     /* ****************** */
@@ -190,22 +192,22 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons) {
         /* ***************************************** */
         /* CHECKS FOR PERMISSION TO ATTACH THE ADDON */
         /* ***************************************** */
-        //TODO
-        /*if(!Smartix[Smartix.Utilities.letterCaseToCapitalCase(group.type)].Messages.canAttachAddons(groupId, addons)) {
+        
+        if(!Smartix[Smartix.Utilities.letterCaseToCapitalCase(group.type)].Messages.canAttachAddons(groupId, addons)) {
             return false;
             // OPTIONAL: Throw error saying you do not have
             // permission to attach an addon for this group
-        }*/
+        }
         
         // Checks that the group allows for this type of addon
         // If the addon type specified is not in
         // the array of allowed addons, return `false`
         //TODO
-        /*if(group.addons.indexOf(addon.type) < 0) {
+        if(group.addons.indexOf(addon.type) < 0) {
             return false;
             // OPTIONAL: Throw error indicating the add-on
             // you are trying to attached in not an approved type
-        }*/
+        }
         
         /* ******************************************** */
         /* CHECKS THE VALIDITY OF THE ADDONS AND ATTACH */
