@@ -166,13 +166,17 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons) {
         // Checks that the group allows for this type of addon
         // If the addon type specified is not in
         // the array of allowed addons, return `false` 
+        addons.map(function(eachAddOn){
+            
+            if(group.addons.indexOf(eachAddOn.type) < 0) {
+                console.log('not in canAttachAddons in this specific group instance', Smartix.Utilities.letterCaseToCapitalCase(group.type));
+                return false;
+                // OPTIONAL: Throw error indicating the add-on
+                // you are trying to attached in not an approved type
+            }
+            
+        });
 
-        if(group.addons.indexOf(addon.type) < 0) {
-            console.log('not in canAttachAddons in this specific group instance', Smartix.Utilities.letterCaseToCapitalCase(group.type));
-            return false;
-            // OPTIONAL: Throw error indicating the add-on
-            // you are trying to attached in not an approved type
-        }
         
         /* ******************************************** */
         /* CHECKS THE VALIDITY OF THE ADDONS AND ATTACH */

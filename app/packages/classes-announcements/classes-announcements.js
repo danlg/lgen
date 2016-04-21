@@ -109,5 +109,9 @@ Smartix.Class.Messages.canAttachAddons = function (announcementId, addons) {
     console.log('notAllowedTypes',addonTypes,_class.addons);
     var notAllowedTypes = _.difference(addonTypes, _class.addons);
     
-    return notAllowedTypes.length > 0;
+    if(notAllowedTypes.length > 0){
+        return false;
+    }else{
+        return true;
+    }
 }
