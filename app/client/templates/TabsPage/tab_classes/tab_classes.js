@@ -12,14 +12,17 @@ Template.TabClasses.helpers({
    'getCurrentSchool':function(){
        return Session.get('pickedSchoolId');
    },
-   'getCurrentSchoolName':function(){
-       
-       if(Session.get('pickedSchoolId') == 'global'){
+   'getCurrentSchoolName': function(){
+       if(Session.get('pickedSchoolId') === 'global'){
            return 'global';
        }
        
+       if(Session.get('pickedSchoolId') === 'system'){
+           return 'system';
+       }
+       
        var pickSchool = SmartixSchoolsCol.findOne(Session.get('pickedSchoolId'));
-       return pickSchool.username;
+       return pickSchool ? pickSchool.username : false;
    },   
   notCreateEmptyList: function () {
     return Smartix.Groups.Collection.find({
