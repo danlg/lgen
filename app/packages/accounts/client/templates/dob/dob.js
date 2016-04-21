@@ -3,15 +3,14 @@
 /* Dob: Event Handlers */
 /*****************************************************************************/
 Template.Dob.events({
-  'click .Confirm': function (argument) {
-    var user = Meteor.user();
-    lodash.set(user, 'dob', $("#dobInput").val());
-    Meteor.call("profileUpdateByObj", user, function (error, result) {
-      if (error) {
-        log.error("error", error);
-      } else {
-        Router.go('TabClasses');
-      }
-    });
-  }
+    'click .confirm': function(argument) {
+        var dob = new Date($("#dobInput").val());
+        Meteor.call('smartix:accounts/updateDob', dob, function(error, result) {
+            if (error) {
+                log.error("error", error);
+            } else {
+                Router.go('TabClasses');
+            }
+        });
+    }
 });

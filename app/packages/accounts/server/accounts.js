@@ -325,3 +325,24 @@ Smartix.Accounts.getAllUsersInNamespace = function (namespace, currentUser) {
         return false;
     }
 }
+
+Smartix.Accounts.updateDob = function (dob, currentUser) {
+    
+    check(dob, Date);
+    check(currentUser, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    currentUser = currentUser || Meteor.userId();
+    
+    if(currentUser) {
+        return Meteor.users.update({
+            _id: currentUser
+        }, {
+            $set: {
+                dob: dob
+            }
+        })
+    } else {
+        return false;
+    }
+}

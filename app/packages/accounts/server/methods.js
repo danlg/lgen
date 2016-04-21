@@ -33,5 +33,8 @@ Meteor.methods({
     },
     'smartix:accounts/deleteUser': function (id) {
         return Smartix.Accounts.deleteUser(userId, this.userId);
+    },
+    'smartix:accounts/updateDob': function (dob) {
+        return Smartix.Accounts.updateDob(dob, this.userId);
     }
 });
