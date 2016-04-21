@@ -174,7 +174,8 @@ Smartix.Class.createClass = function (classObj) {
 	newClass.admins = [
 		Meteor.userId()
 	];
-
+    newClass.addons = ['voice','images','calendar','documents','poll','comments'];
+    
 	// Checks the arguments are of the specified type, convert it if not
 	Smartix.Class.Schema.clean(newClass);
 
