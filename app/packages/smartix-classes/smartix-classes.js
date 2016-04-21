@@ -129,7 +129,7 @@ Smartix.Class.isClassAdmin = function (userId, classId) {
     return false;
 }
 
-Smartix.Chat.canCreateClass = function (namespace, currentUser) {
+Smartix.Class.canCreateClass = function (namespace, currentUser) {
     check(namespace, String);
     check(currentUser, Match.Maybe(String));
     

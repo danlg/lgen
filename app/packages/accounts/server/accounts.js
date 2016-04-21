@@ -28,8 +28,6 @@ Smartix.Accounts.createUserOptionsSchema = new SimpleSchema([Smartix.Accounts.Sc
     }
 }]);
 
-Smartix.Accounts.helpers.generateUniqueUserName(options.profile.firstName, options.profile.lastName)
-
 Smartix.Accounts.createUser = function (email, options, namespace, types, currentUser) {
     
     // Check that the options provided are valid
