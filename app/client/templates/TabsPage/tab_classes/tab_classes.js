@@ -13,7 +13,11 @@ Template.TabClasses.helpers({
        return Session.get('pickedSchoolId');
    },
    'getCurrentSchoolName':function(){
-       Session.get('pickedSchoolId');
+       
+       if(Session.get('pickedSchoolId') == 'global'){
+           return 'global';
+       }
+       
        var pickSchool = SmartixSchoolsCol.findOne(Session.get('pickedSchoolId'));
        return pickSchool.username;
    },   
