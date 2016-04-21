@@ -208,3 +208,14 @@ hasPermission = Smartix.Accounts.School.canGetUserInfo = function (userId, names
         || Smartix.Accounts.School.isAdmin(namespace, currentUser)
         || userId === currentUser;
 }
+
+Smartix.Accounts.School.getNamespaceFromSchoolName = function (schoolName) {
+    
+    check(schoolName, String);
+    
+    // Get the `_id` of the school from its username
+    var schoolDoc = SmartixSchoolsCol.findOne({
+        username: schoolName
+    });
+    return schoolDoc ? schoolDoc._id : false;
+}
