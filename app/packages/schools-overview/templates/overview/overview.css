@@ -27,11 +27,9 @@
     border:0;
 }
 
-.card.square-card img{
-    max-width: 60%;
-    max-height:60%;
-    vertical-align: middle;
-}
+
+
+
 .card.square-card .icon{
     font-size: 50px;
     font-size: 20.5vw;
@@ -44,6 +42,15 @@
     bottom:1px;
     left:10px;
     z-index: 9999;
+}
+
+.card.square-card .square-card-counter{
+    font-size: 9px;
+    position: absolute;
+    top:4px;
+    right:5px;
+    z-index: 9999;
+    left:initial;
 }
 
 .one-line{
@@ -123,14 +130,31 @@
 }
 
 
-/*.news-slidebox-wrapper .slide-box-bg.bg-1{
-   background-image: url('http://boykinsbasketball.com/wp-content/uploads/2015/10/5451a9bac173c.preview-699.jpg');
+.card.square-card.bg{
+    background-repeat: no-repeat;
+    background-size: 50%;
+    background-position: center;    
+}
+.card.square-card.bg.bg-news{
+   background-image: url('/packages/smartix_schools-overview/icons/news.svg');
 }
 
-.news-slidebox-wrapper .slide-box-bg.bg-2{
-   background-image: url('http://www.changingpeople.co.uk/img/many-hands.jpg');
+.card.square-card.bg.bg-class{
+   background-image: url('/packages/smartix_schools-overview/icons/class.svg');
 }
 
-.news-slidebox-wrapper .slide-box-bg.bg-3{
-   background-image: url('http://intl.hkbu.edu.hk/exchange/Exchange_Button_2015-16.gif');
-}*/
+.card.square-card.bg.bg-absence{
+   background-image: url('/packages/smartix_schools-overview/icons/attendance-black.svg');
+}
+
+.card.square-card.bg.bg-calendar{
+   background-image: url('/packages/smartix_schools-overview/icons/calendar.svg');
+}
+
+.card.square-card.bg.bg-contact{
+   background-image: url('/packages/smartix_schools-overview/icons/contact.svg');
+}
+
+.card.square-card.bg.bg-more{
+   background-image: url('/packages/smartix_schools-overview/icons/more.png');
+}

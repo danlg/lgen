@@ -177,12 +177,14 @@ smartix:messages@0.0.1
 smartix:messages-addons@0.0.1
 smartix:messages-addons-images@0.0.1
 smartix:messages-article@0.0.1
+smartix:messages-schema@0.0.1
 smartix:messages-text@0.0.1
 smartix:news@0.0.1
 smartix:newsgroups@0.0.1
 smartix:newsgroups-news@0.0.1
 smartix:notifications@0.0.1
 smartix:schools@0.0.1
+smartix:schools-overview@0.0.1
 smartix:sendmessage@0.0.1
 smartix:sharer@0.0.1
 smartix:tour@0.0.1
