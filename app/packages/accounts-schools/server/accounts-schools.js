@@ -175,6 +175,10 @@ Smartix.Accounts.School.userHasApproved = function (namespace, userId) {
         // Or is not logged on
     }
     
+    if(!userDoc.schools) {
+        return false;
+    }
+    
     return userDoc.schools.indexOf(namespace) > -1
 }
 
