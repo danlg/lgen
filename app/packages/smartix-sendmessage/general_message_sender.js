@@ -20,13 +20,14 @@ GeneralMessageSender = function(groupId,messageType,messageText,addons,targetUse
         pushObj.document = messageAttachmentObject._id
     }*/
 
-    addons = [];
+    addons = addons || [];
     /*if(messageType == 'voice' || messageType == 'images' || messageType == 'documents'){
         addons.push({type:messageType,fileId:messageAttachmentObject._id});
         messageType = "text";
     }*/
 
     console.log(messageType);
+    
     if(messageType == 'text'){
         Meteor.call('smartix:messages/createMessage',groupId,messageType,{content:messageText},
                     addons

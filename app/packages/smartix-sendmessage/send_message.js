@@ -222,14 +222,7 @@ Template.SendMessage.events({
     var msg = $(".msgBox").val();
     
     
-    GeneralMessageSender(target[0],'text',msg)
-    //Meteor.call('smartix:messages/createMessage',target[0],'text',{content:msg});
-    
-    
-    
-    
-    return;
-    
+    //receive addons stage
     var mediaObj = {};
     mediaObj.allowComment = document.getElementById('allowComment').checked;
     mediaObj.allowVote = document.getElementById('allowVote').checked;  
@@ -246,12 +239,28 @@ Template.SendMessage.events({
     mediaObj.soundArr = soundArr.get();
     mediaObj.documentArr = documentArr.get();
     mediaObj.calendarEvent = template.calendarEvent.get();
+    
+    //receive addons stage ends
+    
+    //if nothing is received from input
     if(msg == "" && mediaObj.imageArr.length == 0 && mediaObj.soundArr.length
-       == 0 && mediaObj.documentArr.length == 0 &&  mediaObj.calendarEvent == {}){
+       == 0 && mediaObj.documentArr.length == 0 &&  mediaObj.calendarEvent == {}
+      ){
       
       toastr.warning("please input some message");
       
-    }else if(target.length > 0) {
+    }
+    
+    addons = [];
+    
+    //add images to addons one by one if any
+    if(mediaObj.imageArr){
+        console.log('there is image');
+        mediaObj.imageArr.map(function(eachImage){
+            addons.push({type:'images',fileId:eachImage});
+        })
+    }
+    /*else if(target.length > 0) {
       Meteor.call('sendMsg', target, msg, mediaObj, function () {
         Session.set("sendMessageSelectedClasses", {
           selectArrName: [],
@@ -276,7 +285,17 @@ Template.SendMessage.events({
       });
     } else {
       toastr.error("no class select!");
-    }
+    }*/
+      
+    GeneralMessageSender(target[0],'text',msg, addons)
+    //Meteor.call('smartix:messages/createMessage',target[0],'text',{content:msg});
+    
+    
+    
+    
+
+    
+
   },
   'keyup .inputBox':function(){
     log.info("input box keyup");
