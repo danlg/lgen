@@ -1,5 +1,5 @@
 Package.describe({
-  name: 'smartix:messages-addons-files',
+  name: 'smartix:messages-addons-documents',
   version: '0.0.1',
   // Brief, one-line summary of the package.
   summary: '',
@@ -15,13 +15,13 @@ Package.onUse(function(api) {
   api.use('ecmascript');
   api.use('smartix:core');
   api.use('aldeed:simple-schema');  
-  api.addFiles('messages-addons-files.js');
+  api.addFiles('messages-addons-documents.js');
   api.export('Smartix');
 });
 
 Package.onTest(function(api) {
   api.use('ecmascript');
   api.use('tinytest');
-  api.use('smartix:messages-addons-files');
-  api.addFiles('messages-addons-files-tests.js');
+  api.use('smartix:messages-addons-documents');
+  api.addFiles('messages-addons-documents-tests.js');
 });
