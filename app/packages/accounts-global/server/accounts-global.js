@@ -31,7 +31,7 @@ Smartix.Accounts.Global.canRemoveUser = function (userId, currentUser) {
 Smartix.Accounts.Global.canGetUserInfo = function (userId, currentUser) {
     
     check(userId, String);
-    check(currentUser, String);
+    check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
     currentUser = currentUser || Meteor.userId();
@@ -50,7 +50,7 @@ Smartix.Accounts.Global.canGetUserInfo = function (userId, currentUser) {
 
 Smartix.Accounts.Global.isAdmin = function (currentUser) {
     
-    check(currentUser, String);
+    check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
     currentUser = currentUser || Meteor.userId();
@@ -65,13 +65,13 @@ Smartix.Accounts.Global.isAdmin = function (currentUser) {
 
 Smartix.Accounts.Global.userHasApproved = function (userId) {
     
-    check(userId, String);
+    check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    userId = userId || Meteor.userId();
+    currentUser = currentUser || Meteor.userId();
     
     var userDoc = Meteor.users.findOne({
-        _id: userId
+        _id: currentUser
     });
     
     // If the current user does not exists
@@ -86,7 +86,7 @@ Smartix.Accounts.Global.userHasApproved = function (userId) {
 
 Smartix.Accounts.Global.canGetBasicInfoOfAllUsers = function (currentUser) {
     
-    check(currentUser, String);
+    check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
     currentUser = currentUser || Meteor.userId();
@@ -97,7 +97,7 @@ Smartix.Accounts.Global.canGetBasicInfoOfAllUsers = function (currentUser) {
 
 Smartix.Accounts.Global.canGetAllUsers = function (currentUser) {
     
-    check(currentUser, String);
+    check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
     currentUser = currentUser || Meteor.userId();
@@ -109,7 +109,7 @@ Smartix.Accounts.Global.canGetAllUsers = function (currentUser) {
 Smartix.Accounts.Global.canGetUserInfo = function (userId, currentUser) {
     
     check(userId, String);
-    check(currentUser, String);
+    check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
     currentUser = currentUser || Meteor.userId();
