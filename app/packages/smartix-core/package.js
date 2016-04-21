@@ -48,16 +48,7 @@ Package.onUse(function(api) {
                     'client/templates/legal/fr.tandc.html',                                                                                               
                  ],
                 'client');
-
-     api.addFiles([
-                    'client/templates/login/login.html',
-                    'client/templates/login/login.js',   
-                    'client/templates/login/login.css',                                           
-                    'client/templates/login/loginResponsiveImageLandscape.css',                       
-                    'client/templates/login/loginResponsiveImagePotrait.css',                                                           
-                 ],
-                'client');
-
+                
      api.addFiles([
                     'client/templates/shared/loading/loading.html',
                     'client/templates/shared/loading/loading.js',

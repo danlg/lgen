@@ -20,7 +20,6 @@ Package.onUse(function(api) {
   api.use('okgrow:analytics@1.0.5');
   api.use('smartix:accounts-system');
   api.addFiles('server/accounts-global.js', 'server');
-  api.addFiles('publications.js','server');
   api.export('Smartix');
 });
 
