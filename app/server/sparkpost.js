@@ -1,9 +1,5 @@
 'use strict';
 
-var key = Meteor.settings.SPARKPOST_KEY
-  , SparkPost = Meteor.npmRequire('sparkpost')
-  , client = new SparkPost(key);
-
 Accounts.emailTemplates.testMail= {
   html: function () {
     log.info("Sending Test Mail");
