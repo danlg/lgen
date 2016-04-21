@@ -5,6 +5,8 @@ Smartix.Groups = Smartix.Groups || {};
 Smartix.Groups.Collection = new Mongo.Collection("smartix:groups");
 
 Smartix.Groups.createGroup = function (options) {
+    console.log('Smartix.Groups.createGroup',options);
+    
 	// Checks the object contains all required fields
 	if(!(options.users && options.namespace && options.type)) {
 		return false;
@@ -24,8 +26,10 @@ Smartix.Groups.createGroup = function (options) {
 
 	// Remove duplicates from the `addons` arrays
 	// ensuring only one (the first encountered) add-on of each type is included
-	options.addons = _.uniqBy(options.addons, 'type');
-
+    //?? input is string array not object array
+    //options.addons = _.uniqBy(options.addons, 'type');
+    options.addons = _.uniq(options.addons);
+    
 	// Insert the group object into `smartix:groups` collection
 	// and return the newly-generated `_id`
 	return Smartix.Groups.Collection.insert(options);
