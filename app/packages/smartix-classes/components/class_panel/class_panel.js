@@ -134,9 +134,11 @@ Template.ClassPanel.helpers({
     if(!classObj){
         return;
     }
+    
+    //sort classMessages from oldest to newest => createdAt: 1
     var classMessages = Smartix.Messages.Collection.find({
         group: classObj._id
-    });
+    }, {sort: { createdAt: 1 } } );
     return classMessages;      
   },
   classCode: function () {
