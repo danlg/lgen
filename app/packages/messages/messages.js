@@ -2,60 +2,12 @@ Smartix = Smartix || {};
 
 Smartix.Messages = Smartix.Messages || {};
 
+//console.log('smartix:messages:validTypes@message', Smartix.Messages.ValidTypes);
 Smartix.Messages.ValidTypes = Smartix.Messages.ValidTypes || [];
 
 Smartix.Messages.Collection = new Mongo.Collection('smartix:messages');
 
-Smartix.Messages.Schema = new SimpleSchema({
-	group: {
-		type: String
-	},
-	author: {
-		type: String
-	},
-	type: {
-		type: String,
-		allowedValues: Smartix.Messages.ValidTypes
-	},
-    data: {
-        type: Object,
-        blackbox: true
-    },
-	hidden: {
-		type: Boolean,
-		defaultValue: false
-	},
-    createdAt:{
-        type: Date,
-        autoValue:function () {
-            return new Date();
-        }
-    },
-	deletedAt: {
-		type: Number,
-		decimal: false,
-		optional: true
-	},
-	addons: {
-		type: [Object],
-		defaultValue: [],
-        custom: function () {
-            if(!Array.isArray(this.value.type)) {
-                return "Th e Add-Ons field should be an array of objects";
-            }
-            for (var i = 0; i < this.value.length; i++) {
-                if(typeof this.value.type[i] !== "string"
-                || Smartix.AddOns.ValidTypes.indexOf(this.value.type[i]) < 0) {
-                    return "Invalid Add-Ons Object Array";
-                }
-            }
-        }
-	},
-	versions: {
-		type: [String],
-		defaultValue: []
-	}
-});
+
 
 // Checks whether a type is supported
 Smartix.Messages.isValidType = function (type) {
@@ -89,13 +41,18 @@ Smartix.Messages.cleanAndValidate = function (message) {
     check(message, Object);
     check(message.type, String);
     
+    //console.log('Smartix.Utilities.letterCaseToCapitalCase(message.type)', Smartix.Utilities.letterCaseToCapitalCase(message.type));
+    //console.log('Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)]', Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)]);
+    
+    //console.log('message-beforeclean; ', message);
     // Clean the message
     Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)].Schema.clean(message);
     
     // Checks the data provided conforms to the schema for that message type
+    //console.log('message-afterclean: ', message);
     
-    var correspondingSchema = Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)].Schema
-    console.log( correspondingSchema )
+    var correspondingSchema = Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)].Schema;
+    //console.log( correspondingSchema );
     
     var result = check(message, correspondingSchema);
     

@@ -1,5 +1,5 @@
 Package.describe({
-  name: 'smartix:messages-article',
+  name: 'smartix:messages-schema',
   version: '0.0.1',
   // Brief, one-line summary of the package.
   summary: '',
@@ -16,15 +16,12 @@ Package.onUse(function(api) {
   api.use('aldeed:simple-schema');   
   api.use('stevezhu:lodash@4.6.1');
   api.use('smartix:core');
-  api.use('smartix:messages-schema');
-  
-  api.addFiles('messages-article.js');
+  api.addFiles('messages-schema.js');
   api.export('Smartix');
 });
 
 Package.onTest(function(api) {
   api.use('ecmascript');
   api.use('tinytest');
-  api.use('smartix:messages-article');
-  api.addFiles('messages-article-tests.js');
+  api.use('smartix:messages-schema');
 });

@@ -11,8 +11,11 @@ Package.onUse(function(api) {
   api.use('ecmascript');
   api.use('stevezhu:lodash@4.6.1');
   api.use('aldeed:simple-schema'); 
-  
+  api.use('smartix:core');
+  api.use('smartix:messages-schema');  
   api.addFiles('messages-text.js');
+  api.export('Smartix');  
+  
   
 });
 

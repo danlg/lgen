@@ -177,6 +177,7 @@ smartix:messages@0.0.1
 smartix:messages-addons@0.0.1
 smartix:messages-addons-images@0.0.1
 smartix:messages-article@0.0.1
+smartix:messages-schema@0.0.1
 smartix:messages-text@0.0.1
 smartix:news@0.0.1
 smartix:newsgroups@0.0.1
