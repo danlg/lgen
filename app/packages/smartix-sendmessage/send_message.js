@@ -254,7 +254,7 @@ Template.SendMessage.events({
     addons = [];
     
     //add images to addons one by one if any
-    if(mediaObj.imageArr){
+    if(mediaObj.imageArr.length > 0){
         console.log('there is image');
         mediaObj.imageArr.map(function(eachImage){
             addons.push({type:'images',fileId:eachImage});
@@ -262,7 +262,7 @@ Template.SendMessage.events({
     }
  
     //add documents to addons one by one if any
-    if(mediaObj.documentArr){
+    if(mediaObj.documentArr.length > 0){
         console.log('there is doc');
         mediaObj.documentArr.map(function(eachDocument){
             addons.push({type:'documents',fileId:eachDocument});
@@ -270,7 +270,7 @@ Template.SendMessage.events({
     }
  
     //add voice to addons one by one if any
-    if(mediaObj.soundArr){
+    if(mediaObj.soundArr.length > 0){
         console.log('there is voice');
         mediaObj.soundArr.map(function(eachDocument){
             addons.push({type:'voice',fileId:eachDocument});
@@ -278,11 +278,19 @@ Template.SendMessage.events({
     }
     
     //add calendar to addons one by one if any
-    if(mediaObj.calendarEvent){
+    if(mediaObj.calendarEvent.eventName && mediaObj.calendarEvent.eventName != ""){
         console.log('there is calendar');
         
-        //TBD
-        //addons.push({type:'calendar',??});
+        console.log(mediaObj.calendarEvent);
+        addons.push(
+            {
+                type:'calendar',
+                eventName: mediaObj.calendarEvent.eventName,
+                location:  mediaObj.calendarEvent.location,
+                startDate: mediaObj.calendarEvent.startDate ,
+                endDate:   mediaObj.calendarEvent.endDate
+            }
+        );
         
     }
  

@@ -16,7 +16,7 @@ Package.onUse(function(api) {
   api.use('smartix:utilities');
   api.use('aldeed:simple-schema');
   api.use('smartix:core');
-  api.use('smartix:messages-addons-files');
+  api.use('smartix:messages-addons-documents');
   api.use('smartix:messages-addons-images');   
   api.use('smartix:messages-addons-calendar');      
   api.use('smartix:messages-addons-poll'); 

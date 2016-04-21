@@ -15,6 +15,9 @@ Smartix.Messages.Addons.Poll.Type = 'poll';
 Smartix.Messages.Addons.ValidTypes = _.union(Smartix.Messages.Addons.ValidTypes, [Smartix.Messages.Addons.Poll.Type]);
 
 Smartix.Messages.Addons.Poll.Schema = new SimpleSchema([Smartix.Messages.Addons.Schema, {
+    type:{
+        type:String
+    },    
     options: {
         type: [String]
     },

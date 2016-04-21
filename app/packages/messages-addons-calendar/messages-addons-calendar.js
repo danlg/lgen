@@ -12,7 +12,10 @@ Smartix.Messages.Addons.Calendar.Type = 'calendar';
 
 Smartix.Messages.Addons.ValidTypes.push(Smartix.Messages.Addons.Calendar.Type);
 
-Smartix.Messages.Addons.Calendar.Schema = new SimpleSchema([Smartix.Messages.Addons.Schema, {
+Smartix.Messages.Addons.Calendar.Schema = new SimpleSchema({
+    type:{
+        type:String
+    },
     eventName: {
         type: String
     },
@@ -23,9 +26,9 @@ Smartix.Messages.Addons.Calendar.Schema = new SimpleSchema([Smartix.Messages.Add
         type: Date
     },
     endDate:{
-        type:Date
+        type: Date
     } 
-}]);
+});
 
 Smartix.Messages.Addons.Calendar.updateNewCalendar = function (messageId, CalendarObj) {
     // Update the message

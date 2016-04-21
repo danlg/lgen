@@ -15,7 +15,7 @@ Smartix.Messages.ValidTypes.push('text');
 
 Smartix.Messages.Text = Smartix.Messages.Text || {};
 
-console.log('Smartix.Messages.Schema@message-text',Smartix.Messages.Schema);
+//console.log('Smartix.Messages.Schema@message-text',Smartix.Messages.Schema);
 Smartix.Messages.Text.Schema = new SimpleSchema([Smartix.Messages.Schema, {
     "data.text": {
         type: String
