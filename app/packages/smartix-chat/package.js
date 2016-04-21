@@ -53,7 +53,7 @@ Package.onUse(function(api) {
                    'components/chat_room/chat_room.events.js',
                    'components/chat_room/chat_room.helpers.js',
                    'components/chat_room/chat_room.lifecycles.js',
-                   'components/chat_room/chat_room_message_sender.js',
+                   
                    ],'client');
                    
      api.addFiles(['components/chat_room_information/chat_room_information.html',
@@ -74,5 +74,5 @@ Package.onUse(function(api) {
      api.export('Smartix');                                    
      api.export('Chat');
      api.export('Schema');
-     api.export('ChatRoomMessageSender');
+
 });

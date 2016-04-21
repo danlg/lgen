@@ -221,7 +221,12 @@ Template.SendMessage.events({
     log.info(target);
     var msg = $(".msgBox").val();
     
-    Meteor.call('smartix:messages/createMessage',target[0],'text',{content:msg});
+    
+    GeneralMessageSender(target[0],'text',msg)
+    //Meteor.call('smartix:messages/createMessage',target[0],'text',{content:msg});
+    
+    
+    
     
     return;
     

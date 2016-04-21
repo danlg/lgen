@@ -1,6 +1,8 @@
-ChatRoomMessageSender = function(chatRoomId,messageType,messageText,messageAttachmentObject,targetUsers,callback){
-
-    var targetUsersIds = lodash.map(targetUsers, '_id');
+GeneralMessageSender = function(groupId,messageType,messageText,addons,targetUsers,callback){
+    
+    //e.g each addons :
+    //{type:messageType,fileId:messageAttachmentObject._id}
+    /*var targetUsersIds = lodash.map(targetUsers, '_id');
     var pushObj = {
         from:  Meteor.userId(),
         sendAt: moment().format('x'),
@@ -16,23 +18,25 @@ ChatRoomMessageSender = function(chatRoomId,messageType,messageText,messageAttac
         pushObj.image = messageAttachmentObject._id
     } else if (messageType =='documents') {
         pushObj.document = messageAttachmentObject._id
-    }
+    }*/
 
     addons = [];
-    if(messageType == 'voice' || messageType == 'images' || messageType == 'documents'){
+    /*if(messageType == 'voice' || messageType == 'images' || messageType == 'documents'){
         addons.push({type:messageType,fileId:messageAttachmentObject._id});
         messageType = "text";
-    }
+    }*/
 
     console.log(messageType);
-    Meteor.call('smartix:messages/createMessage',chatRoomId,messageType,{content:messageText},
-                addons
-               );
+    if(messageType == 'text'){
+        Meteor.call('smartix:messages/createMessage',groupId,messageType,{content:messageText},
+                    addons
+                );
+    }
 
     
     //add message to chat collection
-    /*Meteor.call("chat/sendImage", chatRoomId, pushObj, function (error, result) {
-        //log.info(chatRoomId);
+    /*Meteor.call("chat/sendImage", groupId, pushObj, function (error, result) {
+        //log.info(groupId);
         if (error) {
                 log.error("error", error);
         }
@@ -49,7 +53,7 @@ ChatRoomMessageSender = function(chatRoomId,messageType,messageText,messageAttac
                 eventType:"newchatroommessage",
                 userId: eachTargetUser._id,
                 hasRead: false,
-                chatroomId: chatRoomId,
+                groupId: groupId,
                 messageCreateTimestamp: result.createdAt,
                 messageCreateTimestampUnixTime: result.sendAt,
                 messageCreateByUserId: Meteor.userId()
@@ -63,13 +67,13 @@ ChatRoomMessageSender = function(chatRoomId,messageType,messageText,messageAttac
                     payload:{
                         sound: 'Hello World',
                         type: 'chat',
-                        chatRoomId: chatRoomId
+                        groupId: groupId
                     },
                     query:{userId:eachTargetUser._id},
                     badge: Smartix.helpers.getTotalUnreadNotificationCount(eachTargetUser._id)
                 };
                 Meteor.call("serverNotification", notificationObj,{
-                    chatRoomId: chatRoomId
+                    groupId: groupId
                 });             
                 
             });
