@@ -13,9 +13,11 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
   api.use('ecmascript');
+  api.use('templating');
   api.use('stevezhu:lodash@4.6.1');
   api.use('smartix:core');
-  api.addFiles('utilities.js');
+  api.addFiles('lib/utilities.js', ['client', 'server']);
+  api.addFiles('client/helpers.js', 'client');
   api.export('Smartix');
 });
 
