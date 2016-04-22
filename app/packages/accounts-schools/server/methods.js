@@ -44,8 +44,9 @@ if(Meteor.isServer){
             Roles.setUserRoles(users, roles, school);  
         },     
         'smartix:accounts-schools/approveSchool': function(schoolId){
+            //console.log(this.userId(),schoolId);
             return Meteor.users.update({
-                _id: this.userId()
+                _id: this.userId
             }, {
                 $addToSet: {
                     schools: schoolId
@@ -54,7 +55,7 @@ if(Meteor.isServer){
         }, 
         'smartix:accounts-schools/revokeSchool':function(schoolId){
             return Meteor.users.update({
-                _id: this.userId()
+                _id: this.userId
             }, {
                 $pull: {
                     schools: schoolId

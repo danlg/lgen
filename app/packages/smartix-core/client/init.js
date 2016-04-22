@@ -144,7 +144,21 @@ Accounts.onResetPasswordLink(function(token, done) {
     Router.go('EmailResetPwd');
 });
 
-Accounts.onLogin(function(argument) {
+Accounts.onLogin(function() {
+    
+    /** auto approve if only one school **/
+    var currentUser = Meteor.user();
+    //if user does not have any apporved School
+    if (!currentUser.schools) {
+        //and user has exactly one pending school
+        if (Object.keys(Meteor.user().roles).length == 1) {
+            //automactically approve that school
+            console.log('try approve user to the solely pending school');
+            Meteor.call('smartix:accounts-schools/approveSchool', Object.keys(Meteor.user().roles)[0]);
+        }
+    }
+     /** auto approve only one school ends **/
+     
     // analytics.track("Login", {
     //   date: new Date(),
     // });
