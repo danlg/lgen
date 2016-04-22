@@ -11,12 +11,16 @@ Smartix.Accounts.System = Smartix.Accounts.System || {};
 Smartix.Accounts.System.NAMESPACE = 'system';
 Smartix.Accounts.System.VALID_USER_TYPES = ['admin'];
 
-Smartix.Accounts.System.isAdmin = function (userId) {
-    check(userId, String);
+Smartix.Accounts.System.isAdmin = function (currentUser) {
     
-    userId = userId || Meteor.userId();
+    check(currentUser, Match.Maybe(String));
     
-    return Roles.userIsInRole(userId, 'admin', Smartix.Accounts.System.NAMESPACE)
+    // Get the `_id` of the currently-logged in user
+    if(!currentUser === null) {
+        currentUser = currentUser || Meteor.userId();
+    }
+    
+    return Roles.userIsInRole(currentUser, 'admin', Smartix.Accounts.System.NAMESPACE)
 }
 
 Smartix.Accounts.System.canCreateUser = function (types, currentUser) {
