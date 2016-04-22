@@ -83,7 +83,7 @@ Smartix.Chat.canCreateChat = function (namespace, currentUser) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    if(!currentUser === null) {
+    if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
     

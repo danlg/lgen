@@ -45,7 +45,7 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    if(!currentUser === null) {
+    if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
     
@@ -143,7 +143,7 @@ Smartix.Accounts.removeUser = function (userId, namespace, currentUser) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    if(!currentUser === null) {
+    if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
     
@@ -212,7 +212,7 @@ Smartix.Accounts.canEditUser = function (userId, options, currentUser) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    if(!currentUser === null) {
+    if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
     
@@ -251,7 +251,7 @@ Smartix.Accounts.canDeleteUser = function (userId, currentUser) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    if(!currentUser === null) {
+    if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
     
@@ -269,7 +269,7 @@ Smartix.Accounts.getUserInfo = function (id, namespace, currentUser) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    if(!currentUser === null) {
+    if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
     
@@ -308,7 +308,7 @@ Smartix.Accounts.getAllUsersInNamespace = function (namespace, currentUser) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    if(!currentUser === null) {
+    if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
     
@@ -350,7 +350,7 @@ Smartix.Accounts.updateDob = function (dob, currentUser) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    if(!currentUser === null) {
+    if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
     

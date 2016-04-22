@@ -97,7 +97,7 @@ Smartix.Accounts.School.canGetUserInfo = function (userId, namespace, currentUse
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    if(!currentUser === null) {
+    if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
     
@@ -117,7 +117,7 @@ Smartix.Accounts.School.canRemoveUser = function (userId, namespace, currentUser
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    if(!currentUser === null) {
+    if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
     
@@ -136,7 +136,7 @@ Smartix.Accounts.School.isAdmin = function (namespace, currentUser) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    if(!currentUser === null) {
+    if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
     
@@ -154,7 +154,7 @@ Smartix.Accounts.School.isTeacher = function (namespace, currentUser) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    if(!currentUser === null) {
+    if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
     
@@ -196,7 +196,7 @@ Smartix.Accounts.School.canGetBasicInfoOfAllUsers = function (namespace, current
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    if(!currentUser === null) {
+    if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
     
@@ -211,7 +211,7 @@ Smartix.Accounts.School.canGetAllUsers = function (namespace, currentUser) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    if(!currentUser === null) {
+    if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
     
@@ -227,7 +227,7 @@ hasPermission = Smartix.Accounts.School.canGetUserInfo = function (userId, names
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    if(!currentUser === null) {
+    if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
     

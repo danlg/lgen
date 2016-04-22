@@ -34,7 +34,7 @@ Smartix.Accounts.Global.canGetUserInfo = function (userId, currentUser) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    if(!currentUser === null) {
+    if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
     
@@ -55,7 +55,7 @@ Smartix.Accounts.Global.isAdmin = function (currentUser) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    if(!currentUser === null) {
+    if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
     
@@ -72,7 +72,7 @@ Smartix.Accounts.Global.userHasApproved = function (userId) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    if(!currentUser === null) {
+    if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
     
@@ -95,7 +95,7 @@ Smartix.Accounts.Global.canGetBasicInfoOfAllUsers = function (currentUser) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    if(!currentUser === null) {
+    if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
     
@@ -108,7 +108,7 @@ Smartix.Accounts.Global.canGetAllUsers = function (currentUser) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    if(!currentUser === null) {
+    if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
     
@@ -122,7 +122,7 @@ Smartix.Accounts.Global.canGetUserInfo = function (userId, currentUser) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    if(!currentUser === null) {
+    if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
     

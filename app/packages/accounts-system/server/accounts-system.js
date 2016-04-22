@@ -16,7 +16,7 @@ Smartix.Accounts.System.isAdmin = function (currentUser) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    if(!currentUser === null) {
+    if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
     
@@ -47,7 +47,7 @@ Smartix.Accounts.System.canRemoveUser = function (userId, currentUser) {
     check(currentUser, String);
     
     // Get the `_id` of the currently-logged in user
-    if(!currentUser === null) {
+    if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
     
@@ -63,7 +63,7 @@ Smartix.Accounts.System.canGetUserInfo = function (userId, currentUser) {
     check(currentUser, String);
     
     // Get the `_id` of the currently-logged in user
-    if(!currentUser === null) {
+    if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
     
@@ -80,7 +80,7 @@ Smartix.Accounts.System.canGetBasicInfoOfAllUsers = function (currentUser) {
     check(currentUser, String);
     
     // Get the `_id` of the currently-logged in user
-    if(!currentUser === null) {
+    if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
     
@@ -93,7 +93,7 @@ Smartix.Accounts.System.canGetAllUsers = function (currentUser) {
     check(currentUser, String);
     
     // Get the `_id` of the currently-logged in user
-    if(!currentUser === null) {
+    if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
     
@@ -106,7 +106,7 @@ Smartix.Accounts.System.canGetUserInfo = function (userId, currentUser) {
     check(currentUser, String);
     
     // Get the `_id` of the currently-logged in user
-    if(!currentUser === null) {
+    if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
     
