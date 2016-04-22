@@ -332,14 +332,15 @@ Smartix.Accounts.getAllUsersInNamespace = function (namespace, currentUser) {
     }
     
     if(hasPermission) {
-        return Meteor.users.find({
-            _id: {
-                schools: namespace,
-                "roles[namespace].0": {
-                    $exists: true
-                }
-            }
-        });
+        var meteorQuery = {};
+        
+        meteorQuery.schools = namespace;
+        var tempRoles = "roles." + namespace + '.0';
+        meteorQuery[tempRoles] = {
+            $exists: true
+        }
+        return Meteor.users.find(meteorQuery);
+        
         // return Roles.getUsersInRole(['user', 'admin', 'student', 'teacher', 'parent'], namespace);
     } else {
         return false;
