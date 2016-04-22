@@ -87,7 +87,7 @@ Smartix.Accounts.School.canCreateUser = function (namespace, types, currentUser)
     }));
     
     // Only admin users can create other users
-    return Smartix.Accounts.School.isAdmin (namespace, currentUser);
+    return Smartix.Accounts.School.isAdmin(namespace, currentUser);
 }
 
 Smartix.Accounts.School.canGetUserInfo = function (userId, namespace, currentUser) {
