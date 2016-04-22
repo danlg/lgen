@@ -46,7 +46,7 @@ Meteor.methods({
                                                                                                   
         classObj.namespace = schoolDoc._id;                                                       
     }                                                                                           
-    return Smartix.Class.createClass(classObj);       
+    return Smartix.Class.createClass(classObj, this.userId);       
   }
      
 });
