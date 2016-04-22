@@ -121,6 +121,8 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
             Accounts.sendEnrollmentEmail(newUserId);
         } catch(e) {
             console.log(e);
+            // Temporary (to be removed once email credentials go into production)
+            Accounts.setPassword(newUserId, 'password', {logout: false});
         }
         userToAddRoleTo = newUserId;
     } else {

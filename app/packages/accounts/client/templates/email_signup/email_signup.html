@@ -20,14 +20,6 @@
     </button>      
       <div style='width:100%;text-align:center;'>{{_ "OR"}}</div> 
       <div class="list">
-        <label class="item item-input">
-            {{_ "YouAre"}}
-            <div class="row" style='text-align:center;'>
-                <div data-role='Teacher' class="role-selection col "><i class="icon ion-paintbrush"></i><br/>{{_ "Teacher"}}</div>
-                <div data-role='Student' class="role-selection col "><i class="icon ion-university"></i><br/>{{_ "Student"}}</div>
-                <div data-role='Parent' class="role-selection col  "><i class="icon ion-person"></i><br/>{{_ "Parent"}}</div>
-            </div>                        
-        </label>           
         <div class="">
           <label class="item item-input">
             <input type="text" placeholder="{{_ "firstname" }}" class="fn" required>
@@ -51,16 +43,6 @@
             <input type="date" placeholder="{{_ "DateOfBirth"}}" class="dob" id="dobInput" value="">
         </label>
         </div>
-        <div class="">
-          <label class="item item-input">
-            <input type="password" placeholder="{{_ "password" }}" class="pwd" required>
-          </label>
-        </div>
-        <!-- <div class="">
-          <label class="item item-input">
-                <input type="text" placeholder="Confirm Password">
-          </label>
-        </div> -->
         <button class="button button-full button-positive createBtn">
         {{_ "SignUp"}}
         </button>          
