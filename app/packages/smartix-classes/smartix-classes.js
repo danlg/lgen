@@ -134,7 +134,9 @@ Smartix.Class.canCreateClass = function (namespace, currentUser) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    currentUser = currentUser || Meteor.userId();
+    if(!currentUser === null) {
+        currentUser = currentUser || Meteor.userId();
+    }
     
     var userToBeChecked = currentUser || Meteor.userId();
     return Smartix.Accounts.School.isTeacher(namespace, currentUser)
