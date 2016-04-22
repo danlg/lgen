@@ -121,7 +121,7 @@ Smartix.newClassMailTemplate = function (to, classname, classCode) {
 Smartix.testMail = function (to, classname) {
 
   var date = new Date();
-  var email = "dan@littlegenius.io";
+  var email = "dan@gosmartix.com";
 
   return {
     "message": {

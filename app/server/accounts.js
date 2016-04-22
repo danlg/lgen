@@ -38,6 +38,7 @@
 
 
 
+Accounts.emailTemplates.from = "Smartix <contactemail@gosmartix.com>";
 
 Accounts.emailTemplates.verifyEmail = {
   html: function (user, url) {
@@ -46,10 +47,6 @@ Accounts.emailTemplates.verifyEmail = {
 
   , siteName: function () {
     return "Smartix";
-  }
-
-  , from:function() {
-    return "Smartix <contactemail@littlegenius.io>";
   }
 
   , subject:function(user) {
@@ -66,10 +63,6 @@ Accounts.emailTemplates.resetPassword ={
 
   , siteName: function () {
     return "Smartix";
-  }
-
-  , from:function() {
-    return "Smartix <contactemail@littlegenius.io>";
   }
 
   , subject:function(user) {

@@ -36,7 +36,7 @@ Meteor.methods({
   },
 
   feedback: function (content) {
-    // feedback@littlegenius.io
+    // feedback@gosmartix.com
     try {
       Mandrill.messages.send(Smartix.feedback(content));
     }
