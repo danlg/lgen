@@ -1,14 +1,22 @@
 Template.AdminClassesView.onCreated(function () {
     var self = this;
-    self.subscribe('smartix:classes/classByClassCode', Router.current().params.classCode, function (error, res) {
-        if(!error) {
-            var classData = Smartix.Groups.Collection.findOne({
-                classCode: Router.current().params.classCode,
-                type: 'class'
-            });
-            self.subscribe('smartix:messages/groupMessages', classData._id);
-        }
-    });
+    if(Router.current()
+    && Router.current().params
+    && Router.current().params.classCode) {
+        var currentClassCode = Router.current().params.classCode;
+        self.subscribe('smartix:classes/classByClassCode', currentClassCode, function (error, res) {
+            if(!error) {
+                var classData = Smartix.Groups.Collection.findOne({
+                    classCode: currentClassCode,
+                    type: 'class'
+                });
+                
+                if(classData && classData._id) {
+                    self.subscribe('smartix:messages/groupMessages', classData._id);
+                }
+            }
+        });
+    }
 });
 
 Template.AdminClassesView.helpers({
@@ -33,7 +41,7 @@ Template.AdminClassesView.helpers({
                 classCode: Router.current().params.classCode,
                 type: 'class'
             });
-            if(classData) {
+            if(classData && classData._id) {
                 return Smartix.Messages.Collection.find({
                     group: classData._id
                 });
