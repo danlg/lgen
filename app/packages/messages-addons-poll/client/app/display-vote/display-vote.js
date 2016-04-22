@@ -1,4 +1,16 @@
-Template.VoteChange.helpers({
+Template.AppDisplayVote.helpers({
+  isNotEmpty: function (votes) {
+    return votes.length > 0;
+  },
+  optionShouldBeDisplayedEvenIfNoVote: function(voteType){
+      if(voteType == "checkedStarCloseHelp" || voteType == "abcd"){
+          return false;
+      }else if(voteType == "checkedClose"){
+          return true;
+      }else{
+          return true;
+      }
+  },
   tryShowVoteOptionIcon : function(voteType,voteOption){
       var voteCountObj = {voteOptionText : voteOption};
       if(voteType == "checkedStarCloseHelp"){     
@@ -52,9 +64,5 @@ Template.VoteChange.helpers({
       }
       
       return voteCountObj;
-  },isSelectAction: function (action) {
-    if(action) 
-    return lodash.includes(action, Meteor.userId()) ? "colored current-vote-option" : "other-vote-option";
-  
-  }   
+  }    
 });

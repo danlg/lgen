@@ -1,21 +1,17 @@
-<template name='VoteChange'>
+<template name='AppChangeVote'>
     {{#each vote.voteOptions}}
-        <a class="tab-item" data-msgId={{../messageId}}  data-action="{{voteOption}}" href="#">
+    <a class="tab-item" data-msgId={{../messageId}} data-action="{{voteOption}}" href="#">
             {{#with tryShowVoteOptionIcon ../vote.voteType voteOption}}
                 {{#if this.ionicIcon}}
                     <i class="emojicon e1a-2x {{this.ionicIcon}} {{isSelectAction ../votes}}"></i>
                 {{else}}
-                 
                       {{#if isSelectAction ../votes}}
                       <span style='font-size:x-large;'> <b>{{this.voteOptionText}}</b></span>
                       {{else}}
                         <span style='font-size:x-large;'>{{this.voteOptionText}}</span>
                       {{/if}}
-
-                    
                 {{/if}}
             {{/with}}
-        </a>                                                        
-    {{/each }}    
-       
+        </a>
+    {{/each }}
 </template>
