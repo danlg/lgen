@@ -14,6 +14,9 @@
 
   {{#ionView}}
     {{#ionContent}}
+        <div class="item item-divider">
+           General Account
+        </div>       
         {{#if inGlobal}}
             <div class="card school-card " data-school-id='global'>
                 <div class="item item-icon-left">
@@ -22,10 +25,13 @@
                 </div>           
             </div>        
         {{/if}}
-        
+
+        <div class="item item-divider">
+           Approved Schools
+        </div>           
         {{#each schools}}
             {{#if active}}
-                <div class="card school-card" data-school-id='{{_id}}'>
+                <div class="card school-card" data-school-id='{{_id}}' data-school-approved='true'>
                     
                     <div class="item item-avatar">
                         {{#with getSchoolLogo}}
@@ -35,11 +41,18 @@
                     </div>
                     
                 </div>
-            {{/if}}  
+            {{/if}}
+        {{else}}
+           No approved school.
+         
         {{/each}}
+        
+        <div class="item item-divider">
+           Pending Schools
+        </div>        
         {{#each pendingSchools}}
             {{#if active}}
-                <div class="card school-card" data-school-id='{{_id}}'>
+                <div class="card school-card" data-school-id='{{_id}}' data-school-approved='false'>
                     
                     <div class="item item-avatar">
                         {{#with getSchoolLogo}}
@@ -49,7 +62,9 @@
                     </div>
                     
                 </div>
-            {{/if}}  
+            {{/if}}
+        {{else}}
+           No pending school.
         {{/each}}        
     {{/ionContent}}
   {{/ionView}}
