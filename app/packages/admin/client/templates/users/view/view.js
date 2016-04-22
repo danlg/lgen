@@ -2,9 +2,9 @@ Template.AdminUsersView.onCreated(function () {
     var self = this;
     var schoolUsername = Router.current().params.school;
     self.subscribe('schoolInfo', schoolUsername, function () {
-        this.subscribe('smartix:accounts/getUserInNamespace', schoolUsername, Router.current().params.uid);
+        self.subscribe('smartix:accounts/getUserInNamespace', schoolUsername, Router.current().params.uid);
     });
-    this.subscribe('mySchools');
+    self.subscribe('mySchools');
 });
 
 Template.AdminUsersView.helpers({
@@ -23,15 +23,23 @@ Template.AdminUsersView.helpers({
             username: Router.current().params.school
         });
         
+        var schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(Router.current().params.school);
+        
         // return Meteor.users.findOne({
         //     _id: Router.current().params.uid
         // }, {
         //     fields: roles
         // }).roles[schoolDoc._id].toString();
         
-        return Meteor.users.findOne({
+        var user = Meteor.users.findOne({
             _id: Router.current().params.uid
-        }).roles[Router.current().params.school].toString();
+        });
+        
+        if(user && user.roles[schoolNamespace]) {
+            return user.roles[schoolNamespace].toString()
+        } else {
+            return false;
+        }
     }
 
 });

@@ -21,6 +21,7 @@ Package.onUse(function(api) {
     api.use('smartix:core');
     api.use('smartix:groups');
     api.use('emojione:emojione@2.1.3');
+    api.addFiles('lib/messages-addons-poll.js', ['client', 'server']);
     api.addFiles('client/admin/select-poll/reactions/reactions.html', ['client']);
     api.addFiles('client/admin/select-poll/reactions/reactions.js', ['client']);
     api.addFiles('client/admin/change-vote/change-vote.html', ['client']);
