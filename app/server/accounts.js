@@ -37,19 +37,14 @@
 });*/
 
 
-
+Accounts.emailTemplates.sitename = "Smartix";
 Accounts.emailTemplates.from = "Smartix <contactemail@gosmartix.com>";
 
 Accounts.emailTemplates.verifyEmail = {
   html: function (user, url) {
     return Smartix.verificationEmailTemplate(user, url);
-  }
-
-  , siteName: function () {
-    return "Smartix";
-  }
-
-  , subject:function(user) {
+  },
+  subject:function(user) {
     var subjectLang = user.lang || "en";
     var verifyEmailSubject = TAPi18n.__("VerifyEmailSubject", {}, lang_tag= subjectLang);
     return verifyEmailSubject;
@@ -59,13 +54,8 @@ Accounts.emailTemplates.verifyEmail = {
 Accounts.emailTemplates.resetPassword ={
   html: function (user, url) {
     return Smartix.resetPasswordEmailTemplate(user, url);
-  }
-
-  , siteName: function () {
-    return "Smartix";
-  }
-
-  , subject:function(user) {
+  },
+  subject:function(user) {
     var subjectLang = user.lang || "en";
     
     var resetPasswordEmailSubject = TAPi18n.__("ResetPasswordEmailSubject", {}, lang_tag= subjectLang);
