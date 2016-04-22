@@ -77,8 +77,12 @@ Smartix.helpers.spawnDesktopNotification = function(theBody,theIcon,theTitle,pat
         });
         }
         
-        var userNamespaceCount = Object.keys(Meteor.user().roles).length;
-        if(userNamespaceCount == 1){
+        var userNamespaceCount;
+        if(Meteor.user() && Meteor.user().roles) {
+            // Get the keys (namespace) from the `roles` object
+            userNamespaceCount = Object.keys(Meteor.user().roles).length;
+        }
+        if(userNamespaceCount === 1){
             var userNamespace = Object.keys(Meteor.user().roles)[0];
             if(userNamespace != 'system' && userNamespace != 'global'){ 
                 Meteor.call('smartix:schools/getSchoolName', userNamespace, function (err, result) {           
@@ -93,8 +97,7 @@ Smartix.helpers.spawnDesktopNotification = function(theBody,theIcon,theTitle,pat
             }else{
                 Router.go("TabClasses");
             }
-        }
-        else{
+        } else{
             Router.go("TabClasses");
         }
            
