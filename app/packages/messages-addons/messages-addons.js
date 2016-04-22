@@ -119,6 +119,7 @@ Smartix.Messages.Addons.cleanAndValidate = function (messageId, addon) {
     }));
     
     // Clean the addon object
+    console.log('clean the addon object', Smartix.Utilities.letterCaseToCapitalCase(addon.type));
     Smartix.Messages.Addons[Smartix.Utilities.letterCaseToCapitalCase(addon.type)].Schema.clean(addon);
     
     // Check the addon against the schema

@@ -14,7 +14,7 @@ Smartix.Messages.Addons.Poll.Type = 'poll';
 
 Smartix.Messages.Addons.ValidTypes = _.union(Smartix.Messages.Addons.ValidTypes, [Smartix.Messages.Addons.Poll.Type]);
 
-Smartix.Messages.Addons.Poll.Schema = new SimpleSchema([Smartix.Messages.Addons.Schema, {
+Smartix.Messages.Addons.Poll.Schema = new SimpleSchema({
     type:{
         type:String
     },    
@@ -38,7 +38,7 @@ Smartix.Messages.Addons.Poll.Schema = new SimpleSchema([Smartix.Messages.Addons.
         type: Number,
         optional: true
     }
-}]);
+});
 
 Smartix.Messages.Addons.Poll.canChangeVotes = function (messageId) {
     // Retrieve information about the message
