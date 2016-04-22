@@ -12,6 +12,7 @@ SchoolRequired = function() {
         } else if (userGroups.length == 1) {
             // If user is only belonged to one group only, set pickedSchoolId automatically
             Session.set('pickedSchoolId', userGroups[0]);
+
         } else {
             // if user does not belonged to any group, user still uses an old account that needs update
             // assign user role in global group

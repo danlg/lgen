@@ -1,7 +1,7 @@
 Package.describe({
-  name: 'smartix:schools-overview',
+  name: 'smartix:schools-home',
   version: '0.0.1',
-  summary: 'School Overview in mobile',
+  summary: 'School Home in mobile',
   git: '',
   documentation: 'README.md'
 });

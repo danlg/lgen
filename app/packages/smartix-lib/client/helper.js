@@ -76,7 +76,29 @@ Smartix.helpers.spawnDesktopNotification = function(theBody,theIcon,theTitle,pat
             }
         });
         }
-        Router.go("TabClasses");
+        
+        var userNamespaceCount = Object.keys(Meteor.user().roles).length;
+        if(userNamespaceCount == 1){
+            var userNamespace = Object.keys(Meteor.user().roles)[0];
+            if(userNamespace != 'system' && userNamespace != 'global'){ 
+                Meteor.call('smartix:schools/getSchoolName', userNamespace, function (err, result) {           
+                    if(err){
+                        console.log(err);
+                    }
+                    if (result) {
+                        console.log(result);
+                        Router.go('mobile.school.home', { school: result });
+                    }
+                });                
+            }else{
+                Router.go("TabClasses");
+            }
+        }
+        else{
+            Router.go("TabClasses");
+        }
+           
+        
     };
 
     Smartix.helpers.registerNewUser = function(email, firstName, lastName, password){

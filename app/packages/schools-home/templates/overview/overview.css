@@ -136,25 +136,25 @@
     background-position: center;    
 }
 .card.square-card.bg.bg-news{
-   background-image: url('/packages/smartix_schools-overview/icons/news.svg');
+   background-image: url('/packages/smartix_schools-home/icons/news.svg');
 }
 
 .card.square-card.bg.bg-class{
-   background-image: url('/packages/smartix_schools-overview/icons/class.svg');
+   background-image: url('/packages/smartix_schools-home/icons/class.svg');
 }
 
 .card.square-card.bg.bg-absence{
-   background-image: url('/packages/smartix_schools-overview/icons/attendance-black.svg');
+   background-image: url('/packages/smartix_schools-home/icons/attendance-black.svg');
 }
 
 .card.square-card.bg.bg-calendar{
-   background-image: url('/packages/smartix_schools-overview/icons/calendar.svg');
+   background-image: url('/packages/smartix_schools-home/icons/calendar.svg');
 }
 
 .card.square-card.bg.bg-contact{
-   background-image: url('/packages/smartix_schools-overview/icons/contact.svg');
+   background-image: url('/packages/smartix_schools-home/icons/contact.svg');
 }
 
 .card.square-card.bg.bg-more{
-   background-image: url('/packages/smartix_schools-overview/icons/more.png');
+   background-image: url('/packages/smartix_schools-home/icons/more.png');
 }

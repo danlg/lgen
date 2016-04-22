@@ -41,16 +41,28 @@ Template.SchoolPick.helpers({
     
 });
 
+Template.SchoolPick.onRendered(function () {
+
+});
+
 Template.SchoolPick.events({
     'click .school-card':function(events,template){
        var schoolId = $(events.currentTarget).data("schoolId");
+       var schoolName = $(events.currentTarget).data("schoolUserName");
        var isApproved = $(events.currentTarget).data("schoolApproved");
        
        if(!isApproved){
             Meteor.call('smartix:accounts-schools/approveSchool',schoolId);    
        }
        console.log('schoolid',schoolId);  
+       
        Session.set('pickedSchoolId',schoolId);
-       Router.go('TabClasses');
+       
+       if(schoolId != 'global'){
+           Router.go('mobile.school.home',{school:schoolName});
+       }else{
+           Router.go('TabClasses');
+       }
+      
     }
 })

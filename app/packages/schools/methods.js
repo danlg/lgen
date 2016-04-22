@@ -1,6 +1,17 @@
 if (Meteor.isServer) {
 
     Meteor.methods({
+        'smartix:schools/getSchoolName': function(id) {
+            var targetSchool = SmartixSchoolsCol.findOne(id);
+
+            if (
+                Roles.userIsInRole(Meteor.userId(), 'admin', 'system') ||
+                Roles.userIsInRole(Meteor.userId(), 'admin', id)||
+                Roles.userIsInRole(Meteor.userId(), 'user', id)
+            ) {
+                return targetSchool.username;
+            }
+        },        
         'smartix:schools/getSchoolInfo': function(id) {
             var targetSchool = SmartixSchoolsCol.findOne(id);
 

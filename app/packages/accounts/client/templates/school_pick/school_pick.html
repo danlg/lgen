@@ -31,7 +31,7 @@
         </div>           
         {{#each schools}}
             {{#if active}}
-                <div class="card school-card" data-school-id='{{_id}}' data-school-approved='true'>
+                <div class="card school-card" data-school-user-name='{{username}}' data-school-id='{{_id}}' data-school-approved='true'>
                     
                     <div class="item item-avatar">
                         {{#with getSchoolLogo}}
