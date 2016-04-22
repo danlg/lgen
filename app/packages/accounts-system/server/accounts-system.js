@@ -43,7 +43,9 @@ Smartix.Accounts.System.canRemoveUser = function (userId, currentUser) {
     check(currentUser, String);
     
     // Get the `_id` of the currently-logged in user
-    currentUser = currentUser || Meteor.userId();
+    if(!currentUser === null) {
+        currentUser = currentUser || Meteor.userId();
+    }
     
     // Only if there are more than one admin user
     return Roles.getUsersInRole('admin', 'system').count() > 1
@@ -57,7 +59,9 @@ Smartix.Accounts.System.canGetUserInfo = function (userId, currentUser) {
     check(currentUser, String);
     
     // Get the `_id` of the currently-logged in user
-    currentUser = currentUser || Meteor.userId();
+    if(!currentUser === null) {
+        currentUser = currentUser || Meteor.userId();
+    }
     
     // Return `true` if
     // The user info requested is by the current user
@@ -72,7 +76,9 @@ Smartix.Accounts.System.canGetBasicInfoOfAllUsers = function (currentUser) {
     check(currentUser, String);
     
     // Get the `_id` of the currently-logged in user
-    currentUser = currentUser || Meteor.userId();
+    if(!currentUser === null) {
+        currentUser = currentUser || Meteor.userId();
+    }
     
     // Only system admins can get the list of ALL users in the system namespace
     return Smartix.Accounts.System.isAdmin(currentUser);
@@ -83,7 +89,9 @@ Smartix.Accounts.System.canGetAllUsers = function (currentUser) {
     check(currentUser, String);
     
     // Get the `_id` of the currently-logged in user
-    currentUser = currentUser || Meteor.userId();
+    if(!currentUser === null) {
+        currentUser = currentUser || Meteor.userId();
+    }
     
     // Only system admins can get the list of ALL users in the system namespace
     return Smartix.Accounts.System.isAdmin(currentUser);
@@ -94,7 +102,9 @@ Smartix.Accounts.System.canGetUserInfo = function (userId, currentUser) {
     check(currentUser, String);
     
     // Get the `_id` of the currently-logged in user
-    currentUser = currentUser || Meteor.userId();
+    if(!currentUser === null) {
+        currentUser = currentUser || Meteor.userId();
+    }
     
     // The user themselves, the teacher and admin can get information about that user
     return Smartix.Accounts.System.isAdmin(currentUser)

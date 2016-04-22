@@ -42,10 +42,12 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
     
     check(namespace, String);
     check(types, [String]);
-    check(currentUser, String);
+    check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    currentUser = currentUser || Meteor.userId();
+    if(!currentUser === null) {
+        currentUser = currentUser || Meteor.userId();
+    }
     
     var hasPermission = false;
     
@@ -119,6 +121,8 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
             Accounts.sendEnrollmentEmail(newUserId);
         } catch(e) {
             console.log(e);
+            // Temporary (to be removed once email credentials go into production)
+            Accounts.setPassword(newUserId, 'password', {logout: false});
         }
         userToAddRoleTo = newUserId;
     } else {
@@ -139,7 +143,9 @@ Smartix.Accounts.removeUser = function (userId, namespace, currentUser) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    currentUser = currentUser || Meteor.userId();
+    if(!currentUser === null) {
+        currentUser = currentUser || Meteor.userId();
+    }
     
     // Retrieve the target user
     var targetUser = Meteor.users.findOne({
@@ -206,7 +212,9 @@ Smartix.Accounts.canEditUser = function (userId, options, currentUser) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    currentUser = currentUser || Meteor.userId();
+    if(!currentUser === null) {
+        currentUser = currentUser || Meteor.userId();
+    }
     
     // If the user exists
     return !!currentUser
@@ -243,7 +251,9 @@ Smartix.Accounts.canDeleteUser = function (userId, currentUser) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    currentUser = currentUser || Meteor.userId();
+    if(!currentUser === null) {
+        currentUser = currentUser || Meteor.userId();
+    }
     
     // If the user is the only system administrator, you cannot delete
     return (Smartix.Accounts.System.isAdmin(currentUser) && Roles.getUsersInRole('admin', 'system').count() > 0)
@@ -259,7 +269,9 @@ Smartix.Accounts.getUserInfo = function (id, namespace, currentUser) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    currentUser = currentUser || Meteor.userId();
+    if(!currentUser === null) {
+        currentUser = currentUser || Meteor.userId();
+    }
     
     // Retrieve the target user
     var targetUser = Meteor.users.findOne({
@@ -296,7 +308,9 @@ Smartix.Accounts.getAllUsersInNamespace = function (namespace, currentUser) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    currentUser = currentUser || Meteor.userId();
+    if(!currentUser === null) {
+        currentUser = currentUser || Meteor.userId();
+    }
     
     var hasPermission;
     
@@ -336,7 +350,9 @@ Smartix.Accounts.updateDob = function (dob, currentUser) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    currentUser = currentUser || Meteor.userId();
+    if(!currentUser === null) {
+        currentUser = currentUser || Meteor.userId();
+    }
     
     if(currentUser) {
         return Meteor.users.update({

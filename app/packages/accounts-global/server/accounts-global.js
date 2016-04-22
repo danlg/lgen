@@ -34,7 +34,9 @@ Smartix.Accounts.Global.canGetUserInfo = function (userId, currentUser) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    currentUser = currentUser || Meteor.userId();
+    if(!currentUser === null) {
+        currentUser = currentUser || Meteor.userId();
+    }
     
     // Return `true` if
     // The user info requested is by the current user
@@ -53,7 +55,9 @@ Smartix.Accounts.Global.isAdmin = function (currentUser) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    currentUser = currentUser || Meteor.userId();
+    if(!currentUser === null) {
+        currentUser = currentUser || Meteor.userId();
+    }
     
     // Return `true` if the user is the system administrator
     return Smartix.Accounts.System.isAdmin(currentUser)
@@ -68,7 +72,9 @@ Smartix.Accounts.Global.userHasApproved = function (userId) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    currentUser = currentUser || Meteor.userId();
+    if(!currentUser === null) {
+        currentUser = currentUser || Meteor.userId();
+    }
     
     var userDoc = Meteor.users.findOne({
         _id: currentUser
@@ -89,7 +95,9 @@ Smartix.Accounts.Global.canGetBasicInfoOfAllUsers = function (currentUser) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    currentUser = currentUser || Meteor.userId();
+    if(!currentUser === null) {
+        currentUser = currentUser || Meteor.userId();
+    }
     
     // Only system admins can get the list of ALL users in the system namespace
     return Smartix.Accounts.System.isAdmin(currentUser);
@@ -100,7 +108,9 @@ Smartix.Accounts.Global.canGetAllUsers = function (currentUser) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    currentUser = currentUser || Meteor.userId();
+    if(!currentUser === null) {
+        currentUser = currentUser || Meteor.userId();
+    }
     
     // Only system admins can get the list of ALL users in the system namespace
     return Smartix.Accounts.System.isAdmin(currentUser);
@@ -112,7 +122,9 @@ Smartix.Accounts.Global.canGetUserInfo = function (userId, currentUser) {
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
-    currentUser = currentUser || Meteor.userId();
+    if(!currentUser === null) {
+        currentUser = currentUser || Meteor.userId();
+    }
     
     // Only system admins can get information about others in the system namespace
     return Smartix.Accounts.System.isAdmin(currentUser);
