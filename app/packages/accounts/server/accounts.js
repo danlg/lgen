@@ -111,6 +111,8 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
             newUserOptions.tel = options.tel;
         }
         
+        newUserOptions.schools = [namespace];
+        
         Meteor.users.update({
             _id: newUserId
         }, {
