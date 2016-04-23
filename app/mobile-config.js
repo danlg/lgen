@@ -11,6 +11,8 @@ App.info({
   buildNumber: '100'
 });
 
+//since force ssl is used. https://locahost:* needs to be allowed
+App.accessRule('https://localhost:*');
 
 App.icons({
   //    Asset
@@ -35,7 +37,7 @@ App.icons({
   //1024 x 1024 for all device
 
   // Android
-  'android_ldpi': 'resources/icons/logo-icon-120.png',
+  //'android_ldpi': 'resources/icons/logo-icon-120.png',
   'android_mdpi': 'resources/icons/logo-icon-120.png',
   'android_hdpi': 'resources/icons/logo-icon-120.png',
   'android_xhdpi': 'resources/icons/logo-icon-120.png'
@@ -71,7 +73,7 @@ App.launchScreens({
   //http://stackoverflow.com/questions/13487124/android-splash-screen-sizes-for-ldpi-mdpi-hdpi-xhdpi-displays-eg-1024x76
   // Format : 9-Patch PNG (recommended)
 
-  'android_ldpi_portrait': 'resources/android/logo-splash-android_ldpi_portrait-200x320.png', //200x320px
+  //'android_ldpi_portrait': 'resources/android/logo-splash-android_ldpi_portrait-200x320.png', //200x320px
   //'android_ldpi_landscape': 'resources/splash/android_ldpi_landscape.png',//320x200px
   'android_mdpi_portrait': 'resources/android/logo-splash-android_mdpi_portrait-320x480.png',//320x480px
   //'android_mdpi_landscape': 'resources/splash/android_mdpi_landscape.png',//480x320px
