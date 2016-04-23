@@ -148,11 +148,8 @@
                             {{else}}
                                 {{> LoadingSpinner}}
                             {{/if}}                               
-                    {{/with}}                      
-                    {{/each}}
-                    
-                    {{#if isSound}}
-                    {{#with getSound}}
+                    {{/with}}
+                    {{#with FS.GetFile "sounds" fileId}}  
                         {{#if this.isUploaded}}
                         {{#if this.hasStored 'sounds'}}
                             {{#if  this.url}}
@@ -194,8 +191,12 @@
                             {{/if}}
                         {{/if}}
                         {{/if}}
-                    {{/with}}
-                    {{/if}}
+                    {{/with}}                                          
+                    {{/each}} 
+                    
+                    
+
+                    
                 </div>        
         
            {{/each}}

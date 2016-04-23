@@ -84,8 +84,7 @@
                         
                     </div>
                     <div>
-                        {{#if haveSound}}
-                        {{#each soundArr}}
+                        {{#each attachVoices}}                      
                             {{#with getSound}}
                             {{#if this.isUploaded}}
                                 {{#if this.hasStored 'sounds'}}                           
@@ -108,7 +107,6 @@
                             {{/if}}
                             {{/with}}
                         {{/each}}
-                        {{/if}}
                     </div>
                     <div>
                         

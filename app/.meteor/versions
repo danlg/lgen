@@ -180,6 +180,7 @@ smartix:messages-addons-comment@0.0.1
 smartix:messages-addons-documents@0.0.1
 smartix:messages-addons-images@0.0.1
 smartix:messages-addons-poll@0.0.1
+smartix:messages-addons-voice@0.0.1
 smartix:messages-article@0.0.1
 smartix:messages-schema@0.0.1
 smartix:messages-text@0.0.1

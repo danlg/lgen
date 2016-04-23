@@ -158,8 +158,9 @@ Template.ClassPanel.helpers({
     var id = this.toString();
     return Images.findOne(id);
   },
-  haveSound: function () {
-    //return this.soundArr.length > 0;
+  attachVoices: function () {
+    var voiceObjects =lodash.filter(this.addons, function(addon) { return addon.type =='voice'; });
+    return lodash.map(voiceObjects,'fileId');
   },
   getSound: function () {
     var id = this.toString();
