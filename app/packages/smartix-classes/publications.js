@@ -102,13 +102,19 @@ Meteor.publish('smartix:classes/adminsOfJoinedClasses', function (schoolName) {
         var schoolDoc = SmartixSchoolsCol.findOne({
             username: schoolName
         });
-        
-        if(schoolDoc){
+
+        if(schoolName =='global'){
+                joinedClasses = Smartix.Groups.Collection.find({
+                    users: this.userId,
+                    namespace: schoolName
+                }).fetch();                
+        }else{
             joinedClasses = Smartix.Groups.Collection.find({
                 users: this.userId,
                 namespace: schoolDoc._id
-            }).fetch();             
-        }
+            }).fetch();            
+        }         
+
          
     }else{
         joinedClasses = Smartix.Groups.Collection.find({
