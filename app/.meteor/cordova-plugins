@@ -6,11 +6,12 @@ cordova-plugin-contacts@2.0.1
 cordova-plugin-device@1.1.1
 cordova-plugin-dialogs@1.2.0
 cordova-plugin-filepath@1.0.2
-cordova-plugin-globalization@1.0.1
+cordova-plugin-globalization@1.0.3
 cordova-plugin-media@https://github.com/mike623/cordova-plugin-media.git#d0b118a007aa746e515f134d292c4ffb256345bb
-cordova-plugin-vibration@1.2.0
+cordova-plugin-vibration@2.1.0
 cordova-plugin-x-socialsharing@5.0.11
 cordova-plugin-splashscreen@3.2.1
 de.appplant.cordova.plugin.local-notification@0.8.4
 cordova-plugin-actionsheet@2.2.2
 cordova-plugin-calendar@4.4.7
+cordova-plugin-file@4.2.0
