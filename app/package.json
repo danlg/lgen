@@ -21,8 +21,8 @@
     
     "android-local": "rm -rf .meteor/local && meteor run android --settings ../config/dev/settings.json --mobile-server=http://10.0.2.2:3000",   
     "android": "meteor run android --settings ../config/stage/settings.json --mobile-server=https://uat.gosmartix.com",
-    "android-device": "meteor run android-device --settings ../config/stage/settings.json --mobile-server=https://uat.gosmartix.com",
-
+    "android-device-uat": "meteor run android-device --settings ../config/stage/settings.json --mobile-server=https://uat.gosmartix.com",
+    "android-device-local": "meteor run android-device  --mobile-server=http://LOCAL_COMPUTER_IP:3000",
     "local" : "meteor --settings ../config/dev/settings.json",
 
     "localdev" : "meteor -v --settings ../config/dev/settings.json",
