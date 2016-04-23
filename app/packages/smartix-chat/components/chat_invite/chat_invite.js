@@ -75,7 +75,12 @@ Template.ChatInvite.helpers({
 /* ChatInvite: Lifecycle Hooks */
 /*****************************************************************************/
 Template.ChatInvite.created = function () {
+    
+      //NB: in master_layout. there is a allUsersWhoHaveJoinedYourClasses sub
+      
       this.subscribe('allSchoolUsersPerRole', Router.current().params.school );
+      this.subscribe('smartix:classes/adminsOfJoinedClasses', Router.current().params.school );
+      
 };
 
 Template.ChatInvite.rendered = function () {

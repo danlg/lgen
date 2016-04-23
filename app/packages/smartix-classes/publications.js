@@ -93,11 +93,31 @@ Meteor.publish('smartix:classes/allUsersWhoHaveJoinedYourClasses', function () {
 });
 
 // Return a cursor of all admins of classes you have joined
-Meteor.publish('smartix:classes/adminsOfJoinedClasses', function () {
-    var joinedClasses = Smartix.Groups.Collection.find({
-        users: this.userId
-    }).fetch();
-
+Meteor.publish('smartix:classes/adminsOfJoinedClasses', function (schoolName) {
+    
+    
+    var joinedClasses;
+    
+    if(schoolName){
+        var schoolDoc = SmartixSchoolsCol.findOne({
+            username: schoolName
+        });
+        
+        if(schoolDoc){
+            joinedClasses = Smartix.Groups.Collection.find({
+                users: this.userId,
+                namespace: schoolDoc._id
+            }).fetch();             
+        }
+         
+    }else{
+        joinedClasses = Smartix.Groups.Collection.find({
+            users: this.userId
+        }).fetch();        
+    }
+    
+    
+    //console.log('adminsOfJoinedClasses:joinedClasses',joinedClasses);
 
     // Extract all the users from the `users` property
     // from all classes into another array  
@@ -106,7 +126,7 @@ Meteor.publish('smartix:classes/adminsOfJoinedClasses', function () {
     // Returns a cursor of all users in the `admins` array
     return Meteor.users.find({ 
         _id: {
-            $in: joinedClasses 
+            $in: admins 
         }
     });
 });
