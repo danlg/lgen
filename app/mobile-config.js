@@ -6,47 +6,31 @@ App.info({
   author: 'Little Genius Education',
   email: 'contact@gosmartix.com',
   website: 'https://app.gosmartix.com',
-  //todo sync this with config.xml
   version: '1.0.600000',
   buildNumber: '100'
 });
 
-//since force ssl is used. https://locahost:* needs to be allowed
+//since force ssl is used. https://localhost:* needs to be allowed
 App.accessRule('https://localhost:*');
 
 App.icons({
-  //    Asset
-  // App icon (required for all apps)
-  // @1x: iPad 2 and iPad mini icon: 76 x 76
-  // 'ipad': 'resources/ios/Icon-72.png',
-  'ipad': 'resources/icons/logo-icon-76.png',
-  // @2x: iPad and iPad mini icon: 152 x 152//'ipad_2x': 'resources/ios/Icon-72@2x.png'
-  'ipad_2x': 'resources/icons/logo-icon-152.png',
-
-  'iphone': 'resources/icons/logo-icon-60.png',
-
-  // 'iphone_2x': 'resources/ios/Icon@2x.png',
-  // iPhone_2x: iPhone 4s, iPhone 5,6 : 120 x 120
+    
+  // iOS
   'iphone_2x': 'resources/icons/logo-icon-120.png',
-
-  //iPhone_3x: iPhone 6 Plus : 180 x 180
-  //'iphone_3x': 'resources/ios/Icon@2x.png',
+  'ipad': 'resources/icons/logo-icon-76.png',
+  'ipad_2x': 'resources/icons/logo-icon-152.png',
   'iphone_3x': 'resources/icons/logo-icon-180.png',
-
-  //App icon for the App Store (required for all apps)
-  //1024 x 1024 for all device
-
   // Android
-  //'android_ldpi': 'resources/icons/logo-icon-120.png',
   'android_mdpi': 'resources/icons/logo-icon-120.png',
   'android_hdpi': 'resources/icons/logo-icon-120.png',
   'android_xhdpi': 'resources/icons/logo-icon-120.png'
+
 });
 
 App.launchScreens({
 
   //IPhone 4(@2x), 640 x 960
-  'iphone': 'resources/ios/logo-litegreen-splash-ip4@2x.png',
+  //'iphone': 'resources/ios/logo-litegreen-splash-ip4@2x.png',
   //'iphone4': 'resources/ios/logo-litegreen-splash-ip4@2x.png',
   //For iPhone 5((@2x)), 640 x 1136
   'iphone_2x': 'resources/ios/logo-litegreen-splash-ip5@2x.png',
