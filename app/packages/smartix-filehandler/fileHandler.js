@@ -151,7 +151,7 @@ Smartix.FileHandler = (function () {
                 // var image = document.getElementById('myImage');
                 // image.src = "data:image/jpeg;base64," + imageData;
                 // alert(imageData);
-                window.resolveLocalFileSystemURI(imageURI,
+                window.resolveLocalFileSystemURL(imageURI,
                     function (fileEntry) {
                         // alert("got image file entry: " + fileEntry.fullPath);
                         // log.info(fileEntry.)
@@ -267,7 +267,7 @@ Smartix.FileHandler = (function () {
                                     if( category == 'chat'){
                                         //handle success depending what you need to do
                                         console.dir(fileObj);
-                                        GeneralMessageSender(Router.current().params.chatRoomId,'documents','New Document',[{type:'documents',fileId: fileObj._id}],
+                                        GeneralMessageSender(Router.current().params.chatRoomId,'text','New Document',[{type:'documents',fileId: fileObj._id}],
                                             Smartix.helpers.getAllUserExceptCurrentUser()
                                         );                                         
                                     }else if (category == 'class'){

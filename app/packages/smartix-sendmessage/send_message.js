@@ -637,7 +637,7 @@ function onSuccess(imageURI) {
 
   log.info("onSuccess");
   // alert(imageData);
-  window.resolveLocalFileSystemURI(imageURI,
+  window.resolveLocalFileSystemURL(imageURI,
     function (fileEntry) {
       // alert("got image file entry: " + fileEntry.fullPath);
 
