@@ -24,6 +24,10 @@ Template.AppLayout.helpers({
                                         .bar.bar-stable .title{
                                             color:${schoolTextColor};
                                         }
+                                        
+                                        .bar.bar-stable i{
+                                            color:${schoolTextColor};
+                                        }                                        
                                     </style>
                 
                                 `;
