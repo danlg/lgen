@@ -51,14 +51,15 @@
           </div>
         {{/ionSideMenu}}
         {{#ionSideMenuContent}}
+        
             {{{customizeTheme}}}  
             {{#unless isActiveRoute regex='language|Login'}}
                 {{> ionNavBar name="smartix"}}
             {{/unless}}
-            {{#ionNavView}}
+            
                 {{> status}}
                 {{> yield}}
-            {{/ionNavView}}
+           
             {{#if isActiveRoute regex='TabChat|TabYou|TabClasses'}}
                 {{> Tabs}}
             {{/if}}
