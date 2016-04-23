@@ -15,7 +15,7 @@ Template.ChatRoom.events({
     var text = $('.inputBox').val();
 
     if(!lodash.isEmpty(text)){
-        GeneralMessageSender(Router.current().params.chatRoomId,'text',text,{},Smartix.helpers.getAllUserExceptCurrentUser(),function(){
+        GeneralMessageSender(Router.current().params.chatRoomId,'text',text,null,Smartix.helpers.getAllUserExceptCurrentUser(),function(){
             
             $('.inputBox').val("");
             sendBtnMediaButtonToggle();
@@ -163,7 +163,7 @@ function onResolveSuccess(fileEntry) {
           "file": "/cfs/files/files/" + fileObj._id
         };
         log.info(fileURL.file);     
-        GeneralMessageSender(Router.current().params.chatRoomId,'voice','New Voice',{_id: fileObj._id},
+        GeneralMessageSender(Router.current().params.chatRoomId,'text','New Voice',[{type:'voice', fileId: fileObj._id}],
             Smartix.helpers.getAllUserExceptCurrentUser()
         );            
       }
