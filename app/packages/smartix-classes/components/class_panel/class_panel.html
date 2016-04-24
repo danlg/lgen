@@ -28,7 +28,10 @@
   {{#contentFor "headerButtonRight"}}
 
     <div style="position: absolute; right: 0;">
-     
+
+      <a href="{{pathFor 'ClassInvitation' classCode=classObj.classCode  }}"
+         class="button button-clear button-entering button-active "><i class="icon ion-android-share-alt"></i></a>
+              
       <a href="{{pathFor 'classEdit' classCode=classObj.classCode  }}"
          class="button button-clear button-entering button-active "><i class="icon ion-ios-information-outline"></i></a>
 
