@@ -51,6 +51,9 @@ Smartix.Class.Schema = new SimpleSchema({
     ageRestricted: {
         type: Boolean
     },
+    anyoneCanChat:{
+        type:Boolean
+    },
     createdAt: {
         type: Date,
         autoValue: function () {
@@ -117,16 +120,20 @@ Smartix.Class.isClassAdmin = function (userId, classId) {
     
     userId = userId || Meteor.userId();
     
-    var queriedClass = Smartix.Groups.Collection.find({
+    var queriedClass = Smartix.Groups.Collection.findOne({
         _id: classId
     });
     
+    console.log('Smartix.Class.isClassAdmin',queriedClass.admins);
     if(Array.isArray(queriedClass.admins)) {
+        
         return queriedClass.admins.indexOf(userId) > -1;
     } else {
+        
         // OPTIONAL: Throw error as `queriedClass.admins` should be an array of strings
+        return false;    
     }
-    return false;
+   
 }
 
 Smartix.Class.canCreateClass = function (namespace, currentUser) {
@@ -176,6 +183,7 @@ Smartix.Class.createClass = function (classObj, currentUser) {
 	newClass.className = classObj.className.trim();
 	newClass.classCode = classObj.classCode.trim();
     newClass.ageRestricted = classObj.ageRestricted;
+    newClass.anyoneCanChat = classObj.anyoneCanChat;
     if(classObj.classAvatar){
         newClass.classAvatar = classObj.classAvatar;
     }
@@ -208,26 +216,36 @@ Smartix.Class.createClass = function (classObj, currentUser) {
 
 Smartix.Class.editClass = function (classId, options) {
 
+    console.log('Smartix.Class.editClass',classId,options);
 	// Checks that `id` is of type String
 	check(classId, String);
 
 	// Checks that `options` is an object
 	check(options, Object);
 	
-	// Checks that currently-logged in user is one of the following:
-    // * Admin for the school (namespace) specified
-    // * One of the admins for the class
-
-	if(Smartix.Class.isClassAdmin(Meteor.userId(), classId)
-        || !Smartix.Accounts.School.isAdmin(namespace)) {
-		return false;
-		// Optional: Throw an appropriate error if not
-	}
-
 	// Get the existing class
 	var existingClass = Smartix.Groups.Collection.findOne({
 		_id: classId
 	});
+    
+    if(!existingClass){
+        return;
+    }    
+	// Checks that currently-logged in user is one of the following:
+    // * Admin for the school (namespace) specified
+    // * One of the admins for the class
+
+	if(!Smartix.Class.isClassAdmin(Meteor.userId(), classId)
+        && !Smartix.Accounts.School.isAdmin(existingClass.namespace)) {
+        
+        console.log('no right to edit class!')
+		return false;
+		// Optional: Throw an appropriate error if not
+	}
+    
+    
+
+
 
 	var updateObj = {};
 
@@ -286,9 +304,25 @@ Smartix.Class.editClass = function (classId, options) {
 		check(options.comments, Boolean);
 		updateObj.comments = options.comments;
 	}
+    
+    if (options.classAvatar){
+        check(options.classAvatar, String);
+        updateObj.classAvatar = options.classAvatar;
+    }
+    
+    if(options.ageRestricted){
+        check(options.ageRestricted, Boolean);
+        updateObj.ageRestricted = options.ageRestricted;
+    }
 
+    if(options.anyoneCanChat){
+        check(options.anyoneCanChat, Boolean);
+        updateObj.anyoneCanChat = options.anyoneCanChat;
+    }
+        
 	// Update the group object using `$set`
-	Smartix.Groups.editGroup(id, updateObj);
+    console.log('Smartix.Groups.editGroup@editClass',updateObj)
+	Smartix.Groups.editGroup(existingClass._id, updateObj);
 }
 
 Smartix.Class.deleteClass = function (id) {

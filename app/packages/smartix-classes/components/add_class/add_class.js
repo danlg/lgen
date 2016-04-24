@@ -117,7 +117,8 @@ Template.ionNavBar.events({
         classCode: $('#classCode').val(),
         admins: [Meteor.userId()],
         classAvatar:$('#classAvatar').val(),
-        ageRestricted:$('#ageRestricted').is(':checked')
+        ageRestricted:$('#ageRestricted').is(':checked'),
+        anyoneCanChat:$('#anyoneCanChat').is(':checked'),
     }
     
     Smartix.Class.Schema.clean(newClassObj);

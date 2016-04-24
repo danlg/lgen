@@ -61,10 +61,10 @@ Smartix.helpers = Smartix.helpers || {};
         var userProfile = Meteor.user().profile;
         var trimlastname;
         if (userProfile) {
-            if (userProfile.lastname.length < requiredCharLength) {
-                trimlastname = userProfile.lastname;
+            if (userProfile.lastName.length < requiredCharLength) {
+                trimlastname = userProfile.lastName;
             } else {
-                trimlastname = userProfile.lastname.substr(0, requiredCharLength);
+                trimlastname = userProfile.lastName.substr(0, requiredCharLength);
             }
         } else {
             trimlastname = "";
