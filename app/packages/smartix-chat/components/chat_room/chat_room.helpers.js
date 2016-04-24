@@ -4,6 +4,9 @@
 /* ChatRoom: Helpers */
 /*****************************************************************************/
 Template.ChatRoom.helpers({
+  getChatRoomId:function(){
+      return Router.current().params.chatRoomId;
+  },
   chatRoomProfile: function () {
         
     var chatMessages = Smartix.Messages.Collection.find({
