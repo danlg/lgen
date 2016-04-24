@@ -178,7 +178,7 @@ var HowToInviteTour = function () {
             type: 'button-positive',
             onTap: function () {
               IonPopup.close();
-              Router.go('HowToInviteShort',{classCode: Classes.findOne().classCode });
+              Router.go('HowToInviteShort',{classCode: Smartix.Groups.Collection.findOne({type:"class"}).classCode });
             }
           },
           {
