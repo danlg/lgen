@@ -54,14 +54,17 @@ Template.AppLayout.helpers({
         var pickSchool = SmartixSchoolsCol.findOne(Session.get('pickedSchoolId'));
         return pickSchool ? pickSchool.username : false;
     },
-    belongToMultiSchool: function() {
-        if (Object.keys(Meteor.user().roles).length > 1) {
-            return true;
-        } else {
-            return false;
+    belongToMultiSchool: function() {     
+        if(Meteor.userId()){
+            if (Object.keys(Meteor.user().roles).length > 1) {
+                return true;
+            } else {
+                return false;
+            }            
         }
     },
     getUserName:function(){
+        if(Meteor.userId())
         return Meteor.user().profile.firstName + " " +Meteor.user().profile.lastName;
     }
 
