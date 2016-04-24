@@ -51,24 +51,23 @@
         <!--{{/if}} -->   
                         
 
-        {{#if chatRoomProfile.chatRoomModerator}}
+        
             <div class="item item-divider">
             {{_ "Moderator"}}
             </div>        
             <div class="item item-icon-left user-item">
-                {{#with getUserById chatRoomProfile.chatRoomModerator}}
-                    {{#if profile.useravatar}}
-                        <i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>
-                    {{else}}
-                        <i class="icon e1a-green_apple e1a-1x emojicon"></i>
-                    {{/if}}
-                {{profile.firstName}} {{profile.lastName}}
-                {{/with}}
-            </div>
-        {{else}}
-            <!--<div class="item">This chat room has no moderator</div>-->        
-        {{/if}}        
+                {{#each chatRoomProfile.admins}}
+                    {{#with getUserById this }}
+                        {{#if profile.useravatar}}
+                            <i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>
+                        {{else}}
+                            <i class="icon e1a-green_apple e1a-1x emojicon"></i>
+                        {{/if}}
+                    {{profile.firstName}} {{profile.lastName}}
+                    {{/with}}                
+                {{/each}}
 
+            </div>
           
         <div class="item item-divider">
           {{_ "In Chat"}}

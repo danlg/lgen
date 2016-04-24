@@ -5,9 +5,9 @@ Meteor.methods({
      
      var chatToBeDeleted = Smartix.Groups.Collection.findOne(chatRoomId);
      //if this chatroom has moderator
-     if(chatToBeDeleted.chatRoomModerator){
+     if(chatToBeDeleted.admins){
          //if current user is the moderatar
-         if(chatToBeDeleted.chatRoomModerator == Meteor.userId()){
+         if(chatToBeDeleted.admins.indexOf(Meteor.userId()) != -1 ){
              //proceed to delete this chatroom
              Smartix.Groups.Collection.remove(chatToBeDeleted);
          }
