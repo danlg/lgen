@@ -65,7 +65,7 @@ Smartix.Messages.cleanAndValidate = function (message) {
 	check(message, Smartix.Messages.Schema);
 }
 
-Smartix.Messages.createMessage = function (groupId, messageType, data, addons) {
+Smartix.Messages.createMessage = function (groupId, messageType, data, addons, isPush) {
     console.log('Smartix.Messages.createMessage',groupId,messageType,data,addons);
     check(groupId, String);
     check(messageType, String);
@@ -183,6 +183,43 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons) {
         /* ******************************************** */
         Smartix.Messages.Addons.attachAddons(newMessage, addons);
     }
+    
+    if(isPush){
+        //2. add notification to notifications collection
+        //add notifications to db        
+        group.users.map(function(eachTargetUser){
+            Notifications.insert({
+                eventType:"new"+group.type+"message",
+                userId: eachTargetUser,
+                hasRead: false,
+                groupId: groupId,
+                messageCreateTimestamp: message.createdAt,
+                messageCreateByUserId: Meteor.userId()
+            },function(){
+                
+                //3. send push notification and in-app notification
+                var notificationObj = {
+                    from : Smartix.helpers.getFullNameByProfileObj(Meteor.user().profile),
+                    title : Smartix.helpers.getFullNameByProfileObj(Meteor.user().profile),
+                    text: message.data.content,
+                    payload:{
+                        type: group.type,
+                        groupId: groupId
+                    },
+                    query:{userId:eachTargetUser},
+                    badge: Smartix.helpers.getTotalUnreadNotificationCount(eachTargetUser._id)
+                };
+                Meteor.call("serverNotification", notificationObj,{
+                    groupId: groupId,
+                    classCode: group.classCode || ""
+                });             
+                
+            });
+        });               
+    }
+
+    
+    
 }
 
 Smartix.Messages.editMessage = function (messageId, newData, newAddons) {

@@ -131,7 +131,7 @@ Meteor.methods({
             //only keep users who want to receive push notification
                 filteredUserIdsWhoEnablePushNotify = notificationObj.query.userId.$in.filter(function(eachUserId){
                 var userObj = Meteor.users.findOne(eachUserId);
-                if (lodash.get(userObj, 'pushNotifications')) {
+                if (userObj.pushNotifications) {
                    return true;
                 }else{
                    return false;
@@ -146,7 +146,8 @@ Meteor.methods({
         notificationObjType="single";
         var userId = notificationObj.query.userId;
         var userObj = Meteor.users.findOne(userId);
-        if (lodash.get(userObj, 'pushNotifications')) {
+        console.log('serverNotification:',userObj,userId);
+        if (userObj.pushNotifications) {
             filteredUserIdsWhoEnablePushNotify.push(userId);
             notificationObj.badge = Smartix.helpers.getTotalUnreadNotificationCount(userId);
             Push.send(notificationObj);
@@ -166,10 +167,27 @@ Meteor.methods({
             socketObj._sockets.map(function(socket){
                 Streamy.emit('newchatmessage', { from: notificationObj.from,
                                                 text: notificationObj.text,
-                                                chatRoomId: inAppNotifyObj.chatRoomId                                  
+                                                chatRoomId: inAppNotifyObj.groupId                                  
                 }, socket); 
             });
         });        
+    }else if(inAppNotifyObj && notificationObj.payload.type == 'class'){
+        
+        var userIds = filteredUserIdsWhoEnablePushNotify;
+        
+        //send notification via websocket using Streamy
+        userIds.map(function(userId){
+            //log.info("streamy:newchatmessage:"+userId);
+            var socketObj = Streamy.socketsForUsers(userId);
+            //log.info(socketObj);
+            
+            socketObj._sockets.map(function(socket){
+                Streamy.emit('newclassmessage', { from: notificationObj.from,
+                                                text: notificationObj.text,
+                                                classCode: inAppNotifyObj.classCode                                  
+                }, socket); 
+            });
+        });          
     }
 
   },
