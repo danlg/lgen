@@ -79,9 +79,9 @@
                                 <div class="row" style="padding:0">
                                     <div class="col" style="padding:0"><h2><i class='icon ion-ios-calendar-outline' ></i>{{eventName}}</h2></div>
                                     <div class="col" style="padding:0"><h2><i class='icon ion-location' ></i>{{location}}</h2></div>
-                                    <div class="col" style="padding:0;text-align:right">{{startDate}} at {{startDateTime}}</div>
-                                    <div class="col" style="padding:0;text-align:right">{{endDate}} at {{endDateTime}}</div>                                                                   
-                                    <div class="col" style="padding:0;text-align:right"><button>Add to calendar</button></div>
+                                    <div class="col" style="padding:0;text-align:right">{{startDate}}</div>
+                                    <div class="col" style="padding:0;text-align:right">{{endDate}}</div>                                                                   
+                                    <div class="col" style="padding:0;text-align:right"><button class='add-to-calendar' data-start-date='{{startDate}}' data-end-date='{{endDate}}' data-event-name='{{eventName}}' data-event-location='{{location}}' data-description='{{../data.content}}'>Add to calendar</button></div>
                                 </div>
                             </div>
                             {{/each}}                            
