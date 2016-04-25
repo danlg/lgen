@@ -287,10 +287,10 @@ Template.adminLayout.onRendered(function () {
     // -------------------------
 
     // Left sidebar
-    $('.navigation-main > .navigation-header > i').tooltip({
-        placement: 'right',
-        container: 'body'
-    });
+    // $('.navigation-main > .navigation-header > i').tooltip({
+    //     placement: 'right',
+    //     container: 'body'
+    // });
 
 
 
@@ -558,11 +558,11 @@ Template.adminLayout.onRendered(function () {
     // -------------------------
 
     // Popover
-    $('[data-popup="popover"]').popover();
+    // $('[data-popup="popover"]').popover();
 
 
     // Tooltip
-    $('[data-popup="tooltip"]').tooltip();
+    // $('[data-popup="tooltip"]').tooltip();
 
     // // Ripple effect
     // $(".btn:not(.disabled):not(.multiselect.btn-default):not(.bootstrap-select .btn-default), .navigation li:not(.disabled) a, .nav > li:not(.disabled) > a, .sidebar-user-material-menu > a, .sidebar-user-material-content > a, .select2-selection--single[class*=bg-], .breadcrumb-elements > li:not(.disabled) > a, .wizard > .actions a, .ui-button:not(.ui-dialog-titlebar-close), .ui-tabs-anchor:not(.ui-state-disabled), .plupload_button:not(.plupload_disabled), .fc-button, .pagination > li:not(.disabled) > a, .pagination > li:not(.disabled) > span, .pager > li:not(.disabled) > a, .pager > li:not(.disabled) > span").ripple({
