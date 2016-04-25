@@ -119,13 +119,21 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
             $set: newUserOptions
         });
         
-        try {
-            Accounts.sendEnrollmentEmail(newUserId);
-        } catch(e) {
-            console.log(e);
-            // Temporary (to be removed once email credentials go into production)
-            Accounts.setPassword(newUserId, 'password', {logout: false});
+        // Set the password if provided
+        if(options.password && typeof options.password === 'string') {
+            Accounts.setPassword(newUserId, options.password, {logout: false});
+        } else {
+            // Otherwise, send an enrollment email
+            try {
+                Accounts.sendEnrollmentEmail(newUserId);
+            } catch(e) {
+                // If the email cannot be sent, set a password of `password`
+                console.log(e);
+                // Temporary (to be removed once email credentials go into production)
+                Accounts.setPassword(newUserId, 'password', {logout: false});
+            }
         }
+        
         userToAddRoleTo = newUserId;
     } else {
         // Otherwise, set `userToAddRoleTo` to the `_id` of the existing user
