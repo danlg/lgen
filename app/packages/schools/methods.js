@@ -7,7 +7,10 @@ if (Meteor.isServer) {
             if (
                 Roles.userIsInRole(Meteor.userId(), 'admin', 'system') ||
                 Roles.userIsInRole(Meteor.userId(), 'admin', id)||
-                Roles.userIsInRole(Meteor.userId(), 'user', id)
+                Roles.userIsInRole(Meteor.userId(), 'user', id)||
+                Roles.userIsInRole(Meteor.userId(), 'parent', id)||
+                Roles.userIsInRole(Meteor.userId(), 'student', id)||
+                Roles.userIsInRole(Meteor.userId(), 'teacher', id)                                                              
             ) {
                 return targetSchool.username;
             }
