@@ -47,7 +47,12 @@ Meteor.methods({
             classObj.namespace = schoolDoc._id;
         }
     }                                                                                           
-    return Smartix.Class.createClass(classObj, this.userId);       
+    var result = Smartix.Class.createClass(classObj, this.userId);
+    console.log(result);
+    if(result == "no-right-create-class"){
+      console.log('throw err');
+     throw new Meteor.Error("no-right-create-class", "No right to create class in this school");        
+    }       
   },
   
   'smartix:classes/editClass':function(modifier,documentId){

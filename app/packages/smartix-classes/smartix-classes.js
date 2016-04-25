@@ -171,7 +171,9 @@ Smartix.Class.createClass = function (classObj, currentUser) {
         && !Smartix.Class.canCreateClass(classObj.namespace, currentUser)) {
 			
 	 	console.log('no right to create class')
-		return false;
+		
+  	    return "no-right-create-class" ;		
+		//return false;
 		// Optional: Throw an appropriate error if not
 	}
 
