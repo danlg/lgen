@@ -23,6 +23,7 @@ Package.onUse(function(api) {
   api.use('smartix:newsgroups@0.0.1');     
   api.use('smartix:schools@0.0.1');
   api.use('smartix:accounts-schools@0.0.1');
+  api.use('smartix:messages@0.0.1', 'client');
   api.addFiles('routes.js', ['client', 'server']);
   api.addFiles('client/layouts/admin-layout.html', 'client');
   api.addFiles('client/layouts/admin-layout.js', 'client');

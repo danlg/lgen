@@ -67,14 +67,14 @@ function resizeDetached() {
 	});
 }
 
-Template.adminLayout.onRendered(function () {
-    // Attach BS affix component to the sidebar
-    $('.sidebar-fixed').affix({
-        offset: {
-            top: $('.sidebar-fixed').offset().top - 20 // top offset - computed line height
-        }
-    });
-});
+// Template.adminLayout.onRendered(function () {
+//     // Attach BS affix component to the sidebar
+//     $('.sidebar-fixed').affix({
+//         offset: {
+//             top: $('.sidebar-fixed').offset().top - 20 // top offset - computed line height
+//         }
+//     });
+// });
 
 Template.adminLayout.events({
     'click .sidebar-main-toggle': function () {
