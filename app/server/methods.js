@@ -19,7 +19,7 @@ Meteor.methods({
   },
 
   feedback: function (content) {
-    // feedback@littlegenius.io
+    // feedback@gosmartix.com
     console.log(feedback(content));
     try {
       client.transmissions.send(feedback(content),

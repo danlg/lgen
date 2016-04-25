@@ -2,7 +2,7 @@
 <widget id="com.gosmartix.smartix" version="1.0.500000"  android-versionCode="105" ios-CFBundleVersion="100" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Smartix</name>
   <description>Instant, safe, simple communication for teachers, students and parents</description>
-  <author href="https://app.gosmartix.com" email="hello@littlegenius.io">Little Genius Education</author>
+  <author href="https://app.gosmartix.com" email="hello@gosmartix.com">Little Genius Education</author>
   <preference name="webviewbounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
   <preference name="deployment-target" value="7.0"/>
