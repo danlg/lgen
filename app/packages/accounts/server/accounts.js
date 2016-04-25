@@ -111,6 +111,13 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
             newUserOptions.tel = options.tel;
         }
         
+        //TODO STUB use by splendido:accounts-meld to handle case
+        //that user logins by google oauth but already have existing acc with password login`
+        //https://github.com/danlg/lgen/issues/291
+        newUserOptions.registered_emails=[];
+        newUserOptions.registered_emails.push({address:newUserOptions.email,verified:true});
+        //TODO STUB use by splendido:accounts-meld ends
+        
         newUserOptions.schools = [namespace];
         
         Meteor.users.update({
