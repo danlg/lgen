@@ -20,7 +20,7 @@ Template.EmailVerification.destroyed = function () {};
 
 Template.EmailVerification.events({
   'click .resendVerifyEmail': function(event,template){
-      log.info('clicked');
+      log.info('resendVerifyEmail');
       log.info(Meteor.userId());
       Meteor.call('resendVerificationEmail');
   }

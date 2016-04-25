@@ -380,12 +380,15 @@ Meteor.methods({
   resendVerificationEmail: function(email){
       log.info(Meteor.userId());
       if (email) {
-       var newEmailArray = [];
-       newEmailArray.push({address:email,verified:false});
-       Meteor.users.update(Meteor.userId(), {$set: {emails: newEmailArray}});
+        var newEmailArray = [];
+        newEmailArray.push({address:email,verified:false});
+        Meteor.users.update(Meteor.userId(), {$set: {emails: newEmailArray}});
+        log.info("resendVerificationEmail:"+ email);
        
         Accounts.sendVerificationEmail(Meteor.userId(), email);
-      } else {
+      }
+      else {
+        log.info("Else:resendVerificationEmail:"+ email);
         Accounts.sendVerificationEmail(Meteor.userId());
       }
   },
@@ -418,13 +421,12 @@ Meteor.methods({
   }
 
 });
-Meteor.startup(function () {
 
-  process.env.MAIL_URL = 'smtp://' + 
+Meteor.startup(function () {
+  process.env.MAIL_URL = 'smtp://' +
       encodeURIComponent(Meteor.settings.smtp.username) + ':' + 
       encodeURIComponent(Meteor.settings.smtp.password) + '@' +
       encodeURIComponent(Meteor.settings.smtp.server) + ':' +
       Meteor.settings.smtp.port;
-      
- console.log(process.env.MAIL_URL);
+  console.log("Using MAIL_URL:"+ process.env.MAIL_URL);
 });

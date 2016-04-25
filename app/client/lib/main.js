@@ -120,7 +120,7 @@ Meteor.startup(function () {
     }        
 
       
-  }); 
+  });
   
 
 });
