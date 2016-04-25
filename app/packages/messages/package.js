@@ -14,6 +14,7 @@ Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
   api.use('ecmascript');
   api.use('mongo');
+  api.use('templating');
   api.use('stevezhu:lodash@4.6.1');
   api.use('aldeed:simple-schema');
   api.use('smartix:utilities');
@@ -28,6 +29,9 @@ Package.onUse(function(api) {
   api.addFiles('server/messages.js','server');
   api.addFiles('server/publications.js','server');
   api.addFiles('server/methods.js','server');
+  api.addFiles('client/admin/message-type-picker/message-type-picker.html', 'client');
+  api.addFiles('client/admin/message-type-picker/message-type-picker.js', 'client');
+  
   api.export('Smartix');
 });
 
