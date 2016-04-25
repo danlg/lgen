@@ -28,6 +28,13 @@
   "FROM_NAME": "Smartix",
   "FEEDBACK_EMAIL": "dan@gosmartix.com",
   
+  "smtp":{
+      "username": "SMTP_Injection",
+      "password": "67eaa68e98ff43eca9441b6a9a9888a864fe8064",
+      "server": "smtp.sparkpost.com",
+      "port": 587
+  },
+    
   "kadira": { 
   "appId": "vmjaGrm8sxL2o3c86", 
   "appSecret": "f30133a4-0f43-4c5f-891e-3230e3425a00" 
