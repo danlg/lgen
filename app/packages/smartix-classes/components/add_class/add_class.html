@@ -31,7 +31,7 @@
                 <li class="item">
                     <a data-text='{{_ "AddClassChooseIconTooltip"}}' data-ion-tooltip="ionTooltip"><i class='icon ion-ios-help' ></i></a>
 
-                    <input id='classAvatar' type="text" name="name" placeholder="green_apple" value={{getClassAvatar}} />
+                    <input id='classAvatar' type="hidden" name="name" placeholder="green_apple" value={{getClassAvatar}} />
                     <i id='pick-an-icon-btn' class="icon e1a-{{getClassAvatar}} e1a-4x emojicon"></i>
 
 
@@ -64,17 +64,16 @@
             </ul>
 
             <div class="padding">
-                <span class="description">{{_ "addClassDescription"}}</span>
-                <input id='name' type="text" name="name">
+                <span class="description">{{_ "addClassDescription"}}</span> 
             </div>
 
             <div class="padding">
                 <span class="description">{{_ "addClassTerm" }}</span>
             </div>
 
-            <input id='namespace' type="text" name="namespace" value = {{getCurrentNameSpace}} /> 
+            <input id='namespace' type="hidden" name="namespace" value = {{getCurrentNameSpace}} /> 
 
-            <input id='admins' type="text" name="admins" value = {{getAdmin}} />
+            <input id='admins' type="hidden" name="admins" value = {{getAdmin}} />
         </form>
         {{/ionBody}}
 </template>

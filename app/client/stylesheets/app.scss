@@ -356,3 +356,9 @@ label span,label i {
 .new-message-icon{
     color:red;
 }
+
+/* fix the issue that sidemenu is visible on the back of other tab pages. */
+body:not(.snapjs-left) .snap-drawer{
+    /* Styles */
+        display:none;
+}

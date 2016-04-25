@@ -50,3 +50,16 @@ Smartix.Messages.Addons.Calendar.updateNewCalendar = function (messageId, Calend
         }
     });
 }
+
+Smartix.Messages.Addons.Calendar.addEvent = function(title,eventLocation,notes,startDate,endDate,callback){
+    window.plugins.calendar.createEvent(title,eventLocation,notes,startDate,endDate
+    ,function(){
+     //success callback
+     if(callback){
+       callback();
+     }
+    },function(){
+     //fail callback
+        
+    });
+}

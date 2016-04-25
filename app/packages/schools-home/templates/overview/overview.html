@@ -1,5 +1,5 @@
 <template name='MobileSchoolHome'>
-   <style>
+   <!--<style>
        .bar.bar-stable{
            background-color: #0c2649;
        }
@@ -7,13 +7,12 @@
        .bar-stable .button.button-clear{
            color:white;
        }
-   </style>
+   </style>-->
    
   {{#contentFor "headerButtonLeft"}}
-    <!--Newsgroups news-->
-    <a href="{{ pathFor 'newsgroups.news.list' }}" class="button button-clear button-entering button-active">
-      <i class="icon ion-navicon"></i>
-    </a>    
+   <button class="button button-clear pull-left" data-ion-menu-toggle="left">
+        {{> ionIcon icon='navicon'}}
+    </button>
   {{/contentFor}}
      
   {{#ionView}}

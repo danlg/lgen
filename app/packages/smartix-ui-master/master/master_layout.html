@@ -1,17 +1,71 @@
 <template name="AppLayout">
   {{#ionBody}}
-    {{{customizeTheme}}}
-    {{#unless isActiveRoute regex='language|Login'}}
-      {{> ionNavBar name="smartix"}}
-    {{/unless}}
-   
-      {{> status}}
-      {{> yield}}
-
-    {{#if isActiveRoute regex='TabChat|TabYou|TabClasses'}}
-      {{> Tabs}}
-    {{/if}}
-
+   {{#ionSideMenuContainer side="left"}}
+        {{#ionSideMenu}}
+          <div class="bar bar-header bar-dark">
+            <h1 class="title">Hi, {{getUserName}} !</h1>
+          </div>
+          <div class="content has-header">
+            <div class="list">
+              <div class="item item-icon-right" data-ion-menu-close>
+                You are at {{getCurrentSchoolName}}
+                
+                {{#if belongToMultiSchool}}
+                    <a href="{{pathFor route='SchoolPick'}}" class='btn'>Switch School</a>
+                {{/if}}
+                
+              </div>  
+              <!--only if in school namespace - the below should available -->              
+              <a href="{{pathFor route='mobile.school.home' school=getCurrentSchoolName}}"  class="item item-icon-right" data-ion-menu-close>
+                {{getCurrentSchoolName}} Home
+              </a>
+              <!--only if in school namespace - the above should available-->
+              
+              <a href="{{pathFor route='TabClasses'}}" class="item item-icon-right" data-ion-menu-close>
+                Classes
+              </a>
+              <a href="{{pathFor route='TabChat'}}" class="item item-icon-right" data-ion-menu-close>
+                Chat
+              </a>
+              
+              <!--only if in school namespace - the below should available -->
+              <a href="{{pathFor route='newsgroups.news.list'}}" class="item item-icon-right" data-ion-menu-close>
+                News
+              </a>              
+              <div class="item item-icon-right" data-ion-menu-close>
+                Calendar
+              </div>
+              <div class="item item-icon-right" data-ion-menu-close>
+                Absence
+              </div>
+              <div class="item item-icon-right" data-ion-menu-close>
+                Contact
+              </div>
+              <!--only if in school namespace - the above should available-->
+              
+              <a href="{{pathFor route='TabYou'}}" class="item item-icon-right" data-ion-menu-close>
+                Settings
+              </a>                         
+                                                                                      
+            </div>
+          </div>
+        {{/ionSideMenu}}
+        {{#ionSideMenuContent}}
+        
+            {{{customizeTheme}}}  
+            {{#unless isActiveRoute regex='language|Login'}}
+                {{> ionNavBar name="smartix"}}
+            {{/unless}}
+            
+                {{> status}}
+                {{> yield}}
+           
+            {{#if isActiveRoute regex='TabChat|TabYou|TabClasses'}}
+                {{> Tabs}}
+            {{/if}}
+        {{/ionSideMenuContent}}
+   {{/ionSideMenuContainer}}
   {{/ionBody}}
+
 
 </template>

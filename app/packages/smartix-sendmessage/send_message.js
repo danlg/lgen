@@ -9,7 +9,7 @@ var documentArr = ReactiveVar([]);
 var isRecording = false;
 var media = "";
 var isPlayingSound = false;
-var messageListBaseBorrow = 140;
+var messageListBaseBorrow = 70;
 var messageListHeightBorrower = ReactiveVar([]);
 var canVote = ReactiveVar(true);
 /*var arr = [];*/
@@ -370,7 +370,31 @@ Template.SendMessage.events({
       toastr.error("no class select!");
     }*/
       
-    GeneralMessageSender(target[0],'text',msg, addons)
+    GeneralMessageSender(target[0],'text',msg, addons,null,function(){
+        
+        console.log('callback@GeneralMessageSender');
+        Session.set("sendMessageSelectedClasses", {
+          selectArrName: [],
+          selectArrId: []
+        });
+        
+        //input parameters clean up
+        imageArr.set([]);
+        soundArr.set([]); 
+        documentArr.set([]);       
+        $(".msgBox").val("");
+        template.calendarEvent.set({});
+        hidePreview('all');
+
+        sendBtnMediaButtonToggle(); 
+        //force update autogrow
+        document.getElementsByClassName("inputBox")[0].updateAutogrow(); 
+        
+        //scroll messagelist to bottom;
+        window.setTimeout(scrollMessageListToBottom, 100);
+      
+           
+    });
     //Meteor.call('smartix:messages/createMessage',target[0],'text',{content:msg});
     
     
@@ -637,7 +661,7 @@ function onSuccess(imageURI) {
 
   log.info("onSuccess");
   // alert(imageData);
-  window.resolveLocalFileSystemURI(imageURI,
+  window.resolveLocalFileSystemURL(imageURI,
     function (fileEntry) {
       // alert("got image file entry: " + fileEntry.fullPath);
 

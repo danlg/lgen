@@ -24,6 +24,10 @@ Template.AppLayout.helpers({
                                         .bar.bar-stable .title{
                                             color:${schoolTextColor};
                                         }
+                                        
+                                        .bar.bar-stable i{
+                                            color:${schoolTextColor};
+                                        }                                        
                                     </style>
                 
                                 `;
@@ -37,6 +41,31 @@ Template.AppLayout.helpers({
         }
 
 
+    },
+    getCurrentSchoolName: function() {
+        if (Session.get('pickedSchoolId') === 'global') {
+            return 'global';
+        }
+
+        if (Session.get('pickedSchoolId') === 'system') {
+            return 'system';
+        }
+
+        var pickSchool = SmartixSchoolsCol.findOne(Session.get('pickedSchoolId'));
+        return pickSchool ? pickSchool.username : false;
+    },
+    belongToMultiSchool: function() {     
+        if(Meteor.userId()){
+            if (Object.keys(Meteor.user().roles).length > 1) {
+                return true;
+            } else {
+                return false;
+            }            
+        }
+    },
+    getUserName:function(){
+        if(Meteor.userId())
+        return Meteor.user().profile.firstName + " " +Meteor.user().profile.lastName;
     }
 
 });

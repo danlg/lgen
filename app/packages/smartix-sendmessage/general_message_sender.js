@@ -29,9 +29,15 @@ GeneralMessageSender = function(groupId,messageType,messageText,addons,targetUse
     console.log(messageType);
     
     if(messageType == 'text'){
-        Meteor.call('smartix:messages/createMessage',groupId,messageType,{content:messageText},
-                    addons
-                );
+        Meteor.call('smartix:messages/createMessage',groupId,messageType,{content:messageText}, addons,true,function(err,result){
+            
+            
+            
+            
+            
+            
+            
+        });
     }
 
     

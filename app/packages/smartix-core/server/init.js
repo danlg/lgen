@@ -16,7 +16,7 @@ var log4js = Meteor.npmRequire('log4js');
 log = log4js.getLogger('lg');//global variable
 
 Meteor.startup(function () {
-  //Push.debug = true;
+  Push.debug = true;
   //SimpleSchema.debug = true;
 
 

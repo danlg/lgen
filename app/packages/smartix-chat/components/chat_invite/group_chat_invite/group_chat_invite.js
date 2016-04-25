@@ -60,6 +60,9 @@ Template.GroupChatInvite.helpers({
     log.info("shouldhide:"+targetIds.get());
     return targetIds.get().length > 0 ? "" : "hide";
   },
+  getChatInvitePath:function(){
+    return  Router.path('ChatInvite',{school: Session.get('pickedSchoolId')});
+  }
 });
 
 Template.GroupChatInvite.destroyed = function () {

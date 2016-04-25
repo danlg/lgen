@@ -1,12 +1,16 @@
 <template name="TabYou">
 
+  {{#contentFor "headerButtonLeft"}}
+   <button class="button button-clear pull-left" data-ion-menu-toggle="left">
+        {{> ionIcon icon='navicon'}}
+    </button>
+  {{/contentFor}}
+  
   {{#contentFor "headerTitle"}}
     <h1 class="title">{{_ "MyAccount"}}</h1>
   {{/contentFor}}
 
-  {{#contentFor "headerButtonLeft"}}
-    <!-- {{>ionNavBackButton text=""}} -->
-  {{/contentFor}}
+
 
   {{#ionView}}
     {{#ionContent}}

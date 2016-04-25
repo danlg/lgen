@@ -15,7 +15,7 @@
 
     <div style="position: absolute; right: 0;">
 
-      <a href="{{pathFor 'ChatRoomInformation'   chatRoomId= chatRoomProfile._id  }}"
+      <a href="{{pathFor 'ChatRoomInformation'   chatRoomId= getChatRoomId  }}"
          class="button button-clear button-entering button-active "><i class="icon ion-ios-information-outline"></i></a>
       <!-- <button  class="button button-clear button-entering button-active addClassBtn">?</button> -->
     </div>
@@ -148,11 +148,8 @@
                             {{else}}
                                 {{> LoadingSpinner}}
                             {{/if}}                               
-                    {{/with}}                      
-                    {{/each}}
-                    
-                    {{#if isSound}}
-                    {{#with getSound}}
+                    {{/with}}
+                    {{#with FS.GetFile "sounds" fileId}}  
                         {{#if this.isUploaded}}
                         {{#if this.hasStored 'sounds'}}
                             {{#if  this.url}}
@@ -194,8 +191,12 @@
                             {{/if}}
                         {{/if}}
                         {{/if}}
-                    {{/with}}
-                    {{/if}}
+                    {{/with}}                                          
+                    {{/each}} 
+                    
+                    
+
+                    
                 </div>        
         
            {{/each}}

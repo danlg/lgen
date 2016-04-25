@@ -21,7 +21,8 @@ Package.onUse(function(api) {
   api.use('smartix:messages-addons-calendar');      
   api.use('smartix:messages-addons-poll');
   api.use('smartix:messages-addons-comment');
-      
+  api.use('smartix:messages-addons-voice');
+       
   api.addFiles('messages-addons.js');
   api.export('Smartix');
 });

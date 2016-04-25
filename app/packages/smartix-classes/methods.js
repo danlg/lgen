@@ -48,6 +48,9 @@ Meteor.methods({
         }
     }                                                                                           
     return Smartix.Class.createClass(classObj, this.userId);       
+  },
+  
+  'smartix:classes/editClass':function(modifier,documentId){
+      Smartix.Class.editClass(documentId,modifier['$set']);
   }
-     
 });

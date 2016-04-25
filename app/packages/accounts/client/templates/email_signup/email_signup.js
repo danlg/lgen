@@ -53,10 +53,17 @@ Template.EmailSignup.events({
                     toastr.error(err.reason);
                     log.error(err);
                 } else {
+                    //create User successfully
                     analytics.track("Sign Up", {
                         date: new Date(),
                         email: userObj.email,
                         verified: false
+                    });
+                    
+                    //TEMP. either send global user enrollment email or login with the password they have just passed
+                    Meteor.loginWithPassword(email,'password',function(){
+                        log.info("login:meteor:" + Meteor.userId());
+                        Smartix.helpers.routeToTabClasses();
                     });
                 }
 

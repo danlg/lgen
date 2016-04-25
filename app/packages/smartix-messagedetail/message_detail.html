@@ -14,8 +14,8 @@
                     </div>
                     <div>
                         <div>
-                        {{#if havePic}}
-                            {{#each imageArr}}
+                        
+                            {{#each attachImages}}
                             {{#with getImage}}
                                 {{#if this.isUploaded}}
                                 {{#if this.hasStored 'images'}}
@@ -28,11 +28,11 @@
                                 {{/if}}
                             {{/with}}
                             {{/each}}
-                        {{/if}}
+                        
                         </div>
                         <div>
-                        {{#if haveSound}}
-                            {{#each soundArr}}
+                        
+                            {{#each attachVoices}}
                             {{#with getSound}}
                                 {{#if this.isUploaded}}
                                 {{#if this.hasStored 'sounds'}}
@@ -55,11 +55,11 @@
                                 {{/if}}
                             {{/with}}
                             {{/each}}
-                        {{/if}}
+                        
                         </div>
                         <div class='document'>
-                        {{#if haveDocument}}
-                            {{#each documentArr}}
+                        
+                            {{#each attachDocuments}}
                             {{#with getDocument}}
                                 {{#if this.isUploaded}}
                                 {{#if this.hasStored 'documents'}}                           
@@ -71,55 +71,40 @@
                                 {{/if}}
                             {{/with}}
                             {{/each}}
-                        {{/if}}                      
-                        </div>                
+                                              
+                        </div>
+                        <div>
+                            {{#each attachCalendar}}
+                            <div class="item ">
+                                <div class="row" style="padding:0">
+                                    <div class="col" style="padding:0"><h2><i class='icon ion-ios-calendar-outline' ></i>{{eventName}}</h2></div>
+                                    <div class="col" style="padding:0"><h2><i class='icon ion-location' ></i>{{location}}</h2></div>
+                                    <div class="col" style="padding:0;text-align:right">{{startDate}}</div>
+                                    <div class="col" style="padding:0;text-align:right">{{endDate}}</div>                                                                   
+                                    <div class="col" style="padding:0;text-align:right"><button class='add-to-calendar' data-start-date='{{startDate}}' data-end-date='{{endDate}}' data-event-name='{{eventName}}' data-event-location='{{location}}' data-description='{{../data.content}}'>Add to calendar</button></div>
+                                </div>
+                            </div>
+                            {{/each}}                            
+                        </div>               
                     </div>
                     
 
                     <p>
-                        {{#if this.vote}}
+                        {{#each attachVotes}}
                             {{> AppDisplayVote this.vote}} 
-                        {{else}}
-                            {{#if isNotEmpty star}}
-                            <a href="#" class="subdued">{{star.length}} <i class="ion-ios-star colored"></i></a>
-                            {{/if}}
-                            {{#if isNotEmpty checked}}
-                            <a href="#" class="subdued">{{checked.length}} <i class="ion-checkmark-round colored"></i></a>
-                            {{/if}}
-                            {{#if isNotEmpty close}}
-                            <a href="#" class="subdued">{{close.length}} <i class="ion-close-round colored"></i></a>
-                            {{/if}}
-                            {{#if isNotEmpty help}}
-                            <a href="#" class="subdued">{{help.length}} <i class="ion-help colored"></i></a>
-                            {{/if}}                                                   
-                        {{/if}}
+                        {{/each}}
                         <span class='timestamp'>{{formatTime sendAt}}</span>  
                     </p>
                     </div>
                     
                     <!--Voting Area-->                              
-                    {{#if this.vote}}
+                    {{#each attachVotes}}
                         {{#if this.vote.allowVote}}
                         <div class="votingSection item tabs tabs-secondary tabs-icon-left">
                          {{> AppChangeVote vote=this.vote messageId=msgId}}
                         </div>                     
                         {{/if}}                   
-                    {{else}}  
-                        <div class="item tabs tabs-secondary tabs-icon-left">
-                            <a class="tab-item" data-msgId={{msgId}} data-action="checked" href="#">
-                                <i class="icon ion-checkmark-round {{isSelectAction checked}}"></i>
-                            </a>
-                            <a class="tab-item" data-msgId={{msgId}} data-action="close" href="#">
-                                <i class="icon ion-close-round {{isSelectAction close}}"></i>
-                            </a>
-                            <a class="tab-item" data-msgId={{msgId}} data-action="star" href="#">
-                                <i class="icon ion-ios-star {{isSelectAction star}}"></i>
-                            </a>
-                            <a class="tab-item" data-msgId={{msgId}} data-action="help" href="#">
-                                <i class="icon ion-help {{isSelectAction help}}"></i>
-                            </a>
-                        </div>                    
-                    {{/if}}
+                    {{/each}}
                         
                    
                     <!--Voting Area End-->

@@ -19,13 +19,13 @@ Template.ClassInformation.helpers({
         type: 'class',
         classCode: Router.current().params.classCode});
   },
-  teacher: function () {
+  teachers: function () {
     var teacherUser = Smartix.Groups.Collection.findOne({
         type: 'class',
         classCode: Router.current().params.classCode
     });
     if(teacherUser) {
-        return Meteor.users.findOne(teacherUserId.admins[0]);
+        return Meteor.users.find( { _id: { $in: teacherUser.admins } } ).fetch();
     }
   }
 });

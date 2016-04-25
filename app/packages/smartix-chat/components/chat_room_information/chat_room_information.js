@@ -4,11 +4,11 @@
 /* ChatRoom: Event Handlers */
 /*****************************************************************************/
 Template.ChatRoomInformation.events({
-    'click .deleteChatRoomBtn': function () {
+    'click .deleteChatRoomBtn': function() {
         //log.info("deleteChatRoomBtn is clicked");
         //log.info(this);
-        
-        Meteor.call("chat/delete",this._id,function(){
+
+        Meteor.call("chat/delete", this._id, function() {
             Router.go('TabChat');
         })
     }
@@ -18,22 +18,24 @@ Template.ChatRoomInformation.events({
 /* ChatRoomInformation: Helpers */
 /*****************************************************************************/
 Template.ChatRoomInformation.helpers({
-  chatRoomProfile: function () {
-    var chatObj = Chat.findOne({_id: Router.current().params.chatRoomId});
-    //log.info(chatObj);
-    return chatObj;
-  },
-  isChatRoomModerator: function(context){     
-        //log.info(context);
-        //log.info(chatRoomProfile)
-        if(context.chatRoomModerator == Meteor.userId()){
+    chatRoomProfile: function() {
+        var chat = Smartix.Groups.Collection.findOne({ _id: Router.current().params.chatRoomId });
+
+        return chat;
+    },
+    isChatRoomModerator: function(context) {
+
+        var chat = Smartix.Groups.Collection.findOne({ _id: Router.current().params.chatRoomId });
+
+        if (chat.admins.indexOf( Meteor.userId() ) != -1) {
             return true;
-        }else{
+        } else {
             return false;
         }
-  },
-  getUserById: function(userId){
-    var targetUserObj = Meteor.users.findOne(userId);
-    return targetUserObj;      
-  }
+
+    },
+    getUserById: function(userId) {
+        var targetUserObj = Meteor.users.findOne(userId);
+        return targetUserObj;
+    }
 });

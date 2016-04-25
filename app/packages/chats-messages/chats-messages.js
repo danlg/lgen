@@ -68,6 +68,7 @@ Smartix.Chat.Messages.canEditMessage = function (announcementId) {
 }
 
 Smartix.Chat.Messages.canAttachAddons = function (announcementId, addons) {
+    console.log('Smartix.Chat.Messages.canAttachAddons');
     check(announcementId, String);
     check(addons, [Object]);
     
@@ -78,7 +79,8 @@ Smartix.Chat.Messages.canAttachAddons = function (announcementId, addons) {
     
     var _chat = Smartix.Messages.getGroupFromMessageId(announcementId);
     
-    if(!_chat || _chat.type !== 'Chat') {
+    if(!_chat || _chat.type !== 'chat') {
+        
         return false;
         // OPTIONAL: Throw error indicating the Chat
         // for which the announcement belongs to no longer exists
@@ -97,13 +99,19 @@ Smartix.Chat.Messages.canAttachAddons = function (announcementId, addons) {
         return addon.type;
     });
     
-    if(addonTypes.length !== _.compat(addonTypes).length) {
+    if(addonTypes.length !== lodash.compact(addonTypes).length) {
+        console.log('addons do not have type property specified');
         return false;
         // OPTIONAL: Throw error saying some addons do not have the `type` property specified
     }
     
-    // If there are addons with types not allowed for this Chat, return `false`
+    // If there are addons with types not allowed for this class, return `false`
+    console.log('notAllowedTypes',addonTypes,_chat.addons);
     var notAllowedTypes = _.difference(addonTypes, _chat.addons);
     
-    return notAllowedTypes.length > 0;
+    if(notAllowedTypes.length > 0){
+        return false;
+    }else{
+        return true;
+    }
 }
