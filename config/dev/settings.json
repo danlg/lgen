@@ -22,7 +22,7 @@
   "GOOGLE_CLIENT_ID": "122417300165-4i555ct1kvrf8fesec9bp1f9vprdrlef.apps.googleusercontent.com",
   "GOOGLE_SECRET": "jyI4QhG3lz2J_fXxSk1QXxJG",
 
-  "SPARKPOST_KEY": "ba01e5c4be18fed9b317e32c2e39beffad09dcf7",
+  "SPARKPOST_KEY": "67eaa68e98ff43eca9441b6a9a9888a864fe8064",
 
   "smtp":{
     "username": "SMTP_Injection",
