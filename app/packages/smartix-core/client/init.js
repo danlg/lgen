@@ -147,6 +147,7 @@ Accounts.onResetPasswordLink(function(token, done) {
 
 Accounts.onLogin(function(attempt) {
 
+    if(attempt && attempt.user && attempe.user._id){
 	// Reload user object which was possibly modified
 	// by splendido:accounts-emails-field by a previous onLogin callback
 	// note: the *attempt* object is cloned for each hook callback
@@ -156,7 +157,7 @@ Accounts.onLogin(function(attempt) {
 
 	// Checks for possible meld actions to be created
 	checkForMelds(user);
-    
+    }    
     
      var currentUser = Meteor.user();
         if(currentUser){
