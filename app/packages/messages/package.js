@@ -24,12 +24,10 @@ Package.onUse(function(api) {
   api.use('smartix:messages-text');
   api.use('smartix:messages-article');
  
-  api.addFiles('messages.js');
-  api.addFiles('methods.js');
-  api.addFiles('publications.js','server');  
-   
-
-   
+  api.addFiles('lib/collections.js', ['client', 'server']);
+  api.addFiles('server/messages.js','server');
+  api.addFiles('server/publications.js','server');
+  api.addFiles('server/methods.js','server');
   api.export('Smartix');
 });
 
