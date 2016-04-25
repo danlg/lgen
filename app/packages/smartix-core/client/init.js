@@ -144,9 +144,37 @@ Accounts.onResetPasswordLink(function(token, done) {
     Router.go('EmailResetPwd');
 });
 
-Accounts.onLogin(function() {
+
+Accounts.onLogin(function(attempt) {
+
+	// Reload user object which was possibly modified
+	// by splendido:accounts-emails-field by a previous onLogin callback
+	// note: the *attempt* object is cloned for each hook callback
+	//       se there's no way to get the modified user object from the
+	//       *attempt* one...
+	var user = Meteor.users.findOne(attempt.user._id);
+
+	// Checks for possible meld actions to be created
+	checkForMelds(user);
     
-    /** auto approve if only one school **/
+    
+     var currentUser = Meteor.user();
+        if(currentUser){
+        //if user does not have any apporved School
+        if (!currentUser.schools) {
+            //and user has exactly one pending school
+            if (Object.keys(Meteor.user().roles).length == 1) {
+                //automactically approve that school
+                console.log('try approve user to the solely pending school');
+                Meteor.call('smartix:accounts-schools/approveSchool', Object.keys(Meteor.user().roles)[0]);
+            }
+        }
+     }
+});
+
+/*Accounts.onLogin(function() {
+    
+
     var currentUser = Meteor.user();
     //if user does not have any apporved School
     if (!currentUser.schools) {
@@ -157,12 +185,8 @@ Accounts.onLogin(function() {
             Meteor.call('smartix:accounts-schools/approveSchool', Object.keys(Meteor.user().roles)[0]);
         }
     }
-     /** auto approve only one school ends **/
-     
-    // analytics.track("Login", {
-    //   date: new Date(),
-    // });
-});
+
+});*/
 
 // Meteor.AppCache.config({
 //   chrome: true,
