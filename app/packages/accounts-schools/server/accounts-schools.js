@@ -2,7 +2,17 @@ Smartix = Smartix || {};
 Smartix.Accounts = Smartix.Accounts || {};
 Smartix.Accounts.School = Smartix.Accounts.School || {};
 
-Smartix.Accounts.School.VALID_USER_TYPES = ['student', 'parent', 'teacher', 'admin'];
+//do not use the string in the code !! use instead the symbol
+//Smartix.Accounts.School.<role>
+Smartix.Accounts.School.STUDENT ='student';
+Smartix.Accounts.School.PARENT  ='parent';
+Smartix.Accounts.School.TEACHER ='teacher';
+Smartix.Accounts.School.ADMIN   ='admin';
+Smartix.Accounts.School.VALID_USER_TYPES = [
+    Smartix.Accounts.School.STUDENT,
+    Smartix.Accounts.School.PARENT,
+    Smartix.Accounts.School.TEACHER,
+    Smartix.Accounts.School.ADMIN];
 
 Smartix.Accounts.School.isMember = function(userId, schoolId) {
     check(userId, String);
@@ -11,7 +21,7 @@ Smartix.Accounts.School.isMember = function(userId, schoolId) {
     userId = userId || Meteor.userId();
 
     return Roles.userIsInRole(userId, Smartix.Accounts.School.VALID_USER_TYPES, schoolId);
-}
+};
 
 Smartix.Accounts.School.createUser = function(school, options) {
     // Check the arguments provided are of the correct type
@@ -159,9 +169,9 @@ Smartix.Accounts.School.isTeacher = function(namespace, currentUser) {
     }
 
     // Return `true` if user has the role of `teacher` for the namespace
-    return Roles.userIsInRole(currentUser, 'teacher', namespace)
-        // AND they've approved the school in the form of adding it to the `school` array in their user document
-        && Smartix.Accounts.School.userHasApproved(namespace, currentUser)
+    return Roles.userIsInRole(currentUser, Smartix.Accounts.School.TEACHER , namespace)
+            // AND they've approved the school in the form of adding it to the `school` array in their user document
+            && Smartix.Accounts.School.userHasApproved(namespace, currentUser)
 }
 
 Smartix.Accounts.School.userHasApproved = function(namespace, userId) {

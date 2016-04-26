@@ -44,7 +44,16 @@ Template.EditSchool.events({
             }
         } );
 
-    }
+    },'click .signOut': function () {
+        log.info("logout:" + Meteor.userId());
+        Meteor.logout(
+        function (err) {
+            //remove all session variables when logout
+            Session.clear();
+            Router.go('LoginSplash');
+        }
+        );
+  }
 });
 
 

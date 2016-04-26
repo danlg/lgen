@@ -26,12 +26,29 @@ Accounts.onCreateUser(function (options, user) {
     
     // If available, overwrite current using Google accounts details
     if (user.services.hasOwnProperty('google')) {
-        user.emails = [];
-        user.emails.push({
-            address: user.services.google.email
-        });
-        user.profile.firstName = user.services.google.given_name;
-        user.profile.lastName = user.services.google.family_name;
+        var existingUser = Meteor.users.findOne({"email":user.services.google.email});
+        //only add email column if user does not have existing account to be merged with. Merging is handled by meteor-accounts-meld
+        if(!existingUser){
+            
+            user.emails = [];
+            user.emails.push({
+                address: user.services.google.email
+            });
+            user.profile.firstName = user.services.google.given_name;
+            user.profile.lastName = user.services.google.family_name;
+            
+           //google login without exsting account, add  global namespace as user
+
+           var rolesObj = {global:['user']};
+           user.roles = rolesObj;
+                  
+        }else{
+            if(existingUser.emails[0].verified === false){
+                throw new Meteor.Error("existing-account-not-verified", 
+                "You have an account that is not verified. You must verify it before you can use google login");                
+            }
+        }
+
     }
     
     return user;

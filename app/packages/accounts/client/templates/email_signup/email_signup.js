@@ -2,6 +2,7 @@
 /*****************************************************************************/
 /* EmailSignup: Event Handlers */
 /*****************************************************************************/
+/*
 Template.EmailSignup.events({
     'focus #dobInput': function(argument) {
         $(".dobplaceholder").hide();
@@ -10,7 +11,7 @@ Template.EmailSignup.events({
         if ($("#dobInput").val() === "")
             $(".dobplaceholder").show();
     }
-});
+});*/
 
 /*****************************************************************************/
 /* EmailSignup: Helpers */

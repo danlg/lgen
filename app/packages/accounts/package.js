@@ -11,6 +11,7 @@ Package.onUse(function(api) {
 
     api.use('ecmascript');
     api.use('check');
+    api.use('splendido:accounts-meld');
     api.use('accounts-base');
     //api.use('accounts-google');
     //api.use('accounts-oauth');

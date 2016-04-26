@@ -129,6 +129,7 @@ Template.ionNavBar.events({
       
       if(err){
           console.log(err);
+          toastr.info(err.reason);
       }else{
           console.log(result);
           Router.go('TabClasses');

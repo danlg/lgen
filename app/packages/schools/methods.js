@@ -2,12 +2,22 @@ if (Meteor.isServer) {
 
     Meteor.methods({
         'smartix:schools/getSchoolName': function(id) {
+            if(id === 'global'){
+                Roles.userIsInRole(Meteor.userId(), 'user', 'global') 
+                return 'global';
+            }
+             if(id === 'system'){
+                Roles.userIsInRole(Meteor.userId(), 'admin', 'system') 
+                return 'system';
+            }               
             var targetSchool = SmartixSchoolsCol.findOne(id);
-
+                
             if (
                 Roles.userIsInRole(Meteor.userId(), 'admin', 'system') ||
-                Roles.userIsInRole(Meteor.userId(), 'admin', id)||
-                Roles.userIsInRole(Meteor.userId(), 'user', id)
+                Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.ADMIN, id)||
+                Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.PARENT, id)||
+                Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.STUDENT, id)||
+                Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.TEACHER, id)
             ) {
                 return targetSchool.username;
             }
@@ -78,7 +88,7 @@ if (Meteor.isServer) {
                             }
                         },
                         schoolId,
-                        ['admin']);
+                        ['admin'], true);
 
                     return { school: schoolId, initialAdmin: { username: newAdmin, initialPassword: newAdminPassword } };
                 }

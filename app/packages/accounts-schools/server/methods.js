@@ -1,6 +1,6 @@
 if(Meteor.isServer){
     Meteor.methods({
-        'smartix:accounts-schools/createSchoolUser': function(email, options, schoolName, type) {
+        'smartix:accounts-schools/createSchoolUser': function(email, options, schoolName, type, emailVerified) {
             // Find school by username first
             var schoolDoc = SmartixSchoolsCol.findOne({
                 username: schoolName
@@ -15,7 +15,7 @@ if(Meteor.isServer){
             }
             
             if (schoolDoc) {
-                return Smartix.Accounts.createUser(email, options, schoolDoc._id, type, this.userId);
+                return Smartix.Accounts.createUser(email, options, schoolDoc._id, type, this.userId, emailVerified);
             } else {
                 return false;
             }

@@ -121,7 +121,7 @@ Smartix.Accounts.createUserOptionsSchema = new SimpleSchema([Smartix.Accounts.Sc
     }
 }]);
 
-Smartix.Accounts.createUser = function (email, options, namespace, types, currentUser) {
+Smartix.Accounts.createUser = function (email, options, namespace, types, currentUser, autoEmailVerified) {
     
     // Check that the options provided are valid
     Smartix.Accounts.createUserOptionsSchema.clean(options);
@@ -190,9 +190,25 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
         newUserOptions.email = email;
         var newUserId = Accounts.createUser(newUserOptions);
         
+<<<<<<< HEAD
         delete options.email;
         delete options.username;
                 
+        options.schools = [namespace];
+
+        
+        if(autoEmailVerified === true){
+            var newlyCreatedUser = Meteor.users.findOne(newUserId);
+            options.emails = newlyCreatedUser.emails;          
+            options.emails[0].verified = true;
+        }
+        //TODO STUB use by splendido:accounts-meld to handle case
+        //that user logins by google oauth but already have existing acc with password login`
+        //https://github.com/danlg/lgen/issues/291
+        options.registered_emails=[];
+        options.registered_emails.push({address:options.email,verified:true});
+        //TODO STUB use by splendido:accounts-meld ends
+        
         options.schools = [namespace];
         
         Meteor.users.update({
@@ -267,10 +283,14 @@ Smartix.Accounts.removeUser = function (userId, namespace, currentUser) {
     }
     
     // Remove the school/global/system namespace from `roles` and the `schools` array
-    Roles.removeUsersFromRoles(userId, ['user', 'admin', 'student', 'parent', 'teacher'], namespace);
-    
+    Roles.removeUsersFromRoles(userId, ['user',
+            Smartix.Accounts.School.ADMIN,
+            Smartix.Accounts.School.STUDENT,
+            Smartix.Accounts.School.PARENT,
+            Smartix.Accounts.School.TEACHER
+        ], namespace);
     return true;
-}
+};
 
 Smartix.Accounts.editUserSchema = Smartix.Accounts.Schema.pick([
     'username',

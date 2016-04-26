@@ -1,5 +1,16 @@
 <template name='CalendarEvent'>
 	    <form>
+        <style>
+          .item{
+            white-space: initial;
+          }          
+          .item .item-input{
+            white-space: initial;
+          }
+          .list ::-webkit-scrollbar{
+           display:initial;
+          }
+        </style>
         <div class="list ">
           <label class="item item-input">
             <input id='event-name' type="text" value=''
@@ -11,22 +22,22 @@
             <input id='location' type="text"
              value='' placeholder="Location">
           </label>
-          <label class="item item-input">
+          <label class="item">
             Start Date
             <input id='start-date' type="date" value='{{getTodayDate}}' oninvalid="setCustomValidity('Start Date cannot be emptied')"
             oninput="setCustomValidity('')" placeholder="Start Date" required>
           </label>
-          <label class="item item-input">
-            At&nbsp;&nbsp;
+          <label class="item">
+            At
             <input id='start-date-time' type="time" value='{{getCurrentTime}}' oninvalid="setCustomValidity('Start Date Time cannot be emptied')"
             oninput="setCustomValidity('')" placeholder="Start Date Time" required>
           </label>        
-          <label class="item item-input">
+          <label class="item">
             End Date
             <input id='end-date' type="date" value='{{getTodayDate}}' placeholder="End Date" >
           </label>
-          <label class="item item-input">
-            To&nbsp;&nbsp;
+          <label class="item">
+            To
             <input id='end-date-time' type="time" value='{{getCurrentTime}}' placeholder="End Date Time" >
           </label>          
           <!--<label class="item item-input">
