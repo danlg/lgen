@@ -18,7 +18,7 @@ Package.onUse(function(api) {
   api.use('aldeed:simple-schema'); 
   api.use('alanning:roles@1.2.15');
   api.use('smartix:accounts-system');
-  api.use('smartix:accounts-schools');
+  api.use('smartix:accounts-schools', {unordered: true});
   
   api.addFiles('lib/collections.js');
   api.addFiles('server/relationships.js','server');

@@ -56,7 +56,7 @@ Meteor.publish('allSchoolUsersPerRole', function (school) {
 
             studentIDs.map(function (studentID) {
                 //console.log('studentID', studentID);
-                var findParents = Relationships.find({ child: studentID, namespace: schoolDoc._id }).fetch();
+                var findParents = Smartix.Accounts.Relationships.Collection.find({ child: studentID, namespace: schoolDoc._id }).fetch();
                 //console.log('findParents', findParents);
                 findParents.map(function (relationship) {
                     parents.push(relationship.parent);

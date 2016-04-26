@@ -53,12 +53,27 @@ Router.route('/:school/admin/users/add', {
     }
 });
 
-Router.route('/:school/admin/users/import', {
-    name: 'admin.users.import',
+Router.route('/:school/admin/users/import/', {
+	action: function () {
+		this.redirect('/' + this.params.school + '/admin/users/import/students');
+	}
+});
+
+Router.route('/:school/admin/users/import/students', {
+    name: 'admin.users.import.students',
     layoutTemplate: 'adminLayout',
     template: 'AdminUsersImport',
     action: function () {
         this.render('AdminUsersImport');
+    }
+});
+
+Router.route('/:school/admin/users/import/parents', {
+    name: 'admin.users.import.parents',
+    layoutTemplate: 'adminLayout',
+    template: 'AdminParentsImport',
+    action: function () {
+        this.render('AdminParentsImport');
     }
 });
 

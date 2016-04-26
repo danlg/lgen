@@ -105,5 +105,23 @@ Smartix.Accounts.Schema = new SimpleSchema({
     heartbeat: {
         type: Date,
         optional: true
+    },
+    gender: {
+        type: String,
+        optional: true
+    },
+    // The following fields should be moved to
+    // the `schools` array later, when more than one school is required
+    studentId: {
+        type: String,
+        optional: true
+    },
+    grade: {
+        type: String,
+        optional: true
+    },
+    classroom: {
+        type: String,
+        optional: true
     }
 });

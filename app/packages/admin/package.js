@@ -20,10 +20,17 @@ Package.onUse(function(api) {
   api.use('easy:search@2.0.9');
   api.use('smartix:lib@0.0.1');
   api.use('smartix:news@0.0.1');
-  api.use('smartix:newsgroups@0.0.1');     
+  api.use('smartix:groups@0.0.1');
+  api.use('smartix:classes@0.0.1');
+  api.use('smartix:newsgroups@0.0.1');
   api.use('smartix:schools@0.0.1');
   api.use('smartix:accounts-schools@0.0.1');
   api.use('smartix:messages@0.0.1', 'client');
+  api.addAssets('client/assets/parents_import_template.csv', 'client');
+  api.addAssets('client/assets/students_import_template.csv', 'client');
+  api.addAssets('client/assets/import-guide-csv.png', 'client');
+  api.addAssets('client/assets/import-parents-preview.png', 'client');
+  api.addAssets('client/assets/import-student-preview.png', 'client');
   api.addFiles('routes.js', ['web.browser', 'server']);
   api.addFiles('client/layouts/admin-layout.html', 'web.browser');
   api.addFiles('client/layouts/admin-layout.js', 'web.browser');
@@ -70,7 +77,8 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/users/import/import.html', 'web.browser');
   api.addFiles('client/templates/users/import/import.css', 'web.browser');
   api.addFiles('client/templates/users/import/import.js', 'web.browser');
-  api.addAssets('client/templates/users/import/MOCK_DATA.csv', 'web.browser');
+  api.addFiles('client/templates/users/import-parents/import.html', 'web.browser');
+  api.addFiles('client/templates/users/import-parents/import.js', 'web.browser');
   api.addFiles('client/templates/users/relationships/relationships.html', 'web.browser');
   api.addFiles('client/templates/users/relationships/relationships.js', 'web.browser');
   api.addFiles('client/less/_bootstrap/alerts.import.less', 'web.browser');

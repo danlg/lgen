@@ -16,9 +16,6 @@ Smartix.Accounts.Relationships.Schema = new SimpleSchema({
    child:{
        type:String,
    },
-   type:{
-       type:String,
-   },
    namespace:{
        type:String,
    },

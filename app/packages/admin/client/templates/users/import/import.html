@@ -5,41 +5,110 @@
         </div>
 
         <div class="panel-body">
-            <p>Please import the user data as a <code>.csv</code> file with the first row being the headings. Please also ensure that the file is encoded in UTF-8.</p>
+            <p><strong>Step 1 - Download our CSV template, and complete the columns</strong></p>
+
+            <img src="/packages/smartix_admin/client/assets/import-student-preview.png" alt="" style="max-width: 100%">
+
+            <p>Create a spreadsheet listing students in the format shown above. Download our CSV template, and complete the
+                columns. It is essential that the format match the template and that no mandatory columns are left out. Refer
+                to the following guidelines for entering your student data into the spreadsheet:</p>
+            <table>
+                <tr>
+                    <td>Student ID</td>
+                    <td>Any combination of letters and numbers unique to each student.</td>
+                </tr>
+                <tr>
+                    <td>First Name</td>
+                    <td>Required fields for all students.</td>
+                </tr>
+                <tr>
+                    <td>Last Name</td>
+                    <td>Required fields for all students.</td>
+                </tr>
+                <tr>
+                    <td>E-mail Address</td>
+                    <td>Required field for all Grade 6 students since the email address is also the ID used to login. If students
+                        don't have email addresses, fake email addresses can be used to allow the students access to the
+                        system.
+                    </td>
+                </tr>
+                <tr>
+                    <td>Grade</td>
+                    <td>Grade levels. Required fields for all students.</td>
+                </tr>
+                <tr>
+                    <td>Classroom</td>
+                    <td>Required fields for all students. E.g. Grade 4B, the classes in Grade 4A and B. Can be identical to grade.</td>
+                </tr>
+                <tr>
+                    <td>Gender</td>
+                    <td>Required</td>
+                </tr>
+                <tr>
+                    <td>Date of birth</td>
+                    <td>Required. Please input in DD-MM-YYYY format like any other date.</td>
+                </tr>
+            </table>
+
+
+            <p>Note: All other fields are optional including Password, which allows you to pre-set a student's password. Required
+                fields are highlighted in <span style="color: red">red</span>. Download our CSV template to get started.</p>
+
+            <a href="/packages/smartix_admin/client/assets/.csv" download="smartix-sample-user-data.csv">
+                <button id="importUser-submit" type="submit" class="btn btn-primary">Download Template</button>
+            </a>
+
+            <p><strong>Step 2: Save your spreadsheet as a CSV file.</strong></p>
+
+            <img src="/packages/smartix_admin/client/assets/import-guide-csv.png" alt="">
+
+            <p><strong>Step 3: Upload your CSV file of students</strong></p>
+
+            <p>Please import the user data as a <code>.csv</code> file with the first row being the headings. Please also ensure
+                that the file is encoded in UTF-8.</p>
             <div id="AdminUsersImport__file-input" class="file-input file-input-new">
                 <div tabindex="500" class="btn btn-primary btn-file legitRipple">
                     <i class="icon-file-plus"></i> <span class="hidden-xs">Browse</span>
-                    <input type="file" id="user-upload-file" class="file-input" data-show-caption="false"
-                    data-show-upload="false">
+                    <input type="file" id="user-upload-file" class="file-input" data-show-caption="false" data-show-upload="false">
                 </div>
             </div>
-            <a href="/packages/smartix_admin/client/templates/users/import/MOCK_DATA.csv" download="smartix-sample-user-data.csv"><button id="addUser-submit" type="submit" class="btn btn-primary">Download Template</button></a>
             <table id="AdminUsersImport__preview-table" class="table datatable-basic">
                 <thead>
                     <tr>
+                        <th>Student ID</th>
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Email</th>
-                        <th>Date of Birth</th>
                         <th>Grade</th>
-                        <th>Class</th>
+                        <th>Classroom</th>
+                        <th>Gender</th>
+                        <th>Date of Birth</th>
+                        <th>Telephone</th>
+                        <th>Password</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{#each importedUsers}}
-                        <tr>
-                            <td>{{firstName}}</td>
-                            <td>{{lastName}}</td>
-                            <td>{{email}}</td>
-                            <td>{{dob}}</td>
-                            <td>{{grade}}</td>
-                            <td>{{class}}</td>
-                        </tr>
+                    {{#each importedStudents}}
+                    <tr>
+                        <td>{{studentId}}</td>
+                        <td>{{firstName}}</td>
+                        <td>{{lastName}}</td>
+                        <td>{{email}}</td>
+                        <td>{{grade}}</td>
+                        <td>{{classroom}}</td>
+                        <td>{{gender}}</td>
+                        <td>{{dob}}</td>
+                        <td>{{tel}}</td>
+                        <td>{{password}}</td>
+                    </tr>
                     {{/each}}
                 </tbody>
             </table>
             <div class="text-right">
-                <button id="addUser-submit" type="submit" class="btn btn-primary">Import Users <i class="icon-arrow-right14 position-right"></i></button>
+                <button id="importUser-submit" type="submit" class="btn btn-primary">Import Users <i class="icon-arrow-right14 position-right"></i></button>
+            </div>
+            <div id="importStudents__errorMsgBlock">
+
             </div>
         </div>
     </div>

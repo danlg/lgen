@@ -15,7 +15,10 @@ Package.onUse(function(api) {
   api.use('random');
   api.use('check');
   api.use('ecmascript');
-  api.use('alanning:roles');  
+  api.use('aldeed:simple-schema');
+  api.use('alanning:roles');
+  api.use('momentjs:moment@2.13.1');
+  api.use('smartix:utilities');
   api.use('smartix:core');
   
   //retrieve user schema
@@ -23,6 +26,7 @@ Package.onUse(function(api) {
   //generate username
   api.use('smartix:accounts-usernames');      
   api.use('smartix:accounts-system');
+  api.use('smartix:accounts-relationships');
   api.use('smartix:schools@0.0.1');
   api.addFiles('lib/strings.js', ['client', 'server']);
   api.addFiles('client/accounts-schools.js', ['client']);
@@ -31,11 +35,4 @@ Package.onUse(function(api) {
   api.addFiles('server/publications.js', 'server');
       
   api.export('Smartix');
-});
-
-Package.onTest(function(api) {
-  api.use('ecmascript');
-  api.use('tinytest');
-  api.use('smartix:accounts-schools');
-  api.addFiles('accounts-schools-tests.js');
 });

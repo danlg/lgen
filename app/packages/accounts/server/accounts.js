@@ -11,6 +11,7 @@ Smartix.Accounts.listUserSchools = function () {
     return Roles.getGroupsForUser(userToBeChecked);
 }
 
+
 Smartix.Accounts.createUserOptionsSchema = new SimpleSchema([Smartix.Accounts.Schema.pick([
     'username',
     'dob',
@@ -23,6 +24,98 @@ Smartix.Accounts.createUserOptionsSchema = new SimpleSchema([Smartix.Accounts.Sc
         blackbox: true
     },
     password: {
+        type: String,
+        optional: true
+    },
+    studentId: {
+        type: String,
+        optional: true
+    },
+    grade: {
+        type: String,
+        optional: true
+    },
+    classroom: {
+        type: String,
+        optional: true
+    },
+    gender: {
+        type: String,
+        optional: true
+    },
+    salutation: {
+        type: String,
+        optional: true
+    },
+    mobile: {
+        type: String,
+        optional: true
+    },
+    employer: {
+        type: String,
+        optional: true
+    },
+    nationality: {
+        type: String,
+        optional: true
+    },
+    language: {
+        type: String,
+        optional: true
+    },
+    homeAddress1: {
+        type: String,
+        optional: true
+    },
+    homeAddress2: {
+        type: String,
+        optional: true
+    },
+    homeCity: {
+        type: String,
+        optional: true
+    },
+    homeState: {
+        type: String,
+        optional: true
+    },
+    homePostalCode: {
+        type: String,
+        optional: true
+    },
+    homeCountry: {
+        type: String,
+        optional: true
+    },
+    homePhone: {
+        type: String,
+        optional: true
+    },
+    workAddress1: {
+        type: String,
+        optional: true
+    },
+    workAddress2: {
+        type: String,
+        optional: true
+    },
+    workCity: {
+        type: String,
+        optional: true
+    },
+    workState: {
+        type: String,
+        optional: true
+    },
+    workPostalCode: {
+        type: String,
+        optional: true
+    },
+    workCountry: {
+        type: String,
+        optional: true
+    },
+    workPhone: {
         type: String,
         optional: true
     }
@@ -67,8 +160,9 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
     }
     
     if(!hasPermission) {
-        return false;
-        // OPTIONAL: Throw error indicating user does not have permission
+        // return false;
+        // Throw error indicating user does not have permission
+        throw new Meteor.Error("permission-denied", "The user does not have permission to create a user in the namespace " + namespace + ".");
     }
     
     var userToAddRoleTo;
@@ -96,27 +190,15 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
         newUserOptions.email = email;
         var newUserId = Accounts.createUser(newUserOptions);
         
-        var newUserUpdateObj = {};
-        
-        if (options.dob) {
-            newUserOptions.dob = options.dob;
-        }
-        if (options.city) {
-            newUserOptions.city = options.city;
-        }
-        if (options.lang) {
-            newUserOptions.lang = options.lang;
-        }
-        if (options.tel) {
-            newUserOptions.tel = options.tel;
-        }
-        
-        newUserOptions.schools = [namespace];
+        delete options.email;
+        delete options.username;
+                
+        options.schools = [namespace];
         
         Meteor.users.update({
             _id: newUserId
         }, {
-            $set: newUserOptions
+            $set: options
         });
         
         // Set the password if provided
@@ -143,7 +225,7 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
     // Add the role to the user
     Roles.addUsersToRoles(userToAddRoleTo, types, namespace);
     
-    return true;
+    return userToAddRoleTo;
 
 }
 
