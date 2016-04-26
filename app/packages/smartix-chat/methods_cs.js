@@ -21,8 +21,7 @@ Meteor.methods({
     pushObj.createdAt = new Date();
     Smartix.Groups.Collection.update(chatRoomId, {$push: {messagesObj: pushObj}, $set:{lastUpdatedAt:new Date(),lastUpdatedBy:Meteor.userId()}} );
     //TODO send email
-    //Mandrill.messages.send
-    
+    //Email.send
     return pushObj;
   },
 
@@ -36,6 +35,6 @@ Meteor.methods({
     //todo: change the name of this method to chat/appendMessageObj to reflect its usage
     Smartix.Groups.Collection.update(chatRoomId, {$push: {messagesObj: pushObj},$set:{lastUpdatedAt:new Date(),lastUpdatedBy:Meteor.userId()}} );
     return pushObj;
-  },    
+  }
     
 });

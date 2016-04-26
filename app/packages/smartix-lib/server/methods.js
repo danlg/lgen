@@ -2,33 +2,13 @@
 /* Server Only Methods */
 
 Meteor.methods({
-   /* Example:
-   * '/app/items/insert': function (item) {}
-   */
 
-  ping: function () {
-    this.unblock();
-    try {
-     log.info(Mandrill.users.ping());
-    }
-    catch (e) {
-      log.error(e);
-    }
-  },
-
-  ping2: function () {
-    this.unblock();
-    try {
-      log.info(Mandrill.users.ping2());
-    }
-    catch (e) {
-      log.error(e);
-    }
-  },
 
   testEmail: function () {
     try {
-      Mandrill.messages.send(Smartix.testMail("", ""));
+      //send test email
+      this.unblock();
+      Smartix.testMail("", "");
     }
     catch (e) {
       log.error(e);
@@ -38,12 +18,15 @@ Meteor.methods({
   feedback: function (content) {
     // feedback@gosmartix.com
     try {
-      Mandrill.messages.send(Smartix.feedback(content));
+      //send feedback
+      this.unblock();
+      Smartix.feedback(content);
     }
     catch (e) {
       log.error(e);
     }
   },
+
   chatroomEmail: function(recipientUsers,orginateUser,content){
     //log.info(recipientUsers);
     //log.info(orginateUser);
@@ -69,36 +52,32 @@ Meteor.methods({
     
     log.info(optInUsersGroupByLang);
     
-    for(var lang in optInUsersGroupByLang){
-        
+    for(var lang in optInUsersGroupByLang) {
         var chatRoomRecepientArr = []; 
         optInUsersGroupByLang[lang].map(function(eachUser){
             var chatRoomRecepient = { 
                 email: eachUser.emails[0].address,
                 name:  eachUser.profile.firstName+ " " + eachUser.profile.lastName
-            }
+            };
             chatRoomRecepientArr.push(chatRoomRecepient);            
         });
         
         log.info(chatRoomRecepientArr);
         log.info(lang);
-        
-        
-            try {
-              var emailTemplateByUserLangs = Smartix.messageEmailTemplate(chatRoomRecepientArr, orginateUser, content, {
-                                                type:'chat',
-                                                lang:lang
-                                             });  
-              Mandrill.messages.send(emailTemplateByUserLangs);       
-            }
-            catch (e) {
-              log.error(e);
-            }
-               
+        try {
+          //send email
+          this.unblock();
+          Smartix.messageEmailTemplate(
+            chatRoomRecepientArr, orginateUser, content, {
+                                            type:'chat',
+                                            lang:lang
+                                         });
+        }
+        catch (e) {
+          log.error(e);
+        }
     }
   },
-
-
 
 
   getUserCreateClassesCount: function(){
