@@ -24,12 +24,12 @@ Package.onUse(function(api) {
   api.addFiles('strings.js');
   api.addFiles('reserved-school-names.js');  
   api.addFiles('schools.js');
-  api.addFiles('methods.js');
+  api.addFiles('server/methods.js', 'server');
   api.addFiles('publications.js','server');
   
   api.addFiles('routes.js');
-  api.addFiles(['templates/edit_school.html',
-                'templates/edit_school.js']
+  api.addFiles(['client/templates/edit_school.html',
+                'client/templates/edit_school.js']
                ,'client');
    
   api.export('SmartixSchools', ['client']);

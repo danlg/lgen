@@ -24,6 +24,7 @@ Package.onUse(function(api) {
   api.addFiles('server/accounts-system.js', 'server');
   api.addFiles('server/methods.js', 'server');
   api.addFiles('server/startup.js', 'server');
+  api.export('Smartix');
 });
 
 Package.onTest(function(api) {
