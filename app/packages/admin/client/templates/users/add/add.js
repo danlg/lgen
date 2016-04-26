@@ -33,7 +33,8 @@ Template.AdminUsersAdd.events({
                 email,
                 newUserObj,
                 Router.current().params.school,
-                roles);
+                roles,
+                true);
         }
     }
 });

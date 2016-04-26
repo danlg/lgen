@@ -28,7 +28,7 @@ Smartix.Accounts.createUserOptionsSchema = new SimpleSchema([Smartix.Accounts.Sc
     }
 }]);
 
-Smartix.Accounts.createUser = function (email, options, namespace, types, currentUser) {
+Smartix.Accounts.createUser = function (email, options, namespace, types, currentUser, autoEmailVerified) {
     
     // Check that the options provided are valid
     Smartix.Accounts.createUserOptionsSchema.clean(options);
@@ -111,6 +111,11 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
             newUserOptions.tel = options.tel;
         }
         
+        if(autoEmailVerified === true){
+            var newlyCreatedUser = Meteor.users.findOne(newUserId);
+            newUserOptions.emails = newlyCreatedUser.emails;          
+            newUserOptions.emails[0].verified = true;
+        }
         //TODO STUB use by splendido:accounts-meld to handle case
         //that user logins by google oauth but already have existing acc with password login`
         //https://github.com/danlg/lgen/issues/291
