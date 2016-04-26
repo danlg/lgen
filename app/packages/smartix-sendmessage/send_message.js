@@ -321,8 +321,8 @@ Template.SendMessage.events({
             voteObj.options = ['heart','noevil','question'];  
                                                          
         }else if(mediaObj.voteType == 'yesNo'){
-            voteObj.votes.push({option:'yes',optionIconType:'icon-emojicon',optionShowEvenNoVote:false,optionIconValue:'e1a-white_check_mark',users:[]});           
-            voteObj.votes.push({option:'no',optionIconType:'icon-emojicon',optionShowEvenNoVote:false,optionIconValue:'e1a-negative_squared_cross_mark',users:[]});              
+            voteObj.votes.push({option:'yes',optionIconType:'icon-emojicon',optionIconValue:'e1a-white_check_mark',users:[]});           
+            voteObj.votes.push({option:'no',optionIconType:'icon-emojicon',optionIconValue:'e1a-negative_squared_cross_mark',users:[]});              
          
             voteObj.options = ['yes','no'];       
             
