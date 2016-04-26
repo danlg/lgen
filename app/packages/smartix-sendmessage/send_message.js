@@ -298,8 +298,7 @@ Template.SendMessage.events({
     if(mediaObj.allowComment){
         console.log('allowComment');
         
-        //TBD
-        addons.push({type:'comment'});
+        addons.push( { type:'comment',comments:[] } );
         
     }
 

@@ -24,7 +24,7 @@ Template.ClassDetail.events({
      
         
        // log.info("clickvotebtn:",classObj);
-        Meteor.call('smartix:accounts-schools/castVote', msgId,action, function (error,result) {});        
+        Meteor.call('smartix:messages-addons-poll/castVote', msgId,action, function (error,result) {});        
     }
 
   },
@@ -61,9 +61,7 @@ Template.ClassDetail.events({
       //log.info(e);
       var text = $(e.target).parent().find('.add-comment-annoucement-textbox').val();
       var msgId = $(e.target).data().msgid;
-      Meteor.call('addCommentToClassAnnoucement',msgId, {_id:classObj._id},text, function (argument) {
-     
-      });
+      Meteor.call('smartix:messages-addons-comment/addNewComment',msgId, text);
       
   },
   'click .commentToggleBtn':function(e){

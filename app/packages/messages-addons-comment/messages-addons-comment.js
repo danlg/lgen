@@ -18,11 +18,33 @@ Smartix.Messages.Addons.Comment.Schema = new SimpleSchema({
     },
     comments: {
         type: [Object]
+    },
+    "comments.$.createdBy": {
+        type: String
+    },
+    "comments.$.createdAt": {
+        type: Date
+    },    
+    "comments.$.isShown": {
+        type: Boolean,
+        defaultValue:true
+    },       
+    "comments.$.comment": {
+        type: String
+    },   
+    allowComment:{
+        type:Boolean,
+        defaultValue:true
     }
 });
 
-Smartix.Messages.Addons.Comment.updateNewComment = function (messageId, CommentObj) {
-    // Update the message
+Smartix.Messages.Addons.Comment.addNewComment = function (messageId, commentObj) {
+    
+    check(commentObj,Smartix.Messages.Addons.Comment.Schema);
+    Smartix.Messages.Addons.Comment.Schema.clean(commentObj);
+    
+    //TODO add canUpdateNewCommentChecking
+    
     Smartix.Messages.Collection.update({
         _id: messageId
     }, {
@@ -36,7 +58,7 @@ Smartix.Messages.Addons.Comment.updateNewComment = function (messageId, CommentO
             Smartix.Messages.Collection.update({
                 _id: messageId
             }, {
-                $push: CommentObj
+                $push: {addons: commentObj}
             });
         }
     });

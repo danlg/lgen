@@ -16,6 +16,7 @@ Package.onUse(function(api) {
   api.use('aldeed:simple-schema');  
   api.use('smartix:core');
   api.addFiles('messages-addons-comment.js');
+  api.addFiles('server/methods.js','server');  
   api.export('Smartix');
 });
 

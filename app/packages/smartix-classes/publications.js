@@ -63,6 +63,17 @@ Meteor.publish('joinedClasses', function () {
     });
 });
 
+Meteor.publish('smartix:classes/otherClassmates', function(classCode) {
+
+    var group = Smartix.Groups.Collection.findOne({ classCode: classCode });
+    if (group) {
+        //remove user him/herself
+        lodash.pull(group.users, this.userId);
+        return Meteor.users.find({ _id: { $in: group.users } });
+    }
+
+});
+
 // Returns a cursor of all users that have joined ANY one of the current teacher's classes
 Meteor.publish('smartix:classes/allUsersWhoHaveJoinedYourClasses', function () {
     // Find all classes where the current user is an admin

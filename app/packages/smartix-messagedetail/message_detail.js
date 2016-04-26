@@ -57,5 +57,9 @@ Template.MessageDetail.helpers({
   attachVotes:function(){
     var voteObjs =lodash.filter(this.addons, function(addon) { return addon.type =='poll'; });
     return voteObjs;         
+  },
+  attachComments:function(){
+    var commentObjs =lodash.filter(this.addons, function(addon) { return addon.type =='comment'; });
+    return commentObjs;          
   }
 });

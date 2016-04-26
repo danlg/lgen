@@ -112,20 +112,19 @@
                     <!--Voting Area End-->
                     
                     <!--Display comments count-->
-                    {{#if this.comment.allowComment}}
-                    <div class="item less-top-bottom-padding">
-                        <a class='smaller comment-counter subdued'>{{_ "CommentCounter" comment_count=this.comment.comments.length }}</a>
-                    </div>
-                    <!--<div  class="item less-top-bottom-padding">
-                        <button class='button button-small commentToggleBtn'><i class='icon ion-chatbox'></i>Comment</button>
-                    </div>-->
-                    {{/if}}
+                    {{#each attachComments}}
+                        {{#if this.allowComment}}
+                        <div class="item less-top-bottom-padding">
+                            <a class='smaller comment-counter subdued'>{{_ "CommentCounter" comment_count=this.comments.length }}</a>
+                        </div>
+                        {{/if}}
+                    {{/each}}
                     <!--Display comments count end-->
                     
                     <section data-msgid={{msgId}} class="commentSection hidden">
                     <!--Display existing comments-->
                     
-                    {{#with this.comment}}
+                    {{#each attachComments}}
                         {{#each this.comments}}
                           
                               {{#if this.isShown}}
@@ -141,20 +140,22 @@
                              {{/if}}
                             
                         {{/each}}
-                    {{/with}}
+                    {{/each}}
                     <!--Display existing comments end-->
 
 
                     </section>                    
                     <!--Add comment-->
-                    {{#if this.comment.allowComment}}
+                    {{#each attachComments}}
+                        {{#if this.allowComment}}
                         <div class="item item-input-inset">
                             <label class="item-input-wrapper">
-                                <input class='add-comment-annoucement-textbox' data-msgid={{msgId}} type="text" placeholder="...">
+                                <input class='add-comment-annoucement-textbox' data-msgid={{../_id}} type="text" placeholder="...">
                             </label>
-                            <button data-msgid={{msgId}} class='button button-small button-positive add-comment-annoucement'>{{_ "Comment"}}</button>
+                            <button data-msgid={{../_id}} class='button button-small button-positive add-comment-annoucement'>{{_ "Comment"}}</button>
                         </div>                    
-                    {{/if}}
+                        {{/if}}
+                    {{/each}}
                     <!--Add comment end-->                    
                 </div>    
 </template>
