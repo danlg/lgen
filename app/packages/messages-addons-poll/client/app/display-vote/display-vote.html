@@ -1,8 +1,22 @@
+<!--TODO: add actually checking and display differently if optionIconType is text, image-->
 <template name='AppDisplayVote'>
     {{#each this.votes}}
-            <a href="#" class="subdued">{{this.users.length}}    
-               <i class="{{this.option}} colored vote-display-option"></i>  
-               <span class='stub-vote-option-display'>{{this.option}}</span>        
-            </a>          
+            {{#if this.optionShowEvenNoVote}}
+               
+                <a href="#" class="subdued">{{this.users.length}}    
+                <i class="{{optionIconValue}} colored vote-display-option"></i>  
+                <!--<span class='stub-vote-option-display'>{{this.option}}</span>-->      
+                </a>
+             
+            {{else}}
+                <!--if someone has vote this option-->
+                {{#if this.users}}
+                    <a href="#" class="subdued">{{this.users.length}}    
+                    <i class="{{optionIconValue}} colored vote-display-option"></i>  
+                    <!--<span class='stub-vote-option-display'>{{this.option}}</span>-->      
+                    </a>
+                {{/if}}            
+            
+            {{/if}}
     {{/each}}  
 </template>
