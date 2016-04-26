@@ -190,7 +190,6 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
         newUserOptions.email = email;
         var newUserId = Accounts.createUser(newUserOptions);
         
-<<<<<<< HEAD
         delete options.email;
         delete options.username;
                 
