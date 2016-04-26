@@ -314,19 +314,30 @@ Template.SendMessage.events({
         log.info(mediaObj.voteType);
         
         if(mediaObj.voteType == 'heartNoEvilStarQuestion'){
+            voteObj.votes.push({option:'heart',optionIconType:'icon-emojicon',optionIconValue:'e1a-hearts',users:[]});           
+            voteObj.votes.push({option:'noevil',optionIconType:'icon-emojicon',optionIconValue:'e1a-see_no_evil',users:[]});              
+            voteObj.votes.push({option:'question',optionIconType:'icon-ionicon',optionIconValue:'ion-help',users:[]}); 
             
-            voteObj.options =['heart','noevil','question'];
-                                             
+            voteObj.options = ['heart','noevil','question'];  
+                                                         
         }else if(mediaObj.voteType == 'yesNo'){
-            
+            voteObj.votes.push({option:'yes',optionIconType:'icon-emojicon',optionIconValue:'e1a-white_check_mark',users:[]});           
+            voteObj.votes.push({option:'no',optionIconType:'icon-emojicon',optionIconValue:'e1a-negative_squared_cross_mark',users:[]});              
+         
             voteObj.options = ['yes','no'];       
             
         }else if(mediaObj.voteType == 'likeDislike'){
-            
+            voteObj.votes.push({option:'heart',optionIconType:'icon-ionicon',optionIconValue:'ion-thumbsup',users:[]});           
+            voteObj.votes.push({option:'noevil',optionIconType:'icon-ionicon',optionIconValue:'ion-thumbsdown',users:[]});
+                        
             voteObj.options = ['like','dislike'];   
                   
         }else if(mediaObj.voteType == 'oneTwoThreeFour'){
-            
+            voteObj.votes.push({option:'one',optionIconType:'icon-emojicon',optionIconValue:'e1a-one',users:[]});           
+            voteObj.votes.push({option:'two',optionIconType:'icon-emojicon',optionIconValue:'e1a-two',users:[]});
+            voteObj.votes.push({option:'three',optionIconType:'icon-emojicon',optionIconValue:'e1a-three',users:[]});           
+            voteObj.votes.push({option:'four',optionIconType:'icon-emojicon',optionIconValue:'e1a-four',users:[]});
+                                    
             voteObj.options = ['one','two','three','four'];  
                   
         }else{
@@ -334,41 +345,10 @@ Template.SendMessage.events({
             //VoteOptions will need to be defined by user.   
         }
         
-                    
-        voteObj.options.map(function(eachVoteOption){
-            voteObj.votes.push({option:eachVoteOption,users:[]});
-        }); 
-       
+                           
         addons.push(voteObj);
         
     } 
-                             
-    /*else if(target.length > 0) {
-      Meteor.call('sendMsg', target, msg, mediaObj, function () {
-        Session.set("sendMessageSelectedClasses", {
-          selectArrName: [],
-          selectArrId: []
-        });
-        
-        //input parameters clean up
-        imageArr.set([]);
-        soundArr.set([]); 
-        documentArr.set([]);       
-        $(".msgBox").val("");
-        template.calendarEvent.set({});
-        hidePreview('all');
-
-        sendBtnMediaButtonToggle(); 
-        //force update autogrow
-        document.getElementsByClassName("inputBox")[0].updateAutogrow(); 
-        
-        //scroll messagelist to bottom;
-        window.setTimeout(scrollMessageListToBottom, 100);
-      
-      });
-    } else {
-      toastr.error("no class select!");
-    }*/
       
     GeneralMessageSender(target[0],'text',msg, addons,null,function(){
         
@@ -395,13 +375,6 @@ Template.SendMessage.events({
       
            
     });
-    //Meteor.call('smartix:messages/createMessage',target[0],'text',{content:msg});
-    
-    
-    
-    
-
-    
 
   },
   'keyup .inputBox':function(){
