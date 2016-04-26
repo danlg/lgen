@@ -118,8 +118,7 @@
                             {{#if this.isUploaded}}
                                     {{#if this.hasStored 'documents'}}                           
                                         <div class="bubble">
-                                        <a href='{{this.url}}'> <i class="icon ion-ios-download-outline"></i>&nbsp;{{this.name}}</a>
-                                        <br/><span  class='timestamp'>{{formatTime  ../sendAt}}</span>                       
+                                        <a href='{{this.url}}'> <i class="icon ion-ios-download-outline"></i>&nbsp;{{this.name}}</a>                                                     
                                         </div>
                                     {{else}}
                                         {{> LoadingSpinner}}                                  
@@ -138,7 +137,7 @@
                             {{> AppDisplayVote this}}
                         {{/each}}
                         
-                    <span class='timestamp'>{{formatTime sendAt}}</span>  
+                    <span class='timestamp'>{{formatTime createdAt}}</span>  
                     <span>
                          {{#if this.comment.allowComment}}
                              <a class='smaller comment-counter subdued'>{{_ "CommentCounter" comment_count=this.comment.comments.length }}</a>
