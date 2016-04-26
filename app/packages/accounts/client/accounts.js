@@ -18,7 +18,7 @@ Smartix.Accounts.registerOrLoginWithGoogle = function () {
         // set a session variable to display later if there is a login error
         Session.set('loginError', 'reason: ' + err.reason + ' message: ' + err.message || 'Unknown error');
         //alert(err.message + ":" + err.reason);
-        toastr.error('Sorry. Google Login is not available at the moment because it is unable to connect to the Internet.')
+        toastr.error('Sorry. '+err.reason);
         console.log('login:google:' + err.reason + " msg=" + err.message);
       }
     });
