@@ -3,14 +3,18 @@
         <div class="panel-heading">
             <h1>Search Users</h1>
         </div>
-
-        <div class="panel-body">
-            {{> EasySearch.Input index=usersIndex }}
-            <ul>
-                {{#EasySearch.Each index=usersIndex }}
-                    <li><a href="{{pathFor 'admin.users.view' data=routeData}}">{{profile.firstName}} {{profile.lastName}}</a></li>
-                {{/EasySearch.Each}}
-            </ul>
-        </div>
+        
+        {{#if Template.subscriptionsReady}}
+            <div class="panel-body">
+                {{> EasySearch.Input index=usersIndex }}
+                <ul>
+                    {{#EasySearch.Each index=usersIndex }}
+                        <li><a href="{{pathFor 'admin.users.view' data=routeData}}">{{profile.firstName}} {{profile.lastName}}</a></li>
+                    {{/EasySearch.Each}}
+                </ul>
+            </div>
+        {{else}}
+            Loading...
+        {{/if}}
     </div>
 </template>

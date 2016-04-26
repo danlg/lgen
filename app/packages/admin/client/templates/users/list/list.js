@@ -1,9 +1,9 @@
 Template.AdminUsersSearch.onCreated(function () {
     var self = this;
     if (Router
-    && Router.current()
-    && Router.current().params
-    && Router.current().params.school
+        && Router.current()
+        && Router.current().params
+        && Router.current().params.school
     ) {
         // subscribe to the school info first
         var schoolUsername = Router.current().params.school;
@@ -18,10 +18,14 @@ Template.AdminUsersSearch.onCreated(function () {
 
 Template.AdminUsersSearch.helpers({
   usersIndex: function () {
-      return UsersIndex;
+      if (Template.instance().subscriptionsReady()) {
+        return UsersIndex;
+      }
   },
   routeData: function () {
-        if (Router && Router.current()) {
+        if (Template.instance().subscriptionsReady()
+            && Router
+            && Router.current()) {
             return {
                 uid: this._id,
                 school: Router.current().params.school
