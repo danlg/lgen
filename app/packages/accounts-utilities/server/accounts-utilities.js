@@ -1,3 +1,6 @@
+Smartix = Smartix || {};
+Smartix.Accounts = Smartix.Accounts || {};
+
 // Remove non-existent users from the array
 // This is used in cases where the user may have specified a non-existent user `_id`
 Smartix.Accounts.removeNonExistentUsers = function (users) {
