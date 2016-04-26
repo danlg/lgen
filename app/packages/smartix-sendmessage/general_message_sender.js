@@ -42,7 +42,8 @@ GeneralMessageSender = function(groupId,messageType,messageText,addons,targetUse
 
     
     //add message to chat collection
-    /*Meteor.call("chat/sendImage", groupId, pushObj, function (error, result) {
+    /*
+    //0.Meteor.call("chat/sendImage", groupId, pushObj, function (error, result) {
         //log.info(groupId);
         if (error) {
                 log.error("error", error);

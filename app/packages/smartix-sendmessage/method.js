@@ -123,7 +123,7 @@ Meteor.methods({
             //send notification via websocket using Streamy end
             
             //send email notification
-            Smartix.sendEmailMessageToClasses(flattenArray,arrayOfClasses,msg,currentUserObj);
+            Meteor.call("Smartix.sendEmailMessageToClasses",flattenArray,arrayOfClasses,msg,currentUserObj);
             //send email notification end   
             
             //add notifications to notifications collections

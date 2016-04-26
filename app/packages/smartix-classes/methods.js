@@ -1,21 +1,22 @@
 Meteor.methods({
     
-    addClassMail: function (to, id) {
-        var classObj = Smartix.Groups.Collection.findOne({
-            _id: id
-        });
-    if (lodash.get(Meteor.user(), "emailNotifications")) {
-      try {
-        
-        log.info("newClassMail:" + classObj.classCode);
-        //retrieveContent("en");
-        Mandrill.messages.send(Smartix.newClassMailTemplate(to, classObj.className, classObj.classCode));
-      }
-      catch (e) {
-        log.error("add class mail: " + e);
-      }
+  addClassMail: function (to, id) {
+      var classObj = Smartix.Groups.Collection.findOne({
+          _id: id
+      });
+      if (lodash.get(Meteor.user(), "emailNotifications")) {
+        try {
+          log.info("newClassMail:" + classObj.classCode);
+          //retrieveContent("en");
+          this.unblock();
+          Smartix.newClassMailTemplate(to, classObj.className, classObj.classCode);
+        }
+        catch (e) {
+          log.error("add class mail: " + e);
+        }
     }
-  },   
+  },
+
   getFullNameById: function (id) {
     var userObj = Meteor.users.findOne({
         _id: id
