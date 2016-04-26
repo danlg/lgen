@@ -20,6 +20,10 @@ Smartix.Accounts.registerOrLoginWithGoogle = function () {
         //alert(err.message + ":" + err.reason);
         toastr.error('Sorry. '+err.reason);
         console.log('login:google:' + err.reason + " msg=" + err.message);
+      }else{
+        //if login success
+        Smartix.helpers.routeToTabClasses();
       }
+      
     });
 };

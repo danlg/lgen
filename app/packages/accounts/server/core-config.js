@@ -35,7 +35,13 @@ Accounts.onCreateUser(function (options, user) {
                 address: user.services.google.email
             });
             user.profile.firstName = user.services.google.given_name;
-            user.profile.lastName = user.services.google.family_name;            
+            user.profile.lastName = user.services.google.family_name;
+            
+           //google login without exsting account, add  global namespace as user
+
+           var rolesObj = {global:['user']};
+           user.roles = rolesObj;
+                  
         }else{
             if(existingUser.emails[0].verified === false){
                 throw new Meteor.Error("existing-account-not-verified", 
