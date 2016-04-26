@@ -44,10 +44,10 @@ Meteor.publish('allSchoolUsersPerRole', function (school) {
     //can talk to students who the teacher is teaching
     //can talk to parents whose students are taught by the teacher
     //can talk to students who the teacher is not teaching
-    if (Roles.userIsInRole(this.userId, 'teacher', schoolDoc._id)) {
+    if (Roles.userIsInRole(this.userId, Smartix.Accounts.School.TEACHER, schoolDoc._id)) {
 
-        var teachers = Roles.getUsersInRole('teacher', schoolDoc._id).fetch();
-        var students = Roles.getUsersInRole('student', schoolDoc._id).fetch();
+        var teachers = Roles.getUsersInRole(Smartix.Accounts.School.TEACHER, schoolDoc._id).fetch();
+        var students = Roles.getUsersInRole(Smartix.Accounts.School.STUDENT, schoolDoc._id).fetch();
 
         var studentsWhoTaughtByTeacher = Smartix.Groups.Collection.find({ namespace: schoolDoc._id, admins: this.userId }).fetch();
 

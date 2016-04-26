@@ -16,15 +16,15 @@ Template.TabYou.events({
       var userRoles = getRolesForUser(Meteor.userId(), Session.get('pickedSchoolId'));
       
       //TODO localization English hardcoded for recommendation, with template i18n, see doc on how to insert variable
-      if(userRoles.indexOf('admin') > -1) {
+      if(userRoles.indexOf(Smartix.Accounts.School.ADMIN) > -1) {
           text = "Hey! \r\n\r\nI have been using Smartix to text my students and parents without sharing my " +
             "personal phone number.\r\nYou have to try it! It saves time, students love it and it is free! " +
             "\r\nHere is the link: " + Meteor.settings.public.SHARE_URL + "?rid=" + Meteor.userId();
-      } else if(userRoles.indexOf('teacher') > -1) {
+      } else if(userRoles.indexOf(Smartix.Accounts.School.TEACHER) > -1) {
           "Hey! \r\n\r\nI have been using Smartix to text my students and parents without sharing my " +
             "personal phone number.\r\nYou have to try it! It saves time, students love it and it is free! " +
             "\r\nHere is the link: " + Meteor.settings.public.SHARE_URL + "?rid=" + Meteor.userId();
-      } else if(userRoles.indexOf('parent') > -1) {
+      } else if(userRoles.indexOf(Smartix.Accounts.School.PARENT) > -1) {
           text = "Hey!\r\n\r\nOur school teachers have been using the Smartix app to message our class before " +
             "assignments are due, share photos and update us with last minute changes. You should tell your school teachers about it! " +
             "It\'s really helpful and free.\r\nHere is the link: " + Meteor.settings.public.SHARE_URL + "?rid=" + Meteor.userId() + "\"\r\n";

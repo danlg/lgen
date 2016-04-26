@@ -189,10 +189,14 @@ Smartix.Accounts.removeUser = function (userId, namespace, currentUser) {
     }
     
     // Remove the school/global/system namespace from `roles` and the `schools` array
-    Roles.removeUsersFromRoles(userId, ['user', 'admin', 'student', 'parent', 'teacher'], namespace);
-    
+    Roles.removeUsersFromRoles(userId, ['user',
+            Smartix.Accounts.School.ADMIN,
+            Smartix.Accounts.School.STUDENT,
+            Smartix.Accounts.School.PARENT,
+            Smartix.Accounts.School.TEACHER
+        ], namespace);
     return true;
-}
+};
 
 Smartix.Accounts.editUserSchema = Smartix.Accounts.Schema.pick([
     'username',

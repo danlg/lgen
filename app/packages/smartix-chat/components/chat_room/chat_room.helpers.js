@@ -152,11 +152,11 @@ Template.ChatRoom.helpers({
     //console.log('target',target);
     //TODO: migrate to Groups
     if (
-        Roles.userIsInRole(target,'user',currentChat.namespace) ||
-        Roles.userIsInRole(target,'teacher',currentChat.namespace) ||
-        Roles.userIsInRole(target,'parent',currentChat.namespace)
+        Roles.userIsInRole(target, 'user',currentChat.namespace) ||
+        Roles.userIsInRole(target, Smartix.Accounts.School.TEACHER, currentChat.namespace) ||
+        Roles.userIsInRole(target, Smartix.Accounts.School.PARENT, currentChat.namespace)
        ) {
-      console.log('chat setting')
+      console.log('chat setting');
       //debugger;
       if (target.profile.chatSetting && target.profile.chatSetting.workHour) {
         

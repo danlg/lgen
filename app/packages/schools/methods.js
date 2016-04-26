@@ -14,10 +14,10 @@ if (Meteor.isServer) {
                 
             if (
                 Roles.userIsInRole(Meteor.userId(), 'admin', 'system') ||
-                Roles.userIsInRole(Meteor.userId(), 'admin', id)||
-                Roles.userIsInRole(Meteor.userId(), 'parent', id)||
-                Roles.userIsInRole(Meteor.userId(), 'student', id)||
-                Roles.userIsInRole(Meteor.userId(), 'teacher', id)                                                              
+                Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.ADMIN, id)||
+                Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.PARENT, id)||
+                Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.STUDENT, id)||
+                Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.TEACHER, id)
             ) {
                 return targetSchool.username;
             }

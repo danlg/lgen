@@ -31,7 +31,11 @@ Meteor.publish('smartix:accounts/basicInfoOfAllUsersInNamespace', function (name
     }
     
     if(hasPermission) {
-        var allUsersInNamespace = Roles.getUsersInRole(['user', 'admin', 'student', 'teacher', 'parent'], namespace).fetch();
+        var allUsersInNamespace = Roles.getUsersInRole(['user',
+            Smartix.Accounts.School.ADMIN,
+            Smartix.Accounts.School.STUDENT,
+            Smartix.Accounts.School.PARENT,
+            Smartix.Accounts.School.TEACHER], namespace).fetch();
         var allUserIdsInNamespace = _.map(allUsersInNamespace, '_id');
         
         // Remove the current user from the list of id's

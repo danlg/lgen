@@ -16,17 +16,16 @@ Smartix.Accounts.Global.canCreateUser = function (types, currentUser) {
         });
         return true;
     }));
-    
     // Anyone can create a global account through signing up
     return true;
-}
+};
 
 Smartix.Accounts.Global.canRemoveUser = function (userId, currentUser) {
     // No one can create a new user except the user him/herself
     // OR the system administrator
     return userId === currentUser
        || Smartix.Accounts.System.isAdmin(currentUser);
-}
+};
 
 Smartix.Accounts.Global.canGetUserInfo = function (userId, currentUser) {
     
@@ -48,7 +47,7 @@ Smartix.Accounts.Global.canGetUserInfo = function (userId, currentUser) {
     // Or if the currently-logged in user is an admin for global,
     // and the user being requested has approved the school
       || (Smartix.Accounts.Global.isAdmin(currentUser) && Smartix.Accounts.Global.userHasApproved(userId));
-}
+};
 
 Smartix.Accounts.Global.isAdmin = function (currentUser) {
     
@@ -65,7 +64,7 @@ Smartix.Accounts.Global.isAdmin = function (currentUser) {
         || (Roles.userIsInRole(currentUser, 'admin', 'global')
         // AND they've approved *global* in the form of adding it to the `school` array in their user document
         && Smartix.Accounts.Global.userHasApproved(currentUser))
-}
+};
 
 Smartix.Accounts.Global.userHasApproved = function (userId) {
     
@@ -86,9 +85,8 @@ Smartix.Accounts.Global.userHasApproved = function (userId) {
         // OPTIONAL: Throw error indicating user does not exist
         // Or is not logged on
     }
-    
     return userDoc.schools.indexOf('global') > -1
-}
+};
 
 Smartix.Accounts.Global.canGetBasicInfoOfAllUsers = function (currentUser) {
     
@@ -101,7 +99,7 @@ Smartix.Accounts.Global.canGetBasicInfoOfAllUsers = function (currentUser) {
     
     // Only system admins can get the list of ALL users in the system namespace
     return Smartix.Accounts.System.isAdmin(currentUser);
-}
+};
 
 Smartix.Accounts.Global.canGetAllUsers = function (currentUser) {
     
@@ -114,7 +112,7 @@ Smartix.Accounts.Global.canGetAllUsers = function (currentUser) {
     
     // Only system admins can get the list of ALL users in the system namespace
     return Smartix.Accounts.System.isAdmin(currentUser);
-}
+};
 
 Smartix.Accounts.Global.canGetUserInfo = function (userId, currentUser) {
     
@@ -128,4 +126,4 @@ Smartix.Accounts.Global.canGetUserInfo = function (userId, currentUser) {
     
     // Only system admins can get information about others in the system namespace
     return Smartix.Accounts.System.isAdmin(currentUser);
-}
+};

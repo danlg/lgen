@@ -167,15 +167,13 @@ Template.ionNavBar.events({
   'click .editAccountBtn': function () { 
     AutoForm.submitFormById("#editprofile");
   },
+
   'click .skip-account-btn': function () {
-    
     Session.set('registerFlow',false);
     //invite user to download the app if they are using web version
     if (!Meteor.isCordova) {
-        
-        
-        if (Roles.userIsInRole(Meteor.userId(),'teacher') ||
-            Roles.userIsInRole(Meteor.userId(),'parent') ||
+        if (Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.TEACHER) ||
+            Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.PARENT) ||
             Roles.userIsInRole(Meteor.userId(),'user')
            ) {
             log.info("redirect to how to invite");
@@ -188,9 +186,9 @@ Template.ionNavBar.events({
     }
     else {
         Smartix.helpers.routeToTabClasses();
-    }    
+    }
+  },
 
-  },  
   'click .finish-account-btn': function () {  
     AutoForm.submitFormById("#editprofile");
  
@@ -198,8 +196,8 @@ Template.ionNavBar.events({
     //invite user to download the app if they are using web version
     if (!Meteor.isCordova) {
    
-        if (Roles.userIsInRole(Meteor.userId(),'teacher') ||
-            Roles.userIsInRole(Meteor.userId(),'parent') ||
+        if (Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.TEACHER) ||
+            Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.PARENT) ||
             Roles.userIsInRole(Meteor.userId(),'user')
            ) {
             log.info("redirect to how to invite");
