@@ -17,17 +17,19 @@ Package.onUse(function(api) {
   api.use('aldeed:collection2');
   api.use('aldeed:simple-schema'); 
   api.use('alanning:roles@1.2.15');
-   
-  api.addFiles('accounts-relationships.js');
-  api.addFiles('relationships.js');
-  api.addFiles('methods.js','server');
-  api.addFiles('publications.js','server');
+  api.use('smartix:accounts-system');
+  api.use('smartix:accounts-schools');
   
-  api.addFiles(['templates/related_users_mobile/related_users_mobile.html',
-                'templates/related_users_mobile/related_users_mobile.js']
+  api.addFiles('lib/collections.js');
+  api.addFiles('server/relationships.js','server');
+  api.addFiles('server/methods.js','server');
+  api.addFiles('server/publications.js','server');
+  
+  api.addFiles(['client/templates/related_users_mobile/related_users_mobile.html',
+                'client/templates/related_users_mobile/related_users_mobile.js']
                ,'client');
                
-  api.export('Relationships');
+  api.export('Smartix');
 });
 
 Package.onTest(function(api) {

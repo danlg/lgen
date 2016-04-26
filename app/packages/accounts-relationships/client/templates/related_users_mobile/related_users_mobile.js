@@ -1,6 +1,6 @@
 Template.RelatedUsersMobile.helpers({
    relationships:function(){
-     return Relationships.find();
+     return Smartix.Accounts.Relationships.Collection.find();
    },
    getParentNameById:function(userid){
        var usr =  Meteor.users.findOne(userid);
