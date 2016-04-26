@@ -136,16 +136,17 @@ Template.ChatRoom.helpers({
     var displayOffline = false;
         
     //if it is a group chat
-    if(currentChat.chatRoomModerator){
-        if(currentChat.chatRoomModerator == Meteor.userId()){  
+    if(currentChat.chatRoomModerator) {
+        if(currentChat.chatRoomModerator == Meteor.userId()) {
             //if current user is the moderator of the chatroom,
             //this user is not limited by the office hour.
             return displayOffline;      
-        }else{
+        }
+        else {
          target = Meteor.users.findOne( currentChat.chatRoomModerator );             
         }
-
-    }else{ //if it is a one-to-one chat
+    }
+    else{ //if it is a one-to-one chat
         target = Smartix.helpers.getAnotherUser();
     }
 
@@ -155,12 +156,11 @@ Template.ChatRoom.helpers({
         Roles.userIsInRole(target, 'user',currentChat.namespace) ||
         Roles.userIsInRole(target, Smartix.Accounts.School.TEACHER, currentChat.namespace) ||
         Roles.userIsInRole(target, Smartix.Accounts.School.PARENT, currentChat.namespace)
-       ) {
+       )
+    {
       console.log('chat setting');
       //debugger;
       if (target.profile.chatSetting && target.profile.chatSetting.workHour) {
-        
-        
         var workHourTime = target.profile.chatSetting.workHourTime;
         var dayOfWeek = moment().day();
         
@@ -193,8 +193,6 @@ Template.ChatRoom.helpers({
         if( currentHour > toMomentHour ||  (currentHour ==  toMomentHour && currentMinute > toMomentMinute) ){
              displayOffline = true;
         }
-
-     
       }
     }  
     return displayOffline;
@@ -210,31 +208,19 @@ Template.ChatRoom.helpers({
   },
   
   isNewMessage:function(sendAt){   
-     var result = Notifications.findOne({"eventType":"newchatroommessage",'messageCreateTimestampUnixTime':sendAt});       
-     //backward comptability
-     if(!result){
+      var result = Notifications.findOne({"eventType":"newchatroommessage",'messageCreateTimestampUnixTime':sendAt});
+      //backward comptability
+      if(!result){
          return "";
-     }  
-     if(result.hasRead == false){
-         return 'ion-record';
-     }else{
-         return "";
-     }
+      }
+      return (!result.hasRead) ? 'ion-record' : "";
   },
+
   isLoadMoreButtonShow: function(){
       var currentChat= Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId});
-      var chatMessageLength;
-      if(currentChat.messagesObj){
-          chatMessageLength = currentChat.messagesObj.length;
-      }else{
-          chatMessageLength = 0;
-      }
+      var chatMessageLength = (currentChat.messagesObj) ?  currentChat.messagesObj.length : 0;
       //log.info('reachTheEnd:loadedItems',loadedItems.get(),'classObjMessages',currentClass.messagesObj.length,'initialLoadItems',initialLoadItems.get());
-      if(Template.instance().loadedItems.get() > chatMessageLength ){
-          return "hidden";
-      }else{
-          return "";
-      }
+      return (Template.instance().loadedItems.get() > chatMessageLength )? "hidden" :"";
   }
 
 });
@@ -256,25 +242,18 @@ function getAnotherUser(){
 }
 
 function getAllUser(){
-            //find all userids in this chat rooms
-            var arr = Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId}).chatIds;
-            //log.info(arr);
-            //return all user objects
-            var targetUsers =  Meteor.users.find({
-                 _id :{ $in: arr}
-            }).fetch();
-            return targetUsers;
-          
+    //find all userids in this chat rooms
+    var arr = Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId}).chatIds;
+    //log.info(arr);
+    //return all user objects
+    var targetUsers =  Meteor.users.find({
+         _id :{ $in: arr}
+    }).fetch();
+    return targetUsers;
 }
 
 function getTotalChatRoomUserCount(){
-            var chatObj = Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId});
-            if(chatObj){
-                //find all userids in this chat rooms
-                var arr = chatObj.users;
-                // log.info(arr);    
-                return arr.length;
-            }else{
-                return -1;
-            }  
+    var chatObj = Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId});
+    //find all userids in this chat rooms
+    return chatObj ? chatObj.users.length : -1;
 }
