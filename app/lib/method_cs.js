@@ -576,39 +576,25 @@ sendEmailMessageToClasses = function(targetUserids, classes, message, originateU
    for(var lang in optInUsersGroupByLang){
         var classRecepientArr = []; 
         optInUsersGroupByLang[lang].map(function(eachUser){
-            var classRoomRecepient = { 
+            var classRoomRecepient = {
                 email: eachUser.emails[0].address,
                 name:  eachUser.profile.firstname+ " " + eachUser.profile.lastname
-            }
+            };
             classRecepientArr.push(classRoomRecepient);            
         });
         log.info("sendEmailMessageToClasses:classRecepientArr:lang:"+lang+":start");
         log.info(classRecepientArr);
-        log.info("sendEmailMessageToClasses:classRecepientArr:lang:"+lang+":end");      
-        
-        
-            try {
-              
-              var emailTemplateByUserLangs = messageEmailTemplate(classRecepientArr, originateUser, message, {
-                                                type:'class',
-                                                lang: lang,
-                                                className: allClassNameJoined
-                                             });  
-              client.transmissions.send(emailTemplateByUserLangs,
-                function(err, res) {
-                    if (err) {
-                        console.log('Something went wrong');
-                        console.log(err);
-                    } else {
-                        console.log('Email Sent!');
-                    }
-                }
-            );       
-            }
-            catch (e) {
-              log.error(e);
-            }
-               
+        log.info("sendEmailMessageToClasses:classRecepientArr:lang:"+lang+":end");
+        try {
+           messageEmailTemplate(classRecepientArr, originateUser, message, {
+                                            type:'class',
+                                            lang: lang,
+                                            className: allClassNameJoined
+                                         });
+        }
+        catch (e) {
+          log.error(e);
+        }
    }
       
-}
+};

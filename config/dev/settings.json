@@ -24,12 +24,10 @@
 
   "SPARKPOST_KEY": "67eaa68e98ff43eca9441b6a9a9888a864fe8064",
 
-  "smtp":{
-    "username": "SMTP_Injection",
-    "password": "67eaa68e98ff43eca9441b6a9a9888a864fe8064",
-    "server": "smtp.sparkpostmail.com",
-    "port": 587
-  },
+  "SPARKPOST_HOST": "smtp.sparkpostmail.com",
+  "SPARKPOST_PORT": "587",
+  "SPARKPOST_USERNAME": "SMTP_Injection",
+  "SPARKPOST_PASSWORD": "67eaa68e98ff43eca9441b6a9a9888a864fe8064",
 
   "FROM_EMAIL": "dan@gosmartix.com",
   "FROM_NAME": "Smartix",

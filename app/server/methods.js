@@ -6,12 +6,12 @@ var key = Meteor.settings.SPARKPOST_KEY
   , SparkPost = Meteor.npmRequire('sparkpost')
   , client = new SparkPost(key);
 
-Meteor.methods({
+Meteor.methods( {
 
   testEmail: function () {
     try {
-      client.transmissions.send(testMail("", ""));
-      log.info("Sent Email!");
+      this.unblock();
+      testMail("", "");
     }
     catch (e) {
       log.error(e);
@@ -20,17 +20,9 @@ Meteor.methods({
 
   feedback: function (content) {
     // feedback@gosmartix.com
-    console.log(feedback(content));
     try {
-      client.transmissions.send(feedback(content),
-      function(err, res) {
-                if (err) {
-                    console.log('Something went wrong');
-                    console.log(err);
-                } else {
-                    console.log('Email Sent!');
-                }
-            });
+      this.unblock();
+      feedback2(content);
     }
     catch (e) {
       log.error(e);
@@ -74,27 +66,14 @@ Meteor.methods({
         
         log.info(chatRoomRecepientArr);
         log.info(lang);
-        
-        
-            try {
-              var emailTemplateByUserLangs = messageEmailTemplate(chatRoomRecepientArr, orginateUser, content);
-            //   , {
-            //                                     type:'chat',
-            //                                     lang:lang
-            //                                  });  
-              console.log(emailTemplateByUserLangs);
-              client.transmissions.send(emailTemplateByUserLangs,function(err, res) {
-                if (err) {
-                    console.log('Something went wrong');
-                    console.log(err);
-                } else {
-                    console.log('Email Sent!');
-                }
-            });
-            }
-            catch (e) {
-              log.error(e);
-            }
+
+        try {
+          this.unblock();
+          messageEmailTemplate(chatRoomRecepientArr, orginateUser, content);
+        }
+        catch (e) {
+          log.error(e);
+        }
                
     }
   },
@@ -103,19 +82,9 @@ Meteor.methods({
     var classObj = Classes.findOne( {_id: _id});
     if (lodash.get(Meteor.user(), "profile.email")) {
       try {
-        
         log.info("newClassMail:" + classObj.classCode);
-        //retrieveContent("en");
-        client.transmissions.send(newClassMailTemplate(to, classObj.className, classObj.classCode),
-         function(err, res) {
-                if (err) {
-                    console.log('Something went wrong');
-                    console.log(err);
-                } else {
-                    console.log('Email Sent!');
-                }
-            }
-        );
+        this.unblock();
+        newClassMailTemplate(to, classObj.className, classObj.classCode);
       }
       catch (e) {
         log.error("add class mail: " + e);
@@ -131,15 +100,8 @@ Meteor.methods({
     log.info("classinvite:classCode:"+ classObj.classCode+":from:"+last+ ":to:"+ targetFirstEmail + ":URI:"+acceptLinkEncoded);
     //do not log the CONTENT of every message sent !
       try {
-        client.transmissions.send(inviteClassMailTemplate(targetFirstEmail, classObj),
-        function(err, res) {
-                    if (err) {
-                        console.log('Something went wrong');
-                        console.log(err);
-                    } else {
-                        console.log('You just sent your mail!');
-                    }
-            });
+        this.unblock();
+        inviteClassMailTemplate(targetFirstEmail, classObj);
       }
       catch (e) {
         log.error("classinvite:couldn't send invite email:classCode:"+ classObj.classCode+ ":to:"+ targetFirstEmail );
@@ -182,8 +144,7 @@ Meteor.methods({
           }
       }
       //log.info(ChatObj); 
-      newRoom = Chat.insert(ChatObj);          
-      
+      newRoom = Chat.insert(ChatObj);
       return newRoom;
     }
   },
@@ -424,9 +385,9 @@ Meteor.methods({
 
 Meteor.startup(function () {
   process.env.MAIL_URL = 'smtp://' +
-      encodeURIComponent(Meteor.settings.smtp.username) + ':' + 
-      encodeURIComponent(Meteor.settings.smtp.password) + '@' +
-      encodeURIComponent(Meteor.settings.smtp.server) + ':' +
-      Meteor.settings.smtp.port;
+      encodeURIComponent(Meteor.settings.SPARKPOST_USERNAME) + ':' +
+      encodeURIComponent(Meteor.settings.SPARKPOST_PASSWORD) + '@' +
+      encodeURIComponent(Meteor.settings.SPARKPOST_HOST) + ':' +
+                         Meteor.settings.SPARKPOST_PORT;
   console.log("Using MAIL_URL:"+ process.env.MAIL_URL);
 });
