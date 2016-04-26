@@ -24,9 +24,7 @@ Template.ClassDetail.events({
      
         
        // log.info("clickvotebtn:",classObj);
-        Meteor.call('updateMsgRating', action, msgId, classObj, function (error,result) {
-              
-        });        
+        Meteor.call('smartix:accounts-schools/castVote', msgId,action, function (error,result) {});        
     }
 
   },

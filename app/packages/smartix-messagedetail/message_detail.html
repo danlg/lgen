@@ -91,17 +91,19 @@
 
                     <p>
                         {{#each attachVotes}}
-                            {{> AppDisplayVote this.vote}} 
+                            {{> AppDisplayVote this}} 
                         {{/each}}
                         <span class='timestamp'>{{formatTime createdAt}}</span>  
                     </p>
                     </div>
-                    
+                   
                     <!--Voting Area-->                              
                     {{#each attachVotes}}
-                        {{#if this.vote.allowVote}}
+                        {{#if this.expires}}
+                        
+                        {{else}}
                         <div class="votingSection item tabs tabs-secondary tabs-icon-left">
-                         {{> AppChangeVote vote=this.vote messageId=msgId}}
+                         {{> AppChangeVote vote=this messageId=../_id}}
                         </div>                     
                         {{/if}}                   
                     {{/each}}

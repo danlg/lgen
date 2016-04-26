@@ -47,20 +47,21 @@ Smartix.Messages.Addons.Poll.canChangeVotes = function (messageId) {
 
 Smartix.Messages.Addons.Poll.updateNewPoll = function (messageId, pollObj) {
     // Update the message
+    console.log(Smartix.Messages.Addons.Poll.Type);
     Smartix.Messages.Collection.update({
         _id: messageId
-    }, {
-        $pull: {
-            addons: {
-                type: Smartix.Messages.Addons.Poll.Type
-            }
-        }
-    }, function (error, n) {
+    },
+    { $pull: { addons: {type: Smartix.Messages.Addons.Poll.Type }  } },
+    function (error, n) {
         if(!error) {
+            
+            console.log(pollObj)
+            console.log(pollObj.votes);
+            
             Smartix.Messages.Collection.update({
                 _id: messageId
             }, {
-                $push: pollObj
+                $push: { addons: pollObj}
             });
         }
     });
@@ -274,7 +275,7 @@ Smartix.Messages.Addons.Poll.castVote = function (messageId, option) {
     check(messageId, String);
     check(option, String);
     
-    pollObj = Smartix.Message.Addons.Poll.canChangeVotes(messageId);
+    pollObj = Smartix.Messages.Addons.Poll.canChangeVotes(messageId);
     
     if(!pollObj) {
         return false;
@@ -307,7 +308,7 @@ Smartix.Messages.Addons.Poll.uncastVote = function (messageId, option) {
     check(messageId, String);
     check(option, String);
     
-    pollObj = Smartix.Message.Addons.Poll.canChangeVotes(messageId);
+    pollObj = Smartix.Messages.Addons.Poll.canChangeVotes(messageId);
     
     if(!pollObj) {
         return false;

@@ -24,7 +24,8 @@ Package.onUse(function(api) {
     api.use('smartix:accounts-schools');
     api.use('smartix:groups');
     api.use('smartix:messages-addons-calendar');
-    
+    api.use('smartix:messages-addons-poll');
+        
     api.addFiles('smartix-classes.js');
     api.addFiles('publications.js','server');
     api.addFiles('route.js');

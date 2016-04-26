@@ -53,5 +53,9 @@ Template.MessageDetail.helpers({
   attachCalendar:function(){
     var calendarObjs =lodash.filter(this.addons, function(addon) { return addon.type =='calendar'; });
     return calendarObjs;       
+  },
+  attachVotes:function(){
+    var voteObjs =lodash.filter(this.addons, function(addon) { return addon.type =='poll'; });
+    return voteObjs;         
   }
 });
