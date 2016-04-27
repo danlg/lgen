@@ -97,6 +97,7 @@ Package.onUse(function(api) {
         ], 'client');
 
     api.addFiles('lib/routes.js', ['client', 'server']);
+    api.addFiles('client/init.js', 'client');
     
     api.export('Smartix');
 });

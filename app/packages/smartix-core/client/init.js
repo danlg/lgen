@@ -139,15 +139,7 @@ Accounts.onEmailVerificationLink(function(token) {
     });
 });
 
-Accounts.onResetPasswordLink(function(token, done) {
-    Session.set('resetPasswordToken', token);
-    Router.go('EmailResetPwd');
-});
 
-Accounts.onEnrollmentLink(function(token, done) {
-    Session.set('resetPasswordToken', token);
-    Router.go('EmailResetPwd');
-});
 
 Accounts.onLogin(function(attempt) {
 
