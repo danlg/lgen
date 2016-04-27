@@ -20,11 +20,12 @@
   "GOOGLE_CLIENT_ID": "122417300165-bq0l4khepcibitqksgrmkuvqrdintiuc.apps.googleusercontent.com",
   "GOOGLE_SECRET": "kCwDY5lY6wWz8KsGB4fTVwNp",
 
-  "MANDRILL_USERNAME": "dan@littlegenius.io",
-  "MANDRILL_KEY": "GBt6d5ggNEP7969s9j9DyA",
-  "MANDRILL_PORT": 587,
+  "SPARKPOST_HOST": "smtp.sparkpostmail.com",
+  "SPARKPOST_PORT": "587",
+  "SPARKPOST_USERNAME": "SMTP_Injection",
+  "SPARKPOST_PASSWORD": "67eaa68e98ff43eca9441b6a9a9888a864fe8064",
 
-  "FROM_EMAIL": "contactemail@littlegenius.io",
+  "FROM_EMAIL": "contactemail@gosmartix.com",
   "FROM_NAME": "Smartix",
-  "FEEDBACK_EMAIL": "feedback@littlegenius.io"
+  "FEEDBACK_EMAIL": "feedback@gosmartix.com"
 }

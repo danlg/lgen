@@ -1,34 +1,14 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 /* Server Only Methods */
 
-Meteor.methods({
-   /* Example:
-   * '/app/items/insert': function (item) {}
-   */
 
-  ping: function () {
-    this.unblock();
-    try {
-     log.info(Mandrill.users.ping());
-    }
-    catch (e) {
-      log.error(e);
-    }
-  },
 
-  ping2: function () {
-    this.unblock();
-    try {
-      log.info(Mandrill.users.ping2());
-    }
-    catch (e) {
-      log.error(e);
-    }
-  },
+Meteor.methods( {
 
   testEmail: function () {
     try {
-      Mandrill.messages.send(testMail("", ""));
+      this.unblock();
+      testMail("", "");
     }
     catch (e) {
       log.error(e);
@@ -36,9 +16,10 @@ Meteor.methods({
   },
 
   feedback: function (content) {
-    // feedback@littlegenius.io
+    // feedback@gosmartix.com
     try {
-      Mandrill.messages.send(feedback(content));
+      this.unblock();
+      feedback2(content);
     }
     catch (e) {
       log.error(e);
@@ -48,53 +29,49 @@ Meteor.methods({
     //log.info(recipientUsers);
     //log.info(orginateUser);
     //log.info(content);
-    
+
     //1. we filter and retain user who is opted to receive email
     //2. we filter and retain user whose email is verified
     //3. group recipient users by their lang, if they dont have lang, default it as en.
     //4. Then we send email in batch per each lang
-    
+
     var optInUsersGroupByLang = lodash.chain(recipientUsers)
-                                      .filter(function(user){
-                                        if(user.profile.email){
-                                            if(user.emails[0].verified || user.services.google.verified_email){
-                                                return true;
-                                            }   
-                                        }else{
-                                            return false;
-                                        }
-                                      })
-                                      .groupBy('profile.lang')
-                                      .value();
-    
+      .filter(function(user){
+        if(user.profile.email){
+          if(user.emails[0].verified || user.services.google.verified_email){
+            return true;
+          }
+        }else{
+          return false;
+        }
+      })
+      .groupBy('profile.lang')
+      .value();
+
     log.info(optInUsersGroupByLang);
-    
+
     for(var lang in optInUsersGroupByLang){
-        
-        var chatRoomRecepientArr = []; 
-        optInUsersGroupByLang[lang].map(function(eachUser){
-            var chatRoomRecepient = { 
-                email: eachUser.emails[0].address,
-                name:  eachUser.profile.firstname+ " " + eachUser.profile.lastname
-            }
-            chatRoomRecepientArr.push(chatRoomRecepient);            
-        });
-        
-        log.info(chatRoomRecepientArr);
-        log.info(lang);
-        
-        
-            try {
-              var emailTemplateByUserLangs = messageEmailTemplate(chatRoomRecepientArr, orginateUser, content, {
-                                                type:'chat',
-                                                lang:lang
-                                             });  
-              Mandrill.messages.send(emailTemplateByUserLangs);       
-            }
-            catch (e) {
-              log.error(e);
-            }
-               
+
+      var chatRoomRecepientArr = [];
+      optInUsersGroupByLang[lang].map(function(eachUser){
+        var chatRoomRecepient = {
+          email: eachUser.emails[0].address,
+          name:  eachUser.profile.firstname+ " " + eachUser.profile.lastname
+        }
+        chatRoomRecepientArr.push(chatRoomRecepient);
+      });
+
+      log.info(chatRoomRecepientArr);
+      log.info(lang);
+
+      try {
+        this.unblock();
+        messageEmailTemplate(chatRoomRecepientArr, orginateUser, content);
+      }
+      catch (e) {
+        log.error(e);
+      }
+
     }
   },
 
@@ -102,10 +79,9 @@ Meteor.methods({
     var classObj = Classes.findOne( {_id: _id});
     if (lodash.get(Meteor.user(), "profile.email")) {
       try {
-        
         log.info("newClassMail:" + classObj.classCode);
-        //retrieveContent("en");
-        Mandrill.messages.send(newClassMailTemplate(to, classObj.className, classObj.classCode));
+        this.unblock();
+        newClassMailTemplate(to, classObj.className, classObj.classCode);
       }
       catch (e) {
         log.error("add class mail: " + e);
@@ -120,21 +96,20 @@ Meteor.methods({
     var last = Meteor.user().profile.lastname;
     log.info("classinvite:classCode:"+ classObj.classCode+":from:"+last+ ":to:"+ targetFirstEmail + ":URI:"+acceptLinkEncoded);
     //do not log the CONTENT of every message sent !
-    //log.info(inviteClassMailTemplate(targetFirstEmail, classObj));
-  
-      try {
-        Mandrill.messages.send(inviteClassMailTemplate(targetFirstEmail, classObj));
-      }
-      catch (e) {
-        log.error("classinvite:couldn't send invite email:classCode:"+ classObj.classCode+ ":to:"+ targetFirstEmail );
-        log.error(e);
-      }
-    
+    try {
+      this.unblock();
+      inviteClassMailTemplate(targetFirstEmail, classObj);
+    }
+    catch (e) {
+      log.error("classinvite:couldn't send invite email:classCode:"+ classObj.classCode+ ":to:"+ targetFirstEmail );
+      log.error(e);
+    }
+
   },
   chatCreate: function (chatArr,chatObjExtra) {
     //user who create this chat is also added into the chat
     chatArr.push(Meteor.userId());
-    
+
     //try to find if there is existing room
     //size needs to be specified, or else a wrong result of larger chat room group may be found
     //http://stackoverflow.com/questions/6165121/mongodb-query-an-array-for-an-exact-element-match-but-may-be-out-of-order/6165143#6165143
@@ -146,28 +121,27 @@ Meteor.methods({
     else {
       //no room exists. create a new one
       var newRoom;
-      
+
       //add createdAt,lastUpdatedAt field in chat collection
       var ChatObj = {chatIds: chatArr, messagesObj: [], createdAt: new Date(), createdBy: Meteor.userId(), lastUpdatedAt: new Date(),lastUpdatedBy: Meteor.userId()};
       //var ChatObj = {chatIds: chatArr, messagesObj: []};
       //extra property for chat room, currently use during create of group chat room only.
       if(chatObjExtra){
-          
-          if(chatObjExtra.chatRoomName && chatObjExtra.chatRoomName !=""){
-              ChatObj.chatRoomName = chatObjExtra.chatRoomName;
-          }
-                
-          if(chatObjExtra.chatRoomAvatar && chatObjExtra.chatRoomAvatar !=""){
-              ChatObj.chatRoomAvatar = chatObjExtra.chatRoomAvatar;              
-          }
-          
-          if(chatObjExtra.chatRoomModerator && chatObjExtra.chatRoomModerator !=""){
-              ChatObj.chatRoomModerator = chatObjExtra.chatRoomModerator;
-          }
+
+        if(chatObjExtra.chatRoomName && chatObjExtra.chatRoomName !=""){
+          ChatObj.chatRoomName = chatObjExtra.chatRoomName;
+        }
+
+        if(chatObjExtra.chatRoomAvatar && chatObjExtra.chatRoomAvatar !=""){
+          ChatObj.chatRoomAvatar = chatObjExtra.chatRoomAvatar;
+        }
+
+        if(chatObjExtra.chatRoomModerator && chatObjExtra.chatRoomModerator !=""){
+          ChatObj.chatRoomModerator = chatObjExtra.chatRoomModerator;
+        }
       }
       //log.info(ChatObj); 
-      newRoom = Chat.insert(ChatObj);          
-      
+      newRoom = Chat.insert(ChatObj);
       return newRoom;
     }
   },
@@ -183,16 +157,16 @@ Meteor.methods({
   },
   getAvatarById: function(id){
     var userObj = Meteor.users.findOne({_id: id});
-    
+
     if(userObj && userObj.profile && userObj.profile.useravatar ){
-     return userObj.profile.useravatar;
+      return userObj.profile.useravatar;
     }else{
-     return "green_apple";             
+      return "green_apple";
     }
 
   },
   getUserCreateClassesCount: function(){
-      return Classes.find({createBy: Meteor.userId()}).count();
+    return Classes.find({createBy: Meteor.userId()}).count();
   },
   chatSendImage: function (file, chatRoomId) {
     Images.insert(file, function (err, fileObj) {
@@ -231,55 +205,55 @@ Meteor.methods({
   },
 
   serverNotification: function (notificationObj,inAppNotifyObj) {
-  
+
     var notificationObjType;
     var filteredUserIdsWhoEnablePushNotify = [];
-    
+
     //if is an object. i.e userId: {$in: flattenArray}
     if(lodash.isPlainObject(notificationObj.query.userId) ){
-            notificationObjType="multiple";      
-            //only keep users who want to receive push notification
-                filteredUserIdsWhoEnablePushNotify = notificationObj.query.userId.$in.filter(function(eachUserId){
-                var userObj = Meteor.users.findOne(eachUserId);
-                if (lodash.get(userObj, 'profile.push')) {
-                   return true;
-                }else{
-                   return false;
-                }    
-            });
-            notificationObj.query.userId.$in = filteredUserIdsWhoEnablePushNotify;
-            Push.send(notificationObj);
+      notificationObjType="multiple";
+      //only keep users who want to receive push notification
+      filteredUserIdsWhoEnablePushNotify = notificationObj.query.userId.$in.filter(function(eachUserId){
+        var userObj = Meteor.users.findOne(eachUserId);
+        if (lodash.get(userObj, 'profile.push')) {
+          return true;
+        }else{
+          return false;
+        }
+      });
+      notificationObj.query.userId.$in = filteredUserIdsWhoEnablePushNotify;
+      Push.send(notificationObj);
 
 
     }else{
-    //else if is just one userid
-        notificationObjType="single";
-        var userId = notificationObj.query.userId;
-        var userObj = Meteor.users.findOne(userId);
-        if (lodash.get(userObj, 'profile.push')) {
-            filteredUserIdsWhoEnablePushNotify.push(userId);
-            notificationObj.badge = getTotalUnreadNotificationCount(userId);
-            Push.send(notificationObj);
-        }             
+      //else if is just one userid
+      notificationObjType="single";
+      var userId = notificationObj.query.userId;
+      var userObj = Meteor.users.findOne(userId);
+      if (lodash.get(userObj, 'profile.push')) {
+        filteredUserIdsWhoEnablePushNotify.push(userId);
+        notificationObj.badge = getTotalUnreadNotificationCount(userId);
+        Push.send(notificationObj);
+      }
     }
-    
+
     if(inAppNotifyObj && notificationObj.payload.type == 'chat'){
-        
-        var userIds = filteredUserIdsWhoEnablePushNotify;
-        
-        //send notification via websocket using Streamy
-        userIds.map(function(userId){
-            //log.info("streamy:newchatmessage:"+userId);
-            var socketObj = Streamy.socketsForUsers(userId);
-            //log.info(socketObj);
-            
-            socketObj._sockets.map(function(socket){
-                Streamy.emit('newchatmessage', { from: notificationObj.from,
-                                                text: notificationObj.text,
-                                                chatRoomId: inAppNotifyObj.chatRoomId                                  
-                }, socket); 
-            });
-        });        
+
+      var userIds = filteredUserIdsWhoEnablePushNotify;
+
+      //send notification via websocket using Streamy
+      userIds.map(function(userId){
+        //log.info("streamy:newchatmessage:"+userId);
+        var socketObj = Streamy.socketsForUsers(userId);
+        //log.info(socketObj);
+
+        socketObj._sockets.map(function(socket){
+          Streamy.emit('newchatmessage', { from: notificationObj.from,
+            text: notificationObj.text,
+            chatRoomId: inAppNotifyObj.chatRoomId
+          }, socket);
+        });
+      });
     }
 
   },
@@ -362,16 +336,19 @@ Meteor.methods({
     Meteor.users.update(Meteor.userId(), {$inc: {'profile.referral': 1}});
   },
   resendVerificationEmail: function(email){
-      log.info(Meteor.userId());
-      if (email) {
-       var newEmailArray = [];
-       newEmailArray.push({address:email,verified:false});
-       Meteor.users.update(Meteor.userId(), {$set: {emails: newEmailArray}});
-       
-        Accounts.sendVerificationEmail(Meteor.userId(), email);
-      } else {
-        Accounts.sendVerificationEmail(Meteor.userId());
-      }
+    log.info(Meteor.userId());
+    if (email) {
+      var newEmailArray = [];
+      newEmailArray.push({address:email,verified:false});
+      Meteor.users.update(Meteor.userId(), {$set: {emails: newEmailArray}});
+      log.info("resendVerificationEmail:"+ email);
+
+      Accounts.sendVerificationEmail(Meteor.userId(), email);
+    }
+    else {
+      log.info("Else:resendVerificationEmail:"+ email);
+      Accounts.sendVerificationEmail(Meteor.userId());
+    }
   },
   getUserList:function(){
     if(Meteor.user().admin){
@@ -387,21 +364,27 @@ Meteor.methods({
       return result;
     }else{
       return "";
-    }    
+    }
   },
   getSetting:function(){
     if(Meteor.user().admin){
       var result = Meteor.settings.public;
       var resultWrapInArray = [];
       resultWrapInArray.push(result);
-      
+
       return resultWrapInArray;
     }else{
       return [];
-    }    
+    }
   }
 
 });
 
-
-
+Meteor.startup(function () {
+  process.env.MAIL_URL = 'smtp://' +
+    encodeURIComponent(Meteor.settings.SPARKPOST_USERNAME) + ':' +
+    encodeURIComponent(Meteor.settings.SPARKPOST_PASSWORD) + '@' +
+    encodeURIComponent(Meteor.settings.SPARKPOST_HOST) + ':' +
+    Meteor.settings.SPARKPOST_PORT;
+  console.log("Using MAIL_URL:"+ process.env.MAIL_URL);
+});

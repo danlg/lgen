@@ -587,12 +587,11 @@ sendEmailMessageToClasses = function(targetUserids, classes, message, originateU
         
         
             try {
-              var emailTemplateByUserLangs = messageEmailTemplate(classRecepientArr, originateUser, message, {
-                                                type:'class',
-                                                lang: lang,
-                                                className: allClassNameJoined
-                                             });  
-              Mandrill.messages.send(emailTemplateByUserLangs);       
+              messageEmailTemplate(classRecepientArr, originateUser, message, {
+                type:'class',
+                lang: lang,
+                className: allClassNameJoined
+              });
             }
             catch (e) {
               log.error(e);
@@ -600,4 +599,4 @@ sendEmailMessageToClasses = function(targetUserids, classes, message, originateU
                
     }
       
-}
+};
