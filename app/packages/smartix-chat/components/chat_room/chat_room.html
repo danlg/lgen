@@ -30,8 +30,8 @@
       <div class="list chatroomList background-wallpaper" id="chatroomList">
          <div class='date-bubble-wrapper {{isLoadMoreButtonShow}}'><button class='load-prev-msg'>Load Previous Messages</button> </div>
            {{#each chatRoomProfile}}
-                {{#if showTimestamp}}
-                       <div class='date-bubble-wrapper'> <div class='date-bubble'>{{formatDate sendAt}}</div> </div>
+                {{#if isFirstMsgInOneDay}}
+                       <div class='date-bubble-wrapper'> <div class='date-bubble'>{{formatDate createdAt}}</div> </div>
                 {{/if}}               
                 <div class="item {{isMine}}">
                     {{#if isText}}

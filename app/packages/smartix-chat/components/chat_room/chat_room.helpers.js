@@ -8,13 +8,52 @@ Template.ChatRoom.helpers({
       return Router.current().params.chatRoomId;
   },
   chatRoomProfile: function () {
-        
+
+    var msgCount =Smartix.Messages.Collection.find({
+        group: Router.current().params.chatRoomId
+    }).count();
+           
+    var skipMsg = msgCount - Template.instance().loadedItems.get();
+    
+    //skip amount cannot be a negative value
+    if(skipMsg < 0){
+        skipMsg = 0;
+    }
+    var limitMsg = Template.instance().loadedItems.get();    
+ 
+     //sort classMessages from oldest to newest => createdAt: 1
+    var latestDayInMessages = "";
     var chatMessages = Smartix.Messages.Collection.find({
         group: Router.current().params.chatRoomId
-    });
-    
-    console.log(chatMessages.fetch());
-    
+    },
+    {
+      sort: { createdAt: 1 },
+        skip: skipMsg,
+        limit: limitMsg,
+        transform:function(eachMessage){
+            
+            //if it is first msg, need to show the date timestamp on top of it
+            if(latestDayInMessages === ""){
+                eachMessage.isFirstMsgInOneDay = true;
+                latestDayInMessages = eachMessage.createdAt;
+            
+            //if a msg is later than the timestamp in latestDayInMessages and they are not at the same date, this msg should display date timestamp on top of it
+            }else if( (latestDayInMessages < eachMessage.createdAt) && (latestDayInMessages.toDateString() !== eachMessage.createdAt.toDateString() ) ){
+                eachMessage.isFirstMsgInOneDay = true;
+                latestDayInMessages = eachMessage.createdAt;
+            
+            }else{
+                eachMessage.isFirstMsgInOneDay = false;
+            }
+            //console.log(transformCount,' ',eachMessage.data.content ,' ',eachMessage.createdAt);
+            
+            
+            return eachMessage;
+        }  
+
+    } );
+    console.log('chatMessages',chatMessages);
+       
     return chatMessages;   
   },
   withExtraRightPadding:function(){
@@ -218,9 +257,16 @@ Template.ChatRoom.helpers({
 
   isLoadMoreButtonShow: function(){
       var currentChat= Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId});
-      var chatMessageLength = (currentChat.messagesObj) ?  currentChat.messagesObj.length : 0;
-      //log.info('reachTheEnd:loadedItems',loadedItems.get(),'classObjMessages',currentClass.messagesObj.length,'initialLoadItems',initialLoadItems.get());
-      return (Template.instance().loadedItems.get() > chatMessageLength )? "hidden" :"";
+      
+      var msgCount =Smartix.Messages.Collection.find({
+          group: currentChat._id
+      }).count();
+        
+      if(Template.instance().loadedItems.get() >= msgCount ){
+          return "hidden";
+      }else{
+          return "";
+      }
   }
 
 });
