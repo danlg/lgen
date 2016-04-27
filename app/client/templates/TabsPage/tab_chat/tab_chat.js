@@ -167,7 +167,7 @@ Template.TabChat.helpers({
           else{
             lodash.forEach(userObjArr, function (el, index) {
               if (el._id !== Meteor.userId()) {
-                  var avatar = el.profile.useravatar;
+                  var avatar = el.profile.avatarValue;
                   if (avatar){
                     avatars.push("e1a-" + avatar)
                   }

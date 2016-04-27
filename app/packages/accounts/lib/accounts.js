@@ -37,6 +37,14 @@ Smartix.Accounts.Schema = new SimpleSchema({
         type: String,
         optional: true
     },
+    "profile.avatarType": {
+        type: String,
+        optional: true
+    },
+    "profile.avatarValue": {
+        type: String,
+        optional: true
+    },    
     services: {
         type: Object,
         optional: true,

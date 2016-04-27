@@ -1,9 +1,10 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 
-Template.EmailForgetPwd.onCreated = function () {
+Template.EmailForgetPwd.onCreated(function(){
     this.email = new ReactiveVar("");
     this.password = new ReactiveVar("");
-};
+  
+});
 
 Template.EmailForgetPwd.events({
   'input #email': function(event, template){

@@ -27,8 +27,8 @@ Meteor.methods({
   getAvatarById: function(id){
     var userObj = Meteor.users.findOne({_id: id});
     
-    if (userObj && userObj.profile && userObj.profile.useravatar){
-     return userObj.profile.useravatar;
+    if (userObj && userObj.profile && userObj.profile.avatarValue){
+     return userObj.profile.avatarValue;
     } else {
      return "green_apple";             
     }

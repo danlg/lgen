@@ -20,7 +20,7 @@ Schema.editprofile = new SimpleSchema({
         type: String,
         regEx: SimpleSchema.RegEx.Email
     },
-    useravatar: {
+    avatarValue: {
         type: String,
         optional: true
     }
@@ -147,8 +147,8 @@ Template.MyAccount.helpers({
 Template.MyAccount.created = function () {
   
   if(Meteor.user() && Meteor.user().profile){
-    if(Meteor.user().profile.useravatar){
-      Session.set('chosenIconForYou', Meteor.user().profile.useravatar)
+    if(Meteor.user().profile.avatarValue){
+      Session.set('chosenIconForYou', Meteor.user().profile.avatarValue)
     }
 
         

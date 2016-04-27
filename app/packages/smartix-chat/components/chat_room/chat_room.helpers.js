@@ -82,7 +82,7 @@ Template.ChatRoom.helpers({
         }else{
             //get other person's avatar
             var userObj = Smartix.helpers.getAnotherUser();
-            return userObj && userObj.profile && userObj.profile.useravatar;        
+            return userObj && userObj.profile && userObj.profile.avatarValue;        
         }
     }else{
         return "";
