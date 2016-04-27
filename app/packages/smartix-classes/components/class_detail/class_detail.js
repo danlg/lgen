@@ -123,10 +123,29 @@ Template.ClassDetail.helpers({
         classCode: Router.current().params.classCode
     });
 
+    var msgCount =Smartix.Messages.Collection.find({
+        group: currentClassObj._id
+    }).count();
+    
+    
+    var skipMsg = msgCount - loadedItems.get();
+    
+    //skip amount cannot be a negative value
+    if(skipMsg < 0){
+        skipMsg = 0;
+    }
+    var limitMsg = loadedItems.get();
+    
     var classMessages = Smartix.Messages.Collection.find({
         group: currentClassObj._id
-    });
+    },{
+        sort: { "createdAt": 1},
+        skip: skipMsg,
+        limit: limitMsg
         
+    });
+    //console.log('lodaedItems',loadedItems.get());
+    
     return classMessages;
   },
   teacherName: function () {
@@ -154,17 +173,20 @@ Template.ClassDetail.helpers({
     return userObj._id == Meteor.userId() ? "You" : userObj.profile.firstName + " " + userObj.profile.lastName;
   },
   isLoadMoreButtonShow: function(){
-      var currentClass= Smartix.Groups.Collection.findOne({
-          type: 'class',
-          classCode: Router.current().params.classCode
-        });
+    var currentClassObj = Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: Router.current().params.classCode
+    });
+
+    var msgCount =Smartix.Messages.Collection.find({
+        group: currentClassObj._id
+    }).count();
       
-      //log.info('reachTheEnd:loadedItems',loadedItems.get(),'classObjMessages',currentClass.messagesObj.length,'initialLoadItems',initialLoadItems.get());
-      if(loadedItems.get() > currentClass.messagesObj.length ){
-          return "hidden";
-      }else{
-          return "";
-      }
+    if(loadedItems.get() > msgCount ){
+        return "hidden";
+    }else{
+        return "";
+    }
   }
 });
 
