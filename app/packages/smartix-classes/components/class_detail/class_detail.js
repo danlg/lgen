@@ -136,12 +136,37 @@ Template.ClassDetail.helpers({
     }
     var limitMsg = loadedItems.get();
     
+    
+    var transformCount = 0;
+    
+    //store the latest timestamp of msg we are processing. msg are processsging in time in ascending order. Earlier msg is processed first.
+    var latestDayInMessages = "";
     var classMessages = Smartix.Messages.Collection.find({
         group: currentClassObj._id
     },{
         sort: { "createdAt": 1},
         skip: skipMsg,
-        limit: limitMsg
+        limit: limitMsg,
+        transform:function(eachMessage){
+            
+            //if it is first msg, need to show the date timestamp on top of it
+            if(latestDayInMessages === ""){
+                eachMessage.isFirstMsgInOneDay = true;
+                latestDayInMessages = eachMessage.createdAt;
+            
+            //if a msg is later than the timestamp in latestDayInMessages and they are not at the same date, this msg should display date timestamp on top of it
+            }else if( (latestDayInMessages < eachMessage.createdAt) && (latestDayInMessages.toDateString() !== eachMessage.createdAt.toDateString() ) ){
+                eachMessage.isFirstMsgInOneDay = true;
+                latestDayInMessages = eachMessage.createdAt;
+            
+            }else{
+                eachMessage.isFirstMsgInOneDay = false;
+            }
+            console.log(transformCount,' ',eachMessage.data.content ,' ',eachMessage.createdAt);
+            transformCount++;
+            
+            return eachMessage;
+        }
         
     });
     //console.log('lodaedItems',loadedItems.get());
