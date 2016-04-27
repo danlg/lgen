@@ -29,3 +29,7 @@ Template.EmailResetPwd.events({
     return false;
   }
 });
+
+Template.EmailResetPwd.onCreated(function(){
+    console.log('EmailResetPwd:onCreated');
+})

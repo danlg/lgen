@@ -14,3 +14,8 @@ Template.Tour.events({
 });
 
 
+Template.Tour.onRendered(function(){
+  if(Session.get('resetPasswordToken') !=""){
+        Router.go('EmailResetPwd');
+  }
+})
