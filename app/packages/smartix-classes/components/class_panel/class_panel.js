@@ -7,9 +7,10 @@ var soundArr = ReactiveVar([]);
 var isRecording = false;
 var media = "";
 var isPlayingSound = false;
+var localClassMessagesCollection = new Meteor.Collection(null);*/
+
 var loadedItems = ReactiveVar(10);
 var loadExtraItems = 5;
-var localClassMessagesCollection = new Meteor.Collection(null);*/
 
 
 /*****************************************************************************/
@@ -131,14 +132,55 @@ Template.ClassPanel.helpers({
         type: 'class',
         classCode: Router.current().params.classCode
     });
+    
     if(!classObj){
         return;
     }
     
+    var msgCount =Smartix.Messages.Collection.find({
+        group: classObj._id
+    }).count();    
+    
+    var skipMsg = msgCount - loadedItems.get();
+    
+    //skip amount cannot be a negative value
+    if(skipMsg < 0){
+        skipMsg = 0;
+    }
+    var limitMsg = loadedItems.get();
+        
     //sort classMessages from oldest to newest => createdAt: 1
+    var latestDayInMessages = "";
     var classMessages = Smartix.Messages.Collection.find({
         group: classObj._id
-    }, {sort: { createdAt: 1 } } );
+    },
+    {
+      sort: { createdAt: 1 },
+        skip: skipMsg,
+        limit: limitMsg,
+        transform:function(eachMessage){
+            
+            //if it is first msg, need to show the date timestamp on top of it
+            if(latestDayInMessages === ""){
+                eachMessage.isFirstMsgInOneDay = true;
+                latestDayInMessages = eachMessage.createdAt;
+            
+            //if a msg is later than the timestamp in latestDayInMessages and they are not at the same date, this msg should display date timestamp on top of it
+            }else if( (latestDayInMessages < eachMessage.createdAt) && (latestDayInMessages.toDateString() !== eachMessage.createdAt.toDateString() ) ){
+                eachMessage.isFirstMsgInOneDay = true;
+                latestDayInMessages = eachMessage.createdAt;
+            
+            }else{
+                eachMessage.isFirstMsgInOneDay = false;
+            }
+            //console.log(transformCount,' ',eachMessage.data.content ,' ',eachMessage.createdAt);
+            
+            
+            return eachMessage;
+        }  
+
+    } );
+    console.log('classMessages',classMessages);
     return classMessages;      
   },
   classCode: function () {
@@ -194,6 +236,22 @@ Template.ClassPanel.helpers({
   attachCalendar:function(){
     var calendarObjs =lodash.filter(this.addons, function(addon) { return addon.type =='calendar'; });
     return calendarObjs;       
+  },
+  isLoadMoreButtonShow: function(){
+    var currentClassObj = Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: Router.current().params.classCode
+    });
+
+    var msgCount =Smartix.Messages.Collection.find({
+        group: currentClassObj._id
+    }).count();
+      
+    if(loadedItems.get() >= msgCount ){
+        return "hidden";
+    }else{
+        return "";
+    }
   }
 
 });
@@ -289,6 +347,8 @@ Template.ClassPanel.rendered = function () {
 };
 
 Template.ClassPanel.destroyed = function () {
+ loadedItems.set(10); 
+ loadExtraItems = 5;     
   //  Session.set('hasFooter',true);
  /* loadedItems.set(10); 
   loadExtraItems = 5;
