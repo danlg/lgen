@@ -15,7 +15,7 @@ Template.Tour.events({
 
 
 Template.Tour.onRendered(function(){
-  if(Session.get('resetPasswordToken') !=""){
+  if(Session.get('resetPasswordToken') !== undefined){
         Router.go('EmailResetPwd');
   }
 })
