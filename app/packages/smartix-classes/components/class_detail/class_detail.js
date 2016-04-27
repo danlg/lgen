@@ -137,7 +137,6 @@ Template.ClassDetail.helpers({
     var limitMsg = loadedItems.get();
     
     
-    var transformCount = 0;
     
     //store the latest timestamp of msg we are processing. msg are processsging in time in ascending order. Earlier msg is processed first.
     var latestDayInMessages = "";
@@ -162,8 +161,7 @@ Template.ClassDetail.helpers({
             }else{
                 eachMessage.isFirstMsgInOneDay = false;
             }
-            console.log(transformCount,' ',eachMessage.data.content ,' ',eachMessage.createdAt);
-            transformCount++;
+
             
             return eachMessage;
         }
@@ -207,7 +205,7 @@ Template.ClassDetail.helpers({
         group: currentClassObj._id
     }).count();
       
-    if(loadedItems.get() > msgCount ){
+    if(loadedItems.get() >= msgCount ){
         return "hidden";
     }else{
         return "";
