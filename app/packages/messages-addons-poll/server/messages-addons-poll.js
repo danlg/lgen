@@ -31,7 +31,7 @@ Smartix.Messages.Addons.Poll.canChangeVotes = function (messageId) {
     
     // Retrieves the addon object of type `poll`
     pollObj = _.find(message.addons, function (addon) {
-        return addon.type = Smartix.Messages.Addons.Poll.Type;
+        return addon.type === Smartix.Messages.Addons.Poll.Type;
     });
     
     // Checks that the current time is not after `expires`
@@ -41,7 +41,7 @@ Smartix.Messages.Addons.Poll.canChangeVotes = function (messageId) {
         // OPTIONAL: Throw error indicating the poll has finished
         // and does not accept new votes
     }
-    
+  
     return pollObj;
 }
 
