@@ -907,5 +907,24 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser) {
                 })
             }
         }
+        
+        // Link the parents to the child
+        if(mother) {
+            let motherOptions = {};
+            motherOptions.namespace = namespace;
+            motherOptions.parent = mother._id;
+            motherOptions.child = studentData._id;
+            motherOptions.name = "Mother";
+            Smartix.Accounts.Relationships.createRelationship(motherOptions, currentUser);
+        }
+        
+        if(father) {
+            let fatherOptions = {};
+            fatherOptions.namespace = namespace;
+            fatherOptions.parent = mother._id;
+            fatherOptions.child = studentData._id;
+            fatherOptions.name = "Mother";
+            Smartix.Accounts.Relationships.createRelationship(fatherOptions, currentUser);
+        }
     });
 }
