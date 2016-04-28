@@ -142,4 +142,10 @@ smartix:classes-announcements
 smartix:chats-messages
 smartix:newsgroups-news
 smartix:groups
+<<<<<<< HEAD
 smartix:absence
+=======
+
+smartix:absence
+modules
+>>>>>>> 8178688afd4c9b339f34add87f104368e5b6ebd1

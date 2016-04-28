@@ -181,7 +181,7 @@ Template.TabChat.helpers({
 
   'newMessageCounter':function(chatroomId) {
        // log.info(chatroomId);
-       var newMessageCount =  Notifications.find({'chatroomId':chatroomId,'hasRead':false}).count();
+       var newMessageCount =  Notifications.find({'groupId':chatroomId,'hasRead':false}).count();
        if(newMessageCount > 0 ){
            return '<span class="badge" style="background-color: #ef473a;color: #fff;">'+ newMessageCount +'</span>'
        }
@@ -195,7 +195,6 @@ Template.TabChat.created = function () {
 Template.TabChat.rendered = function () {
     text.set("");
     $("body").removeClass('modal-open');
-    Session.set("chatUnreadNumber", 0);
 };
 
 Template.TabChat.destroyed = function () {

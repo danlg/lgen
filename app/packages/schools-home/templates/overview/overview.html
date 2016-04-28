@@ -65,10 +65,14 @@
                     <span class='square-card-counter badge badge-assertive'>100</span>
                 </a>
                 
+                
                 <a href="{{pathFor route='TabClasses'}}" class="card square-card  square-card-small tiles bg bg-class">
                         <span class='square-card-description'>CLASSES</span>
-                        <span class='square-card-counter badge badge-assertive'>5</span>
+                        {{#if sumOfNewClassMessageAndCommentCounter}}
+                        <span class='square-card-counter badge badge-assertive'>{{sumOfNewClassMessageAndCommentCounter}}</span>
+                        {{/if}}
                 </a>
+                
                 
                 <a class="card square-card  square-card-small tiles bg bg-absence">
                     <span class='square-card-description'>ATTENDANCE </span>
@@ -83,8 +87,8 @@
                 <a class="card square-card  square-card-small tiles bg bg-contact">
                     <span class='square-card-description'>CONTACT </span>
                 </a>
-                <a class="card square-card  square-card-small tiles bg bg-more">
-                    <span class='square-card-description'>MORE</span> 
+                <a class="card square-card  square-card-small tiles bg bg-more" data-ion-menu-toggle="left">
+                    <span class='square-card-description' data-ion-menu-toggle="left">MORE</span> 
                 </a>                
        </div>     
      

@@ -13,23 +13,15 @@
         <div class=" ">
 
           <div class="item">
-            {{#with msgObj.vote}}
-            
-            
-                {{#each voteOptions}}
+            {{#with getPollObj}}
+                {{#each votes}}
                     <div class="row">
                     <div class="col">                                  
-                        <a href="#" class="subdued">{{this.votes.length}}</a>        
-                            {{#with tryShowVoteOptionIcon ../voteType voteOption}}
-                                {{#if this.ionicIcon}}
-                                    <i class="{{this.ionicIcon}} colored"></i>
-                                {{else}}
-                                    {{this.voteOptionText}}
-                                {{/if}}
-                            {{/with}}
+                        <a href="#" class="subdued">{{this.users.length}}</a>        
+                         <i class="{{this.optionIconValue}} colored"></i>
                     </div>
                     <div class="col col-75">  
-                        {{#each this.votes}}
+                        {{#each this.users}}
                             {{getNameById this}}<br/>
                         {{/each}}
                                                                              
@@ -38,34 +30,17 @@
                {{/each }}  
           
             {{/with}}             
-            {{#each msgObj.checked}}
-              <div><i class="ion-checkmark-round colored"></i> {{getName this}} </div>
-            {{/each}}
-            {{#each msgObj.close}}
-              <div><i class="ion-close-round colored"></i> {{getName this}} </div>
-            {{/each}}
-            {{#each msgObj.star}}
-              <div><i class="ion-ios-star colored"></i> {{getName this}} </div>
-            {{/each}}
-            {{#each msgObj.help}}
-              <div><i class="ion-help colored"></i> {{getName this}} </div>
-            {{/each}}
-            <!-- {{#each allMan}}
-              <div><i class="{{geticon this }} colored"></i> {{getName this}} </div>
-            {{/each}} -->
-
-
           </div>
           <section class='comment-section'>
             <!--Display existing comments-->
-            {{#with msgObj}}
-                {{#each comment.comments}}
+            {{#with getCommentObj}}
+                {{#each comments}}
                     <div class="item item-button-right less-top-bottom-padding {{@index}} ">
                         <i class="icon {{isNewComment createdAt}}"></i>
                         {{#if isShown}}                     
                             <div style='display: flex;justify-content: space-between;align-items: baseline;'>
                                 <h3>{{getNameById createdBy}} </h3>
-                            <button data-msgid='{{../msgId}}' data-commentid='{{_id}}' data-action='hide' class="commentShownToggle button button-hide">
+                            <button data-msgid='{{../../inputMessageObj._id}}' data-commentindex='{{@index}}' data-action='hide' class="commentShownToggle button button-hide">
                                 {{_ "Hide"}}
                             </button>
                             </div>                            
@@ -75,7 +50,7 @@
                         {{else}}
                             <div style='display: flex;justify-content: space-between;align-items: baseline;'>
                                 <h3>{{getNameById createdBy}} </h3>
-                            <button data-msgid='{{../msgId}}' data-commentid='{{_id}}' data-action='show' class="commentShownToggle button button-positive">
+                            <button data-msgid='{{../../inputMessageObj._id}}' data-commentindex='{{@index}}' data-action='show' class="commentShownToggle button button-positive">
                                 {{_ "Show"}}
                             </button> 
                             </div>                             

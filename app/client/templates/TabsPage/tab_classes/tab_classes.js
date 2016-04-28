@@ -185,6 +185,7 @@ var HowToInviteTour = function () {
           {
             text: 'Later', type: 'button-light',
             onTap: function () {
+              Session.set("hasSeenHowToInviteTour",true);
               IonPopup.close();
             }
           }

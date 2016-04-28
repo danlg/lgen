@@ -16,32 +16,6 @@ Template.Tabs.helpers({
   },
   _You: function (argument) {
     return TAPi18n.__('You');
-  },
-  _chatNumber: function (argument) {
-    if (Session.get("chatUnreadNumber") === 0) {
-      return false;
-    } else {
-      return Session.get("chatUnreadNumber");
-    }
-  },
-  'sumOfNewChatMessageCounter': function(){
-   var newMessageCount =  Notifications.find({'eventType':'newchatroommessage','hasRead':false}).count();
-      
-   if(newMessageCount > 0 ){
-       return newMessageCount;
-   }else{
-       return false;
-   }
-  },
-  'sumOfNewClassMessageAndCommentCounter': function(){
-   var newMessageCount =  Notifications.find({'eventType':'newclassmessage','hasRead':false}).count();
-   var newCommentCount =  Notifications.find({'eventType':'newclasscomment','hasRead':false}).count();
-        
-   if(newMessageCount+newCommentCount > 0 ){
-       return (newMessageCount+newCommentCount);
-   }else{
-       return false;
-   }
   }
 });
 
@@ -49,7 +23,6 @@ Template.Tabs.helpers({
 /* Tabs: Lifecycle Hooks */
 /*****************************************************************************/
 Template.Tabs.created = function () {
-  Session.setDefault("chatUnreadNumber", 0);
 };
 
 Template.Tabs.rendered = function () {
