@@ -1,6 +1,13 @@
 // Publish specific user's relationships
 Meteor.publish('userRelationships', function(userId) {
-    check(userId, String);
+    
+    check(userId, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    if(!(userId === null)) {
+        userId = userId || Meteor.userId();
+    }
+    
     if (userId === this.userId
         || Smartix.Accounts.System.isAdmin(this.userId)) {
         // Return relationships belong to the current user, as a parent or as a child
