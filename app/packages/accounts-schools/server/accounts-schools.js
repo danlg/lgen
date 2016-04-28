@@ -861,8 +861,9 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser) {
         }
         
         // Get the mother's email and check if the user exists
+        let mother;
         if(student.motherEmail) {
-            let mother = Accounts.findUserByEmail(student.motherEmail);
+            mother = Accounts.findUserByEmail(student.motherEmail);
             if(mother === undefined) {
                 // Mother does not exists
                 // Should create a new user
@@ -875,7 +876,7 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser) {
             } else {
                 // Mother exists, add the relationship to the `smartix:user-relationships` collection
                 Smartix.Accounts.Relationships.createRelationship({
-                    parent: motherId,
+                    parent: mother._id,
                     child: studentData._id,
                     namespace: namespace,
                     name: 'Mother'
@@ -884,8 +885,9 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser) {
         }
         
         // Get the father's email and check if the user exists
+        let father;
         if(student.fatherEmail) {
-            let father = Accounts.findUserByEmail(student.fatherEmail);
+            father = Accounts.findUserByEmail(student.fatherEmail);
             if(father === undefined) {
                 // Father does not exists
                 // Should create a new user
@@ -898,12 +900,31 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser) {
             } else {
                 // Father exists, add the relationship to the `smartix:user-relationships` collection
                 Smartix.Accounts.Relationships.createRelationship({
-                    parent: fatherId,
+                    parent: father._id,
                     child: studentData._id,
                     namespace: namespace,
                     name: 'Father'
                 })
             }
+        }
+        
+        // Link the parents to the child
+        if(mother) {
+            let motherOptions = {};
+            motherOptions.namespace = namespace;
+            motherOptions.parent = mother._id;
+            motherOptions.child = studentData._id;
+            motherOptions.name = "Mother";
+            Smartix.Accounts.Relationships.createRelationship(motherOptions, currentUser);
+        }
+        
+        if(father) {
+            let fatherOptions = {};
+            fatherOptions.namespace = namespace;
+            fatherOptions.parent = mother._id;
+            fatherOptions.child = studentData._id;
+            fatherOptions.name = "Mother";
+            Smartix.Accounts.Relationships.createRelationship(fatherOptions, currentUser);
         }
     });
 }

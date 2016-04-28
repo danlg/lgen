@@ -154,6 +154,7 @@ routepolicy@1.0.10
 service-configuration@1.0.9
 session@1.1.5
 sha@1.0.7
+smartix:absence@0.0.1
 smartix:accounts@0.0.1
 smartix:accounts-global@0.0.1
 smartix:accounts-relationships@0.0.1

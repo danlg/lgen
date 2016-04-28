@@ -42,11 +42,11 @@ Smartix.Accounts.Relationships.createRelationship = function(options, currentUse
         || Smartix.Accounts.School.isAdmin(options.namespace, currentUser)
     ) {
         
-        if(!Smartix.Accounts.School.isMember(options.parent)) {
+        if(!Smartix.Accounts.School.isMember(options.parent, options.namespace)) {
             throw new Meteor.Error("parent-not-belong-to-school", "Parent does not belong to school with namespace " + options.namespace);
         }
         
-        if(!Smartix.Accounts.School.isMember(options.child)) {
+        if(!Smartix.Accounts.School.isMember(options.child, options.namespace)) {
             throw new Meteor.Error("child-not-belong-to-school", "Child does not belong to school with namespace " + options.namespace)
         }
 

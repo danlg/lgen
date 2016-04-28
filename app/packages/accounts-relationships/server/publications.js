@@ -1,6 +1,13 @@
 // Publish specific user's relationships
 Meteor.publish('userRelationships', function(userId) {
-    check(userId, String);
+    
+    check(userId, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    if(!(userId === null)) {
+        userId = userId || Meteor.userId();
+    }
+    
     if (userId === this.userId
         || Smartix.Accounts.System.isAdmin(this.userId)) {
         // Return relationships belong to the current user, as a parent or as a child
@@ -11,6 +18,8 @@ Meteor.publish('userRelationships', function(userId) {
                 child: userId
             }]
         });
+    } else {
+        this.ready();
     }
 });
 
@@ -41,6 +50,8 @@ Meteor.publish('userRelationshipsInNamespace', function (userId, namespace) {
             ]
             
         });
+    } else {
+        this.ready();
     }
 });
 
@@ -56,6 +67,8 @@ Meteor.publish('usersRelationshipsInNamespace', function(namespace) {
         return Smartix.Accounts.Relationships.Collection.find({
             namespace: namespace
         });
+    } else {
+        this.ready();
     }
 });
 
