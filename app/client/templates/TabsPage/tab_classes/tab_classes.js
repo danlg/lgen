@@ -89,17 +89,18 @@ Template.TabClasses.helpers({
       return "e1a-green_apple";
     }
   },
-  'newMessageCounter':function(classCode){
-   // log.info(chatroomId);
-   var newMessageCount =  Notifications.find({"eventType" : "newclassmessage",'classCode':classCode,'hasRead':false}).count();
+  'newMessageCounter':function(groupId){
+   // log.info(chatroomId)
+   ;
+   var newMessageCount =  Notifications.find({"eventType" : "newclassmessage",'groupId':groupId,'hasRead':false}).count();
       
    if(newMessageCount > 0 ){
        return '<span class="badge" style="background-color: #ef473a;color: #fff;">'+ newMessageCount +'</span>'
    }
   },
-  'newCommentCounter':function(classCode){
+  'newCommentCounter':function(groupId){
    // log.info(chatroomId);
-   var newMessageCount =  Notifications.find({"eventType" : "newclasscomment",'classCode':classCode,'hasRead':false}).count();
+   var newMessageCount =  Notifications.find({"eventType" : "newclasscomment",'groupId':groupId,'hasRead':false}).count();
       
    if(newMessageCount > 0 ){
        return '<span class="badge" style="background-color: #ef473a;color: #fff;">'+ newMessageCount +'</span>'

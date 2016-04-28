@@ -59,6 +59,28 @@ Smartix.Messages.Addons.Comment.addNewComment = function (messageId, commentObj)
                 _id: messageId
             }, {
                 $push: {addons: commentObj}
+            },function(err,success){
+                
+                if(!err){
+                    var msgObj = Smartix.Messages.Collection.findOne({_id:messageId});
+                    var groupObj = Smartix.Groups.Collection.findOne({_id:msgObj.group});
+                    
+                    groupObj.admins.map(function(eachAdmin){     
+                        Meteor.call('insertNotification', {
+                            eventType: "newclasscomment",
+                            userId: eachAdmin,
+                            hasRead: false,
+                            groupId: groupObj._id,
+                            messageCreateTimestamp: commentObj.createdAt,
+                            messageCreateByUserId: Meteor.userId()
+                        });                        
+                    });
+                  
+                    
+                }
+                
+                
+                
             });
         }
     });
