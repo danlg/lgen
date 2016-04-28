@@ -7,12 +7,14 @@ Template.MessageDetail.helpers({
     var id = this.toString();
     return Images.findOne(id);
   },
-  isNewMessage:function(sendAt){   
-     var result = Notifications.findOne({'eventType':'newclassmessage','messageCreateTimestampUnixTime':sendAt});       
+  isNewMessage:function(createdAt){
+    //console.log('isNewMessage',createdAt);   
+     var result = Notifications.findOne({'eventType':'newclassmessage','messageCreateTimestamp':createdAt});       
      //backward comptability
      if(!result){
          return "";
-     }  
+     }
+     //console.log(result);  
      if(result.hasRead == false){
          return 'ion-record';
      }else{

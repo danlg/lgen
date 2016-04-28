@@ -10,12 +10,18 @@ Meteor.methods({
       log.info(Notifications.update({ "eventType" : "newchatroommessage",chatroomId:chatRoomId,userId:Meteor.userId()},{ $set: { hasRead: true } },{multi:true}));
   },
   setAllClassMessagesAsRead:function(classCode){
-      log.info("trySetClassMessagesAsRead")
-      log.info(Notifications.update({ "eventType" : "newclassmessage",classCode:classCode,userId:Meteor.userId()},{ $set: { hasRead: true } },{multi:true}));
+      log.info("trySetClassMessagesAsRead");
+      var targetClass = Smartix.Groups.Collection.findOne({classCode:classCode});
+      if(targetClass){
+        log.info(Notifications.update({ "eventType" : "newclassmessage",groupId:targetClass._id,userId:Meteor.userId()},{ $set: { hasRead: true } },{multi:true}));  
+      }
   },
   setAllClassCommentsAsRead:function(classCode){
       log.info("trySetClassCommentsAsRead")
-      log.info(Notifications.update({ "eventType" : "newclasscomment",classCode:classCode,userId:Meteor.userId()},{ $set: { hasRead: true } },{multi:true}));
+      var targetClass = Smartix.Groups.Collection.findOne({classCode:classCode});
+      if(targetClass){
+        log.info(Notifications.update({ "eventType" : "newclasscomment",groupId:targetClass._id,userId:Meteor.userId()},{ $set: { hasRead: true } },{multi:true}));
+      }
   },
   insertNotification:function(notificationObj){
       Notifications.insert(notificationObj);
