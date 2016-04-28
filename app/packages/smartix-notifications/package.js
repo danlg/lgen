@@ -18,6 +18,7 @@ Package.onUse(function(api) {
          "jquery"
      ], "client");
      api.use('smartix:ui-master', 'client');
+     api.use('smartix:core');
      api.use('smartix:lib','client');
      
      api.use('smartix:classes');
@@ -28,6 +29,7 @@ Package.onUse(function(api) {
      api.addFiles('init.js','client');         
      api.addFiles('publications.js', 'server');
      api.addFiles('methods_cs.js');
+     api.addFiles('smartix-notifications.js','client');
      api.export('Notifications');
-
+     api.export('Smartix');
 });

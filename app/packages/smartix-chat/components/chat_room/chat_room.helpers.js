@@ -251,8 +251,8 @@ Template.ChatRoom.helpers({
     return Sounds.find();
   },
   
-  isNewMessage:function(sendAt){   
-      var result = Notifications.findOne({"eventType":"newchatroommessage",'messageCreateTimestampUnixTime':sendAt});
+  isNewMessage:function(createdAt){   
+      var result = Notifications.findOne({"eventType":"newchatmessage",'messageCreateTimestamp':createdAt});
       //backward comptability
       if(!result){
          return "";

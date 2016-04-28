@@ -7,7 +7,7 @@ Meteor.methods({
   },
   setAllChatMessagesAsRead:function(chatRoomId){
       log.info("trySetChatMessagesAsRead")
-      log.info(Notifications.update({ "eventType" : "newchatroommessage",chatroomId:chatRoomId,userId:Meteor.userId()},{ $set: { hasRead: true } },{multi:true}));
+      log.info(Notifications.update({ "eventType" : "newchatmessage",groupId:chatRoomId,userId:Meteor.userId()},{ $set: { hasRead: true } },{multi:true}));
   },
   setAllClassMessagesAsRead:function(classCode){
       log.info("trySetClassMessagesAsRead");
