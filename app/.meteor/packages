@@ -16,6 +16,7 @@ ecmascript
 es5-shim
 check
 tracker
+modules
 
 # standard libraries
 jquery
@@ -141,7 +142,4 @@ smartix:classes-announcements
 smartix:chats-messages
 smartix:newsgroups-news
 smartix:groups
-splendido:accounts-meld
 smartix:absence
-modules
-ecmascript
