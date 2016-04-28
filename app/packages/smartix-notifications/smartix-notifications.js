@@ -36,3 +36,7 @@ Smartix.Notifications.Helpers.sumOfAllNotificationCounter = function(){
        return false;
    }  
 }
+
+Template.registerHelper('sumOfNewChatMessageCounter',Smartix.Notifications.Helpers.sumOfNewChatMessageCounter);
+Template.registerHelper('sumOfNewClassMessageAndCommentCounter',Smartix.Notifications.Helpers.sumOfNewClassMessageAndCommentCounter );
+Template.registerHelper('sumOfAllNotificationCounter',Smartix.Notifications.Helpers.sumOfAllNotificationCounter);

@@ -23,9 +23,15 @@
               
               <a href="{{pathFor route='TabClasses'}}" class="item item-icon-right" data-ion-menu-close>
                 Classes
+                {{#if sumOfNewClassMessageAndCommentCounter}}
+                  <span class="badge badge-assertive">{{sumOfNewClassMessageAndCommentCounter}}</span>
+                {{/if}}
               </a>
               <a href="{{pathFor route='TabChat'}}" class="item item-icon-right" data-ion-menu-close>
                 Chat
+                {{#if sumOfNewChatMessageCounter}}
+                  <span class="badge badge-assertive">{{sumOfNewChatMessageCounter}}</span>
+                {{/if}}
               </a>
               
               <!--only if in school namespace - the below should available -->

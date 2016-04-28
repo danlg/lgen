@@ -16,11 +16,7 @@ Template.Tabs.helpers({
   },
   _You: function (argument) {
     return TAPi18n.__('You');
-  },
-  'sumOfNewChatMessageCounter': Smartix.Notifications.Helpers.sumOfNewChatMessageCounter,
-  'sumOfNewClassMessageAndCommentCounter': Smartix.Notifications.Helpers.sumOfNewClassMessageAndCommentCounter,
-  'sumOfAllNotificationCounter': Smartix.Notifications.Helpers.sumOfAllNotificationCounter
-
+  }
 });
 
 /*****************************************************************************/
