@@ -46,14 +46,19 @@
                                         <i class="icon e1a-green_apple e1a-1x emojicon"></i>
                                     {{/if}}
                                     {{profile.firstName}} {{profile.lastName}}
-                                    <i style='larger' class="icon {{isNewMessage ../sendAt}}  new-message-icon"></i>
+                                    <i style='larger' class="icon {{isNewMessage ../createdAt}}  new-message-icon"></i>
                                     
                                 </div>
                                 <br/>                         
                             {{/with}}
                             
                         {{/if}}                 
-                        {{{docPreview data.content}}}                
+                        {{{docPreview data.content}}}
+                        <style>
+                            pre{
+                                background-color: initial;
+                            }
+                        </style>               
                         {{#autolink}}<pre>{{data.content}}</pre>{{/autolink}}
 
                         <span class='timestamp'>{{formatTime createdAt}}</span>
@@ -61,49 +66,17 @@
                     </div>
 
                     {{/if}}
-                    {{#if isDocument}}
-                        {{#with getDocument}}  
-                                {{#if this.isUploaded}}
-                                    {{#if this.hasStored 'documents'}}
-                                        <div class="bubble">
-                                        {{#if isMineBoolean ../from}}
-                                        {{else}}
-                                            {{#with getUserById ../from}}
-                                                <div class='username'> 
-                                                    {{#if profile.useravatar}}
-                                                        <i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>
-                                                    {{else}}
-                                                        <i class="icon e1a-green_apple e1a-1x emojicon"></i>
-                                                    {{/if}}
-                                                    {{profile.firstName}} {{profile.lastName}}
-                                                    <i style='larger' class="icon {{isNewMessage ../../sendAt}} new-message-icon"></i>
-                                                </div>
-                                             <br/>
-                                            {{/with}}
-                                        {{/if}}                                          
-                                        <a href='{{this.url}}'> <i class="icon ion-paperclip"></i>&nbsp;{{this.name}}</a>
-                                        <br/><span  class='timestamp'>{{formatTime  ../sendAt}}</span>                       
-                                        </div>
-                                    {{else}}
-                                        {{> LoadingSpinner}}                                                          
-                                    {{/if}}
-                                {{else}}
-                                    {{> LoadingSpinner}}
-                                {{/if}}                               
-                        {{/with}}        
-                    {{/if}}
-                    
-                    
+      
                     {{#each addons}}
                     {{#with FS.GetFile "images" fileId}}
                     
                     <!--read the below to know how to access parent scope value-->
                     <!--https://www.discovermeteor.com/blog/a-guide-to-meteor-templates-data-contexts/-->  
-                    <style>.bubble.image-bubble.image{{@index}}:after{content:"{{formatTime  ../sendAt}}";white-space: nowrap;}</style>
+                    <style>.bubble.image-bubble.image{{@index}}:after{content:"{{formatTime  ../../createdAt}}";white-space: nowrap;}</style>
                         <div class="bubble image-bubble image{{@index}}">
-                        {{#if isMineBoolean ../from}}
+                        {{#if isMineBoolean ../../author}}
                         {{else}}
-                            {{#with getUserById ../from}}
+                            {{#with getUserById ../../author}}
                                 <div class='username'> 
                                     {{#if profile.useravatar}}
                                         <i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>
@@ -111,7 +84,7 @@
                                         <i class="icon e1a-green_apple e1a-1x emojicon"></i>
                                     {{/if}}
                                     {{profile.firstName}} {{profile.lastName}}
-                                    <i style='larger' class="icon {{isNewMessage ../../sendAt}}  new-message-icon"></i>
+                                    <i style='larger' class="icon {{isNewMessage ../../createdAt}}  new-message-icon"></i>
                                 </div>
                                 <br/>
                             {{/with}}
@@ -124,23 +97,23 @@
                             {{#if this.isUploaded}}
                                 {{#if this.hasStored 'documents'}}
                                     <div class="bubble">
-                                    {{#if isMineBoolean ../from}}
+                                    {{#if isMineBoolean ../../author}}
                                     {{else}}
-                                        {{#with getUserById ../from}}
+                                        {{#with getUserById ../../author}}
                                             <div class='username'> 
                                                 {{#if profile.useravatar}}
                                                     <i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>
                                                 {{else}}
                                                     <i class="icon e1a-green_apple e1a-1x emojicon"></i>
                                                 {{/if}}
-                                                {{profile.firstname}} {{profile.lastname}}
-                                                <i style='larger' class="icon {{isNewMessage ../../sendAt}} new-message-icon"></i>
+                                                {{profile.firstName}} {{profile.lastName}}
+                                                <i style='larger' class="icon {{isNewMessage ../../createdAt}} new-message-icon"></i>
                                             </div>
                                             <br/>
                                         {{/with}}
                                     {{/if}}                                          
                                     <a href='{{this.url}}'> <i class="icon ion-paperclip"></i>&nbsp;{{this.name}}</a>
-                                    <br/><span  class='timestamp'>{{formatTime  ../sendAt}}</span>                       
+                                    <br/><span  class='timestamp'>{{formatTime  ../../createdAt}}</span>                       
                                     </div>
                                 {{else}}
                                     {{> LoadingSpinner}}                                                          
@@ -155,9 +128,9 @@
                             {{#if  this.url}}
                             {{#if isCordova}}
                                 <div class="bubble sound-bubble">
-                                {{#if isMineBoolean ../from}}
+                                {{#if isMineBoolean ../../author}}
                                 {{else}}
-                                    {{#with getUserById ../from}}
+                                    {{#with getUserById ../../author}}
                                         <div class='username'> 
                                             {{#if profile.useravatar}}
                                                 <i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>
@@ -165,26 +138,26 @@
                                                 <i class="icon e1a-green_apple e1a-1x emojicon"></i>
                                             {{/if}}
                                             {{profile.firstName}} {{profile.lastName}}
-                                            <i style='larger' class="icon {{isNewMessage ../../sendAt}}  new-message-icon"></i>
+                                            <i style='larger' class="icon {{isNewMessage ../../createdAt}}  new-message-icon"></i>
                                         </div>
                                         <br/>
                                     {{/with}}
                                 {{/if}}                                  
                                 <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}"></a>
-                                <br/><span  class='timestamp'>{{formatTime  ../sendAt}}</span>                       
+                                <br/><span  class='timestamp'>{{formatTime  ../../createdAt}}</span>                       
                                 </div>                      
                             {{else}}
                                 <div class="bubble sound-bubble">
-                                {{#if isMineBoolean ../from}}
+                                {{#if isMineBoolean ../../author}}
                                 {{else}}
-                                    {{#with getUserById ../from}}
+                                    {{#with getUserById ../../author}}
                                         <div class='username'><i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>{{profile.firstName}}</div><br/>
                                     {{/with}}
                                 {{/if}}                                  
                                 <audio controls>
                                     <source src="{{this.url}}" type="audio/wav">
                                 </audio>
-                                <br/><span  class='timestamp'>{{formatTime  ../sendAt}}</span>                       
+                                <br/><span  class='timestamp'>{{formatTime  ../../createdAt}}</span>                       
                                 </div>                       
                             {{/if}}
 

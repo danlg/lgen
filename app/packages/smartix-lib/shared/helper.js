@@ -141,7 +141,7 @@ Smartix.helpers = Smartix.helpers || {};
 
     Smartix.helpers.getAllUser = function() {
         //find all userids in this chat rooms
-        var arr = Chat.findOne({ _id: Router.current().params.chatRoomId }).chatIds;
+        var arr = Smartix.Groups.Collection.findOne({ _id: Router.current().params.chatRoomId }).users;
         //log.info(arr);
         //return all user objects
         var targetUsers = Meteor.users.find({
