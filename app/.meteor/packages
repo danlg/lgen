@@ -10,7 +10,6 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-
 # meteor libraries
 meteor-base
 ecmascript
@@ -23,93 +22,96 @@ jquery
 underscore
 less
 
-accounts-google
+# production
+standard-minifier-css
+standard-minifier-js
+ddp-rate-limiter
+force-ssl
+
+# account
 accounts-base
+accounts-password
+accounts-google
 accounts-oauth
-google
-localstorage
 oauth
 oauth2
+google
+localstorage
 service-configuration
 email
-accounts-password
+splendido:accounts-meld
+jparker:crypto-sha1
+
+# data
+mongo
 aldeed:autoform
 aldeed:collection2
 aldeed:simple-schema
 manuel:viewmodel
-
-wylio:mandrill
-jparker:crypto-sha1
-
-
-iron:router
-fourseven:scss@2.0.0
-meteoric:ionic-sass
-zimme:active-route
-stevezhu:lodash
-meteoric:ionicons-sass
-
-reactive-var
-
-
-u2622:persistent-session
-
-
-
-fastclick
-tap:i18n
-gwendall:autoform-i18n
 cfs:standard-packages
 cfs:gridfs
 cfs:graphicsmagick
-
-terenceng2010:ionic
-reywood:publish-composite
-okgrow:analytics
-
-momentjs:moment
-benmgreene:moment-range
-jeeeyul:moment-with-langs
-raix:push
 cfs:ui
 
-mobile-experience
-mongo
+# routing
+iron:router
+zimme:active-route
+fourseven:scss@2.0.0
+
+# other meteor packages
 blaze-html-templates
 session
-
+u2622:persistent-session
+reactive-var
+fastclick
 logging
-practicalmeteor:loglevel
 reload
 random
 ejson
 spacebars
-
-meteorhacks:npm
-dburles:spacebars-tohtml
-konecty:autolinker
-launch-screen
-
-
-
-
-
-meteorhacks:subs-manager
-
-
+spiderable
 npm-container
 facts
-aslagle:reactive-table
-chrismbeckett:toastr
-force-ssl
+
+# mobile
+mobile-experience
+meteoric:ionic-sass
+meteoric:ionicons-sass
+terenceng2010:ionic
+launch-screen
+raix:push
 cordova-only
 web-only
 
-3stack:country-codes
+# misc
+practicalmeteor:loglevel
+meteorhacks:npm
+dburles:spacebars-tohtml
+meteorhacks:subs-manager
+aslagle:reactive-table
+chrismbeckett:toastr
 francocatena:status
-
 yuukan:streamy
-spiderable
+stevezhu:lodash
+reywood:publish-composite
+3stack:country-codes
+
+#ui
+konecty:autolinker
+
+# i18n
+tap:i18n
+gwendall:autoform-i18n
+
+# moment
+momentjs:moment
+benmgreene:moment-range
+jeeeyul:moment-with-langs
+
+# analytics
+okgrow:analytics
+
+# smartix
 smartix:core
 smartix:lib
 smartix:userdetail
@@ -119,7 +121,6 @@ smartix:messagedetail
 smartix:messageextrainfo
 smartix:classes
 smartix:chat
-
 smartix:sharer
 smartix:tour
 smartix:notifications
@@ -127,7 +128,6 @@ smartix:ui-master
 smartix:iconchooser
 smartix:filehandler
 smartix:email-template
-
 smartix:accounts
 smartix:accounts-global
 smartix:accounts-system
@@ -135,18 +135,9 @@ smartix:accounts-usernames
 smartix:accounts-relationships
 smartix:admin
 smartix:accounts-schools
-
 smartix:schools
 smartix:schools-home
 smartix:classes-announcements
 smartix:chats-messages
 smartix:newsgroups-news
 smartix:groups
-
-splendido:accounts-meld
-
-
-# production
-standard-minifier-css
-standard-minifier-js
-ddp-rate-limiter
