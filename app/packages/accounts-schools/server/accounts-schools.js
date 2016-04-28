@@ -861,8 +861,9 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser) {
         }
         
         // Get the mother's email and check if the user exists
+        let mother;
         if(student.motherEmail) {
-            let mother = Accounts.findUserByEmail(student.motherEmail);
+            mother = Accounts.findUserByEmail(student.motherEmail);
             if(mother === undefined) {
                 // Mother does not exists
                 // Should create a new user
@@ -875,7 +876,7 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser) {
             } else {
                 // Mother exists, add the relationship to the `smartix:user-relationships` collection
                 Smartix.Accounts.Relationships.createRelationship({
-                    parent: motherId,
+                    parent: mother._id,
                     child: studentData._id,
                     namespace: namespace,
                     name: 'Mother'
@@ -884,8 +885,9 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser) {
         }
         
         // Get the father's email and check if the user exists
+        let father;
         if(student.fatherEmail) {
-            let father = Accounts.findUserByEmail(student.fatherEmail);
+            father = Accounts.findUserByEmail(student.fatherEmail);
             if(father === undefined) {
                 // Father does not exists
                 // Should create a new user
@@ -898,7 +900,7 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser) {
             } else {
                 // Father exists, add the relationship to the `smartix:user-relationships` collection
                 Smartix.Accounts.Relationships.createRelationship({
-                    parent: fatherId,
+                    parent: father._id,
                     child: studentData._id,
                     namespace: namespace,
                     name: 'Father'
