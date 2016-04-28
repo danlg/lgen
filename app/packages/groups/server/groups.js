@@ -2,8 +2,6 @@ Smartix = Smartix || {};
 
 Smartix.Groups = Smartix.Groups || {};
 
-Smartix.Groups.Collection = new Mongo.Collection("smartix:groups");
-
 Smartix.Groups.createGroup = function (options) {
     console.log('Smartix.Groups.createGroup',options);
     

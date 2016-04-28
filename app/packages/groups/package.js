@@ -18,15 +18,7 @@ Package.onUse(function(api) {
     api.use('stevezhu:lodash@4.6.1');
     api.use('smartix:accounts@0.0.1');
     api.use('smartix:accounts-utilities@0.0.1');
-    api.addFiles('groups.js');
-
-    //export Smartix so that Smartix.Groups is available
+    api.addFiles('lib/collections.js', ['client', 'server']);
+    api.addFiles('server/groups.js', ['server']);
     api.export('Smartix');
-});
-
-Package.onTest(function(api) {
-    api.use('ecmascript');
-    api.use('tinytest');
-    api.use('smartix:groups');
-    api.addFiles('groups-tests.js');
 });
