@@ -20,6 +20,9 @@ Package.onUse(function(api) {
      api.use('smartix:ui-master', 'client');
      api.use('smartix:lib','client');
      
+     api.use('smartix:classes');
+     api.use('smartix:news'); 
+         
      api.use('practicalmeteor:loglevel')
      api.addFiles('notifications.js');
      api.addFiles('init.js','client');         

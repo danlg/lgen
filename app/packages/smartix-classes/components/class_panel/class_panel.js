@@ -1,7 +1,7 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 /*var text = new ReactiveVar('');
 var classObj;
-var currentClassCode;
+
 
 var soundArr = ReactiveVar([]);
 var isRecording = false;
@@ -9,6 +9,7 @@ var media = "";
 var isPlayingSound = false;
 var localClassMessagesCollection = new Meteor.Collection(null);*/
 
+var currentClassCode;
 var loadedItems = ReactiveVar(10);
 var loadExtraItems = 5;
 
@@ -260,7 +261,7 @@ Template.ClassPanel.helpers({
 /* ClassPanel: Lifecycle Hooks */
 /*****************************************************************************/
 Template.ClassPanel.onCreated(function(){
-    
+   currentClassCode = Router.current().params.classCode;
    
    var self = this;
    
@@ -348,11 +349,12 @@ Template.ClassPanel.rendered = function () {
 
 Template.ClassPanel.destroyed = function () {
  loadedItems.set(10); 
- loadExtraItems = 5;     
+ loadExtraItems = 5;
+ Meteor.call('setAllClassCommentsAsRead',currentClassCode);
   //  Session.set('hasFooter',true);
  /* loadedItems.set(10); 
   loadExtraItems = 5;
-  Meteor.call('setAllClassCommentsAsRead',currentClassCode);
+  
   localClassMessagesCollection = null;*/
 };
 

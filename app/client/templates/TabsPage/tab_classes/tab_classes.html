@@ -43,7 +43,7 @@
                   {{#each createdClass}}
                     <a href={{ pathFor 'ClassPanel'   }}>
                       <div class="item item-icon-left" style="padding-top: 7px; padding-bottom: 7px">
-                        {{{newCommentCounter this.classCode}}} 
+                        {{{newCommentCounter this._id}}} 
                           
                         <i class="icon {{classAvatarIcon}} e1a-1x emojicon"></i>
                         {{this.className}}
@@ -90,7 +90,7 @@
                 {{#each joinedClass}}
                   <a href={{ pathFor 'classDetail'   }}>
                     <div class="item item-icon-left" style="padding-top: 7px; padding-bottom: 7px">
-                      {{{newMessageCounter this.classCode}}}
+                      {{{newMessageCounter this._id}}}
                       
                       <i class="icon {{classAvatarIcon}} e1a-1x emojicon"></i>
                       {{this.className}}
