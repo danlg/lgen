@@ -25,6 +25,7 @@ Package.onUse(function(api) {
   api.addFiles('reserved-school-names.js');  
   api.addFiles('schools.js');
   api.addFiles('server/methods.js', 'server');
+  api.addFiles('client/helpers.js','client');
   api.addFiles('publications.js','server');
   
   api.addFiles('routes.js');
