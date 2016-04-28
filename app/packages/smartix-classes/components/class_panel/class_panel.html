@@ -139,10 +139,11 @@
                         
                     <span class='timestamp'>{{formatTime createdAt}}</span>  
                     <span>
-                         {{#if this.comment.allowComment}}
-                             <a class='smaller comment-counter subdued'>{{_ "CommentCounter" comment_count=this.comment.comments.length }}</a>
+                        {{#each attachComment}}
+                         {{#if this.allowComment}}
+                             <a class='smaller comment-counter subdued'>{{_ "CommentCounter" comment_count=this.comments.length }}</a>
                          {{/if}}
-                        
+                        {{/each}}
                     </span>
                     </p>
                     

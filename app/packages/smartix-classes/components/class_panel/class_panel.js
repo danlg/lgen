@@ -253,6 +253,10 @@ Template.ClassPanel.helpers({
     }else{
         return "";
     }
+  },
+  attachComment:function(){
+    var commentObjs =lodash.filter(this.addons, function(addon) { return addon.type =='comment'; });
+    return commentObjs;       
   }
 
 });

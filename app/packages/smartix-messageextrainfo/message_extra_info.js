@@ -26,6 +26,12 @@ Template.MessageExtraInfo.helpers({
     //var filtedArr = lodash.findByValues(msgArr, "msgId", this.msgCode);
     return this.inputMessageObj;
   },
+  getCommentObj:function(){
+    return lodash.find(this.inputMessageObj.addons,{type:'comment'});
+  },
+  getPollObj:function(){
+    return lodash.find(this.inputMessageObj.addons,{type:'poll'});
+  },  
   className: function () {
     return classObj.className;
   },
