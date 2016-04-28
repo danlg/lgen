@@ -18,6 +18,8 @@ Meteor.publish('userRelationships', function(userId) {
                 child: userId
             }]
         });
+    } else {
+        this.ready();
     }
 });
 
@@ -48,6 +50,8 @@ Meteor.publish('userRelationshipsInNamespace', function (userId, namespace) {
             ]
             
         });
+    } else {
+        this.ready();
     }
 });
 
@@ -63,6 +67,8 @@ Meteor.publish('usersRelationshipsInNamespace', function(namespace) {
         return Smartix.Accounts.Relationships.Collection.find({
             namespace: namespace
         });
+    } else {
+        this.ready();
     }
 });
 
