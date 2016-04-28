@@ -92,3 +92,19 @@ Smartix.Accounts.Relationships.removeRelationship = function(relId, currentUser)
     }
 
 }
+
+// Checks whether the (supposed) parent is actually
+// The parent for the student, as defined by
+// The school with the namespace
+Smartix.Accounts.Relationships.isParent = function (studentId, parentId, namespace) {
+    
+    check(studentId, String);
+    check(parentId, String);
+    check(namespace, String);
+    
+    return Smartix.Accounts.Relationships.Collection.findOne({
+        parent: parentId,
+        child: studentId,
+        namespace: namespace
+    });
+}
