@@ -11,13 +11,18 @@
 # but you can also edit it by hand.
 
 
+# meteor libraries
+meteor-base
+ecmascript
+es5-shim
+check
+tracker
 
-
-
-
-
-
+# standard libraries
+jquery
+underscore
 less
+
 accounts-google
 accounts-base
 accounts-oauth
@@ -49,8 +54,8 @@ reactive-var
 
 u2622:persistent-session
 
-underscore
-jquery
+
+
 fastclick
 tap:i18n
 gwendall:autoform-i18n
@@ -67,19 +72,19 @@ benmgreene:moment-range
 jeeeyul:moment-with-langs
 raix:push
 cfs:ui
-meteor-base
+
 mobile-experience
 mongo
 blaze-html-templates
 session
-tracker
+
 logging
 practicalmeteor:loglevel
 reload
 random
 ejson
 spacebars
-check
+
 meteorhacks:npm
 dburles:spacebars-tohtml
 konecty:autolinker
@@ -139,3 +144,9 @@ smartix:newsgroups-news
 smartix:groups
 
 splendido:accounts-meld
+
+
+# production
+standard-minifier-css
+standard-minifier-js
+ddp-rate-limiter
