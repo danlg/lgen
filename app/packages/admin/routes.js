@@ -176,6 +176,15 @@ Router.route('/:school/admin/news/import', {
     }
 });
 
+Router.route('/:school/admin/absence/upload', {
+    name: 'admin.absence.upload',
+    layoutTemplate: 'adminLayout',
+    template: 'AdminUploadAttendence',
+    action: function () {
+        this.render('AdminUploadAttendence');
+    }
+});
+
 Router.route('/:school/admin/absence/absentees', {
     name: 'admin.absence.absentees',
     layoutTemplate: 'adminLayout',

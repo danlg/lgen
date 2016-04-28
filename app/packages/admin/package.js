@@ -6,6 +6,11 @@ Package.describe({
   documentation: 'README.md'
 });
 
+Npm.depends({
+    jszip: "3.0.0",
+    xlsx: "https://github.com/d4nyll/js-xlsx/archive/36e68fcc15a71f49fea4e73f8bc15ff4acbaa34e.tar.gz"
+});
+
 Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
   api.use('ecmascript');
@@ -18,6 +23,7 @@ Package.onUse(function(api) {
   api.use('chrismbeckett:toastr');
   api.use('alanning:roles@1.2.15');
   api.use('easy:search@2.0.9');
+  api.use('stevezhu:lodash@4.6.1');
   api.use('smartix:lib@0.0.1');
   api.use('smartix:news@0.0.1');
   api.use('smartix:groups@0.0.1');
@@ -35,14 +41,16 @@ Package.onUse(function(api) {
   api.addFiles('client/layouts/admin-layout.html', 'web.browser');
   api.addFiles('client/layouts/admin-layout.js', 'web.browser');
   api.addFiles('client/layouts/admin-layout.css', 'web.browser');
+  api.addFiles('client/templates/absence/upload/upload.html', 'web.browser');
+  api.addFiles('client/templates/absence/upload/upload.js', 'web.browser');
   api.addFiles('client/templates/absence/absentees/absentees.html', 'web.browser');
   api.addFiles('client/templates/absence/absentees/absentees.js', 'web.browser');
   api.addFiles('client/templates/absence/expected/expected.html', 'web.browser');
   api.addFiles('client/templates/absence/expected/expected.js', 'web.browser');
-  api.addFiles('client/templates/classes/list/index.js', ['web.browser', 'server']);
+  api.addFiles('client/templates/classes/list/index.js', ['client', 'server']);
   api.addFiles('client/templates/classes/list/list.html', 'web.browser');
   api.addFiles('client/templates/classes/list/list.js', 'web.browser');
-  api.addFiles('client/templates/classes/view/index.js', 'web.browser');
+  api.addFiles('client/templates/classes/view/index.js', 'client');
   api.addFiles('client/templates/classes/view/view.html', 'web.browser');
   api.addFiles('client/templates/classes/view/view.js', 'web.browser');
   api.addFiles('client/templates/classes/view/view.css', 'web.browser');
@@ -52,7 +60,7 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/classes/import/import.js', 'web.browser');
   api.addFiles('client/templates/dashboard/dashboard.html', 'web.browser');
   api.addFiles('client/templates/dashboard/dashboard.js', 'web.browser');
-  api.addFiles('client/templates/newsgroups/list/index.js', ['web.browser', 'server']);
+  api.addFiles('client/templates/newsgroups/list/index.js', ['client', 'server']);
   api.addFiles('client/templates/newsgroups/list/list.html', 'web.browser');
   api.addFiles('client/templates/newsgroups/list/list.js', 'web.browser');
   api.addFiles('client/templates/newsgroups/view/view.html', 'web.browser');
@@ -67,7 +75,7 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/news/import/import.js', 'web.browser');
   api.addFiles('client/templates/rss/rss.html', 'web.browser');
   api.addFiles('client/templates/rss/rss.js', 'web.browser');
-  api.addFiles('client/templates/users/list/index.js', ['web.browser', 'server']);
+  api.addFiles('client/templates/users/list/index.js', ['client', 'server']);
   api.addFiles('client/templates/users/list/list.html', 'web.browser');
   api.addFiles('client/templates/users/list/list.js', 'web.browser');
   api.addFiles('client/templates/users/view/view.html', 'web.browser');
