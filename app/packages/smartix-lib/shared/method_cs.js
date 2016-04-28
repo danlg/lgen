@@ -300,17 +300,15 @@ Meteor.methods({
     });
 
   },
-  showHideComment: function (isShown, classid, messageid, commentid) {
-    var currentClassObj = Smartix.Groups.Collection.findOne(classid);
-    var currentMessagesObjIndex = lodash.findIndex(currentClassObj.messagesObj, {"msgId": messageid});
-    var currentCommentObjIndex = lodash.findIndex(currentClassObj.messagesObj[currentMessagesObjIndex].comment.comments, {"_id": commentid});
-
-    //currentClassObj.messagesObj[currentMessagesObjIndex].comment.comments[currentCommentObjIndex].isShown = isShown;
+  showHideComment: function (isShown, messageid, commentIndex) {
+    var msgObj = Smartix.Messages.Collection.findOne({_id: messageid});
+    var currentAddonsObjIndex = lodash.findIndex(msgObj.addons, {"type": 'comment'});
+    var currentCommentObjIndex = commentIndex;
 
     var modifier = {$set: {}};
-    modifier.$set['messagesObj.' + currentMessagesObjIndex + '.comment.comments.' + currentCommentObjIndex + '.isShown'] = isShown;
+    modifier.$set['addons.' + currentAddonsObjIndex + '.comments.' + currentCommentObjIndex + '.isShown'] = isShown;
 
-    Smartix.Groups.Collection.update(classid, modifier, {validate: false});
+    Smartix.Messages.Collection.update(messageid, modifier, {validate: false});
 
   },
 

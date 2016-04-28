@@ -40,7 +40,7 @@
                         {{#if isShown}}                     
                             <div style='display: flex;justify-content: space-between;align-items: baseline;'>
                                 <h3>{{getNameById createdBy}} </h3>
-                            <button data-msgid='{{../msgId}}' data-commentid='{{_id}}' data-action='hide' class="commentShownToggle button button-hide">
+                            <button data-msgid='{{../../inputMessageObj._id}}' data-commentindex='{{@index}}' data-action='hide' class="commentShownToggle button button-hide">
                                 {{_ "Hide"}}
                             </button>
                             </div>                            
@@ -50,7 +50,7 @@
                         {{else}}
                             <div style='display: flex;justify-content: space-between;align-items: baseline;'>
                                 <h3>{{getNameById createdBy}} </h3>
-                            <button data-msgid='{{../msgId}}' data-commentid='{{_id}}' data-action='show' class="commentShownToggle button button-positive">
+                            <button data-msgid='{{../../inputMessageObj._id}}' data-commentindex='{{@index}}' data-action='show' class="commentShownToggle button button-positive">
                                 {{_ "Show"}}
                             </button> 
                             </div>                             

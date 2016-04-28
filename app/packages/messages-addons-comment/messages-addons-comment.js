@@ -65,13 +65,15 @@ Smartix.Messages.Addons.Comment.addNewComment = function (messageId, commentObj)
                     var msgObj = Smartix.Messages.Collection.findOne({_id:messageId});
                     var groupObj = Smartix.Groups.Collection.findOne({_id:msgObj.group});
                     
+                    //console.log(commentObj);
+                    
                     groupObj.admins.map(function(eachAdmin){     
                         Meteor.call('insertNotification', {
                             eventType: "newclasscomment",
                             userId: eachAdmin,
                             hasRead: false,
                             groupId: groupObj._id,
-                            messageCreateTimestamp: commentObj.createdAt,
+                            messageCreateTimestamp: lodash.last(commentObj.comments).createdAt,
                             messageCreateByUserId: Meteor.userId()
                         });                        
                     });

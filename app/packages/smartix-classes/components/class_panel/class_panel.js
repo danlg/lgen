@@ -87,11 +87,11 @@ Template.ClassPanel.events({
           classCode: Router.current().params.classCode
         });
       if(actionObj.action == 'hide'){   
-         log.info("hide comment id:" + actionObj.commentid + " "+ actionObj.msgid +" "+ classObj._id);
-         Meteor.call('showHideComment',false,classObj._id,actionObj.msgid,actionObj.commentid)  ; 
+         log.info("hide comment id:" + actionObj.commentindex + " "+ actionObj.msgid);
+         Meteor.call('showHideComment',false,actionObj.msgid,actionObj.commentindex)  ; 
       }else{      
-         log.info("show comment id:" + actionObj.commentid+ " "+ actionObj.msgid+" "+ classObj._id);
-         Meteor.call('showHideComment',true,classObj._id,actionObj.msgid,actionObj.commentid)  ; 
+         log.info("show comment id:" + actionObj.commentindex+ " "+ actionObj.msgid);
+         Meteor.call('showHideComment',true,actionObj.msgid,actionObj.commentindex)  ; 
       }
   },
   'click .comment-counter':function(e){
@@ -228,11 +228,12 @@ Template.ClassPanel.helpers({
     return count === 0;
   },
   showByDefaultIfWithComments:function(){
-      /*if(this.comment.comments.length){
+      var commentObj = lodash.find(this.addons,{type:'comment'});
+      if( commentObj && commentObj.comments.length > 0 ){
           return "expand";
       }else{
           return "";
-      }*/
+      }
   },
   attachCalendar:function(){
     var calendarObjs =lodash.filter(this.addons, function(addon) { return addon.type =='calendar'; });
