@@ -40,11 +40,17 @@ Template.TabChat.helpers({
     if(!currentSchoolId || currentSchoolId === 'global'){
         return true;
     }
-    //In a school context, only teacher or parent can create class
-    else return (
-        lodash.includes( Roles.getRolesForUser( Meteor.userId(), currentSchoolId ), Smartix.Accounts.School.TEACHER  ) ||
-        lodash.includes( Roles.getRolesForUser( Meteor.userId(), currentSchoolId ), Smartix.Accounts.School.PARENT  )
-    );
+    else{
+        var currentUser = Meteor.user();
+        if(currentUser.roles[currentSchoolId].indexOf(Smartix.Accounts.School.TEACHER) !=-1
+           ||currentUser.roles[currentSchoolId].indexOf(Smartix.Accounts.School.PARENT) !=-1
+           ||currentUser.roles[currentSchoolId].indexOf(Smartix.Accounts.School.ADMIN) !=-1
+          ){
+            return true;
+        }else{
+            return false;
+        }   
+    }
   },
 
   'getAllMyChatRooms': function () {
