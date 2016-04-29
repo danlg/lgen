@@ -224,9 +224,6 @@ Router.route('TabClasses', {
 });
 
 Router.route('TabChat', {
-    waitOn: function() {
-        return Meteor.subscribe('allMyChatRoomWithUser');
-    },
     path: "/chat"
 });
   
