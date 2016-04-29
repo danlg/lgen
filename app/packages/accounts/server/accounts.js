@@ -128,10 +128,10 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
     check(options, Smartix.Accounts.createUserOptionsSchema);
     
     // Check that the arguments are of the correct type
-    check(email, Match.Where(function (val) {
+    check(email, Match.Maybe(Match.Where(function (val) {
         check(val, String);
         return SimpleSchema.RegEx.Email.test(val);
-    }));
+    })));
     
     check(namespace, String);
     check(types, [String]);
@@ -168,8 +168,11 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
     var userToAddRoleTo;
     
     // Checks if user already exists
-    if (Accounts.findUserByEmail(email) === undefined) {
-        // If the user does not already exists, create a new user
+    if(typeof email === "string" && Accounts.findUserByEmail(email) !== undefined) {
+        // Set `userToAddRoleTo` to the `_id` of the existing user
+        userToAddRoleTo = Accounts.findUserByEmail(email)._id;
+    } else {
+        // Otherwise, if the user does not already exists, create a new user
         var newUserOptions = {};
         if (options.username) {
             newUserOptions.username = options.username;
@@ -187,7 +190,9 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
                 newUserOptions.profile.lastName = options.profile.lastName;
             }
         }
-        newUserOptions.email = email;
+        if(typeof email === "string") {
+            newUserOptions.email = email;
+        }
         var newUserId = Accounts.createUser(newUserOptions);
         
         delete options.email;
@@ -232,9 +237,6 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
         }
         
         userToAddRoleTo = newUserId;
-    } else {
-        // Otherwise, set `userToAddRoleTo` to the `_id` of the existing user
-        userToAddRoleTo = Accounts.findUserByEmail(email)._id;
     }
     
     // Add the role to the user
