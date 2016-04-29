@@ -215,7 +215,19 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
             });
         });               
     }
-
+    
+    //update group lastUpdateBy, lastUpdatedAt fields to indicate modification in this group and by whom
+    Smartix.Groups.Collection.update({
+        _id: groupId
+    },
+       {
+           $set:
+                {
+                  lastUpdatedBy:  Meteor.userId(),
+                  lastUpdatedAt:new Date()
+                }
+        }
+    );
     
     
 }
