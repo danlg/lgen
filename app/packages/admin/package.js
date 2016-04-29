@@ -25,6 +25,7 @@ Package.onUse(function(api) {
   api.use('easy:search@2.0.9');
   api.use('stevezhu:lodash@4.6.1');
   api.use('smartix:lib@0.0.1');
+  api.use('smartix:utilities@0.0.1');
   api.use('smartix:news@0.0.1');
   api.use('smartix:groups@0.0.1');
   api.use('smartix:classes@0.0.1');
