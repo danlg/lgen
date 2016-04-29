@@ -50,16 +50,17 @@
                 </div>
               </a>
             {{/if}}
+          {{else}}
+            
+            <div class="row row-center listview-nth">
+              <div class="col">
+                {{_ "No_chat_yet" }} <br/><br/>
+                <a class="button button-stable long-button" href="{{pathFor 'ChatInvite'  school=getCurrentSchoolName}}"> {{_ "StartNewChat" }} </a>
+              </div>
+            </div>            
           {{/each}}
-
-        {{else}}
           
-          <div class="row row-center listview-nth">
-            <div class="col">
-              {{_ "No_chat_yet" }} <br/><br/>
-              <a class="button button-stable long-button" href="{{pathFor 'ChatInvite'  }}"> {{_ "StartNewChat" }} </a>
-            </div>
-          </div>
+
 
         {{/with}}
         </div>
