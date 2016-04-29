@@ -86,7 +86,6 @@ web-only
 
 # misc
 practicalmeteor:loglevel
-meteorhacks:npm
 dburles:spacebars-tohtml
 meteorhacks:subs-manager
 aslagle:reactive-table

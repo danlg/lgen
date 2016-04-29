@@ -264,7 +264,7 @@ Template.ClassDetail.rendered = function () {
       type: 'class',
       classCode: Router.current().params.classCode
     });
-  var initialCount = classObj.messagesObj.length;
+  var initialCount = Smartix.Messages.Collection.find({group:initialClassObj._id}).count();
   
   //http://stackoverflow.com/questions/32461639/how-to-execute-a-callback-after-an-each-is-done
   this.autorun(function(){
@@ -275,7 +275,7 @@ Template.ClassDetail.rendered = function () {
    
     // we need to register a dependency on the number of documents returned by the
     // cursor to actually make this computation rerun everytime the count is altered
-    var latestCount = latestClassObj.messagesObj.length;
+    var latestCount = Smartix.Messages.Collection.find({group:initialClassObj._id}).count();
     
     Tracker.afterFlush(function(){
         if(latestCount > initialCount){
