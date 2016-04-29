@@ -6,7 +6,7 @@ App.info({
   author: 'Little Genius Education',
   email: 'contact@gosmartix.com',
   website: 'https://app.gosmartix.com',
-  version: '1.0.600000',
+  version: '1.2.0',
   buildNumber: '100'
 });
 
@@ -67,5 +67,28 @@ App.launchScreens({
   //'android_xhdpi_landscape': 'resources/splash/android_xhdpi_landscape.png'//1280x720px
 });
 
-App.setPreference('StatusBarOverlaysWebView', 'false');
-App.setPreference('StatusBarBackgroundColor', '#000000');
+//see https://github.com/apache/cordova-plugin-statusbar
+//Preferences see https://cordova.apache.org/docs/en/latest/config_ref/index.html
+
+//IOS
+App.setPreference('StatusBarOverlaysWebView', 'true');
+App.setPreference('StatusBarStyle', 'lightcontent');
+//App.setPreference('StatusBarBackgroundColor', '#000000');//If this value is not set, the background color will be transparent.
+App.setPreference('ios-orientation-iphone', 'portrait');
+App.setPreference('deployment-target', '8.4');
+App.setPreference('BackupWebStorage', 'none');
+//target-device(string)//Allowed values: handset, tablet, universal//Default: universal
+
+//ANDROID
+App.setPreference('android-targetSdkVersion', '19');
+App.setPreference('android-minSdkVersion', '22');
+
+//BOTH
+App.setPreference('Orientation', 'portrait');
+App.setPreference('AutoHideSplashScreen', 'true');
+App.setPreference('SplashScreen', 'screen');
+App.setPreference('SplashScreenDelay', '3000');
+App.setPreference('DisallowOverscroll', 'false');//was webviewbounce
+
+
+
