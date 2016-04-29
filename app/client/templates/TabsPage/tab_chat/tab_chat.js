@@ -122,26 +122,13 @@ Template.TabChat.helpers({
     return generatedString;
   },
 
-  'lasttext': function (messagesObj) {
-    if(!messagesObj){
-        return "";
-    }
-    var len = messagesObj.length;
-    return  (len > 0) ? messagesObj[len - 1].text : "";
+  'lasttext': function (groupId) {
+      //console.log('lasttext',Smartix.Messages.Collection.find({group:groupId}, {sort: {createdAt: -1}, limit: 1}).fetch());
+      return Smartix.Messages.Collection.find({group:groupId}, {sort: {createdAt: -1}, limit: 1}).fetch()[0].data.content;
   },
 
-  'lasttextTime':function(messagesObj){
-    if(!messagesObj){
-        return "New Chat";
-    }
-    var len = messagesObj.length;
-    if (len > 0){
-      var message = messagesObj[len - 1];  
-      var userLanguage = TAPi18n.getLanguage();
-      moment.locale(userLanguage);     
-      return moment.unix(message.sendAt.substr(0,10)).fromNow();
-    }
-    else return "New Chat";
+  'lasttextTime':function(lastUpdatedAt){
+      return moment(lastUpdatedAt).fromNow();
   },
 
   'isHide': function (chatIds) {
@@ -202,6 +189,24 @@ Template.TabChat.helpers({
 
 /* TabChat: Lifecycle Hooks */
 Template.TabChat.created = function () {
+    
+    var self = this;
+    
+    self.subscribe('allMyChatRoomWithUser',function(){
+        var allchats = Smartix.Groups.Collection.find(
+            {   
+                type:'chat',
+                namespace: Session.get('pickedSchoolId')
+            },
+            {sort:{"lastUpdatedAt":-1}}
+        ).fetch();
+        var allGroupIds = lodash.map(allchats,"_id");
+        //console.log('allGroupIds',allchats,allGroupIds);
+        self.subscribe('smartix:messages/latestMessageEachGroups',allGroupIds);               
+    });
+
+    
+
 };
 
 Template.TabChat.rendered = function () {
