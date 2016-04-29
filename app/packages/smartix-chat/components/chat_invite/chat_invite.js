@@ -11,6 +11,7 @@ Template.ChatInvite.events({
   'click .startChatBtn': function () {
     /*var chatArr =  $('.js-example-basic-multiple').val();*/
       console.log('targetIds', targetIds.get() );
+      
       Meteor.call('chatCreate', targetIds.get(),null, Router.current().params.school, function (err, data) {
       
       Router.go('ChatRoom', {chatRoomId: data});
@@ -68,6 +69,10 @@ Template.ChatInvite.helpers({
 
   isSearchable: function () {
     return lodash.includes(Smartix.helpers.getFullNameByProfileObj(this.profile).toUpperCase(), searchString.get().toUpperCase());
+  },
+  getGroupChatInvitePath:function(){
+            
+    return  Router.path('GroupChatInvite',{school: Router.current().params.school});
   }
 });
 

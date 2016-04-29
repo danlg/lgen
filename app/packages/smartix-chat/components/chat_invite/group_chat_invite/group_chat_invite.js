@@ -11,7 +11,7 @@ Template.GroupChatInvite.events({
   'click .classItem':function(){
     
     log.info(this);
-    Router.go('GroupChatInviteChooser',{classCode:this.classCode});
+    Router.go('GroupChatInviteChooser',{classCode:this.classCode, school: Router.current().params.school});
     
   },
   'click .startChatBtn': function () {
@@ -61,7 +61,8 @@ Template.GroupChatInvite.helpers({
     return targetIds.get().length > 0 ? "" : "hide";
   },
   getChatInvitePath:function(){
-    return  Router.path('ChatInvite',{school: Session.get('pickedSchoolId')});
+            
+    return  Router.path('ChatInvite',{school: Router.current().params.school});
   }
 });
 

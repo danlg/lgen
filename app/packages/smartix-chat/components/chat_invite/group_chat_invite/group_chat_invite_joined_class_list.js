@@ -36,7 +36,7 @@ Template.GroupChatInviteChooser.events({
             chatRoomModerator: Meteor.userId()
         };
         
-        Meteor.call('chatCreate', selectedChatIds, chatObjExtra, Session.get('pickedSchoolId'),  function (err, data) {
+        Meteor.call('chatCreate', selectedChatIds, chatObjExtra, Router.current().params.school,  function (err, data) {
          Router.go('ChatRoom', {chatRoomId: data});
          targetIds.set([]); 
          Session.set('chosenIconForGroupChat','');
