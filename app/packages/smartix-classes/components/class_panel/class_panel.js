@@ -298,19 +298,14 @@ Template.ClassPanel.rendered = function () {
    //log.info('rendered',this.subscriptionsReady());
     
    
-    /*var template = this;
+    var template = this;
     //scroll to bottom
     this.autorun(function () {
         if (template.subscriptionsReady()) {
        
         
         Tracker.afterFlush(function () {
-                
-                 if(classObj){
-                     currentClassCode = classObj.classCode;
-                 }else{
-                      currentClassCode =Router.current().params.classCode;
-                 }
+                 
                 var imgReadyChecking = function(){
                     var hasAllImagesLoaded =true;
 
@@ -347,7 +342,7 @@ Template.ClassPanel.rendered = function () {
                
         });
         }
-    });*/
+    });
     
    // Session.set('hasFooter',false);
 };
