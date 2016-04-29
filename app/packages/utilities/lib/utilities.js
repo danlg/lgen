@@ -38,3 +38,18 @@ Smartix.Utilities.getLanguageCode = function (lang) {
             return 'zh-tw';
     }
 }
+
+Smartix.Utilities.removeEmptyProperties = function (object) {
+    for (var prop in object) {
+        if (object[prop] === "" || object[prop] === null || object[prop] === undefined) {
+            delete object[prop];
+        }
+    }
+    return object;
+}
+
+Smartix.Utilities.removeEmptyObjectsFromArray = function (array) {
+    return array.filter(function(obj) {
+        return Object.keys(obj).length > 0;
+    });
+}

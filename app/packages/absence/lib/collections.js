@@ -48,7 +48,31 @@ Smartix.Absence.expectedAbsenceSchema = new SimpleSchema({
     }
 });
 
-Smartix.Absence.actualAbsenceSchema = new SimpleSchema({
+Smartix.Absence.attendenceRecordsSchema = new SimpleSchema({
+    name: {
+        type: String
+    },
+    date: {
+        type: String
+    },
+    clockIn: {
+        type: String,
+        optional: true
+    },
+    late: {
+        type: String,
+        optional: true
+    },
+    absent: {
+        type: String,
+        optional: true
+    },
+    department: {
+        type: String
+    }
+});
+
+Smartix.Absence.processedAbsenceSchema = new SimpleSchema({
     studentId: {
         type: String
     },
@@ -64,5 +88,9 @@ Smartix.Absence.actualAbsenceSchema = new SimpleSchema({
     },
     namespace: {
         type: String
+    },
+    clockIn: {
+        type: Number,
+        decimal: false
     }
 });

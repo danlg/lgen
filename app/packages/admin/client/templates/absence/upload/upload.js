@@ -50,6 +50,9 @@ Template.AdminUploadAttendence.events({
         // };
         // reader.readAsBinaryString(file);
         
+        
+    },
+    'change #AdminUploadAttendence__upload-csv': function (event, template) {
         var files = event.currentTarget.files;
         var file = files[0];
         var reader = new FileReader();
@@ -60,9 +63,7 @@ Template.AdminUploadAttendence.events({
                 dynamicTyping: false,
                 skipEmptyLines: true,
                 complete: function (results, file) {
-                    Session.set('imported-parents', results.data);
-                    Meteor.call('smartix:absence/updateAttendenceRecordWithCSV', results.data, Router.current().params.school, function (err, res) {
-                    });
+                    Session.set('imported-attendence', results.data);
                 },
                 error: function (error, file) {
                     console.log(error);
@@ -71,24 +72,31 @@ Template.AdminUploadAttendence.events({
         }
         reader.readAsText(file);
     },
-    'click #AdminParentsImport__submit': function (event, template) {
-        Meteor.call('smartix:accounts-schools/importParents', Router.current().params.school, Session.get('imported-parents'), function (err, res) {
+    'click #AdminUploadAttendence__submit': function (event, template) {
+        Meteor.call('smartix:absence/updateAttendenceRecord', Session.get('imported-attendence'), Router.current().params.school, function (err, res) {
             if(!err) {
                 // Toaster to notify success
+                console.log(res);
+                if(res.insertCount) {
+                    $('#AdminUploadAttendence__errorMsgBlock').append(res.insertCount + " records were updated successfully.<br><br>");
+                }
+                if(res.errors) {
+                    $('#AdminUploadAttendence__errorMsgBlock').append(res.errors.join("<br><br>"));
+                }
             } else {
                 console.log(err);
-                $('#AdminParentsImport__errorMsgBlock').append(err.details);
+                $('#AdminUploadAttendence__errorMsgBlock').append(err.details);
             }
         });
     }
 });
 
 Template.AdminUploadAttendence.helpers({
-    importedParents: function () {
-        return Session.get('imported-parents');
+    importedAttendence: function () {
+        return Session.get('imported-attendence');
     }
 });
 
 Template.AdminUploadAttendence.onDestroyed(function () {
-    Session.set('imported-parents', null);
+    Session.set('imported-attendence', null);
 });

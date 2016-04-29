@@ -1,5 +1,5 @@
 Meteor.methods({
-    'smartix:absence/updateAttendenceRecord': function (record, namespace) {
-        return Smartix.Absence.updateAttendenceRecord(record, namespace, this.userId);
+    'smartix:absence/updateAttendenceRecord': function (records, namespace) {
+        return Smartix.Absence.updateAttendenceRecord(records, namespace, this.userId);
     }
 })
