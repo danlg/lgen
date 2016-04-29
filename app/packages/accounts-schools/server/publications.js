@@ -3,19 +3,11 @@ Meteor.publish('userPendingApprovedSchools', function(){
    return Meteor.users.find({_id: currentUserId},{fields:{schools: 1}});   
 });
 
-Meteor.publish('allSchoolUsers', function (school) {
-    // Check if the user has permission for this school
-    Smartix.Accounts.isUserSchoolAdmin(school, this.userId);
+Meteor.publish('allSchoolUsers', function (schoolId) {
+    let schoolUsersCursor = Smartix.Accounts.School.getAllSchoolUsers(schoolId, this.userId);
     
-    // Get the `_id` of the school from its username
-    var schoolDoc = SmartixSchoolsCol.findOne({
-        username: school
-    });
-    
-    if(schoolDoc) {
-        return Meteor.users.find({
-            schools: schoolDoc._id
-        });
+    if(schoolUsersCursor) {
+        return schoolUsersCursor;
     } else {
         this.ready();
     }
