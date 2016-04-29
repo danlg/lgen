@@ -16,11 +16,9 @@ Template.TabClasses.helpers({
        if(Session.get('pickedSchoolId') === 'global'){
            return 'global';
        }
-       
        if(Session.get('pickedSchoolId') === 'system'){
            return 'system';
        }
-       
        var pickSchool = SmartixSchoolsCol.findOne(Session.get('pickedSchoolId'));
        return pickSchool ? pickSchool.username : false;
    },   

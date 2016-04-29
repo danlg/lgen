@@ -8,8 +8,8 @@ Template.AdminUsersAdd.events({
         var roles = template.$('#addUser-roles').eq(0).val();
         newUserObj.profile.firstName = template.$('#addUser-firstName').eq(0).val();
         newUserObj.profile.lastName = template.$('#addUser-lastName').eq(0).val();
-        newUserObj.dob = new Date(template.$('#addUser-dob').eq(0).val());
-        newUserObj.tel = template.$('#addUser-tel').eq(0).val();
+        //newUserObj.dob = new Date(template.$('#addUser-dob').eq(0).val());
+        //newUserObj.tel = template.$('#addUser-tel').eq(0).val();
         
         // Check that the arguments are of the correct type
         check(email, Match.Where(function (val) {

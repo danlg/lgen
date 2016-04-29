@@ -4,9 +4,14 @@ Package.describe({
 	summary: 'Smartix libraries'
 });
 
+Npm.depends ({
+  log4js: "0.6.35"
+});
+
 Package.onUse(function(api) {
-	api.versionsFrom('1.2');
-    api.use('practicalmeteor:loglevel')
+	  api.versionsFrom('1.2');
+    api.use('ecmascript');
+    api.use('practicalmeteor:loglevel');
     api.use('iron:router');
     api.use('tap:i18n');
     api.use('reactive-var','client');

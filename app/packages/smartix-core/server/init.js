@@ -1,5 +1,8 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
-var log4js = Meteor.npmRequire('log4js');
+
+import log4js from 'log4js';
+
+//var log4js = Meteor.npmRequire('log4js');
 //console log is loaded by default, so you won't normally need to do this
   log4js.replaceConsole();
   log4js.loadAppender('file');

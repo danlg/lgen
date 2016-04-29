@@ -42,18 +42,21 @@ Template.AppLayout.helpers({
 
 
     },
+
     getCurrentSchoolName: function() {
-        if (Session.get('pickedSchoolId') === 'global') {
-            return 'global';
-        }
-
-        if (Session.get('pickedSchoolId') === 'system') {
-            return 'system';
-        }
-
+        if (Session.get('pickedSchoolId') === 'global') return 'global';
+        if (Session.get('pickedSchoolId') === 'system') return 'system';
         var pickSchool = SmartixSchoolsCol.findOne(Session.get('pickedSchoolId'));
         return pickSchool ? pickSchool.username : false;
     },
+
+    getCurrentSchoolNameDisplay: function() {
+        if (Session.get('pickedSchoolId') === 'global') return 'global';
+        if (Session.get('pickedSchoolId') === 'system') return 'system';
+        var pickSchool = SmartixSchoolsCol.findOne(Session.get('pickedSchoolId'));
+        return pickSchool ? pickSchool.name : false;
+    },
+
     belongToMultiSchool: function() {     
         if(Meteor.userId()){
             if (Object.keys(Meteor.user().roles).length > 1) {
