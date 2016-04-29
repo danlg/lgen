@@ -51,8 +51,14 @@
               
               <a href="{{pathFor route='TabYou'}}" class="item item-icon-right" data-ion-menu-close>
                 Settings
-              </a>                         
-                                                                                      
+              </a>
+
+              <!--TODO: only if user is school admin-->
+              <a href="{{pathFor route='admin.dashboard' school=getCurrentSchoolName}}" class="item item-icon-right" data-ion-menu-close>
+                Admin
+              </a>                                    
+              <!--TODO: only if user is school admin ends -->  
+                                                                                    
             </div>
           </div>
         {{/ionSideMenu}}
