@@ -6,10 +6,10 @@ Package.describe({
   documentation: 'README.md'
 });
 
-Npm.depends({
-    jszip: "3.0.0",
-    xlsx: "https://github.com/d4nyll/js-xlsx/archive/36e68fcc15a71f49fea4e73f8bc15ff4acbaa34e.tar.gz"
-});
+// Npm.depends({
+//     jszip: "3.0.0",
+//     xlsx: "https://github.com/d4nyll/js-xlsx/archive/36e68fcc15a71f49fea4e73f8bc15ff4acbaa34e.tar.gz"
+// });
 
 Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
