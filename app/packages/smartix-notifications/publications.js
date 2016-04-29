@@ -2,6 +2,7 @@
 
 Meteor.publish('notifications', function () {
     return Notifications.find({
-      userId: this.userId
+      userId: this.userId,
+      hasRead: false
     });    
 });
