@@ -1,4 +1,4 @@
-// import XLSX from 'xlsx';
+import XLSX from 'xlsx';
 
 var processData = function(csv) {
     var allTextLines = csv.split(/\r\n|\n/);
@@ -12,7 +12,7 @@ var processData = function(csv) {
         .replace(' ', '');
     allTextLines[0] = yo;
     return allTextLines.join("\n");
-}
+};
 
 Template.AdminUploadAttendence.events({
     'change #AdminUploadAttendence__upload-file': function (event, template) {
