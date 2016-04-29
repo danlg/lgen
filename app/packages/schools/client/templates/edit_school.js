@@ -27,6 +27,7 @@ Template.EditSchool.events({
         var newSchoolObj =
         { name: $("#name").val(),
           username: $("#username").val(),
+          adminUsername: $("#admin-username").val(),
           logo: template.newSchoolLogo.get(), 
           tel: $("#tel").val(),
           web: $("#web").val(),

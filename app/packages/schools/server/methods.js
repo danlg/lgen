@@ -40,6 +40,8 @@ Meteor.methods({
             throw new Meteor.Error("require-options", "Pass School Object to create a school");
         }
         if (Roles.userIsInRole(Meteor.userId(), 'admin', 'system')) {
+            var adminUsername = options.adminUsername || options.username;
+            delete options.adminUsername;
             check(options, SchoolsSchema);
 
             if (lodash.includes(RESERVED_SCHOOL_NAMES, options.username)) {
@@ -64,7 +66,7 @@ Meteor.methods({
                 throw err;
             }
 
-            var newAdmin = options.username;
+            var newAdmin = adminUsername;
             var newAdminPassword = "admin";
             if (admins) {
 
