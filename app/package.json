@@ -23,7 +23,7 @@
     "build-uat": "rm -rf ../build && meteor build ../build  --mobile-settings=../config/stage/settings.json --server=https://uat.gosmartix.com",
     "build-uat2": "meteor build .meteor/local -v --mobile-settings=../config/stage/settings.json --server=https://uat.gosmartix.com",
     "deploy-ko": "cd ../dist && scp app.tar.gz lg@uat.gosmartix.com:~/app && ssh lg@uat.gosmartix.com \"cd app && tar xzvf app.tar.gz\"",
-    "deploy-uat": "rm -rf .meteor/local && cd ../config/stage  && DEBUG=* mup deploy    --config=mup.json --settings=settings.json",
+    "deploy-uat": "rm -rf .meteor/local && cd ../config/stage  && mup deploy    --config=mup.json --settings=settings.json",
     "deploy-prd": "rm -rf .meteor/local && cd ../config/production && DEBUG=* mup deploy    --config=mup.json --settings=settings.json",
     "setup": "cd ../config/stage && DEBUG=* mup setup   --config=mup.json --settings=settings.json",
     "stop": "cd ../config/stage && DEBUG=* mup stop   --config=mup.json --settings=settings.json",
