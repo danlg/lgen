@@ -5,7 +5,11 @@ Smartix.Notifications = Smartix.Notifications || {};
 Smartix.Notifications.Helpers = Smartix.Notifications.Helpers || {};
 
 Smartix.Notifications.Helpers.sumOfNewChatMessageCounter = function(){
-   var newMessageCount =  Notifications.find({'eventType':'newchatmessage','hasRead':false}).count();
+    
+   var groupsInNamespace =  Smartix.Groups.Collection.find({namespace:Session.get('pickedSchoolId')},{fields: {_id:1}}).fetch();
+   var groupIdsInNamespace = lodash.map(groupsInNamespace,"_id");
+       
+   var newMessageCount =  Notifications.find({'eventType':'newchatmessage','hasRead':false,'groupId':{ $in: groupIdsInNamespace }}).count();
       
    if(newMessageCount > 0 ){
        return newMessageCount;
@@ -15,8 +19,13 @@ Smartix.Notifications.Helpers.sumOfNewChatMessageCounter = function(){
 }
 
 Smartix.Notifications.Helpers.sumOfNewClassMessageAndCommentCounter = function(){
-   var newMessageCount =  Notifications.find({'eventType':'newclassmessage','hasRead':false}).count();
-   var newCommentCount =  Notifications.find({'eventType':'newclasscomment','hasRead':false}).count();
+   
+   var groupsInNamespace =  Smartix.Groups.Collection.find({namespace:Session.get('pickedSchoolId')},{fields: {_id:1}}).fetch();
+   var groupIdsInNamespace = lodash.map(groupsInNamespace,"_id");
+   
+   
+   var newMessageCount =  Notifications.find({'eventType':'newclassmessage','hasRead':false,'groupId':{ $in: groupIdsInNamespace }}).count();
+   var newCommentCount =  Notifications.find({'eventType':'newclasscomment','hasRead':false,'groupId':{ $in: groupIdsInNamespace }}).count();
         
    if(newMessageCount+newCommentCount > 0 ){
        return (newMessageCount+newCommentCount);
@@ -26,9 +35,12 @@ Smartix.Notifications.Helpers.sumOfNewClassMessageAndCommentCounter = function()
 }
 
 Smartix.Notifications.Helpers.sumOfAllNotificationCounter = function(){
-   var newChatMessageCount =  Notifications.find({'eventType':'newchatmessage','hasRead':false}).count();    
-   var newClassMessageCount =  Notifications.find({'eventType':'newclassmessage','hasRead':false}).count();
-   var newClassCommentCount =  Notifications.find({'eventType':'newclasscomment','hasRead':false}).count();
+   var groupsInNamespace =  Smartix.Groups.Collection.find({namespace:Session.get('pickedSchoolId')},{fields: {_id:1}}).fetch();
+   var groupIdsInNamespace = lodash.map(groupsInNamespace,"_id");
+       
+   var newChatMessageCount =  Notifications.find({'eventType':'newchatmessage','hasRead':false,'groupId':{ $in: groupIdsInNamespace }}).count();    
+   var newClassMessageCount =  Notifications.find({'eventType':'newclassmessage','hasRead':false,'groupId':{ $in: groupIdsInNamespace }}).count();
+   var newClassCommentCount =  Notifications.find({'eventType':'newclasscomment','hasRead':false,'groupId':{ $in: groupIdsInNamespace }}).count();
         
    if( (newChatMessageCount + newClassMessageCount+newClassCommentCount) > 0 ){
        return (newChatMessageCount + newClassMessageCount + newClassCommentCount);
