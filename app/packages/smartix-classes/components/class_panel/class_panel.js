@@ -18,15 +18,6 @@ var loadExtraItems = 5;
 /* ClassPanel: Event Handlers */
 /*****************************************************************************/
 Template.ClassPanel.events({
-  'change .chooseType': function (evt) {
-    var type = $(evt.target).val();
-    var msgId = $(evt.target).data('mgsid');
-    var classObj = Smartix.Groups.Collection.findOne({
-        type: 'class',
-        classCode: Router.current().params.classCode
-    });
-    Meteor.call("updateMsgRating", type, msgId, classObj);
-  },
   'keyup .search': function () {
     text.set($('.search').val());
     log.info(text.get());
