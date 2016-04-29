@@ -38,14 +38,19 @@ Template.AdminUsersImport.events({
         reader.readAsText(file);
     },
     'click #importUser-submit': function (event, template) {
-        Meteor.call('smartix:accounts-schools/importStudents', Router.current().params.school, Session.get('imported-students'), function (err, res) {
-            if(!err) {
-                // Toaster to notify success
-            } else {
-                console.log(err);
-                $('#importStudents__errorMsgBlock').append(err.details);
-            }
-        });
+        var importedStudents = Session.get('imported-students');
+        if(Array.isArray(importedStudents)) {
+            Meteor.call('smartix:accounts-schools/importStudents', Router.current().params.school, importedStudents, function (err, res) {
+                if(!err) {
+                    // Toaster to notify success
+                } else {
+                    console.log(err);
+                    $('#importStudents__errorMsgBlock').append(err.details);
+                }
+            });
+        } else {
+            $('#importStudents__errorMsgBlock').append("Please ensure you have uploaded the file in the correct format.");
+        }
     }
 });
 
