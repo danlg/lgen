@@ -8,7 +8,7 @@
           <div class="content has-header">
             <div class="list">
               <div class="item item-icon-right" data-ion-menu-close>
-                You are at {{getCurrentSchoolName}}
+                You are at {{getCurrentSchoolNameDisplay}}
                 
                 {{#if belongToMultiSchool}}
                     <a href="{{pathFor route='SchoolPick'}}" class='btn'>Switch School</a>
@@ -17,7 +17,7 @@
               </div>  
               <!--only if in school namespace - the below should available -->              
               <a href="{{pathFor route='mobile.school.home' school=getCurrentSchoolName}}"  class="item item-icon-right" data-ion-menu-close>
-                {{getCurrentSchoolName}} Home
+                {{getCurrentSchoolNameDisplay}} Home
               </a>
               <!--only if in school namespace - the above should available-->
               
