@@ -48,7 +48,13 @@ Template.TabChat.helpers({
   },
 
   'getAllMyChatRooms': function () {
-    var allchats = Smartix.Groups.Collection.find({type:'chat'},{sort:{"lastUpdatedAt":-1}});
+    var allchats = Smartix.Groups.Collection.find(
+        {   
+            type:'chat',
+            namespace: Session.get('pickedSchoolId')
+        },
+        {sort:{"lastUpdatedAt":-1}}
+    );
     //console.log('getAllMyChatRooms',allchats.fetch()    );
     return allchats;
     
