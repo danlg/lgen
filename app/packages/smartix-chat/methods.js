@@ -1,13 +1,28 @@
 Meteor.methods({
 
-  chatCreate: function (chatArr,chatObjExtra,namespace) {
+  chatCreate: function (chatArr,chatObjExtra,schoolName) {
+    
+    var namespaceId;
+    //console.log('namespace',schoolName);
+    if(schoolName === 'global' || schoolName === 'system'){
+      namespaceId = schoolName;
+    }else{
+      var targetSchool = SmartixSchoolsCol.findOne({username:schoolName});
+      if(targetSchool){
+        namespaceId = targetSchool._id;
+      }else{
+        console.log('chatCreate:targetSchoolNotFound');
+        return ;
+      }  
+    }
+    
     //user who create this chat is also added into the chat
     chatArr.push(Meteor.userId());
     
     //try to find if there is existing room
     //size needs to be specified, or else a wrong result of larger chat room group may be found
     //http://stackoverflow.com/questions/6165121/mongodb-query-an-array-for-an-exact-element-match-but-may-be-out-of-order/6165143#6165143
-    var res = Smartix.Groups.Collection.findOne({users: {$size : chatArr.length, $all: chatArr}});
+    var res = Smartix.Groups.Collection.findOne({namespace: namespaceId , users: {$size : chatArr.length, $all: chatArr}});
     if (res) {
       //return the existing chat room id if there is one
       return res._id;
@@ -20,7 +35,7 @@ Meteor.methods({
       var ChatObj = {users: chatArr, messagesObj: [],
            createdAt: new Date(), createdBy: Meteor.userId(),
             lastUpdatedAt: new Date(),lastUpdatedBy: Meteor.userId(),
-            namespace: namespace
+            namespace: namespaceId
       };
       //var ChatObj = {chatIds: chatArr, messagesObj: []};
       //extra property for chat room, currently use during create of group chat room only.
