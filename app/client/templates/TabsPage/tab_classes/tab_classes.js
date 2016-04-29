@@ -71,7 +71,8 @@ Template.TabClasses.helpers({
   createdClass: function () {
     return Smartix.Groups.Collection.find({
           admins: Meteor.userId(),
-          namespace: Session.get('pickedSchoolId')
+          namespace: Session.get('pickedSchoolId'),
+          type:'class'
     }, {
         sort: {
             "lastUpdatedAt": -1
