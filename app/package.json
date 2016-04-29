@@ -1,52 +1,40 @@
 {
   "name": "littlegenius",
   "scripts": {
-
     "clean-build": "rm -rf ../build",
     "clean-local": "rm -rf .meteor/local",
-
     "start": "meteor --settings ../config/stage/settings.json",
-
     "ios-local": "rm -rf .meteor/local && meteor run ios --settings ../config/dev/settings.json",
     "ios-device-local": "rm -rf .meteor/local && meteor run ios-device -v --settings ../config/dev/settings.json --mobile-server=http://localhost:3000",
-
     "ios-uat": "rm -rf .meteor/local && meteor run ios -v --settings ../config/stage/settings.json --mobile-server=https://uat.gosmartix.com -p 4000",
     "ios-device-uat": "rm -rf .meteor/local && meteor run -v ios-device --settings ../config/stage/settings.json --mobile-server=https://uat.gosmartix.com -p 4000",
-
     "ios-prd": "rm -rf .meteor/local && NODE_ENV=production meteor run ios -v --settings ../config/production/settings.json --mobile-server=https://app.gosmartix.com -p 5000",
     "ios-device-prd": "rm -rf .meteor/local && NODE_ENV=production meteor run -v ios-device --settings ../config/production/settings.json --mobile-server=https://app.gosmartix.com -p 5000",
-
     "build-apk": "./build-android.sh $1",
     "sign-apk": "./sign-android.sh $1",
-    
-    "android-local": "rm -rf .meteor/local && meteor run android --settings ../config/dev/settings.json --mobile-server=http://10.0.2.2:3000",   
+    "android-local": "rm -rf .meteor/local && meteor run android --settings ../config/dev/settings.json --mobile-server=http://10.0.2.2:3000",
     "android": "meteor run android --settings ../config/stage/settings.json --mobile-server=https://uat.gosmartix.com",
     "android-device-uat": "meteor run android-device --settings ../config/stage/settings.json --mobile-server=https://uat.gosmartix.com",
     "android-device-local": "meteor run android-device  --mobile-server=http://LOCAL_COMPUTER_IP:3000",
-    "local" : "meteor --settings ../config/dev/settings.json",
-
-    "localdev" : "meteor -v --settings ../config/dev/settings.json",
-
+    "local": "meteor --settings ../config/dev/settings.json",
+    "localdev": "meteor -v --settings ../config/dev/settings.json",
     "runlocal-android-emulator": "meteor run android -v --settings ../config/dev/settings.json",
     "build-example": "NODE_ENV=production VULCANIZE=true meteor build ../myapp-dist --server=https://api.myapp.com/ --mobile-settings settings-production.json",
-
-    "build-uat":  "rm -rf ../build && meteor build ../build  --mobile-settings=../config/stage/settings.json --server=https://uat.gosmartix.com",
-    "build-uat2":  "meteor build .meteor/local -v --mobile-settings=../config/stage/settings.json --server=https://uat.gosmartix.com",
-
-    "deploy-ko":  "cd ../dist && scp app.tar.gz lg@uat.gosmartix.com:~/app && ssh lg@uat.gosmartix.com \"cd app && tar xzvf app.tar.gz\"",
-
-    "deploy-uat"   : "rm -rf .meteor/local && cd ../config/stage  && DEBUG=* mup deploy    --config=mup.json --settings=settings.json",
-    "deploy-prd"   : "rm -rf .meteor/local && cd ../config/production && DEBUG=* mup deploy    --config=mup.json --settings=settings.json",
-
-    "setup"    : "cd ../config/stage && DEBUG=* mup setup   --config=mup.json --settings=settings.json",
-    "stop"     : "cd ../config/stage && DEBUG=* mup stop   --config=mup.json --settings=settings.json",
-    "restart"  : "cd ../config/stage && DEBUG=* mup restart   --config=mup.json --settings=settings.json",
-    "reconfig" : "cd ../config/stage && DEBUG=* mup reconfig  --config=mup.json --settings=settings.json",
-    "logs"     : "cd ../config/stage && DEBUG=* mup logs  ",
-
+    "build-uat": "rm -rf ../build && meteor build ../build  --mobile-settings=../config/stage/settings.json --server=https://uat.gosmartix.com",
+    "build-uat2": "meteor build .meteor/local -v --mobile-settings=../config/stage/settings.json --server=https://uat.gosmartix.com",
+    "deploy-ko": "cd ../dist && scp app.tar.gz lg@uat.gosmartix.com:~/app && ssh lg@uat.gosmartix.com \"cd app && tar xzvf app.tar.gz\"",
+    "deploy-uat": "rm -rf .meteor/local && cd ../config/stage  && DEBUG=* mup deploy    --config=mup.json --settings=settings.json",
+    "deploy-prd": "rm -rf .meteor/local && cd ../config/production && DEBUG=* mup deploy    --config=mup.json --settings=settings.json",
+    "setup": "cd ../config/stage && DEBUG=* mup setup   --config=mup.json --settings=settings.json",
+    "stop": "cd ../config/stage && DEBUG=* mup stop   --config=mup.json --settings=settings.json",
+    "restart": "cd ../config/stage && DEBUG=* mup restart   --config=mup.json --settings=settings.json",
+    "reconfig": "cd ../config/stage && DEBUG=* mup reconfig  --config=mup.json --settings=settings.json",
+    "logs": "cd ../config/stage && DEBUG=* mup logs  ",
     "listplugins": "ls -lrt .meteor/local/cordova-build/plugins"
   },
   "dependencies": {
-    "meteor-node-stubs": "^0.2.3"
+    "jszip": "^3.0.0",
+    "meteor-node-stubs": "^0.2.3",
+    "xlsx": "^0.8.0"
   }
 }
