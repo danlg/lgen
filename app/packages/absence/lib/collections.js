@@ -4,8 +4,9 @@ Smartix.Absence.Collections = Smartix.Absence.Collections || {};
 
 Smartix.Absence.Collections.expected = new Mongo.Collection('smartix:absence/expected');
 Smartix.Absence.Collections.actual = new Mongo.Collection('smartix:absence/actual');
+Smartix.Absence.Collections.processed = new Mongo.Collection('smartix:absence/processed');
 
-Smartix.Absence.AllowedStatus = ['approved', 'unapproved', 'missing'];
+Smartix.Absence.AllowedStatus = ['approved', 'unapproved', 'missing', 'unknown'];
 
 Smartix.Absence.registerExpectedAbsenceSchema = new SimpleSchema({
     studentId: {

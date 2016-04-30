@@ -23,6 +23,43 @@ Smartix.Accounts.School.isMember = function(userId, schoolId) {
     return Roles.userIsInRole(userId, Smartix.Accounts.School.VALID_USER_TYPES, schoolId);
 };
 
+Smartix.Accounts.School.getAllSchoolUsers = function (namespace, currentUser) {
+    // Check if the user has permission for this school
+    Smartix.Accounts.School.isAdmin(namespace, currentUser);
+    
+    // Get the `_id` of the school from its username
+    var schoolDoc = SmartixSchoolsCol.findOne({
+        _id: namespace
+    });
+    
+    if(schoolDoc) {
+        return Meteor.users.find({
+            schools: schoolDoc._id
+        });
+    }
+    return false;
+}
+
+Smartix.Accounts.School.getAllSchoolStudents = function (namespace, currentUser) {
+    // Check if the user has permission for this school
+    Smartix.Accounts.School.isAdmin(namespace, currentUser);
+    
+    // Get the `_id` of the school from its username
+    var schoolDoc = SmartixSchoolsCol.findOne({
+        _id: namespace
+    });
+    
+    var queryObj = {};
+    if(schoolDoc) {
+        queryObj.schools = schoolDoc._id;
+        var tempRoles = "roles." + schoolDoc._id + '.0';
+        queryObj[tempRoles] = 'student';
+        return Meteor.users.find(queryObj);
+    }
+    
+    return false;
+}
+
 Smartix.Accounts.School.createUser = function(school, options) {
     // Check the arguments provided are of the correct type
     check(school, String);
