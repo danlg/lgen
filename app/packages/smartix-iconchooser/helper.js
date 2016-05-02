@@ -1,6 +1,6 @@
 Template.registerHelper('iconChooseHelper',function(iconArray){
    var COLUMN = 4;
-   log.info(iconArray);
+   //log.info(iconArray);
    var output=[];
    if(iconArray){    
        var iconArrayLength = iconArray.length;   
