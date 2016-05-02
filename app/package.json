@@ -20,6 +20,7 @@
     "build-apk": "./build-android.sh $1",
     "sign-apk": "./sign-android.sh $1",
 
+    "android-local": "rm -rf .meteor/local && meteor run android --settings ../config/dev/settings.json --mobile-server=http://10.0.2.2:3000",
     "android": "meteor run android --settings ../config/stage/settings.json --mobile-server=https://uat.gosmartix.com",
     "android-device": "meteor run android-device --settings ../config/stage/settings.json --mobile-server=https://uat.gosmartix.com",
 
@@ -35,8 +36,8 @@
 
     "deploy-ko":  "cd ../dist && scp app.tar.gz lg@uat.gosmartix.com:~/app && ssh lg@uat.gosmartix.com \"cd app && tar xzvf app.tar.gz\"",
 
-    "deploy-uat"   : "rm -rf .meteor/local && cd ../config/stage  && DEBUG=* mup deploy    --config=mup.json --settings=settings.json",
-    "deploy-prd"   : "rm -rf .meteor/local && cd ../config/production && DEBUG=* mup deploy    --config=mup.json --settings=settings.json",
+    "deploy-uat"   : "rm -rf .meteor/local && cd ../config/stage  && NODE_ENV=production  mup deploy    --config=mup.json --settings=settings.json",
+    "deploy-prd"   : "rm -rf .meteor/local && cd ../config/production && NODE_ENV=production  mup deploy    --config=mup.json --settings=settings.json",
 
     "setup"    : "cd ../config/stage && DEBUG=* mup setup   --config=mup.json --settings=settings.json",
     "stop"     : "cd ../config/stage && DEBUG=* mup stop   --config=mup.json --settings=settings.json",
@@ -45,5 +46,10 @@
     "logs"     : "cd ../config/stage && DEBUG=* mup logs  ",
 
     "listplugins": "ls -lrt .meteor/local/cordova-build/plugins"
+   },
+  "dependencies": {
+    "meteor-node-stubs": "^0.2.3",
+    "xlsx": "^0.8.0",
+    "jszip": "^3.0.0"
   }
 }

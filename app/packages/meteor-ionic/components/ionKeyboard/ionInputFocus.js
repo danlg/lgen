@@ -3,7 +3,7 @@ Meteor.startup(function() {
 
     var getScrollContainer = function($element) {
       return $($element.parents('.content.overflow-scroll').get(0));
-    }
+    };
 
     var focusPadding = 20;
     var isBehindKeyboard = function($focused, keyboardHeight) {
@@ -11,14 +11,12 @@ Meteor.startup(function() {
       var focusedBottom = $focused.offset().top + $focused.innerHeight();
       var focusedIsBehindKeyboard = focusedBottom > keyboardTop - focusPadding;
       return focusedIsBehindKeyboard;
-    }
+    };
 
     var getScrollToPosition = function($focused, $container, keyboardHeight) {
-
       var scrollTo = $container.scrollTop() + $focused.offset().top - $container.offset().top - focusPadding;
       return scrollTo;
-
-    }
+    };
 
     // Scroll to make input on top of the page
     // #TODO Correct behavior should be: if the input is behind the keyboard, scroll to make it visible on top of the keyboard
@@ -39,7 +37,7 @@ Meteor.startup(function() {
           }
         });
       }, 0);
-    }
+    };
 
     var $scrollContainer, scrollPosStart, scrollPosEnd, scrollDistance, scrollHappened, scrollThreshold = 10;
 
