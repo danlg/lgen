@@ -60,6 +60,7 @@ Template.ionBody.events({
 
   'click [data-ion-tooltip]': function (event, template) {
     var templateName = $(event.currentTarget).data('ion-tooltip');
+    IonTooltip.hide();
     IonTooltip.show(templateName, $(event.currentTarget).data(), event.currentTarget);
   },
   

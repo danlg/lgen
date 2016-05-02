@@ -56,12 +56,12 @@ IonTooltip = {
 
   hide: function () {
     if (typeof this.view !== 'undefined') {
-      var $backdrop = $(this.view.firstNode());
+      /*var $backdrop = $(this.view.firstNode());
       $backdrop.removeClass('active');
   
       var $popover = $backdrop.find('.popover');
       $popover.css({opacity: 0});
-  
+    */
       Blaze.remove(this.view);
     }
   }
