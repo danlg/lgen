@@ -5,12 +5,10 @@ Package.describe({
   documentation:'README.md'
 });
 
-Npm.depends(
-    {
-        cropperjs: "0.7.0",
-        async: "git+https://github.com/fengyuanchen/cropperjs.git"
-    }
-);
+Npm.depends({
+    cropperjs: "0.7.0",
+    async: "git+https://github.com/fengyuanchen/cropperjs.git"
+});
 
 Package.onUse(function(api) {
     api.versionsFrom("1.2");

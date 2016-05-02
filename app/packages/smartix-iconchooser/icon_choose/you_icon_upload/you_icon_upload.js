@@ -4,13 +4,12 @@ var img,inputParameters;
 
 Template.UploadIcon.events({	
 	'click button': function(event, tmp){
-            var imageCropped = img.getCroppedCanvas().toDataURL()
-            var newData420 = imageResize(imageCropped, 420, 420)
-            console.log(newData420);	
-            var newData120 = imageResize(imageCropped, 120, 120);
-            console.log(newData120);
-            Session.set(inputParameters.sessionToBeSet,newData420);
-		
+      var imageCropped = img.getCroppedCanvas().toDataURL()
+      var newData480 = imageResize(imageCropped, 480, 480)
+      console.log(newData480);
+      var newData120 = imageResize(imageCropped, 120, 120);
+      console.log(newData120);
+      Session.set(inputParameters.sessionToBeSet,newData120);
 		}
 });
 
@@ -20,19 +19,20 @@ Template.UploadIcon.rendered = function () {
     imgHolder.src = inputParameters.uploadedImage.result;
     img = CropPls(imgHolder);      
 };
+
 function CropPls(image) 
 {
     var cropper = new Cropper(image, {
-    aspectRatio: 1 / 1,
-    viewMode: 1,
-    dragMode: 'move',
-    restore: false,
-    autoCropArea: 1,
-    modal: false,
-    guides: false,
-    highlight: false,
-    cropBoxMovable: false,
-    cropBoxResizable: false,
+      aspectRatio: 1 / 1,
+      viewMode: 1,
+      dragMode: 'move',
+      restore: false,
+      autoCropArea: 1,
+      modal: false,
+      guides: false,
+      highlight: false,
+      cropBoxMovable: false,
+      cropBoxResizable: false
     });
 
   return cropper;
