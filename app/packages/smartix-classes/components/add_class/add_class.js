@@ -100,7 +100,10 @@ Template.AddClass.rendered = function () {
 
   form = this.$("#insertClass");
   $(".checked").attr("checked", "checked");
-  //setTimeout(function(){ $('#pick-an-icon-help-btn').addClass('activated'); },1500) 
+  //by default anyone canChat
+  $('#anyoneCanChat').attr("checked", "checked");
+  $('#ageRestricted').attr("checked", "checked");
+  //setTimeout(function(){ $('#pick-an-icon-help-btn').addClass('activated'); },1500)
   //setTimeout(function(){$('#pick-an-icon-help-btn').removeClass('activated'); },5000)  
 };
 
@@ -118,8 +121,8 @@ Template.ionNavBar.events({
         admins: [Meteor.userId()],
         classAvatar:$('#classAvatar').val(),
         ageRestricted:$('#ageRestricted').is(':checked'),
-        anyoneCanChat:$('#anyoneCanChat').is(':checked'),
-    }
+        anyoneCanChat:$('#anyoneCanChat').is(':checked')
+    };
     
     Smartix.Class.Schema.clean(newClassObj);
     
