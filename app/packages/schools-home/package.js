@@ -29,7 +29,8 @@ Package.onUse(function(api) {
                  'icons/news.svg',
                               
                 ],'client');
-  api.addFiles(['templates/overview/overview.css','templates/overview/overview.html'],'client');
+  api.addFiles(['templates/overview/overview.css','templates/overview/overview.html','templates/overview/overview.js'],'client');
+  api.addFiles(['templates/contact/contact.html','templates/contact/contact.js'],'client');
   api.addFiles('routes.js');
   
   

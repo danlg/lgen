@@ -1,0 +1,50 @@
+<template name='MobileSchoolContact'>
+   <!--<style>
+       .bar.bar-stable{
+           background-color: #0c2649;
+       }
+       
+       .bar-stable .button.button-clear{
+           color:white;
+       }
+   </style>-->
+   
+  {{#contentFor "headerTitle"}}
+    <h1 class="title"> School Contact </h1>
+  {{/contentFor}}   
+  
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton text=" "}}
+  {{/contentFor}}
+     
+  {{#ionView}}
+    {{#ionContent}}
+        {{#with getSchoolObj}}      
+            <div class="list card">
+
+            <a href="{{web}}" target="_blank" class="item item-icon-left">
+                <i class="icon ion-home"></i>
+                <h2>Homepage</h2>
+                <p>{{web}}</p>
+            </a>
+
+            <a href="tel:{{tel}}" class="item item-icon-left">
+                <i class="icon ion-ios-telephone"></i>
+                <h2>Phone Number</h2>
+                <p>{{tel}}</p>
+            </a>
+
+            <a href="mailto:{{email}}" class="item item-icon-left">
+                <i class="icon ion-ios-email-outline"></i>
+                <h2>Email</h2>
+                <p>{{email}}</p>
+            </a>
+
+
+            </div>        
+        {{/with}}    
+    {{/ionContent}}
+  {{/ionView}}    
+
+
+</template>

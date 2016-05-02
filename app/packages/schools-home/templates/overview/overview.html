@@ -9,6 +9,10 @@
        }
    </style>-->
    
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">{{schoolFullName}} </h1>
+  {{/contentFor}}   
+  
   {{#contentFor "headerButtonLeft"}}
    <button class="button button-clear pull-left" data-ion-menu-toggle="left">
         {{> ionIcon icon='navicon'}}
@@ -17,11 +21,13 @@
      
   {{#ionView}}
     {{#ionContent}}
-
+       
       <div class='school-logo-wrapper'>
         <div class='school-logo-background'>
             <div class='school-logo'>
-                <img src='/img/carmel.png'/>
+                {{#with schoolLogoUrl}}
+                <img src='{{this.url}}'/>
+                {{/with}}
             </div>           
         </div>                             
       </div>
@@ -84,7 +90,7 @@
                     <span class='square-card-description'>CALENDAR </span>
                     <span class='square-card-counter  badge badge-assertive'>5</span>
                 </a>
-                <a class="card square-card  square-card-small tiles bg bg-contact">
+                <a  href="{{pathFor route='mobile.school.contact' school=getCurrentSchoolName}}" class="card square-card  square-card-small tiles bg bg-contact">
                     <span class='square-card-description'>CONTACT </span>
                 </a>
                 <a class="card square-card  square-card-small tiles bg bg-more" data-ion-menu-toggle="left">

@@ -6,3 +6,12 @@ Router.route('/:school/home', {
         this.render('MobileSchoolHome');
     }
 });
+
+Router.route('/:school/contact', {
+    name: 'mobile.school.contact',
+    layoutTemplate: 'AppLayout',
+    template: 'MobileSchoolContact',
+    action: function () {
+        this.render('MobileSchoolContact');
+    }
+});
