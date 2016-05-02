@@ -31,6 +31,21 @@ Schema.editprofile = new SimpleSchema({
 /*****************************************************************************/
 Template.MyAccount.events({
   
+    'change #attachment': function(event, tmp) {
+        event.preventDefault();
+        var input = tmp.find('#attachment');
+        var imageUpload = input.files[0];
+        var reader  = new FileReader();
+        if(imageUpload.type == "image/jpeg")
+        {
+                reader.onload = tmp;
+                reader.readAsDataURL(imageUpload);
+                reader.onloadend = function () {
+                    var parentDataContext = {uploadedImage: reader, sessionToBeSet:"uploadIcon"};
+                    IonModal.open("UploadIcon", parentDataContext);
+                }
+        }
+    },
     'click #pick-an-icon-btn':function(){
       var parentDataContext= {iconListToGet:"iconListForYou",sessionToBeSet:"chosenIconForYou"};
       IonModal.open("YouIconChoose", parentDataContext);
@@ -115,8 +130,13 @@ Template.MyAccount.helpers({
   }
   , getEmailPlaceHolder: function(){
     return TAPi18n.__("EmailPlaceHolder");
-  }
-
+  },
+    getYouUpload:function(){
+        var uploadIcon = Session.get('uploadIcon');
+        if(uploadIcon){
+            return uploadIcon;
+        }
+    }
   , getYouAvatar:function(){
     var chosenIcon = Session.get('chosenIconForYou');
     if(chosenIcon){
@@ -148,10 +168,8 @@ Template.MyAccount.created = function () {
   
   if(Meteor.user() && Meteor.user().profile){
     if(Meteor.user().profile.avatarValue){
-      Session.set('chosenIconForYou', Meteor.user().profile.avatarValue)
-    }
-
-        
+      Session.set('uploadIcon', Meteor.user().profile.avatarValue)
+    }   
   } 
 };
 
