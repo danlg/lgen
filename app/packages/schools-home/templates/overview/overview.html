@@ -32,37 +32,26 @@
         </div>                             
       </div>
       <div class='news-slidebox-wrapper'>
-        {{#ionSlideBox autoPlay=true showPager=false}}
-            {{#ionSlide}}
-           
-            <div class='slide-box-bg'>
-                <div class='content'>
-                 <p>Basketball Competition</p>
-                 <p>2016/07/26</p>
-                 <p>Read More</p>                    
+        <div class='ion-slide-box'>
+            {{#each getSlidingNews}}
+                <div class='slide-box-bg ion-slide'>
+                    <div class='content'>
+                    <p>{{data.title}}</p>
+                    <p>{{data.content}}</p>
+                    <p>{{formatDate createdAt}}</p>
+                    <p>Read More</p>                    
+                    </div>
                 </div>
-
-            </div>
-            {{/ionSlide}}
-            {{#ionSlide}}
-            <div class='slide-box-bg'>
-                <div class='content'>
-                 <p>Basketball Competition</p>
-                 <p>2016/07/26</p>
-                 <p>Read More</p>                    
-                </div>
-            </div>
-            {{/ionSlide}}
-            {{#ionSlide}}
-            <div class='slide-box-bg'>
-                <div class='content'>
-                 <p>Basketball Competition</p>
-                 <p>2016/07/26</p>
-                 <p>Read More</p>                    
-                </div>
-            </div>
-            {{/ionSlide}}
-        {{/ionSlideBox}}
+            {{else}}
+                <div class='slide-box-bg ion-slide'>
+                    <div class='content'>
+                    <p>No News</p>
+                    <p></p>
+                    <p></p>                    
+                    </div>
+                </div>                        
+            {{/each}}           
+        </div>
       </div>
         
        <div class='square-cards-wrapper'>        

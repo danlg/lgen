@@ -1,8 +1,12 @@
 
 
 Template.NewsgroupsNewsList.onCreated(function(){
-   this.subscribe('newsgroupsForUser',null,null,Session.get('pickedSchoolId'));    
-   this.subscribe('newsForUser',null,null,Session.get('pickedSchoolId'));
+   
+   var self = this;
+   self.subscribe('newsgroupsForUser',null,null,Session.get('pickedSchoolId'),function(){
+      self.subscribe('newsForUser',null,null,Session.get('pickedSchoolId'));
+   });    
+
 });
 
 Template.NewsgroupsNewsList.helpers({
