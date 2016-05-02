@@ -20,6 +20,7 @@
     "build-apk": "./build-android.sh $1",
     "sign-apk": "./sign-android.sh $1",
 
+    "android-local": "rm -rf .meteor/local && meteor run android --settings ../config/dev/settings.json --mobile-server=http://10.0.2.2:3000",
     "android": "meteor run android --settings ../config/stage/settings.json --mobile-server=https://uat.gosmartix.com",
     "android-device": "meteor run android-device --settings ../config/stage/settings.json --mobile-server=https://uat.gosmartix.com",
 
@@ -45,5 +46,10 @@
     "logs"     : "cd ../config/stage && DEBUG=* mup logs  ",
 
     "listplugins": "ls -lrt .meteor/local/cordova-build/plugins"
+   },
+  "dependencies": {
+    "meteor-node-stubs": "^0.2.3",
+    "xlsx": "^0.8.0",
+    "jszip": "^3.0.0"
   }
 }
