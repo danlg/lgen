@@ -13,8 +13,18 @@ Meteor.publish('newsInGroup', function (id,limit,query) {
 
 Meteor.publish('newsgroupsForUser', function (limit,query,namespace) {
         //console.log('newsgroupsForUser',limit,query,namespace);
+        var schoolDoc = SmartixSchoolsCol.findOne({
+            username: namespace
+        });
+        
+        if(!schoolDoc){
+            schoolDoc = SmartixSchoolsCol.findOne({
+                _id: namespace
+            });            
+        }
+        
         return Smartix.Groups.Collection.find({
-            namespace: namespace,
+            namespace: schoolDoc._id,
             type: 'newsgroup',
             users: this.userId
         });
@@ -26,9 +36,19 @@ Meteor.publish('newsForUser', function (limit,query,namespace) {
         if(!limit){
             limit = 9999;
         }
+
+        var schoolDoc = SmartixSchoolsCol.findOne({
+            username: namespace
+        });
         
+        if(!schoolDoc){
+            schoolDoc = SmartixSchoolsCol.findOne({
+                _id: namespace
+            });            
+        }
+                
         var groups = Smartix.Groups.Collection.find({
-                    namespace: namespace,
+                    namespace: schoolDoc._id,
                     type: 'newsgroup',
                     users: this.userId
         },{fields: {_id: 1}}).fetch();

@@ -14,11 +14,17 @@
                     <a href="{{pathFor route='SchoolPick'}}" class='btn'>Switch School</a>
                 {{/if}}
                 
-              </div>  
-              <!--only if in school namespace - the below should available -->              
+              </div>
+              <!--only if in school namespace - the below should available -->                
+              {{#if isSchoolNamespace}}             
               <a href="{{pathFor route='mobile.school.home' school=getCurrentSchoolName}}"  class="item item-icon-right" data-ion-menu-close>
                 {{getCurrentSchoolNameDisplay}} Home
               </a>
+              {{else}}
+              
+                <!--TODO: go to a promote page-->
+              
+              {{/if}}
               <!--only if in school namespace - the above should available-->
               
               <a href="{{pathFor route='TabClasses'}}" class="item item-icon-right" data-ion-menu-close>
@@ -34,7 +40,9 @@
                 {{/if}}
               </a>
               
+              
               <!--only if in school namespace - the below should available -->
+              {{#if isSchoolNamespace}}
               <a href="{{pathFor route='newsgroups.news.list'}}" class="item item-icon-right" data-ion-menu-close>
                 News
               </a>              
@@ -47,6 +55,11 @@
               <div class="item item-icon-right" data-ion-menu-close>
                 Contact
               </div>
+              {{else}}
+                
+                 <!--TODO: go to a promote page-->
+                 
+              {{/if}}
               <!--only if in school namespace - the above should available-->
               
               <a href="{{pathFor route='TabYou'}}" class="item item-icon-right" data-ion-menu-close>
@@ -54,9 +67,11 @@
               </a>
 
               <!--TODO: only if user is school admin-->
+              {{#if isSchoolNamespace}}
               <a href="{{pathFor route='admin.dashboard' school=getCurrentSchoolName}}" class="item item-icon-right" data-ion-menu-close>
                 Admin
-              </a>                                    
+              </a>
+              {{/if}}                                
               <!--TODO: only if user is school admin ends -->  
                                                                                     
             </div>
