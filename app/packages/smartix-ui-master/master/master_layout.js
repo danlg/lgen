@@ -68,7 +68,10 @@ Template.AppLayout.helpers({
     },
     getUserName:function(){
         if(Meteor.userId())
-        return Meteor.user().profile.firstName + " " +Meteor.user().profile.lastName;
+        return Meteor.user().profile.firstName;
+    },
+    isSchoolNamespace:function(){
+        return (Session.get('pickedSchoolId') === 'global' || Session.get('pickedSchoolId') === 'system') ? false : true;
     }
 
 });
