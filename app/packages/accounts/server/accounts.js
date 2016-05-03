@@ -247,7 +247,7 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
 }
 
 Smartix.Accounts.removeUser = function (userId, namespace, currentUser) {
-    check(userId, String);
+    check(userId, Match.Maybe(String));
     check(namespace, String);
     check(currentUser, Match.Maybe(String));
     
@@ -316,7 +316,7 @@ Smartix.Accounts.editUser = function (userId, options, currentUser) {
 
 Smartix.Accounts.canEditUser = function (userId, options, currentUser) {
     
-    check(userId, String);
+    check(userId, Match.Maybe(String));
     
     // Allow only users to change certain fields (e.g. users cannot change their role)
     Smartix.Accounts.editUserSchema.clean(options);
@@ -360,7 +360,7 @@ Smartix.Accounts.deleteUser = function (userId, currentUser) {
 
 Smartix.Accounts.canDeleteUser = function (userId, currentUser) {
     
-    check(userId, String);
+    check(userId, Match.Maybe(String));
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user

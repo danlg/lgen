@@ -29,7 +29,7 @@ Router.onBeforeAction(SchoolRequired, {
 
 Roles.ifUserHasRoleInAnyGroup = function (userId, role) {
     
-    check(userId, String);
+    check(userId, Match.Maybe(String));
     check(role, String);
     
     var userObj = Meteor.users.findOne({

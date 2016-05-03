@@ -73,7 +73,7 @@ Meteor.publish('smartix:accounts/allUsersInNamespace', function (namespace) {
 
 Meteor.publish('smartix:accounts/getUserInNamespace', function (userId, namespace) {
     
-    check(userId, String);
+    check(userId, Match.Maybe(String));
     check(namespace, String);
     
     var hasPermission;

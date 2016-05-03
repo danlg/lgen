@@ -1,7 +1,7 @@
 Meteor.methods({
     'smartix:accounts/getUserInfo': function (userId, namespace) {
         
-        check(userId, String);
+        check(userId, Match.Maybe(String));
         check(namespace, String);
         
         return Smartix.Accounts.getUserInfo(userId, namespace, this.userId);
@@ -19,14 +19,14 @@ Meteor.methods({
     },
     'smartix:accounts/editUser': function(userId, options) {
         
-        check(userId, String);
+        check(userId, Match.Maybe(String));
         check(options, Object);
         
         return Smartix.Accounts.editUser(userId, options, this.userId);
     },
     'smartix:accounts/removeUser': function (userId, namespace) {
         
-        check(userId, String);
+        check(userId, Match.Maybe(String));
         check(namespace, String);
         
         return Smartix.Accounts.removeUser(userId, namespace, this.userId);

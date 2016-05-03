@@ -15,7 +15,7 @@ Smartix.Accounts.School.VALID_USER_TYPES = [
     Smartix.Accounts.School.ADMIN];
 
 Smartix.Accounts.School.isMember = function(userId, schoolId) {
-    check(userId, String);
+    check(userId, Match.Maybe(String));
     check(schoolId, String);
 
     userId = userId || Meteor.userId();
@@ -139,7 +139,7 @@ Smartix.Accounts.School.canCreateUser = function(namespace, types, currentUser) 
 
 Smartix.Accounts.School.canGetUserInfo = function(userId, namespace, currentUser) {
 
-    check(userId, String);
+    check(userId, Match.Maybe(String));
     check(namespace, String);
     check(currentUser, Match.Maybe(String));
 
@@ -159,7 +159,7 @@ Smartix.Accounts.School.canGetUserInfo = function(userId, namespace, currentUser
 
 Smartix.Accounts.School.canRemoveUser = function(userId, namespace, currentUser) {
 
-    check(userId, String);
+    check(userId, Match.Maybe(String));
     check(namespace, String);
     check(currentUser, Match.Maybe(String));
 
@@ -214,7 +214,7 @@ Smartix.Accounts.School.isTeacher = function(namespace, currentUser) {
 Smartix.Accounts.School.userHasApproved = function(namespace, userId) {
 
     check(namespace, String);
-    check(userId, String);
+    check(userId, Match.Maybe(String));
 
     // Get the `_id` of the currently-logged in user
     userId = userId || Meteor.userId();

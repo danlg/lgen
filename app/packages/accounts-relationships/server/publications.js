@@ -26,7 +26,7 @@ Meteor.publish('userRelationships', function(userId) {
 // Publish an user's relationships in a namespace
 Meteor.publish('userRelationshipsInNamespace', function (userId, namespace) {
     
-    check(userId, String);
+    check(userId, Match.Maybe(String));
     check(namespace, String);
     
     if (userId === this.userId

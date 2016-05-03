@@ -29,7 +29,7 @@ Smartix.Accounts.Global.canRemoveUser = function (userId, currentUser) {
 
 Smartix.Accounts.Global.canGetUserInfo = function (userId, currentUser) {
     
-    check(userId, String);
+    check(userId, Match.Maybe(String));
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user

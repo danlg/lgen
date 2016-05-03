@@ -43,7 +43,7 @@ Smartix.Accounts.System.canCreateUser = function (types, currentUser) {
 
 Smartix.Accounts.System.canRemoveUser = function (userId, currentUser) {
         
-    check(userId, String);
+    check(userId, Match.Maybe(String));
     check(currentUser, String);
     
     // Get the `_id` of the currently-logged in user
@@ -59,7 +59,7 @@ Smartix.Accounts.System.canRemoveUser = function (userId, currentUser) {
 
 Smartix.Accounts.System.canGetUserInfo = function (userId, currentUser) {
     
-    check(userId, String);
+    check(userId, Match.Maybe(String));
     check(currentUser, String);
     
     // Get the `_id` of the currently-logged in user
