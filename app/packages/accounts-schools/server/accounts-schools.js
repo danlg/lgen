@@ -935,19 +935,11 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser) {
                 // Mother does not exists
                 // Should create a new user
                 let motherUserObj = convertStudentObjectToMother(student);
-                
-                let motherId = Smartix.Accounts.createUser(student.motherEmail, motherUserObj, namespace, ['parent'], currentUser);
+                mother = {};
+                mother._id = Smartix.Accounts.createUser(student.motherEmail, motherUserObj, namespace, ['parent'], currentUser);
             } else if(mother === null) {
                 // More than one user has the email specified
                 // Should meld the accounts together
-            } else {
-                // Mother exists, add the relationship to the `smartix:user-relationships` collection
-                Smartix.Accounts.Relationships.createRelationship({
-                    parent: mother._id,
-                    child: studentData._id,
-                    namespace: namespace,
-                    name: 'Mother'
-                })
             }
         }
         
@@ -959,19 +951,11 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser) {
                 // Father does not exists
                 // Should create a new user
                 let fatherUserObj = convertStudentObjectToFather(student);
-                
-                let fatherId = Smartix.Accounts.createUser(student.fatherEmail, fatherUserObj, namespace, ['parent'], currentUser);
+                father = {};
+                father._id = Smartix.Accounts.createUser(student.fatherEmail, fatherUserObj, namespace, ['parent'], currentUser);
             } else if(father === null) {
                 // More than one user has the email specified
                 // Should meld the accounts together
-            } else {
-                // Father exists, add the relationship to the `smartix:user-relationships` collection
-                Smartix.Accounts.Relationships.createRelationship({
-                    parent: father._id,
-                    child: studentData._id,
-                    namespace: namespace,
-                    name: 'Father'
-                })
             }
         }
         
@@ -988,7 +972,7 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser) {
         if(father) {
             let fatherOptions = {};
             fatherOptions.namespace = namespace;
-            fatherOptions.parent = mother._id;
+            fatherOptions.parent = father._id;
             fatherOptions.child = studentData._id;
             fatherOptions.name = "Mother";
             Smartix.Accounts.Relationships.createRelationship(fatherOptions, currentUser);
