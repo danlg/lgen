@@ -41,6 +41,9 @@ Smartix.Utilities.getLanguageCode = function (lang) {
 
 Smartix.Utilities.removeEmptyProperties = function (object) {
     for (var prop in object) {
+        if(typeof object[prop] === 'string') {
+            object[prop] = object[prop].trim();
+        }
         if (object[prop] === "" || object[prop] === null || object[prop] === undefined) {
             delete object[prop];
         }
