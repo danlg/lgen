@@ -14,16 +14,28 @@ Smartix.Accounts.School.VALID_USER_TYPES = [
     Smartix.Accounts.School.TEACHER,
     Smartix.Accounts.School.ADMIN];
 
-Smartix.Accounts.School.isMember = function(userId, schoolId) {
-    check(userId, Match.Maybe(String));
+Smartix.Accounts.School.isMember = function(currentUser, schoolId) {
     check(schoolId, String);
+    check(currentUser, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    if(!(currentUser === null)) {
+        currentUser = currentUser || Meteor.userId();
+    }
 
-    userId = userId || Meteor.userId();
-
-    return Roles.userIsInRole(userId, Smartix.Accounts.School.VALID_USER_TYPES, schoolId);
+    return Roles.userIsInRole(currentUser, Smartix.Accounts.School.VALID_USER_TYPES, schoolId);
 };
 
 Smartix.Accounts.School.getAllSchoolUsers = function (namespace, currentUser) {
+    
+    check(namespace, String);
+    check(currentUser, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    if(!(currentUser === null)) {
+        currentUser = currentUser || Meteor.userId();
+    }
+    
     // Check if the user has permission for this school
     Smartix.Accounts.School.isAdmin(namespace, currentUser);
     
@@ -41,6 +53,15 @@ Smartix.Accounts.School.getAllSchoolUsers = function (namespace, currentUser) {
 }
 
 Smartix.Accounts.School.getAllSchoolStudents = function (namespace, currentUser) {
+    
+    check(namespace, String);
+    check(currentUser, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    if(!(currentUser === null)) {
+        currentUser = currentUser || Meteor.userId();
+    }
+    
     // Check if the user has permission for this school
     Smartix.Accounts.School.isAdmin(namespace, currentUser);
     
@@ -120,6 +141,15 @@ Smartix.Accounts.School.createUser = function(school, options) {
 }
 
 Smartix.Accounts.School.canCreateUser = function(namespace, types, currentUser) {
+    
+    check(namespace, String);
+    check(currentUser, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    if(!(currentUser === null)) {
+        currentUser = currentUser || Meteor.userId();
+    }
+    
     // Check if the type given is one of the valid types
     check(types, Match.Where(function(val) {
         if (!Array.isArray(types)) {
