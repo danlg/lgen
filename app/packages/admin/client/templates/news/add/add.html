@@ -23,9 +23,9 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Add the news to newsgroup:</label>
                         <div class="col-lg-10">
-                            <input type="checkbox" name="addNews-newsgroup" value="jccgps"> JCC - Ganeynu Pre-school 1<br>
-                            <input type="checkbox" name="addNews-newsgroup" value="borret" checked> Borret Road - Elementary<br>
-                            <input type="checkbox" name="addNews-newsgroup" value="elsahigh"> Shau Kei Wan - Elsa High<br>                         
+                            {{#each newsgroups}}
+                                <input type="checkbox" name="addNews-newsgroup" value="{{url}}">{{name}}<br>
+                            {{/each}}                       
                         </div>
                     </div>
                     
