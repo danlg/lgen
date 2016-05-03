@@ -64,7 +64,7 @@ Smartix.Messages.cleanAndValidate = function (message) {
 }
 
 Smartix.Messages.createMessage = function (groupId, messageType, data, addons, isPush) {
-    console.log('Smartix.Messages.createMessage',groupId,messageType,data,addons);
+    console.log('Smartix.Messages.createMessage',groupId,messageType,data,addons, isPush);
     check(groupId, String);
     check(messageType, String);
     check(data, Object);

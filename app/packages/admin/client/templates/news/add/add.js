@@ -42,11 +42,13 @@ Template.AdminNewsAdd.events({
 
         var title = $('#addNews-title').val();
         var content = $('#addNews-content').val();
+        var doPushNotification = document.getElementById("addNews-push-notification").checked
+        console.log('doPushNotification',doPushNotification);
         event.preventDefault();
 
         $("input[type='checkbox'][name='addNews-newsgroup']").each(function (index) {
             if (this.checked) {
-                Meteor.call('smartix:messages/createNewsMessage', this.value, 'article', { content: content, title: title });
+                Meteor.call('smartix:messages/createNewsMessage', this.value, 'article', { content: content, title: title }, null,doPushNotification);
             }
         });
     }

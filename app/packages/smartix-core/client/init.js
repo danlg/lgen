@@ -53,6 +53,37 @@ Meteor.startup(function () {
   
   //use by francocatena:status,using template status_ionic
   Status.setTemplate('ionic');
+
+  //when receive a new class message, display a popup, which can be clicked
+  //and be redirected to that class
+  /*Streamy.on('newnewsgroupmessage', function(data) {
+    log.info(data);
+    var pathToRouteObj ={
+        routeName:'classDetail',
+        params: {classCode:data.classCode},
+        query: {query: "toBottom=true"},
+    }    
+    //In Desktop, determine if browser support Notification API
+    if('Notification' in window && Notification.permission == 'granted'){
+        //if Notification API is supported
+        Smartix.helpers.spawnDesktopNotification(data.text,'/img/logo-new.png',data.from,pathToRouteObj);        
+    }else{      
+        //if both desktop notification are all not available, use toastr
+            toastr.info(data.text, data.from,
+                    {
+                        "closeButton": true,
+                        "preventDuplicates": true,
+                        onclick: function () {
+                            //classCode
+                            Router.go('classDetail',{classCode:data.classCode},{query: "toBottom=true"});
+                            //$('.class-detail').scrollTop(999999);
+                    }
+                }
+            );
+        
+    }
+      
+  }); */
   
   //when receive a new class message, display a popup, which can be clicked
   //and be redirected to that class

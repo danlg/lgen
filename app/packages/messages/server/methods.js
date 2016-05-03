@@ -1,6 +1,6 @@
 Meteor.methods({
    'smartix:messages/createMessage': Smartix.Messages.createMessage,
-   'smartix:messages/createNewsMessage':function(url,messageType,data,addons){
+   'smartix:messages/createNewsMessage':function(url,messageType,data,addons,isPush){
        
        var newsgroupDoc = Smartix.Groups.Collection.findOne({url:url}); 
        
@@ -8,7 +8,7 @@ Meteor.methods({
            return;
        }
          
-       return Smartix.Messages.createMessage(newsgroupDoc._id,messageType,data,addons);
+       return Smartix.Messages.createMessage(newsgroupDoc._id,messageType,data,addons,isPush);
          
    }
 });
