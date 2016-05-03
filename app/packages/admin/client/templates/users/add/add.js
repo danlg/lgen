@@ -24,6 +24,7 @@ Template.AdminUsersAdd.events({
         if (roles.indexOf('student') > -1
             && dateFieldVal === "") {
             toastr.error(TAPi18n.__("admin.users.add.studentDobRequired"));
+            return false;
         }
 
         if (dateFieldVal !== "") {
