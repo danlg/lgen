@@ -121,13 +121,14 @@
 											<i class="icon-home4"></i> <span>Dashboard</span></a>
 									</li>
 									<li>
-										<a href="#"><i class="icon-user"></i> <span>User Management</span></a>
+										<a href="#"><i class="icon-user"></i> <span>Accounts</span></a>
 										<ul>
-                                            <li><a href="{{pathFor route='admin.users.import.students' data=routeData}}"><i class="icon-cloud-upload"></i> Import students</a></li>
-                                            <li><a href="{{pathFor route='admin.users.import.parents' data=routeData}}"><i class="icon-cloud-upload"></i> Import parents</a></li>
-                                            <li><a href="{{pathFor route='admin.users.list' data=routeData}}"><i class="icon-search4"></i> Search users</a></li>
-											<li><a href="{{pathFor route='admin.users.add' data=routeData}}"><i class="icon-plus3"></i> Add users</a></li>
-											<li><a href="{{pathFor route='admin.users.relationships' data=routeData}}"><i class="icon-users"></i> Manage relationship</a></li>
+                      <li><a href="{{pathFor route='admin.users.list' data=routeData}}"><i class="icon-search4"></i>School directory</a></li>
+                      <li><a href="{{pathFor route='admin.users.import.students' data=routeData}}"><i class="icon-cloud-upload"></i>Import students (bulk)</a></li>
+                      <li><a href="{{pathFor route='admin.users.import.parents' data=routeData}}"><i class="icon-cloud-upload"></i>Import parents(bulk)</a></li>
+                      <li><a href="{{pathFor route='admin.users.import.teachers' data=routeData}}"><i class="icon-cloud-upload"></i>Import teachers(bulk)</a></li>
+                      <li><a href="{{pathFor route='admin.users.add' data=routeData}}"><i class="icon-plus3"></i> Add user</a></li>
+											<li><a href="{{pathFor route='admin.users.relationships' data=routeData}}"><i class="icon-users"></i> Membership</a></li>
 											<!--<li>
 												<a href="#">3 columns</a>
 												<ul>
@@ -138,7 +139,7 @@
 										</ul>
 									</li>
                                     <li>
-										<a href="#"><i class="icon-books"></i> <span>Class Management</span></a>
+										<a href="#"><i class="icon-books"></i> <span>Classes</span></a>
 										<ul>
 											<li><a href="{{pathFor route='admin.classes.list' data=routeData}}"><i class="icon-search4"></i> Search classes</a></li>
 											<li><a href="{{pathFor route='admin.classes.add' data=routeData}}"><i class="icon-plus3"></i> Add class</a></li>
@@ -146,7 +147,7 @@
 										</ul>
 									</li>
                                     <li>
-										<a href="#"><i class="icon-newspaper"></i> <span>News Management</span></a>
+										<a href="#"><i class="icon-newspaper"></i> <span>News</span></a>
 										<ul>
 											<li><a href="{{pathFor route='admin.newsgroups.list' data=routeData}}"><i class="icon-search4"></i> Search newsgroups</a></li>
 											<li><a href="{{pathFor route='admin.newsgroups.add' data=routeData}}"><i class="icon-plus3"></i> Add newsgroups</a></li>
@@ -156,7 +157,7 @@
 										</ul>
 									</li>
                                     <li>
-										<a href="#"><i class="icon-warning"></i> <span>Absence Management</span></a>
+										<a href="#"><i class="icon-warning"></i> <span>Absence</span></a>
 										<ul>
 											<li><a href="{{pathFor route='admin.absence.expected' data=routeData}}"><i class="icon-checkbox-checked"></i> View Expected Absences</a></li>
 											<li><a href="{{pathFor route='admin.absence.absentees' data=routeData}}"><i class="icon-flag3"></i> View Absentees</a></li>
