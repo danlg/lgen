@@ -9,6 +9,7 @@ var postHooks = {
     IonLoading.hide();
   },
   onError: function (formType, error) {
+    console.log('joinClassHook:onError',error);
     toastr.error(error.reason);
   }
 };

@@ -24,49 +24,6 @@ Meteor.methods({
   //todo remove redundant API function
   'class/searchExact': Smartix.Class.searchForClassWithClassCode,
 
-  'class/join': function (doc) {
-    if (doc && doc.classCode) {
-      log.info("class/join:" + doc.classCode.trim());
-      var classCode = doc.classCode.trim();
-      var regexp = new RegExp("^" + classCode.trim() + "$", "i");
-      var resultset = Smartix.Groups.Collection.findOne({"classCode": {$regex: regexp}});//OK
-      // Creates a regex of: /^classCode$/i
-      //log.info("class/join0:'" + classCode +"'");
-
-      //log.info ("class/join1:"+ resultset);
-
-      //var query = {};
-      //query.classCode = regexp;
-      //var res = Classes.findOne(query);//OK
-      if (resultset) {
-        if (resultset.admins.indexOf(Meteor.userId()) > -1) {
-          log.warn("class/join: can't join the class you own:" + classCode + ":from user:" + Meteor.userId());
-          return false;
-        }
-        else {
-          log.info("User " + Meteor.userId() + " attempting to join class " + doc.classCode);
-          //log.info("Server?"+Meteor.isServer);
-          //this was the trick to make it case insensitive
-          Smartix.Groups.Collection.update(
-            {"classCode": {$regex: regexp}},
-            {
-              $addToSet: {users: Meteor.userId()}
-            });
-          return true;
-        }
-      }
-      else { //class is not found
-        log.info("classcode '" + classCode + "' not found");
-        //log.info("Server?"+Meteor.isServer);
-        return false;
-      }
-    }
-    else {
-      log.warn("there is no input");
-    }
-    return false;
-  },
-
   'class/leave': function (classId) {
     Smartix.Groups.Collection.update({_id: classId}, {$pull: {users: Meteor.userId()}});
   },
