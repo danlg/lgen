@@ -42,6 +42,13 @@ Template.EmailSignup.events({
         var userObj = {};
         userObj.profile = {};
         var email = $(".email").val();
+        var password = $(".password").val();
+        
+        if(password.length < 4) {
+           toastr.error("At least 4 characters Password");
+        }
+        userObj.password = password;
+        
         userObj.profile.firstName = $(".fn").val();
         userObj.profile.lastName = $(".ln").val();
         userObj.dob = $("#dobInput").val() || "";
@@ -61,10 +68,14 @@ Template.EmailSignup.events({
                         verified: false
                     });
                     
-                    //TEMP. either send global user enrollment email or login with the password they have just passed
-                    Meteor.loginWithPassword(email,'password',function(){
-                        log.info("login:meteor:" + Meteor.userId());
-                        Smartix.helpers.routeToTabClasses();
+                    Meteor.loginWithPassword(email,password,function(err){
+                        if(err){
+                            toastr.error('Sign up fail. The emails is already taken');
+                        }else{
+                            toastr.info('Welcome. An verification email has also sent to your account. Click it to enable more features!')
+                            log.info("login:meteor:" + Meteor.userId());
+                            Smartix.helpers.routeToTabClasses();                            
+                        }
                     });
                 }
 
