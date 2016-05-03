@@ -154,7 +154,7 @@ Template.TabClasses.rendered = function () {
           });
         }
         //set the flag to true so it would not show again
-        Meteor.users.update(Meteor.userId(), { $set: { "hybridAppPromote": true } });
+       Meteor.call('smartix:accounts/setHybridAppPromote');
       }
     
   }

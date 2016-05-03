@@ -36,5 +36,8 @@ Meteor.methods({
     },
     'smartix:accounts/updateDob': function (dob) {
         return Smartix.Accounts.updateDob(dob, this.userId);
-    }
+    },
+    'smartix:accounts/setHybridAppPromote': function () {
+        Meteor.users.update(Meteor.userId(), { $set: { "hybridAppPromote": true } });
+    },    
 });
