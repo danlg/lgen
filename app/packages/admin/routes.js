@@ -9,13 +9,6 @@ Router.route('/:school/admin/dashboard', {
 	layoutTemplate: 'adminLayout',
 	action: function () {
 		this.render('AdminDashboard');
-	},
-	onRun: function () {
-		$('body').removeClass('no-transitions');
-	},
-	onAfterAction: function () {
-		// Disable CSS transitions on page load
-	    $('body').addClass('no-transitions');
 	}
 });
 
