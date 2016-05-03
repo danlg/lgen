@@ -52,6 +52,15 @@ var processData = function(csv) {
     return allTextLines.join("\n");
 }
 
+var removeEmptyObjectsFromArray = function(array) {
+    
+    array = _.map(array, function(obj) {
+        return Smartix.Utilities.removeEmptyProperties(obj);
+    });
+    
+    return Smartix.Utilities.removeEmptyObjectsFromArray(array);
+}
+
 Template.AdminParentsImport.events({
     'change #parents-upload-file': function (event, template) {
         var files = event.currentTarget.files;
@@ -64,7 +73,8 @@ Template.AdminParentsImport.events({
                 dynamicTyping: false,
                 skipEmptyLines: true,
                 complete: function (results, file) {
-                    Session.set('imported-parents', results.data);
+                    var finalResults = removeEmptyObjectsFromArray(results.data);
+                    Session.set('imported-parents', finalResults);
                 },
                 error: function (error, file) {
                     console.log(error);
