@@ -31,7 +31,7 @@ Template.ionSideMenuContainer.rendered = function () {
   IonSideMenu.snapper = new Snap({
     element: $snapperEl.get(0),
     disable: disable,
-    touchToDrag: this.dragContent
+    touchToDrag: false
   });
 };
 
