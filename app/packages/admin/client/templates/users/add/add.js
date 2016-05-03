@@ -34,7 +34,7 @@ Template.AdminUsersAdd.events({
         var telFieldVal = template.$('#addUser-tel').eq(0).val();
 
         if (telFieldVal !== "") {
-            newUserObj.tel = new Date(template.$('#addUser-tel').eq(0).val());
+            newUserObj.tel = template.$('#addUser-tel').eq(0).val();
         }
 
         // Check that the arguments are of the correct type
