@@ -108,6 +108,16 @@ Template.adminLayout.events({
             }
         }, 100);
         $(window).resize();
+    },
+    'click #adminLayout__signOut': function (event, template) {
+        event.preventDefault();
+        Meteor.logout(function (err) {
+            if(!err) {
+                toastr.info(TAPi18n.__('SignOutSuccess'))
+            } else {
+                toastr.error(TAPi18n.__('SignOutFailure'))
+            }
+        })
     }
 });
 

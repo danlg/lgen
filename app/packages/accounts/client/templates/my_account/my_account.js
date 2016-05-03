@@ -138,10 +138,17 @@ Template.MyAccount.helpers({
         }
     }
   , getYouAvatar:function(){
-    var chosenIcon = Session.get('chosenIconForYou');
-    if(chosenIcon){
-      return chosenIcon;
+    
+    if(Session.get('chosenIconForYou')){
+        var chosenIcon = Session.get('chosenIconForYou');
+        if(chosenIcon){
+        return chosenIcon;
+        }           
     }
+    else if(Meteor.user().profile.avatarValue){
+        return Meteor.user().profile.avatarValue;
+    }
+
   }, countriesWithValueOnly:function(){
       var countriesObj = CountryCodes.getList();
       var optionsCountries = [];

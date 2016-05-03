@@ -40,6 +40,8 @@
                     <span class="help-block">{{afFieldMessage name='classCode'}}</span>
                 {{/if}}
               </label>
+              
+              {{> afFieldInput type='hidden' name="schoolName" value=getSchoolName  }}
               <button class="button button-positive joinBtn">
                 {{_ "Join"}}
               </button>

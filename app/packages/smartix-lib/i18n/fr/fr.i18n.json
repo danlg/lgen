@@ -141,6 +141,8 @@
     "SignUp": "S'inscrire",
     "SignUpAgreeToTOSAndPP": "En vous enregistrant, vous acceptez les",
     "SignUpWithGoogle": "Sign up with Google",
+    "SignOutSuccess": "You have been signed out successfully",
+    "SignOutFailure": "We could not sign you out. Please try again.",
     "Skip": "Passer",
     "StartNewChat": "Démarrer une nouvelle conversation",
     "Student": "Elève",

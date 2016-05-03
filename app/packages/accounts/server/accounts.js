@@ -300,11 +300,14 @@ Smartix.Accounts.editUserSchema = Smartix.Accounts.Schema.pick([
     'dob',
     'city',
     'lang',
-    'tel'
+    'tel',
+    'profile.avatarValue'
 ]);
 
 Smartix.Accounts.editUser = function (userId, options, currentUser) {
+    console.log('Smartix.Accounts.editUser',options);
     if (Smartix.Accounts.canEditUser(userId, options, currentUser)) {
+        console.log('Smartix.Accounts.editUser:canEditUser',options);
         return Meteor.users.update({
             _id: userId
         }, {

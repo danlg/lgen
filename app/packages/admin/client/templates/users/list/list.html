@@ -6,7 +6,7 @@
         
         {{#if Template.subscriptionsReady}}
             <div class="panel-body">
-                {{> EasySearch.Input index=usersIndex }}
+                {{> EasySearch.Input index=usersIndex attributes=userSearchInputAttributes}}
                 <ul>
                     {{#EasySearch.Each index=usersIndex }}
                         <li><a href="{{pathFor 'admin.users.view' data=routeData}}">{{profile.firstName}} {{profile.lastName}}</a></li>

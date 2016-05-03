@@ -1,5 +1,4 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
-var joinform;
 /*****************************************************************************/
 /* JoinClass: Event Handlers */
 /*****************************************************************************/
@@ -14,7 +13,7 @@ Template.JoinClass.events({
       return;
     }
     //the form validation will check the uniqueness of the class no need to add login in the client side
-    $(joinform).submit();
+    //$(joinform).submit();
     //TODO analytics to be moved in the server side and counter instead of flag
     if (Meteor.user().firstClassJoined) {
       analytics.track("First Class Joined", { date: new Date()});
@@ -39,6 +38,9 @@ Template.JoinClass.helpers({
         type: 'class',
         users: Meteor.userId()
     });
+  },
+  getSchoolName: function() {
+    return Router.current().params.school;
   }
 });
 
@@ -49,7 +51,6 @@ Template.JoinClass.created = function () {
 };
 
 Template.JoinClass.rendered = function () {
-  joinform = this.$("#joinClassForm");
 };
 
 Template.JoinClass.destroyed = function () {
