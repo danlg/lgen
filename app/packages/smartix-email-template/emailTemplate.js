@@ -190,7 +190,8 @@ Smartix.inviteClassMailTemplate = function (to, classObj) {
   );
 };
 
-Smartix.verificationEmailTemplate = function (role, userObj, verificationURL) {
+Smartix.verificationEmailTemplate = function (userObj, verificationURL) {
+  //console.log('verificationEmailTemplate',userObj);
   var emailLang = userObj.lang || "en";
   var verifyEmailcontent;
   try {

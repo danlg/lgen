@@ -193,7 +193,14 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
         if(typeof email === "string") {
             newUserOptions.email = email;
         }
-        var newUserId = Accounts.createUser(newUserOptions);
+        
+        var newUserId 
+        try{
+            newUserId = Accounts.createUser(newUserOptions);
+        }catch(e){
+            
+        }
+        console.log('newUserId: ',newUserId);
         
         delete options.email;
         delete options.username;
@@ -224,6 +231,15 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
         // Set the password if provided
         if(options.password && typeof options.password === 'string') {
             Accounts.setPassword(newUserId, options.password, {logout: false});
+            
+            //for user created in global
+            if(!autoEmailVerified){
+                try{
+                    Accounts.sendVerificationEmail(newUserId);
+                }catch(e){
+                    console.log(e);
+                }
+            }
         } else {
             // Otherwise, send an enrollment email
             try {
