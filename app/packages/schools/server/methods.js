@@ -60,7 +60,10 @@ Meteor.methods({
                     web: options.web,
                     email: options.email,
                     active: true,
-                    preferences: {}
+                    preferences: {
+                        schoolBackgroundColor:options.preferences.schoolBackgroundColor,
+                        schoolTextColor:options.preferences.schoolTextColor,
+                    }
                 });
             } catch (err) {
                 throw err;

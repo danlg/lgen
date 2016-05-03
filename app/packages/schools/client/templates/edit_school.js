@@ -24,6 +24,7 @@ Template.EditSchool.events({
     },
     'click #edit-school-submit': function(event, template) {
         
+        
         var newSchoolObj =
         { name: $("#name").val(),
           username: $("#username").val(),
@@ -33,7 +34,10 @@ Template.EditSchool.events({
           web: $("#web").val(),
           email: $("#email").val(),
           active: true,
-          preferences: {} 
+          preferences: {
+              schoolBackgroundColor: $("#school-background-color").val(),
+              schoolTextColor: $("#school-text-color").val()
+          } 
         };
         
         
