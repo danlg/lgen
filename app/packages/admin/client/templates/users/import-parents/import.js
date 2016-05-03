@@ -85,18 +85,27 @@ Template.AdminParentsImport.events({
     },
     'click #AdminParentsImport__submit': function (event, template) {
         var importedParents = Session.get('imported-parents');
-        if(Array.isArray(importedParents)) {
-            Meteor.call('smartix:accounts-schools/importParents', Router.current().params.school, importedParents, function (err, res) {
-                if(!err) {
-                    toastr.info(TAPi18n.__("admin.users.import.importSuccess"));
-                } else {
-                    toastr.error(TAPi18n.__("admin.users.import.incorrectImportFormat"));
-                    $('#AdminParentsImport__errorMsgBlock').append(err.details);
-                }
-            });
+        if(Router
+            && Router.current()
+            && Router.current().params
+            && Router.current().params.school
+        ) {
+            if(Array.isArray(importedParents)) {
+                Meteor.call('smartix:accounts-schools/importParents', Router.current().params.school, importedParents, function (err, res) {
+                    if(!err) {
+                        toastr.info(TAPi18n.__("admin.users.import.importSuccess"));
+                    } else {
+                        toastr.error(TAPi18n.__("admin.users.import.incorrectImportFormat"));
+                        $('#AdminParentsImport__errorMsgBlock').append(err.details);
+                    }
+                });
+            } else {
+                toastr.error(TAPi18n.__("admin.users.import.incorrectImportFormat"));
+            }
         } else {
-            toastr.error(TAPi18n.__("admin.users.import.incorrectImportFormat"));
+            toastr.error(TAPi18n.__("applicationError.refreshRequired"));
         }
+        
     }
 });
 

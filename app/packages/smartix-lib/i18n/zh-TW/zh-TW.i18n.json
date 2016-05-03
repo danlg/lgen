@@ -240,6 +240,9 @@
         }
     },
     "requiredFields": "Please ensure all required fields are filled-in",
+    "applicationError": {
+        "refreshRequired": "There is an error from our end. Please hard refresh the page and try again."
+    },
     "admin": {
         "users": {
             "import": {
