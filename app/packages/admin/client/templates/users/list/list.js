@@ -34,5 +34,12 @@ Template.AdminUsersSearch.helpers({
                 school: Router.current().params.school
             };
         }
+    },
+    userSearchInputAttributes: function () {
+        return {
+            placeholder: TAPi18n.__("Search"),
+            class: "form-control",
+            id: "AdminUsersSearchInput"
+        }
     }
 });
