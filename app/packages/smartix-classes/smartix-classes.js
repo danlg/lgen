@@ -49,10 +49,12 @@ Smartix.Class.Schema = new SimpleSchema({
 		defaultValue: true
 	},
     ageRestricted: {
-        type: Boolean
+        type: Boolean,
+		defaultValue: true
     },
     anyoneCanChat:{
-        type:Boolean
+        type: Boolean,
+		defaultValue: true
     },
     createdAt: {
         type: Date,
