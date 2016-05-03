@@ -261,5 +261,11 @@
         "placeholder": "Email"
       }
     }
+  },
+  "admin": {
+      "import": {
+          "IncorrectImportFormatError": "The file provided for import does not fit the required format. Please check and try again.",
+          "ImportSuccess": "Users were imported successfully"
+      }
   }
 }

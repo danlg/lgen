@@ -52,14 +52,14 @@ Template.AdminUsersImport.events({
         if(Array.isArray(importedStudents)) {
             Meteor.call('smartix:accounts-schools/importStudents', Router.current().params.school, importedStudents, function (err, res) {
                 if(!err) {
-                    // Toaster to notify success
+                    toastr.info(TAPi18n.__("admin.import.ImportSuccess"));
                 } else {
-                    console.log(err);
+                    toastr.error(TAPi18n.__("admin.import.IncorrectImportFormat"));
                     $('#importStudents__errorMsgBlock').append(err.details);
                 }
             });
         } else {
-            $('#importStudents__errorMsgBlock').append("Please ensure you have uploaded the file in the correct format.");
+            toastr.error(TAPi18n.__("admin.import.IncorrectImportFormat"));
         }
     }
 });

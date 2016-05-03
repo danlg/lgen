@@ -84,14 +84,19 @@ Template.AdminParentsImport.events({
         reader.readAsText(file);
     },
     'click #AdminParentsImport__submit': function (event, template) {
-        Meteor.call('smartix:accounts-schools/importParents', Router.current().params.school, Session.get('imported-parents'), function (err, res) {
-            if(!err) {
-                // Toaster to notify success
-            } else {
-                console.log(err);
-                $('#AdminParentsImport__errorMsgBlock').append(err.details);
-            }
-        });
+        var importedParents = Session.get('imported-parents');
+        if(Array.isArray(importedParents)) {
+            Meteor.call('smartix:accounts-schools/importParents', Router.current().params.school, importedParents, function (err, res) {
+                if(!err) {
+                    toastr.info(TAPi18n.__("admin.import.ImportSuccess"));
+                } else {
+                    toastr.error(TAPi18n.__("admin.import.IncorrectImportFormat"));
+                    $('#AdminParentsImport__errorMsgBlock').append(err.details);
+                }
+            });
+        } else {
+            toastr.error(TAPi18n.__("admin.import.IncorrectImportFormat"));
+        }
     }
 });
 
