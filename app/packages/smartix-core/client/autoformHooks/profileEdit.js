@@ -10,6 +10,7 @@ var postHooks = {
     toastr.success("success");
   },
   onError: function (formType, error) {
+    console.log('profileEditHook:onError',error);    
     toastr.error(error.reason);
     // log.error(error);
   }
