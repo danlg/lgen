@@ -95,8 +95,13 @@ Template.AdminParentsImport.events({
                     if(!err) {
                         toastr.info(TAPi18n.__("admin.users.import.importSuccess"));
                     } else {
-                        toastr.error(TAPi18n.__("admin.users.import.incorrectImportFormat"));
-                        $('#AdminParentsImport__errorMsgBlock').append(err.details);
+                        if(err.reason) {
+                            toastr.error(err.reason);
+                        } else if (err.message) {
+                            toastr.error(err.message);
+                        } else {
+                            toastr.error(TAPi18n.__("admin.users.import.incorrectImportFormat"));
+                        }
                     }
                 });
             } else {
