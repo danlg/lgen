@@ -974,7 +974,7 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser) {
             fatherOptions.namespace = namespace;
             fatherOptions.parent = father._id;
             fatherOptions.child = studentData._id;
-            fatherOptions.name = "Mother";
+            fatherOptions.name = "Father";
             Smartix.Accounts.Relationships.createRelationship(fatherOptions, currentUser);
         }
     });
