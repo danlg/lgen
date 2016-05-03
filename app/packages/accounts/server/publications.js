@@ -46,9 +46,9 @@ Meteor.publish('smartix:accounts/basicInfoOfAllUsersInNamespace', function (name
         
         return Meteor.users.find({
             _id: {
-                $in: allUserIdsInNamespace,
-                schools: namespace
-            }
+                $in: allUserIdsInNamespace
+            },
+            schools: namespace
         }, {
             fields: { 
                 'profile.firstName': 1,
