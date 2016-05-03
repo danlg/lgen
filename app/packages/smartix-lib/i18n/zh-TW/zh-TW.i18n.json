@@ -129,6 +129,8 @@
     "SignUp": "註冊",
     "SignUpAgreeToTOSAndPP": "通過註冊, 你同意",
     "SignUpWithGoogle": "以Google註冊",
+    "SignOutSuccess": "You have been signed out successfully",
+    "SignOutFailure": "We could not sign you out. Please try again.",
     "Skip": "跳過",
     "StartNewChat": "創建新的對話",
     "Student": "學生",
