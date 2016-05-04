@@ -1,6 +1,7 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 App.info({
-  id: 'com.gosmartix.smartix',
+  //id: 'com.gosmartix.smartix', for android
+  id: 'io.littlegenius.genie', //for ios because the app is registered with this id and the APN certificate
   name: 'Smartix',
   description: 'Instant, safe, simple communication for teachers, students and parents',
   author: 'Little Genius Education',
