@@ -39,7 +39,7 @@ Smartix.DistributionLists.hasPermissionForList = function (id, currentUser) {
     return true;
 }
 
-Smartix.DistributionLists.createDistributionList = function (users, namespace, name, url, currentUser) {
+Smartix.DistributionLists.createDistributionList = function (users, namespace, name, url, expectDuplicates, currentUser) {
     
     check(users, [String]);
     check(namespace, String);
@@ -59,6 +59,34 @@ Smartix.DistributionLists.createDistributionList = function (users, namespace, n
         throw new Meteor.Error("permission-denied", "The user does not have permission to perform this action.");
 		// return false;
 	}
+    
+    // Checks that a distribution list with the same name have not been created already
+    let groupWithSameName = Smartix.Groups.Collection.findOne({
+        name: name,
+        type: "distributionList",
+        namespace: namespace
+    });
+    if(groupWithSameName) {
+        if(expectDuplicates) {
+            return false;
+        } else {
+            throw new Meteor.Error('list-already-exists', "The distribution list with the name " + name + " already exists.")
+        }
+    }
+    
+    // Checks that a distribution list with the same url have not been created already
+    let groupWithSameURL = Smartix.Groups.Collection.findOne({
+        url: url,
+        type: "distributionList",
+        namespace: namespace
+    });
+    if(groupWithSameURL) {
+        if(expectDuplicates) {
+            return false;
+        } else {
+            throw new Meteor.Error('list-already-exists', "The distribution list with the url " + url + " already exists.")
+        }
+    }
 
 	// Creating distribution list document to be inserted
 	var distributionList = {};
