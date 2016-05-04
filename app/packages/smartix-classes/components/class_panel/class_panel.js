@@ -95,6 +95,17 @@ Template.ClassPanel.events({
   },
   'click .load-prev-msg':function(){
      loadedItems.set( loadedItems.get() + loadExtraItems );
+  },
+  'click .add-to-calendar':function(event){
+      var startDate = this.startDate;
+      var endDate = this.endDate;
+      var eventName = this.eventName;
+      var location = this.location;
+      var description = $(event.target).data('description');
+      
+      Smartix.Messages.Addons.Calendar.addEvent(eventName,location,description,startDate,endDate,function(){
+         toastr.info('Event added to your calendar'); 
+      });
   }
   
 });
