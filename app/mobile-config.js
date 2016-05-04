@@ -91,5 +91,10 @@ App.setPreference('SplashScreen', 'screen');
 App.setPreference('SplashScreenDelay', '3000');
 App.setPreference('DisallowOverscroll', 'false');//was webviewbounce
 
+//For Youtube iframe
+App.accessRule('https://*.youtube.com/*', { type: 'navigation' } );
 
-
+//For Google Docs iframe
+App.accessRule('*.google.com/*', { type: 'navigation' } ); 
+App.accessRule('*.googleapis.com/*', { type: 'navigation' } );
+App.accessRule('*.gstatic.com/*', { type: 'navigation' } );
