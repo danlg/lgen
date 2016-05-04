@@ -79,6 +79,15 @@ Router.route('/:school/admin/users/relationships', {
     }
 });
 
+Router.route('/:school/admin/lists/add', {
+    name: 'admin.lists.add',
+    layoutTemplate: 'adminLayout',
+    template: 'AdminDistributionListsAdd',
+    action: function () {
+        this.render('AdminDistributionListsAdd');
+    }
+});
+
 Router.route('/:school/admin/classes/list', {
     name: 'admin.classes.list',
     layoutTemplate: 'adminLayout',

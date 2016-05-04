@@ -12,6 +12,15 @@ Smartix.DistributionLists.hasPermission = function (namespace, currentUser) {
 }
 
 Smartix.DistributionLists.hasPermissionForList = function (id, currentUser) {
+    
+    check(id, String);
+    check(currentUser, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    if(!(currentUser === null)) {
+        currentUser = currentUser || Meteor.userId();
+    }
+    
     let distributionList = Smartix.Groups.findOne({
         _id: id
     });
@@ -47,11 +56,11 @@ Smartix.DistributionLists.createDistributionList = function (users, namespace, n
 	// administrative priviledges for the namespace it specified
 	// (i.e. either the admin for the school, or the system admin)
 	if(!Smartix.DistributionLists.hasPermission(namespace, currentUser)) {
-		return false;
-		// Optional: Throw an appropriate error if not
+        throw new Meteor.Error("permission-denied", "The user does not have permission to perform this action.");
+		// return false;
 	}
 
-	// Creating newsgroup document to be inserted
+	// Creating distribution list document to be inserted
 	var distributionList = {};
 	distributionList.users = users;
 	distributionList.namespace = namespace;
@@ -59,8 +68,9 @@ Smartix.DistributionLists.createDistributionList = function (users, namespace, n
 	distributionList.name = name;
 	distributionList.url = url;
 	
+    
 	// Checks the arguments are of the specified type, convert it if not
-	Smartix.DistributionLists.Schema.clean(newsgroup);
+	Smartix.DistributionLists.Schema.clean(distributionList);
 
 	// Checks are done in one go
 	check(distributionList, Smartix.DistributionLists.Schema);
@@ -73,8 +83,9 @@ Smartix.DistributionLists.createDistributionList = function (users, namespace, n
 		namespace: namespace,
 		url: distributionList.url
 	}).count() > 0){
-		return -1;
-		// Optional: Throw error saying URL already exists
+        // Throw error saying URL already exists
+        throw new Meteor.Error('url-already-exists', 'The Distribution list with the code ' + url + ' already exists. Please pick another one.')
+		// return -1;
 	} else {
 	    return Smartix.Groups.createGroup(distributionList);
 	}
@@ -131,7 +142,7 @@ Smartix.DistributionLists.removeDistributionList = function (id, currentUser) {
 		// Optional: Throw an appropriate error if not
 	}
 
-	// Remove the newsgroup specified
+	// Remove the distribution list specified
 	Smartix.Groups.deleteGroup(id);
 }
 

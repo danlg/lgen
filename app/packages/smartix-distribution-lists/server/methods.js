@@ -1,5 +1,9 @@
 Meteor.methods({
-    'smartix:distribution-lists/create': function (users, namespace, name, url) {
+    'smartix:distribution-lists/create': function (users, schoolName, name, url) {
+        let namespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolName);
+        if(!namespace) {
+            throw new Meteor.Error("school-not-exist", "The school with code " + schoolName + " does not exist.")
+        }
         return Smartix.DistributionLists.createDistributionList(users, namespace, name, url, this.userId);
     },
     'smartix:distribution-lists/edit': function (id, options) {
