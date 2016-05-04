@@ -267,7 +267,7 @@ Smartix.Chat.addUsersToGroup = function (id, users, currentUser) {
 	Smartix.Groups.addUsersToGroup(id, users);
 }
 
-Smartix.Chat.removeUsersToGroup = function (id, users, currentUser) {
+Smartix.Chat.removeUsersFromGroup = function (id, users, currentUser) {
 	
 	// Checks that `id` is of type String
 	check(id, String);
