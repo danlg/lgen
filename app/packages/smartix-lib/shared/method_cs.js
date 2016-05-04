@@ -67,7 +67,7 @@ Meteor.methods({
 
   'profile/edit': function (doc) {
 
-    //console.log('profile/edit','only changes would be inputted',doc);
+    //log.info('profile/edit','only changes would be inputted',doc);
     var email = doc.email;
     doc = lodash.omit(doc, 'email')
     Meteor.call('smartix:accounts/editUser', Meteor.userId(), {

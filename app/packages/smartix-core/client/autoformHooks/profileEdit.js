@@ -10,7 +10,7 @@ var postHooks = {
     toastr.success("Your account information is updated");
   },
   onError: function (formType, error) {
-    console.log('profileEditHook:onError',error);    
+    log.info('profileEditHook:onError',error);
     toastr.error(error.reason);
     // log.error(error);
   }

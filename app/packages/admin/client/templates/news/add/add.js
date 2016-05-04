@@ -10,8 +10,8 @@ Template.AdminNewsAdd.onCreated(function () {
             this.subscribe('schoolInfo', this.currentSchoolName, (err, res) => {
                 if(!err) {
                     this.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolName', this.currentSchoolName, function (err, res) {
-                        // console.log(err);
-                        // console.log(res);
+                        // log.info(err);
+                        // log.info(res);
                     });
                 }
             });
@@ -47,7 +47,7 @@ Template.AdminNewsAdd.events({
         var title = $('#addNews-title').val();
         var content = $('#addNews-content').val();
         var doPushNotification = document.getElementById("addNews-push-notification").checked
-        console.log('doPushNotification',doPushNotification);
+        log.info('doPushNotification',doPushNotification);
         event.preventDefault();
 
         $("input[type='checkbox'][name='addNews-newsgroup']").each(function (index) {

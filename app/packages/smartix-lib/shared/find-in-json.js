@@ -54,25 +54,25 @@ getKeys = function (obj, val) {
  var js = JSON.parse(json);
 
  //example of grabbing objects that match some key and value in JSON
- console.log(getObjects(js,'ID','SGML'));
+ log.info(getObjects(js,'ID','SGML'));
  //returns 1 object where a key names ID has the value SGML
 
  //example of grabbing objects that match some key in JSON
- console.log(getObjects(js,'ID',''));
+ log.info(getObjects(js,'ID',''));
  //returns 2 objects since keys with name ID are found in 2 objects
 
  //example of grabbing obejcts that match some value in JSON
- console.log(getObjects(js,'','SGML'));
+ log.info(getObjects(js,'','SGML'));
  //returns 2 object since 2 obects have keys with the value SGML
 
  //example of grabbing objects that match some key in JSON
- console.log(getObjects(js,'ID',''));
+ log.info(getObjects(js,'ID',''));
  //returns 2 objects since keys with name ID are found in 2 objects
 
  //example of grabbing values from any key passed in JSON
- console.log(getValues(js,'ID'));
+ log.info(getValues(js,'ID'));
  //returns array ["SGML", "44"]
 
  //example of grabbing keys by searching via values in JSON
- console.log(getKeys(js,'SGML'));
+ log.info(getKeys(js,'SGML'));
  //returns array ["ID", "SortAs", "Acronym", "str"]*/

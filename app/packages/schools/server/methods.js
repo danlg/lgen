@@ -45,7 +45,7 @@ Meteor.methods({
             check(options, SchoolsSchema);
 
             if (lodash.includes(RESERVED_SCHOOL_NAMES, options.username)) {
-                console.log(CANNOT_BE_SAME_AS_RESERVED_NAMES);
+                log.info(CANNOT_BE_SAME_AS_RESERVED_NAMES);
                 return;
             }
 
@@ -99,13 +99,13 @@ Meteor.methods({
 
 
         } else {
-            console.log('caller is not authed');
+            log.info('caller is not authed');
             throw new Meteor.Error("caller-not-authed", "caller is not authed");
         }
     },
     'smartix:schools/editSchool': function(id, options) {
         var targetSchool = SmartixSchoolsCol.findOne(id);
-        //console.log('raw',targetSchool);
+        //log.info('raw',targetSchool);
         if (
             Roles.userIsInRole(Meteor.userId(), 'admin', 'system') ||
             Roles.userIsInRole(Meteor.userId(), 'admin', id)
@@ -113,16 +113,16 @@ Meteor.methods({
             // https://github.com/aldeed/meteor-simple-schema/issues/387
             delete targetSchool._id;      
             lodash.merge(targetSchool, options);
-            //console.log('afterMerge',targetSchool);        
+            //log.info('afterMerge',targetSchool);
             SchoolsSchema.clean(targetSchool);              
             check(targetSchool, SchoolsSchema);             
-            //console.log('afterClean',targetSchool);
+            //log.info('afterClean',targetSchool);
             
             //return 1 if update success
             return SmartixSchoolsCol.update(id, {$set: targetSchool });
 
         } else {
-            console.log('caller is not authed');
+            log.info('caller is not authed');
             throw new Meteor.Error("caller-not-authed", "caller is not authed");
         }
     },

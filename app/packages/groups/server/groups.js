@@ -3,7 +3,7 @@ Smartix = Smartix || {};
 Smartix.Groups = Smartix.Groups || {};
 
 Smartix.Groups.createGroup = function (options) {
-    console.log('Smartix.Groups.createGroup',options);
+    log.info('Smartix.Groups.createGroup',options);
     
 	// Checks the object contains all required fields
 	if(!(options.users && options.namespace && options.type)) {

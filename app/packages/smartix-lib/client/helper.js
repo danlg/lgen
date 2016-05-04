@@ -1,5 +1,5 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
-//console.log('lib-helpers-client','is Smartix exist?',Smartix || {});
+//log.info('lib-helpers-client','is Smartix exist?',Smartix || {});
 Smartix = Smartix || {};
 Smartix.helpers = Smartix.helpers || {};
 
@@ -87,10 +87,10 @@ Smartix.helpers.spawnDesktopNotification = function(theBody,theIcon,theTitle,pat
             if(userNamespace != 'system' && userNamespace != 'global'){ 
                 Meteor.call('smartix:schools/getSchoolName', userNamespace, function (err, result) {           
                     if(err){
-                        console.log(err);
+                        log.info(err);
                     }
                     if (result) {
-                        console.log(result);
+                        log.info(result);
                         Router.go('mobile.school.home', { school: result });
                     }
                 });                

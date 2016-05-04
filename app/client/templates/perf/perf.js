@@ -8,9 +8,9 @@ Template.Perf.events({
 		var userList = Meteor.call('getUserList',function(err,data){
 		
 		   if(err)
-   					 console.log(err);
+   					 log.info(err);
 					
-			console.log(data);
+			log.info(data);
 			
 			Session.set('userListArray',data);
   		
@@ -24,9 +24,9 @@ Template.Perf.events({
 		var userList = Meteor.call('getClassList',function(err,data){
 			 
 			 if(err)
-   					 console.log(err);
+   					 log.info(err);
 					
-			console.log(data);
+			log.info(data);
 			
 			Session.set('classListArray',data);
 		});
@@ -37,9 +37,9 @@ Template.Perf.events({
 		var userList = Meteor.call('getSetting',function(err,data){
 			 
 			 if(err)
-   					 console.log(err);
+   					 log.info(err);
 					
-			console.log(data);
+			log.info(data);
 			
 			Session.set('settingArray',data);
 		});

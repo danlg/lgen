@@ -21,7 +21,7 @@ Template.ClassPanel.events({
         //do nothing if user click on a link or an image or a button   
     }else{
     
-        console.log(e);
+        log.info(e);
         if($(e.currentTarget).children('.extraInfo').hasClass('expand')){
         $(e.currentTarget).children('.extraInfo').removeClass('expand');      
         }else{
@@ -168,14 +168,14 @@ Template.ClassPanel.helpers({
             }else{
                 eachMessage.isFirstMsgInOneDay = false;
             }
-            //console.log(transformCount,' ',eachMessage.data.content ,' ',eachMessage.createdAt);
+            //log.info(transformCount,' ',eachMessage.data.content ,' ',eachMessage.createdAt);
             
             
             return eachMessage;
         }  
 
     } );
-    console.log('classMessages',classMessages);
+    log.info('classMessages',classMessages);
     return classMessages;      
   },
   classCode: function () {
@@ -264,7 +264,7 @@ Template.ClassPanel.onCreated(function(){
    
    var self = this;
    
-    console.log(Router.current().params.classCode);
+    log.info(Router.current().params.classCode);
      
     
   

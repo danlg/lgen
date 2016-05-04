@@ -3,7 +3,7 @@ Meteor.methods({
   chatCreate: function (chatArr,chatObjExtra,schoolName) {
     
     var namespaceId;
-    //console.log('namespace',schoolName);
+    //log.info('namespace',schoolName);
     if(schoolName === 'global' || schoolName === 'system'){
       namespaceId = schoolName;
     }else{
@@ -11,7 +11,7 @@ Meteor.methods({
       if(targetSchool){
         namespaceId = targetSchool._id;
       }else{
-        console.log('chatCreate:targetSchoolNotFound');
+        log.info('chatCreate:targetSchoolNotFound');
         return ;
       }  
     }

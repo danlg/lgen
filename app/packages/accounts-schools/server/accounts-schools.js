@@ -91,7 +91,7 @@ Smartix.Accounts.School.createUser = function(school, options) {
     // They must either be a school admin
     // Or system admin
     if (!Smartix.Accounts.School.isAdmin(school) && !Smartix.Accounts.System.isAdmin()) {
-        console.log(NOT_AUTH);
+        log.info(NOT_AUTH);
         throw new Meteor.Error("not-auth", NOT_AUTH);
     }
 
@@ -99,7 +99,7 @@ Smartix.Accounts.School.createUser = function(school, options) {
     if (!options.roles.every(function(role) {
         return Smartix.Accounts.School.VALID_USER_TYPES.indexOf(role) > -1;
     })) {
-        console.log(NOT_VALID_ROLE);
+        log.info(NOT_VALID_ROLE);
         throw new Meteor.Error("not-valid-role", NOT_VALID_ROLE);
     }
 
@@ -114,7 +114,7 @@ Smartix.Accounts.School.createUser = function(school, options) {
         // add the user to the role for this school
         // and return the existing user
         if (existingUser) {
-            // console.log(TRY_ADD_ROLE_TO_EXISTING_USR)
+            // log.info(TRY_ADD_ROLE_TO_EXISTING_USR)
             Roles.addUsersToRoles(existingUser, options.roles, school);
             return existingUser._id;
         } else {
@@ -906,7 +906,7 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser) {
     }
 
     _.each(data, function(student, i, students) {
-        console.log(student);
+        log.info(student);
         // Get the student data
         
         let studentData;

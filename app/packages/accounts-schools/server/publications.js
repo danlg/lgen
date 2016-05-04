@@ -27,7 +27,7 @@ Meteor.publish('allSchoolUsersPerRole', function (school) {
     }
     
     if(!schoolDoc){
-        console.log('allSchoolUsersPerRole: no school is found: are you in global or system namespace? they dont have school collection')
+        log.info('allSchoolUsersPerRole: no school is found: are you in global or system namespace? they dont have school collection')
         return;
     }
     
@@ -52,9 +52,9 @@ Meteor.publish('allSchoolUsersPerRole', function (school) {
         lodash.map(studentsWhoTaughtByTeacher, 'users').map(function (studentIDs) {
 
             studentIDs.map(function (studentID) {
-                //console.log('studentID', studentID);
+                //log.info('studentID', studentID);
                 let findParents = Smartix.Accounts.Relationships.Collection.find({ child: studentID, namespace: schoolDoc._id }).fetch();
-                //console.log('findParents', findParents);
+                //log.info('findParents', findParents);
                 findParents.map(function (relationship) {
                     parents.push(relationship.parent);
                 });
@@ -66,7 +66,7 @@ Meteor.publish('allSchoolUsersPerRole', function (school) {
         allSchoolUsers = allSchoolUsers.concat( parents );
         //var parents = Roles.getUsersInRole('parent',schoolDoc._id).fetch();  
         
-        //console.log('allSchoolUsersForTeacher',allSchoolUsers);
+        //log.info('allSchoolUsersForTeacher',allSchoolUsers);
         
 
     }
@@ -83,7 +83,7 @@ Meteor.publish('allSchoolUsersPerRole', function (school) {
         //can talk to parent's own student
         let childs = [];
         let findChilds = Smartix.Accounts.Relationships.Collection.find({ parent: this.userId, namespace: schoolDoc._id }).fetch();
-        //console.log('findParents', findParents);
+        //log.info('findParents', findParents);
         findChilds.map(function (relationship) {
             childs.push(relationship.child);
         });        

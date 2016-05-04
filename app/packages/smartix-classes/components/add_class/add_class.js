@@ -131,10 +131,10 @@ Template.ionNavBar.events({
     Meteor.call('smartix:classes/createClass', Router.current().params.school, newClassObj,function(err,result){
       
       if(err){
-          console.log(err);
+          log.info(err);
           toastr.info(err.reason);
       }else{
-          console.log(result);
+          log.info(result);
           Router.go('TabClasses');
       }
         
