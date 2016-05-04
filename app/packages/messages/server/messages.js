@@ -207,6 +207,11 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
                     query:{userId:eachTargetUser},
                     badge: Smartix.helpers.getTotalUnreadNotificationCount(eachTargetUser._id)
                 };
+                
+                if(group.type === 'newsgroup'){
+                    notificationObj.title = message.data.title || "";
+                }
+                
                 Meteor.call("serverNotification", notificationObj,{
                     groupId: groupId,
                     classCode: group.classCode || ""

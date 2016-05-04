@@ -57,7 +57,9 @@
        <div class='square-cards-wrapper'>        
                 <a href="{{pathFor route='newsgroups.news.list'}}" class="card square-card  square-card-small tiles bg bg-news">
                     <span class='square-card-description'>NEWS</span>
-                    <span class='square-card-counter badge badge-assertive'>100</span>
+                    {{#if sumOfNewNewsCounter}}
+                    <span class='square-card-counter badge badge-assertive'>{{sumOfNewNewsCounter}}</span>
+                    {{/if}}                       
                 </a>
                 
                 

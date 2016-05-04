@@ -56,12 +56,10 @@ Meteor.startup(function () {
 
   //when receive a new class message, display a popup, which can be clicked
   //and be redirected to that class
-  /*Streamy.on('newnewsgroupmessage', function(data) {
+  Streamy.on('newnewsgroupmessage', function(data) {
     log.info(data);
     var pathToRouteObj ={
-        routeName:'classDetail',
-        params: {classCode:data.classCode},
-        query: {query: "toBottom=true"},
+        routeName:'newsgroups.news.list'
     }    
     //In Desktop, determine if browser support Notification API
     if('Notification' in window && Notification.permission == 'granted'){
@@ -75,7 +73,7 @@ Meteor.startup(function () {
                         "preventDuplicates": true,
                         onclick: function () {
                             //classCode
-                            Router.go('classDetail',{classCode:data.classCode},{query: "toBottom=true"});
+                            Router.go('newsgroups.news.list');
                             //$('.class-detail').scrollTop(999999);
                     }
                 }
@@ -83,7 +81,7 @@ Meteor.startup(function () {
         
     }
       
-  }); */
+  }); 
   
   //when receive a new class message, display a popup, which can be clicked
   //and be redirected to that class

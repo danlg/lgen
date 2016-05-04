@@ -34,6 +34,21 @@ Smartix.Notifications.Helpers.sumOfNewClassMessageAndCommentCounter = function()
    }
 }
 
+Smartix.Notifications.Helpers.sumOfNewNewsCounter = function(){
+   
+   var groupsInNamespace =  Smartix.Groups.Collection.find({namespace:Session.get('pickedSchoolId')},{fields: {_id:1}}).fetch();
+   var groupIdsInNamespace = lodash.map(groupsInNamespace,"_id");
+   
+   
+   var newMessageCount =  Notifications.find({'eventType':'newnewsgroupmessage','hasRead':false,'groupId':{ $in: groupIdsInNamespace }}).count();
+        
+   if(newMessageCount > 0 ){
+       return newMessageCount;
+   }else{
+       return false;
+   }  
+}
+
 Smartix.Notifications.Helpers.sumOfAllNotificationCounter = function(){
    var groupsInNamespace =  Smartix.Groups.Collection.find({namespace:Session.get('pickedSchoolId')},{fields: {_id:1}}).fetch();
    var groupIdsInNamespace = lodash.map(groupsInNamespace,"_id");
@@ -50,5 +65,6 @@ Smartix.Notifications.Helpers.sumOfAllNotificationCounter = function(){
 }
 
 Template.registerHelper('sumOfNewChatMessageCounter',Smartix.Notifications.Helpers.sumOfNewChatMessageCounter);
+Template.registerHelper('sumOfNewNewsCounter',Smartix.Notifications.Helpers.sumOfNewNewsCounter);
 Template.registerHelper('sumOfNewClassMessageAndCommentCounter',Smartix.Notifications.Helpers.sumOfNewClassMessageAndCommentCounter );
 Template.registerHelper('sumOfAllNotificationCounter',Smartix.Notifications.Helpers.sumOfAllNotificationCounter);

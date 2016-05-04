@@ -6,7 +6,8 @@ Template.NewsgroupsNewsList.onCreated(function(){
    self.subscribe('newsgroupsForUser',null,null,Session.get('pickedSchoolId'),function(){
       self.subscribe('newsForUser',null,null,Session.get('pickedSchoolId'));
    });    
-
+   
+   
 });
 
 Template.NewsgroupsNewsList.helpers({
@@ -22,3 +23,11 @@ Template.NewsgroupsNewsList.helpers({
     }
     
 })
+
+Template.NewsgroupsNewsList.onDestroyed(function(){
+   
+    
+     Meteor.call('setAllNewsAsRead',Session.get('pickedSchoolId'));
+
+
+});

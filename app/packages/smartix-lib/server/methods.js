@@ -214,6 +214,22 @@ Meteor.methods({
                 }, socket); 
             });
         });          
+    }else if(inAppNotifyObj && notificationObj.payload.type == 'newsgroup'){
+        console.log('newsgroup',notificationObj);
+        var userIds = filteredUserIdsWhoEnablePushNotify;
+        
+        //send notification via websocket using Streamy
+        userIds.map(function(userId){
+            //log.info("streamy:newchatmessage:"+userId);
+            var socketObj = Streamy.socketsForUsers(userId);
+            //log.info(socketObj);
+            
+            socketObj._sockets.map(function(socket){
+                Streamy.emit('newnewsgroupmessage', { from: notificationObj.title,
+                                                text: notificationObj.text                                 
+                }, socket); 
+            });
+        });          
     }
 
   },

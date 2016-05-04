@@ -23,6 +23,14 @@ Meteor.methods({
         log.info(Notifications.update({ "eventType" : "newclasscomment",groupId:targetClass._id,userId:Meteor.userId()},{ $set: { hasRead: true } },{multi:true}));
       }
   },
+  setAllNewsAsRead:function(currentSchool){
+      log.info("trySetNewsAsRead")
+      var targetClasses = Smartix.Groups.Collection.find({namespace:currentSchool,type:'newsgroup',users:Meteor.userId()}).fetch();
+      var targetClassIds = lodash.map(targetClasses,"_id");
+      if(targetClasses){
+        log.info(Notifications.update({ "eventType" : "newnewsgroupmessage",groupId:{ $in: targetClassIds},userId:Meteor.userId()},{ $set: { hasRead: true } },{multi:true}));
+      }
+  },  
   insertNotification:function(notificationObj){
       Notifications.insert(notificationObj);
   }
