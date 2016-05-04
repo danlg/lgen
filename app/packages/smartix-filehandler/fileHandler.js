@@ -4,15 +4,6 @@ Smartix.FileHandler = Smartix.FileHandler || {};
 Smartix.FileHandler = (function () {
     
     var directDocumentMessage = function (documentArray){
-        
-        /*if (Meteor.user().profile.firstdocument) {
-            analytics.track("First Document", {
-                date: new Date(),
-            });
-
-            Meteor.call("updateProfileByPath", 'profile.firstdocument', false);
-        }  */ 
-             
         var target = Session.get('sendMessageSelectedClasses').selectArrId;
         log.info(target);
         var msg = "";
@@ -21,26 +12,13 @@ Smartix.FileHandler = (function () {
         mediaObj.soundArr = [];
         mediaObj.documentArr = documentArray;
         
-        if(msg == "" && mediaObj.imageArr.length == 0 && mediaObj.soundArr.length
-            == 0 && mediaObj.documentArr.length == 0 ){
-        
+        if(msg == "" && mediaObj.imageArr.length == 0
+          && mediaObj.soundArr.length == 0
+          && mediaObj.documentArr.length == 0 )
+        {
             toastr.warning("please input some message");
             return;
         }
-        
-        /*else if(target.length > 0) {
-        Meteor.call('sendMsg', target, msg, mediaObj, function () {
-            Session.set("sendMessageSelectedClasses", {
-            selectArrName: [],
-            selectArrId: []
-            });
-            
-                                       
-        });
-        } else {
-        toastr.error("no class select!");
-        } */
-        
         addons = [];
         //add documents to addons one by one if any
         if(mediaObj.documentArr){
@@ -48,12 +26,10 @@ Smartix.FileHandler = (function () {
             mediaObj.documentArr.map(function(eachDocument){
                 addons.push({type:'documents',fileId:eachDocument});
             })
-        }        
-        
+        }
         GeneralMessageSender(target[0],'text',msg, addons)
-            
         return true;      
-    }
+    };
 
     return {
         openFile: function (e) {
@@ -111,37 +87,27 @@ Smartix.FileHandler = (function () {
                         log.error(err);
                     }
                     else {
-
+                        if (Meteor.user().firstPicture) {
+                            analytics.track("First Picture", { date: new Date()});
+                            Meteor.call("updateProfileByPath", 'firstPicture', false);
+                        }
                         if (category == "chat") {
-                            
                             GeneralMessageSender(Router.current().params.chatRoomId,'text','New Image',[{type:'images',fileId: fileObj._id}],
                                 Smartix.helpers.getAllUserExceptCurrentUser()
                             );
-                            
-
                         } else if (category == "class") {
                             // alert(fileObj._id);
                             var arr = currentImageArray;
                             arr.push(fileObj._id);
 
-                            log.info(fileObj.name());
-                            log.info(fileObj.extension());
-                            log.info(fileObj.size());
-
-                            log.info(fileObj.type());
-                            log.info(fileObj.updatedAt());
-
-                            if (Meteor.user().firstPicture) {
-                                analytics.track("First Picture", {
-                                    date: new Date(),
-                                });
-
-                                Meteor.call("updateProfileByPath", 'firstPicture', false);
-                            }
-                            log.info(fileObj._id);
+                            //log.info(fileObj.name());
+                            //log.info(fileObj.extension());
+                            //log.info(fileObj.size());
+                            //log.info(fileObj.type());
+                            //log.info(fileObj.updatedAt());
+                            //log.info(fileObj._id);
                             callback(arr);
                         }
-
                     }
                 });
             });
@@ -228,11 +194,9 @@ Smartix.FileHandler = (function () {
                         fileObj.name(file.name);
                         
                         if(category == 'chat'){
-                            
                             GeneralMessageSender(Router.current().params.chatRoomId,'text','New Document',[{type:'documents',fileId: fileObj._id}],
                                 Smartix.helpers.getAllUserExceptCurrentUser()
-                            );                                                    
-                           
+                            );
                         }else if (category =='class'){                                      
                             var arr = currentDocumentArray;
                             arr.push(fileObj._id);

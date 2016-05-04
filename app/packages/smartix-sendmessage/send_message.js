@@ -41,9 +41,7 @@ Template.SendMessage.events({
           $(template.firstNode).find('#start-date-time').get(0).checkValidity() &&
           $(template.firstNode).find('#end-date').get(0).checkValidity() &&
           $(template.firstNode).find('#end-date-time').get(0).checkValidity())
-          {
-              
-          }else{
+          { } else{
               toastr.info('Please fill the form');
               return;
           }
@@ -131,7 +129,7 @@ Template.SendMessage.events({
       setTimeout(function () {
         if (isRecording)
           media.stopRecord();
-      }, 1000 * 60 * 3);
+      }, 1000 * 60 * 3);//max 3 min
 
 
     } else {
@@ -175,207 +173,89 @@ Template.SendMessage.events({
     //TODO: clean up file if cancel by user
 
   },
-  'click .ion-close-circled.voice': function (e) {
 
+  'click .ion-close-circled.voice': function (e) {
     var id = $(e.target).data('clipid');
     log.info(id);
-
     var array = soundArr.get();
     var index = array.indexOf(id);
-
     if (index > -1) {
       array.splice(index, 1);
     }
-
     soundArr.set(array);
-
     hidePreview('voice');
-    
     //TODO: clean up file if cancel by user    
   },
+
   'click .imgThumbs': function (e) {
     var imageFullSizePath = $(e.target).data('fullsizeimage');
     IonModal.open('imageModal', {src: imageFullSizePath});
   },
-  'change #imageBtn': function (event, template) {
 
+  'change #imageBtn': function (event, template) {
     //https://github.com/CollectionFS/Meteor-CollectionFS
     //Image is inserted from here via FS.Utility
     Smartix.FileHandler.imageUpload(event,'class',imageArr.get(),
-    function(result){
-        
-        imageArr.set(result);
-    });
-
-    showPreview("image");
-
-
-    
-
-  },
-  'click .sendMsgBtn': function (event,template) {
-    /*var target  = $(".js-example-basic-multiple").val();*/
-
-
-    var target = Session.get('sendMessageSelectedClasses').selectArrId;
-    log.info(target);
-    var msg = $(".msgBox").val();
-    
-    
-    //receive addons stage
-    var mediaObj = {};
-    mediaObj.allowComment = document.getElementById('allowComment').checked;
-    mediaObj.allowVote = document.getElementById('allowVote').checked;  
-    if(mediaObj.allowVote){
-     mediaObj.voteType = document.querySelector('input[name="voteTypeOption"]:checked').value;   
-    }else{
-     mediaObj.voteType = "";
-    }
-    log.info("sendMsg:allowComment:"+mediaObj.allowComment);
-    log.info("sendMsg:allowVote:"+mediaObj.allowComment);
-    log.info("sendMsg:voteType:"+mediaObj.voteType);
-           
-    mediaObj.imageArr = imageArr.get();
-    mediaObj.soundArr = soundArr.get();
-    mediaObj.documentArr = documentArr.get();
-    mediaObj.calendarEvent = template.calendarEvent.get();
-    
-    //receive addons stage ends
-    
-    //if nothing is received from input
-    if(msg == "" && mediaObj.imageArr.length == 0 && mediaObj.soundArr.length
-       == 0 && mediaObj.documentArr.length == 0 &&  mediaObj.calendarEvent == {}
-      ){
-      
-      toastr.warning("please input some message");
-      
-    }
-    
-    addons = [];
-    
-    //add images to addons one by one if any
-    if(mediaObj.imageArr.length > 0){
-        console.log('there is image');
-        mediaObj.imageArr.map(function(eachImage){
-            addons.push({type:'images',fileId:eachImage});
-        })
-    }
- 
-    //add documents to addons one by one if any
-    if(mediaObj.documentArr.length > 0){
-        console.log('there is doc');
-        mediaObj.documentArr.map(function(eachDocument){
-            addons.push({type:'documents',fileId:eachDocument});
-        })
-    }
- 
-    //add voice to addons one by one if any
-    if(mediaObj.soundArr.length > 0){
-        console.log('there is voice');
-        mediaObj.soundArr.map(function(eachDocument){
-            addons.push({type:'voice',fileId:eachDocument});
-        })
-    }
-    
-    //add calendar to addons one by one if any
-    if(mediaObj.calendarEvent.eventName && mediaObj.calendarEvent.eventName != ""){
-        console.log('there is calendar');
-        
-        console.log(mediaObj.calendarEvent);
-        addons.push(
-            {
-                type:'calendar',
-                eventName: mediaObj.calendarEvent.eventName,
-                location:  mediaObj.calendarEvent.location,
-                startDate: mediaObj.calendarEvent.startDate + " " + mediaObj.calendarEvent.startDateTime ,
-                endDate:   mediaObj.calendarEvent.endDate   +" " +  mediaObj.calendarEvent.endDateTime
-            }
-        );
-        
-    }
- 
-     //add comments to addons one by one if any
-    if(mediaObj.allowComment){
-        console.log('allowComment');
-        
-        addons.push( { type:'comment',comments:[] } );
-        
-    }
-
-     //add poll to addons one by one if any
-    if(mediaObj.allowVote){
-        
-        var voteObj = {};
-        voteObj.type = "poll";
-        voteObj.votes = [];
-        console.log('allowVote');
-        
-        log.info(mediaObj.voteType);
-        
-        if(mediaObj.voteType == 'heartNoEvilStarQuestion'){
-            voteObj.votes.push({option:'heart',optionIconType:'icon-emojicon',optionIconValue:'e1a-hearts',users:[]});           
-            voteObj.votes.push({option:'noevil',optionIconType:'icon-emojicon',optionIconValue:'e1a-see_no_evil',users:[]});              
-            voteObj.votes.push({option:'question',optionIconType:'icon-ionicon',optionIconValue:'ion-help',users:[]}); 
-            
-            voteObj.options = ['heart','noevil','question'];  
-                                                         
-        }else if(mediaObj.voteType == 'yesNo'){
-            voteObj.votes.push({option:'yes',optionIconType:'icon-emojicon',optionIconValue:'e1a-white_check_mark',users:[]});           
-            voteObj.votes.push({option:'no',optionIconType:'icon-emojicon',optionIconValue:'e1a-negative_squared_cross_mark',users:[]});              
-         
-            voteObj.options = ['yes','no'];       
-            
-        }else if(mediaObj.voteType == 'likeDislike'){
-            voteObj.votes.push({option:'heart',optionIconType:'icon-ionicon',optionIconValue:'ion-thumbsup',users:[]});           
-            voteObj.votes.push({option:'noevil',optionIconType:'icon-ionicon',optionIconValue:'ion-thumbsdown',users:[]});
-                        
-            voteObj.options = ['like','dislike'];   
-                  
-        }else if(mediaObj.voteType == 'oneTwoThreeFour'){
-            voteObj.votes.push({option:'one',optionIconType:'icon-emojicon',optionIconValue:'e1a-one',users:[]});           
-            voteObj.votes.push({option:'two',optionIconType:'icon-emojicon',optionIconValue:'e1a-two',users:[]});
-            voteObj.votes.push({option:'three',optionIconType:'icon-emojicon',optionIconValue:'e1a-three',users:[]});           
-            voteObj.votes.push({option:'four',optionIconType:'icon-emojicon',optionIconValue:'e1a-four',users:[]});
-                                    
-            voteObj.options = ['one','two','three','four'];  
-                  
-        }else{
-            //future extension point for futher customization.
-            //VoteOptions will need to be defined by user.   
-        }
-        
-                           
-        addons.push(voteObj);
-        
-    } 
-      
-    GeneralMessageSender(target[0],'text',msg, addons,null,function(){
-        
-        console.log('callback@GeneralMessageSender');
-        Session.set("sendMessageSelectedClasses", {
-          selectArrName: [],
-          selectArrId: []
+        function(result){
+            imageArr.set(result);
         });
-        
-        //input parameters clean up
-        imageArr.set([]);
-        soundArr.set([]); 
-        documentArr.set([]);       
-        $(".msgBox").val("");
-        template.calendarEvent.set({});
-        hidePreview('all');
-
-        sendBtnMediaButtonToggle(); 
-        //force update autogrow
-        document.getElementsByClassName("inputBox")[0].updateAutogrow(); 
-        
-        //scroll messagelist to bottom;
-        window.setTimeout(scrollMessageListToBottom, 100);
-      
-           
-    });
-
+    showPreview("image");
   },
+
+  'click .sendMsgBtn': function (event,template) {
+      var target = Session.get('sendMessageSelectedClasses').selectArrId;
+      //log.info(target);
+      var msg = $(".msgBox").val();
+      //receive addons stage
+      var mediaObj = {};
+      mediaObj.allowComment = document.getElementById('allowComment').checked;
+      mediaObj.allowVote = document.getElementById('allowVote').checked;
+      mediaObj.voteType = (mediaObj.allowVote) ? document.querySelector('input[name="voteTypeOption"]:checked').value : "";
+      mediaObj.imageArr = imageArr.get();
+      mediaObj.soundArr = soundArr.get();
+      mediaObj.documentArr = documentArr.get();
+      mediaObj.calendarEvent = template.calendarEvent.get();
+
+      log.info("sendMsg:allowComment:" + mediaObj.allowComment);
+      log.info("sendMsg:allowVote:" + mediaObj.allowComment);
+      log.info("sendMsg:voteType:" + mediaObj.voteType);
+
+      //if nothing is received from input
+      if (msg === "" && (mediaObj.imageArr.length == 0)
+        && (mediaObj.soundArr.length == 0)
+        && (mediaObj.documentArr.length == 0)
+        && (mediaObj.calendarEvent == {})
+      ) {
+        toastr.warning("please input some message");
+      }
+
+      var addons = [];
+      populateAddons(addons, mediaObj);
+
+      GeneralMessageSender(target[0],'text',msg, addons,null,function(){
+          console.log('callback@GeneralMessageSender');
+          Session.set("sendMessageSelectedClasses", {
+            selectArrName: [],
+            selectArrId: []
+          });
+
+          //input parameters clean up
+          imageArr.set([]);
+          soundArr.set([]);
+          documentArr.set([]);
+          $(".msgBox").val("");
+          template.calendarEvent.set({});
+          hidePreview('all');
+
+          sendBtnMediaButtonToggle();
+          //force update autogrow
+          document.getElementsByClassName("inputBox")[0].updateAutogrow();
+
+          //scroll messagelist to bottom;
+          window.setTimeout(scrollMessageListToBottom, 100);
+      });
+  },
+
   'keyup .inputBox':function(){
     log.info("input box keyup");
     sendBtnMediaButtonToggle();
@@ -411,6 +291,99 @@ Template.SendMessage.events({
       });
   }  
 });
+
+function populateAddons(addons, mediaObj)
+{
+  //add images to addons one by one if any
+  if (mediaObj.imageArr.length > 0) {
+    //console.log('there is image');
+    mediaObj.imageArr.map(function (eachImage) {
+      addons.push({type: 'images', fileId: eachImage});
+    })
+  }
+
+  //add documents to addons one by one if any
+  if (mediaObj.documentArr.length > 0) {
+    //console.log('there is doc');
+    mediaObj.documentArr.map(function (eachDocument) {
+      addons.push({type: 'documents', fileId: eachDocument});
+    })
+  }
+
+  //add voice to addons one by one if any
+  if (mediaObj.soundArr.length > 0) {
+    console.log('there is voice');
+    mediaObj.soundArr.map(function (eachDocument) {
+      addons.push({type: 'voice', fileId: eachDocument});
+    })
+  }
+
+  //add calendar to addons one by one if any
+  if (mediaObj.calendarEvent.eventName && mediaObj.calendarEvent.eventName != "") {
+    //console.log('there is calendar');
+    //console.log(mediaObj.calendarEvent);
+    addons.push(populateCalendar(mediaObj));
+  }
+
+  //add comments to addons one by one if any
+  if (mediaObj.allowComment) {
+    //console.log('allowComment');
+    addons.push({type: 'comment', comments: []});
+  }
+  //add poll to addons one by one if any
+  if (mediaObj.allowVote) {
+    var voteObj = {};
+    addons.push(populateVote(voteObj));
+  }
+}
+
+function populateCalendar(mediaObj) {
+  return new  {
+    type:'calendar',
+    eventName: mediaObj.calendarEvent.eventName,
+    location:  mediaObj.calendarEvent.location,
+    startDate: mediaObj.calendarEvent.startDate + " " + mediaObj.calendarEvent.startDateTime ,
+    endDate:   mediaObj.calendarEvent.endDate   +" " +  mediaObj.calendarEvent.endDateTime
+  };
+}
+
+function populateVote(voteObj) {
+  voteObj.type = "poll";
+  voteObj.votes = [];
+  console.log('allowVote');
+
+  log.info(mediaObj.voteType);
+
+  if(mediaObj.voteType == 'heartNoEvilStarQuestion'){
+    voteObj.votes.push({option:'heart',optionIconType:'icon-emojicon',optionIconValue:'e1a-hearts',users:[]});
+    voteObj.votes.push({option:'noevil',optionIconType:'icon-emojicon',optionIconValue:'e1a-see_no_evil',users:[]});
+    voteObj.votes.push({option:'question',optionIconType:'icon-ionicon',optionIconValue:'ion-help',users:[]});
+    voteObj.options = ['heart','noevil','question'];
+  }
+  else if(mediaObj.voteType == 'yesNo'){
+    voteObj.votes.push({option:'yes',optionIconType:'icon-emojicon',optionIconValue:'e1a-white_check_mark',users:[]});
+    voteObj.votes.push({option:'no',optionIconType:'icon-emojicon',optionIconValue:'e1a-negative_squared_cross_mark',users:[]});
+    voteObj.options = ['yes','no'];
+  }
+  else if(mediaObj.voteType == 'likeDislike'){
+    voteObj.votes.push({option:'heart',optionIconType:'icon-ionicon',optionIconValue:'ion-thumbsup',users:[]});
+    voteObj.votes.push({option:'noevil',optionIconType:'icon-ionicon',optionIconValue:'ion-thumbsdown',users:[]});
+    voteObj.options = ['like','dislike'];
+  }
+  else if(mediaObj.voteType == 'oneTwoThreeFour'){
+    voteObj.votes.push({option:'one',optionIconType:'icon-emojicon',optionIconValue:'e1a-one',users:[]});
+    voteObj.votes.push({option:'two',optionIconType:'icon-emojicon',optionIconValue:'e1a-two',users:[]});
+    voteObj.votes.push({option:'three',optionIconType:'icon-emojicon',optionIconValue:'e1a-three',users:[]});
+    voteObj.votes.push({option:'four',optionIconType:'icon-emojicon',optionIconValue:'e1a-four',users:[]});
+    voteObj.options = ['one','two','three','four'];
+  }
+  else{
+    //future extension point for futher customization.
+    //VoteOptions will need to be defined by user.
+  }
+  return voteObj;
+}
+
 
 /*****************************************************************************/
 /* SendMessage: Helpers */

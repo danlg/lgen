@@ -61,7 +61,7 @@ Smartix.Messages.cleanAndValidate = function (message) {
 
 	// Checks that the `message` object conforms to the `Smartix.Messages.Schema`
 	check(message, Smartix.Messages.Schema);
-}
+};
 
 Smartix.Messages.createMessage = function (groupId, messageType, data, addons, isPush) {
     console.log('Smartix.Messages.createMessage',groupId,messageType,data,addons, isPush);
@@ -194,12 +194,11 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
                 messageCreateTimestamp: message.createdAt,
                 messageCreateByUserId: Meteor.userId()
             },function(){
-                
                 //3. send push notification and in-app notification
                 var notificationObj = {
                     from : Smartix.helpers.getFullNameByProfileObj(Meteor.user().profile),
                     title : Smartix.helpers.getFullNameByProfileObj(Meteor.user().profile),
-                    text: message.data.content,
+                    text: message.data.content || "",
                     payload:{
                         type: group.type,
                         groupId: groupId
