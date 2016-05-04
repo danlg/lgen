@@ -17,7 +17,7 @@
                     </div>
                     <ul>
                         {{#EasySearch.Each index=distributionListUsersIndex }}
-                            <li class="AdminDistributionListView__user-search-result">{{profile.firstName}} {{profile.lastName}}</li>
+                            <li class="AdminDistributionListView__user-search-result" data-user-id="{{_id}}">{{profile.firstName}} {{profile.lastName}}</li>
                         {{/EasySearch.Each}}
                     </ul>
                 </div>
@@ -35,7 +35,7 @@
                         <td><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.firstName}}</a></td>
                         <td><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.lastName}}</a></td>
                         <td>
-                            <button type="button" class="btn border-warning text-warning-600 btn-flat btn-icon btn-rounded"><i class="icon-minus2"></i></button>
+                            <button type="button" data-user-id="{{_id}}" class="AdminDistributionListView__remove-user btn border-warning text-warning-600 btn-flat btn-icon btn-rounded"><i class="icon-minus2"></i></button>
                         </td>
                     </tr>
                     {{/with}} {{/each}}

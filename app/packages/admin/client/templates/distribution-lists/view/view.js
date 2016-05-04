@@ -54,3 +54,40 @@ Template.AdminDistributionListView.helpers({
         }
     }
 });
+
+Template.AdminDistributionListView.events({
+    'click .AdminDistributionListView__user-search-result': function (event, template) {
+        
+        var userToAdd = event.currentTarget.dataset.userId;
+        var currentList;
+        if(Router.current()
+        && Router.current().params
+        && Router.current().params.code) {
+            currentList = Router.current().params.code;
+        }
+        
+        if(userToAdd && currentList) {
+            Meteor.call('smartix:distribution-lists/addUsersByListName', currentList, [userToAdd], function (err, res) {
+                // console.log(err);
+                // console.log(res);
+            })
+        }
+    },
+    'click .AdminDistributionListView__remove-user': function (event, template) {
+        
+        var userToRemove = event.currentTarget.dataset.userId;
+        var currentList;
+        if(Router.current()
+        && Router.current().params
+        && Router.current().params.code) {
+            currentList = Router.current().params.code;
+        }
+        
+        if(userToRemove && currentList) {
+            Meteor.call('smartix:distribution-lists/removeUsersByListName', currentList, [userToRemove], function (err, res) {
+                // console.log(err);
+                // console.log(res);
+            })
+        }
+    }
+});

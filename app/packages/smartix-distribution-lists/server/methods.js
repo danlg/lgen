@@ -15,7 +15,27 @@ Meteor.methods({
     'smartix:distribution-lists/addUsers': function (id, users) {
         return Smartix.DistributionLists.addUsersToList(id, users, this.userId);
     },
+    'smartix:distribution-lists/addUsersByListName': function (name, users) {
+        let distributionList = Smartix.Groups.Collection.findOne({
+            url: name
+        });
+        if(distributionList) {
+            return Smartix.DistributionLists.addUsersToList(distributionList._id, users, this.userId);
+        } else {
+            throw new Meteor.Error('list-not-found', "Distribution list with the code " + name + " could not be found.");
+        }
+    },
     'smartix:distribution-lists/removeUsers': function (id, users) {
-        return Smartix.DistributionLists.removeUsersFromGroup(id, users, this.userId);
-    }
+        return Smartix.DistributionLists.removeUsersFromList(id, users, this.userId);
+    },
+    'smartix:distribution-lists/removeUsersByListName': function (name, users) {
+        let distributionList = Smartix.Groups.Collection.findOne({
+            url: name
+        });
+        if(distributionList) {
+            return Smartix.DistributionLists.removeUsersFromList(distributionList._id, users, this.userId);
+        } else {
+            throw new Meteor.Error('list-not-found', "Distribution list with the code " + name + " could not be found.");
+        }
+    },
 });

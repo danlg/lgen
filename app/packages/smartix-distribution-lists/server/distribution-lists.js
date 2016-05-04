@@ -172,7 +172,7 @@ Smartix.DistributionLists.addUsersToList = function (id, users, currentUser) {
 	Smartix.Groups.addUsersToGroup(id, users);
 }
 
-Smartix.DistributionLists.removeUsersFromGroup = function (id, users, currentUser) {
+Smartix.DistributionLists.removeUsersFromList = function (id, users, currentUser) {
 	
 	// Checks that `id` is of type String
 	check(id, String);
