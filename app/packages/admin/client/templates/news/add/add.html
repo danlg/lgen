@@ -9,11 +9,11 @@
     <!-- Form horizontal -->
     <div class="panel panel-flat">
         <div class="panel-heading">
-            <h1>Add news article</h1>
+            <h1>Communicate news to your community</h1>
         </div>
 
         <div class="panel-body">
-            <p class="content-group-lg">You may add new news article to your school by filling in the form below.</p>
+            <p class="content-group-lg">Simply fill in fields and click Add News. That's it</p>
 
             <form class="form-horizontal" action="#">
                 <fieldset class="content-group">
@@ -21,7 +21,7 @@
                     <legend class="text-bold" style="text-transform:initial;">News details</legend>
                     
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Add the news to newsgroup:</label>
+                        <label class="control-label col-lg-2">Broadcast news to newsgroup</label>
                         <div class="col-lg-10">
                             {{#each newsgroups}}
                                 <input type="checkbox" name="addNews-newsgroup" value="{{url}}">{{name}}<br>
@@ -30,14 +30,14 @@
                     </div>
                     
                     <div class="form-group">
-                        <label class="control-label col-lg-2">News title</label>
+                        <label class="control-label col-lg-2">Title</label>
                         <div class="col-lg-10">
-                            <input id="addNews-title" type="text" class="form-control" placeholder="Type here the news title">
+                            <input id="addNews-title" type="text" class="form-control" placeholder="A great catchy title to capture your audience">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">News Content</label>
+                        <label class="control-label col-lg-2">Content</label>
                         <div class="col-lg-10">
                            <!-- <input id="addClass-code" type="text" class="form-control" placeholder="Class Code">-->
                             <textarea id="addNews-content" rows="4" cols="50" placeholder="Type here the news content">
@@ -53,8 +53,8 @@
                         </div>                        
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Push Notification</label>
-                        <label class="control-label col-lg-2">If Checked, user will receive an notification in their device.</label>
+                        <label class="control-label col-lg-2">Push notification</label>
+                        <label class="control-label col-lg-2">If checked, user receive a notification on their phone</label>
                         <div class="col-lg-10">
                             <input id="addNews-push-notification" type="checkbox" name="addNews-push-notification"/>                          
                         </div>
@@ -62,7 +62,7 @@
                 </fieldset>
                 
                 <div class="text-right">
-                    <button id="addNews-submit" type="submit" class="btn btn-primary">Add News <i class="icon-arrow-right14 position-right"></i></button>
+                    <button id="addNews-submit" type="submit" class="btn btn-primary">Add News<i class="icon-arrow-right14 position-right"></i></button>
                 </div>
             </form>
         </div>
