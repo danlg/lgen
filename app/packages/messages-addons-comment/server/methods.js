@@ -1,7 +1,7 @@
 Meteor.methods({
     
     'smartix:messages-addons-comment/addNewComment': function(messageId, commentText){
-        log.info('smartix:messages-addons-comment/addNewComment',messageId,commentText);
+        console.log('smartix:messages-addons-comment/addNewComment',messageId,commentText);
         var msgObj = Smartix.Messages.Collection.findOne(messageId);
         
         if(msgObj){

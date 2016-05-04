@@ -233,7 +233,7 @@ Template.SendMessage.events({
       populateAddons(addons, mediaObj);
 
       GeneralMessageSender(target[0],'text',msg, addons,null,function(){
-          log.info('callback@GeneralMessageSender');
+          console.log('callback@GeneralMessageSender');
           Session.set("sendMessageSelectedClasses", {
             selectArrName: [],
             selectArrId: []
@@ -296,7 +296,7 @@ function populateAddons(addons, mediaObj)
 {
   //add images to addons one by one if any
   if (mediaObj.imageArr.length > 0) {
-    //log.info('there is image');
+    //console.log('there is image');
     mediaObj.imageArr.map(function (eachImage) {
       addons.push({type: 'images', fileId: eachImage});
     })
@@ -304,7 +304,7 @@ function populateAddons(addons, mediaObj)
 
   //add documents to addons one by one if any
   if (mediaObj.documentArr.length > 0) {
-    //log.info('there is doc');
+    //console.log('there is doc');
     mediaObj.documentArr.map(function (eachDocument) {
       addons.push({type: 'documents', fileId: eachDocument});
     })
@@ -312,7 +312,7 @@ function populateAddons(addons, mediaObj)
 
   //add voice to addons one by one if any
   if (mediaObj.soundArr.length > 0) {
-    log.info('there is voice');
+    console.log('there is voice');
     mediaObj.soundArr.map(function (eachDocument) {
       addons.push({type: 'voice', fileId: eachDocument});
     })
@@ -320,14 +320,14 @@ function populateAddons(addons, mediaObj)
 
   //add calendar to addons one by one if any
   if (mediaObj.calendarEvent.eventName && mediaObj.calendarEvent.eventName != "") {
-    //log.info('there is calendar');
-    //log.info(mediaObj.calendarEvent);
+    //console.log('there is calendar');
+    //console.log(mediaObj.calendarEvent);
     addons.push(populateCalendar(mediaObj));
   }
 
   //add comments to addons one by one if any
   if (mediaObj.allowComment) {
-    //log.info('allowComment');
+    //console.log('allowComment');
     addons.push({type: 'comment', comments: []});
   }
   //add poll to addons one by one if any
@@ -350,7 +350,7 @@ function populateCalendar(mediaObj) {
 function populateVote(voteObj, mediaObj) {
   voteObj.type = "poll";
   voteObj.votes = [];
-  log.info('allowVote');
+  console.log('allowVote');
 
   log.info(mediaObj.voteType);
 

@@ -200,7 +200,7 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
         }catch(e){
             
         }
-        log.info('newUserId: ',newUserId);
+        console.log('newUserId: ',newUserId);
         
         delete options.email;
         delete options.username;
@@ -237,7 +237,7 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
                 try{
                     Accounts.sendVerificationEmail(newUserId);
                 }catch(e){
-                    log.info(e);
+                    console.log(e);
                 }
             }
         } else {
@@ -246,7 +246,7 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
                 Accounts.sendEnrollmentEmail(newUserId);
             } catch(e) {
                 // If the email cannot be sent, set a password of `password`
-                log.info(e);
+                console.log(e);
                 // Temporary (to be removed once email credentials go into production)
                 Accounts.setPassword(newUserId, 'password', {logout: false});
             }
@@ -321,9 +321,9 @@ Smartix.Accounts.editUserSchema = Smartix.Accounts.Schema.pick([
 ]);
 
 Smartix.Accounts.editUser = function (userId, options, currentUser) {
-    log.info('Smartix.Accounts.editUser',options);
+    console.log('Smartix.Accounts.editUser',options);
     if (Smartix.Accounts.canEditUser(userId, options, currentUser)) {
-        log.info('Smartix.Accounts.editUser:canEditUser',options);
+        console.log('Smartix.Accounts.editUser:canEditUser',options);
         return Meteor.users.update({
             _id: userId
         }, {

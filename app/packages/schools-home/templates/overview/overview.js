@@ -7,12 +7,12 @@ Template.MobileSchoolHome.helpers({
             username: Router.current().params.school                                                                     
         });
         
-        //log.info('schoolDoc',schoolDoc);
+        //console.log('schoolDoc',schoolDoc);
         if(schoolDoc) {
             schoolLogoId = schoolDoc.logo;
         
         }
-        //log.info(schoolLogoId);
+        //console.log(schoolLogoId);
         
         return Images.findOne(schoolLogoId);
     },
@@ -34,10 +34,10 @@ Template.MobileSchoolHome.helpers({
     },
     getSlidingNews:function(){
         var newsgroups =  Smartix.Groups.Collection.find({ type: 'newsgroup' }).fetch();
-        //log.info('getSlidingNews:',newsgroups);
+        //console.log('getSlidingNews:',newsgroups);
         var newsgroupsIds = lodash.map(newsgroups,'_id');        
         var messages = Smartix.Messages.Collection.find({ group: { $in: newsgroupsIds } }, {sort: {createdAt: -1 } } );        
-        //log.info('getSlidingNews:', messages);
+        //console.log('getSlidingNews:', messages);
         if(messages.count()>0){
             Template.instance().slidingNewsLoaded.set(true);
         }

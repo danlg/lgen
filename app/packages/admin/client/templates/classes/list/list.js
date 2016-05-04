@@ -6,7 +6,7 @@ Template.AdminClassesSearch.onCreated(function () {
     ) {
         this.subscribe('smartix:classes/allClassesFromSchoolName', Router.current().params.school);
     } else {
-        log.info("Please specify a school to list the classes for");
+        console.log("Please specify a school to list the classes for");
     }
 });
 

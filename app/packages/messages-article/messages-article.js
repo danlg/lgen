@@ -10,10 +10,10 @@ Smartix.Messages.ValidTypes = Smartix.Messages.ValidTypes || [];
 
 // Add `text` to `Smartix.Messages.ValidTypes` array
 // (from `smartix:messages` package) on initialization
-//log.info('push new message valid type: article', );
+//console.log('push new message valid type: article', );
 Smartix.Messages.ValidTypes.push('article');
 
-//log.info('Smartix.Messages.ValidTypes',Smartix.Messages.ValidTypes);
+//console.log('Smartix.Messages.ValidTypes',Smartix.Messages.ValidTypes);
 
 Smartix.Messages.Article = Smartix.Messages.Article || {};
 

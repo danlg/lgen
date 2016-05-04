@@ -77,7 +77,7 @@ Template.AdminParentsImport.events({
                     Session.set('imported-parents', finalResults);
                 },
                 error: function (error, file) {
-                    log.info(error);
+                    console.log(error);
                 }
             });
         }

@@ -8,13 +8,13 @@ Template.MessageDetail.helpers({
     return Images.findOne(id);
   },
   isNewMessage:function(createdAt){
-    //log.info('isNewMessage',createdAt);
+    //console.log('isNewMessage',createdAt);   
      var result = Notifications.findOne({'eventType':'newclassmessage','messageCreateTimestamp':createdAt});       
      //backward comptability
      if(!result){
          return "";
      }
-     //log.info(result);
+     //console.log(result);  
      if(result.hasRead == false){
          return 'ion-record';
      }else{

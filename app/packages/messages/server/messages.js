@@ -2,14 +2,14 @@ Smartix = Smartix || {};
 
 Smartix.Messages = Smartix.Messages || {};
 
-//log.info('smartix:messages:validTypes@message', Smartix.Messages.ValidTypes);
+//console.log('smartix:messages:validTypes@message', Smartix.Messages.ValidTypes);
 Smartix.Messages.ValidTypes = Smartix.Messages.ValidTypes || [];
 
-//log.info('message-addons-calendar@message',Smartix.Messages.Addons.Calendar.Schema);
+//console.log('message-addons-calendar@message',Smartix.Messages.Addons.Calendar.Schema);
 
 // Checks whether a type is supported
 Smartix.Messages.isValidType = function (type) {
-    log.info('Smartix.Messages.isValidType',Smartix.Messages.ValidTypes);
+    console.log('Smartix.Messages.isValidType',Smartix.Messages.ValidTypes);
     return Smartix.Messages.ValidTypes.indexOf(type) > -1;
 }
 
@@ -39,18 +39,18 @@ Smartix.Messages.cleanAndValidate = function (message) {
     check(message, Object);
     check(message.type, String);
     
-    //log.info('Smartix.Utilities.letterCaseToCapitalCase(message.type)', Smartix.Utilities.letterCaseToCapitalCase(message.type));
-    //log.info('Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)]', Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)]);
+    //console.log('Smartix.Utilities.letterCaseToCapitalCase(message.type)', Smartix.Utilities.letterCaseToCapitalCase(message.type));
+    //console.log('Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)]', Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)]);
     
-    //log.info('message-beforeclean; ', message);
+    //console.log('message-beforeclean; ', message);
     // Clean the message
     Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)].Schema.clean(message);
     
     // Checks the data provided conforms to the schema for that message type
-    //log.info('message-afterclean: ', message);
+    //console.log('message-afterclean: ', message);
     
     var correspondingSchema = Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)].Schema;
-    //log.info( correspondingSchema );
+    //console.log( correspondingSchema );
     
     var result = check(message, correspondingSchema);
     
@@ -64,7 +64,7 @@ Smartix.Messages.cleanAndValidate = function (message) {
 };
 
 Smartix.Messages.createMessage = function (groupId, messageType, data, addons, isPush) {
-    log.info('Smartix.Messages.createMessage',groupId,messageType,data,addons, isPush);
+    console.log('Smartix.Messages.createMessage',groupId,messageType,data,addons, isPush);
     check(groupId, String);
     check(messageType, String);
     check(data, Object);
@@ -84,7 +84,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
     
     // Checks if group exists
     if(!group) {
-        log.info('group not exist');
+        console.log('group not exist');
         return false;
         
         // OPTIONAL: Throw error saying the group specified does not exists
@@ -95,7 +95,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
     // The logic behind this would be different for different group types
     if(!Smartix[Smartix.Utilities.letterCaseToCapitalCase(group.type)].Messages.canCreateMessage(groupId, group.type)) {
         
-        log.info('no permission to create message for this group');
+        console.log('no permission to create message for this group');
         return false;
         // OPTIONAL: Throw error saying you do not have
         // permission to create message for this group
@@ -107,7 +107,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
     
     // Checks that this type of message is valid
     if(!Smartix.Messages.isValidType(messageType)) {
-        log.info('type specified is not recognized');
+        console.log('type specified is not recognized');
         return false;
         // OPTIONAL: Throw error indicating the `type` specified is not recognized
     }
@@ -141,7 +141,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
     //chat's  msg allow addons are files/images and/or voice
     //news's  msg allow addons are files/images and/or voice
     
-    log.info('newMessage',newMessage);
+    console.log('newMessage',newMessage);
     if(addons) {
         
         /* ***************************************** */
@@ -152,7 +152,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
         //e.g This is class, so all addons are allowed. We input the newMessage Id , and the addons for the examination
         
         if(!Smartix[Smartix.Utilities.letterCaseToCapitalCase(group.type)].Messages.canAttachAddons(newMessage, addons)) {
-            log.info('not in canAttachAddons in this group type', Smartix.Utilities.letterCaseToCapitalCase(group.type));
+            console.log('not in canAttachAddons in this group type', Smartix.Utilities.letterCaseToCapitalCase(group.type));
             return false;
             // OPTIONAL: Throw error saying you do not have
             // permission to attach an addon for this group
@@ -167,7 +167,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
         addons.map(function(eachAddOn){
             
             if(group.addons.indexOf(eachAddOn.type) < 0) {
-                log.info('not in canAttachAddons in this specific group instance', Smartix.Utilities.letterCaseToCapitalCase(group.type));
+                console.log('not in canAttachAddons in this specific group instance', Smartix.Utilities.letterCaseToCapitalCase(group.type));
                 return false;
                 // OPTIONAL: Throw error indicating the add-on
                 // you are trying to attached in not an approved type
@@ -181,16 +181,16 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
         /* ******************************************** */
         Smartix.Messages.Addons.attachAddons(newMessage, addons);
     }
-
+    
     if(isPush){
         //2. add notification to notifications collection
         //add notifications to db
-
-        //Remove current user himself/herself from the push notification list
+        
+        //Remove current user himself/herself from the push notiification list
         lodash.remove(group.users,function(eachUserId){
-            return (eachUserId === Meteor.userId());
+            return (eachUserId === Meteor.userId()) ? true : false
         });
-
+        
         group.users.map(function(eachTargetUser){
             Notifications.insert({
                 eventType:"new"+group.type+"message",
@@ -212,18 +212,18 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
                     query:{userId:eachTargetUser},
                     badge: Smartix.helpers.getTotalUnreadNotificationCount(eachTargetUser._id)
                 };
-
+                
                 if(group.type === 'newsgroup'){
                     notificationObj.title = message.data.title || "";
                 }
-
+                
                 Meteor.call("serverNotification", notificationObj,{
                     groupId: groupId,
                     classCode: group.classCode || ""
-                });
-
+                });             
+                
             });
-        });
+        });               
     }
     
     //update group lastUpdateBy, lastUpdatedAt fields to indicate modification in this group and by whom

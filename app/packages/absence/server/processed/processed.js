@@ -22,8 +22,8 @@ Smartix.Absence.processAbsences = function (namespace, currentUser) {
     
     // Get all the students in the namespace who are expected to tap in
     let allSchoolUsers = Smartix.Accounts.School.getAllSchoolStudents(namespace, currentUser);
-    log.info(allSchoolUsers);
-    log.info(allSchoolUsers.count());
+    console.log(allSchoolUsers);
+    console.log(allSchoolUsers.count());
     
     
     // Smartix.Absence.Collections.processed.upsert();

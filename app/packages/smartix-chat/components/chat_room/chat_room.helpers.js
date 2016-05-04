@@ -45,14 +45,14 @@ Template.ChatRoom.helpers({
             }else{
                 eachMessage.isFirstMsgInOneDay = false;
             }
-            //log.info(transformCount,' ',eachMessage.data.content ,' ',eachMessage.createdAt);
+            //console.log(transformCount,' ',eachMessage.data.content ,' ',eachMessage.createdAt);
             
             
             return eachMessage;
         }  
 
     } );
-    log.info('chatMessages',chatMessages);
+    console.log('chatMessages',chatMessages);
        
     return chatMessages;   
   },
@@ -137,8 +137,7 @@ Template.ChatRoom.helpers({
   },
 
   isText: function () {
-    log.info('isText',this.data.content);
-    //this smells because if we change the content it breaks, we should base it on the addon
+    console.log('isText',this.data.content);
     if(this.data.content === 'New Image' || this.data.content === 'New Document' ){
       return false;
     }else{
@@ -195,7 +194,7 @@ Template.ChatRoom.helpers({
         target = Smartix.helpers.getAnotherUser();
     }
 
-    //log.info('target',target);
+    //console.log('target',target);
     //TODO: migrate to Groups
     if (
         Roles.userIsInRole(target, 'user',currentChat.namespace) ||
@@ -203,7 +202,7 @@ Template.ChatRoom.helpers({
         Roles.userIsInRole(target, Smartix.Accounts.School.PARENT, currentChat.namespace)
        )
     {
-      log.info('chat setting');
+      console.log('chat setting');
       //debugger;
       if (target.profile.chatSetting && target.profile.chatSetting.workHour) {
         var workHourTime = target.profile.chatSetting.workHourTime;

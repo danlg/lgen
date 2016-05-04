@@ -21,7 +21,7 @@ Template.LoginSplash.events({
 /*****************************************************************************/
 Template.LoginSplash.helpers({
   //I18N : function(key) {
-  //  log.info("I18N:" + key);
+  //  console.log("I18N:" + key);
   //  log.info("I18N:" + key);
   //  return TAPi18n.__(key);
   //}

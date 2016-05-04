@@ -12,7 +12,7 @@ Meteor.publish('newsInGroup', function(id, limit, query) {
 });
 
 Meteor.publish('newsgroupsForUser', function(limit, query, namespace) {
-    //log.info('newsgroupsForUser',limit,query,namespace);
+    //console.log('newsgroupsForUser',limit,query,namespace);
     var schoolDoc = SmartixSchoolsCol.findOne({
         username: namespace
     });

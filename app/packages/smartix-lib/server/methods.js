@@ -21,7 +21,7 @@ Meteor.methods({
       if (resultset) {
         
         if(resultset.namespace !== targetSchoolNamespace){
-          log.info('class/join: cant join the class in different namespace');
+          console.log('class/join: cant join the class in different namespace');
           throw new Meteor.Error("class-different-namespace", "Can't join the class in different namespace");
         }
         
@@ -172,7 +172,7 @@ Meteor.methods({
         notificationObjType="single";
         var userId = notificationObj.query.userId;
         var userObj = Meteor.users.findOne(userId);
-        log.info('serverNotification:',userObj,userId);
+        console.log('serverNotification:',userObj,userId);
         if (userObj.pushNotifications) {
             filteredUserIdsWhoEnablePushNotify.push(userId);
             notificationObj.badge = Smartix.helpers.getTotalUnreadNotificationCount(userId);
@@ -215,7 +215,7 @@ Meteor.methods({
             });
         });          
     }else if(inAppNotifyObj && notificationObj.payload.type == 'newsgroup'){
-        log.info('newsgroup',notificationObj);
+        console.log('newsgroup',notificationObj);
         var userIds = filteredUserIdsWhoEnablePushNotify;
         
         //send notification via websocket using Streamy

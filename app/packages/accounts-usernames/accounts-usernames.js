@@ -1,11 +1,11 @@
 if(Meteor.isServer){
-    //log.info('ac-username','is Smartix exist?',Smartix || {});
+    //console.log('ac-username','is Smartix exist?',Smartix || {});
     Smartix = Smartix || {};
     Smartix.Accounts = Smartix.Accounts || {};
     Smartix.Accounts.helpers = Smartix.Accounts.helpers || {};
 
     Smartix.Accounts.helpers.generateUniqueUserName = function(firstname, lastname){
-        //log.info('generateUniqueUserName',firstname,lastname);
+        //console.log('generateUniqueUserName',firstname,lastname);
         // Check the arguments are of the correct type
         check(firstname, String);
         check(lastname, String);

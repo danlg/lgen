@@ -9,14 +9,14 @@ Smartix.Messages.Addons.ValidTypes = Smartix.Messages.Addons.ValidTypes || [];
 //stub that should be removed by using the subpackages
 Smartix.Messages.Addons.ValidTypes.push('documents','images','poll','voice','calendar','comment');
 
-log.info('messages-addons',Smartix.Messages.Addons);
+console.log('messages-addons',Smartix.Messages.Addons);
 
-log.info('messages-addons-poll@messages-addons',Smartix.Messages.Addons.Poll.Schema);
-//log.info('messages-addons-images@messages-addons',Smartix.Messages.Addons.Images.Schema);
-log.info('messages-addons-documents@messages-addons',Smartix.Messages.Addons.Documents.Schema);
-log.info('messages-addons-calendar@messages-addons',Smartix.Messages.Addons.Calendar.Schema);
-//log.info('messages-addons-comment@messages-addons',Smartix.Messages.Addons.Comment.Schema);
-//log.info('messages-addons-voice@messages-addons',Smartix.Messages.Addons.Voice.Schema);
+console.log('messages-addons-poll@messages-addons',Smartix.Messages.Addons.Poll.Schema);
+//console.log('messages-addons-images@messages-addons',Smartix.Messages.Addons.Images.Schema);
+console.log('messages-addons-documents@messages-addons',Smartix.Messages.Addons.Documents.Schema);
+console.log('messages-addons-calendar@messages-addons',Smartix.Messages.Addons.Calendar.Schema);
+//console.log('messages-addons-comment@messages-addons',Smartix.Messages.Addons.Comment.Schema);
+//console.log('messages-addons-voice@messages-addons',Smartix.Messages.Addons.Voice.Schema);
 
 /*
 Smartix.Messages.Addons.Schema = new SimpleSchema({
@@ -81,7 +81,7 @@ Smartix.Messages.Addons.attachAddon = function (messageId, types) {
 // Same as `Smartix.Messages.Addons.attachAddon`
 // But will replace the addon if it already exists
 Smartix.Messages.Addons.attachAndReplaceAddon = function (messageId, addon) {
-    log.info('attachAndReplaceAddon',messageId,addon);
+    console.log('attachAndReplaceAddon',messageId,addon);
     
     addon = Smartix.Messages.Addons.cleanAndValidate(messageId, addon);
     var updateCount = Smartix.Messages.Collection.update({
@@ -105,7 +105,7 @@ Smartix.Messages.Addons.attachAndReplaceAddon = function (messageId, addon) {
 
 Smartix.Messages.Addons.cleanAndValidate = function (messageId, addon) {
     
-    log.info('cleanAndValidate validtypes:',Smartix.Messages.Addons.ValidTypes);
+    console.log('cleanAndValidate validtypes:',Smartix.Messages.Addons.ValidTypes);
     
     // Checks that the `messageId` is of type `String`
     check(messageId, String);
@@ -119,7 +119,7 @@ Smartix.Messages.Addons.cleanAndValidate = function (messageId, addon) {
     }));
     
     // Clean the addon object
-    log.info('clean the addon object', Smartix.Utilities.letterCaseToCapitalCase(addon.type));
+    console.log('clean the addon object', Smartix.Utilities.letterCaseToCapitalCase(addon.type));
     Smartix.Messages.Addons[Smartix.Utilities.letterCaseToCapitalCase(addon.type)].Schema.clean(addon);
     
     // Check the addon against the schema

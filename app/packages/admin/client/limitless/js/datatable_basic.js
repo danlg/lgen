@@ -11,7 +11,7 @@
 
 // var onRendered = function() {
     
-//     log.info('here');
+//     console.log('here');
 
 
 //     // Table setup

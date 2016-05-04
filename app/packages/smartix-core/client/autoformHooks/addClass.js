@@ -4,10 +4,10 @@ var postHooks = {
       if (!doc.classCode) {
         doc.classCode = Smartix.helpers.getClassCodeNew(doc.className);
       }
-      //log.info("1.doc.classCode BEFOR="+doc.classCode);
+      //console.log("1.doc.classCode BEFOR="+doc.classCode);
       // THIS IS WHAT PREVENTS TO INSERT class code IN UPPER CASE
       doc.classCode = doc.classCode.trim().toLowerCase();
-      //log.info("2.doc.classCode AFTER="+doc.classCode);
+      //console.log("2.doc.classCode AFTER="+doc.classCode);
       doc.users = [];
       return doc;
     }

@@ -6,9 +6,9 @@ Template.UploadIcon.events({
 	'click button': function(event, tmp){
       var imageCropped = img.getCroppedCanvas().toDataURL()
       var newData480 = imageResize(imageCropped, 480, 480)
-      log.info("img480"+newData480);
+      console.log("img480"+newData480);
       var newData120 = imageResize(imageCropped, 120, 120);
-      log.info("img120"+newData120);
+      console.log("img120"+newData120);
       Session.set(inputParameters.sessionToBeSet,newData120);
 		}
 });

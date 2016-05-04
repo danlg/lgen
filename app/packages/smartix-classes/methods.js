@@ -49,9 +49,9 @@ Meteor.methods({
         }
     }                                                                                           
     var result = Smartix.Class.createClass(classObj, this.userId);
-    log.info(result);
+    console.log(result);
     if(result == "no-right-create-class"){
-      log.info('throw err');
+      console.log('throw err');
      throw new Meteor.Error("no-right-create-class", "No right to create class in this school");        
     }       
   },

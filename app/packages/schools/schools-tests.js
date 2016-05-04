@@ -8,7 +8,7 @@ Tinytest.add('example', function (test) {
 //Create School
 
 //call below as system admin
-//Meteor.call('smartix:schools/createSchool',{name:'Shau Kei Wan - Elsa High',username:'elsahigh',logo:'1234567',tel:'36655388',web:'http://www.carmel.edu.hk/',email:'elsahighschool@carmel.edu.hk.fake',active:true,preferences:{}},function(err,result){if(err){log.info(err)} log.info(result)});
+//Meteor.call('smartix:schools/createSchool',{name:'Shau Kei Wan - Elsa High',username:'elsahigh',logo:'1234567',tel:'36655388',web:'http://www.carmel.edu.hk/',email:'elsahighschool@carmel.edu.hk.fake',active:true,preferences:{}},function(err,result){if(err){console.log(err)} console.log(result)});
 
 //expect return
 // Object

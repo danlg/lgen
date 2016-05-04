@@ -164,7 +164,7 @@ Template.ClassInformationForWebUser.onRendered(function () {
       });
     Meteor.call("addReferral", Router.current().params.query.rid, function(error, result){
       if(error){
-        log.info("error", error);
+        console.log("error", error);
       }
       if(result){
 

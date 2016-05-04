@@ -17,14 +17,14 @@ Template.EmailForgetPwd.events({
         if (err) {
           if (err.message === 'User not found [403]') {
             toastr.error(TAPi18n.__("EmailNotFound"));
-            log.info('This email does not exist.');
+            console.log('This email does not exist.');
           } else {
             toastr.error("We are sorry but something went wrong");             
-            log.info('We are sorry but something went wrong.',err.message);
+            console.log('We are sorry but something went wrong.',err.message);
           }
         } else {
           toastr.info(TAPi18n.__("EmailSentCheckMailBox"));  
-          log.info('Email Sent. Check your mailbox.');
+          console.log('Email Sent. Check your mailbox.');
         }
       });
      }else{

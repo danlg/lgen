@@ -167,7 +167,7 @@ Template.ClassDetail.helpers({
         }
         
     });
-    //log.info('lodaedItems',loadedItems.get());
+    //console.log('lodaedItems',loadedItems.get());
     
     return classMessages;
   },
@@ -219,7 +219,7 @@ Template.ClassDetail.helpers({
 Template.ClassDetail.onCreated(function () {
     var self = this;
 
-    log.info(Router.current().params.classCode);
+    console.log(Router.current().params.classCode);
     var classObj = Smartix.Groups.Collection.findOne({
         type: 'class',
         classCode: Router.current().params.classCode

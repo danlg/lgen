@@ -65,7 +65,7 @@ Smartix.Messages.Addons.Comment.addNewComment = function (messageId, commentObj)
                     var msgObj = Smartix.Messages.Collection.findOne({_id:messageId});
                     var groupObj = Smartix.Groups.Collection.findOne({_id:msgObj.group});
                     
-                    //log.info(commentObj);
+                    //console.log(commentObj);
                     
                     groupObj.admins.map(function(eachAdmin){     
                         Meteor.call('insertNotification', {

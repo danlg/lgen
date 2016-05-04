@@ -16,7 +16,7 @@ Template.AdminUsersView.helpers({
         });
     },
     userEmail: function () {
-        log.info(this);
+        console.log(this);
         return this.emails[0].address;
     },
     userRoles: function () {

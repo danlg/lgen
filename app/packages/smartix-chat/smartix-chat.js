@@ -79,7 +79,7 @@ Smartix.Chat.getChatOfUser = function (id) {
 }
 
 Smartix.Chat.canCreateChat = function (namespace, currentUser) {
-	//log.info('canCreateChat',namespace);
+	//console.log('canCreateChat',namespace);
     check(namespace, String);
     check(currentUser, Match.Maybe(String));
     
@@ -101,7 +101,7 @@ Smartix.Chat.createChat = function (chatObj) {
 
 	if(chatObj.namespace !== 'global'
         && !Smartix.Chat.canCreateChat(chatObj.namespace)) {
-		log.info('Smartix.Chat.canCreateChat:',false);
+		console.log('Smartix.Chat.canCreateChat:',false);
 		return false;
 		// Optional: Throw an appropriate error if not
 	}

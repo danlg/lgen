@@ -79,7 +79,7 @@ Smartix.Class.Messages.canAttachAddons = function (announcementId, addons) {
     var _class = Smartix.Messages.getGroupFromMessageId(announcementId);
     
     if(!_class || _class.type !== 'class') {
-        log.info('this group type is not class!')
+        console.log('this group type is not class!')
         return false;
         // OPTIONAL: Throw error indicating the class
         // for which the announcement belongs to no longer exists
@@ -88,7 +88,7 @@ Smartix.Class.Messages.canAttachAddons = function (announcementId, addons) {
     var isGroupAdmin = _class.admins.indexOf(Meteor.userId()) > -1;
     
     if(!(isAuthorOfAnnouncement || isClassAdmin)) {
-        log.info('you are not author of the announcement or the admin of the class')
+        console.log('you are not author of the announcement or the admin of the class')
         return false;
         // OPTIONAL: Throw error saying you must be either
         // the author of the announcement, or
@@ -100,13 +100,13 @@ Smartix.Class.Messages.canAttachAddons = function (announcementId, addons) {
     });
     
     if(addonTypes.length !== lodash.compact(addonTypes).length) {
-        log.info('addons do not have type property specified');
+        console.log('addons do not have type property specified');
         return false;
         // OPTIONAL: Throw error saying some addons do not have the `type` property specified
     }
     
     // If there are addons with types not allowed for this class, return `false`
-    log.info('notAllowedTypes',addonTypes,_class.addons);
+    console.log('notAllowedTypes',addonTypes,_class.addons);
     var notAllowedTypes = _.difference(addonTypes, _class.addons);
     
     if(notAllowedTypes.length > 0){

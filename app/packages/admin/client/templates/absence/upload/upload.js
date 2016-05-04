@@ -66,7 +66,7 @@ Template.AdminUploadAttendence.events({
                     Session.set('imported-attendence', results.data);
                 },
                 error: function (error, file) {
-                    log.info(error);
+                    console.log(error);
                 }
             });
         }
@@ -76,7 +76,7 @@ Template.AdminUploadAttendence.events({
         Meteor.call('smartix:absence/updateAttendenceRecord', Session.get('imported-attendence'), Router.current().params.school, function (err, res) {
             if(!err) {
                 // Toaster to notify success
-                log.info(res);
+                console.log(res);
                 if(res.insertCount) {
                     $('#AdminUploadAttendence__errorMsgBlock').append(res.insertCount + " records were updated successfully.<br><br>");
                 }
@@ -84,7 +84,7 @@ Template.AdminUploadAttendence.events({
                     $('#AdminUploadAttendence__errorMsgBlock').append(res.errors.join("<br><br>"));
                 }
             } else {
-                log.info(err);
+                console.log(err);
                 $('#AdminUploadAttendence__errorMsgBlock').append(err.details);
             }
         });

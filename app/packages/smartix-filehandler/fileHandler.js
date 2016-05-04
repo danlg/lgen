@@ -1,4 +1,4 @@
-//log.info('filehandler','is Smartix exist?',Smartix || {});
+//console.log('filehandler','is Smartix exist?',Smartix || {});
 Smartix = Smartix || {};
 Smartix.FileHandler = Smartix.FileHandler || {};
 Smartix.FileHandler = (function () {
@@ -22,7 +22,7 @@ Smartix.FileHandler = (function () {
         addons = [];
         //add documents to addons one by one if any
         if(mediaObj.documentArr){
-            log.info('there is doc');
+            console.log('there is doc');
             mediaObj.documentArr.map(function(eachDocument){
                 addons.push({type:'documents',fileId:eachDocument});
             })

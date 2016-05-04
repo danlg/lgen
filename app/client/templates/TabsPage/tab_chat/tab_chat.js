@@ -61,7 +61,7 @@ Template.TabChat.helpers({
         },
         {sort:{"lastUpdatedAt":-1}}
     );
-    //log.info('getAllMyChatRooms',allchats.fetch()    );
+    //console.log('getAllMyChatRooms',allchats.fetch()    );
     return allchats;
     
   },
@@ -86,7 +86,7 @@ Template.TabChat.helpers({
         // => 1-to-1 chat
         //      => display another user's full name 
         
-        log.info('users',this.users);
+        console.log('users',this.users);
         var userIds = this.users;
         var maxNumberOfDisplayName = maxDisplay;
         var userObjArr = Meteor.users.find({_id: {$in: this.users }}).fetch();
@@ -123,7 +123,7 @@ Template.TabChat.helpers({
   },
 
   'lasttext': function (groupId) {
-      //log.info('lasttext',Smartix.Messages.Collection.find({group:groupId}, {sort: {createdAt: -1}, limit: 1}).fetch());
+      //console.log('lasttext',Smartix.Messages.Collection.find({group:groupId}, {sort: {createdAt: -1}, limit: 1}).fetch());
       return Smartix.Messages.Collection.find({group:groupId}, {sort: {createdAt: -1}, limit: 1}).fetch()[0].data.content;
   },
 
@@ -201,7 +201,7 @@ Template.TabChat.created = function () {
             {sort:{"lastUpdatedAt":-1}}
         ).fetch();
         var allGroupIds = lodash.map(allchats,"_id");
-        //log.info('allGroupIds',allchats,allGroupIds);
+        //console.log('allGroupIds',allchats,allGroupIds);
         self.subscribe('smartix:messages/latestMessageEachGroups',allGroupIds);               
     });
 

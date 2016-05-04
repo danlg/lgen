@@ -1,6 +1,6 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 //template for email messaging of chat room and class. TODO: Refactor to support lang parameter
-//log.info('emailTemp','is Smartix exist?',Smartix || {});
+//console.log('emailTemp','is Smartix exist?',Smartix || {});
 Smartix = Smartix || {};
 //unit testing
 //Smartix.messageEmailTemplate(['dan@gosmartix.com'],['dan@gosmartix.com'],'content is great',{chatRoomName:'math'})
@@ -191,7 +191,7 @@ Smartix.inviteClassMailTemplate = function (to, classObj) {
 };
 
 Smartix.verificationEmailTemplate = function (userObj, verificationURL) {
-  //log.info('verificationEmailTemplate',userObj);
+  //console.log('verificationEmailTemplate',userObj);
   var emailLang = userObj.lang || "en";
   var verifyEmailcontent;
   try {

@@ -3,7 +3,7 @@ Template.SchoolPick.helpers({
       //approved schools == schools at Meteor.user().roles AND at Meteor.user().schools                
       var approvedSchools = Meteor.user().schools;
       
-      log.info('approvedSchools',approvedSchools);
+      console.log('approvedSchools',approvedSchools);
       if(approvedSchools){
          return SmartixSchoolsCol.find({_id:{$in: approvedSchools} });          
       }
@@ -18,7 +18,7 @@ Template.SchoolPick.helpers({
         //the seconds parameter is the schools to exclude
         var pendingSchools =  lodash.difference(allShools,approvedSchools);
         
-        log.info('pendingSchools',pendingSchools);
+        console.log('pendingSchools',pendingSchools);
         if(pendingSchools){
             return SmartixSchoolsCol.find({_id:{$in: pendingSchools} });                
         }              
@@ -54,7 +54,7 @@ Template.SchoolPick.events({
        if(!isApproved){
             Meteor.call('smartix:accounts-schools/approveSchool',schoolId);    
        }
-       log.info('schoolid',schoolId);
+       console.log('schoolid',schoolId);  
        
        Session.set('pickedSchoolId',schoolId);
        

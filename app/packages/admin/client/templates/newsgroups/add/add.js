@@ -14,12 +14,12 @@ Template.AdminNewsgroupsAdd.events({
         // Make ageRestricted `true`, otherwise `false`
         newNewsgroup.ageRestricted = newNewsgroup.ageRestricted === "on" ? true : false;
         
-        log.info('newNewsgroupObj',newNewsgroup);
+        console.log('newNewsgroupObj',newNewsgroup);
         
         Meteor.call('smartix:newsgroups/createNewsgroup', Router.current().params.school, newNewsgroup,function(err,result){
             
             if(err){
-                log.info(err);
+                console.log(err);
                 toastr.info(err.reason);
             }else{
                 toastr.info('Newsgroup is created. Default to all school users');
