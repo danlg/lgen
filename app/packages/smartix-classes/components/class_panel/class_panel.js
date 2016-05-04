@@ -103,9 +103,6 @@ Template.ClassPanel.events({
 /* ClassPanel: Helpers */
 /*****************************************************************************/
 Template.ClassPanel.helpers({
-  formatDate: function (date) {
-    return moment(date).format("LLLL");
-  },
   classObj: function () {
     var classObj = Smartix.Groups.Collection.findOne({
         type: 'class',

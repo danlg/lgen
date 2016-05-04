@@ -153,10 +153,13 @@ Smartix.helpers.spawnDesktopNotification = function(theBody,theIcon,theTitle,pat
         });
     };
     
-function youtube_parser(url){
+function youtube_parser(url) {
+    //should we add youtube.com in regExp?
     var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
     var match = url.match(regExp);
-    return (match&&match[7].length==11)? match[7] : false;
+    var youtubeid =  (match&&match[7].length==11)? match[7] : false;
+    log.info ("youtubeid="+youtubeid);
+    return youtubeid;
 }
 
 Template.registerHelper('isFirstMessageInADate',function(index){
@@ -271,8 +274,7 @@ Template.registerHelper('docPreview',function(url){
            return embedReadyURLHTML;
          }
          else if(youtubeId != false){
-           
-           log.info('yep...show user the youtube iframe')
+           log.info('Show user the youtube iframe'+ youtubeId);
            return '<iframe width="100%" height="360" src="https://www.youtube.com/embed/'+ youtubeId +'?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>';
          }
          else{
@@ -333,28 +335,29 @@ Template.registerHelper('formatTime', function(time) {
 Template.registerHelper('formatDate', function(time) {
     var dateString="";
     if(time){
-        
       if( moment( new Date(time)).isValid() ){
            dateString = moment(time).format('LL');
-      }else{
+      }
+      else{
         //log.info(this);
         var fullUnixTime = time;
         if (fullUnixTime){
             var trimUnixTime = fullUnixTime.substr(0,10);
             var userLanguage = TAPi18n.getLanguage();
             moment.locale(userLanguage);
-            
             dateString = moment.unix(trimUnixTime).format('LL');
         }             
-      }        
-    
+      }
     }
     return dateString;
 });
 
+Template.registerHelper('formatDateCalendar', function(date) {
+  return moment(date).format("LLLL");
+});
+
 
 function ping(ip, callback) {
-
     if (!this.inUse) {
         this.status = 'unchecked';
         this.inUse = true;
