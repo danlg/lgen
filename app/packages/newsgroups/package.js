@@ -21,20 +21,13 @@ Package.onUse(function(api) {
     api.use('smartix:accounts-utilities@0.0.1');
     api.use('smartix:accounts-schools@0.0.1');
     api.use('smartix:groups@0.0.1');
-    api.addFiles('newsgroups.js');
+    api.addFiles('lib/schema.js', ['client', 'server']);
+    api.addFiles('lib/routes.js', ['client', 'server']);
+    api.addFiles('server/newsgroups.js', 'server');
     api.addFiles('server/methods.js', 'server');
     api.addFiles('server/publications.js', 'server');
-    api.addFiles('templates/list/list.html', 'client');
-    api.addFiles('templates/list/list.js', 'client');
-
-    api.addFiles('routes.js');
+    api.addFiles('client/templates/list/list.html', 'client');
+    api.addFiles('client/templates/list/list.js', 'client');
+    
     api.export('Smartix');
-
-});
-
-Package.onTest(function(api) {
-    api.use('ecmascript');
-    api.use('tinytest');
-    api.use('smartix:newsgroups');
-    api.addFiles('newsgroups-tests.js');
 });

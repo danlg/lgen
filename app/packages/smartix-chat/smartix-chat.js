@@ -222,49 +222,70 @@ Smartix.Chat.editChat = function (id, options) {
 	Smartix.Groups.editGroup(id, updateObj);
 }
 
-Smartix.Chat.deleteChat = function (id) {
+Smartix.Chat.deleteChat = function (id, currentUser) {
 
 	// Checks that `id` is of type String
 	check(id, String);
+    
+    check(currentUser, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    if(!(currentUser === null)) {
+        currentUser = currentUser || Meteor.userId();
+    }
 
 	// Checks that the currently-logged in user has
 	// administrative priviledges for the namespace it specified
 	// (i.e. either the admin for the school, or the system admin)
-	Smartix.Accounts.isUserSchoolAdminForGroup(id);
+	Smartix.Accounts.isUserSchoolAdminForGroup(id, currentUser);
 
 	// Remove the Chat specified
 	Smartix.Groups.deleteGroup(id);
 }
 
-Smartix.Chat.addUsersToGroup = function (id, users) {
+Smartix.Chat.addUsersToGroup = function (id, users, currentUser) {
 
 	// Checks that `id` is of type String
 	check(id, String);
 
 	// Checks that `users` is an array of Strings
 	check(users, [String]);
+    
+    check(currentUser, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    if(!(currentUser === null)) {
+        currentUser = currentUser || Meteor.userId();
+    }
 
 	// Checks that the currently-logged in user has
 	// administrative priviledges for the namespace it specified
 	// (i.e. either the admin for the school, or the system admin)
-	Smartix.Accounts.isUserSchoolAdminForGroup(id);
+	Smartix.Accounts.isUserSchoolAdminForGroup(id, currentUser);
 
 	// Add users to group
 	Smartix.Groups.addUsersToGroup(id, users);
 }
 
-Smartix.Chat.removeUsersToGroup = function (id, users) {
+Smartix.Chat.removeUsersToGroup = function (id, users, currentUser) {
 	
 	// Checks that `id` is of type String
 	check(id, String);
 
 	// Checks that `users` is an array of Strings
 	check(users, [String]);
+    
+    check(currentUser, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    if(!(currentUser === null)) {
+        currentUser = currentUser || Meteor.userId();
+    }
 
 	// Checks that the currently-logged in user has
 	// administrative priviledges for the namespace it specified
 	// (i.e. either the admin for the school, or the system admin)
-	Smartix.Accounts.isUserSchoolAdminForGroup(id);
+	Smartix.Accounts.isUserSchoolAdminForGroup(id, currentUser);
 
 	// Add users to group
 	Smartix.Groups.removeUsersFromGroup(id, users);
