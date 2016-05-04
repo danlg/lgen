@@ -230,7 +230,7 @@ Smartix.Newsgroup.addUsersToGroup = function (id, users, currentUser) {
 	Smartix.Groups.addUsersToGroup(id, users);
 }
 
-Smartix.Newsgroup.removeUsersToGroup = function (id, users, currentUser) {
+Smartix.Newsgroup.removeUsersFromGroup = function (id, users, currentUser) {
 	
 	// Checks that `id` is of type String
 	check(id, String);
@@ -251,6 +251,6 @@ Smartix.Newsgroup.removeUsersToGroup = function (id, users, currentUser) {
 		// Optional: Throw an appropriate error if not
 	}
 
-	// Add users to group
+	// Remove users from group
 	Smartix.Groups.removeUsersFromGroup(id, users);
 }
