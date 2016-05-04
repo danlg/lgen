@@ -1,0 +1,28 @@
+#AdminClassesView__add-user-container {
+    display: inline-block;
+    width: 100%;
+}
+
+.AdminDistributionListView__user-search-result {
+   cursor: pointer;
+}
+
+.AdminClassesView__add-user-input-container {
+    width: 100%;
+}
+
+#AdminDistributionListView__add-user-input {
+    margin-bottom: 1.5rem;
+}
+
+.AdminDistributionListView__user-search-result {
+    height: 3rem;
+    border-bottom: 1px solid #cccccc;
+    line-height: 3rem;
+    padding-left: 1.5rem;
+}
+
+.AdminDistributionListView__user-search-result:hover {
+    background-color: rgba(63, 81, 181, 0.2);
+}
+
