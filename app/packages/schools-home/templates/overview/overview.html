@@ -31,6 +31,7 @@
             </div>           
         </div>                             
       </div>
+      {{#if Template.subscriptionsReady}}
       <div class='news-slidebox-wrapper'>
         <div class='ion-slide-box'>
             {{#each getSlidingNews}}
@@ -53,8 +54,8 @@
             {{/each}}           
         </div>
       </div>
-        
-       <div class='square-cards-wrapper'>        
+      {{/if}} 
+       <div class='square-cards-wrapper '>        
                 <a href="{{pathFor route='newsgroups.news.list'}}" class="card square-card  square-card-small tiles bg bg-news">
                     <span class='square-card-description'>NEWS</span>
                     {{#if sumOfNewNewsCounter}}
@@ -76,7 +77,7 @@
                     <span class='square-card-counter badge badge-assertive'>5</span>
                 </a>
         </div>
-        <div class='square-cards-wrapper'>             
+        <div class='square-cards-wrapper '>             
                 <a class="card square-card  square-card-small tiles bg bg-calendar">
                     <span class='square-card-description'>CALENDAR </span>
                     <span class='square-card-counter  badge badge-assertive'>5</span>
