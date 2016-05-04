@@ -1,8 +1,8 @@
 Smartix = Smartix || {};
 
-Smartix.Mastergroups = Smartix.Mastergroups || {};
+Smartix.DistributionLists = Smartix.DistributionLists || {};
 
-Smartix.Mastergroups.Schema = new SimpleSchema({
+Smartix.DistributionLists.Schema = new SimpleSchema({
 	users: {
 		type: [String]
 	},
@@ -12,7 +12,7 @@ Smartix.Mastergroups.Schema = new SimpleSchema({
 	type: {
 		type: String,
 		autoValue: function () {
-			return 'mastergroup'
+			return 'distributionList'
 		}
 	},
 	name: {
