@@ -2,42 +2,6 @@ Smartix = Smartix || {};
 
 Smartix.Newsgroup = Smartix.Newsgroup || {};
 
-Smartix.Newsgroup.Schema = new SimpleSchema({
-	users: {
-		type: [String]
-	},
-	namespace: {
-		type: String
-	},
-	type: {
-		type: String,
-		autoValue: function () {
-			return 'newsgroup'
-		}
-	},
-	name: {
-		type: String,
-		optional: true
-	},
-	addons: {
-		type: [String],
-		optional: true,
-		defaultValue: {}
-	},
-	url: {
-		type: String,
-		regEx: /^[a-zA-Z0-9-]{3,}$/
-	},
-	admins: {
-		type: [String],
-		minCount: 1
-	},
-	comments: {
-		type: Boolean,
-		defaultValue: false
-	}
-});
-
 Smartix.Newsgroup.getNewsGroupOfUser = function (id) {
 	if(Match.test(id, String)) {
 		// Ensures `id` points to an existing user
@@ -56,18 +20,49 @@ Smartix.Newsgroup.getNewsGroupOfUser = function (id) {
 	}
 }
 
-Smartix.Newsgroup.createNewsgroup = function (users, namespace, name, url) {
+Smartix.Newsgroup.canCreateNewsgroup = function (namespace, currentUser) {
+    if(!Smartix.Accounts.School.isAdmin(namespace, currentUser)) {
+		return false;
+		// Optional: Throw an appropriate error if not
+	}
+    return true;
+}
+
+Smartix.Newsgroup.canEditNewsgroup = Smartix.Newsgroup.canDeleteNewsgroup = Smartix.Newsgroup.canAddUsersToGroup = Smartix.Newsgroup.canRemoveUsersFromGroup = function (newsgroup, currentUser) {
+    
+    check(newsgroup, String);
+    check(currentUser, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    if(!(currentUser === null)) {
+        currentUser = currentUser || Meteor.userId();
+    }
+    
+    var existingNewsgroup = Smartix.Groups.Collection.findOne({
+		_id: id
+	});
+    
+    if(!existingNewsgroup) {
+        throw new Meteor.Error('group-not-found', "The group specified could not be found.")
+    }
+    
+    if(Smartix.Accounts.isUserSchoolAdminForGroup(newsgroup, currentUser)
+    || Smartix.Accounts.School.isAdmin(existingNewsgroup.namespace, currentUser)) {
+        return true;
+    }
+    return false;
+}
+
+Smartix.Newsgroup.createNewsgroup = function (users, namespace, name, url, currentUser) {
 
 	// Checks that the currently-logged in user has
 	// administrative priviledges for the namespace it specified
 	// (i.e. either the admin for the school, or the system admin)
-
-	if(!Smartix.Accounts.School.isAdmin(namespace)) {
+	if(!Smartix.Newsgroup.canCreateNewsgroup(namespace, currentUser)) {
 		return false;
 		// Optional: Throw an appropriate error if not
 	}
 
-	
 	// Creating newsgroup document to be inserted
 	var newsgroup = {};
 	newsgroup.users = users;
@@ -101,11 +96,9 @@ Smartix.Newsgroup.createNewsgroup = function (users, namespace, name, url) {
 	} else {
 	    return Smartix.Groups.createGroup(newsgroup);
 	}
-
-
 }
 
-Smartix.Newsgroup.editNewsgroup = function (id, options) {
+Smartix.Newsgroup.editNewsgroup = function (id, options, currentUser) {
 
 	// Checks that `id` is of type String
 	check(id, String);
@@ -117,7 +110,7 @@ Smartix.Newsgroup.editNewsgroup = function (id, options) {
 	// administrative priviledges for the namespace it specified
 	// (i.e. either the admin for the school, or the system admin)
 
-	if(!Smartix.Accounts.School.isAdmin(namespace)) {
+	if(!Smartix.Newsgroup.canEditNewsgroup(id, currentUser)) {
 		return false;
 		// Optional: Throw an appropriate error if not
 	}
@@ -189,49 +182,74 @@ Smartix.Newsgroup.editNewsgroup = function (id, options) {
 	Smartix.Groups.editGroup(id, updateObj);
 }
 
-Smartix.Newsgroup.deleteNewsgroup = function (id) {
+Smartix.Newsgroup.deleteNewsgroup = function (id, currentUser) {
 
 	// Checks that `id` is of type String
 	check(id, String);
+    check(currentUser, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    if(!(currentUser === null)) {
+        currentUser = currentUser || Meteor.userId();
+    }
 
 	// Checks that the currently-logged in user has
 	// administrative priviledges for the namespace it specified
 	// (i.e. either the admin for the school, or the system admin)
-	Smartix.Accounts.isUserSchoolAdminForGroup(id);
+    if(!Smartix.Newsgroup.canDeleteNewsgroup(id, currentUser)) {
+		return false;
+		// Optional: Throw an appropriate error if not
+	}
 
 	// Remove the newsgroup specified
 	Smartix.Groups.deleteGroup(id);
 }
 
-Smartix.Newsgroup.addUsersToGroup = function (id, users) {
+Smartix.Newsgroup.addUsersToGroup = function (id, users, currentUser) {
 
 	// Checks that `id` is of type String
 	check(id, String);
 
 	// Checks that `users` is an array of Strings
 	check(users, [String]);
+    
+    check(currentUser, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    if(!(currentUser === null)) {
+        currentUser = currentUser || Meteor.userId();
+    }
 
-	// Checks that the currently-logged in user has
-	// administrative priviledges for the namespace it specified
-	// (i.e. either the admin for the school, or the system admin)
-	Smartix.Accounts.isUserSchoolAdminForGroup(id);
-
+	// Checks permissions
+    if(!Smartix.Newsgroup.canAddUsersToGroup(id, currentUser)) {
+		return false;
+		// Optional: Throw an appropriate error if not
+	}
+    
 	// Add users to group
 	Smartix.Groups.addUsersToGroup(id, users);
 }
 
-Smartix.Newsgroup.removeUsersToGroup = function (id, users) {
+Smartix.Newsgroup.removeUsersToGroup = function (id, users, currentUser) {
 	
 	// Checks that `id` is of type String
 	check(id, String);
 
 	// Checks that `users` is an array of Strings
 	check(users, [String]);
+    
+    check(currentUser, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    if(!(currentUser === null)) {
+        currentUser = currentUser || Meteor.userId();
+    }
 
-	// Checks that the currently-logged in user has
-	// administrative priviledges for the namespace it specified
-	// (i.e. either the admin for the school, or the system admin)
-	Smartix.Accounts.isUserSchoolAdminForGroup(id);
+	// Checks permissions
+    if(!Smartix.Newsgroup.canRemoveUsersFromGroup(id, currentUser)) {
+		return false;
+		// Optional: Throw an appropriate error if not
+	}
 
 	// Add users to group
 	Smartix.Groups.removeUsersFromGroup(id, users);

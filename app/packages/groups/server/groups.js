@@ -138,10 +138,16 @@ Smartix.Groups.isUserInGroup = function (user, group) {
 	});
 }
 
-Smartix.Accounts.isUserSchoolAdminForGroup = function(id){
+Smartix.Accounts.isUserSchoolAdminForGroup = function(id, currentUser){
 
 	// Checks that `id` is of type String
 	check(id, String);
+    check(currentUser, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    if(!(currentUser === null)) {
+        currentUser = currentUser || Meteor.userId();
+    }
     
     // Get the existing group in order to get the namespace
 	var existingGroup = Smartix.Groups.Collection.findOne({
@@ -154,7 +160,7 @@ Smartix.Accounts.isUserSchoolAdminForGroup = function(id){
 	}
 
 	// If the user is not an admin of the school, return `false`
-	if(!Smartix.Accounts.School.isAdmin(existingGroup.namespace)) {
+	if(!Smartix.Accounts.School.isAdmin(existingGroup.namespace, currentUser)) {
 		return false;
 	}
 
