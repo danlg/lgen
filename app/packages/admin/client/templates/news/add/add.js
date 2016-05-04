@@ -69,6 +69,9 @@ Template.AdminNewsAdd.events({
         template.calendarEvent.set({});
     },
     'click .set-calendar':function(event,sendMsgtemplate){
+        
+        //TODO: change to Bootstrap equvialent implementation
+        /*
         IonPopup.show({
         title: 'Set a calendar event',
         templateName: 'CalendarEvent',
@@ -105,7 +108,7 @@ Template.AdminNewsAdd.events({
             IonPopup.close();
             }
         }]
-        });
+        });*/
     },
     'change #documentBtn': function (event, template) {
         Smartix.FileHandler.documentUpload(event,'class',template.documentArr.get(),function(result){
