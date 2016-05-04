@@ -333,7 +333,7 @@ function populateAddons(addons, mediaObj)
   //add poll to addons one by one if any
   if (mediaObj.allowVote) {
     var voteObj = {};
-    addons.push(populateVote(voteObj));
+    addons.push(populateVote(voteObj, mediaObj));
   }
 }
 
@@ -347,7 +347,7 @@ function populateCalendar(mediaObj) {
   };
 }
 
-function populateVote(voteObj) {
+function populateVote(voteObj, mediaObj) {
   voteObj.type = "poll";
   voteObj.votes = [];
   console.log('allowVote');
