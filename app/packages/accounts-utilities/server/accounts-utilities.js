@@ -1,9 +1,10 @@
 Smartix = Smartix || {};
 Smartix.Accounts = Smartix.Accounts || {};
+Smartix.Accounts.Utilities = Smartix.Accounts.Utilities || {};
 
 // Remove non-existent users from the array
 // This is used in cases where the user may have specified a non-existent user `_id`
-Smartix.Accounts.removeNonExistentUsers = function (users) {
+Smartix.Accounts.Utilities.removeNonExistentUsers = function (users) {
     // Checks `users` is an array of Strings
     check(users, [String]);
 
