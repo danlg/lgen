@@ -1,0 +1,19 @@
+<template name="AdminDistributionListsSearch">
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h1>Search Distribution Lists</h1>
+        </div>
+        {{#if Template.subscriptionsReady}}
+            <div class="panel-body">
+                {{> EasySearch.Input index=distributionListIndex }}
+                <ul>
+                    {{#EasySearch.Each index=distributionListIndex }}
+                        <li><a href="{{pathFor route='admin.lists.view' data=routeData}}">{{name}}</a></li>
+                    {{/EasySearch.Each}}
+                </ul>
+            </div>
+        {{else}}
+            <p>Loading...</p>
+        {{/if}}
+    </div>
+</template>

@@ -50,6 +50,9 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/absence/expected/expected.js', 'web.browser');
   api.addFiles('client/templates/distribution-lists/add/add.html', 'web.browser');
   api.addFiles('client/templates/distribution-lists/add/add.js', 'web.browser');
+  api.addFiles('client/templates//distribution-lists/list/index.js', ['client', 'server']);
+  api.addFiles('client/templates//distribution-lists/list/list.html', 'web.browser');
+  api.addFiles('client/templates//distribution-lists/list/list.js', 'web.browser');
   api.addFiles('client/templates/classes/list/index.js', ['client', 'server']);
   api.addFiles('client/templates/classes/list/list.html', 'web.browser');
   api.addFiles('client/templates/classes/list/list.js', 'web.browser');
