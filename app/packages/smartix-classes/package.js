@@ -11,6 +11,7 @@ Package.onUse(function(api) {
     api.use('tap:i18n');
     api.use('aldeed:collection2');
     api.use('aldeed:simple-schema');
+    api.use('momentjs:moment');
 
     api.use('reactive-var','client');
     api.use('session', 'client');

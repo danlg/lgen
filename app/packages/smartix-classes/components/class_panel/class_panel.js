@@ -1,18 +1,10 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
-/*var text = new ReactiveVar('');
-var classObj;
 
-
-var soundArr = ReactiveVar([]);
-var isRecording = false;
-var media = "";
-var isPlayingSound = false;
-var localClassMessagesCollection = new Meteor.Collection(null);*/
+//import moment from 'moment';
 
 var currentClassCode;
 var loadedItems = ReactiveVar(10);
 var loadExtraItems = 5;
-
 
 /*****************************************************************************/
 /* ClassPanel: Event Handlers */
@@ -111,6 +103,9 @@ Template.ClassPanel.events({
 /* ClassPanel: Helpers */
 /*****************************************************************************/
 Template.ClassPanel.helpers({
+  formatDate: function (date) {
+    return moment(date).format("LLLL");
+  },
   classObj: function () {
     var classObj = Smartix.Groups.Collection.findOne({
         type: 'class',
