@@ -53,7 +53,8 @@ Meteor.publish('smartix:accounts/basicInfoOfAllUsersInNamespace', function (name
             fields: { 
                 'profile.firstName': 1,
                 'profile.lastName': 1,
-                'emails.0.address': 1
+                'emails.0.address': 1,
+                'roles':1
             }
         });
     } else {

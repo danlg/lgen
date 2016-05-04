@@ -73,6 +73,12 @@ Template.ChatInvite.helpers({
   getGroupChatInvitePath:function(){
             
     return  Router.path('GroupChatInvite',{school: Router.current().params.school});
+  },
+  getUserRoleInNamespace:function(){
+    if(Router.current().params.school !== 'global' && Router.current().params.school !== 'system'){
+      var currentSchool = SmartixSchoolsCol.findOne({username:Router.current().params.school});
+      return this.roles[currentSchool._id].toString();
+    }
   }
 });
 
