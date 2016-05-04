@@ -5,6 +5,14 @@
             border-style: solid;
             border-color:grey;         
         }
+        .inputfile {
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
+        }
     </style>
     <!-- Form horizontal -->
     <div class="panel panel-flat">
@@ -45,9 +53,11 @@
                         </div>
                         <div class="col-lg-10">
                             <div class="btn-group" role="group" aria-label="...">
-                                <button type="button" class="btn btn-default">Photo</button>
-                                <button type="button" class="btn btn-default">Document</button>
-                                <button type="button" class="btn btn-default">Calendar</button>
+                                <label class='btn btn-default' for="imageBtn">Attach an Image</label>
+                                <input id='imageBtn' type="file" name='imageBtn' class="inputfile imageBtn"/>
+                                <label class='btn btn-default' for="documentBtn">Attach an Document</label>
+                                <input id='documentBtn' type="file" name='documentBtn' class="inputfile documentBtn"/>                                
+                                <button type="button" class="btn btn-default set-calendar">Add an Event</button>
                             </div>
 
                         </div>                        
