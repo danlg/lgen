@@ -17,6 +17,7 @@ App.accessRule('https://localhost:*');
 App.icons({
     
   // iOS
+  'iphone': 'resources/icons/logo-icon-60.png',
   'iphone_2x': 'resources/icons/logo-icon-120.png',
   'ipad': 'resources/icons/logo-icon-76.png',
   'ipad_2x': 'resources/icons/logo-icon-152.png',
@@ -93,6 +94,7 @@ App.setPreference('DisallowOverscroll', 'false');//was webviewbounce
 
 //For Youtube iframe
 App.accessRule('https://*.youtube.com/*', { type: 'navigation' } );
+App.accessRule('https://*.youtu.be/*', { type: 'navigation' } );
 
 //For Google Docs iframe
 App.accessRule('*.google.com/*', { type: 'navigation' } ); 
