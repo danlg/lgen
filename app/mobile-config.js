@@ -15,18 +15,22 @@ App.info({
 App.accessRule('https://localhost:*');
 
 App.icons({
-    
-  // iOS
-  'iphone': 'resources/icons/logo-icon-60.png',
-  'iphone_2x': 'resources/icons/logo-icon-120.png',
-  'ipad': 'resources/icons/logo-icon-76.png',
-  'ipad_2x': 'resources/icons/logo-icon-152.png',
-  'iphone_3x': 'resources/icons/logo-icon-180.png',
-  // Android
-  'android_mdpi': 'resources/icons/logo-icon-120.png',
-  'android_hdpi': 'resources/icons/logo-icon-120.png',
-  'android_xhdpi': 'resources/icons/logo-icon-120.png'
-
+  //http://docs.meteor.com/#/full/App-icons
+  "iphone_2x": "resources/icons/iphone_2x.png", // 120x120
+  "iphone_3x": "resources/icons/iphone_3x.png", // 180x180
+  "ipad": "resources/icons/ipad.png", // 76x76
+  "ipad_2x": "resources/icons/ipad_2x.png", // 152x152
+  "ipad_pro": "resources/icons/ipad_pro.png", // 167x167
+  "ios_settings": "resources/icons/ios_settings.png", // 29x29
+  "ios_settings_2x": "resources/icons/ios_settings_2x.png", // 58x58
+  "ios_settings_3x": "resources/icons/ios_settings_3x.png", // 87x87
+  "ios_spotlight": "resources/icons/ios_spotlight.png", // 40x40
+  "ios_spotlight_2x": "resources/icons/ios_spotlight_2x.png", // 80x80
+  "android_mdpi": "resources/icons/android_mdpi.png", // 48x48
+  "android_hdpi": "resources/icons/android_hdpi.png", // 72x72
+  "android_xhdpi": "resources/icons/android_xhdpi.png", // 96x96
+  "android_xxhdpi": "resources/icons/android_xxhdpi.png", // 144x144
+  "android_xxxhdpi": "resources/icons/android_xxxhdpi.png" // 192x192
 });
 
 App.launchScreens({
