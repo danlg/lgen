@@ -184,7 +184,13 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
     
     if(isPush){
         //2. add notification to notifications collection
-        //add notifications to db        
+        //add notifications to db
+        
+        //Remove current user himself/herself from the push notiification list
+        lodash.remove(group.users,function(eachUserId){
+            return (eachUserId === Meteor.userId()) ? true : false
+        });
+        
         group.users.map(function(eachTargetUser){
             Notifications.insert({
                 eventType:"new"+group.type+"message",
