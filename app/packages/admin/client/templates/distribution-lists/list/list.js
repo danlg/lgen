@@ -17,7 +17,7 @@ Template.AdminDistributionListsSearch.helpers({
   routeData: function () {
         if (Router && Router.current()) {
             return {
-                code: this.code,
+                code: this.url,
                 school: Router.current().params.school
             };
         }

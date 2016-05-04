@@ -1,0 +1,49 @@
+<template name="AdminDistributionListView">
+    {{#if Template.subscriptionsReady}}
+    <div class="panel panel-flat">
+        {{#with listData}}
+        <div class="panel-heading">
+            <h1>{{name}}</h1>
+        </div>
+
+        <div class="panel-body">
+            <p>List Code: {{url}}</p>
+
+            <h3>Users</h3>
+            <div id="AdminClassesView__add-user-container" class="form-group">
+                <div class="col-lg-12">
+                    <div class="input-group AdminClassesView__add-user-input-container">
+                        {{> EasySearch.Input index=distributionListUsersIndex attributes=adminUserSearchInputAttributes}}
+                    </div>
+                    <ul>
+                        {{#EasySearch.Each index=distributionListUsersIndex }}
+                            <li class="AdminDistributionListView__user-search-result">{{profile.firstName}} {{profile.lastName}}</li>
+                        {{/EasySearch.Each}}
+                    </ul>
+                </div>
+            </div>
+            <!-- Large table -->
+            <table class="table datatable-basic">
+                <thead>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Remove User</th>
+                </thead>
+                <tbody>
+                    {{#each users}} {{#with userData this}}
+                    <tr>
+                        <td><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.firstName}}</a></td>
+                        <td><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.lastName}}</a></td>
+                        <td>
+                            <button type="button" class="btn border-warning text-warning-600 btn-flat btn-icon btn-rounded"><i class="icon-minus2"></i></button>
+                        </td>
+                    </tr>
+                    {{/with}} {{/each}}
+                </tbody>
+            </table>
+            <!-- /large table -->
+        </div>
+        {{/with}}
+    </div>
+    {{/if}}
+</template>

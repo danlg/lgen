@@ -21,7 +21,7 @@ Smartix.DistributionLists.hasPermissionForList = function (id, currentUser) {
         currentUser = currentUser || Meteor.userId();
     }
     
-    let distributionList = Smartix.Groups.findOne({
+    let distributionList = Smartix.Groups.Collection.findOne({
         _id: id
     });
     

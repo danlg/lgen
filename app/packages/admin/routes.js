@@ -97,6 +97,15 @@ Router.route('/:school/admin/lists/add', {
     }
 });
 
+Router.route('/:school/admin/lists/view/:code', {
+    name: 'admin.lists.view',
+    layoutTemplate: 'adminLayout',
+    template: 'AdminDistributionListView',
+    action: function () {
+        this.render('AdminDistributionListView');
+    }
+});
+
 Router.route('/:school/admin/classes/list', {
     name: 'admin.classes.list',
     layoutTemplate: 'adminLayout',

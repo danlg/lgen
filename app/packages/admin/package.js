@@ -53,6 +53,10 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/distribution-lists/list/index.js', ['client', 'server']);
   api.addFiles('client/templates/distribution-lists/list/list.html', 'web.browser');
   api.addFiles('client/templates/distribution-lists/list/list.js', 'web.browser');
+  api.addFiles('client/templates/distribution-lists/view/view.css', 'web.browser');
+  api.addFiles('client/templates/distribution-lists/view/index.js', 'web.browser');
+  api.addFiles('client/templates/distribution-lists/view/view.html', 'web.browser');
+  api.addFiles('client/templates/distribution-lists/view/view.js', 'web.browser');
   api.addFiles('client/templates/classes/list/index.js', ['client', 'server']);
   api.addFiles('client/templates/classes/list/list.html', 'web.browser');
   api.addFiles('client/templates/classes/list/list.js', 'web.browser');
