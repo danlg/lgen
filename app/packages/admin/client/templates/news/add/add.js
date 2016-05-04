@@ -107,7 +107,7 @@ Template.AdminNewsAdd.events({
         }]
         });
     },
-    'click #documentBtn': function (event, template) {
+    'change #documentBtn': function (event, template) {
         Smartix.FileHandler.documentUpload(event,'class',template.documentArr.get(),function(result){
             if(result){
                 template.documentArr.set([]);
