@@ -16,29 +16,29 @@ Package.onUse(function(api) {
                     'lang/en/emailVerifyTemplate.Parent.html',
                     'lang/en/emailVerifyTemplate.Student.html',
                     'lang/en/emailVerifyTemplate.Teacher.html',
-                    'lang/en/inviteClassMailTemplate.html',
-                    'lang/en/newClass_MailTemplate.html',
+                    'lang/en/emailInviteClassTemplate.html',
+                    'lang/en/emailNewClassTemplate.html',
                     
                     'lang/fr/emailVerifyTemplate.html',
                     'lang/fr/emailVerifyTemplate.Parent.html',
                     'lang/fr/emailVerifyTemplate.Student.html',
                     'lang/fr/emailVerifyTemplate.Teacher.html',
-                    'lang/fr/inviteClassMailTemplate.html',
-                    'lang/fr/newClass_MailTemplate.html',
+                    'lang/fr/emailInviteClassTemplate.html',
+                    'lang/fr/emailNewClassTemplate.html',
                     
                     'lang/zh-CN/emailVerifyTemplate.html',
                     'lang/zh-CN/emailVerifyTemplate.Parent.html',
                     'lang/zh-CN/emailVerifyTemplate.Student.html',
                     'lang/zh-CN/emailVerifyTemplate.Teacher.html',
-                    'lang/zh-CN/inviteClassMailTemplate.html',
-                    'lang/zh-CN/newClass_MailTemplate.html',
+                    'lang/zh-CN/emailInviteClassTemplate.html',
+                    'lang/zh-CN/emailNewClassTemplate.html',
                     
                     'lang/zh-TW/emailVerifyTemplate.html',
                     'lang/zh-TW/emailVerifyTemplate.Parent.html',
                     'lang/zh-TW/emailVerifyTemplate.Student.html',
                     'lang/zh-TW/emailVerifyTemplate.Teacher.html',
-                    'lang/zh-TW/inviteClassMailTemplate.html',
-                    'lang/zh-TW/newClass_MailTemplate.html',                                                                                                                                                             
+                    'lang/zh-TW/emailInviteClassTemplate.html',
+                    'lang/zh-TW/emailNewClassTemplate.html',
                     ]
                     ,'server');    
      api.addFiles('emailTemplate.js','server');

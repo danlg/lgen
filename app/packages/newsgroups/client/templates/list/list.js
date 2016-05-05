@@ -17,8 +17,9 @@ Template.NewsgroupsNewsList.helpers({
         
         return Smartix.Messages.Collection.find({ group: { $in: newsgroupsIds } }, {sort: {createdAt: -1 } } );
     },
-    getGroupName:function(){
-       return Smartix.Groups.Collection.findOne(this.group).name;
+    getGroupName:function(groupId){
+        console.log('getGroupName',groupId);
+       return Smartix.Groups.Collection.findOne(groupId).name;
     }
     
 })

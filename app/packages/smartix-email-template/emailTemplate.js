@@ -60,11 +60,11 @@ Smartix.newClassMailTemplate = function (to, classname, classCode) {
 
   var newClassMailContent;
   try { //get the new class mail template of the specific lang
-    newClassMailContent = Assets.getText("lang/" + emailLang + "/newClass_MailTemplate.html");
+    newClassMailContent = Assets.getText("lang/" + emailLang + "/emailNewClassTemplate.html");
   }
   catch (e) {
     log.error(e); //fallback to english
-    newClassMailContent = Assets.getText("lang/en/newClass_MailTemplate.html");
+    newClassMailContent = Assets.getText("lang/en/emailNewClassTemplate.html");
   }
   var newClassMailContentTemp =
     Spacebars.toHTML(
@@ -145,12 +145,12 @@ Smartix.inviteClassMailTemplate = function (to, classObj) {
   var inviteClassMail;
   var acceptLink = Meteor.settings.public.SHARE_URL + "/join/" + classObj.classCode;
   try { //get the invite template of the specific lang
-    inviteClassMail = Assets.getText("lang/" + emailLang + "/inviteClassMailTemplate.html");
+    inviteClassMail = Assets.getText("lang/" + emailLang + "/emailInviteClassTemplate.html");
   }
   catch (e) {
     log.error(e);
     //fallback to english
-    inviteClassMail = Assets.getText("lang/en/inviteClassMailTemplate.html");
+    inviteClassMail = Assets.getText("lang/en/emailInviteClassTemplate.html");
   }
   var inviteClassMailTemp =
     Spacebars.toHTML(

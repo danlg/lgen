@@ -1,5 +1,5 @@
 Package.describe({
-  name: "smartix:messagedetail",
+  name: "smartix:newsdetail",
   summary: "",
   version: "0.0.1",
   documentation:'README.md'
@@ -12,6 +12,6 @@ Package.onUse(function(api) {
      api.use('session', 'client');
      api.use('templating', 'client');
      //api.use('smartix:notifications');     
-     api.addFiles('message_detail.html','client');
-     api.addFiles('message_detail.js','client');  
+     api.addFiles('news_detail.html','client');
+     api.addFiles('news_detail.js','client');  
 });
