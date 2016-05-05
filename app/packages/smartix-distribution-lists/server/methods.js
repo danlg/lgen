@@ -4,7 +4,14 @@ Meteor.methods({
         if(!namespace) {
             throw new Meteor.Error("school-not-exist", "The school with code " + schoolName + " does not exist.")
         }
-        return Smartix.DistributionLists.createDistributionList(users, namespace, name, url, false, this.userId);
+        return Smartix.DistributionLists.createDistributionList({
+            users: users,
+            namespace: namespace,
+            name: name,
+            url: url,
+            expectDuplicates: false,
+            upsert: false
+        }, this.userId);
     },
     'smartix:distribution-lists/edit': function (id, options) {
         return Smartix.DistributionLists.editDistributionList(id, options, this.userId);

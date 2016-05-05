@@ -14,11 +14,12 @@ Template.AdminDistributionListsAdd.events({
         if(!name) {
             toastr.error("Please ensure the list name is filled in");
         }
-        if(!code) {
-            toastr.error("Please ensure the list code is filled in");
-        }
+        // Allow cases where code is not provided
+        // if(!code) {
+        //     toastr.error("Please ensure the list code is filled in");
+        // }
         
-        if(namespace && name && code) {
+        if(namespace && name) {
             Meteor.call('smartix:distribution-lists/create', [], namespace, name, code);
         }
     }
