@@ -271,12 +271,9 @@ Template.SendMessage.events({
     if (Meteor.isCordova) {
       if (window.device.platform === "Android") {
         e.preventDefault();
-        Smartix.FileHandler.documentUploadForAndroid(event,'class',documentArr.get(),function(result){ 
-          if(result){
+        Smartix.FileHandler.documentUploadForAndroid(event,'class',documentArr.get(),function(result){         
               documentArr.set([]);
               window.setTimeout(scrollMessageListToBottom, 100);
-          
-          }
         });  
       }
     }      
@@ -284,10 +281,10 @@ Template.SendMessage.events({
   },
   'change #documentBtn': function (event, template) {
       Smartix.FileHandler.documentUpload(event,'class',documentArr.get(),function(result){
-          if(result){
+          
               documentArr.set([]);
               window.setTimeout(scrollMessageListToBottom, 100);
-          }
+          
       });
   }  
 });

@@ -3,7 +3,7 @@ Smartix = Smartix || {};
 Smartix.FileHandler = Smartix.FileHandler || {};
 Smartix.FileHandler = (function () {
     
-    var directDocumentMessage = function (documentArray){
+    var directDocumentMessage = function (documentArray,callback){
         var target = Session.get('sendMessageSelectedClasses').selectArrId;
         log.info(target);
         var msg = "";
@@ -27,7 +27,7 @@ Smartix.FileHandler = (function () {
                 addons.push({type:'documents',fileId:eachDocument});
             })
         }
-        GeneralMessageSender(target[0],'text',msg, addons)
+        GeneralMessageSender(target[0],'text',msg, addons,null,callback)
         return true;      
     };
 
@@ -203,7 +203,7 @@ Smartix.FileHandler = (function () {
                         }else if (category =='class'){                                      
                             var arr = currentDocumentArray;
                             arr.push(fileObj._id);
-                            callback(directDocumentMessage(arr))                                   
+                            directDocumentMessage(arr,callback)                                   
                         }else if (category =='newsInAdmin'){
                             
                             var arr = currentDocumentArray;
@@ -253,7 +253,7 @@ Smartix.FileHandler = (function () {
                                     }else if (category == 'class'){
                                         var arr = currentDocumentArray;
                                         arr.push(fileObj._id);
-                                        callback(directDocumentMessage(arr))  ;                                  
+                                        directDocumentMessage(arr,callback)  ;                                  
                                     }
 
                                 }
