@@ -13,13 +13,7 @@
     <div class="list">
          {{#with getNews}}     
             {{#each this}}
-                <a class="item" href="#">
-                  <h2>{{data.title}}</h2>
-                  <p>{{data.content}}</p>
-                  
-                  <p>{{formatDate createdAt}}</p>
-                  <p>{{getGroupName}}</p>                   
-                </a>              
+                {{> NewsDetail }}           
             {{else}}
             
                 <a class="item" href="#">

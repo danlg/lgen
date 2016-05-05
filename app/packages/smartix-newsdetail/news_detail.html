@@ -1,4 +1,4 @@
-<template name="MessageDetail">
+<template name="NewsDetail">
                 {{#if isFirstMsgInOneDay}}
                 
                        <div class='date-bubble-wrapper'> <div class='date-bubble'>{{formatDate createdAt}}</div> </div>
@@ -9,8 +9,11 @@
 
                     <div class="item less-top-bottom-padding">
                      <div>
-                        <h3>{{data.title}}</h3>
+                        <h2>{{data.title}}</h2>
                     </div>
+                     <div class='description'>
+                       {{formatDateCalendar createdAt}} &nbsp; &nbsp;  {{getGroupName group}}
+                    </div>                    
                     <div>
                         <i class="icon {{isNewMessage createdAt}} new-message-icon"></i>
                         {{{docPreview data.content}}}                     
@@ -83,8 +86,8 @@
                                 <div class="row" style="padding:0">
                                     <div class="col" style="padding:0"><h2><i class='icon ion-ios-calendar-outline' ></i>{{eventName}}</h2></div>
                                     <div class="col" style="padding:0"><h2><i class='icon ion-location' ></i>{{location}}</h2></div>
-                                    <div class="col" style="padding:0;text-align:right">{{startDate}}</div>
-                                    <div class="col" style="padding:0;text-align:right">{{endDate}}</div>                                                                   
+                                    <div class="col" style="padding:0;text-align:right">{{formatDateCalendar startDate}}</div>
+                                    <div class="col" style="padding:0;text-align:right">{{formatDateCalendar endDate}}</div>                                                                   
                                     <div class="col" style="padding:0;text-align:right"><button class='add-to-calendar' data-start-date='{{startDate}}' data-end-date='{{endDate}}' data-event-name='{{eventName}}' data-event-location='{{location}}' data-description='{{../data.content}}'>Add to calendar</button></div>
                                 </div>
                             </div>
@@ -97,7 +100,7 @@
                         {{#each attachVotes}}
                             {{> AppDisplayVote this}} 
                         {{/each}}
-                        <span class='timestamp'>{{formatTime createdAt}}</span>  
+                          
                     </p>
                     </div>
                    
