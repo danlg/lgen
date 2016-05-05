@@ -20,7 +20,8 @@ Package.onUse(function(api) {
      api.use('stevezhu:lodash@4.6.1');
       
      api.use('smartix:newsgroups');
-              
+     api.use('smartix:messages-addons-calendar');
+                  
      api.addFiles('calendar_event.html','client');
      api.addFiles('calendar_event.js','client');  
      

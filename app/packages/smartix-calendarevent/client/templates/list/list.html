@@ -10,22 +10,39 @@
   
     {{#ionView}}
     {{#ionContent}} 
-                {{#if isFirstMsgInOneDay}}
-                
-                       <div class='date-bubble-wrapper'> <div class='date-bubble'>{{formatDate createdAt}}</div> </div>
-                {{/if}}
+    
+
                  
                  {{#each getEvents}}
                     
                     {{#with getCalendar}}
+                                              
                             <div class="item ">
+                                <div class='row'>
+                                    {{calendarTime startDate}}
+                                </div>
                                 <div class="row" style="padding:0">
                                     <div class="col" style="padding:0"><h2><i class='icon ion-ios-calendar-outline' ></i>{{eventName}}</h2></div>
-                                    <div class="col" style="padding:0"><h2><i class='icon ion-location' ></i>{{location}}</h2></div>
-                                    <div class="col" style="padding:0;text-align:right">{{formatDateCalendar startDate}}</div>
-                                    <div class="col" style="padding:0;text-align:right">{{formatDateCalendar endDate}}</div>                                                                   
-                                    <div class="col" style="padding:0;text-align:right"><button class='add-to-calendar' data-start-date='{{startDate}}' data-end-date='{{endDate}}' data-event-name='{{eventName}}' data-event-location='{{location}}' data-description='{{../data.content}}'>Add to calendar</button></div>
+                                   
                                 </div>
+                                <div class="row" style="padding:0">
+
+                                    <div class="col" style="padding:0"><h2><i class='icon ion-location' ></i>{{location}}</h2></div>
+
+                                </div>                                
+                                <div class="row" style="padding:0">
+
+                                    <div class="col" style="padding:0;text-align:right">{{formatDateCalendar startDate}}</div>
+
+                                </div>
+                                 <div class="row" style="padding:0">
+
+                                    <div class="col" style="padding:0;text-align:right">{{formatDateCalendar endDate}}</div>                                                                   
+
+                                </div>                               
+                                <div class="row" style="padding:0">                                                                 
+                                    <div class="col" style="padding:0;text-align:right"><button class='add-to-calendar' data-start-date='{{startDate}}' data-end-date='{{endDate}}' data-event-name='{{eventName}}' data-event-location='{{location}}' data-description='{{../data.content}}'>Add to calendar</button></div>
+                                </div>                                                                
                             </div>                        
                     {{/with}}
                  {{else}}
