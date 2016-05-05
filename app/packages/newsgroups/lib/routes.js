@@ -1,8 +1,8 @@
-Router.route('/newsgroups/news/list', {
-    name: 'newsgroups.news.list',
+Router.route('/newsgroups/list', {
+    name: 'newsgroups.list',
     layoutTemplate: 'AppLayout',
-    template: 'NewsgroupsNewsList',
+    template: 'NewsgroupsList',
     action: function () {
-        this.render('NewsgroupsNewsList');
+        this.render('NewsgroupsList');
     }
 });

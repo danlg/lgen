@@ -11,6 +11,8 @@ Meteor.publish('newsInGroup', function(id, limit, query) {
 
 });
 
+
+
 Meteor.publish('newsgroupsForUser', function(limit, query, namespace) {
     //console.log('newsgroupsForUser',limit,query,namespace);
     var schoolDoc = SmartixSchoolsCol.findOne({
@@ -26,8 +28,7 @@ Meteor.publish('newsgroupsForUser', function(limit, query, namespace) {
     if(schoolDoc) {
         return Smartix.Groups.Collection.find({
             namespace: schoolDoc._id,
-            type: 'newsgroup',
-            users: this.userId
+            type: 'newsgroup'
         });
     } else {
         this.ready();

@@ -21,6 +21,7 @@ Package.onUse(function(api) {
     api.use('smartix:accounts-utilities@0.0.1');
     api.use('smartix:accounts-schools@0.0.1');
     api.use('smartix:groups@0.0.1');
+    api.use('smartix:news@0.0.1');  
     api.use('smartix:newsdetail@0.0.1');
     
     api.addFiles('lib/schema.js', ['client', 'server']);

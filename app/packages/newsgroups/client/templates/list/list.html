@@ -1,6 +1,6 @@
-<template name="NewsgroupsNewsList">
+<template name="NewsgroupsList">
   {{#contentFor "headerTitle"}}
-     <h1 class="title">News</h1>
+     <h1 class="title">Newsgroups</h1>
   {{/contentFor}}
 
 
@@ -8,21 +8,47 @@
     {{>ionNavBackButton text=" "}}
   {{/contentFor}}
 
+
+  
   {{#ionView}}
     {{#ionContent}}
-    <div class="list">
-         {{#with getNews}}     
-            {{#each this}}
-                {{> NewsDetail }}           
-            {{else}}
-            
-                <a class="item" href="#">
-                    No News
-                </a>         
-            {{/each}}
-         {{/with}}      
-      
-    </div>
+        <style>
+            .list > li, .list > li .list > li {
+                 margin-top: 0; 
+            }           
+        </style>
+        <div class="card">
+            <div class="item item-text-wrap smaller">
+                 All School's newsgroups are displayed here. You can opt-out some of the newsgroups by clicking out the tick.
+                 After opt-out, you will not receive any notifications and messages of those newsgroups.
+                 Not all newsgroups can be opt-out. Newsgroups already opt-out is still shown in here, so you can opt-in freely anytime later on.
+            </div>
+        </div>    
+        <ul class="list">
+            {{#each getNewsgroups}}
+                <li class="item item-toggle">
+                    {{name}}
+                    
+                    {{#if mandatory}}
+                    
+                    {{else}}
+                        <label class="toggle toggle-assertive">
+                        
+                            {{#if userInNewsgroup}}         
+                                <input class='opt-out' type="checkbox" checked="checked" data-group-id={{_id}} />
+                            {{else}}
+                                <input class='opt-in' type="checkbox" data-group-id={{_id}} />
+                            {{/if}}
+                            
+                            <div class="track">
+                                <div class="handle"></div>
+                            </div>
+                        </label>                    
+                    {{/if}}
+
+                </li>            
+            {{/each}}                
+        </ul>
     {{/ionContent}}
   {{/ionView}}
 </template>

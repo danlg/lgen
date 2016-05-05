@@ -37,5 +37,27 @@ Meteor.methods({
         if(resultValue === -1){
              throw new Meteor.Error("newsgroups-existed", "Newsgroup already exist");   
         }
+    },
+    'smartix:newsgroups/joinNewsgroup':function(newsgroupId){
+        
+       var newsgroup = Smartix.Groups.Collection.findOne(newsgroupId);
+       if(newsgroup){
+           var userNamespaces = Object.keys(Meteor.user().roles);
+           
+           if(userNamespaces.indexOf(newsgroup.namespace ) > -1){
+            Smartix.Groups.Collection.update(
+                {_id: newsgroupId},
+                {
+                    $addToSet: {users: Meteor.userId()}
+                }
+            );              
+           }else{
+            throw new Meteor.Error("group-different-namespace", "Can't join the group in different namespace");               
+           }
+           
+       }else{
+        throw new Meteor.Error("class-not-foun", "Can't find the group");           
+       }    
+        
     }
 });

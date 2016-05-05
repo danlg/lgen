@@ -1,6 +1,6 @@
 
 
-Template.NewsgroupsNewsList.onCreated(function(){
+Template.NewsgroupsList.onCreated(function(){
    
    var self = this;
    self.subscribe('newsgroupsForUser',null,null,Session.get('pickedSchoolId'),function(){
@@ -9,23 +9,36 @@ Template.NewsgroupsNewsList.onCreated(function(){
 
 });
 
-Template.NewsgroupsNewsList.helpers({
+Template.NewsgroupsList.helpers({
     
-    getNews:function(){
-        var newsgroups =  Smartix.Groups.Collection.find({ type: 'newsgroup' }).fetch(); 
-        var newsgroupsIds = lodash.map(newsgroups,'_id');
-        
-        return Smartix.Messages.Collection.find({ group: { $in: newsgroupsIds } }, {sort: {createdAt: -1 } } );
+    getNewsgroups:function(){
+        return Smartix.Groups.Collection.find({ type: 'newsgroup' });
     },
     getGroupName:function(groupId){
         console.log('getGroupName',groupId);
        return Smartix.Groups.Collection.findOne(groupId).name;
-    }
+    },
+    userInNewsgroup:function(){
+        return (this.users.indexOf(Meteor.userId()) > -1) ? true : false ;
+    }    
     
 });
 
 
-Template.NewsgroupsNewsList.onDestroyed(function(){
+Template.NewsgroupsList.events({
+   'click .opt-out':function(event,template){
+       var groupId = $(event.target).data("groupId");
+       Meteor.call('class/leave', groupId);      
+   },
+   'click .opt-in':function(event,template){
+       var groupId = $(event.target).data("groupId");
+       Meteor.call('smartix:newsgroups/joinNewsgroup', groupId);        
+    
+              
+   },   
+});
+
+Template.NewsgroupsList.onDestroyed(function(){
    
  Meteor.call('setAllNewsAsRead',Session.get('pickedSchoolId'));
 
