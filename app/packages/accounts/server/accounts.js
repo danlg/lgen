@@ -258,6 +258,19 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
     // Add the role to the user
     Roles.addUsersToRoles(userToAddRoleTo, types, namespace);
     
+    
+    // If the user is a student,
+    // Create a distribution list based on the student's class
+    if(options.classroom) {
+        Smartix.DistributionLists.createDistributionList({
+            users: [userToAddRoleTo],
+            namespace: namespace,
+            name: options.classroom,
+            expectDuplicates: true,
+            upsert: true
+        }, currentUser);
+    }
+    
     return userToAddRoleTo;
 
 }
