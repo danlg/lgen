@@ -11,6 +11,10 @@
                     {{#EasySearch.Each index=usersIndex }}
                         <li><a href="{{pathFor 'admin.users.view' data=routeData}}">{{profile.firstName}} {{profile.lastName}}</a></li>
                     {{/EasySearch.Each}}
+
+                     {{#EasySearch.IfNoResults index=usersIndex}}
+                        <div>No results found!</div>
+                    {{/EasySearch.IfNoResults}}                        
                 </ul>
             </div>
         {{else}}
