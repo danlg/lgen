@@ -192,9 +192,7 @@ Smartix.Class.createClass = function (classObj, currentUser) {
         newClass.classAvatar = classObj.classAvatar;
     }
     // Make the current user as the admin
-	newClass.admins = [
-		Meteor.userId()
-	];
+	newClass.admins = [currentUser];
     newClass.addons = ['voice','images','calendar','documents','poll','comment'];
     
 	// Checks the arguments are of the specified type, convert it if not
