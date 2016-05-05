@@ -13,8 +13,10 @@
                     </div>
                     <div>
                         <i class="icon {{isNewMessage createdAt}} new-message-icon"></i>
-                        {{{docPreview data.content}}}                     
-                        {{#autolink}}<span class='content'><pre>{{data.content}}</pre></span>{{/autolink}}
+                        {{#if isText}}
+                            {{{docPreview data.content}}}                     
+                            {{#autolink}}<span class='content'><pre>{{data.content}}</pre></span>{{/autolink}}
+                        {{/if}}
                     </div>
                     <div>
                         <div>

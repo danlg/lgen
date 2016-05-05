@@ -63,5 +63,13 @@ Template.MessageDetail.helpers({
   attachComments:function(){
     var commentObjs =lodash.filter(this.addons, function(addon) { return addon.type =='comment'; });
     return commentObjs;          
+  },
+  isText: function () {
+    log.info('isText',this.data.content);
+    if(this.data.content === 'New Image' || this.data.content === 'New Document' ){
+      return false;
+    }else{
+      return true;
+    }
   }
 });

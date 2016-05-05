@@ -6,7 +6,7 @@ Smartix.FileHandler = (function () {
     var directDocumentMessage = function (documentArray,callback){
         var target = Session.get('sendMessageSelectedClasses').selectArrId;
         log.info(target);
-        var msg = "";
+        var msg = "New Document";
         var mediaObj = {};
         mediaObj.imageArr = [];
         mediaObj.soundArr = [];

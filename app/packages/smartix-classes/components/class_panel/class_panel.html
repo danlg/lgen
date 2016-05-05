@@ -66,70 +66,71 @@
                 {{/each}}
                 <div class="item less-top-bottom-padding">
                     <div>
-                    
-                    {{{docPreview data.content}}}    
-                    {{#autolink}}<div class='content'><pre>{{data.content}}</pre></div>{{/autolink}}
-                    <div>
-                        
-                        
-                            {{#each attachImages}}
-                                {{#with getImage}}
-                                {{#if this.isUploaded}}
-                                    {{#if this.hasStored 'images'}}
-                                    <div class="">
-                                        <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs responsive-img" data-fullsizeimage="{{this.url  }}">
-                                        <!-- <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a> -->
-                                    </div>
+                        {{#if isText}}
+                            {{{docPreview data.content}}}    
+                            {{#autolink}}<div class='content'><pre>{{data.content}}</pre></div>{{/autolink}}
+                        {{/if}}
+                        <div>
+                            
+                            
+                                {{#each attachImages}}
+                                    {{#with getImage}}
+                                    {{#if this.isUploaded}}
+                                        {{#if this.hasStored 'images'}}
+                                        <div class="">
+                                            <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs responsive-img" data-fullsizeimage="{{this.url  }}">
+                                            <!-- <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a> -->
+                                        </div>
+                                        {{/if}}
                                     {{/if}}
+                                    {{/with}}
+                                {{/each}}
+                            
+                        </div>
+                        <div>
+                            {{#each attachVoices}}                      
+                                {{#with getSound}}
+                                {{#if this.isUploaded}}
+                                    {{#if this.hasStored 'sounds'}}                           
+                                    {{#if  this.url}}
+                                        {{#if isCordova}}
+                                        <div class="bubble">
+                                            <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}"></a>
+                                            <!-- <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a> -->
+                                        </div>                    
+                                        {{else}}
+                                        <div class="bubble">
+                                            <audio controls>
+                                            <source src="{{this.url}}" type="audio/wav">
+                                            </audio>
+                                            <!-- <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a> -->
+                                        </div>                                                                                    
+                                        {{/if}}
+                                    {{/if}}                                 
+                                    {{/if}}                      
                                 {{/if}}
                                 {{/with}}
                             {{/each}}
-                        
-                    </div>
-                    <div>
-                        {{#each attachVoices}}                      
-                            {{#with getSound}}
-                            {{#if this.isUploaded}}
-                                {{#if this.hasStored 'sounds'}}                           
-                                {{#if  this.url}}
-                                    {{#if isCordova}}
-                                    <div class="bubble">
-                                        <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}"></a>
-                                        <!-- <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a> -->
-                                    </div>                    
+                        </div>
+                        <div>
+                            
+                            {{#each attachDocuments}}
+                                {{#with getDocument}}
+                                {{#if this.isUploaded}}
+                                        {{#if this.hasStored 'documents'}}                           
+                                            <div class="bubble">
+                                            <a href='{{this.url}}'> <i class="icon ion-ios-download-outline"></i>&nbsp;{{this.name}}</a>                                                     
+                                            </div>
+                                        {{else}}
+                                            {{> LoadingSpinner}}                                  
+                                        {{/if}}
                                     {{else}}
-                                    <div class="bubble">
-                                        <audio controls>
-                                        <source src="{{this.url}}" type="audio/wav">
-                                        </audio>
-                                        <!-- <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a> -->
-                                    </div>                                                                                    
-                                    {{/if}}
-                                {{/if}}                                 
-                                {{/if}}                      
-                            {{/if}}
-                            {{/with}}
-                        {{/each}}
-                    </div>
-                    <div>
-                        
-                        {{#each attachDocuments}}
-                            {{#with getDocument}}
-                            {{#if this.isUploaded}}
-                                    {{#if this.hasStored 'documents'}}                           
-                                        <div class="bubble">
-                                        <a href='{{this.url}}'> <i class="icon ion-ios-download-outline"></i>&nbsp;{{this.name}}</a>                                                     
-                                        </div>
-                                    {{else}}
-                                        {{> LoadingSpinner}}                                  
-                                    {{/if}}
-                                {{else}}
-                                        {{> LoadingSpinner}}             
-                            {{/if}}
-                            {{/with}}
-                        {{/each}}
-                                              
-                    </div>
+                                            {{> LoadingSpinner}}             
+                                {{/if}}
+                                {{/with}}
+                            {{/each}}
+                                                
+                        </div>
                     </div>
                     
                     <p>
