@@ -35,5 +35,9 @@ Smartix.Newsgroup.Schema = new SimpleSchema({
 	comments: {
 		type: Boolean,
 		defaultValue: false
+	},
+	mandatory: {
+		type: Boolean,
+		defaultValue: false
 	}
 });

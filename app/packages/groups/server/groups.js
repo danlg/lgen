@@ -31,7 +31,7 @@ Smartix.Groups.createGroup = function (options) {
 	// Insert the group object into `smartix:groups` collection
 	// and return the newly-generated `_id`
 	return Smartix.Groups.Collection.insert(options);
-}
+};
 
 Smartix.Groups.editGroup = function (id, options) {
 
@@ -65,7 +65,7 @@ Smartix.Groups.editGroup = function (id, options) {
 	}, {
 		$set: options
 	});
-}
+};
 
 Smartix.Groups.deleteGroup = function (id) {
 	// Checks that `id` is of type String

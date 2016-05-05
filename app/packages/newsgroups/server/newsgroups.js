@@ -18,15 +18,15 @@ Smartix.Newsgroup.getNewsGroupOfUser = function (id) {
 			namespace: Smartix.Acccounts.listUserSchools(id)
 		})
 	}
-}
+};
 
 Smartix.Newsgroup.canCreateNewsgroup = function (namespace, currentUser) {
     if(!Smartix.Accounts.School.isAdmin(namespace, currentUser)) {
-		return false;
-		// Optional: Throw an appropriate error if not
-	}
+			return false;
+			// Optional: Throw an appropriate error if not
+		}
     return true;
-}
+};
 
 Smartix.Newsgroup.canEditNewsgroup = Smartix.Newsgroup.canDeleteNewsgroup = Smartix.Newsgroup.canAddUsersToGroup = Smartix.Newsgroup.canRemoveUsersFromGroup = function (newsgroup, currentUser) {
     
@@ -38,22 +38,18 @@ Smartix.Newsgroup.canEditNewsgroup = Smartix.Newsgroup.canDeleteNewsgroup = Smar
         currentUser = currentUser || Meteor.userId();
     }
     
-    var existingNewsgroup = Smartix.Groups.Collection.findOne({
-		_id: id
-	});
-    
+    var existingNewsgroup = Smartix.Groups.Collection.findOne({ _id: id });
     if(!existingNewsgroup) {
         throw new Meteor.Error('group-not-found', "The group specified could not be found.")
     }
-    
-    if(Smartix.Accounts.isUserSchoolAdminForGroup(newsgroup, currentUser)
-    || Smartix.Accounts.School.isAdmin(existingNewsgroup.namespace, currentUser)) {
+    if(    Smartix.Accounts.isUserSchoolAdminForGroup(newsgroup, currentUser)
+  		  || Smartix.Accounts.School.isAdmin(existingNewsgroup.namespace, currentUser)) {
         return true;
     }
     return false;
-}
+};
 
-Smartix.Newsgroup.createNewsgroup = function (users, namespace, name, url, currentUser) {
+Smartix.Newsgroup.createNewsgroup = function (users, namespace, name, url, mandatory, currentUser ) {
 
 	// Checks that the currently-logged in user has
 	// administrative priviledges for the namespace it specified
@@ -70,12 +66,13 @@ Smartix.Newsgroup.createNewsgroup = function (users, namespace, name, url, curre
 	newsgroup.type = 'newsgroup';
 	newsgroup.name = name;
 	newsgroup.url = url;
+	newsgroup.mandatory = mandatory;
 	newsgroup.admins = [
 		Meteor.userId()
 	];
 	
 	//TODO :remove hardcode
-	newsgroup.addons = ['images','calendar','documents']; ; //hard code for demo only
+	newsgroup.addons = ['images','calendar','documents'];  //hard code for demo only
 	
 	// Checks the arguments are of the specified type, convert it if not
 	Smartix.Newsgroup.Schema.clean(newsgroup);
@@ -96,7 +93,7 @@ Smartix.Newsgroup.createNewsgroup = function (users, namespace, name, url, curre
 	} else {
 	    return Smartix.Groups.createGroup(newsgroup);
 	}
-}
+};
 
 Smartix.Newsgroup.editNewsgroup = function (id, options, currentUser) {
 
@@ -151,8 +148,7 @@ Smartix.Newsgroup.editNewsgroup = function (id, options, currentUser) {
 		}).count() > 0) {
 			return false;
 			// OPTIONAL: Throw error saying URL already exists
-		};
-
+		}
 		updateObj.url = options.url;
 	}
 
@@ -180,7 +176,7 @@ Smartix.Newsgroup.editNewsgroup = function (id, options, currentUser) {
 
 	// Update the group object using `$set`
 	Smartix.Groups.editGroup(id, updateObj);
-}
+};
 
 Smartix.Newsgroup.deleteNewsgroup = function (id, currentUser) {
 
@@ -203,7 +199,7 @@ Smartix.Newsgroup.deleteNewsgroup = function (id, currentUser) {
 
 	// Remove the newsgroup specified
 	Smartix.Groups.deleteGroup(id);
-}
+};
 
 Smartix.Newsgroup.addUsersToGroup = function (id, users, currentUser) {
 
@@ -228,7 +224,7 @@ Smartix.Newsgroup.addUsersToGroup = function (id, users, currentUser) {
     
 	// Add users to group
 	Smartix.Groups.addUsersToGroup(id, users);
-}
+};
 
 Smartix.Newsgroup.removeUsersFromGroup = function (id, users, currentUser) {
 	
@@ -238,19 +234,18 @@ Smartix.Newsgroup.removeUsersFromGroup = function (id, users, currentUser) {
 	// Checks that `users` is an array of Strings
 	check(users, [String]);
     
-    check(currentUser, Match.Maybe(String));
-    
-    // Get the `_id` of the currently-logged in user
-    if(!(currentUser === null)) {
-        currentUser = currentUser || Meteor.userId();
-    }
+	check(currentUser, Match.Maybe(String));
+
+	// Get the `_id` of the currently-logged in user
+	if(!(currentUser === null)) {
+			currentUser = currentUser || Meteor.userId();
+	}
 
 	// Checks permissions
     if(!Smartix.Newsgroup.canRemoveUsersFromGroup(id, currentUser)) {
 		return false;
 		// Optional: Throw an appropriate error if not
 	}
-
 	// Remove users from group
 	Smartix.Groups.removeUsersFromGroup(id, users);
-}
+};

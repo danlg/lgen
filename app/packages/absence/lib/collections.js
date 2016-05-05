@@ -35,7 +35,7 @@ Smartix.Absence.expectedAbsenceSchema = new SimpleSchema({
         type: String
     },
     date: {
-        type: Date,
+        type: Date
     },
     message: {
         type: String,

@@ -91,7 +91,7 @@ Smartix.Chat.canCreateChat = function (namespace, currentUser) {
     var userToBeChecked = currentUser || Meteor.userId();
     return Smartix.Accounts.School.isMember( currentUser, namespace)
         || Smartix.Accounts.System.isAdmin(currentUser);
-}
+};
 
 Smartix.Chat.createChat = function (chatObj) {
 
@@ -133,10 +133,10 @@ Smartix.Chat.createChat = function (chatObj) {
 	}).count() > 0) {
 		return false;
 		// Optional: Throw error saying URL already exists
-	};
+	}
 
 	return Smartix.Groups.createGroup(Chat);
-}
+};
 
 Smartix.Chat.editChat = function (id, options) {
 
@@ -191,7 +191,7 @@ Smartix.Chat.editChat = function (id, options) {
 		}).count() > 0) {
 			return false;
 			// OPTIONAL: Throw error saying URL already exists
-		};
+		}
 
 		updateObj.url = options.url;
 	}
@@ -220,7 +220,7 @@ Smartix.Chat.editChat = function (id, options) {
 
 	// Update the group object using `$set`
 	Smartix.Groups.editGroup(id, updateObj);
-}
+};
 
 Smartix.Chat.deleteChat = function (id, currentUser) {
 
@@ -241,7 +241,7 @@ Smartix.Chat.deleteChat = function (id, currentUser) {
 
 	// Remove the Chat specified
 	Smartix.Groups.deleteGroup(id);
-}
+};
 
 Smartix.Chat.addUsersToGroup = function (id, users, currentUser) {
 
@@ -265,7 +265,7 @@ Smartix.Chat.addUsersToGroup = function (id, users, currentUser) {
 
 	// Add users to group
 	Smartix.Groups.addUsersToGroup(id, users);
-}
+};
 
 Smartix.Chat.removeUsersFromGroup = function (id, users, currentUser) {
 	
@@ -289,4 +289,4 @@ Smartix.Chat.removeUsersFromGroup = function (id, users, currentUser) {
 
 	// Add users to group
 	Smartix.Groups.removeUsersFromGroup(id, users);
-}
+};

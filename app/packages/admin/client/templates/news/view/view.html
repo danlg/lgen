@@ -1,6 +1,7 @@
 <template name="AdminNewsView">
     {{#if Template.subscriptionsReady}}
         <div class="panel panel-flat">
+          <!-- WHY IS IT CLASS ?-->
             {{#with classData}}
                 <div class="panel-heading">
                     <h1>{{className}}</h1>
@@ -8,8 +9,8 @@
 
                 <div class="panel-body">
                     <p>Created At: {{createdAt}}</p>
-                    <p>Class Code: {{classCode}}</p>
-                    <p>Age Restricted: {{ageRestricted}}</p>
+                    <p>News Code: {{classCode}}</p>
+                    <p>Mandatory: {{mandatory}}</p>
                 </div>
                 
                 <h3>Admins</h3>

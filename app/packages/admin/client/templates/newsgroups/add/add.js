@@ -7,12 +7,16 @@ Template.AdminNewsgroupsAdd.events({
         newNewsgroup.type = 'newsgroup';
         newNewsgroup.className = template.$('#addNewsgroup-name').eq(0).val();
         newNewsgroup.url = template.$('#addNewsgroup-code').eq(0).val();
-        newNewsgroup.ageRestricted = template.$('#addNewsgroup-ageRestricted').eq(0).val();
-        
-        
+
+        var mandatoryStr = template.$('#newsgroupMandatory').eq(0).val();
+        newNewsgroup.mandatory = (mandatoryStr === "on") ? true : false;
+        log.info("newNewsgroup.mandatoryStr", mandatoryStr);
+        log.info("newNewsgroup.mandatory", newNewsgroup.mandatory);
+
+
         // If the checkbox is selected,
-        // Make ageRestricted `true`, otherwise `false`
-        newNewsgroup.ageRestricted = newNewsgroup.ageRestricted === "on" ? true : false;
+        // Make newsgroupMandatory `true`, otherwise `false`
+
         
         log.info('newNewsgroupObj',newNewsgroup);
         

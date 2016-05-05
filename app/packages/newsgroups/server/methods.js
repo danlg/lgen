@@ -1,8 +1,8 @@
 Meteor.methods({
-    'smartix:newsgroups/createNewsgroup':function(schoolName, classObj){
+    'smartix:newsgroups/createNewsgroup':function(schoolName, newgroupObj){
         
         check(schoolName, String);
-        check(classObj, Object);
+        check(newgroupObj, Object);
         
         var schoolDoc = SmartixSchoolsCol.findOne({
             username: schoolName
@@ -28,9 +28,11 @@ Meteor.methods({
         var resultValue = Smartix.Newsgroup.createNewsgroup(
             lodash.map(userIds, '_id'),
             schoolDoc._id,
-            classObj.className,
-            classObj.url,
-            this.userId);
+            newgroupObj.className,
+            newgroupObj.url,
+            newgroupObj.mandatory,
+            this.userId
+        );
             
         if(resultValue === -1){
              throw new Meteor.Error("newsgroups-existed", "Newsgroup already exist");   

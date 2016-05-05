@@ -98,7 +98,7 @@ Smartix.Class.searchForClassWithClassCode = function (classCode) {
         return existGroup;
     }
     return false;
-}
+};
 
 Smartix.Class.getClassesOfUser = function (id) {
 	if(Match.test(id, String)) {
@@ -116,7 +116,7 @@ Smartix.Class.getClassesOfUser = function (id) {
 			namespace: Smartix.Acccounts.listUserSchools(id)
 		});
 	}
-}
+};
 
 Smartix.Class.isClassAdmin = function (userId, classId) {
     
@@ -136,7 +136,7 @@ Smartix.Class.isClassAdmin = function (userId, classId) {
         return false;    
     }
    
-}
+};
 
 Smartix.Class.canCreateClass = function (namespace, currentUser) {
     check(namespace, String);
@@ -151,7 +151,7 @@ Smartix.Class.canCreateClass = function (namespace, currentUser) {
     return Smartix.Accounts.School.isTeacher(namespace, currentUser)
         || Smartix.Accounts.School.isAdmin(namespace, currentUser)
         || Smartix.Accounts.System.isAdmin(currentUser);
-}
+};
 
 Smartix.Class.createClass = function (classObj, currentUser) {
 
@@ -213,10 +213,10 @@ Smartix.Class.createClass = function (classObj, currentUser) {
 	}).count() > 0) {
 		return false;
 		// Optional: Throw error saying classCode already exists
-	};
+	}
 
 	return Smartix.Groups.createGroup(newClass);
-}
+};
 
 Smartix.Class.editClass = function (classId, options) {
 
@@ -247,10 +247,6 @@ Smartix.Class.editClass = function (classId, options) {
 		// Optional: Throw an appropriate error if not
 	}
     
-    
-
-
-
 	var updateObj = {};
 
 	if (options.users) {
@@ -282,7 +278,7 @@ Smartix.Class.editClass = function (classId, options) {
 		}).count() > 0) {
 			return false;
 			// OPTIONAL: Throw error saying classCode already exists
-		};
+		}
 
 		updateObj.classCode = options.classCode;
 	}
@@ -327,7 +323,7 @@ Smartix.Class.editClass = function (classId, options) {
 	// Update the group object using `$set`
     log.info('Smartix.Groups.editGroup@editClass',updateObj)
 	Smartix.Groups.editGroup(existingClass._id, updateObj);
-}
+};
 
 Smartix.Class.deleteClass = function (id) {
 
@@ -346,7 +342,7 @@ Smartix.Class.deleteClass = function (id) {
 
 	// Remove the class specified
 	Smartix.Groups.deleteGroup(id);
-}
+};
 
 Smartix.Class.addUsersToClass = function (id, users) {
 
@@ -368,7 +364,7 @@ Smartix.Class.addUsersToClass = function (id, users) {
 
 	// Add users to class
 	Smartix.Groups.addUsersToGroup(id, users);
-}
+};
 
 Smartix.Class.removeUsersFromClass = function (id, users) {
 	
@@ -390,7 +386,7 @@ Smartix.Class.removeUsersFromClass = function (id, users) {
 
 	// Add users to class
 	Smartix.Groups.removeUsersFromGroup(id, users);
-}
+};
 
 
 
