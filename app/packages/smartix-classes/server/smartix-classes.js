@@ -304,6 +304,33 @@ Smartix.Class.addUsersToClass = function (id, users) {
 
 	// Add users to class
 	Smartix.Groups.addUsersToGroup(id, users);
+    
+    // Get the class object
+    let classObj = Smartix.Groups.Collection.findOne({
+        _id: id,
+        type: "class"
+    });
+    
+    if(classObj) {
+        // Send emails to students if `newClass.notifyStudents` is true
+        if(classObj.notifyStudents) {
+            _.each(users, function (student, i, students) {
+                Smartix.Class.NotifyStudents(student, id);
+            });
+        }
+        // Send emails to parents if `newClass.notifyParents` is true
+        if(classObj.notifyParents) {
+            _.each(users, function (student, i, students) {
+                // Get the parents of the student
+                let parents = Smartix.Accounts.Relationships.getParentOfStudent(student, namespace);
+                
+                _.each(parents, function (parent, i) {
+                    Smartix.Class.NotifyStudents(parent._id, id);
+                });
+            });
+        }
+    }
+    
 };
 
 Smartix.Class.removeUsersFromClass = function (id, users) {
