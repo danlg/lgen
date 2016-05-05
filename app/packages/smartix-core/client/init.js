@@ -34,7 +34,10 @@ Meteor.startup(function () {
         Router.go('classDetail',{classCode:payload.classCode},{query: "toBottom=true"});          
       }             
    }
-   
+    //if it is a new newsgroup news
+   if(payload.type === 'newsgroup'){
+      Router.go('newsgroups.news.list');                   
+   }  
   });
 
 
