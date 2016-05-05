@@ -16,8 +16,7 @@ Template.AdminNewsAdd.onCreated(function () {
                 }
             });
         }
-        
-    })
+    });
 
     this.subscribe('images');
     this.subscribe('documents');
@@ -55,19 +54,36 @@ Template.AdminNewsAdd.helpers({
         return Documents.findOne(id);      
     },    
     calendarEventSet:function(){ 
-        if($.isEmptyObject(Template.instance().calendarEvent.get())){
-            return false;
-        }else{
-            return true;
-        }
+        return ( !($.isEmptyObject( Template.instance().calendarEvent.get() ) ) );
     },
     showCalendarForm:function(){
         return Template.instance().showCalendarForm.get();
     }
 });
 
+checkNews = function(broadcastList){
+  if (broadcastList.size()===0 ) {
+    toastr.info('To send a news, please create at least one newsgroup first');
+    return false;
+  }
+
+  var anyChecked = false;
+  broadcastList.each(function () {
+    anyChecked = anyChecked || this.checked;
+  });
+  if (!anyChecked) {
+    toastr.info('Please check at least one newsgroup');
+    return false;
+  }
+  return true;
+};
+
 Template.AdminNewsAdd.events({
     'click #addNews-submit': function (event, template) {
+        var broadcastList = $("input[type='checkbox'][name='addNews-newsgroup']");
+        if (!checkNews(broadcastList)) {
+          return;
+        }
 
         var title = $('#addNews-title').val();
         var content = $('#addNews-content').val();
@@ -96,19 +112,22 @@ Template.AdminNewsAdd.events({
         }
         
         var addons = [];
+
         var mediaObj = {};
         mediaObj.imageArr = template.imageArr.get();
         mediaObj.documentArr = template.documentArr.get();
         mediaObj.calendarEvent = template.calendarEvent.get();
-              
-        populateAddons(addons, mediaObj); 
-        
-        $("input[type='checkbox'][name='addNews-newsgroup']").each(function (index) {
-            if (this.checked) {
 
+        populateAddons(addons, mediaObj);
+
+        broadcastList.each(function (index) {
+            if (this.checked) {
+                //self = this;
                 Meteor.call('smartix:messages/createNewsMessage', this.value, 'article', { content: content, title: title },
                   addons,doPushNotificationB,function(){
-                    toastr.info('news sent');
+                    //todo add here newsgroup name
+                    toastr.info('News sent');
+                    //toastr.info('News sent to ' + self.value);
 
                     //form cleanup
                     $('#addNews-title').val("");
