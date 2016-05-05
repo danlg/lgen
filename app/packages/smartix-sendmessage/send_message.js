@@ -62,27 +62,8 @@ Template.SendMessage.events({
       }]
     });
   },
-  'click #allowVote':function(e){
-      if($('input#allowVote:checked').length > 0){
-          canVote.set(true);
-          
-        if(lodash.findIndex(borrower,{type:"vote-options"}) == -1){
-            var borrower = messageListHeightBorrower.get();
-            borrower.push({type:"vote-options",height:20});
-            messageListHeightBorrower.set(borrower);
-            updateMessageListHeight();           
-        }         
-      }else{
-          canVote.set(false);
-          var borrower = messageListHeightBorrower.get();
-          lodash.remove(borrower, function (obj) {
-              if (obj.type == "vote-options") {
-                  return true;
-              }
-          });
-          messageListHeightBorrower.set(borrower);
-          updateMessageListHeight();             
-      }      
+  'click #allowVote':function(event){
+    voteEnableCheck();  
   },
   'click #imageBtn': function (e) {
 
@@ -534,6 +515,9 @@ Template.SendMessage.rendered = function () {
         updateMessageListHeight();           
     }
   }
+  
+  //initial check of vote option.
+  voteEnableCheck();
     
 };
 
@@ -843,4 +827,27 @@ function updateMessageListHeight(){
     calcValue = "calc(100% - "+totalBorrow+"px)";
     $('.messageList').css({'height':calcValue});   
      
+}
+
+function voteEnableCheck(){
+      if($('input#allowVote:checked').length > 0){
+          canVote.set(true);
+          
+        if(lodash.findIndex(borrower,{type:"vote-options"}) == -1){
+            var borrower = messageListHeightBorrower.get();
+            borrower.push({type:"vote-options",height:20});
+            messageListHeightBorrower.set(borrower);
+            updateMessageListHeight();           
+        }         
+      }else{
+          canVote.set(false);
+          var borrower = messageListHeightBorrower.get();
+          lodash.remove(borrower, function (obj) {
+              if (obj.type == "vote-options") {
+                  return true;
+              }
+          });
+          messageListHeightBorrower.set(borrower);
+          updateMessageListHeight();             
+      }        
 }
