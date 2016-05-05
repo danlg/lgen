@@ -3,7 +3,6 @@ var processData = function(csv) {
     // Converts all to lowercase and replace multiple spaces with one space
     var yo = allTextLines[0].toLowerCase().replace(/\s\s+/g, ' ');
     yo = yo
-        .replace("father work phone number", "workPhone")
         .replace("teacher first name", "firstName")
         .replace("teacher last name", "lastName")
         .replace("teacher email", "email")
