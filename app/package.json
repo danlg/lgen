@@ -5,7 +5,7 @@
     "clean-build": "rm -rf ../build",
     "clean-local": "./clean_build.sh",
 
-    "local" : "meteor --settings ../config/dev/settings.json",
+    "localdev" : "meteor --settings ../config/dev/settings.json",
     "localdev-clean" : "./clean_build.sh && meteor -v --settings ../config/dev/settings.json",
 
     "ios-local": "meteor run ios --settings ../config/dev/settings.json --mobile-server=http://localhost:3000",
@@ -49,6 +49,7 @@
   "dependencies": {
     "meteor-node-stubs": "^0.2.3",
     "xlsx": "^0.8.0",
-    "jszip": "^3.0.0"
+    "jszip": "^3.0.0",
+    "log4js": "^0.6.29"
   }
 }

@@ -101,7 +101,7 @@ Smartix.Chat.createChat = function (chatObj) {
 
 	if(chatObj.namespace !== 'global'
         && !Smartix.Chat.canCreateChat(chatObj.namespace)) {
-		console.log('Smartix.Chat.canCreateChat:',false);
+		log.info('Smartix.Chat.canCreateChat:',false);
 		return false;
 		// Optional: Throw an appropriate error if not
 	}

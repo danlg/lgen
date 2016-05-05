@@ -52,7 +52,7 @@ Template.ChatRoom.helpers({
         }  
 
     } );
-    console.log('chatMessages',chatMessages);
+    log.info('chatMessages',chatMessages);
        
     return chatMessages;   
   },
@@ -137,7 +137,7 @@ Template.ChatRoom.helpers({
   },
 
   isText: function () {
-    console.log('isText',this.data.content);
+    log.info('isText',this.data.content);
     if(this.data.content === 'New Image' || this.data.content === 'New Document' ){
       return false;
     }else{
@@ -202,7 +202,7 @@ Template.ChatRoom.helpers({
         Roles.userIsInRole(target, Smartix.Accounts.School.PARENT, currentChat.namespace)
        )
     {
-      console.log('chat setting');
+      log.info('chat setting');
       //debugger;
       if (target.profile.chatSetting && target.profile.chatSetting.workHour) {
         var workHourTime = target.profile.chatSetting.workHourTime;

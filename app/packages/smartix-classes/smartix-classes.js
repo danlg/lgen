@@ -34,7 +34,7 @@ Smartix.Class.Schema = new SimpleSchema({
                 if(Smartix.Class.searchForClassWithClassCode(inputClassCode)) {
                     // If a class with the classCode already exists
                     // Invalidate Autoform and provides a suggestion
-                    console.log('classcode already exist');
+                    log.info('classcode already exist');
                     return 'classcode already exist';
                 }
             }
@@ -83,7 +83,7 @@ Smartix.Class.Schema = new SimpleSchema({
 });
 
 Smartix.Class.searchForClassWithClassCode = function (classCode) {
-    console.log('Checks that `classCode` conforms to the schema before searching',classCode);
+    log.info('Checks that `classCode` conforms to the schema before searching',classCode);
     // Checks that `classCode` conforms to the schema before searching
     var classCodePattern = new RegExp(/^[a-zA-Z0-9-]{3,}$/);
     
@@ -93,7 +93,7 @@ Smartix.Class.searchForClassWithClassCode = function (classCode) {
         var existGroup = Smartix.Groups.Collection.findOne({
             classCode: classCode
         });
-        console.log('existGroup',existGroup);
+        log.info('existGroup',existGroup);
         // Returns the class object or `undefined`
         return existGroup;
     }
@@ -126,7 +126,7 @@ Smartix.Class.isClassAdmin = function (userId, classId) {
         _id: classId
     });
     
-    console.log('Smartix.Class.isClassAdmin',queriedClass.admins);
+    log.info('Smartix.Class.isClassAdmin',queriedClass.admins);
     if(Array.isArray(queriedClass.admins)) {
         
         return queriedClass.admins.indexOf(userId) > -1;
@@ -162,7 +162,7 @@ Smartix.Class.createClass = function (classObj, currentUser) {
         currentUser = currentUser || Meteor.userId();
     }
     
-    console.log('Smartix.Class.createClass',classObj);
+    log.info('Smartix.Class.createClass',classObj);
     
 	// Checks that the namespace is either `global`
     // or the currently-logged in user is one of the following:
@@ -172,7 +172,7 @@ Smartix.Class.createClass = function (classObj, currentUser) {
 	if(classObj.namespace !== 'global'
         && !Smartix.Class.canCreateClass(classObj.namespace, currentUser)) {
 			
-	 	console.log('no right to create class')
+	 	log.info('no right to create class')
 		
   	    return "no-right-create-class" ;		
 		//return false;
@@ -220,7 +220,7 @@ Smartix.Class.createClass = function (classObj, currentUser) {
 
 Smartix.Class.editClass = function (classId, options) {
 
-    console.log('Smartix.Class.editClass',classId,options);
+    log.info('Smartix.Class.editClass',classId,options);
 	// Checks that `id` is of type String
 	check(classId, String);
 
@@ -242,7 +242,7 @@ Smartix.Class.editClass = function (classId, options) {
 	if(!Smartix.Class.isClassAdmin(Meteor.userId(), classId)
         && !Smartix.Accounts.School.isAdmin(existingClass.namespace)) {
         
-        console.log('no right to edit class!')
+        log.info('no right to edit class!')
 		return false;
 		// Optional: Throw an appropriate error if not
 	}
@@ -325,7 +325,7 @@ Smartix.Class.editClass = function (classId, options) {
     }
         
 	// Update the group object using `$set`
-    console.log('Smartix.Groups.editGroup@editClass',updateObj)
+    log.info('Smartix.Groups.editGroup@editClass',updateObj)
 	Smartix.Groups.editGroup(existingClass._id, updateObj);
 }
 

@@ -7,7 +7,7 @@ Template.AdminUsersSearch.onCreated(function () {
     ) {
         // subscribe to the school info first
         var schoolUsername = Router.current().params.school;
-        console.log('packages/admin/client/template/users/list#schoolUsername: ' + schoolUsername);
+        log.info('packages/admin/client/template/users/list#schoolUsername: ' + schoolUsername);
         self.subscribe('schoolInfo', schoolUsername, function () {
             var schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolUsername)
             if(schoolNamespace) {
@@ -15,7 +15,7 @@ Template.AdminUsersSearch.onCreated(function () {
             }
         })
     } else {
-        console.log("Please specify a school to list the users for");
+        log.info("Please specify a school to list the users for");
     }
 });
 

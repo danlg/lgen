@@ -45,7 +45,7 @@ Meteor.methods({
             check(options, SchoolsSchema);
 
             if (lodash.includes(RESERVED_SCHOOL_NAMES, options.username)) {
-                console.log(CANNOT_BE_SAME_AS_RESERVED_NAMES);
+                log.info(CANNOT_BE_SAME_AS_RESERVED_NAMES);
                 return;
             }
 
@@ -99,7 +99,7 @@ Meteor.methods({
 
 
         } else {
-            console.log('caller is not authed');
+            log.info('caller is not authed');
             throw new Meteor.Error("caller-not-authed", "caller is not authed");
         }
     },
@@ -122,7 +122,7 @@ Meteor.methods({
             return SmartixSchoolsCol.update(id, {$set: targetSchool });
 
         } else {
-            console.log('caller is not authed');
+            log.info('caller is not authed');
             throw new Meteor.Error("caller-not-authed", "caller is not authed");
         }
     },

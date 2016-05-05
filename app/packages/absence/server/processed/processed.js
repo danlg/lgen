@@ -5,13 +5,10 @@ Smartix.Absence = Smartix.Absence || {};
 var schoolStartTime = "08:00";
 Smartix.Absence.getAllStudentsWhoAreExpectedToTapIn = function (namespace) {
     return Meteor.users.find({
-        
     })
-}
-
+};
 
 Smartix.Absence.processAbsences = function (namespace, currentUser) {
-    
     check(namespace, String);
     check(currentUser, Match.Maybe(String));
     
@@ -22,9 +19,7 @@ Smartix.Absence.processAbsences = function (namespace, currentUser) {
     
     // Get all the students in the namespace who are expected to tap in
     let allSchoolUsers = Smartix.Accounts.School.getAllSchoolStudents(namespace, currentUser);
-    console.log(allSchoolUsers);
-    console.log(allSchoolUsers.count());
-    
-    
+    log.info(allSchoolUsers);
+    log.info(allSchoolUsers.count());
     // Smartix.Absence.Collections.processed.upsert();
-}
+};

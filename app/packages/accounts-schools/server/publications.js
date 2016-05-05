@@ -27,7 +27,7 @@ Meteor.publish('allSchoolUsersPerRole', function (school) {
     }
     
     if(!schoolDoc){
-        console.log('allSchoolUsersPerRole: no school is found: are you in global or system namespace? they dont have school collection')
+        log.info('allSchoolUsersPerRole: no school is found: are you in global or system namespace? they dont have school collection')
         return;
     }
     

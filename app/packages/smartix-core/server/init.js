@@ -4,15 +4,21 @@ import log4js from 'log4js';
 
 //var log4js = Meteor.npmRequire('log4js');
 //console log is loaded by default, so you won't normally need to do this
-  log4js.replaceConsole();
-  log4js.loadAppender('file');
+log4js.replaceConsole();
+log4js.loadAppender('file');
 
-  log4js.configure({
+// see https://github.com/nomiddlename/log4js-node/wiki/Layouts
+// and also //https://github.com/nomiddlename/log4js-node/blob/master/lib/appenders/file.js
+log4js.configure({
     appenders: [
-      { type: 'console' },
+      { type: 'console'
+        //, pattern: '%d{dd MMM yyyy HH:mm:ss]} %m%n'
+        , pattern: '%d{dd MMM yyyy HH:mm:ss} %m%n'
+        },
       { type: 'file' //file logger is async, which is good
-        //https://github.com/nomiddlename/log4js-node/blob/master/lib/appenders/file.js
-        , filename: 'genius-server.log'
+        , pattern: '%d{dd MMM yyyy HH:mm:ss} %m%n'
+        //, pattern: '[%[%r]] %p %m%n'
+        , filename: 'littlegenius.log'
         , category: 'lg' }
     ]
   });
@@ -20,11 +26,6 @@ log = log4js.getLogger('lg');//global variable
 
 Meteor.startup(function () {
   Push.debug = true;
-  //SimpleSchema.debug = true;
-
-
-
-
   log.setLevel('INFO');
 
   log.info("Using env DDP_DEFAULT_CONNECTION_URL="+ Meteor.settings.DDP_DEFAULT_CONNECTION_URL);
@@ -42,8 +43,6 @@ Meteor.startup(function () {
       { service: "google" },
       {
         $set: {
-          //clientId: "122417300165-4i555ct1kvrf8fesec9bp1f9vprdrlef.apps.googleusercontent.com",
-          //secret: "jyI4QhG3lz2J_fXxSk1QXxJG",
           clientId: Meteor.settings.GOOGLE_CLIENT_ID,
           secret:   Meteor.settings.GOOGLE_SECRET
         }

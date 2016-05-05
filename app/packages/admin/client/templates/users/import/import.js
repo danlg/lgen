@@ -41,7 +41,7 @@ Template.AdminUsersImport.events({
                     Session.set('imported-students', finalResults);
                 },
                 error: function (error, file) {
-                    console.log(error);
+                    log.info(error);
                 }
             });
         }
