@@ -316,7 +316,7 @@ function populateAddons(addons, mediaObj)
 }
 
 function populateCalendar(mediaObj) {
-  return new  {
+  return {
     type:'calendar',
     eventName: mediaObj.calendarEvent.eventName,
     location:  mediaObj.calendarEvent.location,
