@@ -75,7 +75,7 @@ Smartix.Newsgroup.createNewsgroup = function (users, namespace, name, url, curre
 	];
 	
 	//TODO :remove hardcode
-	newsgroup.addons = ['images','calendar']; ; //hard code for demo only
+	newsgroup.addons = ['images','calendar','documents']; ; //hard code for demo only
 	
 	// Checks the arguments are of the specified type, convert it if not
 	Smartix.Newsgroup.Schema.clean(newsgroup);

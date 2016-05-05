@@ -69,10 +69,21 @@ Template.AdminNewsAdd.events({
         var doPushNotification = document.getElementById("addNews-push-notification").checked
         console.log('doPushNotification',doPushNotification);
         event.preventDefault();
-
+        
+        var addons = [];
+        var mediaObj = {};
+        mediaObj.imageArr = template.imageArr.get();
+        mediaObj.documentArr = template.documentArr.get();
+        mediaObj.calendarEvent = template.calendarEvent.get();
+              
+        populateAddons(addons, mediaObj); 
+        
         $("input[type='checkbox'][name='addNews-newsgroup']").each(function (index) {
             if (this.checked) {
-                Meteor.call('smartix:messages/createNewsMessage', this.value, 'article', { content: content, title: title }, null,doPushNotification);
+              
+                Meteor.call('smartix:messages/createNewsMessage', this.value, 'article', { content: content, title: title }, addons,doPushNotification,function(){
+                    toastr.info('news sent');
+                });
             }
         });
     },
@@ -153,4 +164,41 @@ function hidePreview(filetype){
     log.info("hide preview:filetype:"+filetype);
     $('.preview'+'.'+filetype).hide();       
  
+}
+
+
+function populateAddons(addons, mediaObj)
+{
+  //add images to addons one by one if any
+  if (mediaObj.imageArr.length > 0) {
+    //console.log('there is image');
+    mediaObj.imageArr.map(function (eachImage) {
+      addons.push({type: 'images', fileId: eachImage});
+    })
+  }
+
+  //add documents to addons one by one if any
+  if (mediaObj.documentArr.length > 0) {
+    //console.log('there is doc');
+    mediaObj.documentArr.map(function (eachDocument) {
+      addons.push({type: 'documents', fileId: eachDocument});
+    })
+  }
+
+  //add calendar to addons one by one if any
+  if (mediaObj.calendarEvent.eventName && mediaObj.calendarEvent.eventName != "") {
+    //console.log('there is calendar');
+    //console.log(mediaObj.calendarEvent);
+    addons.push(populateCalendar(mediaObj));
+  }
+}
+
+function populateCalendar(mediaObj) {
+  return new  {
+    type:'calendar',
+    eventName: mediaObj.calendarEvent.eventName,
+    location:  mediaObj.calendarEvent.location,
+    startDate: mediaObj.calendarEvent.startDate + " " + mediaObj.calendarEvent.startDateTime ,
+    endDate:   mediaObj.calendarEvent.endDate   +" " +  mediaObj.calendarEvent.endDateTime
+  };
 }

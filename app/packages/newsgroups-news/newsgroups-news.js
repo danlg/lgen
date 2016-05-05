@@ -97,13 +97,18 @@ Smartix.Newsgroup.Messages.canAttachAddons = function (announcementId, addons) {
         return addon.type;
     });
     
-    if(addonTypes.length !== _.compat(addonTypes).length) {
+    if(addonTypes.length !== _.compact(addonTypes).length) {
         return false;
         // OPTIONAL: Throw error saying some addons do not have the `type` property specified
     }
-    
+
     // If there are addons with types not allowed for this Newsgroup, return `false`
+    console.log('notAllowedTypes',addonTypes,_Newsgroup.addons);
     var notAllowedTypes = _.difference(addonTypes, _Newsgroup.addons);
     
-    return notAllowedTypes.length > 0;
+    if(notAllowedTypes.length > 0){
+        return false;
+    }else{
+        return true;
+    }
 }
