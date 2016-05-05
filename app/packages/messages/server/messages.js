@@ -187,10 +187,11 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
         //add notifications to db
         
         //Remove current user himself/herself from the push notiification list
-        lodash.remove(group.users,function(eachUserId){
-            return (eachUserId === Meteor.userId()) ? true : false
+        lodash.remove(group.users,
+          function(eachUserId){
+            return (eachUserId === Meteor.userId());
         });
-        
+
         group.users.map(function(eachTargetUser){
             Notifications.insert({
                 eventType:"new"+group.type+"message",
@@ -216,8 +217,9 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
                 if(group.type === 'newsgroup'){
                     notificationObj.title = message.data.title || "";
                 }
-                
-                Meteor.call("serverNotification", notificationObj,{
+                //TODO we need to remove user who has not subscribed to push Notification
+                //this is done here in serverNotification
+                Meteor.call("doPushNotification", notificationObj,{
                     groupId: groupId,
                     classCode: group.classCode || ""
                 });             

@@ -146,7 +146,7 @@ Meteor.methods({
     });
   },
 
-  serverNotification: function (notificationObj,inAppNotifyObj) {
+  doPushNotification: function (notificationObj,inAppNotifyObj) {
   
     var notificationObjType;
     var filteredUserIdsWhoEnablePushNotify = [];
@@ -172,7 +172,7 @@ Meteor.methods({
         notificationObjType="single";
         var userId = notificationObj.query.userId;
         var userObj = Meteor.users.findOne(userId);
-        log.info('serverNotification:',userObj,userId);
+        log.info('doPushNotification:',userObj,userId);
         if (userObj.pushNotifications) {
             filteredUserIdsWhoEnablePushNotify.push(userId);
             notificationObj.badge = Smartix.helpers.getTotalUnreadNotificationCount(userId);

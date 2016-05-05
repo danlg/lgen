@@ -64,15 +64,15 @@ Template.AdminNewsAdd.helpers({
     showCalendarForm:function(){
         return Template.instance().showCalendarForm.get();
     }
-})
+});
 
 Template.AdminNewsAdd.events({
     'click #addNews-submit': function (event, template) {
 
         var title = $('#addNews-title').val();
         var content = $('#addNews-content').val();
-        var doPushNotification = document.getElementById("addNews-push-notification").checked
-        log.info('doPushNotification',doPushNotification);
+        var doPushNotificationB = true; //document.getElementById("addNews-push-notification").checked;
+        //log.info('doPushNotificationB',doPushNotificationB);
         event.preventDefault();
         
         if(template.showCalendarForm.get()){
@@ -105,11 +105,11 @@ Template.AdminNewsAdd.events({
         
         $("input[type='checkbox'][name='addNews-newsgroup']").each(function (index) {
             if (this.checked) {
-              
-                Meteor.call('smartix:messages/createNewsMessage', this.value, 'article', { content: content, title: title }, addons,doPushNotification,function(){
+
+                Meteor.call('smartix:messages/createNewsMessage', this.value, 'article', { content: content, title: title },
+                  addons,doPushNotificationB,function(){
                     toastr.info('news sent');
-                    
-                    
+
                     //form cleanup
                     $('#addNews-title').val("");
                     $('#addNews-content').val("");

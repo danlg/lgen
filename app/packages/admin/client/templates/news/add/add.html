@@ -76,17 +76,19 @@
                             
                             <div class="extra-options setting padding-horizontal" style='overflow:hidden;white-space:nowrap;background-color: #EBE4D9  !important;'>
                                 {{#if calendarEventSet}}
-                                <i class='icon ion-ios-calendar-outline cancel-calendar' ></i>
+                                  <i class='icon ion-ios-calendar-outline cancel-calendar' ></i>
                                 {{/if}}
                             </div>                                                                                                               
                         </div>
                         <div class="col-lg-10">
                             <div class="btn-group" role="group" aria-label="...">
-                                <label class='btn btn-default' for="imageBtn">Attach an Image</label>
-                                <input id='imageBtn' type="file" name='imageBtn' class="inputfile imageBtn"/>
-                                <label class='btn btn-default' for="documentBtn">Attach an Document</label>
-                                <input id='documentBtn' type="file" name='documentBtn' class="inputfile documentBtn"/>                                
-                                <button type="button" class="btn btn-default set-calendar">Set as an Event</button>
+                              <label class='btn btn-default' for="imageBtn"><i class="icon-camera"></i>Attach an image</label>
+                              <input id='imageBtn' type="file" name='imageBtn' class="inputfile imageBtn"/>
+
+                              <label class='btn btn-default' for="documentBtn"><i class="icon-file-text2"></i>Attach a document</label>
+                              <input id='documentBtn' type="file" name='documentBtn' class="inputfile documentBtn"/>
+
+                              <button type="button" class="btn btn-default set-calendar"><i class="icon-calendar22"></i>Create an event</button>
                             </div>
 
                         </div>   
@@ -96,13 +98,13 @@
                             {{/if}}
                         </div>                                             
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Push notification</label>
-                        <label class="control-label col-lg-2">If checked, user receive a notification on their phone</label>
-                        <div class="col-lg-10">
-                            <input id="addNews-push-notification" type="checkbox" name="addNews-push-notification"/>                          
-                        </div>
-                    </div>                                                         
+                    <!--<div class="form-group">-->
+                        <!--<label class="control-label col-lg-2">Push notification</label>-->
+                        <!--<label class="control-label col-lg-2">If checked, user receive a notification on their phone</label>-->
+                        <!--<div class="col-lg-10">-->
+                            <!--<input id="addNews-push-notification" type="checkbox" name="addNews-push-notification"/>                          -->
+                        <!--</div>-->
+                    <!--</div>                                                         -->
                 </fieldset>
                 
                 <div class="text-right">
