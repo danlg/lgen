@@ -86,7 +86,7 @@ Template.TabChat.helpers({
         // => 1-to-1 chat
         //      => display another user's full name 
         
-        console.log('users',this.users);
+        log.info('users',this.users);
         var userIds = this.users;
         var maxNumberOfDisplayName = maxDisplay;
         var userObjArr = Meteor.users.find({_id: {$in: this.users }}).fetch();

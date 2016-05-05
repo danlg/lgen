@@ -6,7 +6,7 @@ Template.AdminNewsgroupsSearch.onCreated(function () {
     ) {
         this.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolName', Router.current().params.school);
     } else {
-        console.log("Please specify a school to list the classes for");
+        log.info("Please specify a school to list the classes for");
     }
 });
 

@@ -9,7 +9,7 @@ Smartix.Messages.ValidTypes = Smartix.Messages.ValidTypes || [];
 
 // Checks whether a type is supported
 Smartix.Messages.isValidType = function (type) {
-    console.log('Smartix.Messages.isValidType',Smartix.Messages.ValidTypes);
+    log.info('Smartix.Messages.isValidType',Smartix.Messages.ValidTypes);
     return Smartix.Messages.ValidTypes.indexOf(type) > -1;
 }
 
@@ -64,7 +64,7 @@ Smartix.Messages.cleanAndValidate = function (message) {
 };
 
 Smartix.Messages.createMessage = function (groupId, messageType, data, addons, isPush) {
-    console.log('Smartix.Messages.createMessage',groupId,messageType,data,addons, isPush);
+    log.info('Smartix.Messages.createMessage',groupId,messageType,data,addons, isPush);
     check(groupId, String);
     check(messageType, String);
     check(data, Object);
@@ -84,7 +84,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
     
     // Checks if group exists
     if(!group) {
-        console.log('group not exist');
+        log.info('group not exist');
         return false;
         
         // OPTIONAL: Throw error saying the group specified does not exists
@@ -95,7 +95,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
     // The logic behind this would be different for different group types
     if(!Smartix[Smartix.Utilities.letterCaseToCapitalCase(group.type)].Messages.canCreateMessage(groupId, group.type)) {
         
-        console.log('no permission to create message for this group');
+        log.info('no permission to create message for this group');
         return false;
         // OPTIONAL: Throw error saying you do not have
         // permission to create message for this group
@@ -107,7 +107,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
     
     // Checks that this type of message is valid
     if(!Smartix.Messages.isValidType(messageType)) {
-        console.log('type specified is not recognized');
+        log.info('type specified is not recognized');
         return false;
         // OPTIONAL: Throw error indicating the `type` specified is not recognized
     }
@@ -141,7 +141,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
     //chat's  msg allow addons are files/images and/or voice
     //news's  msg allow addons are files/images and/or voice
     
-    console.log('newMessage',newMessage);
+    log.info('newMessage',newMessage);
     if(addons) {
         
         /* ***************************************** */
@@ -152,7 +152,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
         //e.g This is class, so all addons are allowed. We input the newMessage Id , and the addons for the examination
         
         if(!Smartix[Smartix.Utilities.letterCaseToCapitalCase(group.type)].Messages.canAttachAddons(newMessage, addons)) {
-            console.log('not in canAttachAddons in this group type', Smartix.Utilities.letterCaseToCapitalCase(group.type));
+            log.info('not in canAttachAddons in this group type', Smartix.Utilities.letterCaseToCapitalCase(group.type));
             return false;
             // OPTIONAL: Throw error saying you do not have
             // permission to attach an addon for this group
@@ -167,7 +167,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
         addons.map(function(eachAddOn){
             
             if(group.addons.indexOf(eachAddOn.type) < 0) {
-                console.log('not in canAttachAddons in this specific group instance', Smartix.Utilities.letterCaseToCapitalCase(group.type));
+                log.info('not in canAttachAddons in this specific group instance', Smartix.Utilities.letterCaseToCapitalCase(group.type));
                 return false;
                 // OPTIONAL: Throw error indicating the add-on
                 // you are trying to attached in not an approved type

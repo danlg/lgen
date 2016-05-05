@@ -43,11 +43,9 @@ Smartix.Messages.Schema = new SimpleSchema({
 		defaultValue: [],
         custom: function () {
             if(!Array.isArray(this.value)) {
-                return "Th e Add-Ons field should be an array of objects";
+                return "The add-Ons field should be an array of objects";
             }
-            
-            console.log('addonsValidTypes@schema',Smartix.Messages.Addons.ValidTypes);
-            
+            //log.info('addonsValidTypes@schema',Smartix.Messages.Addons.ValidTypes);
             for (var i = 0; i < this.value.length; i++) {
                 if(typeof this.value.type[i] !== "string"
                 || Smartix.Messages.Addons.ValidTypes.indexOf(this.value.type[i]) < 0) {

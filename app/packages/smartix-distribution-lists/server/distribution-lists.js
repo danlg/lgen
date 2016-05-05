@@ -39,12 +39,17 @@ Smartix.DistributionLists.hasPermissionForList = function (id, currentUser) {
     return true;
 }
 
-Smartix.DistributionLists.createDistributionList = function (users, namespace, name, url, expectDuplicates, currentUser) {
+Smartix.DistributionLists.createDistributionList = function (options, currentUser) {
     
-    check(users, [String]);
-    check(namespace, String);
-    check(name, String);
-    check(url, String);
+    check(options, {
+        users: [String],
+        namespace: String,
+        name: String,
+        url: Match.Maybe(String),
+        expectDuplicates: Boolean,
+        upsert: Boolean
+    });
+    
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
@@ -55,47 +60,59 @@ Smartix.DistributionLists.createDistributionList = function (users, namespace, n
 	// Checks that the currently-logged in user has
 	// administrative priviledges for the namespace it specified
 	// (i.e. either the admin for the school, or the system admin)
-	if(!Smartix.DistributionLists.hasPermission(namespace, currentUser)) {
+	if(!Smartix.DistributionLists.hasPermission(options.namespace, currentUser)) {
         throw new Meteor.Error("permission-denied", "The user does not have permission to perform this action.");
 		// return false;
 	}
     
     // Checks that a distribution list with the same name have not been created already
     let groupWithSameName = Smartix.Groups.Collection.findOne({
-        name: name,
+        name: options.name,
         type: "distributionList",
-        namespace: namespace
+        namespace: options.namespace
     });
     if(groupWithSameName) {
-        if(expectDuplicates) {
+        if(options.expectDuplicates) {
+            if(options.upsert) {
+                // Adds the users specified to the list
+                Smartix.DistributionLists.addUsersToList(groupWithSameName._id, options.users, currentUser);
+            }
             return false;
         } else {
-            throw new Meteor.Error('list-already-exists', "The distribution list with the name " + name + " already exists.")
+            throw new Meteor.Error('list-already-exists', "The distribution list with the name " + options.name + " already exists.")
         }
+    }
+    
+    // If the URL is not specified, automatically generate one
+    if(!options.url) {
+        options.url = Smartix.Utilities.stringToLetterCase(options.name);
     }
     
     // Checks that a distribution list with the same url have not been created already
     let groupWithSameURL = Smartix.Groups.Collection.findOne({
-        url: url,
+        url: options.url,
         type: "distributionList",
-        namespace: namespace
+        namespace: options.namespace
     });
     if(groupWithSameURL) {
-        if(expectDuplicates) {
+        if(options.expectDuplicates) {
+            if(options.upsert) {
+                // Adds the users specified to the list
+                Smartix.DistributionLists.addUsersToList(groupWithSameURL._id, options.users, currentUser);
+            }
             return false;
         } else {
-            throw new Meteor.Error('list-already-exists', "The distribution list with the url " + url + " already exists.")
+            throw new Meteor.Error('list-already-exists', "The distribution list with the url " + options.url + " already exists.")
         }
     }
 
 	// Creating distribution list document to be inserted
 	var distributionList = {};
-	distributionList.users = users;
-	distributionList.namespace = namespace;
+	distributionList.users = options.users;
+	distributionList.namespace = options.namespace;
 	distributionList.type = 'distributionList';
-	distributionList.name = name;
-	distributionList.url = url;
-	
+	distributionList.name = options.name;
+	distributionList.url = options.url;
     
 	// Checks the arguments are of the specified type, convert it if not
 	Smartix.DistributionLists.Schema.clean(distributionList);
@@ -105,18 +122,9 @@ Smartix.DistributionLists.createDistributionList = function (users, namespace, n
 
 	// Remove duplicates from the `users` array
 	distributionList.users = _.uniq(distributionList.users);
-
-	// Checks the `url` is unique for this namespace
-	if(Smartix.Groups.Collection.find({
-		namespace: namespace,
-		url: distributionList.url
-	}).count() > 0){
-        // Throw error saying URL already exists
-        throw new Meteor.Error('url-already-exists', 'The Distribution list with the code ' + url + ' already exists. Please pick another one.')
-		// return -1;
-	} else {
-	    return Smartix.Groups.createGroup(distributionList);
-	}
+    
+    // Create the distribution list
+    return Smartix.Groups.createGroup(distributionList);
 }
 
 Smartix.DistributionLists.editDistributionList = function (id, options, currentUser) {

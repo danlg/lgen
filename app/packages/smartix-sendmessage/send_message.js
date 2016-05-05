@@ -233,7 +233,7 @@ Template.SendMessage.events({
       populateAddons(addons, mediaObj);
 
       GeneralMessageSender(target[0],'text',msg, addons,null,function(){
-          console.log('callback@GeneralMessageSender');
+          log.info('callback@GeneralMessageSender');
           Session.set("sendMessageSelectedClasses", {
             selectArrName: [],
             selectArrId: []
@@ -312,7 +312,7 @@ function populateAddons(addons, mediaObj)
 
   //add voice to addons one by one if any
   if (mediaObj.soundArr.length > 0) {
-    console.log('there is voice');
+    log.info('there is voice');
     mediaObj.soundArr.map(function (eachDocument) {
       addons.push({type: 'voice', fileId: eachDocument});
     })
@@ -350,7 +350,7 @@ function populateCalendar(mediaObj) {
 function populateVote(voteObj, mediaObj) {
   voteObj.type = "poll";
   voteObj.votes = [];
-  console.log('allowVote');
+  log.info('allowVote');
 
   log.info(mediaObj.voteType);
 

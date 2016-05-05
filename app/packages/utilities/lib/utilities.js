@@ -56,3 +56,17 @@ Smartix.Utilities.removeEmptyObjectsFromArray = function (array) {
         return Object.keys(obj).length > 0;
     });
 }
+
+// Taken from http://stackoverflow.com/a/2970667
+// Alternative to _.camelCase (if needed)
+Smartix.Utilities.camelize = function (str) {
+  return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
+    return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
+  }).replace(/\s+/g, '');
+}
+
+Smartix.Utilities.stringToLetterCase = function (str) {
+    // Replaces all non-alphanumeric characters with hyphen
+    // Converts all to lowercase
+    return str.replace(/\W+/g, '-').toLowerCase();
+}

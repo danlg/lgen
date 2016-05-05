@@ -29,7 +29,7 @@ Template.EmailSignup.helpers({
 /*****************************************************************************/
 Template.EmailSignup.onCreated = function() {
     var classToBeJoined = Session.get("search");
-    console.log(classToBeJoined);
+    log.info(classToBeJoined);
 
     $("body").removeClass('modal-open');
 };

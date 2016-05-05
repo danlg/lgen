@@ -193,7 +193,7 @@ Accounts.onLogin(function(attempt) {
                 //and user has exactly one pending school
                 if (Object.keys(Meteor.user().roles).length === 1) {
                     //automactically approve that school
-                    console.log('try approve user to the solely pending school');
+                    log.info('try approve user to the solely pending school');
                     Meteor.call('smartix:accounts-schools/approveSchool', Object.keys(Meteor.user().roles)[0]);
                 }                
             }else{
