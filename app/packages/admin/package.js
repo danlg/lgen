@@ -32,7 +32,8 @@ Package.onUse(function(api) {
   api.use('smartix:newsgroups@0.0.1');
   api.use('smartix:schools@0.0.1');
   api.use('smartix:accounts-schools@0.0.1');
-  api.use('smartix:messages@0.0.1', 'client');
+  api.use('smartix:messages@0.0.1', 'client')
+  api.use('smartix:calendarevent','client');
   api.addAssets('client/assets/parents_import_template.csv', 'client');
   api.addAssets('client/assets/students_import_template.csv', 'client');
   api.addAssets('client/assets/import-guide-csv.png', 'client');

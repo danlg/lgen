@@ -86,10 +86,15 @@
                                 <input id='imageBtn' type="file" name='imageBtn' class="inputfile imageBtn"/>
                                 <label class='btn btn-default' for="documentBtn">Attach an Document</label>
                                 <input id='documentBtn' type="file" name='documentBtn' class="inputfile documentBtn"/>                                
-                                <button type="button" class="btn btn-default set-calendar">Add an Event</button>
+                                <button type="button" class="btn btn-default set-calendar">Set as an Event</button>
                             </div>
 
-                        </div>                        
+                        </div>   
+                        <div class="col-lg-10">
+                            {{#if showCalendarForm}}
+                                {{> CalendarEvent}}
+                            {{/if}}
+                        </div>                                             
                     </div>
                     <div class="form-group">
                         <label class="control-label col-lg-2">Push notification</label>

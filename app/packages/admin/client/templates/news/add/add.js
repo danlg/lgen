@@ -25,6 +25,8 @@ Template.AdminNewsAdd.onCreated(function () {
     this.imageArr = new ReactiveVar([]);
     this.documentArr = new ReactiveVar([]);
     this.calendarEvent = new ReactiveVar({});
+    
+    this.showCalendarForm = new ReactiveVar(false);
 
 });
 
@@ -58,6 +60,9 @@ Template.AdminNewsAdd.helpers({
         }else{
             return true;
         }
+    },
+    showCalendarForm:function(){
+        return Template.instance().showCalendarForm.get();
     }
 })
 
@@ -69,6 +74,26 @@ Template.AdminNewsAdd.events({
         var doPushNotification = document.getElementById("addNews-push-notification").checked
         log.info('doPushNotification',doPushNotification);
         event.preventDefault();
+        
+        if(template.showCalendarForm.get()){
+            if($('#event-name').val() === ""){
+                toastr.info('Please fill in Event Name');
+                return;
+            }
+            
+             if($('#location').val() === ""){
+                toastr.info('Please fill in Event Location');
+                return;
+            }           
+            template.calendarEvent.set({
+                eventName: $('#event-name').val(),
+                location: $('#location').val(),
+                startDate:$('#start-date').val(),
+                startDateTime:$('#start-date-time').val(),
+                endDate:$('#end-date').val(),
+                endDateTime:$('#end-date-time').val()       
+            });            
+        }
         
         var addons = [];
         var mediaObj = {};
@@ -83,6 +108,17 @@ Template.AdminNewsAdd.events({
               
                 Meteor.call('smartix:messages/createNewsMessage', this.value, 'article', { content: content, title: title }, addons,doPushNotification,function(){
                     toastr.info('news sent');
+                    
+                    
+                    //form cleanup
+                    $('#addNews-title').val("");
+                    $('#addNews-content').val("");
+                    
+                    template.imageArr.set([]); 
+                    template.documentArr.set([]); 
+                    template.calendarEvent.set({}); 
+                    
+                    template.showCalendarForm.set(false);                  
                 });
             }
         });
@@ -97,11 +133,13 @@ Template.AdminNewsAdd.events({
             });
         showPreview("image");
     },
-    'click .cancel-calendar':function(event,template){
-        template.calendarEvent.set({});
-    },
-    'click .set-calendar':function(event,sendMsgtemplate){
-        
+    'click .set-calendar':function(event,template){
+        if(template.showCalendarForm.get() == true){
+           template.showCalendarForm.set(false);
+        }else{
+           template.showCalendarForm.set(true);
+        }
+       
         //TODO: change to Bootstrap equvialent implementation
         /*
         IonPopup.show({
@@ -194,11 +232,12 @@ function populateAddons(addons, mediaObj)
 }
 
 function populateCalendar(mediaObj) {
-  return new  {
-    type:'calendar',
-    eventName: mediaObj.calendarEvent.eventName,
-    location:  mediaObj.calendarEvent.location,
-    startDate: mediaObj.calendarEvent.startDate + " " + mediaObj.calendarEvent.startDateTime ,
-    endDate:   mediaObj.calendarEvent.endDate   +" " +  mediaObj.calendarEvent.endDateTime
-  };
+  var calendarObj = { 
+                        type:'calendar',
+                        eventName: mediaObj.calendarEvent.eventName,
+                        location:  mediaObj.calendarEvent.location,
+                        startDate: mediaObj.calendarEvent.startDate + " " + mediaObj.calendarEvent.startDateTime ,
+                        endDate:   mediaObj.calendarEvent.endDate   +" " +  mediaObj.calendarEvent.endDateTime
+                     };  
+  return calendarObj;
 }
