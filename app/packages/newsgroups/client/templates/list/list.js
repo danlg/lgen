@@ -22,4 +22,12 @@ Template.NewsgroupsNewsList.helpers({
        return Smartix.Groups.Collection.findOne(groupId).name;
     }
     
-})
+});
+
+
+Template.NewsgroupsNewsList.onDestroyed(function(){
+   
+ Meteor.call('setAllNewsAsRead',Session.get('pickedSchoolId'));
+
+});
+
