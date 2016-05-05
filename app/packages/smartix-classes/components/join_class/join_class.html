@@ -18,11 +18,15 @@
 
         {{#each joinedClasses}}
           <li class="item item-input">
-            <div class="row" style="padding-left:0">
+            <div class="row" style="padding-left:0">              
               <div class="col" style="padding-left:0">
-                {{className}}
-               <br/><span class='class-code'>@{{this.classCode}}</span> 
+                <i class="icon {{classAvatarIcon}} e1a-1x emojicon join-class-description-icon"></i>
+                <div class='join-class-description'>
+                    <span>{{className}}</span>
+                    <br/><span class='class-code'>@{{this.classCode}}</span> 
+                </div>               
               </div>
+
               <div class="col leaveBtn" data-classId="{{_id}}">
                 {{_ "Leave"}}
               </div>

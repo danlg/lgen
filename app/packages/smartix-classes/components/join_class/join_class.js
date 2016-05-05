@@ -41,7 +41,17 @@ Template.JoinClass.helpers({
   },
   getSchoolName: function() {
     return Router.current().params.school;
-  }
+  },
+
+  classAvatarIcon: function() {
+    var ava =  (this.classAvatar) ? true : false;
+    if (ava) {
+      return "e1a-" + this.classAvatar;
+    }
+    else{ //default
+      return "e1a-green_apple";
+    }
+  },
 });
 
 /*****************************************************************************/
