@@ -81,6 +81,7 @@ Smartix.FileHandler = (function () {
         },
         imageUpload: function (event, category, currentImageArray, callback) {
             FS.Utility.eachFile(event, function (file) {
+                file.owner = Meteor.userId();
                 Images.insert(file, function (err, fileObj) {
                     if (err) {
                         // handle error
@@ -124,6 +125,7 @@ Smartix.FileHandler = (function () {
                         fileEntry.file(function (file) {
                             // alert(file);
                             log.info(file);
+                            file.owner = Meteor.userId();
                             Images.insert(file, function (err, fileObj) {
                                 if (err) {
                                     // handle error
@@ -183,6 +185,7 @@ Smartix.FileHandler = (function () {
         documentUpload: function (event,category,currentDocumentArray,callback) {
             FS.Utility.eachFile(event, function (file) {
                 //log.info(file);
+                file.owner = Meteor.userId();
                 Documents.insert(file, function (err, fileObj) {
                     if (err) {
                         // handle error
@@ -201,6 +204,18 @@ Smartix.FileHandler = (function () {
                             var arr = currentDocumentArray;
                             arr.push(fileObj._id);
                             callback(directDocumentMessage(arr))                                   
+                        }else if (category =='newsInAdmin'){
+                            
+                            var arr = currentDocumentArray;
+                            arr.push(fileObj._id);
+
+                            //log.info(fileObj.name());
+                            //log.info(fileObj.extension());
+                            //log.info(fileObj.size());
+                            //log.info(fileObj.type());
+                            //log.info(fileObj.updatedAt());
+                            //log.info(fileObj._id);
+                            callback(arr);                            
                         }
 
                     }
@@ -222,6 +237,7 @@ Smartix.FileHandler = (function () {
                         log.info(localFileUri);
                         fileEntry.file(function (file) {
                             var newFile = new FS.File(file);
+                            newFile.owner = Meteor.userId();
                             Documents.insert(newFile, function (err, fileObj) {
                                 if (err) {
                                     //handle error
