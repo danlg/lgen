@@ -8,9 +8,7 @@ Template.AdminNewsgroupsAdd.events({
         newNewsgroup.className = template.$('#addNewsgroup-name').eq(0).val();
         newNewsgroup.url = template.$('#addNewsgroup-code').eq(0).val();
 
-        var mandatoryStr = template.$('#newsgroupMandatory').eq(0).val();
-        newNewsgroup.mandatory = (mandatoryStr === "on") ? true : false;
-        log.info("newNewsgroup.mandatoryStr", mandatoryStr);
+        newNewsgroup.mandatory = template.$('#newsgroupMandatory').is(":checked");
         log.info("newNewsgroup.mandatory", newNewsgroup.mandatory);
 
 
