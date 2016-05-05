@@ -10,6 +10,10 @@
                 {{#EasySearch.Each index=classesIndex }}
                     <li><a href="{{pathFor route='admin.classes.view' data=routeData}}">{{className}}</a></li>
                 {{/EasySearch.Each}}
+                
+                {{#EasySearch.IfNoResults index=classesIndex}}
+                    <div>No results found!</div>
+                {{/EasySearch.IfNoResults}}                
             </ul>
         </div>
     </div>

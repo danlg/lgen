@@ -10,6 +10,10 @@
                     {{#EasySearch.Each index=distributionListIndex }}
                         <li><a href="{{pathFor route='admin.lists.view' data=routeData}}">{{name}}</a></li>
                     {{/EasySearch.Each}}
+                    
+                    {{#EasySearch.IfNoResults index=distributionListIndex}}
+                        <div>No results found!</div>
+                    {{/EasySearch.IfNoResults}}                     
                 </ul>
             </div>
         {{else}}

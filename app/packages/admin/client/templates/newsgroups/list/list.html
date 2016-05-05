@@ -11,6 +11,10 @@
                 {{#EasySearch.Each index=newsgroupsIndex }}
                     <li><a href="{{pathFor route='admin.newsgroups.view' data=routeData}}">{{name}}</a></li>
                 {{/EasySearch.Each}}
+                
+                {{#EasySearch.IfNoResults index=newsgroupsIndex}}
+                    <div>No results found!</div>
+                {{/EasySearch.IfNoResults}}                
             </ul>
         </div>
     </div>
