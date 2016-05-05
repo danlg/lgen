@@ -2,86 +2,6 @@ Smartix = Smartix || {};
 
 Smartix.Class = Smartix.Class || {};
 
-Smartix.Class.Schema = new SimpleSchema({
-	users: {
-		type: [String],
-        defaultValue: []
-	},
-	namespace: {
-		type: String
-	},
-	type: {
-		type: String,
-		defaultValue: 'class'
-	},
-	className: {
-		type: String,
-        trim: true
-	},
-	addons: {
-		type: [String],
-		optional: true,
-		defaultValue: []
-	},
-    classCode: {
-        type: String,
-        trim: true,
-        unique: true,
-        regEx: /^[a-zA-Z0-9-]{3,}$/,
-        custom: function () {
-            var inputClassCode = this.value.trim();
-            if (Meteor.isServer && this.isSet ) {
-                if(Smartix.Class.searchForClassWithClassCode(inputClassCode)) {
-                    // If a class with the classCode already exists
-                    // Invalidate Autoform and provides a suggestion
-                    log.info('classcode already exist');
-                    return 'classcode already exist';
-                }
-            }
-        }
-    },
-	admins: {
-		type: [String],
-		minCount: 1
-	},
-	comments: {
-		type: Boolean,
-		defaultValue: true
-	},
-    ageRestricted: {
-        type: Boolean,
-		defaultValue: true
-    },
-    anyoneCanChat:{
-        type: Boolean,
-		defaultValue: true
-    },
-    createdAt: {
-        type: Date,
-        autoValue: function () {
-                return new Date();
-        }
-    },
-    classAvatar:{
-        type: String,
-        trim: true,
-        optional: true
-    },
-    lastUpdatedBy: {
-        type: String,
-        optional: false,
-        autoValue: function () {
-            return Meteor.userId();
-        }
-    },
-    lastUpdatedAt: {
-        type: Date,
-        autoValue: function () {
-            return new Date();
-        }
-    }
-});
-
 Smartix.Class.searchForClassWithClassCode = function (classCode) {
     log.info('Checks that `classCode` conforms to the schema before searching',classCode);
     // Checks that `classCode` conforms to the schema before searching
@@ -188,6 +108,8 @@ Smartix.Class.createClass = function (classObj, currentUser) {
 	newClass.classCode = classObj.classCode.trim();
     newClass.ageRestricted = classObj.ageRestricted;
     newClass.anyoneCanChat = classObj.anyoneCanChat;
+    newClass.notifyStudents = classObj.notifyStudents || false;
+    newClass.notifyParents = classObj.notifyParents || false;
     if(classObj.classAvatar){
         newClass.classAvatar = classObj.classAvatar;
     }
@@ -212,8 +134,28 @@ Smartix.Class.createClass = function (classObj, currentUser) {
 		return false;
 		// Optional: Throw error saying classCode already exists
 	}
-
-	return Smartix.Groups.createGroup(newClass);
+    
+    let newClassId = Smartix.Groups.createGroup(newClass);
+    
+    // Send emails to students if `newClass.notifyStudents` is true
+    if(newClass.notifyStudents) {
+        _.each(newClass.users, function (student, i, students) {
+            Smartix.Class.NotifyStudents(student, newClassId);
+        });
+    }
+    // Send emails to parents if `newClass.notifyParents` is true
+    if(newClass.notifyParents) {
+        _.each(newClass.users, function (student, i, students) {
+            // Get the parents of the student
+            let parents = Smartix.Accounts.Relationships.getParentOfStudent(student, namespace);
+            
+            _.each(parents, function (parent, i) {
+                Smartix.Class.NotifyStudents(parent._id, newClassId);
+            });
+        });
+    }
+    
+	return newClassId;
 };
 
 Smartix.Class.editClass = function (classId, options) {
@@ -386,8 +328,65 @@ Smartix.Class.removeUsersFromClass = function (id, users) {
 	Smartix.Groups.removeUsersFromGroup(id, users);
 };
 
+Smartix.Class.NotifyParents = Smartix.Class.NotifyStudents = function (studentId, classId) {
+    
+    check(studentId, String);
+    check(classId, String);
+    
+    let student = Meteor.user.findOne({
+        _id: studentId
+    });
+    
+    if(!student) {
+        return false;
+        // throw new Meteor.Error("student-not-found", "Student with ID of " + studentId + " could not be found");
+    }
+    
+    let classObj = Smartix.Groups.Collection.findOne({
+        _id: classId,
+        type: "class"
+    });
+    
+    if(!classObj) {
+        return false;
+        // throw new Meteor.Error("class-not-found", "Class with ID of " + classId + " could not be found");
+    }
+    
+    let lang = student.lang || "en";
+    let content;
+    try {
+        // Get the verfication template of the specific lang
+        content = Assets.getText("lang/" + lang + "/emailNotifyJoinClassTemplate.html");
+    } catch (e) {
+        content = Assets.getText("lang/" + lang + "/emailNotifyJoinClassTemplate.html");
+    }
 
-
+    var html = Spacebars.toHTML(
+        {
+            first: userObj.profile.firstName,
+            last: verificationURL,
+            acceptLink: Meteor.settings.public.ROOT_URL,
+            ROOT_URL: Meteor.settings.public.ROOT_URL,
+            classname: classObj.className || "",
+            classcode: classObj.classCode || "",
+            GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = lang),
+        }, Spacebars.toHTML(
+            {
+                title: "",
+                content: content,
+                GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = lang),
+                UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = lang)
+            },
+            Assets.getText("emailMessageMasterTemplate.html")
+        )
+    );
+    Email.send({
+        subject: "You've been added to a class",
+        from: Meteor.settings.FROM_EMAIL,
+        //"from_name": Meteor.settings.FROM_NAME,
+        to: student.emails[0].address
+    })
+};
 
 /////////////////////////////////
 // OLD CODE TO BE SORTED LATER //

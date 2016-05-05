@@ -225,6 +225,20 @@ Smartix.Accounts.School.isAdmin = function(namespace, currentUser) {
             && Smartix.Accounts.School.userHasApproved(namespace, currentUser))
 }
 
+Smartix.Accounts.School.canImportStudents = Smartix.Accounts.School.canImportTeachers = Smartix.Accounts.School.canImportParents = function(namespace, currentUser) {
+    
+    check(namespace, String);
+    check(currentUser, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    if(!(currentUser === null)) {
+        currentUser = currentUser || Meteor.userId();
+    }
+
+    // Only admin users can import users
+    return Smartix.Accounts.School.isAdmin(namespace, currentUser);
+}
+
 Smartix.Accounts.School.isTeacher = function(namespace, currentUser) {
 
     check(namespace, String);
@@ -360,6 +374,10 @@ Smartix.Accounts.School.importStudent = function(namespace, data, currentUser) {
     // Get the `_id` of the currently-logged in user
     if (!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
+    }
+    
+    if(!Smartix.Accounts.School.canImportStudents(namespace, currentUser)) {
+        throw new Meteor.Error("permission-denied", "The user does not have permission to perform this action.");
     }
 
     _.each(data, function(user, i, users) {
@@ -904,6 +922,10 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser) {
     if (!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
+    
+    if(!Smartix.Accounts.School.canImportParents(namespace, currentUser)) {
+        throw new Meteor.Error("permission-denied", "The user does not have permission to perform this action.");
+    }
 
     _.each(data, function(student, i, students) {
         log.info(student);
@@ -980,7 +1002,230 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser) {
     });
 }
 
+Smartix.Accounts.School.importTeachersSchema = new SimpleSchema({
+    firstName: {
+        type: String
+    },
+    lastName: {
+        type: String
+    },
+    email: {
+        type: String
+    },
+    gender: {
+        type: String,
+        optional: true
+    },
+    mobile: {
+        type: String,
+        optional: true
+    },
+    subjectTaught1: {
+        type: String
+    },
+    subjectTaught2: {
+        type: String,
+        optional: true
+    },
+    subjectTaught3: {
+        type: String,
+        optional: true
+    },
+    subjectTaught4: {
+        type: String,
+        optional: true
+    },
+    subjectTaught5: {
+        type: String,
+        optional: true
+    },
+    subjectTaught6: {
+        type: String,
+        optional: true
+    },
+    subjectTaught7: {
+        type: String,
+        optional: true
+    },
+    class1: {
+        type: String,
+        optional: true
+    },
+    class2: {
+        type: String,
+        optional: true
+    },
+    class3: {
+        type: String,
+        optional: true
+    },
+    class4: {
+        type: String,
+        optional: true
+    },
+    class5: {
+        type: String,
+        optional: true
+    },
+    class6: {
+        type: String,
+        optional: true
+    },
+    class7: {
+        type: String,
+        optional: true
+    },
+    class8: {
+        type: String,
+        optional: true
+    },
+    class9: {
+        type: String,
+        optional: true
+    },
+    class10: {
+        type: String,
+        optional: true
+    },
+    className1: {
+        type: String,
+        optional: true
+    },
+    className2: {
+        type: String,
+        optional: true
+    },
+    className3: {
+        type: String,
+        optional: true
+    },
+    className4: {
+        type: String,
+        optional: true
+    },
+    className5: {
+        type: String,
+        optional: true
+    },
+    className6: {
+        type: String,
+        optional: true
+    },
+    className7: {
+        type: String,
+        optional: true
+    },
+    className8: {
+        type: String,
+        optional: true
+    },
+    className9: {
+        type: String,
+        optional: true
+    },
+    className10: {
+        type: String,
+        optional: true
+    },
+    inviteParents1: {
+        type: String,
+        optional: true
+    },
+    inviteParents2: {
+        type: String,
+        optional: true
+    },
+    inviteParents3: {
+        type: String,
+        optional: true
+    },
+    inviteParents4: {
+        type: String,
+        optional: true
+    },
+    inviteParents5: {
+        type: String,
+        optional: true
+    },
+    inviteParents6: {
+        type: String,
+        optional: true
+    },
+    inviteParents7: {
+        type: String,
+        optional: true
+    },
+    inviteParents8: {
+        type: String,
+        optional: true
+    },
+    inviteParents9: {
+        type: String,
+        optional: true
+    },
+    inviteParents10: {
+        type: String,
+        optional: true
+    },
+    inviteStudents1: {
+        type: String,
+        optional: true
+    },
+    inviteStudents2: {
+        type: String,
+        optional: true
+    },
+    inviteStudents3: {
+        type: String,
+        optional: true
+    },
+    inviteStudents4: {
+        type: String,
+        optional: true
+    },
+    inviteStudents5: {
+        type: String,
+        optional: true
+    },
+    inviteStudents6: {
+        type: String,
+        optional: true
+    },
+    inviteStudents7: {
+        type: String,
+        optional: true
+    },
+    inviteStudents8: {
+        type: String,
+        optional: true
+    },
+    inviteStudents9: {
+        type: String,
+        optional: true
+    },
+    inviteStudents10: {
+        type: String,
+        optional: true
+    }
+});
+
 Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser) {
+    
+    check(namespace, String);
+    
+    Smartix.Accounts.School.importTeachersSchema.clean(data);
+    check(data, Smartix.Accounts.School.importTeachersSchema);
+    
+    check(currentUser, Match.Maybe(String));
+
+    // Get the `_id` of the currently-logged in user
+    if (!(currentUser === null)) {
+        currentUser = currentUser || Meteor.userId();
+    }
+    
+    if(!Smartix.Accounts.School.canImportTeachers(namespace, currentUser)) {
+        throw new Meteor.Error("permission-denied", "The user does not have permission to perform this action.");
+    }
     
     _.each(data, function(teacher, i, teachers) {
         
