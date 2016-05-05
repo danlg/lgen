@@ -11,7 +11,7 @@ Meteor.methods({
       if(targetSchool){
         namespaceId = targetSchool._id;
       }else{
-        console.log('chatCreate:targetSchoolNotFound');
+        log.info('chatCreate:targetSchoolNotFound');
         return ;
       }  
     }

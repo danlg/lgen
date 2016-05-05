@@ -9,14 +9,14 @@ Template.EmailResetPwd.events({
       if(password == passwordConfirm){
         if(password.length < 4){
             toastr.info(TAPi18n.__("PasswordNotEnoughLength"))
-            console.log('At least 4 characters Password');
+            log.info('At least 4 characters Password');
         }else{
             Accounts.resetPassword(Session.get('resetPasswordToken'), password, function(err) {
                 if (err) {
-                    console.log('We are sorry but something went wrong.');
+                    log.info('We are sorry but something went wrong.');
                 } else {
                     toastr.info(TAPi18n.__("PasswordChanged"));
-                    console.log('Your password has been changed. Welcome back!');
+                    log.info('Your password has been changed. Welcome back!');
                     Session.set('resetPasswordToken', null);
                     Smartix.helpers.routeToTabClasses();
                 }
@@ -31,5 +31,5 @@ Template.EmailResetPwd.events({
 });
 
 Template.EmailResetPwd.onCreated(function(){
-    console.log('EmailResetPwd:onCreated');
+    log.info('EmailResetPwd:onCreated');
 })

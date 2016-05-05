@@ -87,10 +87,10 @@ Smartix.helpers.spawnDesktopNotification = function(theBody,theIcon,theTitle,pat
             if(userNamespace != 'system' && userNamespace != 'global'){ 
                 Meteor.call('smartix:schools/getSchoolName', userNamespace, function (err, result) {           
                     if(err){
-                        console.log(err);
+                        log.info(err);
                     }
                     if (result) {
-                        console.log(result);
+                        log.info(result);
                         Router.go('mobile.school.home', { school: result });
                     }
                 });                

@@ -44,11 +44,11 @@ Template.EditSchool.events({
         Meteor.call('smartix:schools/createSchool',newSchoolObj,function(err,result){
             if(err){
                 toastr.error(err.reason);
-                console.log(err);
+                log.info(err);
             }else{
                 toastr.info('create school success: you may sign out from system admin to continue');
                 toastr.info('initial admin:' + result.initialAdmin.username +' pw:' + result.initialAdmin.initialPassword);
-                console.log(result);
+                log.info(result);
             }
         } );
 

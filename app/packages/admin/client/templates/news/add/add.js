@@ -67,7 +67,7 @@ Template.AdminNewsAdd.events({
         var title = $('#addNews-title').val();
         var content = $('#addNews-content').val();
         var doPushNotification = document.getElementById("addNews-push-notification").checked
-        console.log('doPushNotification',doPushNotification);
+        log.info('doPushNotification',doPushNotification);
         event.preventDefault();
 
         $("input[type='checkbox'][name='addNews-newsgroup']").each(function (index) {
