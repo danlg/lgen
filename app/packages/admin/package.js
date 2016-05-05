@@ -36,6 +36,7 @@ Package.onUse(function(api) {
   api.use('smartix:calendarevent','client');
   api.addAssets('client/assets/parents_import_template.csv', 'client');
   api.addAssets('client/assets/students_import_template.csv', 'client');
+  api.addAssets('client/assets/teachers_import_template.csv', 'client');
   api.addAssets('client/assets/import-guide-csv.png', 'client');
   api.addAssets('client/assets/import-parents-preview.png', 'client');
   api.addAssets('client/assets/import-student-preview.png', 'client');
@@ -98,6 +99,8 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/users/import/import.js', 'web.browser');
   api.addFiles('client/templates/users/import-parents/import.html', 'web.browser');
   api.addFiles('client/templates/users/import-parents/import.js', 'web.browser');
+  api.addFiles('client/templates/users/import-teachers/import.html', 'web.browser');
+  api.addFiles('client/templates/users/import-teachers/import.js', 'web.browser');
   api.addFiles('client/templates/users/relationships/relationships.html', 'web.browser');
   api.addFiles('client/templates/users/relationships/relationships.js', 'web.browser');
   api.addFiles('client/less/_bootstrap/alerts.import.less', 'web.browser');

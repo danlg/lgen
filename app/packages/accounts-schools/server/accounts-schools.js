@@ -979,3 +979,95 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser) {
         }
     });
 }
+
+Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser) {
+    
+    _.each(data, function(teacher, i, teachers) {
+        
+        // Checks if user already exists
+        let teacherId = Accounts.findUserByEmail(teacher.email);
+        
+        // If the user does not already exists
+        // Create the user
+        if(teacherId === undefined) {
+            let newTeacherOptions = {};
+            newTeacherOptions.profile = {};
+            newTeacherOptions.profile.firstName = teacher.firstName;
+            newTeacherOptions.profile.lastName = teacher.lastName;
+            newTeacherOptions.gender = teacher.gender;
+            newTeacherOptions.mobile = teacher.mobile;
+            teacherId = Smartix.Accounts.createUser(teacher.email, newTeacherOptions, namespace, ['teacher'], currentUser, true)
+        }
+        
+        if(!teacherId || typeof teacherId !== "string") {
+            throw new Meteor.Error('could-not-create-teacher', "The system failed to create the teacher record for " + teacher.firstName + " " + teacher.lastName + ". Please try again.");
+        }
+        
+        ////////////////////////////////////
+        // UPDATE TEACHER SUBJECTS TAUGHT //
+        ////////////////////////////////////
+        
+        let subjectsTaught = [];
+        
+        _.each(teacher, function (val, key, vals) {
+            // If the key includes the term `subjectTaught`
+            // Add it to the `subjectsTaught` array
+            if(key.indexOf('subjectTaught') > -1) {
+                subjectsTaught.push(val);
+            }
+        });
+        
+        // If the subjects taught are specified
+        // Update the user with those subjects
+        if(subjectsTaught.length > 0) {
+            Meteor.users.update({
+                _id: teacherId
+            }, {
+                $addToSet: {
+                    subjectsTaught: {
+                        $each: subjectsTaught
+                    }
+                }
+            })
+        }
+        
+        //////////////////////////////////////
+        // ADD TEACHER TO DISTRIBUTION LIST //
+        //////////////////////////////////////
+        
+        _.each(teacher, function (val, key, vals) {
+            // If the key includes the term `subjectTaught`
+            // Add it to the `subjectsTaught` array
+            if(key.match(/^class[0-9]{1,2}$/ig)) {
+                // Create the distribution list
+                // And add the teacher to the list
+                Smartix.DistributionLists.createDistributionList({
+                    users: [teacherId],
+                    namespace: namespace,
+                    name: val,
+                    expectDuplicates: true,
+                    upsert: true
+                }, currentUser);
+            }
+        });
+        
+        ////////////////////
+        // CREATE CLASSES //
+        ////////////////////
+        
+        _.each(teacher, function (val, key, vals) {
+            // If the key includes the term `subjectTaught`
+            // Add it to the `subjectsTaught` array
+            if(key.match(/^className[0-9]{1,2}$/ig)) {
+                // Create the distribution list
+                // And add the teacher to the list
+                Smartix.Class.createClass({
+                    users: [],
+                    namespace: namespace,
+                    className: val,
+                    classCode: Smartix.Utilities.stringToLetterCase(val)
+                }, teacherId);
+            }
+        });
+    });
+}

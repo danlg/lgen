@@ -89,6 +89,19 @@ if(Meteor.isServer){
                 throw new Meteor.Error("non-existent-school", "The school with the school code " + schoolName + " does not exists.");
             }
             
+        },
+        'smartix:accounts-schools/importTeachers': function (schoolName, data) {
+            
+            check(schoolName, String);
+            check(data, [Object]);
+            
+            let namespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolName);
+            if(namespace) {
+                return Smartix.Accounts.School.importTeachers(namespace, data, this.userId);
+            } else {
+                throw new Meteor.Error("non-existent-school", "The school with the school code " + schoolName + " does not exists.");
+            }
+            
         }
     });
 }
