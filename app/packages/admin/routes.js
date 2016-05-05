@@ -70,6 +70,15 @@ Router.route('/:school/admin/users/import/parents', {
     }
 });
 
+Router.route('/:school/admin/users/import/teachers', {
+    name: 'admin.users.import.teachers',
+    layoutTemplate: 'adminLayout',
+    template: 'AdminTeachersImport',
+    action: function () {
+        this.render('AdminTeachersImport');
+    }
+});
+
 Router.route('/:school/admin/users/relationships', {
     name: 'admin.users.relationships',
     layoutTemplate: 'adminLayout',

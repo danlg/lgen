@@ -19,3 +19,8 @@
 #AdminUsersImport__preview-table {
     margin-bottom: 32px;
 }
+
+.import-preview {
+    width: 100%;
+    overflow-y: scroll;
+}
