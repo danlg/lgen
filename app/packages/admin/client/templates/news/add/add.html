@@ -49,7 +49,36 @@
                         <div class="col-lg-10">
                            <!-- <input id="addClass-code" type="text" class="form-control" placeholder="Class Code">-->
                             <textarea id="addNews-content" rows="4" cols="50" placeholder="Type here the news content">
-                            </textarea>                           
+                            </textarea>
+                            
+                            <div class="image preview" style='display:none'>
+                                {{#each uploadPic}} {{#with FS.GetFile "images" this}}
+                                <!-- In here, we can use the FS.File instance methods that work as helpers, such as {{url}} or {{isImage}} -->
+                                {{#unless this.isUploaded}} {{> LoadingSpinner}} {{else}}
+                                <div class="preview-bubble">
+                                    <img style='height:100px;margin:-5px 0;' src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}">
+                                    <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a>
+                                    
+                                </div>
+                                {{/unless}} {{/with}} {{/each}}
+                            </div>
+                            <div class="document preview" style='display:none'>  
+                                {{#each uploadDocuments}} 
+                                {{#with getDocument}}
+
+                                    <div class="bubble">
+                                    <a href="{{this.url}}"><i class="icon ion-paperclip"></i>&nbsp;{{this.name}}</a>
+                                    </div>
+
+                                {{/with}}
+                                {{/each}}      
+                            </div>
+                            
+                            <div class="extra-options setting padding-horizontal" style='overflow:hidden;white-space:nowrap;background-color: #EBE4D9  !important;'>
+                                {{#if calendarEventSet}}
+                                <i class='icon ion-ios-calendar-outline cancel-calendar' ></i>
+                                {{/if}}
+                            </div>                                                                                                               
                         </div>
                         <div class="col-lg-10">
                             <div class="btn-group" role="group" aria-label="...">

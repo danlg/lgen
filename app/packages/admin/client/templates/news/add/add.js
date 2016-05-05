@@ -18,7 +18,10 @@ Template.AdminNewsAdd.onCreated(function () {
         }
         
     })
-    
+
+    this.subscribe('images');
+    this.subscribe('documents');
+        
     this.imageArr = new ReactiveVar([]);
     this.documentArr = new ReactiveVar([]);
     this.calendarEvent = new ReactiveVar({});
@@ -37,6 +40,23 @@ Template.AdminNewsAdd.helpers({
                     type: 'newsgroup'
                 });
             }
+        }
+    },
+    uploadPic: function (argument) { 
+        return Template.instance().imageArr.get();
+    },
+    uploadDocuments: function(argument){
+        return Template.instance().documentArr.get();  
+    },
+    getDocument: function(){
+        var id = this.toString();
+        return Documents.findOne(id);      
+    },    
+    calendarEventSet:function(){ 
+        if($.isEmptyObject(Template.instance().calendarEvent.get())){
+            return false;
+        }else{
+            return true;
         }
     }
 })
@@ -61,6 +81,7 @@ Template.AdminNewsAdd.events({
         //Image is inserted from here via FS.Utility
         Smartix.FileHandler.imageUpload(event,'class',template.imageArr.get(),
             function(result){
+                console.log('imageArr',result);
                 template.imageArr.set(result);
             });
         showPreview("image");
@@ -111,11 +132,25 @@ Template.AdminNewsAdd.events({
         });*/
     },
     'change #documentBtn': function (event, template) {
-        Smartix.FileHandler.documentUpload(event,'class',template.documentArr.get(),function(result){
-            if(result){
-                template.documentArr.set([]);
-                window.setTimeout(scrollMessageListToBottom, 100);
-            }
+        Smartix.FileHandler.documentUpload(event,'newsInAdmin',template.documentArr.get(),
+        
+        function(result){
+           
+                console.log('documentArr',result);
+                template.documentArr.set(result);
+            
         });
+       showPreview("document");
     }     
 });
+
+function showPreview(filetype){
+    log.info("show preview:filetype:"+filetype);
+    
+    $('.preview'+'.'+filetype).show();  
+}
+function hidePreview(filetype){
+    log.info("hide preview:filetype:"+filetype);
+    $('.preview'+'.'+filetype).hide();       
+ 
+}
