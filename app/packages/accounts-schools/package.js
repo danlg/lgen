@@ -15,6 +15,7 @@ Package.onUse(function(api) {
   api.use('random');
   api.use('check');
   api.use('ecmascript');
+  api.use('stevezhu:lodash@4.6.1');
   api.use('aldeed:simple-schema');
   api.use('alanning:roles');
   api.use('momentjs:moment@2.13.1');

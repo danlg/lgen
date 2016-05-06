@@ -46,7 +46,6 @@ Smartix.Class.isClassAdmin = function (userId, classId) {
         _id: classId
     });
     
-    log.info('Smartix.Class.isClassAdmin',queriedClass.admins);
     if(Array.isArray(queriedClass.admins)) {
         
         return queriedClass.admins.indexOf(userId) > -1;
@@ -82,8 +81,6 @@ Smartix.Class.createClass = function (classObj, currentUser) {
         currentUser = currentUser || Meteor.userId();
     }
     
-    log.info('Smartix.Class.createClass',classObj);
-    
 	// Checks that the namespace is either `global`
     // or the currently-logged in user is one of the following:
     // * Admin for the school (namespace) specified
@@ -108,8 +105,8 @@ Smartix.Class.createClass = function (classObj, currentUser) {
 	newClass.classCode = classObj.classCode.trim();
     newClass.ageRestricted = classObj.ageRestricted;
     newClass.anyoneCanChat = classObj.anyoneCanChat;
-    newClass.notifyStudents = classObj.notifyStudents || false;
-    newClass.notifyParents = classObj.notifyParents || false;
+    newClass.notifyStudents = classObj.notifyStudents;
+    newClass.notifyParents = classObj.notifyParents;
     if(classObj.classAvatar){
         newClass.classAvatar = classObj.classAvatar;
     }
@@ -372,7 +369,7 @@ Smartix.Class.addUsersToClass = function (classId, users) {
         if(classObj.notifyParents) {
             _.each(users, function (student, i, students) {
                 // Get the parents of the student
-                let parents = Smartix.Accounts.Relationships.getParentOfStudent(student, namespace);
+                let parents = Smartix.Accounts.Relationships.getParentOfStudent(student, classObj.namespace);
                 
                 _.each(parents, function (parent, i) {
                     Smartix.Class.NotifyStudents(parent._id, classObj._id);

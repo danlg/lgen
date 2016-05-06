@@ -1213,8 +1213,11 @@ Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser) 
     
     check(namespace, String);
     
-    Smartix.Accounts.School.importTeachersSchema.clean(data);
-    check(data, Smartix.Accounts.School.importTeachersSchema);
+    _.each(data, function (teacher) {
+        Smartix.Accounts.School.importTeachersSchema.clean(teacher);
+    });
+    
+    check(data, [Smartix.Accounts.School.importTeachersSchema]);
     
     check(currentUser, Match.Maybe(String));
 
@@ -1276,6 +1279,44 @@ Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser) 
             })
         }
         
+        ////////////////////
+        // CREATE CLASSES //
+        ////////////////////
+        
+        _.each(teacher, function (val, key, vals) {
+            // If the key includes the term `subjectTaught`
+            // Add it to the `subjectsTaught` array
+            
+            let classNameRegEx = /^className([0-9]{1,2})$/ig;
+            
+            if(key.match(classNameRegEx)) {
+                // Create the distribution list
+                // And add the teacher to the list
+                
+                // Add the users in the distribution list to the class
+                let match = classNameRegEx.exec(key);
+                let classNameNumber = match[1];
+                
+                let inviteParentsFieldName = "inviteParents" + classNameNumber;
+                let inviteStudentsFieldName = "inviteStudents" + classNameNumber;
+
+                let inviteParents = typeof teacher[inviteParentsFieldName] === "string" && teacher[inviteParentsFieldName].length > 0;
+                let inviteStudents = typeof teacher[inviteStudentsFieldName] === "string" && teacher[inviteStudentsFieldName].length > 0;
+                
+                Smartix.Class.createClass({
+                    users: [],
+                    namespace: namespace,
+                    className: val,
+                    classCode: Smartix.Utilities.stringToLetterCase(val),
+                    notifyStudents: inviteStudents,
+                    notifyParents: inviteParents
+                }, teacherId);
+                
+                // TODO - Handle the case where class exists already
+                // and add the teacher to the admins array
+            }
+        });
+        
         //////////////////////////////////////
         // ADD TEACHER TO DISTRIBUTION LIST //
         //////////////////////////////////////
@@ -1283,7 +1324,9 @@ Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser) 
         _.each(teacher, function (val, key, vals) {
             // If the key includes the term `subjectTaught`
             // Add it to the `subjectsTaught` array
-            if(key.match(/^class[0-9]{1,2}$/ig)) {
+            
+            let classRegEx = /^class([0-9]{1,2})$/ig;
+            if(key.match(classRegEx)) {
                 // Create the distribution list
                 // And add the teacher to the list
                 Smartix.DistributionLists.createDistributionList({
@@ -1293,26 +1336,33 @@ Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser) 
                     expectDuplicates: true,
                     upsert: true
                 }, currentUser);
+                
+                // Add the users in the distribution list to the class
+                let match = classRegEx.exec(key);
+                let classNumber  = match[1];
+                
+                let classNameFieldName = "className" + classNumber;
+                
+                // If the class is actually specified
+                if(teacher[classNameFieldName]) {
+                    // Get the class ID
+                    let correspondingClass = Smartix.Groups.Collection.findOne({
+                        className: teacher[classNameFieldName],
+                        type: "class"
+                    });
+                    
+                    let thisDistributionList = Smartix.Groups.Collection.findOne({
+                        name: val,
+                        type: "distributionList"
+                    })
+                    
+                    // Gets a list of all users who are not the teacher
+                    studentUsers = _.pull(thisDistributionList.users, teacherId);
+                    
+                    Smartix.Class.addUsersToClass(correspondingClass._id, studentUsers);
+                }
             }
         });
         
-        ////////////////////
-        // CREATE CLASSES //
-        ////////////////////
-        
-        _.each(teacher, function (val, key, vals) {
-            // If the key includes the term `subjectTaught`
-            // Add it to the `subjectsTaught` array
-            if(key.match(/^className[0-9]{1,2}$/ig)) {
-                // Create the distribution list
-                // And add the teacher to the list
-                Smartix.Class.createClass({
-                    users: [],
-                    namespace: namespace,
-                    className: val,
-                    classCode: Smartix.Utilities.stringToLetterCase(val)
-                }, teacherId);
-            }
-        });
     });
 }

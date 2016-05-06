@@ -79,5 +79,13 @@ Smartix.Class.Schema = new SimpleSchema({
         autoValue: function () {
             return new Date();
         }
+    },
+    notifyStudents: {
+        type: Boolean,
+        defaultValue: false
+    },
+    notifyParents: {
+        type: Boolean,
+        defaultValue: false
     }
 });
