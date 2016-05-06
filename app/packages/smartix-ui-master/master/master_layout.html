@@ -46,15 +46,15 @@
               <a href="{{pathFor route='newsgroups.news.list'}}" class="item item-icon-right" data-ion-menu-close>
                 News
               </a>              
-              <div class="item item-icon-right" data-ion-menu-close>
+              <a href="{{pathFor route='calendar.list'}}" class="item item-icon-right" data-ion-menu-close>
                 Calendar
+              </a>
+              <div  class="item item-icon-right" data-ion-menu-close>
+                Attendance
               </div>
-              <div class="item item-icon-right" data-ion-menu-close>
-                Absence
-              </div>
-              <div class="item item-icon-right" data-ion-menu-close>
+              <a href="{{pathFor route='mobile.school.contact' school=getCurrentSchoolName}}" class="item item-icon-right" data-ion-menu-close>
                 Contact
-              </div>
+              </a>
               {{else}}
                 
                  <!--TODO: go to a promote page-->
