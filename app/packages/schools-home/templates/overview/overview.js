@@ -86,7 +86,7 @@ Template.MobileSchoolHome.onRendered(function(){
             return '<span class="slider-pager-page icon ion-record"></span>';
             }
         });
-    },1000);
+    },200);
 
 
 

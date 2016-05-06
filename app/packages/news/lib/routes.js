@@ -6,3 +6,12 @@ Router.route('/newsgroups/news/list', {
         this.render('NewsgroupsNewsList');
     }
 });
+
+Router.route('/newsgroups/news/view/:msgid', {
+    name: 'newsgroups.news.view',
+    layoutTemplate: 'AppLayout',
+    template: 'NewsgroupsNewsView',
+    action: function () {
+        this.render('NewsgroupsNewsView');
+    }
+});

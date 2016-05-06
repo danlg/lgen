@@ -8,7 +8,11 @@
            color:white;
        }
    </style>-->
-   
+   <style>
+       a {
+           color: black;
+       }
+   </style>
   {{#contentFor "headerTitle"}}
     <h1 class="title">{{schoolFullName}} </h1>
   {{/contentFor}}   
@@ -35,14 +39,14 @@
       <div class='news-slidebox-wrapper'>
         <div class='ion-slide-box'>
             {{#each getSlidingNews}}
-                <div class='slide-box-bg ion-slide'>
+                <a href="{{pathFor route='newsgroups.news.view' msgid=_id}}" class='slide-box-bg ion-slide' data-msg-id='{{_id}}'>
                     <div class='content'>
                     <p>{{data.title}}</p>
-                    <p>{{data.content}}</p>
+                    <p style='text-overflow: ellipsis;'>{{data.content}}</p>
                     <p>{{formatDate createdAt}}</p>
                     <p>Read More</p>                    
                     </div>
-                </div>
+                </a>
             {{else}}
                 <div class='slide-box-bg ion-slide'>
                     <div class='content'>
