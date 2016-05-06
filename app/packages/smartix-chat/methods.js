@@ -22,7 +22,7 @@ Meteor.methods({
     //try to find if there is existing room
     //size needs to be specified, or else a wrong result of larger chat room group may be found
     //http://stackoverflow.com/questions/6165121/mongodb-query-an-array-for-an-exact-element-match-but-may-be-out-of-order/6165143#6165143
-    var res = Smartix.Groups.Collection.findOne({namespace: namespaceId , users: {$size : chatArr.length, $all: chatArr}});
+    var res = Smartix.Groups.Collection.findOne({namespace: namespaceId , users: {$size : chatArr.length, $all: chatArr}, type:'chat'});
     if (res) {
       //return the existing chat room id if there is one
       return res._id;
