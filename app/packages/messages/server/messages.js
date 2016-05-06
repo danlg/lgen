@@ -199,6 +199,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
                 userId: eachTargetUser,
                 hasRead: false,
                 groupId: groupId,
+                namespace: group.namespace,
                 messageId: newMessage,
                 addons: addonTypes,
                 messageCreateTimestamp: message.createdAt,
