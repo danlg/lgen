@@ -13,5 +13,6 @@ Package.onUse(function(api) {
      api.use('templating', 'client');
      //api.use('smartix:notifications');     
      api.addFiles('news_detail.html','client');
-     api.addFiles('news_detail.js','client');  
+     api.addFiles('news_detail.js','client');
+     api.addFiles('news_detail.css','client');   
 });
