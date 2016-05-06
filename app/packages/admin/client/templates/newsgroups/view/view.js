@@ -7,6 +7,7 @@ Template.AdminNewsgroupsView.onCreated(function () {
                 type: 'newsgroup'
             });
             self.subscribe('smartix:messages/groupMessages', classData._id);
+            self.subscribe('allSchoolUsers',classData.namespace);
         }
     });
 });
