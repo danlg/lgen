@@ -4,7 +4,7 @@ Template.AdminDistributionListsSearch.onCreated(function () {
     && Router.current().params
     && Router.current().params.school
     ) {
-        this.subscribe('smartix:classes/listsBySchoolName', Router.current().params.school);
+        this.subscribe('smartix:distribution-listss/listsBySchoolName', Router.current().params.school);
     } else {
         log.info("Please specify a school to list the classes for");
     }

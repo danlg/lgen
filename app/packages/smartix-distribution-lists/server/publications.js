@@ -1,4 +1,4 @@
-Meteor.publish('smartix:classes/listsBySchoolName', function(schoolName) {
+Meteor.publish('smartix:distribution-lists/listsBySchoolName', function(schoolName) {
     
     check(schoolName, String);
 

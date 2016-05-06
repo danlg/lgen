@@ -29,3 +29,23 @@ Template.AdminNewsgroupsAdd.events({
         });
     }
 });
+
+Template.AdminNewsgroupsAdd.helpers({
+    
+    'distributionListItems':function(){
+        
+    }
+    
+})
+
+Template.AdminNewsgroupsAdd.onCreated(function () {
+    if (Router
+    && Router.current()
+    && Router.current().params
+    && Router.current().params.school
+    ) {
+        this.subscribe('smartix:distribution-lists/listsBySchoolName', Router.current().params.school);
+    } else {
+        log.info("Please specify a school to list the classes for");
+    }
+});
