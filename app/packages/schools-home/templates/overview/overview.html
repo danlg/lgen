@@ -80,7 +80,9 @@
         <div class='square-cards-wrapper '>             
                 <a  href="{{pathFor route='calendar.list'}}" class="card square-card  square-card-small tiles bg bg-calendar">
                     <span class='square-card-description'>CALENDAR </span>
-                    <span class='square-card-counter  badge badge-assertive'>5</span>
+                        {{#if sumOfNewCalendarCounter}}
+                        <span class='square-card-counter badge badge-assertive'>{{sumOfNewCalendarCounter}}</span>
+                        {{/if}}                                    
                 </a>
                 <a  href="{{pathFor route='mobile.school.contact' school=getCurrentSchoolName}}" class="card square-card  square-card-small tiles bg bg-contact">
                     <span class='square-card-description'>CONTACT </span>

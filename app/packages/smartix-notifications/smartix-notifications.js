@@ -49,6 +49,17 @@ Smartix.Notifications.Helpers.sumOfNewNewsCounter = function(){
    }  
 }
 
+Smartix.Notifications.Helpers.sumOfNewCalendarCounter = function(){
+  
+   var newMessageCount =  Notifications.find({'hasRead':false,'namespace':Session.get('pickedSchoolId'), addons: 'calendar'}).count();
+        
+   if(newMessageCount > 0 ){
+       return newMessageCount;
+   }else{
+       return false;
+   }
+}
+
 Smartix.Notifications.Helpers.sumOfAllNotificationCounter = function(){
    var groupsInNamespace =  Smartix.Groups.Collection.find({namespace:Session.get('pickedSchoolId')},{fields: {_id:1}}).fetch();
    var groupIdsInNamespace = lodash.map(groupsInNamespace,"_id");
@@ -64,6 +75,7 @@ Smartix.Notifications.Helpers.sumOfAllNotificationCounter = function(){
    }  
 }
 
+Template.registerHelper('sumOfNewCalendarCounter',Smartix.Notifications.Helpers.sumOfNewCalendarCounter);
 Template.registerHelper('sumOfNewChatMessageCounter',Smartix.Notifications.Helpers.sumOfNewChatMessageCounter);
 Template.registerHelper('sumOfNewNewsCounter',Smartix.Notifications.Helpers.sumOfNewNewsCounter);
 Template.registerHelper('sumOfNewClassMessageAndCommentCounter',Smartix.Notifications.Helpers.sumOfNewClassMessageAndCommentCounter );
