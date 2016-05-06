@@ -52,8 +52,8 @@
                                 {{#each uploadPic}} {{#with FS.GetFile "images" this}}
                                 <!-- In here, we can use the FS.File instance methods that work as helpers, such as {{url}} or {{isImage}} -->
                                 {{#unless this.isUploaded}} {{> LoadingSpinner}} {{else}}
-                                <div class="preview-bubble">
-                                    <img style='height:100px;margin:-5px 0;' src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}">
+                                <div class="">
+                                    <img style='height:100px;' src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}">
                                     <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a>
                                     
                                 </div>
