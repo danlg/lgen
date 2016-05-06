@@ -41,10 +41,10 @@
             {{#each getSlidingNews}}
                 <a href="{{pathFor route='newsgroups.news.view' msgid=_id}}" class='slide-box-bg ion-slide' data-msg-id='{{_id}}'>
                     <div class='content'>
-                    <p>{{data.title}}</p>
-                    <p style='text-overflow: ellipsis;'>{{data.content}}</p>
-                    <p>{{formatDate createdAt}}</p>
-                    <p>Read More</p>                    
+                    <b>{{data.title}}</b>
+                    <div style=' white-space: nowrap; overflow:hidden;text-overflow:ellipsis;width:100vw;'>{{data.content}}</div>
+                    <div>{{formatDate createdAt}}</div>
+                    <div>Read More</div>                    
                     </div>
                 </a>
             {{else}}
