@@ -21,6 +21,7 @@
   {{#ionView}}
     {{#ionContent}}
     <div class="list">
+        {{#if Template.subscriptionsReady}}
          {{#with getNews}}     
             {{#each this}}
                 {{> NewsDetail }}           
@@ -31,7 +32,9 @@
                 </a>         
             {{/each}}
          {{/with}}      
-      
+        {{else}}
+          <div class="spinner-loading">{{> ionSpinner icon="spiral"}}</div>
+        {{/if}}
     </div>
     {{/ionContent}}
   {{/ionView}}
