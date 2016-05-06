@@ -4,20 +4,36 @@ Template.AdminClassesView.onCreated(function () {
     && Router.current().params
     && Router.current().params.classCode) {
         var currentClassCode = Router.current().params.classCode;
+        
+        // Subscribe to information about the class
         self.subscribe('smartix:classes/classByClassCode', currentClassCode, function (error, res) {
             if(!error) {
-                var classData = Smartix.Groups.Collection.findOne({
-                    classCode: currentClassCode,
-                    type: 'class'
-                });
                 
-                if(classData && classData._id) {
-                    self.subscribe('smartix:messages/groupMessages', classData._id);
-                }
+                // Get all users in the school so they can be searched
+                
+                
+                // Used for getting class messages/announcements
+                // var classData = Smartix.Groups.Collection.findOne({
+                //     classCode: currentClassCode,
+                //     type: 'class'
+                // });
+                
+                // if(classData && classData._id) {
+                //     self.subscribe('smartix:messages/groupMessages', classData._id);
+                // }
             }
         });
+        
+        var schoolUsername = Router.current().params.school;
+        self.subscribe('schoolInfo', schoolUsername, function () {
+            var schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolUsername)
+            if(schoolNamespace) {
+                self.subscribe('smartix:accounts/allUsersInNamespace', Smartix.Accounts.School.getNamespaceFromSchoolName(schoolUsername));
+            }
+        })
     }
 });
+
 
 Template.AdminClassesView.helpers({
     classData: function () {
@@ -51,11 +67,97 @@ Template.AdminClassesView.helpers({
     classUserIndex: function () {
         return ClassUsersIndex;
     },
-    adminUserSearchInputAttributes: function () {
+    adminAdminSearchInputAttributes: function () {
         return {
             placeholder: "Type the name of your new admin",
             class: "form-control",
             id: "AdminClassesView__add-admin-input"
+        }
+    },
+    adminUserSearchInputAttributes: function () {
+        return {
+            placeholder: "Type the name of your new user",
+            class: "form-control",
+            id: "AdminClassesView__add-user-input"
+        }
+    }
+});
+
+Template.AdminClassesView.events({
+    'click .AdminClassesView__user-search-add-admin': function(event, template) {
+        var userId = event.target.dataset.userId;
+        if (Router
+            && Router.current()
+            && Router.current().params
+        ) {
+            Meteor.call('class/joinAsAdmin', {
+                classCode: Router.current().params.classCode,
+                schoolName: Router.current().params.school
+            }, userId, function (err, res) {
+                if(err) {
+                    console.log(err);
+                    toastr.error(err.message);
+                }
+            });
+        } else {
+            toastr.error(TAPi18n.__("applicationError.refreshRequired"));
+        }
+    },
+    'click .AdminClassesView__user-search-add-user': function(event, template) {
+        var userId = event.target.dataset.userId;
+        if (Router
+            && Router.current()
+            && Router.current().params
+        ) {
+            Meteor.call('class/join', {
+                classCode: Router.current().params.classCode,
+                schoolName: Router.current().params.school
+            }, userId, function (err, res) {
+                if(err) {
+                    console.log(err);
+                    toastr.error(err.message);
+                }
+            });
+        } else {
+            toastr.error(TAPi18n.__("applicationError.refreshRequired"));
+        }
+    },
+    'click .remove-user': function (event, template) {
+        // Get class Id from name 
+        var classObj = Smartix.Groups.Collection.findOne({
+            classCode: Router.current().params.classCode,
+            type: "class"
+        })
+        
+        var userId = event.currentTarget.dataset.userId;
+        if(!classObj) {
+            toastr.error('Could not find the class with class code ' + Router.current().params.classCode);
+        }
+        
+        if(classObj && userId) {
+            Meteor.call('smartix:classes/removeUsers', classObj._id, [userId], function (err, res) {
+                // console.log(err);
+                // console.log(res);
+            });
+        }
+    },
+    'click .remove-admin': function (event, template) {
+        // Get class Id from name 
+        var classObj = Smartix.Groups.Collection.findOne({
+            classCode: Router.current().params.classCode,
+            type: "class"
+        })
+        
+        var userId = event.currentTarget.dataset.userId;
+        if(!classObj) {
+            toastr.error('Could not find the class with class code ' + Router.current().params.classCode);
+        }
+        
+        if(classObj && userId) {
+            Meteor.call('smartix:classes/removeAdmins', classObj._id, [userId], function (err, res) {
+                // console.log(err);
+                // console.log(res);
+            });
         }
     }
 });

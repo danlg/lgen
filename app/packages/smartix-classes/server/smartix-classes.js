@@ -179,8 +179,8 @@ Smartix.Class.editClass = function (classId, options) {
     // * Admin for the school (namespace) specified
     // * One of the admins for the class
 
-	if(!Smartix.Class.isClassAdmin(Meteor.userId(), classId)
-        && !Smartix.Accounts.School.isAdmin(existingClass.namespace)) {
+	if(!(Smartix.Class.isClassAdmin(Meteor.userId(), classId)
+        && Smartix.Accounts.School.isAdmin(existingClass.namespace))) {
         
         log.info('no right to edit class!')
 		return false;
@@ -274,8 +274,8 @@ Smartix.Class.deleteClass = function (id) {
     // * Admin for the school (namespace) specified
     // * One of the admins for the class
 
-	if(Smartix.Class.isClassAdmin(Meteor.userId(), classId)
-        || !Smartix.Accounts.School.isAdmin(namespace)) {
+	if(!(Smartix.Class.isClassAdmin(Meteor.userId(), classId)
+        || Smartix.Accounts.School.isAdmin(namespace))) {
 		return false;
 		// Optional: Throw an appropriate error if not
 	}
@@ -284,10 +284,10 @@ Smartix.Class.deleteClass = function (id) {
 	Smartix.Groups.deleteGroup(id);
 };
 
-Smartix.Class.addUsersToClass = function (id, users) {
-
+Smartix.Class.addAdminsToClass = function (classId, users) {
+    
 	// Checks that `id` is of type String
-	check(id, String);
+	check(classId, String);
 
 	// Checks that `users` is an array of Strings
 	check(users, [String]);
@@ -295,21 +295,71 @@ Smartix.Class.addUsersToClass = function (id, users) {
 	// Checks that currently-logged in user is one of the following:
     // * Admin for the school (namespace) specified
     // * One of the admins for the class
-
-	if(Smartix.Class.isClassAdmin(Meteor.userId(), classId)
-        || !Smartix.Accounts.School.isAdmin(namespace)) {
-		return false;
-		// Optional: Throw an appropriate error if not
-	}
-
-	// Add users to class
-	Smartix.Groups.addUsersToGroup(id, users);
     
-    // Get the class object
     let classObj = Smartix.Groups.Collection.findOne({
-        _id: id,
+        _id: classId,
         type: "class"
     });
+    
+    if(classObj) {
+        if(!(Smartix.Class.isClassAdmin(Meteor.userId(), classId)
+            || Smartix.Accounts.School.isAdmin(classObj.namespace))) {
+            return false;
+            // Optional: Throw an appropriate error if not
+        }
+    } else {
+        return false;
+    }
+	
+    users = Smartix.Accounts.Utilities.removeNonExistentUsers(users);
+
+	// Push (using `$addToSet`) the new users to the existing `users` array
+	Smartix.Groups.Collection.update({
+		_id: classId
+	}, {
+		
+			$addToSet: {
+				admins: {
+					$each: users
+				}
+			}
+		
+	});
+}
+
+Smartix.Class.addUsersToClass = function (classId, users) {
+
+	// Checks that `classId` is of type String
+	check(classId, String);
+
+	// Checks that `users` is an array of Strings
+	check(users, [String]);
+
+	// Checks that currently-logged in user is one of the following:
+    // * Admin for the school (namespace) specified
+    // * One of the admins for the class
+    
+    let classObj = Smartix.Groups.Collection.findOne({
+        _id: classId,
+        type: "class"
+    });
+    
+	if(classObj) {
+        if(!(Smartix.Class.isClassAdmin(Meteor.userId(), classId)
+            || Smartix.Accounts.School.isAdmin(classObj.namespace))) {
+            return false;
+            // Optional: Throw an appropriate error if not
+        }
+    } else {
+        return false;
+    }
+
+	// Add users to class
+	Smartix.Groups.addUsersToGroup(classId, users);
+    
+    /////////////////////////////
+    // SEND NOTIFICATION EMAIL //
+    /////////////////////////////
     
     if(classObj) {
         // Send emails to students if `newClass.notifyStudents` is true
@@ -330,30 +380,85 @@ Smartix.Class.addUsersToClass = function (id, users) {
             });
         }
     }
-    
 };
 
-Smartix.Class.removeUsersFromClass = function (id, users) {
+Smartix.Class.removeUsersFromClass = function (classId, users, currentUser) {
 	
 	// Checks that `id` is of type String
-	check(id, String);
+	check(classId, String);
 
 	// Checks that `users` is an array of Strings
 	check(users, [String]);
 
+    check(currentUser, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    if(!(currentUser === null)) {
+        currentUser = currentUser || Meteor.userId();
+    }
+    
 	// Checks that currently-logged in user is one of the following:
     // * Admin for the school (namespace) specified
     // * One of the admins for the class
+    
+    // TODO - Optimize this so
+    // only if the user is not class admin
+    // would we have to fetch the class object
+    let classObj = Smartix.Groups.Collection.findOne({
+        _id: classId,
+        type: "class"
+    });
 
-	if(Smartix.Class.isClassAdmin(Meteor.userId(), classId)
-        || !Smartix.Accounts.School.isAdmin(namespace)) {
+	if(!(Smartix.Class.isClassAdmin(currentUser, classId)
+        || Smartix.Accounts.School.isAdmin(classObj.namespace))) {
 		return false;
 		// Optional: Throw an appropriate error if not
 	}
 
-	// Add users to class
-	Smartix.Groups.removeUsersFromGroup(id, users);
+	// Remove users to class
+	Smartix.Groups.removeUsersFromGroup(classId, users);
 };
+
+Smartix.Class.removeAdminsFromClass = function (classId, admins, currentUser) {
+    
+	// Checks that `id` is of type String
+	check(classId, String);
+
+	// Checks that `users` is an array of Strings
+	check(admins, [String]);
+    
+    check(currentUser, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    if(!(currentUser === null)) {
+        currentUser = currentUser || Meteor.userId();
+    }
+	// Checks that currently-logged in user is one of the following:
+    // * Admin for the school (namespace) specified
+    // * One of the admins for the class
+    
+    // TODO - Optimize this so
+    // only if the user is not class admin
+    // would we have to fetch the class objec
+    let classObj = Smartix.Groups.Collection.findOne({
+        _id: classId,
+        type: "class"
+    });
+    
+	if(!(Smartix.Class.isClassAdmin(currentUser, classId)
+        || Smartix.Accounts.School.isAdmin(classObj.namespace))) {
+		return false;
+		// Optional: Throw an appropriate error if not
+	}
+    
+    Smartix.Groups.Collection.update({
+        _id: classId
+    }, {
+        $pullAll: {
+            admins: admins
+        }
+    });
+}
 
 Smartix.Class.NotifyParents = Smartix.Class.NotifyStudents = function (studentId, classId) {
     

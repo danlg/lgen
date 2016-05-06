@@ -102,25 +102,21 @@ Smartix.Groups.addUsersToGroup = function (id, users) {
 	// TODO: Remove duplicates from the `users` array
 }
 
-Smartix.Groups.removeUsersFromGroup = function (id, users) {
-	// Checks that `id` is of type String
-	check(id, String);
+Smartix.Groups.removeUsersFromGroup = function(id, users) {
+    // Checks that `id` is of type String
+    check(id, String);
 
-	// Checks that `users` is an array of Strings
-	check(users, [String]);
+    // Checks that `users` is an array of Strings
+    check(users, [String]);
 
-	// Pull the users from the existing `users` array
-	Smartix.Groups.Collection.update({
-		_id: id
-	}, {
-		
-			$pull: {
-				users: {
-					$in: users
-				}
-			}
-		
-	});
+    // Pull the users from the existing `users` array
+    Smartix.Groups.Collection.update({
+        _id: id
+    }, {
+        $pullAll: {
+            users: users
+        }
+    });
 }
 
 Smartix.Groups.isUserInGroup = function (user, group) {

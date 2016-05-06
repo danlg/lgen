@@ -58,5 +58,11 @@ Meteor.methods({
   
   'smartix:classes/editClass':function(modifier,documentId){
       Smartix.Class.editClass(documentId,modifier['$set']);
+  },
+  'smartix:classes/removeUsers': function (classId, usersToRemove) {
+      Smartix.Class.removeUsersFromClass(classId, usersToRemove, this.userId);
+  },
+  'smartix:classes/removeAdmins': function (classId, adminsToRemove) {
+      Smartix.Class.removeAdminsFromClass(classId, adminsToRemove, this.userId);
   }
 });

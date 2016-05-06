@@ -1,3 +1,16 @@
 .AdminClassesView__add-admin-container {
     height: 200px;
 }
+
+.AdminClassesView__user-search-result {
+    
+}
+
+.AdminClassesView__user-search-name {
+    display: inline-block;
+}
+
+.AdminClassesView__user-search-add-admin,
+.AdminClassesView__user-search-add-user {
+    float: right;
+}

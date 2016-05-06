@@ -3,7 +3,15 @@
 
 Meteor.methods({
 
-  'class/join': function (doc) {
+  'class/join': function (doc, userToAdd) {
+      
+    check(userToAdd, Match.Maybe(String));
+
+    // Get the `_id` of the currently-logged in user
+    if(!(userToAdd === null)) {
+        userToAdd = userToAdd || this.userId || Meteor.userId();
+    }
+      
     if (doc && doc.classCode) {
       log.info("class/join:" + doc.classCode.trim());
       var classCode = doc.classCode.trim();
@@ -25,19 +33,80 @@ Meteor.methods({
           throw new Meteor.Error("class-different-namespace", "Can't join the class in different namespace");
         }
         
-        if (resultset.admins.indexOf(Meteor.userId()) > -1) {
-          log.warn("class/join: can't join the class you own:" + classCode + ":from user:" + Meteor.userId());
+        if (resultset.admins.indexOf(userToAdd) > -1) {
+          log.warn("class/join: can't join the class you own:" + classCode + ":from user:" + userToAdd);
           throw new Meteor.Error("class-you-own", "Can't join a class you own");
         }
         else {
-          log.info("User " + Meteor.userId() + " attempting to join class " + doc.classCode);
+          log.info("User " + userToAdd + " attempting to join class " + doc.classCode);
           //log.info("Server?"+Meteor.isServer);
           //this was the trick to make it case insensitive
-          Smartix.Groups.Collection.update(
-            {"classCode": {$regex: regexp}},
-            {
-              $addToSet: {users: Meteor.userId()}
-            });
+          
+          Smartix.Class.addUsersToClass(resultset._id, [userToAdd]);
+          
+          
+        //   Smartix.Groups.Collection.update(
+        //     {"classCode": {$regex: regexp}},
+        //     {
+        //       $addToSet: {users: userToAdd}
+        //     });
+          return true;
+        }
+      }
+      else { //class is not found
+        log.info("classcode '" + classCode + "' not found");
+        throw new Meteor.Error("class-not-foun", "Can't find the class");
+      }
+    }
+    else {
+      log.warn("there is no input");
+    }
+    return false;
+  },
+  'class/joinAsAdmin': function (doc, userToAdd) {
+      
+      // 
+      
+      check(userToAdd, Match.Maybe(String));
+
+    // Get the `_id` of the currently-logged in user
+    if(!(userToAdd === null)) {
+        userToAdd = userToAdd || this.userId || Meteor.userId();
+    }
+    
+    if (doc && doc.classCode) {
+      log.info("class/join:" + doc.classCode.trim());
+      var classCode = doc.classCode.trim();
+      var regexp = new RegExp("^" + classCode.trim() + "$", "i");
+      var resultset = Smartix.Groups.Collection.findOne({"classCode": {$regex: regexp}});//OK
+      
+      var targetSchoolNamespace = doc.schoolName;
+      if(doc.schoolName === 'global' || doc.schoolName === 'system'){
+         targetSchoolNamespace = doc.schoolName;
+      }else{
+        var targetSchool = SmartixSchoolsCol.findOne({username:doc.schoolName});
+        targetSchoolNamespace = targetSchool._id;           
+      }
+      
+      if (resultset) {
+        
+        if(resultset.namespace !== targetSchoolNamespace){
+          log.info('class/join: cant join the class in different namespace');
+          throw new Meteor.Error("class-different-namespace", "Can't join the class in different namespace");
+        }
+        
+        else {
+          log.info("User " + userToAdd + " attempting to join class " + doc.classCode);
+          //log.info("Server?"+Meteor.isServer);
+          //this was the trick to make it case insensitive
+          
+          Smartix.Class.addAdminsToClass(resultset._id, [userToAdd]);
+          
+        //   Smartix.Groups.Collection.update(
+        //     {"classCode": {$regex: regexp}},
+        //     {
+        //       $addToSet: {admins: userToAdd}
+        //     });
           return true;
         }
       }

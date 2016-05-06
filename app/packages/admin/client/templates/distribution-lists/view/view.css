@@ -3,11 +3,13 @@
     width: 100%;
 }
 
-.AdminDistributionListView__user-search-result {
+.user-search-result,
+.admin-search-result {
    cursor: pointer;
 }
 
-.AdminClassesView__add-user-input-container {
+.add-user-input-container,
+.add-admin-input-container {
     width: 100%;
 }
 
