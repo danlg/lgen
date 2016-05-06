@@ -365,7 +365,7 @@ Smartix.Class.addUsersToClass = function (classId, users) {
         // Send emails to students if `newClass.notifyStudents` is true
         if(classObj.notifyStudents) {
             _.each(users, function (student, i, students) {
-                Smartix.Class.NotifyStudents(student, id);
+                Smartix.Class.NotifyStudents(student, classObj._id);
             });
         }
         // Send emails to parents if `newClass.notifyParents` is true
@@ -375,7 +375,7 @@ Smartix.Class.addUsersToClass = function (classId, users) {
                 let parents = Smartix.Accounts.Relationships.getParentOfStudent(student, namespace);
                 
                 _.each(parents, function (parent, i) {
-                    Smartix.Class.NotifyStudents(parent._id, id);
+                    Smartix.Class.NotifyStudents(parent._id, classObj._id);
                 });
             });
         }
@@ -465,7 +465,7 @@ Smartix.Class.NotifyParents = Smartix.Class.NotifyStudents = function (studentId
     check(studentId, String);
     check(classId, String);
     
-    let student = Meteor.user.findOne({
+    let student = Meteor.users.findOne({
         _id: studentId
     });
     
@@ -483,40 +483,13 @@ Smartix.Class.NotifyParents = Smartix.Class.NotifyStudents = function (studentId
         return false;
         // throw new Meteor.Error("class-not-found", "Class with ID of " + classId + " could not be found");
     }
-    
-    let lang = student.lang || "en";
-    let content;
-    try {
-        // Get the verfication template of the specific lang
-        content = Assets.getText("lang/" + lang + "/emailNotifyJoinClassTemplate.html");
-    } catch (e) {
-        content = Assets.getText("lang/" + lang + "/emailNotifyJoinClassTemplate.html");
-    }
 
-    var html = Spacebars.toHTML(
-        {
-            first: userObj.profile.firstName,
-            last: verificationURL,
-            acceptLink: Meteor.settings.public.ROOT_URL,
-            ROOT_URL: Meteor.settings.public.ROOT_URL,
-            classname: classObj.className || "",
-            classcode: classObj.classCode || "",
-            GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = lang),
-        }, Spacebars.toHTML(
-            {
-                title: "",
-                content: content,
-                GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = lang),
-                UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = lang)
-            },
-            Assets.getText("emailMessageMasterTemplate.html")
-        )
-    );
     Email.send({
         subject: "You've been added to a class",
         from: Meteor.settings.FROM_EMAIL,
         //"from_name": Meteor.settings.FROM_NAME,
-        to: student.emails[0].address
+        to: student.emails[0].address,
+        html: Smartix.notifyEmailTemplate(student, classObj)
     })
 };
 

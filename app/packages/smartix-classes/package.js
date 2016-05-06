@@ -27,7 +27,8 @@ Package.onUse(function(api) {
     api.use('smartix:groups');
     api.use('smartix:messages-addons-calendar');
     api.use('smartix:messages-addons-poll');
-    api.use('smartix:accounts-relationships');    
+    api.use('smartix:accounts-relationships');
+    api.use('smartix:email-template');
     
     api.addFiles('lib/schema.js', ['client', 'server']);
     api.addFiles('lib/route.js', ['client', 'server']);

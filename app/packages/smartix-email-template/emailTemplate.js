@@ -232,3 +232,37 @@ Smartix.resetPasswordEmailTemplate = function (userObj, resetPwdEmailURL) {
   );
 }; 
 
+Smartix.notifyEmailTemplate = function (userObj, classObj) {
+    
+    let lang = userObj.lang || "en";
+    let content;
+    try {
+        // Get the verfication template of the specific lang
+        content = Assets.getText("lang/" + lang + "/emailNotifyJoinClassTemplate.html");
+    } catch (e) {
+        content = Assets.getText("lang/" + lang + "/emailNotifyJoinClassTemplate.html");
+    }
+
+    return Spacebars.toHTML(
+        {
+            first: userObj.profile.firstName,
+            last: userObj.profile.lastName,
+            acceptLink: Meteor.settings.public.ROOT_URL,
+            ROOT_URL: Meteor.settings.public.ROOT_URL,
+            classname: classObj.className || "",
+            classcode: classObj.classCode || "",
+            GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = lang),
+        }, Spacebars.toHTML(
+            {
+                title: "",
+                content: content,
+                GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = lang),
+                UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = lang)
+            },
+            Assets.getText("emailMessageMasterTemplate.html")
+        )
+    );
+}; 
+
+
+    
