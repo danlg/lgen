@@ -59,16 +59,14 @@ Template.AppLayout.helpers({
 
     belongToMultiSchool: function() {     
         if(Meteor.userId()){
-            if (Object.keys(Meteor.user().roles).length > 1) {
-                return true;
-            } else {
-                return false;
-            }            
+            if(Meteor.user() && Meteor.user().roles){
+                return (Object.keys(Meteor.user().roles).length > 1 ) ? true: false;                   
+            } 
         }
     },
     getUserName:function(){
-        if(Meteor.userId())
-        return Meteor.user().profile.firstName;
+        if(Meteor.userId() && Meteor.user() && Meteor.user().profile)
+        return Meteor.user().profile.firstName || "";
     },
     isSchoolNamespace:function(){
         return (Session.get('pickedSchoolId') === 'global' || Session.get('pickedSchoolId') === 'system') ? false : true;
