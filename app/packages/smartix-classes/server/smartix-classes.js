@@ -124,10 +124,12 @@ Smartix.Class.createClass = function (classObj, currentUser) {
 	newClass.users = _.uniq(newClass.users);
 	
 	// Checks the `classCode` is unique for this namespace
-	if(Smartix.Groups.Collection.find({
+    let classWithClassCode = Smartix.Groups.Collection.findOne({
 		namespace: newClass.namesapce,
 		classCode: /^newClass.classCode$/i
-	}).count() > 0) {
+	});
+	if(classWithClassCode) {
+        Smartix.Class.addAdminsToClass(classWithClassCode._id, [currentUser]);
 		return false;
 		// Optional: Throw error saying classCode already exists
 	}

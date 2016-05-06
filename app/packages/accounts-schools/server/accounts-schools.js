@@ -1311,9 +1311,6 @@ Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser) 
                     notifyStudents: inviteStudents,
                     notifyParents: inviteParents
                 }, teacherId);
-                
-                // TODO - Handle the case where class exists already
-                // and add the teacher to the admins array
             }
         });
         
@@ -1356,10 +1353,12 @@ Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser) 
                         type: "distributionList"
                     })
                     
-                    // Gets a list of all users who are not the teacher
-                    studentUsers = _.pull(thisDistributionList.users, teacherId);
-                    
-                    Smartix.Class.addUsersToClass(correspondingClass._id, studentUsers);
+                    if(correspondingClass && thisDistributionList) {
+                        // Gets a list of all users who are not the teacher
+                        studentUsers = _.pull(thisDistributionList.users, correspondingClass.admins, teacherId);
+                        
+                        Smartix.Class.addUsersToClass(correspondingClass._id, studentUsers);
+                    }
                 }
             }
         });
