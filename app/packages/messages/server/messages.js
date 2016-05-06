@@ -191,13 +191,16 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
           function(eachUserId){
             return (eachUserId === Meteor.userId());
         });
-
+        
+        var addonTypes = lodash.map(addons,'type');  
         group.users.map(function(eachTargetUser){
             Notifications.insert({
                 eventType:"new"+group.type+"message",
                 userId: eachTargetUser,
                 hasRead: false,
                 groupId: groupId,
+                messageId: newMessage,
+                addons: addonTypes,
                 messageCreateTimestamp: message.createdAt,
                 messageCreateByUserId: Meteor.userId()
             },function(){
