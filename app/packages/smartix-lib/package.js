@@ -17,8 +17,8 @@ Package.onUse(function(api) {
     api.addFiles('client/helper.js','client');
     api.addFiles('shared/helper.js');
     api.addFiles('shared/find-in-json.js');
-    api.addFiles('shared/method_cs.js');
     api.addFiles('server/methods.js','server');
+    api.addFiles('server/method_cs.js', 'server');
 
     //lanaguage-specific app tour image
     api.addFiles([
