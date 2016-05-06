@@ -1,5 +1,5 @@
 Meteor.methods({
-    'smartix:newsgroups/createNewsgroup':function(schoolName, newgroupObj){
+    'smartix:newsgroups/createNewsgroup':function(schoolName, newgroupObj, distributionLists){
         
         check(schoolName, String);
         check(newgroupObj, Object);
@@ -12,21 +12,16 @@ Meteor.methods({
             throw new Meteor.Error("school-not-exist", "The school with name " + schoolName + " does not exist.")
         }
         
-        // TODO. Instead of retrieving all users of this school
-        // allow user to specific users in the school by some sort of querying
+        var distributionListInputCount = distributionLists.length;
+        var distributionListCount      = Smartix.Groups.Collection.find({_id: {$in: distributionLists}, type:'distributionList'}).count();
+        if(distributionListInputCount !== distributionListCount){
+             throw new Meteor.Error("distributionList-invalid", "Some distribution lists are not valid");             
+        }
         
-        // Find out all users of this school
         
-        var userIds = Meteor.users.find({
-            schools:schoolDoc._id
-        }, {
-            fields: {
-                _id: 1
-            }
-        }).fetch();
-       
         var resultValue = Smartix.Newsgroup.createNewsgroup(
-            lodash.map(userIds, '_id'),
+            distributionLists,
+            [],
             schoolDoc._id,
             newgroupObj.className,
             newgroupObj.url,
@@ -59,5 +54,50 @@ Meteor.methods({
         throw new Meteor.Error("class-not-foun", "Can't find the group");           
        }    
         
-    }
+    },
+    'smartix:newsgroups/addToOptOutList':function(newsgroupId){
+        
+       var newsgroup = Smartix.Groups.Collection.findOne(newsgroupId);
+       if(newsgroup){
+           var userNamespaces = Object.keys(Meteor.user().roles);
+           
+           if(userNamespaces.indexOf(newsgroup.namespace ) > -1){
+            Smartix.Groups.Collection.update(
+                {_id: newsgroupId},
+                {
+                    $addToSet: {optOutUsersFromDistributionLists: Meteor.userId()}
+                }
+            );              
+           }else{
+            throw new Meteor.Error("group-different-namespace", "Can't join the group in different namespace");               
+           }
+           
+       }else{
+        throw new Meteor.Error("class-not-foun", "Can't find the group");           
+       } 
+               
+    },    
+    'smartix:newsgroups/removeFromOptOutList':function(newsgroupId){
+        
+       var newsgroup = Smartix.Groups.Collection.findOne(newsgroupId);
+       if(newsgroup){
+           var userNamespaces = Object.keys(Meteor.user().roles);
+           
+           if(userNamespaces.indexOf(newsgroup.namespace ) > -1){
+            Smartix.Groups.Collection.update(
+                {_id: newsgroupId},
+                {
+                    $pull: {optOutUsersFromDistributionLists: Meteor.userId()}
+                }
+            );              
+           }else{
+            throw new Meteor.Error("group-different-namespace", "Can't join the group in different namespace");               
+           }
+           
+       }else{
+        throw new Meteor.Error("class-not-foun", "Can't find the group");           
+       } 
+               
+    },    
+    
 });

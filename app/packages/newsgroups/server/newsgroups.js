@@ -49,7 +49,7 @@ Smartix.Newsgroup.canEditNewsgroup = Smartix.Newsgroup.canDeleteNewsgroup = Smar
     return false;
 };
 
-Smartix.Newsgroup.createNewsgroup = function (users, namespace, name, url, mandatory, currentUser ) {
+Smartix.Newsgroup.createNewsgroup = function (distributionLists, users, namespace, name, url, mandatory, currentUser ) {
 
 	// Checks that the currently-logged in user has
 	// administrative priviledges for the namespace it specified
@@ -61,6 +61,8 @@ Smartix.Newsgroup.createNewsgroup = function (users, namespace, name, url, manda
 
 	// Creating newsgroup document to be inserted
 	var newsgroup = {};
+	newsgroup.distributionLists = distributionLists;
+	newsgroup.optOutUsersFromDistributionLists = [];
 	newsgroup.users = users;
 	newsgroup.namespace = namespace;
 	newsgroup.type = 'newsgroup';

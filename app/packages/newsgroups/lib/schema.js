@@ -39,5 +39,11 @@ Smartix.Newsgroup.Schema = new SimpleSchema({
 	mandatory: {
 		type: Boolean,
 		defaultValue: false
+	},
+	distributionLists:{
+		type: [String]
+	},
+	optOutUsersFromDistributionLists:{
+		type: [String]
 	}
 });

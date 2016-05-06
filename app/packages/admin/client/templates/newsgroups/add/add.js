@@ -15,10 +15,16 @@ Template.AdminNewsgroupsAdd.events({
         // If the checkbox is selected,
         // Make newsgroupMandatory `true`, otherwise `false`
 
+        var selectedDistributionLists = [];    
+        $("#distribution-list :selected").each(function(){
+            selectedDistributionLists.push($(this).val()); 
+        });
+        
+        log.info('selectedDistributionLists',selectedDistributionLists);
         
         log.info('newNewsgroupObj',newNewsgroup);
         
-        Meteor.call('smartix:newsgroups/createNewsgroup', Router.current().params.school, newNewsgroup,function(err,result){
+        Meteor.call('smartix:newsgroups/createNewsgroup', Router.current().params.school, newNewsgroup, selectedDistributionLists,function(err,result){
             
             if(err){
                 log.info(err);
@@ -32,8 +38,10 @@ Template.AdminNewsgroupsAdd.events({
 
 Template.AdminNewsgroupsAdd.helpers({
     
-    'distributionListItems':function(){
-        
+    'distributionListItems': function () {
+        return Smartix.Groups.Collection.find({
+            type: "distributionList"
+        });
     }
     
 })

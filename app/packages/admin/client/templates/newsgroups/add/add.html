@@ -46,26 +46,12 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Select the distribution list(s) to copy or refer to. For multiple selection, press Ctrl(PC)  or &#8984;(Mac) </label>
                         <div class="col-lg-10">
-                                <select name="distribution-list" multiple>
+                                <select id='distribution-list' name="distribution-list" multiple>
                                     {{#each distributionListItems}}
-                                    
-                                    {{/each}}
-                                    <option value="whole school">Whole School</option>
-                                    <option value="grade1">Grade 1</option>
-                                    <option value="grade2">Grade 2</option>
-                                    <option value="grade3">Grade 3</option>
-                                    
-                                    <option value="grade4">Grade 4</option>
-                                    <option value="grade5">Grade 5</option>
-                                    <option value="grade6">Grade 6</option>
-                                    
-                                    <option value="grade7">Grade 7</option>
-                                    <option value="grade8">Grade 8</option>
-                                    <option value="grade9">Grade 9</option>
-                                    
-                                    <option value="grade10">Grade 10</option>
-                                    <option value="grade11">Grade 11</option>
-                                    <option value="grade12">Grade 12</option>                                                                                                            
+                                        <option value="{{_id}}">{{name}}</option>
+                                    {{else}}
+                                        No distribution list                                  
+                                    {{/each}}                                                                                                           
                                 </select>                       
                         </div>
                     </div>                    
