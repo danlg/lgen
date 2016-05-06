@@ -34,10 +34,19 @@
                     {{else}}
                         <label class="toggle toggle-positive">
                         
-                            {{#if userInNewsgroup}}         
-                                <input class='opt-out' type="checkbox" checked="checked" data-group-id={{_id}} />
+                            {{#if userInNewsgroup}}
+                                {{#if userInUserArray}}
+                                    <input class='opt-out' type="checkbox" checked="checked" data-group-id={{_id}} />
+                                {{else}}
+                                    <input class='opt-out distribution-list' type="checkbox" checked="checked" data-group-id={{_id}} />                                
+                                {{/if}}         
                             {{else}}
-                                <input class='opt-in' type="checkbox" data-group-id={{_id}} />
+                                {{#if userInNewsgroupDistributionListButOptOut}}
+                                     <input class='opt-in distribution-list' type="checkbox" data-group-id={{_id}} />                                  
+                                {{else}}
+                                     <input class='opt-in' type="checkbox" data-group-id={{_id}} />                                
+                                {{/if}}
+
                             {{/if}}
                             
                             <div class="track">

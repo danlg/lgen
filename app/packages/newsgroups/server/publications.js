@@ -54,11 +54,23 @@ Meteor.publish('newsForUser', function(limit, query, namespace) {
         });
     }
 
-    var groups = Smartix.Groups.Collection.find({
-        namespace: schoolDoc._id,
-        type: 'newsgroup',
-        users: this.userId
-    }, {
+    var distributionListsUserBelong = Smartix.Groups.Collection.find({type: 'distributionList', users: this.userId }).fetch();
+    var distributionListsUserBelongIds = lodash.map(distributionListsUserBelong,'_id');
+    
+    console.log('distributionListsUserBelongIds',distributionListsUserBelongIds);
+    
+    var groups = Smartix.Groups.Collection.find({$or:[
+            {
+                namespace: schoolDoc._id,
+                type: 'newsgroup',
+                users: this.userId
+            },
+            {
+                namespace: schoolDoc._id,
+                type: 'newsgroup',
+                distributionLists: {$in : distributionListsUserBelongIds }
+            },            
+        ]}, {
         fields: {
             _id: 1
         } 
