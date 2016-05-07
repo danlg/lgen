@@ -1,7 +1,8 @@
 {
   "env": {
-    "ROOT_URL": "https://uat.gosmartix.com",
-    "PORT": 80
+    "ROOT_URL": "http://uat.gosmartix.com",
+    "PORT": 8888,
+    "MONGO_URL": "mongodb://127.0.0.1/littlegenius"
   },
   //stage
   "servers": [
@@ -16,7 +17,7 @@
   "nodeVersion": "0.10.43",
   "setupPhantom": false,
   "enableUploadProgressBar": true,
-  "appName": "littlegenius",
+  "appName": "lg",
   "app": "/Users/dan/DEV/github8/lgen/app",
   "deployCheckWaitTime": 15
 }

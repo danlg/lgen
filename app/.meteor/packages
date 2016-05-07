@@ -27,7 +27,6 @@ less
 standard-minifier-css
 standard-minifier-js
 ddp-rate-limiter
-force-ssl
 
 # account
 accounts-base
