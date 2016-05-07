@@ -1,0 +1,47 @@
+<template name="AttendaceList">
+  {{#contentFor "headerTitle"}}
+     <h1 class="title">Attendance</h1>
+  {{/contentFor}}
+
+
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton text=" "}}
+  {{/contentFor}}
+
+
+  {{#contentFor "headerButtonRight"}}
+    <!--<div style="position: absolute; right: 0 ; width:12.5%; ">
+      <a href="{{ pathFor 'newsgroups.list'}}" class="button button-clear button-entering button-active">
+        <i class="icon ion-funnel"></i>
+      </a>
+    </div>-->
+
+  {{/contentFor}}
+  
+  {{#ionView}}
+    {{#ionContent}}
+        <div class="card">
+            <div class="item item-text-wrap smaller">
+               We will send you a notification and ask for details if we find that your children is not presented in a school day.
+            </div>
+        </div>     
+    <div class="list">
+        
+        {{#if Template.subscriptionsReady}}
+         {{#with getNews}}     
+            {{#each this}}
+                {{> NewsDetail }}           
+            {{else}}
+            
+                <a class="item" href="#">
+                    No News
+                </a>         
+            {{/each}}
+         {{/with}}      
+        {{else}}
+          <div class="spinner-loading">{{> ionSpinner icon="spiral"}}</div>
+        {{/if}}
+    </div>
+    {{/ionContent}}
+  {{/ionView}}
+</template>

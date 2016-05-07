@@ -34,6 +34,14 @@ Package.onUse(function(api) {
   api.addFiles('server/actual/methods.js', ['server']);
   api.addFiles('server/processed/processed.js', ['server']);
   api.addFiles('client/absence.js', ['client']);
+
+  api.use('iron:router');
+  api.use('templating');
+  
+  api.addFiles('client/templates/list/list.html', 'client');
+  api.addFiles('client/templates/list/list.js', 'client');  
+  api.addFiles('routes.js', ['client', 'server']);
+  
   api.export('Smartix');
 });
 
