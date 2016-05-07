@@ -88,10 +88,10 @@ var OnBeforeActions = {
             log.warn("checkLanguage:Defaulting to English");
             lang = "en";
           } else {
-            log.info("checkLanguage:Found lang mapping");
+            //log.info("checkLanguage:Found lang mapping");
           }
 
-          log.info("checkLanguage:setLang:'" + lang + "'");
+          //log.info("checkLanguage:setLang:'" + lang + "'");
           i18Init(lang);
          
          //&& ( !Meteor.user().lang || Meteor.user().lang =="")
@@ -133,7 +133,7 @@ var OnBeforeActions = {
             languagePrefs.push(languageFromSafari);
         }
         
-          log.info("checkLanguage:web:langprefs:"+languagePrefs);
+          //log.info("checkLanguage:web:langprefs:"+languagePrefs);
           lang = languagePrefs[0];
           
           //fallback to zh-TW in this case
@@ -152,10 +152,10 @@ var OnBeforeActions = {
             lang = "en";
           }
           else{
-            log.info("checkLanguage:Found lang mapping");
+            //log.info("checkLanguage:Found lang mapping");
           }
           
-          log.info("checkLanguage:setLang:'"+ lang+ "'");
+          //log.info("checkLanguage:setLang:'"+ lang+ "'");
           i18Init(lang);
         
          //&& ( !Meteor.user().lang || Meteor.user().lang =="")
@@ -181,12 +181,12 @@ var OnBeforeActions = {
 var i18Init = function (lang) {
   TAPi18n.setLanguage(lang)
   .done(function () {
-    log.info("checkLanguage:setLang:'"+ lang+ "'"+"OK");
+    //log.info("checkLanguage:setLang:'"+ lang+ "'"+"OK");
     Session.setPersistent('lang', lang);
   })
   .fail(function (error_message) {
     // Handle the situation
-    log.error("checkLanguage:setLang:'"+ lang+ "'"+"KO");
+    //log.error("checkLanguage:setLang:'"+ lang+ "'"+"KO");
     log.error(error_message);
   });
 };
