@@ -23,14 +23,44 @@
         <div class="card">
             <div class="item item-text-wrap smaller">
                We will send you a notification and ask for details if we find that your children is not presented in a school day.
+               <br/>
+               You can also apply for leave
             </div>
-        </div>     
-    <div class="list">
+        </div>
         
+        <div class='card'>
+                <div class="item item-divider">
+                   From Attendance Record:
+                </div>            
+                <div class="item item-text-wrap smaller">
+                    Terence hasn't been school in 2016-03-01. Do you know why?
+                </div>
+                <div class="button-bar bar-light">
+                    <a href="{{pathFor route='attendance.add' school=getCurrentSchoolName}}" class="button">Because...</a>
+                    <a class="button">I don't know</a>
+                    <a href="{{pathFor route='mobile.school.contact' school=getCurrentSchoolName}}" class="button">Contact School</a>
+                </div>
+        </div>
+          
+    <div class="list">
+        <a href="{{pathFor route='attendance.add' school=getCurrentSchoolName}}" class="item item-button-right">
+            Apply for leave
+            <button class="button button-positive">
+            <i class="icon ion-ios-plus-outline"></i>
+            </button>
+        </a>
+        <div class="item item-button-right">
+            View applied leave(s)
+            <button class="button button-positive">
+            <i class="icon ion-checkmark-circled"></i>
+            </button>
+        </div>
+        
+              
         {{#if Template.subscriptionsReady}}
-         {{#with getNews}}     
+         {{#with getAttendaceRecord}}     
             {{#each this}}
-                {{> NewsDetail }}           
+                        
             {{else}}
             
                 <a class="item" href="#">

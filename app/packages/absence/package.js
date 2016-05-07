@@ -39,7 +39,11 @@ Package.onUse(function(api) {
   api.use('templating');
   
   api.addFiles('client/templates/list/list.html', 'client');
-  api.addFiles('client/templates/list/list.js', 'client');  
+  api.addFiles('client/templates/list/list.js', 'client');
+
+  api.addFiles('client/templates/add/add.html', 'client');
+  api.addFiles('client/templates/add/add.js', 'client'); 
+    
   api.addFiles('routes.js', ['client', 'server']);
   
   api.export('Smartix');

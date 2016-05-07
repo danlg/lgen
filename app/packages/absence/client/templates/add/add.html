@@ -1,0 +1,66 @@
+<template name='AttendanceRecordAdd'>
+    
+        {{#contentFor "headerTitle"}}
+            <h1 class="title">Apply for leave</h1>
+        {{/contentFor}}
+
+
+        {{#contentFor "headerButtonLeft"}}
+            {{>ionNavBackButton text=" "}}
+        {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}      
+	    <form>
+        <style>
+          .item{
+            white-space: initial;
+          }          
+          .item .item-input{
+            white-space: initial;
+          }
+          .list ::-webkit-scrollbar{
+           display:initial;
+          }
+        </style>
+        <div class="list ">
+          <label class="item item-input">
+            Select one of your children to apply for leave:<br/>
+            <select id="children-id">
+                <option value="1" selected="selected">Terence</option>
+                <option value="2" >Tom</option>
+                <option value="3">Mandy</option>
+            </select>
+          </label>
+          <label class="item">
+            Leave Start Date
+            <input id='start-date' type="date" value='{{getTodayDate}}' oninvalid="setCustomValidity('Start Date cannot be emptied')"
+            oninput="setCustomValidity('')" placeholder="Start Date" required>
+          </label>
+          <label class="item">
+            From
+            <input id='start-date-time' type="time" value='{{getCurrentTime}}' oninvalid="setCustomValidity('Start Date Time cannot be emptied')"
+            oninput="setCustomValidity('')" placeholder="Start Date Time" required>
+          </label>        
+          <label class="item">
+            Leave End Date
+            <input id='end-date' type="date" value='{{getTodayDate}}' placeholder="End Date" required>
+          </label>
+          <label class="item">
+            To
+            <input id='end-date-time' type="time" value='{{getCurrentTime}}' placeholder="End Date Time" required>
+          </label>
+          <label class="item item-input">
+            <input id='leave-reason' type="text" value='{{email}}' placeholder="Reason of Leave" required>
+          </label>                 
+          <!--<label class="item item-input">
+            <input id='content' type="text" value='{{email}}' placeholder="Content">
+          </label>-->
+          
+          <button class="button button-block button-positive">Submit</button>		  	  
+        </div>	
+	    </form>
+        
+     {{/ionContent}}
+  {{/ionView}}       
+</template>
