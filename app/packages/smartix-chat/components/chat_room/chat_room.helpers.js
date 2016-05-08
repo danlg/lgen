@@ -1,4 +1,4 @@
-/*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
+/*! Copyright (c) 2015-2016 Little Genius Education Ltd.  All Rights Reserved. */
 
 /*****************************************************************************/
 /* ChatRoom: Helpers */
@@ -46,28 +46,23 @@ Template.ChatRoom.helpers({
                 eachMessage.isFirstMsgInOneDay = false;
             }
             //console.log(transformCount,' ',eachMessage.data.content ,' ',eachMessage.createdAt);
-            
-            
             return eachMessage;
         }  
 
     } );
-    log.info('chatMessages',chatMessages);
-       
-    return chatMessages;   
+    //log.info('chatMessages',chatMessages);
+    return chatMessages;
   },
+
   withExtraRightPadding:function(){
-    if(!Meteor.isCordova){
-      return "padding-right:40px;"
-    }else{
-      return "";
-    }
+    return Meteor.isCordova ? "" : "padding-right:40px;" ;
   },
+
   isMine: function () {
     return this.author === Meteor.userId() ? "mine" : "notmine";
   },
   isMineBoolean: function (currentUserId) {
-    return currentUserId === Meteor.userId() ? true : false;
+    return (currentUserId === Meteor.userId());
   },
   userProfile: function () {
     //get another person's user object in 1 to 1 chatroom.     
@@ -137,7 +132,7 @@ Template.ChatRoom.helpers({
   },
 
   isText: function () {
-    log.info('isText',this.data.content);
+    //log.debug('isText',this.data.content);
     if(this.data.content === 'New Image' || this.data.content === 'New Document' ){
       return false;
     }else{
