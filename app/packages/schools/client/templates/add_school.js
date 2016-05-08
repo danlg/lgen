@@ -1,23 +1,9 @@
-Template.EditSchool.onCreated(function() {
+Template.AddSchool.onCreated(function() {
 
-    this.newSchoolLogo = new ReactiveVar("");
-
-    var self = this;
-    if(Router.current()
-    && Router.current().params
-    && Router.current().params.school) {
-
-        var schoolUsername = Router.current().params.school;
-        self.subscribe('schoolInfo', schoolUsername);
-    }
-    
-    this.subscribe('images');    
+    this.newSchoolLogo = new ReactiveVar("");        
 });
 
-Template.EditSchool.helpers({
-    'existingSchoolLogo':function(){
-        return Images.findOne(this.logo);
-    },
+Template.AddSchool.helpers({
     uploadedSchoolLogoId: function() {
         var newSchoolLogoId = Template.instance().newSchoolLogo.get();
         return newSchoolLogoId;
@@ -25,13 +11,10 @@ Template.EditSchool.helpers({
     uploadedSchoolLogo: function() {
         var newSchoolLogoId = Template.instance().newSchoolLogo.get();
         return Images.find(newSchoolLogoId);
-    },
-    getSchoolObj: function(){
-            return  SmartixSchoolsCol.findOne({username: Router.current().params.school});            
     }
 });
 
-Template.EditSchool.events({
+Template.AddSchool.events({
     'change #school-logo': function(event, template) {
         var files = event.target.files;
 

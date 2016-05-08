@@ -1,0 +1,44 @@
+<!--a stub for dev only. Usage: system admin to create/edit school. Expect: return of school id and school admin initial password-->
+<template name='AddSchool'>
+    <form>
+        <br><br><br><br><br>
+        School name:
+        <input id='name' type="text" name="name">
+        
+        <br> School shortname, would be seen in the route:
+        <input id='username' type="text" name="username">
+
+        <br> School admin username, if it is blank, school shortname would be used as the admin username :
+        <input id='admin-username' type="text" name="admin-username">
+                
+        <br> School logo:
+        <input id='school-logo' type="file" name="school-logo">
+
+        {{uploadedSchoolLogoId}}
+        {{#each uploadedSchoolLogo}}
+            {{this.url}}
+            <img src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="thumbnail" />        
+        {{/each}}
+        <br> telephone number:
+        <input id='tel' type="text" name="tel">
+        
+        <br> School website:
+        <input id='web' type="text" name="web">
+        
+        <br> School email:
+        <input id='email' type="text" name="email">
+
+        <br> School Background Color:
+        <input id='school-background-color' type="color" name="school-background-color" value='#CCCCCC'>
+        
+        <br> School Text Color:
+        <input id='school-text-color' type="color" name="school-text-color" value='#000000'>
+                        
+       <br>
+       <input id='edit-school-submit' type="button" value="Edit" >
+    </form>
+      <button class="signOut">
+           {{_ "SignOut"}}
+         </button>
+    
+</template>

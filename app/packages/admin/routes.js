@@ -240,3 +240,12 @@ Router.route('/:school/admin/rss', {
         this.render('AdminRss');
     }
 });
+
+Router.route('/:school/admin/school/edit', {
+    name: 'admin.school.edit',
+    layoutTemplate: 'adminLayout',
+    template: 'EditSchool',
+    action: function () {
+        this.render('EditSchool');
+    }
+});
