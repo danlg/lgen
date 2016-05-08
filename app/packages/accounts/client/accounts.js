@@ -3,6 +3,7 @@ Smartix = Smartix || {};
 Smartix.Accounts = Smartix.Accounts || {};
 
 Smartix.Accounts.registerOrLoginWithGoogle = function () {
+
   Meteor.loginWithGoogle(
     {
       forceApprovalPrompt: true,
@@ -10,8 +11,13 @@ Smartix.Accounts.registerOrLoginWithGoogle = function () {
       loginStyle: 'popup',
       requestOfflineToken: true
     }
-    , function (err) { // <-- the callback would NOT be called. It only works if loginStyle is popup
-      //see https://github.com/meteor/meteor/blob/devel/packages/accounts-oauth/oauth_client.js Line 16
+    , function (err) { // <-- the callback not called with redirect . It only works if loginStyle is popup
+      //see http://docs.meteor.com/#/full/meteor_loginwithexternalservice
+      //Arguments
+      // callback Function
+      // Optional callback. Called with no arguments on success, or with a single Error argument on failure. The callback cannot be called
+      // if you are using the "redirect" loginStyle, because the app will have reloaded in the meantime;
+      // try using client-side login hooks instead.
       var loginServicesConfigured = Accounts.loginServicesConfigured();
       log.info('loginServicesConfigured=' + loginServicesConfigured);
       if (err) {
