@@ -64,20 +64,22 @@ Template.ChatInvite.helpers({
   },
 
   shouldDisplay: function () {
-    return targetIds.get().length > 0 ? true : false;
+    return targetIds.get().length > 0 ;
   },
 
   isSearchable: function () {
     return lodash.includes(Smartix.helpers.getFullNameByProfileObj(this.profile).toUpperCase(), searchString.get().toUpperCase());
   },
+
   getGroupChatInvitePath:function(){
-            
     return  Router.path('GroupChatInvite',{school: Router.current().params.school});
   },
+
   getUserRoleInNamespace:function(){
     if(Router.current().params.school !== 'global' && Router.current().params.school !== 'system'){
       var currentSchool = SmartixSchoolsCol.findOne({username:Router.current().params.school});
-      return this.roles[currentSchool._id].toString();
+      var role = this.roles[currentSchool._id];
+      return role ? role.toString() : "";
     }
   }
 });
