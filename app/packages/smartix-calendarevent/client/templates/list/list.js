@@ -22,7 +22,26 @@ Template.CalendarListView.helpers({
         
         //sort by event startDate in ascending order. Older events is displayed first.
         //TODO. only showing incoming / ongoing event, filter out past event
-        return Smartix.Messages.Collection.find({'addons.type':'calendar', group: { $in: newsgroupsIds } }, {sort: {'addons.calendar.startDate': 1 } } );
+        
+        return Smartix.Messages.Collection.find({$or:[
+            {
+                'addons.type':'calendar',
+                group: { $in: newsgroupsIds },
+                hidden : false,
+                deletedAt:"",
+
+            },
+            {
+                'addons.type':'calendar',
+                group: { $in: newsgroupsIds },
+                hidden: false,
+                deletedAt: { $exists: false },
+                 
+            }
+        ]}
+        , {sort: {'addons.calendar.startDate': 1 } }
+        );  
+                
     },
     getGroupName:function(groupId){
         console.log('getGroupName',groupId);
