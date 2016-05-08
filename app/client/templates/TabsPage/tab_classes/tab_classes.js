@@ -1,17 +1,13 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
-/*****************************************************************************/
-/* TabClasses: Event Handlers */
-/*****************************************************************************/
 
 Template.TabClasses.events({});
 
-/*****************************************************************************/
-/* TabClasses: Helpers */
-/*****************************************************************************/
+
 Template.TabClasses.helpers({
    'getCurrentSchool':function(){
        return Session.get('pickedSchoolId');
    },
+
    'getCurrentSchoolName': function(){
        if(Session.get('pickedSchoolId') === 'global'){
            return 'global';
@@ -21,19 +17,22 @@ Template.TabClasses.helpers({
        }
        var pickSchool = SmartixSchoolsCol.findOne(Session.get('pickedSchoolId'));
        return pickSchool ? pickSchool.username : false;
-   },   
+   },
+
   notCreateEmptyList: function () {
     return Smartix.Groups.Collection.find({
         type: 'class',
         admins: Meteor.userId()
     }).count() > 0
   },
+
   notJoinedEmptyList: function () {
     return Smartix.Groups.Collection.find({
         type: 'class',
         users: Meteor.userId()
     }).count() > 0
   },
+
   joinedClass: function () {
     return Smartix.Groups.Collection.find({
         type: 'class',
@@ -77,43 +76,39 @@ Template.TabClasses.helpers({
         sort: {
             "lastUpdatedAt": -1
         }
-
     });
   },
 
   classAvatarIcon: function() {
-    var ava =  (this.classAvatar) ? true : false;
-    if (ava) {
-      return "e1a-" + this.classAvatar;
-    }
-    else{ //default
-      return "e1a-green_apple";
-    }
+      var ava =  (this.classAvatar) ? true : false;
+      if (ava) {
+        return "e1a-" + this.classAvatar;
+      }
+      else{ //default
+        return "e1a-green_apple";
+      }
   },
+
   'newMessageCounter':function(groupId){
-   // log.info(chatroomId)
-   ;
-   var newMessageCount =  Notifications.find({"eventType" : "newclassmessage",'groupId':groupId,'hasRead':false}).count();
-      
-   if(newMessageCount > 0 ){
-       return '<span class="badge" style="background-color: #ef473a;color: #fff;">'+ newMessageCount +'</span>'
-   }
+       // log.info(chatroomId);
+       var newMessageCount =  Notifications.find({"eventType" : "newclassmessage",'groupId':groupId,'hasRead':false}).count();
+
+       if(newMessageCount > 0 ){
+           return '<span class="badge" style="background-color: #ef473a;color: #fff;">'+ newMessageCount +'</span>'
+       }
   },
+
   'newCommentCounter':function(groupId){
-   // log.info(chatroomId);
-   var newMessageCount =  Notifications.find({"eventType" : "newclasscomment",'groupId':groupId,'hasRead':false}).count();
-      
-   if(newMessageCount > 0 ){
-       return '<span class="badge" style="background-color: #ef473a;color: #fff;">'+ newMessageCount +'</span>'
-   }
+     // log.info(chatroomId);
+     var newMessageCount =  Notifications.find({"eventType" : "newclasscomment",'groupId':groupId,'hasRead':false}).count();
+
+     if(newMessageCount > 0 ){
+         return '<span class="badge" style="background-color: #ef473a;color: #fff;">'+ newMessageCount +'</span>'
+     }
   },
   'lasttextTime':function(lastUpdatedAtDate){
-    if (lastUpdatedAtDate){  
-      return moment(lastUpdatedAtDate).fromNow();
-    }
-    else
-      return "";      
-  }
+      return lastUpdatedAtDate ? moment(lastUpdatedAtDate).fromNow() : "";
+   }
 
 });
 
@@ -124,8 +119,6 @@ Template.TabClasses.created = function () {
 };
 
 Template.TabClasses.rendered = function () {
-
-
   //if user is registered with meteor account <-- this logic is disabled so new user is easier to get started
   /*if (typeof Meteor.user().emails[0].verified !== 'undefined') {
     //if email is not yet verfied
@@ -164,9 +157,9 @@ Template.TabClasses.rendered = function () {
 var HowToInviteTour = function () {
   Meteor.call('getUserCreateClassesCount', function (err, count) {
     var createdClassCount = count;
-    log.info(createdClassCount);
+    //log.info(createdClassCount);
     var hasSeenHowToInviteTour = Session.get("hasSeenHowToInviteTour");
-    log.info(" has user seen the tour? " + hasSeenHowToInviteTour);
+    log.info("has user seen the tour? ", hasSeenHowToInviteTour);
     if (createdClassCount == 1 && !hasSeenHowToInviteTour ) {
       IonPopup.show({
         title: TAPi18n.__("Congratulations"),
