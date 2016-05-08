@@ -35,10 +35,32 @@ Template.AdminNewsgroupsView.helpers({
                 type: 'newsgroup'
             });
             if(classData) {
-                return Smartix.Messages.Collection.find({
-                    group: classData._id
-                });
+                return Smartix.Messages.Collection.find({$or:[
+                    {
+                        group: classData._id,
+                        deletedAt:""
+                    },
+                    {
+                        group: classData._id,  
+                        deletedAt: { $exists: false }                     
+                    }
+                ]});
             }
         }
     }
+});
+
+Template.AdminNewsgroupsView.events({
+   'click .show-news-btn':function(event,template){
+       var msgId = $(event.target).data('msgId');
+       Meteor.call('smartix:news/showMessage',msgId); 
+   },
+   'click .hide-news-btn':function(event,template){
+       var msgId = $(event.target).data('msgId');
+       Meteor.call('smartix:news/hideMessage',msgId); 
+   },   
+   'click .remove-news-btn':function(event,template){
+       var msgId = $(event.target).data('msgId');
+       Meteor.call('smartix:news/deleteMessage',msgId);       
+   },    
 });

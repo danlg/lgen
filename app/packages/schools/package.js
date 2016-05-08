@@ -29,10 +29,12 @@ Package.onUse(function(api) {
   api.addFiles('publications.js','server');
   
   api.addFiles('routes.js');
+  api.addFiles(['client/templates/add_school.html',
+                'client/templates/add_school.js']
+               ,'client');
   api.addFiles(['client/templates/edit_school.html',
                 'client/templates/edit_school.js']
-               ,'client');
-   
+               ,'client');   
   api.export('SmartixSchools', ['client']);
   api.export('SmartixSchoolsCol', ['client', 'server']);
 });

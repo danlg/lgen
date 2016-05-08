@@ -17,8 +17,11 @@ Package.onUse(function(api) {
   api.use('templating');
   api.use('aldeed:collection2');
   api.use('aldeed:simple-schema');
-  api.use('stevezhu:lodash@4.6.1');    
-  api.use('smartix:groups@0.0.1');  
+  api.use('stevezhu:lodash@4.6.1');
+   
+  api.use('smartix:groups@0.0.1');
+  api.use('smartix:classes');   
+  api.use('smartix:messages');
   api.addFiles('news.js');
   
 
@@ -27,7 +30,9 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/list/list.js', 'client');  
 
   api.addFiles('client/templates/view/view.html', 'client');
-  api.addFiles('client/templates/view/view.js', 'client');    
+  api.addFiles('client/templates/view/view.js', 'client');  
+  
+  api.addFiles('server/methods.js','server');  
 });
 
 Package.onTest(function(api) {

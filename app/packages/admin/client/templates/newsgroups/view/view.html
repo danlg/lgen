@@ -19,7 +19,12 @@
                     {{/with}}
                 {{/each}}
                 <input type="text" name="text" placeholder="Type the name of your new admin" />
-                
+
+                <h3>Distribution List</h3>
+                {{#each distributionLists}}
+
+                {{/each}}
+                                
                 <h3>Users</h3>
                 {{#each users}}
                     {{#with userData this}}
@@ -35,22 +40,40 @@
                 <h1>Newsgroups News</h1>
             </div>
             <div class="panel-body">
-                {{#each news}}
                 
-                    <h3>{{data.title}}</h3>
-                    <p>{{data.content}}</p>
-                    
-                {{/each}}
-                <div>
-                    <p>Create a new news</p>
-                    <div>
-                        <div>Text</div>
-                        <div>Article</div>
-                    </div>
-                    <div>
-                        <div>Poll</div>
-                    </div>
-                </div>
+                <!-- Large table -->
+                <table class="table datatable-basic">
+                    <thead>
+                        <th>Title</th>
+                        <th>Content</th>
+                        <th>Created Date</th>
+                        <th>Show/Hidden News</th>
+                        <th>Remove News</th>
+                    </thead>
+                    <tbody>
+                        {{#each news}}
+                                <tr>
+                                    <td>{{data.title}}</td>
+                                    <td>{{data.content}}</td>
+                                    <td>{{createdAt}}</td>
+                                    <td>
+                                        {{#if hidden}}
+                                            <button class='show-news-btn' data-msg-id="{{_id}}" type="button">Show</button>
+                                        {{else}}
+                                            <button class='hide-news-btn' data-msg-id="{{_id}}" type="button">Hide</button>
+                                        {{/if}}
+                                    </td>                        
+                                    <td>
+                                        <button class='remove-news-btn' data-msg-id="{{_id}}" type="button">Remove</button>
+                                    </td>
+                                </tr>
+                        {{else}}
+                            <tr><td colspan="5" style='text-align:center'>No existing news</td></tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                <!-- /large table -->                
+
             </div>
         </div>
    {{/if}}

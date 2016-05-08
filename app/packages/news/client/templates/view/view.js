@@ -12,10 +12,44 @@ Template.NewsgroupsNewsView.onCreated(function(){
 Template.NewsgroupsNewsView.helpers({
     
     getNews:function(){
-        var newsgroups =  Smartix.Groups.Collection.find({ type: 'newsgroup', users: Meteor.userId() }).fetch(); 
-        var newsgroupsIds = lodash.map(newsgroups,'_id');
+        var newsgroupsIds = [];
         
-        return Smartix.Messages.Collection.find({ group: { $in: newsgroupsIds }, _id: Router.current().params.msgid }  );
+        
+        var newsgroupsByUserArray =  Smartix.Groups.Collection.find({ type: 'newsgroup', users: Meteor.userId() }).fetch(); 
+        var newsgroupsByUserArrayIds = lodash.map(newsgroupsByUserArray,'_id');
+        
+        var distributionListsUserBelong = Smartix.Groups.Collection.find({type: 'distributionList', users: Meteor.userId() }).fetch();
+        var distributionListsUserBelongIds = lodash.map(distributionListsUserBelong,'_id');
+        
+        console.log('distributionListsUserBelongIds',distributionListsUserBelongIds);
+        
+        var newsgroupsBydistributionLists =  Smartix.Groups.Collection.find({ type: 'newsgroup', distributionLists: {$in : distributionListsUserBelongIds } , optOutUsersFromDistributionLists :{  $nin : [Meteor.userId()] } }).fetch();      
+        var newsgroupsBydistributionListsIds = lodash.map(newsgroupsBydistributionLists,'_id');
+        
+        console.log('newsgroupsBydistributionListsIds',newsgroupsBydistributionListsIds);
+        
+        newsgroupsIds = newsgroupsIds.concat(newsgroupsByUserArrayIds,newsgroupsBydistributionListsIds);
+        
+        console.log('newsgroupsIds',newsgroupsIds);
+
+        return Smartix.Messages.Collection.find({$or:[
+            {
+                group: { $in: newsgroupsIds },
+                hidden : false,
+                deletedAt:"",
+                _id: Router.current().params.msgid
+            },
+            {
+                group: { $in: newsgroupsIds },
+                hidden: false,
+                deletedAt: { $exists: false },
+                _id: Router.current().params.msgid                   
+            }
+        ]}
+        , {sort: {createdAt: -1 } }
+        );
+               
+        
     },
     getGroupName:function(groupId){
         console.log('getGroupName',groupId);

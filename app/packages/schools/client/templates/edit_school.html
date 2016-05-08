@@ -1,43 +1,45 @@
 <!--a stub for dev only. Usage: system admin to create/edit school. Expect: return of school id and school admin initial password-->
 <template name='EditSchool'>
+    {{#with getSchoolObj}}
     <form>
-        <br><br><br><br><br>
+        <input id='school-id' type="hidden" name="school-id" value='{{_id}}'>
         School name:
-        <input id='name' type="text" name="name">
+        <input id='name' type="text" name="name" value='{{name}}'>
         
         <br> School shortname, would be seen in the route:
-        <input id='username' type="text" name="username">
-
-        <br> School admin username, if it is blank, school shortname would be used as the admin username :
-        <input id='admin-username' type="text" name="admin-username">
+        <input id='username' type="text" name="username" value='{{username}}'>
                 
-        <br> School logo:
+        <br>Current School logo:
+        {{#with existingSchoolLogo}}
+            <img id='existing-school-logo' data-existing-school-logo-id={{_id}} src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="thumbnail" />                    
+        {{else}}
+            No existing school logo
+        {{/with}}
+        <br> Upload a new school logo     
         <input id='school-logo' type="file" name="school-logo">
+        
         {{uploadedSchoolLogoId}}
         {{#each uploadedSchoolLogo}}
             {{this.url}}
             <img src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="thumbnail" />        
         {{/each}}
         <br> telephone number:
-        <input id='tel' type="text" name="tel">
+        <input id='tel' type="text" name="tel" value='{{tel}}'>
         
         <br> School website:
-        <input id='web' type="text" name="web">
+        <input id='web' type="text" name="web" value='{{web}}'>
         
         <br> School email:
-        <input id='email' type="text" name="email">
+        <input id='email' type="text" name="email" value='{{email}}'>
 
         <br> School Background Color:
-        <input id='school-background-color' type="color" name="school-background-color" value='#CCCCCC'>
+        <input id='school-background-color' type="color" name="school-background-color" value='{{preferences.schoolBackgroundColor}}'>
         
         <br> School Text Color:
-        <input id='school-text-color' type="color" name="school-text-color" value='#000000'>
+        <input id='school-text-color' type="color" name="school-text-color" value='{{preferences.schoolTextColor}}'>
                         
        <br>
        <input id='edit-school-submit' type="button" value="Edit" >
     </form>
-      <button class="signOut">
-           {{_ "SignOut"}}
-         </button>
-    
+   {{/with}}
 </template>
