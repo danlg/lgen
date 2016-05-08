@@ -254,13 +254,13 @@ Template.ClassPanel.helpers({
     return commentObjs;       
   },
   isText: function () {
-    log.info('isText',this.data.content);
+    //log.info('isText',this.data.content);
     if(this.data.content === 'New Image' || this.data.content === 'New Document' ){
       return false;
     }else{
       return true;
     }
-  },
+  }
 
 });
 
@@ -268,16 +268,9 @@ Template.ClassPanel.helpers({
 /* ClassPanel: Lifecycle Hooks */
 /*****************************************************************************/
 Template.ClassPanel.onCreated(function(){
-   currentClassCode = Router.current().params.classCode;
-   
-   var self = this;
-   
+    currentClassCode = Router.current().params.classCode;
+    var self = this;
     log.info(Router.current().params.classCode);
-     
-    
-  
-       
-       
     self.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');
     self.subscribe('smartix:classes/associatedClasses',function(){
         var classObj = Smartix.Groups.Collection.findOne({
@@ -286,11 +279,6 @@ Template.ClassPanel.onCreated(function(){
         });         
         self.subscribe('smartix:messages/groupMessages',classObj._id); 
     });
-           
-       
-
-
-      
 });
 
 
