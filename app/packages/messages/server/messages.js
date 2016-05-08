@@ -350,6 +350,21 @@ Smartix.Messages.editMessage = function (messageId, newData, newAddons) {
     }
 }
 
+Smartix.Messages.showMessage = function (id) {
+    
+    // Checks that the `id` provided is of type String
+    check(id, String);
+    
+    // Create a new message using `createMessage()`
+    Smartix.Messages.Collection.update({
+        _id: id
+    }, {
+        $set: {
+            hidden: false
+        }
+    });
+}
+
 Smartix.Messages.hideMessage = function (id) {
     
     // Checks that the `id` provided is of type String
