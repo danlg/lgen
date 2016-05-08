@@ -25,8 +25,6 @@
     "android": "meteor run android --settings ../config/stage.settings.json --mobile-server=https://uat.gosmartix.com",
     "android-device": "meteor run android-device --settings ../config/stage.settings.json --mobile-server=https://uat.gosmartix.com",
 
-
-
     "runlocal-android-emulator": "meteor run android -v --settings ../config/dev.settings.json",
     "build-example": "NODE_ENV=production VULCANIZE=true meteor build ../myapp-dist --server=https://api.myapp.com/ --mobile-settings settings-production.json",
 
@@ -35,8 +33,9 @@
 
     "deploy-ko":  "cd ../dist && scp app.tar.gz lg@uat.gosmartix.com:~/app && ssh lg@uat.gosmartix.com \"cd app && tar xzvf app.tar.gz\"",
 
-    "deploy-uat"   : "./clean_build.sh && cd ../config/stage  && NODE_ENV=production  mup deploy    --config=mup.json --settings=settings.json",
-    "deploy-prd"   : "./clean_build.sh && cd ../config/production && NODE_ENV=production  mup deploy    --config=mup.json --settings=settings.json",
+    "deploy-uat-debug": "./clean_build.sh && cd ../config && mup deploy --config=stage.mup.json --settings=stage.settings.json",
+    "deploy-uat"   : "./clean_build.sh && cd ../config && NODE_ENV=production mup deploy --config=stage.mup.json --settings=stage.settings.json",
+    "deploy-prd"   : "./clean_build.sh && cd ../config && NODE_ENV=production mup deploy --config=prd.mup.json --settings=prd.settings.json",
 
     "setup"    : "cd ../config && DEBUG=* mup setup   --config=stage.mup.json --settings=stage.settings.json",
     "stop"     : "cd ../config && DEBUG=* mup stop   --config=stage.mup.json --settings=stage.settings.json",

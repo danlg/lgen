@@ -12,8 +12,6 @@
       }
     },
 
-    "ROOT_URL": "http://uat.gosmartix.com",
-    "PORT": 8888,
     "SHARE_URL": "https://uat.gosmartix.com",
     "GOOGLE_PLAY_URL":"https://play.google.com/store/apps/details?id=com.gosmartix.smartix",
     "APP_STORE_URL":"https://itunes.apple.com/hk/app/smartix-school-instant-messaging/id1036105942?mt=8&ign-mpt=uo%3D4"
