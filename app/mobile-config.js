@@ -11,8 +11,7 @@ App.info({
   buildNumber: '100'
 });
 
-//since force ssl is used. https://localhost:* needs to be allowed
-App.accessRule('https://localhost:*');
+
 
 App.icons({
   //http://docs.meteor.com/#/full/App-icons
@@ -104,3 +103,7 @@ App.accessRule('https://*.youtu.be/*', { type: 'navigation' } );
 App.accessRule('*.google.com/*', { type: 'navigation' } ); 
 App.accessRule('*.googleapis.com/*', { type: 'navigation' } );
 App.accessRule('*.gstatic.com/*', { type: 'navigation' } );
+
+//as ssl is used, https://localhost:* needs to be allowed
+App.accessRule('http://localhost:*');
+App.accessRule('https://localhost:*');
