@@ -251,3 +251,33 @@ Smartix.Newsgroup.removeUsersFromGroup = function (id, users, currentUser) {
 	// Remove users from group
 	Smartix.Groups.removeUsersFromGroup(id, users);
 };
+
+Smartix.Newsgroup.addDistributionListToGroup = function(id,distributionListId){
+    if(Smartix.Newsgroup.canEditNewsgroup(id,Meteor.userId())){
+        
+        //console.log('addDistributionListToGroup',id,distributionListId);
+        Smartix.Groups.Collection.update({
+            _id: id
+        }, {
+            $addToSet: {
+                distributionLists: distributionListId
+            }
+        });            
+        
+    }
+};
+
+Smartix.Newsgroup.removeDistributionListToGroup = function(id,distributionListId){
+    if(Smartix.Newsgroup.canEditNewsgroup(id,Meteor.userId())){
+
+        //console.log('removeDistributionListToGroup',id,distributionListId);        
+        Smartix.Groups.Collection.update({
+            _id: id
+        }, {
+            $pull: {
+                distributionLists: distributionListId
+            }
+        });            
+        
+    }    
+};

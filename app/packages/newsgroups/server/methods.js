@@ -101,5 +101,8 @@ Meteor.methods({
     },    
     'smartix:newsgroups/deleteNewsgroup':function(newsgroupId){
         Smartix.Newsgroup.deleteNewsgroup(newsgroupId, Meteor.userId());
-    } 
+    },
+    'smartix:newsgroups/addDistributionListToGroup':Smartix.Newsgroup.addDistributionListToGroup,
+    'smartix:newsgroups/removeDistributionListToGroup':Smartix.Newsgroup.removeDistributionListToGroup
+    
 });

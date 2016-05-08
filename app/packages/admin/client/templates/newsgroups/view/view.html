@@ -13,27 +13,48 @@
                     
                     <button class='delete-newsgroup' data-newsgroup-id='{{_id}}'>Delete This Newsgroup</button>
                 </div>
+
+                <div class="panel-body">
+                    <h3>Admins</h3>
+                    {{#each admins}}
+                        {{#with userData this}}
+                            <li><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.firstName}} {{profile.lastName}}</a><!--<button class="remove-admin">&times;</button>--></li>
+                        {{/with}}
+                    {{/each}}
+                    <!--<input type="text" name="text" placeholder="Type the name of your new admin" />-->
+                </div>
                 
-                <h3>Admins</h3>
-                {{#each admins}}
-                    {{#with userData this}}
-                        <li><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.firstName}} {{profile.lastName}}</a><button class="remove-admin">&times;</button></li>
-                    {{/with}}
-                {{/each}}
-                <input type="text" name="text" placeholder="Type the name of your new admin" />
+                <div class="panel-body">
+                    <h3>Distribution List</h3>
+                    
+                    
+                    {{#each getAllDistributionList}}
+                            {{#if distributionListInCurrentGroup ../distributionLists}}
+                                <input type="checkbox" data-newsgroup-id='{{../_id}}' data-distribution-list-name='{{name}}' class='remove-distribution-list-from-group' id='{{url}}' name="distribution-list" value="{{_id}}" checked="checked"><label for="{{url}}">{{name}}</label><br>                            
+                            {{else}}
+                                <input type="checkbox"  data-newsgroup-id='{{../_id}}' data-distribution-list-name='{{name}}' class='add-distribution-list-to-group' id='{{url}}' name="distribution-list" value="{{_id}}"><label for="{{url}}">{{name}}</label><br>                        
+                            {{/if}}
 
-                <h3>Distribution List</h3>
-                {{#each distributionLists}}
+                    {{else}}
+                        No distribution list    
+                    {{/each}}
+                </div>
+                                                
+               <!-- <div class="panel-body">
+                    <h3>Users</h3>
+                    <ul>
+                    {{#each users}}
+                        {{#with userData this}}
+                            <li><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.firstName}} {{profile.lastName}}</a><button class="remove-user">&times;</button></li>
+                        {{/with}}
+                    {{/each}}
+                    </ul>
+                    <input type="text" name="text" placeholder="Type the name of your new user" />
+                </div>-->
 
-                {{/each}}
-                                
-                <h3>Users</h3>
-                {{#each users}}
-                    {{#with userData this}}
-                        <li><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.firstName}} {{profile.lastName}}</a><button class="remove-user">&times;</button></li>
-                    {{/with}}
-                {{/each}}
-                <input type="text" name="text" placeholder="Type the name of your new user" />
+
+                            
+
             {{/with}}
         </div>
         

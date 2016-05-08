@@ -10,6 +10,8 @@ Template.AdminNewsgroupsView.onCreated(function () {
             self.subscribe('allSchoolUsers',classData.namespace);
         }
     });
+    
+    this.subscribe('smartix:distribution-lists/listsBySchoolName', Router.current().params.school);
 });
 
 Template.AdminNewsgroupsView.helpers({
@@ -47,28 +49,60 @@ Template.AdminNewsgroupsView.helpers({
                 ]});
             }
         }
-    }
+    },
+    getAllDistributionList: function () {
+        return Smartix.Groups.Collection.find({
+            type: "distributionList"
+        });
+    },
+    distributionListInCurrentGroup:function(distributionLists){
+        return (distributionLists.indexOf(this._id) !== -1 ) ? true : false
+    }    
 });
 
 Template.AdminNewsgroupsView.events({
    'click .show-news-btn':function(event,template){
        var msgId = $(event.target).data('msgId');
-       Meteor.call('smartix:news/showMessage',msgId); 
+       Meteor.call('smartix:news/showMessage',msgId,function(){
+           toastr.info('The news is shown to user again');
+       }); 
    },
    'click .hide-news-btn':function(event,template){
        var msgId = $(event.target).data('msgId');
-       Meteor.call('smartix:news/hideMessage',msgId); 
+       Meteor.call('smartix:news/hideMessage',msgId,function(){
+           toastr.info('The news is hidden from user');
+       }); 
    },   
    'click .remove-news-btn':function(event,template){
        var msgId = $(event.target).data('msgId');
-       Meteor.call('smartix:news/deleteMessage',msgId);       
+       Meteor.call('smartix:news/deleteMessage',msgId,function(){
+           toastr.info('The news has been removed');
+       });       
    }, 
    'click .delete-newsgroup':function(event,template){
 
     if (window.confirm("Do you really want to delete this newsgroup?")) { 
        var groupId = $(event.target).data('newsgroupId');
        console.log('deleteNewsgroup',groupId);
-       Meteor.call('smartix:newsgroups/deleteNewsgroup',groupId);    
+       Meteor.call('smartix:newsgroups/deleteNewsgroup',groupId,function(){
+           toastr.info('This newsgroup has been removed');
+       });    
     }            
-   },      
+   }, 
+   'click .remove-distribution-list-from-group':function(event,template){
+       var groupId = $(event.target).data('newsgroupId');
+       var distributionListId = $(event.target).val();
+       var distributionListName = $(event.target).data('distributionListName');
+       Meteor.call('smartix:newsgroups/removeDistributionListToGroup', groupId, distributionListId,function(){
+           toastr.info('Distribution List ' + distributionListName + ' has been removed from current group'); 
+       });
+   },
+   'click .add-distribution-list-to-group':function(event,template){
+       var groupId = $(event.target).data('newsgroupId');
+       var distributionListId = $(event.target).val();
+       var distributionListName = $(event.target).data('distributionListName');       
+       Meteor.call('smartix:newsgroups/addDistributionListToGroup', groupId, distributionListId,function(){
+           toastr.info('Distribution List ' + distributionListName + ' has been added to current group');            
+       });       
+   },   
 });
