@@ -32,8 +32,22 @@ Template.NewsgroupsNewsList.helpers({
         newsgroupsIds = newsgroupsIds.concat(newsgroupsByUserArrayIds,newsgroupsBydistributionListsIds);
         
         console.log('newsgroupsIds',newsgroupsIds);
-        
-        return Smartix.Messages.Collection.find({ group: { $in: newsgroupsIds } }, {sort: {createdAt: -1 } } );
+
+        return Smartix.Messages.Collection.find({$or:[
+            {
+                group: { $in: newsgroupsIds },
+                hidden : false,
+                deletedAt:""
+            },
+            {
+                group: { $in: newsgroupsIds },
+                hidden: false,
+                deletedAt: { $exists: false }                     
+            }
+        ]}
+        , {sort: {createdAt: -1 } }
+        );
+                        
     },
     getGroupName:function(groupId){
         console.log('getGroupName',groupId);

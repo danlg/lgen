@@ -31,8 +31,25 @@ Template.NewsgroupsNewsView.helpers({
         newsgroupsIds = newsgroupsIds.concat(newsgroupsByUserArrayIds,newsgroupsBydistributionListsIds);
         
         console.log('newsgroupsIds',newsgroupsIds);
+
+        return Smartix.Messages.Collection.find({$or:[
+            {
+                group: { $in: newsgroupsIds },
+                hidden : false,
+                deletedAt:"",
+                _id: Router.current().params.msgid
+            },
+            {
+                group: { $in: newsgroupsIds },
+                hidden: false,
+                deletedAt: { $exists: false },
+                _id: Router.current().params.msgid                   
+            }
+        ]}
+        , {sort: {createdAt: -1 } }
+        );
+               
         
-        return Smartix.Messages.Collection.find({ group: { $in: newsgroupsIds }, _id: Router.current().params.msgid }  );
     },
     getGroupName:function(groupId){
         console.log('getGroupName',groupId);
