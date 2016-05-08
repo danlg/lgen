@@ -99,5 +99,7 @@ Meteor.methods({
        } 
                
     },    
-    
+    'smartix:newsgroups/deleteNewsgroup':function(newsgroupId){
+        Smartix.Newsgroup.deleteNewsgroup(newsgroupId, Meteor.userId());
+    } 
 });

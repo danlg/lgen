@@ -62,5 +62,13 @@ Template.AdminNewsgroupsView.events({
    'click .remove-news-btn':function(event,template){
        var msgId = $(event.target).data('msgId');
        Meteor.call('smartix:news/deleteMessage',msgId);       
-   },    
+   }, 
+   'click .delete-newsgroup':function(event,template){
+
+    if (window.confirm("Do you really want to delete this newsgroup?")) { 
+       var groupId = $(event.target).data('newsgroupId');
+       console.log('deleteNewsgroup',groupId);
+       Meteor.call('smartix:newsgroups/deleteNewsgroup',groupId);    
+    }            
+   },      
 });

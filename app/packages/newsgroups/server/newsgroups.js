@@ -28,9 +28,9 @@ Smartix.Newsgroup.canCreateNewsgroup = function (namespace, currentUser) {
     return true;
 };
 
-Smartix.Newsgroup.canEditNewsgroup = Smartix.Newsgroup.canDeleteNewsgroup = Smartix.Newsgroup.canAddUsersToGroup = Smartix.Newsgroup.canRemoveUsersFromGroup = function (newsgroup, currentUser) {
+Smartix.Newsgroup.canEditNewsgroup = Smartix.Newsgroup.canDeleteNewsgroup = Smartix.Newsgroup.canAddUsersToGroup = Smartix.Newsgroup.canRemoveUsersFromGroup = function (newsgroupId, currentUser) {
     
-    check(newsgroup, String);
+    check(newsgroupId, String);
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
@@ -38,11 +38,11 @@ Smartix.Newsgroup.canEditNewsgroup = Smartix.Newsgroup.canDeleteNewsgroup = Smar
         currentUser = currentUser || Meteor.userId();
     }
     
-    var existingNewsgroup = Smartix.Groups.Collection.findOne({ _id: id });
+    var existingNewsgroup = Smartix.Groups.Collection.findOne({ _id: newsgroupId });
     if(!existingNewsgroup) {
         throw new Meteor.Error('group-not-found', "The group specified could not be found.")
     }
-    if(    Smartix.Accounts.isUserSchoolAdminForGroup(newsgroup, currentUser)
+    if(    Smartix.Accounts.isUserSchoolAdminForGroup(newsgroupId, currentUser)
   		  || Smartix.Accounts.School.isAdmin(existingNewsgroup.namespace, currentUser)) {
         return true;
     }
