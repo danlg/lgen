@@ -33,19 +33,42 @@ Template.MobileSchoolHome.helpers({
         return Router.current().params.school;
     },
     getSlidingNews:function(){
-        var currrenTemplate = Template.instance();
-        var newsgroups =  Smartix.Groups.Collection.find({ type: 'newsgroup' }).fetch();
-        //console.log('getSlidingNews:',newsgroups);
-        var newsgroupsIds = lodash.map(newsgroups,'_id');
-        
-      
-            
-         var query = Smartix.Messages.Collection.find({ group: { $in: newsgroupsIds } }, {sort: {createdAt: -1 }, reactive:false } );        
-        //console.log('getSlidingNews:', messages);
-               
+        var newsgroupsIds = [];
         
         
-        return query;           
+        var newsgroupsByUserArray =  Smartix.Groups.Collection.find({ type: 'newsgroup', users: Meteor.userId() }).fetch(); 
+        var newsgroupsByUserArrayIds = lodash.map(newsgroupsByUserArray,'_id');
+        
+        var distributionListsUserBelong = Smartix.Groups.Collection.find({type: 'distributionList', users: Meteor.userId() }).fetch();
+        var distributionListsUserBelongIds = lodash.map(distributionListsUserBelong,'_id');
+        
+        console.log('distributionListsUserBelongIds',distributionListsUserBelongIds);
+        
+        var newsgroupsBydistributionLists =  Smartix.Groups.Collection.find({ type: 'newsgroup', distributionLists: {$in : distributionListsUserBelongIds } , optOutUsersFromDistributionLists :{  $nin : [Meteor.userId()] } }).fetch();      
+        var newsgroupsBydistributionListsIds = lodash.map(newsgroupsBydistributionLists,'_id');
+        
+        console.log('newsgroupsBydistributionListsIds',newsgroupsBydistributionListsIds);
+        
+        newsgroupsIds = newsgroupsIds.concat(newsgroupsByUserArrayIds,newsgroupsBydistributionListsIds);
+        
+        console.log('newsgroupsIds',newsgroupsIds);
+
+        return Smartix.Messages.Collection.find({$or:[
+            {
+                group: { $in: newsgroupsIds },
+                hidden : false,
+                deletedAt:"",
+
+            },
+            {
+                group: { $in: newsgroupsIds },
+                hidden: false,
+                deletedAt: { $exists: false },
+                 
+            }
+        ]}
+        , {sort: {createdAt: -1 }, reactive: false }
+        );  
                 
 
           
