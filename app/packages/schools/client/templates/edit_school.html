@@ -2,7 +2,7 @@
 <template name='EditSchool'>
     {{#with getSchoolObj}}
     <form>
-        <br><br><br><br><br>
+        <input id='school-id' type="hidden" name="school-id" value='{{_id}}'>
         School name:
         <input id='name' type="text" name="name" value='{{name}}'>
         
@@ -11,7 +11,7 @@
                 
         <br>Current School logo:
         {{#with existingSchoolLogo}}
-            <img src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="thumbnail" />                    
+            <img id='existing-school-logo' data-existing-school-logo-id={{_id}} src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="thumbnail" />                    
         {{else}}
             No existing school logo
         {{/with}}

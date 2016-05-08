@@ -14,6 +14,10 @@ Template.EditSchool.onCreated(function() {
     this.subscribe('images');    
 });
 
+Template.EditSchool.onDestroyed(function(){
+    this.newSchoolLogo = new ReactiveVar("");
+});
+
 Template.EditSchool.helpers({
     'existingSchoolLogo':function(){
         return Images.findOne(this.logo);
@@ -42,15 +46,14 @@ Template.EditSchool.events({
     'click #edit-school-submit': function(event, template) {
         
         
-        var newSchoolObj =
-        { name: $("#name").val(),
+        var editSchoolObj =
+        {
+          name: $("#name").val(),
           username: $("#username").val(),
-          adminUsername: $("#admin-username").val(),
-          logo: template.newSchoolLogo.get(), 
+          logo: template.newSchoolLogo.get() || $('existing-school-logo').data('existingSchoolLogoId'), 
           tel: $("#tel").val(),
           web: $("#web").val(),
           email: $("#email").val(),
-          active: true,
           preferences: {
               schoolBackgroundColor: $("#school-background-color").val(),
               schoolTextColor: $("#school-text-color").val()
@@ -58,7 +61,7 @@ Template.EditSchool.events({
         };
         
         
-        Meteor.call('smartix:schools/createSchool',newSchoolObj,function(err,result){
+        Meteor.call('smartix:schools/editSchool',$("#school-id").val(),editSchoolObj,function(err,result){
             if(err){
                 toastr.error(err.reason);
                 log.info(err);
@@ -69,16 +72,7 @@ Template.EditSchool.events({
             }
         } );
 
-    },'click .signOut': function () {
-        log.info("logout:" + Meteor.userId());
-        Meteor.logout(
-        function (err) {
-            //remove all session variables when logout
-            Session.clear();
-            Router.go('LoginSplash');
-        }
-        );
-  }
+    }
 });
 
 
