@@ -32,7 +32,7 @@
                         <label class="control-label col-lg-2">Broadcast news to newsgroup</label>
                         <div class="col-lg-10">
                             {{#each newsgroups}}
-                                <input type="checkbox" name="addNews-newsgroup" value="{{url}}">{{name}}<br>
+                                <input type="checkbox" name="addNews-newsgroup" id="{{url}}" value="{{url}}"><label for="{{url}}">{{name}}</label><br>
                             {{/each}}                       
                         </div>
                     </div>

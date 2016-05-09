@@ -66,9 +66,7 @@ Template.EditSchool.events({
                 toastr.error(err.reason);
                 log.info(err);
             }else{
-                toastr.info('create school success: you may sign out from system admin to continue');
-                toastr.info('initial admin:' + result.initialAdmin.username +' pw:' + result.initialAdmin.initialPassword);
-                log.info(result);
+                toastr.info('School information has been updated.');
             }
         } );
 

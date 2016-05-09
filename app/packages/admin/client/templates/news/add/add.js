@@ -119,25 +119,33 @@ Template.AdminNewsAdd.events({
         mediaObj.calendarEvent = template.calendarEvent.get();
 
         populateAddons(addons, mediaObj);
-
+        
+        var sentToNewgroupNames = [];
+        var totalLength = broadcastList.length;
         broadcastList.each(function (index) {
-            if (this.checked) {
-                //self = this;
-                Meteor.call('smartix:messages/createNewsMessage', this.value, 'article', { content: content, title: title },
+            var self = this;
+            if (self.checked) {
+   
+                Meteor.call('smartix:messages/createNewsMessage', self.value, 'article', { content: content, title: title },
                   addons,doPushNotificationB,function(){
-                    //todo add here newsgroup name
-                    toastr.info('News sent');
-                    //toastr.info('News sent to ' + self.value);
+                    //todo add here newsgroup name 
+                    sentToNewgroupNames.push( $('label[for='+self.value+']').text() );
 
-                    //form cleanup
-                    $('#addNews-title').val("");
-                    $('#addNews-content').val("");
-                    
-                    template.imageArr.set([]); 
-                    template.documentArr.set([]); 
-                    template.calendarEvent.set({}); 
-                    
-                    template.showCalendarForm.set(false);                  
+                    //if last element
+                    if( (index+1) === totalLength){
+                        //form cleanup
+                        $('#addNews-title').val("");
+                        $('#addNews-content').val("");
+                        
+                        template.imageArr.set([]); 
+                        template.documentArr.set([]); 
+                        template.calendarEvent.set({}); 
+                        
+                        template.showCalendarForm.set(false);   
+ 
+                        toastr.info('News sent to group: ' + sentToNewgroupNames.toString() );                                               
+                    }
+               
                 });
             }
         });
