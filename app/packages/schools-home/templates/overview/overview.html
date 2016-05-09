@@ -74,12 +74,14 @@
                         <span class='square-card-counter badge badge-assertive'>{{sumOfNewClassMessageAndCommentCounter}}</span>
                         {{/if}}
                 </a>
+                <a href="{{pathFor route='TabChat'}}" class="card square-card  square-card-small tiles bg bg-more">
+                    <span class='square-card-description'>Chat</span>
+                    {{#if sumOfNewChatMessageCounter}}
+                    <span class="square-card-counter badge badge-assertive">{{sumOfNewChatMessageCounter}}</span>
+                    {{/if}}                    
+                </a>                  
                 
-                
-                <a href="{{pathFor route='attendance.list' school=getCurrentSchoolName}}" class="card square-card  square-card-small tiles bg bg-absence">
-                    <span class='square-card-description'>ATTENDANCE </span>
-                    <span class='square-card-counter badge badge-assertive'>5</span>
-                </a>
+
         </div>
         <div class='square-cards-wrapper '>             
                 <a  href="{{pathFor route='calendar.list'}}" class="card square-card  square-card-small tiles bg bg-calendar">
@@ -91,9 +93,12 @@
                 <a  href="{{pathFor route='mobile.school.contact' school=getCurrentSchoolName}}" class="card square-card  square-card-small tiles bg bg-contact">
                     <span class='square-card-description'>CONTACT </span>
                 </a>
-                <a class="card square-card  square-card-small tiles bg bg-more" data-ion-menu-toggle="left">
-                    <span class='square-card-description' data-ion-menu-toggle="left">MORE</span> 
+
+                <a href="{{pathFor route='attendance.list' school=getCurrentSchoolName}}" class="card square-card  square-card-small tiles bg bg-absence">
+                    <span class='square-card-description'>ATTENDANCE </span>
+                    <span class='square-card-counter badge badge-assertive'>5</span>
                 </a>                
+              
        </div>     
      
            
