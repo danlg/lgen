@@ -344,8 +344,13 @@ Smartix.Class.addUsersToClass = function (classId, users) {
     });
     
 	if(classObj) {
-        if(!(Smartix.Class.isClassAdmin(Meteor.userId(), classId)
-            || Smartix.Accounts.School.isAdmin(classObj.namespace))) {
+        console.log(classObj.namespace);
+        if(!(
+                Smartix.Class.isClassAdmin(Meteor.userId(), classId)
+                || Smartix.Accounts.School.isAdmin(classObj.namespace)
+                || Smartix.Accounts.School.isMember(Meteor.userId(),classObj.namespace)
+                || classObj.namespace === 'global'
+        )) {
             return false;
             // Optional: Throw an appropriate error if not
         }
