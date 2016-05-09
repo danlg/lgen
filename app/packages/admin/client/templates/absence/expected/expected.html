@@ -65,36 +65,30 @@
             <thead>
                 <tr>
                     <th>Status</th>
-                    <th>Late/Absent</th>
                     <th>First Name</th>
                     <th>Last Name</th>
-                    <th>Class</th>
                     <th>Date</th>
-                    <th>AM/PM</th>
                     <th>Message</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><button class="label label-success">Acknowledged</button></td>
-                    <td>Late</td>
-                    <td>Marth</td>
-                    <td><a href="#">Enright</a></td>
-                    <td>4C</td>
-                    <td>22 Jun 2016</td>
-                    <td>AM</td>
-                    <td>Doctor's Appointment</td>
-                </tr>
-                <tr>
-                    <td><button class="label label-warning">Pending</button></td>
-                    <td>Late</td>
-                    <td>Marth</td>
-                    <td><a href="#">Enright</a></td>
-                    <td>4C</td>
-                    <td>22 Jun 2016</td>
-                    <td>AM</td>
-                    <td>Doctor's Appointment</td>
-                </tr>
+                {{#each expectedAbsence}}
+                    <tr>
+                        <td>
+                            {{#if approved}}
+                                <button class="AdminAbsenceExpected__unapprove">Approved</button>
+                            {{else}}
+                                <button class="AdminAbsenceExpected__approve">Pending</button>
+                            {{/if}}
+                        </td>
+                        {{#with userData}}
+                            <td>{{profile.firstName}}</td>
+                            <td>{{profile.lastName}}</td>
+                        {{/with}}
+                        <td>{{date}}</td>
+                        <td>{{message}}</td>
+                    </tr>
+                {{/each}}
             </tbody>
         </table>
     </div>

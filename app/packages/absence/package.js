@@ -24,7 +24,11 @@ Package.onUse(function(api) {
   api.use('momentjs:moment@2.13.1');
   api.use('smartix:core');
   api.use('smartix:accounts-schools');
+  api.use('iron:router');
+  api.use('templating');
+  api.use('meteorhacks:aggregate@1.3.0', 'server');
   api.addFiles('lib/collections.js', ['client', 'server']);
+  api.addFiles('lib/routes.js', ['client', 'server']);
   api.addFiles('server/permissions.js', ['server']);
   api.addFiles('server/expected/permissions.js', ['server']);
   api.addFiles('server/expected/expected.js', ['server']);
@@ -35,16 +39,12 @@ Package.onUse(function(api) {
   api.addFiles('server/processed/processed.js', ['server']);
   api.addFiles('client/absence.js', ['client']);
 
-  api.use('iron:router');
-  api.use('templating');
   
   api.addFiles('client/templates/list/list.html', 'client');
   api.addFiles('client/templates/list/list.js', 'client');
 
   api.addFiles('client/templates/add/add.html', 'client');
   api.addFiles('client/templates/add/add.js', 'client'); 
-    
-  api.addFiles('routes.js', ['client', 'server']);
   
   api.export('Smartix');
 });

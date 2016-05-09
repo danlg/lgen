@@ -1,7 +1,7 @@
 Meteor.methods({
     'smartix:absence/registerExpectedAbsence': function (options) {
-        Absence.registerExpectedAbsenceSchema.clean(options);
-        check(options, Absence.registerExpectedAbsenceSchema);
+        Smartix.Absence.registerExpectedAbsenceSchema.clean(options);
+        check(options, Smartix.Absence.registerExpectedAbsenceSchema);
         
         return Smartix.Absence.registerExpectedAbsence(options, this.userId);
     },
@@ -10,5 +10,11 @@ Meteor.methods({
         check(id, String);
         
         return Smartix.Absence.approveExpectedAbsence(id, this.userId);
+    },
+    'smartix:absence/unapproveExpectedAbsence': function (id) {
+        
+        check(id, String);
+        
+        return Smartix.Absence.unapproveExpectedAbsence(id, this.userId);
     }
 });

@@ -205,6 +205,15 @@ Router.route('/:school/admin/news/import', {
     }
 });
 
+Router.route('/:school/admin/absence/register', {
+    name: 'admin.absence.register',
+    layoutTemplate: 'adminLayout',
+    template: 'AdminAbsenceRegister',
+    action: function () {
+        this.render('AdminAbsenceRegister');
+    }
+});
+
 Router.route('/:school/admin/absence/upload', {
     name: 'admin.absence.upload',
     layoutTemplate: 'adminLayout',

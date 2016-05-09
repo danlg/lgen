@@ -16,7 +16,7 @@ Smartix.Absence.canViewExpectedAbsence = function (id, namespace, currentUser) {
     // can view all expected absences
     
     // Get the expected absence object
-    let expectedAbsence = Absence.Collections.expected.findOne({
+    let expectedAbsence = Smartix.Absence.Collections.expected.findOne({
         _id: id
     });
     
@@ -43,7 +43,7 @@ Smartix.Absence.canApproveExpectedAbsence = function (id, currentUser) {
     
     // Only admins of the school can approve absences
     
-    let expectedAbsence = Absence.Collections.expected.findOne({
+    let expectedAbsence = Smartix.Absence.Collections.expected.findOne({
         _id: id
     });
     

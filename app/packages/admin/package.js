@@ -34,6 +34,8 @@ Package.onUse(function(api) {
   api.use('smartix:accounts-schools@0.0.1');
   api.use('smartix:messages@0.0.1', 'client')
   api.use('smartix:calendarevent','client');
+  api.use('smartix:absence',['client', 'server']);
+  
   api.addAssets('client/assets/parents_import_template.csv', 'client');
   api.addAssets('client/assets/students_import_template.csv', 'client');
   api.addAssets('client/assets/teachers_import_template.csv', 'client');
@@ -50,6 +52,10 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/absence/absentees/absentees.js', 'web.browser');
   api.addFiles('client/templates/absence/expected/expected.html', 'web.browser');
   api.addFiles('client/templates/absence/expected/expected.js', 'web.browser');
+  api.addFiles('client/templates/absence/register/index.js', 'web.browser');
+  api.addFiles('client/templates/absence/register/register.css', 'web.browser');
+  api.addFiles('client/templates/absence/register/register.html', 'web.browser');
+  api.addFiles('client/templates/absence/register/register.js', 'web.browser');
   api.addFiles('client/templates/distribution-lists/add/add.html', 'web.browser');
   api.addFiles('client/templates/distribution-lists/add/add.js', 'web.browser');
   api.addFiles('client/templates/distribution-lists/list/index.js', ['client', 'server']);
