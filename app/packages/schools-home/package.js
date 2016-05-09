@@ -21,7 +21,7 @@ Package.onUse(function(api) {
   api.addAssets([
                  'icons/more.png',
                  
-                 
+                 'icons/chat.svg',
                  'icons/attendance-black.svg',
                  'icons/calendar.svg',
                  'icons/class.svg',

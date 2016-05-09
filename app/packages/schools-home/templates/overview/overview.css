@@ -155,6 +155,10 @@
    background-image: url('/packages/smartix_schools-home/icons/contact.svg');
 }
 
+.card.square-card.bg.bg-chat{
+   background-image: url('/packages/smartix_schools-home/icons/chat.svg');
+}
+
 .card.square-card.bg.bg-more{
    background-image: url('/packages/smartix_schools-home/icons/more.png');
 }
