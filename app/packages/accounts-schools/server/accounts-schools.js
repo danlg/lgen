@@ -2,17 +2,7 @@ Smartix = Smartix || {};
 Smartix.Accounts = Smartix.Accounts || {};
 Smartix.Accounts.School = Smartix.Accounts.School || {};
 
-//do not use the string in the code !! use instead the symbol
-//Smartix.Accounts.School.<role>
-Smartix.Accounts.School.STUDENT ='student';
-Smartix.Accounts.School.PARENT  ='parent';
-Smartix.Accounts.School.TEACHER ='teacher';
-Smartix.Accounts.School.ADMIN   ='admin';
-Smartix.Accounts.School.VALID_USER_TYPES = [
-    Smartix.Accounts.School.STUDENT,
-    Smartix.Accounts.School.PARENT,
-    Smartix.Accounts.School.TEACHER,
-    Smartix.Accounts.School.ADMIN];
+
 
 Smartix.Accounts.School.isMember = function(currentUser, schoolId) {
     check(schoolId, String);
