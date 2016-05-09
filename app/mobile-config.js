@@ -86,7 +86,7 @@ App.setPreference('BackupWebStorage', 'none');
 
 //ANDROID
 App.setPreference('android-targetSdkVersion', '19');
-App.setPreference('android-minSdkVersion', '22');
+App.setPreference('android-minSdkVersion', '19'); //19 === android 4.4.2
 
 //BOTH
 App.setPreference('Orientation', 'portrait');
