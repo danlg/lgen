@@ -1,77 +1,56 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 App.info({
   //id: 'com.gosmartix.smartix', for android
-  id: 'io.littlegenius.genie', //for ios because the app is registered with this id and the APN certificate
-  name: 'Smartix',
+  id: 'com.gosmartix.carmel', //for ios because the app is registered with this id and the APN certificate
+  name: 'Carmel',
   description: 'Instant, safe, simple communication for teachers, students and parents',
   author: 'Little Genius Education',
   email: 'contact@gosmartix.com',
   website: 'https://app.gosmartix.com',
   version: '1.2.0',
-  buildNumber: '100'
+  buildNumber: '111'
 });
 
-
-
+//generated with meteor-assets
+//see https://github.com/lpender/meteor-assets
 App.icons({
   //http://docs.meteor.com/#/full/App-icons
-  "iphone_2x": "resources/icons/iphone_2x.png", // 120x120
-  "iphone_3x": "resources/icons/iphone_3x.png", // 180x180
-  "ipad": "resources/icons/ipad.png", // 76x76
-  "ipad_2x": "resources/icons/ipad_2x.png", // 152x152
-  "ipad_pro": "resources/icons/ipad_pro.png", // 167x167
-  "ios_settings": "resources/icons/ios_settings.png", // 29x29
-  "ios_settings_2x": "resources/icons/ios_settings_2x.png", // 58x58
-  "ios_settings_3x": "resources/icons/ios_settings_3x.png", // 87x87
-  "ios_spotlight": "resources/icons/ios_spotlight.png", // 40x40
-  "ios_spotlight_2x": "resources/icons/ios_spotlight_2x.png", // 80x80
-  "android_mdpi": "resources/icons/android_mdpi.png", // 48x48
-  "android_hdpi": "resources/icons/android_hdpi.png", // 72x72
-  "android_xhdpi": "resources/icons/android_xhdpi.png", // 96x96
-  "android_xxhdpi": "resources/icons/android_xxhdpi.png", // 144x144
-  "android_xxxhdpi": "resources/icons/android_xxxhdpi.png" // 192x192
+  "iphone_2x":       "resources/carmel/icons/iphone_2x.png", // 120x120
+  "iphone_3x":       "resources/carmel/icons/iphone_3x.png", // 180x180
+  "ipad":            "resources/carmel/icons/ipad.png", // 76x76
+  "ipad_2x":         "resources/carmel/icons/ipad_2x.png", // 152x152
+  "ipad_pro":        "resources/carmel/icons/ipad_pro.png", // 167x167
+  "ios_settings":    "resources/carmel/icons/ios_settings.png", // 29x29
+  "ios_settings_2x": "resources/carmel/icons/ios_settings_2x.png", // 58x58
+  "ios_settings_3x": "resources/carmel/icons/ios_settings_3x.png", // 87x87
+  "ios_spotlight":   "resources/carmel/icons/ios_spotlight.png", // 40x40
+  "ios_spotlight_2x":"resources/carmel/icons/ios_spotlight_2x.png", // 80x80
+  "android_mdpi":    "resources/carmel/icons/android_mdpi.png", // 48x48
+  "android_hdpi":    "resources/carmel/icons/android_hdpi.png", // 72x72
+  "android_xhdpi":   "resources/carmel/icons/android_xhdpi.png", // 96x96
+  "android_xxhdpi":  "resources/carmel/icons/android_xxhdpi.png", // 144x144
+  "android_xxxhdpi": "resources/carmel/icons/android_xxxhdpi.png" // 192x192
 });
 
 App.launchScreens({
-
-  //IPhone 4(@2x), 640 x 960
-  //'iphone': 'resources/ios/logo-litegreen-splash-ip4@2x.png',
-  //'iphone4': 'resources/ios/logo-litegreen-splash-ip4@2x.png',
-  //For iPhone 5((@2x)), 640 x 1136
-  'iphone_2x': 'resources/ios/logo-litegreen-splash-ip5@2x.png',
-
-  //logo-litegreen-splash-ip5@2x.png:  PNG image data, 640 x 1136, 8-bit/color RGBA, non-interlaced
-  'iphone5': 'resources/ios/logo-litegreen-splash-ip5@2x.png',
-
-  //For iPhone 6(@2x):
-  //750 x 1334 (@2x) for portrait
-  //  1334 x 750 (@2x) for landscape
-  'iphone6': 'resources/ios/logo-litegreen-splash-ip6@2x.png',
-
-  //  For iPhone 6 Plus:
-  //    1242 x 2208 (@3x) for portrait
-  //  2208 x 1242 (@3x) for landscape
-  'iphone6p_portrait': 'resources/ios/logo-litegreen-splash-ip6+@3x.png',
-  //'iphone6p_landscape': 'resources/splash/iphone6p_landscape.png',
-  'ipad_portrait': 'resources/ios/logo-litegreen-splash-ipad1x.png',//768 x 1024
-  //'ipad_landscape': 'resources/splash/ipad_landscape.png'
-  'ipad_portrait_2x': 'resources/ios/logo-litegreen-splash-ipad2x.png',//1536 x 2048
-  // 'ipad_landscape_2x': 'resources/splash/ipad_landscape_2x.png',
-
-  //ANDROID
-  //http://stackoverflow.com/questions/13487124/android-splash-screen-sizes-for-ldpi-mdpi-hdpi-xhdpi-displays-eg-1024x76
-  // Format : 9-Patch PNG (recommended)
-
-  //'android_ldpi_portrait': 'resources/android/logo-splash-android_ldpi_portrait-200x320.png', //200x320px
-  //'android_ldpi_landscape': 'resources/splash/android_ldpi_landscape.png',//320x200px
-  'android_mdpi_portrait': 'resources/android/logo-splash-android_mdpi_portrait-320x480.png',//320x480px
-  //'android_mdpi_landscape': 'resources/splash/android_mdpi_landscape.png',//480x320px
-  'android_hdpi_portrait': 'resources/android/logo-splash-android_hdpi_portrait-480x800.png',//480x800px
-  //'android_hdpi_landscape': 'resources/splash/android_hdpi_landscape.png',//800x480px
-  'android_xhdpi_portrait': 'resources/android/logo-splash-android_xhdpi_portrait-720x1280.png'//720px1280px
-  //'android_xhdpi_landscape': 'resources/splash/android_xhdpi_landscape.png'//1280x720px
+  "iphone_2x":                "resources/smartix/splashes/iphone_2x.png", // 640x490
+  "iphone5":                  "resources/smartix/splashes/iphone5.png", // 640x1136
+  "iphone6":                  "resources/smartix/splashes/iphone6.png", // 750x1334
+  "iphone6p_portrait":        "resources/smartix/splashes/iphone6p_portrait.png", // 2208x1242
+  "iphone6p_landscape":       "resources/smartix/splashes/iphone6p_landscape.png", // 2208x1242
+  "ipad_portrait":            "resources/smartix/splashes/ipad_portrait.png", // 768x1024
+  "ipad_portrait_2x":         "resources/smartix/splashes/ipad_portrait_2x.png", // 1536x2048
+  "ipad_landscape":           "resources/smartix/splashes/ipad_landscape.png", // 1024x768
+  "ipad_landscape_2x":        "resources/smartix/splashes/ipad_landscape_2x.png", // 2048x1536
+  "android_mdpi_portrait":    "resources/smartix/splashes/android_mdpi_portrait.png", // 320x480
+  "android_mdpi_landscape":   "resources/smartix/splashes/android_mdpi_landscape.png", // 480x320
+  "android_hdpi_portrait":    "resources/smartix/splashes/android_hdpi_portrait.png", // 480x800
+  "android_hdpi_landscape":   "resources/smartix/splashes/android_hdpi_landscape.png", // 800x480
+  "android_xhdpi_portrait":   "resources/smartix/splashes/android_xhdpi_portrait.png", // 720x1280
+  "android_xhdpi_landscape":  "resources/smartix/splashes/android_xhdpi_landscape.png", // 1280x720
+  "android_xxhdpi_portrait":  "resources/smartix/splashes/android_xxhdpi_portrait.png", // 1080x1440
+  "android_xxhdpi_landscape": "resources/smartix/splashes/android_xxhdpi_landscape.png" // 1440x1080
 });
-
 //see https://github.com/apache/cordova-plugin-statusbar
 //Preferences see https://cordova.apache.org/docs/en/latest/config_ref/index.html
 
