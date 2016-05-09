@@ -52,7 +52,9 @@ Template.MobileSchoolHome.helpers({
         newsgroupsIds = newsgroupsIds.concat(newsgroupsByUserArrayIds,newsgroupsBydistributionListsIds);
         
         console.log('newsgroupsIds',newsgroupsIds);
-
+        
+        Template.instance().canGetSlidNews.set(true);
+        
         return Smartix.Messages.Collection.find({$or:[
             {
                 group: { $in: newsgroupsIds },
@@ -81,6 +83,12 @@ Template.MobileSchoolHome.helpers({
     
 });
 
+Template.MobileSchoolHome.onDestroyed(function(){
+   
+   this.canGetSlidNews = new ReactiveVar(false);
+     
+})
+
 Template.MobileSchoolHome.onCreated(function(){
    
    this.canGetSlidNews = new ReactiveVar(false);
@@ -95,21 +103,26 @@ Template.MobileSchoolHome.onCreated(function(){
 Template.MobileSchoolHome.onRendered(function(){
     var self = this;
 
-    Meteor.setTimeout(function(){
+
+    self.autorun(function(){
+        if(self.canGetSlidNews.get()){
+            self.$('.ion-slide-box').slick({
+                infinite: true,
+                autoplay: true,
+                autoplaySpeed: 4000,
+                arrows: false,
+                dots: false,
+                dotsClass: 'slider-pager',
+                initialSlide: 0,
+                customPaging: function(slider, i) {
+                return '<span class="slider-pager-page icon ion-record"></span>';
+                }
+            });            
+        }
+    })
         
-        self.$('.ion-slide-box').slick({
-            infinite: true,
-            autoplay: true,
-            autoplaySpeed: 4000,
-            arrows: false,
-            dots: false,
-            dotsClass: 'slider-pager',
-            initialSlide: 0,
-            customPaging: function(slider, i) {
-            return '<span class="slider-pager-page icon ion-record"></span>';
-            }
-        });
-    },200);
+
+  
 
 
 
