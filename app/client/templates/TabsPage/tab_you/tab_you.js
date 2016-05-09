@@ -13,7 +13,7 @@ Template.TabYou.events({
 
   'click .love': function (argument) {
       var text;
-      var userRoles = getRolesForUser(Meteor.userId(), Session.get('pickedSchoolId'));
+      var userRoles = Meteor.user().roles[Session.get('pickedSchoolId')] ;
       
       //TODO localization English hardcoded for recommendation, with template i18n, see doc on how to insert variable
       if(userRoles.indexOf(Smartix.Accounts.School.ADMIN) > -1) {
