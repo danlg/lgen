@@ -70,6 +70,13 @@ Template.AppLayout.helpers({
     },
     isSchoolNamespace:function(){
         return (Session.get('pickedSchoolId') === 'global' || Session.get('pickedSchoolId') === 'system') ? false : true;
+    },
+    isAdminInCurrentNamespace:function(){
+        if(Meteor.userId()){
+            if(Meteor.user() && Meteor.user().roles && Meteor.user().roles[Session.get('pickedSchoolId')] ){
+               return (Meteor.user().roles[Session.get('pickedSchoolId')].indexOf('admin') !== -1)                  
+            } 
+        }        
     }
 
 });

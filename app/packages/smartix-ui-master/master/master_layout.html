@@ -68,9 +68,11 @@
 
               <!--TODO: only if user is school admin-->
               {{#if isSchoolNamespace}}
-              <a href="{{pathFor route='admin.dashboard' school=getCurrentSchoolName}}" class="item item-icon-right" data-ion-menu-close>
-                Admin
-              </a>
+                {{#if isAdminInCurrentNamespace}}
+                <a href="{{pathFor route='admin.dashboard' school=getCurrentSchoolName}}" class="item item-icon-right" data-ion-menu-close>
+                  Admin
+                </a>
+                {{/if}}
               {{/if}}                                
               <!--TODO: only if user is school admin ends -->  
                                                                                     
