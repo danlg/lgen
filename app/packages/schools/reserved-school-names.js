@@ -4,5 +4,10 @@ RESERVED_SCHOOL_NAMES = [
 	'admin',
 	'i',
 	'u',
-	'select-institution'
+	'select-institution',
+	'demo',
+	'smartix',
+	'lg',
+	'littlegenius',
+	'schoolapp'
 ];
