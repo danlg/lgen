@@ -30,7 +30,7 @@ Template.AdminNewsgroupsAdd.events({
                 log.info(err);
                 toastr.info(err.reason);
             }else{
-                toastr.info('Newsgroup is created. Default to all school users');
+                toastr.info('Newsgroup is created.');
             }
         });
     }
