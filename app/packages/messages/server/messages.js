@@ -208,6 +208,11 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
             allUsersInDistributionLists = lodash.flatten(allUsersInDistributionLists);
             
             allUserToDoPushNotifications = allUserToDoPushNotifications.concat( allUsersInDistributionLists );
+            
+            if(group.optOutUsersFromDistributionLists){
+                //remove opt-out user from push notifications
+                allUserToDoPushNotifications = lodash.difference(allUserToDoPushNotifications, group.optOutUsersFromDistributionLists);
+            }
         }
         
         console.log('allUserToDoPushNotifications',allUserToDoPushNotifications);
