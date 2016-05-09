@@ -192,8 +192,27 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
             return (eachUserId === Meteor.userId());
         });
         
-        var addonTypes = lodash.map(addons,'type');  
-        group.users.map(function(eachTargetUser){
+        var addonTypes = lodash.map(addons,'type');
+        
+        var allUserToDoPushNotifications = [];
+        
+        allUserToDoPushNotifications = allUserToDoPushNotifications.concat( group.users ) 
+        
+        if(group.distributionLists){
+            //console.log('group.distributionLists',group.distributionLists);
+            var allLinkedDistributionLists = Smartix.Groups.Collection.find({_id:{$in: group.distributionLists}}).fetch();
+            
+            //console.log('allLinkedDistributionLists',allLinkedDistributionLists);
+            var allUsersInDistributionLists = lodash.map(allLinkedDistributionLists,'users');
+            //console.log('allUsersInDistributionLists',allUsersInDistributionLists);
+            allUsersInDistributionLists = lodash.flatten(allUsersInDistributionLists);
+            
+            allUserToDoPushNotifications = allUserToDoPushNotifications.concat( allUsersInDistributionLists );
+        }
+        
+        console.log('allUserToDoPushNotifications',allUserToDoPushNotifications);
+        
+        allUserToDoPushNotifications.map(function(eachTargetUser){
             Notifications.insert({
                 eventType:"new"+group.type+"message",
                 userId: eachTargetUser,
