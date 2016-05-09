@@ -6,6 +6,7 @@
     "clean-local": "./clean_build.sh",
 
     "localdev" : "meteor --settings ../config/dev.settings.json",
+    "localdev-ssl" : "export MONGO_URL=mongodb://127.0.0.1:28888/littlegenius && meteor --settings ../config/dev.settings.json",
     "localdev-clean" : "./clean_build.sh && meteor -v --settings ../config/dev.settings.json",
 
     "ios-local": "meteor run ios --settings ../config/dev.settings.json --mobile-server=http://localhost:3000",
