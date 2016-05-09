@@ -33,16 +33,19 @@ Smartix.Accounts.School.getStudentIdFromName = function (name, namespace) {
         separatedName = spaceSeparatedName;
     }
     
-    var lastName = separatedName[0];
+    var lastName = separatedName[0].trim();
     
     // Removes the lastName
     separatedName.splice(0,1);
     
-    var firstName = separatedName.join(' ');    
+    var firstName = separatedName.join(' ').trim();    
     
     var userCursor = Meteor.users.find({
         "profile.lastName": lastName,
         "profile.firstName": firstName,
+    });
+    
+    var allCursor = Meteor.users.find({
     });
     
     if(userCursor.count() < 1) {
@@ -50,7 +53,20 @@ Smartix.Accounts.School.getStudentIdFromName = function (name, namespace) {
             "profile.lastName": lastName
         });
         if(userCursor.count() !== 1) {
-            return false;
+            
+            // From here on, assumes the format given was FirstName LastName
+            userCursor = Meteor.users.find({
+                "profile.firstName": lastName,
+                "profile.lastName": firstName
+            });
+            if(userCursor.count() < 1) {
+                userCursor = Meteor.users.find({
+                    "profile.lastName": firstName
+                });
+                if(userCursor.count() !== 1) {
+                    return false;
+                }
+            }
         }
     }
     
