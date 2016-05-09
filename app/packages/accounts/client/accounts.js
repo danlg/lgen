@@ -10,7 +10,7 @@ Smartix.Accounts.registerOrLoginWithGoogle = function () {
         requestPermissions: ['email'],
         loginStyle: 'redirect',
         requestOfflineToken: true,
-        redirectURL: "/"
+        redirectURL: Meteor.absoluteUrl("")
       }
     );
 };
