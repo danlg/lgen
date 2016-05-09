@@ -131,11 +131,9 @@ Template.TabClasses.rendered = function () {
   
   //we do not need to show the tour as it is shown before login
   //if sign up by google oauth or user's email is already verified
-  if(typeof Meteor.user().emails[0].verified == 'undefined'
-    || Meteor.user().emails[0].verified)
+  if(Meteor.user() && Meteor.user().emails[0].verified)
   {
-
-      if (Meteor.user().hybridAppPromote == false) {
+      if (Meteor.user() && Meteor.user().hybridAppPromote == false) {
         if(!Meteor.isCordova){
           //promote the app once if they havent try the hybrid apps
           IonPopup.alert({
@@ -149,7 +147,6 @@ Template.TabClasses.rendered = function () {
         //set the flag to true so it would not show again
        Meteor.call('smartix:accounts/setHybridAppPromote');
       }
-    
   }
   HowToInviteTour();
 };
