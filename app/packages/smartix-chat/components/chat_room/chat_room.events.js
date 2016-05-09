@@ -159,8 +159,13 @@ function onResolveSuccess(fileEntry) {
         var fileURL = {
           "file": "/cfs/files/files/" + fileObj._id
         };
-        log.info(fileURL.file);     
-        GeneralMessageSender(Router.current().params.chatRoomId,'text','New Voice',[{type:'voice', fileId: fileObj._id}],
+        log.info(fileURL.file);
+        var textDesc = "New voice message";
+        textDesc = ( Meteor.user() && Meteor.user().profile )
+          ? ( textDesc + " from " + Meteor.user().profile.firstName + " " + Meteor.user().profile.lastName )
+          :   textDesc;
+
+        GeneralMessageSender(Router.current().params.chatRoomId,'text',textDesc,[{type:'voice', fileId: fileObj._id}],
             Smartix.helpers.getAllUserExceptCurrentUser()
         );            
       }
