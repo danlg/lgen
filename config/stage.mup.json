@@ -1,8 +1,8 @@
 {
   "env": {
-    "ROOT_URL": "http://uat.gosmartix.com",
-    "PORT": 8888,
-    "MONGO_URL": "mongodb://127.0.0.1/littlegenius"
+    "ROOT_URL": "https://uat.gosmartix.com",
+    "PORT": 80,
+    "MONGO_URL" : "mongodb://127.0.0.1/littlegenius"
   },
   //stage
   "servers": [
