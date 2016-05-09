@@ -85,8 +85,7 @@ Template.TabChat.helpers({
         //if there are only 2 ppl in a chatroom
         // => 1-to-1 chat
         //      => display another user's full name 
-        
-        log.info('users',this.users);
+        log.debug('users',this.users);
         var userIds = this.users;
         var maxNumberOfDisplayName = maxDisplay;
         var userObjArr = Meteor.users.find({_id: {$in: this.users }}).fetch();
