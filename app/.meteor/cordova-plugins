@@ -15,3 +15,4 @@ de.appplant.cordova.plugin.local-notification@0.8.4
 cordova-plugin-actionsheet@2.2.2
 cordova-plugin-calendar@4.4.7
 cordova-plugin-file@4.2.0
+cordova-plugin-inappbrowser@https://github.com/ephemer/cordova-plugin-inappbrowser.git#04091fde737519c149e7ad6316971cb6b490c5b3
