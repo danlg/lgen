@@ -32,6 +32,10 @@ Template.EmailSignup.onCreated = function() {
     log.info(classToBeJoined);
 
     $("body").removeClass('modal-open');
+    
+  if (Meteor.userId()) {
+     Smartix.helpers.routeToTabClasses();     
+  }    
 };
 
 Template.EmailSignup.onDestroyed = function() {

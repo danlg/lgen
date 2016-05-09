@@ -13,6 +13,11 @@ Template.Tour.events({
  
 });
 
+Template.Tour.onCreated(function(){
+  if (Meteor.userId()) {
+     Smartix.helpers.routeToTabClasses();     
+  }  
+})
 
 Template.Tour.onRendered(function(){
   if(Session.get('resetPasswordToken') !== undefined){

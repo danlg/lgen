@@ -40,6 +40,10 @@ Template.EmailSignin.helpers({});
 Template.EmailSignin.created = function () {
     this.email = new ReactiveVar("");
     this.password = new ReactiveVar("");
+    
+    if (Meteor.userId()) {
+      Smartix.helpers.routeToTabClasses(); 
+    }    
 };
 
 Template.EmailSignin.rendered = function () {
