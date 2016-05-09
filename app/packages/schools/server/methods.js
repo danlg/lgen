@@ -1,11 +1,11 @@
 Meteor.methods({
     'smartix:schools/getSchoolName': function(id) {
         if(id === 'global'){
-            Roles.userIsInRole(Meteor.userId(), 'user', 'global') 
+            Roles.userIsInRole(Meteor.userId(), 'user', 'global');
             return 'global';
         }
-            if(id === 'system'){
-            Roles.userIsInRole(Meteor.userId(), 'admin', 'system') 
+        if(id === 'system'){
+            Roles.userIsInRole(Meteor.userId(), 'admin', 'system');
             return 'system';
         }               
         var targetSchool = SmartixSchoolsCol.findOne(id);
@@ -45,12 +45,17 @@ Meteor.methods({
             check(options, SchoolsSchema);
 
             if (lodash.includes(RESERVED_SCHOOL_NAMES, options.username)) {
-                log.info(CANNOT_BE_SAME_AS_RESERVED_NAMES);
+                log.error(CANNOT_BE_SAME_AS_RESERVED_NAMES);
                 return;
             }
 
             var schoolId;
             //TODO: logo pass upload image id
+
+            //WARNING TODO check that schoolname is not taken !
+            //See issue  [Admin] Check uniqueness of school name #350
+            //https://github.com/danlg/lgen/issues/350
+
             try {
                 schoolId = SmartixSchoolsCol.insert({
                     name: options.name,
@@ -62,7 +67,7 @@ Meteor.methods({
                     active: true,
                     preferences: {
                         schoolBackgroundColor:options.preferences.schoolBackgroundColor,
-                        schoolTextColor:options.preferences.schoolTextColor,
+                        schoolTextColor:options.preferences.schoolTextColor
                     }
                 });
             } catch (err) {
@@ -72,13 +77,10 @@ Meteor.methods({
             var newAdmin = adminUsername;
             var newAdminPassword = "admin";
             if (admins) {
-
                 admins.map(function(eachAdmin) {
                     Roles.addUsersToRoles(eachAdmin, 'admin', schoolId);
-                })
-
+                });
                 return { school: schoolId };
-
             } else {
                 Meteor.call('smartix:accounts-schools/createSchoolUser',
                     options.email,
@@ -95,9 +97,6 @@ Meteor.methods({
 
                 return { school: schoolId, initialAdmin: { username: newAdmin, initialPassword: newAdminPassword } };
             }
-
-
-
         } else {
             log.info('caller is not authed');
             throw new Meteor.Error("caller-not-authed", "caller is not authed");
@@ -125,7 +124,7 @@ Meteor.methods({
             log.info('caller is not authed');
             throw new Meteor.Error("caller-not-authed", "caller is not authed");
         }
-    },
+    }
 
 });
 
