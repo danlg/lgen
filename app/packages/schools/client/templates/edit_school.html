@@ -3,13 +3,13 @@
     {{#with getSchoolObj}}
     <form>
         <input id='school-id' type="hidden" name="school-id" value='{{_id}}'>
-        School name:
+        School long name:
         <input id='name' type="text" name="name" value='{{name}}'>
         
-        <br> School shortname, would be seen in the route:
+        <br> School short name (1 word only no space, it will appear in the URL):
         <input id='username' type="text" name="username" value='{{username}}'>
                 
-        <br>Current School logo:
+        <br>School logo
         {{#with existingSchoolLogo}}
             <img id='existing-school-logo' data-existing-school-logo-id={{_id}} src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="thumbnail" />                    
         {{else}}
@@ -23,19 +23,19 @@
             {{this.url}}
             <img src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="thumbnail" />        
         {{/each}}
-        <br> telephone number:
+        <br> Telephone number:
         <input id='tel' type="text" name="tel" value='{{tel}}'>
         
         <br> School website:
         <input id='web' type="text" name="web" value='{{web}}'>
         
-        <br> School email:
+        <br> School administrator email (this login has full control on the Smartix school configuration)
         <input id='email' type="text" name="email" value='{{email}}'>
 
-        <br> School Background Color:
+        <br> School App background color:
         <input id='school-background-color' type="color" name="school-background-color" value='{{preferences.schoolBackgroundColor}}'>
         
-        <br> School Text Color:
+        <br> School text color (tip: if background is dark, text color white and vice versa if background light, text color black):
         <input id='school-text-color' type="color" name="school-text-color" value='{{preferences.schoolTextColor}}'>
                         
        <br>
