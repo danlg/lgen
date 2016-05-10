@@ -21,6 +21,6 @@ Smartix.DistributionLists.Schema = new SimpleSchema({
 	},
 	url: {
 		type: String,
-		regEx: /^[a-zA-Z0-9-]{3,}$/
+		regEx: /^[a-zA-Z0-9-]+$/
 	}
 });
