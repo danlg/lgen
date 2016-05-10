@@ -11,8 +11,8 @@ if(Meteor.isServer){
         check(lastname, String);
         
         //remove all non-ascii character and space
-        var firstnameTrim = (firstname).replace(/[^\x00-\x7F\s]/g, "").trim().toLowerCase();
-        var lastnameTrim = (lastname).replace(/[^\x00-\x7F\s]/g, "").trim().toLowerCase();
+        var firstnameTrim = firstname.replace(/[^\x00-\x7F\s,]/g, "").trim().toLowerCase();
+        var lastnameTrim = lastname.replace(/[^\x00-\x7F\s,]/g, "").trim().toLowerCase();
         var uniqueName = firstnameTrim + lastnameTrim;
 
         //if uniqueName becomes empty, transform firstname and lastname to unicode
@@ -22,10 +22,10 @@ if(Meteor.isServer){
             }
             for (var i = 0, len = lastname.length; i < len; i++) {
               uniqueName = uniqueName + lastname.charCodeAt(i);
-            }        
+            }
         }
-        if (uniqueName.size() > 7) {
-            uniqueName = uniqueName.substr(0,7);
+        if (uniqueName.length > 10) {
+            uniqueName = uniqueName.substr(0,10);
         }
         var index = 1;
         if (Meteor.users.find({ username: uniqueName }).count() != 0) {
