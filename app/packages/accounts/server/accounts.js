@@ -194,17 +194,17 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
             newUserOptions.email = email;
         }
         
-        var newUserId 
+        var newUserId;
         try{
             newUserId = Accounts.createUser(newUserOptions);
-        }catch(e){
-            
+            log.info('Created successfully newUserId: ',newUserId);
         }
-        log.info('newUserId: ',newUserId);
-        
+        catch(e) {
+            log.error("Couldn't create user", e);
+        }
+
         delete options.email;
         delete options.username;
-                
         options.schools = [namespace];
 
         
@@ -233,11 +233,11 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
             Accounts.setPassword(newUserId, options.password, {logout: false});
             
             //for user created in global
-            if(!autoEmailVerified){
+            if(!autoEmailVerified) {
                 try{
                     Accounts.sendVerificationEmail(newUserId);
                 }catch(e){
-                    log.info(e);
+                    log.error(e);
                 }
             }
         } else {
