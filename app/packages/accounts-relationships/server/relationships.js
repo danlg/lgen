@@ -119,3 +119,13 @@ Smartix.Accounts.Relationships.getParentOfStudent = function (studentId, namespa
         namespace: namespace
     }).fetch();
 }
+
+Smartix.Accounts.Relationships.getChildsOfParent = function (namespace) {
+    
+    check(namespace, String);
+    
+    return Smartix.Accounts.Relationships.Collection.find({
+        parent: this.userId,
+        namespace: namespace
+    }).fetch();
+}

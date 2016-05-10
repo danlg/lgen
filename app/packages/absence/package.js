@@ -23,6 +23,7 @@ Package.onUse(function(api) {
   api.use('aldeed:simple-schema');
   api.use('momentjs:moment@2.13.1');
   api.use('smartix:core');
+  api.use('smartix:accounts-relationships');  
   api.use('smartix:accounts-schools');
   api.use('iron:router');
   api.use('templating');
@@ -37,8 +38,9 @@ Package.onUse(function(api) {
   api.addFiles('server/actual/actual.js', ['server']);
   api.addFiles('server/actual/methods.js', ['server']);
   api.addFiles('server/processed/processed.js', ['server']);
+  api.addFiles('server/publications.js', ['server']);  
+  
   api.addFiles('client/absence.js', ['client']);
-
   
   api.addFiles('client/templates/list/list.html', 'client');
   api.addFiles('client/templates/list/list.js', 'client');
