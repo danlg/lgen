@@ -19,7 +19,7 @@ Template.AttendanceRecordAdd.events({
             endDateTime:$('#end-date-time').val()        
        }
        
-       console.log(applyLeaveObj);
+       //console.log(applyLeaveObj);
        
        
        var transformObj = {
@@ -30,7 +30,12 @@ Template.AttendanceRecordAdd.events({
            endDate:      new Date( applyLeaveObj.endDate + " " + applyLeaveObj.endDateTime +" GMT+0800" ).toUTCString()      
        }
        
-       console.log(transformObj);
+       //console.log(transformObj);
+       
+       if(transformObj.startDateUnixTime > transformObj.endDateUnixTime){
+           toastr.info('Leave start date needs to be earlier than Leave end date')
+       }
+       
     }
     
 });
@@ -45,6 +50,12 @@ Template.AttendanceRecordAdd.helpers({
         var date = new Date();
         var formattedTime = moment(date).format('HH:mm');
         return formattedTime;
+    },
+    getDefaultStartDateTime:function(){
+      return "08:00";  
+    },
+    getDefaultEndDateTime:function(){
+      return "17:00"
     },
     getAllChildrens:function(){
 
