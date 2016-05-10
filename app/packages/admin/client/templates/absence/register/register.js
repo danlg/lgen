@@ -33,11 +33,18 @@ Template.AdminAbsenceRegister.events({
         options.namespace = Smartix.Accounts.School.getNamespaceFromSchoolName(Router.current().params.school);
         options.studentId = Session.get('absent-student');
         options.reporterId = Meteor.userId();
-        options.dateFrom = template.find("#AdminAbsenceRegister__start").valueAsDate;
-        options.dateTo = template.find("#AdminAbsenceRegister__end").valueAsDate;
+        
+        let dateFrom = template.find("#AdminAbsenceRegister__startDate").value;
+        let timeFrom = template.find("#AdminAbsenceRegister__startDate").value;
+        let dateTo = template.find("#AdminAbsenceRegister__endDate").value;
+        let timeTo = template.find("#AdminAbsenceRegister__endDate").value;
+        
+        options.dateFrom = moment(dateFrom + " " + timeFrom).unix();
+        options.dateTo = moment(dateTo + " " + timeTo).unix();
+        
         options.message = template.$('#AdminAbsenceRegister__message').val();
         
-        Smartix.Absence.registerExpectedAbsenceSchema.clean(options);
+        Smartix.Absence.expectedAbsenceSchema.clean(options);
         
         console.log(options);
         

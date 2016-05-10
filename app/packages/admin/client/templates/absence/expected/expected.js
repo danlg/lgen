@@ -32,6 +32,14 @@ Template.AdminAbsenceExpected.helpers({
         return Meteor.users.findOne({
             _id: this.studentId
         })
+    },
+    startDateTime: function () {
+        // This will be converted to the client's local timezone automatically
+        return moment(this.dateFrom * 1000).format("DD-MM-YYYY HH:mm");
+    },
+    endDateTime: function () {
+        // This will be converted to the client's local timezone automatically
+        return moment(this.dateTo * 1000).format("DD-MM-YYYY HH:mm");
     }
 });
 

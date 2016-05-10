@@ -29,6 +29,8 @@ Meteor.publish('smartix:absence/expectedAbsence', function (id, namespace) {
 Meteor.publish('smartix:absence/expectedAbsencesUsers', function (namespace, from, to) {
     
     check(namespace, String);
+    
+    // Not yet implemented
     check(from, Match.Maybe(Number));
     check(to, Match.Maybe(Number));
     

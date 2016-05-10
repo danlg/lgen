@@ -8,7 +8,7 @@ Smartix.Absence.Collections.processed = new Mongo.Collection('smartix:absence/pr
 
 Smartix.Absence.AllowedStatus = ['approved', 'unapproved', 'missing', 'unknown'];
 
-Smartix.Absence.registerExpectedAbsenceSchema = new SimpleSchema({
+Smartix.Absence.expectedAbsenceSchema = new SimpleSchema({
     namespace: {
         type: String
     },
@@ -19,36 +19,20 @@ Smartix.Absence.registerExpectedAbsenceSchema = new SimpleSchema({
         type: String
     },
     dateFrom: {
-        type: Date
+        type: Number,
+        decimal: false
     },
     dateTo: {
-        type: Date
-    },
-    message: {
-        type: String,
-        optional: true
-    }
-});
-
-Smartix.Absence.expectedAbsenceSchema = new SimpleSchema({
-    studentId: {
-        type: String
-    },
-    reporterId: {
-        type: String
-    },
-    date: {
-        type: Date
+        type: Number,
+        decimal: false
     },
     message: {
         type: String,
         optional: true
     },
     approved: {
-        type: Boolean
-    },
-    namespace: {
-        type: String
+        type: Boolean,
+        defaultValue: false
     }
 });
 
@@ -57,7 +41,7 @@ Smartix.Absence.attendenceRecordsSchema = new SimpleSchema({
         type: String
     },
     date: {
-        type: String
+        type: Date
     },
     clockIn: {
         type: String,
