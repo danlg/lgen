@@ -4,6 +4,11 @@ Smartix.Absence = Smartix.Absence || {};
 
 //Notification from admin to parent to ask for student attendance detail
 Smartix.Absence.notificationToParentForDetail = function(parentIds,processId, currentUserId){
+       
+       check(parentIds, [String]);
+       check(processId, String);
+       check(currentUserId, String);
+       
        var currentUser = Meteor.users().findOne(currentUserId);
        //1. add to notification obj
        //TODO
@@ -17,6 +22,7 @@ Smartix.Absence.notificationToParentForDetail = function(parentIds,processId, cu
                     text:   'TBD We need more detail about your children attendance',
                     payload:{
                         type: 'attendanceToParent',
+                        id:   processId
                     },
                     query:{userId:parentId},
                     badge: Smartix.helpers.getTotalUnreadNotificationCount(parentId)
@@ -28,6 +34,11 @@ Smartix.Absence.notificationToParentForDetail = function(parentIds,processId, cu
 
 //Notification from admin to parent to display approval of leave application
 Smartix.Absence.notificationToParentApprovedNotice = function(parentIds,expectedId, currentUserId){
+
+       check(parentIds, [String]);
+       check(expectedId, String);
+       check(currentUserId, String);
+           
        var currentUser = Meteor.users().findOne(currentUserId);    
        //1. add to notification obj
        //TODO
@@ -41,6 +52,7 @@ Smartix.Absence.notificationToParentApprovedNotice = function(parentIds,expected
                     text:   'TBD We have approved your leave application',
                     payload:{
                         type: 'attendanceApproved',
+                        id:   expectedId
                     },
                     query:{userId:parentId},
                     badge: Smartix.helpers.getTotalUnreadNotificationCount(parentId)
@@ -52,6 +64,11 @@ Smartix.Absence.notificationToParentApprovedNotice = function(parentIds,expected
 
 //Notification from parent to admin about request of leave application
 Smartix.Absence.notificationToAdminApprovalRequest = function(adminIds,expectedId, currentUserId){
+
+       check(adminIds, [String]);
+       check(expectedId, String);
+       check(currentUserId, String);
+           
        var currentUser = Meteor.users().findOne(currentUserId);      
        //1. add to notification obj
        //TODO
@@ -65,6 +82,7 @@ Smartix.Absence.notificationToAdminApprovalRequest = function(adminIds,expectedI
                     text:   'TBD A Parent has submitted a leave application',
                     payload:{
                         type: 'attendanceSubmission',
+                        id:   expectedId 
                     },
                     query:{userId:adminId},
                     badge: Smartix.helpers.getTotalUnreadNotificationCount(adminId)
@@ -76,6 +94,11 @@ Smartix.Absence.notificationToAdminApprovalRequest = function(adminIds,expectedI
 
 //Notification from parent to admin about response from parent of student attendance    
 Smartix.Absence.notificationToAdminForDetailReply = function(adminIds,processId, currentUserId){
+
+       check(adminIds, [String]);
+       check(processId, String);
+       check(currentUserId, String);
+           
        var currentUser = Meteor.users().findOne(currentUserId);      
        //1. add to notification obj
        //TODO
@@ -89,6 +112,7 @@ Smartix.Absence.notificationToAdminForDetailReply = function(adminIds,processId,
                     text:   'Parent has replied about children attendance',
                     payload:{
                         type: 'attendanceToAdmin',
+                        id:   processId 
                     },
                     query:{userId:adminId},
                     badge: Smartix.helpers.getTotalUnreadNotificationCount(adminId)
