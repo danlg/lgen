@@ -462,18 +462,18 @@ Smartix.Class.removeAdminsFromClass = function (classId, admins, currentUser) {
             admins: admins
         }
     });
-}
+};
 
-Smartix.Class.NotifyParents = Smartix.Class.NotifyStudents = function (studentId, classId) {
+Smartix.Class.NotifyParents = Smartix.Class.NotifyStudents = function (userId, classId) {
     
-    check(studentId, String);
+    check(userId, String);
     check(classId, String);
     
-    let student = Meteor.users.findOne({
-        _id: studentId
+    let user = Meteor.users.findOne({
+        _id: userId
     });
     
-    if(!student) {
+    if(!user) {
         return false;
         // throw new Meteor.Error("student-not-found", "Student with ID of " + studentId + " could not be found");
     }
@@ -487,13 +487,13 @@ Smartix.Class.NotifyParents = Smartix.Class.NotifyStudents = function (studentId
         return false;
         // throw new Meteor.Error("class-not-found", "Class with ID of " + classId + " could not be found");
     }
-
+    //TODO: async send not to block main thread?
     Email.send({
         subject: "You've been added to a class",
         from: Meteor.settings.FROM_EMAIL,
         //"from_name": Meteor.settings.FROM_NAME,
-        to: student.emails[0].address,
-        html: Smartix.notifyEmailTemplate(student, classObj)
+        to: user.emails[0].address,
+        html: Smartix.notifyEmailTemplate(user, classObj)
     })
 };
 
