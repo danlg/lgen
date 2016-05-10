@@ -14,7 +14,7 @@ var processData = function(csv) {
         .replace(' ', '');
     allTextLines[0] = yo;
     return allTextLines.join("\n");
-}
+};
 
 var removeEmptyObjectsFromArray = function(array) {
     
@@ -23,7 +23,7 @@ var removeEmptyObjectsFromArray = function(array) {
     });
     
     return Smartix.Utilities.removeEmptyObjectsFromArray(array);
-}
+};
 
 Template.AdminUsersImport.events({
     'change #user-upload-file': function (event, template) {
@@ -41,10 +41,10 @@ Template.AdminUsersImport.events({
                     Session.set('imported-students', finalResults);
                 },
                 error: function (error, file) {
-                    log.info(error);
+                    log.error(error);
                 }
             });
-        }
+        };
         reader.readAsText(file);
     },
     'click #importUser-submit': function (event, template) {
@@ -72,4 +72,4 @@ Template.AdminUsersImport.helpers({
 
 Template.AdminUsersImport.onDestroyed(function () {
     Session.set('imported-students', null);
-})
+});
