@@ -369,25 +369,42 @@ Smartix.Accounts.School.importStudent = function(namespace, data, currentUser) {
     if(!Smartix.Accounts.School.canImportStudents(namespace, currentUser)) {
         throw new Meteor.Error("permission-denied", "The user does not have permission to perform this action.");
     }
+    
+    let newUsers = [];
+    let errors = [];
 
     _.each(data, function(user, i, users) {
-        let email = user.email;
-        user.profile = {};
-        user.profile.firstName = user.firstName;
-        user.profile.lastName = user.lastName;
+        try {
+            let email = user.email;
+            user.profile = {};
+            user.profile.firstName = user.firstName;
+            user.profile.lastName = user.lastName;
 
-        if (user.dob) {
-            user.dob = moment(user.dob, ["DD/MM/YYYY", "DD-MM-YYYY"]).toString();
-            // user.dob = new Date(user.dob).toISOString();
+            if (user.dob) {
+                user.dob = moment(user.dob, ["DD/MM/YYYY", "DD-MM-YYYY"]).toString();
+                // user.dob = new Date(user.dob).toISOString();
+            }
+
+            delete user.firstName;
+            delete user.lastName;
+            delete user.email;
+            
+            let newUserId = Smartix.Accounts.createUser(email, user, namespace, ['student'], currentUser);
+            
+            if(typeof newUserId === "string") {
+                newUsers.push(newUserId);
+            } else {
+                errors.push(newUserId);
+            }
+        } catch(e) {
+            errors.push(e);
         }
-
-        delete user.firstName;
-        delete user.lastName;
-        delete user.email;
-
-        Smartix.Accounts.createUser(email, user, namespace, ['student'], currentUser)
     });
-
+    
+    return {
+        newUsers: newUsers,
+        errors: errors
+    }
 }
 
 var importParentsCheckIfMotherExists = function(data) {

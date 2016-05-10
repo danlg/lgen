@@ -48,18 +48,29 @@ Template.AdminUsersImport.events({
         reader.readAsText(file);
     },
     'click #importUser-submit': function (event, template) {
-        var importedStudents = Session.get('imported-students');
-        if(Array.isArray(importedStudents)) {
-            Meteor.call('smartix:accounts-schools/importStudents', Router.current().params.school, importedStudents, function (err, res) {
-                if(!err) {
-                    toastr.info(TAPi18n.__("admin.users.import.importSuccess"));
-                } else {
-                    toastr.error(TAPi18n.__("admin.users.import.incorrectImportFormat"));
-                    $('#importStudents__errorMsgBlock').append(err.details);
-                }
-            });
+        if(
+            Router
+            && Router.current()
+            && Router.current().params.school
+        ) {
+            var importedStudents = Session.get('imported-students');
+            if(Array.isArray(importedStudents)) {
+                toastr.info("Users are being added. You will be notified once they have been imported.");
+                Session.set('imported-students', undefined);
+                Meteor.call('smartix:accounts-schools/importStudents', Router.current().params.school, importedStudents, function (err, res) {
+                    if(!err) {
+                        toastr.info(TAPi18n.__("admin.users.import.importSuccess"));
+                        toastr.info(res.newUsers.length + " users have been imported with " + res.errors.length + " errors.");
+                    } else {
+                        toastr.error(TAPi18n.__("admin.users.import.incorrectImportFormat"));
+                        toastr.error(err.reason);
+                    }
+                });
+            } else {
+                toastr.error(TAPi18n.__("admin.users.import.incorrectImportFormat"));
+            }
         } else {
-            toastr.error(TAPi18n.__("admin.users.import.incorrectImportFormat"));
+            toastr.error(TAPi18n.__("applicationError.refreshRequired"));
         }
     }
 });
@@ -71,5 +82,5 @@ Template.AdminUsersImport.helpers({
 });
 
 Template.AdminUsersImport.onDestroyed(function () {
-    Session.set('imported-students', null);
+    Session.set('imported-students', undefined);
 });
