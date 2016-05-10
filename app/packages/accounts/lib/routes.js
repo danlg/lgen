@@ -62,23 +62,6 @@ Roles.ifUserHasRoleInAnyGroup = function (userId, role) {
     return userHasRole;
 }
 
-CheckDob = function(){
-    var userObj = Meteor.user();
-    if(userObj) {
-        var dob = userObj.dob;
-        // If the user does not have their DOB set
-        if (!!!dob
-            // And they have the group of student in any school
-            && Roles.ifUserHasRoleInAnyGroup(userObj._id , 'student')) {
-            Router.go('Dob');
-        }
-    }
-    this.next();
-}
-
-Router.onBeforeAction(CheckDob, {
-  only: ['TabClasses', 'classDetail']
-});
 
 Router.route('/email-reset-password', {
   name: "EmailResetPwd"
