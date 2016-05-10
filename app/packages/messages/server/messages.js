@@ -245,8 +245,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
                 if(group.type === 'newsgroup'){
                     notificationObj.title = message.data.title || "";
                 }
-                //TODO we need to remove user who has not subscribed to push Notification
-                //this is done here in serverNotification
+
                 Meteor.call("doPushNotification", notificationObj,{
                     groupId: groupId,
                     classCode: group.classCode || ""

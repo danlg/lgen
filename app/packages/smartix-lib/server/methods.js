@@ -216,6 +216,7 @@ Meteor.methods({
   },
 
   doPushNotification: function (notificationObj,inAppNotifyObj) {
+    //refer to the above `pushTest` for the input format of notificationObj
   
     var notificationObjType;
     var filteredUserIdsWhoEnablePushNotify = [];
@@ -299,6 +300,23 @@ Meteor.methods({
                 }, socket); 
             });
         });          
+    }else{
+       log.info('other',notificationObj);
+       var userIds = filteredUserIdsWhoEnablePushNotify;
+        
+      //send notification via websocket using Streamy
+      userIds.map(function(userId){
+          //log.info("streamy:newchatmessage:"+userId);
+          var socketObj = Streamy.socketsForUsers(userId);
+          //log.info(socketObj);
+          
+          socketObj._sockets.map(function(socket){
+              Streamy.emit('other', { from: notificationObj.title,
+                                              text: notificationObj.text                                 
+              }, socket); 
+          });
+      });        
+      
     }
 
   },

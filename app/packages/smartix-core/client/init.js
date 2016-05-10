@@ -37,7 +37,28 @@ Meteor.startup(function () {
     //if it is a new newsgroup news
    if(payload.type === 'newsgroup'){
       Router.go('newsgroups.news.list');                   
-   }  
+   }
+   
+   //send from admin to parent to get more info of student absence
+   if(payload.type === 'attendanceToParent'){
+       //TODO: route to attendance list
+   }
+
+   //send from admin to parent to notify leave application has been apporved
+   if(payload.type === 'attendanceApproved'){
+       //TODO: route to attendance item       
+   }
+   
+   //send from parent to admin to notify new leave application has been submitted
+   if(payload.type === 'attendanceSubmission'){
+        //TODO: route to admin panel's attendance page    
+   }
+
+   //send from parent to admin to notify about parent's reply to a student attendance
+   if(payload.type === 'attendanceToAdmin'){
+        //TODO: route to admin panel's attendance page    
+   }
+      
   });
 
 
@@ -155,6 +176,26 @@ Meteor.startup(function () {
       
   }); 
   
+  //when receive any other  message, display a popup, which can be clicked
+  //and be redirected to that chat
+  Streamy.on('other', function(data) {  
+    //determine if browser support Notification API
+    var shouldFallback = false;
+    if ('Notification' in window && Notification.permission == 'granted') {
+        //if Notification API is supported
+        Smartix.helpers.spawnDesktopNotification(data.text, '/img/logo-new.png', data.from, pathToRouteObj);
+    } else {
+        //if  desktop notification is not available, use toastr   
+        log.info(data);
+
+        toastr.info(data.text, data.from,
+            {
+                "closeButton": true,
+                "preventDuplicates": true,
+            }
+        );
+    }               
+  }); 
 
 });
 
