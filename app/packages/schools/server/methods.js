@@ -35,15 +35,22 @@ Meteor.methods({
         Meteor.call('smartix:schools/createSchool',{name:'Shau Kei Wan - Elsa High',username:'elsahighadmin',logo:'1234567',tel:'36655388',web:'http://www.carmel.edu.hk/',email:'elsahighschool@carmel.edu.hk.test',active:true,preferences:{}});
         */
         if (options) {
-
+            options.createdAt = new Date();
+            
+            //TEMP: hardcode expired date = today + 30 days
+            options.planTrialExpiryDate = new Date();
+            options.planTrialExpiryDate.setDate( options.planTrialExpiryDate.getDate() + 30);
         } else {
             throw new Meteor.Error("require-options", "Pass School Object to create a school");
         }
         if (Roles.userIsInRole(Meteor.userId(), 'admin', 'system')) {
             var adminUsername = options.adminUsername || options.username;
             delete options.adminUsername;
+            
+            SchoolsSchema.clean(options);
             check(options, SchoolsSchema);
-
+            
+            
             if (lodash.includes(RESERVED_SCHOOL_NAMES, options.username)) {
                 log.error(CANNOT_BE_SAME_AS_RESERVED_NAMES);
                 return;
@@ -68,7 +75,11 @@ Meteor.methods({
                     preferences: {
                         schoolBackgroundColor:options.preferences.schoolBackgroundColor,
                         schoolTextColor:options.preferences.schoolTextColor
-                    }
+                    },
+                    createdAt: options.createdAt,
+                    planTrialExpiryDate: options.planTrialExpiryDate,
+                    revenueToDate: options.revenueToDate,
+                    revenueToDateCcy: options.revenueToDateCcy
                 });
             } catch (err) {
                 throw err;
