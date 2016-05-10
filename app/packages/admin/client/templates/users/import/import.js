@@ -61,9 +61,11 @@ Template.AdminUsersImport.events({
                     if(!err) {
                         toastr.info(TAPi18n.__("admin.users.import.importSuccess"));
                         toastr.info(res.newUsers.length + " users have been imported with " + res.errors.length + " errors.");
+                        log.info(res.newUsers.length + " users have been imported with " + res.errors.length + " errors.");
                     } else {
                         toastr.error(TAPi18n.__("admin.users.import.incorrectImportFormat"));
                         toastr.error(err.reason);
+                        log.error(err.reason);
                     }
                 });
             } else {
