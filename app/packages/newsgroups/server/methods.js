@@ -47,7 +47,7 @@ Meteor.methods({
                 }
             );              
            }else{
-            throw new Meteor.Error("group-different-namespace", "Can't join the group in different namespace");               
+            throw new Meteor.Error("group-different-namespace", "Can't join the group in different school");
            }
            
        }else{
@@ -69,7 +69,7 @@ Meteor.methods({
                 }
             );              
            }else{
-            throw new Meteor.Error("group-different-namespace", "Can't join the group in different namespace");               
+            throw new Meteor.Error("group-different-namespace", "Can't join the group in different school");
            }
            
        }else{
@@ -91,7 +91,7 @@ Meteor.methods({
                 }
             );              
            }else{
-            throw new Meteor.Error("group-different-namespace", "Can't join the group in different namespace");               
+            throw new Meteor.Error("group-different-namespace", "Can't join the group in different school");
            }
            
        }else{

@@ -29,8 +29,8 @@ Meteor.methods({
       if (resultset) {
         
         if(resultset.namespace !== targetSchoolNamespace){
-          log.info('class/join: cant join the class in different namespace');
-          throw new Meteor.Error("class-different-namespace", "Can't join the class in different namespace");
+          log.error('class/join: cannot join the class of a different namespace');
+          throw new Meteor.Error("class-different-namespace", "Can't join the group in different school");
         }
         
         if (resultset.admins.indexOf(userToAdd) > -1) {
@@ -91,8 +91,8 @@ Meteor.methods({
       if (resultset) {
         
         if(resultset.namespace !== targetSchoolNamespace){
-          log.info('class/join: cant join the class in different namespace');
-          throw new Meteor.Error("class-different-namespace", "Can't join the class in different namespace");
+          log.error('class/join: cannot join the class in different namespace');
+          throw new Meteor.Error("class-different-namespace", "Can't join the class in different school");
         }
         
         else {
