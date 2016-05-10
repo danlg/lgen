@@ -70,3 +70,22 @@ Smartix.Utilities.stringToLetterCase = function (str) {
     // Converts all to lowercase
     return str.replace(/\W+/g, '-').toLowerCase();
 }
+
+Smartix.Utilities.getMinutesSinceMidnight = function (timeString) {
+    if(!timeString) {
+        return null;
+    }
+    var mmt = moment(timeString, 'HH:mm');
+
+    // Your moment at midnight
+    var mmtMidnight = mmt.clone().startOf('day');
+
+    // Difference in minutes
+    var diffMinutes = mmt.clone().diff(mmtMidnight, 'minutes');
+    
+    if(isNaN(diffMinutes)) {
+        return null;
+    }
+    
+    return diffMinutes;
+}

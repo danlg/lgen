@@ -11,49 +11,35 @@ Smartix.Absence.registerExpectedAbsence = function (options, currentUser) {
         currentUser = currentUser || Meteor.userId();
     }
     
-    Smartix.Absence.registerExpectedAbsenceSchema.clean(options);
-    check(options, Smartix.Absence.registerExpectedAbsenceSchema);
+    Smartix.Absence.expectedAbsenceSchema.clean(options);
+    check(options, Smartix.Absence.expectedAbsenceSchema);
+    
+    let isParent = Smartix.Accounts.Relationships.isParent(options.studentId, currentUser, options.namespace);
+    let isAdmin = Smartix.Accounts.School.isAdmin(options.namespace, currentUser);
     
     // Checks if the user is the parent of the student specified
     // Or if they are the admin for the school
-    if(!(Smartix.Accounts.Relationships.isParent(options.studentId, currentUser, options.namespace)
-    || Smartix.Accounts.School.isAdmin(options.namespace, currentUser))) {
+    if(!(isParent || isAdmin)) {
         throw new Meteor.Error("permission-denied", "The user does not have permission to perform this action.");
     }
     
-    // For each day between the dates specified,
-    // Add a new record to the Smartix.Absence.Collections.expected` collection
-    
-    // If the start date and end date are the same
-    // Create one entry in the collection
-    if(moment(options.dateFrom).isSame(options.dateTo, 'day')) {
-        
-        return Smartix.Absence.Collections.expected.insert({
-            studentId: options.studentId,
-            reporterId: options.reporterId,
-            date: moment(options.dateFrom).startOf('day').toDate(),
-            approved: false,
-            message: options.message,
-            namespace: options.namespace
-        });
-    } else {
-        // Get the difference, in days, between the dates
-        let diff = moment(options.dateTo).diff(moment(options.dateFrom), 'days');
-        let i;
-        
-        for(i = 0; i <= diff; i++) {
-            Smartix.Absence.Collections.expected.insert({
-                studentId: options.studentId,
-                reporterId: options.reporterId,
-                date: moment(options.dateFrom).startOf('day').add(i, 'days').toDate(),
-                approved: false,
-                message: options.message,
-                namespace: options.namespace
-            });
-        }
-        
-        return i;
+    if(isParent) {
+        options.approved = false;
     }
+    if(isAdmin) {
+        options.approved = true;
+    }
+    
+    // Add the expected absence entry into the collection
+    return Smartix.Absence.Collections.expected.insert({
+        studentId: options.studentId,
+        reporterId: options.reporterId,
+        dateFrom: options.dateFrom,
+        dateTo: options.dateTo,
+        message: options.message,
+        namespace: options.namespace,
+        approved: options.approved
+    });
 }
 
 Smartix.Absence.approveExpectedAbsence = function(id, currentUser) {

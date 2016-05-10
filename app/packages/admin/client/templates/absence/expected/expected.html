@@ -67,7 +67,8 @@
                     <th>Status</th>
                     <th>First Name</th>
                     <th>Last Name</th>
-                    <th>Date</th>
+                    <th>Start</th>
+                    <th>End</th>
                     <th>Message</th>
                 </tr>
             </thead>
@@ -85,7 +86,8 @@
                             <td>{{profile.firstName}}</td>
                             <td>{{profile.lastName}}</td>
                         {{/with}}
-                        <td>{{date}}</td>
+                        <td>{{startDateTime}}</td>
+                        <td>{{endDateTime}}</td>
                         <td>{{message}}</td>
                     </tr>
                 {{/each}}

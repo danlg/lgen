@@ -28,6 +28,7 @@ Package.onUse(function(api) {
   api.use('iron:router');
   api.use('templating');
   api.use('meteorhacks:aggregate@1.3.0', 'server');
+  api.use('smartix:utilities', 'server');
   api.addFiles('lib/collections.js', ['client', 'server']);
   api.addFiles('lib/routes.js', ['client', 'server']);
   api.addFiles('server/permissions.js', ['server']);

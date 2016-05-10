@@ -1,7 +1,7 @@
 Meteor.methods({
     'smartix:absence/registerExpectedAbsence': function (options) {
-        Smartix.Absence.registerExpectedAbsenceSchema.clean(options);
-        check(options, Smartix.Absence.registerExpectedAbsenceSchema);
+        Smartix.Absence.expectedAbsenceSchema.clean(options);
+        check(options, Smartix.Absence.expectedAbsenceSchema);
         
         return Smartix.Absence.registerExpectedAbsence(options, this.userId);
     },

@@ -3,24 +3,6 @@ function isValidDate(value) {
     return !isNaN(dateWrapper.getDate());
 }
 
-var getMinutesSinceMidnight = function (timeString) {
-    if(!timeString) {
-        return null;
-    }
-    var mmt = moment(timeString, 'HH:mm');
-
-    // Your moment at midnight
-    var mmtMidnight = mmt.clone().startOf('day');
-
-    // Difference in minutes
-    var diffMinutes = mmt.clone().diff(mmtMidnight, 'minutes');
-    
-    if(isNaN(diffMinutes)) {
-        return null;
-    }
-    
-    return diffMinutes;
-}
 
 var convertAttendenceFormat = function (originalRecord, namespace) {
     
@@ -33,15 +15,15 @@ var convertAttendenceFormat = function (originalRecord, namespace) {
         return "Student with the name " + originalRecord.name + " could not be found";
     }
     
-    newRecord.date = new Date(originalRecord.date);
+    newRecord.date = moment(originalRecord.date).format('DD-MM-YYYY');
     
-    if(!isValidDate(newRecord.date)) {
-        return "The date " + originalRecord.name + " for the record with student name " + originalRecord.name + " could not be parsed";
+    if(!newRecord.date) {
+        return "The date " + newRecord.date + " for the record with student name " + originalRecord.name + " could not be parsed";
     }
     
-    newRecord.clockIn = getMinutesSinceMidnight(originalRecord.clockIn);
+    newRecord.clockIn = Smartix.Utilities.getMinutesSinceMidnight(originalRecord.clockIn);
     
-    
+    newRecord.namespace = namespace;
     
     return newRecord;
 }
@@ -79,11 +61,17 @@ var attendenceRecordsPattern = {
     department: String
 };
 
-Smartix.Absence.updateAttendenceRecord = function (records, namespace, currentUser) {
+Smartix.Absence.updateAttendenceRecord = function (records, schoolName, currentUser) {
     
     check(records, Match.OneOf(attendenceRecordsPattern, [attendenceRecordsPattern])),
-    check(namespace, String),
+    check(schoolName, String),
     check(currentUser, Match.Maybe(String));
+    
+    console.log(records);
+    console.log(schoolName);
+    console.log(currentUser);
+    
+    let namespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolName);
     
     // Get the `_id` of the currently-logged in user
     if(!(currentUser === null)) {
@@ -108,11 +96,18 @@ Smartix.Absence.updateAttendenceRecord = function (records, namespace, currentUs
     _.each(records, function(record) { 
         Smartix.Absence.Collections.actual.upsert({
             studentId: record.studentId,
-            date: record.date
+            date: record.date,
+            namespace: namespace
         }, record, {
             multi: false
         });
-    })
+    });
+    
+    // Add a delay of 100 miliseconds to ensure all records are updated
+    Meteor.setTimeout(function () {
+        Smartix.Absence.processAbsencesForDay(namespace, undefined, undefined, currentUser);
+    }, 100);
+    
     
     return {
         insertCount: records.length,
