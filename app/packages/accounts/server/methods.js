@@ -15,7 +15,7 @@ Meteor.methods({
         check(namespace, String);
         check(types, [String]);
         
-        return Smartix.Accounts.createUser(email, options, namespace, types, this.userId);
+        return Smartix.Accounts.createUser(email, options, namespace, types, this.userId, false);
     },
     'smartix:accounts/editUser': function(userId, options) {
         

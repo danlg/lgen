@@ -389,7 +389,7 @@ Smartix.Accounts.School.importStudent = function(namespace, data, currentUser) {
             delete user.lastName;
             delete user.email;
             
-            let newUserId = Smartix.Accounts.createUser(email, user, namespace, ['student'], currentUser);
+            let newUserId = Smartix.Accounts.createUser(email, user, namespace, ['student'], currentUser, true);
             
             if(typeof newUserId === "string") {
                 newUsers.push(newUserId);
@@ -965,7 +965,7 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser) {
                 // Should create a new user
                 let motherUserObj = convertStudentObjectToMother(student);
                 mother = {};
-                mother._id = Smartix.Accounts.createUser(student.motherEmail, motherUserObj, namespace, ['parent'], currentUser);
+                mother._id = Smartix.Accounts.createUser(student.motherEmail, motherUserObj, namespace, ['parent'], currentUser, true);
             } else if(mother === null) {
                 // More than one user has the email specified
                 // Should meld the accounts together
@@ -981,7 +981,7 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser) {
                 // Should create a new user
                 let fatherUserObj = convertStudentObjectToFather(student);
                 father = {};
-                father._id = Smartix.Accounts.createUser(student.fatherEmail, fatherUserObj, namespace, ['parent'], currentUser);
+                father._id = Smartix.Accounts.createUser(student.fatherEmail, fatherUserObj, namespace, ['parent'], currentUser, true);
             } else if(father === null) {
                 // More than one user has the email specified
                 // Should meld the accounts together
