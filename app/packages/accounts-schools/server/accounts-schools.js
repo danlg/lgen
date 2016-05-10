@@ -372,7 +372,7 @@ Smartix.Accounts.School.importStudent = function(namespace, data, currentUser) {
     
     let newUsers = [];
     let errors = [];
-
+    log.info("Importing students for school ", namespace);
     _.each(data, function(user, i, users) {
         try {
             let email = user.email;
@@ -388,9 +388,8 @@ Smartix.Accounts.School.importStudent = function(namespace, data, currentUser) {
             delete user.firstName;
             delete user.lastName;
             delete user.email;
-            
+            log.info("Attempting to create user ",user.profile.firstName, user.profile.lastName);
             let newUserId = Smartix.Accounts.createUser(email, user, namespace, ['student'], currentUser, true);
-            
             if(typeof newUserId === "string") {
                 newUsers.push(newUserId);
             } else {
@@ -398,14 +397,15 @@ Smartix.Accounts.School.importStudent = function(namespace, data, currentUser) {
             }
         } catch(e) {
             errors.push(e);
+            log.error("Error",e);
         }
     });
-    
+    log.info("Finished importing students for school ", namespace);
     return {
         newUsers: newUsers,
         errors: errors
     }
-}
+};
 
 var importParentsCheckIfMotherExists = function(data) {
     if(!data.isSet) {
@@ -423,7 +423,7 @@ var importParentsCheckIfMotherExists = function(data) {
             return "At least one of the mother/father details must be complete."
         }
     }
-}
+};
 
 var importParentsCheckIfFatherExists = function(data) {
     if(!data.isSet) {
@@ -441,7 +441,7 @@ var importParentsCheckIfFatherExists = function(data) {
             return "At least one of the mother/father details must be complete."
         }
     }
-}
+};
 
 var canIdentifyStudent = function(data) {
     let studentId = data.field('studentId');

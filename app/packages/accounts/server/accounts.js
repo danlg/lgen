@@ -202,16 +202,19 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
         catch(e) {
             log.error("Couldn't create user", e);
         }
-
         delete options.email;
         delete options.username;
         options.schools = [namespace];
-
         
-        if(autoEmailVerified === true){
+        if(autoEmailVerified ){
             var newlyCreatedUser = Meteor.users.findOne(newUserId);
-            options.emails = newlyCreatedUser.emails;          
-            options.emails[0].verified = true;
+            if (newlyCreatedUser.emails){
+                options.emails = newlyCreatedUser.emails;
+                options.emails[0].verified = true;
+            }
+            else {
+                log.warn("no email set up for ",newUserId, newlyCreatedUser.profile.firstName, " ", newlyCreatedUser.profile.lastName);
+            }
         }
         //TODO STUB use by splendido:accounts-meld to handle case
         //that user logins by google oauth but already have existing acc with password login`
@@ -235,7 +238,10 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
             //for user created in global
             if(!autoEmailVerified) {
                 try{
-                    Accounts.sendVerificationEmail(newUserId);
+                    if (options.emails && options.emails[0]) {
+                        log.info("Sending verification email to ", options.emails[0]);
+                        Accounts.sendVerificationEmail(newUserId);
+                    }
                 }catch(e){
                     log.error(e);
                 }
