@@ -11,7 +11,7 @@
 
   {{#ionView}}
     {{#ionContent}}      
-	    <form>
+	    
         <style>
           .item{
             white-space: initial;
@@ -23,6 +23,7 @@
            display:initial;
           }
         </style>
+      <form>
         <div class="list ">
           <label class="item item-input">
             Select one of your children to apply for leave:<br/>
@@ -32,6 +33,11 @@
                 <option value="3">Mandy</option>
             </select>
           </label>
+        <div class="card">
+            <div class="item item-text-wrap smaller">
+              The form should be filled in local time of school
+            </div>
+        </div>
           <label class="item">
             Leave Start Date
             <input id='start-date' type="date" value='{{getTodayDate}}' oninvalid="setCustomValidity('Start Date cannot be emptied')"
@@ -57,9 +63,9 @@
             <input id='content' type="text" value='{{email}}' placeholder="Content">
           </label>-->
           
-          <button class="button button-block button-positive">Submit</button>		  	  
+          <button type='button' class="apply-leave-btn button button-block button-positive">Submit</button>		  	  
         </div>	
-	    </form>
+	   </form>
         
      {{/ionContent}}
   {{/ionView}}       
