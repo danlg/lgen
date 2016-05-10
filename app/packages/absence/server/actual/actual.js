@@ -25,6 +25,8 @@ var convertAttendenceFormat = function (originalRecord, namespace) {
     
     newRecord.namespace = namespace;
     
+    console.log(newRecord);
+    
     return newRecord;
 }
 

@@ -65,10 +65,11 @@ Smartix.Absence.processedAbsenceSchema = new SimpleSchema({
         type: String
     },
     date: {
-        type: Date,
+        type: String,
     },
-    expectedAbsenceRecord: {
-        type: String
+    expectedAbsenceRecords: {
+        type: [String],
+        defaultValue: []
     },
     status: {
         type: String,

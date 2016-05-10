@@ -3,7 +3,8 @@ Smartix.Absence = Smartix.Absence || {};
 
 // Temporary until the admin settings page is implemented
 var schoolStartTime = "08:00";
-var consideredAbsent = "10:00";
+var minutesToConsiderAbsent = 120;
+var schoolEndTime = "16:00";
 
 Smartix.Absence.getAllStudentsWhoAreExpectedToTapIn = function (namespace) {
     return Meteor.users.find({
@@ -51,9 +52,10 @@ Smartix.Absence.processAbsencesForDay = function (namespace, date, format, curre
             // `date` is of type `String`
             // Parse using format if provided
             if(typeof format === "string") {
-                parsedDate = moment(date, format);
+                // Assumes all schools uses HKT (UTC +8)
+                parsedDate = moment.utc(date, format).subtract(8, 'hours');
             } else {
-                parsedDate = moment(date);
+                parsedDate = moment.utc(date).subtract(8, 'hours');
             }
         } else if (typeof date === "number") {
             parsedDate = moment(date * 1000);
@@ -93,13 +95,68 @@ Smartix.Absence.processAbsencesForDay = function (namespace, date, format, curre
             
             // Search the expected absences collection for today
             // Assumes all schools uses HKT (UTC +8)
-            let startOfDay = moment.utc(record.date, 'DD-MM-YYYY').subtract(8, 'hours');
-            let endOfDay = startOfDay.add(1, 'day');
-            console.log(startOfDay.unix());
-            console.log(endOfDay.unix());
+            let startOfDay = moment.utc(record.date + " " + schoolStartTime, 'DD-MM-YYYY HH:mm').subtract(8, 'hours');
+            let endOfDay = moment.utc(record.date + " " + schoolEndTime, 'DD-MM-YYYY HH:mm').subtract(8, 'hours');
+            let clockedInTime;
+            if(record.clockIn !== null) {
+                clockedInTime = moment.utc(record.date + " " + record.clockIn, 'DD-MM-YYYY HH:mm').subtract(8, 'hours');
+            } else {
+                clockedInTime = null;
+            }
+            
+            
+            // Get all expected absences relevant to the user at the date specified
+            let relevantAbsences = Smartix.Absence.Collections.expected.find({
+                dateFrom: {
+                    $lt: (endOfDay.unix())
+                },
+                dateTo: {
+                    $gte: (startOfDay.unix())
+                },
+                studentId: record.studentId,
+                namespace: namespace
+            }).fetch();
+            
+            let expectedAbsenceRange = _.reduce(relevantAbsences, function (accumulator, value, index, collection) {
+                accumulator.ids.push(value._id);
+                accumulator.approved = accumulator.approved || value.approved;
+                accumulator.start = Math.min(accumulator.start, value.dateFrom);
+                accumulator.end = Math.max(accumulator.end, value.dateTo);
+                return accumulator;
+            }, {
+                ids: [],
+                approved: false,
+                start: endOfDay.unix(),
+                end: startOfDay.unix()
+            });
+            
+            // Checks if the user has registered an expected absence
+            let processedAbsence = {};
+            processedAbsence.studentId = record.studentId;
+            processedAbsence.date = record.date;
+            processedAbsence.namespace = record.namespace;
+            processedAbsence.clockIn = record.clockIn;
+            
+            // Simple implementation -
+            // If the user's `clockIn` value is less than the last `dateTo` time
+            // Count as `approved/unapproved`
+            
+            
+            if((clockedInTime === null && (Date.now() / 1000) < expectedAbsenceRange.end)
+                || (clockedInTime !== null && clockedInTime.unix() < expectedAbsenceRange.end)) {
+                processedAbsence.expectedAbsenceRecords = expectedAbsenceRange.ids;
+                processedAbsence.status = expectedAbsenceRange.approved ? 'approved' : 'pending';
+            } else {
+                // The user's `clockIn` value is over the last `dateTo` time
+                // User is either late or absent and has not sent in a notice
+                processedAbsence.status = 'missing';
+            }
+            
+            Smartix.Absence.Collections.processed.insert(processedAbsence);
+            
         } else {
             // Student is on-time, no action required
             // console.log(record.studentId + ' is on-time');
         }
-    })
+    })   
 }

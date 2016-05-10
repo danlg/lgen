@@ -20,7 +20,6 @@ Template.AdminAbsenceRegister.onCreated(function () {
 
 Template.AdminAbsenceRegister.events({
     'click .AdminAbsenceRegister__user-search-result': function (event, template) {
-        console.log(event.currentTarget.dataset.userId);
         Session.set('absent-student', event.currentTarget.dataset.userId);
         template.find('#AdminAbsenceRegister__name').value = event.currentTarget.innerHTML;
     },
@@ -35,9 +34,9 @@ Template.AdminAbsenceRegister.events({
         options.reporterId = Meteor.userId();
         
         let dateFrom = template.find("#AdminAbsenceRegister__startDate").value;
-        let timeFrom = template.find("#AdminAbsenceRegister__startDate").value;
+        let timeFrom = template.find("#AdminAbsenceRegister__startTime").value;
         let dateTo = template.find("#AdminAbsenceRegister__endDate").value;
-        let timeTo = template.find("#AdminAbsenceRegister__endDate").value;
+        let timeTo = template.find("#AdminAbsenceRegister__endTime").value;
         
         options.dateFrom = moment(dateFrom + " " + timeFrom).unix();
         options.dateTo = moment(dateTo + " " + timeTo).unix();
@@ -45,8 +44,6 @@ Template.AdminAbsenceRegister.events({
         options.message = template.$('#AdminAbsenceRegister__message').val();
         
         Smartix.Absence.expectedAbsenceSchema.clean(options);
-        
-        console.log(options);
         
         Meteor.call('smartix:absence/registerExpectedAbsence', options, function (err, res) {
             console.log(err);
