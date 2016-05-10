@@ -24,13 +24,21 @@
           }
         </style>
       <form>
+        {{#if Template.subscriptionsReady}}
         <div class="list ">
           <label class="item item-input">
             Select one of your children to apply for leave:<br/>
             <select id="children-id">
-                <option value="1" selected="selected">Terence</option>
-                <option value="2" >Tom</option>
-                <option value="3">Mandy</option>
+                {{#each getAllChildrens}}
+                 
+                 <option value="{{this}}">
+                  {{#with getUserById this}}
+                    {{profile.firstName}} {{profile.lastName}}                  
+                  {{/with}}
+                 </option>
+                {{else}}
+                 <option value="">You have no children in current school</option>
+                {{/each}}
             </select>
           </label>
         <div class="card">
@@ -64,7 +72,8 @@
           </label>-->
           
           <button type='button' class="apply-leave-btn button button-block button-positive">Submit</button>		  	  
-        </div>	
+        </div>
+        {{/if}}
 	   </form>
         
      {{/ionContent}}

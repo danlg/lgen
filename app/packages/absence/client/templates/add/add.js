@@ -1,3 +1,13 @@
+Template.AttendanceRecordAdd.onCreated(function(){
+    
+    var self = this;
+
+    self.subscribe('userRelationships', Meteor.userId());
+    self.subscribe('mySchools');    
+    self.subscribe('allSchoolUsersPerRole',Router.current().params.school);
+    
+});
+
 Template.AttendanceRecordAdd.events({
    
    'click .apply-leave-btn':function(){
@@ -35,5 +45,24 @@ Template.AttendanceRecordAdd.helpers({
         var date = new Date();
         var formattedTime = moment(date).format('HH:mm');
         return formattedTime;
-    },    
+    },
+    getAllChildrens:function(){
+
+        var schoolDoc = SmartixSchoolsCol.findOne({
+            username: Router.current().params.school
+        });
+            
+        var childs = [];
+        var findChilds = Smartix.Accounts.Relationships.Collection.find({ parent: Meteor.userId(), namespace: schoolDoc._id }).fetch();
+        //console.log('findParents', findParents);
+        findChilds.map(function (relationship) {
+            childs.push(relationship.child);
+        });
+        
+        return childs;     
+    },
+    getUserById: function(userId) {
+        var targetUserObj = Meteor.users.findOne(userId);
+        return targetUserObj;
+    }
 })
