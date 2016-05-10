@@ -64,8 +64,8 @@ App.setPreference('BackupWebStorage', 'none');
 //target-device(string)//Allowed values: handset, tablet, universal//Default: universal
 
 //ANDROID
-App.setPreference('android-targetSdkVersion', '19');
-App.setPreference('android-minSdkVersion', '19'); //19 === android 4.4.2
+App.setPreference('android-minSdkVersion', '19'); //19 === android 4.4.2 webview is required
+App.setPreference('android-targetSdkVersion', '23');//should be the latest version
 
 //BOTH
 App.setPreference('Orientation', 'portrait');
