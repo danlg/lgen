@@ -1,34 +1,40 @@
 Meteor.methods({
     
   setChatMessageAsRead:function(updateNotificationObj){
-      log.info("trySetChatMessageAsRead")
-      log.info(updateNotificationObj);
+      //log.info("trySetChatMessageAsRead");
+      //log.info(updateNotificationObj);
       Notifications.update({_id:updateNotificationObj._id},updateNotificationObj);
   },
   setAllChatMessagesAsRead:function(chatRoomId){
-      log.info("trySetChatMessagesAsRead")
-      log.info(Notifications.update({ "eventType" : "newchatmessage",groupId:chatRoomId,userId:Meteor.userId()},{ $set: { hasRead: true } },{multi:true}));
+      //log.info("trySetChatMessagesAsRead");
+      Notifications.update(
+          { "eventType" : "newchatmessage",groupId:chatRoomId,userId:Meteor.userId()},
+          { $set: { hasRead: true } },{multi:true})
   },
   setAllClassMessagesAsRead:function(classCode){
-      log.info("trySetClassMessagesAsRead");
+      //log.info("setAllClassMessagesAsRead");
       var targetClass = Smartix.Groups.Collection.findOne({classCode:classCode});
       if(targetClass){
-        log.info(Notifications.update({ "eventType" : "newclassmessage",groupId:targetClass._id,userId:Meteor.userId()},{ $set: { hasRead: true } },{multi:true}));  
+        Notifications.update({ "eventType" : "newclassmessage",groupId:targetClass._id,userId:Meteor.userId()},{ $set: { hasRead: true } },{multi:true})
       }
   },
   setAllClassCommentsAsRead:function(classCode){
-      log.info("trySetClassCommentsAsRead")
+      //log.info("setAllClassCommentsAsRead");
       var targetClass = Smartix.Groups.Collection.findOne({classCode:classCode});
       if(targetClass){
-        log.info(Notifications.update({ "eventType" : "newclasscomment",groupId:targetClass._id,userId:Meteor.userId()},{ $set: { hasRead: true } },{multi:true}));
+        Notifications.update(
+            { "eventType" : "newclasscomment",groupId:targetClass._id,userId:Meteor.userId()}
+            ,{ $set: { hasRead: true } },{multi:true})
       }
   },
   setAllNewsAsRead:function(currentSchool){
-      log.info("trySetNewsAsRead")
+      //log.info("setAllNewsAsRead");
       var targetClasses = Smartix.Groups.Collection.find({namespace:currentSchool,type:'newsgroup',users:Meteor.userId()}).fetch();
       var targetClassIds = lodash.map(targetClasses,"_id");
       if(targetClasses){
-        log.info(Notifications.update({ "eventType" : "newnewsgroupmessage",groupId:{ $in: targetClassIds},userId:Meteor.userId()},{ $set: { hasRead: true } },{multi:true}));
+          Notifications.update(
+              { "eventType" : "newnewsgroupmessage",groupId:{ $in: targetClassIds},userId:Meteor.userId()}
+              ,{ $set: { hasRead: true } },{multi:true});
       }
   },  
   insertNotification:function(notificationObj){
