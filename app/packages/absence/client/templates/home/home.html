@@ -51,6 +51,9 @@
         </a>
         <a href="{{pathFor route='attendance.list' school=getCurrentSchoolName}}" class="item item-button-right">
             View applied leave(s)
+            {{#if sumOfNewAttendanceApprovedCounter}}
+              <span class='badge badge-assertive'>{{sumOfNewAttendanceApprovedCounter}}</span>
+            {{/if}}   
             <button class="button button-positive">
             <i class="icon ion-checkmark-circled"></i>
             </button>

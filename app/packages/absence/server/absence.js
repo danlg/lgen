@@ -15,7 +15,8 @@ Smartix.Absence.notificationToParentForDetail = function (parentIds, processId, 
     parentIds.each(function (parentId) {
         //1. add to notification obj
         Notifications.insert({
-            eventType: 'attendanceToParent',
+            eventType: 'attendance',
+            eventSubType:'attendanceToParent',
             userId: parentId,
             hasRead: false,
             processId: processId,
@@ -30,7 +31,8 @@ Smartix.Absence.notificationToParentForDetail = function (parentIds, processId, 
             title: 'TBD We need more detail about your children attendance',
             text: 'TBD We need more detail about your children attendance',
             payload: {
-                type: 'attendanceToParent',
+                type: 'attendance',
+                subType:'attendanceToParent',
                 id: processId
             },
             query: { userId: parentId },
@@ -58,7 +60,8 @@ Smartix.Absence.notificationToParentApprovedNotice = function (expectedId, curre
 
         //1. add to notification obj
         Notifications.insert({
-            eventType: 'attendanceApproved',
+            eventType: 'attendance',
+            eventSubType: 'attendanceApproved',
             userId: parentId,
             hasRead: false,
             expectedId: expectedId,
@@ -73,7 +76,8 @@ Smartix.Absence.notificationToParentApprovedNotice = function (expectedId, curre
             title: 'TBD We have approved your leave application',
             text: 'TBD We have approved your leave application',
             payload: {
-                type: 'attendanceApproved',
+                type: 'attendance',
+                subType: 'attendanceApproved',
                 id: expectedId
             },
             query: { userId: parentId },
@@ -99,7 +103,8 @@ Smartix.Absence.notificationToAdminApprovalRequest = function (adminIds, expecte
 
         //1. add to notification obj
         Notifications.insert({
-            eventType: 'attendanceSubmission',
+            eventType: 'attendance',
+            eventSubType:'attendanceSubmission',
             userId: adminId,
             hasRead: false,
             expectedId: expectedId,
@@ -115,7 +120,8 @@ Smartix.Absence.notificationToAdminApprovalRequest = function (adminIds, expecte
             title: 'TBD A Parent has submitted a leave application',
             text: 'TBD A Parent has submitted a leave application',
             payload: {
-                type: 'attendanceSubmission',
+                type: 'attendance',
+                subType:'attendanceSubmission',
                 id: expectedId
             },
             query: { userId: adminId },
@@ -140,7 +146,8 @@ Smartix.Absence.notificationToAdminForDetailReply = function (adminIds, processI
     adminIds.each(function (adminId) {
         //1. add to notification obj
         Notifications.insert({
-            eventType: 'attendanceToAdmin',
+            eventType: 'attendance',
+            eventSubType:'attendanceToAdmin',
             userId: adminId,
             hasRead: false,
             processId: processId,
@@ -156,7 +163,8 @@ Smartix.Absence.notificationToAdminForDetailReply = function (adminIds, processI
             title: 'Parent has replied about children attendance',
             text: 'Parent has replied about children attendance',
             payload: {
-                type: 'attendanceToAdmin',
+                type: 'attendance',
+                subType:'attendanceToAdmin',
                 id: processId
             },
             query: { userId: adminId },

@@ -93,7 +93,10 @@
                     <span class='square-card-description'>{{ toUpperI18N "Contact" }}</span>
                 </a>
                 <a href="{{pathFor route='attendance.home' school=getCurrentSchoolName}}" class="card square-card  square-card-small tiles bg bg-absence">
-                    <span class='square-card-description'>{{ toUpperI18N "Attendance"}} </span>
+                    <span class='square-card-description'>{{ toUpperI18N "Attendance"}}</span>
+                    {{#if sumOfNewAttendanceCounter}}
+                      <span class='square-card-counter badge badge-assertive'>{{sumOfNewAttendanceCounter}}</span>
+                    {{/if}}                    
                 </a>
        </div>     
      
