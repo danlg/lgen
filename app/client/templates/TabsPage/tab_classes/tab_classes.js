@@ -46,25 +46,25 @@ Template.TabClasses.helpers({
   },
 
   canCreateClass: function () {
+
     
-    //for demo
-    return true;
-    
-    /*var currentSchoolId =  Session.get('pickedSchoolId') ;
+    var currentSchoolId =  Session.get('pickedSchoolId') ;
     
     //global only have single role => user , so chat option is always available
     if(!currentSchoolId || currentSchoolId == 'global'){
         return true;
     } else {
-        //In a school context, only teacher or parent can have chat option
-        if( lodash.includes( Roles.getRolesForUser( Meteor.userId(), currentSchoolId ) , 'teacher' ) || 
-            lodash.includes( Roles.getRolesForUser( Meteor.userId(), currentSchoolId ) , 'parent' ) 
-          ){
-            return true;
+      if(Meteor.user() && Meteor.user().roles && Meteor.user().roles[currentSchoolId]){
+        var userRolesInCurrentNamespace = Meteor.user().roles[currentSchoolId];
+        if(userRolesInCurrentNamespace.indexOf(Smartix.Accounts.School.ADMIN)!==-1 ||
+           userRolesInCurrentNamespace.indexOf(Smartix.Accounts.School.PARENT)!==-1 ||
+           userRolesInCurrentNamespace.indexOf(Smartix.Accounts.School.TEACHER)!==-1){
+          return true;
         } else {
-            return false;
+          return false;
         }
-    }*/
+      }
+    }
   },
 
   createdClass: function () {

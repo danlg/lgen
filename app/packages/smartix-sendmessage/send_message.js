@@ -50,7 +50,15 @@ var setCalendar = function(event,sendMsgtemplate){
           
           IonPopup.close();
         }
-      }]
+      },
+      {
+        text: 'Cancel',
+        type: 'button-assertive',
+        onTap:function(){
+          IonPopup.close();
+        }
+      }
+      ]
     });
   };
 /*****************************************************************************/
