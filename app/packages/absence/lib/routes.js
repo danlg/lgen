@@ -1,3 +1,12 @@
+Router.route('/:school/attendance/home', {
+    name: 'attendance.home',
+    layoutTemplate: 'AppLayout',
+    template: 'AttendanceHome',
+    action: function () {
+        this.render('AttendanceHome');
+    }
+});
+
 Router.route('/:school/attendance/list', {
     name: 'attendance.list',
     layoutTemplate: 'AppLayout',
