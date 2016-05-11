@@ -42,26 +42,26 @@
             </select>
           </label>
         <div class="card">
-            <div class="item item-text-wrap smaller">
+            <div class="item item-text-wrap smaller less-top-bottom-padding">
               The form should be filled in local time of school
             </div>
         </div>
         
-          <label class="item">
+          <label class="item less-top-bottom-padding">
             Leave Start Date
             <input id='start-date' type="date" value='{{getTodayDate}}' oninvalid="setCustomValidity('Start Date cannot be emptied')"
             oninput="setCustomValidity('')" placeholder="Start Date" required>
           </label>
-          <label class="item">
+          <label class="item less-top-bottom-padding">
             From
             <input id='start-date-time' type="time" value='{{getDefaultStartDateTime}}' oninvalid="setCustomValidity('Start Date Time cannot be emptied')"
             oninput="setCustomValidity('')" placeholder="Start Date Time" required>
           </label>        
-          <label class="item">
+          <label class="item less-top-bottom-padding">
             Leave End Date
             <input id='end-date' type="date" value='{{getTodayDate}}' placeholder="End Date" required>
           </label>
-          <label class="item">
+          <label class="item less-top-bottom-padding">
             To
             <input id='end-date-time' type="time" value='{{getDefaultEndDateTime}}' placeholder="End Date Time" required>
           </label>
