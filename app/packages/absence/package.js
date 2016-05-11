@@ -42,7 +42,10 @@ Package.onUse(function(api) {
   api.addFiles('server/publications.js', ['server']);  
   
   api.addFiles('client/absence.js', ['client']);
-  
+
+  api.addFiles('client/templates/home/home.html', 'client');
+  api.addFiles('client/templates/home/home.js', 'client'); 
+    
   api.addFiles('client/templates/list/list.html', 'client');
   api.addFiles('client/templates/list/list.js', 'client');
 

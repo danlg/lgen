@@ -57,7 +57,7 @@ Meteor.publish('newsForUser', function(limit, query, namespace) {
     var distributionListsUserBelong = Smartix.Groups.Collection.find({type: 'distributionList', users: this.userId }).fetch();
     var distributionListsUserBelongIds = lodash.map(distributionListsUserBelong,'_id');
     
-    console.log('distributionListsUserBelongIds',distributionListsUserBelongIds);
+    //console.log('distributionListsUserBelongIds',distributionListsUserBelongIds);
     
     var groups = Smartix.Groups.Collection.find({$or:[
             {
