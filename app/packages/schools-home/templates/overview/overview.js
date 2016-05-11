@@ -1,19 +1,19 @@
 Template.MobileSchoolHome.helpers({
-   
+    toUpperI18N:function(key) {
+        return TAPi18n.__(key).toUpperCase();
+    },
+
     schoolLogoUrl:function(){
         var schoolLogoId;
-        
         var schoolDoc = SmartixSchoolsCol.findOne({                                                    
             username: Router.current().params.school                                                                     
         });
-        
         //console.log('schoolDoc',schoolDoc);
         if(schoolDoc) {
             schoolLogoId = schoolDoc.logo;
         
         }
         //console.log(schoolLogoId);
-        
         return Images.findOne(schoolLogoId);
     },
     
