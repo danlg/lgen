@@ -32,7 +32,10 @@ Package.onUse(function(api) {
   api.addFiles('lib/strings.js', ['client', 'server']);
   api.addFiles('lib/accounts-schools.js', ['client', 'server']);
   api.addFiles('client/accounts-schools.js', ['client']);
+
   api.addFiles('server/accounts-schools.js', 'server');
+  api.addFiles('server/import_parents.js', 'server');
+  api.addFiles('server/import_teachers.js', 'server');
   api.addFiles('server/methods.js', 'server');
   api.addFiles('server/publications.js', 'server');
       
