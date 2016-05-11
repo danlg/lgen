@@ -10,16 +10,22 @@
     "Addstudentsandparents": "添加学生和家长",
     "AddMembers": "添加 成员",
     "Allow_this_class_to_be_searched": "允许此课室可被寻找",
-    "App_tour_explain": "软件 游历: 软件的好处!",
+    "And_amp": " & ",
     "and": " 以及 ",
+    "App_tour_explain": "软件 游历: 软件的好处!",
     "HowToAddMemberToYourGroup": "如何在你的群组增加成员",
     "AskParentAndStudentToDownloadApp": "邀请家长和学生下载手机软件“Smartix” on the App Store or on Google Play",
     "AskParentAndStudentToDownloadApp_IOS": "邀请家长和学生下载手机软件 “Smartix” ",
     "AnyoneInThisClassCanStartAChat": "课室的任何成员都可以展开对话",
+    "Attendance": "出席",
+    "Calendar": "日历",
     "Cancel": "取消",
     "CantJoinTheClassYouOwn": "不能再次加入自己创建的课室.",
     "Chat": "聊天",
+    "Chat_with": "与...聊天",
     "Chat_settings": "聊天设定",
+    "ChatRoomInfo": "聊天室 详情",
+    "ChatRoomName": "聊天室名称",
     "ClassCode": "课室 号码",
     "ClassCodeErrorMessage": "课室号码仅接受小写字母（a-z）或者数字（0-9）例如. math123. 课室名称可随意设定.",
     "Class_code_not_available": "不可用. 可尝试",
@@ -30,8 +36,11 @@
     "ClassesIveJoined": "我已加入的课室",
     "Comment": "评论",
     "CommentCounter": "__comment_count__個评论",
+    "Confirm": "确认",
     "Congratulations": "恭喜!",
+    "Contacts": "联系",
     "CreateAClass": "创建课室",
+    "Create_a_group_chat": "创建群组聊天",
     "Customize": "自定义",
     "DateOfBirth": "出生日期",
     "DownloadTheApp": "下载手机软件",
@@ -39,7 +48,7 @@
     "EditClass": "课室设定",
     "Email": "电邮",
     "EmailFormatNotCorrect": "电邮格式不正确",
-    "EmailNotFound": "此电邮不存在。",
+    "EmailNotFound": "此电邮地址不存在。",
     "EmailPostEmbed": "电邮, 张贴或其他方法",
     "EmailSentCheckMailBox": "郵件已經發出，請檢查你的郵箱。",
     "EnjoyTheApp": "前往 Smartix 与学生和家长进行更多的交流!",
@@ -51,11 +60,13 @@
     "ForgetPassword": "忘记密码",
     "GetTheApp": "下载手机软件!",
     "Gmaillogin": "Google 注册 & 登入",
+    "Group_name_optional": "群组名称 (可选)",
     "Help": "帮助",
-    "HelpReply": "You can choose how you want people to reply. Do you allow comments or votes or both?",
+    "HelpReply": "你可以选择用户回复方式. 你可选择用户回复评论、投票或两者兼用",
     "Hide": "隐藏",
     "How_would_you_like_to_add_new_members": "你想如何添加新的成员",
     "How_would_you_like_to_receive_notification": "你想如何接收消息通知?",
+    "In Chat": "成员",
     "InClassInstructions": "课堂介绍",
     "InviteTeacherToLearnHowToAdd": "你现已创建你的第一个课室. 学习如何邀请学生和家长加入你的课室.",
     "Itisworkofftime": "你的老师现时不在，请稍后再试.",
@@ -73,6 +84,7 @@
     "Message": "信息",
     "Member_information": "成员信息",
     "MyAccount": "我的账号",
+    "Moderator": "群组管理员",
     "Motto1": "简单, 免费",
     "Motto2": "即时信息",
     "Motto3": "专为学校",
@@ -98,8 +110,11 @@
     "PasswordNotEnoughLength": "密码至少要有4个字",
     "PasswordNotTheSame": "新密码及新密码确认不一致",
     "PressCtrlCorLongPressToCopy": "长按链接 以复制或 按 Crtl•C 以复制",
-    "PressCrtlCToCopyMac": "按 ⌘•C to copy",
+    "PressCrtlCToCopyMac": "按 ⌘•C 以复制",
     "Privacy_policy": "隐私政策",
+    "Remove": "移除",
+    "RemoveChatRoom": "移除此聊天室",
+    "RemoveUser": "移除成员",
     "RemoveAllUsers": "移除所有成员",
     "RemoveClass": "移除 课室",
     "Reply": "回覆",
@@ -129,8 +144,8 @@
     "SignUp": "注册",
     "SignUpAgreeToTOSAndPP": "通过注册, 你同意",
     "SignUpWithGoogle": "以Google注册",
-    "SignOutSuccess": "You have been signed out successfully",
-    "SignOutFailure": "We could not sign you out. Please try again.",
+    "SignOutSuccess": "你已成功登出",
+    "SignOutFailure": "你未能成功登出. 请重新尝试.",
     "Skip": "跳过",
     "StartNewChat": "创建新的对话",
     "Student": "学生",
@@ -142,10 +157,11 @@
     "Teacher": "老师",
     "Terms_of_service": "服务条款",
     "Thanks_for_sharing": "十分感谢你反馈，有助继续提升我们的服务",
+    "TheFollowingMemberWouldBeRemoved": "以下成员将被移除",
     "ThisCommentIsHidden": "此留言已被隐藏",
     "ThisCommentIsHiddenFromJoinedMembers": "此留言已被隐藏，其他人无法看见。",
     "Type_Class_Name": "输入你的课室名称",
-    "Type_Class_Code": "与你的课室成员共享课室号码 (modifiable)",
+    "Type_Class_Code": "与你的课室成员共享课室号码 (可修改)",
     "Type_Message_Here": "在此输入你的信息",
     "Unsubsribe": "取消订阅",
     "UnsubscribeEmailNotification": "如果你不希望接受电邮通知, 前往 主页: 你 > 通知 > 关闭电邮",
@@ -239,20 +255,20 @@
             }
         }
     },
-    "requiredFields": "Please ensure all required fields are filled-in",
+    "requiredFields": "请确认已填上所需信息",
     "applicationError": {
-        "refreshRequired": "There is an error from our end. Please hard refresh the page and try again."
+        "refreshRequired": "程式出现错误. 请刷新并重新尝试."
     },
     "admin": {
         "users": {
             "import": {
-                "incorrectImportFormat": "The file provided for import does not fit the required format. Please check and try again.",
-                "importSuccess": "Users were imported successfully"
+                "incorrectImportFormat": "此档案不符合所需格式. 请检查并重新尝试.",
+                "importSuccess": "成功输入用户信息"
             },
             "add": {
-                "studentDobRequired": "Date of Birth is required for students",
-                "AddSuccess": "User was added successfully"
+                "studentDobRequired": "学生需要填写出生日期",
+                "AddSuccess": "成功添加用户"
             }
         }
-    }
+    } 
 }
