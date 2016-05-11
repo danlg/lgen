@@ -179,7 +179,7 @@ Smartix.Class.editClass = function (classId, options) {
     // * One of the admins for the class
 
 	if(!(Smartix.Class.isClassAdmin(Meteor.userId(), classId)
-        && Smartix.Accounts.School.isAdmin(existingClass.namespace))) {
+        || Smartix.Accounts.School.isAdmin(existingClass.namespace))) {
         
         log.info('no right to edit class!')
 		return false;
