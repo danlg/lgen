@@ -59,22 +59,22 @@ var setCalendar = function(event,sendMsgtemplate){
 Template.SendMessage.events({
   'click .showActionSheet':function(event,template){
     IonActionSheet.show({
-      titleText: 'What to Attached?',
+      //titleText: 'What to attach?',
       buttons: [
-        { text: 'Document' },
-        { text: 'Calendar' },
+        { text: 'Attach a document' },
+        { text: 'Attach an event' }
       ],
       cancelText: 'Cancel',
       cancel: function() {
-        console.log('Cancelled!');
+        //console.log('Cancelled!');
       },
       buttonClicked: function(index) {
         if (index === 0) {
-          console.log('Document');
+          //console.log('Document');
           $('#documentBtn').click();
         }
         if (index === 1) {
-          console.log('Calendar');
+          //console.log('Calendar');
           setCalendar(event,template);
         }
         return true;

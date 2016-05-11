@@ -45,7 +45,8 @@
 
     background-color: transparent;
 
-    color: $positive;
+    //color: $positive;
+    color: #4271FF;
     font-size: 18px;
 
     &.destructive {
@@ -58,7 +59,7 @@
   padding: 10px;
   color: lighten($base-color, 40%);
   text-align: center;
-  font-size: 12px;
+  font-size: 18px;
 }
 
 .action-sheet-group {
