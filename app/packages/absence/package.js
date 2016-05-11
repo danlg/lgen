@@ -31,6 +31,8 @@ Package.onUse(function(api) {
   api.use('smartix:utilities', 'server');
   api.addFiles('lib/collections.js', ['client', 'server']);
   api.addFiles('lib/routes.js', ['client', 'server']);
+  
+  api.addFiles('server/absence.js', ['server']);  
   api.addFiles('server/permissions.js', ['server']);
   api.addFiles('server/expected/permissions.js', ['server']);
   api.addFiles('server/expected/expected.js', ['server']);

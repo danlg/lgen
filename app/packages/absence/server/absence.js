@@ -42,16 +42,19 @@ Smartix.Absence.notificationToParentForDetail = function (parentIds, processId, 
 }
 
 //Notification from admin to parent to display approval of leave application
-Smartix.Absence.notificationToParentApprovedNotice = function (parentIds, expectedId, currentUserId) {
+Smartix.Absence.notificationToParentApprovedNotice = function (expectedId, currentUserId) {
 
-    check(parentIds, [String]);
     check(expectedId, String);
     check(currentUserId, String);
 
-    var currentUser = Meteor.users().findOne(currentUserId);
-
     var expectedObj = Smartix.Absence.Collections.expected.findOne(expectedId);
-    parentIds.each(function (parentId) {
+    
+    var currentUser = Meteor.users.findOne(currentUserId);
+    
+    var parents = Smartix.Accounts.Relationships.getParentOfStudent(expectedObj.studentId, expectedObj.namespace)
+    var parentIds = lodash.map(parents,'parent');
+    console.log('Smartix.Absence.notificationToParentApprovedNotice',parentIds);
+    parentIds.map(function (parentId) {
 
         //1. add to notification obj
         Notifications.insert({
@@ -60,7 +63,7 @@ Smartix.Absence.notificationToParentApprovedNotice = function (parentIds, expect
             hasRead: false,
             expectedId: expectedId,
             namespace: expectedObj.namespace,
-            messageCreateTimestamp: message.createdAt,
+            messageCreateTimestamp: new Date(),
             messageCreateByUserId: Meteor.userId()
         });
 
