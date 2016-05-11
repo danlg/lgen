@@ -36,6 +36,11 @@ Meteor.methods({
   },  
   insertNotification:function(notificationObj){
       Notifications.insert(notificationObj);
+  },
+  setNotificationAsRead:function(notificationId){
+    Notifications.update(
+        { "_id" : notificationId,userId:Meteor.userId()}
+        ,{ $set: { hasRead: true } },{multi:false});      
   }
     
 });

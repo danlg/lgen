@@ -65,7 +65,13 @@
                                 No
                             {{/if}}
                         </p>                                                                              
-
+                        <p>{{#if recentlyApproved}}
+                                {{#with recentlyApproved}}
+                                    School has <b>approved</b> this application at {{messageCreateTimestamp}} .
+                                    <button data-id='{{_id}}' class='approve-acknowledge-btn'>Acknowledge</button>
+                                {{/with}}
+                            {{/if}}
+                        </p>
                     </div>
 
                 </div>

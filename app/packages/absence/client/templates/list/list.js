@@ -12,7 +12,13 @@ Template.AttendaceList.helpers({
     getUserById: function(userId) {
         var targetUserObj = Meteor.users.findOne(userId);
         return targetUserObj;
-    } 
+    },
+    recentlyApproved:function(){
+       var expectedId = this._id;
+       var relatedNotification =  Notifications.findOne({eventType:'attendance',eventSubType:'attendanceApproved',expectedId: expectedId});
+       return relatedNotification;
+    },
+    
 })
 
 Template.AttendaceList.onCreated(function(){
@@ -28,3 +34,11 @@ Template.AttendaceList.onCreated(function(){
     self.subscribe('allSchoolUsersPerRole',Router.current().params.school);
         
 });
+
+Template.AttendaceList.events({
+    'click .approve-acknowledge-btn':function(event,template){
+        Meteor.call('setNotificationAsRead', $(event.target).data('id') , function(err,result){
+            toastr.info('School will know that you have confirmed it.')
+        });
+    }
+})

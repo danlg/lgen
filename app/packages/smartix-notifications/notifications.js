@@ -1,4 +1,4 @@
-Notifications = new Mongo.Collection('notifications',{idGeneration:'MONGO'});
+Notifications = new Mongo.Collection('notifications');
 
 
 if (Meteor.isServer) {
