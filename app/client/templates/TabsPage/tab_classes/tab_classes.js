@@ -131,7 +131,7 @@ Template.TabClasses.rendered = function () {
   
   //we do not need to show the tour as it is shown before login
   //if sign up by google oauth or user's email is already verified
-  if(Meteor.user() && Meteor.user().emails[0].verified)
+  if(Meteor.user() && Meteor.user().emails && Meteor.user().emails[0].verified)
   {
       if (Meteor.user() && Meteor.user().hybridAppPromote == false) {
         if(!Meteor.isCordova){
