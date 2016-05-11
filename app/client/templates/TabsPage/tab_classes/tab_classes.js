@@ -152,6 +152,7 @@ Template.TabClasses.rendered = function () {
 };
 
 var HowToInviteTour = function () {
+  //TODO: less annoying
   Meteor.call('getUserCreateClassesCount', function (err, count) {
     var createdClassCount = count;
     //log.info(createdClassCount);
