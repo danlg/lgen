@@ -1,3 +1,4 @@
+
 Template.AttendanceHome.helpers({
     getCurrentSchoolName: function() {
         return Router.current().params.school;
@@ -26,10 +27,17 @@ Template.AttendanceHome.onCreated(function(){
        var schoolDoc = SmartixSchoolsCol.findOne({
            username: Router.current().params.school
        });        
-      self.subscribe('smartix:absence/parentGetChildProcessed',schoolDoc._id); 
+      self.subscribe('smartix:absence/parentGetChildProcessed',schoolDoc._id);
+      self.schoolId = schoolDoc._id;
     });    
     self.subscribe('allSchoolUsersPerRole',Router.current().params.school);
-        
+    
+          
+});
+
+Template.AttendanceHome.onDestroyed(function(){
+    //console.log(this.schoolId);
+    Meteor.call('setAttendanceAsRead',this.schoolId, 'attendanceToParent');        
 });
 
 Template.AttendanceHome.events({

@@ -33,7 +33,13 @@ Meteor.methods({
         { "eventType" : "newnewsgroupmessage",userId:Meteor.userId(),namespace:currentSchool}
         ,{ $set: { hasRead: true } },{multi:true});
       
-  },  
+  },
+  setAttendanceAsRead:function(currentSchool,subType){
+    var updateCount = Notifications.update(
+        { "eventType" : "attendance",eventSubType:subType,userId:Meteor.userId(),namespace:currentSchool}
+        ,{ $set: { hasRead: true } },{multi:true});  
+    console.log('setAttendanceAsRead:updateCount',updateCount );  
+  }, 
   insertNotification:function(notificationObj){
       Notifications.insert(notificationObj);
   },

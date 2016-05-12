@@ -30,9 +30,14 @@ Template.AttendaceList.onCreated(function(){
            username: Router.current().params.school
        });        
       self.subscribe('smartix:absence/parentGetChildExpected',schoolDoc._id); 
+      self.schoolId = schoolDoc._id;      
     });    
     self.subscribe('allSchoolUsersPerRole',Router.current().params.school);
         
+});
+
+Template.AttendaceList.onDestroyed(function(){
+    Meteor.call('setAttendanceAsRead',this.schoolId, 'attendanceApproved');        
 });
 
 Template.AttendaceList.events({
