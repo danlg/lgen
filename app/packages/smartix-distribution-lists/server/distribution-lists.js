@@ -5,42 +5,30 @@ Smartix.DistributionLists = Smartix.DistributionLists || {};
 // Permissions for DistributionLists is simple
 // Only admins of the school or the system can change DistributionLists
 Smartix.DistributionLists.hasPermission = function (namespace, currentUser) {
-    if(!Smartix.Accounts.School.isAdmin(namespace, currentUser)) {
-		return false;
-	}
-    return true;
-}
+    return Smartix.Accounts.School.isAdmin(namespace, currentUser);
+};
 
 Smartix.DistributionLists.hasPermissionForList = function (id, currentUser) {
-    
     check(id, String);
     check(currentUser, Match.Maybe(String));
-    
     // Get the `_id` of the currently-logged in user
     if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
-    
     let distributionList = Smartix.Groups.Collection.findOne({
         _id: id
     });
-    
     if(!distributionList) {
         throw new Meteor.Error('list-not-found', "The distribution list with id of " + id + " could not be found.");
     }
-
 	// Checks that the currently-logged in user has
 	// administrative priviledges for the namespace it specified
 	// (i.e. either the admin for the school, or the system admin)
-    if(!Smartix.DistributionLists.hasPermission(distributionList.namespace, currentUser)) {
-		return false;
-		// Optional: Throw an appropriate error if not
-	}
-    return true;
-}
+    return Smartix.DistributionLists.hasPermission(distributionList.namespace, currentUser);
+ 	// Optional: Throw an appropriate error if not
+};
 
 Smartix.DistributionLists.createDistributionList = function (options, currentUser) {
-    
     check(options, {
         users: [String],
         namespace: String,
@@ -49,9 +37,7 @@ Smartix.DistributionLists.createDistributionList = function (options, currentUse
         expectDuplicates: Boolean,
         upsert: Boolean
     });
-    
     check(currentUser, Match.Maybe(String));
-    
     // Get the `_id` of the currently-logged in user
     if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
@@ -64,7 +50,6 @@ Smartix.DistributionLists.createDistributionList = function (options, currentUse
         throw new Meteor.Error("permission-denied", "The user does not have permission to perform this action.");
 		// return false;
 	}
-    
     // Checks that a distribution list with the same name have not been created already
     let groupWithSameName = Smartix.Groups.Collection.findOne({
         name: options.name,
@@ -82,12 +67,10 @@ Smartix.DistributionLists.createDistributionList = function (options, currentUse
             throw new Meteor.Error('list-already-exists', "The distribution list with the name " + options.name + " already exists.")
         }
     }
-    
     // If the URL is not specified, automatically generate one
     if(!options.url) {
         options.url = Smartix.Utilities.stringToLetterCase(options.name);
     }
-    
     // Checks that a distribution list with the same url have not been created already
     let groupWithSameURL = Smartix.Groups.Collection.findOne({
         url: options.url,
@@ -116,16 +99,13 @@ Smartix.DistributionLists.createDistributionList = function (options, currentUse
     
 	// Checks the arguments are of the specified type, convert it if not
 	Smartix.DistributionLists.Schema.clean(distributionList);
-
 	// Checks are done in one go
 	check(distributionList, Smartix.DistributionLists.Schema);
-
 	// Remove duplicates from the `users` array
 	distributionList.users = _.uniq(distributionList.users);
-    
     // Create the distribution list
     return Smartix.Groups.createGroup(distributionList);
-}
+};
 
 Smartix.DistributionLists.editDistributionList = function (id, options, currentUser) {
     check(id, String);
@@ -136,33 +116,27 @@ Smartix.DistributionLists.editDistributionList = function (id, options, currentU
     if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
-    
     // Checks permission
     if(!Smartix.DistributionLists.hasPermissionForList(id, currentUser)) {
 		return false;
 		// Optional: Throw an appropriate error if not
 	}
-    
     // Only can change name and URL
     let newOptions = {};
     if(options.name) {
         newOptions.name = options.name;
     }
-    
     if(options.url) {
         newOptions.url = options.url;
     }
-    
     return Smartix.Groups.update({
         _id: id
     }, {
         $set: newOptions
     });
-    
-}
+};
 
 Smartix.DistributionLists.removeDistributionList = function (id, currentUser) {
-
 	// Checks that `id` is of type String
 	check(id, String);
     check(currentUser, Match.Maybe(String));
@@ -171,64 +145,51 @@ Smartix.DistributionLists.removeDistributionList = function (id, currentUser) {
     if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
-    
     // Checks permission
     if(!Smartix.DistributionLists.hasPermissionForList(id, currentUser)) {
 		return false;
 		// Optional: Throw an appropriate error if not
 	}
-
 	// Remove the distribution list specified
 	Smartix.Groups.deleteGroup(id);
-}
-
+};
 
 Smartix.DistributionLists.addUsersToList = function (id, users, currentUser) {
-
 	// Checks that `id` is of type String
 	check(id, String);
-
 	// Checks that `users` is an array of Strings
 	check(users, [String]);
-    
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
     if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
-
     // Checks permission
     if(!Smartix.DistributionLists.hasPermissionForList(id, currentUser)) {
 		return false;
 		// Optional: Throw an appropriate error if not
 	}
-    
 	// Add users to group
 	Smartix.Groups.addUsersToGroup(id, users);
-}
+};
 
 Smartix.DistributionLists.removeUsersFromList = function (id, users, currentUser) {
-	
 	// Checks that `id` is of type String
 	check(id, String);
-
 	// Checks that `users` is an array of Strings
 	check(users, [String]);
-    
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
     if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
-
 	// Checks permission
     if(!Smartix.DistributionLists.hasPermissionForList(id, currentUser)) {
 		return false;
 		// Optional: Throw an appropriate error if not
 	}
-
 	// Remove users from group
 	Smartix.Groups.removeUsersFromGroup(id, users);
-}
+};
