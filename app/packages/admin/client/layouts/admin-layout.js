@@ -76,6 +76,15 @@ function resizeDetached() {
 //     });
 // });
 
+Template.adminLayout.onCreated(function () {
+    var self = this;
+    if(Router
+    && Router.current()
+    && Router.current().params.school) {
+        this.subscribe('schoolInfo', Router.current().params.school);
+    }
+});
+
 Template.adminLayout.events({
     'click .sidebar-main-toggle': function () {
         // Initialize mini sidebar 

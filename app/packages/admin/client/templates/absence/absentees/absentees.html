@@ -67,6 +67,8 @@
           </tbody>
           </table>
         </div>
+        
+        {{#if Template.subscriptionsReady}}
 
         <table class="table datatable-basic">
             <thead>
@@ -83,41 +85,26 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><button class="label label-success">Approved</button></td>
-                    <td>Simon</td>
-                    <td>Cohen</td>
-                    <td>4C</td>
-                    <td>22 Jun 2016</td>
-                    <td>09:32</td>
-                    <td></td>
-                    <td>11:30</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td><button class="label label-info">Pending Approval</button></td>
-                    <td>Marth</td>
-                    <td>Enright</td>
-                    <td>4C</td>
-                    <td>22 Jun 2016</td>
-                    <td>09:32</td>
-                    <td>12:00</td>
-                    <td>11:53</td>
-                    <td>Sarah Brightbart</td>
-                </tr>
-                <tr>
-                    <td><button class="label label-danger">Missing</button></td>
-                    <td>Sarah</td>
-                    <td>Levy</td>
-                    <td>4C</td>
-                    <td>22 Jun 2016</td>
-                    <td>09:32</td>
-                    <td></td>
-                    <td>11:30</td>
-                    <td></td>
-                </tr>
+                {{#each absentees}}
+                    <tr>
+                        <td><button class="AdminAbsentees__changeStatus label label-{{labelClass}}" data-id="{{_id}}" data-status="{{status}}">{{status}}</button></td>
+                        {{#with userData}}
+                            <td>{{profile.firstName}}</td>
+                            <td>{{profile.lastName}}</td>
+                            <td>{{classroom}}</td>
+                        {{/with}}
+                        <td>{{date}}</td>
+                        <td>{{lastNotified}}</td>
+                        <td>{{eta}}</td>
+                        <td>{{arrivalTime}}</td>
+                        <td>{{admin}}</td>
+                    </tr>
+                {{/each}}
             </tbody>
         </table>
+        {{else}}
+            <div>Loading Table...</div>
+        {{/if}}
     </div>
     <!-- /basic datatable -->
 </template>

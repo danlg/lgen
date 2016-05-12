@@ -62,3 +62,15 @@ Accounts.emailTemplates.resetPassword ={
     return resetPasswordEmailSubject;
   }     
 };
+
+Accounts.emailTemplates.enrollAccount ={
+  html: function (user, url) {
+    return Smartix.enrollmentEmailTemplate(user, url);
+  },
+  subject:function(user) {
+    var subjectLang = user.lang || "en";
+    
+    var enrollmentEmailSubject = TAPi18n.__("EnrollmentEmailSubject", {}, lang_tag= subjectLang);
+    return enrollmentEmailSubject;
+  }     
+};
