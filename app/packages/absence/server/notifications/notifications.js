@@ -6,7 +6,12 @@ Smartix.Absence = Smartix.Absence || {};
 Smartix.Absence.notificationToParentForDetail = function (processId, currentUserId) {
 
     check(processId, String);
-    check(currentUserId, String);
+    check(currentUserId, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    if(!(currentUserId === null)) {
+        currentUserId = currentUserId || Meteor.userId();
+    }
 
     var currentUser = Meteor.users.findOne(currentUserId);
 
@@ -26,7 +31,7 @@ Smartix.Absence.notificationToParentForDetail = function (processId, currentUser
             processId: processId,
             namespace: processObj.namespace,
             messageCreateTimestamp: new Date(),
-            messageCreateByUserId: Meteor.userId()
+            messageCreateByUserId: currentUserId
         });
 
         //2. send push and in-app notification                  
@@ -60,7 +65,12 @@ Smartix.Absence.notificationToParentForDetail = function (processId, currentUser
 Smartix.Absence.notificationToParentApprovedNotice = function (expectedId, currentUserId) {
 
     check(expectedId, String);
-    check(currentUserId, String);
+    check(currentUserId, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    if(!(currentUserId === null)) {
+        currentUserId = currentUserId || Meteor.userId();
+    }
 
     var currentUser = Meteor.users.findOne(currentUserId);
 
@@ -79,7 +89,7 @@ Smartix.Absence.notificationToParentApprovedNotice = function (expectedId, curre
             expectedId: expectedId,
             namespace: expectedObj.namespace,
             messageCreateTimestamp: new Date(),
-            messageCreateByUserId: Meteor.userId()
+            messageCreateByUserId: currentUserId
         });
 
         //2. send push and in-app notification              
@@ -105,7 +115,12 @@ Smartix.Absence.notificationToParentApprovedNotice = function (expectedId, curre
 Smartix.Absence.notificationToAdminApprovalRequest = function (expectedId, currentUserId) {
 
     check(expectedId, String);
-    check(currentUserId, String);
+    check(currentUserId, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    if(!(currentUserId === null)) {
+        currentUserId = currentUserId || Meteor.userId();
+    }
 
     var currentUser = Meteor.users.findOne(currentUserId);
     var expectedObj = Smartix.Absence.Collections.expected.findOne(expectedId);
@@ -126,7 +141,7 @@ Smartix.Absence.notificationToAdminApprovalRequest = function (expectedId, curre
             expectedId: expectedId,
             namespace: expectedObj.namespace,
             messageCreateTimestamp: new Date(),
-            messageCreateByUserId: Meteor.userId()
+            messageCreateByUserId: currentUserId
         });
 
         //2. send push and in-app notification   
@@ -153,7 +168,12 @@ Smartix.Absence.notificationToAdminApprovalRequest = function (expectedId, curre
 Smartix.Absence.notificationToAdminForDetailReply = function (processId, currentUserId) {
 
     check(processId, String);
-    check(currentUserId, String);
+    check(currentUserId, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    if(!(currentUserId === null)) {
+        currentUserId = currentUserId || Meteor.userId();
+    }
 
     var currentUser = Meteor.users.findOne(currentUserId);
 
@@ -176,7 +196,7 @@ Smartix.Absence.notificationToAdminForDetailReply = function (processId, current
             processId: processId,
             namespace: processObj.namespace,
             messageCreateTimestamp: new Date(),
-            messageCreateByUserId: Meteor.userId()
+            messageCreateByUserId: currentUserId
         });
 
         //2. send push and in-app notification 
