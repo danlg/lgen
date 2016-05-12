@@ -219,6 +219,19 @@ Smartix.verificationEmailTemplate = function (userObj, verificationURL) {
   );
 };
 
+Smartix.enrollmentEmailTemplate = function (userObj, initialPwdEmailURL) {
+  var emailLang = userObj.lang || "en";
+  return Spacebars.toHTML(
+    {
+      title: TAPi18n.__("enrollmentEmailContent", {first_name: userObj.profile.firstName}, lang_tag = emailLang),
+      content: '<a href="' + initialPwdEmailURL + '">' + TAPi18n.__("initialPasswordEmailButtonText", {}, lang_tag = emailLang) + '</a>',
+      GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = emailLang),
+      UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = emailLang)
+    },
+    Assets.getText("emailMessageMasterTemplate.html")
+  );
+}; 
+
 Smartix.resetPasswordEmailTemplate = function (userObj, resetPwdEmailURL) {
   var emailLang = userObj.lang || "en";
   return Spacebars.toHTML(

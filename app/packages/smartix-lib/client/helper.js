@@ -356,6 +356,10 @@ Template.registerHelper('formatDateCalendar', function(date) {
   return moment(date).format("LLLL");
 });
 
+Template.registerHelper('formatDateCalendarFromUnixTime', function(unixTime) {
+  return moment.unix(unixTime).format("LLLL");
+});
+
 
 function ping(ip, callback) {
     if (!this.inUse) {

@@ -59,10 +59,7 @@ Meteor.methods({
             var schoolId;
             //TODO: logo pass upload image id
 
-            //WARNING TODO check that schoolname is not taken !
-            //See issue  [Admin] Check uniqueness of school name #350
-            //https://github.com/danlg/lgen/issues/350
-
+            // checks that schoolname is not taken ! implemented in schema, unique
             try {
                 schoolId = SmartixSchoolsCol.insert({
                     name: options.name,

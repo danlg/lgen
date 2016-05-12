@@ -1,19 +1,19 @@
 Template.MobileSchoolHome.helpers({
-   
+    toUpperI18N:function(key) {
+        return TAPi18n.__(key).toUpperCase();
+    },
+
     schoolLogoUrl:function(){
         var schoolLogoId;
-        
         var schoolDoc = SmartixSchoolsCol.findOne({                                                    
             username: Router.current().params.school                                                                     
         });
-        
         //console.log('schoolDoc',schoolDoc);
         if(schoolDoc) {
             schoolLogoId = schoolDoc.logo;
         
         }
         //console.log(schoolLogoId);
-        
         return Images.findOne(schoolLogoId);
     },
     
@@ -42,16 +42,16 @@ Template.MobileSchoolHome.helpers({
         var distributionListsUserBelong = Smartix.Groups.Collection.find({type: 'distributionList', users: Meteor.userId() }).fetch();
         var distributionListsUserBelongIds = lodash.map(distributionListsUserBelong,'_id');
         
-        console.log('distributionListsUserBelongIds',distributionListsUserBelongIds);
+        //console.log('distributionListsUserBelongIds',distributionListsUserBelongIds);
         
         var newsgroupsBydistributionLists =  Smartix.Groups.Collection.find({ type: 'newsgroup', distributionLists: {$in : distributionListsUserBelongIds } , optOutUsersFromDistributionLists :{  $nin : [Meteor.userId()] } }).fetch();      
         var newsgroupsBydistributionListsIds = lodash.map(newsgroupsBydistributionLists,'_id');
         
-        console.log('newsgroupsBydistributionListsIds',newsgroupsBydistributionListsIds);
+        //console.log('newsgroupsBydistributionListsIds',newsgroupsBydistributionListsIds);
         
         newsgroupsIds = newsgroupsIds.concat(newsgroupsByUserArrayIds,newsgroupsBydistributionListsIds);
         
-        console.log('newsgroupsIds',newsgroupsIds);
+        //console.log('newsgroupsIds',newsgroupsIds);
         
         Template.instance().canGetSlidNews.set(true);
         

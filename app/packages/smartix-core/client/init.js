@@ -177,10 +177,13 @@ Meteor.startup(function () {
   }); 
   
   //when receive any other  message, display a popup, which can be clicked
-  //and be redirected to that chat
+  //and be redirected to tab classes
   Streamy.on('other', function(data) {  
     //determine if browser support Notification API
     var shouldFallback = false;
+    var pathToRouteObj ={
+        routeName:'TabClasses'
+    };    
     if ('Notification' in window && Notification.permission == 'granted') {
         //if Notification API is supported
         Smartix.helpers.spawnDesktopNotification(data.text, '/img/logo-new.png', data.from, pathToRouteObj);

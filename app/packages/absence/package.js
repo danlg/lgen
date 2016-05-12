@@ -31,6 +31,7 @@ Package.onUse(function(api) {
   api.use('smartix:utilities', 'server');
   api.addFiles('lib/collections.js', ['client', 'server']);
   api.addFiles('lib/routes.js', ['client', 'server']);
+  
   api.addFiles('server/permissions.js', ['server']);
   api.addFiles('server/expected/permissions.js', ['server']);
   api.addFiles('server/expected/expected.js', ['server']);
@@ -45,7 +46,10 @@ Package.onUse(function(api) {
   api.addFiles('server/publications.js', ['server']);  
   
   api.addFiles('client/absence.js', ['client']);
-  
+
+  api.addFiles('client/templates/home/home.html', 'client');
+  api.addFiles('client/templates/home/home.js', 'client'); 
+    
   api.addFiles('client/templates/list/list.html', 'client');
   api.addFiles('client/templates/list/list.js', 'client');
 

@@ -109,8 +109,7 @@ Template.MyAccount.helpers({
     return Meteor.user();
   }
   , email: function () {
-    //log.info(_.deep(Meteor.user(),'firstname'));
-    return Meteor.user().emails[0].address;
+    return ( Meteor.user() && Meteor.user().emails) ? Meteor.user().emails[0].address : "";
   }
   , editprofile: Schema.editprofile
   , profile: function () {

@@ -60,16 +60,40 @@ Smartix.Notifications.Helpers.sumOfNewCalendarCounter = function(){
    }
 }
 
+
+Smartix.Notifications.Helpers.sumOfNewAttendanceCounter = function(){
+     
+   var newMessageCount =  Notifications.find({'eventType':'attendance','hasRead':false,'namespace':Session.get('pickedSchoolId')}).count();
+        
+   if(newMessageCount > 0 ){
+       return newMessageCount;
+   }else{
+       return false;
+   }
+}
+
+Smartix.Notifications.Helpers.sumOfNewAttendanceApprovedCounter = function(){
+     
+   var newMessageCount =  Notifications.find({'eventType':'attendance','eventSubType':'attendanceApproved','hasRead':false,'namespace':Session.get('pickedSchoolId')}).count();
+        
+   if(newMessageCount > 0 ){
+       return newMessageCount;
+   }else{
+       return false;
+   }
+}
+
 Smartix.Notifications.Helpers.sumOfAllNotificationCounter = function(){
    var groupsInNamespace =  Smartix.Groups.Collection.find({namespace:Session.get('pickedSchoolId')},{fields: {_id:1}}).fetch();
    var groupIdsInNamespace = lodash.map(groupsInNamespace,"_id");
        
-   var newChatMessageCount =  Notifications.find({'eventType':'newchatmessage','hasRead':false,'groupId':{ $in: groupIdsInNamespace }}).count();    
+   var newChatMessageCount =   Notifications.find({'eventType':'newchatmessage','hasRead':false,'groupId':{ $in: groupIdsInNamespace }}).count();    
    var newClassMessageCount =  Notifications.find({'eventType':'newclassmessage','hasRead':false,'groupId':{ $in: groupIdsInNamespace }}).count();
    var newClassCommentCount =  Notifications.find({'eventType':'newclasscomment','hasRead':false,'groupId':{ $in: groupIdsInNamespace }}).count();
-        
-   if( (newChatMessageCount + newClassMessageCount+newClassCommentCount) > 0 ){
-       return (newChatMessageCount + newClassMessageCount + newClassCommentCount);
+   var newAttendanceCount   =  Notifications.find({'eventType':'attendance','hasRead':false,'groupId':{ $in: groupIdsInNamespace }}).count();
+      
+   if( (newChatMessageCount + newClassMessageCount+newClassCommentCount + newAttendanceCount) > 0 ){
+       return (newChatMessageCount + newClassMessageCount + newClassCommentCount + newAttendanceCount);
    }else{
        return false;
    }  
@@ -79,4 +103,6 @@ Template.registerHelper('sumOfNewCalendarCounter',Smartix.Notifications.Helpers.
 Template.registerHelper('sumOfNewChatMessageCounter',Smartix.Notifications.Helpers.sumOfNewChatMessageCounter);
 Template.registerHelper('sumOfNewNewsCounter',Smartix.Notifications.Helpers.sumOfNewNewsCounter);
 Template.registerHelper('sumOfNewClassMessageAndCommentCounter',Smartix.Notifications.Helpers.sumOfNewClassMessageAndCommentCounter );
+Template.registerHelper('sumOfNewAttendanceCounter',Smartix.Notifications.Helpers.sumOfNewAttendanceCounter);
+Template.registerHelper('sumOfNewAttendanceApprovedCounter',Smartix.Notifications.Helpers.sumOfNewAttendanceApprovedCounter);
 Template.registerHelper('sumOfAllNotificationCounter',Smartix.Notifications.Helpers.sumOfAllNotificationCounter);

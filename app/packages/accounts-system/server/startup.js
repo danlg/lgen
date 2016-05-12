@@ -14,7 +14,7 @@ Smartix.Accounts.System.createFirstAdmin = function() {
         // and return its `_id`
         var id = Accounts.createUser({
             username: 'admin',
-            password: 'admin'
+            password: 'genie421'
         });
         
         // Add the newly created user to have the role of system administrator

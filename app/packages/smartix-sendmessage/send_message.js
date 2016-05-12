@@ -12,18 +12,9 @@ var isPlayingSound = false;
 var messageListBaseBorrow = 70;
 var messageListHeightBorrower = ReactiveVar([]);
 var canVote = ReactiveVar(true);
-/*var arr = [];*/
-/*var selectArr = ReactiveVar("");
- var selecting = ReactiveVar(false);*/
 
-/*****************************************************************************/
-/* SendMessage: Event Handlers */
-/*****************************************************************************/
-Template.SendMessage.events({
-  'click .cancel-calendar':function(event,template){
-    template.calendarEvent.set({});
-  },
-  'click .set-calendar':function(event,sendMsgtemplate){
+
+var setCalendar = function(event,sendMsgtemplate){
      IonPopup.show({
       title: 'Set a calendar event',
       templateName: 'CalendarEvent',
@@ -59,9 +50,49 @@ Template.SendMessage.events({
           
           IonPopup.close();
         }
-      }]
+      },
+      {
+        text: 'Cancel',
+        type: 'button-assertive',
+        onTap:function(){
+          IonPopup.close();
+        }
+      }
+      ]
     });
+  };
+/*****************************************************************************/
+/* SendMessage: Event Handlers */
+/*****************************************************************************/
+Template.SendMessage.events({
+  'click .showActionSheet':function(event,template){
+    IonActionSheet.show({
+      //titleText: 'What to attach?',
+      buttons: [
+        { text: 'Attach a document' },
+        { text: 'Attach an event' }
+      ],
+      cancelText: 'Cancel',
+      cancel: function() {
+        //console.log('Cancelled!');
+      },
+      buttonClicked: function(index) {
+        if (index === 0) {
+          //console.log('Document');
+          $('#documentBtn').click();
+        }
+        if (index === 1) {
+          //console.log('Calendar');
+          setCalendar(event,template);
+        }
+        return true;
+      }
+    });     
   },
+  'click .cancel-calendar':function(event,template){
+    template.calendarEvent.set({});
+  },
+  'click .set-calendar': setCalendar,
   'click #allowVote':function(event){
     voteEnableCheck();  
   },
@@ -376,9 +407,6 @@ Template.SendMessage.helpers({
    }else{
      return true;
    }
-  },
-  messageBox: function () {
-    return "";
   },
   addClassBtnStatus: function () {
     return Session.get("isSelecting") ? "hidden" : "";

@@ -9,35 +9,88 @@ Template.AttendanceRecordAdd.onCreated(function(){
 });
 
 Template.AttendanceRecordAdd.events({
-   
-   'click .apply-leave-btn':function(){
-       var applyLeaveObj ={
+
+    'click .apply-leave-btn': function () {
+        var schoolDoc = SmartixSchoolsCol.findOne({
+            username: Router.current().params.school
+        });
+        var applyLeaveObj = {
+            namespace: schoolDoc._id,
             leaveReason: $('#leave-reason').val(),
-            startDate:$('#start-date').val(),
-            startDateTime:$('#start-date-time').val(),
-            endDate:$('#end-date').val(),
-            endDateTime:$('#end-date-time').val()        
-       }
-       
-       //console.log(applyLeaveObj);
-       
-       
-       var transformObj = {
-           leaveReason : applyLeaveObj.leaveReason,
-           startDateUnixTime: moment( new Date( applyLeaveObj.startDate + " " + applyLeaveObj.startDateTime +" GMT+0800" ) ).unix(),
-           endDateUnixTime: moment( new Date( applyLeaveObj.endDate + " " + applyLeaveObj.endDateTime +" GMT+0800" )     ).unix(),
-           startDate :   new Date( applyLeaveObj.startDate + " " + applyLeaveObj.startDateTime +" GMT+0800" ).toUTCString() ,
-           endDate:      new Date( applyLeaveObj.endDate + " " + applyLeaveObj.endDateTime +" GMT+0800" ).toUTCString()      
-       }
-       
-       //console.log(transformObj);
-       
-       if(transformObj.startDateUnixTime > transformObj.endDateUnixTime){
-           toastr.info('Leave start date needs to be earlier than Leave end date')
-       }
-       
+            startDate: $('#start-date').val(),
+            startDateTime: $('#start-date-time').val(),
+            endDate: $('#end-date').val(),
+            endDateTime: $('#end-date-time').val(),
+            studentId: document.getElementById("children-id").value,
+            studentName: document.getElementById('children-id').selectedOptions[0].text
+        }
+
+        //console.log(applyLeaveObj);
+
+
+        var transformObj = {
+            namespace: applyLeaveObj.namespace,
+            studentId: applyLeaveObj.studentId,
+            reporterId: Meteor.userId(),
+            dateFrom: moment(new Date(applyLeaveObj.startDate + " " + applyLeaveObj.startDateTime + " GMT+0800")).unix(),
+            dateTo: moment(new Date(applyLeaveObj.endDate + " " + applyLeaveObj.endDateTime + " GMT+0800")).unix(),
+            message: applyLeaveObj.leaveReason,
+            startDate: new Date(applyLeaveObj.startDate + " " + applyLeaveObj.startDateTime + " GMT+0800").toLocaleString({},{timeZone:"Asia/Hong_Kong"}),
+            endDate: new Date(applyLeaveObj.endDate + " " + applyLeaveObj.endDateTime + " GMT+0800").toLocaleString({},{timeZone:"Asia/Hong_Kong"}),
+            studentName: applyLeaveObj.studentName
+        }
+
+        //console.log(transformObj);
+
+        if (transformObj.dateFrom > transformObj.dateTo) {
+            toastr.info('Leave start date needs to be earlier than Leave end date')
+            return;
+        }
+
+        if (!transformObj.message) {
+            toastr.info('Please fill in reason to leave');
+            return;
+        }
+
+        IonPopup.show({
+            title: TAPi18n.__("ConfirmToApplyLeaveFor") + ": " + transformObj.studentName,
+            subTitle: transformObj.startDate +' - '+ transformObj.endDate,
+            buttons: [
+                {
+                    text: TAPi18n.__("Confirm"),
+                    type: 'button-assertive',
+                    onTap: function () {
+                        IonPopup.close();
+
+                        //add record here
+                        Meteor.call('smartix:absence/registerExpectedAbsence', transformObj, function (err, result) {
+
+                            if (err) {
+                                toastr.error('Apply Leave fails');
+                                log.info(err);
+                            } else {
+                                toastr.info('Apply Leave Success');
+                                $('#leave-reason').val("");
+                            }
+
+
+                        });
+                    }
+                },
+                {
+                    text: TAPi18n.__("Cancel"), type: 'button',
+                    onTap: function () {
+                        IonPopup.close();
+                    }
+                }
+            ]
+        });
+
+
+
+
     }
-    
+
 });
 
 Template.AttendanceRecordAdd.helpers({

@@ -28,17 +28,19 @@ Meteor.methods({
       }
   },
   setAllNewsAsRead:function(currentSchool){
-      //log.info("setAllNewsAsRead");
-      var targetClasses = Smartix.Groups.Collection.find({namespace:currentSchool,type:'newsgroup',users:Meteor.userId()}).fetch();
-      var targetClassIds = lodash.map(targetClasses,"_id");
-      if(targetClasses){
-          Notifications.update(
-              { "eventType" : "newnewsgroupmessage",groupId:{ $in: targetClassIds},userId:Meteor.userId()}
-              ,{ $set: { hasRead: true } },{multi:true});
-      }
+    //log.info("setAllNewsAsRead");
+    Notifications.update(
+        { "eventType" : "newnewsgroupmessage",userId:Meteor.userId(),namespace:currentSchool}
+        ,{ $set: { hasRead: true } },{multi:true});
+      
   },  
   insertNotification:function(notificationObj){
       Notifications.insert(notificationObj);
+  },
+  setNotificationAsRead:function(notificationId){
+    Notifications.update(
+        { "_id" : notificationId,userId:Meteor.userId()}
+        ,{ $set: { hasRead: true } },{multi:false});      
   }
     
 });

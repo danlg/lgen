@@ -1,0 +1,95 @@
+<template name="AttendanceHome">
+  {{#contentFor "headerTitle"}}
+     <h1 class="title">Attendance</h1>
+  {{/contentFor}}
+
+
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton text=" "}}
+  {{/contentFor}}
+
+
+  {{#contentFor "headerButtonRight"}}
+    <!--<div style="position: absolute; right: 0 ; width:12.5%; ">
+      <a href="{{ pathFor 'newsgroups.list'}}" class="button button-clear button-entering button-active">
+        <i class="icon ion-funnel"></i>
+      </a>
+    </div>-->
+
+  {{/contentFor}}
+  
+  {{#ionView}}
+    {{#ionContent}}
+        <div class="card">
+            <div class="item item-text-wrap smaller">
+               We will send you a notification and ask for details if we find that your children is not presented in a school day.
+               <br/>
+               You can also apply for leave
+            </div>
+        </div>
+        
+        {{#each attendanceRecordProcessedRequests}}
+        <div class='card'>
+                
+                    <div class="item item-divider">
+                    From Attendance Record:
+                    </div>            
+                    <div class="item item-text-wrap smaller">
+                        {{studentId}} hasn't been school in {{date}}. Do you know why?
+                    </div>
+                    <div class="button-bar bar-light">
+                        <!--TODO: pass specific date and time of the current request to attendance.add  -->
+                        <a href="{{pathFor route='attendance.add' school=getCurrentSchoolName}}" class="button">Because...</a>
+                        <a data-id='{{_id}}' class="i-dont-know-btn button">I don't know</a>
+                        <a href="{{pathFor route='mobile.school.contact' school=getCurrentSchoolName}}" class="button">Contact School</a>
+                    </div>                
+                
+                <!--<div class="item item-divider">
+                   From Attendance Record:
+                </div>            
+                <div class="item item-text-wrap smaller">
+                    Terence hasn't been school in 2016-03-01. Do you know why?
+                </div>
+                <div class="button-bar bar-light">
+                    <a href="{{pathFor route='attendance.add' school=getCurrentSchoolName}}" class="button">Because...</a>
+                    <a class="button">I don't know</a>
+                    <a href="{{pathFor route='mobile.school.contact' school=getCurrentSchoolName}}" class="button">Contact School</a>
+                </div>-->
+        </div>
+        {{/each}}  
+    <div class="list">
+        <a href="{{pathFor route='attendance.add' school=getCurrentSchoolName}}" class="item item-button-right">
+            Apply for leave
+            <button class="button button-positive">
+            <i class="icon ion-ios-plus-outline"></i>
+            </button>
+        </a>
+        <a href="{{pathFor route='attendance.list' school=getCurrentSchoolName}}" class="item item-button-right">
+            View applied leave(s)
+            {{#if sumOfNewAttendanceApprovedCounter}}
+              <span class='badge badge-assertive'>{{sumOfNewAttendanceApprovedCounter}}</span>
+            {{/if}}   
+            <button class="button button-positive">
+            <i class="icon ion-checkmark-circled"></i>
+            </button>
+        </a>
+        
+              
+        {{#if Template.subscriptionsReady}}
+         {{#with getAttendaceRecord}}     
+            {{#each this}}
+                        
+            {{else}}
+            
+                <a class="item" href="#">
+                    No News
+                </a>         
+            {{/each}}
+         {{/with}}      
+        {{else}}
+          <div class="spinner-loading">{{> ionSpinner icon="spiral"}}</div>
+        {{/if}}
+    </div>
+    {{/ionContent}}
+  {{/ionView}}
+</template>

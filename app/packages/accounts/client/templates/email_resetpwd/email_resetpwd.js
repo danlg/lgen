@@ -13,7 +13,10 @@ Template.EmailResetPwd.events({
         }else{
             Accounts.resetPassword(Session.get('resetPasswordToken'), password, function(err) {
                 if (err) {
-                    log.info('We are sorry but something went wrong.');
+                    log.info('We are sorry but something went wrong.');             
+                    Session.clear();
+                    Router.go('LoginSplash');
+
                 } else {
                     toastr.info(TAPi18n.__("PasswordChanged"));
                     log.info('Your password has been changed. Welcome back!');
