@@ -23,6 +23,13 @@ Smartix.Absence.processParentReply = function(options, currentUser) {
         throw new Meteor.Error('record-not-found', 'The processed absence record with id ' + options.processId + ' could not be found.');
     }
     
+    // Checks if someone else has notified the school already
+    // This can happen if the student have two parent records and
+    // one notified the school before the other
+    if(processedAbsence.status === "approved" || processedAbsence.status === "pending") {
+        throw new Meteor.Error('notice-already-given', 'You, or another parent/guardian of the student has already submitted a notice.');
+    }
+    
     // Create a new expectedAbsence
     let newExpectedAbsenceId = Smartix.Absence.registerExpectedAbsence({
         namespace: processedAbsence.namespace,
