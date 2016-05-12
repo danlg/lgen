@@ -17,7 +17,9 @@ Template.AdminUsersView.helpers({
     },
     userEmail: function () {
         log.info(this);
-        return this.emails[0].address;
+        if(this.emails && Array.isArray(this.emails)) {
+            return this.emails[0].address;
+        }
     },
     userRoles: function () {
         // Get the `_id` of the school from its username
