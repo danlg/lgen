@@ -53,7 +53,7 @@ Template.AdminUsersAdd.events({
         check(roles, [String]);
         check(newUserObj, {
             profile: Object,
-            dob: Match.Maybe(Date),
+            dob: Match.Maybe(String),
             tel: Match.Maybe(String)
         });
 
