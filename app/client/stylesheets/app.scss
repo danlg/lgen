@@ -349,6 +349,15 @@ label span,label i {
     color:black;
 }
 
+.toast-warning {
+  background-color: #ffcf06;
+  opacity: 1 !important;
+}
+
+.toast-warning div,.toast-warning button{
+  color:black;
+}
+
 .toast-close-button{
    font-size: xx-large; 
 }

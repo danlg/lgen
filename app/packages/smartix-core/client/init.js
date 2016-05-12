@@ -61,8 +61,6 @@ Meteor.startup(function () {
       
   });
 
-
-      
   toastr.options = {
     "positionClass": "toast-top-full-width",
     "showDuration": "300",
@@ -73,7 +71,7 @@ Meteor.startup(function () {
     "hideEasing": "linear",
     "showMethod": "slideDown",
     "hideMethod": "slideUp"
-  }
+  };
   
   //use by francocatena:status,using template status_ionic
   Status.setTemplate('ionic');
