@@ -29,6 +29,7 @@ Package.onUse(function(api) {
   api.use('templating');
   api.use('meteorhacks:aggregate@1.3.0', 'server');
   api.use('smartix:utilities', 'server');
+  api.addFiles('lib/variables.js', ['client', 'server']);
   api.addFiles('lib/collections.js', ['client', 'server']);
   api.addFiles('lib/routes.js', ['client', 'server']);
   
@@ -42,6 +43,7 @@ Package.onUse(function(api) {
   api.addFiles('server/processed/processed.js', ['server']);
   api.addFiles('server/processed/publications.js', ['server']);
   api.addFiles('server/notifications/notifications.js', ['server']);
+  api.addFiles('server/notifications/post-notifications.js', ['server']);
   api.addFiles('server/notifications/methods.js', ['server']);
   api.addFiles('server/publications.js', ['server']);  
   

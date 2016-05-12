@@ -6,7 +6,7 @@ Smartix.Absence.Collections.expected = new Mongo.Collection('smartix:absence/exp
 Smartix.Absence.Collections.actual = new Mongo.Collection('smartix:absence/actual');
 Smartix.Absence.Collections.processed = new Mongo.Collection('smartix:absence/processed');
 
-Smartix.Absence.AllowedStatus = ['approved', 'unapproved', 'missing', 'unknown'];
+Smartix.Absence.AllowedStatus = ['approved', 'pending', 'missing', 'unknown'];
 
 Smartix.Absence.expectedAbsenceSchema = new SimpleSchema({
     namespace: {
@@ -90,5 +90,18 @@ Smartix.Absence.processedAbsenceSchema = new SimpleSchema({
         type: Number,
         decimal: false,
         optional: true
+    }
+});
+
+Smartix.Absence.parentReplySchema = new SimpleSchema({
+    processId: {
+        type: String
+    },
+    message: {
+        type: String
+    },
+    eta: {
+        type: Number,
+        decimal: false
     }
 });

@@ -1,11 +1,6 @@
 Smartix = Smartix || {};
 Smartix.Absence = Smartix.Absence || {};
 
-// Temporary until the admin settings page is implemented
-var schoolStartTime = "08:00";
-var minutesToConsiderAbsent = 120;
-var schoolEndTime = "16:00";
-
 Smartix.Absence.getAllStudentsWhoAreExpectedToTapIn = function (namespace) {
     return Meteor.users.find({
     })
@@ -154,7 +149,7 @@ Smartix.Absence.processAbsencesForDay = function (namespace, date, format, curre
             
             // Simple implementation -
             // If the user's `clockIn` value is less than the last `dateTo` time
-            // Count as `approved/unapproved`
+            // Count as `approved/pending`
             
             let hasPhonedIn = (
                 // User has not clocked in and the time now is before the expected absence's end
