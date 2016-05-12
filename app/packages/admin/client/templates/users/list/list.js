@@ -8,12 +8,14 @@ Template.AdminUsersSearch.onCreated(function () {
         // subscribe to the school info first
         var schoolUsername = Router.current().params.school;
         log.info('packages/admin/client/template/users/list#schoolUsername: ' + schoolUsername);
-        self.subscribe('schoolInfo', schoolUsername, function () {
-            var schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolUsername)
-            if(schoolNamespace) {
-                self.subscribe('smartix:accounts/allUsersInNamespace', Smartix.Accounts.School.getNamespaceFromSchoolName(schoolUsername));
-            }
-        })
+        var schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolUsername)
+        log.info('packages/admin/client/template/users/list#schoolNamespace: ' + schoolNamespace);
+        
+        if(schoolNamespace) {
+            self.subscribe('smartix:accounts/allUsersInNamespace', schoolNamespace, function (err, res) {
+                
+            });
+        }
     } else {
         log.info("Please specify a school to list the users for");
     }

@@ -208,8 +208,9 @@
 
             <!-- Main content -->
             <div class="content-wrapper">
-
-                {{> yield}}
+                {{#if Template.subscriptionsReady}}
+                    {{> yield}}
+                {{/if}}
 
             </div>
             <!-- /main content -->
