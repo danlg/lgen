@@ -149,7 +149,7 @@ Smartix.Class.createClass = function (classObj, currentUser) {
             let parents = Smartix.Accounts.Relationships.getParentOfStudent(student, namespace);
             
             _.each(parents, function (parent, i) {
-                Smartix.Class.NotifyStudents(parent._id, newClassId);
+                Smartix.Class.NotifyStudents(parent, newClassId);
             });
         });
     }
@@ -379,7 +379,7 @@ Smartix.Class.addUsersToClass = function (classId, users) {
                 let parents = Smartix.Accounts.Relationships.getParentOfStudent(student, classObj.namespace);
                 
                 _.each(parents, function (parent, i) {
-                    Smartix.Class.NotifyStudents(parent._id, classObj._id);
+                    Smartix.Class.NotifyStudents(parent, classObj._id);
                 });
             });
         }

@@ -114,10 +114,14 @@ Smartix.Accounts.Relationships.getParentOfStudent = function (studentId, namespa
     check(studentId, String);
     check(namespace, String);
     
-    return Smartix.Accounts.Relationships.Collection.find({
+    let relevantRelationships = Smartix.Accounts.Relationships.Collection.find({
         child: studentId,
         namespace: namespace
     }).fetch();
+    
+    return _.map(relevantRelationships, function (val) {
+        return val.parent;
+    })
 }
 
 Smartix.Accounts.Relationships.getChildsOfParent = function (parentId,namespace) {

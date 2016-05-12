@@ -14,12 +14,7 @@ Smartix.Absence.notificationToParentForDetail = function (processId, currentUser
     
 
     // Get the parents
-    let parents = Smartix.Accounts.Relationships.getParentOfStudent(processObj.studentId, processObj.namespace);
-    let parentIds = _.map(parents, function (parent) {
-        return parent._id;
-    });
-    
-    console.log(parentIds);
+    let parentIds = Smartix.Accounts.Relationships.getParentOfStudent(processObj.studentId, processObj.namespace);
 
     parentIds.forEach(function (parentId) {
         //1. add to notification obj
@@ -72,10 +67,7 @@ Smartix.Absence.notificationToParentApprovedNotice = function (expectedId, curre
     var expectedObj = Smartix.Absence.Collections.expected.findOne(expectedId);
     
     // Get the parents
-    let parents = Smartix.Accounts.Relationships.getParentOfStudent(expectedObj.studentId, expectedObj.namespace);
-    let parentIds = _.map(parents, function (parent) {
-        return parent._id;
-    });
+    let parentIds = Smartix.Accounts.Relationships.getParentOfStudent(expectedObj.studentId, expectedObj.namespace);
     
     parentIds.forEach(function (parentId) {
         //1. add to notification obj
