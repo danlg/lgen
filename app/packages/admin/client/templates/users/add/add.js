@@ -31,6 +31,14 @@ Template.AdminUsersAdd.events({
             newUserObj.dob = moment(new Date(template.$('#addUser-dob').eq(0).val())).format('DD-MM-YYYY');
         }
 
+        var password = template.$('#password').eq(0).val();
+        console.log("password", password);
+        if(password.length < 4) {
+            toastr.error("Please provide a password with at least 4 characters");
+            return;
+        }
+        newUserObj.password = password;
+
         var telFieldVal = template.$('#addUser-tel').eq(0).val();
 
         if (telFieldVal !== "") {
@@ -45,7 +53,7 @@ Template.AdminUsersAdd.events({
         check(roles, [String]);
         check(newUserObj, {
             profile: Object,
-            dob: Match.Maybe(String),
+            dob: Match.Maybe(Date),
             tel: Match.Maybe(String)
         });
 
@@ -60,7 +68,8 @@ Template.AdminUsersAdd.events({
                 newUserObj,
                 Router.current().params.school,
                 roles,
-                true, function(err, res) {
+                true, //autoEmailVerified
+                function(err, res) {
                     if (!err) {
                         toastr.info(TAPi18n.__("admin.users.add.addSuccess"));
                     }
