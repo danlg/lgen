@@ -42,9 +42,8 @@
                         Do you know why?
                     </div>
                     <div class="button-bar bar-light">
-                        <!--TODO: pass specific date and time of the current request to attendance.add  -->
                         <a href="{{pathFor route='attendance.addByProcess' school=getCurrentSchoolName processId=getProcessId }}" class="button">Because...</a>
-                        <a data-id='{{_id}}' class="i-dont-know-btn button">I don't know</a>
+                        <!--<a data-id='{{_id}}' class="i-dont-know-btn button">I don't know</a>-->
                         <a href="{{pathFor route='mobile.school.contact' school=getCurrentSchoolName}}" class="button">Contact School</a>
                     </div>                
                 
