@@ -20,6 +20,7 @@ Template.AttendanceRecordAddByProcess.events({
             username: Router.current().params.school
         });
         var applyLeaveObj = {
+            processId: $('#process-id').val(),
             namespace: schoolDoc._id,
             leaveReason: $('#leave-reason').val(),
             startDate: $('#start-date').val(),
@@ -34,11 +35,12 @@ Template.AttendanceRecordAddByProcess.events({
 
 
         var transformObj = {
+            processId: applyLeaveObj.processId,
             namespace: applyLeaveObj.namespace,
             studentId: applyLeaveObj.studentId,
             reporterId: Meteor.userId(),
             dateFrom: moment(new Date(applyLeaveObj.startDate + " " + applyLeaveObj.startDateTime + " GMT+0800")).unix(),
-            dateTo: moment(new Date(applyLeaveObj.endDate + " " + applyLeaveObj.endDateTime + " GMT+0800")).unix(),
+            eta: moment(new Date(applyLeaveObj.endDate + " " + applyLeaveObj.endDateTime + " GMT+0800")).unix(),
             message: applyLeaveObj.leaveReason,
             startDate: new Date(applyLeaveObj.startDate + " " + applyLeaveObj.startDateTime + " GMT+0800").toLocaleString({},{timeZone:"Asia/Hong_Kong"}),
             endDate: new Date(applyLeaveObj.endDate + " " + applyLeaveObj.endDateTime + " GMT+0800").toLocaleString({},{timeZone:"Asia/Hong_Kong"}),
@@ -46,11 +48,6 @@ Template.AttendanceRecordAddByProcess.events({
         }
 
         //console.log(transformObj);
-
-        if (transformObj.dateFrom > transformObj.dateTo) {
-            toastr.info('Leave start date needs to be earlier than Leave end date')
-            return;
-        }
 
         if (!transformObj.message) {
             toastr.info('Please fill in reason to leave');
@@ -68,7 +65,7 @@ Template.AttendanceRecordAddByProcess.events({
                         IonPopup.close();
 
                         //add record here
-                        Meteor.call('smartix:absence/registerExpectedAbsence', transformObj, function (err, result) {
+                        Meteor.call('smartix:absence/replyWithReason', transformObj, function (err, result) {
 
                             if (err) {
                                 toastr.error('Apply Leave fails');

@@ -36,8 +36,8 @@ Smartix.Absence.processParentReply = function(options, currentUser) {
         studentId: processedAbsence.studentId,
         reporterId: currentUser,
         dateFrom: moment.utc(new Date()).startOf('day').subtract(8, 'hours').add(Smartix.Utilities.getMinutesSinceMidnight(schoolStartTime), 'minutes').unix(),
-        dateTo: processedAbsence.eta,
-        message: processedAbsence.message,
+        dateTo: options.eta,
+        message: options.message,
         approved: false
     });
     
