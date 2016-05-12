@@ -273,14 +273,22 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser) {
 	if (!(currentUser === null)) {
 		currentUser = currentUser || Meteor.userId();
 	}
-
+    
+    // Checks the currently-logged in user has permission to import parents
 	if(!Smartix.Accounts.School.canImportParents(namespace, currentUser)) {
 		throw new Meteor.Error("permission-denied", "The user does not have permission to perform this action.");
 	}
-
+    
+    let successCount = 0;
+    let errors = [];
+    
+    // For each parent record
 	_.each(data, function(student, i, students) {
 		log.info(student);
-		// Get the student data
+        
+		////////////////////////////
+        // GET THE STUDENT RECORD //
+        ////////////////////////////
 
 		let studentData;
 
@@ -288,17 +296,30 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser) {
 		if(student.studentEmail) {
 			studentData = Accounts.findUserByEmail(student.studentEmail)
 		}
-		// Otherwise, attempt to find the student based on his/her student ID
-		else if(student.studentId) {
+        
+        // If the email was provided but a user is not found
+		// Or the email field didn't exist
+        // attempt to find the student based on his/her student ID
+		if(studentData === undefined && student.studentId) {
 			studentData = Meteor.users.findOne({
 				studentId: student.studentId,
 				schools: namespace
 			})
 		}
+        
+        // If more than one user is found with the email
+        // Select the first one
+        if(studentData === null) {
+            studentData = Meteor.users.findOne({
+                "emails.address": student.studentEmail
+            });
+        }
 
 		if(!studentData) {
-			throw new Meteor.Error('non-existent-user', 'The student with email: ' + student.studentEmail + " and/or student ID: " + student.studentId + " cannot be found.")
+            errors.push(new Meteor.Error('non-existent-user', 'The student with email: ' + student.studentEmail + " and/or student ID: " + student.studentId + " cannot be found."));
 		}
+        
+        let successfulAdd = false;
 
 		// Get the mother's email and check if the user exists
 		let mother;
@@ -340,6 +361,7 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser) {
 			motherOptions.child = studentData._id;
 			motherOptions.name = "Mother";
 			Smartix.Accounts.Relationships.createRelationship(motherOptions, currentUser);
+            successfulAdd = true;
 		}
 
 		if(father) {
@@ -349,8 +371,18 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser) {
 			fatherOptions.child = studentData._id;
 			fatherOptions.name = "Father";
 			Smartix.Accounts.Relationships.createRelationship(fatherOptions, currentUser);
+            successfulAdd = true;
 		}
+        
+        if(successfulAdd) {
+            successCount++;
+        }
 	});
+    
+    return {
+        successCount: successCount,
+        errors: errors
+    }
 };
 
 var importParentsCheckIfMotherExists = function(data) {
