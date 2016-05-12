@@ -62,9 +62,16 @@
           </label>
           <label class="item item-input">
             <input id='leave-reason' type="text" value='{{email}}' placeholder="Reason of Leave" required>
-          </label>                 
-          
-          <button type='button' class="apply-leave-btn button button-block button-positive">Submit</button>		  	  
+          </label>   
+                        
+         {{#if expectedAbsenceRecords}}
+            <div class="item item-text-wrap smaller less-top-bottom-padding">
+             Leave Application has been submitted
+            </div>
+          {{else}}
+             <button type='button' class="apply-leave-btn button button-block button-positive">Submit</button>	          
+          {{/if}}	
+            	  
         </div>
         {{/with}}
         {{/if}}
