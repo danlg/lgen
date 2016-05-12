@@ -78,14 +78,13 @@ Template.AdminUploadAttendence.events({
                 // Toaster to notify success
                 log.info(res);
                 if(res.insertCount) {
-                    $('#AdminUploadAttendence__errorMsgBlock').append(res.insertCount + " records were updated successfully.<br><br>");
+                    toastr.info(res.insertCount + " records were updated successfully");
                 }
                 if(res.errors) {
-                    $('#AdminUploadAttendence__errorMsgBlock').append(res.errors.join("<br><br>"));
+                    toastr.error(res.errors);
                 }
             } else {
-                log.info(err);
-                $('#AdminUploadAttendence__errorMsgBlock').append(err.details);
+                toastr.error(err.details);
             }
         });
     }
