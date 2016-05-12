@@ -54,7 +54,8 @@ Template.AdminUsersAdd.events({
         check(newUserObj, {
             profile: Object,
             dob: Match.Maybe(String),
-            tel: Match.Maybe(String)
+            tel: Match.Maybe(String),
+            password: Match.Maybe(String)
         });
 
         if (Router
