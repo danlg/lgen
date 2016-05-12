@@ -48,157 +48,192 @@ Smartix.Accounts.createUserOptionsSchema = new SimpleSchema([Smartix.Accounts.Sc
     workPhone: { type: String, optional: true }
 }]);
 
-Smartix.Accounts.createUser = function (email, userObj, namespace, types, currentUser, autoEmailVerified) {
-    
+/**
+ * Creates a Smartix User
+ * @param email
+ * @param userObj
+ * @param namespace
+ * @param roles
+ * @param currentUser
+ * @param autoEmailVerified
+ * @param doSendEmail
+ * @returns {[string, boolean] [0] the newuserid, true is newly created and false if updated.}
+ */
+Smartix.Accounts.createUser = function (email, userObj, namespace, roles, currentUser, autoEmailVerified, doSendEmail) {
     // Check that the options provided are valid
     Smartix.Accounts.createUserOptionsSchema.clean(userObj);
     check(userObj, Smartix.Accounts.createUserOptionsSchema);
-    
     // Check that the arguments are of the correct type
     check(email, Match.Maybe(Match.Where(function (val) {
         check(val, String);
         return SimpleSchema.RegEx.Email.test(val);
     })));
-    
     check(namespace, String);
-    check(types, [String]);
+    check(roles, [String]);
     check(currentUser, Match.Maybe(String));
-    
     // Get the `_id` of the currently-logged in user
-    if(!(currentUser === null)) {
-        currentUser = currentUser || Meteor.userId();
-    }
-    
-    var hasPermission = false;
-    
+    if(!(currentUser === null)) { currentUser = currentUser || Meteor.userId(); }
     // Pass the permission checks to the corresponding child package
+    //
+    Smartix.Accounts.checkPermission(roles, currentUser,namespace, Smartix.Accounts.School.canCreateUser, "create");
+
+    var newUserId;
+    // Checks if user already exists
+    if(typeof email === "string" && Accounts.findUserByEmail(email) !== undefined) {
+        // Set `` to the `_id` of the existing user
+        newUserId = Accounts.findUserByEmail(email)._id;
+        log.warn("Adding role(s) " + roles + " to existing user "+ email  + " with id " + newUserId);
+        // Add the role to the user
+        Roles.addUsersToRoles(newUserId, roles, namespace);
+        // If the user is a student, create a distribution list based on the student's class
+        Smartix.Accounts.createOrAddToDistributionList(newUserId, namespace, userObj.classroom, currentUser);
+        return [ newUserId, false ];
+    }
+    else {
+        // Otherwise, if the user does not already exists, create a new user
+        newUserId = Smartix.Accounts.createUserImpl (userObj, email, namespace) ;
+        //splendido:accounts-meld to merge account
+        //that user logins by google oauth but already have existing acc with password login`
+        //https://github.com/danlg/lgen/issues/291
+        userObj.registered_emails = [];
+        userObj.registered_emails.push({address: userObj.email, verified: true});
+
+        //Do not store password in clear in database
+        var tempPassword = userObj.password; delete userObj.password;
+        // Set the password if provided
+        Smartix.Accounts.setPassword(newUserId, tempPassword);
+        Meteor.users.update({_id: newUserId}, {$set: userObj});
+
+        Smartix.Accounts.sendVerificationEmailOrEnrollmentEmail(userObj, newUserId, autoEmailVerified, doSendEmail);
+        // Add the role to the user
+        Roles.addUsersToRoles(newUserId, roles, namespace);
+        // If the user is a student, create a distribution list based on the student's class
+        Smartix.Accounts.createOrAddToDistributionList(newUserId, namespace, userObj.classroom, currentUser);
+        return [newUserId, true ];
+    }
+};
+/**
+ * Use to check permissinon create or delete
+ * @param roles
+ * @param currentUser
+ * @param namespace
+ * @param functioncheck
+ * @param name for error logging purpose "create", "delete", "update"
+ * @returns {boolean}
+ */
+Smartix.Accounts.checkPermission =function(roles, currentUser, namespace, functioncheck, name)  {
+    var hasPermission = false;
     switch(namespace) {
         case 'system':
             // Check permissions on `smartix:accounts-system`
-            hasPermission = Smartix.Accounts.System.canCreateUser(types, currentUser);
+            hasPermission = functioncheck(roles, currentUser);
             break;
         case 'global':
             // Check permission on `smartix:accounts-global`
-            hasPermission = Smartix.Accounts.Global.canCreateUser(types, currentUser);
+            hasPermission = functioncheck(roles, currentUser);
             break;
         default:
             // Pass checking permissions to `smartix:accounts-school`
-            hasPermission = Smartix.Accounts.School.canCreateUser(namespace, types, currentUser);
+            hasPermission = functioncheck(namespace, roles, currentUser);
     }
-    
     if(!hasPermission) {
         // return false;
         // Throw error indicating user does not have permission
-        throw new Meteor.Error("permission-denied", "The user does not have permission to create a user in the namespace " + namespace + ".");
+        throw new Meteor.Error("permission-denied", "The user does not have permission to " + name +" a user in the namespace " + namespace + ".");
     }
-    
-    var userToAddRoleTo;
-    
-    // Checks if user already exists
-    if(typeof email === "string" && Accounts.findUserByEmail(email) !== undefined) {
-        // Set `userToAddRoleTo` to the `_id` of the existing user
-        userToAddRoleTo = Accounts.findUserByEmail(email)._id;
-    } else {
-        // Otherwise, if the user does not already exists, create a new user
-        var newUserOptions = {};
-        if (userObj.username) {
-            newUserOptions.username = userObj.username;
+    return true;
+};
+/**
+ * @param userObj
+ * @param email
+ * @param namespace
+ * @returns the createdUserId
+ */
+Smartix.Accounts.createUserImpl = function (userObj, email, namespace) {
+    var newUserOptions = {};
+    if (userObj.username) {
+        newUserOptions.username = userObj.username;
+    }
+    if (!userObj.username && userObj.profile && userObj.profile.firstName && userObj.profile.lastName) {
+        newUserOptions.username = Smartix.Accounts.helpers.generateUniqueUserName(userObj.profile.firstName, userObj.profile.lastName);
+    }else{
+        log.warn("No username nor first name nor last name for user");
+    }
+    if (userObj.profile) {
+        if (userObj.profile.firstName) {
+            newUserOptions.profile = newUserOptions.profile || {};
+            newUserOptions.profile.firstName = userObj.profile.firstName;
         }
-        if(!userObj.username && userObj.profile && userObj.profile.firstName && userObj.profile.lastName) {
-            newUserOptions.username = Smartix.Accounts.helpers.generateUniqueUserName(userObj.profile.firstName, userObj.profile.lastName);
+        if (userObj.profile.lastName) {
+            newUserOptions.profile = newUserOptions.profile || {};
+            newUserOptions.profile.lastName = userObj.profile.lastName;
         }
-        if (userObj.profile) {
-            if (userObj.profile.firstName) {
-                newUserOptions.profile = newUserOptions.profile || {};
-                newUserOptions.profile.firstName = userObj.profile.firstName;
-            }
-            if (userObj.profile.lastName) {
-                newUserOptions.profile = newUserOptions.profile || {};
-                newUserOptions.profile.lastName = userObj.profile.lastName;
-            }
-        }
-        if(typeof email === "string") {
-            newUserOptions.email = email;
-        }
-        userObj.schools = [namespace];
-        userObj.pushNotifications = newUserOptions.pushNotifications = true;
-        var newUserId;
-        try{
-            newUserId = Accounts.createUser(newUserOptions);
-            log.info('Created successfully newUserId: ',newUserId);
-        }
-        catch(e) {
-            log.error("Couldn't create user", e);
-        }
-        //delete userObj.email;
-        //delete userObj.username;
+    }
+    if (typeof email === "string") {
+        newUserOptions.email = email;
+    }
+    newUserOptions.schools = [namespace];
+    newUserOptions.pushNotifications = true;
+    var newUserId;
+    try {
+        newUserId = Accounts.createUser(newUserOptions);
+        log.info('Created successfully newUserId: ', newUserId);
+    }
+    catch (e) {
+        log.error("Couldn't create user", e);
+    }
+    return newUserId;
+};
 
-        if(autoEmailVerified ){
+Smartix.Accounts.setPassword = function ( newUserId, tmpPassword) {
+    if (tmpPassword && tmpPassword !== "") {
+        log.info("Setting password for user ",newUserId);
+        Accounts.setPassword(newUserId, tmpPassword, {logout: false});
+    }
+};
+
+Smartix.Accounts.sendVerificationEmailOrEnrollmentEmail = function (userObj, newUserId, autoEmailVerified, doSendEmail) {
+    if ( userObj.email && userObj.email[0] ) {
+        if (autoEmailVerified) {
             var newlyCreatedUser = Meteor.users.findOne(newUserId);
-            if (newlyCreatedUser.emails){
+            if (newlyCreatedUser.emails) {
                 userObj.emails = newlyCreatedUser.emails;
                 userObj.emails[0].verified = true;
             }
             else {
-                log.warn("no email set up for ",newUserId, newlyCreatedUser.profile.firstName, " ", newlyCreatedUser.profile.lastName);
+                log.warn("no email set up for ", newUserId, newlyCreatedUser.profile.firstName, " ", newlyCreatedUser.profile.lastName);
             }
         }
-        //TODO STUB use by splendido:accounts-meld to handle case
-        //that user logins by google oauth but already have existing acc with password login`
-        //https://github.com/danlg/lgen/issues/291
-        userObj.registered_emails=[];
-        userObj.registered_emails.push({address:userObj.email,verified:true});
-        //TODO STUB use by splendido:accounts-meld ends
-
-        Meteor.users.update({
-            _id: newUserId
-        }, {
-            $set: userObj
-        });
-        
-        // Set the password if provided
-        if(userObj.password && typeof userObj.password === 'string') {
-            log.info("Setting password for user ",userObj.email);
-            Accounts.setPassword(newUserId, userObj.password, {logout: false});
-            //for user created in global
-            if(!autoEmailVerified) {
-                try{
-                    if (userObj.emails && userObj.emails[0]) {
-                        log.info("Sending verification email to ", userObj.emails[0]);
-                        Accounts.sendVerificationEmail(newUserId);
-                    }
-                }catch(e){
-                    log.error(e);
-                }
-            }
-        } else {
-            // Otherwise, send an enrollment email
+        if (!autoEmailVerified && doSendEmail) {
             try {
-                Accounts.sendEnrollmentEmail(newUserId);
-            } catch(e) {
-                // If the email cannot be sent, set a password of `password`
-                log.info(e);
-                // Temporary (to be removed once email credentials go into production)
-                Accounts.setPassword(newUserId, 'password', {logout: false});
+                log.info("Sending verification email to ", userObj.emails[0]);
+                Accounts.sendVerificationEmail(newUserId);
+            } catch (e) {
+                log.error("Cannot send verification email to ", userObj.emails[0], e);
             }
         }
-        userToAddRoleTo = newUserId;
+        if (doSendEmail)
+        {
+            try {
+                log.info("Sending enrollment email to ", userObj.emails[0]);
+                Accounts.sendEnrollmentEmail(newUserId);
+            } catch (e) {
+                log.error("Cannot send enrollment email to ", userObj.emails[0], e);
+            }
+        }
     }
-    // Add the role to the user
-    Roles.addUsersToRoles(userToAddRoleTo, types, namespace);
+};
 
-    // If the user is a student,
-    // Create a distribution list based on the student's class
-    if(userObj.classroom) {
+Smartix.Accounts.createOrAddToDistributionList = function (roles, namespace, classroom, currentUser) {
+    if(classroom) {
         Smartix.DistributionLists.createDistributionList({
-            users: [userToAddRoleTo],
+            users: [roles],
             namespace: namespace,
-            name: userObj.classroom,
+            name: classroom,
             expectDuplicates: true,
             upsert: true
         }, currentUser);
     }
-    return userToAddRoleTo;
 };
 
 Smartix.Accounts.removeUser = function (userId, namespace, currentUser) {
@@ -212,12 +247,9 @@ Smartix.Accounts.removeUser = function (userId, namespace, currentUser) {
     }
     
     // Retrieve the target user
-    var targetUser = Meteor.users.findOne({
-        _id: userId
-    });
-    
+    var targetUser = Meteor.users.findOne( {_id: userId });
     var hasPermission = false;
-    
+    //TODO user new function checkPermission to factor the code
     // Pass the permission checks to the corresponding child package
     switch(namespace) {
         case 'system':
@@ -293,44 +325,34 @@ Smartix.Accounts.canEditUser = function (userId, options, currentUser) {
         && (Smartix.Accounts.System.isAdmin(currentUser)
         // OR is the user themselves
         || userId === currentUser);
-}
+};
 
 Smartix.Accounts.deleteUser = function (userId, currentUser) {
     if (Smartix.Accounts.canDeleteUser(userId, currentUser)) {
         // Make a copy of the user into a new collection
         // This ensures all records are kept
         // But the user would still be able to create a new account using the same email
-        
-        var userToBeDeleted = Meteor.users.findOne({
-            _id: userId
-        });
-        
+        var userToBeDeleted = Meteor.users.findOne({_id: userId });
         userToBeDeleted.deletedAt = Date.now();
-        
         Smartix.Accounts.DeleteUsersCol.insert(userToBeDeleted, function (err, id) {
             // Remove the user from the `Meteor.users` collection
-            Meteor.users.remove({
-                _id: userId
-            });
+            Meteor.users.remove({ _id: userId });
         });        
     }
-}
+};
 
 Smartix.Accounts.canDeleteUser = function (userId, currentUser) {
-    
     check(userId, Match.Maybe(String));
     check(currentUser, Match.Maybe(String));
-    
     // Get the `_id` of the currently-logged in user
     if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
-    
     // If the user is the only system administrator, you cannot delete
     return (Smartix.Accounts.System.isAdmin(currentUser) && Roles.getUsersInRole('admin', 'system').count() > 0)
         // the user themselves
         || userId === currentUser;
-}
+};
 
 Smartix.Accounts.getUserInfo = function (id, namespace, currentUser) {
     

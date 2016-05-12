@@ -59,12 +59,24 @@ Template.AdminUsersImport.events({
                 Session.set('imported-students', undefined);
                 Meteor.call('smartix:accounts-schools/importStudents', Router.current().params.school, importedStudents, function (err, res) {
                     if(!err) {
-                        toastr.info(TAPi18n.__("admin.users.import.importSuccess"));
-                        toastr.info(res.newUsers.length + " users have been imported with " + res.errors.length + " errors.");
-                        log.info(res.newUsers.length + " users have been imported with " + res.errors.length + " errors.");
+                        var success = res.newUsers.length;
+                        var errors = res.errors.length;
+                        var total = success + errors;
+                        var toasterOption = {
+                            timeOut:0,
+                            "newestOnTop": false
+                        };
+                        if (errors!=0) {
+                            toastr.info(success + "/" + total + " users have been imported with " + res.errors.length + " warnings", null, toasterOption);
+                            toastr.warning("Creating a user sharing an e-mail with an existing user or adding a new role to an existing user are the possible causes of the warning", null,toasterOption);
+                        }
+                        else {
+                            //toastr.info(TAPi18n.__("admin.users.import.importSuccess"), {timeOut:0});
+                            toastr.info(success + "/" + total + " users have been imported successfully", null,toasterOption);
+                        }
                     } else {
-                        toastr.error(TAPi18n.__("admin.users.import.incorrectImportFormat"));
-                        toastr.error(err.reason);
+                        toastr.error(TAPi18n.__("admin.users.import.incorrectImportFormat"), null,toasterOption);
+                        toastr.error(err.reason, null, toasterOption);
                         log.error(err.reason);
                     }
                 });

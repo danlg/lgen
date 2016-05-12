@@ -8,14 +8,17 @@ Accounts.onCreateUser(function (options, user) {
     user.profile = options.profile || {};
     user.profile = lodash.assign({
         firstName: "",
-        lastName: ""
+        lastName: "",
+        avatarValue: "apple"
     }, user.profile);
     user.dob = "";
     user.city = "";
     user.lang = "";
     user.tel = "";
     user.emailNotifications = false;
-    user.pushNotifications = true;
+
+    user.pushNotifications = false;
+
     user.firstChat = true;
     user.firstInvitation = true;
     user.firstPicture = true;
@@ -23,7 +26,9 @@ Accounts.onCreateUser(function (options, user) {
     user.hybridAppPromote = false;
     user.hasUserSeenTour = false;
     user.referral = 0;
-    
+
+    //console.log("user.profile.avatarValue", user.profile.avatarValue);
+
     // If available, overwrite current using Google accounts details
     if (user.services.hasOwnProperty('google')) {
         var existingUser = Meteor.users.findOne({"email":user.services.google.email});

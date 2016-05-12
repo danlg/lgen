@@ -41,20 +41,22 @@ Smartix.Accounts.School.importStudent = function(namespace, data, currentUser) {
 			user.profile = {};
 			user.profile.firstName = user.firstName;
 			user.profile.lastName = user.lastName;
-
 			if (user.dob) {
 				user.dob = moment(user.dob, ["DD/MM/YYYY", "DD-MM-YYYY", "DD-MM-YY", "DD/MM/YY"]).format('DD-MM-YYYY');
+				//stored as a date in mongo db !! why ? plus -1 day with passed date
 				// user.dob = new Date(user.dob).toISOString();
 			}
-
 			delete user.firstName;
 			delete user.lastName;
 			delete user.email;
 			log.info(i+1, "Attempting to create user ", user.profile.firstName, user.profile.lastName);
-			let newUserId = Smartix.Accounts.createUser(email, user, namespace, ['student'], currentUser, true);
-			if(typeof newUserId === "string") {
+			let newUserArray = Smartix.Accounts.createUser(email, user, namespace, ['student'], currentUser, true);
+			let newUserId        =   newUserArray [0];
+			let newUserOrUpdated =   newUserArray [1];
+			if(newUserOrUpdated) {
 				newUsers.push(newUserId);
 			} else {
+				log.warn("The user was not created with email", email);
 				errors.push(newUserId);
 			}
 		} catch(e) {

@@ -66,7 +66,7 @@ Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser) 
 			newTeacherOptions.profile.lastName = teacher.lastName;
 			newTeacherOptions.gender = teacher.gender;
 			newTeacherOptions.mobile = teacher.mobile;
-			teacherId = Smartix.Accounts.createUser(teacher.email, newTeacherOptions, namespace, ['teacher'], currentUser, true)
+			teacherId = Smartix.Accounts.createUser(teacher.email, newTeacherOptions, namespace, ['teacher'], currentUser, true) [0];
 		}
 
 		if(!teacherId || typeof teacherId !== "string") {
