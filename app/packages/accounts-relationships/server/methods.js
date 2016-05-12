@@ -3,7 +3,8 @@ Meteor.methods({
         return Smartix.Accounts.Relationships.getRelationship(relId, this.userId);
     },
     'smartix:accounts-relationships/createRelationship': function(options) {
-        Smartix.Accounts.Relationships.createRelationship(options, this.userId);
+    //e.g Meteor.call('smartix:accounts-relationships/createRelationship',{ parent:'5AWL9FdWwsXnc9rKi' ,child:'HscT8DZ78EfMhwS8v',namespace:'XWXvhBXxmzk8AQibe',name:'mother' });        
+        return Smartix.Accounts.Relationships.createRelationship(options, this.userId);
     },
     'smartix:accounts-relationships/editRelationship': function(id, options) {
         //to be implemented
