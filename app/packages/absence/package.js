@@ -22,6 +22,7 @@ Package.onUse(function(api) {
   api.use('mongo');
   api.use('aldeed:simple-schema');
   api.use('momentjs:moment@2.13.1');
+  api.use('alanning:roles');  
   api.use('smartix:core');
   api.use('smartix:accounts-relationships');  
   api.use('smartix:accounts-schools');
@@ -57,7 +58,10 @@ Package.onUse(function(api) {
 
   api.addFiles('client/templates/add/add.html', 'client');
   api.addFiles('client/templates/add/add.js', 'client'); 
-  
+
+  api.addFiles('client/templates/addByProcess/addByProcess.html', 'client');
+  api.addFiles('client/templates/addByProcess/addByProcess.js', 'client'); 
+    
   api.export('Smartix');
 });
 

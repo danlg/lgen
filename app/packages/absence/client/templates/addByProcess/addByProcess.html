@@ -1,0 +1,75 @@
+<template name='AttendanceRecordAddByProcess'>
+    
+        {{#contentFor "headerTitle"}}
+            <h1 class="title">Apply for leave</h1>
+        {{/contentFor}}
+
+
+        {{#contentFor "headerButtonLeft"}}
+            {{>ionNavBackButton text=" "}}
+        {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}      
+	    
+        <style>
+          .item{
+            white-space: initial;
+          }          
+          .item .item-input{
+            white-space: initial;
+          }
+          .list ::-webkit-scrollbar{
+           display:initial;
+          }
+        </style>
+      <form>
+        {{#if Template.subscriptionsReady}}
+        {{#with getProcessObj}}
+        <div class="list ">
+          <label class="item item-input">
+            
+            Child to apply for leave:<br/>
+            {{#with getUserById studentId}}
+              {{profile.firstName}} {{profile.lastName}}                  
+              <input id='children-id' type="hidden" value='{{../studentId}}' />         
+              <input id='children-name' type="hidden" value='{{profile.firstName}} {{profile.lastName}}' />
+            {{/with}}  
+          </label>
+        <div class="card">
+            <div class="item item-text-wrap smaller less-top-bottom-padding">
+              The form should be filled in local time of school
+            </div>
+        </div>
+        
+          <label class="item less-top-bottom-padding">
+            Leave Start Date {{date}}
+            <input id='start-date' type="date" value='{{getProcessDate}}' oninvalid="setCustomValidity('Start Date cannot be emptied')"
+            oninput="setCustomValidity('')" placeholder="Start Date" required>
+          </label>
+          <label class="item less-top-bottom-padding">
+            From 
+            <input id='start-date-time' type="time" value='{{getDefaultStartDateTime}}' oninvalid="setCustomValidity('Start Date Time cannot be emptied')"
+            oninput="setCustomValidity('')" placeholder="Start Date Time" required>
+          </label>        
+          <label class="item less-top-bottom-padding">
+            Leave End Date {{date}}
+            <input id='end-date' type="date" value='{{getProcessDate}}' placeholder="End Date" required>
+          </label>
+          <label class="item less-top-bottom-padding">
+            To
+            <input id='end-date-time' type="time" value='{{getDefaultEndDateTime}}' placeholder="End Date Time" required>
+          </label>
+          <label class="item item-input">
+            <input id='leave-reason' type="text" value='{{email}}' placeholder="Reason of Leave" required>
+          </label>                 
+          
+          <button type='button' class="apply-leave-btn button button-block button-positive">Submit</button>		  	  
+        </div>
+        {{/with}}
+        {{/if}}
+	   </form>
+        
+     {{/ionContent}}
+  {{/ionView}}       
+</template>

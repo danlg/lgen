@@ -300,7 +300,25 @@ Meteor.methods({
                 }, socket); 
             });
         });          
-    }else{
+    }
+    else if(notificationObj.payload.type === 'attendance' && notificationObj.payload.subType === 'attendanceSubmission'){
+       log.info(notificationObj.payload.subType,notificationObj);
+       var userIds = filteredUserIdsWhoEnablePushNotify;
+        
+      //send notification via websocket using Streamy
+      userIds.map(function(userId){
+          //log.info("streamy:newchatmessage:"+userId);
+          var socketObj = Streamy.socketsForUsers(userId);
+          //log.info(socketObj);
+          
+          socketObj._sockets.map(function(socket){
+              Streamy.emit(notificationObj.payload.subType, { from: notificationObj.title,
+                                              text: notificationObj.text, namespace: notificationObj.payload.namespace                                
+              }, socket); 
+          });
+      });        
+    }
+    else{
        log.info('other',notificationObj);
        var userIds = filteredUserIdsWhoEnablePushNotify;
         

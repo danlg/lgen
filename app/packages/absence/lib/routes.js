@@ -26,11 +26,22 @@ Router.route('/:school/attendance/view/:msgid', {
 });
 
 
+
+
 Router.route('/:school/attendance/leave-application', {
     name: 'attendance.add',
     layoutTemplate: 'AppLayout',
     template: 'AttendanceRecordAdd',
     action: function () {
         this.render('AttendanceRecordAdd');
+    }
+});
+
+Router.route('/:school/attendance/leave-application/:processId', {
+    name: 'attendance.addByProcess',
+    layoutTemplate: 'AppLayout',
+    template: 'AttendanceRecordAddByProcess',
+    action: function () {
+        this.render('AttendanceRecordAddByProcess');
     }
 });

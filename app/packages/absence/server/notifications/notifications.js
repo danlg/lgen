@@ -115,12 +115,11 @@ Smartix.Absence.notificationToAdminApprovalRequest = function (expectedId, curre
 
     var currentUser = Meteor.users.findOne(currentUserId);
     var expectedObj = Smartix.Absence.Collections.expected.findOne(expectedId);
-    
+    //console.log('Smartix.Absence.notificationToAdminApprovalRequest',expectedObj);
     // Get all admins
-    var admins = Roles.getUsersInRole('admin', expectedObj.namespace);
-    var adminIds = _.map(admins, function (admin) {
-        return admin._id;
-    });
+    var admins = Roles.getUsersInRole('admin', expectedObj.namespace).fetch();
+    //console.log('Smartix.Absence.notificationToAdminApprovalRequest:admins',admins);
+    var adminIds = lodash.map(admins,'_id');
     
     adminIds.forEach(function (adminId) {
 
@@ -132,7 +131,7 @@ Smartix.Absence.notificationToAdminApprovalRequest = function (expectedId, curre
             hasRead: false,
             expectedId: expectedId,
             namespace: expectedObj.namespace,
-            messageCreateTimestamp: message.createdAt,
+            messageCreateTimestamp: new Date(),
             messageCreateByUserId: Meteor.userId()
         });
 
@@ -145,7 +144,8 @@ Smartix.Absence.notificationToAdminApprovalRequest = function (expectedId, curre
             payload: {
                 type: 'attendance',
                 subType:'attendanceSubmission',
-                id: expectedId
+                id: expectedId,
+                namespace: expectedObj.namespace,
             },
             query: { userId: adminId },
             badge: Smartix.helpers.getTotalUnreadNotificationCount(adminId)

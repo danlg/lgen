@@ -2,6 +2,9 @@ Template.AttendanceHome.helpers({
     getCurrentSchoolName: function() {
         return Router.current().params.school;
     },
+    getProcessId:function(){
+      return this._id;  
+    },
     attendanceRecordProcessedRequests:function(){
        var schoolDoc = SmartixSchoolsCol.findOne({
            username: Router.current().params.school

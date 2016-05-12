@@ -40,22 +40,22 @@ Meteor.startup(function () {
    }
    
    //send from admin to parent to get more info of student absence
-   if(payload.type === 'attendanceToParent'){
+   if(payload.type === 'attendance' && payload.subType === 'attendanceToParent'){
        //TODO: route to attendance list
    }
 
    //send from admin to parent to notify leave application has been apporved
-   if(payload.type === 'attendanceApproved'){
+   if(payload.type === 'attendance' && payload.subType === 'attendanceApproved'){
        //TODO: route to attendance item       
    }
    
    //send from parent to admin to notify new leave application has been submitted
-   if(payload.type === 'attendanceSubmission'){
+   if(payload.type === 'attendance' && payload.subType === 'attendanceSubmission'){
         //TODO: route to admin panel's attendance page    
    }
 
    //send from parent to admin to notify about parent's reply to a student attendance
-   if(payload.type === 'attendanceToAdmin'){
+   if(payload.type === 'attendance' && payload.subType === 'attendanceToAdmin'){
         //TODO: route to admin panel's attendance page    
    }
       
@@ -175,7 +175,35 @@ Meteor.startup(function () {
 
       
   }); 
-  
+
+  //when receive any other  message, display a popup, which can be clicked
+  //and be redirected to tab classes
+  Streamy.on('attendanceSubmission', function(data) {  
+    //determine if browser support Notification API
+    var shouldFallback = false;
+    var schoolDoc = SmartixSchoolsCol.findOne(data.namespace);
+    var pathToRouteObj ={
+        routeName:'admin.absence.expected',
+        params: {school : schoolDoc.username}
+    };
+    
+    //console.log('attendanceSubmission',pathToRouteObj);
+    if ('Notification' in window && Notification.permission == 'granted') {
+        //if Notification API is supported
+        Smartix.helpers.spawnDesktopNotification(data.text, '/img/logo-new.png', data.from, pathToRouteObj);
+    } else {
+        //if  desktop notification is not available, use toastr   
+        log.info(data);
+
+        toastr.info(data.text, data.from,
+            {
+                "closeButton": true,
+                "preventDuplicates": true,
+            }
+        );
+    }               
+  }); 
+   
   //when receive any other  message, display a popup, which can be clicked
   //and be redirected to tab classes
   Streamy.on('other', function(data) {  
