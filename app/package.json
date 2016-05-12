@@ -7,6 +7,7 @@
 
     "localdev" : "meteor --settings ../config/dev.settings.json",
     "localdev-ssl" : "export MONGO_URL=mongodb://127.0.0.1:28888/littlegenius && meteor --settings ../config/dev.settings.json",
+    "localdev-ssl-prd-beware" : "export MONGO_URL=mongodb://127.0.0.1:29999/littlegenius && meteor --settings ../config/dev.settings.json",
     "localdev-clean" : "./clean_build.sh && meteor -v --settings ../config/dev.settings.json",
 
     "ios-local": "meteor run ios --settings ../config/dev.settings.json --mobile-server=http://localhost:3000",
@@ -38,6 +39,7 @@
     "deploy-uat-debug": "./clean_build.sh && cd ../config && mup deploy --config=stage.mup.json --settings=stage.settings.json",
     "deploy-uat"   : "./clean_build.sh && cd ../config && NODE_ENV=production mup deploy --config=stage.mup.json --settings=stage.settings.json",
     "deploy-prd"   : "./clean_build.sh && cd ../config && NODE_ENV=production mup deploy --config=prd.mup.json --settings=prd.settings.json",
+    "deploy-carmel": "./clean_build.sh && cd ../config && NODE_ENV=production mup deploy --config=carmel.mup.json --settings=carmel.settings.json",
 
     "setup"    : "cd ../config && DEBUG=* mup setup   --config=stage.mup.json --settings=stage.settings.json",
     "stop"     : "cd ../config && DEBUG=* mup stop   --config=stage.mup.json --settings=stage.settings.json",

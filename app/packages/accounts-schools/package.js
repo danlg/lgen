@@ -34,6 +34,7 @@ Package.onUse(function(api) {
   api.addFiles('client/accounts-schools.js', ['client']);
 
   api.addFiles('server/accounts-schools.js', 'server');
+  api.addFiles('server/import_students.js', 'server');
   api.addFiles('server/import_parents.js', 'server');
   api.addFiles('server/import_teachers.js', 'server');
   api.addFiles('server/methods.js', 'server');

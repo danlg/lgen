@@ -9,8 +9,7 @@ Smartix.Accounts.DeleteUsersCol = new Mongo.Collection('smartix:accounts/deleted
 Smartix.Accounts.listUserSchools = function () {
     var userToBeChecked = user || Meteor.userId();
     return Roles.getGroupsForUser(userToBeChecked);
-}
-
+};
 
 Smartix.Accounts.createUserOptionsSchema = new SimpleSchema([Smartix.Accounts.Schema.pick([
     'username',
@@ -23,109 +22,37 @@ Smartix.Accounts.createUserOptionsSchema = new SimpleSchema([Smartix.Accounts.Sc
         type: Object,
         blackbox: true
     },
-    password: {
-        type: String,
-        optional: true
-    },
-    studentId: {
-        type: String,
-        optional: true
-    },
-    grade: {
-        type: String,
-        optional: true
-    },
-    classroom: {
-        type: String,
-        optional: true
-    },
-    gender: {
-        type: String,
-        optional: true
-    },
-    salutation: {
-        type: String,
-        optional: true
-    },
-    mobile: {
-        type: String,
-        optional: true
-    },
-    employer: {
-        type: String,
-        optional: true
-    },
-    nationality: {
-        type: String,
-        optional: true
-    },
-    language: {
-        type: String,
-        optional: true
-    },
-    homeAddress1: {
-        type: String,
-        optional: true
-    },
-    homeAddress2: {
-        type: String,
-        optional: true
-    },
-    homeCity: {
-        type: String,
-        optional: true
-    },
-    homeState: {
-        type: String,
-        optional: true
-    },
-    homePostalCode: {
-        type: String,
-        optional: true
-    },
-    homeCountry: {
-        type: String,
-        optional: true
-    },
-    homePhone: {
-        type: String,
-        optional: true
-    },
-    workAddress1: {
-        type: String,
-        optional: true
-    },
-    workAddress2: {
-        type: String,
-        optional: true
-    },
-    workCity: {
-        type: String,
-        optional: true
-    },
-    workState: {
-        type: String,
-        optional: true
-    },
-    workPostalCode: {
-        type: String,
-        optional: true
-    },
-    workCountry: {
-        type: String,
-        optional: true
-    },
-    workPhone: {
-        type: String,
-        optional: true
-    }
+    password: { type: String, optional: true },
+    studentId: { type: String, optional: true },
+    grade: { type: String, optional: true },
+    classroom: { type: String, optional: true },
+    gender: { type: String, optional: true },
+    salutation: { type: String, optional: true },
+    mobile: { type: String, optional: true },
+    employer: { type: String, optional: true },
+    nationality: { type: String, optional: true },
+    language: { type: String, optional: true },
+    homeAddress1: { type: String, optional: true },
+    homeAddress2: { type: String, optional: true },
+    homeCity: { type: String, optional: true },
+    homeState: { type: String, optional: true },
+    homePostalCode: { type: String, optional: true },
+    homeCountry: { type: String, optional: true },
+    homePhone: { type: String, optional: true },
+    workAddress1: { type: String, optional: true },
+    workAddress2: { type: String, optional: true },
+    workCity: { type: String, optional: true },
+    workState: { type: String, optional: true },
+    workPostalCode: { type: String, optional: true },
+    workCountry: { type: String, optional: true },
+    workPhone: { type: String, optional: true },
 }]);
 
-Smartix.Accounts.createUser = function (email, options, namespace, types, currentUser, autoEmailVerified) {
+Smartix.Accounts.createUser = function (email, userObj, namespace, types, currentUser, autoEmailVerified) {
     
     // Check that the options provided are valid
-    Smartix.Accounts.createUserOptionsSchema.clean(options);
-    check(options, Smartix.Accounts.createUserOptionsSchema);
+    Smartix.Accounts.createUserOptionsSchema.clean(userObj);
+    check(userObj, Smartix.Accounts.createUserOptionsSchema);
     
     // Check that the arguments are of the correct type
     check(email, Match.Maybe(Match.Where(function (val) {
@@ -174,26 +101,27 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
     } else {
         // Otherwise, if the user does not already exists, create a new user
         var newUserOptions = {};
-        if (options.username) {
-            newUserOptions.username = options.username;
+        if (userObj.username) {
+            newUserOptions.username = userObj.username;
         }
-        if(!options.username && options.profile && options.profile.firstName && options.profile.lastName) {
-            newUserOptions.username = Smartix.Accounts.helpers.generateUniqueUserName(options.profile.firstName, options.profile.lastName);
+        if(!userObj.username && userObj.profile && userObj.profile.firstName && userObj.profile.lastName) {
+            newUserOptions.username = Smartix.Accounts.helpers.generateUniqueUserName(userObj.profile.firstName, userObj.profile.lastName);
         }
-        if (options.profile) {
-            if (options.profile.firstName) {
+        if (userObj.profile) {
+            if (userObj.profile.firstName) {
                 newUserOptions.profile = newUserOptions.profile || {};
-                newUserOptions.profile.firstName = options.profile.firstName;
+                newUserOptions.profile.firstName = userObj.profile.firstName;
             }
-            if (options.profile.lastName) {
+            if (userObj.profile.lastName) {
                 newUserOptions.profile = newUserOptions.profile || {};
-                newUserOptions.profile.lastName = options.profile.lastName;
+                newUserOptions.profile.lastName = userObj.profile.lastName;
             }
         }
         if(typeof email === "string") {
             newUserOptions.email = email;
         }
-        
+        userObj.schools = [namespace];
+        userObj.pushNotifications = newUserOptions.pushNotifications = true;
         var newUserId;
         try{
             newUserId = Accounts.createUser(newUserOptions);
@@ -202,15 +130,14 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
         catch(e) {
             log.error("Couldn't create user", e);
         }
-        delete options.email;
-        delete options.username;
-        options.schools = [namespace];
-        
+        //delete userObj.email;
+        //delete userObj.username;
+
         if(autoEmailVerified ){
             var newlyCreatedUser = Meteor.users.findOne(newUserId);
             if (newlyCreatedUser.emails){
-                options.emails = newlyCreatedUser.emails;
-                options.emails[0].verified = true;
+                userObj.emails = newlyCreatedUser.emails;
+                userObj.emails[0].verified = true;
             }
             else {
                 log.warn("no email set up for ",newUserId, newlyCreatedUser.profile.firstName, " ", newlyCreatedUser.profile.lastName);
@@ -219,27 +146,25 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
         //TODO STUB use by splendido:accounts-meld to handle case
         //that user logins by google oauth but already have existing acc with password login`
         //https://github.com/danlg/lgen/issues/291
-        options.registered_emails=[];
-        options.registered_emails.push({address:options.email,verified:true});
+        userObj.registered_emails=[];
+        userObj.registered_emails.push({address:userObj.email,verified:true});
         //TODO STUB use by splendido:accounts-meld ends
-        
-        options.schools = [namespace];
-        
+
         Meteor.users.update({
             _id: newUserId
         }, {
-            $set: options
+            $set: userObj
         });
         
         // Set the password if provided
-        if(options.password && typeof options.password === 'string') {
-            Accounts.setPassword(newUserId, options.password, {logout: false});
-            
+        if(userObj.password && typeof userObj.password === 'string') {
+            log.info("Setting password for user ",userObj.email);
+            Accounts.setPassword(newUserId, userObj.password, {logout: false});
             //for user created in global
             if(!autoEmailVerified) {
                 try{
-                    if (options.emails && options.emails[0]) {
-                        log.info("Sending verification email to ", options.emails[0]);
+                    if (userObj.emails && userObj.emails[0]) {
+                        log.info("Sending verification email to ", userObj.emails[0]);
                         Accounts.sendVerificationEmail(newUserId);
                     }
                 }catch(e){
@@ -257,29 +182,24 @@ Smartix.Accounts.createUser = function (email, options, namespace, types, curren
                 Accounts.setPassword(newUserId, 'password', {logout: false});
             }
         }
-        
         userToAddRoleTo = newUserId;
     }
-    
     // Add the role to the user
     Roles.addUsersToRoles(userToAddRoleTo, types, namespace);
-    
-    
+
     // If the user is a student,
     // Create a distribution list based on the student's class
-    if(options.classroom) {
+    if(userObj.classroom) {
         Smartix.DistributionLists.createDistributionList({
             users: [userToAddRoleTo],
             namespace: namespace,
-            name: options.classroom,
+            name: userObj.classroom,
             expectDuplicates: true,
             upsert: true
         }, currentUser);
     }
-    
     return userToAddRoleTo;
-
-}
+};
 
 Smartix.Accounts.removeUser = function (userId, namespace, currentUser) {
     check(userId, Match.Maybe(String));
@@ -350,7 +270,7 @@ Smartix.Accounts.editUser = function (userId, options, currentUser) {
         })
     }
     return false;
-}
+};
 
 Smartix.Accounts.canEditUser = function (userId, options, currentUser) {
     

@@ -388,3 +388,94 @@ var importParentsCheckIfFatherExists = function(data) {
 		}
 	}
 };
+
+var convertStudentObjectToMother = function (student) {
+	check(student, Object);
+	let motherUserObj = {};
+	if(student.motherSalutation) {
+		motherUserObj.salutation = student.motherSalutation;
+	}
+	if(student.motherFirstName) {
+		motherUserObj.profile = motherUserObj.profile || {};
+		motherUserObj.profile.firstName = student.motherFirstName;
+	}
+	if(student.motherLastName) {
+		motherUserObj.profile = motherUserObj.profile || {};
+		motherUserObj.profile.lastName =  student.motherLastName;
+	}
+	if(student.motherMobile) {motherUserObj.tel = motherUserObj.mobile = student.motherMobile;}
+	if(student.motherEmployer) {motherUserObj.employer =  student.motherEmployer;}
+	if(student.motherNationality) {motherUserObj.nationality = student.motherNationality;}
+	if(student.motherLanguage) {
+		motherUserObj.language = student.motherLanguage;
+		motherUserObj.lang = Smartix.Utilities.getLanguageCode(student.motherLanguage);
+	}
+	if(student.motherHomeAddress1) {motherUserObj.homeAddress1 = student.motherHomeAddress1;}
+	if(student.motherHomeAddress2) {motherUserObj.homeAddress2 = student.motherHomeAddress2;}
+	if(student.motherHomeCity) {motherUserObj.homeCity = motherUserObj.city = student.motherHomeCity;}
+	if(student.motherHomeState) {motherUserObj.homeState = student.motherHomeState;}
+	if(student.motherHomePostalCode) {motherUserObj.homePostalCode = student.motherHomePostalCode;}
+	if(student.motherHomeCountry) {motherUserObj.homeCountry = student.motherHomeCountry;}
+	if(student.motherHomePhone) {motherUserObj.homePhone = student.motherHomePhone;}
+	if(student.motherWorkAddress1) {motherUserObj.workAddress1 = student.motherWorkAddress1;}
+	if(student.motherWorkAddress2) {motherUserObj.workAddress2 = student.motherWorkAddress2;}
+	if(student.motherWorkCity) {motherUserObj.workCity = student.motherWorkCity;}
+	if(student.motherWorkState) {motherUserObj.workState = student.motherWorkState;}
+	if(student.motherWorkPostalCode) {motherUserObj.workPostalCode = student.motherWorkPostalCode;}
+	if(student.motherWorkCountry) {motherUserObj.workCountry = student.motherWorkCountry;}
+	if(student.motherWorkPhone) {motherUserObj.workPhone = student.motherWorkPhone;}
+
+	motherUserObj.gender = 'Female';
+	return motherUserObj;
+};
+
+var convertStudentObjectToFather = function (student) {
+	check(student, Object);
+	let fatherUserObj = {};
+	if(student.fatherSalutation) { fatherUserObj.salutation = student.fatherSalutation;}
+	if(student.fatherFirstName) {
+		fatherUserObj.profile = fatherUserObj.profile || {};
+		fatherUserObj.profile.firstName = student.fatherFirstName;
+	}
+	if(student.fatherLastName) {
+		fatherUserObj.profile = fatherUserObj.profile || {};
+		fatherUserObj.profile.lastName =  student.fatherLastName;
+	}
+	if(student.fatherMobile)   { fatherUserObj.tel = fatherUserObj.mobile = student.fatherMobile; }
+	if(student.fatherEmployer) { fatherUserObj.employer =  student.fatherEmployer;}
+	if(student.fatherNationality) { fatherUserObj.nationality = student.fatherNationality; }
+	if(student.fatherLanguage) {
+		fatherUserObj.language = student.fatherLanguage;
+		fatherUserObj.lang = Smartix.Utilities.getLanguageCode(student.fatherLanguage);
+	}
+	if(student.fatherHomeAddress1) {  fatherUserObj.homeAddress1 = student.fatherHomeAddress1;}
+	if(student.fatherHomeAddress2) {  fatherUserObj.homeAddress2 = student.fatherHomeAddress2;}
+	if(student.fatherHomeCity) {
+		fatherUserObj.homeCity =  student.fatherHomeCity;
+		fatherUserObj.city =  student.fatherHomeCity;
+	}
+	if(student.fatherHomeState) {fatherUserObj.homeState = student.fatherHomeState;}
+	if(student.fatherHomePostalCode) {fatherUserObj.homePostalCode = student.fatherHomePostalCode;}
+	if(student.fatherHomeCountry) {fatherUserObj.homeCountry = student.fatherHomeCountry;}
+	if(student.fatherHomePhone) {fatherUserObj.homePhone = student.fatherHomePhone;}
+	if(student.fatherWorkAddress1) {fatherUserObj.workAddress1 = student.fatherWorkAddress1;}
+	if(student.fatherWorkAddress2) {fatherUserObj.workAddress2 = student.fatherWorkAddress2;}
+	if(student.fatherWorkCity) {fatherUserObj.workCity = student.fatherWorkCity;}
+	if(student.fatherWorkState) {fatherUserObj.workState = student.fatherWorkState;}
+	if(student.fatherWorkPostalCode) {fatherUserObj.workPostalCode = student.fatherWorkPostalCode;}
+	if(student.fatherWorkCountry) {fatherUserObj.workCountry = student.fatherWorkCountry;}
+	if(student.fatherWorkPhone) {fatherUserObj.workPhone = student.fatherWorkPhone;}
+
+	fatherUserObj.gender = 'Male';
+	return fatherUserObj;
+};
+
+var canIdentifyStudent = function(data) {
+	let studentId = data.field('studentId');
+	let studentEmail = data.field('studentEmail');
+	if(studentId.isSet || studentEmail.isSet) {
+		return true;
+	} else {
+		return "At least one of Student ID or Student Email Address must be specified";
+	}
+};
