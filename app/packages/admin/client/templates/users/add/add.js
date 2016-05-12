@@ -28,7 +28,7 @@ Template.AdminUsersAdd.events({
         }
 
         if (dateFieldVal !== "") {
-            newUserObj.dob = new Date(template.$('#addUser-dob').eq(0).val());
+            newUserObj.dob = moment(new Date(template.$('#addUser-dob').eq(0).val())).format('DD-MM-YYYY');
         }
 
         var telFieldVal = template.$('#addUser-tel').eq(0).val();
@@ -45,7 +45,7 @@ Template.AdminUsersAdd.events({
         check(roles, [String]);
         check(newUserObj, {
             profile: Object,
-            dob: Match.Maybe(Date),
+            dob: Match.Maybe(String),
             tel: Match.Maybe(String)
         });
 

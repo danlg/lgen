@@ -56,7 +56,7 @@ Smartix.Accounts.Schema = new SimpleSchema({
         blackbox: true
     },
     dob: {
-        type: Date,
+        type: String,
         optional: true
     },
     city: {

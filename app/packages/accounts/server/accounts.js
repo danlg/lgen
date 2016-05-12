@@ -45,7 +45,7 @@ Smartix.Accounts.createUserOptionsSchema = new SimpleSchema([Smartix.Accounts.Sc
     workState: { type: String, optional: true },
     workPostalCode: { type: String, optional: true },
     workCountry: { type: String, optional: true },
-    workPhone: { type: String, optional: true },
+    workPhone: { type: String, optional: true }
 }]);
 
 Smartix.Accounts.createUser = function (email, userObj, namespace, types, currentUser, autoEmailVerified) {
@@ -418,7 +418,7 @@ Smartix.Accounts.getAllUsersInNamespace = function (namespace, currentUser) {
 
 Smartix.Accounts.updateDob = function (dob, currentUser) {
     
-    check(dob, Date);
+    check(dob, Match.OneOf(String, Date));
     check(currentUser, Match.Maybe(String));
     
     // Get the `_id` of the currently-logged in user
@@ -427,6 +427,15 @@ Smartix.Accounts.updateDob = function (dob, currentUser) {
     }
     
     if(currentUser) {
+        
+        if(typeof dob === "string") {
+            dob = moment(dob, ["DD-MM-YYYY", "MM-DD-YYYY", "DD/MM/YYYY", "MM/DD/YYYY"]).format("DD-MM-YYYY");
+        } else if(dob instanceof Date) {
+            dob = moment(dob).format("DD-MM-YYYY");
+        } else {
+            return false;
+        }
+        
         return Meteor.users.update({
             _id: currentUser
         }, {

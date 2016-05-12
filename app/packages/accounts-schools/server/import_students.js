@@ -43,9 +43,7 @@ Smartix.Accounts.School.importStudent = function(namespace, data, currentUser) {
 			user.profile.lastName = user.lastName;
 
 			if (user.dob) {
-				user.dob = moment(user.dob, ["DD/MM/YYYY", "DD-MM-YYYY", "DD-MM-YY", "DD/MM/YY"]).toString();
-				//stored as a date in mongo db !! why ? plus -1 day with passed date
-
+				user.dob = moment(user.dob, ["DD/MM/YYYY", "DD-MM-YYYY", "DD-MM-YY", "DD/MM/YY"]).format('DD-MM-YYYY');
 				// user.dob = new Date(user.dob).toISOString();
 			}
 
