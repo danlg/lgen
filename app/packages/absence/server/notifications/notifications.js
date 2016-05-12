@@ -37,12 +37,13 @@ Smartix.Absence.notificationToParentForDetail = function (processId, currentUser
         //2. send push and in-app notification                  
         var notificationObj = {
             from: Smartix.helpers.getFullNameByProfileObj(currentUser.profile),
-            title: 'TBD We need more detail about your children attendance',
-            text: 'TBD We need more detail about your children attendance',
+            title: 'School needs more detail about your children attendance',
+            text: 'Click to View',
             payload: {
                 type: 'attendance',
                 subType:'attendanceToParent',
-                id: processId
+                id: processId,
+                namespace: processObj.namespace,
             },
             query: { userId: parentId },
             badge: Smartix.helpers.getTotalUnreadNotificationCount(parentId)
@@ -92,12 +93,13 @@ Smartix.Absence.notificationToParentApprovedNotice = function (expectedId, curre
         //2. send push and in-app notification              
         var notificationObj = {
             from: Smartix.helpers.getFullNameByProfileObj(currentUser.profile),
-            title: 'TBD We have approved your leave application',
-            text: 'TBD We have approved your leave application',
+            title: 'School has approved your leave application',
+            text: 'Click to View',
             payload: {
                 type: 'attendance',
                 subType: 'attendanceApproved',
-                id: expectedId
+                id: expectedId,
+                namespace: expectedObj.namespace
             },
             query: { userId: parentId },
             badge: Smartix.helpers.getTotalUnreadNotificationCount(parentId)
@@ -139,8 +141,8 @@ Smartix.Absence.notificationToAdminApprovalRequest = function (expectedId, curre
 
         var notificationObj = {
             from: Smartix.helpers.getFullNameByProfileObj(currentUser.profile),
-            title: 'TBD A Parent has submitted a leave application',
-            text: 'TBD A Parent has submitted a leave application',
+            title: 'A Parent has submitted a leave application',
+            text: 'Click to view',
             payload: {
                 type: 'attendance',
                 subType:'attendanceSubmission',
@@ -190,7 +192,7 @@ Smartix.Absence.notificationToAdminForDetailReply = function (processId, current
         var notificationObj = {
             from: Smartix.helpers.getFullNameByProfileObj(currentUser.profile),
             title: 'Parent has replied about children attendance',
-            text: 'Parent has replied about children attendance',
+            text: 'Click to View',
             payload: {
                 type: 'attendance',
                 subType:'attendanceToAdmin',
