@@ -17,7 +17,7 @@ Accounts.onCreateUser(function (options, user) {
     user.tel = "";
     user.emailNotifications = false;
 
-    user.pushNotifications = false;
+    user.pushNotifications = true;
 
     user.firstChat = true;
     user.firstInvitation = true;
