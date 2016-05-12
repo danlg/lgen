@@ -1,7 +1,7 @@
 {
   "env": {
-    "ROOT_URL": "http://carmelu.gosmartix.com",
-    "PORT": 7777,
+    "ROOT_URL": "https://carmelu.gosmartix.com",
+    "PORT": 80,
     "MONGO_URL": "mongodb://127.0.0.1/littlegenius"
   },
   //stage

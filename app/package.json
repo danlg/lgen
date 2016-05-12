@@ -38,6 +38,8 @@
 
     "deploy-uat-debug": "./clean_build.sh && cd ../config && mup deploy --config=stage.mup.json --settings=stage.settings.json",
     "deploy-uat"   : "./clean_build.sh && cd ../config && NODE_ENV=production mup deploy --config=stage.mup.json --settings=stage.settings.json",
+    "deploy-carmelu": "./clean_build.sh && cd ../config && NODE_ENV=production mup deploy --config=carmelu.mup.json --settings=carmelu.settings.json",
+
     "deploy-prd"   : "./clean_build.sh && cd ../config && NODE_ENV=production mup deploy --config=prd.mup.json --settings=prd.settings.json",
     "deploy-carmel": "./clean_build.sh && cd ../config && NODE_ENV=production mup deploy --config=carmel.mup.json --settings=carmel.settings.json",
 
