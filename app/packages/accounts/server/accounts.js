@@ -130,7 +130,8 @@ Smartix.Accounts.checkPermission =function(roles, currentUser, namespace, functi
             break;
         case 'global':
             // Check permission on `smartix:accounts-global`
-            hasPermission = functioncheck(roles, currentUser);
+            // everyone can create a new account in global namespace
+            hasPermission = true;
             break;
         default:
             // Pass checking permissions to `smartix:accounts-school`
