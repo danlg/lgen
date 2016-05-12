@@ -25,7 +25,7 @@ Smartix.Absence.notificationToParentForDetail = function (processId, currentUser
             hasRead: false,
             processId: processId,
             namespace: processObj.namespace,
-            messageCreateTimestamp: message.createdAt,
+            messageCreateTimestamp: new Date(),
             messageCreateByUserId: Meteor.userId()
         });
 
@@ -175,7 +175,7 @@ Smartix.Absence.notificationToAdminForDetailReply = function (processId, current
             hasRead: false,
             processId: processId,
             namespace: processObj.namespace,
-            messageCreateTimestamp: message.createdAt,
+            messageCreateTimestamp: new Date(),
             messageCreateByUserId: Meteor.userId()
         });
 
