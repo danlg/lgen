@@ -95,14 +95,14 @@ Smartix.Accounts.createUser = function (email, userObj, namespace, roles, curren
         //splendido:accounts-meld to merge account
         //that user logins by google oauth but already have existing acc with password login`
         //https://github.com/danlg/lgen/issues/291
-        userObj.registered_emails = [];
-        userObj.registered_emails.push({address: userObj.email, verified: true});
+        var registered_emails = [];
+        registered_emails.push({address: userObj.email, verified: true});
 
         //Do not store password in clear in database
         var tempPassword = userObj.password; delete userObj.password;
         // Set the password if provided
         Smartix.Accounts.setPassword(newUserId, tempPassword);
-        Meteor.users.update({_id: newUserId}, {$set: userObj});
+        Meteor.users.update({_id: newUserId}, {$set: {registered_emails: registered_emails} } );
 
         Smartix.Accounts.sendVerificationEmailOrEnrollmentEmail(userObj, newUserId, autoEmailVerified, doSendEmail);
         // Add the role to the user
