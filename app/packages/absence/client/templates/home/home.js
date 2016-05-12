@@ -11,6 +11,10 @@ Template.AttendanceHome.helpers({
        });               
        
        return Smartix.Absence.Collections.processed.find({namespace:schoolDoc._id,status:'missing'});        
+    },
+    getUserById: function(userId) {
+        var targetUserObj = Meteor.users.findOne(userId);
+        return targetUserObj;
     }
 });
 

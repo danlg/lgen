@@ -35,7 +35,11 @@
                     From Attendance Record:
                     </div>            
                     <div class="item item-text-wrap smaller">
-                        {{studentId}} hasn't been school in {{date}}. Do you know why?
+                        {{#with getUserById studentId}}
+                            {{profile.firstName}} {{profile.lastName}}
+                        {{/with}}
+                        hasn't been school in {{date}}.
+                        Do you know why?
                     </div>
                     <div class="button-bar bar-light">
                         <!--TODO: pass specific date and time of the current request to attendance.add  -->

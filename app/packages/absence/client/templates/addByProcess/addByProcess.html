@@ -31,7 +31,7 @@
             
             Child to apply for leave:<br/>
             {{#with getUserById studentId}}
-              {{profile.firstName}} {{profile.lastName}}                  
+              {{profile.firstName}}&nbsp;{{profile.lastName}}                  
               <input id='children-id' type="hidden" value='{{../studentId}}' />         
               <input id='children-name' type="hidden" value='{{profile.firstName}} {{profile.lastName}}' />
             {{/with}}  
