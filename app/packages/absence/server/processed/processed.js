@@ -52,38 +52,54 @@ Smartix.Absence.processAbsencesForDay = function (namespace, date, format, curre
             // `date` is of type `String`
             // Parse using format if provided
             if(typeof format === "string") {
-                // Assumes all schools uses HKT (UTC +8)
-                parsedDate = moment.utc(date, format).subtract(8, 'hours');
+                parsedDate = moment.utc(date, format);
             } else {
-                parsedDate = moment.utc(date).subtract(8, 'hours');
+                parsedDate = moment.utc(date);
             }
         } else if (typeof date === "number") {
-            parsedDate = moment(date * 1000);
+            parsedDate = moment.utc(date * 1000);
         } else {
-            parsedDate = moment().startOf('day');
+            parsedDate = moment.utc().startOf('day');
         }
     } else {
-        parsedDate = moment().startOf('day');
+        parsedDate = moment.utc().startOf('day');
     }
     
     let dateString = parsedDate.format('DD-MM-YYYY');
+    
+    let schoolStartTimeM = Smartix.Utilities.getMinutesSinceMidnight(schoolStartTime);
+    
+    // If the date is today
+    // Ensures the current time is after the schoolStartTime
+    // Otherwise, there will be many `pending` entries
+    // Caused by students not clocking in (because it's before the schoolStartTime)
+    
+    console.log('dateString:', dateString);
+    console.log(moment(dateString, 'DD-MM-YYYY').isSame(new Date(), "day"));
+    
+    if(
+        // If the date is today
+        // TODO: checks it is not in the future
+        moment(dateString, 'DD-MM-YYYY').isSame(new Date(), "day")) {
+        // Converts "08:00" to 480
+        let minutesSinceMidnight = Smartix.Utilities.getMinutesSinceMidnight(moment.utc(new Date()).add(8, 'hours').format("HH:mm"));
+        
+        console.log('schoolStartTimeM:', schoolStartTimeM);
+        console.log('minutesSinceMidnight:', minutesSinceMidnight);
+        
+        if(minutesSinceMidnight < schoolStartTimeM) {
+            return false;
+        }
+    }
     
     /////////////////////////////////////
     // GET ATTENDENCE RECORDS FOR DATE //
     /////////////////////////////////////
     
-    console.log(dateString);
-    
     let attendenceRecord = Smartix.Absence.Collections.actual.find({
         date: dateString,
         namespace: namespace
     }).fetch();
-    
-    console.log(attendenceRecord);
-    
-    let schoolStartTimeM = Smartix.Utilities.getMinutesSinceMidnight(schoolStartTime);
-    
-    console.log(schoolStartTimeM);
     
     // Check the clockIn time
     // If it's `null` it means the user has not tapped in
@@ -91,7 +107,6 @@ Smartix.Absence.processAbsencesForDay = function (namespace, date, format, curre
     _.each(attendenceRecord, function (record, i) {
         if(record.clockIn === null || record.clockIn > schoolStartTimeM) {
             // Student is late or absent
-            console.log(record.studentId + ' is absent or late');
             
             // Search the expected absences collection for today
             // Assumes all schools uses HKT (UTC +8)
@@ -99,7 +114,7 @@ Smartix.Absence.processAbsencesForDay = function (namespace, date, format, curre
             let endOfDay = moment.utc(record.date + " " + schoolEndTime, 'DD-MM-YYYY HH:mm').subtract(8, 'hours');
             let clockedInTime;
             if(record.clockIn !== null) {
-                clockedInTime = moment.utc(record.date + " " + record.clockIn, 'DD-MM-YYYY HH:mm').subtract(8, 'hours');
+                clockedInTime = moment.utc(record.date + " 00:00", 'DD-MM-YYYY').subtract(8, 'hours').add(record.clockIn, "minutes");
             } else {
                 clockedInTime = null;
             }
@@ -141,9 +156,14 @@ Smartix.Absence.processAbsencesForDay = function (namespace, date, format, curre
             // If the user's `clockIn` value is less than the last `dateTo` time
             // Count as `approved/unapproved`
             
-            
-            if((clockedInTime === null && (Date.now() / 1000) < expectedAbsenceRange.end)
-                || (clockedInTime !== null && clockedInTime.unix() < expectedAbsenceRange.end)) {
+            let hasPhonedIn = (
+                // User has not clocked in and the time now is before the expected absence's end
+                (clockedInTime === null && (Date.now() / 1000) < expectedAbsenceRange.end)
+                
+                // Or the user has clocked in and the clocked in time is before the expected absence's end
+                || (clockedInTime !== null && clockedInTime.unix() < expectedAbsenceRange.end));
+  
+            if(hasPhonedIn) {
                 processedAbsence.expectedAbsenceRecords = expectedAbsenceRange.ids;
                 processedAbsence.status = expectedAbsenceRange.approved ? 'approved' : 'pending';
             } else {
@@ -152,7 +172,29 @@ Smartix.Absence.processAbsencesForDay = function (namespace, date, format, curre
                 processedAbsence.status = 'missing';
             }
             
-            Smartix.Absence.Collections.processed.insert(processedAbsence);
+            let process = Smartix.Absence.Collections.processed.upsert({
+                date: processedAbsence.date,
+                namespace: processedAbsence.namespace,
+                studentId: processedAbsence.studentId
+            }, processedAbsence, false);
+            
+            let processId;
+            
+            if(process.insertedId) {
+                processId = process.insertedId;
+            } else {
+                processId = Smartix.Absence.Collections.processed.findOne({
+                    date: processedAbsence.date,
+                    namespace: processedAbsence.namespace,
+                    studentId: processedAbsence.studentId
+                })._id;
+            }
+            
+            if(!hasPhonedIn) {
+                // Notify the parents
+                // Send notification
+                Smartix.Absence.notificationToParentForDetail(processId, currentUser);
+            }
             
         } else {
             // Student is on-time, no action required

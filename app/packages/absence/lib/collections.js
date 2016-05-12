@@ -33,6 +33,10 @@ Smartix.Absence.expectedAbsenceSchema = new SimpleSchema({
     approved: {
         type: Boolean,
         defaultValue: false
+    },
+    adminId: {
+        type: String,
+        optional: true
     }
 });
 
@@ -81,5 +85,10 @@ Smartix.Absence.processedAbsenceSchema = new SimpleSchema({
     clockIn: {
         type: Number,
         decimal: false
+    },
+    lastNotified: {
+        type: Number,
+        decimal: false,
+        optional: true
     }
 });

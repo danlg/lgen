@@ -28,10 +28,11 @@ Smartix.Absence.registerExpectedAbsence = function (options, currentUser) {
     }
     if(isAdmin) {
         options.approved = true;
+        options.adminId = currentUser;
     }
     
     // Add the expected absence entry into the collection
-    return Smartix.Absence.Collections.expected.insert({
+    let insertedAbsenceId = Smartix.Absence.Collections.expected.insert({
         studentId: options.studentId,
         reporterId: options.reporterId,
         dateFrom: options.dateFrom,
@@ -40,6 +41,12 @@ Smartix.Absence.registerExpectedAbsence = function (options, currentUser) {
         namespace: options.namespace,
         approved: options.approved
     });
+    
+    if(isParent) {
+        Smartix.Absence.notificationToAdminApprovalRequest(insertedAbsenceId, currentUser);
+    }
+    
+    return insertedAbsenceId;
 }
 
 Smartix.Absence.approveExpectedAbsence = function(id, currentUser) {
@@ -65,11 +72,41 @@ Smartix.Absence.setAbsenceApproval = function (id, currentUser, approve) {
         throw new Meteor.Error("permission-denied", "The user does not have permission to perform this action.");
     }
     
+    if (approve) {
+        // Notify the parents
+        Smartix.Absence.notificationToParentApprovedNotice(id, currentUser);
+
+        // Find any processed absences and change their status
+        Smartix.Absence.Collections.processed.update({
+            expectedAbsenceRecords: id
+        },
+        {
+            $set: {
+                status: "approved"
+            }
+        })
+    } else {
+        // Find any processed absences and change their status
+        Smartix.Absence.Collections.processed.update({
+            expectedAbsenceRecords: id
+        },
+        {
+            $set: {
+                status: "pending"
+            }
+        })
+    }
+
+    console.log(approve);
+    console.log(currentUser);
+    console.log(id);
+    
     return Smartix.Absence.Collections.expected.update({
         _id: id
     }, {
         $set: {
-            approved: approve
+            approved: approve,
+            adminId: currentUser
         }
     })
 };

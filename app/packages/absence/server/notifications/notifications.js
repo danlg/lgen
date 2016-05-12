@@ -3,16 +3,25 @@ Smartix = Smartix || {};
 Smartix.Absence = Smartix.Absence || {};
 
 //Notification from admin to parent to ask for student attendance detail
-Smartix.Absence.notificationToParentForDetail = function (parentIds, processId, currentUserId) {
+Smartix.Absence.notificationToParentForDetail = function (processId, currentUserId) {
 
-    check(parentIds, [String]);
     check(processId, String);
     check(currentUserId, String);
 
-    var currentUser = Meteor.users().findOne(currentUserId);
+    var currentUser = Meteor.users.findOne(currentUserId);
 
     var processObj = Smartix.Absence.Collections.processed.findOne(processId);
-    parentIds.each(function (parentId) {
+    
+
+    // Get the parents
+    let parents = Smartix.Accounts.Relationships.getParentOfStudent(processObj.studentId, processObj.namespace);
+    let parentIds = _.map(parents, function (parent) {
+        return parent._id;
+    });
+    
+    console.log(parentIds);
+
+    parentIds.forEach(function (parentId) {
         //1. add to notification obj
         Notifications.insert({
             eventType: 'attendanceToParent',
@@ -38,20 +47,34 @@ Smartix.Absence.notificationToParentForDetail = function (parentIds, processId, 
         };
         Meteor.call("doPushNotification", notificationObj);
     });
-
+    
+    // Update the records of last notified
+    Smartix.Absence.Collections.processed.update({
+        _id: processId
+    }, {
+        $set: {
+            lastNotified: Math.floor(Date.now() / 1000)
+        } 
+    });
 }
 
 //Notification from admin to parent to display approval of leave application
-Smartix.Absence.notificationToParentApprovedNotice = function (parentIds, expectedId, currentUserId) {
+Smartix.Absence.notificationToParentApprovedNotice = function (expectedId, currentUserId) {
 
-    check(parentIds, [String]);
     check(expectedId, String);
     check(currentUserId, String);
 
-    var currentUser = Meteor.users().findOne(currentUserId);
+    var currentUser = Meteor.users.findOne(currentUserId);
 
     var expectedObj = Smartix.Absence.Collections.expected.findOne(expectedId);
-    parentIds.each(function (parentId) {
+    
+    // Get the parents
+    let parents = Smartix.Accounts.Relationships.getParentOfStudent(expectedObj.studentId, expectedObj.namespace);
+    let parentIds = _.map(parents, function (parent) {
+        return parent._id;
+    });
+    
+    parentIds.forEach(function (parentId) {
 
         //1. add to notification obj
         Notifications.insert({
@@ -82,17 +105,21 @@ Smartix.Absence.notificationToParentApprovedNotice = function (parentIds, expect
 }
 
 //Notification from parent to admin about request of leave application
-Smartix.Absence.notificationToAdminApprovalRequest = function (adminIds, expectedId, currentUserId) {
+Smartix.Absence.notificationToAdminApprovalRequest = function (expectedId, currentUserId) {
 
-    check(adminIds, [String]);
     check(expectedId, String);
     check(currentUserId, String);
 
-    var currentUser = Meteor.users().findOne(currentUserId);
+    var currentUser = Meteor.users.findOne(currentUserId);
     var expectedObj = Smartix.Absence.Collections.expected.findOne(expectedId);
-
-
-    adminIds.each(function (adminId) {
+    
+    // Get all admins
+    var admins = Roles.getUsersInRole('admin', expectedObj.namespace);
+    var adminIds = _.map(admins, function (admin) {
+        return admin._id;
+    });
+    
+    adminIds.forEach(function (adminId) {
 
         //1. add to notification obj
         Notifications.insert({
@@ -124,17 +151,23 @@ Smartix.Absence.notificationToAdminApprovalRequest = function (adminIds, expecte
 }
 
 //Notification from parent to admin about response from parent of student attendance    
-Smartix.Absence.notificationToAdminForDetailReply = function (adminIds, processId, currentUserId) {
+Smartix.Absence.notificationToAdminForDetailReply = function (processId, currentUserId) {
 
-    check(adminIds, [String]);
     check(processId, String);
     check(currentUserId, String);
 
-    var currentUser = Meteor.users().findOne(currentUserId);
+    var currentUser = Meteor.users.findOne(currentUserId);
 
     var processObj = Smartix.Absence.Collections.processed.findOne(processId);
 
-    adminIds.each(function (adminId) {
+
+    // Get all admins
+    var admins = Roles.getUsersInRole('admin', processObj.namespace);
+    var adminIds = _.map(admins, function (admin) {
+        return admin._id;
+    });
+
+    adminIds.forEach(function (adminId) {
         //1. add to notification obj
         Notifications.insert({
             eventType: 'attendanceToAdmin',

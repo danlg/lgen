@@ -69,10 +69,6 @@ Smartix.Absence.updateAttendenceRecord = function (records, schoolName, currentU
     check(schoolName, String),
     check(currentUser, Match.Maybe(String));
     
-    console.log(records);
-    console.log(schoolName);
-    console.log(currentUser);
-    
     let namespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolName);
     
     // Get the `_id` of the currently-logged in user
