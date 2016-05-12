@@ -50,13 +50,7 @@ Smartix.Absence.registerExpectedAbsence = function (options, currentUser) {
 }
 
 Smartix.Absence.approveExpectedAbsence = function(id, currentUser) {
-    var setAbsenceApprovalResult = Smartix.Absence.setAbsenceApproval(id, currentUser, true);
-    
-    if(setAbsenceApprovalResult>0){
-        Smartix.Absence.notificationToParentApprovedNotice(id,currentUser);
-    }
-    
-    return setAbsenceApprovalResult;
+    return Smartix.Absence.setAbsenceApproval(id, currentUser, true);
 }
 
 Smartix.Absence.unapproveExpectedAbsence = function(id, currentUser) {
