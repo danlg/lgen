@@ -1,4 +1,4 @@
-var header = ['User Name','First Name','Last Name','Email','Roles','Edit User','Remove User']
+var header = [' ','User Name','First Name','Last Name','Email','Roles','Edit User','Remove User']
 
 
 this.SchoolUserPages = new Meteor.Pagination(Meteor.users,{

@@ -12,7 +12,8 @@
 
 <template name='SchoolUserListItem'>
     <tr>
-        <td>{{username}}</td>
+        <td><input type="checkbox" name="user" value="{{_id}}"/></td>
+        <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}"> {{username}} </a></td>
         <td>{{profile.firstName}}</td>
         <td>{{profile.lastName}}</td>
         <td>{{getUserEmail}}</td>   
@@ -25,7 +26,12 @@
 
 
 <template name="SchoolUserList">
-  {{> pages}}  
+  <div class="table-responsive">
+  <input type='search' placeholder="Type User Name or Email to filter"/>  <button>Remove</button>
+  {{> pages}}
+
+  <button>  
+  </div>
   {{> pagesNav}}
 
 </template>

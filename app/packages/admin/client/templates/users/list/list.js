@@ -13,6 +13,12 @@ Template.SchoolUserListItem.helpers({
           return this.roles[schoolNamespace].toString();
       }            
 
+  },
+  getCurrentSchoolName:function(){
+      return Router.current().params.school;
+  },
+  getUserId:function(){
+      return this._id;
   }
 });
 
