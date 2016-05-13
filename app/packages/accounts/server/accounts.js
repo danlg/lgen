@@ -96,7 +96,7 @@ Smartix.Accounts.createUser = function (email, userObj, namespace, roles, curren
         //that user logins by google oauth but already have existing acc with password login`
         //https://github.com/danlg/lgen/issues/291
         var registered_emails = [];
-        registered_emails.push({address: userObj.email, verified: true});
+        registered_emails.push({address: email, verified: true});
 
         //Do not store password in clear in database
         var tempPassword = userObj.password; delete userObj.password;
