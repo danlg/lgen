@@ -24,6 +24,8 @@ Package.onUse(function(api) {
   api.use('alanning:roles@1.2.15');
   api.use('easy:search@2.0.9');
   api.use('stevezhu:lodash@4.6.1');
+  api.use('alethes:pages@1.8.6');
+  
   api.use('smartix:lib@0.0.1');
   api.use('smartix:utilities@0.0.1');
   api.use('smartix:news@0.0.1');
@@ -93,9 +95,11 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/news/import/import.js', 'web.browser');
   api.addFiles('client/templates/rss/rss.html', 'web.browser');
   api.addFiles('client/templates/rss/rss.js', 'web.browser');
-  api.addFiles('client/templates/users/list/index.js', ['client', 'server']);
+  
+;
   api.addFiles('client/templates/users/list/list.html', 'web.browser');
   api.addFiles('client/templates/users/list/list.js', 'web.browser');
+  api.addFiles('both/users.js')  
   api.addFiles('client/templates/users/view/view.html', 'web.browser');
   api.addFiles('client/templates/users/view/view.js', 'web.browser');
   api.addFiles('client/templates/users/add/add.html', 'web.browser');

@@ -4,21 +4,36 @@
             <h1>Search Users</h1>
         </div>
         
-        {{#if Template.subscriptionsReady}}
             <div class="panel-body">
-                {{> EasySearch.Input index=usersIndex attributes=userSearchInputAttributes}}
-                <ul>
-                    {{#EasySearch.Each index=usersIndex }}
-                        <li><a href="{{pathFor 'admin.users.view' data=routeData}}">{{profile.firstName}} {{profile.lastName}}</a></li>
-                    {{/EasySearch.Each}}
-
-                     {{#EasySearch.IfNoResults index=usersIndex}}
-                        <div>No results found!</div>
-                    {{/EasySearch.IfNoResults}}                        
-                </ul>
+              {{> SchoolUserList}}
             </div>
-        {{else}}
-            Loading...
-        {{/if}}
     </div>
+</template>
+
+<template name='SchoolUserListItem'>
+    <tr><td>{{username}}</td></tr>
+</template>
+
+<template name='SchoolUserListPage'>
+
+  <table>
+    <thead>
+      <tr>
+        {{#each header}}
+          <th>{{value}}</th>
+        {{/each}}
+      </tr>
+    </thead>      
+    <tbody>
+        {{> _pagesPage}}
+    </tbody>
+  </table>
+</template>
+
+
+
+<template name="SchoolUserList">
+  {{> pages}}  
+  {{> pagesNav}}
+
 </template>
