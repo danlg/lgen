@@ -51,6 +51,24 @@
                     </tbody>
                 </table>
                 <!-- /large table -->
+                <h3>Distribution Lists</h3>
+                <!-- Large table -->
+                <table class="table datatable-basic">
+                    <thead>
+                        <th>List Name</th>
+                        <th>Remove List</th>
+                    </thead>
+                    <tbody>
+                        {{#each distributionLists}} {{#with listData this}}
+                        <tr>
+                            <td><a href="{{pathFor 'admin.lists.view' data=_id}}">{{name}}</a></td>
+                            <td>
+                                <button type="button" class="remove-list btn border-warning text-warning-600 btn-flat btn-icon btn-rounded" data-list-id="{{_id}}"><i class="icon-minus2"></i></button>
+                            </td>
+                        </tr>
+                        {{/with}} {{/each}}
+                    </tbody>
+                </table>
                 <h3>Users</h3>
                 <!-- Large table -->
                 <table class="table datatable-basic">
