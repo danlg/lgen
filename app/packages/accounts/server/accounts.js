@@ -97,15 +97,12 @@ Smartix.Accounts.createUser = function (email, userObj, namespace, roles, curren
         //https://github.com/danlg/lgen/issues/291
         var registered_emails = [];
         registered_emails.push({address: email, verified: true});
-
-        //Do not store password in clear in database
-        var tempPassword = userObj.password;
-        delete userObj.password;
-        // Set the password if provided
-        //log.info("About to set Password=" + tempPassword);
-
-        Smartix.Accounts.setPassword(newUserId, tempPassword);
         Meteor.users.update({_id: newUserId}, {$set: {registered_emails: registered_emails} } );
+        
+        //Do not store password in clear in database
+        var tempPassword = userObj.password; delete userObj.password;
+        Smartix.Accounts.setPassword(newUserId, tempPassword);// Set the password if provided
+        //log.info("About to set Password=" + tempPassword);
 
         Smartix.Accounts.sendVerificationEmailOrEnrollmentEmail(userObj, newUserId, autoEmailVerified, doSendEmail);
         // Add the role to the user
@@ -155,12 +152,11 @@ Smartix.Accounts.checkPermission =function(roles, currentUser, namespace, functi
  */
 Smartix.Accounts.createUserImpl = function (userObj, email, namespace) {
     var newUserOptions = {};
-    if (userObj.username) {
-        newUserOptions.username = userObj.username;
-    }
+    if ( userObj.username ) { newUserOptions.username = userObj.username; }
     if (!userObj.username && userObj.profile && userObj.profile.firstName && userObj.profile.lastName) {
         newUserOptions.username = Smartix.Accounts.helpers.generateUniqueUserName(userObj.profile.firstName, userObj.profile.lastName);
-    }else{
+    }
+    if ( ! ( userObj.username || userObj.profile || userObj.profile.firstName || userObj.profile.lastName) ) {
         log.warn("No username nor first name nor last name for user");
     }
     if (userObj.profile) {
@@ -182,9 +178,6 @@ Smartix.Accounts.createUserImpl = function (userObj, email, namespace) {
         newUserId = Accounts.createUser(newUserOptions);
         log.info('Created successfully newUserId: ', newUserId);
         Meteor.users.update({_id: newUserId}, { $addToSet: {schools: [namespace] } });
-        //Meteor.users.update({_id: newUserId}, { pushNotifications: true }); //this is set elsewhere
-        // newUserOptions.schools = [namespace];
-        // newUserOptions.pushNotifications = true;
     }
     catch (e) {
         log.error("Couldn't create user", e);

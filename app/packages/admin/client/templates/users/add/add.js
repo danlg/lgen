@@ -6,9 +6,11 @@ Template.AdminUsersAdd.events({
 
         var email = template.$('#addUser-email').eq(0).val();
         var roles = template.$('#addUser-roles').eq(0).val();
-        newUserObj.profile.firstName = template.$('#addUser-firstName').eq(0).val();
-        newUserObj.profile.lastName = template.$('#addUser-lastName').eq(0).val();
-        
+        let firstName = newUserObj.profile.firstName = template.$('#addUser-firstName').eq(0).val();
+        let lastName = newUserObj.profile.lastName = template.$('#addUser-lastName').eq(0).val();
+        let username = template.$('#addUser-username').eq(0).val();
+	    newUserObj.username = username ?  username : Smartix.Accounts.helpers.generateUniqueUserName(firstName, lastName);
+
         // If the first name or last name is not filled indexOf
         // Throw an error as they are required fields
         if(!newUserObj.profile.firstName
@@ -17,30 +19,26 @@ Template.AdminUsersAdd.events({
             return false;
         }
 
+        // If the user is a student, DOB is required
         var dateFieldVal = template.$('#addUser-dob').eq(0).val();
-
-        // If the user is a student
-        // DOB is required
-        if (roles.indexOf('student') > -1
-            && dateFieldVal === "") {
+        if ( (roles.indexOf('student') > -1)  && dateFieldVal === "") {
             toastr.error(TAPi18n.__("admin.users.add.studentDobRequired"));
             return false;
         }
-
         if (dateFieldVal !== "") {
             newUserObj.dob = moment(new Date(template.$('#addUser-dob').eq(0).val())).format('DD-MM-YYYY');
         }
 
-        var password = template.$('#password').eq(0).val();
-        console.log("password", password);
-        if(password.length < 4) {
+        var password = template.$('#password').eq(0).val(); //console.log("password='"+ password +"'");
+        if(password!="" && password .length < 4) {
             toastr.error("Please provide a password with at least 4 characters");
             return;
         }
-        newUserObj.password = password;
+        else {
+            newUserObj.password = password;
+        }
 
         var telFieldVal = template.$('#addUser-tel').eq(0).val();
-
         if (telFieldVal !== "") {
             newUserObj.tel = template.$('#addUser-tel').eq(0).val();
         }
@@ -55,7 +53,8 @@ Template.AdminUsersAdd.events({
             profile: Object,
             dob: Match.Maybe(String),
             tel: Match.Maybe(String),
-            password: Match.Maybe(String)
+            password: Match.Maybe(String),
+	        username: Match.Maybe(String)
         });
 
         if (Router
