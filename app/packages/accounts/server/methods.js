@@ -6,16 +6,17 @@ Meteor.methods({
         
         return Smartix.Accounts.getUserInfo(userId, namespace, this.userId);
     },
-    'smartix:accounts/createUser': function (email, options, namespace, types) {
+    'smartix:accounts/createUser': function (email, userObj, namespace, types) {
         check(email, Match.Where(function (val) {
             check(val, String);
             return SimpleSchema.RegEx.Email.test(val);
         }));
-        check(options, Object);
+        check(userObj, Object);
         check(namespace, String);
         check(types, [String]);
-        
-        return Smartix.Accounts.createUser(email, options, namespace, types, this.userId, false);
+        let autoEmailVerified = false;
+        let doSendEmail = true;
+        return Smartix.Accounts.createUser(email, userObj, namespace, types, this.userId, autoEmailVerified, doSendEmail);
     },
     'smartix:accounts/editUser': function(userId, options) {
         
