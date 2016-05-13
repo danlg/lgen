@@ -17,7 +17,7 @@ Template.EmailSignin.events({
       }
       else {
         log.info("login:meteor:" + Meteor.userId());
-        Smartix.Class.Helpers.routeToTabClasses();
+        Smartix.helpers.routeToTabClasses();
       }
     });
   },
@@ -42,7 +42,7 @@ Template.EmailSignin.created = function () {
     this.password = new ReactiveVar("");
     
     if (Meteor.userId()) {
-      Smartix.Class.Helpers.routeToTabClasses(); 
+      Smartix.helpers.routeToTabClasses(); 
     }    
 };
 

@@ -12,7 +12,7 @@ Template.EmailVerification.rendered = function () {
   var self = this;
   self.autorun(function() {
       if(Meteor.user().emails[0].verified){    
-         Smartix.Class.Helpers.routeToTabClasses();
+         Smartix.helpers.routeToTabClasses();
      }
    });
 };

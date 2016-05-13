@@ -21,7 +21,7 @@ Template.EmailResetPwd.events({
                     toastr.info(TAPi18n.__("PasswordChanged"));
                     log.info('Your password has been changed. Welcome back!');
                     Session.set('resetPasswordToken', null);
-                    Smartix.Class.Helpers.routeToTabClasses();
+                    Smartix.helpers.routeToTabClasses();
                 }
             });
         }            

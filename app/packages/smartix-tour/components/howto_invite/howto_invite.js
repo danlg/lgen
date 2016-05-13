@@ -6,7 +6,7 @@ Template.HowToInvite.events({
   'click .redirect-button':function(){
     log.info("i am clicked");
 
-    Smartix.Class.Helpers.routeToTabClasses();
+    Smartix.helpers.routeToTabClasses();
   }
  
 });

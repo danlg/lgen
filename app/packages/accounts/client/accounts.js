@@ -28,7 +28,7 @@ Smartix.Accounts.registerOrLoginWithGoogle = function () {
         log.info('login:google:' + err.reason + " msg=" + err.message);
       }else{
         //if login success
-        Smartix.Class.Helpers.routeToTabClasses();
+        Smartix.helpers.routeToTabClasses();
       }
       
     });
