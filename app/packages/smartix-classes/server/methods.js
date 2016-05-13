@@ -57,13 +57,16 @@ Meteor.methods({
     },
 
     'smartix:classes/editClass': function(modifier, documentId) {
-        Smartix.Class.editClass(documentId, modifier['$set']);
+        Smartix.Class.editClass(documentId, modifier['$set'], this.userId);
     },
     'smartix:classes/removeUsers': function(classId, usersToRemove) {
         Smartix.Class.removeUsersFromClass(classId, usersToRemove, this.userId);
     },
     'smartix:classes/removeAdmins': function(classId, adminsToRemove) {
         Smartix.Class.removeAdminsFromClass(classId, adminsToRemove, this.userId);
+    },
+    'smartix:classes/addDistributionLists': function(classId, listsToAdd) {
+        Smartix.Class.addListsToClass(classId, listsToAdd, this.userId);
     },
     'smartix:classes/removeDistributionLists': function(classId, listsToRemove) {
         Smartix.Class.removeListsFromClass(classId, listsToRemove, this.userId);
@@ -164,7 +167,7 @@ Meteor.methods({
                     //log.info("Server?"+Meteor.isServer);
                     //this was the trick to make it case insensitive
 
-                    Smartix.Class.addAdminsToClass(resultset._id, [userToAdd]);
+                    Smartix.Class.addAdminsToClass(resultset._id, [userToAdd], this.userId);
 
                     //   Smartix.Groups.Collection.update(
                     //     {"classCode": {$regex: regexp}},
