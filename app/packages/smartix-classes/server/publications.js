@@ -69,7 +69,7 @@ Meteor.publish('joinedClasses', function () {
             users: this.userId
         }, {
             distributionLists: {
-                $in: distributionListIdsOfUser
+                $in: Smartix.DistributionLists.getDistributionListsOfUser(this.userId)
             }
         }]
     });
@@ -79,9 +79,22 @@ Meteor.publish('smartix:classes/otherClassmates', function(classCode) {
 
     var group = Smartix.Groups.Collection.findOne({ classCode: classCode });
     if (group) {
-        //remove user him/herself
-        lodash.pull(group.users, this.userId);
-        return Meteor.users.find({ _id: { $in: group.users } });
+        
+        let classmates = [];
+        
+        // Add to `classmates` from the `users` array
+        classmates = _.union(classmates, group.users);
+        
+        // Get all users in distribution lists
+        classmates = _.union(classmates, Smartix.DistributionLists.getUsersInDistributionLists(groups.distributionLists));
+        
+        lodash.pull(classmates, this.userId);
+        
+        return Meteor.users.find({
+            _id: {
+                $in: classmates
+            }
+        });
     }
 
 });
@@ -92,11 +105,12 @@ Meteor.publish('smartix:classes/allUsersWhoHaveJoinedYourClasses', function () {
     // Limit the fields returned to `users`
     // Fetch as an array
     var classes = Smartix.Groups.Collection.find({
-    type: 'class',
-    admins: this.userId 
+        type: 'class',
+        admins: this.userId
     }, {
         fields: {
-            users: 1
+            users: 1,
+            distributionLists: 1
         }
     }).fetch();
 
@@ -104,6 +118,9 @@ Meteor.publish('smartix:classes/allUsersWhoHaveJoinedYourClasses', function () {
     // from all classes into another array  
     var users = _.flatMap(classes, 'users');
 
+    // Extract all the users from the distribtion lists
+    users = _.union(users, Smartix.DistributionLists.getUsersInDistributionLists(classes.distributionLists));
+    
     // Remove the current user from the list of users
     users = _.pull(users, this.userId); 
 
@@ -118,7 +135,6 @@ Meteor.publish('smartix:classes/allUsersWhoHaveJoinedYourClasses', function () {
 // Return a cursor of all admins of classes you have joined
 Meteor.publish('smartix:classes/adminsOfJoinedClasses', function (schoolName) {
     
-    
     var joinedClasses;
     
     if(schoolName){
@@ -126,25 +142,46 @@ Meteor.publish('smartix:classes/adminsOfJoinedClasses', function (schoolName) {
             username: schoolName
         });
 
-        if(schoolName =='global'){
+        if(schoolName === 'global'){
                 joinedClasses = Smartix.Groups.Collection.find({
-                    users: this.userId,
+                    type: 'class',
+                    $or: [{
+                        users: this.userId
+                    }, {
+                        distributionLists: {
+                            $in: Smartix.DistributionLists.getDistributionListsOfUser(this.userId)
+                        }
+                    }],
                     namespace: schoolName
-                }).fetch();                
-        }else{
+                }).fetch();
+        } else {
             joinedClasses = Smartix.Groups.Collection.find({
+                $or: [{
+                    users: this.userId
+                }, {
+                    distributionLists: {
+                        $in: Smartix.DistributionLists.getDistributionListsOfUser(this.userId)
+                    }
+                }],
                 users: this.userId,
+                type: 'class',
                 namespace: schoolDoc._id
-            }).fetch();            
+            }).fetch();
         }         
 
          
-    }else{
+    } else {
         joinedClasses = Smartix.Groups.Collection.find({
-            users: this.userId
+            type: 'class',
+            $or: [{
+                users: this.userId
+            }, {
+                distributionLists: {
+                    $in: Smartix.DistributionLists.getDistributionListsOfUser(this.userId)
+                }
+            }]
         }).fetch();        
     }
-    
     
     //console.log('adminsOfJoinedClasses:joinedClasses',joinedClasses);
 

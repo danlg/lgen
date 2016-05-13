@@ -205,3 +205,9 @@ Smartix.DistributionLists.getDistributionListsOfUser = function (userId) {
         return list._id;
     })
 }
+
+Smartix.DistributionLists.getUsersInDistributionLists = function (distributionLists) {
+    return _.uniq(_.reduce(distributionLists, function (users, list) {
+        users = _.concat(users, list.users);
+    }, []));
+}
