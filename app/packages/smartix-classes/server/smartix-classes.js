@@ -368,7 +368,6 @@ Smartix.Class.addUsersToClass = function(classId, users) {
     });
 
     if (classObj) {
-        console.log(classObj.namespace);
         if (!(
             Smartix.Class.isClassAdmin(Meteor.userId(), classId)
             || Smartix.Accounts.School.isAdmin(classObj.namespace)
@@ -488,6 +487,48 @@ Smartix.Class.removeAdminsFromClass = function(classId, admins, currentUser) {
         });
 };
 
+Smartix.Class.removeListsFromClass = function(classId, lists, currentUser) {
+
+    // Checks that `id` is of type String
+    check(classId, String);
+
+    // Checks that `users` is an array of Strings
+    check(lists, [String]);
+
+    check(currentUser, Match.Maybe(String));
+
+    // Get the `_id` of the currently-logged in user
+    if (!(currentUser === null)) {
+        currentUser = currentUser || Meteor.userId();
+    }
+    
+    // Checks that currently-logged in user is one of the following:
+    // * Admin for the school (namespace) specified
+    // * One of the admins for the class
+
+    // TODO - Optimize this so
+    // only if the user is not class admin
+    // would we have to fetch the class object
+    let classObj = Smartix.Groups.Collection.findOne({
+        _id: classId,
+        type: "class"
+    });
+
+    if (!(Smartix.Class.isClassAdmin(currentUser, classId)
+        || Smartix.Accounts.School.isAdmin(classObj.namespace))) {
+        return false;
+        // Optional: Throw an appropriate error if not
+    }
+
+    Smartix.Groups.Collection.update({
+        _id: classId
+    }, {
+            $pullAll: {
+                distributionLists: lists
+            }
+        });
+};
+
 Smartix.Class.NotifyParents = Smartix.Class.NotifyStudents = function(userId, classId) {
 
     check(userId, String);
@@ -520,6 +561,26 @@ Smartix.Class.NotifyParents = Smartix.Class.NotifyStudents = function(userId, cl
         html: Smartix.notifyEmailTemplate(user, classObj)
     })
 };
+
+Smartix.Class.getDistributionListsOfClass = function (classCode) {
+    
+    // TODO - Checks for permission
+    
+    let targetClass = Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: classCode
+    });
+    if (targetClass) {
+        return Smartix.Groups.Collection.find({
+            type: 'distributionList',
+            _id: {
+                $in: targetClass.distributionLists
+            }
+        });
+    } else {
+        return false;
+    }
+}
 
 /////////////////////////////////
 // OLD CODE TO BE SORTED LATER //

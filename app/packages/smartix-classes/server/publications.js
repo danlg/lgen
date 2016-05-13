@@ -215,3 +215,14 @@ Meteor.publish('smartix:classes/adminsOfClass', function (classCode) {
         this.ready();
     }
 });
+
+Meteor.publish('smartix:classes/distributionListsOfClass', function (classCode) {
+    
+    let distributionListsOfClass = Smartix.Class.getDistributionListsOfClass(classCode);
+    
+    if(distributionListsOfClass) {
+        return distributionListsOfClass;
+    } else {
+        this.ready();
+    }
+})

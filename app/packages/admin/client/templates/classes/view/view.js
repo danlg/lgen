@@ -24,13 +24,15 @@ Template.AdminClassesView.onCreated(function () {
             }
         });
         
+        self.subscribe('smartix:classes/distributionListsOfClass', currentClassCode);
+        
         var schoolUsername = Router.current().params.school;
-        self.subscribe('schoolInfo', schoolUsername, function () {
-            var schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolUsername)
-            if(schoolNamespace) {
-                self.subscribe('smartix:accounts/allUsersInNamespace', Smartix.Accounts.School.getNamespaceFromSchoolName(schoolUsername));
-            }
-        })
+        
+        // Subscription for school info is already done at the admin layout's js file
+        var schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolUsername)
+        if(schoolNamespace) {
+            self.subscribe('smartix:accounts/allUsersInNamespace', Smartix.Accounts.School.getNamespaceFromSchoolName(schoolUsername));
+        }
     }
 });
 
@@ -47,6 +49,13 @@ Template.AdminClassesView.helpers({
     userData: function (data) {
         if(Template.instance().subscriptionsReady()) {
             return Meteor.users.findOne({
+                _id: data
+            });
+        }
+    },
+    listData: function (data) {
+        if(Template.instance().subscriptionsReady()) {
+            return Smartix.Groups.Collection.findOne({
                 _id: data
             });
         }
@@ -155,6 +164,25 @@ Template.AdminClassesView.events({
         
         if(classObj && userId) {
             Meteor.call('smartix:classes/removeAdmins', classObj._id, [userId], function (err, res) {
+                // console.log(err);
+                // console.log(res);
+            });
+        }
+    },
+    'click .remove-list': function (event, template) {
+        // Get class Id from name 
+        var classObj = Smartix.Groups.Collection.findOne({
+            classCode: Router.current().params.classCode,
+            type: "class"
+        })
+        
+        var listId = event.currentTarget.dataset.listId;
+        if(!classObj) {
+            toastr.error('Could not find the class with class code ' + Router.current().params.classCode);
+        }
+        
+        if(classObj && listId) {
+            Meteor.call('smartix:classes/removeDistributionLists', classObj._id, [listId], function (err, res) {
                 // console.log(err);
                 // console.log(res);
             });

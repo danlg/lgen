@@ -65,6 +65,9 @@ Meteor.methods({
     'smartix:classes/removeAdmins': function(classId, adminsToRemove) {
         Smartix.Class.removeAdminsFromClass(classId, adminsToRemove, this.userId);
     },
+    'smartix:classes/removeDistributionLists': function(classId, listsToRemove) {
+        Smartix.Class.removeListsFromClass(classId, listsToRemove, this.userId);
+    },
 
     'smartix:classes/join': function(doc, userToAdd) {
 
