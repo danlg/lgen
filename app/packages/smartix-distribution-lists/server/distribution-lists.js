@@ -211,3 +211,30 @@ Smartix.DistributionLists.getUsersInDistributionLists = function (distributionLi
         users = _.concat(users, list.users);
     }, []));
 }
+
+// Remove non-existent distribution lists from the array
+Smartix.DistributionLists.removeNonExistentDistributionLists = function (lists) {
+    // Checks `users` is an array of Strings
+    check(lists, [String]);
+
+    // Checks if all the lists exists
+    if (lists.length === Smartix.Groups.Collection.find({
+        type: "distributionList",
+        _id: {
+            $in: lists
+        }
+    }).count()) {
+        // If all lists exists, return the `users` array as-is
+        return lists;
+    } else {
+        // If not all users exists, filter the `users` array
+        // to include only existing users
+        return _.filter(lists, function (listId, i, array) {
+            // This will return `undefined` if no user is found
+            return Smartix.Groups.Collection.findOne({
+                type: "distributionList",
+                _id: listId
+            });
+        });
+    }
+}

@@ -10,85 +10,106 @@
                 <p>Created At: {{createdAt}}</p>
                 <p>Class Code: {{classCode}}</p>
                 <p>Age Restricted: {{ageRestricted}}</p>
-                
-                <div id="AdminClassesView__add-user-container" class="form-group">
+            </div>
+            {{/with}}
+        </div>
+        <div class="panel panel-flat">
+            <div class="panel-body">
+                {{#with classData}}
+                <h3>Admins</h3>
+                <div id="AdminClassesView__add-admin-container" class="form-group">
                     <div class="col-lg-12">
-                        <div class="add-user-input-container input-group AdminClassesView__add-user-input-container">
-                            {{> EasySearch.Input index=classUserIndex attributes=adminUserSearchInputAttributes}}
+                        <div class="add-admin-input-container input-group AdminClassesView__add-admin-input-container">
+                            {{> EasySearch.Input index=classAdminIndex attributes=adminListSearchInputAttributes noDocumentsOnEmpty=true}}
                         </div>
-                        <ul>
-                            {{#EasySearch.Each index=classUserIndex }}
-                                <li class="AdminClassesView__user-search-result">
+                        <ul class="add-admin-result-container">
+                            {{#EasySearch.Each index=classAdminIndex}}
+                                <li class="AdminClassesView__admin-search-result">
                                     <div>
-                                        <p class="AdminClassesView__user-search-name">{{profile.firstName}} {{profile.lastName}}</p>
-                                        <button class="AdminClassesView__user-search-add-admin" data-user-id="{{_id}}">Add Admin</button>
-                                        <button class="AdminClassesView__user-search-add-user" data-user-id="{{_id}}">Add User</button>
+                                        <span class="AdminClassesView__admin-search-name AdminClassesView__admin-search-add" data-admin-id="{{_id}}">{{profile.firstName}} {{profile.lastName}}</span>
                                     </div>
                                 </li>
                             {{/EasySearch.Each}}
                         </ul>
                     </div>
                 </div>
-
-                <h3>Admins</h3>
                 <!-- Large table -->
                 <table class="table datatable-basic">
-                    <thead>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Remove Admin</th>
-                    </thead>
                     <tbody>
                         {{#each admins}} {{#with userData this}}
-                        <tr>
-                            <td><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.firstName}}</a></td>
-                            <td><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.lastName}}</a></td>
-                            <td>
-                                <button type="button" class="remove-admin btn border-warning text-warning-600 btn-flat btn-icon btn-rounded" data-user-id="{{_id}}"><i class="icon-minus2"></i></button>
-                            </td>
+                        <tr class="AdminClassesView__tr">
+                            <td class="AdminClassesView__td"><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.firstName}} {{profile.lastName}}</a><button type="button" class="remove-admin label label-danger" data-user-id="{{_id}}">Remove</button></td>
                         </tr>
                         {{/with}} {{/each}}
                     </tbody>
                 </table>
+                {{/with}}
+            </div>
+        </div>
+        <div class="panel panel-flat">
+            {{#with classData}}
+            <div class="panel-body">
                 <!-- /large table -->
-                <h3>Distribution Lists</h3>
-                <!-- Large table -->
-                <table class="table datatable-basic">
-                    <thead>
-                        <th>List Name</th>
-                        <th>Remove List</th>
-                    </thead>
-                    <tbody>
-                        {{#each distributionLists}} {{#with listData this}}
-                        <tr>
-                            <td><a href="{{pathFor 'admin.lists.view' data=_id}}">{{name}}</a></td>
-                            <td>
-                                <button type="button" class="remove-list btn border-warning text-warning-600 btn-flat btn-icon btn-rounded" data-list-id="{{_id}}"><i class="icon-minus2"></i></button>
-                            </td>
-                        </tr>
-                        {{/with}} {{/each}}
-                    </tbody>
-                </table>
-                <h3>Users</h3>
-                <!-- Large table -->
-                <table class="table datatable-basic">
-                    <thead>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Remove User</th>
-                    </thead>
-                    <tbody>
-                        {{#each users}} {{#with userData this}}
-                        <tr>
-                            <td><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.firstName}}</a></td>
-                            <td><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.lastName}}</a></td>
-                            <td>
-                                <button type="button" class="remove-user btn border-warning text-warning-600 btn-flat btn-icon btn-rounded" data-user-id="{{_id}}"><i class="icon-minus2"></i></button>
-                            </td>
-                        </tr>
-                        {{/with}} {{/each}}
-                    </tbody>
-                </table>
+                <h3>Manage Users</h3>
+                <div class="col-lg-6">
+                    <h5 class="AdminClassesView__subheading">Distribution List(s)</h5>
+                    <div id="AdminClassesView__add-list-container" class="form-group">
+                        <div class="col-lg-12">
+                            <div class="add-user-input-container input-group AdminClassesView__add-list-input-container">
+                                {{> EasySearch.Input index=distributionListIndex attributes=adminListSearchInputAttributes noDocumentsOnEmpty=true}}
+                            </div>
+                            <ul class="add-list-result-container">
+                                {{#EasySearch.Each index=distributionListIndex}}
+                                    <li class="AdminClassesView__list-search-result">
+                                        <div>
+                                            <span class="AdminClassesView__list-search-name AdminClassesView__list-search-add" data-list-id="{{_id}}">{{name}}</span>
+                                        </div>
+                                    </li>
+                                {{/EasySearch.Each}}
+                                <!--{{> EasySearch.Pagination index=distributionListIndex maxPages=10}}-->
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Large table -->
+                    <table class="AdminClassesView__distributionListsTable table datatable-basic">
+                        <tbody>
+                            {{#each distributionLists}} {{#with listData this}}
+                            <tr class="AdminClassesView__tr">
+                                <td class="AdminClassesView__td"><a href="{{pathFor 'admin.lists.view' data=_id}}">{{name}}</a><button type="button" class="remove-list label label-danger" data-list-id="{{_id}}">Remove</button></td>
+                            </tr>
+                            {{/with}} {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-6">
+                    <h5 class="AdminClassesView__subheading">Individual User(s)</h5>
+                    <div id="AdminClassesView__add-user-container" class="form-group">
+                        <div class="col-lg-12">
+                            <div class="add-user-input-container input-group AdminClassesView__add-user-input-container">
+                                {{> EasySearch.Input index=classUserIndex attributes=adminUserSearchInputAttributes noDocumentsOnEmpty=true}}
+                            </div>
+                            <ul class="add-user-result-container">
+                                {{#EasySearch.Each index=classUserIndex }}
+                                    <li class="AdminClassesView__user-search-result">
+                                        <div>
+                                            <span class="AdminClassesView__user-search-name AdminClassesView__user-search-add" data-user-id="{{_id}}">{{profile.firstName}} {{profile.lastName}}</span>
+                                        </div>
+                                    </li>
+                                {{/EasySearch.Each}}
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Large table -->
+                    <table class="table datatable-basic">
+                        <tbody>
+                            {{#each users}} {{#with userData this}}
+                            <tr class="AdminClassesView__tr">
+                                <td class="AdminClassesView__td"><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.firstName}} {{profile.lastName}}</a><button type="button" class="remove-user label label-danger" data-user-id="{{_id}}">Remove</button></td>
+                            </tr>
+                            {{/with}} {{/each}}
+                        </tbody>
+                    </table>
+                </div>
             </div>
             {{/with}}
         </div>

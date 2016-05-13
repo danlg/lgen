@@ -24,20 +24,74 @@ Template.AdminClassesView.onCreated(function () {
             }
         });
         
-        self.subscribe('smartix:classes/distributionListsOfClass', currentClassCode);
-        
         var schoolUsername = Router.current().params.school;
         
         // Subscription for school info is already done at the admin layout's js file
         var schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolUsername)
         if(schoolNamespace) {
+            self.subscribe('smartix:distribution-lists/listsInNamespace', schoolNamespace);
             self.subscribe('smartix:accounts/allUsersInNamespace', Smartix.Accounts.School.getNamespaceFromSchoolName(schoolUsername));
         }
     }
+
+    this.DistributionListsIndex = new EasySearch.Index({
+        collection: Smartix.Groups.Collection,
+        fields: ['name', 'url'],
+        engine: new EasySearch.Minimongo({
+            selector: function(searchObject, options, aggregation) {
+
+                // selector contains the default mongo selector that Easy Search would use
+                var selector = this.defaultConfiguration().selector(searchObject, options, aggregation);
+
+                // modify the selector to only match documents where region equals "New York"
+                selector.type = "distributionList";
+                selector.namespace = schoolNamespace;
+
+                return selector;
+            }
+        }),
+        // See https://github.com/matteodem/meteor-easy-search/issues/315
+        defaultSearchOptions: {
+            limit: 5 
+        }
+    });
+    
+    this.ClassUsersIndex = new EasySearch.Index({
+        collection: Meteor.users,
+        fields: ['profile.firstName', 'profile.lastName'],
+        engine: new EasySearch.Minimongo(),
+        // See https://github.com/matteodem/meteor-easy-search/issues/315
+        defaultSearchOptions: {
+            limit: 5 
+        }
+    });
+
+    this.ClassAdminsIndex = new EasySearch.Index({
+        collection: Meteor.users,
+        fields: ['profile.firstName', 'profile.lastName'],
+        engine: new EasySearch.Minimongo(),
+        // See https://github.com/matteodem/meteor-easy-search/issues/315
+        defaultSearchOptions: {
+            limit: 5 
+        }
+    });
 });
 
 
 Template.AdminClassesView.helpers({
+    announcements: function () {
+        if(Template.instance().subscriptionsReady()) {
+            var classData = Smartix.Groups.Collection.findOne({
+                classCode: Router.current().params.classCode,
+                type: 'class'
+            });
+            if(classData && classData._id) {
+                return Smartix.Messages.Collection.find({
+                    group: classData._id
+                });
+            }
+        }
+    },
     classData: function () {
         if(Template.instance().subscriptionsReady()) {
             return Smartix.Groups.Collection.findOne({
@@ -60,21 +114,14 @@ Template.AdminClassesView.helpers({
             });
         }
     },
-    announcements: function () {
-        if(Template.instance().subscriptionsReady()) {
-            var classData = Smartix.Groups.Collection.findOne({
-                classCode: Router.current().params.classCode,
-                type: 'class'
-            });
-            if(classData && classData._id) {
-                return Smartix.Messages.Collection.find({
-                    group: classData._id
-                });
-            }
-        }
-    },
     classUserIndex: function () {
-        return ClassUsersIndex;
+        return Template.instance().ClassUsersIndex;
+    },
+    classAdminIndex: function () {
+        return Template.instance().ClassAdminsIndex;
+    },
+    distributionListIndex: function () {
+        return Template.instance().DistributionListsIndex;
     },
     adminAdminSearchInputAttributes: function () {
         return {
@@ -89,12 +136,19 @@ Template.AdminClassesView.helpers({
             class: "form-control",
             id: "AdminClassesView__add-user-input"
         }
+    },
+    adminListSearchInputAttributes: function () {
+        return {
+            placeholder: "Type the name/url of the distribution list to add",
+            class: "form-control",
+            id: "AdminClassesView__add-list-input"
+        }
     }
 });
 
 Template.AdminClassesView.events({
-    'click .AdminClassesView__user-search-add-admin': function(event, template) {
-        var userId = event.target.dataset.userId;
+    'click .AdminClassesView__admin-search-add': function(event, template) {
+        var userId = event.target.dataset.adminId;
         if (Router
             && Router.current()
             && Router.current().params
@@ -112,7 +166,7 @@ Template.AdminClassesView.events({
             toastr.error(TAPi18n.__("applicationError.refreshRequired"));
         }
     },
-    'click .AdminClassesView__user-search-add-user': function(event, template) {
+    'click .AdminClassesView__user-search-add': function(event, template) {
         var userId = event.target.dataset.userId;
         if (Router
             && Router.current()
@@ -127,6 +181,27 @@ Template.AdminClassesView.events({
                     toastr.error(err.message);
                 }
             });
+        } else {
+            toastr.error(TAPi18n.__("applicationError.refreshRequired"));
+        }
+    },
+    'click .AdminClassesView__list-search-add': function (event, template) {
+        var listId = event.target.dataset.listId;
+        if (Router
+            && Router.current()
+            && Router.current().params
+        ) {
+            var classId = Smartix.Class.classIdFromClassCode(Router.current().params.classCode);
+            if(classId) {
+                Meteor.call('smartix:classes/addDistributionLists', classId, [listId], function (err, res) {
+                    if(err) {
+                        console.log(err);
+                        toastr.error(err.message);
+                    }
+                });
+            } else {
+                toastr.error(TAPi18n.__("applicationError.refreshRequired"));
+            }
         } else {
             toastr.error(TAPi18n.__("applicationError.refreshRequired"));
         }

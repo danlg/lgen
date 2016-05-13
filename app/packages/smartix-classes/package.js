@@ -35,6 +35,7 @@ Package.onUse(function(api) {
     
     api.addFiles('lib/schema.js', ['client', 'server']);
     api.addFiles('lib/route.js', ['client', 'server']);
+    api.addFiles('lib/helpers.js', ['client', 'server']);
     api.addFiles('server/smartix-classes.js', ['server']);
     api.addFiles('server/methods.js', ['server']);
     api.addFiles('server/publications.js', ['server']);

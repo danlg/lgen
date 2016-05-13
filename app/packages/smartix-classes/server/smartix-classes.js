@@ -153,7 +153,7 @@ Smartix.Class.createClass = function(classObj, currentUser) {
         classCode: /^newClass.classCode$/i
     });
     if (classWithClassCode) {
-        Smartix.Class.addAdminsToClass(classWithClassCode._id, [currentUser]);
+        Smartix.Class.addAdminsToClass(classWithClassCode._id, [currentUser], currentUser);
         return false;
         // Optional: Throw error saying classCode already exists
     }
@@ -181,7 +181,22 @@ Smartix.Class.createClass = function(classObj, currentUser) {
     return newClassId;
 };
 
-Smartix.Class.editClass = function(classId, options) {
+Smartix.Class.canEditClass = function (classId, currentUser) {
+    
+    check(classId, String);
+    
+    check(currentUser, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    if(!(currentUser === null)) {
+        currentUser = currentUser || Meteor.userId();
+    }
+    
+    return (Smartix.Class.isClassAdmin(currentUser, classId)
+        || Smartix.Accounts.School.isAdmin(existingClass.namespace, currentUser));
+}
+
+Smartix.Class.editClass = function(classId, options, currentUser) {
 
     log.info('Smartix.Class.editClass', classId, options);
     // Checks that `id` is of type String
@@ -189,6 +204,13 @@ Smartix.Class.editClass = function(classId, options) {
 
     // Checks that `options` is an object
     check(options, Object);
+    
+    check(currentUser, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    if(!(currentUser === null)) {
+        currentUser = currentUser || Meteor.userId();
+    }
 
     // Get the existing class
     var existingClass = Smartix.Groups.Collection.findOne({
@@ -202,8 +224,7 @@ Smartix.Class.editClass = function(classId, options) {
     // * Admin for the school (namespace) specified
     // * One of the admins for the class
 
-    if (!(Smartix.Class.isClassAdmin(Meteor.userId(), classId)
-        || Smartix.Accounts.School.isAdmin(existingClass.namespace))) {
+    if (!canEditClass(classId, currentUser)) {
 
         log.info('no right to edit class!')
         return false;
@@ -307,14 +328,21 @@ Smartix.Class.deleteClass = function(id) {
     Smartix.Groups.deleteGroup(id);
 };
 
-Smartix.Class.addAdminsToClass = function(classId, users) {
+Smartix.Class.addAdminsToClass = function(classId, users, currentUser) {
 
     // Checks that `id` is of type String
     check(classId, String);
 
     // Checks that `users` is an array of Strings
     check(users, [String]);
-
+    
+    check(currentUser, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    if(!(currentUser === null)) {
+        currentUser = currentUser || Meteor.userId();
+    }
+    
     // Checks that currently-logged in user is one of the following:
     // * Admin for the school (namespace) specified
     // * One of the admins for the class
@@ -325,8 +353,7 @@ Smartix.Class.addAdminsToClass = function(classId, users) {
     });
 
     if (classObj) {
-        if (!(Smartix.Class.isClassAdmin(Meteor.userId(), classId)
-            || Smartix.Accounts.School.isAdmin(classObj.namespace))) {
+        if (!Smartix.Class.canEditClass(classId, currentUser)) {
             return false;
             // Optional: Throw an appropriate error if not
         }
@@ -340,15 +367,82 @@ Smartix.Class.addAdminsToClass = function(classId, users) {
     Smartix.Groups.Collection.update({
         _id: classId
     }, {
-
-            $addToSet: {
-                admins: {
-                    $each: users
-                }
+        $addToSet: {
+            admins: {
+                $each: users
             }
-
-        });
+        }
+    });
 }
+
+Smartix.Class.addListsToClass = function(classId, lists) {
+
+    // Checks that `classId` is of type String
+    check(classId, String);
+
+    // Checks that `lists` is an array of Strings
+    check(lists, [String]);
+
+    // Checks that currently-logged in user is one of the following:
+    // * Admin for the school (namespace) specified
+    // * One of the admins for the class
+
+    let classObj = Smartix.Groups.Collection.findOne({
+        _id: classId,
+        type: "class"
+    });
+
+    if (classObj) {
+        if (!(
+            Smartix.Class.isClassAdmin(Meteor.userId(), classId)
+            || Smartix.Accounts.School.isAdmin(classObj.namespace)
+            || Smartix.Accounts.School.isMember(Meteor.userId(), classObj.namespace)
+            || classObj.namespace === 'global'
+        )) {
+            return false;
+            // Optional: Throw an appropriate error if not
+        }
+    } else {
+        return false;
+    }
+
+    // Add users to class
+    Smartix.Groups.addDistributionListsToGroup(classId, lists);
+
+    /////////////////////////////
+    // SEND NOTIFICATION EMAIL //
+    /////////////////////////////
+
+    if (classObj) {
+        let usersInDistributionLists;
+        if(classObj.notifyStudents || classObj.notifyParents) {
+            // Get the users in the distribution list
+            usersInDistributionLists = Smartix.DistributionLists.getUsersInDistributionLists(lists);
+            // Remove the ones who are already in the class
+            
+            usersInDistributionLists = _.uniq(_.pullAll(usersInDistributionLists, classObj.users));
+        }
+        
+        // Send emails to students if `newClass.notifyStudents` is true
+        if (classObj.notifyStudents) {
+            
+            _.each(usersInDistributionLists, function(student, i, students) {
+                Smartix.Class.NotifyStudents(student, classObj._id);
+            });
+        }
+        // Send emails to parents if `newClass.notifyParents` is true
+        if (classObj.notifyParents) {
+            _.each(usersInDistributionLists, function(student, i, students) {
+                // Get the parents of the student
+                let parents = Smartix.Accounts.Relationships.getParentOfStudent(student, classObj.namespace);
+
+                _.each(parents, function(parent, i) {
+                    Smartix.Class.NotifyStudents(parent, classObj._id);
+                });
+            });
+        }
+    }
+};
 
 Smartix.Class.addUsersToClass = function(classId, users) {
 
@@ -519,14 +613,8 @@ Smartix.Class.removeListsFromClass = function(classId, lists, currentUser) {
         return false;
         // Optional: Throw an appropriate error if not
     }
-
-    Smartix.Groups.Collection.update({
-        _id: classId
-    }, {
-            $pullAll: {
-                distributionLists: lists
-            }
-        });
+    
+    Smartix.Groups.removeDistributionListsFromGroup(classId, lists);
 };
 
 Smartix.Class.NotifyParents = Smartix.Class.NotifyStudents = function(userId, classId) {

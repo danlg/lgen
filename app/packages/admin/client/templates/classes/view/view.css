@@ -1,16 +1,57 @@
-.AdminClassesView__add-admin-container {
-    height: 200px;
-}
-
-.AdminClassesView__user-search-result {
-    
-}
-
-.AdminClassesView__user-search-name {
+.AdminClassesView__user-search-name,
+.AdminClassesView__admin-search-name,
+.AdminClassesView__list-search-name {
     display: inline-block;
 }
 
-.AdminClassesView__user-search-add-admin,
-.AdminClassesView__user-search-add-user {
+.add-user-result-container,
+.add-admin-result-container,
+.add-list-result-container {
+    position: absolute;
+    position: absolute;
+    width: 100%;
+    border-bottom: 1px solid green;
+    border-left: 1px solid green;
+    border-right: 1px solid green;
+}
+
+.AdminClassesView__add-list-container {
+    z-index: 3;
+}
+
+.AdminClassesView__user-search-result,
+.AdminClassesView__admin-search-result,
+.AdminClassesView__list-search-result {
+    background-color: white;
+    cursor: pointer;
+    -webkit-transition: background-color 200ms ease-out;
+    -moz-transition: background-color 200ms ease-out;
+    -o-transition: background-color 200ms ease-out;
+    -ms-transition: background-color 200ms ease-out;
+    transition: background-color 200ms ease-out;
+}
+
+.AdminClassesView__user-search-result:hover,
+.AdminClassesView__admin-search-result:hover,
+.AdminClassesView__list-search-result:hover {
+    background-color: #CEE8CE;
+}
+
+.AdminClassesView__subheading {
+    padding-top: 48px;
+}
+
+.remove-user,
+.remove-admin,
+.remove-list {
     float: right;
+}
+
+.table > tbody > tr > td.AdminClassesView__td {
+    border: none;
+    padding: 6px 10px;
+}
+
+tr.AdminClassesView__tr + tr.AdminClassesView__tr {
+    border-top: 1px solid #dddddd;
 }

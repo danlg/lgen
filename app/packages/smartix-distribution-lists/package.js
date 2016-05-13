@@ -25,6 +25,7 @@ Package.onUse(function(api) {
     api.use('smartix:groups@0.0.1');
     api.addFiles('lib/schema.js', ['client', 'server']);
     api.addFiles('server/distribution-lists.js', 'server');
+    api.addFiles('server/groups.js', 'server');
     api.addFiles('server/methods.js', 'server');
     api.addFiles('server/publications.js', 'server');
     

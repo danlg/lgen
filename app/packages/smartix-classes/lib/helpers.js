@@ -16,3 +16,11 @@ Smartix.Class.Helpers.getClassCodeNew = function(className) {
     var fullname = name + className;
     return fullname.toLowerCase();
 };
+
+Smartix.Class.classIdFromClassCode = function (classCode) {
+    var classObj = Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: classCode
+    })
+    return classObj ? classObj._id : false;
+}
