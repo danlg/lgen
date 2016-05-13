@@ -203,13 +203,28 @@ Meteor.startup(function () {
   }); 
    
   //when receive any other  message, display a popup, which can be clicked
-  //and be redirected to tab classes
+  //and be redirected to tab classes or school homepage
   Streamy.on('other', function(data) {  
     //determine if browser support Notification API
     var shouldFallback = false;
+    
+    //if it is a normal msg, route to tab classes
     var pathToRouteObj ={
         routeName:'TabClasses'
-    };    
+    };  
+    
+    //if message is a school msg with namespace, try to route user back to school home to continue
+    if(data.namespace && data.namespace !== 'global'){      
+            var schoolDoc = SmartixSchoolsCol.findOne(data.namespace);   
+            if(schoolDoc){
+                
+                pathToRouteObj.routeName = 'mobile.school.home';
+                pathToRouteObj.params = {school : schoolDoc.username}
+                Session.set('pickedSchoolId',schoolDoc._id);               
+            }     
+
+    }
+  
     if ('Notification' in window && Notification.permission == 'granted') {
         //if Notification API is supported
         Smartix.helpers.spawnDesktopNotification(data.text, '/img/logo-new.png', data.from, pathToRouteObj);
