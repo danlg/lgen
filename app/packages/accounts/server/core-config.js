@@ -52,13 +52,9 @@ Accounts.onCreateUser(function (options, user) {
            user.roles = rolesObj;
                   
         }else{
-            log.info('existing account is found. Since we trust google login, set email address in this existing account to be verified for melding to proceed');
             if(existingUser.emails[0].verified === false){
-               var updateCount = Meteor.users.update( {_id: existingUser._id},{$set:{ "emails.0.verified":true }} );
-               if(updateCount < 1){
-                    throw new Meteor.Error("existing-account-cannot-update", 
-                    "You have an account. But we have some technical issue to let you login with google");                         
-               }
+                throw new Meteor.Error("existing-account-not-verified", 
+                "You have an account that is not verified. You must verify it before you can use google login");                
             }
         }
 
