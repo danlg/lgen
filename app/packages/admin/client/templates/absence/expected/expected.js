@@ -22,11 +22,38 @@ Template.AdminAbsenceExpected.onCreated(function () {
     } else {
         log.info("Please specify a school to list the users for");
     }
+    
+    // Set defaults for the filter
+    
+    this.expectedAbsencesFilter = new ReactiveDict('expectedAbsencesFilter');
+    this.expectedAbsencesFilter.set('from', moment(Date.now()).format("YYYY-MM-DD"));
+    this.expectedAbsencesFilter.set('to', moment(Date.now()).add(1, 'day').format("YYYY-MM-DD"));
 });
 
 Template.AdminAbsenceExpected.helpers({
+    filterStartDate: function () {
+        return Template.instance().expectedAbsencesFilter.get('from');
+    },
+    filterEndDate: function () {
+        return Template.instance().expectedAbsencesFilter.get('to');
+    },
     expectedAbsence: function () {
-        return Smartix.Absence.Collections.expected.find();
+        var dateFrom = Template.instance().expectedAbsencesFilter.get('from');
+        var dateTo = Template.instance().expectedAbsencesFilter.get('to');
+        
+        // Assumes UTC+8
+        var dateFromTS = moment.utc(dateFrom, "YYYY-MM-DD").startOf('day').subtract(8, 'hours').unix();
+        var dateToTS = moment.utc(dateTo, "YYYY-MM-DD").startOf('day').subtract(8, 'hours').unix();
+        
+        return Smartix.Absence.Collections.expected.find({
+            dateFrom: {
+                $lt: dateToTS
+            },
+            dateTo: {
+                $gte: dateFromTS
+            },
+            namespace: Smartix.Accounts.School.getNamespaceFromSchoolName(Router.current().params.school)
+        });
     },
     userData: function () {
         return Meteor.users.findOne({
@@ -49,5 +76,8 @@ Template.AdminAbsenceExpected.events({
     },
     'click .AdminAbsenceExpected__approve': function () {
         Meteor.call('smartix:absence/approveExpectedAbsence', this._id);
+    },
+    'click .AdminAbsenceExpected__updateFilter': function (event, template) {
+        
     }
 })

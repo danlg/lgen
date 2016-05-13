@@ -16,7 +16,8 @@ Package.onUse(function(api) {
   api.use('ecmascript');
   api.use('templating');
   api.use('jquery');
-  api.use('less');    
+  api.use('less');
+  api.use('reactive-dict');
   api.use('iron:router');
   api.use('aldeed:simple-schema');
   api.use('harrison:papa-parse@1.1.1');
