@@ -91,7 +91,7 @@ Smartix.Accounts.createUser = function (email, userObj, namespace, roles, curren
     }
     else {
         // Otherwise, if the user does not already exists, create a new user
-        newUserId = Smartix.Accounts.createUserImpl (userObj, email, namespace) ;
+        newUserId = Smartix.Accounts.createUserImpl(userObj, email, namespace);
         //splendido:accounts-meld to merge account
         //that user logins by google oauth but already have existing acc with password login`
         //https://github.com/danlg/lgen/issues/291
@@ -99,8 +99,11 @@ Smartix.Accounts.createUser = function (email, userObj, namespace, roles, curren
         registered_emails.push({address: email, verified: true});
 
         //Do not store password in clear in database
-        var tempPassword = userObj.password; delete userObj.password;
+        var tempPassword = userObj.password;
+        delete userObj.password;
         // Set the password if provided
+        //log.info("About to set Password=" + tempPassword);
+
         Smartix.Accounts.setPassword(newUserId, tempPassword);
         Meteor.users.update({_id: newUserId}, {$set: {registered_emails: registered_emails} } );
 
@@ -173,12 +176,15 @@ Smartix.Accounts.createUserImpl = function (userObj, email, namespace) {
     if (typeof email === "string") {
         newUserOptions.email = email;
     }
-    newUserOptions.schools = [namespace];
-    newUserOptions.pushNotifications = true;
+    //log.info("About to create user "+ newUserOptions.email + " " + newUserOptions.username + " for school "+newUserOptions.schools);
     var newUserId;
     try {
         newUserId = Accounts.createUser(newUserOptions);
         log.info('Created successfully newUserId: ', newUserId);
+        Meteor.users.update({_id: newUserId}, { $addToSet: {schools: [namespace] } });
+        //Meteor.users.update({_id: newUserId}, { pushNotifications: true }); //this is set elsewhere
+        // newUserOptions.schools = [namespace];
+        // newUserOptions.pushNotifications = true;
     }
     catch (e) {
         log.error("Couldn't create user", e);
