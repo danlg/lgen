@@ -5,7 +5,7 @@
     "clean-build": "rm -rf ../build",
     "clean-local": "./clean_build.sh",
 
-    "localdev" : "meteor --settings ../config/dev.settings.json",
+    "localdev" : "meteor run --settings ../config/dev.settings.json",
     "localdev-ssl" : "export MONGO_URL=mongodb://127.0.0.1:28888/littlegenius && meteor --settings ../config/dev.settings.json",
     "localdev-ssl-prd-beware" : "export MONGO_URL=mongodb://127.0.0.1:29999/littlegenius && meteor --settings ../config/dev.settings.json",
     "localdev-clean" : "./clean_build.sh && meteor -v --settings ../config/dev.settings.json",
