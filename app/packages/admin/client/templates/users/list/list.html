@@ -11,7 +11,15 @@
 </template>
 
 <template name='SchoolUserListItem'>
-    <tr><td>{{username}}</td></tr>
+    <tr>
+        <td>{{username}}</td>
+        <td>{{profile.firstName}}</td>
+        <td>{{profile.lastName}}</td>
+        <td>{{getUserEmail}}</td>   
+        <td>{{getUserRoles}}</td>   
+        <td><button>Edit</button></td>         
+        <td><button>Remove</button></td>                
+    </tr>
 </template>
 
 
