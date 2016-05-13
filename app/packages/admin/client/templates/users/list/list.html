@@ -24,10 +24,9 @@
 </template>
 
 
-
 <template name="SchoolUserList">
   <div class="table-responsive">
-  <input type='search' placeholder="Type User Name or Email to filter"/>  <button>Remove</button>
+  <input type='search' placeholder="Type User Name or Email to filter"/>  <button>Remove</button> Total User : {{getTotalUserCount}}
   {{> pages}} 
   </div>
   {{> pagesNav}}

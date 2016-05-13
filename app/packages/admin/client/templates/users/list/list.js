@@ -31,3 +31,9 @@ Template.SchoolUserListItem.onCreated(function(){
     });
     
 });
+
+Template.SchoolUserList.helpers({
+    getTotalUserCount:function(){
+        return Meteor.users.find().count();
+    }
+});
