@@ -14,7 +14,7 @@ Template.ClassInformationForWebUser.events({
       doc.classCode = Session.get("search");
       
       //if existing user, help user to join class directly and router go to the class page
-      Meteor.call("class/join", doc , function (error, result) {
+      Meteor.call("smartix:classes/join", doc , function (error, result) {
         
         log.info(error);
         log.info(result);
@@ -49,7 +49,7 @@ Template.ClassInformationForWebUser.events({
       doc.classCode = Session.get("search");
       
       //if existing user, help user to join class directly and router go to the class page
-      Meteor.call("class/join", doc , function (error, result) {
+      Meteor.call("smartix:classes/join", doc , function (error, result) {
         
         log.info(error);
         log.info(result);

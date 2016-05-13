@@ -46,19 +46,15 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Select the distribution list(s) to copy or refer to. For multiple selection, press Ctrl(PC)  or &#8984;(Mac) </label>
                         <div class="col-lg-10">
-                                <select id='distribution-list' name="distribution-list" multiple>
-                                    {{#each distributionListItems}}
-                                        <option value="{{_id}}">{{name}}</option>
-                                    {{else}}
-                                        <option>No distribution list </option>
-                                                                         
-                                    {{/each}}                                                                                                           
-                                </select>                       
+                            <select id='distribution-list' name="distribution-list" multiple>
+                                {{#each distributionListItems}}
+                                    <option value="{{_id}}">{{name}}</option>
+                                {{else}}
+                                    <option>No distribution list </option>
+                                {{/each}}
+                            </select>
                         </div>
-                    </div>                    
-                    
-                    
-                                     
+                    </div>
                 </fieldset>
                 
                 <div class="text-right">

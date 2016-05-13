@@ -19,34 +19,6 @@ Meteor.methods({
       }
     });
   },
-  'class/search': Smartix.Class.searchForClassWithClassCode,
-
-  //todo remove redundant API function
-  'class/searchExact': Smartix.Class.searchForClassWithClassCode,
-
-  'class/leave': function (classId) {
-    Smartix.Groups.Collection.update({_id: classId}, {$pull: {users: Meteor.userId()}});
-  },
-
-  'class/leaveByCode': function (classCode) {
-    Smartix.Groups.Collection.update({classCode: classCode}, {$pull: {users: Meteor.userId()}});
-  },
-
-  'class/deleteUser': function (classObj, userid) {
-    Smartix.Groups.Collection.update(classObj, {$pull: {users: userid}});
-  },
-
-  'class/deleteAllUser': function (classObj) {
-    Smartix.Groups.Collection.update(classObj, {$set: {users: []}});
-  },
-
-  'class/delete': function (classObj) {
-    Smartix.Groups.Collection.remove(classObj);
-  },
-
-  'class/update': function (doc) {
-    Smartix.Groups.Collection.update({_id: doc._id}, {$set: doc});
-  },
 
 
   'getUserNameById': function (userid) {

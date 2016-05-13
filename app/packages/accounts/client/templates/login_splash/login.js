@@ -35,7 +35,7 @@ Template.LoginSplash.onCreated(function () {
      //debugger;
      
      
-     Smartix.helpers.routeToTabClasses();
+     Smartix.Class.Helpers.routeToTabClasses();
      
   }
 });

@@ -38,24 +38,7 @@ Smartix.helpers = Smartix.helpers || {};
         for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
         return result;
     };
-
-
-
-
-
-    Smartix.helpers.getClassCode = function(className) {
-        var beforeHash = Meteor.user().email + className + new Date().getTime().toString();
-        return CryptoJS.SHA1(Smartix.helpers.randomString(10), beforeHash).toString().substring(0, 6);
-    };
-
-    Smartix.helpers.getClassCodeNew = function(className) {
-        var firstname = Meteor.user().profile.firstName;
-        var lastname = Meteor.user().profile.lastName;
-        var name = firstname.substring(0, 1) + lastname.substring(0, 4);
-        var fullname = name + className;
-        return fullname.toLowerCase();
-    };
-
+    
     Smartix.helpers.getLastnameOfCurrentUser = function(requiredCharLength) {
 
         var userProfile = Meteor.user().profile;

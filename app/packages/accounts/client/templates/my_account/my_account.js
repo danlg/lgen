@@ -205,11 +205,11 @@ Template.ionNavBar.events({
         } else {
             //todo congratulate
             //popup to download app
-            Smartix.helpers.routeToTabClasses();
+            Smartix.Class.Helpers.routeToTabClasses();
         }
     }
     else {
-        Smartix.helpers.routeToTabClasses();
+        Smartix.Class.Helpers.routeToTabClasses();
     }
   },
 
@@ -229,11 +229,11 @@ Template.ionNavBar.events({
         } else {
             //todo congratulate
             //popup to download app
-            Smartix.helpers.routeToTabClasses();
+            Smartix.Class.Helpers.routeToTabClasses();
         }
     }
     else {
-        Smartix.helpers.routeToTabClasses();
+        Smartix.Class.Helpers.routeToTabClasses();
     }   
   }  
 });

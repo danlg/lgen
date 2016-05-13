@@ -34,7 +34,7 @@ Template.EmailSignup.onCreated = function() {
     $("body").removeClass('modal-open');
     
   if (Meteor.userId()) {
-     Smartix.helpers.routeToTabClasses();     
+     Smartix.Class.Helpers.routeToTabClasses();     
   }    
 };
 
@@ -78,7 +78,7 @@ Template.EmailSignup.events({
                         }else{
                             toastr.info('Welcome. An verification email has also sent to your account. Click it to enable more features!')
                             log.info("login:meteor:" + Meteor.userId());
-                            Smartix.helpers.routeToTabClasses();                            
+                            Smartix.Class.Helpers.routeToTabClasses();                            
                         }
                     });
                 }

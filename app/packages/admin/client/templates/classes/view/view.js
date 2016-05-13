@@ -90,7 +90,7 @@ Template.AdminClassesView.events({
             && Router.current()
             && Router.current().params
         ) {
-            Meteor.call('class/joinAsAdmin', {
+            Meteor.call('smartix:classes/joinAsAdmin', {
                 classCode: Router.current().params.classCode,
                 schoolName: Router.current().params.school
             }, userId, function (err, res) {
@@ -109,7 +109,7 @@ Template.AdminClassesView.events({
             && Router.current()
             && Router.current().params
         ) {
-            Meteor.call('class/join', {
+            Meteor.call('smartix:classes/join', {
                 classCode: Router.current().params.classCode,
                 schoolName: Router.current().params.school
             }, userId, function (err, res) {

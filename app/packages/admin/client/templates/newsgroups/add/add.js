@@ -44,7 +44,7 @@ Template.AdminNewsgroupsAdd.helpers({
         });
     }
     
-})
+});
 
 Template.AdminNewsgroupsAdd.onCreated(function () {
     if (Router

@@ -8,14 +8,14 @@ Template.Tour.events({
      }
      
      //even if user is not registered, still can route to login pages.
-     Smartix.helpers.routeToTabClasses();
+     Smartix.Class.Helpers.routeToTabClasses();
   }
  
 });
 
 Template.Tour.onCreated(function(){
   if (Meteor.userId()) {
-     Smartix.helpers.routeToTabClasses();     
+     Smartix.Class.Helpers.routeToTabClasses();     
   }  
 })
 

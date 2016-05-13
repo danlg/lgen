@@ -75,14 +75,13 @@ Package.onUse(function(api) {
     api.use('accounts-base');
     api.use('accounts-google');
     api.use('accounts-oauth');
-    api.use('accounts-password'); 
+    api.use('accounts-password');
     api.use('jquery');
     
     api.addFiles('_app.js');         
     api.addFiles('client/init.js','client');       
     api.addFiles('server/init.js','server');
     api.addFiles([
-                  'client/autoformHooks/addClass.js',
                   'client/autoformHooks/chatSetting.js',
                   'client/autoformHooks/editClass.js',
                   'client/autoformHooks/emailInvite.js',

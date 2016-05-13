@@ -2,7 +2,7 @@ var postHooks = {
   before: {
     insert: function (doc) {
       if (!doc.classCode) {
-        doc.classCode = Smartix.helpers.getClassCodeNew(doc.className);
+        doc.classCode = Smartix.Class.Helpers.getClassCodeNew(doc.className);
       }
       //console.log("1.doc.classCode BEFOR="+doc.classCode);
       // THIS IS WHAT PREVENTS TO INSERT class code IN UPPER CASE

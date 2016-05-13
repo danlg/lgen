@@ -36,6 +36,7 @@ Package.onUse(function(api) {
     api.addFiles('server/methods.js', ['server']);
     api.addFiles('server/publications.js', ['server']);
     api.addFiles('client/schema.js', ['client']);
+    api.addFiles('client/autoformHooks/addClass.js', ['client']);
 
     api.addFiles(['client/components/class_edit/class_edit.html',
                 'client/components/class_edit/class_edit.js'],'client');
