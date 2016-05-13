@@ -87,6 +87,7 @@ Smartix.Accounts.createUser = function (email, userObj, namespace, roles, curren
         Roles.addUsersToRoles(newUserId, roles, namespace);
         // If the user is a student, create a distribution list based on the student's class
         Smartix.Accounts.createOrAddToDistributionList(newUserId, namespace, userObj.classroom, currentUser);
+        if (userObj.dob) { Meteor.users.update({_id: newUserId}, {$set: {"dob": userObj.dob} } ); }
         return [ newUserId, false ];
     }
     else {
@@ -98,6 +99,7 @@ Smartix.Accounts.createUser = function (email, userObj, namespace, roles, curren
         var registered_emails = [];
         registered_emails.push({address: email, verified: true});
         Meteor.users.update({_id: newUserId}, {$set: {registered_emails: registered_emails} } );
+        if (userObj.dob) { Meteor.users.update({_id: newUserId}, {$set: {"dob": userObj.dob} } ); }
         
         //Do not store password in clear in database
         var tempPassword = userObj.password; delete userObj.password;
