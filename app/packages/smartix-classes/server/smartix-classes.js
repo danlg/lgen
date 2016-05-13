@@ -114,6 +114,29 @@ Smartix.Class.createClass = function(classObj, currentUser) {
     newClass.admins = [currentUser];
     newClass.addons = ['voice', 'images', 'calendar', 'documents', 'poll', 'comment'];
 
+    // If a distribution list is specified
+    if (Array.isArray(classObj.distributionLists)) {
+        // If `copyMode` is set to `copy
+        // Copy the users in those lists to the users array
+        if (classObj.copyMode === "copy") {
+            let distributionListsToCopy = Smartix.Groups.Collection.find({
+                _id: {
+                    $in: classObj.distributionLists
+                },
+                namespace: classObj.namespace,
+                type: "distributionList"
+            }).fetch();
+
+            let usersToCopy = _.reduce(distributionListsToCopy, function(users, list) {
+                users = _.concat(list.users);
+                return users;
+            }, []);
+            
+            newClass.users = _.union(newClass.users, usersToCopy);
+        } else {
+            newClass.distributionLists = classObj.distributionLists;
+        }
+    }
 
     // Checks the arguments are of the specified type, convert it if not
     Smartix.Class.Schema.clean(newClass);

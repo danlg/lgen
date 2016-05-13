@@ -108,3 +108,11 @@ Meteor.publish('smartix:distribution-lists/basicInfoOfUsersInListByCode', functi
         this.ready();
     }
 });
+
+Meteor.publish('smartix:distribution-lists/distributionListsOfUser', function (userId) {
+    
+    // TODO - Check for permissions
+    
+    userId = userId || this.userId;
+    return Smartix.DistributionLists.getDistributionListsOfUser(userId);
+})

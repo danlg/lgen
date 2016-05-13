@@ -7,6 +7,10 @@ Smartix.Class.Schema = new SimpleSchema({
 		type: [String],
         defaultValue: []
 	},
+    distributionLists: {
+        type: [String],
+        defaultValue: []
+    },
 	namespace: {
 		type: String
 	},

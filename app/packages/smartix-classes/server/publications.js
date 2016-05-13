@@ -44,12 +44,18 @@ Meteor.publish('smartix:classes/classByClassCode', function (classCode) {
 // Returns a cursor of all classes where
 // the current user is a member or an admin
 Meteor.publish('smartix:classes/associatedClasses', function () {
+    
+    
     return Smartix.Groups.Collection.find({
         type: 'class',
         $or: [{
             users: this.userId
         }, {
             admins: this.userId
+        }, {
+            distributionLists: {
+                $in: Smartix.DistributionLists.getDistributionListsOfUser(this.userId)
+            }
         }]
     });
 });
@@ -59,7 +65,13 @@ Meteor.publish('smartix:classes/associatedClasses', function () {
 Meteor.publish('joinedClasses', function () {
     return Smartix.Groups.Collection.find({
         type: 'class',
-        users: this.userId
+        $or: [{
+            users: this.userId
+        }, {
+            distributionLists: {
+                $in: distributionListIdsOfUser
+            }
+        }]
     });
 });
 

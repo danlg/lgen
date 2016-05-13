@@ -193,3 +193,15 @@ Smartix.DistributionLists.removeUsersFromList = function (id, users, currentUser
 	// Remove users from group
 	Smartix.Groups.removeUsersFromGroup(id, users);
 };
+
+Smartix.DistributionLists.getDistributionListsOfUser = function (userId) {
+    // Get all distribution lists to which a user belongs to
+    let distributionListsOfUser = Smartix.Groups.Collection.find({
+        type: 'distributionList',
+        users: userId
+    }).fetch();
+    
+    return _.map(distributionListsOfUser, function(list) {
+        return list._id;
+    })
+}

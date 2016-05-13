@@ -36,6 +36,36 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Select the distribution list(s) to copy users from. For multiple selection, press Ctrl(PC) or &#8984;(Mac)
+                            </label>
+                        <div class="col-lg-10">
+                            <select id='distribution-list' name="distribution-list" multiple>
+                                {{#each distributionListItems}}
+                                <option value="{{_id}}">{{name}}</option>
+                                {{else}}
+                                <option>No distribution list </option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 text-semibold">Mode</label>
+                        <div class="col-md-10 row">
+                            <div class="col-md-12">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="addMode" class="control-success" value="copy" checked="checked"> Add by Copying Users
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="addMode" class="control-success" value="ref"> Add by Reference
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </fieldset>
 
                 <div class="text-right">

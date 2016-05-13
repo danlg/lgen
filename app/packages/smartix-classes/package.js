@@ -25,10 +25,12 @@ Package.onUse(function(api) {
     api.use('smartix:accounts-utilities@0.0.1');
     api.use('smartix:accounts-schools');
     api.use('smartix:groups');
+    api.use('smartix:distribution-lists');
     api.use('smartix:messages-addons-calendar');
     api.use('smartix:messages-addons-poll');
     api.use('smartix:accounts-relationships');
     api.use('smartix:email-template');
+    
     
     api.addFiles('lib/schema.js', ['client', 'server']);
     api.addFiles('lib/route.js', ['client', 'server']);
