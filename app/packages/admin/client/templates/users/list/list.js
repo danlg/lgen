@@ -9,6 +9,7 @@ Template.SchoolUserListItem.helpers({
       var schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolUsername);
       
       if(schoolNamespace){
+          if(this.roles)
           return this.roles[schoolNamespace].toString();
       }            
 
