@@ -19,10 +19,55 @@ Template.AdminUsersSearch.helpers({
   },
   getUserId:function(){
       return this._id;
+  },
+  isUserChecked:function(){
+      console.log(this._id )
+    console.log(Template.instance().usersChecked.get());
+    return (  Template.instance().usersChecked.get().indexOf(this._id) !== -1 ) ? "checked" : "";
+  },
+  totalSelectUserCount:function(){
+      return Template.instance().usersChecked.get().length;
+  },
+  showOptions:function(){
+     return Template.instance().usersChecked.get().length > 0 ;
+    
   }
 });
 
-Template.SchoolUserListItem.helpers({
+Template.AdminUsersSearch.events({
+    'click .school-directory-user-checkbox':function(event,template){
+        
+        if( $(event.target).prop('checked') ) {
+           let latestArray = template.usersChecked.get();
+           console.log($(event.target).val());
+           latestArray.push( $(event.target).val() );
+           
+           template.usersChecked.set( latestArray  );            
+        }else{
+           let latestArray = template.usersChecked.get();
+           console.log($(event.target).val());
+           lodash.pull(latestArray, $(event.target).val());
+                       
+           template.usersChecked.set( latestArray  );              
+        }
+
+        
+    },
+    'click .remove-users-btn':function(event,template){
+        let latestArray = template.usersChecked.get()
+        let listOfUsers = latestArray.join('\n');
+        if (window.confirm("Do you really want to remove the selected users?:\n"+listOfUsers)) { 
+            //TODO
+            //remove users from this school
+           /* var groupId = $(event.target).data('newsgroupId');
+            console.log('deleteNewsgroup',groupId);
+            Meteor.call('smartix:newsgroups/deleteNewsgroup',groupId,function(){
+                toastr.info('This newsgroup has been removed');
+            });   */ 
+        }          
+    }
+});
+/*Template.SchoolUserListItem.helpers({
   getUserEmail:function(){
       if(this.emails){
        return this.emails[0].address;
@@ -60,7 +105,7 @@ Template.SchoolUserList.helpers({
     getTotalUserCount:function(){
         return Meteor.users.find().count();
     }
-});
+});*/
 
 Template.AdminUsersSearch.onCreated(function () {
     var self = this;
@@ -83,6 +128,7 @@ Template.AdminUsersSearch.onCreated(function () {
     } else {
         log.info("Please specify a school to list the users for");
     }
+    this.usersChecked = new ReactiveVar([]);
 });
 
 Template.AdminUsersSearch.helpers({
