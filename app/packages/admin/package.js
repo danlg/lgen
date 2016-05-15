@@ -96,7 +96,7 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/rss/rss.html', 'web.browser');
   api.addFiles('client/templates/rss/rss.js', 'web.browser');
   
-;
+  api.addFiles('client/templates/users/list/index.js', 'web.browser');;
   api.addFiles('client/templates/users/list/list.html', 'web.browser');
   api.addFiles('client/templates/users/list/list.js', 'web.browser');
   api.addFiles('both/users.js')  

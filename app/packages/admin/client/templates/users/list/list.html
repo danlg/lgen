@@ -4,10 +4,64 @@
             <h1>Search Users</h1>
         </div>
         
+        {{#if Template.subscriptionsReady}}
             <div class="panel-body">
-              {{> SchoolUserList}}
+                
+                {{> EasySearch.Input index=usersIndex attributes=userSearchInputAttributes}}
+                <div class="table-responsive">                
+                <table class='table'>
+                    <thead>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th>User Name</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Roles</th>
+                        <th>Edit</th>
+                        <th>Remove</th>                                                                        
+                    </tr>
+                    </thead>
+                    
+                    {{#EasySearch.Each index=usersIndex }}
+                        <tr>
+                            <td><input type="checkbox" name="user" value="{{_id}}"/></td>
+                            <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}"> {{username}} </a></td>
+                            <td>{{profile.firstName}}</td>
+                            <td>{{profile.lastName}}</td>
+                            <td>{{getUserEmail}}</td>   
+                            <td>{{getUserRoles}}</td>   
+                            <td><button>Edit</button></td>         
+                            <td><button>Remove</button></td>                
+                        </tr>                    
+                    {{/EasySearch.Each}}
+
+                    {{#EasySearch.IfNoResults index=usersIndex}}
+                        <div>No results found!</div>
+                    {{/EasySearch.IfNoResults}}                        
+                
+                </table>
+                </div>
+                {{> EasySearch.Pagination index=usersIndex maxPages=10 customRenderPagination='CustomEasySearchPagination'}}               
             </div>
+        {{else}}
+            Loading...
+        {{/if}}
     </div>
+</template>
+
+<template name='CustomEasySearchPagination'>
+    <nav>
+            <ul class="pagination">
+                {{#each page}}
+                    <li class="page {{pageClasses this}}">
+                        <a>
+                        {{content}}
+                        </a>
+                    </li>
+                {{/each}}
+            </ul>
+    </nav>
 </template>
 
 <template name='SchoolUserListItem'>
