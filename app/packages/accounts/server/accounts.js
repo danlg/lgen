@@ -179,7 +179,7 @@ Smartix.Accounts.createUserImpl = function (userObj, email, namespace) {
     try {
         newUserId = Accounts.createUser(newUserOptions);
         log.info('Created successfully newUserId: ', newUserId);
-        Meteor.users.update({_id: newUserId}, { $addToSet: {schools: [namespace] } });
+        Meteor.users.update({_id: newUserId}, { $addToSet: {schools: {$each: [namespace] } } });
     }
     catch (e) {
         log.error("Couldn't create user", e);
