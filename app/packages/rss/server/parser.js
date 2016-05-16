@@ -1,9 +1,7 @@
 Meteor.startup(function() {
     // Push new RSS messages to newsgroups every hour (3600000 miliseconds)
     Meteor.setInterval(function () {
-        
-        console.log("--- PROCESSING RSS TO NEWS ---")
-        
+        log.info("Processings RSS to News");
         // Get the RSS feed entries that have not been processed
         let unprocessedFeedEntries = Smartix.Rss.FeedEntries.find({
             processed: {$ne: true}
@@ -43,16 +41,10 @@ Meteor.startup(function() {
         let unprocessedFeedEntriesIds = _.map(unprocessedFeedEntries, function (feedEntry) {
             return feedEntry._id;
         });
-        
-        Smartix.Rss.FeedEntries.update({
-            _id: {$in: unprocessedFeedEntriesIds}
-        }, {
-            $set: {
-                processed: true
-            }
-        }, {
-            multi: true
-        });
+        Smartix.Rss.FeedEntries.update(
+              { _id: {$in: unprocessedFeedEntriesIds} }
+            , { $set: {  processed: true} }
+            , { multi: true});
         
     }, Meteor.settings.RSS_PROCESS_INTERVAL);
 });
