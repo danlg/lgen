@@ -50,16 +50,14 @@ var processData = function(csv) {
         .replace(' ', '');
     allTextLines[0] = yo;
     return allTextLines.join("\n");
-}
+};
 
 var removeEmptyObjectsFromArray = function(array) {
-    
     array = _.map(array, function(obj) {
         return Smartix.Utilities.removeEmptyProperties(obj);
     });
-    
     return Smartix.Utilities.removeEmptyObjectsFromArray(array);
-}
+};
 
 Template.AdminParentsImport.events({
     'change #parents-upload-file': function (event, template) {
@@ -80,7 +78,7 @@ Template.AdminParentsImport.events({
                     log.info(error);
                 }
             });
-        }
+        };
         reader.readAsText(file);
     },
     'click #AdminParentsImport__submit': function (event, template) {
@@ -94,17 +92,24 @@ Template.AdminParentsImport.events({
                 var notifyuserwithemail = template.$('#notifyuserwithemail').is(":checked");
                 Meteor.call('smartix:accounts-schools/importParents', Router.current().params.school, importedParents, notifyuserwithemail
                     , function (err, res) {
-                    if(!err) {
-                        toastr.info(TAPi18n.__("admin.users.import.importSuccess"));
-                    } else {
-                        if(err.reason) {
-                            toastr.error(err.reason);
-                        } else if (err.message) {
-                            toastr.error(err.message);
+                        var toasterOption = { timeOut:0, "newestOnTop": false };
+                        if(!err) {
+                            var success = res.newUsers.length;
+                            var errors = res.errors.length;
+                            var total = success + errors;
+                            if (errors!=0) {
+                                toastr.info(success + "/" + total + " users have been imported with " + res.errors.length + " warnings", null, toasterOption);
+                                toastr.warning("Creating a user sharing an e-mail with an existing user or adding a new role to an existing user are the possible causes of the warning", null,toasterOption);
+                            }
+                            else {
+                                //toastr.info(TAPi18n.__("admin.users.import.importSuccess"), {timeOut:0});
+                                toastr.info(success + "/" + total + " parents have been imported successfully from "+ res.studentCount + " students", null,toasterOption);
+                            }
                         } else {
-                            toastr.error(TAPi18n.__("admin.users.import.incorrectImportFormat"));
+                            toastr.error(TAPi18n.__("admin.users.import.incorrectImportFormat"), null,toasterOption);
+                            toastr.error(err.reason, null, toasterOption);
+                            log.error(err.reason);
                         }
-                    }
                 });
             } else {
                 toastr.error(TAPi18n.__("admin.users.import.incorrectImportFormat"));
@@ -112,7 +117,11 @@ Template.AdminParentsImport.events({
         } else {
             toastr.error(TAPi18n.__("applicationError.refreshRequired"));
         }
-        
+    },
+    'click #ParentsImport_clear': function () {
+        //it doesnn't work
+        //console.log("ParentsImport_clear clicked");
+        Template.AdminParentsImport.onRendered();
     }
 });
 
@@ -122,6 +131,14 @@ Template.AdminParentsImport.helpers({
     }
 });
 
+Template.AdminParentsImport.onRendered(
+    () =>
+       Tracker.autorun( ()
+           =>
+        Session.set('imported-parents', null)
+    )
+);
+
 Template.AdminParentsImport.onDestroyed(function () {
     Session.set('imported-parents', null);
-})
+});
