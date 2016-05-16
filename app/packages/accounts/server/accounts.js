@@ -461,7 +461,7 @@ Smartix.Accounts.getAllUsersInNamespace = function (namespace, currentUser) {
         var meteorQuery = {};
         
         meteorQuery.schools = namespace;
-        var tempRoles = "roles." + namespace + '.0';
+        var tempRoles = "roles." + namespace ;
         meteorQuery[tempRoles] = {
             $exists: true
         }
