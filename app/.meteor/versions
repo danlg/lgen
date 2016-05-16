@@ -51,6 +51,8 @@ check@1.2.1
 chrismbeckett:toastr@2.1.2_1
 coffeescript@1.0.17
 cordova-only@0.0.1
+danielqiu:feed@0.0.5
+dbeath:feedparser@0.16.6
 dburles:spacebars-tohtml@1.0.1
 ddp@1.2.5
 ddp-client@1.2.7
@@ -125,6 +127,7 @@ momentjs:moment@2.13.1
 mongo@1.1.7
 mongo-id@1.0.4
 mongo-livedata@1.0.12
+mrt:twit@0.2.0
 npm-bcrypt@0.8.5
 npm-container@1.2.0
 npm-mongo@1.4.43
@@ -196,6 +199,7 @@ smartix:newsgroups@0.0.1
 smartix:newsgroups-news@0.0.1
 smartix:notifications@0.0.1
 smartix:plan@0.0.1
+smartix:rss@0.0.1
 smartix:schools@0.0.1
 smartix:schools-home@0.0.1
 smartix:sendmessage@0.0.1

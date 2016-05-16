@@ -185,7 +185,11 @@
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="{{pathFor route='admin.rss' data=routeData}}"><i class="icon-feed2"></i> <span>RSS</span></a>
+                                        <a href="#"><i class="icon-feed2"></i> <span>RSS</span></a>
+                                        <ul>
+                                            <li><a href="{{pathFor route='admin.rss.add' data=routeData}}"><i class="icon-plus3"></i> Add RSS Feed</a></li>
+                                            <li><a href="{{pathFor route='admin.rss.list' data=routeData}}"><i class="icon-feed2"></i> View RSS Feeds</a></li>
+                                        </ul>
                                     </li>
                                     <li>
                                         <a href="{{pathFor route='admin.school.edit' data=routeData}}"><i class="icon-database-edit2"></i> <span>Edit School</span></a>
@@ -223,7 +227,7 @@
 
 
     <!-- Footer -->
-    <div class="navbar navbar-default navbar-fixed-bottom footer">
+    <!--<div class="navbar navbar-default navbar-fixed-bottom footer">
         <ul class="nav navbar-nav visible-xs-block">
             <li><a class="text-center collapsed" data-toggle="collapse" data-target="#footer"><i class="icon-circle-up2"></i></a></li>
         </ul>
@@ -242,6 +246,6 @@
                 </ul>
             </div>
         </div>
-    </div>
+    </div>-->
     <!-- /footer -->
 </template>

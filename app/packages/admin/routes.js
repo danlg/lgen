@@ -241,8 +241,26 @@ Router.route('/:school/admin/absence/expected', {
     }
 });
 
+
 Router.route('/:school/admin/rss', {
     name: 'admin.rss',
+    action: function () {
+        this.redirect('/' + this.params.school + '/admin/rss/list');
+    }
+});
+
+
+Router.route('/:school/admin/rss/add', {
+    name: 'admin.rss.add',
+    layoutTemplate: 'adminLayout',
+    template: 'AdminRssAdd',
+    action: function () {
+        this.render('AdminRssAdd');
+    }
+});
+
+Router.route('/:school/admin/rss/list', {
+    name: 'admin.rss.list',
     layoutTemplate: 'adminLayout',
     template: 'AdminRss',
     action: function () {

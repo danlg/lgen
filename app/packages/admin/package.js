@@ -39,6 +39,8 @@ Package.onUse(function(api) {
   api.use('smartix:calendarevent','client');
   api.use('smartix:absence',['client', 'server']);
   
+  api.use('danielqiu:feed');
+  
   api.addAssets('client/assets/parents_import_template.csv', 'client');
   api.addAssets('client/assets/students_import_template.csv', 'client');
   api.addAssets('client/assets/teachers_import_template.csv', 'client');
@@ -93,8 +95,10 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/news/add/add.js', 'web.browser');
   api.addFiles('client/templates/news/import/import.html', 'web.browser');
   api.addFiles('client/templates/news/import/import.js', 'web.browser');
-  api.addFiles('client/templates/rss/rss.html', 'web.browser');
-  api.addFiles('client/templates/rss/rss.js', 'web.browser');
+  api.addFiles('client/templates/rss/view/view.html', 'web.browser');
+  api.addFiles('client/templates/rss/view/view.js', 'web.browser');
+  api.addFiles('client/templates/rss/add/add.html', 'web.browser');
+  api.addFiles('client/templates/rss/add/add.js', 'web.browser');
   
   api.addFiles('client/templates/users/list/index.js', 'web.browser');;
   api.addFiles('client/templates/users/list/list.html', 'web.browser');
