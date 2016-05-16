@@ -52,7 +52,8 @@ Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser, 
 	if(!Smartix.Accounts.School.canImportTeachers(namespace, currentUser)) {
 		throw new Meteor.Error("permission-denied", "The user does not have permission to perform this action.");
 	}
-	_.each(data, function(teacher, i, teachers) {
+	log.info("Importing teachers and staff for school ", namespace);
+	_.each(data, function(teacher, i) {
 
 		// Checks if user already exists
 		let teacherId = Accounts.findUserByEmail(teacher.email);
@@ -60,23 +61,22 @@ Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser, 
 		// If the user does not already exists
 		// Create the user
 		if(teacherId === undefined) {
-			let newTeacherOptions = {};
-			newTeacherOptions.profile = {};
-			newTeacherOptions.profile.firstName = teacher.firstName;
-			newTeacherOptions.profile.lastName = teacher.lastName;
-			newTeacherOptions.gender = teacher.gender;
-			newTeacherOptions.mobile = teacher.mobile;
+			let user = {};
+			user.profile = {};
+			user.profile.firstName = teacher.firstName;
+			user.profile.lastName = teacher.lastName;
+			user.gender = teacher.gender;
+			user.mobile = teacher.mobile;
 			var autoEmailVerified = true;
-			teacherId = Smartix.Accounts.createUser(teacher.email, newTeacherOptions, namespace, ['teacher'], currentUser, autoEmailVerified, doNotifyEmail) [0];
+			log.info(i+1, "Attempting to create user ", user.profile.firstName, user.profile.lastName);
+			teacherId = Smartix.Accounts.createUser(teacher.email, user, namespace, ['teacher'], currentUser, autoEmailVerified, doNotifyEmail) [0];
 		}
 
 		if(!teacherId || typeof teacherId !== "string") {
 			throw new Meteor.Error('could-not-create-teacher', "The system failed to create the teacher record for " + teacher.firstName + " " + teacher.lastName + ". Please try again.");
 		}
 
-		////////////////////////////////////
-		// UPDATE TEACHER SUBJECTS TAUGHT //
-		////////////////////////////////////
+		// UPDATE TEACHER SUBJECTS TAUGHT
 		let subjectsTaught = [];
 		_.each(teacher, function (val, key, vals) {
 			// If the key includes the term `subjectTaught`
@@ -100,10 +100,7 @@ Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser, 
 			})
 		}
 
-		////////////////////
-		// CREATE CLASSES //
-		////////////////////
-
+		// CREATE CLASSES
 		_.each(teacher, function (val, key, vals) {
 			// If the key includes the term `subjectTaught`
 			// Add it to the `subjectsTaught` array
@@ -135,10 +132,7 @@ Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser, 
 			}
 		});
 
-		//////////////////////////////////////
-		// ADD TEACHER TO DISTRIBUTION LIST //
-		//////////////////////////////////////
-
+		// ADD TEACHER TO DISTRIBUTION LIST
 		_.each(teacher, function (val, key, vals) {
 			// If the key includes the term `subjectTaught`
 			// Add it to the `subjectsTaught` array
@@ -158,9 +152,7 @@ Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser, 
 				// Add the users in the distribution list to the class
 				let match = classRegEx.exec(key);
 				let classNumber  = match[1];
-
 				let classNameFieldName = "className" + classNumber;
-
 				// If the class is actually specified
 				if(teacher[classNameFieldName]) {
 					// Get the class ID
@@ -168,12 +160,10 @@ Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser, 
 						className: teacher[classNameFieldName],
 						type: "class"
 					});
-
 					let thisDistributionList = Smartix.Groups.Collection.findOne({
 						name: val,
 						type: "distributionList"
 					});
-
 					if(correspondingClass && thisDistributionList) {
 						// Gets a list of all users who are not the teacher
 						studentUsers = _.pull(thisDistributionList.users, correspondingClass.admins, teacherId);
@@ -184,4 +174,5 @@ Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser, 
 			}
 		});
 	});
+	log.info("Finished importing teachers and staff for school ", namespace);
 };
