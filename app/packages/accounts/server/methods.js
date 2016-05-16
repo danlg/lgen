@@ -15,8 +15,8 @@ Meteor.methods({
         check(namespace, String);
         check(types, [String]);
         let autoEmailVerified = false;
-        let doSendEmail = true;
-        return Smartix.Accounts.createUser(email, userObj, namespace, types, this.userId, autoEmailVerified, doSendEmail);
+        let doNotifyEmail = true;
+        return Smartix.Accounts.createUser(email, userObj, namespace, types, this.userId, autoEmailVerified, doNotifyEmail);
     },
     'smartix:accounts/editUser': function(userId, options) {
         
@@ -40,5 +40,5 @@ Meteor.methods({
     },
     'smartix:accounts/setHybridAppPromote': function () {
         Meteor.users.update(Meteor.userId(), { $set: { "hybridAppPromote": true } });
-    },    
+    }
 });

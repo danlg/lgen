@@ -1,6 +1,6 @@
 if(Meteor.isServer){
     Meteor.methods({
-        'smartix:accounts-schools/createSchoolUser': function(email, options, schoolName, type, emailVerified) {
+        'smartix:accounts-schools/createSchoolUser': function(email, options, schoolName, type, emailVerified, doNotifyEmail) {
             // Find school by username first
             var schoolDoc = SmartixSchoolsCol.findOne({
                 username: schoolName
@@ -15,7 +15,7 @@ if(Meteor.isServer){
             }
             
             if (schoolDoc) {
-                return Smartix.Accounts.createUser(email, options, schoolDoc._id, type, this.userId, emailVerified);
+                return Smartix.Accounts.createUser(email, options, schoolDoc._id, type, this.userId, emailVerified, doNotifyEmail);
             } else {
                 return false;
             }
@@ -71,7 +71,8 @@ if(Meteor.isServer){
             
             let namespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolName);
             if(namespace) {
-                return Smartix.Accounts.School.importStudent(namespace, data, this.userId);
+                var doNotifyEmail = true;
+                return Smartix.Accounts.School.importStudent(namespace, data, this.userId, doNotifyEmail);
             } else {
                 throw new Meteor.Error("non-existent-school", "The school with the school code " + schoolName + " does not exists.");
             }

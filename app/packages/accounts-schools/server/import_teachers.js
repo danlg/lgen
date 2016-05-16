@@ -38,7 +38,7 @@ Smartix.Accounts.School.importTeachersSchema = new SimpleSchema({
 	inviteParents9: { type: String , optional: true },
 	inviteParents10: { type: String , optional: true }
 });
-Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser) {
+Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser, doNotifyEmail) {
 	check(namespace, String);
 	_.each(data, function (teacher) {
 		Smartix.Accounts.School.importTeachersSchema.clean(teacher);
@@ -66,7 +66,8 @@ Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser) 
 			newTeacherOptions.profile.lastName = teacher.lastName;
 			newTeacherOptions.gender = teacher.gender;
 			newTeacherOptions.mobile = teacher.mobile;
-			teacherId = Smartix.Accounts.createUser(teacher.email, newTeacherOptions, namespace, ['teacher'], currentUser, true) [0];
+			var autoEmailVerified = true;
+			teacherId = Smartix.Accounts.createUser(teacher.email, newTeacherOptions, namespace, ['teacher'], currentUser, autoEmailVerified, doNotifyEmail) [0];
 		}
 
 		if(!teacherId || typeof teacherId !== "string") {

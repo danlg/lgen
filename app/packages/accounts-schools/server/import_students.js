@@ -21,7 +21,7 @@ Smartix.Accounts.School.importStudentSchema = new SimpleSchema({
 	password: {type: String, optional: true }
 });
 
-Smartix.Accounts.School.importStudent = function(namespace, data, currentUser) {
+Smartix.Accounts.School.importStudent = function(namespace, data, currentUser, doNotifyEmail) {
 	check(namespace, String);
 	check(data, [Smartix.Accounts.School.importStudentSchema]);
 	check(currentUser, Match.Maybe(String));
@@ -45,10 +45,10 @@ Smartix.Accounts.School.importStudent = function(namespace, data, currentUser) {
 			delete user.firstName; delete user.lastName; delete user.email;
 			if (user.dob) {
 				user.dob = moment(user.dob, ["DD/MM/YYYY", "DD-MM-YYYY", "DD-MM-YY", "DD/MM/YY"]).format('DD-MM-YYYY');
-				log.info ("DOB"+user.dob);
+				//log.info ("DOB"+user.dob);
 			}
 			log.info(i+1, "Attempting to create user ", user.profile.firstName, user.profile.lastName);
-			let newUserArray = Smartix.Accounts.createUser(email, user, namespace, ['student'], currentUser, true);
+			let newUserArray = Smartix.Accounts.createUser(email, user, namespace, ['student'], currentUser, false,  doNotifyEmail);
 			let newUserId        =   newUserArray [0];
 			let newUserOrUpdated =   newUserArray [1];
 			if(newUserOrUpdated) {
