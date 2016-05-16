@@ -10,21 +10,23 @@
                 {{> EasySearch.Input index=usersIndex attributes=userSearchInputAttributes}}
                 <span>Total User: {{totalUserCount}} </span>
                 <span>{{totalSelectUserCount}} has been chosen.</span>
-                <button class='select-all-users-btn'>Select All</button> 
-                <button class='deselect-all-users-btn'>De-Select All</button>                                   
-                <button class='select-all-users-current-page-btn'>Select All From Current Page</button>
-                <button class='deselect-all-users-current-page-btn'>De-Select All From Current Page</button>                
+                <br/>
+                <button class='btn btn-default select-all-users-btn'>Select All</button> 
+                <button class='btn btn-default deselect-all-users-btn'>De-Select All</button>                                   
+                <button class='btn btn-default select-all-users-current-page-btn'>Select All From Current Page</button>
+                <button class='btn btn-default deselect-all-users-current-page-btn'>De-Select All From Current Page</button>                
                 {{#if showOptions}}
-                    <button class='remove-users-btn'>Remove</button>
-
-                    <select>
+                    <br/>
+                    <button class='btn btn-danger remove-users-btn'>Remove User(s)</button>
+                    <br/>                  
+                    <button class='btn btn-success add-user-to-role'>Add User(s) to Role</button>
+                    <button class='btn btn-danger remove-user-from-role'>Remove User(s) from Role</button>
+                    <select class="form-control">
                         <option value="parent">Parent</option>
                         <option value="student">Student</option>
                         <option value="teacher">Teacher</option>
                         <option value="admin">Admin</option>
-                    </select>                    
-                    <button class='add-user-to-role'>Add User to Role</button>
-                    <button class='remove-user-from-role'>Remove User from Role</button>                                                         
+                    </select>                                                                               
                 {{/if}}
                 <div class="table-responsive">                
                 <table class='table'>
