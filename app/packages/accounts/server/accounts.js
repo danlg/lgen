@@ -56,10 +56,10 @@ Smartix.Accounts.createUserOptionsSchema = new SimpleSchema([Smartix.Accounts.Sc
  * @param roles
  * @param currentUser
  * @param autoEmailVerified
- * @param doSendEmail
+ * @param doNotifyEmail
  * @returns {[string, boolean] [0] the newuserid, true is newly created and false if updated.}
  */
-Smartix.Accounts.createUser = function (email, userObj, namespace, roles, currentUser, autoEmailVerified, doSendEmail) {
+Smartix.Accounts.createUser = function (email, userObj, namespace, roles, currentUser, autoEmailVerified, doNotifyEmail) {
     // Check that the options provided are valid
     Smartix.Accounts.createUserOptionsSchema.clean(userObj);
     check(userObj, Smartix.Accounts.createUserOptionsSchema);
@@ -87,7 +87,8 @@ Smartix.Accounts.createUser = function (email, userObj, namespace, roles, curren
         Roles.addUsersToRoles(newUserId, roles, namespace);
         // If the user is a student, create a distribution list based on the student's class
         Smartix.Accounts.createOrAddToDistributionList(newUserId, namespace, userObj.classroom, currentUser);
-        if (userObj.dob) { Meteor.users.update({_id: newUserId}, {$set: {"dob": userObj.dob} } ); }
+        Meteor.users.update({ _id: newUserId}, {$set: userObj });
+        //if (userObj.dob) { Meteor.users.update({_id: newUserId}, {$set: {"dob": userObj.dob} } ); }
         return [ newUserId, false ];
     }
     else {
@@ -98,15 +99,15 @@ Smartix.Accounts.createUser = function (email, userObj, namespace, roles, curren
         //https://github.com/danlg/lgen/issues/291
         var registered_emails = [];
         registered_emails.push({address: email, verified: true});
-        Meteor.users.update({_id: newUserId}, {$set: {registered_emails: registered_emails} } );
-        if (userObj.dob) { Meteor.users.update({_id: newUserId}, {$set: {"dob": userObj.dob} } ); }
-        
-        //Do not store password in clear in database
-        var tempPassword = userObj.password; delete userObj.password;
-        Smartix.Accounts.setPassword(newUserId, tempPassword);// Set the password if provided
-        //log.info("About to set Password=" + tempPassword);
 
-        Smartix.Accounts.sendVerificationEmailOrEnrollmentEmail(userObj, newUserId, autoEmailVerified, doSendEmail);
+        var tempPassword = userObj.password; delete userObj.password;//Do not store password in clear in database
+        Smartix.Accounts.setPassword(newUserId, tempPassword);// Set the password if provided
+
+        Meteor.users.update({ _id: newUserId}, {$set: userObj });
+        Meteor.users.update({ _id: newUserId},  {$set: {registered_emails: registered_emails} } );
+
+        Smartix.Accounts.notifyByEmail(email, newUserId, tempPassword, autoEmailVerified, doNotifyEmail);
+        //Smartix.Accounts.sendEnrollmentEmail  (email, newUserId, doNotifyEmail);
         // Add the role to the user
         Roles.addUsersToRoles(newUserId, roles, namespace);
         // If the user is a student, create a distribution list based on the student's class
@@ -194,35 +195,67 @@ Smartix.Accounts.setPassword = function ( newUserId, tmpPassword) {
     }
 };
 
-Smartix.Accounts.sendVerificationEmailOrEnrollmentEmail = function (userObj, newUserId, autoEmailVerified, doSendEmail) {
-    if ( userObj.email && userObj.email[0] ) {
-        if (autoEmailVerified) {
+/**
+ * Verification is actually a notification.
+ * @param email
+ * @param newUserId
+ * @param tmpPassword
+ * @param autoEmailVerified
+ * @param doNotifyEmail
+ */
+Smartix.Accounts.notifyByEmail = function (email, newUserId, tmpPassword, autoEmailVerified, doNotifyEmail) {
+    if ( email ) {
+        if ( autoEmailVerified ) {
             var newlyCreatedUser = Meteor.users.findOne(newUserId);
             if (newlyCreatedUser.emails) {
-                userObj.emails = newlyCreatedUser.emails;
-                userObj.emails[0].verified = true;
+                log.info("Autoverifying email " + email);
+                Meteor.users.update( { _id: newUserId},  {$set: { "emails.0.verified": true} } );
             }
             else {
-                log.warn("no email set up for ", newUserId, newlyCreatedUser.profile.firstName, " ", newlyCreatedUser.profile.lastName);
+                log.warn("Cannot autoverify email set up for ", newUserId, newlyCreatedUser.profile.firstName, " ", newlyCreatedUser.profile.lastName);
             }
         }
-        if (!autoEmailVerified && doSendEmail) {
+        if (doNotifyEmail) {
             try {
-                log.info("Sending verification email to ", userObj.emails[0]);
-                Accounts.sendVerificationEmail(newUserId);
+                //it is a prerequisite to have no verified email adress before sending verification
+                if ( Meteor.users.findOne( { _id: newUserId, "emails.0.verified":false} ) ) {
+                    log.info("Sending verification email to ", email);
+                    //For now we do not send the password as it is autologin
+                    //In the future, we should send the password as well with autogin email.send
+                    // see http://stackoverflow.com/questions/15684634/how-to-generate-new-meteor-login-tokens-server-side-in-order-to-make-a-quick-l
+                    // or https://github.com/DispatchMe/meteor-login-token
+                    Accounts.sendVerificationEmail(newUserId);
+                }
+                else log.info("No need to send verification email", email);
             } catch (e) {
-                log.error("Cannot send verification email to ", userObj.emails[0], e);
+                log.error("Cannot send verification email to ", email, e);
             }
         }
-        if (doSendEmail)
-        {
+    }
+    else {
+       log.warn("Cannot do notify email " + email) ;
+    }
+};
+
+/**
+ * Reset password
+ * @param email
+ * @param newUserId
+ * @param doNotifyEmail
+ */
+Smartix.Accounts.sendEnrollmentEmail = function (email, newUserId, doNotifyEmail) {
+    if ( email ) {
+        if (doNotifyEmail) {
             try {
-                log.info("Sending enrollment email to ", userObj.emails[0]);
+                log.info("Sending enrollment email to ", email);
                 Accounts.sendEnrollmentEmail(newUserId);
             } catch (e) {
-                log.error("Cannot send enrollment email to ", userObj.emails[0], e);
+                log.error("Cannot send enrollment email to ", email, e);
             }
         }
+    }
+    else {
+        log.warn("Cannot send enrollment email " + email) ;
     }
 };
 
