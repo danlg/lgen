@@ -72,40 +72,42 @@ if(Meteor.isServer){
         'smartix:accounts-schools/isUserSchoolAdmin': function (namespace, user) {
             return Smartix.Accounts.School.isAdmin(namespace, user);
         },
-        'smartix:accounts-schools/importStudents': function (schoolName, data) {
+        'smartix:accounts-schools/importStudents': function (schoolName, data, doNotifyEmail) {
             check(schoolName, String);
             check(data, [Object]);
             
             let namespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolName);
             if(namespace) {
-                var doNotifyEmail = true;
+                //var doNotifyEmail = true;
                 return Smartix.Accounts.School.importStudent(namespace, data, this.userId, doNotifyEmail);
             } else {
                 throw new Meteor.Error("non-existent-school", "The school with the school code " + schoolName + " does not exists.");
             }
             
         },
-        'smartix:accounts-schools/importParents': function (schoolName, data) {
+        'smartix:accounts-schools/importParents': function (schoolName,data, doNotifyEmail) {
             
             check(schoolName, String);
             check(data, [Object]);
             
             let namespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolName);
             if(namespace) {
-                return Smartix.Accounts.School.importParents(namespace, data, this.userId);
+                //var doNotifyEmail = true;
+                return Smartix.Accounts.School.importParents(namespace, data, this.userId, doNotifyEmail);
             } else {
                 throw new Meteor.Error("non-existent-school", "The school with the school code " + schoolName + " does not exists.");
             }
             
         },
-        'smartix:accounts-schools/importTeachers': function (schoolName, data) {
+        'smartix:accounts-schools/importTeachers': function (schoolName, data, doNotifyEmail) {
             
             check(schoolName, String);
             check(data, [Object]);
             
             let namespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolName);
             if(namespace) {
-                return Smartix.Accounts.School.importTeachers(namespace, data, this.userId);
+                //var doNotifyEmail = true;
+                return Smartix.Accounts.School.importTeachers(namespace, data, this.userId, doNotifyEmail);
             } else {
                 throw new Meteor.Error("non-existent-school", "The school with the school code " + schoolName + " does not exists.");
             }

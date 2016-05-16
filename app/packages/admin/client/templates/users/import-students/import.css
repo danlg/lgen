@@ -24,3 +24,9 @@
     width: 100%;
     overflow-y: scroll;
 }
+
+.align-bottom-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
