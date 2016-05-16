@@ -1,4 +1,7 @@
 Template.AdminUsersSearch.helpers({
+  doingOperations:function(){
+   return Template.instance().doingOperations.get();   
+  },
   getUserEmail:function(){
       if(this.emails){
        return this.emails[0].address;
@@ -21,8 +24,8 @@ Template.AdminUsersSearch.helpers({
       return this._id;
   },
   isUserChecked:function(){
-      console.log(this._id )
-    console.log(Template.instance().usersChecked.get());
+      //console.log(this._id )
+    //console.log(Template.instance().usersChecked.get());
     return (  Template.instance().usersChecked.get().indexOf(this._id) !== -1 ) ? "checked" : "";
   },
   totalUserCount:function(){
@@ -107,8 +110,15 @@ Template.AdminUsersSearch.events({
         let latestArray = template.usersChecked.get()
         let listOfUsers = latestArray.join('\n');
         var selectedRole = document.getElementById('selected-role').value;
-        if (window.confirm("Do you really want to add role "+ selectedRole +" to the selected users?:\n"+listOfUsers)) { 
-            Meteor.call('smartix:accounts-schools/assignSchoolRole',template.namespace,latestArray,selectedRole);
+        if (window.confirm("Do you really want to add role "+ selectedRole +" to the selected users?:\n"+listOfUsers)) {
+            
+            //show spinner
+            template.doingOperations.set(true);
+            
+            Meteor.call('smartix:accounts-schools/assignSchoolRole',template.namespace,latestArray,selectedRole,function(){
+                //hide spinner
+                template.doingOperations.set(false);
+            });
         }          
     },
     'click .remove-users-from-role':function(event,template){
@@ -116,7 +126,12 @@ Template.AdminUsersSearch.events({
         let listOfUsers = latestArray.join('\n');
         var selectedRole = document.getElementById('selected-role').value;        
         if (window.confirm("Do you really want to remove role "+ selectedRole +" from the selected users?:\n"+listOfUsers)) { 
-            Meteor.call('smartix:accounts-schools/retractSchoolRole',template.namespace,latestArray,selectedRole);
+            //show spinner
+            template.doingOperations.set(true);            
+            Meteor.call('smartix:accounts-schools/retractSchoolRole',template.namespace,latestArray,selectedRole,function(){
+                //hide spinner
+                template.doingOperations.set(false);                
+            });
         }          
     },        
 });
@@ -183,6 +198,7 @@ Template.AdminUsersSearch.onCreated(function () {
         log.info("Please specify a school to list the users for");
     }
     this.usersChecked = new ReactiveVar([]);
+    this.doingOperations = new ReactiveVar(false);
 });
 
 Template.AdminUsersSearch.helpers({
