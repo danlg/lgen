@@ -128,6 +128,7 @@ Meteor.publish('allSchoolUsersPerRole', function (school) {
                 fields: { 
                     'profile.firstName': 1,
                     'profile.lastName': 1,
+                    'proflle.chatSetting' : 1,
                     'emails.0.address': 1,
                     'roles':1
                 }
