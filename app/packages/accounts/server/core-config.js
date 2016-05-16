@@ -4,7 +4,7 @@ Accounts.config({
 
 Accounts.onCreateUser(function (options, user) {
     
-    console.log('onCreateUser');
+    //console.log('onCreateUser');
     
     // Setting default values
     user.profile = options.profile || {};
