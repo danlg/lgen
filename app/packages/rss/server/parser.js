@@ -19,23 +19,25 @@ Meteor.startup(function() {
             
             // Get the feed_id (url) of the entry
             // Query the `smartix:rss/feed-group-links` collection to find which newsgroups are linked to the RSS
-            let feedGrouplink = Smartix.Rss.FeedGroupLinks.findOne({
+            let feedGrouplinks = Smartix.Rss.FeedGroupLinks.find({
                 url: feedEntry.feed_id
-            });
+            }).fetch();
             
-            if(feedGrouplink && Array.isArray(feedGrouplink.newsgroups)) {
-                // For each of these newsgroups, push a new messages
-                _.each(feedGrouplink.newsgroups, function (newsgroup) {
-                    // Get the first admin for the newsgroup to use as the author
-                    let newsgroupObj = Smartix.Groups.Collection.findOne({
-                        _id: newsgroup
-                    });
-                    
-                    if(newsgroupObj && Array.isArray(newsgroupObj.admins)) {
-                        Smartix.Messages.createMessage(newsgroup, 'article', data, null, true, newsgroupObj.admins[0]);
-                    }
-                })
-            }
+            _.each(feedGrouplinks, function(feedGrouplink) {
+                if(feedGrouplink && Array.isArray(feedGrouplink.newsgroups)) {
+                    // For each of these newsgroups, push a new messages
+                    _.each(feedGrouplink.newsgroups, function (newsgroup) {
+                        // Get the first admin for the newsgroup to use as the author
+                        let newsgroupObj = Smartix.Groups.Collection.findOne({
+                            _id: newsgroup
+                        });
+                        
+                        if(newsgroupObj && Array.isArray(newsgroupObj.admins)) {
+                            Smartix.Messages.createMessage(newsgroup, 'article', data, null, true, newsgroupObj.admins[0]);
+                        }
+                    })
+                }
+            })
         });
         
         // Get the _id of all the `unprocessedFeedEntries`

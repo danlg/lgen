@@ -37,6 +37,16 @@ Smartix.Rss.linkRssWithGroups = function (namespace, name, url, selectedNewgroup
     });
 }
 
+Smartix.Rss.removeLink = function (namespace, url) {
+    
+    // TODO - check permissions
+    
+    Smartix.Rss.FeedGroupLinks.remove({
+        namespace: namespace,
+        url: url
+    });
+}
+
 Smartix.Rss.getNewsgroupsOfFeed = function (feedId) {
     let feedObj = Smartix.Rss.FeedGroupLinks.findOne({
         _id: feedId

@@ -31,3 +31,11 @@ Template.AdminRss.helpers({
         }
     }
 });
+
+Template.AdminRss.events({
+    'click .AdminRss-remove': function (event, template) {
+        Meteor.call('smartix:rss/removeFeedByUrl'
+        , Smartix.Accounts.School.getNamespaceFromSchoolName(Router.current().params.school)
+        , event.currentTarget.dataset.url);
+    }
+})
