@@ -273,116 +273,86 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser, d
 	if (!(currentUser === null)) {
 		currentUser = currentUser || Meteor.userId();
 	}
-    
     // Checks the currently-logged in user has permission to import parents
 	if(!Smartix.Accounts.School.canImportParents(namespace, currentUser)) {
 		throw new Meteor.Error("permission-denied", "The user does not have permission to perform this action.");
 	}
-    
-    let successCount = 0;
-    let errors = [];
-    
+    let newUsers = [];
+	let errors = [];
+	let studentCount =0;
+	log.info("Importing parents for school ", namespace);
     // For each parent record
 	_.each(data, function(student, i, students) {
-		log.info(student);
-        
-		////////////////////////////
-        // GET THE STUDENT RECORD //
-        ////////////////////////////
-
+		//log.info("Student:"+ student);
 		let studentData;
-
 		// If the student's email is available, use that first
-		if(student.studentEmail) {
+		if (student.studentEmail) { // GET THE STUDENT RECORD
 			studentData = Accounts.findUserByEmail(student.studentEmail)
 		}
-        
-        // If the email was provided but a user is not found
-		// Or the email field didn't exist
-        // attempt to find the student based on his/her student ID
-		if(studentData === undefined && student.studentId) {
-			studentData = Meteor.users.findOne({
-				studentId: student.studentId,
-				schools: namespace
-			})
+		// If the email was provided but a user is not found or the email field didn't exist,
+		// attempt to find the student based on his/her student ID
+		if (studentData === undefined && student.studentId) {
+			studentData = Meteor.users.findOne({studentId: student.studentId, schools: namespace})
 		}
-        
-        // If more than one user is found with the email
-        // Select the first one
-        if(studentData === null) {
-            studentData = Meteor.users.findOne({
-                "emails.address": student.studentEmail
-            });
-        }
+		// If more than one user is found with the email, select the first one
+		if (studentData === null) {
+			studentData = Meteor.users.findOne({"emails.address": student.studentEmail});
+		}
+		if (!studentData) {
+			errors.push(new Meteor.Error('non-existent-user',
+				'The student with email: ' + student.studentEmail + " and/or student ID: " + student.studentId + " cannot be found."));
+		}
+		studentCount++;
+		let newUserId  =  Smartix.Accounts.School.createParent(i+1, namespace, currentUser, student.fatherEmail, student, studentData,
+			convertStudentObjectToFather, "Father", doNotifyEmail);
+		if ( newUserId ) { newUsers.push(newUserId); }
 
-		if(!studentData) {
-            errors.push(new Meteor.Error('non-existent-user', 'The student with email: ' + student.studentEmail + " and/or student ID: " + student.studentId + " cannot be found."));
-		}
-        
-        let successfulAdd = false;
-
-		// Get the mother's email and check if the user exists
-		let mother;
-		if(student.motherEmail) {
-			mother = Accounts.findUserByEmail(student.motherEmail);
-			if(mother === undefined) {
-				// Mother does not exists
-				// Should create a new user
-				let motherUserObj = convertStudentObjectToMother(student);
-				mother = {};
-				mother._id = Smartix.Accounts.createUser(student.motherEmail, motherUserObj, namespace, ['parent'], currentUser, true, doNotifyEmail) [0];
-			} else if(mother === null) {
-				// More than one user has the email specified
-				// Should meld the accounts together
-			}
-		}
-
-		// Get the father's email and check if the user exists
-		let father;
-		if(student.fatherEmail) {
-			father = Accounts.findUserByEmail(student.fatherEmail);
-			if(father === undefined) {
-				// Father does not exists
-				// Should create a new user
-				let fatherUserObj = convertStudentObjectToFather(student);
-				father = {};
-				father._id = Smartix.Accounts.createUser(student.fatherEmail, fatherUserObj, namespace, ['parent'], currentUser, true, doNotifyEmail) [0];
-			} else if(father === null) {
-				// More than one user has the email specified
-				// Should meld the accounts together
-			}
-		}
-
-		// Link the parents to the child
-		if(mother) {
-			let motherOptions = {};
-			motherOptions.namespace = namespace;
-			motherOptions.parent = mother._id;
-			motherOptions.child = studentData._id;
-			motherOptions.name = "Mother";
-			Smartix.Accounts.Relationships.createRelationship(motherOptions, currentUser);
-            successfulAdd = true;
-		}
-
-		if(father) {
-			let fatherOptions = {};
-			fatherOptions.namespace = namespace;
-			fatherOptions.parent = father._id;
-			fatherOptions.child = studentData._id;
-			fatherOptions.name = "Father";
-			Smartix.Accounts.Relationships.createRelationship(fatherOptions, currentUser);
-            successfulAdd = true;
-		}
-        
-        if(successfulAdd) {
-            successCount++;
-        }
+		newUserId  = Smartix.Accounts.School.createParent(i+1, namespace, currentUser, student.motherEmail, student, studentData,
+			convertStudentObjectToMother, "Mother", doNotifyEmail);
+		if ( newUserId ) { newUsers.push(newUserId); }
 	});
-    
+	log.info("Finished importing parents for school ", namespace);
     return {
-        successCount: successCount,
-        errors: errors
+	    newUsers: newUsers,
+        errors: errors,
+	    studentCount: studentCount
     }
+};
+
+// Get the parent's email and check if the user exists
+Smartix.Accounts.School.createParent = function(count, namespace, currentUser, parentemail, student, studentData, convertParentFunction, relationship, doNotifyEmail) {
+	log.info(count, ". Attempting to create parent "+ parentemail + " with student ID "+  student.studentId);
+	if (parentemail) {
+		let parent = Accounts.findUserByEmail(parentemail);
+		if (parent === undefined) {
+			// Father does not exists
+			// Should create a new user
+			let fatherUserObj = convertParentFunction(student);
+			parent = {};
+			parent._id = Smartix.Accounts.createUser(parentemail, fatherUserObj, namespace, ['parent'], currentUser, true, doNotifyEmail) [0];
+			Smartix.Accounts.School.createRelationShip(namespace, parent, studentData, relationship, currentUser, parentemail);
+			return parent._id;
+		}
+		else {
+			//this parent is already parent exists already and has already 1 child
+			log.warn("Parent with email " + parentemail  + " already exists with id " + parent._id+ ". Not creating a new one");
+			Smartix.Accounts.School.createRelationShip(namespace, parent, studentData, relationship, currentUser, parentemail);
+			return false;
+		}
+	}
+	return false;
+};
+
+Smartix.Accounts.School.createRelationShip = function (namespace, parent, studentData, relationship, currentUser, parentemail) {
+	if (parent) {
+		let parentOptions = {};
+		parentOptions.namespace = namespace;
+		parentOptions.parent = parent._id;
+		parentOptions.child = studentData._id;
+		parentOptions.name = relationship;
+		log.info("Creating relationship between "+currentUser + " and "+ parentemail);
+		Smartix.Accounts.Relationships.createRelationship(parentOptions, currentUser);
+	}
 };
 
 var importParentsCheckIfMotherExists = function(data) {
@@ -390,7 +360,6 @@ var importParentsCheckIfMotherExists = function(data) {
 		let motherFirstName = data.field('motherFirstName');
 		let motherLastName = data.field('motherLastName');
 		let motherEmail = data.field('motherEmail');
-
 		// If all three of the mother's mandatory fields are set,
 		// The father records are not required
 		if(motherFirstName.isSet
