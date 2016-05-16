@@ -74,6 +74,19 @@ Template.AdminUsersSearch.events({
      var userIds = lodash.map(userObjects,"_id");
      let latestArray = template.usersChecked.set(userIds);  
    },
+   'click .select-all-users-current-page-btn':function(event,template){
+      $('.school-directory-user-checkbox').each(function(index){
+          if( $(this).prop('checked') ){
+              
+          }else{
+           let latestArray = template.usersChecked.get();
+           log.info($(this).val());
+           latestArray.push( $(this).val() );
+           
+           template.usersChecked.set( latestArray  );                
+          }
+      });
+   },
    'click .deselect-all-users-btn':function(event,template){
       template.usersChecked.set([]);
    },   
