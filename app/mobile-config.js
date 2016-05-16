@@ -2,12 +2,12 @@
 App.info({
   //id: 'com.gosmartix.smartix', for android
   id: 'com.gosmartix.carmel', //for ios because the app is registered with this id and the APN certificate
-  name: 'Carmel',
+  name: 'Carmel UAT',
   description: 'Instant, safe, simple communication for teachers, students and parents',
   author: 'Little Genius Education',
   email: 'contact@gosmartix.com',
   website: 'https://app.gosmartix.com',
-  version: '1.2.0',
+  version: '1.2.1',
   buildNumber: '131'
 });
 
