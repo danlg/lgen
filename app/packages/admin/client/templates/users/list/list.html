@@ -1,15 +1,15 @@
 <template name="AdminUsersSearch">
     <div class="panel panel-flat">
         <div class="panel-heading">
-            <h1>Search Users</h1>
+            <h1>Search users ({{totalUserCount}}) </h1>
         </div>
         
         {{#if Template.subscriptionsReady}}
             <div class="panel-body">
                 
                 {{> EasySearch.Input index=usersIndex attributes=userSearchInputAttributes}}
-                <span>Total User: {{totalUserCount}} </span>
-                <span>{{totalSelectUserCount}} has been chosen.</span>
+                <!--<span>Total User: {{totalUserCount}} </span>-->
+                <span>{{totalSelectUserCount}} have been selected.</span>
                 <br/>
                 <button class='btn btn-default select-all-users-btn'>Select All</button> 
                 <button class='btn btn-default deselect-all-users-btn'>De-Select All</button>                                   
