@@ -57,7 +57,10 @@ Template.AdminUsersImport.events({
             if(Array.isArray(importedStudents)) {
                 toastr.info("Users are being added. You will be notified once they have been imported.");
                 Session.set('imported-students', undefined);
-                Meteor.call('smartix:accounts-schools/importStudents', Router.current().params.school, importedStudents, function (err, res) {
+                var notifyuserwithemail = template.$('#notifyuserwithemail').is(":checked");
+                //log.info("NotifyUser" + notifyuserwithemail);
+                Meteor.call('smartix:accounts-schools/importStudents', Router.current().params.school, importedStudents, notifyuserwithemail 
+                    , function (err, res) {
                     if(!err) {
                         var success = res.newUsers.length;
                         var errors = res.errors.length;

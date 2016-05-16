@@ -101,7 +101,9 @@ Template.AdminTeachersImport.events({
             && Router.current().params.school
         ) {
             if(Array.isArray(importedTeachers)) {
-                Meteor.call('smartix:accounts-schools/importTeachers', Router.current().params.school, importedTeachers, function (err, res) {
+                var notifyuserwithemail = template.$('#notifyuserwithemail').is(":checked");
+                Meteor.call('smartix:accounts-schools/importTeachers', Router.current().params.school, importedTeachers, notifyuserwithemail
+                    , function (err, res) {
                     if(!err) {
                         toastr.info(TAPi18n.__("admin.users.import.importSuccess"));
                     } else {

@@ -100,17 +100,17 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/rss/add/add.html', 'web.browser');
   api.addFiles('client/templates/rss/add/add.js', 'web.browser');
   
-  api.addFiles('client/templates/users/list/index.js', 'web.browser');;
+  api.addFiles('client/templates/users/list/index.js', 'web.browser');
   api.addFiles('client/templates/users/list/list.html', 'web.browser');
   api.addFiles('client/templates/users/list/list.js', 'web.browser');
-  api.addFiles('both/users.js')  
+  api.addFiles('both/users.js');
   api.addFiles('client/templates/users/view/view.html', 'web.browser');
   api.addFiles('client/templates/users/view/view.js', 'web.browser');
   api.addFiles('client/templates/users/add/add.html', 'web.browser');
   api.addFiles('client/templates/users/add/add.js', 'web.browser');
-  api.addFiles('client/templates/users/import/import.html', 'web.browser');
-  api.addFiles('client/templates/users/import/import.css', 'web.browser');
-  api.addFiles('client/templates/users/import/import.js', 'web.browser');
+  api.addFiles('client/templates/users/import-students/import.html', 'web.browser');
+  api.addFiles('client/templates/users/import-students/import.css', 'web.browser');
+  api.addFiles('client/templates/users/import-students/import.js', 'web.browser');
   api.addFiles('client/templates/users/import-parents/import.html', 'web.browser');
   api.addFiles('client/templates/users/import-parents/import.js', 'web.browser');
   api.addFiles('client/templates/users/import-teachers/import.html', 'web.browser');
