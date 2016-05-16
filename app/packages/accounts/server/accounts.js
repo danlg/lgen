@@ -236,8 +236,8 @@ Smartix.Accounts.notifyByEmail = function (email, newUserId, tmpPassword, autoEm
             }
         }
     }
-    else {
-       log.warn("Cannot do notify email " + email) ;
+    else if (doNotifyEmail){
+       log.warn("Cannot notify email " + email) ;
     }
 };
 
