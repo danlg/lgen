@@ -25,6 +25,9 @@ Template.AdminUsersSearch.helpers({
     console.log(Template.instance().usersChecked.get());
     return (  Template.instance().usersChecked.get().indexOf(this._id) !== -1 ) ? "checked" : "";
   },
+  totalUserCount:function(){
+      return Meteor.users.find( {},{ fields:{ _id: 1} } ).count();
+  },
   totalSelectUserCount:function(){
       return Template.instance().usersChecked.get().length;
   },
@@ -39,13 +42,13 @@ Template.AdminUsersSearch.events({
         
         if( $(event.target).prop('checked') ) {
            let latestArray = template.usersChecked.get();
-           console.log($(event.target).val());
+           log.info($(event.target).val());
            latestArray.push( $(event.target).val() );
            
            template.usersChecked.set( latestArray  );            
         }else{
            let latestArray = template.usersChecked.get();
-           console.log($(event.target).val());
+           log.info($(event.target).val());
            lodash.pull(latestArray, $(event.target).val());
                        
            template.usersChecked.set( latestArray  );              
@@ -65,7 +68,15 @@ Template.AdminUsersSearch.events({
                 toastr.info('This newsgroup has been removed');
             });   */ 
         }          
-    }
+    },
+   'click .select-all-users-btn':function(event,template){
+     var userObjects = Meteor.users.find( {},{ fields:{ _id: 1} } ).fetch();
+     var userIds = lodash.map(userObjects,"_id");
+     let latestArray = template.usersChecked.set(userIds);  
+   },
+   'click .deselect-all-users-btn':function(event,template){
+      template.usersChecked.set([]);
+   },   
 });
 /*Template.SchoolUserListItem.helpers({
   getUserEmail:function(){
