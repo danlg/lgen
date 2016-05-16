@@ -1,30 +1,28 @@
 {
-  "public": {
-    "persistent_session": {
-      "default_method": "persistent"
+    "public": {
+        "persistent_session": {
+            "default_method": "persistent"
+        },
+        "analyticsSettings": {
+            "Mixpanel": {
+                "token": "ed2cc0f567e1d57a89cc4aceb93811ec",
+                "people": true
+            }
+        },
+        "ROOT_URL": "https://app.gosmartix.com",
+        "PORT": 443,
+        "SHARE_URL": "https://app.gosmartix.com",
+        "GOOGLE_PLAY_URL": "https://play.google.com/store/apps/details?id=com.gosmartix.smartix",
+        "APP_STORE_URL": "https://itunes.apple.com/hk/app/smartix-school-instant-messaging/id1036105942?mt=8&ign-mpt=uo%3D4"
     },
-    "analyticsSettings": {
-      "Mixpanel": {
-        "token": "ed2cc0f567e1d57a89cc4aceb93811ec",
-        "people": true
-      }
-    },
-
-    "ROOT_URL": "https://app.gosmartix.com",
-    "PORT": 443,
-    "SHARE_URL": "https://app.gosmartix.com",
-    "GOOGLE_PLAY_URL":"https://play.google.com/store/apps/details?id=com.gosmartix.smartix",
-    "APP_STORE_URL":"https://itunes.apple.com/hk/app/smartix-school-instant-messaging/id1036105942?mt=8&ign-mpt=uo%3D4"
-  },
-
-  "GOOGLE_CLIENT_ID": "122417300165-bq0l4khepcibitqksgrmkuvqrdintiuc.apps.googleusercontent.com",
-  "GOOGLE_SECRET": "kCwDY5lY6wWz8KsGB4fTVwNp",
-
-  "MANDRILL_USERNAME": "dan@littlegenius.io",
-  "MANDRILL_KEY": "GBt6d5ggNEP7969s9j9DyA",
-  "MANDRILL_PORT": 587,
-
-  "FROM_EMAIL": "contactemail@littlegenius.io",
-  "FROM_NAME": "Smartix",
-  "FEEDBACK_EMAIL": "feedback@littlegenius.io"
+    "GOOGLE_CLIENT_ID": "122417300165-bq0l4khepcibitqksgrmkuvqrdintiuc.apps.googleusercontent.com",
+    "GOOGLE_SECRET": "kCwDY5lY6wWz8KsGB4fTVwNp",
+    "MANDRILL_USERNAME": "dan@littlegenius.io",
+    "MANDRILL_KEY": "GBt6d5ggNEP7969s9j9DyA",
+    "MANDRILL_PORT": 587,
+    "FROM_EMAIL": "contactemail@littlegenius.io",
+    "FROM_NAME": "Smartix",
+    "FEEDBACK_EMAIL": "feedback@littlegenius.io",
+    "RSS_FETCH_INTERVAL": 1800000,
+    "RSS_PROCESS_INTERVAL": 1800000
 }

@@ -54,5 +54,5 @@ Meteor.startup(function() {
             multi: true
         });
         
-    }, 60000);
+    }, Meteor.settings.RSS_PROCESS_INTERVAL);
 });

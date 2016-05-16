@@ -18,7 +18,7 @@ Smartix.Rss.linkRssWithGroups = function (namespace, name, url, selectedNewgroup
             _id: url,
             category: url,
             link: url,
-            refresh_interval: 6000
+            refresh_interval: Meteor.settings.RSS_FETCH_INTERVAL
         };
         Feed.createAtomFeed(feed);
         Feed.read();
