@@ -85,9 +85,13 @@ Smartix.Accounts.createUser = function (email, userObj, namespace, roles, curren
         log.warn("Adding role(s) " + roles + " to existing user "+ email  + " with id " + newUserId);
         // Add the role to the user
         Roles.addUsersToRoles(newUserId, roles, namespace);
+     
+
         // If the user is a student, create a distribution list based on the student's class
         Smartix.Accounts.createOrAddToDistributionList(newUserId, namespace, userObj.classroom, currentUser);
         Meteor.users.update({ _id: newUserId}, {$set: userObj });
+           // Add the namespace to the user
+        Meteor.users.update({ _id: newUserId}, {$addToSet: {schools: namespace}});
         //if (userObj.dob) { Meteor.users.update({_id: newUserId}, {$set: {"dob": userObj.dob} } ); }
         return [ newUserId, false ];
     }

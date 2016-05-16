@@ -2,6 +2,14 @@
     <div class="panel panel-flat">
         <div class="panel-heading">
             <h1>Search users ({{totalUserCount}}) </h1>
+            {{#if doingOperations}}
+                <style>
+                    .spinner{
+                        width:10px;
+                    }
+                </style>
+                {{> ionSpinner icon="spiral"}}
+             {{/if}}
         </div>
         
         {{#if Template.subscriptionsReady}}

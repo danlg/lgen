@@ -53,13 +53,20 @@ if(Meteor.isServer){
                 }
             });
         }, 
-        'smartix:accounts-schools/revokeSchool':function(schoolId){
+        'smartix:accounts-schools/revokeSchool':function(school, users){
+            if(!Smartix.Accounts.School.isAdmin(school)
+                && !Smartix.Accounts.System.isAdmin()){
+                return;
+            }
             return Meteor.users.update({
-                _id: this.userId
-            }, {
+                _id: {$in : users}
+            },{
                 $pull: {
-                    schools: schoolId
-                }
+                    schools: school
+                },
+                
+            },{
+              multi: true  
             });
         },
         'smartix:accounts-schools/isUserSchoolAdmin': function (namespace, user) {
