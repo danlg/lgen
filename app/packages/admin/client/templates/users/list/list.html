@@ -10,9 +10,10 @@
                 {{> EasySearch.Input index=usersIndex attributes=userSearchInputAttributes}}
                 <span>Total User: {{totalUserCount}} </span>
                 <span>{{totalSelectUserCount}} has been chosen.</span>
-                <button class='select-all-users-btn'>Select All</button>
-                <button class='select-all-users-current-page-btn'>Select All From Current Page</button>
+                <button class='select-all-users-btn'>Select All</button> 
                 <button class='deselect-all-users-btn'>De-Select All</button>                                   
+                <button class='select-all-users-current-page-btn'>Select All From Current Page</button>
+                <button class='deselect-all-users-current-page-btn'>De-Select All From Current Page</button>                
                 {{#if showOptions}}
                     <button class='remove-users-btn'>Remove</button>
 

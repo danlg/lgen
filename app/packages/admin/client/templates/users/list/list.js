@@ -77,7 +77,7 @@ Template.AdminUsersSearch.events({
    'click .select-all-users-current-page-btn':function(event,template){
       $('.school-directory-user-checkbox').each(function(index){
           if( $(this).prop('checked') ){
-              
+            //do nothing
           }else{
            let latestArray = template.usersChecked.get();
            log.info($(this).val());
@@ -87,6 +87,19 @@ Template.AdminUsersSearch.events({
           }
       });
    },
+   'click .deselect-all-users-current-page-btn':function(event,template){
+      $('.school-directory-user-checkbox').each(function(index){
+          if( $(this).prop('checked') ){
+           let latestArray = template.usersChecked.get();
+           log.info($(this).val());
+           lodash.pull(latestArray, $(this).val());
+                       
+           template.usersChecked.set( latestArray  );                 
+          }else{
+            //do nothing
+          }
+      });
+   },   
    'click .deselect-all-users-btn':function(event,template){
       template.usersChecked.set([]);
    },   
