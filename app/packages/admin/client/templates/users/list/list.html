@@ -17,11 +17,10 @@
                 <button class='btn btn-default deselect-all-users-current-page-btn'>De-Select All From Current Page</button>                
                 {{#if showOptions}}
                     <br/>
-                    <button class='btn btn-danger remove-users-btn'>Remove User(s)</button>
-                    <br/>                  
-                    <button class='btn btn-success add-user-to-role'>Add User(s) to Role</button>
-                    <button class='btn btn-danger remove-user-from-role'>Remove User(s) from Role</button>
-                    <select class="form-control">
+                    <button class='btn btn-danger remove-users-btn'>Remove User(s)</button>                 
+                    <button class='btn btn-success add-users-to-role'>Add User(s) to Role</button>
+                    <button class='btn btn-danger remove-users-from-role'>Remove User(s) from Role</button>
+                    <select id='selected-role' class="form-control">
                         <option value="parent">Parent</option>
                         <option value="student">Student</option>
                         <option value="teacher">Teacher</option>

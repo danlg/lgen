@@ -102,7 +102,23 @@ Template.AdminUsersSearch.events({
    },   
    'click .deselect-all-users-btn':function(event,template){
       template.usersChecked.set([]);
-   },   
+   },
+    'click .add-users-to-role':function(event,template){
+        let latestArray = template.usersChecked.get()
+        let listOfUsers = latestArray.join('\n');
+        var selectedRole = document.getElementById('selected-role').value;
+        if (window.confirm("Do you really want to add role "+ selectedRole +" to the selected users?:\n"+listOfUsers)) { 
+            Meteor.call('smartix:accounts-schools/assignSchoolRole',template.namespace,latestArray,selectedRole);
+        }          
+    },
+    'click .remove-users-from-role':function(event,template){
+        let latestArray = template.usersChecked.get()
+        let listOfUsers = latestArray.join('\n');
+        var selectedRole = document.getElementById('selected-role').value;        
+        if (window.confirm("Do you really want to remove role "+ selectedRole +" from the selected users?:\n"+listOfUsers)) { 
+            Meteor.call('smartix:accounts-schools/retractSchoolRole',template.namespace,latestArray,selectedRole);
+        }          
+    },        
 });
 /*Template.SchoolUserListItem.helpers({
   getUserEmail:function(){
@@ -161,6 +177,7 @@ Template.AdminUsersSearch.onCreated(function () {
             self.subscribe('smartix:accounts/allUsersInNamespace', schoolNamespace, function (err, res) {
                 
             });
+            self.namespace = schoolNamespace;
         }
     } else {
         log.info("Please specify a school to list the users for");
