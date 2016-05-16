@@ -30,7 +30,7 @@ Meteor.publish('userRelationshipsInNamespace', function (userId, namespace) {
     check(namespace, String);
     
     if (userId === this.userId
-        || Smartix.Accounts.School.isAdmin(namespace, currentUser)
+        || Smartix.Accounts.School.isAdmin(namespace, this.userId)
         || Smartix.Accounts.System.isAdmin(this.userId)) {
         // Return relationships belong to the current user
         // as a parent or as a child
@@ -45,7 +45,7 @@ Meteor.publish('userRelationshipsInNamespace', function (userId, namespace) {
                     }]
                 },
                 {
-                    namespace: namespce
+                    namespace: namespace
                 }
             ]
             

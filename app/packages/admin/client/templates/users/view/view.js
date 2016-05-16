@@ -3,8 +3,9 @@ Template.AdminUsersView.onCreated(function () {
     var userId = Router.current().params.uid;
     var schoolUsername = Router.current().params.school;
     var schoolId = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolUsername);
-    self.subscribe('smartix:accounts/getUserInNamespace', userId, schoolId);
+    self.subscribe('smartix:accounts/allUsersInNamespace', schoolId );
     self.subscribe('mySchools');
+    self.subscribe('userRelationshipsInNamespace', userId,schoolId);
 });
 
 Template.AdminUsersView.helpers({
