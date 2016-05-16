@@ -22,6 +22,7 @@ Package.onUse(function(api) {
   api.addFiles('server/rss.js', 'server');
   api.addFiles('server/methods.js', 'server');
   api.addFiles('server/publications.js', 'server');
+  api.addFiles('server/parser.js', 'server');
   api.addFiles('client/rss.js', 'client');
   api.export('Smartix');
 });

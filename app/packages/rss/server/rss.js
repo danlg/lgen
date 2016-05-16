@@ -18,9 +18,10 @@ Smartix.Rss.linkRssWithGroups = function (namespace, name, url, selectedNewgroup
             _id: url,
             category: url,
             link: url,
-            refresh_interval: 3600000
+            refresh_interval: 6000
         };
         Feed.createAtomFeed(feed);
+        Feed.read();
     }
     
     // Create a link between the feed and the newsgroup

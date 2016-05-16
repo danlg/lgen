@@ -63,7 +63,7 @@ Smartix.Messages.cleanAndValidate = function (message) {
 	check(message, Smartix.Messages.Schema);
 };
 
-Smartix.Messages.createMessage = function (groupId, messageType, data, addons, isPush) {
+Smartix.Messages.createMessage = function (groupId, messageType, data, addons, isPush, currentUser) {
     log.info('Smartix.Messages.createMessage',groupId,messageType,data,addons, isPush);
     check(groupId, String);
     check(messageType, String);
@@ -72,6 +72,13 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
     //Match.Maybe is only available at meteor 1.3
     //https://github.com/meteor/meteor/issues/3876
     check(addons, Match.OneOf(undefined,null,[Object]));
+    
+    check(currentUser, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    if(!(currentUser === null)) {
+        currentUser = currentUser || Meteor.userId();
+    }
     
     /* ************************************** */
     /* CHECKS FOR PERMISSION TO POST IN GROUP */
@@ -115,7 +122,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
     // Create an announcement object to house all the data
     var message = {};
     message.group = groupId;
-    message.author = Meteor.userId();
+    message.author = currentUser;
     message.type = messageType;
     message.data = data;
    
@@ -189,7 +196,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
         //Remove current user himself/herself from the push notiification list
         lodash.remove(group.users,
           function(eachUserId){
-            return (eachUserId === Meteor.userId());
+            return (eachUserId === currentUser);
         });
         
         var addonTypes = lodash.map(addons,'type');
@@ -227,29 +234,37 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
                 messageId: newMessage,
                 addons: addonTypes,
                 messageCreateTimestamp: message.createdAt,
-                messageCreateByUserId: Meteor.userId()
+                messageCreateByUserId: currentUser
             },function(){
-                //3. send push notification and in-app notification
-                var notificationObj = {
-                    from : Smartix.helpers.getFullNameByProfileObj(Meteor.user().profile),
-                    title : Smartix.helpers.getFullNameByProfileObj(Meteor.user().profile),
-                    text: message.data.content || "",
-                    payload:{
-                        type: group.type,
-                        groupId: groupId
-                    },
-                    query:{userId:eachTargetUser},
-                    badge: Smartix.helpers.getTotalUnreadNotificationCount(eachTargetUser._id)
-                };
                 
-                if(group.type === 'newsgroup'){
-                    notificationObj.title = message.data.title || "";
-                }
+                let meteorUser = Meteor.users.findOne({
+                    _id: currentUser
+                });
+                
+                if(meteorUser) {
+                    //3. send push notification and in-app notification
+                    var notificationObj = {
+                        from : Smartix.helpers.getFullNameByProfileObj(meteorUser.profile),
+                        title : Smartix.helpers.getFullNameByProfileObj(meteorUser.profile),
+                        text: message.data.content || "",
+                        payload:{
+                            type: group.type,
+                            groupId: groupId
+                        },
+                        query:{userId:eachTargetUser},
+                        badge: Smartix.helpers.getTotalUnreadNotificationCount(eachTargetUser._id)
+                    };
+                    
+                    if(group.type === 'newsgroup'){
+                        notificationObj.title = message.data.title || "";
+                    }
 
-                Meteor.call("doPushNotification", notificationObj,{
-                    groupId: groupId,
-                    classCode: group.classCode || ""
-                });             
+                    Meteor.call("doPushNotification", notificationObj,{
+                        groupId: groupId,
+                        classCode: group.classCode || ""
+                    });
+                }
+                    
                 
             });
         });               
@@ -262,7 +277,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
        {
            $set:
                 {
-                  lastUpdatedBy:  Meteor.userId(),
+                  lastUpdatedBy: currentUser,
                   lastUpdatedAt:new Date()
                 }
         }
