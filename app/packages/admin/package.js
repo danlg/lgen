@@ -55,6 +55,7 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/absence/upload/upload.js', 'web.browser');
   api.addFiles('client/templates/absence/absentees/absentees.html', 'web.browser');
   api.addFiles('client/templates/absence/absentees/absentees.js', 'web.browser');
+  api.addFiles('client/templates/absence/expected/expected.css', 'web.browser');
   api.addFiles('client/templates/absence/expected/expected.html', 'web.browser');
   api.addFiles('client/templates/absence/expected/expected.js', 'web.browser');
   api.addFiles('client/templates/absence/register/index.js', 'web.browser');

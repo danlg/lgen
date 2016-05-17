@@ -90,15 +90,18 @@ Template.AdminParentsImport.events({
         ) {
             if(Array.isArray(importedParents)) {
                 var notifyuserwithemail = template.$('#notifyuserwithemail').is(":checked");
-                Meteor.call('smartix:accounts-schools/importParents', Router.current().params.school, importedParents, notifyuserwithemail
-                    , function (err, res) {
-                        var toasterOption = { timeOut:0, "newestOnTop": false };
+                Meteor.call('smartix:accounts-schools/importParents', Router.current().params.school, importedParents, notifyuserwithemail, function (err, res) {
+                        var toasterOption = {
+                            timeOut: 0,
+                            "newestOnTop": false
+                        };
                         if(!err) {
                             var success = res.newUsers.length;
                             var errors = res.errors.length;
                             var total = success + errors;
-                            if (errors!=0) {
+                            if (errors !== 0) {
                                 toastr.info(success + "/" + total + " users have been imported with " + res.errors.length + " warnings", null, toasterOption);
+                                toastr.info(res.existingUsers.length + " users already exists and was not imported.", null, toasterOption);
                                 toastr.warning("Creating a user sharing an e-mail with an existing user or adding a new role to an existing user are the possible causes of the warning", null,toasterOption);
                             }
                             else {
@@ -119,9 +122,7 @@ Template.AdminParentsImport.events({
         }
     },
     'click #ParentsImport_clear': function () {
-        //it doesnn't work
-        //console.log("ParentsImport_clear clicked");
-        Template.AdminParentsImport.onRendered();
+        Session.set('imported-parents', undefined);
     }
 });
 
@@ -131,14 +132,6 @@ Template.AdminParentsImport.helpers({
     }
 });
 
-Template.AdminParentsImport.onRendered(
-    () =>
-       Tracker.autorun( ()
-           =>
-        Session.set('imported-parents', null)
-    )
-);
-
 Template.AdminParentsImport.onDestroyed(function () {
-    Session.set('imported-parents', null);
+    Session.set('imported-parents', undefined);
 });

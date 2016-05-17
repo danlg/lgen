@@ -48,14 +48,12 @@ Smartix.Accounts.School.importStudent = function(namespace, data, currentUser, d
 				//log.info ("DOB"+user.dob);
 			}
 			log.info(i+1, "Attempting to create user ", user.profile.firstName, user.profile.lastName);
-			let newUserArray = Smartix.Accounts.createUser(email, user, namespace, ['student'], currentUser, false,  doNotifyEmail);
-			let newUserId        =   newUserArray [0];
-			let newUserOrUpdated =   newUserArray [1];
-			if(newUserOrUpdated) {
-				newUsers.push(newUserId);
+			let newUserObj = Smartix.Accounts.createUser(email, user, namespace, ['student'], currentUser, false,  doNotifyEmail);
+			if(newUserObj.isNew) {
+				newUsers.push(newUserObj.id);
 			} else {
 				log.warn("The user was not created with email", email);
-				errors.push(newUserId);
+				errors.push(newUserObj.id);
 			}
 		} catch(e) {
 			errors.push(e);

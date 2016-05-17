@@ -43,42 +43,44 @@
                   </div>
               </div>
             </div>
-            <!--<table id="AdminUsersImport__preview-table" class="table datatable-basic">-->
-                <!--<thead>-->
-                    <!--<tr>-->
-                        <!--<th>Student ID</th>-->
-                        <!--<th>Student E-mail</th>-->
-                        <!--<th>Mother Salutation</th>-->
-                        <!--<th>Mother First Name</th>-->
-                        <!--<th>Mother Last Name</th>-->
-                        <!--<th>Mother E-mail</th>-->
-                        <!--<th>Mother Mobile</th>-->
-                        <!--<th>Father Salutation</th>-->
-                        <!--<th>Father First Name</th>-->
-                        <!--<th>Father Last Name</th>-->
-                        <!--<th>Father E-mail</th>-->
-                        <!--<th>Father Mobile</th>-->
-                    <!--</tr>-->
-                <!--</thead>-->
-                <!--<tbody>-->
-                    <!--{{#each importedParents}}-->
-                    <!--<tr>-->
-                        <!--<td>{{studentId}}</td>-->
-                        <!--<td>{{studentEmail}}</td>-->
-                        <!--<td>{{motherSalutation}}</td>-->
-                        <!--<td>{{motherFirstName}}</td>-->
-                        <!--<td>{{motherLastName}}</td>-->
-                        <!--<td>{{motherEmail}}</td>-->
-                        <!--<td>{{motherMobile}}</td>-->
-                        <!--<td>{{fatherSalutation}}</td>-->
-                        <!--<td>{{fatherFirstName}}</td>-->
-                        <!--<td>{{fatherLastName}}</td>-->
-                        <!--<td>{{fatherEmail}}</td>-->
-                        <!--<td>{{fatherMobile}}</td>-->
-                    <!--</tr>-->
-                    <!--{{/each}}-->
-                <!--</tbody>-->
-            <!--</table>-->
+            <div class="responsive-table">
+                <table id="AdminUsersImport__preview-table" class="table datatable-basic">
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Student E-mail</th>
+                            <th>Mother Salutation</th>
+                            <th>Mother First Name</th>
+                            <th>Mother Last Name</th>
+                            <th>Mother E-mail</th>
+                            <th>Mother Mobile</th>
+                            <th>Father Salutation</th>
+                            <th>Father First Name</th>
+                            <th>Father Last Name</th>
+                            <th>Father E-mail</th>
+                            <th>Father Mobile</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each importedParents}}
+                        <tr>
+                            <td>{{studentId}}</td>
+                            <td>{{studentEmail}}</td>
+                            <td>{{motherSalutation}}</td>
+                            <td>{{motherFirstName}}</td>
+                            <td>{{motherLastName}}</td>
+                            <td>{{motherEmail}}</td>
+                            <td>{{motherMobile}}</td>
+                            <td>{{fatherSalutation}}</td>
+                            <td>{{fatherFirstName}}</td>
+                            <td>{{fatherLastName}}</td>
+                            <td>{{fatherEmail}}</td>
+                            <td>{{fatherMobile}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
 
             <div class="align-bottom-right">
               <div class="form-group" style="margin:0;">

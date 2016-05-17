@@ -69,10 +69,10 @@ Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser, 
 			user.mobile = teacher.mobile;
 			var autoEmailVerified = true;
 			log.info(i+1, "Attempting to create user ", user.profile.firstName, user.profile.lastName);
-			teacherId = Smartix.Accounts.createUser(teacher.email, user, namespace, ['teacher'], currentUser, autoEmailVerified, doNotifyEmail) [0];
+			teacherObj = Smartix.Accounts.createUser(teacher.email, user, namespace, ['teacher'], currentUser, autoEmailVerified, doNotifyEmail);
 		}
 
-		if(!teacherId || typeof teacherId !== "string") {
+		if(!teacherObj || typeof teacherObj.id !== "string") {
 			throw new Meteor.Error('could-not-create-teacher', "The system failed to create the teacher record for " + teacher.firstName + " " + teacher.lastName + ". Please try again.");
 		}
 
@@ -90,7 +90,7 @@ Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser, 
 		// Update the user with those subjects
 		if(subjectsTaught.length > 0) {
 			Meteor.users.update({
-				_id: teacherId
+				_id: teacherObj.id
 			}, {
 				$addToSet: {
 					subjectsTaught: {

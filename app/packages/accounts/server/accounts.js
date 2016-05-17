@@ -74,8 +74,11 @@ Smartix.Accounts.createUser = function (email, userObj, namespace, roles, curren
     // Get the `_id` of the currently-logged in user
     if(!(currentUser === null)) { currentUser = currentUser || Meteor.userId(); }
     // Pass the permission checks to the corresponding child package
-    //
-    Smartix.Accounts.checkPermission(roles, currentUser,namespace, Smartix.Accounts.School.canCreateUser, "create");
+    
+    if(!Smartix.Accounts.canCreateUser(namespace, roles, currentUser)) {
+        // Throw error indicating user does not have permission
+        throw new Meteor.Error("permission-denied", "The user does not have permission to create a user in the namespace " + namespace + ".");
+    }
 
     var newUserId;
     // Checks if user already exists
@@ -89,11 +92,14 @@ Smartix.Accounts.createUser = function (email, userObj, namespace, roles, curren
 
         // If the user is a student, create a distribution list based on the student's class
         Smartix.Accounts.createOrAddToDistributionList(newUserId, namespace, userObj.classroom, currentUser);
-        Meteor.users.update({ _id: newUserId}, {$set: userObj });
-           // Add the namespace to the user
+        
+        // Add the namespace to the user
         Meteor.users.update({ _id: newUserId}, {$addToSet: {schools: namespace}});
         //if (userObj.dob) { Meteor.users.update({_id: newUserId}, {$set: {"dob": userObj.dob} } ); }
-        return [ newUserId, false ];
+        return {
+            id: newUserId,
+            isNew: false 
+        }
     }
     else {
         // Otherwise, if the user does not already exists, create a new user
@@ -116,7 +122,10 @@ Smartix.Accounts.createUser = function (email, userObj, namespace, roles, curren
         Roles.addUsersToRoles(newUserId, roles, namespace);
         // If the user is a student, create a distribution list based on the student's class
         Smartix.Accounts.createOrAddToDistributionList(newUserId, namespace, userObj.classroom, currentUser);
-        return [newUserId, true ];
+        return {
+            id: newUserId,
+            isNew: true 
+        };
     }
 };
 /**
@@ -128,12 +137,12 @@ Smartix.Accounts.createUser = function (email, userObj, namespace, roles, curren
  * @param name for error logging purpose "create", "delete", "update"
  * @returns {boolean}
  */
-Smartix.Accounts.checkPermission =function(roles, currentUser, namespace, functioncheck, name)  {
+Smartix.Accounts.canCreateUser = function(namespace, roles, currentUser)  {
     var hasPermission = false;
     switch(namespace) {
         case 'system':
             // Check permissions on `smartix:accounts-system`
-            hasPermission = functioncheck(roles, currentUser);
+            hasPermission = Smartix.Accounts.System.canCreateUser(roles, currentUser);
             break;
         case 'global':
             // Check permission on `smartix:accounts-global`
@@ -142,15 +151,14 @@ Smartix.Accounts.checkPermission =function(roles, currentUser, namespace, functi
             break;
         default:
             // Pass checking permissions to `smartix:accounts-school`
-            hasPermission = functioncheck(namespace, roles, currentUser);
+            hasPermission = Smartix.Accounts.School.canCreateUser(namespace, roles, currentUser);
     }
     if(!hasPermission) {
-        // return false;
-        // Throw error indicating user does not have permission
-        throw new Meteor.Error("permission-denied", "The user does not have permission to " + name +" a user in the namespace " + namespace + ".");
+        return false;
     }
     return true;
 };
+
 /**
  * @param userObj
  * @param email

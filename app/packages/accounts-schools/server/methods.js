@@ -85,15 +85,15 @@ if(Meteor.isServer){
             }
             
         },
-        'smartix:accounts-schools/importParents': function (schoolName,data, doNotifyEmail) {
+        'smartix:accounts-schools/importParents': function (schoolName, data, doNotifyEmail) {
             
             check(schoolName, String);
             check(data, [Object]);
+            // doNotifyEmail is casted to a Boolean using `!!`
             
             let namespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolName);
             if(namespace) {
-                //var doNotifyEmail = true;
-                return Smartix.Accounts.School.importParents(namespace, data, this.userId, doNotifyEmail);
+                return Smartix.Accounts.School.importParents(namespace, data, this.userId, !!doNotifyEmail);
             } else {
                 throw new Meteor.Error("non-existent-school", "The school with the school code " + schoolName + " does not exists.");
             }
