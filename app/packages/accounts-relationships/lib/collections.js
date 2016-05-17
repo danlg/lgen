@@ -11,13 +11,13 @@ Smartix.Accounts.Relationships.Collection = new Mongo.Collection('relationships'
 
 Smartix.Accounts.Relationships.Schema = new SimpleSchema({
    parent:{
-       type:String,
+       type:String
    },
    child:{
-       type:String,
+       type:String
    },
    namespace:{
-       type:String,
+       type:String
    },
    name:{
        type:String

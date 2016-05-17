@@ -50,13 +50,13 @@ Smartix.Accounts.Relationships.createRelationship = function(options, currentUse
             throw new Meteor.Error("child-not-belong-to-school", "Child does not belong to school with namespace " + options.namespace)
         }
 
-        if (Smartix.Accounts.Relationships.Collection.findOne({
-            parent: options.parent,
-            child: options.child,
-            namespace: options.namespace
-        })) {
-            throw new Meteor.Error("existing-parent-child-relationship", "existing parent-child relationship bewteen this two persons");
-        }
+        // if (Smartix.Accounts.Relationships.Collection.findOne({
+        //     parent: options.parent,
+        //     child: options.child,
+        //     namespace: options.namespace
+        // })) {
+        //     throw new Meteor.Error("existing-parent-child-relationship", "existing parent-child relationship bewteen this two persons");
+        // }
         
         return Smartix.Accounts.Relationships.Collection.insert(options);
     } else {

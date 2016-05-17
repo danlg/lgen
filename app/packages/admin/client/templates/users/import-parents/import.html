@@ -18,72 +18,80 @@
             <p>Download parents' CSV template to get started.</p>
 
             <a target="_blank" href="/packages/smartix_admin/client/assets/parents_import_template.csv" download="smartix-import-sample-parents.csv">
+              <div class="text-right">
                 <button id="AdminParentsImport__downloadTemplate" type="submit" class="btn btn-primary">Download Template</button>
+              </div>
             </a>
 
 
           <h3><p><strong>Step 2: Save your spreadsheet as a CSV file.</strong></p></h3>
             <p>The example shown is from Microsoft Excel. If you are using another program, the process may differ slightly.</p>
 
-            <img src="/packages/smartix_admin/client/assets/import-guide-csv.png" alt="">
+            <img src="/packages/smartix_admin/client/assets/import-guide-csv.png" alt="import-guide-excel">
 
           <h3><p><strong>Step 3: Upload your CSV file of parents</strong></p></h3>
 
             <p>Once your CSV file has been uploaded, you will be able to confirm the parent information before importing.</p>
-            <p>Please import the user data as a <code>.csv</code> file with the first row being the headings. Please also ensure
-                that the file is encoded in UTF-8.</p>
+            <p>Please import the user data as a <code>.csv</code> file with the first row being the headings.
+              <!--Please also ensure that the file is encoded in UTF-8.-->
+            </p>
             <div id="AdminParentsImport__file-input" class="file-input file-input-new">
+              <div class="text-right">
                 <div tabindex="500" class="btn btn-primary btn-file legitRipple">
-                    <i class="icon-file-plus"></i> <span class="hidden-xs">Browse</span>
-                    <input type="file" id="parents-upload-file" class="file-input" data-show-caption="false" data-show-upload="false">
-                </div>
+                      <i class="icon-file-plus"></i> <span class="hidden-xs">Upload</span>
+                      <input type="file" id="parents-upload-file" class="file-input" data-show-caption="false" data-show-upload="false">
+                  </div>
+              </div>
             </div>
-            <table id="AdminUsersImport__preview-table" class="table datatable-basic">
-                <thead>
-                    <tr>
-                        <th>Student ID</th>
-                        <th>Student E-mail</th>
-                        <th>Mother Salutation</th>
-                        <th>Mother First Name</th>
-                        <th>Mother Last Name</th>
-                        <th>Mother E-mail</th>
-                        <th>Mother Mobile</th>
-                        <th>Father Salutation</th>
-                        <th>Father First Name</th>
-                        <th>Father Last Name</th>
-                        <th>Father E-mail</th>
-                        <th>Father Mobile</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each importedParents}}
-                    <tr>
-                        <td>{{studentId}}</td>
-                        <td>{{studentEmail}}</td>
-                        <td>{{motherSalutation}}</td>
-                        <td>{{motherFirstName}}</td>
-                        <td>{{motherLastName}}</td>
-                        <td>{{motherEmail}}</td>
-                        <td>{{motherMobile}}</td>
-                        <td>{{fatherSalutation}}</td>
-                        <td>{{fatherFirstName}}</td>
-                        <td>{{fatherLastName}}</td>
-                        <td>{{fatherEmail}}</td>
-                        <td>{{fatherMobile}}</td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
+            <!--<table id="AdminUsersImport__preview-table" class="table datatable-basic">-->
+                <!--<thead>-->
+                    <!--<tr>-->
+                        <!--<th>Student ID</th>-->
+                        <!--<th>Student E-mail</th>-->
+                        <!--<th>Mother Salutation</th>-->
+                        <!--<th>Mother First Name</th>-->
+                        <!--<th>Mother Last Name</th>-->
+                        <!--<th>Mother E-mail</th>-->
+                        <!--<th>Mother Mobile</th>-->
+                        <!--<th>Father Salutation</th>-->
+                        <!--<th>Father First Name</th>-->
+                        <!--<th>Father Last Name</th>-->
+                        <!--<th>Father E-mail</th>-->
+                        <!--<th>Father Mobile</th>-->
+                    <!--</tr>-->
+                <!--</thead>-->
+                <!--<tbody>-->
+                    <!--{{#each importedParents}}-->
+                    <!--<tr>-->
+                        <!--<td>{{studentId}}</td>-->
+                        <!--<td>{{studentEmail}}</td>-->
+                        <!--<td>{{motherSalutation}}</td>-->
+                        <!--<td>{{motherFirstName}}</td>-->
+                        <!--<td>{{motherLastName}}</td>-->
+                        <!--<td>{{motherEmail}}</td>-->
+                        <!--<td>{{motherMobile}}</td>-->
+                        <!--<td>{{fatherSalutation}}</td>-->
+                        <!--<td>{{fatherFirstName}}</td>-->
+                        <!--<td>{{fatherLastName}}</td>-->
+                        <!--<td>{{fatherEmail}}</td>-->
+                        <!--<td>{{fatherMobile}}</td>-->
+                    <!--</tr>-->
+                    <!--{{/each}}-->
+                <!--</tbody>-->
+            <!--</table>-->
 
             <div class="align-bottom-right">
               <div class="form-group" style="margin:0;">
-                <label class="control-label col-lg-1">Notify user with an email</label>
+                <label class="control-label">Notify user with an email</label>
                 <div class="checkbox checkbox-switchery">
                   <label>
                     <!--<input id="notifyuserwithemail" type="checkbox" class="switchery" checked>-->
                     <input id="notifyuserwithemail" type="checkbox" class="switchery">
                   </label>
                 </div>
+              </div>
+              <div class="text-right">
+                <button id="ParentsImport_clear" type="submit" class="btn btn-default">Clear</button>
               </div>
               <div class="text-right">
                 <button id="AdminParentsImport__submit" type="submit" class="btn btn-primary">Import Users <i class="icon-arrow-right14 position-right"></i></button>
