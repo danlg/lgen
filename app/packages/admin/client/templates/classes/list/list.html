@@ -49,8 +49,8 @@
                                 {{/each}}
                                 </ul>
                             </td>  
-                            <td> {{createdAt}}</td>
-                            <td> {{lastUpdatedAt}}</td>                               
+                            <td> {{formatDate createdAt}}</td>
+                            <td> {{formatDateCalendar lastUpdatedAt}}</td>                               
                             <td>
                                 <ul>
                                  {{#with userData lastUpdatedBy}}

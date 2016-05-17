@@ -108,10 +108,9 @@ Template.AdminClassesSearch.events({
         let latestArray = template.usersChecked.get();
         let listOfUsers = latestArray.join('\n');
         if (window.confirm("Do you really want to remove the selected class(es):\n"+listOfUsers)) {             
-            latestArray.map(function(eachDistributionListId){
-                Meteor.call('smartix:distribution-lists/remove',eachDistributionListId);            
-            });
-            template.usersChecked.set([]); 
+                Meteor.call('smartix:classes/removeClasses',latestArray,function(){
+                   template.usersChecked.set([]); 
+                });            
         }             
    }
 });

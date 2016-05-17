@@ -75,6 +75,15 @@ Smartix.Groups.deleteGroup = function(id) {
     });
 }
 
+Smartix.Groups.deleteGroups = function(ids) {
+    // Checks that `id` is of type String array
+    check(ids, [String]);
+
+    Smartix.Groups.Collection.remove({
+        _id: {$in: ids}
+    });
+}
+
 Smartix.Groups.addUsersToGroup = function(id, users) {
     // Checks that `id` is of type String
     check(id, String);
