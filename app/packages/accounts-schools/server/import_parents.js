@@ -271,6 +271,32 @@ Smartix.Accounts.School.importParentsSchema = new SimpleSchema({
 	}
 });
 
+Smartix.Accounts.School.getStudentRecord = function (namespace, email, studentId) {
+    
+    // GET THE STUDENT RECORD
+    let studentData;
+    
+    // If the student's email is available, use that first
+    if (email) {
+        studentData = Accounts.findUserByEmail(email)
+    }
+    // If the email was provided but a user is not found or the email field didn't exist,
+    // attempt to find the student based on his/her student ID
+    if (studentData === undefined && studentId) {
+        studentData = Meteor.users.findOne({
+            studentId: studentId,
+            schools: namespace
+        })
+    }
+    // If more than one user is found with the email, select the first one
+    if (studentData === null) {
+        studentData = Meteor.users.findOne({
+            "emails.address": email
+        });
+    }
+    
+    return studentData;
+}
 
 Smartix.Accounts.School.importParents = function(namespace, data, currentUser, doNotifyEmail) {
     
@@ -302,45 +328,29 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser, d
 	}
     
     let returnObj = {};
-    returnObj.newUsers = [];
-    returnObj.existingUsers = [];
-	returnObj.errors = [];
-	returnObj.studentCount = 0;
+    returnObj.newUsers = []; // All new users (parents) that have been created
+    returnObj.existingUsers = []; // All existing users who was not imported
+    returnObj.manualNotifyUsers = []; // All existing users who was not imported
+	returnObj.errors = []; // Parents with incomplete records (i.e. no email nor telephone number) and was not imported
     
 	log.info("Importing parents for school ", namespace);
     
     // For each student record
 	_.each(data, function(student, i, students) {
         
-        // GET THE STUDENT RECORD
-		let studentData;
-        
-		// If the student's email is available, use that first
-		if (student.studentEmail) {
-			studentData = Accounts.findUserByEmail(student.studentEmail)
-		}
-		// If the email was provided but a user is not found or the email field didn't exist,
-		// attempt to find the student based on his/her student ID
-		if (studentData === undefined && student.studentId) {
-			studentData = Meteor.users.findOne({
-                studentId: student.studentId,
-                schools: namespace
-            })
-		}
-		// If more than one user is found with the email, select the first one
-		if (studentData === null) {
-			studentData = Meteor.users.findOne({"emails.address": student.studentEmail});
-		}
+        // Get the student document
+        let studentData = Smartix.Accounts.School.getStudentRecord(namespace, student.studentEmail, student.studentId);
         
         // Could not retrieve the student record
         // Push an error to the array and carry on
 		if (!studentData) {
-			returnObj.errors.push(new Meteor.Error('non-existent-user',
-				'Line ' + (i+1) + ': The student with email: ' + student.studentEmail + " and/or student ID: " + student.studentId + " cannot be found."));
+			returnObj.errors.push(new Meteor.Error(
+                'non-existent-user',
+                'Line ' + (i+1) + ': The student with email: ' + student.studentEmail + " and/or student ID: " + student.studentId + " cannot be found."
+            ));
 		} else {
             
             // Can retrieve student record
-            
             // Should create mother and father records if they exist
             
             log.info(i+1, ". Attempting to create father " + student.fatherEmail + " with student ID "+  student.studentId);
@@ -357,9 +367,26 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser, d
             if (newFather) {
                 if(newFather.isNew) {
                     returnObj.newUsers.push(newFather.id);
+                    if(newFather.manualNotify) {
+                        // Get the user document
+                        let userToNotify = Meteor.users.findOne({
+                            _id: newFather.id
+                        });
+                        returnObj.manualNotifyUsers.push({
+                            _id: newFather.id,
+                            firstName: userToNotify.profile.firstName,
+                            lastName: userToNotify.profile.lastName,
+                            username: userToNotify.username,
+                            password: userToNotify.tel
+                        });
+                    }
                 } else {
                     returnObj.existingUsers.push(newFather.id);
                 }
+            } else {
+                returnObj.errors.push(
+                    new Meteor.Error('cannot-create-parent', 'Line ' + (i+1) + ": Cannot create father record for student with email " + student.studentEmail + " and/or student ID: " + student.studentId + ". Please ensure you have included either an email or a phone number.")
+                )
             }
             
             log.info(i+1, ". Attempting to create mother " + student.motherEmail + " with student ID "+  student.studentId);
@@ -377,13 +404,29 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser, d
             if (newMother) {
                 if(newMother.isNew) {
                     returnObj.newUsers.push(newMother.id);
+                    if(newMother.manualNotify) {
+                        // Get the user document
+                        let userToNotify = Meteor.users.findOne({
+                            _id: newMother.id
+                        });
+                        returnObj.manualNotifyUsers.push({
+                            _id: newMother.id,
+                            firstName: userToNotify.profile.firstName,
+                            lastName: userToNotify.profile.lastName,
+                            username: userToNotify.username,
+                            password: userToNotify.tel
+                        });
+                    }
                 } else {
                     returnObj.existingUsers.push(newMother.id);
                 }
+            } else {
+                returnObj.errors.push(
+                    new Meteor.Error('cannot-create-parent', 'Line ' + (i+1) + ": Cannot create mother record for student with email " + student.studentEmail + " and/or student ID: " + student.studentId + ". Please ensure you have included either an email or a phone number.")
+                )
             }
         }
         
-        returnObj.studentCount++;
 	});
     
 	log.info("Finished parent import for school with namespace", namespace);
@@ -447,11 +490,39 @@ Smartix.Accounts.School.createParent = function(options) {
 			// This parent already exists already
 			log.warn("Parent with email " + options.email  + " already exists with id " + parent._id + ". Skipping user creation.");
 			Smartix.Accounts.School.createRelationShip(options.namespace, parent._id, options.student, options.relationship, options.currentUser, options.email);
-			return false;
+            return {
+                id: parent._id,
+                isNew: false
+            }
 		}
 	} else {
         // If the parent does not have an email,
         // Attempt to create an account using the telephone number
+        if(options.parent.tel) {
+            // Check if someone else has the same telephone number
+            let userWithSameTel = Meteor.users.findOne({
+                tel: options.parent.tel
+            });
+            if(userWithSameTel) {
+                return {
+                    id: userWithSameTel._id,
+                    isNew: false
+                };
+            } else {
+                options.parent.password = options.parent.tel;
+                // Create a new user, using the telephone as the password
+                // Should create a new user
+                let parentObj = Smartix.Accounts.createUser(undefined, options.parent, options.namespace, ['parent'], options.currentUser, true, options.doNotifyEmail);
+                if (parentObj && parentObj.id) {
+                    Smartix.Accounts.School.createRelationShip(options.namespace, parentObj.id, options.student, options.relationship, options.currentUser, options.email);
+                    return {
+                        id: parentObj.id,
+                        isNew: true,
+                        manualNotify: true
+                    }
+                }
+            }
+        }
     }
 	return false;
 };

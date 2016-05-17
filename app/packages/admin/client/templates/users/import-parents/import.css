@@ -1,0 +1,7 @@
+.errorMsgBlock {
+    background-color: rgb(255, 241, 238);
+    padding: 24px;
+    line-height: 16px;
+    font-family: Courier;
+    font-size: 12px;
+}

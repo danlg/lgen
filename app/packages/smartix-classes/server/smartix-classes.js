@@ -168,15 +168,25 @@ Smartix.Class.createClass = function(classObj, currentUser) {
     }
     // Send emails to parents if `newClass.notifyParents` is true
     if (newClass.notifyParents) {
+        
+        let parentUsersArray = [];
+        
         _.each(newClass.users, function(student, i, students) {
             // Get the parents of the student
             let parents = Smartix.Accounts.Relationships.getParentOfStudent(student, namespace);
-
+            
+            parentUsersArray.push(parents);
+            
             _.each(parents, function(parent, i) {
                 Smartix.Class.NotifyStudents(parent, newClassId);
             });
         });
+        
+        // Add each parent to the class
+        Smartix.Groups.addUsersToGroup(newClassId, _uniq(_.flattenDeep(parentUsersArray)));
     }
+    
+    
 
     return newClassId;
 };

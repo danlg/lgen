@@ -113,6 +113,7 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/users/import-students/import.css', 'web.browser');
   api.addFiles('client/templates/users/import-students/import.js', 'web.browser');
   api.addFiles('client/templates/users/import-parents/import.html', 'web.browser');
+  api.addFiles('client/templates/users/import-parents/import.css', 'web.browser');
   api.addFiles('client/templates/users/import-parents/import.js', 'web.browser');
   api.addFiles('client/templates/users/import-teachers/import.html', 'web.browser');
   api.addFiles('client/templates/users/import-teachers/import.js', 'web.browser');
