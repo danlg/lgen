@@ -1,0 +1,361 @@
+Student ID,STUDENT NAME OPTIONAL,STUDENT FIRST NAME OPTIONAL,Student E-mail,Father Salutation,Father Last Name,Father First Name,Father E-mail,Father Mobile,Mother Salutation,Mother Last Name,Mother First Name,Mother E-mail,Mother Mobile
+1,Ajzenszmidt,Shaina Malka,,Rabbi,Ajzenszmidt,Rabbi Mendy Ajzenszmidt,rabbi@jewishlantau.com,6622-3770,Mrs.,Ajzenszmidt,Lifshy,lifshy@jewishlantau.com,9800-8804
+2,Akman,Max,,Mr.,Akman,Michael,michael.akman@gmail.com,9031-2835,Mrs.,Akman,Annette,annette.akman@gmail.com,6682-2991
+3,Alcobi,Dana,,Mr.,Alcobi,Yair,yair.alcobi@orbotech.com,9303-0509,Mrs.,Alcobi,Raz,razalcobi@yahoo.com,6087-6086
+4,Alcobi,Gil,,Mr.,Alcobi,Yair,yair.alcobi@orbotech.com,9303-0509,Mrs.,Alcobi,Raz,razalcobi@yahoo.com,6087-6086
+5,Alcobi,Shelly,,Mr.,Alcobi,Yair,yair.alcobi@orbotech.com,9303-0509,Mrs.,Alcobi,Raz,razalcobi@yahoo.com,6087-6086
+6,Allard,Charlie,charlie.allard@elsastudent.net,Mr.,Allard,Charles,cjajr@yahoo.com,5324-0077,Mrs.,Allard,Krysia,kurichan1@yahoo.com,5324-0055
+7,Amias,Eleanna,eleanna.amias@elsastudent.net,Mr.,Amias,Jeremy,Jeremy@amias.com,6071-2646,Mrs.,Amias,Debby,debby@amias.com,9283-8933
+8,Anchislavsky-Jamri,Ela,,Mr.,Anchislavsky-Jamri,David Anchislavsky Grosman,davidan18@hotmail.com,6876-3084,Mrs.,Anchislavsky-Jamri,Jessica Jamri,jessejamri@mac.com,6112-8144
+9,Anchislavsky-Jamri,Tamar,,Mr.,Anchislavsky-Jamri,David Anchislavsky Grosman,davidan18@hotmail.com,6876-3084,Mrs.,Anchislavsky-Jamri,Jessica Jamri,jessejamri@mac.com,6112-8144
+10,Apelbaum,Abigail,,Mr.,Apelbaum,Dimitri,dima.apelbaum@jpmorgan.com,9080-0637,Mrs.,Apelbaum,Anya,anya2107@hotmail.com,9080-3017
+11,Apelbaum,Mia,mia.apelbaum@elsastudent.net,Mr.,Apelbaum,Dimitri,dima.apelbaum@jpmorgan.com,9080-0637,Mrs.,Apelbaum,Anya,anya2107@hotmail.com,9080-3017
+12,Apelbaum,Zoe,,Mr.,Apelbaum,Dimitri,dima.apelbaum@jpmorgan.com,9080-0637,Mrs.,Apelbaum,Anya,anya2107@hotmail.com,9080-3017
+13,Artklankaew,Siriwaranan,,Mr.,Artklankaew,David,david.zeiden@ozcap.com,9508-9277,Mrs.,Artklankaew,Phanjira Jankhieo,zeidenfamily@gmail.com,9810-5369
+14,Assor,Ido,,Mr.,Assor,Elad,elad@forms-hk.com,9301-9331,Mrs.,Assor,Ayelet,ayeletassor@hotmail.com,6771-4184
+15,Assor,Ori,,Mr.,Assor,Elad,elad@forms-hk.com,9301-9331,Mrs.,Assor,Ayelet,ayeletassor@hotmail.com,6771-4184
+16,Assor,Roni,,Mr.,Assor,Elad,elad@forms-hk.com,9301-9331,Mrs.,Assor,Ayelet,ayeletassor@hotmail.com,6771-4184
+17,Assor,Yoav,,Mr.,Assor,Elad,elad@forms-hk.com,9301-9331,Mrs.,Assor,Ayelet,ayeletassor@hotmail.com,6771-4184
+18,Au,Andrea,andrea.au@elsastudent.net,Mr.,Au,Kenneth,,9433-8607,Mrs.,Au,Mandy,mansandy@netvigator.com,9433-8607
+19,Avayou,David,,Mr.,Avayou,Jake,avajake@yahoo.com,9099-2074,Mrs.,Avayou,Sirikanlaya,avayousiri@hotmail.com,9095-3271
+20,Azrilevich,Eden,eden.azrilevhich@elsastudent.net,Mr.,Azrilevich,Sharon,sharon.azrilevich@gmail.com,9023-3767,Mrs.,Azrilevich,Sarit,s.azrilevich@gmail.com,6293-7901
+21,Azrilevich,Rona,,Mr.,Azrilevich,Sharon,sharon.azrilevich@gmail.com,9023-3767,Mrs.,Azrilevich,Sarit,s.azrilevich@gmail.com,6293-7901
+22,Barak,Noya,,Mr.,Barak,Reuven,barak.reuven@gmail.com,9023-8899,Mrs.,Barak,Yifat,yifatb8@gmail.com,6799-6759
+23,Barzilai,Serena,serena.barzilai@elsastudent.net,Mr.,Barzilai,Davide,Davide.Barzilai@nortonrosefulbright.com,6462-3614,Mrs.,Barzilai,Barbie Goldfoot,bgoldfoot@gmail.com ,6112-4006
+24,Barzilai,Sophia,,Mr.,Barzilai,Davide,Davide.Barzilai@nortonrosefulbright.com,6462-3614,Mrs.,Barzilai,Barbie Goldfoot,bgoldfoot@gmail.com,6112-4006
+25,Ben Ezra,David,,Mr.,Ben Ezra,Aviad,aviad@beautyexpress.com.hk,6716-1282,Mrs.,Ben Ezra,Li Kam Kuk,conniekkli@hotmail.com,6832-1388
+26,Bendavid,Eythan,,Mr.,Bendavid,Dan,dan.bendavid@free.fr,5508-8006,Mrs.,Bendavid,Caroline,caroline.bendavid@yahoo.fr,6710-8675
+27,Benichou,Simon,,Mr.,Benichou,Eran,eran.benichou@gmail.com,5239-7222,Mrs.,Benichou,Astrid,astrid.benichou@gmail.com,5239-7221
+28,Bensoussan,Elly,,Mr.,Bensoussan,Fabrice,fabrice.bensoussan@gmail.com,9451-0435,Mrs.,Bensoussan,Audray,audray.bensoussan@gmail.com,9432-6315
+29,Bensoussan,Harry,,Mr.,Bensoussan,Fabrice,fabrice.bensoussan@gmail.com,9451-0435,Mrs.,Bensoussan,Audray,audray.bensoussan@gmail.com,9432-6315
+30,Berman,Asher,asher.berman@elsastudent.net,Mr.,Berman,Daniel,dan@langtonltd.com,9328-4425,Mrs.,Berman,Jules Edels,julia.edels@gmail.com,9472-2045
+31,Berman,Orly,,Mr.,Berman,Daniel,dan@langtonltd.com,9328-4425,Mrs.,Berman,Jules Edels,julia.edels@gmail.com,9472-2045
+32,Brenner,Benjamin,,Mr.,Brenner,Brian Mitchell,brianmbrenner@gmail.com,9041-0461,Mrs.,Brenner,Mayumi,mayumibrenner@gmail.com,9102-1525
+33,Brenner,Joseph,,Mr.,Brenner,Brian Mitchell,brianmbrenner@gmail.com,9041-0461,Mrs.,Brenner,Mayumi,mayumibrenner@gmail.com,9102-1525
+34,Brenner,Shayna,,Mr.,Brenner,Brian Mitchell,brianmbrenner@gmail.com,9041-0461,Mrs.,Brenner,Mayumi,mayumibrenner@gmail.com,9102-1525
+35,Brody,Ian ,,Mr.,Brody,Daniel,dan.brody@gmail.com,5611-1819,Mrs.,Brody,Eva Jian ,eva@mengfilms.com,6323-6687
+36,Brown,Elana,,Mr.,Brown,Eric,e.brown@lilly.com,9183-1090,Mrs.,Brown,Aliza Levine,alizalev@yahoo.com,6689-3779
+37,Brown,Kuga,,Mr.,Brown,Eric,e.brown@lilly.com,9183-1090,Mrs.,Brown,Aliza Levine,alizalev@yahoo.com,6689-3779
+38,Brown,Lilah,,Mr.,Brown,Eric,e.brown@lilly.com,9183-1090,Mrs.,Brown,Aliza Levine,alizalev@yahoo.com,6689-3779
+39,Brown,Naama,,Mr.,Brown,Tobias,,,Mrs.,Brown,Maiko,maiko_tamura@hotmail.com,9571-3974
+40,Bruck,Sharon,sharon.bruck@elsastudent.net,Mr.,Bruck,Michael,michael@bruckfamily.com,6042-9078,Mrs.,Bruck,Elanna Shuting Laio,sl813@nyu.edu,5348-0158
+41,Budovitch,Felix Tallulah,,Mr.,Budovitch,Jason,jkbudovitch@gmail.com,9036-8516,Mrs.,Budovitch,May,maynogoy@gmail.com,9676-4478
+42,Burke,Sky Isabella,,Mr.,Burke,Daniel,daniel.l.burke@baml.com,6055-1683,Mrs.,Burke,Nicola,nfsr@yahoo.com,6055-1608
+43,Butansky,Idan,,Mr.,Butansky,Shlomi,butansky.shlomi@hk.starcont.com,9853-9770,Mrs.,Butansky,Einat Haas-Butansky,einathb@gmail.com,6117-9297
+44,Butansky,Noa,,Mr.,Butansky,Shlomi,butansky.shlomi@hk.starcont.com,9853-9770,Mrs.,Butansky,Einat Haas-Butansky,einathb@gmail.com,6117-9297
+45,Cabrera,Kalanit Lee,,Mr.,Cabrera,Gonzalo,gmijalovich@chinacorpltd.com,6462-2075,Mrs.,Cabrera,Shoshana,shoshana.weinberg@fourseasons.com,6462-2079
+46,Cabrera,Lotem,,Mr.,Cabrera,Gonzalo,,6462-2075,Mrs.,Cabrera,Shoshana,shoshana.weinberg@fourseasons.com,6462-2079
+47,Caviglia,Fabio,fabio.caviglia@elsastudent.net,Mr.,Caviglia,Alessio,alessiocaviglia@yahoo.com,9184-0349,Mrs.,Caviglia,Belinda,bcaviglia@outlook.com,9032-8428
+48,Caviglia,James,,Mr.,Caviglia,Alessio,alessiocaviglia@yahoo.com,9738-1010,Mrs.,Caviglia,Belinda,bcaviglia@outlook.com,9032-8428
+49,Caviglia,Luca,,Mr.,Caviglia,Pacifico,pacificocaviglia@yahoo.com,9184-0795,Mrs.,Caviglia,Rachelle,rachellecaviglia@yahoo.com,6013-8858
+50,Caviglia,Marco,marco.caviglia@elsastudent.net,Mr.,Caviglia,Pacifico,pacificocaviglia@yahoo.com,9184-0795,Mrs.,Caviglia,Rachelle,rachellecaviglia@yahoo.com,6013-8858
+51,Caviglia,Sienna Rose,,Mr.,Caviglia,Pacifico,pacificocaviglia@yahoo.com,9184-0795,Mrs.,Caviglia,Rachelle,rachellecaviglia@yahoo.com,6013-8858
+52,Chan,Yvette,yvette.chan@elsastudent.net,Mr.,Chan,Alan,alan.chan@pccw.com,6384-0630,Mrs.,Chan,Carene,carenec@gmail.com,9468-7950
+53,Cherny,Joshua,,Mr.,Cherny,Stacey,cherny@hku.hk,6842-6391,Mrs.,Cherny,Wendy,plcwendy@gmail.com,9720-9438
+54,Cheung,Michael,,Mr.,Cheung,Oscar,oscarcheung88@yahoo.com.hk,9097-9774,Mrs.,Cheung,Wai Tsui,kiratsui88@yahoo.com.hk,9786-1567
+55,Cohen,Eva,,Mr.,Cohen,David,david@eydiamonds.com,6851-4844,Mrs.,Cohen,Iris,coheniris55@gmail.com,9613-1535
+56,Cohen,Ezra,,Mr.,Cohen,Jean David,jean-david@official-trade.com,5100-0842,Mrs.,Cohen,Viki,vikycohen@yahoo.fr,9503-0350
+57,Cohen,Marc,,Mr.,Cohen,Jean David,jean-david@official-trade.com,5100-0842,Mrs.,Cohen,Viki,vikycohen@yahoo.fr,9503-0350
+58,Cohen,Odaya,,Mr.,Cohen,Neil,Neilcohen38@hotmail.co.uk,6023-0700,Mrs.,Cohen,Cheryl,cherylcohen@live.co.uk,6033-9030
+59,Cohen,Rachel,rachel.cohen@elsastudent.net,Mr.,Cohen,Yossi,yossi.cohen@traditionasia.com,9457-3993,Mrs.,Cohen,Tamie,tamie.toledano@rogerdubuis.hk,9220-0097
+60,Cohen,Sarah,sarah.cohen@elsastudent.net,Mr.,Cohen,Yossi,yossi.cohen@traditionasia.com,9457-3993,Mrs.,Cohen,Tamie,tamie.toledano@rogerdubuis.hk,9220-0097
+61,Cohen,Sunny,,Mr.,Cohen,Yossi,yossi.cohen@traditionasia.com,9457-3993,Mrs.,Cohen,Tamie,tamie.toledano@rogerdubuis.hk,9220-0097
+62,Cohen,Yali,,Mr.,Cohen,Amit,amitc257@gmail.com,9752-2404,Mrs.,Cohen,Maayan,maayan.barzion@gmail.com,6087-7765
+63,Coleman,Dana,,Mr.,Coleman,Zach,kezake@gmail.com,6174-7019,Mrs.,Coleman,Isis,isischan@outlook.com,9620-2176
+64,Craipeau,Hannah,,Mr.,Craipeau,Max,max@maxcogroup.hk,6298-8568,Mrs.,Craipeau,Deborah,deborahenjine@gmail.com,5689-0177
+65,Dagan,Alisa,,Mr.,Dagan,Lior,lior.dagan@gmail.com,6747-6121,Mrs.,Dagan,Andrea,andrea.dagan@gmail.com,6308-7870
+66,Dagan,Ella,,Mr.,Dagan,Lior,lior.dagan@gmail.com,6747-6121,Mrs.,Dagan,Andrea,andrea.dagan@gmail.com,6308-7870
+67,Dagan,Ronia,,Mr.,Dagan,Lior,lior.dagan@gmail.com,6747-6121,Mrs.,Dagan,Andrea,andrea.dagan@gmail.com,6308-7870
+68,Dahlberg,Tyra,tyra.dahlberg@elsastudent.net,Mr.,Dahlberg,Fredrik,fredrik.dahlberg@3Xhappiness.com,6925-9573,Mrs.,Dahlberg,Asa,asa.dahlberg@hoplun.com,6680-8643
+69,Damari,Zohar,,Mr.,Damari,Lahav,lahav.damari@gmail.com,6186-0618,Mrs.,Damari,Nofar,nofar_ito@hotmail.com,6775-7504
+70,Darmon,Naomi,,Mr.,Darmon,Ben,bendarmon@me.com,9385-9440,Mrs.,Darmon,Anael,makeup.anael@gmail.com,9385-9445
+71,Darmon,Noah,,Mr.,Darmon,Ben,bendarmon@me.com,9385-9440,Mrs.,Darmon,Anael,makeup.anael@gmail.com,9385-9445
+72,Daves,Aviela Nicole,aviela.daves@elsastudent.net,Mr.,Daves,,,,Mrs.,Daves,Emily,ekd726@hotmail.com,8.61E+12
+73,Davidson,Hannah,,Mr.,Davidson,Russell,russell1836@gmail.com,9460-8196,Mrs.,Davidson,Sylvie,sylviedavidson@gmail.com,9104-7553
+74,Davidson,Sarah,sarah.davidson@elsastudent.net,Mr.,Davidson,Russell,russell1836@gmail.com,9460-8196,Mrs.,Davidson,Sylvie,sylviedavidson@gmail.com,9104-7553
+75,Davidson,Talia,,Mr.,Davidson,Russell,russell1836@gmail.com,9460-8196,Mrs.,Davidson,Sylvie,sylviedavidson@gmail.com,9104-7553
+76,Davidson,Tami,tami.davidson@elsastudent.net,Mr.,Davidson,Russell,russell1836@gmail.com,9460-8196,Mrs.,Davidson,Sylvie,sylviedavidson@gmail.com,9104-7553
+77,Derman,Elise,,Mr.,Derman,Joshua,joshuaderman@gmail.com,6841-7360,Mrs.,Derman,Faina,fainaderman@gmail.com,6775-0264
+78,Derman,Nathalie,,Mr.,Derman,Joshua,joshuaderman@gmail.com,6841-7360,Mrs.,Derman,Faina,fainaderman@gmail.com,6775-0264
+79,Diestel,Elianna,elianna.diestel@elsastudent.net,Mr.,Diestel,Joseph,joe@metexhk.com,9020-4181,Mrs.,Diestel,Tara,tara@metexhk.com,9190-3928
+80,Diestel,Jack,,Mr.,Diestel,Joseph,joe@metexhk.com,9020-4181,Mrs.,Diestel,Tara,tara@metexhk.com,9190-3928
+81,Diestel,Sadie,,Mr.,Diestel,Joseph,joe@metexhk.com,9020-4181,Mrs.,Diestel,Tara,tara@metexhk.com,9190-3928
+82,Domnitz,Ayala,,Mr.,Domnitz,Yoni,yonidomnitz@hotmail.com,9858-0454,Mrs.,Domnitz,Shoshana,shoshanafriedmann@hotmail.com,9757-8620
+83,Domnitz,Maya,,Mr.,Domnitz,Yoni,yonidomnitz@hotmail.com,9858-0454,Mrs.,Domnitz,Shoshana,shoshanafriedmann@hotmail.com,9757-8620
+84,Domnitz,Yair,,Mr.,Domnitz,Yoni,yonidomnitz@hotmail.com,9858-0454,Mrs.,Domnitz,Shoshana,shoshanafriedmann@hotmail.com,9757-8620
+85,Drucker,Yishai,,Mr.,Drucker,Alexander,asdrucker@gmail.com,5362-3336,Mrs.,Drucker,Madelaine,alexandmaddy@gmail.com,5362-3337
+86,Duncan,Lucy,,Mr.,Duncan,Ben,ben.duncan@cbre.co.jp,81-80317-81896,Mrs.,Duncan,Aviva,avivaduncan@gmail.com,9180-7318
+87,Effron,David,david.effron@elsastudent.net,Mr.,Effron,Andrew,aeffron@gmail.com,6809-1992,Mrs.,Effron,Agnes,agneseffron@gmail.com,6809-1993
+88,Effron,Louis,louis.effron@elsastudent.net,Mr.,Effron,Andrew,aeffron@gmail.com,6809-1992,Mrs.,Effron,Agnes,agneseffron@gmail.com,6809-1993
+89,Effron,Rachel,rachel.effron@elsastudent.net,Mr.,Effron,Andrew,aeffron@gmail.com,6809-1992,Mrs.,Effron,Agnes,agneseffron@gmail.com,6809-1993
+90,Effron,Sophie,sophie.effron@elsastudent.net,Mr.,Effron,Andrew,aeffron@gmail.com,6809-1992,Mrs.,Effron,Agnes,agneseffron@gmail.com,6809-1993
+91,Eisenbach,Dov,,Mr.,Eisenbach,Yitzchak,ezi770@gmail.com,9674-4450,Mrs.,Eisenbach,Chana,chanaju@gmail.com,6209-4774
+92,Eisenbach,Libby,,Mr.,Eisenbach,Yitzchak,ezi770@gmail.com,9674-4450,Mrs.,Eisenbach,Chana,chanaju@gmail.com,6209-4774
+93,Elishar Shasho,Bari,,Mr.,Elishar Shasho,Ben,ben@benvine.com,6803-5907,Mrs.,Elishar Shasho,Elinor Shasho,elinorshasho@gmail.com,6626-8673
+94,Elishar Shasho,Romi,,Mr.,Elishar Shasho,Ben,ben@benvine.com,6803-5907,Mrs.,Elishar Shasho,Elinor Shasho,elinorshasho@gmail.com,6626-8673
+95,Fintzi,Leo,,Mr.,Fintzi,Daniel,dfintzi@yahoo.com,5689-1377,Mrs.,Fintzi,Claudine,claudinechiarella@hotmail.com,5689-5877
+96,Fischer,Ayla,,Mr.,Fischer,Seth,sethf@hk.oasiscm.com,9887-0050,Mrs.,Fischer,Nealy,Nealy@yogabeet.com,6323-9041
+97,Fischer,Benjamin,benjamin.fischer@elsastudent.net,Mr.,Fischer,Seth,sethf@hk.oasiscm.com,9887-0050,Mrs.,Fischer,Nealy,Nealy@yogabeet.com,6323-9041
+98,Fischer,Eitan,eitan.fischer@elsastudent.net,Mr.,Fischer,Seth,sethf@hk.oasiscm.com,9887-0050,Mrs.,Fischer,Nealy,Nealy@yogabeet.com,6323-9041
+99,Fischer,Liam,,Mr.,Fischer,Seth,sethf@hk.oasiscm.com,9887-0050,Mrs.,Fischer,Nealy,Nealy@yogabeet.com,6323-9041
+100,Fleischer,Stephanie,stephanie.fleischer@elsastudent.net,Mr.,Fleischer,Daniel,fleidani@sadesa.com,6951-2616,Mrs.,Fleischer,Cynthia Sananes de Fleischer,cynthia.fleischer2@gmail.com ,6292-8466
+101,Fleischer,Thomas,,Mr.,Fleischer,Daniel,fleidani@sadesa.com,6951-2616,Mrs.,Fleischer,Cynthia Sananes de Fleischer,cynthia.fleischer2@gmail.com ,6292-8466
+102,Florsheim,Sophia,,Mr.,Florsheim,Alexander,alexander@floersheim.ch,9311-0944,Mrs.,Florsheim,Ge Qin,mformandy@gmail.com,9851-0003
+103,Franklin,Abigail,,Mr.,Franklin,Marc,mfranklin50@hotmail.com,9459-2049,Mrs.,Franklin,Vanessa,vanessamerifranklin@gmail.com,9669-9156
+104,Franklin,Noam,,Mr.,Franklin,Marc,mfranklin50@hotmail.com,9459-2049,Mrs.,Franklin,Vanessa,vanessamerifranklin@gmail.com,9669-9156
+105,Gaertner,Lucca,,Mr.,Gaertner,Steven,steven@amicam.be,6388-8557,Mrs.,Gaertner,Alexia Schamisso,alxscham@hotmail.com,5183-4077
+106,Gefen,Ella,,Mr.,Gefen,Ofir,gefen.ofir@gmail.com ,9732-1113,Mrs.,Gefen,Gilat,gilat.gefen@gmail.com ,9444-9340
+107,Gefen,Mia,,Mr.,Gefen,Ofir,gefen.ofir@gmail.com ,9732-1113,Mrs.,Gefen,Gilat,gilat.gefen@gmail.com ,9444-9340
+108,Gefen,Neta,,Mr.,Gefen,Ofir,gefen.ofir@gmail.com,9732-1113,Mrs.,Gefen,Gilat,gilat.gefen@gmail.com ,9444-9340
+109,Gershon,Alexander,,Mr.,Gershon,Andrew,andygershon@hotmail.com,9326-5818,Mrs.,Gershon,Samantha,samantha.gershon@withersworldwide.com,9574-9777
+110,Gershon,Joanna,joanna.gershon@elsastudent.net,Mr.,Gershon,Andrew,andygershon@hotmail.com,9326-5818,Mrs.,Gershon,Samantha,samantha.gershon@withersworldwide.com,9574-9777
+111,Gershon,Lily,lily.gershon@elsastudent.net,Mr.,Gershon,Andrew,andygershon@hotmail.com,9326-5818,Mrs.,Gershon,Samantha,samantha.gershon@withersworldwide.com,9574-9777
+112,Godi,Noa,,Mr.,Godi,Francesco,francescogodi@gmail.com,9486-0298,Mrs.,Godi,Ronnie,ronnietopelgodi@gmail.com,6463-3682
+113,Golan,Meshi,,Mr.,Golan,Shay,shayg@spotoption.com,6776-1516,Mrs.,Golan,Michal,michal4golan@gmail.com,5218-1813
+114,Golan,Shawn,,Mr.,Golan,Shay,shayg@spotoption.com,6776-1516,Mrs.,Golan,Michal,michal4golan@gmail.com,5218-1813
+115,Goldberg,Ella,,Mr.,Goldberg,Moshe,moshe@asia.com,9317-6260,Mrs.,Goldberg,Yael,yaelhk@gmail.com,9302-1672
+116,Goldberg,Tahlia,,Mr.,Goldberg,Moshe,moshe@asia.com,9317-6260,Mrs.,Goldberg,Yael,yaelhk@gmail.com,9302-1672
+117,Golovsky,Harry,,Mr.,Golovsky,Peter,pegolovsky@gmail.com,9729-3870,Mrs.,Golovsky,Eva,eva.golovsky@macquarie.com,6468-1352
+118,Golovsky,Milly,,Mr.,Golovsky,Peter,pegolovsky@gmail.com,9729-3870,Mrs.,Golovsky,Eva,eva.golovsky@macquarie.com,6468-1352
+119,Gozlan,Rose,,Mr.,Gozlan,Philippe,gozlanhk@hotmail.com,9094-6849,Mrs.,Gozlan,Anacel,annaco@live.hk,6168-9058
+120,Green,Sadie Jemma,,Mr.,Green,Roni,ronigreen@gmail.com,9619-9182,Mrs.,Green,Carla,carla.n.green@gmail.com,9619-0975
+121,Green,Sophie,,Mr.,Green,Roni,ronigreen@gmail.com,9619-9182,Mrs.,Green,Carla,carla.n.green@gmail.com,9619-0975
+122,Greenstein,Benjamin,benjamin.greenstein@elsastudent.net,Mr.,Greenstein,Antony,antonygreenstein@gmail.com,9422-0745,Mrs.,Greenstein,Laurian,greenstn@netvigator.com,9408-1703
+123,Hadad,Ron,ron.hadad@elsastudent.net,Mr.,Hadad,Yossi,yossi@visiondiamondshk.com,9411 1183,Mrs.,Hadad,Vered,vidr55555@gmail.com,9499-9973
+124,Harel,Heeli,,Mr.,Harel,Nir,nir@bhdiamonds.com.hk,6281-8072,Mrs.,Harel,Adi,adi@bhdiamonds.com.hk,6536-8317
+125,Harel,Ram,,Mr.,Harel,Nir,nir@bhdiamonds.com.hk,6281-8012,Mrs.,Harel,Adi,adi@bhdiamonds.com.hk,6536-8317
+126,Hasofer,Asher,,Mr.,Hasofer,Menachem,menachem.hasofer@mayerbrownjsm.com,9233-7704,Mrs.,Hasofer,Mira,mira.hasofer@carmel.edu.hk,9046-1506
+127,Hasofer,Atara,,Mr.,Hasofer,Menachem,menachem.hasofer@mayerbrownjsm.com,9233-7704,Mrs.,Hasofer,Mira,mira.hasofer@carmel.edu.hk,9046-1506
+128,Hasofer,Dan,dan.hasofer@elsastudent.net,Mr.,Hasofer,Menachem,menachem.hasofer@mayerbrownjsm.com,9233-7704,Mrs.,Hasofer,Mira,mira.hasofer@carmel.edu.hk,9046-1506
+129,Haviv,Oz,oz.haviv@elsastudent.net,Mr.,Haviv,Avraham,avi@orderart.com,9091-2494,Mrs.,Haviv,Carol Man,carol@ozhk.com,9194-5027
+130,Haviv,Paz,paz.haviv@elsastudent.net,Mr.,Haviv,Avraham,avi@orderart.com,9091-2494,Mrs.,Haviv,Carol Man,carol@ozhk.com,9194-5027
+131,Hazut,Eden,,Mr.,Hazut,Dani,yogurtimehk@gmail.com,5595-2442,Mrs.,Hazut,Rose,yogurtimehk@gmail.com,6890-2824
+132,Hazut,Noam,,Mr.,Hazut,Dani,yogurtimehk@gmail.com,5595-2442,Mrs.,Hazut,Rose,yogurtimehk@gmail.com,6890-2824
+133,Hentz,Nathaniel,,Mr.,Hentz,Jean-Samuel,jeansamuel.hentz@credit-suisse.com,6196-7474,Mrs.,Hentz,Laetitia,laetitia.hentz@gmail.com,9776-2821
+134,Herratt,Michael,,Mr.,Herratt,David,herratt@hotmail.com,9305-1866,Mrs.,Herratt,Shoei,shoeilamb@hotmail.com,9774-5574
+135,Herratt,Silvia,,Mr.,Herratt,David,herratt@hotmail.com,9305-1866,Mrs.,Herratt,Shoei,shoeilamb@hotmail.com,9774-5574
+136,Hipwell-Serfaty,Hanna,hanna.hipwellserfaty@elsastudent.net,Mr.,Hipwell-Serfaty,Julian Hipwell,hopalhk@yahoo.com,9430-5725,Mrs.,Hipwell-Serfaty,Romy Serfaty,romynoo@yahoo.com,9430-5725
+137,Honig,Elia,,Mr.,Honig,Stephane,stephane.honig@asia.bnpparibas.com,6026-6051,Mrs.,Honig,Alexia,alexbetito@hotmail.com,6475-1195
+138,Hut,Minna,,Mr.,Hut,Bruce,brucehut@hotmail.com,6181-9924,Mrs.,Hut,Yoshiho,funkybeasty@yahoo.co.jp,9379-0017
+139,Hut,Porcia Rio,,Mr.,Hut,Bruce,brucehut@hotmail.com,6181-9924,Mrs.,Hut,Yoshiho,funkybeasty@yahoo.co.jp,9379-0017
+140,Hyams,Joshua,joshua.hyams@elsastudent.net,Mr.,Hyams,Andrew,hyamsand@gmail.com,6713-2623,Mrs.,Hyams,Tes,teshyams@yahoo.com,9687-4098
+141,Hyams,Yasmin Ruth,,Mr.,Hyams,Andrew,hyamsand@gmail.com,6713-2623,Mrs.,Hyams,Tes,teshyams@yahoo.com,9687-4098
+142,Idan-Cummins,Arya,arya.idancummins@elsastudent.net,Mr.,Idan-Cummins,Jack Cummins,jackcummins@hotmail.com,9858-6168,Mrs.,Idan-Cummins,Ayelet Idan,idan_ayelet@yahoo.com,9723-0459
+143,Idan-Cummins,Hiram,,Mr.,Idan-Cummins,Jack Cummins,jackcummins@hotmail.com,9858-6168,Mrs.,Idan-Cummins,Ayelet Idan,idan_ayelet@yahoo.com,9723-0459
+144,Isaacs,Leah,,Mr.,Isaacs,Jonathan Mark,Jmiaisi@yahoo.com,6257-4120,Mrs.,Isaacs,Lisa,lisali.isaacs@gmail.com,9757-6447
+145,Jang-Abergel,Ronin,,Mr.,Jang-Abergel,Matt,matt@yardbirdrestaurant.com,6686-4514,Mrs.,Jang-Abergel,Lindsay Jang,ljang88@gmail.com,6685-6554
+146,Jay,Jessica Ilana,,Mr.,Jay,Philip,infojta@netvigator.com,9752-2774,Mrs.,Jay,Marilyn,alyn_navallo@yahoo.com,9221-5767
+147,Jay,Joshua,joshua.jay@elsastudent.net,Mr.,Jay,Philip,infojta@netvigator.com,9752-2774,Mrs.,Jay,Marilyn,alyn_navallo@yahoo.com,9221-5767
+148,Judah,Maya,,Mr.,Judah,Eitan,eitan.judah@orbotech.com,6297-8360,Mrs.,Judah,Ifat,ifat.judah@gmail.com,5410-0696
+149,Judah,Noa,,Mr.,Judah,Eitan,eitan.judah@orbotech.com,6297-8360,Mrs.,Judah,Ifat,ifat.judah@gmail.com,5410-0696
+150,Judah,Tal,tal.judah@elsastudent.net,Mr.,Judah,Eitan,eitan.judah@orbotech.com,6297-8360,Mrs.,Judah,Ifat,ifat.judah@gmail.com,5410-0696
+151,Junger,Naveh Moshe,,Mr.,Junger,Shmuel,1983sj@gmail.com,5182-7400,Mrs.,Junger,Michal,michal.junger@carmel.edu.hk,9076-1990
+152,Kalati-Zadeh,Dinah,dinah.kalati-zadeh@elsastudent.net,Mr.,Kalati-Zadeh,Hooshang Harry,hk@londonpearl.com.hk,9707-0801,Mrs.,Kalati-Zadeh,Leah Lily,lkalati@yahoo.co.uk,5193-2777
+153,Kamhin,Dov,,Mr.,Kamhin,Moshe,mkamhin@asiatech52.com,9359-4334,Mrs.,Kamhin,Miriam,miriamkamhin@yahoo.com,9837-0477
+154,Kamhin,Mendy,mendy.kamhin@elsastudent.net,Mr.,Kamhin,Moshe,mkamhin@asiatech52.com,9359-4334,Mrs.,Kamhin,Miriam,miriamkamhin@yahoo.com,9837-0477
+155,Kamhin,Sholom,,Mr.,Kamhin,Moshe,mkamhin@asiatech52.com,9359-4334,Mrs.,Kamhin,Miriam,miriamkamhin@yahoo.com,9837-0477
+156,Kanevsky,Adam,,Mr.,Kanevsky,Eugene,ekanevsky@hotmail.com,6050-0352,Mrs.,Kanevsky,Olga,o.kanevsky@hotmail.com ,6742-5510
+157,Kanevsky,James,james.kanevsky@elsastudent.net,Mr.,Kanevsky,Eugene,ekanevsky@hotmail.com,6050-0352,Mrs.,Kanevsky,Olga,o.kanevsky@hotmail.com,6742-5510
+158,Kanevsky,Mark,,Mr.,Kanevsky,Eugene,ekanevsky@hotmail.com,6050-0352,Mrs.,Kanevsky,Olga,o.kanevsky@hotmail.com,6742-5510
+159,Khaimson,Alex,,Mr.,Khaimson,Evgeni,eugene.khaimson@gmail.com,5228-3804,Mrs.,Khaimson,Yulia,lyukach@yahoo.com,5228-3803
+160,Khorsandy,Emilia,,Mr.,Khorsandy,Daniel,daniel@iboxco.com,9182-0752,Mrs.,Khorsandy,Deborah,deborah@luminostri.com,9475-1302
+161,Kleinberg,Natalie,,Mr.,Kleinberg,Adam,akleinberg@hotmail.com,9380-7628,Mrs.,Kleinberg,Gloria Hwa,Gloria.hwa@juliusbaer.com,9013-8360
+162,Klemberg,Dora,,Mr.,Klemberg,Antoine,antoine.klemberg@gmail.com,6595-9380,Mrs.,Klemberg,Pauline,pauline.klemberg@gmail.com,6463-2240
+163,Klemberg,Elena,,Mr.,Klemberg,Antoine,antoine.klemberg@gmail.com,6595-9380,Mrs.,Klemberg,Pauline,pauline.klemberg@gmail.com,6463-2240
+164,Konyn,Tal,tal.konyn@elsastudent.net,Mr.,Konyn,Mark,konynmal@netvigator.com,9094-1757,Mrs.,Konyn,Lelia,leliakonyn@hotmail.com,9124-6550
+165,Krieger,Gai,,Mr.,Krieger,Omer,kriegerom@gmail.com,9773-3162,Mrs.,Krieger,Moran,moran1talmor@gmail.com,5180-0226
+166,Krieger,Jonathan,,Mr.,Krieger,Omer,kriegerom@gmail.com,9773-3162,Mrs.,Krieger,Moran,moran1talmor@gmail.com,5180-0226
+167,Krieger,Yuval,,Mr.,Krieger,Omer,kriegerom@gmail.com,9773-3162,Mrs.,Krieger,Moran,moran1talmor@gmail.com,5180-0226
+168,Kushner,Hannah,,Mr.,Kushner,Robert,rob@urbantrendhk.com,9197-3711,Mrs.,Kushner,Clara Malacrida,claramalacrida@yahoo.it,9233-4916
+169,Kushner,Jess Paolo,,Mr.,Kushner,Robert,rob@urbantrendhk.com,9197-3711,Mrs.,Kushner,Clara Malacrida,claramalacrida@yahoo.it,9233-4916
+170,L_wy,Sahana,,Mr.,L_wy,Michel,michel.lowy@sclowy.com,6777-4648,Mrs.,L_wy,Deborah Edwards,deborahpedwards@gmail.com,6209-0013
+171,Lable,Benjamin,,Mr.,Lable,Stephen,stephen.lable@gmail.com,6287-0177,Mrs.,Lable,Cori,cori.lable@ropesgray.com,6297-7625
+172,Lable,Dara,,Mr.,Lable,Stephen,stephen.lable@gmail.com,6287-0177,Mrs.,Lable,Cori,cori.lable@ropesgray.com,6297-7625
+173,Laborde,Jinho,jinho.laborde@elsastudent.net,Mr.,Laborde,Andrew,a3mack@gmail.com,9462-5659,Mrs.,Laborde,Anne-Carole,clo33ac@gmail.com,6855-9842
+174,Lam,Charlotte,,Mr.,Lam,King Leuk,nicklamkl@gmail.com,6050-2003,Mrs.,Lam,Cheung Wai Lin,dottycheungwl@yahoo.com.hk,9800-8079
+175,Landau,Aliyah,,Mr.,Landau,Alan,alan.landau@gmail.com,9813-2129,Mrs.,Landau,Karen Eng,karen.e.landau@gmail.com,9256-0125
+176,Landau,Lev,,Mr.,Landau,Alan,alan.landau@gmail.com,9813-2129,Mrs.,Landau,Karen Eng,karen.e.landau@gmail.com,9256-0125
+177,Lavi,Alon,alon.lavi@elsastudent.net,Mr.,Lavi,Oren,,9632-1294,Mrs.,Lavi,Melissa,lomi@netvigator.com,9108-2331
+178,Lavin,Evelyn,,Mr.,Lavin,Joshua,joshua.lavin@gmail.com,6112-7791,Mrs.,Lavin,Emma,lavin.emma@gmail.com,6419-2965
+179,Lawrence,Dylan,,Mr.,Lawrence,Neil,neil_lawrence@hotmail.com,9382-9551,Mrs.,Lawrence,Charlotte,charlie.lawrence@hotmail.co.uk,9382-9051
+180,Lawrence,Rowan,,Mr.,Lawrence,Neil,neil_lawrence@hotmail.com,9382-9551,Mrs.,Lawrence,Charlotte,charlie.lawrence@hotmail.co.uk,9382-9051
+181,Lebovitz,Eitan Moshe,,Mr.,Lebovitz,Barak,baraklebo@yahoo.co.uk,6618-2605,Mrs.,Lebovitz,Avishag,avishag.lebovitz@carmel.edu.hk,9076-1951
+182,Lebovitz,Elad Haim,,Mr.,Lebovitz,Barak,baraklebo@yahoo.co.uk,6618-2605,Mrs.,Lebovitz,Avishag,avishag.lebovitz@carmel.edu.hk,9076-1951
+183,Levy,Ariella,ariella.levy@elsastudent.net,Mr.,Levy,Howard,howitserl@hotmail.com,6900-0586,Mrs.,Levy,Tanya,levysinasia2@hotmail.com,9307-2545
+184,Levy,Daniel,,Mr.,Levy,Howard,howitserl@hotmail.com,6900-0586,Mrs.,Levy,Tanya,levysinasia2@hotmail.com,9307-2545
+185,Levy,Isaac,,Mr.,Levy,Howard,howitserl@hotmail.com,6900-0586,Mrs.,Levy,Tanya,levysinasia2@hotmail.com,9307-2545
+186,Levy,Ori,,Mr.,Levy,James,james.s.levy@gmail.com,6110-5984,Mrs.,Levy,Stephanie,Stephanie.t.levy@gmail.com,9267-7156
+187,Levy,Saul,saul.levy@elsastudent.net,Mr.,Levy,Jonathan,Jonathan.Levy@aya.yale.edu,,Mrs.,Levy,Debra,debralynn@mindspring.com,5525-0092
+188,Levy,Shira,,Mr.,Levy,Jonathan,Jonathan.Levy@aya.yale.edu,,Mrs.,Levy,Debra,debralynn@mindspring.com,5525-0092
+189,Li,George Zhou Zheng,george.li@elsastudent.net,Mr.,Li,Bingzhong,raymond.ys@hotmail.com,6348-8340,Mrs.,Li,Bi Hui,654410710@qq.com,5699-3222
+190,Li,Vanessa,vanessa.li@elsastudent.net,Mr.,Li,Vincent,vincent.88li@gmail.com,9386-9389,Mrs.,Li,Flora Pun,flora@eidealink.com,9094-6160
+191,Li,Vernon,vernon.li@elsastudent.net,Mr.,Li,Vincent,vincent.88li@gmail.com,9386-9389,Mrs.,Li,Flora Pun,flora@eidealink.com,9094-6160
+192,Lin,Simon,simon.lin@elsastudent.net,Mr.,Lin,Fai Man,director@paraking.com.hk,9338-8997,Mrs.,Lin,Hui Juan,hebe@paraking.com.hk,9338-8996
+193,Liu,Trevor,trevor.liu@elsastudent.net,Mr.,Liu,Fuk Tim,liufuktim@gmail.com,9633-3100,Mrs.,Liu,Josephine,,9633-2548
+194,Loya,Tohar,,Mr.,Loya,Dan,DAN@BICHACHI.COM,9250-7823,Mrs.,Loya,Gemma,gem5586@gmail.com,6799-5851
+195,Lyons,Ian,ian.lyons@elsastudent.net,Mr.,Lyons,Steve,steve.lyons@sclowy.com,9152-5034,Mrs.,Lyons,Erica,elyonshk@gmail.com,9152-4034
+196,Lyons,Isabel,isabel.lyons@elsastudent.net,Mr.,Lyons,Steve,steve.lyons@sclowy.com,9152-5034,Mrs.,Lyons,Erica,elyonshk@gmail.com,9152-4034
+197,Lyons,Itai,,Mr.,Lyons,Steve,steve.lyons@sclowy.com,9152-5034,Mrs.,Lyons,Erica,elyonshk@gmail.com,9152-4034
+198,Madliar,Eitan,,Mr.,Madliar,Alex,madliar.alexander@il.zim.com,6686-2764,Mrs.,Madliar,Alla,amadliar@gmail.com,6013-9220
+199,Madliar,Isabell,,Mr.,Madliar,Alex,madliar.alexander@il.zim.com,6686-2764,Mrs.,Madliar,Alla,amadliar@gmail.com,6013-9220
+200,Man,Yonathan,,Mr.,Man,Moshe,moshe@correcthk.com,6082-4259,Mrs.,Man,Emily Ng,emily@correcthk.com,9319-2899
+201,Maskalchi,Aviad,,Mr.,Maskalchi,Ram,rammaskalchi@gmail.com,9725-6910,Mrs.,Maskalchi,Orli,pamonity2@gmail.com,9729-5291
+202,Maskalchi,Noam,,Mr.,Maskalchi,Ram,rammaskalchi@gmail.com,9725-6910,Mrs.,Maskalchi,Orli,pamonity2@gmail.com,9729-5291
+203,Maskalchi,Omri,,Mr.,Maskalchi,Ram,rammaskalchi@gmail.com,9725-6910,Mrs.,Maskalchi,Orli,pamonity2@gmail.com,9729-5291
+204,Menahemov,Guy,,Mr.,Menahemov,Ofer,ofer.menahemov@gmail.com,5592-5551,Mrs.,Menahemov,Shani,shani.me8@gmail.com,5592-5552
+205,Meoded,Aaron,aaron.meoded@elsastudent.net,Mr.,Meoded,Rabbi Netanel,kzionhk@yahoo.com ,9672-9246,Mrs.,Meoded,Yael,kzionhk@netvigator.com ,9810-4091
+206,Meoded,Avraham,avraham.meoded@elsastudent.net,Mr.,Meoded,Rabbi Netanel,kzionhk@yahoo.com,9672-9246,Mrs.,Meoded,Yael,kzionhk@netvigator.com,9810-4091
+207,Meoded,Tali,,Mr.,Meoded,Rabbi Netanel,kzionhk@yahoo.com,9672-9246,Mrs.,Meoded,Yael,kzionhk@netvigator.com,9810-4091
+208,Meyerson,Blue,,Mr.,Meyerson,Jin Ho,j1m1studiomeyerson@gmail.com,9250-8797,Mrs.,Meyerson,Estuko,etsuko@perrotin.com,9152-1075
+209,Mogelof,Daniel,,Mr.,Mogelof,Eric,eric@mogelof.net,9161-6920,Mrs.,Mogelof,Josephine,josephine@mogelof.net,9178-6560
+210,Mogelof,Jack,,Mr.,Mogelof,Eric,eric@mogelof.net,9161-6920,Mrs.,Mogelof,Josephine,josephine@mogelof.net,9178-6560
+211,Mogelof,Victoria,,Mr.,Mogelof,Eric,eric@mogelof.net,9161-6920,Mrs.,Mogelof,Josephine,josephine@mogelof.net,9178-6560
+212,Monsonego,Natalie,,Mr.,Monsonego,Michael,michael@forma.com.hk,6906-5569,Mrs.,Monsonego,Sharon,sharon@forma.com.hk,6906-5158
+213,Monsonego,Rafael Lev,,Mr.,Monsonego,Michael,michael@forma.com.hk,6906-5569,Mrs.,Monsonego,Sharon,sharon@forma.com.hk,6906-5158
+214,Mori,Naomi,,Mr.,Mori,Yarden,yarden@moriyahk.com,6055-5065,Mrs.,Mori,Yi Jun,hewyijun@gmail.com,9877-7911
+215,Morris,Adam,adam.morris@elsastudent.net,Mr.,Morris,Greg,greg.morris@aia.com,5993-2065,Mrs.,Morris,Tammy Meyers,tammy@meyers.net,5993-9117
+216,Moscovic,Josh,,Mr.,Moscovic,Didier,audreysavransky@hotmail.com,9189-4790,Mrs.,Moscovic,Audrey,audreysavransky@hotmail.com,9026-1549
+217,Moscovic,Julian,,Mr.,Moscovic,Didier,audreysavransky@hotmail.com,9189-4790,Mrs.,Moscovic,Audrey,audreysavransky@hotmail.com ,9026-1549
+218,Moses,Gabriel,,Mr.,Moses,Anthony,anthonymoses@hotmail.co.uk,9402-1356,Mrs.,Moses,Olivia,oliviamalu@gmail.com,6440-6302
+219,Moses,Maya Deborah,,Mr.,Moses,Anthony,anthonymoses@hotmail.co.uk,9402-1356,Mrs.,Moses,Olivia,oliviamalu@gmail.com,6440-6302
+220,Nagar,Emily,emily.nagar@elsastudent.net,Mr.,Nagar,Avraham,avi@carnetjewellery.com,9038-3982,Mrs.,Nagar,Penina,penina@netvigator.com,9023-3589
+221,Naphtali,Elijah,,Mr.,Naphtali,David,dnaphtali@madisonpac.com,9102-6997,Mrs.,Naphtali,Kelly,kelly.naphtali@kirkland.com,9046-3032
+222,Naphtali,Jesse,,Mr.,Naphtali,David,dnaphtali@madisonpac.com,9102-6997,Mrs.,Naphtali,Kelly,kelly.naphtali@kirkland.com,9046-3032
+223,Naphtali,Rachel,,Mr.,Naphtali,David,dnaphtali@madisonpac.com,9102-6997,Mrs.,Naphtali,Kelly,kelly.naphtali@kirkland.com,9046-3032
+224,Ngo,Eyal,,Mr.,Ngo,Dong Sinh,sinh10@gmail.com,5361-2656 ,Mrs.,Ngo,Ariane,arianebassat@yahoo.fr,6347-6898
+225,Ngo,Nili,,Mr.,Ngo,Dong Sinh,sinh10@gmail.com,5361-2656 ,Mrs.,Ngo,Ariane,arianebassat@yahoo.fr,6347-6898
+226,Niddam,Chloe,,Mr.,Niddam,Jerome,jerome.niddam@gmail.com,9539-1057,Mrs.,Niddam,Olivia,olivia.niddam@gmail.com,9785-4675
+227,Niddam,Mia,,Mr.,Niddam,Jerome,jerome.niddam@gmail.com,9539-1057,Mrs.,Niddam,Olivia ,olivia.niddam@gmail.com,9785-4675
+228,Nudel,Maya,,Mr.,Nudel,Nitzan,nitdel31@gmail.com,9461-8928,Mrs.,Nudel,Noa,noanu31@gmail.com,5136-9371
+229,Nudel,Ohad,ohad.nudel@elsastudent.net,Mr.,Nudel,Nitzan,nitdel31@gmail.com,9461-8928,Mrs.,Nudel,Noa,noanu31@gmail.com,5136-9371
+230,Nudel,Shira,,Mr.,Nudel,Nitzan,nitdel31@gmail.com,9461-8928,Mrs.,Nudel,Noa,noanu31@gmail.com,5136-9371
+231,Oser,Aryeh,aryeh.oser@elsastudent.net,Mr.,Oser,Rabbi Asher,asheroser@gmail.com,9848-1422,Mrs.,Oser,Rachel,rachel.oser@gmail.com,9770-1364
+232,Oser,Edward,,Mr.,Oser,Rabbi Asher,asheroser@gmail.com,9848-1422,Mrs.,Oser,Rachel,rachel.oser@gmail.com,9770-1364
+233,Oser,Mirella,,Mr.,Oser,Rabbi Asher,asheroser@gmail.com,9848-1422,Mrs.,Oser,Rachel,rachel.oser@gmail.com,9770-1364
+234,Oser,Mordechai,mordechai.oser@elsastudent.net,Mr.,Oser,Rabbi Asher,asheroser@gmail.com,9848-1422,Mrs.,Oser,Rachel,rachel.oser@gmail.com,9770-1364
+235,Oster,Zehava,,Mr.,Oster,Shai,shai.oster@gmail.com,6470-4308,Mrs.,Oster,Alisha,alexanderalisha@aol.com,6089-2206
+236,Ostrover,Lily,,Mr.,Ostrover,Andy,andy.ostrover@merrillcorp.com,,Mrs.,Ostrover,Mary Liao,liaomary@yahoo.com,6903-5572
+237,Ozyel,Ela,,Mr.,Ozyel,Sabih,sabiozyel@gmail.com,6717-8380,Mrs.,Ozyel,Ceyda,ceyda.kamhi@pmi.com,6053-8568
+238,Ozyel,Mey,mey.ozyel@elsastudent.net,Mr.,Ozyel,Sabih,sabiozyel@gmail.com,6717-8380,Mrs.,Ozyel,Ceyda,ceyda.kamhi@pmi.com,6053-8568
+239,Pang,Elina Yuen Jing,elina.pang@elsastudent.net,Mr.,Pang,Shun Tak,shunpang@gmail.com,9020-9198,Mrs.,Pang,Shirley,shirleycheng18@gmail.com,6123-5273
+240,Pardo,Nilly,,Mr.,Pardo,Avraham,avi_pardo@yahoo.com ,9846-9061,Mrs.,Pardo,Noa,noa_p@yahoo.com,9846-9903
+241,Pardo,Shira,,Mr.,Pardo,Avraham,avi_pardo@yahoo.com ,9846-9061,Mrs.,Pardo,Noa,noa_p@yahoo.com,9846-9903
+242,Pathak,Varun,varun.pathak@elsastudent.net,Mr.,Pathak,,,,Mrs.,Pathak,Sujata,pathak.sujata@gmail.com,9545-4602
+243,Peleg,Johnathan,,Mr.,Peleg,Nir,nir@pacoarthk.com,6291-4897,Mrs.,Peleg,Dana,dana.rotholz@gmail.com,9666-1072
+244,Peleg,Noam,,Mr.,Peleg,Nir,nir@pacoarthk.com,6291-4897,Mrs.,Peleg,Dana,dana.rotholz@gmail.com,9666-1072
+245,Poller,Asya,,Mr.,Poller,,,,Mrs.,Poller,Dayana,dayanapoller@gmail.com,9036-5678
+246,Poller,Shayelle,,Mr.,Poller,,,,Mrs.,Poller,Dayana,dayanapoller@gmail.com,9036-5678
+247,Presman,Ido,ido.presman@elsastudent.net,Mr.,Presman,Eli,presman.eli@goldstarline.com,9632-1742,Mrs.,Presman,Liat,liatpresman@gmail.com,5500-9039_
+248,Presman,Mia,,Mr.,Presman,Eli,presman.eli@goldstarline.com,9632-1742,Mrs.,Presman,Liat,liatpresman@gmail.com,5500-9039_
+249,Presman,Tomer,,Mr.,Presman,Eli,presman.eli@goldstarline.com,9632-1742,Mrs.,Presman,Liat,liatpresman@gmail.com,5500-9039_
+250,Rabinowitz,Joseph,,Mr.,Rabinowitz,David,david-hk.rabinowitz@ubs.com,9325-0470,Mrs.,Rabinowitz,Tanya,rabsinhk@gmail.com,9190-2364
+251,Rabinowitz,Leo,,Mr.,Rabinowitz,David,david-hk.rabinowitz@ubs.com,9325-0470,Mrs.,Rabinowitz,Tanya,rabsinhk@gmail.com,9190-2364
+252,Rabinowitz,Ruby,,Mr.,Rabinowitz,David,david-hk.rabinowitz@ubs.com,9325-0470,Mrs.,Rabinowitz,Tanya,rabsinhk@gmail.com,9190-2364
+253,Raccah,Zev,,Mr.,Raccah,Guy,ggraccah@gmail.com,9688-5171,Mrs.,Raccah,Marissa,issagomez@gmail.com,6117-2727
+254,Radnovich,Naomi,,Mr.,Radnovich,Craig,craig@radnovich.com,5500-5173,Mrs.,Radnovich,Lulu,lradnovich@gmail.com,5500-5373
+255,Rameau,Noah,,Mr.,Rameau,Benjamin,benjamin.rameau@gmail.com,9016-1527,Mrs.,Rameau,Kei,krameau@gmail.com,9015-6251
+256,Rapaport,Danielle,,Mr.,Rapaport,Chanan,Chanan@daniavlas.com,9685-0064,Mrs.,Rapaport,Helen,helenrapaport611@hotmail.com,9203-7491
+257,Rapaport,Emma,,Mr.,Rapaport,Chanan,Chanan@daniavlas.com,9685-0064,Mrs.,Rapaport,Helen,helenrapaport611@hotmail.com,9203-7491
+258,Razon,Ofir,ofir.razon@elsastudent.net,Mr.,Razon,Shay,shay.razon@verint.com,9120-3712,Mrs.,Razon,Hagit,therazons@gmail.com,6207-7187
+259,Razon,Ori,ori.razon@elsastudent.net,Mr.,Razon,Shay,shay.razon@verint.com,9120-3712,Mrs.,Razon,Hagit,therazons@gmail.com,6207-7187
+260,Razon,Tamir,,Mr.,Razon,Shay,shay.razon@verint.com,9120-3712,Mrs.,Razon,Hagit,therazons@gmail.com,6207-7187
+261,Riahi,Sasha,,Mr.,Riahi,Francois,francois.riahi@ap.natixis.com,6900-5885,Mrs.,Riahi,Caroline,caroline.riahi@gmail.com,6716-5053
+262,Ricklow,Isabella,isabella.ricklow@elsastudent.net,Mr.,Ricklow,Darryl,darrylricklow@hotmail.com,9761-9561,Mrs.,Ricklow,Natalie,nataliericklow@hotmail.co.uk,9137-9449
+263,Ricklow,Noah,,Mr.,Ricklow,Darryl,darrylricklow@hotmail.com,9761-9561,Mrs.,Ricklow,Natalie,nataliericklow@hotmail.co.uk,9137-9449
+264,Rowse,Alexander,alexander.rowse@elsastudent.net,Mr.,Rowse,Michael,mike@rowse.com.hk,6893-6562,Mrs.,Rowse,Fanny,fwongfanny@gmail.com,9493-9557
+265,Rozenberg,Ariel,,Mr.,Rozenberg,Ben,benberg7@gmail.com,5192-5121,Mrs.,Rozenberg,Karen,kerengr@gmail.com,9740-7495
+266,Rubin,Isaac,,Mr.,Rubin,Stuart,rubin.stuart@gmail.com,9832-3240,Mrs.,Rubin,Sharon,sharonwimborne@hotmail.com,6042-1000
+267,Sarkadi,Sol,,Mr.,Sarkadi,Julian,julian.sarkadi@gmail.com,9611-9420,Mrs.,Sarkadi,Nomi,neomios27@gmail.com,9611-9396
+268,Scemla,Joseph,,Mr.,Scemla,Pierre,pierre.scemla@sgcib.com,5190-0370,Mrs.,Scemla,Sarah,sarahaliceoliver@gmail.com,9731-8136
+269,Scemla,Ruben,,Mr.,Scemla,Pierre,pierre.scemla@sgcib.com,5190-0370,Mrs.,Scemla,Sarah,sarahaliceoliver@gmail.com,9731-8136
+270,Schwartz,Eitan,,Mr.,Schwartz,Enav,enav@spring-diamonds.com,9093-0531,Mrs.,Schwartz,Maayan,maayangschwartz@gmail.com,9030-7067
+271,Schwartz,Lavie,,Mr.,Schwartz,Enav,enav@spring-diamonds.com,9093-0531,Mrs.,Schwartz,Maayan,maayangschwartz@gmail.com,9030-7067
+272,Schwartz Stern,Miriam,,Mr.,Schwartz Stern,Julio,julio.schwartz@pfizer.com,6028-5910,Mrs.,Schwartz Stern,Susana Stern Mena,susy.stern.schwartz@gmail.com,53600594
+273,Sebban,Noam,,Mr.,Sebban,Shimon,shimon.sebban@otcexgroup.com,5366-2270,Mrs.,Sebban,Rachel,rachsebban@gmail.com,5366-2272
+274,Sebban,Shai,,Mr.,Sebban,Shimon,shimon.sebban@otcexgroup.com,5366-2270,Mrs.,Sebban,Rachel,rachsebban@gmail.com,5366-2272
+275,Selevan,Bradley,,Mr.,Selevan,Marc,marcs@jaru.com.hk,6228-2201,Mrs.,Selevan,Jenny,jennyselevan@yahoo.com,6227-9656
+276,Selevan,Ethan,ethan.selevan@elsastudent.net,Mr.,Selevan,Marc,marcs@jaru.com.hk,6228-2201,Mrs.,Selevan,Jenny,jennyselevan@yahoo.com,6227-9656
+277,Shacham,Ido,,Mr.,Shacham,Oren,oren@saharatid.com,9163-7736,Mrs.,Shacham,Michal,michalberkman@gmail.com,9544-5454
+278,Shahar-Reichenberg,Guy,,Mr.,Shahar-Reichenberg,Gilad,gilad79@yahoo.com,6623-4431,Mrs.,Shahar-Reichenberg,Shelly,shellybs79@yahoo.com,6623-4842
+279,Shahar-Reichenberg,Roni,,Mr.,Shahar-Reichenberg,Gilad,gilad79@yahoo.com,6623-4431,Mrs.,Shahar-Reichenberg,Shelly,shellybs79@yahoo.com,6623-4842
+280,Shamshins,Jonathan,,Mr.,Shamshins,Itamar,shamshins@gmail.com,5606-0644,Mrs.,Shamshins,Lital Isaacs-Shamshins,litalisaacs@gmail.com,6999-6496
+281,Shapiro,William,,Mr.,Shapiro,Daniel,daniel.shapiro@barclays.com,6448-7331,Mrs.,Shapiro,Mai,mtshapiro@debevoise.com,6407-4406
+282,Shatan,Elai,,Mr.,Shatan,Oded,oded@aarachminov.com.hk,9866-1861,Mrs.,Shatan,Hani,hanch716@gmail.com,9866-1841
+283,Shatan,Itay,,Mr.,Shatan,Oded,oded@aarachminov.com.hk,9866-1861,Mrs.,Shatan,Hani,hanch716@gmail.com,9866-1841
+284,Shatan,Lennie,,Mr.,Shatan,Oded,oded@aarachminov.com.hk,9866-1861,Mrs.,Shatan,Hani,hanch716@gmail.com,9866-1841
+285,Shem Tov,Eden,,Mr.,Shem Tov,Tal,talshemtov@gmail.com,972-543978602,Mrs.,Shem Tov,Alpha Kwok,alphakwok@gmail.com,9498-7351
+286,Shem Tov,Natalie,natalie.shemtov@elsastudent.net,Mr.,Shem Tov,Tal,talshemtov@gmail.com,972-543978602,Mrs.,Shem Tov,Alpha Kwok,alphakwok@gmail.com,9498-7351
+287,Shemesh,Aviram,,Mr.,Shemesh,Nahum,nash_sun@yahoo.com,,Mrs.,Shemesh,Gilat,gilatash@gmail.com,5298-5137
+288,Shemesh,Or,,Mr.,Shemesh,Nahum,nash_sun@yahoo.com,,Mrs.,Shemesh,Gilat,gilatash@gmail.com,5298-5137
+289,Sherer,Naomi,,Mr.,Sherer,Jeffrey,jes.hongkong@gmail.com,6074-0372,Mrs.,Sherer,Elizabeth,jes.hongkong@gmail.com,5690-6711
+290,Sheynhaft,Afek,,Mr.,Sheynhaft,Idan,edan82@walla.com,9492-5290,Mrs.,Sheynhaft,Lital,27lit@walla.co.il,6683-6162
+291,Sheynhaft,Yarin,,Mr.,Sheynhaft,Idan,edan82@walla.com,9492-5290,Mrs.,Sheynhaft,Lital,27lit@walla.co.il,6683-6162
+292,Shi,Martin,martin.shi@elsastudent.net,Mr.,Shi,Qi Hui,qihui0755@gmail.com,6953-0359,Mrs.,Shi,Mo,13530379435@163.com,9061-6263
+293,Shpitzer,Jonathan,,Mr.,Shpitzer,Moshe,shpitzer.moshe@il.zim.com,9680-7533,Mrs.,Shpitzer,Dorit,dorit1981@gmail.com,6011-0207
+294,Shpitzer,May,,Mr.,Shpitzer,Moshe,shpitzer.moshe@il.zim.com,9680-7533,Mrs.,Shpitzer,Dorit,dorit1981@gmail.com,6011-0207
+295,Shtorch,Agam,,Mr.,Shtorch,Arik,Ariks6@yahoo.com,9311-5909,Mrs.,Shtorch,Michal,michal_134@hotmail.com,9172-6714
+296,Shtorch,Ofek,,Mr.,Shtorch,Arik,Ariks6@yahoo.com,9311-5909,Mrs.,Shtorch,Michal,michal_134@hotmail.com,9172-6714
+297,Shtoser,Gili,gili.shtoser@elsastudent.net,Mr.,Shtoser,Shlomo,shtosers@gmail.com,5527-9593,Mrs.,Shtoser,Mara,shtoser.mara@hk.starcont.com,6344-1766
+298,Shtoser,Saar,saar.shtoser@elsastudent.net,Mr.,Shtoser,Shlomo,shtosers@gmail.com,5527-9593,Mrs.,Shtoser,Mara,shtoser.mara@hk.starcont.com,6344-1766
+299,Smith,Isla,,Mr.,Smith,Matthew,matthewrichardsmith@hotmail.com,6905-5361,Mrs.,Smith,Jaime,jddez78@gmail.com,6907-8773
+300,Smith,Rory Elijah,,Mr.,Smith,Matthew,matthewrichardsmith@hotmail.com,6905-5361,Mrs.,Smith,Jaime,jddez78@gmail.com,6907-8773
+301,Solomon,Liya,,Mr.,Solomon,Hagay,hagaysol@bezeqint.net,6901-8900,Mrs.,Solomon,Caryn,kerenzinger@yahoo.com,5980-0458
+302,Soloway-Chan,Jesse,,Mr.,Soloway-Chan,Reynold,solochan@netvigator.com,6141-1992,Mrs.,Soloway-Chan,Louise Soloway,louisesoloway@netvigator.com,9667-1808
+303,Spencer,Landon,,Mr.,Spencer,Stuart,spencerstuart@rocketmail.com ,5506-7887,Mrs.,Spencer,Debra Wacks,dwacks@mindspring.com,9267-4356
+304,Sturman,Ella,,Mr.,Sturman,Jonathan,jonsturman@hotmail.com,9325-3771,Mrs.,Sturman,Tiffany,abear02@hotmail.com,6686-0275
+305,Sturman,Gavin Sam,,Mr.,Sturman,Jonathan,jonsturman@hotmail.com,9325-3771,Mrs.,Sturman,Tiffany,abear02@hotmail.com,6686-0275
+306,Szerer,Carmel,,Mr.,Szerer,Baruch,baruch@beautyexpress.com.hk,6715-7183,Mrs.,Szerer,Miya Sharfman,miya.sharfman@gmail.com,9023-1414
+307,Szerer,Lavie,,Mr.,Szerer,Baruch,baruch@beautyexpress.com.hk,6715-7183,Mrs.,Szerer,Miya Sharfman,miya.sharfman@gmail.com,9023-1414
+308,Tabar,Lavinia,,Mr.,Tabar,Kambiz,ktabar@tabar.com,9535-5069,Mrs.,Tabar,Jennifer,jennifer@tabar.com,9135-9771
+309,Tadelis,Levi,,Mr.,Tadelis,Jamie,amjam1213@yahoo.com,6891-1412,Mrs.,Tadelis,Amy,amjam1213@yahoo.com,6891-1413
+310,Tadelis,Rachel,rachel.tadelis@elsastudent.net,Mr.,Tadelis,Jamie,amjam1213@yahoo.com,6891-1412,Mrs.,Tadelis,Amy,amjam1213@yahoo.com,6891-1413
+311,Tadelis,Ruby Shai,,Mr.,Tadelis,Jamie,amjam1213@yahoo.com,6891-1412,Mrs.,Tadelis,Amy,amjam1213@yahoo.com,6891-1413
+312,Tadelis,Sophie,sophie.tadelis@elsastudent.net,Mr.,Tadelis,Jamie,amjam1213@yahoo.com,6891-1412,Mrs.,Tadelis,Amy,amjam1213@yahoo.com,6891-1413
+313,Tamayo Garcia,Meriem,meriem.tamayogarcia@elsastudent.net,Mr.,Tamayo Garcia,,,,Mrs.,Tamayo Garcia,Guadalupe,guadalupe.tamayo@huhtamaki.com,5148-8910
+314,Tham,Edward,edward.tham@elsastudent.net,Mr.,Tham,Kwong Lok,,9041-4903,Mrs.,Tham,Pui Yin Chiu,chiu.pykaren@gmail.com ,9013-9914
+315,Thulesen,Benjamin,benjamin.thulesen@elsastudent.net,Mr.,Thulesen,Henrik,hthulesen@gmail.com,6386-4875,Mrs.,Thulesen,Lam,,9800-4909
+316,Tinkler,Olivia,,Mr.,Tinkler,Paul,paultinkler88@gmail.com,6323-0443,Mrs.,Tinkler,Dina,dinamichellemoss@gmail.com,6015-2627
+317,Trojanow,Darius,,Mr.,Trojanow,Alex,alextrojanow@gmail.com,9700-9956,Mrs.,Trojanow,Padideh,padideh@me.com,9700-9363
+318,Wais E Pereira,Lorenzo,,Mr.,Wais E Pereira,Marcos,marcos@guelcos.com.br,6769-5200,Mrs.,Wais E Pereira,Sabrina Wais,sabriwais@gmail.com,6768-7400
+319,Waisman,Nir,,Mr.,Waisman,Gabriel,gaby.waisman@orbotech.com,9023-1081,Mrs.,Waisman,Orit,orit.waisman@stratasys.com,6657-9930
+320,Waisman,Uri,,Mr.,Waisman,Gabriel,gaby.waisman@orbotech.com,9023-1081,Mrs.,Waisman,Orit,orit.waisman@stratasys.com,6657-9930
+321,Wang,"Suen Kiu, Kelly",kelly.wang@elsastudent.net,Mr.,Wang,Ping,lovegsm@hotmail.com,6632-1188,Mrs.,Wang,Cai Min,amylu161@gmail.com,5402-1502
+322,Wechsler,Robyn,,Mr.,Wechsler,Joshua,josh_wechsler@me.com,(917)608-4869,Mrs.,Wechsler,Ailsa Lloyd,ailsalloyd@gmail.com,9881-4362
+323,Weiss,Natalie,,Mr.,Weiss,Erez,erez.weiss@brinksglobal.com,9095-2030,Mrs.,Weiss,Lily Letts,Lilyletts@gmail.com,9490-0012
+324,Weiss,Nathan,,Mr.,Weiss,Erez,erez.weiss@brinksglobal.com,9095-2030,Mrs.,Weiss,Lily Letts,Lilyletts@gmail.com,9490-0012
+325,Weiss JR,David,,Mr.,Weiss JR,David,weiss.dave@gmail.com,5334-1000,Mrs.,Weiss JR,Yim,yangyeungyim@gmail.com,9132-9816
+326,Wigisser,Alex,,Mr.,Wigisser,Jacobo,jwigisser@gmail.com,6828-8630,Mrs.,Wigisser,Roxana,roxanacohen@gmail.com,6828-8631
+327,Wigisser,Aline,,Mr.,Wigisser,Jacobo,jwigisser@gmail.com,6828-8630,Mrs.,Wigisser,Roxana,roxanacohen@gmail.com,6828-8631
+328,Wigisser,Gabriel,,Mr.,Wigisser,Jacobo,jwigisser@gmail.com,6828-8630,Mrs.,Wigisser,Roxana,roxanacohen@gmail.com,6828-8631
+329,Wills,Phoenix,,Mr.,Wills,David,david.wills@ozcap.com,6505-3102,Mrs.,Wills,Amiee,amiee@electricsekki.com,6391-7765
+330,Wolfson,Cooper,,Mr.,Wolfson,Douglas,dougmwolfson@gmail.com,6687-3499,Mrs.,Wolfson,Victoria,victoria.ashworth@chase.com,6681-2424
+331,Wolfson,Elizabeth,,Mr.,Wolfson,Douglas,dougmwolfson@gmail.com,6687-3499,Mrs.,Wolfson,Victoria,victoria.ashworth@chase.com,6681-2424
+332,Wong,Athena,athena.wong@elsastudent.net,Mr.,Wong,Sun Yau,,9317-3308,Mrs.,Wong,Kam Ying,athenawongwinda@netvigator.com,9317-3323
+333,Wong,Ernest,ernest.wong@elsastudent.net,Mr.,Wong,William,honeycbb@netvigator.com,6177-6638,Mrs.,Wong,Peggy,peggyc@net-yan.com,9215-4690
+334,Wosner,Adiella,,Mr.,Wosner,Daniel,wos613@gmail.com,9819-1669,Mrs.,Wosner,Marcelle,marcelleknopf@hotmail.com,6500-4282
+335,Wosner,Ari,,Mr.,Wosner,Daniel,wos613@gmail.com,9819-1669,Mrs.,Wosner,Marcelle,marcelleknopf@hotmail.com,6500-4282
+336,Wosner,Noah,,Mr.,Wosner,Daniel,wos613@gmail.com,9819-1669,Mrs.,Wosner,Marcelle,marcelleknopf@hotmail.com,6500-4282
+337,Yaakov,Lynn,,Mr.,Yaakov,Ohad,ohady888@gmail.com,6685-8373,Mrs.,Yaakov,Moran,morana81@gmail.com,9507-6092
+338,Yablonsky,Alma,,Mr.,Yablonsky,Yankale,Yankaley@gmail.com,9101-0826,Mrs.,Yablonsky,Shirley,shirleybenb@yahoo.com,9309-0557
+339,Yablonsky,Gaya,,Mr.,Yablonsky,Yankale,Yankaley@gmail.com,9101-0826,Mrs.,Yablonsky,Shirley,shirleybenb@yahoo.com,9309-0557
+340,Yap,Luis,luis.yap@elsastudent.net,Mr.,Yap,Richard,ycy@thegeminicapital.com,9185-1940,Mrs.,Yap,Linda,yapfamily1@gmail.com,6185-1943
+341,Yap,Melody,melody.yap@elsastudent.net,Mr.,Yap,Richard,ycy@thegeminicapital.com,9185-1940,Mrs.,Yap,Linda,yapfamily1@gmail.com,6185-1943
+342,Yerushalmi,Michael,,Mr.,Yerushalmi,David,davidy@moshenamdar.com,9407-7968,Mrs.,Yerushalmi,Mor,morrimi@hotmail.com,6896-0695
+343,Yerushalmi,Oriya,,Mr.,Yerushalmi,David,davidy@moshenamdar.com,9407-7968,Mrs.,Yerushalmi,Mor,morrimi@hotmail.com,6896-0695
+344,Yeung,Agnes,agnes.yeung@elsastudent.net,Mr.,Yeung,Kin-Chung,kcyeung@kcyeung.com,9490-4844,Mrs.,Yeung,Lai-Yin,cylyyee@hotmail.com,9200-5122
+345,Yeung,Sammy,,Mr.,Yeung,Calvin,yeunghoy@hotmail.com,9481-5386,Mrs.,Yeung,Anny Chang,anny.chang@ymail.com,9422-6788
+346,Yishay,Daniel,,Mr.,Yishay,Shlomi,yishayshlomi1@walla.co.il,6920-9292,Mrs.,Yishay,Desi,desiyishay@gmail.com,6920-9191
+347,Yishay,Michal,,Mr.,Yishay,Shlomi,yishayshlomi1@walla.co.il,6920-9292,Mrs.,Yishay,Desi,desiyishay@gmail.com,6920-9191
+348,Yishay,Talya,,Mr.,Yishay,Shlomi,yishayshlomi1@walla.co.il,6920-9292,Mrs.,Yishay,Desi,desiyishay@gmail.com,6920-9191
+349,Yochai,Aviv,,Mr.,Yochai,Nissim,yochai.nissim@il.zim.com,9725-8018,Mrs.,Yochai,Malka,mynt10@bezeqint.net,9724-8484
+350,Yu,Charisse,charisse.yu@elsastudent.net,Mr.,Yu,Joshua,joshua.yu@bofungtoys.com,6028-7628,Mrs.,Yu,Vivian,vivianchan@bnm.com.hk,9806-6620
+351,Yu,Clarissa,clarissa.yu@elsastudent.net,Mr.,Yu,Joshua,joshua.yu@bofungtoys.com,6028-7628,Mrs.,Yu,Vivian,vivianchan@bnm.com.hk,9806-6620
+352,Zamek,Rachamim,rachamin.zamek@elsastudent.net,Mr.,Zamek,Rabbi Stan,stan.zamek@gmail.com,6900-8658,Mrs.,Zamek,Rabbi Martha,mbergadine@gmail.com,6900-9562
+353,Zeiden,Jonah,,Mr.,Zeiden,David,david.zeiden@ozcap.com,9508-9277,Mrs.,Zeiden,Phanjira Jankhieo,zeidenfamily@gmail.com,9810-5369
+354,Zeiden,Samuel,,Mr.,Zeiden,David,david.zeiden@ozcap.com,9508-9277,Mrs.,Zeiden,Phanjira Jankhieo,zeidenfamily@gmail.com,9810-5369
+355,Zeman,Bela,,Mr.,Zeman,Jonathan,jonathan@lkfgroup.com,9476-8765,Mrs.,Zeman,Melinda,melzeman@gmail.com,9632-2286
+356,Zhang,Steffi,steffi.zhang@elsastudent.net,Mr.,Zhang,Zimu,zizi8120@gmail.com,6577-6511,Mrs.,Zhang,Li Yun,zizi8120@gmail.com,6809-1718
+357,Zheng,Arthur,arthur.zheng@elsastudent.net,Mr.,Zheng,Long,693840110@qq.com,6909-1112,Mrs.,Zheng,Ling,ljin@apcoworldwide.com,
+358,Zion,Akiva,,Mr.,Zion,Simon,sazion@dehres.com,9036-1212,Mrs.,Zion,Ya¥l E.,yael_zion@hotmail.com,9035-1212
+359,Zion,Zakai,,Mr.,Zion,Simon,sazion@dehres.com,9036-1212,Mrs.,Zion,Ya¥l E.,yael_zion@hotmail.com,9035-1212
+360,Zion-Karioff,Yedidya Daniel,yedidya.zion@elsastudent.net,Mr.,Zion-Karioff,Jacob,jacobzion@gmail.com,6070-1213,Mrs.,Zion-Karioff,Rina,rizionka@gmail.com,6100-5888
