@@ -90,30 +90,27 @@ Template.AdminParentsImport.events({
         ) {
             if(Array.isArray(importedParents)) {
                 var notifyuserwithemail = template.$('#notifyuserwithemail').is(":checked");
+                var toasterOption = {
+                    timeOut: 0,
+                    "newestOnTop": false
+                };
                 Meteor.call('smartix:accounts-schools/importParents', Router.current().params.school, importedParents, notifyuserwithemail, function (err, res) {
-                        var toasterOption = {
-                            timeOut: 0,
-                            "newestOnTop": false
-                        };
-                        if(!err) {
-                            var success = res.newUsers.length;
-                            var errors = res.errors.length;
-                            var total = success + errors;
-                            if (errors !== 0) {
-                                toastr.info(success + "/" + total + " users have been imported with " + res.errors.length + " warnings", null, toasterOption);
-                                toastr.info(res.existingUsers.length + " users already exists and was not imported.", null, toasterOption);
-                                toastr.warning("Creating a user sharing an e-mail with an existing user or adding a new role to an existing user are the possible causes of the warning", null,toasterOption);
-                            }
-                            else {
-                                //toastr.info(TAPi18n.__("admin.users.import.importSuccess"), {timeOut:0});
-                                toastr.info(success + "/" + total + " parents have been imported successfully from "+ res.studentCount + " students", null,toasterOption);
-                            }
-                        } else {
-                            toastr.error(TAPi18n.__("admin.users.import.incorrectImportFormat"), null,toasterOption);
-                            toastr.error(err.reason, null, toasterOption);
-                            log.error(err.reason);
-                        }
+                    
+                    if(!err) {
+                        Session.set('importErrors', res.errors);
+                        Session.set('manualNotifyUsers', res.manualNotifyUsers);
+                        
+                        toastr.info(res.newUsers.length + " new users have been imported.", null, toasterOption);
+                        toastr.info(res.existingUsers.length + " users already exists and was not imported.", null, toasterOption);
+                    } else {
+                        toastr.error(TAPi18n.__("admin.users.import.incorrectImportFormat"), null,toasterOption);
+                        toastr.error(err.reason, null, toasterOption);
+                        log.error(err.reason);
+                    }
                 });
+                toastr.info('Attempting to import ' + importedParents.length + " records.", null, toasterOption);
+                Session.set('imported-parents', undefined);
+                $("#parents-upload-file").val('');
             } else {
                 toastr.error(TAPi18n.__("admin.users.import.incorrectImportFormat"));
             }
@@ -123,15 +120,29 @@ Template.AdminParentsImport.events({
     },
     'click #ParentsImport_clear': function () {
         Session.set('imported-parents', undefined);
+    },
+    'click #ParentsImport_logsClear': function () {
+        Session.set('importErrors', undefined);
+    },
+    'click #ParentsImport_notifyClear': function () {
+        Session.set('manualNotifyUsers', undefined);
     }
 });
 
 Template.AdminParentsImport.helpers({
     importedParents: function () {
         return Session.get('imported-parents');
+    },
+    importErrors: function () {
+        return Session.get('importErrors');
+    },
+    manualNotifyUsers: function () {
+        return Session.get('manualNotifyUsers');
     }
 });
 
 Template.AdminParentsImport.onDestroyed(function () {
     Session.set('imported-parents', undefined);
+    Session.set('importErrors', undefined);
+    Session.set('manualNotifyUsers', undefined);
 });

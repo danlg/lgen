@@ -149,7 +149,7 @@ Smartix.Class.createClass = function(classObj, currentUser) {
 
     // Checks the `classCode` is unique for this namespace
     let classWithClassCode = Smartix.Groups.Collection.findOne({
-        namespace: newClass.namespace,
+        namespace: newClass.namesapce,
         classCode: /^newClass.classCode$/i
     });
     if (classWithClassCode) {
@@ -168,14 +168,26 @@ Smartix.Class.createClass = function(classObj, currentUser) {
     }
     // Send emails to parents if `newClass.notifyParents` is true
     if (newClass.notifyParents) {
+        
+        let parentUsersArray = [];
+        
         _.each(newClass.users, function(student, i, students) {
             // Get the parents of the student
             let parents = Smartix.Accounts.Relationships.getParentOfStudent(student, namespace);
+            
+            parentUsersArray.push(parents);
+            
             _.each(parents, function(parent, i) {
                 Smartix.Class.NotifyStudents(parent, newClassId);
             });
         });
+        
+        // Add each parent to the class
+        Smartix.Groups.addUsersToGroup(newClassId, _uniq(_.flattenDeep(parentUsersArray)));
     }
+    
+    
+
     return newClassId;
 };
 
@@ -310,7 +322,7 @@ Smartix.Class.editClass = function(classId, options, currentUser) {
 Smartix.Class.deleteClass = function(id) {
 
     // Checks that `id` is of type String
-    check(id, String);
+    check(ids, String);
 
     // Checks that currently-logged in user is one of the following:
     // * Admin for the school (namespace) specified
@@ -324,6 +336,37 @@ Smartix.Class.deleteClass = function(id) {
 
     // Remove the class specified
     Smartix.Groups.deleteGroup(id);
+};
+
+Smartix.Class.deleteClasses = function(ids) {
+
+    // Checks that `ids` is of type String Array
+    check(ids, [String]);
+
+    // Checks that currently-logged in user is one of the following:
+    // * Admin for the school (namespace) specified
+    // * One of the admins for the class
+    ids.map(function(eachClassId){
+        var existGroup = Smartix.Groups.Collection.findOne({
+            _id: eachClassId
+        });
+        
+        if(!existGroup){
+            log.info('some groups to be deleted do not exist!')
+            return false;
+        }
+        
+        if (!(Smartix.Class.isClassAdmin(Meteor.userId(), eachClassId)
+            || Smartix.Accounts.School.isAdmin(existGroup.namespace))) {
+            log.info('you have no permission to operate on some of the groups')
+            return false;
+            // Optional: Throw an appropriate error if not
+        }        
+    })
+
+
+    // Remove the class specified
+    Smartix.Groups.deleteGroups(ids);
 };
 
 Smartix.Class.addAdminsToClass = function(classId, users, currentUser) {
