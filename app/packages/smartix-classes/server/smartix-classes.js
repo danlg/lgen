@@ -149,7 +149,7 @@ Smartix.Class.createClass = function(classObj, currentUser) {
 
     // Checks the `classCode` is unique for this namespace
     let classWithClassCode = Smartix.Groups.Collection.findOne({
-        namespace: newClass.namesapce,
+        namespace: newClass.namespace,
         classCode: /^newClass.classCode$/i
     });
     if (classWithClassCode) {
