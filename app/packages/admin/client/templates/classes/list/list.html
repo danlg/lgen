@@ -62,11 +62,14 @@
                         </tr>                 
                 {{/EasySearch.Each}}
                 
-                {{#EasySearch.IfNoResults index=classesIndex}}
-                    <div>No results found!</div>
-                {{/EasySearch.IfNoResults}}                
+              
             </table>
+                {{#EasySearch.IfNoResults index=classesIndex}}
+                    <div style='text-align:center'>No results found!</div>
+                {{/EasySearch.IfNoResults}}              
             </div>
+            {{> EasySearch.Pagination index=classesIndex maxPages=10 customRenderPagination='CustomEasySearchPagination'}}               
+           
             {{/if}}
         </div>
     </div>
