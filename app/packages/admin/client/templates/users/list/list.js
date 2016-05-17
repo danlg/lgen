@@ -73,6 +73,9 @@ Template.AdminUsersSearch.events({
             Meteor.call('smartix:accounts-schools/revokeSchool',template.namespace,latestArray,function(){
                 //hide spinner
                 template.doingOperations.set(false);
+                
+                //un-select all users
+                template.usersChecked.set([]);
             });
         }          
     },
