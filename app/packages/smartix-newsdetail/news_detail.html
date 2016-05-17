@@ -82,15 +82,7 @@
                         </div>
                         <div>
                             {{#each attachCalendar}}
-                            <div class="item ">
-                                <div class="row" style="padding:0">
-                                    <div class="col" style="padding:0"><h2><i class='icon ion-ios-calendar-outline' ></i>{{eventName}}</h2></div>
-                                    <div class="col" style="padding:0"><h2><i class='icon ion-location' ></i>{{location}}</h2></div>
-                                    <div class="col" style="padding:0;text-align:right">{{formatDateCalendar startDate}}</div>
-                                    <div class="col" style="padding:0;text-align:right">{{formatDateCalendar endDate}}</div>                                                                   
-                                    <div class="col" style="padding:0;text-align:right"><button class='add-to-calendar' data-start-date='{{startDate}}' data-end-date='{{endDate}}' data-event-name='{{eventName}}' data-event-location='{{location}}' data-description='{{../data.content}}'>Add to calendar</button></div>
-                                </div>
-                            </div>
+                                {{>CalendarDisplay this}}
                             {{/each}}                            
                         </div>               
                     </div>

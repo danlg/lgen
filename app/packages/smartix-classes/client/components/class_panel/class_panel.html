@@ -54,15 +54,7 @@
                 {{/if}}                 
                 <div class="item card less-top-bottom-padding less-top-bottom-margin">
                  {{#each attachCalendar}}
-                 <div class="item ">
-                    <div class="row" style="padding:0">
-                        <div class="col" style="padding:0"><h2><i class='icon ion-ios-calendar-outline' ></i>{{eventName}}</h2></div>
-                        <div class="col" style="padding:0"><h2><i class='icon ion-location' ></i>{{location}}</h2></div>
-                        <div class="col" style="padding:0;text-align:left">{{formatDateCalendar startDate}}</div>
-                        <div class="col" style="padding:0;text-align:left">{{formatDateCalendar endDate}} </div>
-                        <div class="col" style="padding:0;text-align:right"><button>Add to calendar</button></div>
-                    </div>
-                </div>
+                    {{>CalendarDisplay this}}
                 {{/each}}
                 <div class="item less-top-bottom-padding">
                     <div>

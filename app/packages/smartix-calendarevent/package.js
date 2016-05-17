@@ -24,7 +24,10 @@ Package.onUse(function(api) {
                   
      api.addFiles('calendar_event.html','client');
      api.addFiles('calendar_event.js','client');  
-     
+
+     api.addFiles('client/templates/view/view.html', 'client');
+     api.addFiles('client/templates/view/view.js', 'client');  
+          
      api.addFiles('client/templates/list/list.html', 'client');
      api.addFiles('client/templates/list/list.js', 'client');  
 
