@@ -5,16 +5,69 @@
         </div>
 
         <div class="panel-body">
+            {{#if Template.subscriptionsReady}}
             {{> EasySearch.Input index=classesIndex }}
-            <ul>
+                <span>{{totalSelectUserCount}} have been selected.</span>
+                <br/>
+                <button class='btn btn-default select-all-users-btn'>Select All</button> 
+                <button class='btn btn-default deselect-all-users-btn'>De-Select All</button>                                   
+                <button class='btn btn-default select-all-users-current-page-btn'>Select All From Current Page</button>
+                <button class='btn btn-default deselect-all-users-current-page-btn'>De-Select All From Current Page</button>                
+                
+                {{#if showOptions}}
+                    <br/>
+                    <button class='btn btn-danger remove-distribution-lists-btn'>Remove Class(es)</button>                                                                                          
+                {{/if}}              
+            <div class="table-responsive">  
+            <table class='table'>
+                    <thead>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th>Class Name</th>
+                        <th>Class Code</th>                        
+                        <th>Class Avatar</th>
+                        <th>Class Admins</th>
+                        <th>Created At</th>
+                        <th>Last Created At</th>
+                        <th>Last Updated By</th>
+                                                                       
+                    </tr>
+                    </thead>                
+                
                 {{#EasySearch.Each index=classesIndex }}
-                    <li><a href="{{pathFor route='admin.classes.view' data=routeData}}">{{className}}</a></li>
+                        <tr>
+                            <td><input {{isUserChecked _id}} type="checkbox" name="user" class='school-directory-user-checkbox' value="{{_id}}"/></td>
+                            <td><a href="{{pathFor route='admin.classes.view' data=routeData}}">{{className}}</a></td>
+                            <td> {{classCode}} </td>
+                            <td>  <i class="icon e1a-{{classAvatar}} e1a-2x emojicon"></i>  </td>
+                            <td>
+                                <ul>
+                                {{#each admins}}
+                                    {{#with userData this}}
+                                    <li>{{profile.firstName}} &nbsp; {{profile.lastName}}</li>
+                                    {{/with}}
+                                {{/each}}
+                                </ul>
+                            </td>  
+                            <td> {{formatDate createdAt}}</td>
+                            <td> {{formatDateCalendar lastUpdatedAt}}</td>                               
+                            <td>
+                                <ul>
+                                 {{#with userData lastUpdatedBy}}
+                                    <li>{{profile.firstName}} &nbsp; {{profile.lastName}}</li>
+                                 {{/with}}
+                                </ul>
+                            </td>                                                                                        
+               
+                        </tr>                 
                 {{/EasySearch.Each}}
                 
                 {{#EasySearch.IfNoResults index=classesIndex}}
                     <div>No results found!</div>
                 {{/EasySearch.IfNoResults}}                
-            </ul>
+            </table>
+            </div>
+            {{/if}}
         </div>
     </div>
 </template>

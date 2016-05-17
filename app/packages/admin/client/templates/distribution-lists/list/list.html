@@ -15,7 +15,7 @@
                 
                 {{#if showOptions}}
                     <br/>
-                    <button class='btn btn-danger remove-users-btn'>Remove Distribution List(s)</button>                 
+                    <button class='btn btn-danger remove-distribution-lists-btn'>Remove Distribution List(s)</button>                 
                     <!--<button class='btn btn-success add-users-to-role'>Add User(s) to Role</button>
                     <button class='btn btn-danger remove-users-from-role'>Remove User(s) from Role</button>
                     <select id='selected-role' class="form-control">
@@ -31,7 +31,6 @@
                     <tr>
                         <th>&nbsp;</th>
                         <th>List Name</th>
-                        <th>List Code</th>
                         <th>Users</th>
                                                                        
                     </tr>
@@ -41,9 +40,11 @@
                         <tr>
                             <td><input {{isUserChecked _id}} type="checkbox" name="user" class='school-directory-user-checkbox' value="{{_id}}"/></td>
                             <td><a href="{{pathFor route='admin.lists.view' data=routeData}}"> {{name}} </a></td>
-                            <td>{{url}}</td>
                             <td>
-                                <ul>
+                                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse-user-list-{{_id}}" aria-expanded="false" aria-controls="collapse-user-list-{{_id}}">
+                                <i class="icon-user"></i> 
+                                </button>                                
+                                <ul class="collapse" id="collapse-user-list-{{_id}}">
                                 {{#each users}}
                                     {{#with userData this}}
                                     <li>{{profile.firstName}} &nbsp; {{profile.lastName}}</li>

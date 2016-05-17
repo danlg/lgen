@@ -322,7 +322,7 @@ Smartix.Class.editClass = function(classId, options, currentUser) {
 Smartix.Class.deleteClass = function(id) {
 
     // Checks that `id` is of type String
-    check(id, String);
+    check(ids, String);
 
     // Checks that currently-logged in user is one of the following:
     // * Admin for the school (namespace) specified
@@ -336,6 +336,37 @@ Smartix.Class.deleteClass = function(id) {
 
     // Remove the class specified
     Smartix.Groups.deleteGroup(id);
+};
+
+Smartix.Class.deleteClasses = function(ids) {
+
+    // Checks that `ids` is of type String Array
+    check(ids, [String]);
+
+    // Checks that currently-logged in user is one of the following:
+    // * Admin for the school (namespace) specified
+    // * One of the admins for the class
+    ids.map(function(eachClassId){
+        var existGroup = Smartix.Groups.Collection.findOne({
+            _id: eachClassId
+        });
+        
+        if(!existGroup){
+            log.info('some groups to be deleted do not exist!')
+            return false;
+        }
+        
+        if (!(Smartix.Class.isClassAdmin(Meteor.userId(), eachClassId)
+            || Smartix.Accounts.School.isAdmin(existGroup.namespace))) {
+            log.info('you have no permission to operate on some of the groups')
+            return false;
+            // Optional: Throw an appropriate error if not
+        }        
+    })
+
+
+    // Remove the class specified
+    Smartix.Groups.deleteGroups(ids);
 };
 
 Smartix.Class.addAdminsToClass = function(classId, users, currentUser) {

@@ -2,13 +2,13 @@
 App.info({
   //id: 'com.gosmartix.smartix', for android
   id: 'com.gosmartix.carmel', //for ios because the app is registered with this id and the APN certificate
-  name: 'Carmel UAT',
+  name: 'Carmel',
   description: 'Instant, safe, simple communication for teachers, students and parents',
   author: 'Little Genius Education',
   email: 'contact@gosmartix.com',
   website: 'https://app.gosmartix.com',
   version: '1.2.1',
-  buildNumber: '140'
+  buildNumber: '150'
 });
 
 //generated with meteor-assets
@@ -86,3 +86,6 @@ App.accessRule('*.gstatic.com/*', { type: 'navigation' } );
 //as ssl is used, https://localhost:* needs to be allowed
 App.accessRule('http://localhost:*');
 App.accessRule('https://localhost:*');
+
+//to have hot code push
+App.setPreference('WebAppStartupTimeout', '60000');

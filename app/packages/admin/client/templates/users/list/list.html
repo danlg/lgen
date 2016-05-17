@@ -1,7 +1,7 @@
 <template name="AdminUsersSearch">
     <div class="panel panel-flat">
         <div class="panel-heading">
-            <h1>Search users ({{totalUserCount}}) </h1>
+            <h1>Search users {{#if Template.subscriptionsReady}}({{totalUserCount}}){{/if}} </h1>
             {{#if doingOperations}}
                 <style>
                     .spinner{
