@@ -104,5 +104,15 @@ Template.AdminDistributionListsSearch.events({
    },   
    'click .deselect-all-users-btn':function(event,template){
       template.usersChecked.set([]);
-   },       
+   },      
+   'click .remove-distribution-lists-btn':function(event,template){
+        let latestArray = template.usersChecked.get();
+        let listOfUsers = latestArray.join('\n');
+        if (window.confirm("Do you really want to remove the selected distribution lists?:\n"+listOfUsers)) {             
+            latestArray.map(function(eachDistributionListId){
+                Meteor.call('smartix:distribution-lists/remove',eachDistributionListId);            
+            });
+            template.usersChecked.set([]); 
+        }             
+   }
 });
