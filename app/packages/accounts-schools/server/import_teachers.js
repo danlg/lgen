@@ -52,15 +52,17 @@ Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser, 
 	if(!Smartix.Accounts.School.canImportTeachers(namespace, currentUser)) {
 		throw new Meteor.Error("permission-denied", "The user does not have permission to perform this action.");
 	}
+	let newUsers = [];
+	let errors = [];
 	log.info("Importing teachers and staff for school ", namespace);
 	_.each(data, function(teacher, i) {
-
-		// Checks if user already exists
-		let teacherId = Accounts.findUserByEmail(teacher.email);
-
-		// If the user does not already exists
-		// Create the user
-		if(teacherId === undefined) {
+		let newUserObj, teacherId;
+		try{
+			// Checks if user already exists
+			//teacherId = Accounts.findUserByEmail(teacher.email);
+			// If the user does not already exists
+			// Create the user
+			//if(teacherId === undefined) {
 			let user = {};
 			user.profile = {};
 			user.profile.firstName = teacher.firstName;
@@ -69,12 +71,24 @@ Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser, 
 			user.mobile = teacher.mobile;
 			var autoEmailVerified = true;
 			log.info(i+1, "Attempting to create user ", user.profile.firstName, user.profile.lastName);
-			teacherObj = Smartix.Accounts.createUser(teacher.email, user, namespace, ['teacher'], currentUser, autoEmailVerified, doNotifyEmail);
+			newUserObj = Smartix.Accounts.createUser(teacher.email, user, namespace, ['teacher'], currentUser, autoEmailVerified, doNotifyEmail);
+			teacherId = newUserObj.id;
+			if(newUserObj.isNew) {
+				newUsers.push(newUserObj.id);
+			} else {
+				log.warn("The user was not created with email", email);
+				errors.push(newUserObj.id);
+			}
+			//}
+		} catch(e) {
+			errors.push(e);
+			log.error("Error",e);
 		}
-
-		if(!teacherObj || typeof teacherObj.id !== "string") {
-			throw new Meteor.Error('could-not-create-teacher', "The system failed to create the teacher record for " + teacher.firstName + " " + teacher.lastName + ". Please try again.");
-		}
+		//log.info("Attempting to create teacher obj", teacherObj);
+		// if(!newUserObj || typeof newUserObj.id !== "string") {
+		// 	//log.info(teacherObj);
+		// 	throw new Meteor.Error('could-not-create-teacher', "The system failed to create the teacher record for " + teacher.firstName + " " + teacher.lastName + ". Please try again.");
+		// }
 
 		// UPDATE TEACHER SUBJECTS TAUGHT
 		let subjectsTaught = [];
@@ -86,11 +100,10 @@ Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser, 
 			}
 		});
 
-		// If the subjects taught are specified
-		// Update the user with those subjects
+		// If the subjects taught are specified, update the user with those subjects
 		if(subjectsTaught.length > 0) {
 			Meteor.users.update({
-				_id: teacherObj.id
+				_id: newUserObj.id
 			}, {
 				$addToSet: {
 					subjectsTaught: {
@@ -102,11 +115,8 @@ Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser, 
 
 		// CREATE CLASSES
 		_.each(teacher, function (val, key, vals) {
-			// If the key includes the term `subjectTaught`
-			// Add it to the `subjectsTaught` array
-
+			// If the key includes the term `subjectTaught`, add it to the `subjectsTaught` array
 			let classNameRegEx = /^className([0-9]{1,2})$/ig;
-
 			if(key.match(classNameRegEx)) {
 				// Create the distribution list
 				// And add the teacher to the list
@@ -175,4 +185,8 @@ Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser, 
 		});
 	});
 	log.info("Finished importing teachers and staff for school ", namespace);
+	return {
+		newUsers: newUsers,
+		errors: errors
+	}
 };
