@@ -3,19 +3,58 @@
         <div class="panel-heading">
             <h1>Search Newsgroups</h1>
         </div>
-
+        {{#if Template.subscriptionsReady}}
         <div class="panel-body">
             <p>You can see existing newsgroups and users being subscribed to the newsgroups in here</p>
             {{> EasySearch.Input index=newsgroupsIndex }}
-            <ul>
+            <span>{{totalSelectUserCount}} have been selected.</span>
+            <br/>
+            <button class='btn btn-default select-all-users-btn'>Select All</button> 
+            <button class='btn btn-default deselect-all-users-btn'>De-Select All</button>                                   
+            <button class='btn btn-default select-all-users-current-page-btn'>Select All From Current Page</button>
+            <button class='btn btn-default deselect-all-users-current-page-btn'>De-Select All From Current Page</button>                
+            {{#if showOptions}}
+                <br/>
+                <button class='btn btn-danger remove-distribution-lists-btn'>Remove Newsgroup(s)</button>                                                                                           
+            {{/if}}                     
+            <div class="table-responsive">                
+            <table class='table'>
+                <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Newsgroup Name</th>
+                    <th>Distribution Groups</th>
+                                                                    
+                </tr>
+                </thead>
                 {{#EasySearch.Each index=newsgroupsIndex }}
-                    <li><a href="{{pathFor route='admin.newsgroups.view' data=routeData}}">{{name}}</a></li>
+                    <tr>
+                        <td><input {{isUserChecked _id}} type="checkbox" name="user" class='school-directory-user-checkbox' value="{{_id}}"/></td>
+                        <td><a href="{{pathFor route='admin.newsgroups.view' data=routeData}}"> {{name}} </a></td>
+                        <td>
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse-user-list-{{_id}}" aria-expanded="false" aria-controls="collapse-user-list-{{_id}}">
+                            <i class="icon-user"></i> 
+                            </button>                                
+                            <ul class="collapse" id="collapse-user-list-{{_id}}">
+                            {{#each users}}
+                                {{#with userData this}}
+                                <li>{{profile.firstName}} &nbsp; {{profile.lastName}}</li>
+                                {{/with}}
+                            {{/each}}
+                            </ul>
+                        </td>    
+            
+                    </tr>                 
                 {{/EasySearch.Each}}
                 
                 {{#EasySearch.IfNoResults index=newsgroupsIndex}}
                     <div>No results found!</div>
                 {{/EasySearch.IfNoResults}}                
-            </ul>
+            </table>
+            </div>                
+            {{> EasySearch.Pagination index=newsgroupsIndex maxPages=10 customRenderPagination='CustomEasySearchPagination'}}               
+
         </div>
+        {{/if}}
     </div>
 </template>
