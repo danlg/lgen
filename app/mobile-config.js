@@ -8,7 +8,7 @@ App.info({
   email: 'contact@gosmartix.com',
   website: 'https://app.gosmartix.com',
   version: '1.2.1',
-  buildNumber: '140'
+  buildNumber: '150'
 });
 
 //generated with meteor-assets
@@ -86,3 +86,6 @@ App.accessRule('*.gstatic.com/*', { type: 'navigation' } );
 //as ssl is used, https://localhost:* needs to be allowed
 App.accessRule('http://localhost:*');
 App.accessRule('https://localhost:*');
+
+//to have hot code push
+App.setPreference('WebAppStartupTimeout', '60000');
