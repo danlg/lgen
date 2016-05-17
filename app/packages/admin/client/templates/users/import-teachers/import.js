@@ -59,17 +59,17 @@ var processData = function(csv) {
         // Removes any non-alphanumeric characters or commas
         .replace(/[^\w,]+/g, '');
     allTextLines[0] = yo;
+    //log.info("teacher import header");
+    //log.info(yo);
     return allTextLines.join("\n");
-}
+};
 
 var removeEmptyObjectsFromArray = function(array) {
-    
     array = _.map(array, function(obj) {
         return Smartix.Utilities.removeEmptyProperties(obj);
     });
-    
     return Smartix.Utilities.removeEmptyObjectsFromArray(array);
-}
+};
 
 Template.AdminTeachersImport.events({
     'change #teachers-upload-file': function (event, template) {
@@ -90,7 +90,7 @@ Template.AdminTeachersImport.events({
                     log.info(error);
                 }
             });
-        }
+        };
         reader.readAsText(file);
     },
     'click #AdminTeachersImport__submit': function (event, template) {
@@ -141,4 +141,4 @@ Template.AdminTeachersImport.helpers({
 
 Template.AdminTeachersImport.onDestroyed(function () {
     Session.set('imported-teachers', null);
-})
+});
