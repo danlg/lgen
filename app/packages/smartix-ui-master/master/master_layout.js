@@ -12,7 +12,7 @@ Template.AppLayout.helpers({
             var schoolTextColor = pickSchool.preferences.schoolTextColor;
             if (schoolBackgroundColor && schoolTextColor) {
                 var customStyle = `
-                                    <style>                    
+                                    <style>                        
                                         .bar.bar-stable,
                                         .button.button-stable,
                                         .button.button-positive,
@@ -27,7 +27,11 @@ Template.AppLayout.helpers({
                                         
                                         .bar.bar-stable i{
                                             color:${schoolTextColor};
-                                        }                                        
+                                        } 
+                                        
+                                        .bar.bar-stable .button{
+                                            color:${schoolTextColor};
+                                        }                                       
                                     </style>
                 
                                 `;
