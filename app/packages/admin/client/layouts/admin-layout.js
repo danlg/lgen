@@ -137,5 +137,25 @@ Template.adminLayout.helpers({
                 school: Router.current().params.school
             };
         }
+    },
+    schoolName: function () {
+        var schoolDoc = SmartixSchoolsCol.findOne({
+            username: Router.current().params.school
+        });
+        
+        return schoolDoc ? schoolDoc.name : '';
     }
+});
+
+Template.registerHelper('currentUsername', function () {
+    return Meteor.user().username;
+});
+
+
+Template.registerHelper('currentFirstName', function () {
+    return Meteor.user().profile.firstName;
+});
+
+Template.registerHelper('currentLastName', function () {
+    return Meteor.user().profile.lastName;
 });
