@@ -86,7 +86,7 @@ Meteor.publish('smartix:classes/otherClassmates', function(classCode) {
         classmates = _.union(classmates, group.users);
         
         // Get all users in distribution lists
-        classmates = _.union(classmates, Smartix.DistributionLists.getUsersInDistributionLists(groups.distributionLists));
+        classmates = _.union(classmates, Smartix.DistributionLists.getUsersInDistributionLists(group.distributionLists));
         
         lodash.pull(classmates, this.userId);
         
