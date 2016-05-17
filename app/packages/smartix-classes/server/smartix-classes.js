@@ -149,7 +149,7 @@ Smartix.Class.createClass = function(classObj, currentUser) {
 
     // Checks the `classCode` is unique for this namespace
     let classWithClassCode = Smartix.Groups.Collection.findOne({
-        namespace: newClass.namesapce,
+        namespace: newClass.namespace,
         classCode: /^newClass.classCode$/i
     });
     if (classWithClassCode) {
@@ -171,13 +171,11 @@ Smartix.Class.createClass = function(classObj, currentUser) {
         _.each(newClass.users, function(student, i, students) {
             // Get the parents of the student
             let parents = Smartix.Accounts.Relationships.getParentOfStudent(student, namespace);
-
             _.each(parents, function(parent, i) {
                 Smartix.Class.NotifyStudents(parent, newClassId);
             });
         });
     }
-
     return newClassId;
 };
 
