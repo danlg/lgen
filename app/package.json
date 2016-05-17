@@ -22,7 +22,8 @@
     "ios-device-prd": "./clean_build.sh && NODE_ENV=production meteor run -v ios-device --settings ../config/prd.settings.json --mobile-server=https://app.gosmartix.com -p 5000",
     "ios-device-prd-carmel": "./clean_build.sh && NODE_ENV=production meteor run -v ios-device --settings ../config/prd.settings.json --mobile-server=https://carmel.gosmartix.com -p 5000",
 
-    "build-apk": "./build-android.sh $1",
+    "build-apk": "./build-android.sh $1 https://app.gosmartix.com",
+    "build-apk-carmel": "./build-android.sh $1 https://carmel.gosmartix.com",
     "sign-apk": "./sign-android.sh $1",
 
     "android-local": "./clean_build.sh && meteor run android --settings ../config/dev.settings.json --mobile-server=http://10.0.2.2:3000",
