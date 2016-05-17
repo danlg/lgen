@@ -203,6 +203,32 @@ Smartix.Newsgroup.deleteNewsgroup = function (id, currentUser) {
 	Smartix.Groups.deleteGroup(id);
 };
 
+Smartix.Newsgroup.deleteNewsgroups = function (ids, currentUser) {
+
+	// Checks that `id` is of type String array
+	check(ids, [String]);
+    check(currentUser, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    if(!(currentUser === null)) {
+        currentUser = currentUser || Meteor.userId();
+    }
+	
+	ids.map(function(id){
+		// Checks that the currently-logged in user has
+		// administrative priviledges for the namespace it specified
+		// (i.e. either the admin for the school, or the system admin)
+		if(!Smartix.Newsgroup.canDeleteNewsgroup(id, currentUser)) {
+			return false;
+			// Optional: Throw an appropriate error if not
+		}		
+	})
+
+
+	// Remove the newsgroups specified
+	Smartix.Groups.deleteGroups(ids);
+};
+
 Smartix.Newsgroup.addUsersToGroup = function (id, users, currentUser) {
 
 	// Checks that `id` is of type String

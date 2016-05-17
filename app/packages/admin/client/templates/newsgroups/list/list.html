@@ -36,9 +36,9 @@
                             <i class="icon-user"></i> 
                             </button>                                
                             <ul class="collapse" id="collapse-user-list-{{_id}}">
-                            {{#each users}}
-                                {{#with userData this}}
-                                <li>{{profile.firstName}} &nbsp; {{profile.lastName}}</li>
+                            {{#each distributionLists}}
+                                {{#with distributionListData this}}
+                                <li>{{name}}</li>
                                 {{/with}}
                             {{/each}}
                             </ul>

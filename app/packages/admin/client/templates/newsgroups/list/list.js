@@ -8,6 +8,7 @@ Template.AdminNewsgroupsSearch.onCreated(function () {
     
         var schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(Router.current().params.school);
         this.subscribe('smartix:accounts/allUsersInNamespace', schoolNamespace);
+        this.subscribe('smartix:distribution-lists/listsBySchoolName', Router.current().params.school);        
     } else {
         log.info("Please specify a school to list the classes for");
     }
@@ -48,6 +49,14 @@ Template.AdminNewsgroupsSearch.helpers({
                 _id: data
             });
         }
+  },
+  distributionListData :function(data){
+      console.log('distributionListData',Smartix.Groups.Collection.findOne({
+            _id: data
+        })     );
+        return Smartix.Groups.Collection.findOne({
+            _id: data
+        });      
   }
 });
 
@@ -108,9 +117,7 @@ Template.AdminNewsgroupsSearch.events({
         let latestArray = template.usersChecked.get();
         let listOfUsers = latestArray.join('\n');
         if (window.confirm("Do you really want to remove the selected newsgroups?:\n"+listOfUsers)) {             
-            latestArray.map(function(eachDistributionListId){
-                Meteor.call('smartix:distribution-lists/remove',eachDistributionListId);            
-            });
+            Meteor.call('smartix:newsgroups/deleteNewsgroups',latestArray);            
             template.usersChecked.set([]); 
         }             
    }
