@@ -54,10 +54,25 @@ Template.NewsgroupsNewsView.helpers({
     getGroupName:function(groupId){
         console.log('getGroupName',groupId);
        return Smartix.Groups.Collection.findOne(groupId).name;
-    }
+    }  
+    
+
     
 });
 
+Template.NewsgroupsNewsView.events({
+    'click .add-to-calendar':function(event){
+        var startDate = this.startDate;
+        var endDate = this.endDate;
+        var eventName = this.eventName;
+        var location = this.location;
+        var description = $(event.target).data('description');
+        
+        Smartix.Messages.Addons.Calendar.addEvent(eventName,location,description,startDate,endDate,function(){
+            toastr.info('Event added to your calendar'); 
+        });
+    }      
+});
 
 Template.NewsgroupsNewsView.onDestroyed(function(){
    
