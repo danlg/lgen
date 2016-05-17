@@ -31,7 +31,15 @@ Template.AppLayout.helpers({
                                         
                                         .bar.bar-stable .button{
                                             color:${schoolTextColor};
-                                        }                                       
+                                        } 
+                                        
+                                        /** checkbox color **/
+                                        .toggle.toggle-positive input:checked + .track,                                        
+                                        .toggle input:checked + .track
+                                        {
+                                            border-color:${schoolBackgroundColor};
+                                            background-color:${schoolBackgroundColor};
+                                        }                                                                        
                                     </style>
                 
                                 `;
