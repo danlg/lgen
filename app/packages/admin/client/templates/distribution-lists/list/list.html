@@ -6,15 +6,63 @@
         {{#if Template.subscriptionsReady}}
             <div class="panel-body">
                 {{> EasySearch.Input index=distributionListIndex }}
-                <ul>
-                    {{#EasySearch.Each index=distributionListIndex }}
-                        <li><a href="{{pathFor route='admin.lists.view' data=routeData}}">{{name}}</a></li>
-                    {{/EasySearch.Each}}
+                <span>{{totalSelectUserCount}} have been selected.</span>
+                <br/>
+                <button class='btn btn-default select-all-users-btn'>Select All</button> 
+                <button class='btn btn-default deselect-all-users-btn'>De-Select All</button>                                   
+                <button class='btn btn-default select-all-users-current-page-btn'>Select All From Current Page</button>
+                <button class='btn btn-default deselect-all-users-current-page-btn'>De-Select All From Current Page</button>                
+                
+                {{#if showOptions}}
+                    <br/>
+                    <button class='btn btn-danger remove-users-btn'>Remove Distribution List(s)</button>                 
+                    <!--<button class='btn btn-success add-users-to-role'>Add User(s) to Role</button>
+                    <button class='btn btn-danger remove-users-from-role'>Remove User(s) from Role</button>
+                    <select id='selected-role' class="form-control">
+                        <option value="parent">Parent</option>
+                        <option value="student">Student</option>
+                        <option value="teacher">Teacher</option>
+                        <option value="admin">Admin</option>
+                    </select>-->                                                                               
+                {{/if}}                
+                <div class="table-responsive">                
+                <table class='table'>
+                    <thead>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th>List Name</th>
+                        <th>List Code</th>
+                        <th>Users</th>
+                                                                       
+                    </tr>
+                    </thead>
                     
+                    {{#EasySearch.Each index=distributionListIndex }}
+                        <tr>
+                            <td><input {{isUserChecked _id}} type="checkbox" name="user" class='school-directory-user-checkbox' value="{{_id}}"/></td>
+                            <td><a href="{{pathFor route='admin.lists.view' data=routeData}}"> {{name}} </a></td>
+                            <td>{{url}}</td>
+                            <td>
+                                <ul>
+                                {{#each users}}
+                                    {{#with userData this}}
+                                    <li>{{profile.firstName}} &nbsp; {{profile.lastName}}</li>
+                                    {{/with}}
+                                {{/each}}
+                                </ul>
+                            </td>    
+               
+                        </tr>                    
+                    {{/EasySearch.Each}}
+
                     {{#EasySearch.IfNoResults index=distributionListIndex}}
                         <div>No results found!</div>
-                    {{/EasySearch.IfNoResults}}                     
-                </ul>
+                    {{/EasySearch.IfNoResults}}                        
+                
+                </table>
+                </div>                
+                {{> EasySearch.Pagination index=distributionListIndex maxPages=10 customRenderPagination='CustomEasySearchPagination'}}               
+
             </div>
         {{else}}
             <p>Loading...</p>
