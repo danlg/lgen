@@ -4,7 +4,15 @@ Template.AdminUsersAdd.helpers({
 
 Template.AdminUsersAdd.onRendered(function(){
     //initialize pickadate in this page
-    $('.pickadate').pickadate({});
+    $('.pickadate').pickadate({
+            labelMonthNext: 'Go to the next month',
+            labelMonthPrev: 'Go to the previous month',
+            labelMonthSelect: 'Pick a month from the dropdown',
+            labelYearSelect: 'Pick a year from the dropdown',
+            selectMonths: true,
+            selectYears: true
+        }
+    );
 });
 
 Template.AdminUsersAdd.events({
@@ -35,7 +43,7 @@ Template.AdminUsersAdd.events({
             return false;
         }
         if (dateFieldVal !== "") {
-            newUserObj.dob = moment(new Date(template.$('#addUser-dob').eq(0).val())).format('DD-MM-YYYY');
+            newUserObj.dob = moment(new Date(template.$('#addUser-dob_hidden').eq(0).val())).format('DD-MM-YYYY');
         }
 
         var password = template.$('#password').eq(0).val(); //console.log("password='"+ password +"'");
