@@ -280,6 +280,7 @@ Smartix.Accounts.createOrAddToDistributionList = function(roles, namespace, clas
     }
 };
 
+//This removes all user's roles in a namespace
 Smartix.Accounts.removeUser = function(userId, namespace, currentUser) {
     check(userId, Match.Maybe(String));
     check(namespace, String);
@@ -371,6 +372,17 @@ Smartix.Accounts.canEditUser = function(userId, options, currentUser) {
             || userId === currentUser);
 };
 
+
+Smartix.Accounts.deleteSchoolUser = function(userId){
+    var userToBeDeleted = Meteor.users.findOne({ _id: userId });
+    userToBeDeleted.deletedAt = Date.now();
+    Smartix.Accounts.DeleteUsersCol.insert(userToBeDeleted, function(err, id) {
+        // Remove the user from the `Meteor.users` collection
+        Meteor.users.remove({ _id: userId });
+    });    
+}
+
+//This actually delete user from users collection
 Smartix.Accounts.deleteUser = function(userId, currentUser) {
     if (Smartix.Accounts.canDeleteUser(userId, currentUser)) {
         // Make a copy of the user into a new collection

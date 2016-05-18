@@ -70,7 +70,7 @@ Template.AdminUsersSearch.events({
             //show spinner
             template.doingOperations.set(true);
             
-            Meteor.call('smartix:accounts-schools/revokeSchool',template.namespace,latestArray,function(){
+            Meteor.call('smartix:accounts-schools/deleteSchoolUsers',template.namespace,latestArray,function(){
                 //hide spinner
                 template.doingOperations.set(false);
                 

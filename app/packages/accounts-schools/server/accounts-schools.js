@@ -294,3 +294,51 @@ Smartix.Accounts.School.getNamespaceFromSchoolName = function(schoolName) {
     });
     return schoolDoc ? schoolDoc._id : false;
 };
+
+Smartix.Accounts.School.revokeSchool = function(school,users){
+    if(!Smartix.Accounts.School.isAdmin(school)
+        && !Smartix.Accounts.System.isAdmin()){
+        return;
+    }
+    
+    Roles.removeUsersFromRoles(users,['admin','teacher','parent','student'],school);
+    
+    return Meteor.users.update({
+        _id: {$in : users}
+    },{
+        $pull: {
+            schools: school
+        },
+        
+    },{
+        multi: true  
+    });    
+}
+
+Smartix.Accounts.School.deleteSchoolUsers = function(userIds,namespace,currentUser){
+
+    check(userIds, [String]);
+    check(namespace, String);
+    check(currentUser, String);
+        
+
+    userIds.map(function(userId){
+        // Retrieve the target user
+        var targetUser = Meteor.users.findOne({ _id: userId });
+        if(targetUser){
+            //if user only belong to current school, deletes the user from users collection
+            if(targetUser.schools.length === 1){
+                if(targetUser.schools[0] === namespace){
+                      console.log('delete User');
+                      Smartix.Accounts.deleteSchoolUser(userId); 
+                }
+            }else{
+            //else, removes only the schools array of the user
+                          
+                console.log('revoke User');
+                Smartix.Accounts.School.revokeSchool(namespace,[userId]);
+            }
+        }        
+    });
+
+}

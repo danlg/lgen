@@ -20,6 +20,14 @@ if(Meteor.isServer){
                 return false;
             }
         },
+        'smartix:accounts-schools/deleteSchoolUsers':function(school,users){
+            if(!Smartix.Accounts.School.isAdmin(school, Meteor.userId())
+                && !Smartix.Accounts.System.isAdmin()){
+                log.info('no right to delete school user')
+                return;
+            }            
+            Smartix.Accounts.School.deleteSchoolUsers(users,school,Meteor.userId());
+        },
         'smartix:accounts-schools/assignSchoolRole': function(school, users, roles){
             if(!Smartix.Accounts.School.isAdmin(school)
                 && !Smartix.Accounts.System.isAdmin()){
@@ -53,22 +61,7 @@ if(Meteor.isServer){
                 }
             });
         }, 
-        'smartix:accounts-schools/revokeSchool':function(school, users){
-            if(!Smartix.Accounts.School.isAdmin(school)
-                && !Smartix.Accounts.System.isAdmin()){
-                return;
-            }
-            return Meteor.users.update({
-                _id: {$in : users}
-            },{
-                $pull: {
-                    schools: school
-                },
-                
-            },{
-              multi: true  
-            });
-        },
+        'smartix:accounts-schools/revokeSchool':Smartix.Accounts.School.revokeSchool,
         'smartix:accounts-schools/isUserSchoolAdmin': function (namespace, user) {
             return Smartix.Accounts.School.isAdmin(namespace, user);
         },
