@@ -77,7 +77,7 @@ Smartix.Accounts.Relationships.createRelationship = function(options, currentUse
 
 Smartix.Accounts.Relationships.removeRelationship = function(relId, currentUser) {
 
-    check(id, String);
+    check(relId, String);
 
     check(currentUser, Match.Maybe(String));
 
