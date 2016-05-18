@@ -2,6 +2,11 @@ Template.AdminUsersAdd.helpers({
     isStudent: true
 })
 
+Template.AdminUsersAdd.onRendered(function(){
+    //initialize pickadate in this page
+    $('.pickadate').pickadate({});
+});
+
 Template.AdminUsersAdd.events({
     'click #addUser-submit': function(event, template) {
         event.preventDefault();
