@@ -1,4 +1,4 @@
-<template name="AttendaceList">
+<template name="AttendanceList">
   {{#contentFor "headerTitle"}}
      <h1 class="title">{{_ "absence.Application" }}</h1>
   {{/contentFor}}
@@ -23,7 +23,7 @@
           
                   
         {{#if Template.subscriptionsReady}}
-         {{#with getAttendaceRecord}}     
+         {{#with getAttendanceRecord}}
             {{#each this}}
                 <div class="card less-top-bottom-padding ">
 

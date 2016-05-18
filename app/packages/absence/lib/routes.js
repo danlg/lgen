@@ -10,18 +10,18 @@ Router.route('/:school/attendance/home', {
 Router.route('/:school/attendance/list', {
     name: 'attendance.list',
     layoutTemplate: 'AppLayout',
-    template: 'AttendaceList',
+    template: 'AttendanceList',
     action: function () {
-        this.render('AttendaceList');
+        this.render('AttendanceList');
     }
 });
 
 Router.route('/:school/attendance/view/:msgid', {
     name: 'attendance.view',
     layoutTemplate: 'AppLayout',
-    template: 'AttendaceView',
+    template: 'AttendanceView',
     action: function () {
-        this.render('AttendaceView');
+        this.render('AttendanceView');
     }
 });
 

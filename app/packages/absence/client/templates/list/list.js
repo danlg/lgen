@@ -1,8 +1,8 @@
-Template.AttendaceList.helpers({
+Template.AttendanceList.helpers({
     getCurrentSchoolName: function() {
         return Router.current().params.school;
     },
-    getAttendaceRecord:function(){
+    getAttendanceRecord:function(){
        var schoolDoc = SmartixSchoolsCol.findOne({
            username: Router.current().params.school
        });               
@@ -21,7 +21,7 @@ Template.AttendaceList.helpers({
     
 })
 
-Template.AttendaceList.onCreated(function(){
+Template.AttendanceList.onCreated(function(){
     var self = this;
     
     self.subscribe('userRelationships', Meteor.userId());
@@ -36,11 +36,11 @@ Template.AttendaceList.onCreated(function(){
         
 });
 
-Template.AttendaceList.onDestroyed(function(){
+Template.AttendanceList.onDestroyed(function(){
     Meteor.call('setAttendanceAsRead',this.schoolId, 'attendanceApproved');        
 });
 
-Template.AttendaceList.events({
+Template.AttendanceList.events({
     'click .approve-acknowledge-btn':function(event,template){
         Meteor.call('setNotificationAsRead', $(event.target).data('id') , function(err,result){
             toastr.info('School will know that you have confirmed it.')
