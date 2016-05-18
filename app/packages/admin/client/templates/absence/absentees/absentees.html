@@ -5,49 +5,57 @@
         </div>
 
         <div class="panel-body">
-            <div class="form-group">
-                <label class="control-label col-lg-2">Student Name</label>
-                <div class="col-lg-10">
-                    <input type="text" class="form-control" placeholder="Student's First/Last name">
-                    <span class="help-block">Filter students by first/last name</span>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <div class="col-lg-12">
+                        <label class="control-label col-lg-4">Student Name</label>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control" id="AdminAbsenceProcessed__studentName" placeholder="Filter students by First/Last Name">
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <label class="control-label col-md-4">From</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="date" name="startDate" id="AdminAbsenceProcessed__startDate" value="{{filterStartDate}}">
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <label class="control-label col-md-4">To</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="date" name="endDate" id="AdminAbsenceProcessed__endDate" value="{{filterEndDate}}">
+                        </div>
+                    </div>
                 </div>
+                <button id="AdminAbsenceProcessed__updateFilter" type="submit" class="btn btn-primary">Update Filters <i class="icon-arrow-right14"></i></button>
             </div>
-            <div class="form-group">
-                <label class="control-label col-md-2">From</label>
-                <div class="col-md-10">
-                    <input class="form-control" type="date" name="date">
-                    <span class="help-block">Display entries from, and including, this date</span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-2">To</label>
-                <div class="col-md-10">
-                    <input class="form-control" type="date" name="date">
-                    <span class="help-block">Display entries to, and including, this date</span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-2 text-semibold">Filter by Type</label>
-                <div class="col-md-10 row">
-                    <div class="col-md-12">
+            <div class="form-group col-lg-6">
+                <div class="row">
+                    <div>
                         <div class="radio">
                             <label>
-                                <input type="radio" name="radio-styled-color" class="control-success" checked="checked">
-                                Show Late
+                                <input type="radio" name="status-filter" class="control-success" value="any" checked="checked">
+                                Show All
                             </label>
                         </div>
 
                         <div class="radio">
                             <label>
-                                <input type="radio" name="radio-styled-color" class="control-success">
-                                Show Absent
+                                <input type="radio" name="status-filter" class="control-success" value="approved">
+                                Show <button class="label label-success">Approved</button> <small>(Approved Absences)</small>
                             </label>
                         </div>
 
                         <div class="radio">
                             <label>
-                                <input type="radio" name="radio-styled-color" class="control-success">
-                                Show Any
+                                <input type="radio" name="status-filter" class="control-success" value="pending">
+                                Show <button class="label label-info">Pending</button> <small>(Absence request made but not approved)</small>
+                            </label>
+                        </div>
+                        
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="status-filter" class="control-success" value="missing">
+                                Show <button class="label label-danger">Missing</button> <small>(Absent/late without notice)</small>
                             </label>
                         </div>
                     </div>
@@ -58,58 +66,51 @@
     <!-- Basic datatable -->
     <div class="panel panel-flat">
         <div class="panel-body">
-            This table displays the student marked as late or absent by the system. It reconciles the absences with parents' notice. Please acknowledge these messages as soon as possible.
-          <table class="table datatable-basic">
-          <tbody>
-            <tr><td><button class="label label-success">Approved</button></td><td>Message acknowledged by the school.</td></tr>
-            <tr><td><button class="label label-info">Pending Approval</button></td><td>Excuse message received by parent but not yet acknowledged by the school.</td></tr>
-            <tr><td><button class="label label-danger">Missing</button></td><td>Absent/late not excused yet by parents.</td></tr>
-          </tbody>
-          </table>
+            <!--<p>This table displays the student marked as late or absent by the system. It reconciles the absences with parents' notice. Please acknowledge these messages as soon as possible.</p>-->
+            <div class="col-lg-12 text-right">
+                <button id="AdminAbsentees__update" type="submit" class="btn btn-primary"><i class="icon-loop4"></i> Refresh</button>
+                <button id="AdminAbsentees__updateNotify" type="submit" class="btn btn-danger"><i class="icon-bell3"></i> Notify</button>
+            </div>
+            
+            {{#if Template.subscriptionsReady}}
+            <div class="col-lg-12 table-responsive">
+                <table class="table datatable-basic">
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Class</th>
+                            <th>Date</th>
+                            <th>Notified</th>
+                            <th>ETA</th>
+                            <th>Time Arrived</th>
+                            <th>Teacher</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each absentees}}
+                            <tr>
+                                <td><button class="AdminAbsentees__changeStatus label label-{{labelClass}}" data-id="{{_id}}" data-status="{{status}}">{{status}}</button></td>
+                                {{#with userData}}
+                                    <td>{{profile.firstName}}</td>
+                                    <td>{{profile.lastName}}</td>
+                                    <td>{{classroom}}</td>
+                                {{/with}}
+                                <td>{{date}}</td>
+                                <td>{{lastNotified}}</td>
+                                <td>{{eta}}</td>
+                                <td>{{arrivalTime}}</td>
+                                <td>{{admin}}</td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            {{else}}
+                <div>Loading Table...</div>
+            {{/if}}
         </div>
-        
-        <div class="text-right">
-            <button id="AdminAbsentees__update" type="submit" class="btn btn-primary">Update Now <i class="icon-arrow-right14 position-right"></i></button>
-            <button id="AdminAbsentees__updateNotify" type="submit" class="btn btn-danger">Update and Notify <i class="icon-arrow-right14 position-right"></i></button>
-        </div>
-        
-        {{#if Template.subscriptionsReady}}
-
-        <table class="table datatable-basic">
-            <thead>
-                <tr>
-                    <th>Status</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Class</th>
-                    <th>Date</th>
-                    <th>Notified</th>
-                    <th>ETA</th>
-                    <th>Time Arrived</th>
-                    <th>Teacher</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each absentees}}
-                    <tr>
-                        <td><button class="AdminAbsentees__changeStatus label label-{{labelClass}}" data-id="{{_id}}" data-status="{{status}}">{{status}}</button></td>
-                        {{#with userData}}
-                            <td>{{profile.firstName}}</td>
-                            <td>{{profile.lastName}}</td>
-                            <td>{{classroom}}</td>
-                        {{/with}}
-                        <td>{{date}}</td>
-                        <td>{{lastNotified}}</td>
-                        <td>{{eta}}</td>
-                        <td>{{arrivalTime}}</td>
-                        <td>{{admin}}</td>
-                    </tr>
-                {{/each}}
-            </tbody>
-        </table>
-        {{else}}
-            <div>Loading Table...</div>
-        {{/if}}
     </div>
     <!-- /basic datatable -->
 </template>

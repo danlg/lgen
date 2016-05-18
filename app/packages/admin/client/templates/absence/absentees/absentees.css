@@ -1,0 +1,8 @@
+.AdminAbsenceProcessed__updateFilter {
+    display: block;
+}
+
+.AdminAbsentees__update,
+.AdminAbsentees__updateNotify {
+    float: right;
+}
