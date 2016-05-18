@@ -286,6 +286,7 @@
         "ApplyForleave" : "You can also apply for leave",
         "AttendanceRecord" : "From Attendance Record:",
         "Noinschool" : "hasn't been school in",
+        "ConfirmToApplyLeaveFor": "Leave request",
         "Why" : "Do you know why?",
         "Reason" : "Because...",
         "Contact" : "Contact School",

@@ -23,11 +23,9 @@ Template.AttendanceRecordAdd.events({
             endDateTime: $('#end-date-time').val(),
             studentId: document.getElementById("children-id").value,
             studentName: document.getElementById('children-id').selectedOptions[0].text
-        }
+        };
 
         //console.log(applyLeaveObj);
-
-
         var transformObj = {
             namespace: applyLeaveObj.namespace,
             studentId: applyLeaveObj.studentId,
@@ -35,15 +33,14 @@ Template.AttendanceRecordAdd.events({
             dateFrom: moment(applyLeaveObj.startDate + " " + applyLeaveObj.startDateTime + "+0800").unix(),
             dateTo: moment(applyLeaveObj.endDate + " " + applyLeaveObj.endDateTime + "+0800").unix(),
             message: applyLeaveObj.leaveReason,
-            startDate: moment(applyLeaveObj.startDate + " " + applyLeaveObj.startDateTime + "+0800").toDate().toLocaleString({},{timeZone:"Asia/Hong_Kong"}),
-            endDate: moment(applyLeaveObj.endDate + " " + applyLeaveObj.endDateTime + "+0800").toDate().toLocaleString({},{timeZone:"Asia/Hong_Kong"}),
+            startDate: moment(applyLeaveObj.startDate + " " + applyLeaveObj.startDateTime + "+0800").format("LLLL"),
+            endDate: moment(applyLeaveObj.endDate + " " + applyLeaveObj.endDateTime + "+0800").format("LLLL"),
             studentName: applyLeaveObj.studentName
-        }
+        };
 
-        console.log(transformObj);
-
+        //console.log(transformObj);
         if (transformObj.dateFrom > transformObj.dateTo) {
-            toastr.info('Leave start date needs to be earlier than Leave end date')
+            toastr.info('Leave start date needs to be earlier than Leave end date');
             return;
         }
 
@@ -53,8 +50,8 @@ Template.AttendanceRecordAdd.events({
         }
 
         IonPopup.show({
-            title: TAPi18n.__("ConfirmToApplyLeaveFor") + ": " + transformObj.studentName,
-            subTitle: transformObj.startDate +' - '+ transformObj.endDate,
+            title: TAPi18n.__("absence.ConfirmToApplyLeaveFor") + " for " + transformObj.studentName,
+            subTitle: "From " + transformObj.startDate + '\nTo ' + transformObj.endDate,
             buttons: [
                 {
                     text: TAPi18n.__("Confirm"),
