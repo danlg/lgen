@@ -58,7 +58,16 @@ Smartix.Accounts.Relationships.createRelationship = function(options, currentUse
         //     throw new Meteor.Error("existing-parent-child-relationship", "existing parent-child relationship bewteen this two persons");
         // }
         
-        return Smartix.Accounts.Relationships.Collection.insert(options);
+        
+        
+        return Smartix.Accounts.Relationships.Collection.upsert({
+               parent: options.parent,
+               child: options.child,
+               namespace: options.namespace
+        }, options);
+        
+        // return Smartix.Accounts.Relationships.Collection.insert(options);
+        
     } else {
         throw new Meteor.Error("permission-denied", "The user does not have permission to perform this action.");
     }
