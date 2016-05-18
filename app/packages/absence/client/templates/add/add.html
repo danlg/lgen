@@ -1,7 +1,7 @@
 <template name='AttendanceRecordAdd'>
     
         {{#contentFor "headerTitle"}}
-            <h1 class="title">Apply for leave</h1>
+            <h1 class="title">{{_ "absence.ApplyForLeave" }}</h1>
         {{/contentFor}}
 
 
@@ -27,7 +27,7 @@
         {{#if Template.subscriptionsReady}}
         <div class="list ">
           <label class="item item-input">
-            Select a child to apply for leave:<br/>
+            {{_ "absence.SelectChild" }}:<br/>
             <select id="children-id">
                 {{#each getAllChildrens}}
                  
@@ -37,7 +37,7 @@
                   {{/with}}
                  </option>
                 {{else}}
-                 <option value="">You have no children in current school</option>
+                 <option value=""> {{_ "absence.NoChildren" }}</option>
                 {{/each}}
             </select>
           </label>

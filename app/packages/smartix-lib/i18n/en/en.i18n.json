@@ -270,5 +270,10 @@
                 "addSuccess": "User was added successfully"
             }
         }
+    },
+    "absence": {
+        "ApplyForLeave"  : "Apply for leave",
+        "SelectChild"  : "Select a child to apply for leave",
+        "NoChildren":  "You have no children in current school"
     }
 }
