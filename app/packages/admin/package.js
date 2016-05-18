@@ -17,6 +17,7 @@ Package.onUse(function(api) {
   api.use('templating');
   api.use('jquery');
   api.use('less');
+  api.use('reactive-var');
   api.use('reactive-dict');
   api.use('iron:router');
   api.use('aldeed:simple-schema');
@@ -117,6 +118,7 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/users/import-parents/import.js', 'web.browser');
   api.addFiles('client/templates/users/import-teachers/import.html', 'web.browser');
   api.addFiles('client/templates/users/import-teachers/import.js', 'web.browser');
+  api.addFiles('client/templates/users/relationships/relationships.css', 'web.browser');
   api.addFiles('client/templates/users/relationships/relationships.html', 'web.browser');
   api.addFiles('client/templates/users/relationships/relationships.js', 'web.browser');
   api.addFiles('client/less/_bootstrap/alerts.import.less', 'web.browser');
