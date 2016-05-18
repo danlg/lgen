@@ -10,7 +10,8 @@ Template.AdminUsersAdd.onRendered(function(){
             labelMonthSelect: 'Pick a month from the dropdown',
             labelYearSelect: 'Pick a year from the dropdown',
             selectMonths: true,
-            selectYears: true
+            selectYears: 40,
+            editable:true
         }
     );
 });
@@ -37,7 +38,7 @@ Template.AdminUsersAdd.events({
         }
 
         // If the user is a student, DOB is required
-        var dateFieldVal = template.$('#addUser-dob').eq(0).val();
+        var dateFieldVal = template.$('#addUser-dob_hidden').eq(0).val();
         if ( (roles.indexOf('student') > -1)  && dateFieldVal === "") {
             toastr.error(TAPi18n.__("admin.users.add.studentDobRequired"));
             return false;

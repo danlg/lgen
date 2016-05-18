@@ -347,7 +347,9 @@ Package.onUse(function (api) {
   api.addFiles('client/limitless/js/plugins/pickers/pickadate/picker.js', 'web.browser');
   api.addFiles('client/limitless/js/plugins/pickers/pickadate/picker.date.js', 'web.browser');
   api.addFiles('client/limitless/js/plugins/pickers/pickadate/picker.time.js', 'web.browser');
-  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/ar.js', 'web.browser');
+  
+  /*pickadate plugin does not support switch lang dynamic out of the box. For now comment out translation files */
+  /*api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/ar.js', 'web.browser');
   api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/bg_BG.js', 'web.browser');
   api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/bs_BA.js', 'web.browser');
   api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/ca_ES.js', 'web.browser');
@@ -385,7 +387,7 @@ Package.onUse(function (api) {
   api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/uk_UA.js', 'web.browser');
   api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/vi_VN.js', 'web.browser');
   api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/zh_CN.js', 'web.browser');
-  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/zh_TW.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/zh_TW.js', 'web.browser');*/
   /** add pickadate plugin ends **/
   
   api.addFiles('client/limitless/css/icomoon.css', 'web.browser');
