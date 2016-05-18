@@ -273,7 +273,7 @@
     },
     "absence": {
         "ApplyForLeave"  : "Apply for leave",
-        "SelectChild"  : "Select a child to apply for leave",
+        "SelectChild"  : "Which child will miss school?",
         "NoChildren" :  "You have no children in current school",
         "Localtime" : "The form should be filled in local time of school",
         "StartDate" : "Leave Start Date",
