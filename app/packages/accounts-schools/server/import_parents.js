@@ -355,15 +355,19 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser, d
             
             log.info(i+1, ". Attempting to create father " + student.fatherEmail + " with student ID "+  student.studentId);
         
-            let newFather = Smartix.Accounts.School.createParent({
-                namespace: namespace,
-                currentUser: currentUser,
-                email: student.fatherEmail,
-                parent: convertStudentObjectToFather(student),
-                student: studentData,
-                relationship: "Father",
-                doNotifyEmail: doNotifyEmail
-            });
+            let newFather;
+            try {
+                newFather = Smartix.Accounts.School.createParent({
+                    namespace: namespace,
+                    currentUser: currentUser,
+                    email: student.fatherEmail,
+                    parent: convertStudentObjectToFather(student),
+                    student: studentData,
+                    relationship: "Father",
+                    doNotifyEmail: doNotifyEmail
+                });
+            } catch(e) {}
+            
             if (newFather) {
                 if(newFather.isNew) {
                     returnObj.newUsers.push(newFather.id);
@@ -385,21 +389,24 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser, d
                 }
             } else {
                 returnObj.errors.push(
-                    new Meteor.Error('cannot-create-parent', 'Line ' + (i+1) + ": Cannot create father record for student with email " + student.studentEmail + " and/or student ID: " + student.studentId + ". Please ensure you have included either an email or a phone number.")
+                    new Meteor.Error('cannot-create-parent', 'Line ' + (i+1) + ": Cannot create father record for student with email " + student.studentEmail + " and/or student ID: " + student.studentId + ". Please ensure you have included all mandatory fields, and either an email or a phone number.")
                 )
             }
             
             log.info(i+1, ". Attempting to create mother " + student.motherEmail + " with student ID "+  student.studentId);
-
-            let newMother = Smartix.Accounts.School.createParent({
-                namespace: namespace,
-                currentUser: currentUser,
-                email: student.motherEmail,
-                parent: convertStudentObjectToMother(student),
-                student: studentData,
-                relationship: "Mother",
-                doNotifyEmail: doNotifyEmail
-            });
+            
+            let newMother;
+            try {
+                newMother = Smartix.Accounts.School.createParent({
+                    namespace: namespace,
+                    currentUser: currentUser,
+                    email: student.motherEmail,
+                    parent: convertStudentObjectToMother(student),
+                    student: studentData,
+                    relationship: "Mother",
+                    doNotifyEmail: doNotifyEmail
+                });
+            } catch(e) {}
             
             if (newMother) {
                 if(newMother.isNew) {
@@ -422,7 +429,7 @@ Smartix.Accounts.School.importParents = function(namespace, data, currentUser, d
                 }
             } else {
                 returnObj.errors.push(
-                    new Meteor.Error('cannot-create-parent', 'Line ' + (i+1) + ": Cannot create mother record for student with email " + student.studentEmail + " and/or student ID: " + student.studentId + ". Please ensure you have included either an email or a phone number.")
+                    new Meteor.Error('cannot-create-parent', 'Line ' + (i+1) + ": Cannot create mother record for student with email " + student.studentEmail + " and/or student ID: " + student.studentId + ". Please ensure you have included all mandatory fields, and either an email or a phone number.")
                 )
             }
         }
