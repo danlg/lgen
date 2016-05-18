@@ -42,6 +42,7 @@ Package.onUse(function(api) {
   api.addFiles('server/actual/actual.js', ['server']);
   api.addFiles('server/actual/methods.js', ['server']);
   api.addFiles('server/processed/processed.js', ['server']);
+  api.addFiles('server/processed/methods.js', ['server']);
   api.addFiles('server/processed/publications.js', ['server']);
   api.addFiles('server/notifications/notifications.js', ['server']);
   api.addFiles('server/notifications/post-notifications.js', ['server']);

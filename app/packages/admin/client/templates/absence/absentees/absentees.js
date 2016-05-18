@@ -136,5 +136,17 @@ Template.AdminAbsentees.events({
                 Meteor.call('smartix:absence/approveExpectedAbsence', expectedAbsenceId);
                 break;
         }
+    },
+    'click #AdminAbsentees__update': function () {
+        Meteor.call('smartix:absence/processAbsencesForDay', Template.instance().schoolNamespace, undefined, undefined, false, function (err, res) {
+            console.log(err);
+            console.log(res);
+        });
+    },
+    'click #AdminAbsentees__updateNotify': function () {
+        Meteor.call('smartix:absence/processAbsencesForDay', Template.instance().schoolNamespace, undefined, undefined, true, function (err, res) {
+            console.log(err);
+            console.log(res);
+        });
     }
 })

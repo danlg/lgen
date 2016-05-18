@@ -22,7 +22,7 @@ Smartix.Absence.processAbsences = function (namespace, currentUser) {
     // Smartix.Absence.Collections.processed.upsert();
 };
 
-Smartix.Absence.processAbsencesForDay = function (namespace, date, format, currentUser) {
+Smartix.Absence.processAbsencesForDay = function (namespace, date, format, notify, currentUser) {
     check(namespace, String);
     check(date, Match.Maybe(Match.OneOf(String, Date)));
     check(format, Match.Maybe(String));
@@ -185,7 +185,7 @@ Smartix.Absence.processAbsencesForDay = function (namespace, date, format, curre
                 })._id;
             }
             
-            if(!hasPhonedIn) {
+            if(!hasPhonedIn && notify) {
                 // Notify the parents
                 // Send notification
                 Smartix.Absence.notificationToParentForDetail(processId, currentUser);
