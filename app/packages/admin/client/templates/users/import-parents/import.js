@@ -101,7 +101,7 @@ Template.AdminParentsImport.events({
                         Session.set('manualNotifyUsers', res.manualNotifyUsers);
                         
                         toastr.info(res.newUsers.length + " new users have been imported.", null, toasterOption);
-                        toastr.info(res.existingUsers.length + " users already exists and was not imported.", null, toasterOption);
+                        toastr.info(res.existingUsers.length + " users already exists and were not imported.", null, toasterOption);
                     } else {
                         toastr.error(TAPi18n.__("admin.users.import.incorrectImportFormat"), null,toasterOption);
                         toastr.error(err.reason, null, toasterOption);
