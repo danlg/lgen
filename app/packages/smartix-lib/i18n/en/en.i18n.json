@@ -274,6 +274,34 @@
     "absence": {
         "ApplyForLeave"  : "Apply for leave",
         "SelectChild"  : "Select a child to apply for leave",
-        "NoChildren":  "You have no children in current school"
-    }
+        "NoChildren" :  "You have no children in current school",
+        "Localtime" : "The form should be filled in local time of school",
+        "StartDate" : "Leave Start Date",
+        "From" : "From",
+        "EndDate": "Leave End Date",
+        "To" : "To",
+        "Submit" : "Submit",
+        "Attendance" : "Attendance",
+        "Notification" : "We will send you a notification and ask for details if we find that your children is not presented in a school day.",
+        "ApplyForleave" : "You can also apply for leave",
+        "AttendanceRecord" : "From Attendance Record:",
+        "Noinschool" : "hasn't been school in",
+        "Why" : "Do you know why?",
+        "Reason" : "Because...",
+        "Contact" : "Contact School",
+        "Viewapplication" : "View applied leave(s)",
+        "NoNews" : "No News",
+        "Application" : "Leave Applications",
+        "Reference" : "ReferenceID",
+        "Student" : "Student",
+        "Apply" : "Apply By",
+        "Reasontoleave" : "Reason to leave",
+        "Approve" : "Approved?",
+        "Yes" : "Yes",
+        "No": "No",
+        "Schoolhas" : "School has",
+        "approved" : "approved",
+        "Thisapplication" : "this application at",
+        "Noapplication" : "No leave application"
+    } 
 }

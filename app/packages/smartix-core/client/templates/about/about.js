@@ -15,8 +15,8 @@ Template.About.helpers({
     //TODO fix me on web version !
     else {
       //let txt = Assets.getText("../../mobile-config.js");
-      log.info(txt);
-      return (Meteor.settings && Meteor.settings.VERSION) ?  Meteor.settings.VERSION : "1.2.1"
+      //log.info(txt);
+      return (Meteor.settings && Meteor.settings.VERSION) ?  Meteor.settings.VERSION : "1.2.1";
     }
 
   },

@@ -43,26 +43,26 @@
           </label>
         <div class="card">
             <div class="item item-text-wrap smaller less-top-bottom-padding">
-              The form should be filled in local time of school
+              {{_ "absence.Localtime" }}
             </div>
         </div>
         
           <label class="item less-top-bottom-padding">
-            Leave Start Date
+              {{_ "absence.StartDate" }}
             <input id='start-date' type="date" value='{{getTodayDate}}' oninvalid="setCustomValidity('Start Date cannot be emptied')"
             oninput="setCustomValidity('')" placeholder="Start Date" required>
           </label>
           <label class="item less-top-bottom-padding">
-            From
+             {{_ "absence.From" }}
             <input id='start-date-time' type="time" value='{{getDefaultStartDateTime}}' oninvalid="setCustomValidity('Start Date Time cannot be emptied')"
             oninput="setCustomValidity('')" placeholder="Start Date Time" required>
           </label>        
           <label class="item less-top-bottom-padding">
-            Leave End Date
+             {{_ "absence.EndDate" }}
             <input id='end-date' type="date" value='{{getTodayDate}}' placeholder="End Date" required>
           </label>
           <label class="item less-top-bottom-padding">
-            To
+             {{_ "absence.To" }}
             <input id='end-date-time' type="time" value='{{getDefaultEndDateTime}}' placeholder="End Date Time" required>
           </label>
           <label class="item item-input">
@@ -72,7 +72,7 @@
             <input id='content' type="text" value='{{email}}' placeholder="Content">
           </label>-->
           
-          <button type='button' class="apply-leave-btn button button-block button-positive">Submit</button>		  	  
+          <button type='button' class="apply-leave-btn button button-block button-positive">{{_ "absence.Submit" }}</button>		  	  
         </div>
         {{/if}}
 	   </form>

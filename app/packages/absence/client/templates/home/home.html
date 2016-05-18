@@ -1,6 +1,6 @@
 <template name="AttendanceHome">
   {{#contentFor "headerTitle"}}
-     <h1 class="title">Attendance</h1>
+     <h1 class="title">{{_ "absence.Attendance" }}</h1>
   {{/contentFor}}
 
 
@@ -22,9 +22,9 @@
     {{#ionContent}}
         <div class="card">
             <div class="item item-text-wrap smaller">
-               We will send you a notification and ask for details if we find that your children is not presented in a school day.
+               {{_ "absence.Notification" }}
                <br/>
-               You can also apply for leave
+               {{_ "absence.ApplyForleave" }}
             </div>
         </div>
         
@@ -32,19 +32,19 @@
         <div class='card'>
                 
                     <div class="item item-divider">
-                    From Attendance Record:
+                    {{_ "absence.AttendanceRecord" }}
                     </div>            
                     <div class="item item-text-wrap smaller">
                         {{#with getUserById studentId}}
                             {{profile.firstName}} {{profile.lastName}}
                         {{/with}}
-                        hasn't been school in {{date}}.
-                        Do you know why?
+                        {{_ "absence.Noinschool" }} {{date}}.
+                        {{_ "absence.Why" }}
                     </div>
                     <div class="button-bar bar-light">
-                        <a href="{{pathFor route='attendance.addByProcess' school=getCurrentSchoolName processId=getProcessId }}" class="button">Because...</a>
+                        <a href="{{pathFor route='attendance.addByProcess' school=getCurrentSchoolName processId=getProcessId }}" class="button">{{_ "absence.Reason" }}</a>
                         <!--<a data-id='{{_id}}' class="i-dont-know-btn button">I don't know</a>-->
-                        <a href="{{pathFor route='mobile.school.contact' school=getCurrentSchoolName}}" class="button">Contact School</a>
+                        <a href="{{pathFor route='mobile.school.contact' school=getCurrentSchoolName}}" class="button">{{_ "absence.Contact" }}</a>
                     </div>                
                 
                 <!--<div class="item item-divider">
@@ -62,13 +62,13 @@
         {{/each}}  
     <div class="list">
         <a href="{{pathFor route='attendance.add' school=getCurrentSchoolName}}" class="item item-button-right">
-            Apply for leave
+            {{_ "absence.ApplyForLeave" }}
             <button class="button button-positive">
             <i class="icon ion-ios-plus-outline"></i>
             </button>
         </a>
         <a href="{{pathFor route='attendance.list' school=getCurrentSchoolName}}" class="item item-button-right">
-            View applied leave(s)
+            {{_ "absence.Viewapplication" }}
             {{#if sumOfNewAttendanceApprovedCounter}}
               <span class='badge badge-assertive'>{{sumOfNewAttendanceApprovedCounter}}</span>
             {{/if}}   
@@ -85,7 +85,7 @@
             {{else}}
             
                 <a class="item" href="#">
-                    No News
+                    {{_ "absence.NoNews" }}
                 </a>         
             {{/each}}
          {{/with}}      
