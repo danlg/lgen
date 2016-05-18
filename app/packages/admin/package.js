@@ -7,11 +7,11 @@ Package.describe({
 });
 
 Npm.depends({
-     jszip: "3.0.0",
-     xlsx: "https://github.com/d4nyll/js-xlsx/archive/36e68fcc15a71f49fea4e73f8bc15ff4acbaa34e.tar.gz"
+  jszip: "3.0.0",
+  xlsx: "https://github.com/d4nyll/js-xlsx/archive/36e68fcc15a71f49fea4e73f8bc15ff4acbaa34e.tar.gz"
 });
 
-Package.onUse(function(api) {
+Package.onUse(function (api) {
   api.versionsFrom('1.3.1');
   api.use('ecmascript');
   api.use('templating');
@@ -27,7 +27,7 @@ Package.onUse(function(api) {
   api.use('easy:search@2.0.9');
   api.use('stevezhu:lodash@4.6.1');
   api.use('alethes:pages@1.8.6');
-  
+
   api.use('smartix:lib@0.0.1');
   api.use('smartix:utilities@0.0.1');
   api.use('smartix:news@0.0.1');
@@ -37,11 +37,11 @@ Package.onUse(function(api) {
   api.use('smartix:schools@0.0.1');
   api.use('smartix:accounts-schools@0.0.1');
   api.use('smartix:messages@0.0.1', 'client')
-  api.use('smartix:calendarevent','client');
-  api.use('smartix:absence',['client', 'server']);
-  
+  api.use('smartix:calendarevent', 'client');
+  api.use('smartix:absence', ['client', 'server']);
+
   api.use('danielqiu:feed');
-  
+
   api.addAssets('client/assets/parents_import_template.csv', 'client');
   api.addAssets('client/assets/students_import_template.csv', 'client');
   api.addAssets('client/assets/teachers_import_template.csv', 'client');
@@ -93,7 +93,7 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/newsgroups/add/add.html', 'web.browser');
   api.addFiles('client/templates/newsgroups/add/add.js', 'web.browser');
   api.addFiles('client/templates/newsgroups/import/import.html', 'web.browser');
-  api.addFiles('client/templates/newsgroups/import/import.js', 'web.browser');  
+  api.addFiles('client/templates/newsgroups/import/import.js', 'web.browser');
   api.addFiles('client/templates/news/add/add.html', 'web.browser');
   api.addFiles('client/templates/news/add/add.js', 'web.browser');
   api.addFiles('client/templates/news/import/import.html', 'web.browser');
@@ -102,7 +102,7 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/rss/view/view.js', 'web.browser');
   api.addFiles('client/templates/rss/add/add.html', 'web.browser');
   api.addFiles('client/templates/rss/add/add.js', 'web.browser');
-  
+
   api.addFiles('client/templates/users/list/index.js', 'web.browser');
   api.addFiles('client/templates/users/list/list.html', 'web.browser');
   api.addFiles('client/templates/users/list/list.js', 'web.browser');
@@ -342,10 +342,56 @@ Package.onUse(function(api) {
   api.addFiles('client/limitless/js/extra_fab.js', 'web.browser');
   api.addFiles('client/limitless/js/datatable_basic.js', 'web.browser');
   api.addFiles('client/limitless/js/app.js', 'web.browser');
+
+  /** add pickadate plugin **/
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/picker.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/picker.date.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/picker.time.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/ar.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/bg_BG.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/bs_BA.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/ca_ES.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/cs_CZ.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/da_DK.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/de_DE.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/el_GR.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/es_ES.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/et_EE.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/eu_ES.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/fi_FI.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/fr_FR.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/gl_ES.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/he_IL.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/hr_HR.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/hu_HU.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/id_ID.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/is_IS.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/it_IT.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/ja_JP.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/ko_KR.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/ne_NP.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/nl_NL.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/no_NO.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/pl_PL.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/pt_BR.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/pt_PT.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/ro_RO.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/ru_RU.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/sk_SK.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/sl_SI.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/sv_SE.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/th_TH.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/tr_TR.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/uk_UA.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/vi_VN.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/zh_CN.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/zh_TW.js', 'web.browser');
+  /** add pickadate plugin ends **/
+  
   api.addFiles('client/limitless/css/icomoon.css', 'web.browser');
 });
 
-Package.onTest(function(api) {
+Package.onTest(function (api) {
   api.use('ecmascript');
   api.use('tinytest');
   api.use('smartix:admin');
