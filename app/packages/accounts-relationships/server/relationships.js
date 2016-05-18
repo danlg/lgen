@@ -64,7 +64,9 @@ Smartix.Accounts.Relationships.createRelationship = function(options, currentUse
                parent: options.parent,
                child: options.child,
                namespace: options.namespace
-        }, options);
+        }, {
+            $set: options
+        });
         
         // return Smartix.Accounts.Relationships.Collection.insert(options);
         
