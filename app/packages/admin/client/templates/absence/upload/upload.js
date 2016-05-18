@@ -14,6 +14,12 @@ var processData = function(csv) {
     return allTextLines.join("\n");
 };
 
+var clearData = function () {
+    Session.set('imported-attendence', undefined);
+    $('#AdminUploadAttendence__upload-xlsx').val("");
+    $('#AdminUploadAttendence__upload-csv').val("");
+}
+
 Template.AdminUploadAttendence.events({
     'change #AdminUploadAttendence__upload-xlsx': function (event, template) {
         
@@ -85,11 +91,10 @@ Template.AdminUploadAttendence.events({
                 toastr.error(err.details);
             }
         });
+        clearData();
     },
     'click #AdminUploadAttendence__clear': function () {
-        Session.set('imported-attendence', undefined);
-        $('#AdminUploadAttendence__upload-xlsx').val("");
-        $('#AdminUploadAttendence__upload-csv').val("");
+        clearData();
     }
 });
 
@@ -100,5 +105,5 @@ Template.AdminUploadAttendence.helpers({
 });
 
 Template.AdminUploadAttendence.onDestroyed(function () {
-    Session.set('imported-attendence', null);
+    Session.set('imported-attendence', undefined);
 });

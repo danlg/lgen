@@ -18,34 +18,36 @@
                     <input type="file" id="AdminUploadAttendence__upload-csv" class="file-input" data-show-caption="false" data-show-upload="false">
                 </div>
             </div>
-            <table id="AdminUploadAttendence__preview-table" class="table datatable-basic">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Name</th>
-                        <th>Department</th>
-                        <th>ClockIn</th>
-                        <th>Late</th>
-                        <th>Absent</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each importedAttendence}}
-                    <tr>
-                        <td>{{date}}</td>
-                        <td>{{name}}</td>
-                        <td>{{department}}</td>
-                        <td>{{clockIn}}</td>
-                        <td>{{late}}</td>
-                        <td>{{absent}}</td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-            <div class="text-right">
-                <button id="AdminUploadAttendence__clear" class="btn btn-default">Clear</button>
-                <button id="AdminUploadAttendence__submit" type="submit" class="btn btn-primary">Upload Attendence <i class="icon-arrow-right14 position-right"></i></button>
-            </div>
+            {{#if importedAttendence}}
+                <table id="AdminUploadAttendence__preview-table" class="table datatable-basic">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Name</th>
+                            <th>Department</th>
+                            <th>ClockIn</th>
+                            <th>Late</th>
+                            <th>Absent</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each importedAttendence}}
+                        <tr>
+                            <td>{{date}}</td>
+                            <td>{{name}}</td>
+                            <td>{{department}}</td>
+                            <td>{{clockIn}}</td>
+                            <td>{{late}}</td>
+                            <td>{{absent}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                <div class="text-right">
+                    <button id="AdminUploadAttendence__clear" class="btn btn-default">Clear</button>
+                    <button id="AdminUploadAttendence__submit" type="submit" class="btn btn-primary">Upload Attendence <i class="icon-arrow-right14 position-right"></i></button>
+                </div>
+            {{/if}}
             <div id="AdminUploadAttendence__errorMsgBlock">
 
             </div>
