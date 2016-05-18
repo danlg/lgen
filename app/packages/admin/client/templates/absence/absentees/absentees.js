@@ -3,19 +3,16 @@ Template.AdminAbsentees.onCreated(function () {
     if(Router
     && Router.current()
     && Router.current().params.school) {
-        var schoolUsername = Router.current().params.school;
-        self.subscribe('schoolInfo', schoolUsername, function () {
-            self.schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolUsername);
-            
-            if(self.schoolNamespace) {
-                self.subscribe('schoolAdmins', self.schoolNamespace);
-                self.subscribe('smartix:absence/allAbsences', self.schoolNamespace, function () {
-                    self.subscribe('smartix:absence/absentUsers', self.schoolNamespace, function () {
-                    });
+        self.schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(Router.current().params.school);
+        
+        if(self.schoolNamespace) {
+            self.subscribe('schoolAdmins', self.schoolNamespace);
+            self.subscribe('smartix:absence/allAbsences', self.schoolNamespace, function () {
+                self.subscribe('smartix:absence/absentUsers', self.schoolNamespace, function () {
                 });
-                self.subscribe('smartix:absence/expectedAbsences', self.schoolNamespace);
-            }
-        });
+            });
+            self.subscribe('smartix:absence/expectedAbsences', self.schoolNamespace);
+        }
     }
     
     // Set defaults for the filter
