@@ -45,9 +45,10 @@ Package.onUse(function (api) {
   api.addAssets('client/assets/parents_import_template.csv', 'client');
   api.addAssets('client/assets/students_import_template.csv', 'client');
   api.addAssets('client/assets/teachers_import_template.csv', 'client');
-  api.addAssets('client/assets/import-guide-csv.png', 'client');
+  api.addAssets('client/assets/import-guide-excel-csv.png', 'client');
   api.addAssets('client/assets/import-parents-preview.png', 'client');
   api.addAssets('client/assets/import-student-preview.png', 'client');
+  api.addAssets('client/assets/import-teachers-preview.png', 'client');
   api.addFiles('routes.js', ['web.browser', 'server']);
   api.addFiles('client/layouts/admin-layout.html', 'web.browser');
   api.addFiles('client/layouts/admin-layout.js', 'web.browser');
