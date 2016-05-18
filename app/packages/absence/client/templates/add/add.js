@@ -32,15 +32,15 @@ Template.AttendanceRecordAdd.events({
             namespace: applyLeaveObj.namespace,
             studentId: applyLeaveObj.studentId,
             reporterId: Meteor.userId(),
-            dateFrom: moment(new Date(applyLeaveObj.startDate + " " + applyLeaveObj.startDateTime + " GMT+0800")).unix(),
-            dateTo: moment(new Date(applyLeaveObj.endDate + " " + applyLeaveObj.endDateTime + " GMT+0800")).unix(),
+            dateFrom: moment(applyLeaveObj.startDate + " " + applyLeaveObj.startDateTime + "+0800").unix(),
+            dateTo: moment(applyLeaveObj.endDate + " " + applyLeaveObj.endDateTime + "+0800").unix(),
             message: applyLeaveObj.leaveReason,
-            startDate: new Date(applyLeaveObj.startDate + " " + applyLeaveObj.startDateTime + " GMT+0800").toLocaleString({},{timeZone:"Asia/Hong_Kong"}),
-            endDate: new Date(applyLeaveObj.endDate + " " + applyLeaveObj.endDateTime + " GMT+0800").toLocaleString({},{timeZone:"Asia/Hong_Kong"}),
+            startDate: moment(applyLeaveObj.startDate + " " + applyLeaveObj.startDateTime + "+0800").format(),
+            endDate: moment(applyLeaveObj.endDate + " " + applyLeaveObj.endDateTime + "+0800").format(),
             studentName: applyLeaveObj.studentName
         }
 
-        //console.log(transformObj);
+        console.log(transformObj);
 
         if (transformObj.dateFrom > transformObj.dateTo) {
             toastr.info('Leave start date needs to be earlier than Leave end date')
