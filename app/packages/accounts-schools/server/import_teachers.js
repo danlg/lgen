@@ -174,14 +174,14 @@ Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser, 
 			let classRegEx = /^class([0-9]{1,2})$/ig;
 			if(key.match(classRegEx)) {
 				// Create the distribution list, and add the teacher to the list
-				log.info("Creating distribution list "+ val + " for teacher "+ teacherId);
-				Smartix.DistributionLists.createDistributionList({
-					users: [teacherId],
-					namespace: namespace,
-					name: val,
-					expectDuplicates: true,
-					upsert: true
-				}, currentUser);
+				// log.info("Creating distribution list "+ val + " for teacher "+ teacherId);
+				// Smartix.DistributionLists.createDistributionList({
+				// 	users: [teacherId],
+				// 	namespace: namespace,
+				// 	name: val,
+				// 	expectDuplicates: true,
+				// 	upsert: true
+				// }, currentUser);
 
 				// Add the users in the distribution list to the class
 				let match = classRegEx.exec(key);
@@ -199,6 +199,7 @@ Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser, 
 						type: "distributionList"
 					});
 					if(correspondingClass && thisDistributionList) {
+						log.info("Adding users to class "+ teacher[classNameFieldName] + " from teacher "+ teacherId + " from dist list " + val);
 						// Gets a list of all users who are not the teacher
 						let studentUsers = _.pull(thisDistributionList.users, correspondingClass.admins, teacherId);
 						Smartix.Class.addUsersToClass(correspondingClass._id, studentUsers);
