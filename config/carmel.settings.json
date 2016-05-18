@@ -1,0 +1,41 @@
+{
+  "public": {
+    "persistent_session": {
+      "default_method": "persistent"
+    },
+    "analyticsSettings": {
+      "Mixpanel": {
+        "token": "ed2cc0f567e1d57a89cc4aceb93811ec",
+        "people": true
+      }
+    },
+
+    "ROOT_URL": "https://carmel.gosmartix.com",
+    "PORT":443,
+
+    "SHARE_URL": "https://carmel.gosmartix.com",
+    "GOOGLE_PLAY_URL":"https://play.google.com/store/apps/details?id=com.gosmartix.smartix",
+    "APP_STORE_URL":"https://itunes.apple.com/hk/app/smartix-school-instant-messaging/id1036105942?mt=8&ign-mpt=uo%3D4"
+  },
+
+  "GOOGLE_CLIENT_ID": "122417300165-bq0l4khepcibitqksgrmkuvqrdintiuc.apps.googleusercontent.com",
+  "GOOGLE_SECRET": "kCwDY5lY6wWz8KsGB4fTVwNp",
+
+  "SPARKPOST_HOST": "smtp.sparkpostmail.com",
+  "SPARKPOST_PORT": "587",
+  "SPARKPOST_USERNAME": "SMTP_Injection",
+  "SPARKPOST_PASSWORD": "67eaa68e98ff43eca9441b6a9a9888a864fe8064",
+    
+  "FROM_EMAIL": "contactemail@gosmartix.com",
+  "FROM_NAME": "Smartix",
+  "FEEDBACK_EMAIL": "feedback@gosmartix.com",
+
+  "RSS_FETCH_INTERVAL": 1800000,
+  "RSS_PROCESS_INTERVAL": 1800000,
+
+  "kadira": { 
+    "appId": "R3JDmnkKytkupQkcQ", 
+    "appSecret": "15a08f72-98be-4f21-a004-f282f5aa343e" 
+  }
+
+}
