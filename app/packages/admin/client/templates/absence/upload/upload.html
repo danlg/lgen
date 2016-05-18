@@ -1,24 +1,49 @@
 <template name="AdminUploadAttendence">
     <div class="panel panel-flat">
         <div class="panel-heading">
-            <h1>Upload Attendance</h1>
+            <h1>Upload Attendence</h1>
         </div>
 
         <div class="panel-body">
-
-            <div id="AdminUploadAttendence__file-input" class="file-input file-input-new">
+            
+            <div class="AdminUploadAttendence__file-input file-input file-input-new">
                 <div tabindex="500" class="btn btn-primary btn-file legitRipple">
                     <i class="icon-file-plus"></i> <span class="hidden-xs">Upload XLSX</span>
-                    <input disabled=disabled type="file" id="AdminUploadAttendence__upload-file" class="file-input" data-show-caption="false" data-show-upload="false">
+                    <input type="file" id="AdminUploadAttendence__upload-xlsx" class="file-input" data-show-caption="false" data-show-upload="false">
                 </div>
             </div>
-            <div id="AdminUploadAttendence__file-input" class="file-input file-input-new">
+            <div class="AdminUploadAttendence__file-input file-input file-input-new">
                 <div tabindex="500" class="btn btn-primary btn-file legitRipple">
                     <i class="icon-file-plus"></i> <span class="hidden-xs">Upload CSV</span>
                     <input type="file" id="AdminUploadAttendence__upload-csv" class="file-input" data-show-caption="false" data-show-upload="false">
                 </div>
             </div>
+            <table id="AdminUploadAttendence__preview-table" class="table datatable-basic">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>ClockIn</th>
+                        <th>Late</th>
+                        <th>Absent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each importedAttendence}}
+                    <tr>
+                        <td>{{date}}</td>
+                        <td>{{name}}</td>
+                        <td>{{department}}</td>
+                        <td>{{clockIn}}</td>
+                        <td>{{late}}</td>
+                        <td>{{absent}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
             <div class="text-right">
+                <button id="AdminUploadAttendence__clear" class="btn btn-default">Clear</button>
                 <button id="AdminUploadAttendence__submit" type="submit" class="btn btn-primary">Upload Attendence <i class="icon-arrow-right14 position-right"></i></button>
             </div>
             <div id="AdminUploadAttendence__errorMsgBlock">

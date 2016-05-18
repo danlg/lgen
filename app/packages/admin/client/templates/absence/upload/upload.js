@@ -15,40 +15,38 @@ var processData = function(csv) {
 };
 
 Template.AdminUploadAttendence.events({
-    'change #AdminUploadAttendence__upload-file': function (event, template) {
+    'change #AdminUploadAttendence__upload-xlsx': function (event, template) {
         
-        // var files = event.currentTarget.files;
-        // var file = files[0];
-        // var reader = new FileReader();
-        // reader.onload = function(e) {
-        //     var data = this.result;
-        //     var workbook = XLSX.read(data, {type: 'binary'});
-        //     var first_sheet_name = workbook.SheetNames[0];
-        //     var attendenceAsJSON = XLSX.utils.sheet_to_json(workbook.Sheets[first_sheet_name]);
+        var files = event.currentTarget.files;
+        var file = files[0];
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var data = this.result;
+            var workbook = XLSX.read(data, {type: 'binary'});
+            var first_sheet_name = workbook.SheetNames[0];
+            var attendenceAsJSON = XLSX.utils.sheet_to_json(workbook.Sheets[first_sheet_name]);
             
-        //     var fieldMap = {
-        //         "Absent": 'absent',
-        //         "Clock In": 'clockIn',
-        //         "Date": 'date',
-        //         "Department": 'department',
-        //         "Late": 'late',
-        //         "Name": 'name'
-        //     };
+            var fieldMap = {
+                "Absent": 'absent',
+                "Clock In": 'clockIn',
+                "Date": 'date',
+                "Department": 'department',
+                "Late": 'late',
+                "Name": 'name'
+            };
             
-        //     processedAttendenceJSON = [];
-        //     _.each(attendenceAsJSON, function(object) {
-        //         return processedAttendenceJSON.push(_.reduce(object, function(finalObject, value, key) {
-        //             key = fieldMap[key] || key;
-        //             finalObject[key] = value;
-        //             return finalObject;
-        //         }, {}));
-        //     });
+            processedAttendenceJSON = [];
+            _.each(attendenceAsJSON, function(object) {
+                return processedAttendenceJSON.push(_.reduce(object, function(finalObject, value, key) {
+                    key = fieldMap[key] || key;
+                    finalObject[key] = value;
+                    return finalObject;
+                }, {}));
+            });
             
-        //     Meteor.call('smartix:absence/updateAttendenceRecord', processedAttendenceJSON, Router.current().params.school, function (err, res) {
-                
-        //     });
-        // };
-        // reader.readAsBinaryString(file);
+            Session.set('imported-attendence', processedAttendenceJSON);
+        };
+        reader.readAsBinaryString(file);
         
         
     },
@@ -87,6 +85,11 @@ Template.AdminUploadAttendence.events({
                 toastr.error(err.details);
             }
         });
+    },
+    'click #AdminUploadAttendence__clear': function () {
+        Session.set('imported-attendence', undefined);
+        $('#AdminUploadAttendence__upload-xlsx').val("");
+        $('#AdminUploadAttendence__upload-csv').val("");
     }
 });
 
