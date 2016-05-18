@@ -28,6 +28,8 @@ Template.AdminAbsenceExpected.onCreated(function () {
     this.expectedAbsencesFilter = new ReactiveDict();
     this.expectedAbsencesFilter.set('from', moment(Date.now()).format("YYYY-MM-DD"));
     this.expectedAbsencesFilter.set('to', moment(Date.now()).add(1, 'day').format("YYYY-MM-DD"));
+    this.expectedAbsencesFilter.set('status', "any");
+    this.expectedAbsencesFilter.set('name', undefined);
 });
 
 Template.AdminAbsenceExpected.helpers({
@@ -45,13 +47,53 @@ Template.AdminAbsenceExpected.helpers({
         var dateFromTS = moment.utc(dateFrom, "YYYY-MM-DD").startOf('day').subtract(8, 'hours').unix();
         var dateToTS = moment.utc(dateTo, "YYYY-MM-DD").endOf('day').subtract(8, 'hours').unix();
         
+        var status = Template.instance().expectedAbsencesFilter.get('status');
+        var name = Template.instance().expectedAbsencesFilter.get('name');
+        
+        var usersWithMatchingNameIds = [];
+        
+        if(name) {
+            // Find all users with 
+            var usersWithMatchingName = Meteor.users.find({
+                $or: [
+                    {
+                        "profile.firstName": {
+                            $regex : name
+                        }
+                    },
+                    {
+                        "profile.lastName": {
+                            $regex : name
+                        }
+                    }
+                ]
+                
+            }).fetch();
+            
+            usersWithMatchingNameIds = _.map(usersWithMatchingName, function (user) {
+                return user._id;
+            })
+        }
+        
+        var studentIdSelector = usersWithMatchingNameIds.length > 0 ? {$in: usersWithMatchingNameIds} : {$exists: true};
+        
+        if(status === "any") {
+            status = {$exists: true};
+        } else if (status === "approved") {
+            status = true;
+        } else {
+            status = false
+        }
+        
         return Smartix.Absence.Collections.expected.find({
+            studentId: studentIdSelector,
             dateFrom: {
                 $lte: dateToTS
             },
             dateTo: {
                 $gte: dateFromTS
             },
+            approved: status,
             namespace: Smartix.Accounts.School.getNamespaceFromSchoolName(Router.current().params.school)
         });
     },
@@ -80,5 +122,7 @@ Template.AdminAbsenceExpected.events({
     'click #AdminAbsenceExpected__updateFilter': function (event, template) {
         Template.instance().expectedAbsencesFilter.set('from', template.$('#AdminAbsenceExpected__startDate').eq(0).val());
         Template.instance().expectedAbsencesFilter.set('to', template.$('#AdminAbsenceExpected__endDate').eq(0).val());
+        Template.instance().expectedAbsencesFilter.set('status', template.$("input[name='status-filter']:checked").val());
+        Template.instance().expectedAbsencesFilter.set('name', template.$("#AdminAbsenceExpected__studentName").val());
     }
 })

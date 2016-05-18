@@ -5,96 +5,91 @@
         </div>
 
         <div class="panel-body">
-            <div class="form-group">
-                <label class="control-label col-lg-2">Student Name</label>
-                <div class="col-lg-10">
-                    <input type="text" class="form-control" placeholder="Student's First/Last name">
-                    <span class="help-block">Filter students by first/last name</span>
+            <div class="col-lg-6 form-group">
+                <div class="">
+                    <label class="control-label col-lg-4">Student Name</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" id="AdminAbsenceExpected__studentName" placeholder="Filter students by First/Last Name">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-2">From</label>
-                <div class="col-md-10">
-                    <input class="form-control" type="date" name="startDate" id="AdminAbsenceExpected__startDate" value="{{filterStartDate}}">
-                    <span class="help-block">Display entries from, and including, this date</span>
+                <div>
+                    <label class="control-label col-md-4">From</label>
+                    <div class="col-md-8">
+                        <input class="form-control" type="date" name="startDate" id="AdminAbsenceExpected__startDate" value="{{filterStartDate}}">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-2">To</label>
-                <div class="col-md-10">
-                    <input class="form-control" type="date" name="endDate" id="AdminAbsenceExpected__endDate" value="{{filterEndDate}}">
-                    <span class="help-block">Display entries to, and including, this date</span>
+                <div>
+                    <label class="control-label col-md-4">To</label>
+                    <div class="col-md-8">
+                        <input class="form-control" type="date" name="endDate" id="AdminAbsenceExpected__endDate" value="{{filterEndDate}}">
+                    </div>
                 </div>
+                <button id="AdminAbsenceExpected__updateFilter" type="submit" class="btn btn-primary">Update Filters <i class="icon-arrow-right14 position-right"></i></button>
             </div>
-            <div class="form-group">
-                <label class="control-label col-md-2 text-semibold">Filter by Type</label>
-                <div class="col-md-10 row">
+            <div class="col-lg-6 form-group">
+                <div>
                     <div class="col-md-12">
                         <div class="radio">
                             <label>
-                                <input type="radio" name="radio-styled-color" class="control-success" checked="checked">
-                                Excused Any
+                                <input type="radio" name="status-filter" class="control-success" value="any" checked="checked">
+                                Show All
                             </label>
                         </div>
                         <div class="radio">
                             <label>
-                                <input type="radio" name="radio-styled-color" class="control-success">
-                                Excused Late
+                                <input type="radio" name="status-filter" class="control-success" value="approved">
+                                Show <button class="label label-success">Approved</button>
                             </label>
                         </div>
 
                         <div class="radio">
                             <label>
-                                <input type="radio" name="radio-styled-color" class="control-success">
-                                Excused Absent
+                                <input type="radio" name="status-filter" class="control-success" value="pending">
+                                Show <button class="label label-info">Pending</button>
                             </label>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="text-right">
-                <button id="AdminAbsenceExpected__updateFilter" type="submit" class="btn btn-primary">Update Filters <i class="icon-arrow-right14 position-right"></i></button>
-            </div>
         </div>
     </div>
     <!-- Basic datatable -->
     <div class="panel panel-flat">
-        <div class="panel-body">
-            These are the messages for which the parent/guardian of the student(s) have sent as notice that the student will be late/absent. Please acknowledge these messages as soon as possible.
-        </div>
-
-        <table class="table datatable-basic">
-            <thead>
-                <tr>
-                    <th>Status</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Start</th>
-                    <th>End</th>
-                    <th>Message</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each expectedAbsence}}
+        <div class="panel-body table-responsive">
+            <!--These are the messages for which the parent/guardian of the student(s) have sent as notice that the student will be late/absent. Please acknowledge these messages as soon as possible.-->
+            <table class="table datatable-basic">
+                <thead>
                     <tr>
-                        <td>
-                            {{#if approved}}
-                                <button class="AdminAbsenceExpected__unapprove">Approved</button>
-                            {{else}}
-                                <button class="AdminAbsenceExpected__approve">Pending</button>
-                            {{/if}}
-                        </td>
-                        {{#with userData}}
-                            <td>{{profile.firstName}}</td>
-                            <td>{{profile.lastName}}</td>
-                        {{/with}}
-                        <td>{{startDateTime}}</td>
-                        <td>{{endDateTime}}</td>
-                        <td>{{message}}</td>
+                        <th>Status</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Message</th>
                     </tr>
-                {{/each}}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {{#each expectedAbsence}}
+                        <tr>
+                            <td>
+                                {{#if approved}}
+                                    <button class="AdminAbsenceExpected__unapprove label label-success">Approved</button>
+                                {{else}}
+                                    <button class="AdminAbsenceExpected__approve label label-info">Pending</button>
+                                {{/if}}
+                            </td>
+                            {{#with userData}}
+                                <td>{{profile.firstName}}</td>
+                                <td>{{profile.lastName}}</td>
+                            {{/with}}
+                            <td>{{startDateTime}}</td>
+                            <td>{{endDateTime}}</td>
+                            <td>{{message}}</td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
     </div>
     <!-- /basic datatable -->
 </template>
