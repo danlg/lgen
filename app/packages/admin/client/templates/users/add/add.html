@@ -76,6 +76,23 @@
                         </select>
                     </div>
                 </div>
+                
+                {{#if isStudent}}
+                    <div class="addUser-newRelationship">
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Name</label>
+                            <input class="col-lg-10" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Name</label>
+                            <select name="relationship-type" class="col-lg-10 addUser__relationship-type">
+                                <option value="Mother">Mother</option>
+                                <option value="Father">Father</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                {{/if}}
 
                 <div class="text-right">
                     <button id="addUser-submit" type="submit" class="btn btn-primary">Add User <i class="icon-arrow-right14 position-right"></i></button>

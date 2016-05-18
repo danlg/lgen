@@ -25,7 +25,7 @@ Template.AdminAbsenceExpected.onCreated(function () {
     
     // Set defaults for the filter
     
-    this.expectedAbsencesFilter = new ReactiveDict('expectedAbsencesFilter');
+    this.expectedAbsencesFilter = new ReactiveDict();
     this.expectedAbsencesFilter.set('from', moment(Date.now()).format("YYYY-MM-DD"));
     this.expectedAbsencesFilter.set('to', moment(Date.now()).add(1, 'day').format("YYYY-MM-DD"));
 });
@@ -43,11 +43,11 @@ Template.AdminAbsenceExpected.helpers({
         
         // Assumes UTC+8
         var dateFromTS = moment.utc(dateFrom, "YYYY-MM-DD").startOf('day').subtract(8, 'hours').unix();
-        var dateToTS = moment.utc(dateTo, "YYYY-MM-DD").startOf('day').subtract(8, 'hours').unix();
+        var dateToTS = moment.utc(dateTo, "YYYY-MM-DD").endOf('day').subtract(8, 'hours').unix();
         
         return Smartix.Absence.Collections.expected.find({
             dateFrom: {
-                $lt: dateToTS
+                $lte: dateToTS
             },
             dateTo: {
                 $gte: dateFromTS
@@ -77,7 +77,8 @@ Template.AdminAbsenceExpected.events({
     'click .AdminAbsenceExpected__approve': function () {
         Meteor.call('smartix:absence/approveExpectedAbsence', this._id);
     },
-    'click .AdminAbsenceExpected__updateFilter': function (event, template) {
-        
+    'click #AdminAbsenceExpected__updateFilter': function (event, template) {
+        Template.instance().expectedAbsencesFilter.set('from', template.$('#AdminAbsenceExpected__startDate').eq(0).val());
+        Template.instance().expectedAbsencesFilter.set('to', template.$('#AdminAbsenceExpected__endDate').eq(0).val());
     }
 })

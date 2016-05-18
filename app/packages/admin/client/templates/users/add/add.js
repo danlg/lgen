@@ -1,3 +1,7 @@
+Template.AdminUsersAdd.helpers({
+    isStudent: true
+})
+
 Template.AdminUsersAdd.events({
     'click #addUser-submit': function(event, template) {
         event.preventDefault();
