@@ -36,33 +36,32 @@ Template.AdminUsersAddRelationships.helpers({
     }
 });
 
-Template.AdminClassesView.events({
-    'change #AdminUsersAddRelationships__relationship-type': function (event, template) {
-        console.log(template.find('#AdminUsersAddRelationships__relationship-type').val());
-        Template.instance().relationshipType.set(template.find('#AdminUsersAddRelationships__relationship-type').val());
+Template.AdminUsersAddRelationships.events({
+    'change #AdminUsersAddRelationships__relationship-type, focus #AdminUsersAddRelationships__relationship-type, blur #AdminUsersAddRelationships__relationship-type': function (event, template) {
+        Template.instance().relationshipType.set(template.$('#AdminUsersAddRelationships__relationship-type').eq(0).val());
     },
     'click .AdminUsersAddRelationships__user-search-result': function(event, template) {
         var userId = event.currentTarget.dataset.userId;
-        var relName = template.find('#AdminUsersAddRelationships__relationship-type').val();
+        var relName = template.$('#AdminUsersAddRelationships__relationship-type').eq(0).val();
         if(!userId) {
             Toastr.error('Please select a user');
         }
         if (Router
             && Router.current()
             && Router.current().params.school
+            && Router.current().params.uid
         ) {
-            console.log(userId);
-            console.log(Template.parentData(1));
-            console.log(Template.parentData(2));
-            console.log(Smartix.Accounts.School.getNamespaceFromSchoolName(Router.current().params.school));
-            console.log(relName);
-            return false;
+            
+            $('#AdminUsersAddRelationships__input').val("");
+            // There are no explicit/official method to clear the search results
+            // See https://github.com/matteodem/meteor-easy-search/issues/382
+            // See https://github.com/matteodem/meteor-easy-search/issues/29
             
             Meteor.call('smartix:accounts-relationships/createRelationship', {
                 parent: userId,
-                child: "",
+                child: Router.current().params.uid,
                 namespace: Smartix.Accounts.School.getNamespaceFromSchoolName(Router.current().params.school),
-                name: ""
+                name: relName
             }, function (err, res) {
                 if(err) {
                     console.log(err);
