@@ -4,17 +4,18 @@
         <div class="panel-heading">
             <h1>{{profile.firstName}} {{profile.lastName}}</h1>
         </div>
-
+        
         <div class="panel-body">
             <p>First Name: {{profile.firstName}}</p>
             <p>Last Name: {{profile.lastName}}</p>
             <p>Username: {{username}}</p>
             <p>Email: {{userEmail}}</p>
+            <!--TODO here display info depending on student
+              dob , class, grade but not for everyone-->
             <p>Date of Birth: {{dob}}</p>
             <p>Telephone: {{tel}}</p>
-            <p>Roles: {{userRoles}}</p>
-            {{> RelatedUsersMobile}}
-            {{> AdminUsersAddRelationships}}
+            <p>Role: {{userRoles}}</p>
+            {{> RelatedUsersMobile}} {{> AdminUsersAddRelationships}}
         </div>
         {{/with}} {{else}} Loading... {{/if}}
     </div>
