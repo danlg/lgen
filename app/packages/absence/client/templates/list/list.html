@@ -27,10 +27,10 @@
             {{#each this}}
                 <div class="card less-top-bottom-padding ">
 
-                    <div class="item item-text-wrap  less-top-bottom-padding">
-                        <h2>{{_ "absence.Reference" }}</h2>
-                        <p>{{_id}}</p>
-                    </div>
+                    <!--<div class="item item-text-wrap  less-top-bottom-padding">-->
+                        <!--<h2>{{_ "absence.Reference" }}</h2>-->
+                        <!--<p>{{_id}}</p>-->
+                    <!--</div>-->
                     <div class="item item-text-wrap  less-top-bottom-padding">
                         <h2>{{_ "absence.Student" }}</h2>
                         <p>{{#with getUserById studentId}} {{profile.firstName}} {{profile.lastName}}  {{/with}}</p>                 
@@ -67,7 +67,7 @@
                         </p>                                                                              
                         <p>{{#if recentlyApproved}}
                                 {{#with recentlyApproved}}
-                                    {{_ "absence.Schoolhas" }} <b>{{_ "absence.approved" }}</b>{{_ "absence.Thisapplication" }} {{messageCreateTimestamp}} .
+                                    {{_ "absence.Schoolhas" }} <b> {{_ "absence.approved" }} </b>{{_ "absence.Thisapplication" }} {{messageCreateTimestamp}} .
                                 {{/with}}
                             {{/if}}
                         </p>
