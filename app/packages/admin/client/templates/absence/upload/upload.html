@@ -5,82 +5,45 @@
         </div>
 
         <div class="panel-body">
-            <!--<p><strong>Step 1 - Download our CSV template, and complete the columns</strong></p>
-
-            <img src="/packages/smartix_admin/client/assets/import-parents-preview.png" alt="" style="max-width: 100%">
-
-            <p>Create a spreadsheet listing students and parents in the format shown above.</p>
-
-            <p>Required fields are highlighted in <span style="color: red">red</span>.
-                <strong>All fields after Student E-mail belong to a parent record.</strong> Student ID can be skipped if
-                Student E-mail is present, and vice versa. At least one parent or carer is mandatory.</p>
-
-            <p>Download parents' CSV template to get started.</p>
-
-            <a href="/packages/smartix_admin/client/assets/parents_import_template.csv" download="smartix-sample-user-data.csv">
-                <button id="AdminParentsImport__downloadTemplate" type="submit" class="btn btn-primary">Download Template</button>
-            </a>
-
-
-            <p><strong>Step 2: Save your spreadsheet as a CSV file.</strong></p>
-            <p>The example shown is from Microsoft Excel. If you are using another program, the process may differ slightly.</p>
-
-            <img src="/packages/smartix_admin/client/assets/import-guide-csv.png" alt="">
-
-            <p><strong>Step 3: Upload your CSV file  of students</strong></p>
-
-            <p>Once your CSV file has been uploaded, you will be able to confirm the parent information before importing.</p>
-            <p>Please import the user data as a <code>.csv</code> file with the first row being the headings. Please also ensure
-                that the file is encoded in UTF-8.</p>-->
-            <div id="AdminUploadAttendence__file-input" class="file-input file-input-new">
+            
+            <div class="AdminUploadAttendence__file-input file-input file-input-new">
                 <div tabindex="500" class="btn btn-primary btn-file legitRipple">
                     <i class="icon-file-plus"></i> <span class="hidden-xs">Upload XLSX</span>
-                    <input disabled=disabled type="file" id="AdminUploadAttendence__upload-file" class="file-input" data-show-caption="false" data-show-upload="false">
+                    <input type="file" id="AdminUploadAttendence__upload-xlsx" class="file-input" data-show-caption="false" data-show-upload="false">
                 </div>
             </div>
-            <div id="AdminUploadAttendence__file-input" class="file-input file-input-new">
+            <div class="AdminUploadAttendence__file-input file-input file-input-new">
                 <div tabindex="500" class="btn btn-primary btn-file legitRipple">
                     <i class="icon-file-plus"></i> <span class="hidden-xs">Upload CSV</span>
                     <input type="file" id="AdminUploadAttendence__upload-csv" class="file-input" data-show-caption="false" data-show-upload="false">
                 </div>
             </div>
-            <!--<table id="AdminUsersImport__preview-table" class="table datatable-basic">
+            <table id="AdminUploadAttendence__preview-table" class="table datatable-basic">
                 <thead>
                     <tr>
-                        <th>Student ID</th>
-                        <th>Student E-mail</th>
-                        <th>Mother Salutation</th>
-                        <th>Mother First Name</th>
-                        <th>Mother Last Name</th>
-                        <th>Mother E-mail</th>
-                        <th>Mother Mobile</th>
-                        <th>Father Salutation</th>
-                        <th>Father First Name</th>
-                        <th>Father Last Name</th>
-                        <th>Father E-mail</th>
-                        <th>Father Mobile</th>
+                        <th>Date</th>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>ClockIn</th>
+                        <th>Late</th>
+                        <th>Absent</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{#each importedParents}}
+                    {{#each importedAttendence}}
                     <tr>
-                        <td>{{studentId}}</td>
-                        <td>{{studentEmail}}</td>
-                        <td>{{motherSalutation}}</td>
-                        <td>{{motherFirstName}}</td>
-                        <td>{{motherLastName}}</td>
-                        <td>{{motherEmail}}</td>
-                        <td>{{motherMobile}}</td>
-                        <td>{{fatherSalutation}}</td>
-                        <td>{{fatherFirstName}}</td>
-                        <td>{{fatherLastName}}</td>
-                        <td>{{fatherEmail}}</td>
-                        <td>{{fatherMobile}}</td>
+                        <td>{{date}}</td>
+                        <td>{{name}}</td>
+                        <td>{{department}}</td>
+                        <td>{{clockIn}}</td>
+                        <td>{{late}}</td>
+                        <td>{{absent}}</td>
                     </tr>
                     {{/each}}
                 </tbody>
-            </table>-->
+            </table>
             <div class="text-right">
+                <button id="AdminUploadAttendence__clear" class="btn btn-default">Clear</button>
                 <button id="AdminUploadAttendence__submit" type="submit" class="btn btn-primary">Upload Attendence <i class="icon-arrow-right14 position-right"></i></button>
             </div>
             <div id="AdminUploadAttendence__errorMsgBlock">
