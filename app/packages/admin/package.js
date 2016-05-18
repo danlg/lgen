@@ -52,6 +52,7 @@ Package.onUse(function (api) {
   api.addFiles('client/layouts/admin-layout.html', 'web.browser');
   api.addFiles('client/layouts/admin-layout.js', 'web.browser');
   api.addFiles('client/layouts/admin-layout.css', 'web.browser');
+  api.addFiles('client/templates/absence/upload/upload.css', 'web.browser');
   api.addFiles('client/templates/absence/upload/upload.html', 'web.browser');
   api.addFiles('client/templates/absence/upload/upload.js', 'web.browser');
   api.addFiles('client/templates/absence/absentees/absentees.html', 'web.browser');

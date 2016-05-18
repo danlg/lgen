@@ -103,7 +103,7 @@ Smartix.Absence.updateAttendenceRecord = function (records, schoolName, currentU
     
     // Add a delay of 100 miliseconds to ensure all records are updated
     Meteor.setTimeout(function () {
-        Smartix.Absence.processAbsencesForDay(namespace, undefined, undefined, currentUser);
+        Smartix.Absence.processAbsencesForDay(namespace, undefined, undefined, true, currentUser);
     }, 100);
     
     
