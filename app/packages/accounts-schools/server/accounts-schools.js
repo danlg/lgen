@@ -329,13 +329,12 @@ Smartix.Accounts.School.deleteSchoolUsers = function(userIds,namespace,currentUs
             //if user only belong to current school, deletes the user from users collection
             if(targetUser.schools.length === 1){
                 if(targetUser.schools[0] === namespace){
-                      console.log('delete User');
+                      log.info('deleteSchoolUsers:delete User:',userId);
                       Smartix.Accounts.deleteSchoolUser(userId); 
                 }
             }else{
-            //else, removes only the schools array of the user
-                          
-                console.log('revoke User');
+            //else, removes only the schools array of the user           
+                log.info('deleteSchoolUsers:revoke User:',userId);
                 Smartix.Accounts.School.revokeSchool(namespace,[userId]);
             }
         }        
