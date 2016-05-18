@@ -1,3 +1,30 @@
-<template name="AdminUsersRelationships">
-    <h1>Manage User Relationships</h1>
+<template name="AdminUsersAddRelationships">
+    <div class="panel panel-flat">
+        <div class="panel-body">
+            <h5>Add New Relationship</h5>
+            <div id="AdminUsersAddRelationships__add-user-container" class="form-group">
+                <div class="col-lg-3">
+                    <select name="relationship-type" id="AdminUsersAddRelationships__relationship-type">
+                        <option value="Mother">Mother</option>
+                        <option value="Father">Father</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="col-lg-9">
+                    <div class="input-group AdminUsersAddRelationships__add-user-input-container">
+                        {{> EasySearch.Input index=usersIndex attributes=userSearchInputAttributes noDocumentsOnEmpty=true}}
+                    </div>
+                    <ul class="AdminUsersAddRelationships__results-container">
+                        {{#EasySearch.Each index=usersIndex}}
+                            <li class="AdminUsersAddRelationships__user-search-result" data-user-id="{{_id}}">
+                                <div>
+                                    <span class="AdminUsersAddRelationships__user-search-name">{{profile.firstName}} {{profile.lastName}}<button class="AdminUsersAddRelationships__add-button label label-danger">Add {{relationshipType}}</button></span>
+                                </div>
+                            </li>
+                        {{/EasySearch.Each}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
