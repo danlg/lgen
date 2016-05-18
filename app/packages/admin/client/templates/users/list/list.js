@@ -10,10 +10,17 @@ Template.AdminUsersSearch.helpers({
   getUserRoles:function(){
       var schoolUsername = Router.current().params.school;
       var schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolUsername);
-      
       if(schoolNamespace){
-          if(this.roles)
-          return this.roles[schoolNamespace].toString();
+          let role = "";
+          if(this.roles) {
+              //tod this more clever
+              role = this.roles[schoolNamespace].toString();
+              if (role === "student") { role = "Student" }
+              if (role === "parent") { role = "Parent" }
+              if (role === "teacher") { role = "Teacher" }
+              if (role === "admin") { role = "Admin" }
+          }
+          return role;
       }            
 
   },
