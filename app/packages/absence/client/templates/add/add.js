@@ -35,8 +35,8 @@ Template.AttendanceRecordAdd.events({
             dateFrom: moment(applyLeaveObj.startDate + " " + applyLeaveObj.startDateTime + "+0800").unix(),
             dateTo: moment(applyLeaveObj.endDate + " " + applyLeaveObj.endDateTime + "+0800").unix(),
             message: applyLeaveObj.leaveReason,
-            startDate: moment(applyLeaveObj.startDate + " " + applyLeaveObj.startDateTime + "+0800").format(),
-            endDate: moment(applyLeaveObj.endDate + " " + applyLeaveObj.endDateTime + "+0800").format(),
+            startDate: moment(applyLeaveObj.startDate + " " + applyLeaveObj.startDateTime + "+0800").toDate().toLocaleString({},{timeZone:"Asia/Hong_Kong"}),
+            endDate: moment(applyLeaveObj.endDate + " " + applyLeaveObj.endDateTime + "+0800").toDate().toLocaleString({},{timeZone:"Asia/Hong_Kong"}),
             studentName: applyLeaveObj.studentName
         }
 
