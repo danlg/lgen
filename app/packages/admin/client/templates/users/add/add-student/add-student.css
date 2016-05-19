@@ -1,0 +1,22 @@
+#addRelationship {
+    height: 356px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,255,0.1);
+    cursor: pointer;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border: 10px solid white;
+}
+
+#addRelationship:hover {
+    background-color: rgba(64, 224, 208, 0.68);
+    transition-property: background-color;
+    transition-duration: 300ms;
+    transition-timing-function: ease-out;
+}
+.AdminUsersAddStudent__passwordContainer {
+    padding: 36px;
+    background-color: rgba(255,215,0,0.2);
+}

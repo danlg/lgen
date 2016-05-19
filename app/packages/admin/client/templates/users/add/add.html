@@ -6,100 +6,12 @@
         </div>
 
         <div class="panel-body">
-            <p class="content-group-lg">You may add new users to your school by filling in the form below.</p>
-
-            <form class="form-horizontal" action="#">
-                <fieldset class="content-group">
-                    <h4 class="text-bold">User Details</h4>
-                    
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">First Name*</label>
-                        <div class="col-lg-10">
-                            <input id="addUser-firstName" type="text" class="form-control" placeholder="First Name">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Last Name*</label>
-                        <div class="col-lg-10">
-                            <input id="addUser-lastName" type="text" class="form-control" placeholder="Last Name">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Username</label>
-                        <div class="col-lg-10">
-                            <input id="addUser-username" type="text" class="form-control" placeholder="Last Name">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Email*</label>
-                        <div class="col-lg-10">
-                            <input id="addUser-email" type="email" class="form-control" placeholder="Email">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="control-label col-lg-2">Password*</label>
-                      <div class="col-lg-10">
-                        <input id="password" type="password" placeholder="Type your password" required>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Date of Birth (* for students only)</label>
-                        <div class="col-lg-10">
-							<!--<div class="input-group">
-							    <span class="input-group-addon"><i class="icon-calendar22"></i></span>
-								<input  id="addUser-dob" type="text" class="form-control daterange-single" placeholder="Date of Birth">
-							</div>&-->
-                            <!-- Add input field -->
-                            <input id="addUser-dob" type="text" class="form-control pickadate" placeholder="Date of Birth">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                      <!--Put this in a phone widget reusable-->
-                      <!--see https://github.com/jackocnr/intl-tel-input-->
-                        <label class="control-label col-lg-2">Telephone Number (replace me with https://github.com/jackocnr/intl-tel-input)</label>
-                        <div class="col-lg-10">
-                            <input id="addUser-tel" type="tel" class="form-control" placeholder="Telephone Number">
-                        </div>
-                    </div>
-                </fieldset>
-                
-                <div class="form-group">
-                    <label class="control-label col-lg-2">Roles</label>
-                    <div class="col-lg-10">
-                        <select  id="addUser-roles" multiple="multiple" class="form-control">
-                            <option value="student" selected="selected">Student</option>
-                            <option value="parent">Parent</option>
-                            <option value="teacher">Teacher</option>
-                            <option value="admin">Admin</option>
-                        </select>
-                    </div>
-                </div>
-                
-                {{#if isStudent}}
-                    <div class="addUser-newRelationship">
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Name</label>
-                            <input class="col-lg-10" type="text">
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Name</label>
-                            <select name="relationship-type" class="col-lg-10 addUser__relationship-type">
-                                <option value="Mother">Mother</option>
-                                <option value="Father">Father</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-                    </div>
-                {{/if}}
-
-                <div class="text-right">
-                    <button id="addUser-submit" type="submit" class="btn btn-primary">Add User <i class="icon-arrow-right14 position-right"></i></button>
-                </div>
-            </form>
+            <select id="addUser-roles" class="form-control">
+                <option value="student" selected="selected">Student</option>
+                <option value="others">Others</option>
+            </select>
         </div>
     </div>
     <!-- /form horizontal -->
+    {{> Template.dynamic template=template}}
 </template>

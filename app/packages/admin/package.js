@@ -9,6 +9,7 @@ Package.describe({
 Npm.depends({
   jszip: "3.0.0",
   xlsx: "https://github.com/d4nyll/js-xlsx/archive/36e68fcc15a71f49fea4e73f8bc15ff4acbaa34e.tar.gz"
+//   "intl-tel-input": "8.5.2"
 });
 
 Package.onUse(function (api) {
@@ -36,6 +37,7 @@ Package.onUse(function (api) {
   api.use('smartix:newsgroups@0.0.1');
   api.use('smartix:schools@0.0.1');
   api.use('smartix:accounts-schools@0.0.1');
+  api.use('smartix:accounts-usernames');
   api.use('smartix:messages@0.0.1', 'client')
   api.use('smartix:calendarevent', 'client');
   api.use('smartix:absence', ['client', 'server']);
@@ -111,6 +113,14 @@ Package.onUse(function (api) {
   api.addFiles('both/users.js');
   api.addFiles('client/templates/users/view/view.html', 'web.browser');
   api.addFiles('client/templates/users/view/view.js', 'web.browser');
+  api.addFiles('client/templates/users/add/add-student/new-relationship/new-relationship.css', 'web.browser');
+  api.addFiles('client/templates/users/add/add-student/new-relationship/new-relationship.html', 'web.browser');
+  api.addFiles('client/templates/users/add/add-student/new-relationship/new-relationship.js', 'web.browser');
+  api.addFiles('client/templates/users/add/add-student/add-student.css', 'web.browser');
+  api.addFiles('client/templates/users/add/add-student/add-student.html', 'web.browser');
+  api.addFiles('client/templates/users/add/add-student/add-student.js', 'web.browser');
+  api.addFiles('client/templates/users/add/add-others/add-others.html', 'web.browser');
+  api.addFiles('client/templates/users/add/add-others/add-others.js', 'web.browser');
   api.addFiles('client/templates/users/add/add.html', 'web.browser');
   api.addFiles('client/templates/users/add/add.js', 'web.browser');
   api.addFiles('client/templates/users/import-students/import.html', 'web.browser');
@@ -255,6 +265,7 @@ Package.onUse(function (api) {
   api.addFiles('client/less/components/pages/task-manager.import.less', 'web.browser');
   api.addFiles('client/less/components/pages/timelines.import.less', 'web.browser');
   api.addFiles('client/less/components/pages/user-list.import.less', 'web.browser');
+  
   api.addFiles('client/less/components/plugins/forms/checkboxes/bootstrap-switch.import.less', 'web.browser');
   api.addFiles('client/less/components/plugins/forms/checkboxes/switchery.import.less', 'web.browser');
   api.addFiles('client/less/components/plugins/forms/checkboxes/uniform.import.less', 'web.browser');
@@ -318,7 +329,7 @@ Package.onUse(function (api) {
   api.addFiles('client/less/components/plugins/ui/ripple.import.less', 'web.browser');
   api.addFiles('client/less/components/plugins/uploaders/dropzone.import.less', 'web.browser');
   api.addFiles('client/less/components/plugins/uploaders/file-input.import.less', 'web.browser');
-  api.addFiles('client/less/components/plugins/uploaders/plupload.import.less', 'web.browser');
+  api.addFiles('client/less/components/plugins/uploaders/plupload.import.less', 'web.browser');  
   api.addFiles('client/less/components/ui/heading-elements.import.less', 'web.browser');
   api.addFiles('client/less/components/ui/helpers.import.less', 'web.browser');
   api.addFiles('client/less/components/ui/snippets.import.less', 'web.browser');
@@ -344,6 +355,13 @@ Package.onUse(function (api) {
   api.addFiles('client/limitless/js/extra_fab.js', 'web.browser');
   api.addFiles('client/limitless/js/datatable_basic.js', 'web.browser');
   api.addFiles('client/limitless/js/app.js', 'web.browser');
+
+
+  api.addFiles('client/plugins/intl-tel-input/js/intlTelInput.js', ['web.browser']);
+  api.addFiles('client/plugins/intl-tel-input/js/utils.js', ['web.browser']);
+  api.addAssets('client/plugins/intl-tel-input/img/flags.png', ['web.browser']);
+  api.addAssets('client/plugins/intl-tel-input/img/flags@2x.png', ['web.browser']);
+  api.addFiles('client/plugins/intl-tel-input/css/intlTelInput.css', ['web.browser']);
 
   /** add pickadate plugin **/
   api.addFiles('client/limitless/js/plugins/pickers/pickadate/picker.js', 'web.browser');

@@ -1,0 +1,55 @@
+.addUser-newRelationship .control-label,
+.addUser-newRelationship .intl-tel-input,
+.addUser-newRelationship .addStudent__newRelationship-type {
+    display: block;
+}
+
+.addUser-newRelationship .intl-tel-input {
+    width: 100%;
+}
+
+.addUser-newRelationship,
+.addRelationship {
+    padding: 24px;
+    box-sizing: border-box;
+    background-color: rgb(236, 252, 251);
+    border: 10px solid white;
+}
+
+.addUser-newRelationship .control-label {
+    padding-bottom: 0;
+    font-weight: 700;
+    margin-top: 18px;
+}
+
+.addUser-newRelationship input,
+.addUser-newRelationship select {
+    background-color: white !important;
+}
+
+.addUser-newRelationship .AddStudentNewRelationship__remove {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: transparent;
+    color: grey;
+    border: none;
+    font-weight: 700;
+    text-indent: -99999px;
+    border-radius: 0;
+    width: 24px;
+    height: 24px;
+}
+
+.addUser-newRelationship .AddStudentNewRelationship__remove:before {
+    content: "×";
+    position: absolute;
+    top: -2px;
+    right: 6px;
+    font-size: 20px;
+    text-indent: 0;
+}
+
+.addUser-newRelationship .AddStudentNewRelationship__remove:hover {
+    background-color: rgba(255, 192, 203, 0.35);
+}
