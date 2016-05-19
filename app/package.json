@@ -16,11 +16,12 @@
 
     "ios-uat": "./clean_build.sh && meteor run ios --settings ../config/stage.settings.json --mobile-server=https://uat.gosmartix.com -p 4000",
     "ios-device-uat": "./clean_build.sh && meteor run ios-device --settings ../config/stage.settings.json --mobile-server=https://uat.gosmartix.com -p 4000",
-    "ios-device-carmelu": "./clean_build.sh && meteor run ios-device --settings ../config/stage.settings.json --mobile-server=https://carmelu.gosmartix.com -p 4000",
+    "ios-device-carmelu": "./clean_build.sh && meteor run ios-device --production --settings ../config/carmelu.settings.json --mobile-server=https://carmelu.gosmartix.com -p 4000",
+    "ios-device-devhcp": "./clean_build.sh && meteor run ios-device  --production --settings ../config/devhcp.settings.json --mobile-server=https://devhcp.gosmartix.com -p 4000",
+    "ios-device-prd-carmel": "./clean_build.sh && NODE_ENV=production meteor run ios-device --production --settings ../config/carmel.settings.json --mobile-server=https://carmel.gosmartix.com -p 5000",
 
     "ios-prd": "./clean_build.sh && NODE_ENV=production meteor run ios -v --settings ../config/prd.settings.json --mobile-server=https://app.gosmartix.com -p 5000",
     "ios-device-prd": "./clean_build.sh && NODE_ENV=production meteor run -v ios-device --settings ../config/prd.settings.json --mobile-server=https://app.gosmartix.com -p 5000",
-    "ios-device-prd-carmel": "./clean_build.sh && NODE_ENV=production meteor run -v ios-device --settings ../config/prd.settings.json --mobile-server=https://carmel.gosmartix.com -p 5000",
 
     "build-apk": "./build-android.sh $1 https://app.gosmartix.com",
     "build-apk-carmel": "./build-android.sh $1 https://carmel.gosmartix.com",
@@ -41,6 +42,7 @@
     "deploy-uat-debug": "./clean_build.sh && cd ../config && mup deploy --config=stage.mup.json --settings=stage.settings.json",
     "deploy-uat"   : "./clean_build.sh && cd ../config && NODE_ENV=production mup deploy --config=stage.mup.json --settings=stage.settings.json",
     "deploy-carmelu": "./clean_build.sh && cd ../config && NODE_ENV=production mup deploy --config=carmelu.mup.json --settings=carmelu.settings.json",
+    "deploy-devhcp": "./clean_build.sh && cd ../config && NODE_ENV=production mup deploy --config=devhcp.mup.json --settings=devhcp.settings.json",
 
     "deploy-prd"   : "./clean_build.sh && cd ../config && NODE_ENV=production mup deploy --config=prd.mup.json --settings=prd.settings.json",
     "deploy-carmel": "./clean_build.sh && cd ../config && NODE_ENV=production mup deploy --config=carmel.mup.json --settings=carmel.settings.json",
