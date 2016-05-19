@@ -68,6 +68,76 @@ Smartix.Accounts.School.getAllSchoolStudents = function (namespace, currentUser)
     return false;
 };
 
+Smartix.Accounts.School.createParentsSchema = new SimpleSchema({
+    studentId: {
+        type: String
+    },
+    firstName: {
+        type: String
+    },
+    lastName: {
+        type: String
+    },
+    email: {
+        type: String
+    },
+    tel: {
+        type: String,
+        optional: true
+    },
+    type: {
+        type: String
+    },
+    
+});
+
+Smartix.Accounts.School.createParentIndi = function(namespace, parentObj, currentUser, doNotifyEmail) {
+    
+    check(namespace, String);
+    
+    Smartix.Accounts.School.createParentsSchema.clean(parentObj);
+    check(parentObj, Smartix.Accounts.School.createParentsSchema);
+    
+    check(currentUser, Match.Maybe(String));
+    // Get the `_id` of the currently-logged in user
+    if(!(currentUser === null)) {
+        currentUser = currentUser || Meteor.userId();
+    }
+    let newUserObj = Smartix.Accounts.createUser(
+        parentObj.email
+        , {
+            profile: {
+                firstName: parentObj.firstName,
+                lastName: parentObj.lastName
+            },
+            tel: parentObj.tel
+        }
+        , namespace
+        , ['parent']
+        , currentUser
+        , true
+        , !!doNotifyEmail
+    );
+    
+    
+    // let newUserId = Smartix.Accounts.School.createUser(namespace, {
+    //     profile: {
+    //         firstName: parentObj.firstName,
+    //         lastName: parentObj.lastName
+    //     },
+    //     email: parentObj.email,
+    //     roles: ['parent']
+    // })
+    
+    let returnObj = Smartix.Accounts.Relationships.createRelationship({
+        parent: newUserObj.id,
+        child: parentObj.studentId,
+        namespace: namespace,
+        name: parentObj.type
+    }, currentUser);
+    
+}
+
 Smartix.Accounts.School.createUser = function(school, options) {
     // Check the arguments provided are of the correct type
     check(school, String);

@@ -1,4 +1,4 @@
-<template name="AdminUsersAddStudent">
+<template name="AdminAddStudent">
     <div class="panel panel-flat">
         <div class="panel-body">
             <form class="form-horizontal" action="#">
@@ -9,19 +9,19 @@
                         <div class="col-lg-4">
                             <label class="control-label">First Name*</label>
                             <div>
-                                <input id="addUser-firstName" type="text" class="form-control" placeholder="First Name" required>
+                                <input id="AdminAddStudent__firstName" type="text" class="form-control" placeholder="First Name" required>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <label class="control-label">Last Name*</label>
                             <div>
-                                <input id="addUser-lastName" type="text" class="form-control" placeholder="Last Name" required>
+                                <input id="AdminAddStudent__lastName" type="text" class="form-control" placeholder="Last Name" required>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <label class="control-label">Date of Birth*</label>
                             <div>
-                                <input id="addUser-dob" type="text" class="form-control pickadate" placeholder="Date of Birth" required>
+                                <input id="AdminAddStudent__dob" type="text" class="form-control pickadate" placeholder="Date of Birth" required>
                             </div>
                         </div>
                     </div>
@@ -30,26 +30,26 @@
                         <div class="col-lg-4">
                             <label class="control-label">Telephone Number</label>
                             <div>
-                                <input id="addStudent-tel" type="tel" class="form-control" placeholder="Telephone Number">
+                                <input id="AdminAddStudent__tel" type="tel" class="form-control" placeholder="Telephone Number">
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <label class="control-label">Username</label>
                             <div>
-                                <input id="addUser-username" type="text" class="form-control" placeholder="Username">
+                                <input id="AdminAddStudent__username" type="text" class="form-control" placeholder="Username">
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <label class="control-label">Email</label>
                             <div>
-                                <input id="addUser-email" type="email" class="form-control" placeholder="Email">
+                                <input id="AdminAddStudent__email" type="email" class="form-control" placeholder="Email">
                             </div>
                         </div>
                     </div>
-                    <div class="AdminUsersAddStudent__passwordContainer">
+                    <div class="AdminAddStudent__passwordContainer">
                         <p>You may manually set a password for the user. This is <strong>required</strong> if <i>Email</i> is not provided.</p>
                         <div>
-                            <input id="password" type="password" placeholder="Type your password">
+                            <input id="AdminAddStudent__password" type="password" placeholder="Type your password">
                         </div>
                     </div>
                 </fieldset>
@@ -59,15 +59,15 @@
     </div>
     <div class="panel panel-flat">
         <div class="panel-body">
-            <div id="newRelationships__container">
-                <div id="addRelationship" class="col-lg-6">+ Add New Relationship</div>
+            <div id="AdminAddStudent__newRelationshipsContainer">
+                <div id="AdminAddStudent__addRelationship" class="col-lg-6">+ Add New Relationship</div>
             </div>
         </div>
     </div>
     <div class="panel panel-flat">
         <div class="panel-body">
             <div class="text-right">
-                <button id="addStudent-submit" type="submit" class="btn btn-primary">Add User <i class="icon-arrow-right14 position-right"></i></button>
+                <button id="AdminAddStudent__submit" type="submit" class="btn btn-primary">Add User <i class="icon-arrow-right14 position-right"></i></button>
             </div>
         </div>
     </div>

@@ -1,8 +1,4 @@
-Template.AdminUsersAddOthers.onCreated(function () {
-    
-});
-
-Template.AdminUsersAddOthers.events({
+Template.AdminAddOthers.events({
     'click #addUser-submit': function(event, template) {
         event.preventDefault();
         var newUserObj = {};

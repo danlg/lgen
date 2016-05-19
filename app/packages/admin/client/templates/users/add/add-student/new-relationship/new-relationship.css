@@ -1,14 +1,14 @@
-.addUser-newRelationship .control-label,
-.addUser-newRelationship .intl-tel-input,
-.addUser-newRelationship .addStudent__newRelationship-type {
+.AdminAddStudent__newRelationship .control-label,
+.AdminAddStudent__newRelationship .intl-tel-input,
+.AdminAddStudent__newRelationship .addStudent__newRelationship-type {
     display: block;
 }
 
-.addUser-newRelationship .intl-tel-input {
+.AdminAddStudent__newRelationship .intl-tel-input {
     width: 100%;
 }
 
-.addUser-newRelationship,
+.AdminAddStudent__newRelationship,
 .addRelationship {
     padding: 24px;
     box-sizing: border-box;
@@ -16,18 +16,18 @@
     border: 10px solid white;
 }
 
-.addUser-newRelationship .control-label {
+.AdminAddStudent__newRelationship .control-label {
     padding-bottom: 0;
     font-weight: 700;
     margin-top: 18px;
 }
 
-.addUser-newRelationship input,
-.addUser-newRelationship select {
+.AdminAddStudent__newRelationship input,
+.AdminAddStudent__newRelationship select {
     background-color: white !important;
 }
 
-.addUser-newRelationship .AddStudentNewRelationship__remove {
+.AdminAddStudent__newRelationship .AddStudentNewRelationship__remove {
     position: absolute;
     right: 0;
     top: 0;
@@ -41,7 +41,7 @@
     height: 24px;
 }
 
-.addUser-newRelationship .AddStudentNewRelationship__remove:before {
+.AdminAddStudent__newRelationship .AddStudentNewRelationship__remove:before {
     content: "×";
     position: absolute;
     top: -2px;
@@ -50,6 +50,6 @@
     text-indent: 0;
 }
 
-.addUser-newRelationship .AddStudentNewRelationship__remove:hover {
+.AdminAddStudent__newRelationship .AddStudentNewRelationship__remove:hover {
     background-color: rgba(255, 192, 203, 0.35);
 }
