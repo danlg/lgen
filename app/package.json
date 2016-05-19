@@ -30,6 +30,7 @@
     "android-local": "./clean_build.sh && meteor run android --settings ../config/dev.settings.json --mobile-server=http://10.0.2.2:3000",
     "android": "meteor run android --settings ../config/stage.settings.json --mobile-server=https://uat.gosmartix.com",
     "android-device": "meteor run android-device --settings ../config/stage.settings.json --mobile-server=https://uat.gosmartix.com",
+    "android-device-carmelu": "meteor run android-device --settings ../config/carmelu.settings.json --mobile-server=https://carmelu.gosmartix.com",
 
     "runlocal-android-emulator": "meteor run android -v --settings ../config/dev.settings.json",
     "build-example": "NODE_ENV=production VULCANIZE=true meteor build ../myapp-dist --server=https://api.myapp.com/ --mobile-settings settings-production.json",
