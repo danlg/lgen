@@ -29,6 +29,17 @@ Template.AdminClassesAdd.events({
         newClass.classCode = template.$('#addClass-code').eq(0).val();
         newClass.ageRestricted = template.$('#addClass-ageRestricted').is(":checked");
         
+        if(!newClass.className) {
+            toastr.error("Class Name is a required field");
+        }
+        if(!newClass.classCode) {
+            toastr.error("Class Code is a required field");
+        }
+        
+        if(!newClass.className || !newClass.classCode) {
+            return false;
+        }
+        
         newClass.distributionLists = [];    
         $("#distribution-list :selected").each(function(){
             newClass.distributionLists.push($(this).val()); 
@@ -36,6 +47,12 @@ Template.AdminClassesAdd.events({
         
         newClass.copyMode = $("input[name=addMode]:checked").val();
         
-        Meteor.call('smartix:classes/createClass', Router.current().params.school, newClass);
+        Meteor.call('smartix:classes/createClass', Router.current().params.school, newClass, function (err, res) {
+            if(!err) {
+                template.$('#addClass-name').val("");
+                template.$('#addClass-code').val("");
+                toastr.info("The class " + newClass.className + " has been created successfully.")
+            }
+        });
     }
 });
