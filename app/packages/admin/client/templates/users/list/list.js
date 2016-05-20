@@ -62,9 +62,7 @@ Template.AdminUsersSearch.events({
            lodash.pull(latestArray, $(event.target).val());
                        
            template.usersChecked.set( latestArray  );              
-        }
-
-        
+        }      
     },
     'click .remove-users-btn':function(event,template){
         let latestArray = template.usersChecked.get();
@@ -72,32 +70,16 @@ Template.AdminUsersSearch.events({
             toastr.info('Please deselect your own account first. You cannot remove your account');
             return;
         }
-        let listOfUsers = latestArray.join('\n');
-        
+        let listOfUsers = Meteor.users.find({_id:{$in: latestArray }}).fetch();
+        let listOfUserNames = listOfUsers.map(function(eachUserObj){
+            return eachUserObj.profile.firstName + " " + eachUserObj.profile.lastName;
+        })
         template.modalTitle.set('Do you really want to remove the selected users?');
-        template.modalBody.set(listOfUsers);
-        template.modalName.set('remove-user-modal');
-        $('#remove-user-modal-btn').click();        
-       /* Blaze.renderWithData(Template.BootstrapModal,{
-            modalName:'remove-user-modal',
-            modalTitle:'Do you really want to remove the selected users?',
-            modalBody:  listOfUsers
-        },$('.admin-page-container').get(0)); */       
-        
-
-        
-        /*if (window.confirm("Do you really want to remove the selected users?:\n"+listOfUsers)) { 
-            //show spinner
-            template.doingOperations.set(true);
-            
-            Meteor.call('smartix:accounts-schools/deleteSchoolUsers',template.namespace,latestArray,function(){
-                //hide spinner
-                template.doingOperations.set(false);
-                
-                //un-select all users
-                template.usersChecked.set([]);
-            });
-        }*/         
+        template.modalBody.set(listOfUserNames.join('<br/>'));
+        template.modalName.set('remove-users-modal');
+        Meteor.setTimeout(function(){
+           $('#remove-users-modal-btn').click();  
+        },200);    
     },
    'click .select-all-users-btn':function(event,template){
      var userObjects = Meteor.users.find( {},{ fields:{ _id: 1} } ).fetch();
@@ -135,8 +117,19 @@ Template.AdminUsersSearch.events({
    },
     'click .add-users-to-role':function(event,template){
         let latestArray = template.usersChecked.get()
-        let listOfUsers = latestArray.join('\n');
-        var selectedRole = document.getElementById('selected-role').value;
+        let listOfUsers = Meteor.users.find({_id:{$in: latestArray }}).fetch();
+        var selectedRole = document.getElementById('selected-role').value;        
+        let listOfUserNames = listOfUsers.map(function(eachUserObj){
+            return eachUserObj.profile.firstName + " " + eachUserObj.profile.lastName;
+        })
+        template.modalTitle.set("Do you really want to add role "+ selectedRole +" to the selected users?");
+        template.modalBody.set(listOfUserNames.join('<br/>'));
+        template.modalName.set('add-users-to-role-modal');
+        Meteor.setTimeout(function(){
+           $('#add-users-to-role-modal-btn').click();  
+        },200); 
+                
+        /*
         if (window.confirm("Do you really want to add role "+ selectedRole +" to the selected users?:\n"+listOfUsers)) {
             
             //show spinner
@@ -146,27 +139,79 @@ Template.AdminUsersSearch.events({
                 //hide spinner
                 template.doingOperations.set(false);
             });
-        }          
+        }*/         
     },
     'click .remove-users-from-role':function(event,template){
         let latestArray = template.usersChecked.get()
-        let listOfUsers = latestArray.join('\n');
-        var selectedRole = document.getElementById('selected-role').value;
-        
+     
         if(latestArray.indexOf(Meteor.userId()) > -1 && selectedRole === 'admin'){
             toastr.info('You cannot remove your admin role');
             return;
         }
-                     
-        if (window.confirm("Do you really want to remove role "+ selectedRole +" from the selected users?:\n"+listOfUsers)) { 
+
+        let listOfUsers = Meteor.users.find({_id:{$in: latestArray }}).fetch();
+        var selectedRole = document.getElementById('selected-role').value;
+        let listOfUserNames = listOfUsers.map(function(eachUserObj){
+            return eachUserObj.profile.firstName + " " + eachUserObj.profile.lastName;
+        })
+        template.modalTitle.set("Do you really want to remove role "+ selectedRole +" from the selected users?");
+        template.modalBody.set(listOfUserNames.join('<br/>'));
+        template.modalName.set('remove-users-from-role-modal');
+        Meteor.setTimeout(function(){
+           $('#remove-users-from-role-modal-btn').click();  
+        },200); 
+                             
+        /*if (window.confirm("Do you really want to remove role "+ selectedRole +" from the selected users?:\n"+listOfUsers)) { 
             //show spinner
             template.doingOperations.set(true);            
             Meteor.call('smartix:accounts-schools/retractSchoolRole',template.namespace,latestArray,selectedRole,function(){
                 //hide spinner
                 template.doingOperations.set(false);                
             });
-        }          
-    },        
+        }*/      
+    },
+    'click .modal .save':function(event,template){
+        if( $(event.target).hasClass('remove-users-modal') ){
+            let latestArray = template.usersChecked.get();
+            //show spinner
+            template.doingOperations.set(true);          
+            //hide modal
+            $('.modal .close').click();      
+            //call method to delete users
+            Meteor.call('smartix:accounts-schools/deleteSchoolUsers',template.namespace,latestArray,function(){
+                //when finished:
+                //hide spinner
+                template.doingOperations.set(false);          
+                //un-select all users
+                template.usersChecked.set([]);             
+            });            
+        }else if( $(event.target).hasClass('add-users-to-role-modal') ){
+            var selectedRole = document.getElementById('selected-role').value;               
+            let latestArray = template.usersChecked.get();
+            //show spinner
+            template.doingOperations.set(true);          
+            //hide modal
+            $('.modal .close').click();        
+            //call method to add users to role
+            Meteor.call('smartix:accounts-schools/assignSchoolRole',template.namespace,latestArray,selectedRole,function(){
+                //hide spinner
+                template.doingOperations.set(false);
+            });                  
+        }else if( $(event.target).hasClass('remove-users-from-role-modal')  ){
+            var selectedRole = document.getElementById('selected-role').value;               
+            let latestArray = template.usersChecked.get();
+            //show spinner
+            template.doingOperations.set(true);          
+            //hide modal
+            $('.modal .close').click();
+              
+            //call method to remove users from role
+            Meteor.call('smartix:accounts-schools/retractSchoolRole',template.namespace,latestArray,selectedRole,function(){
+                //hide spinner
+                template.doingOperations.set(false);
+            });                       
+        }
+    }
 });
 
 
