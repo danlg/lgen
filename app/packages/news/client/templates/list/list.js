@@ -70,7 +70,15 @@ Template.NewsgroupsNewsList.events({
         Smartix.Messages.Addons.Calendar.addEvent(eventName,location,description,startDate,endDate,function(){
             toastr.info('Event added to your calendar'); 
         });
-    }     
+    },
+    'click .content .item .content a': function (e) {
+        Smartix.FileHandler.openFile(e);
+        e.preventDefault();
+    },
+    'click .content .item .document a': function (e) {
+        Smartix.FileHandler.openFile(e);
+        e.preventDefault();
+    },    
 });
 
 Template.NewsgroupsNewsList.onDestroyed(function(){
