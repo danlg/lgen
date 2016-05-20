@@ -121,6 +121,8 @@ Template.AdminTeachersImport.events({
                                 //toastr.info(TAPi18n.__("admin.users.import.importSuccess"), {timeOut:0});
                                 toastr.info(success + "/" + total + " users have been imported successfully", null,toasterOption);
                             }
+                            Session.set('imported-teachers', undefined);
+                            $("#teachers-upload-file").val('');
                         } else {
                             toastr.error(TAPi18n.__("admin.users.import.incorrectImportFormat"), null,toasterOption);
                             toastr.error(err.reason, null, toasterOption);
@@ -144,5 +146,5 @@ Template.AdminTeachersImport.helpers({
 });
 
 Template.AdminTeachersImport.onDestroyed(function () {
-    Session.set('imported-teachers', null);
+    Session.set('imported-teachers', undefined);
 });
