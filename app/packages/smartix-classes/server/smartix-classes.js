@@ -117,7 +117,7 @@ Smartix.Class.createClass = function(classObj, currentUser) {
                 type: "distributionList"
             }).fetch();
             let usersToCopy = _.reduce(distributionListsToCopy, function(users, list) {
-                users = _.concat(list.users);
+                users = _.concat(users, list.users);
                 return users;
             }, []);
             newClass.users = _.union(newClass.users, usersToCopy);
