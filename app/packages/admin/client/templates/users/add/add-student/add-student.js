@@ -66,8 +66,6 @@ var createParents = function (studentId, template) {
         
         Meteor.call('smartix:accounts-schools/createParent', template.currentSchool, parentObj, false);
     });
-    
-    
 }
 
 Template.AdminAddStudent.events({
@@ -176,8 +174,8 @@ Template.AdminAddStudent.events({
                     toastr.info(TAPi18n.__("admin.users.add.addSuccess"));
                     
                     // User is created, now we submit each of the parents
-                    // Get the parents
-                    console.log(res);
+                    // Create the parent objects
+                    // It was already validated before, so should not throw an error
                     createParents(res.id, template);
                 } else {
                     console.log(err);

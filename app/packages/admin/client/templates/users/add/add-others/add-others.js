@@ -88,7 +88,11 @@ Template.AdminAddOthers.events({
                 true, //autoEmailVerified
                 function(err, res) {
                     if (!err) {
+                        // Shows success message
                         toastr.info(TAPi18n.__("admin.users.add.addSuccess"));
+                        
+                        // Clear the fields
+                        $('.AdminAddOthers__input').val('');
                     }
                 });
         }
