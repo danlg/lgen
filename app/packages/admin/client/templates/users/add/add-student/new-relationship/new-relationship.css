@@ -1,9 +1,12 @@
+.AdminAddOthers .control-label,
 .AdminAddStudent__newRelationship .control-label,
+.AdminAddOthers .intl-tel-input,
 .AdminAddStudent__newRelationship .intl-tel-input,
 .AdminAddStudent__newRelationship .addStudent__newRelationship-type {
     display: block;
 }
 
+.AdminAddOthers .intl-tel-input,
 .AdminAddStudent__newRelationship .intl-tel-input {
     width: 100%;
 }
@@ -16,12 +19,15 @@
     border: 10px solid white;
 }
 
+.AdminAddOthers .control-label,
 .AdminAddStudent__newRelationship .control-label {
     padding-bottom: 0;
     font-weight: 700;
     margin-top: 18px;
 }
 
+.AdminAddOthers input,
+.AdminAddOthers select,
 .AdminAddStudent__newRelationship input,
 .AdminAddStudent__newRelationship select {
     background-color: white !important;

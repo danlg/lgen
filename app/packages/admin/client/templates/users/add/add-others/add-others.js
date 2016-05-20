@@ -1,15 +1,34 @@
 Template.AdminAddOthers.events({
-    'click #addUser-submit': function(event, template) {
+    'click #AdminAddOthers__submit': function(event, template) {
         event.preventDefault();
+        
         var newUserObj = {};
-        newUserObj.profile = {};
-
-        var email = template.$('#addUser-email').eq(0).val();
-        var roles = template.$('#addUser-roles').eq(0).val();
-        let firstName = newUserObj.profile.firstName = template.$('#addUser-firstName').eq(0).val();
-        let lastName = newUserObj.profile.lastName = template.$('#addUser-lastName').eq(0).val();
-        let username = template.$('#addUser-username').eq(0).val();
-	    newUserObj.username = username ?  username : Smartix.Accounts.helpers.generateUniqueUserName(firstName, lastName);
+        newUserObj.profile = {}
+        
+        // Retrieve fields
+        
+        // Retrieve names
+        let firstName = newUserObj.profile.firstName = template.$('#AdminAddOthers__firstName').eq(0).val();
+        let lastName = newUserObj.profile.lastName = template.$('#AdminAddOthers__lastName').eq(0).val();
+        
+        // Retrieve email
+        var email = template.$('#AdminAddOthers__email').eq(0).val();
+        
+        // Retrieve Telephone Number
+        newUserObj.tel = template.$('#AdminAddOthers__tel').intlTelInput("getNumber", intlTelInputUtils.numberFormat.E164);
+        
+        // Retrieve the username, or generate one
+        newUserObj.username = template.$('#AdminAddOthers__username').eq(0).val();
+        
+        // Retrieve Roles
+        var roles = template.$('#AdminAddOthers__roles').eq(0).val();
+        
+        // Retrieve password
+        newUserObj.password = template.$('#AdminAddOthers__password').eq(0).val();
+        
+        ////////////
+        // CHECKS //
+        ////////////
 
         // If the first name or last name is not filled indexOf
         // Throw an error as they are required fields
@@ -18,37 +37,35 @@ Template.AdminAddOthers.events({
             toastr.error(TAPi18n.__("requiredFields"));
             return false;
         }
-
-        // If the user is a student, DOB is required
-        var dateFieldVal = template.$('#addUser-dob_hidden').eq(0).val();
-        if ( (roles.indexOf('student') > -1)  && dateFieldVal === "") {
-            toastr.error(TAPi18n.__("admin.users.add.studentDobRequired"));
-            return false;
+        
+        // If email is not present, password must be set
+        if(email.length > 0) {
+            if(Match.test(email, Match.Where(function(val) {
+                check(val, String);
+                return SimpleSchema.RegEx.Email.test(val);
+            }))) {
+                // Email passes validation
+                // Password not required
+            } else {
+                // Email does not pass validation
+                // Remove the email value
+                toastr.error("Please ensure the email provided is valid");
+                return false;
+                
+            }
+        } else {
+            
+            // Email is not present
+            // Check if a password is provided
+                
+            if(newUserObj.password.length < 4) {
+                toastr.error("Please provide an email or a password with at least 4 characters");
+                return false;
+            }
         }
-        if (dateFieldVal !== "") {
-            newUserObj.dob = moment(new Date(template.$('#addUser-dob_hidden').eq(0).val())).format('DD-MM-YYYY');
-        }
-
-        var password = template.$('#password').eq(0).val(); //console.log("password='"+ password +"'");
-        if(password!="" && password .length < 4) {
-            toastr.error("Please provide a password with at least 4 characters");
-            return;
-        }
-        else {
-            newUserObj.password = password;
-        }
-
-        var telFieldVal = template.$('#addUser-tel').eq(0).val();
-        if (telFieldVal !== "") {
-            newUserObj.tel = template.$('#addUser-tel').eq(0).val();
-        }
-
-        // Check that the arguments are of the correct type
-        check(email, Match.Where(function(val) {
-            check(val, String);
-            return SimpleSchema.RegEx.Email.test(val);
-        }));
+        
         check(roles, [String]);
+        
         check(newUserObj, {
             profile: Object,
             dob: Match.Maybe(String),
@@ -76,4 +93,16 @@ Template.AdminAddOthers.events({
                 });
         }
     }
+})
+
+Template.AdminAddOthers.onRendered(function () {
+    $("#AdminAddOthers__tel").intlTelInput({
+        geoIpLookup: function(callback) {
+            $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+                var countryCode = (resp && resp.country) ? resp.country : "";
+                callback(countryCode);
+            });
+        },
+        preferredCountries: ["hk", "us", "gb"]
+    });
 })

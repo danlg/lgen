@@ -70,3 +70,7 @@ img {
     -ms-user-select: initial;
     user-select: initial;
 }
+
+fieldset {
+    border: none !important;
+}
