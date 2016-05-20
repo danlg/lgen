@@ -4,7 +4,7 @@
 * Modals are independent windows that slide in from off-screen.
 */
 
-.modal-backdrop {
+.ionic-body .modal-backdrop {
   @include transition(background-color 150ms ease-in-out);
   position: fixed;
   top: 0;
@@ -19,7 +19,7 @@
   }
 }
 
-.modal {
+.ionic-body .modal {
   display: block;
   position: absolute;
   top: 0;
@@ -33,7 +33,7 @@
 @media (min-width: $modal-inset-mode-break-point) {
   // inset mode is when the modal doesn't fill the entire
   // display but instead is centered within a large display
-  .modal {
+ .ionic-body .modal {
     top: $modal-inset-mode-top;
     right: $modal-inset-mode-right;
     bottom: $modal-inset-mode-bottom;
@@ -76,7 +76,7 @@
 }
 
 // disable clicks on all but the modal
-.modal-open {
+.ionic-body.modal-open {
   pointer-events: none;
 
   .modal,

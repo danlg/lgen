@@ -409,6 +409,8 @@ Package.onUse(function (api) {
   /** add pickadate plugin ends **/
   
   api.addFiles('client/limitless/css/icomoon.css', 'web.browser');
+  
+  api.addFiles('client/templates/bootstrap-modal/bootstrap-modal.html', 'web.browser');
 });
 
 Package.onTest(function (api) {
