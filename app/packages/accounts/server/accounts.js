@@ -490,14 +490,22 @@ Smartix.Accounts.getAllUsersInNamespace = function(namespace, currentUser) {
 
     if (hasPermission) {
         var meteorQuery = {};
-
-        meteorQuery.schools = namespace;
-        var tempRoles = "roles." + namespace;
-        meteorQuery[tempRoles] = {
-            $exists: true
-        }
-        return Meteor.users.find(meteorQuery);
-
+        
+        // OLD SYNTAX
+        // meteorQuery.schools = namespace;
+        // var tempRoles = "roles." + namespace;
+        // meteorQuery[tempRoles] = {
+        //     $exists: true
+        // }
+        // Meteor.users.find(meteorQuery);
+        
+        // ES6 SYNTAX
+        // See http://stackoverflow.com/questions/19837916/javascript-creating-object-with-dynamic-keys for newer syntax
+        return Meteor.users.find({
+            schools: namespace,
+            ['roles.'+namespace]: {  $exists: true }
+        })
+        
         // return Roles.getUsersInRole(['user', 'admin', 'student', 'teacher', 'parent'], namespace);
     } else {
         return false;
