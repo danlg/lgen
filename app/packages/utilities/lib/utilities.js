@@ -68,7 +68,7 @@ Smartix.Utilities.camelize = function (str) {
 Smartix.Utilities.stringToLetterCase = function (str) {
     // Replaces all non-alphanumeric characters with hyphen
     // Converts all to lowercase
-    return str.replace(/\W+/g, '-').toLowerCase();
+    return str.replace(/\W+/g, '-').toLowerCase().replace(/^-+|-+$/g, "");
 }
 
 Smartix.Utilities.getMinutesSinceMidnight = function (timeString) {
