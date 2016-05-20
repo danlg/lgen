@@ -85,6 +85,10 @@ Smartix.Accounts.canCreateUser = function(namespace, roles, currentUser) {
  * @returns {[string, boolean] [0] the newuserid, true is newly created and false if updated.}
  */
 Smartix.Accounts.createUser = function(email, userObj, namespace, roles, currentUser, autoEmailVerified, doNotifyEmail) {
+    
+    // Converts an empty email to undefined
+    email = email === "" ? undefined : email;
+    
     // Check that the options provided are valid
     Smartix.Accounts.createUserOptionsSchema.clean(userObj);
     check(userObj, Smartix.Accounts.createUserOptionsSchema);
@@ -149,7 +153,7 @@ Smartix.Accounts.createUser = function(email, userObj, namespace, roles, current
         Meteor.users.update({ _id: newUserId }, { $set: newlyCreatedUserObj });
         Meteor.users.update({ _id: newUserId }, { $set: { registered_emails: registered_emails } });
 
-        Smartix.Accounts.notifyByEmail(email, newUserId, tempPassword, autoEmailVerified, doNotifyEmail);
+        Smartix.Accounts.notifyByEmail(email, newUserId, tempPassword, autoEmailVerified, !!doNotifyEmail);
         //Smartix.Accounts.sendEnrollmentEmail  (email, newUserId, doNotifyEmail);
         // Add the role to the user
         Roles.addUsersToRoles(newUserId, roles, namespace);

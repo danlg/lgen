@@ -1,4 +1,4 @@
-#addRelationship {
+#AdminAddStudent__addRelationship {
     height: 356px;
     display: flex;
     align-items: center;
@@ -10,13 +10,13 @@
     border: 10px solid white;
 }
 
-#addRelationship:hover {
+#AdminAddStudent__addRelationship:hover {
     background-color: rgba(64, 224, 208, 0.68);
     transition-property: background-color;
     transition-duration: 300ms;
     transition-timing-function: ease-out;
 }
-.AdminUsersAddStudent__passwordContainer {
+.AdminAddStudent__passwordContainer {
     padding: 36px;
     background-color: rgba(255,215,0,0.2);
 }
