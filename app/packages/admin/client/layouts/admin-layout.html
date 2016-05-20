@@ -109,21 +109,20 @@
                                         </ul>
                                     </li>
                                     <li>
-                                        <li>
-                                            <a href="#"><i class="icon-feed2"></i> <span>{{_ "Admin.RSS" }}</span></a>
-                                            <ul>
-                                                <li><a href="{{pathFor route='admin.rss.add' data=routeData}}"><i class="icon-plus3"></i> {{_ "Admin.AddRSSFeed" }}</a></li>
-                                                <li><a href="{{pathFor route='admin.rss.list' data=routeData}}"><i class="icon-feed2"></i>{{_ "Admin.ViewRSSFeeds" }}</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="{{pathFor route='admin.school.edit' data=routeData}}"><i class="icon-database-edit2"></i> <span>{{_ "Admin.EditSchool" }}</span></a>
-                                        </li>
-                                        <li>
-                                            <a id="adminLayout__signOut" href="#"><i class="icon-exit3"></i> <span>{{_ "SignOut"}}</span></a>
-                                        </li>
-                                        <!-- /main -->
+                                        <a href="#"><i class="icon-feed2"></i> <span>{{_ "Admin.RSS" }}</span></a>
+                                        <ul>
+                                            <li><a href="{{pathFor route='admin.rss.add' data=routeData}}"><i class="icon-plus3"></i> {{_ "Admin.AddRSSFeed" }}</a></li>
+                                            <li><a href="{{pathFor route='admin.rss.list' data=routeData}}"><i class="icon-feed2"></i>{{_ "Admin.ViewRSSFeeds" }}</a></li>
+                                        </ul>
                                     </li>
+                                    <li>
+                                        <a href="{{pathFor route='admin.school.edit' data=routeData}}"><i class="icon-database-edit2"></i> <span>{{_ "Admin.EditSchool" }}</span></a>
+                                    </li>
+                                    <li>
+                                        <a id="adminLayout__signOut" href="#"><i class="icon-exit3"></i> <span>{{_ "SignOut"}}</span></a>
+                                    </li>
+                                        
+                                        <!-- /main -->
                                 </ul>
                             </div>
                         </div>
