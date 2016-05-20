@@ -211,6 +211,12 @@ Template.AdminUsersSearch.events({
                 template.doingOperations.set(false);
             });                       
         }
+    },
+    'click .filter-by-role-btn':function(event,template){
+       var chosenRole =  $(event.target).data('role');
+        UsersIndex.getComponentMethods().addProps('schoolNamespace', template.namespace);
+        UsersIndex.getComponentMethods().addProps('role', chosenRole);
+               
     }
 });
 

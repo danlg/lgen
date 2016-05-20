@@ -411,6 +411,8 @@ Package.onUse(function (api) {
   api.addFiles('client/limitless/css/icomoon.css', 'web.browser');
   
   api.addFiles('client/templates/bootstrap-modal/bootstrap-modal.html', 'web.browser');
+  
+  api.export('UsersIndex');
 });
 
 Package.onTest(function (api) {
