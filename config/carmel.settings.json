@@ -30,8 +30,8 @@
   "FROM_NAME": "Smartix",
   "FEEDBACK_EMAIL": "feedback@gosmartix.com",
 
-  "RSS_FETCH_INTERVAL": 1800000,
-  "RSS_PROCESS_INTERVAL": 1800000,
+  "RSS_FETCH_INTERVAL": 30000,
+  "RSS_PROCESS_INTERVAL": 30000,
 
   "kadira": { 
     "appId": "R3JDmnkKytkupQkcQ", 
