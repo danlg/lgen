@@ -27,9 +27,9 @@
     * Checks that the `status` property of the document is updated on the database
     * Checks that the parents are notified whenever an expected absence is approved
 
-### Upload Attendence (Daniel)
+### Upload Attendance (Daniel)
 
-* Create sample attendence records, dated to today, with the following variations (the number coincides with the student ID):
+* Create sample attendance records, dated to today, with the following variations (the number coincides with the student ID):
 
     1. Non-existent student 1
     1. Non-existent student 2
@@ -55,8 +55,8 @@
     1. Student with two parent records who does not have an expected absence record and is late
     1. Student with two parent records who does not have an expected absence record and is absent
     
-* Upload the school attendence records using CSV
-* Upload the school attendence records using XSLX (to be reintroduced/uncommented out)
+* Upload the school attendance records using CSV
+* Upload the school attendance records using XSLX (to be reintroduced/uncommented out)
 
 * Checks that the non-existent users are listed out on the upload csv/xslx page
 * Checks that the number of successful records inserted is listed out on the upload csv/xslx page

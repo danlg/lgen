@@ -91,7 +91,7 @@ Smartix.Absence.processAbsencesForDay = function (namespace, date, format, notif
     // GET ATTENDENCE RECORDS FOR DATE //
     /////////////////////////////////////
     
-    let attendenceRecord = Smartix.Absence.Collections.actual.find({
+    let attendanceRecord = Smartix.Absence.Collections.actual.find({
         date: dateString,
         namespace: namespace
     }).fetch();
@@ -99,7 +99,7 @@ Smartix.Absence.processAbsencesForDay = function (namespace, date, format, notif
     // Check the clockIn time
     // If it's `null` it means the user has not tapped in
     // If it is later than the `schoolStartTime`, the student is late
-    _.each(attendenceRecord, function (record, i) {
+    _.each(attendanceRecord, function (record, i) {
         if(record.clockIn === null || record.clockIn > schoolStartTimeM) {
             // Student is late or absent
             
