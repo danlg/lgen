@@ -2,7 +2,7 @@
 // https://github.com/matteodem/meteor-easy-search/issues/445
 UsersIndex = new EasySearch.Index({
     collection: Meteor.users,
-    fields: ['profile.firstName', 'profile.lastName','roles','grade'],
+    fields: ['profile.firstName', 'profile.lastName','roles','grade','emails.address'],
     engine: new EasySearch.Minimongo({
         sort: function(searchObject,options){
             return { 'profile.lastName' : 0 }
