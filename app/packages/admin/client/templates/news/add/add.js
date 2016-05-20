@@ -106,6 +106,12 @@ Template.AdminNewsAdd.events({
 
         var title = $('#addNews-title').val();
         var content = $('#addNews-content').val();
+        
+        if(!title || !content) {
+            toastr.error('Please ensure both the Title and Content fields are filled in.');
+            return false;
+        }
+        
         var doPushNotificationB = true; //document.getElementById("addNews-push-notification").checked;
         //log.info('doPushNotificationB',doPushNotificationB);
         event.preventDefault();
