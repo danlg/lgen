@@ -3,8 +3,11 @@
         <div class="panel-heading">
             <h1>Search Distribution Lists</h1>
         </div>
-        {{#if Template.subscriptionsReady}}
-            <div class="panel-body">
+        <div class="panel-body">
+           <p>Distribution lists are useful to send information to a same group of people. They can be used in classes and/or news.</p>
+           <p>For example,  you have defined classes per grade. You can then reuse these lists and send to several classes at the same time instead of listing all members again. </p>
+
+           {{#if Template.subscriptionsReady}}
                 {{> EasySearch.Input index=distributionListIndex }}
                 <span>{{totalSelectUserCount}} have been selected.</span>
                 <br/>
@@ -62,11 +65,10 @@
                 
                 </table>
                 </div>                
-                {{> EasySearch.Pagination index=distributionListIndex maxPages=10 customRenderPagination='CustomEasySearchPagination'}}               
-
-            </div>
-        {{else}}
-            <p>Loading...</p>
-        {{/if}}
+                {{> EasySearch.Pagination index=distributionListIndex maxPages=10 customRenderPagination='CustomEasySearchPagination'}}
+             {{else}}
+               <p>Loading...</p>
+             {{/if}}
+        </div>
     </div>
 </template>

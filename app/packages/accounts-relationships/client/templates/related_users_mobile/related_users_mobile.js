@@ -2,9 +2,11 @@ Template.RelatedUsersMobile.helpers({
    relationships:function(){
      return Smartix.Accounts.Relationships.Collection.find();
    },
-   getParentNameById:function(userid){
+   getParentNameById: function(userid){
        var usr =  Meteor.users.findOne(userid);
-       return usr.profile.firstName + " " + usr.profile.lastName;
+       if(usr) {
+           return usr.profile.firstName + " " + usr.profile.lastName;
+       }
    },
    getChildNameById:function(userid){
        var usr =  Meteor.users.findOne(userid);

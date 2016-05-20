@@ -18,6 +18,6 @@
   "setupPhantom": false,
   "enableUploadProgressBar": true,
   "appName": "carmel",
-  "app": "/Users/dan/DEV/github8/lgen/app",
+  "app": "/Users/dan/DEV/clean/lgen/app",
   "deployCheckWaitTime": 15
 }

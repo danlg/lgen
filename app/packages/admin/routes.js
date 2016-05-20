@@ -217,9 +217,9 @@ Router.route('/:school/admin/absence/register', {
 Router.route('/:school/admin/absence/upload', {
     name: 'admin.absence.upload',
     layoutTemplate: 'adminLayout',
-    template: 'AdminUploadAttendence',
+    template: 'AdminUploadAttendance',
     action: function () {
-        this.render('AdminUploadAttendence');
+        this.render('AdminUploadAttendance');
     }
 });
 

@@ -85,6 +85,10 @@ Smartix.Accounts.canCreateUser = function(namespace, roles, currentUser) {
  * @returns {[string, boolean] [0] the newuserid, true is newly created and false if updated.}
  */
 Smartix.Accounts.createUser = function(email, userObj, namespace, roles, currentUser, autoEmailVerified, doNotifyEmail) {
+    
+    // Converts an empty email to undefined
+    email = email === "" ? undefined : email;
+    
     // Check that the options provided are valid
     Smartix.Accounts.createUserOptionsSchema.clean(userObj);
     check(userObj, Smartix.Accounts.createUserOptionsSchema);
@@ -139,11 +143,17 @@ Smartix.Accounts.createUser = function(email, userObj, namespace, roles, current
 
         var tempPassword = userObj.password; delete userObj.password;//Do not store password in clear in database
         Smartix.Accounts.setPassword(newUserId, tempPassword);// Set the password if provided
-
-        Meteor.users.update({ _id: newUserId }, { $set: userObj });
+        
+        var newlyCreatedUserObj = Meteor.users.findOne(newUserId);
+        //log.info('source user obj',userObj);            
+        // log.info('newly created user obj',newlyCreatedUserObj);        
+        //lodash.assign copy missing values from userObj to newlyCreatedUserObj, while existing value (e.g avatarValue which is added during onCreateUser) in newlyCreatedUserObj is kept
+        lodash.merge(newlyCreatedUserObj,userObj);
+        //log.info('merged user obj',newlyCreatedUserObj);
+        Meteor.users.update({ _id: newUserId }, { $set: newlyCreatedUserObj });
         Meteor.users.update({ _id: newUserId }, { $set: { registered_emails: registered_emails } });
 
-        Smartix.Accounts.notifyByEmail(email, newUserId, tempPassword, autoEmailVerified, doNotifyEmail);
+        Smartix.Accounts.notifyByEmail(email, newUserId, tempPassword, autoEmailVerified, !!doNotifyEmail);
         //Smartix.Accounts.sendEnrollmentEmail  (email, newUserId, doNotifyEmail);
         // Add the role to the user
         Roles.addUsersToRoles(newUserId, roles, namespace);
@@ -280,6 +290,7 @@ Smartix.Accounts.createOrAddToDistributionList = function(roles, namespace, clas
     }
 };
 
+//This removes all user's roles in a namespace
 Smartix.Accounts.removeUser = function(userId, namespace, currentUser) {
     check(userId, Match.Maybe(String));
     check(namespace, String);
@@ -371,6 +382,17 @@ Smartix.Accounts.canEditUser = function(userId, options, currentUser) {
             || userId === currentUser);
 };
 
+
+Smartix.Accounts.deleteSchoolUser = function(userId){
+    var userToBeDeleted = Meteor.users.findOne({ _id: userId });
+    userToBeDeleted.deletedAt = Date.now();
+    Smartix.Accounts.DeleteUsersCol.insert(userToBeDeleted, function(err, id) {
+        // Remove the user from the `Meteor.users` collection
+        Meteor.users.remove({ _id: userId });
+    });    
+}
+
+//This actually delete user from users collection
 Smartix.Accounts.deleteUser = function(userId, currentUser) {
     if (Smartix.Accounts.canDeleteUser(userId, currentUser)) {
         // Make a copy of the user into a new collection

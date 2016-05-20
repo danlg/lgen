@@ -1,0 +1,35 @@
+.AdminUsersAddRelationships__add-user-input-container {
+    width: 100%;
+}
+
+.AdminUsersAddRelationships__user-search-result {
+    cursor: pointer;
+}
+
+.AdminUsersAddRelationships__results-container {
+    position: absolute;
+    width: 100%;
+    border-bottom: 1px solid green;
+    border-left: 1px solid green;
+    border-right: 1px solid green;
+    z-index: 3;
+}
+
+.AdminUsersAddRelationships__user-search-result {
+    padding: 6px;
+    background-color: white;
+    cursor: pointer;
+    -webkit-transition: background-color 200ms ease-out;
+    -moz-transition: background-color 200ms ease-out;
+    -o-transition: background-color 200ms ease-out;
+    -ms-transition: background-color 200ms ease-out;
+    transition: background-color 200ms ease-out;
+}
+
+.AdminUsersAddRelationships__user-search-result:hover {
+    background-color: #CEE8CE;
+}
+
+.AdminUsersAddRelationships__add-button {
+    float: right;
+}

@@ -22,7 +22,7 @@ Smartix.Absence.processAbsences = function (namespace, currentUser) {
     // Smartix.Absence.Collections.processed.upsert();
 };
 
-Smartix.Absence.processAbsencesForDay = function (namespace, date, format, currentUser) {
+Smartix.Absence.processAbsencesForDay = function (namespace, date, format, notify, currentUser) {
     check(namespace, String);
     check(date, Match.Maybe(Match.OneOf(String, Date)));
     check(format, Match.Maybe(String));
@@ -91,7 +91,7 @@ Smartix.Absence.processAbsencesForDay = function (namespace, date, format, curre
     // GET ATTENDENCE RECORDS FOR DATE //
     /////////////////////////////////////
     
-    let attendenceRecord = Smartix.Absence.Collections.actual.find({
+    let attendanceRecord = Smartix.Absence.Collections.actual.find({
         date: dateString,
         namespace: namespace
     }).fetch();
@@ -99,7 +99,7 @@ Smartix.Absence.processAbsencesForDay = function (namespace, date, format, curre
     // Check the clockIn time
     // If it's `null` it means the user has not tapped in
     // If it is later than the `schoolStartTime`, the student is late
-    _.each(attendenceRecord, function (record, i) {
+    _.each(attendanceRecord, function (record, i) {
         if(record.clockIn === null || record.clockIn > schoolStartTimeM) {
             // Student is late or absent
             
@@ -185,7 +185,7 @@ Smartix.Absence.processAbsencesForDay = function (namespace, date, format, curre
                 })._id;
             }
             
-            if(!hasPhonedIn) {
+            if(!hasPhonedIn && notify) {
                 // Notify the parents
                 // Send notification
                 Smartix.Absence.notificationToParentForDetail(processId, currentUser);

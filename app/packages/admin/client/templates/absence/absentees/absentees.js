@@ -3,25 +3,81 @@ Template.AdminAbsentees.onCreated(function () {
     if(Router
     && Router.current()
     && Router.current().params.school) {
-        var schoolUsername = Router.current().params.school;
-        self.subscribe('schoolInfo', schoolUsername, function () {
-            self.schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolUsername);
-            
-            if(self.schoolNamespace) {
-                self.subscribe('schoolAdmins', self.schoolNamespace);
-                self.subscribe('smartix:absence/allAbsences', self.schoolNamespace, function () {
-                    self.subscribe('smartix:absence/absentUsers', self.schoolNamespace, function () {
-                    });
+        self.schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(Router.current().params.school);
+        
+        if(self.schoolNamespace) {
+            self.subscribe('schoolAdmins', self.schoolNamespace);
+            self.subscribe('smartix:absence/allAbsences', self.schoolNamespace, function () {
+                self.subscribe('smartix:absence/absentUsers', self.schoolNamespace, function () {
                 });
-                self.subscribe('smartix:absence/expectedAbsences', self.schoolNamespace);
-            }
-        });
+            });
+            self.subscribe('smartix:absence/expectedAbsences', self.schoolNamespace);
+        }
     }
+    
+    // Set defaults for the filter
+    
+    this.processedAbsencesFilter = new ReactiveDict();
+    this.processedAbsencesFilter.set('from', moment(Date.now()).format("YYYY-MM-DD"));
+    this.processedAbsencesFilter.set('to', moment(Date.now()).add(1, 'day').format("YYYY-MM-DD"));
+    this.processedAbsencesFilter.set('status', "any");
+    this.processedAbsencesFilter.set('name', undefined);
 });
 
 Template.AdminAbsentees.helpers({
+    filterStartDate: function () {
+        return Template.instance().processedAbsencesFilter.get('from');
+    },
+    filterEndDate: function () {
+        return Template.instance().processedAbsencesFilter.get('to');
+    },
     'absentees': function () {
+        
+        var dateFrom = moment(Template.instance().processedAbsencesFilter.get('from'), "YYYY-MM-DD").format("DD-MM-YYYY");
+        var dateTo = moment(Template.instance().processedAbsencesFilter.get('to'), "YYYY-MM-DD").format("DD-MM-YYYY");
+        var status = Template.instance().processedAbsencesFilter.get('status');
+        var name = Template.instance().processedAbsencesFilter.get('name');
+        
+        var usersWithMatchingNameIds = [];
+        
+        if(name) {
+            // Find all users with 
+            var usersWithMatchingName = Meteor.users.find({
+                $or: [
+                    {
+                        "profile.firstName": {
+                            $regex : name
+                        }
+                    },
+                    {
+                        "profile.lastName": {
+                            $regex : name
+                        }
+                    }
+                ]
+                
+            }).fetch();
+            
+            usersWithMatchingNameIds = _.map(usersWithMatchingName, function (user) {
+                return user._id;
+            })
+        }
+        
+        var studentIdSelector = usersWithMatchingNameIds.length > 0 ? {$in: usersWithMatchingNameIds} : {$exists: true};
+        
+        console.log(usersWithMatchingNameIds);
+        
+        if(status === "any") {
+            status = {$exists: true};
+        }
+        
         return Smartix.Absence.Collections.processed.find({
+            studentId: studentIdSelector,
+            date: {
+                $lte: dateTo,
+                $gte: dateFrom
+            },
+            status: status,
             namespace: Template.instance().schoolNamespace
         });
     },
@@ -107,6 +163,18 @@ Template.AdminAbsentees.helpers({
 })
 
 Template.AdminAbsentees.events({
+    'click #AdminAbsenceProcessed__updateFilter': function (event, template) {
+        Template.instance().processedAbsencesFilter.set('from', template.$('#AdminAbsenceProcessed__startDate').eq(0).val());
+        Template.instance().processedAbsencesFilter.set('to', template.$('#AdminAbsenceProcessed__endDate').eq(0).val());
+        Template.instance().processedAbsencesFilter.set('status', template.$("input[name='status-filter']:checked").val());
+        Template.instance().processedAbsencesFilter.set('name', template.$("#AdminAbsenceProcessed__studentName").val());
+    },
+    'mouseenter .AdminAbsentees__changeStatus.label-danger': function (event, template) {
+        event.currentTarget.innerText = "NOTIFY";
+    },
+    'mouseleave .AdminAbsentees__changeStatus.label-danger': function (event, template) {
+        event.currentTarget.innerText = "MISSING";
+    },
     'click .AdminAbsentees__changeStatus': function (event, template) {
         var processedId = event.currentTarget.dataset.id;
         var expectedAbsence = Smartix.Absence.Collections.processed.findOne({
@@ -119,9 +187,6 @@ Template.AdminAbsentees.events({
         
         var status = event.currentTarget.dataset.status;
         
-        console.log('processedId:', processedId);
-        console.log('expectedAbsenceId:', expectedAbsenceId);
-        console.log('status:', status);
         switch(status) {
             case "missing":
                 // Send notification
@@ -136,5 +201,17 @@ Template.AdminAbsentees.events({
                 Meteor.call('smartix:absence/approveExpectedAbsence', expectedAbsenceId);
                 break;
         }
+    },
+    'click #AdminAbsentees__update': function () {
+        Meteor.call('smartix:absence/processAbsencesForDay', Template.instance().schoolNamespace, undefined, undefined, false, function (err, res) {
+            console.log(err);
+            console.log(res);
+        });
+    },
+    'click #AdminAbsentees__updateNotify': function () {
+        Meteor.call('smartix:absence/processAbsencesForDay', Template.instance().schoolNamespace, undefined, undefined, true, function (err, res) {
+            console.log(err);
+            console.log(res);
+        });
     }
 })

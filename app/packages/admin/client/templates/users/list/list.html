@@ -1,4 +1,5 @@
 <template name="AdminUsersSearch">
+    {{> BootstrapModal modalName=getModalName modalTitle=getModalTitle modalBody=getModalBody }}
     <div class="panel panel-flat">
         <div class="panel-heading">
             <h1>Search users {{#if Template.subscriptionsReady}}({{totalUserCount}}){{/if}} </h1>
@@ -11,7 +12,8 @@
                 {{> ionSpinner icon="spiral"}}
              {{/if}}
         </div>
-        
+
+      
         {{#if Template.subscriptionsReady}}
             <div class="panel-body">
                 
@@ -36,27 +38,31 @@
                     </select>                                                                               
                 {{/if}}
                 <div class="table-responsive">                
-                <table class='table'>
-                    <thead>
+                <table class='table' >
+                    <thead align="left">
                     <tr>
                         <th>&nbsp;</th>
-                        <th>User Name</th>
-                        <th>First Name</th>
+                        <th>Role</th>
                         <th>Last Name</th>
-                        <th>Email</th>
-                        <th>Roles</th>
-                                                                       
+                        <th>First Name</th>
+                        <th>Email</th>                        
+                        <th>User Name</th>
+                        <th>Grade</th>
+                        
                     </tr>
                     </thead>
                     
                     {{#EasySearch.Each index=usersIndex }}
                         <tr>
                             <td><input {{isUserChecked _id}} type="checkbox" name="user" class='school-directory-user-checkbox' value="{{_id}}"/></td>
+                            <td>{{getUserRoles}}</td>
+                            <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}">{{profile.lastName}}</a></td>
+                            <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}">{{profile.firstName}}</a></td>
+                            <td>{{getUserEmail}}</td> 
                             <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}"> {{username}} </a></td>
-                            <td>{{profile.firstName}}</td>
-                            <td>{{profile.lastName}}</td>
-                            <td>{{getUserEmail}}</td>   
-                            <td>{{getUserRoles}}</td>   
+                            <td>{{grade}}</td> 
+                              
+                            
                
                         </tr>                    
                     {{/EasySearch.Each}}

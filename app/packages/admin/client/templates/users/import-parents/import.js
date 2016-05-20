@@ -108,7 +108,7 @@ Template.AdminParentsImport.events({
                         log.error(err.reason);
                     }
                 });
-                toastr.info('Attempting to import ' + importedParents.length + " records.", null, toasterOption);
+                toastr.info('Attempting to import ' + importedParents.length + " records. Please wait a few moments", null, toasterOption);
                 Session.set('imported-parents', undefined);
                 $("#parents-upload-file").val('');
             } else {

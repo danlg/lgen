@@ -1,0 +1,23 @@
+{
+  "env": {
+    "ROOT_URL": "https://carmel.gosmartix.com",
+    "PORT": 80,
+    "MONGO_URL" : "mongodb://127.0.0.1/littlegenius"
+  },
+  //stage
+  "servers": [
+    {
+      "host": "carmel.gosmartix.com",
+      "username": "root",
+      "password": "lgen124"
+    }
+  ],
+  "setupMongo": false,
+  "setupNode": false,
+  "nodeVersion": "0.10.43",
+  "setupPhantom": false,
+  "enableUploadProgressBar": true,
+  "appName": "carmel",
+  "app": "/Users/dan/DEV/github8/lgen/app",
+  "deployCheckWaitTime": 15
+}

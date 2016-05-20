@@ -63,3 +63,14 @@ img {
         left: calc(50% - 40px);
     }
 }
+
+.admin-page-container{
+    -webkit-user-select: initial;
+    -moz-user-select: initial;
+    -ms-user-select: initial;
+    user-select: initial;
+}
+
+fieldset {
+    border: none !important;
+}

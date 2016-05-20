@@ -78,6 +78,25 @@ checkNews = function(broadcastList){
   return true;
 };
 
+var clearForm = function (index, broadcastList, sentToNewgroupNames, template) {
+
+    // If last element
+    if( (index + 1) === broadcastList.length) {
+        
+        // Clear form values
+        $('#addNews-title').val("");
+        $('#addNews-content').val("");
+        
+        template.imageArr.set([]); 
+        template.documentArr.set([]); 
+        template.calendarEvent.set({}); 
+        
+        template.showCalendarForm.set(false);   
+
+        toastr.info('News sent to group: ' + sentToNewgroupNames.toString() );                                               
+    }
+}
+
 Template.AdminNewsAdd.events({
     'click #addNews-submit': function (event, template) {
         var broadcastList = $("input[type='checkbox'][name='addNews-newsgroup']");
@@ -87,6 +106,12 @@ Template.AdminNewsAdd.events({
 
         var title = $('#addNews-title').val();
         var content = $('#addNews-content').val();
+        
+        if(!title || !content) {
+            toastr.error('Please ensure both the Title and Content fields are filled in.');
+            return false;
+        }
+        
         var doPushNotificationB = true; //document.getElementById("addNews-push-notification").checked;
         //log.info('doPushNotificationB',doPushNotificationB);
         event.preventDefault();
@@ -121,32 +146,26 @@ Template.AdminNewsAdd.events({
         populateAddons(addons, mediaObj);
         
         var sentToNewgroupNames = [];
-        var totalLength = broadcastList.length;
         broadcastList.each(function (index) {
             var self = this;
             if (self.checked) {
    
-                Meteor.call('smartix:messages/createNewsMessage', self.value, 'article', { content: content, title: title },
-                  addons,doPushNotificationB,function(){
-                    //todo add here newsgroup name 
-                    sentToNewgroupNames.push( $('label[for='+self.value+']').text() );
-
-                    //if last element
-                    if( (index+1) === totalLength){
-                        //form cleanup
-                        $('#addNews-title').val("");
-                        $('#addNews-content').val("");
-                        
-                        template.imageArr.set([]); 
-                        template.documentArr.set([]); 
-                        template.calendarEvent.set({}); 
-                        
-                        template.showCalendarForm.set(false);   
- 
-                        toastr.info('News sent to group: ' + sentToNewgroupNames.toString() );                                               
-                    }
-               
+                Meteor.call('smartix:messages/createNewsMessage'
+                , self.value
+                , 'article'
+                , {
+                    content: content,
+                    title: title
+                }
+                , addons
+                , doPushNotificationB
+                , function() {
+                    // TODO - add here newsgroup name 
+                    sentToNewgroupNames.push($('label[for=' + self.value + ']').text());
+                    clearForm(index, broadcastList, sentToNewgroupNames, template);
                 });
+            } else {
+                clearForm(index, broadcastList, sentToNewgroupNames, template);
             }
         });
     },

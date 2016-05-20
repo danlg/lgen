@@ -16,7 +16,15 @@ Package.onUse(function(api) {
      api.use('smartix:lib');
      api.use('smartix:classes');
      api.addFiles('route.js');
-     
+
+     api.addAssets(['components/app_tour/1-reach.class.jpg',
+                   'components/app_tour/2.shakeaspeare.jpg',
+                   'components/app_tour/3.einstein.jpg',
+                   'components/app_tour/4.chat-newton-new.jpg',
+                   'components/app_tour/5.no-paperwork.jpg',
+                   'components/app_tour/6.office-hours.jpg',                                      
+                   ],'client');
+                        
      api.addFiles(['components/app_tour/app_tour.html',
                    'components/app_tour/app_tour.css',
                    'components/app_tour/app_tour.js',

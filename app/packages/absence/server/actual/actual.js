@@ -4,7 +4,7 @@ function isValidDate(value) {
 }
 
 
-var convertAttendenceFormat = function (originalRecord, namespace) {
+var convertAttendanceFormat = function (originalRecord, namespace) {
     
     var newRecord = {};
     
@@ -30,7 +30,7 @@ var convertAttendenceFormat = function (originalRecord, namespace) {
     return newRecord;
 }
 
-Smartix.Absence.attendenceRecordsSchema = new SimpleSchema({
+Smartix.Absence.attendanceRecordsSchema = new SimpleSchema({
     name: {
         type: String
     },
@@ -54,7 +54,7 @@ Smartix.Absence.attendenceRecordsSchema = new SimpleSchema({
     }
 });
 
-var attendenceRecordsPattern = {
+var attendanceRecordsPattern = {
     name: String,
     date: String,
     clockIn: Match.Maybe(String),
@@ -63,9 +63,9 @@ var attendenceRecordsPattern = {
     department: String
 };
 
-Smartix.Absence.updateAttendenceRecord = function (records, schoolName, currentUser) {
+Smartix.Absence.updateAttendanceRecord = function (records, schoolName, currentUser) {
     
-    check(records, Match.OneOf(attendenceRecordsPattern, [attendenceRecordsPattern])),
+    check(records, Match.OneOf(attendanceRecordsPattern, [attendanceRecordsPattern])),
     check(schoolName, String),
     check(currentUser, Match.Maybe(String));
     
@@ -80,7 +80,7 @@ Smartix.Absence.updateAttendenceRecord = function (records, schoolName, currentU
     
     if(Array.isArray(records)) {
         records = _.map(records, function (record) {
-            var convertedRecord = convertAttendenceFormat(record, namespace);
+            var convertedRecord = convertAttendanceFormat(record, namespace);
             if(typeof convertedRecord === "string") {
                 errors.push(convertedRecord);
                 return null;
@@ -103,7 +103,7 @@ Smartix.Absence.updateAttendenceRecord = function (records, schoolName, currentU
     
     // Add a delay of 100 miliseconds to ensure all records are updated
     Meteor.setTimeout(function () {
-        Smartix.Absence.processAbsencesForDay(namespace, undefined, undefined, currentUser);
+        Smartix.Absence.processAbsencesForDay(namespace, undefined, undefined, true, currentUser);
     }, 100);
     
     

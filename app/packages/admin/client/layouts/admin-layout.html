@@ -23,7 +23,7 @@
     
     
     <!-- Page container -->
-    <div class="page-container">
+    <div class="admin-page-container page-container">
 
         <!-- Page content -->
         <div class="page-content">
@@ -62,17 +62,10 @@
                                                 </ul>
                                             </li>
                                             <li><a href="{{pathFor route='admin.users.add' data=routeData}}"><i class="icon-plus3"></i> {{_ "Admin.AddUser" }}</a></li>
-                                            <li><a href="{{pathFor route='admin.users.membership' data=routeData}}"><i class="icon-users"></i> {{_ "Admin.Membership" }}</a></li>
-                                            <!--<li><a href="{{pathFor route='admin.users.relationships' data=routeData}}"><i class="icon-users"></i> Relationship</a></li>-->
-                                            <!--<li>
-												<a href="#">3 columns</a>
-												<ul>
-													<li><a href="3_col_dual.html">Dual sidebars</a></li>
-													<li><a href="3_col_double.html">Double sidebars</a></li>
-												</ul>
-											</li>-->
+                                       
                                         </ul>
                                     </li>
+                                    
                                     <li>
                                         <a href="#"><i class="icon-list3"></i> <span>{{_ "Admin.DistributionLists" }}</span></a>
                                         <ul>
@@ -103,10 +96,19 @@
                                         <ul>
                                             <li><a href="{{pathFor route='admin.absence.expected' data=routeData}}"><i class="icon-checkbox-checked"></i>{{_ "Admin.ViewExpectedAbsences" }}</a></li>
                                             <li><a href="{{pathFor route='admin.absence.absentees' data=routeData}}"><i class="icon-flag3"></i> {{_ "Admin.ViewAbsentees" }}</a></li>
-                                            <li><a href="{{pathFor route='admin.absence.register' data=routeData}}"><i class="icon-plus3"></i> {{_ "Admin.RegisterExpectedAbsence" }}</a></li>
                                             <li><a href="{{pathFor route='admin.absence.upload' data=routeData}}"><i class="icon-cloud-upload"></i>{{_ "Admin.UploadAttendenceRecords" }}</a></li>
                                         </ul>
                                     </li>
+                                   
+
+                                    <li>
+                                      <a href="#"><i class="icon-list3"></i> <span>{{_ "Admin.DistributionLists" }}</span></a>
+                                      <ul>
+                                        <li><a href="{{pathFor route='admin.lists.list' data=routeData}}"><i class="icon-search4"></i> {{_ "Admin.Search" }}</a></li>
+                                        <li><a href="{{pathFor route='admin.lists.add' data=routeData}}"><i class="icon-plus3"></i> {{_ "Admin.Add" }}</a></li>
+                                      </ul>
+                                    </li>
+                                    <li>   
                                     <li>
                                         <a href="#"><i class="icon-feed2"></i> <span>{{_ "Admin.RSS" }}</span></a>
                                         <ul>

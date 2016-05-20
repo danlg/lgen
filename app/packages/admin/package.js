@@ -7,16 +7,18 @@ Package.describe({
 });
 
 Npm.depends({
-     jszip: "3.0.0",
-     xlsx: "https://github.com/d4nyll/js-xlsx/archive/36e68fcc15a71f49fea4e73f8bc15ff4acbaa34e.tar.gz"
+  jszip: "3.0.0",
+  xlsx: "https://github.com/d4nyll/js-xlsx/archive/36e68fcc15a71f49fea4e73f8bc15ff4acbaa34e.tar.gz"
+//   "intl-tel-input": "8.5.2"
 });
 
-Package.onUse(function(api) {
+Package.onUse(function (api) {
   api.versionsFrom('1.3.1');
   api.use('ecmascript');
   api.use('templating');
   api.use('jquery');
   api.use('less');
+  api.use('reactive-var');
   api.use('reactive-dict');
   api.use('iron:router');
   api.use('aldeed:simple-schema');
@@ -25,8 +27,7 @@ Package.onUse(function(api) {
   api.use('alanning:roles@1.2.15');
   api.use('easy:search@2.0.9');
   api.use('stevezhu:lodash@4.6.1');
-  api.use('alethes:pages@1.8.6');
-  
+
   api.use('smartix:lib@0.0.1');
   api.use('smartix:utilities@0.0.1');
   api.use('smartix:news@0.0.1');
@@ -35,24 +36,28 @@ Package.onUse(function(api) {
   api.use('smartix:newsgroups@0.0.1');
   api.use('smartix:schools@0.0.1');
   api.use('smartix:accounts-schools@0.0.1');
+  api.use('smartix:accounts-usernames');
   api.use('smartix:messages@0.0.1', 'client')
-  api.use('smartix:calendarevent','client');
-  api.use('smartix:absence',['client', 'server']);
-  
+  api.use('smartix:calendarevent', 'client');
+  api.use('smartix:absence', ['client', 'server']);
+
   api.use('danielqiu:feed');
-  
+
   api.addAssets('client/assets/parents_import_template.csv', 'client');
   api.addAssets('client/assets/students_import_template.csv', 'client');
   api.addAssets('client/assets/teachers_import_template.csv', 'client');
-  api.addAssets('client/assets/import-guide-csv.png', 'client');
+  api.addAssets('client/assets/import-guide-excel-csv.png', 'client');
   api.addAssets('client/assets/import-parents-preview.png', 'client');
   api.addAssets('client/assets/import-student-preview.png', 'client');
+  api.addAssets('client/assets/import-teachers-preview.png', 'client');
   api.addFiles('routes.js', ['web.browser', 'server']);
   api.addFiles('client/layouts/admin-layout.html', 'web.browser');
   api.addFiles('client/layouts/admin-layout.js', 'web.browser');
   api.addFiles('client/layouts/admin-layout.css', 'web.browser');
+  api.addFiles('client/templates/absence/upload/upload.css', 'web.browser');
   api.addFiles('client/templates/absence/upload/upload.html', 'web.browser');
   api.addFiles('client/templates/absence/upload/upload.js', 'web.browser');
+  api.addFiles('client/templates/absence/absentees/absentees.css', 'web.browser');
   api.addFiles('client/templates/absence/absentees/absentees.html', 'web.browser');
   api.addFiles('client/templates/absence/absentees/absentees.js', 'web.browser');
   api.addFiles('client/templates/absence/expected/expected.css', 'web.browser');
@@ -91,7 +96,7 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/newsgroups/add/add.html', 'web.browser');
   api.addFiles('client/templates/newsgroups/add/add.js', 'web.browser');
   api.addFiles('client/templates/newsgroups/import/import.html', 'web.browser');
-  api.addFiles('client/templates/newsgroups/import/import.js', 'web.browser');  
+  api.addFiles('client/templates/newsgroups/import/import.js', 'web.browser');
   api.addFiles('client/templates/news/add/add.html', 'web.browser');
   api.addFiles('client/templates/news/add/add.js', 'web.browser');
   api.addFiles('client/templates/news/import/import.html', 'web.browser');
@@ -100,13 +105,20 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/rss/view/view.js', 'web.browser');
   api.addFiles('client/templates/rss/add/add.html', 'web.browser');
   api.addFiles('client/templates/rss/add/add.js', 'web.browser');
-  
+
   api.addFiles('client/templates/users/list/index.js', 'web.browser');
   api.addFiles('client/templates/users/list/list.html', 'web.browser');
   api.addFiles('client/templates/users/list/list.js', 'web.browser');
-  api.addFiles('both/users.js');
   api.addFiles('client/templates/users/view/view.html', 'web.browser');
   api.addFiles('client/templates/users/view/view.js', 'web.browser');
+  api.addFiles('client/templates/users/add/add-student/new-relationship/new-relationship.css', 'web.browser');
+  api.addFiles('client/templates/users/add/add-student/new-relationship/new-relationship.html', 'web.browser');
+  api.addFiles('client/templates/users/add/add-student/new-relationship/new-relationship.js', 'web.browser');
+  api.addFiles('client/templates/users/add/add-student/add-student.css', 'web.browser');
+  api.addFiles('client/templates/users/add/add-student/add-student.html', 'web.browser');
+  api.addFiles('client/templates/users/add/add-student/add-student.js', 'web.browser');
+  api.addFiles('client/templates/users/add/add-others/add-others.html', 'web.browser');
+  api.addFiles('client/templates/users/add/add-others/add-others.js', 'web.browser');
   api.addFiles('client/templates/users/add/add.html', 'web.browser');
   api.addFiles('client/templates/users/add/add.js', 'web.browser');
   api.addFiles('client/templates/users/import-students/import.html', 'web.browser');
@@ -117,6 +129,7 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/users/import-parents/import.js', 'web.browser');
   api.addFiles('client/templates/users/import-teachers/import.html', 'web.browser');
   api.addFiles('client/templates/users/import-teachers/import.js', 'web.browser');
+  api.addFiles('client/templates/users/relationships/relationships.css', 'web.browser');
   api.addFiles('client/templates/users/relationships/relationships.html', 'web.browser');
   api.addFiles('client/templates/users/relationships/relationships.js', 'web.browser');
   api.addFiles('client/less/_bootstrap/alerts.import.less', 'web.browser');
@@ -250,6 +263,7 @@ Package.onUse(function(api) {
   api.addFiles('client/less/components/pages/task-manager.import.less', 'web.browser');
   api.addFiles('client/less/components/pages/timelines.import.less', 'web.browser');
   api.addFiles('client/less/components/pages/user-list.import.less', 'web.browser');
+  
   api.addFiles('client/less/components/plugins/forms/checkboxes/bootstrap-switch.import.less', 'web.browser');
   api.addFiles('client/less/components/plugins/forms/checkboxes/switchery.import.less', 'web.browser');
   api.addFiles('client/less/components/plugins/forms/checkboxes/uniform.import.less', 'web.browser');
@@ -313,7 +327,7 @@ Package.onUse(function(api) {
   api.addFiles('client/less/components/plugins/ui/ripple.import.less', 'web.browser');
   api.addFiles('client/less/components/plugins/uploaders/dropzone.import.less', 'web.browser');
   api.addFiles('client/less/components/plugins/uploaders/file-input.import.less', 'web.browser');
-  api.addFiles('client/less/components/plugins/uploaders/plupload.import.less', 'web.browser');
+  api.addFiles('client/less/components/plugins/uploaders/plupload.import.less', 'web.browser');  
   api.addFiles('client/less/components/ui/heading-elements.import.less', 'web.browser');
   api.addFiles('client/less/components/ui/helpers.import.less', 'web.browser');
   api.addFiles('client/less/components/ui/snippets.import.less', 'web.browser');
@@ -339,10 +353,67 @@ Package.onUse(function(api) {
   api.addFiles('client/limitless/js/extra_fab.js', 'web.browser');
   api.addFiles('client/limitless/js/datatable_basic.js', 'web.browser');
   api.addFiles('client/limitless/js/app.js', 'web.browser');
+
+
+  api.addFiles('client/plugins/intl-tel-input/js/intlTelInput.js', ['web.browser']);
+  api.addFiles('client/plugins/intl-tel-input/js/utils.js', ['web.browser']);
+  api.addAssets('client/plugins/intl-tel-input/img/flags.png', ['web.browser']);
+  api.addAssets('client/plugins/intl-tel-input/img/flags@2x.png', ['web.browser']);
+  api.addFiles('client/plugins/intl-tel-input/css/intlTelInput.css', ['web.browser']);
+
+  /** add pickadate plugin **/
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/picker.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/picker.date.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/picker.time.js', 'web.browser');
+  
+  /*pickadate plugin does not support switch lang dynamic out of the box. For now comment out translation files */
+  /*api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/ar.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/bg_BG.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/bs_BA.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/ca_ES.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/cs_CZ.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/da_DK.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/de_DE.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/el_GR.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/es_ES.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/et_EE.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/eu_ES.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/fi_FI.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/fr_FR.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/gl_ES.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/he_IL.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/hr_HR.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/hu_HU.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/id_ID.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/is_IS.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/it_IT.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/ja_JP.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/ko_KR.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/ne_NP.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/nl_NL.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/no_NO.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/pl_PL.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/pt_BR.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/pt_PT.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/ro_RO.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/ru_RU.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/sk_SK.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/sl_SI.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/sv_SE.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/th_TH.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/tr_TR.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/uk_UA.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/vi_VN.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/zh_CN.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/zh_TW.js', 'web.browser');*/
+  /** add pickadate plugin ends **/
+  
   api.addFiles('client/limitless/css/icomoon.css', 'web.browser');
+  
+  api.addFiles('client/templates/bootstrap-modal/bootstrap-modal.html', 'web.browser');
 });
 
-Package.onTest(function(api) {
+Package.onTest(function (api) {
   api.use('ecmascript');
   api.use('tinytest');
   api.use('smartix:admin');

@@ -40,7 +40,7 @@ Smartix.Absence.expectedAbsenceSchema = new SimpleSchema({
     }
 });
 
-Smartix.Absence.attendenceRecordsSchema = new SimpleSchema({
+Smartix.Absence.attendanceRecordsSchema = new SimpleSchema({
     name: {
         type: String
     },

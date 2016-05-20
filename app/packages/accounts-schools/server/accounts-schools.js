@@ -68,6 +68,76 @@ Smartix.Accounts.School.getAllSchoolStudents = function (namespace, currentUser)
     return false;
 };
 
+Smartix.Accounts.School.createParentsSchema = new SimpleSchema({
+    studentId: {
+        type: String
+    },
+    firstName: {
+        type: String
+    },
+    lastName: {
+        type: String
+    },
+    email: {
+        type: String
+    },
+    tel: {
+        type: String,
+        optional: true
+    },
+    type: {
+        type: String
+    },
+    
+});
+
+Smartix.Accounts.School.createParentIndi = function(namespace, parentObj, currentUser, doNotifyEmail) {
+    
+    check(namespace, String);
+    
+    Smartix.Accounts.School.createParentsSchema.clean(parentObj);
+    check(parentObj, Smartix.Accounts.School.createParentsSchema);
+    
+    check(currentUser, Match.Maybe(String));
+    // Get the `_id` of the currently-logged in user
+    if(!(currentUser === null)) {
+        currentUser = currentUser || Meteor.userId();
+    }
+    let newUserObj = Smartix.Accounts.createUser(
+        parentObj.email
+        , {
+            profile: {
+                firstName: parentObj.firstName,
+                lastName: parentObj.lastName
+            },
+            tel: parentObj.tel
+        }
+        , namespace
+        , ['parent']
+        , currentUser
+        , true
+        , !!doNotifyEmail
+    );
+    
+    
+    // let newUserId = Smartix.Accounts.School.createUser(namespace, {
+    //     profile: {
+    //         firstName: parentObj.firstName,
+    //         lastName: parentObj.lastName
+    //     },
+    //     email: parentObj.email,
+    //     roles: ['parent']
+    // })
+    
+    let returnObj = Smartix.Accounts.Relationships.createRelationship({
+        parent: newUserObj.id,
+        child: parentObj.studentId,
+        namespace: namespace,
+        name: parentObj.type
+    }, currentUser);
+    
+}
+
 Smartix.Accounts.School.createUser = function(school, options) {
     // Check the arguments provided are of the correct type
     check(school, String);
@@ -294,3 +364,50 @@ Smartix.Accounts.School.getNamespaceFromSchoolName = function(schoolName) {
     });
     return schoolDoc ? schoolDoc._id : false;
 };
+
+Smartix.Accounts.School.revokeSchool = function(school,users){
+    if(!Smartix.Accounts.School.isAdmin(school)
+        && !Smartix.Accounts.System.isAdmin()){
+        return;
+    }
+    
+    Roles.removeUsersFromRoles(users,['admin','teacher','parent','student'],school);
+    
+    return Meteor.users.update({
+        _id: {$in : users}
+    },{
+        $pull: {
+            schools: school
+        },
+        
+    },{
+        multi: true  
+    });    
+}
+
+Smartix.Accounts.School.deleteSchoolUsers = function(userIds,namespace,currentUser){
+
+    check(userIds, [String]);
+    check(namespace, String);
+    check(currentUser, String);
+        
+
+    userIds.map(function(userId){
+        // Retrieve the target user
+        var targetUser = Meteor.users.findOne({ _id: userId });
+        if(targetUser){
+            //if user only belong to current school, deletes the user from users collection
+            if(targetUser.schools.length === 1){
+                if(targetUser.schools[0] === namespace){
+                      log.info('deleteSchoolUsers:delete User:',userId);
+                      Smartix.Accounts.deleteSchoolUser(userId); 
+                }
+            }else{
+            //else, removes only the schools array of the user           
+                log.info('deleteSchoolUsers:revoke User:',userId);
+                Smartix.Accounts.School.revokeSchool(namespace,[userId]);
+            }
+        }        
+    });
+
+}
