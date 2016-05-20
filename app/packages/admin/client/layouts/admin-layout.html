@@ -9,19 +9,19 @@
             <li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
         </ul>
         <div>
-          <!--TODO implement properly (no harcoding) like overview.html-->
-          <!--{{#with schoolLogoUrl}}-->
+            <!--TODO implement properly (no harcoding) like overview.html-->
+            <!--{{#with schoolLogoUrl}}-->
             <!--<img src='{{this.url}}'/>-->
-          <!--{{/with}}-->
+            <!--{{/with}}-->
 
             <img src="/img/carmel.png" alt="" class="schoolLogo">
             <span class="welcome_msg">Welcome to {{schoolName}}</span>
         </div>
     </div>
-    
-    
-    
-    
+
+
+
+
     <!-- Page container -->
     <div class="admin-page-container page-container">
 
@@ -62,10 +62,10 @@
                                                 </ul>
                                             </li>
                                             <li><a href="{{pathFor route='admin.users.add' data=routeData}}"><i class="icon-plus3"></i> {{_ "Admin.AddUser" }}</a></li>
-                                       
+
                                         </ul>
                                     </li>
-                                    
+
                                     <li>
                                         <a href="#"><i class="icon-list3"></i> <span>{{_ "Admin.DistributionLists" }}</span></a>
                                         <ul>
@@ -99,31 +99,31 @@
                                             <li><a href="{{pathFor route='admin.absence.upload' data=routeData}}"><i class="icon-cloud-upload"></i>{{_ "Admin.UploadAttendenceRecords" }}</a></li>
                                         </ul>
                                     </li>
-                                   
+
 
                                     <li>
-                                      <a href="#"><i class="icon-list3"></i> <span>{{_ "Admin.DistributionLists" }}</span></a>
-                                      <ul>
-                                        <li><a href="{{pathFor route='admin.lists.list' data=routeData}}"><i class="icon-search4"></i> {{_ "Admin.Search" }}</a></li>
-                                        <li><a href="{{pathFor route='admin.lists.add' data=routeData}}"><i class="icon-plus3"></i> {{_ "Admin.Add" }}</a></li>
-                                      </ul>
-                                    </li>
-                                    <li>   
-                                    <li>
-                                        <a href="#"><i class="icon-feed2"></i> <span>{{_ "Admin.RSS" }}</span></a>
+                                        <a href="#"><i class="icon-list3"></i> <span>{{_ "Admin.DistributionLists" }}</span></a>
                                         <ul>
-                                            <li><a href="{{pathFor route='admin.rss.add' data=routeData}}"><i class="icon-plus3"></i> {{_ "Admin.AddRSSFeed" }}</a></li>
-                                            <li><a href="{{pathFor route='admin.rss.list' data=routeData}}"><i class="icon-feed2"></i>{{_ "Admin.ViewRSSFeeds" }}</a></li>
+                                            <li><a href="{{pathFor route='admin.lists.list' data=routeData}}"><i class="icon-search4"></i> {{_ "Admin.Search" }}</a></li>
+                                            <li><a href="{{pathFor route='admin.lists.add' data=routeData}}"><i class="icon-plus3"></i> {{_ "Admin.Add" }}</a></li>
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="{{pathFor route='admin.school.edit' data=routeData}}"><i class="icon-database-edit2"></i> <span>{{_ "Admin.EditSchool" }}</span></a>
-                                    </li>                                    
-                                    <li>
-                                        <a id="adminLayout__signOut" href="#"><i class="icon-exit3"></i> <span>{{_ "SignOut"}}</span></a>
+                                        <li>
+                                            <a href="#"><i class="icon-feed2"></i> <span>{{_ "Admin.RSS" }}</span></a>
+                                            <ul>
+                                                <li><a href="{{pathFor route='admin.rss.add' data=routeData}}"><i class="icon-plus3"></i> {{_ "Admin.AddRSSFeed" }}</a></li>
+                                                <li><a href="{{pathFor route='admin.rss.list' data=routeData}}"><i class="icon-feed2"></i>{{_ "Admin.ViewRSSFeeds" }}</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="{{pathFor route='admin.school.edit' data=routeData}}"><i class="icon-database-edit2"></i> <span>{{_ "Admin.EditSchool" }}</span></a>
+                                        </li>
+                                        <li>
+                                            <a id="adminLayout__signOut" href="#"><i class="icon-exit3"></i> <span>{{_ "SignOut"}}</span></a>
+                                        </li>
+                                        <!-- /main -->
                                     </li>
-                                    <!-- /main -->
-
                                 </ul>
                             </div>
                         </div>
@@ -137,9 +137,7 @@
 
             <!-- Main content -->
             <div class="content-wrapper">
-                {{#if Template.subscriptionsReady}}
-                    {{> yield}}
-                {{/if}}
+                {{#if Template.subscriptionsReady}} {{> yield}} {{/if}}
 
             </div>
             <!-- /main content -->
