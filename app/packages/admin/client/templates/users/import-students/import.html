@@ -5,7 +5,7 @@
         </div>
 
         <div class="panel-body">
-           <h3><p><strong>Step 1 - Download our CSV template, and complete the columns</strong></p></h3>
+            <h3><p><strong>Step 1 - Download our CSV template, and complete the columns</strong></p></h3>
 
             <img src="/packages/smartix_admin/client/assets/import-student-preview.png" alt="" style="max-width: 100%">
 
@@ -53,7 +53,7 @@
 
             <p>Note: All other fields are optional including Password, which allows you to pre-set a student's password. Required
                 fields are highlighted in <span style="color: red">red</span>. Download our CSV template to get started.</p>
-                
+
             <a target="_blank" href="/packages/smartix_admin/client/assets/students_import_template.csv" download="smartix-import-sample-students.csv">
                 <button type="submit" class="btn btn-primary">Download Template</button>
             </a>
@@ -72,57 +72,59 @@
                     <input type="file" id="user-upload-file" class="file-input" data-show-caption="false" data-show-upload="false">
                 </div>
             </div>
-            <br>
-
-            <table id="AdminUsersImport__preview-table" class="table datatable-basic">
-                <thead>
-                    <tr>
-                        <th>Student ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                        <th>Grade</th>
-                        <th>Classroom</th>
-                        <th>Gender</th>
-                        <th>Date of Birth</th>
-                        <th>Telephone</th>
-                        <th>Password</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each importedStudents}}
-                    <tr>
-                        <td>{{studentId}}</td>
-                        <td>{{firstName}}</td>
-                        <td>{{lastName}}</td>
-                        <td>{{email}}</td>
-                        <td>{{grade}}</td>
-                        <td>{{classroom}}</td>
-                        <td>{{gender}}</td>
-                        <td>{{dob}}</td>
-                        <td>{{tel}}</td>
-                        <td>{{password}}</td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-
-          <div class="align-bottom-right">
-            <div class="form-group" style="margin:0;">
-              <label class="control-label">Notify user with an email</label>
-              <div class="checkbox checkbox-switchery">
-                <label>
-                  <!--<input id="notifyuserwithemail" type="checkbox" class="switchery" checked>-->
-                  <input id="notifyuserwithemail" type="checkbox" class="switchery">
-                </label>
-              </div>
+            {{#if importedStudents}}
+            <div class="table-responsive">
+                <table id="AdminUsersImport__preview-table" class="table datatable-basic">
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Grade</th>
+                            <th>Classroom</th>
+                            <th>Gender</th>
+                            <th>Date of Birth</th>
+                            <th>Telephone</th>
+                            <th>Password</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each importedStudents}}
+                        <tr>
+                            <td>{{studentId}}</td>
+                            <td>{{firstName}}</td>
+                            <td>{{lastName}}</td>
+                            <td>{{email}}</td>
+                            <td>{{grade}}</td>
+                            <td>{{classroom}}</td>
+                            <td>{{gender}}</td>
+                            <td>{{dob}}</td>
+                            <td>{{tel}}</td>
+                            <td>{{password}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
             </div>
-            <div class="align-bottom-right text-right">
-              <button id="importUser-submit" type="submit" class="btn btn-primary">Import Users <i class="icon-arrow-right14 position-right"></i></button>
-            </div>
-          </div>
 
-          <div id="importStudents__errorMsgBlock"></div>
+            <div class="align-bottom-right">
+                <div class="form-group" style="margin:0;">
+                    <label class="control-label">Notify user with an email</label>
+                    <div class="checkbox checkbox-switchery">
+                        <label>
+                            <!--<input id="notifyuserwithemail" type="checkbox" class="switchery" checked>-->
+                            <input id="notifyuserwithemail" type="checkbox" class="switchery">
+                        </label>
+                    </div>
+                </div>
+                <div class="align-bottom-right text-right">
+                    <button id="importUser-submit" type="submit" class="btn btn-primary">Import Users <i class="icon-arrow-right14 position-right"></i></button>
+                </div>
+            </div>
+            {{/if}}
+
+            <div id="importStudents__errorMsgBlock"></div>
 
         </div>
     </div>

@@ -108,7 +108,7 @@ Template.AdminParentsImport.events({
                         log.error(err.reason);
                     }
                 });
-                toastr.info('Attempting to import ' + importedParents.length + " records. Please wait a few moments", null, toasterOption);
+                toastr.info('Attempting to import ' + importedParents.length + " records. Please wait a few moments and remain on the page.", null, toasterOption);
                 Session.set('imported-parents', undefined);
                 $("#parents-upload-file").val('');
             } else {
@@ -120,6 +120,7 @@ Template.AdminParentsImport.events({
     },
     'click #ParentsImport_clear': function () {
         Session.set('imported-parents', undefined);
+        $("#parents-upload-file").val('');
     },
     'click #ParentsImport_logsClear': function () {
         Session.set('importErrors', undefined);

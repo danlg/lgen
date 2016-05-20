@@ -43,109 +43,114 @@
                   </div>
               </div>
             </div>
-            <div class="table-responsive">
-                <table id="AdminUsersImport__preview-table" class="table datatable-basic">
-                    <thead>
-                        <tr>
-                            <th>Student ID</th>
-                            <th>Student E-mail</th>
-                            <th>Mother Salutation</th>
-                            <th>Mother First Name</th>
-                            <th>Mother Last Name</th>
-                            <th>Mother E-mail</th>
-                            <th>Mother Mobile</th>
-                            <th>Father Salutation</th>
-                            <th>Father First Name</th>
-                            <th>Father Last Name</th>
-                            <th>Father E-mail</th>
-                            <th>Father Mobile</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#each importedParents}}
-                        <tr>
-                            <td>{{studentId}}</td>
-                            <td>{{studentEmail}}</td>
-                            <td>{{motherSalutation}}</td>
-                            <td>{{motherFirstName}}</td>
-                            <td>{{motherLastName}}</td>
-                            <td>{{motherEmail}}</td>
-                            <td>{{motherMobile}}</td>
-                            <td>{{fatherSalutation}}</td>
-                            <td>{{fatherFirstName}}</td>
-                            <td>{{fatherLastName}}</td>
-                            <td>{{fatherEmail}}</td>
-                            <td>{{fatherMobile}}</td>
-                        </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="align-bottom-right">
-              <div class="form-group" style="margin:0;">
-                <label class="control-label">Notify user with an email</label>
-                <div class="checkbox checkbox-switchery">
-                  <label>
-                    <!--<input id="notifyuserwithemail" type="checkbox" class="switchery" checked>-->
-                    <input id="notifyuserwithemail" type="checkbox" class="switchery">
-                  </label>
-                </div>
-              </div>
-              <div class="text-right">
-                <button id="ParentsImport_clear" type="submit" class="btn btn-default">Clear Data</button>
-              </div>
-              <div class="text-right">
-                <button id="AdminParentsImport__submit" type="submit" class="btn btn-primary">Import Users <i class="icon-arrow-right14 position-right"></i></button>
-              </div>
-            </div>
-
-            <div id="errorMsgBlock AdminParentsImport__manualNotifyBlock">
-                <h3>Imported Users with No Emails</h3>
-                <p>We have created a user record for the following parents. But because they did not provide an email, please notify them manually of their usernames and passwords.</p>
-                <p>Please make a note of the login details now, they will not be shown again.</p>
-                <button id="ParentsImport_notifyClear" type="submit" class="btn btn-default">Clear List</button>
+            {{#if importedParents}}
                 <div class="table-responsive">
-                    <table class="table datatable-basic">
+                    <table id="AdminUsersImport__preview-table" class="table datatable-basic">
                         <thead>
                             <tr>
-                                <td>ID</td>
-                                <td>First Name</td>
-                                <td>Last Name</td>
-                                <td>Username</td>
-                                <td>Password</td>
+                                <th>Student ID</th>
+                                <th>Student E-mail</th>
+                                <th>Mother Salutation</th>
+                                <th>Mother First Name</th>
+                                <th>Mother Last Name</th>
+                                <th>Mother E-mail</th>
+                                <th>Mother Mobile</th>
+                                <th>Father Salutation</th>
+                                <th>Father First Name</th>
+                                <th>Father Last Name</th>
+                                <th>Father E-mail</th>
+                                <th>Father Mobile</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {{#each manualNotifyUsers}}
-                                <tr>
-                                    <td>{{_id}}</td>
-                                    <td>{{firstName}}</td>
-                                    <td>{{lastName}}</td>
-                                    <td>{{username}}</td>
-                                    <td>{{password}}</td>
-                                </tr>
+                            {{#each importedParents}}
+                            <tr>
+                                <td>{{studentId}}</td>
+                                <td>{{studentEmail}}</td>
+                                <td>{{motherSalutation}}</td>
+                                <td>{{motherFirstName}}</td>
+                                <td>{{motherLastName}}</td>
+                                <td>{{motherEmail}}</td>
+                                <td>{{motherMobile}}</td>
+                                <td>{{fatherSalutation}}</td>
+                                <td>{{fatherFirstName}}</td>
+                                <td>{{fatherLastName}}</td>
+                                <td>{{fatherEmail}}</td>
+                                <td>{{fatherMobile}}</td>
+                            </tr>
                             {{/each}}
                         </tbody>
                     </table>
                 </div>
-            </div>
-
-            <div id="errorMsgBlock AdminParentsImport__errorMsgBlock">
-                <h3>Error Logs</h3>
-                <button id="ParentsImport_logsClear" type="submit" class="btn btn-default">Clear Logs</button>
-                <ul>
-                    {{#each importErrors}}
-                        {{#if message}}
-                            <li>{{message}}</li>
-                        {{else}}
-                            {{#if reason}}
-                                <li>{{reason}}</li>
+                <div class="align-bottom-right">
+                    <div class="form-group" style="margin:0;">
+                        <label class="control-label">Notify user with an email</label>
+                        <div class="checkbox checkbox-switchery">
+                            <label>
+                                <!--<input id="notifyuserwithemail" type="checkbox" class="switchery" checked>-->
+                                <input id="notifyuserwithemail" type="checkbox" class="switchery">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <button id="ParentsImport_clear" type="submit" class="btn btn-default">Clear Data</button>
+                    </div>
+                    <div class="text-right">
+                        <button id="AdminParentsImport__submit" type="submit" class="btn btn-primary">Import Users <i class="icon-arrow-right14 position-right"></i></button>
+                    </div>
+                </div>
+            {{/if}}
+            
+            {{#if manualNotifyUsers}}
+                <div id="errorMsgBlock AdminParentsImport__manualNotifyBlock">
+                    <h3>Imported Users with No Emails</h3>
+                    <p>We have created a user record for the following parents. But because they did not provide an email, please notify them manually of their usernames and passwords.</p>
+                    <p>Please make a note of the login details now, they will not be shown again.</p>
+                    <button id="ParentsImport_notifyClear" type="submit" class="btn btn-default">Clear List</button>
+                    <div class="table-responsive">
+                        <table class="table datatable-basic">
+                            <thead>
+                                <tr>
+                                    <td>ID</td>
+                                    <td>First Name</td>
+                                    <td>Last Name</td>
+                                    <td>Username</td>
+                                    <td>Password</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each manualNotifyUsers}}
+                                    <tr>
+                                        <td>{{_id}}</td>
+                                        <td>{{firstName}}</td>
+                                        <td>{{lastName}}</td>
+                                        <td>{{username}}</td>
+                                        <td>{{password}}</td>
+                                    </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {{/if}}
+            
+            {{#if importErrors}}
+                <div id="errorMsgBlock AdminParentsImport__errorMsgBlock">
+                    <h3>Error Logs</h3>
+                    <button id="ParentsImport_logsClear" type="submit" class="btn btn-default">Clear Logs</button>
+                    <ul>
+                        {{#each importErrors}}
+                            {{#if message}}
+                                <li>{{message}}</li>
+                            {{else}}
+                                {{#if reason}}
+                                    <li>{{reason}}</li>
+                                {{/if}}
                             {{/if}}
-                        {{/if}}
-                    {{/each}}
-                </ul>
-            </div>
+                        {{/each}}
+                    </ul>
+                </div>
+            {{/if}}
         </div>
     </div>
 </template>
