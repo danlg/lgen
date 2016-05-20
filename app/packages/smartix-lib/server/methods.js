@@ -124,7 +124,7 @@ Meteor.methods({
         notificationObjType="single";
         var userId = notificationObj.query.userId;
         var userObj = Meteor.users.findOne(userId);
-        log.info('doPushNotification:',userObj,userId);
+        //log.info('doPushNotification:',userObj,userId);//very verbose
         if(userObj && userObj.pushNotifications) {
             filteredUserIdsWhoEnablePushNotify.push(userId);
             notificationObj.badge = Smartix.helpers.getTotalUnreadNotificationCount(userId);
