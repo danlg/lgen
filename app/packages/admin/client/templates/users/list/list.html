@@ -1,4 +1,5 @@
 <template name="AdminUsersSearch">
+    {{> BootstrapModal modalName=getModalName modalTitle=getModalTitle modalBody=getModalBody }}
     <div class="panel panel-flat">
         <div class="panel-heading">
             <h1>Search users {{#if Template.subscriptionsReady}}({{totalUserCount}}){{/if}} </h1>
@@ -11,7 +12,8 @@
                 {{> ionSpinner icon="spiral"}}
              {{/if}}
         </div>
-        
+
+      
         {{#if Template.subscriptionsReady}}
             <div class="panel-body">
                 

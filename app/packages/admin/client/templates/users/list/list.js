@@ -73,7 +73,20 @@ Template.AdminUsersSearch.events({
             return;
         }
         let listOfUsers = latestArray.join('\n');
-        if (window.confirm("Do you really want to remove the selected users?:\n"+listOfUsers)) { 
+        
+        template.modalTitle.set('Do you really want to remove the selected users?');
+        template.modalBody.set(listOfUsers);
+        template.modalName.set('remove-user-modal');
+        $('#remove-user-modal-btn').click();        
+       /* Blaze.renderWithData(Template.BootstrapModal,{
+            modalName:'remove-user-modal',
+            modalTitle:'Do you really want to remove the selected users?',
+            modalBody:  listOfUsers
+        },$('.admin-page-container').get(0)); */       
+        
+
+        
+        /*if (window.confirm("Do you really want to remove the selected users?:\n"+listOfUsers)) { 
             //show spinner
             template.doingOperations.set(true);
             
@@ -84,7 +97,7 @@ Template.AdminUsersSearch.events({
                 //un-select all users
                 template.usersChecked.set([]);
             });
-        }          
+        }*/         
     },
    'click .select-all-users-btn':function(event,template){
      var userObjects = Meteor.users.find( {},{ fields:{ _id: 1} } ).fetch();
@@ -181,6 +194,9 @@ Template.AdminUsersSearch.onCreated(function () {
     }
     this.usersChecked = new ReactiveVar([]);
     this.doingOperations = new ReactiveVar(false);
+    this.modalName = new ReactiveVar("");
+    this.modalTitle = new ReactiveVar("");
+    this.modalBody = new ReactiveVar("");
 });
 
 Template.AdminUsersSearch.helpers({
@@ -205,5 +221,14 @@ Template.AdminUsersSearch.helpers({
             class: "form-control",
             id: "AdminUsersSearchInput"
         }
+    },
+    getModalName:function(){
+        return Template.instance().modalName.get();
+    },
+    getModalTitle:function(){
+        return Template.instance().modalTitle.get();        
+    },
+    getModalBody:function(){
+        return Template.instance().modalBody.get();       
     }
 });
