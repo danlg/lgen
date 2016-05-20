@@ -82,140 +82,143 @@
                     <input type="file" id="teachers-upload-file" class="file-input" data-show-caption="false" data-show-upload="false">
                 </div>
             </div>
-            <div class="import-preview">
-                <table id="AdminUsersImport__preview-table" class="table datatable-basic">
-                    <thead>
-                        <tr>
-                            <th>Teacher First Name</th>
-                            <th>Teacher Last Name</th>
-                            <th>Teacher Email</th>
-                            <th>Gender</th>
-                            <th>Mobile Phone</th>
-                            <th>Subject Taught 1</th>
-                            <th>Subject Taught 2</th>
-                            <th>Subject Taught 3</th>
-                            <th>Subject Taught 4</th>
-                            <th>Subject Taught 5</th>
-                            <th>Subject Taught 6</th>
-                            <th>Subject Taught 7</th>
-                            <th>Class 1</th>
-                            <th>Class 2</th>
-                            <th>Class 3</th>
-                            <th>Class 4</th>
-                            <th>Class 5</th>
-                            <th>Class 6</th>
-                            <th>Class 7</th>
-                            <th>Class 8</th>
-                            <th>Class 9</th>
-                            <th>Class 10</th>
-                            <th>Smartix Class Name 1</th>
-                            <th>Smartix Class Name 2</th>
-                            <th>Smartix Class Name 3</th>
-                            <th>Smartix Class Name 4</th>
-                            <th>Smartix Class Name 5</th>
-                            <th>Smartix Class Name 6</th>
-                            <th>Smartix Class Name 7</th>
-                            <th>Smartix Class Name 8</th>
-                            <th>Smartix Class Name 9</th>
-                            <th>Smartix Class Name 10</th>
-                            <th>Invite Parents Class 1</th>
-                            <th>Invite Students Class 1</th>
-                            <th>Invite Parents Class 2</th>
-                            <th>Invite Students Class 2</th>
-                            <th>Invite Parents Class 3</th>
-                            <th>Invite Students Class 3</th>
-                            <th>Invite Parents Class 4</th>
-                            <th>Invite Students Class 4</th>
-                            <th>Invite Parents Class 5</th>
-                            <th>Invite Students Class 5</th>
-                            <th>Invite Parents Class 6</th>
-                            <th>Invite Students Class 6</th>
-                            <th>Invite Parents Class 7</th>
-                            <th>Invite Students Class 7</th>
-                            <th>Invite Parents Class 8</th>
-                            <th>Invite Students Class 8</th>
-                            <th>Invite Parents Class 9</th>
-                            <th>Invite Students Class 9</th>
-                            <th>Invite Parents Class 10</th>
-                            <th>Invite Students Class 10</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#each importedTeachers}}
-                        <tr>
-                            <td>{{firstName}}</td>
-                            <td>{{lastName}}</td>
-                            <td>{{email}}</td>
-                            <td>{{gender}}</td>
-                            <td>{{mobile}}</td>
-                            <td>{{subjectTaught1}}</td>
-                            <td>{{subjectTaught2}}</td>
-                            <td>{{subjectTaught3}}</td>
-                            <td>{{subjectTaught4}}</td>
-                            <td>{{subjectTaught5}}</td>
-                            <td>{{subjectTaught6}}</td>
-                            <td>{{subjectTaught7}}</td>
-                            <td>{{class1}}</td>
-                            <td>{{class2}}</td>
-                            <td>{{class3}}</td>
-                            <td>{{class4}}</td>
-                            <td>{{class5}}</td>
-                            <td>{{class6}}</td>
-                            <td>{{class7}}</td>
-                            <td>{{class8}}</td>
-                            <td>{{class9}}</td>
-                            <td>{{class10}}</td>
-                            <td>{{className1}}</td>
-                            <td>{{className2}}</td>
-                            <td>{{className3}}</td>
-                            <td>{{className4}}</td>
-                            <td>{{className5}}</td>
-                            <td>{{className6}}</td>
-                            <td>{{className7}}</td>
-                            <td>{{className8}}</td>
-                            <td>{{className9}}</td>
-                            <td>{{className10}}</td>
-                            <td>{{inviteParents1}}</td>
-                            <td>{{inviteStudents1}}</td>
-                            <td>{{inviteParents2}}</td>
-                            <td>{{inviteStudents2}}</td>
-                            <td>{{inviteParents3}}</td>
-                            <td>{{inviteStudents3}}</td>
-                            <td>{{inviteParents4}}</td>
-                            <td>{{inviteStudents4}}</td>
-                            <td>{{inviteParents5}}</td>
-                            <td>{{inviteStudents5}}</td>
-                            <td>{{inviteParents6}}</td>
-                            <td>{{inviteStudents6}}</td>
-                            <td>{{inviteParents7}}</td>
-                            <td>{{inviteStudents7}}</td>
-                            <td>{{inviteParents8}}</td>
-                            <td>{{inviteStudents8}}</td>
-                            <td>{{inviteParents9}}</td>
-                            <td>{{inviteStudents9}}</td>
-                            <td>{{inviteParents10}}</td>
-                            <td>{{inviteStudents10}}</td>
-                        </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="align-bottom-right">
-              <div class="form-group" style="margin:0;">
-                <label class="control-label">Notify user with an email</label>
-                <div class="checkbox checkbox-switchery">
-                  <label>
-                    <!--<input id="notifyuserwithemail" type="checkbox" class="switchery" checked>-->
-                    <input id="notifyuserwithemail" type="checkbox" class="switchery">
-                  </label>
+            {{#if importedTeachers}}
+                <div class="import-preview">
+                    <table id="AdminUsersImport__preview-table" class="table datatable-basic">
+                        <thead>
+                            <tr>
+                                <th>Teacher First Name</th>
+                                <th>Teacher Last Name</th>
+                                <th>Teacher Email</th>
+                                <th>Gender</th>
+                                <th>Mobile Phone</th>
+                                <th>Subject Taught 1</th>
+                                <th>Subject Taught 2</th>
+                                <th>Subject Taught 3</th>
+                                <th>Subject Taught 4</th>
+                                <th>Subject Taught 5</th>
+                                <th>Subject Taught 6</th>
+                                <th>Subject Taught 7</th>
+                                <th>Class 1</th>
+                                <th>Class 2</th>
+                                <th>Class 3</th>
+                                <th>Class 4</th>
+                                <th>Class 5</th>
+                                <th>Class 6</th>
+                                <th>Class 7</th>
+                                <th>Class 8</th>
+                                <th>Class 9</th>
+                                <th>Class 10</th>
+                                <th>Smartix Class Name 1</th>
+                                <th>Smartix Class Name 2</th>
+                                <th>Smartix Class Name 3</th>
+                                <th>Smartix Class Name 4</th>
+                                <th>Smartix Class Name 5</th>
+                                <th>Smartix Class Name 6</th>
+                                <th>Smartix Class Name 7</th>
+                                <th>Smartix Class Name 8</th>
+                                <th>Smartix Class Name 9</th>
+                                <th>Smartix Class Name 10</th>
+                                <th>Invite Parents Class 1</th>
+                                <th>Invite Students Class 1</th>
+                                <th>Invite Parents Class 2</th>
+                                <th>Invite Students Class 2</th>
+                                <th>Invite Parents Class 3</th>
+                                <th>Invite Students Class 3</th>
+                                <th>Invite Parents Class 4</th>
+                                <th>Invite Students Class 4</th>
+                                <th>Invite Parents Class 5</th>
+                                <th>Invite Students Class 5</th>
+                                <th>Invite Parents Class 6</th>
+                                <th>Invite Students Class 6</th>
+                                <th>Invite Parents Class 7</th>
+                                <th>Invite Students Class 7</th>
+                                <th>Invite Parents Class 8</th>
+                                <th>Invite Students Class 8</th>
+                                <th>Invite Parents Class 9</th>
+                                <th>Invite Students Class 9</th>
+                                <th>Invite Parents Class 10</th>
+                                <th>Invite Students Class 10</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each importedTeachers}}
+                            <tr>
+                                <td>{{firstName}}</td>
+                                <td>{{lastName}}</td>
+                                <td>{{email}}</td>
+                                <td>{{gender}}</td>
+                                <td>{{mobile}}</td>
+                                <td>{{subjectTaught1}}</td>
+                                <td>{{subjectTaught2}}</td>
+                                <td>{{subjectTaught3}}</td>
+                                <td>{{subjectTaught4}}</td>
+                                <td>{{subjectTaught5}}</td>
+                                <td>{{subjectTaught6}}</td>
+                                <td>{{subjectTaught7}}</td>
+                                <td>{{class1}}</td>
+                                <td>{{class2}}</td>
+                                <td>{{class3}}</td>
+                                <td>{{class4}}</td>
+                                <td>{{class5}}</td>
+                                <td>{{class6}}</td>
+                                <td>{{class7}}</td>
+                                <td>{{class8}}</td>
+                                <td>{{class9}}</td>
+                                <td>{{class10}}</td>
+                                <td>{{className1}}</td>
+                                <td>{{className2}}</td>
+                                <td>{{className3}}</td>
+                                <td>{{className4}}</td>
+                                <td>{{className5}}</td>
+                                <td>{{className6}}</td>
+                                <td>{{className7}}</td>
+                                <td>{{className8}}</td>
+                                <td>{{className9}}</td>
+                                <td>{{className10}}</td>
+                                <td>{{inviteParents1}}</td>
+                                <td>{{inviteStudents1}}</td>
+                                <td>{{inviteParents2}}</td>
+                                <td>{{inviteStudents2}}</td>
+                                <td>{{inviteParents3}}</td>
+                                <td>{{inviteStudents3}}</td>
+                                <td>{{inviteParents4}}</td>
+                                <td>{{inviteStudents4}}</td>
+                                <td>{{inviteParents5}}</td>
+                                <td>{{inviteStudents5}}</td>
+                                <td>{{inviteParents6}}</td>
+                                <td>{{inviteStudents6}}</td>
+                                <td>{{inviteParents7}}</td>
+                                <td>{{inviteStudents7}}</td>
+                                <td>{{inviteParents8}}</td>
+                                <td>{{inviteStudents8}}</td>
+                                <td>{{inviteParents9}}</td>
+                                <td>{{inviteStudents9}}</td>
+                                <td>{{inviteParents10}}</td>
+                                <td>{{inviteStudents10}}</td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
                 </div>
-              </div>
-              <div class="text-right">
-                <button id="AdminTeachersImport__submit" type="submit" class="btn btn-primary">Import Teachers and Staff <i class="icon-arrow-right14 position-right"></i></button>
-              </div>
-            </div>
-
+                <div class="align-bottom-right">
+                 <div class="form-group" style="margin:0;">
+                    <label class="control-label">Notify user with an email</label>
+                    <div class="checkbox checkbox-switchery">
+                    <label>
+                        <!--<input id="notifyuserwithemail" type="checkbox" class="switchery" checked>-->
+                        <input id="notifyuserwithemail" type="checkbox" class="switchery">
+                    </label>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <button id="AdminTeachersImport__clear" type="submit" class="btn btn-default">Clear Data</button>
+                </div>
+                <div class="text-right">
+                    <button id="AdminTeachersImport__submit" type="submit" class="btn btn-primary">Import Teachers and Staff <i class="icon-arrow-right14 position-right"></i></button>
+                </div>
+                </div>
+            {{/if}}
             <div id="AdminTeachersImport__errorMsgBlock"></div>
         </div>
     </div>

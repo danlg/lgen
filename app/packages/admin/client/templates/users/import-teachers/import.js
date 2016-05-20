@@ -72,6 +72,10 @@ var removeEmptyObjectsFromArray = function(array) {
 };
 
 Template.AdminTeachersImport.events({
+    'click #AdminTeachersImport__clear': function () {
+        Session.set('imported-teachers', undefined);
+        $("#teachers-upload-file").val('');
+    },
     'change #teachers-upload-file': function (event, template) {
         var files = event.currentTarget.files;
         var file = files[0];
