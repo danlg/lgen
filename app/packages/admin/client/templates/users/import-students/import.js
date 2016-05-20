@@ -26,6 +26,10 @@ var removeEmptyObjectsFromArray = function(array) {
 };
 
 Template.AdminUsersImport.events({
+    'click #importUser__clear': function () {
+        Session.set('imported-students', undefined);
+        $("#user-upload-file").val('');
+    },
     'change #user-upload-file': function (event, template) {
         var files = event.currentTarget.files;
         var file = files[0];
