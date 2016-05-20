@@ -42,22 +42,27 @@
                     <thead align="left">
                     <tr>
                         <th>&nbsp;</th>
-                        <th>User Name</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
                         <th>Role</th>
+                        <th>Last Name</th>
+                        <th>First Name</th>
+                        <th>Email</th>                        
+                        <th>User Name</th>
+                        <th>Grade</th>
+                        
                     </tr>
                     </thead>
                     
                     {{#EasySearch.Each index=usersIndex }}
                         <tr>
                             <td><input {{isUserChecked _id}} type="checkbox" name="user" class='school-directory-user-checkbox' value="{{_id}}"/></td>
+                            <td>{{getUserRoles}}</td>
+                            <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}">{{profile.lastName}}</a></td>
+                            <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}">{{profile.firstName}}</a></td>
+                            <td>{{getUserEmail}}</td> 
                             <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}"> {{username}} </a></td>
-                            <td>{{profile.firstName}}</td>
-                            <td>{{profile.lastName}}</td>
-                            <td>{{getUserEmail}}</td>   
-                            <td>{{getUserRoles}}</td>   
+                            <td>{{grade}}</td> 
+                              
+                            
                
                         </tr>                    
                     {{/EasySearch.Each}}
