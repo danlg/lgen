@@ -23,27 +23,27 @@
              value='' placeholder="Location">
           </label>
           <label class="item">
-            Start Date
+            {{_ "smartix-calendarevent.Startdate" }}
             <input id='start-date' type="date" value='{{getTodayDate}}' oninvalid="setCustomValidity('Start Date cannot be emptied')"
             oninput="setCustomValidity('')" placeholder="Start Date" required>
           </label>
           <label class="item">
-            At
+            {{_ "smartix-calendarevent.At" }}
             <input id='start-date-time' type="time" value='{{getCurrentTime}}' oninvalid="setCustomValidity('Start Date Time cannot be emptied')"
             oninput="setCustomValidity('')" placeholder="Start Date Time" required>
           </label>        
           <label class="item">
-            End Date
+            {{_ "smartix-calendarevent.Enddate" }}
             <input id='end-date' type="date" value='{{getTodayDate}}' placeholder="End Date" >
           </label>
           <label class="item">
-            To
+            {{_ "smartix-calendarevent.To" }}
             <input id='end-date-time' type="time" value='{{getCurrentTime}}' placeholder="End Date Time" >
           </label>          
           <!--<label class="item item-input">
             <input id='content' type="text" value='{{email}}' placeholder="Content">
           </label>-->
-          <button class='hidden' >Submit</button>  		  	  
+          <button class='hidden' > {{_ "smartix-calendarevent.Submit" }}</button>  		  	  
         </div>	
 	    </form>
 </template>

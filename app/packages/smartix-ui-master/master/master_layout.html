@@ -11,7 +11,6 @@
                 You are at {{getCurrentSchoolNameDisplay}}
                 
                 {{#if belongToMultiSchool}}
-                    <a href="{{pathFor route='SchoolPick'}}" class='btn'>Switch School</a>
                 {{/if}}
                 
               </div>
@@ -28,13 +27,11 @@
               <!--only if in school namespace - the above should available-->
               
               <a href="{{pathFor route='TabClasses'}}" class="item item-icon-right" data-ion-menu-close>
-                Classes
                 {{#if sumOfNewClassMessageAndCommentCounter}}
                   <span class="badge badge-assertive">{{sumOfNewClassMessageAndCommentCounter}}</span>
                 {{/if}}
               </a>
               <a href="{{pathFor route='TabChat'}}" class="item item-icon-right" data-ion-menu-close>
-                Chat
                 {{#if sumOfNewChatMessageCounter}}
                   <span class="badge badge-assertive">{{sumOfNewChatMessageCounter}}</span>
                 {{/if}}
@@ -44,16 +41,12 @@
               <!--only if in school namespace - the below should available -->
               {{#if isSchoolNamespace}}
               <a href="{{pathFor route='newsgroups.news.list'}}" class="item item-icon-right" data-ion-menu-close>
-                News
               </a>              
               <a href="{{pathFor route='calendar.list'}}" class="item item-icon-right" data-ion-menu-close>
-                Calendar
               </a>
               <a href="{{pathFor route='attendance.home' school=getCurrentSchoolName}}" class="item item-icon-right" data-ion-menu-close>
-                Attendance
               </a>
               <a href="{{pathFor route='mobile.school.contact' school=getCurrentSchoolName}}" class="item item-icon-right" data-ion-menu-close>
-                Contact
               </a>
               {{else}}
                 
@@ -63,14 +56,12 @@
               <!--only if in school namespace - the above should available-->
               
               <a href="{{pathFor route='TabYou'}}" class="item item-icon-right" data-ion-menu-close>
-                Settings
               </a>
 
               <!--TODO: only if user is school admin-->
               {{#if isSchoolNamespace}}
                 {{#if isAdminInCurrentNamespace}}
                 <a href="{{pathFor route='admin.dashboard' school=getCurrentSchoolName}}" class="item item-icon-right" data-ion-menu-close>
-                  Admin
                 </a>
                 {{/if}}
               {{/if}}                                

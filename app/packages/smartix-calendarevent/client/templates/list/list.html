@@ -5,7 +5,7 @@
   {{/contentFor}}
       
   {{#contentFor "headerTitle"}}
-     <h1 class="title">Calendar</h1>
+     <h1 class="title">{{_ "smartix-calendarevent.Calendar" }}</h1>
   {{/contentFor}}   
   
     {{#ionView}}
@@ -19,7 +19,7 @@
                                 {{>CalendarDisplay this}}                                       
                         {{/with}}
                     {{else}}
-                        No Incoming Events
+                        {{_ "smartix-calendarevent.NoIncomingEvents" }}
                     {{/each}}
                     
                 {{else}}

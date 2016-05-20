@@ -1,77 +1,77 @@
 <template name="AdminAbsenceExpected">
     <div class="panel panel-flat">
         <div class="panel-heading">
-            <h1>Expected Absences</h1>
+            <h1>{{_ "Admin.ExpectedAbsences" }}</h1>
         </div>
 
         <div class="panel-body">
             <div class="form-group">
-                <label class="control-label col-lg-2">Student Name</label>
+                <label class="control-label col-lg-2">{{_ "Admin.StudentName" }}</label>
                 <div class="col-lg-10">
                     <input type="text" class="form-control" placeholder="Student's First/Last name">
-                    <span class="help-block">Filter students by first/last name</span>
+                    <span class="help-block">{{_ "Admin.Filter" }}</span>
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-md-2">From</label>
+                <label class="control-label col-md-2">{{_ "Admin.From" }}</label>
                 <div class="col-md-10">
                     <input class="form-control" type="date" name="date" value="{{filterStartDate}}">
-                    <span class="help-block">Display entries from, and including, this date</span>
+                    <span class="help-block">{{_ "Admin.Displayentriesfrom" }}</span>
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-md-2">To</label>
+                <label class="control-label col-md-2">{{_ "Admin.To" }}</label>
                 <div class="col-md-10">
                     <input class="form-control" type="date" name="date" value="{{filterEndDate}}">
-                    <span class="help-block">Display entries to, and including, this date</span>
+                    <span class="help-block">{{_ "Admin.Displayentriesto" }}</span>
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-md-2 text-semibold">Filter by Type</label>
+                <label class="control-label col-md-2 text-semibold">{{_ "Admin.FilterbyType" }}</label>
                 <div class="col-md-10 row">
                     <div class="col-md-12">
                         <div class="radio">
                             <label>
                                 <input type="radio" name="radio-styled-color" class="control-success" checked="checked">
-                                Excused Any
+                                {{_ "Admin.ExcusedAny" }}
                             </label>
                         </div>
                         <div class="radio">
                             <label>
                                 <input type="radio" name="radio-styled-color" class="control-success">
-                                Excused Late
+                                {{_ "Admin.ExcusedLate" }}
                             </label>
                         </div>
 
                         <div class="radio">
                             <label>
                                 <input type="radio" name="radio-styled-color" class="control-success">
-                                Excused Absent
+                                {{_ "Admin.ExcusedAbsent" }}
                             </label>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="text-right">
-                <button id="AdminAbsenceExpected__updateFilter" type="submit" class="btn btn-primary">Update Filters <i class="icon-arrow-right14 position-right"></i></button>
+                <button id="AdminAbsenceExpected__updateFilter" type="submit" class="btn btn-primary">{{_ "Admin.UpdateFilters" }} <i class="icon-arrow-right14 position-right"></i></button>
             </div>
         </div>
     </div>
     <!-- Basic datatable -->
     <div class="panel panel-flat">
         <div class="panel-body">
-            These are the messages for which the parent/guardian of the student(s) have sent as notice that the student will be late/absent. Please acknowledge these messages as soon as possible.
+            {{_ "Admin.Messagesent" }}
         </div>
 
         <table class="table datatable-basic">
             <thead>
                 <tr>
-                    <th>Status</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Start</th>
-                    <th>End</th>
-                    <th>Message</th>
+                    <th>{{_ "Admin.Status" }}</th>
+                    <th>{{_ "Admin.FirstName" }}</th>
+                    <th>{{_ "Admin.LastName" }}</th>
+                    <th>{{_ "Admin.Start" }}</th>
+                    <th>{{_ "Admin.End" }}</th>
+                    <th>{{_ "Admin.Message" }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -79,9 +79,9 @@
                     <tr>
                         <td>
                             {{#if approved}}
-                                <button class="AdminAbsenceExpected__unapprove">Approved</button>
+                                <button class="AdminAbsenceExpected__unapprove">{{_ "Admin.Approved" }}</button>
                             {{else}}
-                                <button class="AdminAbsenceExpected__approve">Pending</button>
+                                <button class="AdminAbsenceExpected__approve">{{_ "Admin.PendingApproval" }}</button>
                             {{/if}}
                         </td>
                         {{#with userData}}

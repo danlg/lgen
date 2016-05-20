@@ -2,16 +2,16 @@
 <template name='AddSchool'>
     <form>
         <br><br><br><br><br>
-        School name:
+        {{_ "schools.Schoolname" }}
         <input id='name' type="text" name="name">
         
-        <br> School shortname, would be seen in the route:
+        <br>{{_ "schools.Schoolshortname" }}
         <input id='username' type="text" name="username">
 
-        <br> School admin username, if it is blank, school shortname would be used as the admin username :
+        <br> {{_ "schools.Schooladminusername" }}
         <input id='admin-username' type="text" name="admin-username">
                 
-        <br> School logo:
+        <br> {{_ "schools.Schoollogo" }}
         <input id='school-logo' type="file" name="school-logo">
 
         {{uploadedSchoolLogoId}}
@@ -19,19 +19,19 @@
             {{this.url}}
             <img src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="thumbnail" />        
         {{/each}}
-        <br> telephone number:
+        <br> {{_ "schools.telephonenumber" }}
         <input id='tel' type="text" name="tel">
         
-        <br> School website:
+        <br> {{_ "schools.Schoolwebsite" }}
         <input id='web' type="text" name="web">
         
-        <br> School email:
+        <br> {{_ "schools.Schoolemail" }}
         <input id='email' type="text" name="email">
 
-        <br> School Background Color:
+        <br> {{_ "schools.SchoolBackgroundColor" }}
         <input id='school-background-color' type="color" name="school-background-color" value='#CCCCCC'>
         
-        <br> School Text Color:
+        <br> {{_ "schools.SchoolTextColor" }}
         <input id='school-text-color' type="color" name="school-text-color" value='#000000'>
                         
        <br>

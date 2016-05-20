@@ -1,6 +1,6 @@
 <template name="GroupChatInviteWrapper">
   {{#contentFor "headerTitle"}}
-    <h1 class="title"> Group Chat </h1>
+    <h1 class="title"> {{_ "smartix-chat.GroupChat" }} </h1>
   {{/contentFor}}
   {{#contentFor "headerButtonLeft"}}
     {{>ionNavBackButton path="GroupChatInvite" text=" "}}
@@ -21,7 +21,7 @@
         </div> 
         {{else}}
         <div id='pick-an-icon-btn' class='col col-50'  style='text-align:center;' >              
-        <p> Choose a group avatar (optional)</p>  
+        <p> {{_ "smartix-chat.Chooseagroupavatar(optional)" }}</p>  
         <i class='icon ion-ios-person-outline' style='font-size:5em;'></i>
         </div>  
         {{/if}}                       
@@ -48,8 +48,8 @@
    {{#ionFooterBar class='dummy'}}
    
         <div class='button-bar'>
-            <button class="checkAllBtn button">Check / Uncheck All</button>
-            <button class="createChatBtn button {{ shouldDisplay }}">Create Chat</button>
+            <button class="checkAllBtn button">{{_ "smartix-chat.Check/UncheckAll" }}</button>
+            <button class="createChatBtn button {{ shouldDisplay }}">{{_ "smartix-chat.CreateChat" }}</button>
         </div>    
         
    {{/ionFooterBar}}

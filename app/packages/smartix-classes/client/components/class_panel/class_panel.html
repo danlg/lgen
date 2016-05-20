@@ -47,7 +47,7 @@
 
 
         <div class="list messageList background-wallpaper"  id="messageList">
-           <div class='date-bubble-wrapper {{isLoadMoreButtonShow}}'><button class='load-prev-msg'>Load Previous Messages</button> </div>
+           <div class='date-bubble-wrapper {{isLoadMoreButtonShow}}'><button class='load-prev-msg'>{{_ "smartix-classes.Loadmessages" }} </button> </div>
                {{#each classMessages}}
                 {{#if isFirstMsgInOneDay}}
                        <div class='date-bubble-wrapper'> <div class='date-bubble'>{{formatDate createdAt}}</div> </div>

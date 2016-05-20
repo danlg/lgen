@@ -1,6 +1,6 @@
 <template name="NewsgroupsNewsView">
   {{#contentFor "headerTitle"}}
-     <h1 class="title">News</h1>
+     <h1 class="title">{{_News}}</h1>
   {{/contentFor}}
 
 
@@ -28,7 +28,7 @@
             {{else}}
             
                 <a class="item" href="#">
-                    No News
+                   {{_NoNews}}
                 </a>         
             {{/each}}
          {{/with}}      

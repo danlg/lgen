@@ -10,7 +10,7 @@
    </style>-->
    
   {{#contentFor "headerTitle"}}
-    <h1 class="title"> School Contact </h1>
+    <h1 class="title">{{_ "schools-home.Contact" }} </h1>
   {{/contentFor}}   
   
   {{#contentFor "headerButtonLeft"}}
@@ -19,24 +19,24 @@
      
   {{#ionView}}
     {{#ionContent}}
-        {{#with getSchoolObj}}      
+        {{#with getSchoolObj}}          
             <div class="list card">
 
             <a href="{{web}}" target="_blank" class="item item-icon-left">
                 <i class="icon ion-home"></i>
-                <h2>Homepage</h2>
+                <h2>{{_ "schools-home.Homepage" }}</h2>
                 <p>{{web}}</p>
             </a>
 
             <a href="tel:{{tel}}" class="item item-icon-left">
                 <i class="icon ion-ios-telephone"></i>
-                <h2>Phone Number</h2>
+                <h2>{{_ "schools-home.PhoneNumbe" }}</h2>
                 <p>{{tel}}</p>
             </a>
 
             <a href="mailto:{{email}}" class="item item-icon-left">
                 <i class="icon ion-ios-email-outline"></i>
-                <h2>Email</h2>
+                <h2>{{_ "schools-home.Email" }}</h2>
                 <p>{{email}}</p>
             </a>
 
