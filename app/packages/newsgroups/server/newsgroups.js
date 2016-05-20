@@ -67,7 +67,9 @@ Smartix.Newsgroup.createNewsgroup = function (distributionLists, users, namespac
 	newsgroup.namespace = namespace;
 	newsgroup.type = 'newsgroup';
 	newsgroup.name = name;
-	newsgroup.url = url;
+    
+    newsgroup.url = url ? url : Smartix.Utilities.stringToLetterCase(newsgroup.name);
+    
 	newsgroup.mandatory = mandatory;
 	newsgroup.admins = [
 		Meteor.userId()
