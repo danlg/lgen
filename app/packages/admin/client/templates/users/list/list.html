@@ -21,6 +21,15 @@
                 <!--<span>Total User: {{totalUserCount}} </span>-->
                 <span>{{totalSelectUserCount}} have been selected.</span>
                 <br/>
+                Filter:
+                    <div class="btn-group">
+                        <button type="button" data-role='all' class="btn btn-primary filter-by-role-btn">All</button>
+                        <button type="button" data-role='parent' class="btn btn-primary filter-by-role-btn">Parent</button>
+                        <button type="button" data-role='student' class="btn btn-primary filter-by-role-btn">Student</button>
+                        <button type="button" data-role='teacher' class="btn btn-primary filter-by-role-btn">Teacher</button>
+                        <button type="button" data-role='admin' class="btn btn-primary filter-by-role-btn">Admin</button>                        
+                    </div>
+                <br/>
                 <button class='btn btn-default select-all-users-btn'>Select All</button> 
                 <button class='btn btn-default deselect-all-users-btn'>De-Select All</button>                                   
                 <button class='btn btn-default select-all-users-current-page-btn'>Select All From Current Page</button>
