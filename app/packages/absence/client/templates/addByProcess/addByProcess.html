@@ -1,7 +1,7 @@
 <template name='AttendanceRecordAddByProcess'>
     
         {{#contentFor "headerTitle"}}
-            <h1 class="title">Apply for leave</h1>
+            <h1 class="title">{{_ "absence.ApplyForLeave" }}</h1>
         {{/contentFor}}
 
 
@@ -29,7 +29,7 @@
         <div class="list ">
           <label class="item item-input">
             <input id='process-id' type="hidden" value='{{_id}}' />   
-            Child to apply for leave:<br/>
+           {{_ "absence.ApplyForLeave" }}<br/>
             {{#with getUserById studentId}}
               {{profile.firstName}}&nbsp;{{profile.lastName}}              
               <input id='children-id' type="hidden" value='{{../studentId}}' />         
@@ -38,38 +38,37 @@
           </label>
         <div class="card">
             <div class="item item-text-wrap smaller less-top-bottom-padding">
-              The form should be filled in local time of school
+              {{_ "absence.Localtime" }}
             </div>
         </div>
         
           <label class="item less-top-bottom-padding">
-            Leave Start Date {{date}}
+             {{_ "absence.StartDate" }}{{date}}
             <input id='start-date' type="date" value='{{getProcessDate}}' oninvalid="setCustomValidity('Start Date cannot be emptied')"
             oninput="setCustomValidity('')" placeholder="Start Date" required>
           </label>
           <label class="item less-top-bottom-padding">
-            From 
+           {{_ "absence.From" }} 
             <input id='start-date-time' type="time" value='{{getDefaultStartDateTime}}' oninvalid="setCustomValidity('Start Date Time cannot be emptied')"
             oninput="setCustomValidity('')" placeholder="Start Date Time" required>
           </label>        
           <label class="item less-top-bottom-padding">
-            Leave End Date {{date}}
+            {{_ "absence.EndDate" }}  {{date}}
             <input id='end-date' type="date" value='{{getProcessDate}}' placeholder="End Date" required>
           </label>
           <label class="item less-top-bottom-padding">
-            To
+            {{_ "absence.To" }}
             <input id='end-date-time' type="time" value='{{getDefaultEndDateTime}}' placeholder="End Date Time" required>
           </label>
           <label class="item item-input">
             <input id='leave-reason' type="text" value='{{email}}' placeholder="Reason of Leave" required>
           </label>   
-                        
          {{#if expectedAbsenceRecords}}
             <div class="item item-text-wrap smaller less-top-bottom-padding">
-             Leave Application has been submitted
+             {{_ "absence.Submitted" }}
             </div>
           {{else}}
-             <button type='button' class="apply-leave-btn button button-block button-positive">Submit</button>	          
+             <button type='button' class="apply-leave-btn button button-block button-positive"> {{_ "absence.Submit" }}</button>	          
           {{/if}}	
             	  
         </div>

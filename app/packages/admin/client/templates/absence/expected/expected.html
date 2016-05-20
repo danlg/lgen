@@ -1,51 +1,53 @@
 <template name="AdminAbsenceExpected">
     <div class="panel panel-flat">
         <div class="panel-heading">
-            <h1>Expected Absences</h1>
+            <h1>{{_ "Admin.ExpectedAbsences" }}</h1>
         </div>
 
         <div class="panel-body">
+
             <div class="col-lg-6 form-group">
                 <div class="">
-                    <label class="control-label col-lg-4">Student Name</label>
+                    <label class="control-label col-lg-4">{{_ "Admin.StudentName" }}</label>
                     <div class="col-lg-8">
                         <input type="text" class="form-control" id="AdminAbsenceExpected__studentName" placeholder="Filter students by First/Last Name">
                     </div>
                 </div>
                 <div>
-                    <label class="control-label col-md-4">From</label>
+                    <label class="control-label col-md-4">{{_ "Admin.From" }}</label>
                     <div class="col-md-8">
                         <input class="form-control" type="date" name="startDate" id="AdminAbsenceExpected__startDate" value="{{filterStartDate}}">
                     </div>
                 </div>
                 <div>
-                    <label class="control-label col-md-4">To</label>
+                    <label class="control-label col-md-4">{{_ "Admin.To" }}</label>
                     <div class="col-md-8">
                         <input class="form-control" type="date" name="endDate" id="AdminAbsenceExpected__endDate" value="{{filterEndDate}}">
                     </div>
                 </div>
                 <button id="AdminAbsenceExpected__updateFilter" type="submit" class="btn btn-primary">Update Filters <i class="icon-arrow-right14 position-right"></i></button>
             </div>
+
             <div class="col-lg-6 form-group">
                 <div>
                     <div class="col-md-12">
                         <div class="radio">
                             <label>
                                 <input type="radio" name="status-filter" class="control-success" value="any" checked="checked">
-                                Show All
+                                 {{_ "Admin.ShowAll" }} 
                             </label>
                         </div>
                         <div class="radio">
                             <label>
                                 <input type="radio" name="status-filter" class="control-success" value="approved">
-                                Show <button class="label label-success">Approved</button>
+                                 {{_ "Admin.Show" }} <button class="label label-success">  {{_ "Admin.Approved" }}</button>
                             </label>
                         </div>
 
                         <div class="radio">
                             <label>
                                 <input type="radio" name="status-filter" class="control-success" value="pending">
-                                Show <button class="label label-info">Pending</button>
+                                Show <button class="label label-info"> {{_ "Admin.Pending" }}</button>
                             </label>
                         </div>
                     </div>
@@ -60,12 +62,13 @@
             <table class="table datatable-basic">
                 <thead>
                     <tr>
-                        <th>Status</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Start</th>
-                        <th>End</th>
-                        <th>Message</th>
+                    <th>{{_ "Admin.Status" }}</th>
+                    <th>{{_ "Admin.FirstName" }}</th>
+                    <th>{{_ "Admin.LastName" }}</th>
+                    <th>{{_ "Admin.Start" }}</th>
+                    <th>{{_ "Admin.End" }}</th>
+                    <th>{{_ "Admin.Message" }}</th>
+                       
                     </tr>
                 </thead>
                 <tbody>

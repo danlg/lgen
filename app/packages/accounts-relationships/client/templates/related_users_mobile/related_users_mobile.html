@@ -1,5 +1,5 @@
 <template name="RelatedUsersMobile">
-    <div class="item item-divider"> Family </div>
+    <div class="item item-divider">{{_ "accounts-relationships.Family" }} </div>
     <div class="list">
     
     {{#each relationships}}
@@ -8,7 +8,7 @@
             {{#if userIsChildOrParent}}       
                 {{#if userIsParent parent}}
                     {{getChildNameById child}}
-                    <div style="font-size: smaller;color:grey">child @ {{namespace}} </div>
+                    <div style="font-size: smaller;color:grey">{{_ "accounts-relationships.child" }} @ {{namespace}} </div>
                 {{/if}}
                         
                 {{#if userIsChild child}}
@@ -17,11 +17,10 @@
                 {{/if}}
             {{else}}
                 <!-- is admin-->
-                <p>Parent:       {{getParentNameById parent}}</p>
-                <p>Child:        {{getChildNameById child}} </p>
-                <!--<p>Type:         {{type}}</p>-->
-                <p>Relationship:    {{name}}</p>
-                <!--<p>Namespace:    {{namespace}} </p>-->
+                <p>{{_ "accounts-relationships.Parent" }}:       {{getParentNameById parent}}</p>
+                <p>{{_ "accounts-relationships.child" }}:        {{getChildNameById child}} </p>
+                <p>{{_ "accounts-relationships.Relationship" }}:     {{name}}</p>
+                
                 <i data-relationship-id={{_id}} style='' class="icon assertive  ion-android-remove-circle remove-relationship-btn ">                   
                 </i>               
             {{/if}}
@@ -29,7 +28,7 @@
         </div>
         {{else}}
           <label class="item item-input item-stacked-label">
-           <p>No relationship record</p>  
+           <p>{{_ "accounts-relationships.Norecord" }}</p>  
           </label>         
          
     {{/each}}

@@ -1,26 +1,27 @@
 <template name="AdminAbsentees">
         <div class="panel panel-flat">
         <div class="panel-heading">
-            <h1>Absentees</h1>
+            <h1>{{_ "Admin.Absentees" }}</h1>
         </div>
 
         <div class="panel-body">
+
             <div class="col-lg-6">
                 <div class="form-group">
                     <div class="col-lg-12">
-                        <label class="control-label col-lg-4">Student Name</label>
+                        <label class="control-label col-lg-4">{{_ "Admin.StudentName" }}</label>
                         <div class="col-lg-8">
                             <input type="text" class="form-control" id="AdminAbsenceProcessed__studentName" placeholder="Filter students by First/Last Name">
                         </div>
                     </div>
                     <div class="col-lg-12">
-                        <label class="control-label col-md-4">From</label>
+                        <label class="control-label col-md-4">{{_ "Admin.From" }}</label>
                         <div class="col-md-8">
                             <input class="form-control" type="date" name="startDate" id="AdminAbsenceProcessed__startDate" value="{{filterStartDate}}">
                         </div>
                     </div>
                     <div class="col-lg-12">
-                        <label class="control-label col-md-4">To</label>
+                        <label class="control-label col-md-4">{{_ "Admin.To" }}</label>
                         <div class="col-md-8">
                             <input class="form-control" type="date" name="endDate" id="AdminAbsenceProcessed__endDate" value="{{filterEndDate}}">
                         </div>
@@ -28,34 +29,35 @@
                 </div>
                 <button id="AdminAbsenceProcessed__updateFilter" type="submit" class="btn btn-primary">Update Filters <i class="icon-arrow-right14"></i></button>
             </div>
+
             <div class="form-group col-lg-6">
                 <div class="row">
                     <div>
                         <div class="radio">
                             <label>
                                 <input type="radio" name="status-filter" class="control-success" value="any" checked="checked">
-                                Show All
+                               {{_ "Admin.ShowAll" }}
                             </label>
                         </div>
 
                         <div class="radio">
                             <label>
                                 <input type="radio" name="status-filter" class="control-success" value="approved">
-                                Show <button class="label label-success">Approved</button> <small>(Approved Absences)</small>
+                                   {{_ "Admin.Show" }} <button class="label label-success">  {{_ "Admin.Approved" }}</button> <small>（ {{_ "Admin.ApprovedAbsences" }}）</small>
                             </label>
                         </div>
 
                         <div class="radio">
                             <label>
                                 <input type="radio" name="status-filter" class="control-success" value="pending">
-                                Show <button class="label label-info">Pending</button> <small>(Absence request made but not approved)</small>
+                                 {{_ "Admin.Show" }} <button class="label label-info"> {{_ "Admin.Pending" }}</button> <small>({{_ "Admin.AbsenceRequestMadeNotApproved" }})</small>
                             </label>
                         </div>
                         
                         <div class="radio">
                             <label>
                                 <input type="radio" name="status-filter" class="control-success" value="missing">
-                                Show <button class="label label-danger">Missing</button> <small>(Absent/late without notice)</small>
+                                Show <button class="label label-danger">{{_ "Admin.Missing" }}</button> <small>({{_ "Admin.AbsentLateNoNotice" }})</small>
                             </label>
                         </div>
                     </div>
@@ -68,8 +70,8 @@
         <div class="panel-body">
             <!--<p>This table displays the student marked as late or absent by the system. It reconciles the absences with parents' notice. Please acknowledge these messages as soon as possible.</p>-->
             <div class="col-lg-12 text-right">
-                <button id="AdminAbsentees__update" type="submit" class="btn btn-primary"><i class="icon-loop4"></i> Refresh</button>
-                <button id="AdminAbsentees__updateNotify" type="submit" class="btn btn-danger"><i class="icon-bell3"></i> Notify</button>
+                <button id="AdminAbsentees__update" type="submit" class="btn btn-primary"><i class="icon-loop4"></i> {{_ "Admin.Refresh" }}</button>
+                <button id="AdminAbsentees__updateNotify" type="submit" class="btn btn-danger"><i class="icon-bell3"></i> {{_ "Admin.Notify" }}</button>
             </div>
             
             {{#if Template.subscriptionsReady}}
@@ -77,16 +79,16 @@
                 <table class="table datatable-basic">
                     <thead>
                         <tr>
-                            <th>Status</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Class</th>
-                            <th>Date</th>
-                            <th>Notified</th>
-                            <th>ETA</th>
-                            <th>Time Arrived</th>
-                            <th>Teacher</th>
-                        </tr>
+                             <th>{{_ "Admin.Status" }}</th>
+                            <th>{{_ "Admin.FirstName" }}</th>
+                            <th>{{_ "Admin.LastName" }}</th>
+                            <th>{{_ "Admin.Class" }}</th>
+                            <th>{{_ "Admin.Date" }}</th>
+                            <th>{{_ "Admin.Notified" }}</th>
+                            <th>{{_ "Admin.ETA" }}</th>
+                            <th>{{_ "Admin.TimeArrived" }}</th>
+                            <th>{{_ "Admin.Teacher" }}</th>
+                    </tr>
                     </thead>
                     <tbody>
                         {{#each absentees}}
@@ -108,7 +110,7 @@
                 </table>
             </div>
             {{else}}
-                <div>Loading Table...</div>
+                <div>{{_ "Admin.Loading" }}</div>
             {{/if}}
         </div>
     </div>

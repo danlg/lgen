@@ -3,19 +3,19 @@
     {{#with getSchoolObj}}
     <form>
         <input id='school-id' type="hidden" name="school-id" value='{{_id}}'>
-        School long name:
+        {{_ "schools.Schoollongname" }}
         <input id='name' type="text" name="name" value='{{name}}'>
         
-        <br> School short name (1 word only no space, it will appear in the URL):
+        <br> {{_ "schools.Shortname" }}
         <input id='username' type="text" name="username" value='{{username}}'>
                 
-        <br>School logo
+        <br>{{_ "schools.Schoollogo" }}
         {{#with existingSchoolLogo}}
             <img id='existing-school-logo' data-existing-school-logo-id={{_id}} src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="thumbnail" />                    
         {{else}}
-            No existing school logo
+            {{_ "schools.Noexisting" }}
         {{/with}}
-        <br> Upload a new school logo     
+        <br> {{_ "schools.Upload" }}    
         <input id='school-logo' type="file" name="school-logo">
         
         {{uploadedSchoolLogoId}}
@@ -23,19 +23,19 @@
             {{this.url}}
             <img src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="thumbnail" />        
         {{/each}}
-        <br> Telephone number:
+        <br>  {{_ "schools.telephonenumber" }}
         <input id='tel' type="text" name="tel" value='{{tel}}'>
         
-        <br> School website:
+        <br> {{_ "schools.Schoolwebsite" }}
         <input id='web' type="text" name="web" value='{{web}}'>
         
-        <br> School administrator email (this login has full control on the Smartix school configuration)
+        <br> {{_ "schools.Schooladministratoremail" }}
         <input id='email' type="text" name="email" value='{{email}}'>
 
-        <br> School App background color:
+        <br> {{_ "schools.SchoolBackgroundColor" }}
         <input id='school-background-color' type="color" name="school-background-color" value='{{preferences.schoolBackgroundColor}}'>
         
-        <br> School text color (tip: if background is dark, text color white and vice versa if background light, text color black):
+        <br> {{_ "schools.SchoolTextColor" }}
         <input id='school-text-color' type="color" name="school-text-color" value='{{preferences.schoolTextColor}}'>
                         
        <br>

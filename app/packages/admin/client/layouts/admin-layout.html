@@ -41,81 +41,83 @@
                                     <!-- Main -->
                                     <li>
                                         <a href="{{pathFor route='admin.dashboard' data=routeData}}">
-                                            <i class="icon-home4"></i> <span>Dashboard</span></a>
+                                            <i class="icon-home4"></i> <span>{{_ "Admin.Dashboard" }}</span></a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="icon-user"></i> <span>Accounts</span></a>
+                                        <a href="#"><i class="icon-user"></i> <span>{{_ "Admin.Accounts" }}</span></a>
                                         <ul>
-                                            <li><a href="{{pathFor route='admin.users.list' data=routeData}}"><i class="icon-search4"></i>School Directory</a></li>
-                                            <li><a href="#"><i class="icon-cloud-upload"></i> <span>Bulk import</span></a>
+                                            <li><a href="{{pathFor route='admin.users.list' data=routeData}}"><i class="icon-search4"></i>{{_ "Admin.SchoolDirectory" }}</a></li>
+                                            <li><a href="#"><i class="icon-cloud-upload"></i> <span>{{_ "Admin.Bulkimport" }}</span></a>
                                                 <!--TODO add submenu-->
                                                 <ul>
                                                     <li>
-                                                        <a href="{{pathFor route='admin.users.import.students' data=routeData}}"><i class="icon-cloud-upload"></i>Students</a>
+                                                        <a href="{{pathFor route='admin.users.import.students' data=routeData}}"><i class="icon-cloud-upload"></i>{{_ "Admin.Students" }}</a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{pathFor route='admin.users.import.parents' data=routeData}}"><i class="icon-cloud-upload"></i>Parents</a>
+                                                        <a href="{{pathFor route='admin.users.import.parents' data=routeData}}"><i class="icon-cloud-upload"></i>{{_ "Admin.Parents" }}</a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{pathFor route='admin.users.import.teachers' data=routeData}}"><i class="icon-cloud-upload"></i>Teachers</a>
+                                                        <a href="{{pathFor route='admin.users.import.teachers' data=routeData}}"><i class="icon-cloud-upload"></i>{{_ "Admin.Teachers" }}</a>
                                                     </li>
                                                 </ul>
                                             </li>
-                                            <li><a href="{{pathFor route='admin.users.add' data=routeData}}"><i class="icon-plus3"></i> Add User</a></li>
-                                            <!--<li><a href="{{pathFor route='admin.users.membership' data=routeData}}"><i class="icon-users"></i> Membership</a></li>-->
-                                            <!--<li><a href="{{pathFor route='admin.users.relationships' data=routeData}}"><i class="icon-users"></i> Relationship</a></li>-->
-                                            <!--<li>
-												<a href="#">3 columns</a>
-												<ul>
-													<li><a href="3_col_dual.html">Dual sidebars</a></li>
-													<li><a href="3_col_double.html">Double sidebars</a></li>
-												</ul>
-											</li>-->
+                                            <li><a href="{{pathFor route='admin.users.add' data=routeData}}"><i class="icon-plus3"></i> {{_ "Admin.AddUser" }}</a></li>
+                                       
+                                        </ul>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="#"><i class="icon-list3"></i> <span>{{_ "Admin.DistributionLists" }}</span></a>
+                                        <ul>
+                                            <li><a href="{{pathFor route='admin.lists.list' data=routeData}}"><i class="icon-search4"></i> {{_ "Admin.Search" }}</a></li>
+                                            <li><a href="{{pathFor route='admin.lists.add' data=routeData}}"><i class="icon-plus3"></i> {{_ "Admin.Add" }}</a></li>
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="icon-books"></i> <span>Classes</span></a>
+                                        <a href="#"><i class="icon-books"></i> <span>{{_ "Admin.Classes" }}</span></a>
                                         <ul>
-                                            <li><a href="{{pathFor route='admin.classes.list' data=routeData}}"><i class="icon-search4"></i> Search Classes</a></li>
-                                            <li><a href="{{pathFor route='admin.classes.add' data=routeData}}"><i class="icon-plus3"></i> Add Class</a></li>
+                                            <li><a href="{{pathFor route='admin.classes.list' data=routeData}}"><i class="icon-search4"></i> {{_ "Admin.SearchClasses" }}</a></li>
+                                            <li><a href="{{pathFor route='admin.classes.add' data=routeData}}"><i class="icon-plus3"></i> {{_ "Admin.AddClass" }}</a></li>
                                             <!--<li><a href="{{pathFor route='admin.classes.import' data=routeData}}"><i class="icon-cloud-upload"></i> Import Classes</a></li>-->
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="icon-newspaper"></i> <span>News</span></a>
+                                        <a href="#"><i class="icon-newspaper"></i> <span> {{_ "Admin.News" }}</span></a>
                                         <ul>
-                                            <li><a href="{{pathFor route='admin.newsgroups.list' data=routeData}}"><i class="icon-search4"></i> Search Newsgroups</a></li>
-                                            <li><a href="{{pathFor route='admin.newsgroups.add' data=routeData}}"><i class="icon-plus3"></i> Add Newsgroups</a></li>
+                                            <li><a href="{{pathFor route='admin.newsgroups.list' data=routeData}}"><i class="icon-search4"></i> {{_ "Admin.SearchNewsgroups" }}</a></li>
+                                            <li><a href="{{pathFor route='admin.newsgroups.add' data=routeData}}"><i class="icon-plus3"></i> {{_ "Admin.AddNewsgroups" }}</a></li>
                                             <!--<li><a href="{{pathFor route='admin.newsgroups.import' data=routeData}}"><i class="icon-cloud-upload"></i> Import Newsgroups</a></li>											-->
-                                            <li><a href="{{pathFor route='admin.news.add' data=routeData}}"><i class="icon-plus3"></i> Add News</a></li>
+                                            <li><a href="{{pathFor route='admin.news.add' data=routeData}}"><i class="icon-plus3"></i>{{_ "Admin.AddNews" }}</a></li>
                                             <!--<li><a href="{{pathFor route='admin.news.import' data=routeData}}"><i class="icon-cloud-upload"></i> Import News</a></li>-->
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="icon-warning"></i> <span>Absence</span></a>
+                                        <a href="#"><i class="icon-warning"></i> <span>{{_ "Admin.Absence" }}</span></a>
                                         <ul>
-                                            <li><a href="{{pathFor route='admin.absence.expected' data=routeData}}"><i class="icon-checkbox-checked"></i> View Expected Absences</a></li>
-                                            <li><a href="{{pathFor route='admin.absence.absentees' data=routeData}}"><i class="icon-flag3"></i> View Absentees</a></li>
-                                            <!--<li><a href="{{pathFor route='admin.absence.register' data=routeData}}"><i class="icon-plus3"></i> Register Expected Absence</a></li>-->
-                                            <li><a href="{{pathFor route='admin.absence.upload' data=routeData}}"><i class="icon-cloud-upload"></i> Upload Attendance Records</a></li>
+                                            <li><a href="{{pathFor route='admin.absence.expected' data=routeData}}"><i class="icon-checkbox-checked"></i>{{_ "Admin.ViewExpectedAbsences" }}</a></li>
+                                            <li><a href="{{pathFor route='admin.absence.absentees' data=routeData}}"><i class="icon-flag3"></i> {{_ "Admin.ViewAbsentees" }}</a></li>
+                                            <li><a href="{{pathFor route='admin.absence.upload' data=routeData}}"><i class="icon-cloud-upload"></i>{{_ "Admin.UploadAttendenceRecords" }}</a></li>
                                         </ul>
                                     </li>
+                                   
+
                                     <li>
-                                      <a href="#"><i class="icon-list3"></i> <span>Distribution Lists</span></a>
+                                      <a href="#"><i class="icon-list3"></i> <span>{{_ "Admin.DistributionLists" }}</span></a>
                                       <ul>
-                                        <li><a href="{{pathFor route='admin.lists.list' data=routeData}}"><i class="icon-search4"></i> Search Distribution Lists</a></li>
-                                        <li><a href="{{pathFor route='admin.lists.add' data=routeData}}"><i class="icon-plus3"></i> Add Distribution List</a></li>
+                                        <li><a href="{{pathFor route='admin.lists.list' data=routeData}}"><i class="icon-search4"></i> {{_ "Admin.Search" }}</a></li>
+                                        <li><a href="{{pathFor route='admin.lists.add' data=routeData}}"><i class="icon-plus3"></i> {{_ "Admin.Add" }}</a></li>
                                       </ul>
                                     </li>
+                                    <li>   
                                     <li>
-                                        <a href="#"><i class="icon-feed2"></i> <span>RSS</span></a>
+                                        <a href="#"><i class="icon-feed2"></i> <span>{{_ "Admin.RSS" }}</span></a>
                                         <ul>
-                                            <li><a href="{{pathFor route='admin.rss.add' data=routeData}}"><i class="icon-plus3"></i> Add RSS Feed</a></li>
-                                            <li><a href="{{pathFor route='admin.rss.list' data=routeData}}"><i class="icon-feed2"></i> View RSS Feeds</a></li>
+                                            <li><a href="{{pathFor route='admin.rss.add' data=routeData}}"><i class="icon-plus3"></i> {{_ "Admin.AddRSSFeed" }}</a></li>
+                                            <li><a href="{{pathFor route='admin.rss.list' data=routeData}}"><i class="icon-feed2"></i>{{_ "Admin.ViewRSSFeeds" }}</a></li>
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="{{pathFor route='admin.school.edit' data=routeData}}"><i class="icon-database-edit2"></i> <span>Edit School</span></a>
+                                        <a href="{{pathFor route='admin.school.edit' data=routeData}}"><i class="icon-database-edit2"></i> <span>{{_ "Admin.EditSchool" }}</span></a>
                                     </li>                                    
                                     <li>
                                         <a id="adminLayout__signOut" href="#"><i class="icon-exit3"></i> <span>{{_ "SignOut"}}</span></a>

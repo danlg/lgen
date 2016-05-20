@@ -1,6 +1,6 @@
 <template name="NewsgroupsList">
   {{#contentFor "headerTitle"}}
-     <h1 class="title">Newsgroups</h1>
+     <h1 class="title">{{_Newsgroups.Newsgroups}}</h1>
   {{/contentFor}}
 
 
@@ -19,9 +19,7 @@
         </style>
         <div class="card">
             <div class="item item-text-wrap smaller">
-                 All School's newsgroups are displayed here. You can opt-out some of the newsgroups by clicking out the tick.
-                 After opt-out, you will not receive any notifications and messages of those newsgroups.
-                 Not all newsgroups can be opt-out. Newsgroups already opt-out is still shown in here, so you can opt-in freely anytime later on.
+                {{_Newsgroups.Displaynewsgroup}}
             </div>
         </div>    
         <ul class="list">
