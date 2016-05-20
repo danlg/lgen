@@ -11,7 +11,7 @@ Smartix.Class.searchForClassWithClassCode = function(classCode) {
         && classCodePattern.test(classCode)) {
 
         var existGroup = Smartix.Groups.Collection.findOne({
-            classCode: classCode
+            classCode: /^classCode$/i
         });
         log.info('existGroup', existGroup);
         // Returns the class object or `undefined`
@@ -95,6 +95,7 @@ Smartix.Class.createClass = function(classObj, currentUser) {
     newClass.type = 'class';
     newClass.className = classObj.className.trim();
     newClass.classCode = classObj.classCode.trim();
+    
     newClass.ageRestricted = classObj.ageRestricted;
     newClass.anyoneCanChat = classObj.anyoneCanChat;
     newClass.notifyStudents = classObj.notifyStudents;
@@ -124,46 +125,49 @@ Smartix.Class.createClass = function(classObj, currentUser) {
             newClass.distributionLists = classObj.distributionLists;
         }
     }
-
-    // Checks the arguments are of the specified type, convert it if not
-    Smartix.Class.Schema.clean(newClass);
-    // Checks are done in one go
-    check(newClass, Smartix.Class.Schema);
+    
+    
     // Remove duplicates from the `users` array
     newClass.users = _.uniq(newClass.users);
-    // Checks the `classCode` is unique for this namespace
-    let classWithClassCode = Smartix.Groups.Collection.findOne({
-        namespace: newClass.namespace,
-        classCode: /^newClass.classCode$/i
-    });
-    if (classWithClassCode) {
-        Smartix.Class.addAdminsToClass(classWithClassCode._id, [currentUser], currentUser);
+    
+    // Checks if classCode Already exists
+    let existingClass = Smartix.Class.searchForClassWithClassCode(newClass.classCode);
+    if(existingClass) {
+        // If there is an existing class
+        // Add the admins to the class
+        Smartix.Class.addAdminsToClass(existingClass._id, newClass.admins, currentUser);
         return false;
         // Optional: Throw error saying classCode already exists
-    }
-    let newClassId = Smartix.Groups.createGroup(newClass);
-    // Send emails to students if `newClass.notifyStudents` is true
-    if (newClass.notifyStudents) {
-        _.each(newClass.users, function(student, i, students) {
-        //    Smartix.Class.NotifyStudents(student, newClassId);
-        });
-    }
-    // Send emails to parents if `newClass.notifyParents` is true
-    if (newClass.notifyParents) {
-        let parentUsersArray = [];
-        _.each(newClass.users, function(student, i, students) {
-            // Get the parents of the student
-            let parents = Smartix.Accounts.Relationships.getParentOfStudent(student, namespace);
-            parentUsersArray.push(parents);
-            _.each(parents, function(parent, i) {
-            //    Smartix.Class.NotifyStudents(parent, newClassId);
+    } else {
+        // Checks the arguments are of the specified type, convert it if not
+        Smartix.Class.Schema.clean(newClass);
+        // Checks are done in one go
+        check(newClass, Smartix.Class.Schema);
+        
+        let newClassId = Smartix.Groups.createGroup(newClass);
+        // Send emails to students if `newClass.notifyStudents` is true
+        if (newClass.notifyStudents) {
+            _.each(newClass.users, function(student, i, students) {
+            //    Smartix.Class.NotifyStudents(student, newClassId);
             });
-        });
-        // Add each parent to the class
-        Smartix.Groups.addUsersToGroup(newClassId, _.uniq(_.flattenDeep(parentUsersArray)));
+        }
+        // Send emails to parents if `newClass.notifyParents` is true
+        if (newClass.notifyParents) {
+            let parentUsersArray = [];
+            _.each(newClass.users, function(student, i, students) {
+                // Get the parents of the student
+                let parents = Smartix.Accounts.Relationships.getParentOfStudent(student, namespace);
+                parentUsersArray.push(parents);
+                _.each(parents, function(parent, i) {
+                //    Smartix.Class.NotifyStudents(parent, newClassId);
+                });
+            });
+            // Add each parent to the class
+            Smartix.Groups.addUsersToGroup(newClassId, _.uniq(_.flattenDeep(parentUsersArray)));
+        }
+        log.info("Created successfully class" + newClassId);
+        return newClassId;
     }
-    log.info("Created successfully class" + newClassId);
-    return newClassId;
 };
 
 Smartix.Class.canEditClass = function (classId, currentUser) {
