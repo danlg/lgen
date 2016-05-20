@@ -98,7 +98,7 @@ Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser, 
 			if(newUserObj.isNew) {
 				newUsers.push(newUserObj.id);
 			} else {
-				log.warn("The user was not created with email", email);
+				log.warn("The user was not created with email", teacher.email);
 				errors.push(newUserObj.id);
 			}
 			//}
