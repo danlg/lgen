@@ -250,6 +250,9 @@ Smartix.Accounts.notifyByEmail = function(email, newUserId, tmpPassword, autoEma
                 log.error("Cannot send verification email to ", email, e);
             }
         }
+        else{
+            log.warn("Admin chose not to notify new user by email " + newUserId);
+        }
     }
     else if (doNotifyEmail) {
         log.warn("Cannot notify email " + email);
