@@ -94,6 +94,7 @@
     "NewClassMessageMailTitle": "Message from class __class_name__",
     "NewPassword": "New Password",
     "NewPasswordConfirm": "Confirm New Password",
+    "Nonews":"No news",
     "NoClass": "No class found",
     "No_chat_yet": "No chat yet",
     "No_private_note_yet": "Here you can take a private note, which is not shared with the member. For example, you can write the parent's name or any other useful information",
@@ -385,10 +386,6 @@
     "messages": {
         "Send": "Send"
     },
-    "News":{
-        "News":"News",
-        "Nonews":"No news"
-    },
     "Newsgroups":{
         "Newsgroups":"Newsgroups",
         "Displaynewsgroup":"All School's newsgroups are displayed here. You can opt-out some of the newsgroups by clicking out the tick. After opt-out, you will not receive any notifications and messages of those newsgroups. Not all newsgroups can be opt-out. Newsgroups already opt-out is still shown in here, so you can opt-in freely anytime later on."     
@@ -413,8 +410,7 @@
         "Contact" :"School Contact",
         "Homepage":"Homepage",
         "PhoneNumbe":"Phone Number",
-        "Email":"Email",
-        "NoNews":"No News"
+        "Email":"Email"
     },
     "smartix-calendarevent":{
         "Calendar":"Calendar",
@@ -453,7 +449,6 @@
         "Switchschool" : "Switch School",
         "Classes":" Classes",
         "Chat":"Chat",
-        "News":"News",
         "Calendar":" Calendar",
         "Attendance":"Attendance",
         "Contact":"Contact",
