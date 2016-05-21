@@ -6,21 +6,21 @@
 
         <div class="panel-body">
 
-            <div class="col-lg-6">
+            <div class="col-xs-6">
                 <div class="form-group">
-                    <div class="col-lg-12">
-                        <label class="control-label col-lg-4">{{_ "Admin.StudentName" }}</label>
-                        <div class="col-lg-8">
+                    <div class="col-xs-12">
+                        <label class="control-label col-xs-4">{{_ "Admin.StudentName" }}</label>
+                        <div class="col-xs-8">
                             <input type="text" class="form-control" id="AdminAbsenceProcessed__studentName" placeholder="Filter students by First/Last Name">
                         </div>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-xs-12">
                         <label class="control-label col-md-4">{{_ "Admin.From" }}</label>
                         <div class="col-md-8">
                             <input class="form-control" type="date" name="startDate" id="AdminAbsenceProcessed__startDate" value="{{filterStartDate}}">
                         </div>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-xs-12">
                         <label class="control-label col-md-4">{{_ "Admin.To" }}</label>
                         <div class="col-md-8">
                             <input class="form-control" type="date" name="endDate" id="AdminAbsenceProcessed__endDate" value="{{filterEndDate}}">
@@ -30,7 +30,7 @@
                 <button id="AdminAbsenceProcessed__updateFilter" type="submit" class="btn btn-primary">Update Filters <i class="icon-arrow-right14"></i></button>
             </div>
 
-            <div class="form-group col-lg-6">
+            <div class="form-group col-xs-6">
                 <div class="row">
                     <div>
                         <div class="radio">
@@ -69,13 +69,13 @@
     <div class="panel panel-flat">
         <div class="panel-body">
             <!--<p>This table displays the student marked as late or absent by the system. It reconciles the absences with parents' notice. Please acknowledge these messages as soon as possible.</p>-->
-            <div class="col-lg-12 text-right">
+            <div class="col-xs-12 text-right">
                 <button id="AdminAbsentees__update" type="submit" class="btn btn-primary"><i class="icon-loop4"></i> {{_ "Admin.Refresh" }}</button>
                 <button id="AdminAbsentees__updateNotify" type="submit" class="btn btn-danger"><i class="icon-bell3"></i> {{_ "Admin.Notify" }}</button>
             </div>
             
             {{#if Template.subscriptionsReady}}
-            <div class="col-lg-12 table-responsive">
+            <div class="col-xs-12 table-responsive">
                 <table class="table datatable-basic">
                     <thead>
                         <tr>

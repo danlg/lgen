@@ -3,14 +3,14 @@
         <div class="panel-body">
             <h5>Add New Relationship</h5>
             <div id="AdminUsersAddRelationships__add-user-container" class="form-group">
-                <div class="col-lg-3">
+                <div class="col-xs-3">
                     <select name="relationship-type" id="AdminUsersAddRelationships__relationship-type">
                         <option value="Mother">Mother</option>
                         <option value="Father">Father</option>
                         <option value="Other">Other</option>
                     </select>
                 </div>
-                <div class="col-lg-9">
+                <div class="col-xs-9">
                     <div class="input-group AdminUsersAddRelationships__add-user-input-container">
                         {{> EasySearch.Input index=usersIndex attributes=userSearchInputAttributes noDocumentsOnEmpty=true}}
                     </div>

@@ -13,22 +13,22 @@
                     <h4 class="text-bold">Newsgroup Details</h4>
                     
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Newsgroup Name</label>
-                        <div class="col-lg-10">
+                        <label class="control-label col-xs-2">Newsgroup Name</label>
+                        <div class="col-xs-10">
                             <input id="addNewsgroup-name" type="text" class="form-control" placeholder="Class Name">
                         </div>
                     </div>
                     
                     <!--<div class="form-group">
-                        <label class="control-label col-lg-2">Newsgroup Code</label>
-                        <div class="col-lg-10">
+                        <label class="control-label col-xs-2">Newsgroup Code</label>
+                        <div class="col-xs-10">
                             <input id="addNewsgroup-code" type="text" class="form-control" placeholder="Class Code">
                         </div>
                     </div>-->
                     
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Mandatory</label>
-                        <div class="col-lg-10">
+                        <label class="control-label col-xs-2">Mandatory</label>
+                        <div class="col-xs-10">
                             <div class="checkbox checkbox-switchery">
                                 <label>
                                     <input id="newsgroupMandatory" type="checkbox" class="switchery">
@@ -37,15 +37,15 @@
                         </div>
                     </div>
                     <!--<div class="form-group">-->
-                        <!--<label class="control-label col-lg-2">How do you want to add users?</label>-->
-                        <!--<div class="col-lg-10">-->
+                        <!--<label class="control-label col-xs-2">How do you want to add users?</label>-->
+                        <!--<div class="col-xs-10">-->
                                 <!--<input type="radio" name="addUserMethod" value="copyFromList" checked> 1. Copy users from distribution list(s)  <br>-->
                                 <!--<input type="radio" name="addUserMethod" value="ReferFromList">  2. Reference users from distribution list(s)   <br>                            -->
                         <!--</div>-->
                     <!--</div>-->
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Select the distribution list(s) to copy or refer to. For multiple selection, press Ctrl(PC)  or &#8984;(Mac) </label>
-                        <div class="col-lg-10">
+                        <label class="control-label col-xs-2">Select the distribution list(s) to copy or refer to. For multiple selection, press Ctrl(PC)  or &#8984;(Mac) </label>
+                        <div class="col-xs-10">
                             <select id='distribution-list' name="distribution-list" multiple>
                                 {{#each distributionListItems}}
                                     <option value="{{_id}}">{{name}}</option>
