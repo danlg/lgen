@@ -243,7 +243,10 @@ Smartix.Accounts.notifyByEmail = function(email, newUserId, tmpPassword, autoEma
                     //In the future, we should send the password as well with autogin email.send
                     // see http://stackoverflow.com/questions/15684634/how-to-generate-new-meteor-login-tokens-server-side-in-order-to-make-a-quick-l
                     // or https://github.com/DispatchMe/meteor-login-token
-                    Accounts.sendVerificationEmail(newUserId);
+                    Meteor.defer(function(){
+                        Accounts.sendVerificationEmail(newUserId);                        
+                    })
+
                 }
                 else log.info("No need to send verification email", email);
             } catch (e) {
