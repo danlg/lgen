@@ -413,6 +413,7 @@ Package.onUse(function (api) {
   api.addFiles('client/templates/bootstrap-modal/bootstrap-modal.html', 'web.browser');
   
   api.export('UsersIndex');
+  api.export('DistributionListUsersIndex');
 });
 
 Package.onTest(function (api) {
