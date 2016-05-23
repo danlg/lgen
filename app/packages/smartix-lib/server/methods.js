@@ -127,8 +127,7 @@ Meteor.methods({
             log.warn("doPushNotification, cannot notify user not found " + userId);
         }
     }
-
-    let userIds = filteredUserIdsWhoEnablePushNotify;
+    var userIds = filteredUserIdsWhoEnablePushNotify;
     if(inAppNotifyObj && notificationObj.payload.type == 'chat'){
         //send notification via websocket using Streamy
         userIds.map(function(userId){
