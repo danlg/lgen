@@ -33,6 +33,10 @@ Template.AppLayout.helpers({
                                             color:${schoolTextColor};
                                         } 
                                         
+                                        .card.square-card .mask{
+                                           background-color:${schoolBackgroundColor}; 
+                                        }
+                                        
                                         /** checkbox color **/
                                         .toggle.toggle-positive input:checked + .track,                                        
                                         .toggle input:checked + .track

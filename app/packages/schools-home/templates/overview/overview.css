@@ -56,7 +56,7 @@
 .card.square-card .mask{
     width: 3em;
     height: 3em;
-    background-color: red;
+
     margin: 0 auto; 
     
     -webkit-mask-repeat: no-repeat;
