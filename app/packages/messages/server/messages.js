@@ -224,6 +224,10 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
         
         console.log('allUserToDoPushNotifications',allUserToDoPushNotifications);
         
+       let meteorUser = Meteor.users.findOne({
+                    _id: currentUser
+        });
+                
         allUserToDoPushNotifications.map(function(eachTargetUser){
             Notifications.insert({
                 eventType:"new"+group.type+"message",
@@ -235,37 +239,37 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
                 addons: addonTypes,
                 messageCreateTimestamp: message.createdAt,
                 messageCreateByUserId: currentUser
+            },function(){
+                
+                        if(meteorUser) {
+                            //3. send push notification and in-app notification
+                            var notificationObj = {
+                                from : Smartix.helpers.getFullNameByProfileObj(meteorUser.profile),
+                                title : Smartix.helpers.getFullNameByProfileObj(meteorUser.profile),
+                                text: message.data.content || "",
+                                payload:{
+                                    type: group.type,
+                                    groupId: groupId
+                                },
+                                query:{userId:eachTargetUser},
+                                badge: Smartix.helpers.getTotalUnreadNotificationCount(eachTargetUser)
+                            };
+                            
+                            if(group.type === 'newsgroup'){
+                                notificationObj.title = message.data.title || "";
+                            }
+
+                    Meteor.call("doPushNotification", notificationObj,{
+                        groupId: groupId,
+                        classCode: group.classCode || ""
+                    });
+                }                 
             })
        });
         
-       let meteorUser = Meteor.users.findOne({
-                    _id: currentUser
-       });
-       
-       if(meteorUser){
-                 
-            //3. send push notification and in-app notification
-            var notificationObj = {
-                from : Smartix.helpers.getFullNameByProfileObj(meteorUser.profile),
-                title : Smartix.helpers.getFullNameByProfileObj(meteorUser.profile),
-                text: message.data.content || "",
-                payload:{
-                    type: group.type,
-                    groupId: groupId
-                },
-                query:{userId: { $in: allUserToDoPushNotifications} },
-                badge: 1
-            };
-            
-            if(group.type === 'newsgroup'){
-                notificationObj.title = message.data.title || "";
-            }
 
-            Meteor.call("doPushNotification", notificationObj,{
-                groupId: groupId,
-                classCode: group.classCode || ""
-            });
-        } 
+                
+
     }
     
     //update group lastUpdateBy, lastUpdatedAt fields to indicate modification in this group and by whom
