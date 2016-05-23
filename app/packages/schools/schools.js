@@ -20,10 +20,7 @@ SchoolsSchema = new SimpleSchema({
    }
    , active:{ type:Boolean
    }
-   , deletedAt:{ type:Number
-      , optional:true
-   },
-   preferences:{ type: Object
+   , preferences:{ type: Object
       , blackbox: true
    }
    , country: {type:String, optional:true}
@@ -32,19 +29,15 @@ SchoolsSchema = new SimpleSchema({
    , postalCode: {type:String, optional:true}
    , city: {type:String, optional:true}
    , preferredLanguage: {type:String, optional:true}
-   , createdAt: { type:Date, optional:true }
 
    //plan fields
-   , planStartDate: { type:String
-      , optional:true
+   , planStartDate: { type:String, optional:true
    }
-   , planChosen: { type:String
-      , optional:true //links to plan.planName
+   , planChosen: { type:String, optional:true //links to plan.planName
    }
-   , planTrialExpiryDate:{ type:Date
+   , planTrialExpiryDate:{ type:Date, optional:true
    }
-   , planExpiryDate:{ type:Date
-      , optional:true
+   , planExpiryDate:{ type:Date, optional:true
    }
    //cumulates the revenues from this school help to estimate LTV
    , revenueToDate: { type:Number //stored in chargebee ?
@@ -53,7 +46,8 @@ SchoolsSchema = new SimpleSchema({
    , revenueToDateCcy: { type:String
       , defaultValue:"USD"
    }
-
+   , createdAt: { type:Date, optional:true }
+   , deletedAt: { type:Date, optional:true }
 });
 
 
