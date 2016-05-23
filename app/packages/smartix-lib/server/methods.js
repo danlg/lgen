@@ -99,13 +99,12 @@ Meteor.methods({
 
   doPushNotification: function (notificationObj,inAppNotifyObj) {
     //refer to the above `pushTest` for the input format of notificationObj
-  
     var notificationObjType;
     var filteredUserIdsWhoEnablePushNotify = [];
     
     //if is an object. i.e userId: {$in: flattenArray}
     if(lodash.isPlainObject(notificationObj.query.userId) ){
-      notificationObjType = "multiple";
+      //notificationObjType = "multiple";
       //only keep users who want to receive push notification
       filteredUserIdsWhoEnablePushNotify = notificationObj.query.userId.$in.filter(function (eachUserId) {
         var userObj = Meteor.users.findOne(eachUserId);
@@ -113,9 +112,8 @@ Meteor.methods({
       });
       notificationObj.query.userId.$in = filteredUserIdsWhoEnablePushNotify;
       Push.send(notificationObj);
-
-    }else{
-    //else if is just one userid
+    }
+    else{ //is just one userid
         notificationObjType="single";
         var userId = notificationObj.query.userId;
         var userObj = Meteor.users.findOne(userId);
@@ -124,22 +122,18 @@ Meteor.methods({
             filteredUserIdsWhoEnablePushNotify.push(userId);
             notificationObj.badge = Smartix.helpers.getTotalUnreadNotificationCount(userId);
             Push.send(notificationObj);
-        } else {
-            // User not found
         }
-                 
+        else { // User not found
+            log.warn("doPushNotification, cannot notify user not found " + userId);
+        }
     }
-    
+
+    let userIds = filteredUserIdsWhoEnablePushNotify;
     if(inAppNotifyObj && notificationObj.payload.type == 'chat'){
-        
-        var userIds = filteredUserIdsWhoEnablePushNotify;
-        
         //send notification via websocket using Streamy
         userIds.map(function(userId){
             //log.info("streamy:newchatmessage:"+userId);
             var socketObj = Streamy.socketsForUsers(userId);
-            //log.info(socketObj);
-            
             socketObj._sockets.map(function(socket){
                 Streamy.emit('newchatmessage', { from: notificationObj.from,
                                                 text: notificationObj.text,
@@ -147,16 +141,11 @@ Meteor.methods({
                 }, socket); 
             });
         });        
-    }else if(inAppNotifyObj && notificationObj.payload.type == 'class'){
-        
-        var userIds = filteredUserIdsWhoEnablePushNotify;
-        
-        //send notification via websocket using Streamy
+    }
+    else if(inAppNotifyObj && notificationObj.payload.type == 'class'){
         userIds.map(function(userId){
             //log.info("streamy:newchatmessage:"+userId);
             var socketObj = Streamy.socketsForUsers(userId);
-            //log.info(socketObj);
-            
             socketObj._sockets.map(function(socket){
                 Streamy.emit('newclassmessage', { from: notificationObj.from,
                                                 text: notificationObj.text,
@@ -164,59 +153,39 @@ Meteor.methods({
                 }, socket); 
             });
         });          
-    }else if(inAppNotifyObj && notificationObj.payload.type == 'newsgroup'){
-        log.info('newsgroup',notificationObj);
-        var userIds = filteredUserIdsWhoEnablePushNotify;
-        
-        //send notification via websocket using Streamy
+    }
+    else if(inAppNotifyObj && notificationObj.payload.type == 'newsgroup'){
+        //log.info('newsgroup',notificationObj);
         userIds.map(function(userId){
             //log.info("streamy:newchatmessage:"+userId);
             var socketObj = Streamy.socketsForUsers(userId);
-            //log.info(socketObj);
-            
             socketObj._sockets.map(function(socket){
-                Streamy.emit('newnewsgroupmessage', { from: notificationObj.title,
-                                                text: notificationObj.text                                 
+                Streamy.emit('newnewsgroupmessage', { from: notificationObj.title, text: notificationObj.text
                 }, socket); 
             });
         });          
     }
     else if(notificationObj.payload.type === 'attendance' && notificationObj.payload.subType === 'attendanceSubmission'){
-       log.info(notificationObj.payload.subType,notificationObj);
-       var userIds = filteredUserIdsWhoEnablePushNotify;
-        
-      //send notification via websocket using Streamy
+       //log.info(notificationObj.payload.subType,notificationObj);
       userIds.map(function(userId){
-          //log.info("streamy:newchatmessage:"+userId);
           var socketObj = Streamy.socketsForUsers(userId);
-          //log.info(socketObj);
-          
           socketObj._sockets.map(function(socket){
-              Streamy.emit(notificationObj.payload.subType, { from: notificationObj.title,
-                                              text: notificationObj.text, namespace: notificationObj.payload.namespace                                
+              Streamy.emit(notificationObj.payload.subType, { from: notificationObj.title, text: notificationObj.text,
+                                                               namespace: notificationObj.payload.namespace
               }, socket); 
           });
       });        
     }
     else{
-       log.info('other',notificationObj);
-       var userIds = filteredUserIdsWhoEnablePushNotify;
-        
-      //send notification via websocket using Streamy
+       //log.info('other',notificationObj);
       userIds.map(function(userId){
-          //log.info("streamy:newchatmessage:"+userId);
           var socketObj = Streamy.socketsForUsers(userId);
-          //log.info(socketObj);
-          
           socketObj._sockets.map(function(socket){
-              Streamy.emit('other', { from: notificationObj.title,
-                                              text: notificationObj.text                                 
+              Streamy.emit('other', { from: notificationObj.title, text: notificationObj.text
               }, socket); 
           });
-      });        
-      
+      });
     }
-
   },
 
   insertImageTest: function (filePath) {
