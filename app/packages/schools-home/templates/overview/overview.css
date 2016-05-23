@@ -17,6 +17,7 @@
 }
 
 .card.square-card{
+    height: 23vh;    
     position: relative;
     display: flex;
     flex-direction: column;
@@ -54,16 +55,18 @@
 }
 
 .card.square-card .mask{
-    width: 3em;
-    height: 3em;
+    width: 50%;
+    height: 50%;
 
     margin: 0 auto; 
     
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-size: contain;
-
+    -webkit-mask-position: center;
+    
     mask-repeat: no-repeat;
     mask-size: contain;    
+    mask-position: center;
 }
 
 .card.square-card .mask.mask-news{
@@ -111,7 +114,6 @@
 }
 
 .square-cards-wrapper{
-  height:25vh;
   display: flex;
   flex-wrap:  wrap;
   justify-content: space-around;
