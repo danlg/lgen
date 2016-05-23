@@ -235,23 +235,22 @@ Smartix.Accounts.notifyByEmail = function(email, newUserId, tmpPassword, autoEma
             }
         }
         if (doNotifyEmail) {
-            try {
-                //it is a prerequisite to have no verified email adress before sending verification
-                if (Meteor.users.findOne({ _id: newUserId, "emails.0.verified": false })) {
-                    log.info("Sending verification email to ", email);
-                    //For now we do not send the password as it is autologin
-                    //In the future, we should send the password as well with autogin email.send
-                    // see http://stackoverflow.com/questions/15684634/how-to-generate-new-meteor-login-tokens-server-side-in-order-to-make-a-quick-l
-                    // or https://github.com/DispatchMe/meteor-login-token
-                    Meteor.defer(function(){
-                        Accounts.sendVerificationEmail(newUserId);                        
-                    })
-
+             Meteor.defer(function(){
+                try {
+                    //it is a prerequisite to have no verified email adress before sending verification
+                    if (Meteor.users.findOne({ _id: newUserId, "emails.0.verified": false })) {
+                        log.info("Sending verification email to ", email);
+                        //For now we do not send the password as it is autologin
+                        //In the future, we should send the password as well with autogin email.send
+                        // see http://stackoverflow.com/questions/15684634/how-to-generate-new-meteor-login-tokens-server-side-in-order-to-make-a-quick-l
+                        // or https://github.com/DispatchMe/meteor-login-token             
+                            Accounts.sendVerificationEmail(newUserId);                        
+                    }
+                    else log.info("No need to send verification email", email);
+                } catch (e) {
+                    log.error("Cannot send verification email to ", email, e);
                 }
-                else log.info("No need to send verification email", email);
-            } catch (e) {
-                log.error("Cannot send verification email to ", email, e);
-            }
+             });
         }
         else{
             log.warn("Admin chose not to notify new user by email " + newUserId);
