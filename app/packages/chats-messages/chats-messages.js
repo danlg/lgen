@@ -68,7 +68,7 @@ Smartix.Chat.Messages.canEditMessage = function (announcementId) {
 }
 
 Smartix.Chat.Messages.canAttachAddons = function (announcementId, addons) {
-    log.info('Smartix.Chat.Messages.canAttachAddons');
+    //log.info('Smartix.Chat.Messages.canAttachAddons');
     check(announcementId, String);
     check(addons, [Object]);
     
@@ -106,7 +106,7 @@ Smartix.Chat.Messages.canAttachAddons = function (announcementId, addons) {
     }
     
     // If there are addons with types not allowed for this class, return `false`
-    log.info('notAllowedTypes',addonTypes,_chat.addons);
+    //log.info('notAllowedTypes',addonTypes,_chat.addons);
     var notAllowedTypes = _.difference(addonTypes, _chat.addons);
     
     if(notAllowedTypes.length > 0){

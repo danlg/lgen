@@ -9,7 +9,7 @@ Smartix.Messages.ValidTypes = Smartix.Messages.ValidTypes || [];
 
 // Checks whether a type is supported
 Smartix.Messages.isValidType = function (type) {
-    log.info('Smartix.Messages.isValidType',Smartix.Messages.ValidTypes);
+    //log.info('Smartix.Messages.isValidType',Smartix.Messages.ValidTypes);
     return Smartix.Messages.ValidTypes.indexOf(type) > -1;
 }
 
@@ -148,7 +148,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
     //chat's  msg allow addons are files/images and/or voice
     //news's  msg allow addons are files/images and/or voice
     
-    log.info('newMessage',newMessage);
+    //log.info('newMessage',newMessage);
     if(addons) {
         
         /* ***************************************** */

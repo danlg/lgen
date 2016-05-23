@@ -6,8 +6,6 @@ Smartix.helpers = Smartix.helpers || {};
     Smartix.helpers.getTotalUnreadNotificationCount =  function(currentUserId) {
         if (currentUserId) {
             return Notifications.find({ 'userId': currentUserId, 'hasRead': false }).count();
-        } else {
-            return Notifications.find({ 'userId': Meteor.userId(), 'hasRead': false }).count();
         }
     };
 
