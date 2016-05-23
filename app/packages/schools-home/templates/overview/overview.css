@@ -17,7 +17,7 @@
 }
 
 .card.square-card{
-    height: 23vh;    
+    height: 20vh;    
     position: relative;
     display: flex;
     flex-direction: column;
