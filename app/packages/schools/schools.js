@@ -32,7 +32,7 @@ SchoolsSchema = new SimpleSchema({
    , postalCode: {type:String, optional:true}
    , city: {type:String, optional:true}
    , preferredLanguage: {type:String, optional:true}
-   , createdAt: { type:Date }
+   , createdAt: { type:Date, optional:true }
 
    //plan fields
    , planStartDate: { type:String
