@@ -252,7 +252,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
                             groupId: groupId
                         },
                         query:{userId:eachTargetUser},
-                        badge: Smartix.helpers.getTotalUnreadNotificationCount(eachTargetUser._id)
+                        badge: Smartix.helpers.getTotalUnreadNotificationCount(eachTargetUser)
                     };
                     
                     if(group.type === 'newsgroup'){

@@ -5,7 +5,7 @@ Template.AppLayout.onCreated(function () {
 
   // Update total unread badge counter on IOS
   this.autorun(function(){
-      var totalUnreadBadgeCount = Smartix.helpers.getTotalUnreadNotificationCount();
+      var totalUnreadBadgeCount = Smartix.helpers.getTotalUnreadNotificationCount(Meteor.userId());
       log.info('setTotalUnreadBadgeCount:'+totalUnreadBadgeCount);
       if(Smartix.helpers.isIOS()){
           Push.setBadge(totalUnreadBadgeCount);
