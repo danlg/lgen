@@ -105,19 +105,14 @@ Meteor.methods({
     
     //if is an object. i.e userId: {$in: flattenArray}
     if(lodash.isPlainObject(notificationObj.query.userId) ){
-            notificationObjType="multiple";      
-            //only keep users who want to receive push notification
-                filteredUserIdsWhoEnablePushNotify = notificationObj.query.userId.$in.filter(function(eachUserId){
-                var userObj = Meteor.users.findOne(eachUserId);
-                if (userObj.pushNotifications) {
-                   return true;
-                }else{
-                   return false;
-                }    
-            });
-            notificationObj.query.userId.$in = filteredUserIdsWhoEnablePushNotify;
-            Push.send(notificationObj);
-
+      notificationObjType = "multiple";
+      //only keep users who want to receive push notification
+      filteredUserIdsWhoEnablePushNotify = notificationObj.query.userId.$in.filter(function (eachUserId) {
+        var userObj = Meteor.users.findOne(eachUserId);
+        return userObj.pushNotifications;
+      });
+      notificationObj.query.userId.$in = filteredUserIdsWhoEnablePushNotify;
+      Push.send(notificationObj);
 
     }else{
     //else if is just one userid
