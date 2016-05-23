@@ -17,7 +17,7 @@
         {{#if Template.subscriptionsReady}}
             <div class="panel-body">
                 
-                {{> EasySearch.Input index=usersIndex attributes=userSearchInputAttributes}}
+                {{> EasySearch.Input index=usersIndex attributes=userSearchInputAttributes timeout=100}}
                 <!--<span>Total User: {{totalUserCount}} </span>-->
                 <span>{{totalSelectUserCount}} have been selected.</span>
                 <br/>
