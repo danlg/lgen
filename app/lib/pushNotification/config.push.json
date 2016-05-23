@@ -14,5 +14,6 @@
   "sound": true,
   "alert": true,
   "vibrate": true,
-  "sendInterval": 1500
+  "sendInterval": 500,
+  "sendBatchSize": 50
 }
