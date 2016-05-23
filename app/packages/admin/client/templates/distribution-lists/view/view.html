@@ -13,13 +13,64 @@
             <div id="AdminClassesView__add-user-container" class="form-group">
                 <div class="col-xs-12">
                     <div class="add-user-input-container input-group AdminDistributionListView__add-user-input-container">
-                        {{> EasySearch.Input index=distributionListUsersIndex attributes=adminUserSearchInputAttributes}}
+                        {{> EasySearch.Input index=distributionListUsersIndex attributes=adminUserSearchInputAttributes timeout=100}}
+                        <span>{{totalSelectUserCount}} have been selected.</span>
+                        <br/>
+                        Filter:
+                            <div class="btn-group">
+                                <button type="button" data-role='all' class="btn btn-primary filter-by-role-btn">All</button>
+                                <button type="button" data-role='parent' class="btn btn-primary filter-by-role-btn">Parent</button>
+                                <button type="button" data-role='student' class="btn btn-primary filter-by-role-btn">Student</button>
+                                <button type="button" data-role='teacher' class="btn btn-primary filter-by-role-btn">Teacher</button>
+                                <button type="button" data-role='admin' class="btn btn-primary filter-by-role-btn">Admin</button>                        
+                            </div>
+                        <br/>
+                        <button class='btn btn-default select-all-users-btn'>Select All</button> 
+                        <button class='btn btn-default deselect-all-users-btn'>De-Select All</button>                                   
+                        <button class='btn btn-default select-all-users-current-page-btn'>Select All From Current Page</button>
+                        <button class='btn btn-default deselect-all-users-current-page-btn'>De-Select All From Current Page</button>                
+                        {{#if showOptions}}
+                            <br/>
+                            <button class='btn btn-success add-users-to-distribution-list'>Add User(s) to Distribution List</button>
+                            <button class='btn btn-danger remove-users-from-distribution-list'>Remove User(s) from Distribution List</button>                                                                               
+                        {{/if}}                    
                     </div>
-                    <ul>
+                    <div class="table-responsive">                
+                    <table class='table' >
+                        <thead align="left">
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th>Add</th>
+                            <th>Role</th>
+                            <th>Last Name</th>
+                            <th>First Name</th>
+                            <th>Email</th>                        
+                            <th>User Name</th>
+                            <th>Grade</th>
+                            
+                        </tr>
+                        </thead>
                         {{#EasySearch.Each index=distributionListUsersIndex }}
-                            <li class="AdminDistributionListView__user-search-result" data-user-id="{{_id}}">{{profile.firstName}} {{profile.lastName}}</li>
+                        <tr>
+                            <td><input {{isUserChecked _id}} type="checkbox" name="user" class='school-directory-user-checkbox' value="{{_id}}"/></td>
+                            <td><button class="AdminDistributionListView__user-search-result" data-user-id="{{_id}}">Add</button></td>
+                            <td>{{getUserRoles}}</td>
+                            <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}">{{profile.lastName}}</a></td>
+                            <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}">{{profile.firstName}}</a></td>
+                            <td>{{getUserEmail}}</td> 
+                            <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}"> {{username}} </a></td>
+                            <td>{{grade}}</td> 
+                        </tr>                         
+                           <!-- <li class="AdminDistributionListView__user-search-result" data-user-id="{{_id}}">{{profile.firstName}} {{profile.lastName}}</li>-->
                         {{/EasySearch.Each}}
-                    </ul>
+                        
+                        {{#EasySearch.IfNoResults index=distributionListUsersIndex}}
+                            <div>No results found!</div>
+                        {{/EasySearch.IfNoResults}}                            
+                    </table>
+                    </div>
+                {{> EasySearch.Pagination index=distributionListUsersIndex maxPages=10 customRenderPagination='CustomEasySearchPagination'}}               
+                    
                 </div>
             </div>
             <!-- Large table -->
