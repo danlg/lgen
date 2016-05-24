@@ -553,8 +553,7 @@
         "OnceyourCSVfilehasbeenuploaded":"Once your CSV file has been uploaded, you will be able to confirm the parent information before importing.",
         "Grade":"Grade",
         "Gradelevels":"Grade levels. Required fields for all students.",
-        "Gender":"Gender",     
-    
+        "Gender":"Gender"
     },
     "messages": {
         "Send": "Send"
@@ -629,7 +628,6 @@
         "Switchschool" : "Switch School",
         "Hi":"Hi,",
         "Youareat":"You are at",
-        "Home":"Home",
-        
+        "Home":"Home"
     }
 }
