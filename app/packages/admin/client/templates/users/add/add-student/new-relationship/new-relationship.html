@@ -1,28 +1,28 @@
 <template name="AddStudentNewRelationship">
     <div class="AdminAddStudent__newRelationship col-xs-6">
-        <button class="AddStudentNewRelationship__remove">Remove</button>
+        <button class="AddStudentNewRelationship__remove">{{_ "Admin.Remove" }}</button>
         <div>
             <div class="col-xs-6">
-                <label class="control-label">First Name</label>
+                <label class="control-label">{{_ "Admin.FirstName" }}</label>
                 <input class="form-control AddStudentNewRelationship__firstName AddStudentNewRelationship__input" type="text">
             </div>
             <div class="col-xs-6">
-                <label class="control-label">Last Name</label>
+                <label class="control-label">{{_ "Admin.Last Name" }}</label>
                 <input class="form-control AddStudentNewRelationship__lastName AddStudentNewRelationship__input" type="text">
             </div>
         </div>
         <div>
             <div class="col-xs-12">
                 <div>
-                    <label class="control-label">Email</label>
+                    <label class="control-label">{{_ "Admin.Email" }}</label>
                     <input class="form-control AddStudentNewRelationship__email AddStudentNewRelationship__input" type="text">
-                    <label class="control-label">Telephone Number</label>
+                    <label class="control-label">{{_ "Admin.TelephoneNumber" }}</label>
                     <input type="tel" class="AddStudentNewRelationship__phone AddStudentNewRelationship__input" placeholder="Telephone Number">
-                    <label class="control-label">Type</label>
+                    <label class="control-label">{{_ "Admin.Type" }}</label>
                     <select name="relationship-type" class="form-control AddStudentNewRelationship__type">
-                        <option value="Mother">Mother</option>
-                        <option value="Father">Father</option>
-                        <option value="Other">Other</option>
+                        <option value="Mother">{{_ "Admin.Mother" }}</option>
+                        <option value="Father">{{_ "Admin.Father" }}</option>
+                        <option value="Other">{{_ "Admin.Other" }}</option>
                     </select>
                 </div>
             </div>

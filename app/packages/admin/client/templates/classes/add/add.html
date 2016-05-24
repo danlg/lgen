@@ -2,32 +2,32 @@
     <!-- Form horizontal -->
     <div class="panel panel-flat">
         <div class="panel-heading">
-            <h1>Add Classes</h1>
+            <h1>{{_ "Admin.AddClass" }}</h1>
         </div>
 
         <div class="panel-body">
-            <p class="content-group-lg">You may add new classes to your school by filling in the form below.</p>
+            <p class="content-group-lg">{{_ "Admin.addnewclassesbyfillingintheformbelow" }}</p>
 
             <form class="form-horizontal" action="#">
                 <fieldset class="content-group">
-                    <h4 class="text-bold">Class Details</h4>
+                    <h4 class="text-bold">{{_ "Admin.ClassDetails" }}</h4>
 
                     <div class="form-group">
-                        <label class="control-label col-xs-2">Class Name</label>
+                        <label class="control-label col-xs-2">{{_ "Admin.ClassName" }}</label>
                         <div class="col-xs-10">
                             <input id="addClass-name" type="text" class="form-control" placeholder="Class Name">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-xs-2">Class Code</label>
+                        <label class="control-label col-xs-2">{{_ "Admin.ClassCode" }}</label>
                         <div class="col-xs-10">
                             <input id="addClass-code" type="text" class="form-control" placeholder="Class Code">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-xs-2">Age-Restricted</label>
+                        <label class="control-label col-xs-2">{{_ "Admin.Age-Restricted" }}</label>
                         <div class="col-xs-10">
                             <div class="checkbox checkbox-switchery">
                                 <label>
@@ -37,30 +37,30 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-xs-2">Select the distribution list(s) to copy users from. For multiple selection, press Ctrl(PC) or &#8984;(Mac)
+                        <label class="control-label col-xs-2">{{_ "Admin.Selectthedistributionlist(s)tocopyusersfrom" }}
                             </label>
                         <div class="col-xs-10">
                             <select id='distribution-list' name="distribution-list" multiple>
                                 {{#each distributionListItems}}
                                 <option value="{{_id}}">{{name}}</option>
                                 {{else}}
-                                <option>No distribution list </option>
+                                <option>{{_ "Admin.Nodistributionlist" }} </option>
                                 {{/each}}
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-2 text-semibold">Mode</label>
+                        <label class="control-label col-md-2 text-semibold">{{_ "Admin.Mode" }}</label>
                         <div class="col-md-10 row">
                             <div class="col-md-12">
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" name="addMode" class="control-success" value="copy" checked="checked"> Add by Copying Users
+                                        <input type="radio" name="addMode" class="control-success" value="copy" checked="checked"> {{_ "Admin.AddbyCopyingUsers" }}
                                     </label>
                                 </div>
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" name="addMode" class="control-success" value="ref"> Add by Reference
+                                        <input type="radio" name="addMode" class="control-success" value="ref">{{_ "Admin.AddbyReference" }}
                                     </label>
                                 </div>
                             </div>
@@ -69,7 +69,7 @@
                 </fieldset>
 
                 <div class="text-right">
-                    <button id="addClass-submit" type="submit" class="btn btn-primary">Add Class <i class="icon-arrow-right14 position-right"></i></button>
+                    <button id="addClass-submit" type="submit" class="btn btn-primary">{{_ "Admin.AddClass" }} <i class="icon-arrow-right14 position-right"></i></button>
                 </div>
             </form>
         </div>

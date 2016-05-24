@@ -25,7 +25,7 @@
                         <input class="form-control" type="date" name="endDate" id="AdminAbsenceExpected__endDate" value="{{filterEndDate}}">
                     </div>
                 </div>
-                <button id="AdminAbsenceExpected__updateFilter" type="submit" class="btn btn-primary">Update Filters <i class="icon-arrow-right14 position-right"></i></button>
+                <button id="AdminAbsenceExpected__updateFilter" type="submit" class="btn btn-primary">{{_ "Admin.UpdateFilters" }} <i class="icon-arrow-right14 position-right"></i></button>
             </div>
 
             <div class="col-xs-6 form-group">
@@ -47,7 +47,7 @@
                         <div class="radio">
                             <label>
                                 <input type="radio" name="status-filter" class="control-success" value="pending">
-                                Show <button class="label label-info"> {{_ "Admin.Pending" }}</button>
+                                {{_ "Admin.Show" }} <button class="label label-info"> {{_ "Admin.Pending" }}</button>
                             </label>
                         </div>
                     </div>
@@ -76,9 +76,9 @@
                         <tr>
                             <td>
                                 {{#if approved}}
-                                    <button class="AdminAbsenceExpected__unapprove label label-success">Approved</button>
+                                    <button class="AdminAbsenceExpected__unapprove label label-success">{{_ "Admin.Approved" }}</button>
                                 {{else}}
-                                    <button class="AdminAbsenceExpected__approve label label-info">Pending</button>
+                                    <button class="AdminAbsenceExpected__approve label label-info">{{_ "Admin.Pending" }}</button>
                                 {{/if}}
                             </td>
                             {{#with userData}}

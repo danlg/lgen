@@ -2,35 +2,35 @@
     <!-- Form horizontal -->
     <div class="panel panel-flat">
         <div class="panel-heading">
-            <h1>Add RSS Feed</h1>
+            <h1>{{_ "Admin.AddRSSFeed" }}</h1>
         </div>
 
         <div class="panel-body">
-            <p class="content-group-lg">You may add new RSS feeds and link it to your newsgroup.</p>
+            <p class="content-group-lg">{{_ "Admin.AddnewRSSfeedsandlinkittoyournewsgroup" }}</p>
 
             <form class="form-horizontal" action="#">
                 <fieldset class="content-group">
-                    <h4 class="text-bold">RSS Details</h4>
+                    <h4 class="text-bold">{{_ "Admin.RSSDetails" }}</h4>
                     <div class="form-group">
-                        <label class="control-label col-xs-2">RSS Feed Name</label>
+                        <label class="control-label col-xs-2">{{_ "Admin.RSSFeedName" }}</label>
                         <div class="col-xs-10">
                             <input id="addRss-name" type="text" class="form-control" placeholder="RSS Name">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-xs-2">RSS URL</label>
+                        <label class="control-label col-xs-2">{{_ "Admin.RSSURL" }}</label>
                         <div class="col-xs-10">
                             <input id="addRss-url" type="url" class="form-control" placeholder="RSS URL">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-xs-2">Publish to Newsgroups</label>
+                        <label class="control-label col-xs-2">{{_ "Admin.PublishtoNewsgroups" }}</label>
                         <div class="col-xs-10">
                             <select id='newsgroups' name="newsgroups" multiple>
                                 {{#each newsgroups}}
                                     <option value="{{_id}}">{{name}}</option>
                                 {{else}}
-                                    <option>No distribution list </option>
+                                    <option> {{_ "Admin.Nodistributionlist" }}</option>
                                 {{/each}}
                             </select>
                         </div>
@@ -38,7 +38,7 @@
                 </fieldset>
 
                 <div class="text-right">
-                    <button id="addRss-submit" type="submit" class="btn btn-primary">Add RSS <i class="icon-arrow-right14 position-right"></i></button>
+                    <button id="addRss-submit" type="submit" class="btn btn-primary">{{_ "Admin.AddRSS" }} <i class="icon-arrow-right14 position-right"></i></button>
                 </div>
             </form>
         </div>

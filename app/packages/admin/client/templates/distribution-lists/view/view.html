@@ -7,9 +7,9 @@
         </div>
 
         <div class="panel-body">
-            <p>List Code: {{url}}</p>
+            <p>{{_ "Admin.ListCode" }}: {{url}}</p>
 
-            <h3>Users</h3>
+            <h3>{{_ "Admin.Users" }}</h3>
             <div id="AdminClassesView__add-user-container" class="form-group">
                 <div class="col-xs-12">
                     <div class="add-user-input-container input-group AdminDistributionListView__add-user-input-container">
@@ -76,9 +76,9 @@
             <!-- Large table -->
             <table class="table datatable-basic">
                 <thead>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Remove User</th>
+                    <th>{{_ "Admin.FirstName" }}</th>
+                    <th>{{_ "Admin.LastName" }}</th>
+                    <th>{{_ "Admin.RemoveUser" }}</th>
                 </thead>
                 <tbody>
                     {{#each users}} {{#with userData this}}

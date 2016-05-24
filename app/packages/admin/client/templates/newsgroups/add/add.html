@@ -2,18 +2,18 @@
     <!-- Form horizontal -->
     <div class="panel panel-flat">
         <div class="panel-heading">
-            <h1>Add Newsgroups</h1>
+            <h1>{{_ "Admin.AddNewsgroups" }}</h1>
         </div>
 
         <div class="panel-body">
-            <p class="content-group-lg">You may add new newsgroup to your school by filling in the form below.</p>
+            <p class="content-group-lg">{{_ "Admin.addnewnewsgroupbyfillingintheformbelow" }}</p>
 
             <form class="form-horizontal" action="#">
                 <fieldset class="content-group">
-                    <h4 class="text-bold">Newsgroup Details</h4>
+                    <h4 class="text-bold">{{_ "Admin.NewsgroupDetails" }}</h4>
                     
                     <div class="form-group">
-                        <label class="control-label col-xs-2">Newsgroup Name</label>
+                        <label class="control-label col-xs-2">{{_ "Admin.NewsgroupName" }}</label>
                         <div class="col-xs-10">
                             <input id="addNewsgroup-name" type="text" class="form-control" placeholder="Class Name">
                         </div>
@@ -27,7 +27,7 @@
                     </div>-->
                     
                     <div class="form-group">
-                        <label class="control-label col-xs-2">Mandatory</label>
+                        <label class="control-label col-xs-2">{{_ "Admin.Mandatory" }}</label>
                         <div class="col-xs-10">
                             <div class="checkbox checkbox-switchery">
                                 <label>
@@ -44,13 +44,13 @@
                         <!--</div>-->
                     <!--</div>-->
                     <div class="form-group">
-                        <label class="control-label col-xs-2">Select the distribution list(s) to copy or refer to. For multiple selection, press Ctrl(PC)  or &#8984;(Mac) </label>
+                        <label class="control-label col-xs-2">{{_ "Admin.Selectthedistributionlist(s)tocopyusersfrom" }} </label>
                         <div class="col-xs-10">
                             <select id='distribution-list' name="distribution-list" multiple>
                                 {{#each distributionListItems}}
                                     <option value="{{_id}}">{{name}}</option>
                                 {{else}}
-                                    <option>No distribution list </option>
+                                    <option>{{_ "Admin.Nodistributionlist" }} </option>
                                 {{/each}}
                             </select>
                         </div>
@@ -58,7 +58,7 @@
                 </fieldset>
                 
                 <div class="text-right">
-                    <button id="addNewsgroup-submit" type="submit" class="btn btn-primary">Add Newsgroup <i class="icon-arrow-right14 position-right"></i></button>
+                    <button id="addNewsgroup-submit" type="submit" class="btn btn-primary"> {{_ "Admin.AddNewsgroups" }}<i class="icon-arrow-right14 position-right"></i></button>
                 </div>
             </form>
         </div>

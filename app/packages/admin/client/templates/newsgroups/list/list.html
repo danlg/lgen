@@ -1,29 +1,29 @@
 <template name="AdminNewsgroupsSearch">
     <div class="panel panel-flat">
         <div class="panel-heading">
-            <h1>Search Newsgroups</h1>
+            <h1>{{_ "Admin.SearchNewsgroups" }}</h1>
         </div>
         {{#if Template.subscriptionsReady}}
         <div class="panel-body">
-            <p>You can see existing newsgroups and users being subscribed to the newsgroups in here</p>
+            <p>{{_ "Admin.subscribeexistingnewsgroupsanduser" }}</p>
             {{> EasySearch.Input index=newsgroupsIndex }}
             <span>{{totalSelectUserCount}} have been selected.</span>
             <br/>
-            <button class='btn btn-default select-all-users-btn'>Select All</button> 
-            <button class='btn btn-default deselect-all-users-btn'>De-Select All</button>                                   
-            <button class='btn btn-default select-all-users-current-page-btn'>Select All From Current Page</button>
-            <button class='btn btn-default deselect-all-users-current-page-btn'>De-Select All From Current Page</button>                
+            <button class='btn btn-default select-all-users-btn'>{{_ "Admin.SelectAll" }}</button> 
+            <button class='btn btn-default deselect-all-users-btn'>{{_ "Admin.De-SelectAll" }}</button>                                   
+            <button class='btn btn-default select-all-users-current-page-btn'>{{_ "Admin.SelectAllFromCurrentPage" }}</button>
+            <button class='btn btn-default deselect-all-users-current-page-btn'>{{_ "Admin.De-SelectAllFromCurrentPage" }}</button>                
             {{#if showOptions}}
                 <br/>
-                <button class='btn btn-danger remove-distribution-lists-btn'>Remove Newsgroup(s)</button>                                                                                           
+                <button class='btn btn-danger remove-distribution-lists-btn'>{{_ "Admin.RemoveNewsgroup(s)" }}</button>                                                                                           
             {{/if}}                     
             <div class="table-responsive">                
             <table class='table'>
                 <thead>
                 <tr>
                     <th>&nbsp;</th>
-                    <th>Newsgroup Name</th>
-                    <th>Distribution Groups</th>
+                    <th>{{_ "Admin.NewsgroupName" }}</th>
+                    <th>{{_ "Admin.DistributionGroups" }}</th>
                                                                     
                 </tr>
                 </thead>
@@ -48,7 +48,7 @@
                 {{/EasySearch.Each}}
                 
                 {{#EasySearch.IfNoResults index=newsgroupsIndex}}
-                    <div>No results found!</div>
+                    <div>{{_ "Admin.Noresultsfound" }}</div>
                 {{/EasySearch.IfNoResults}}                
             </table>
             </div>                

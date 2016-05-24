@@ -2,7 +2,7 @@
 
 <!-- Button trigger modal -->
 <button id='{{modalName}}-btn' type="button" class="hide btn btn-primary btn-lg" data-toggle="modal" data-target="#{{modalName}}">
-  Launch modal
+ {{_ "Admin.Launchmodal" }}
 </button>
     
 <div id='{{modalName}}' class="modal fade" tabindex="-1" role="dialog">
@@ -16,8 +16,8 @@
         <p>{{{modalBody}}}</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default dismiss-modal" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary save {{modalName}}">Save changes</button>
+        <button type="button" class="btn btn-default dismiss-modal" data-dismiss="modal">{{_ "Admin.Close" }}</button>
+        <button type="button" class="btn btn-primary save {{modalName}}">{{_ "Admin.Savechanges" }}</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

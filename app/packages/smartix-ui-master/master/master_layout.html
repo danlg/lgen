@@ -3,12 +3,12 @@
    {{#ionSideMenuContainer side="left" dragContent="false"}}
         {{#ionSideMenu}}
           <div class="bar bar-header bar-dark">
-            <h1 class="title">Hi, {{getUserName}} !</h1>
+            <h1 class="title">{{_ "smartix-ui-master.Hi" }} {{getUserName}} !</h1>
           </div>
           <div class="content has-header">
             <div class="list">
               <div class="item item-icon-right" data-ion-menu-close>
-                You are at {{getCurrentSchoolNameDisplay}}
+               {{_ "smartix-ui-master.Youareat" }} {{getCurrentSchoolNameDisplay}}
                 
                 {{#if belongToMultiSchool}}
                     <a href="{{pathFor route='SchoolPick'}}" class='btn'>{{_ "smartix-ui-master.Switchschool" }}</a>
@@ -18,7 +18,7 @@
               <!--only if in school namespace - the below should available -->                
               {{#if isSchoolNamespace}}             
               <a href="{{pathFor route='mobile.school.home' school=getCurrentSchoolName}}"  class="item item-icon-right" data-ion-menu-close>
-                {{getCurrentSchoolNameDisplay}} Home
+                {{getCurrentSchoolNameDisplay}} {{_ "smartix-ui-master.Home" }}
               </a>
               {{else}}
               

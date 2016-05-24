@@ -28,7 +28,7 @@
 
     
       <div class="list chatroomList background-wallpaper" id="chatroomList">
-         <div class='date-bubble-wrapper {{isLoadMoreButtonShow}}'><button class='load-prev-msg'>{{_Loadmessage}}</button> </div>
+         <div class='date-bubble-wrapper {{isLoadMoreButtonShow}}'><button class='load-prev-msg'>{{_ "smartix-chat.Loadmessage" }}</button> </div>
            {{#each chatRoomProfile}}
                 {{#if isFirstMsgInOneDay}}
                        <div class='date-bubble-wrapper'> <div class='date-bubble'>{{formatDate createdAt}}</div> </div>

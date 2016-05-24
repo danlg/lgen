@@ -1,50 +1,48 @@
 <template name="AdminTeachersImport">
     <div class="panel panel-flat">
         <div class="panel-heading">
-            <h1>Import Teachers and Staff</h1>
+            <h1>{{_ "Admin.ImportTeachersandStaff" }}</h1>
         </div>
 
         <div class="panel-body">
-          <h3><p><strong>Step 1 - Download our CSV template, and complete the columns</strong></p></h3>
+          <h3><p><strong>{{_ "Admin.Step1" }}</strong></p></h3>
           <!--TODO change image-->
           <img src="/packages/smartix_admin/client/assets/import-teachers-preview.png" alt="" style="max-width: 100%">
 
-          <p>Create a spreadsheet listing teachers and staff in the format shown above. Download our CSV template, and complete the
-            columns. It is essential that the format match the template and that no mandatory columns are left out. </p>
-          <p>The structure of the file is basically 1 line per teacher. The columns describes how the teacher's class(es) will be organized.
-            Please refer to the following guidelines for entering teacher data into the spreadsheet:</p>
+          <p>{{_ "Admin.Createaspreadsheetlistingstudentsintheformatshownabove" }} </p>
+          <p>{{_ "Admin.Thestructureofthefile" }}</p>
           <table class="table">
             <tr>
-              <td style="width: 200px;"><b>Teacher First Name</b></td>
-              <td>Required field for teacher</td>
+              <td style="width: 200px;"><b>{{_ "Admin.TeacherFirstName" }}</b></td>
+              <td>{{_ "Admin.Requiredfieldforteacher" }}</td>
             </tr>
             <tr>
-              <td><b>Teacher Last Name</b></td>
-              <td>Required field for teacher</td>
+              <td><b>{{_ "Admin.TeacherLastName" }}</b></td>
+              <td>{{_ "Admin.Requiredfieldforteacher" }}</td>
             </tr>
             <tr>
-              <td><b>Gender</b></td>
-              <td>Required</td>
+              <td><b>{{_ "Admin.Gender" }}</b></td>
+              <td>{{_ "Admin.required" }}</td>
             </tr>
             <tr>
-              <td><b>Teacher email</b></td>
-              <td>Required field for teacher</td>
+              <td><b>{{_ "Admin.Teacheremail" }}</b></td>
+              <td>{{_ "Admin.Requiredfieldforteacher" }}</td>
             </tr>
             <tr>
-              <td><b>Mobile Phone</b></td>
-              <td>Optional</td>
+              <td><b>{{_ "Admin.MobilePhone" }}</b></td>
+              <td>{{_ "Admin.Optional" }}</td>
             </tr>
             <tr>
-              <td><b>Subject Taught 1</b></td>
-              <td>Required, at least one. You can list up to 7 subjects taught.</td>
+              <td><b>{{_ "Admin.SubjectTaught1" }}</b></td>
+              <td>{{_ "Admin.Requiredatleastone" }}</td>
             </tr>
             <tr>
-              <td><b>Class 1</b></td>
-              <td>Required at least one. You can list up to 10 classrooms by teacher e.g. Grade 4B, the second classroom from Grade 4. Can be identical to grade.</td>
+              <td><b>{{_ "Admin.Class1" }}</b></td>
+              <td>{{_ "Admin.RequiredatleastoneclassroomsCanbeidenticaltograde" }}</td>
             </tr>
             <tr>
-              <td><b>Smartix Classname 1</b></td>
-              <td>Optional. Virtual e.g English G4B. You can list up to 10 classnames by teacher (a teacher can have several classes)</td>
+              <td><b>{{_ "Admin.SmartixClassname1" }}</b></td>
+              <td>{{_ "Admin.OptionalVirtual" }}</td>
             </tr>
             <tr>
               <td><b>Invite parents class 1</b></td>

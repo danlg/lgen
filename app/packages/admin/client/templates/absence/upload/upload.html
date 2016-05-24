@@ -1,20 +1,20 @@
 <template name="AdminUploadAttendance">
     <div class="panel panel-flat">
         <div class="panel-heading">
-            <h1>Upload Attendance</h1>
+            <h1>{{_ "Admin.UploadAttendenceRecords" }}</h1>
         </div>
 
         <div class="panel-body">
             
             <div class="AdminUploadAttendance__file-input file-input file-input-new">
                 <div tabindex="500" class="btn btn-primary btn-file legitRipple">
-                    <i class="icon-file-plus"></i> <span class="hidden-xs">Upload XLSX</span>
+                    <i class="icon-file-plus"></i> <span class="hidden-xs">{{_ "Admin.UploadXLSX" }}</span>
                     <input type="file" id="AdminUploadAttendance__upload-xlsx" class="file-input" data-show-caption="false" data-show-upload="false">
                 </div>
             </div>
             <div class="AdminUploadAttendance__file-input file-input file-input-new">
                 <div tabindex="500" class="btn btn-primary btn-file legitRipple">
-                    <i class="icon-file-plus"></i> <span class="hidden-xs">Upload CSV</span>
+                    <i class="icon-file-plus"></i> <span class="hidden-xs">{{_ "Admin.UploadCSV" }}</span>
                     <input type="file" id="AdminUploadAttendance__upload-csv" class="file-input" data-show-caption="false" data-show-upload="false">
                 </div>
             </div>
@@ -22,12 +22,12 @@
                 <table id="AdminUploadAttendance__preview-table" class="table datatable-basic">
                     <thead>
                         <tr>
-                            <th>Date</th>
+                            <th>{{_ "Admin.Date" }}</th>
                             <th>Name</th>
-                            <th>Department</th>
-                            <th>ClockIn</th>
-                            <th>Late</th>
-                            <th>Absent</th>
+                            <th>{{_ "Admin.Department" }}</th>
+                            <th>{{_ "Admin.ClockIn" }}</th>
+                            <th>{{_ "Admin.Late" }}</th>
+                            <th>{{_ "Admin.Absent" }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,8 +44,8 @@
                     </tbody>
                 </table>
                 <div class="text-right">
-                    <button id="AdminUploadAttendance__clear" class="btn btn-default">Clear</button>
-                    <button id="AdminUploadAttendance__submit" type="submit" class="btn btn-primary">Upload Attendance <i class="icon-arrow-right14 position-right"></i></button>
+                    <button id="AdminUploadAttendance__clear" class="btn btn-default">{{_ "Admin.Clear" }}</button>
+                    <button id="AdminUploadAttendance__submit" type="submit" class="btn btn-primary">{{_ "Admin.UploadAttendenceRecords" }}<i class="icon-arrow-right14 position-right"></i></button>
                 </div>
             {{/if}}
             <div id="AdminUploadAttendance__errorMsgBlock">

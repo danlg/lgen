@@ -1,24 +1,24 @@
 <template name="AdminDistributionListsSearch">
     <div class="panel panel-flat">
         <div class="panel-heading">
-            <h1>Search Distribution Lists</h1>
+            <h1>{{_ "Admin.SearchDistributionLists" }}</h1>
         </div>
         <div class="panel-body">
-           <p>Distribution lists are useful to send information to a same group of people. They can be used in classes and/or news.</p>
-           <p>For example,  you have defined classes per grade. You can then reuse these lists and send to several classes at the same time instead of listing all members again. </p>
+           <p>{{_ "Admin.Distributionlistsareuseful" }}</p>
+           <p>{{_ "Admin.Forexample" }}</p>
 
            {{#if Template.subscriptionsReady}}
                 {{> EasySearch.Input index=distributionListIndex }}
                 <span>{{totalSelectUserCount}} have been selected.</span>
                 <br/>
-                <button class='btn btn-default select-all-users-btn'>Select All</button> 
-                <button class='btn btn-default deselect-all-users-btn'>De-Select All</button>                                   
-                <button class='btn btn-default select-all-users-current-page-btn'>Select All From Current Page</button>
-                <button class='btn btn-default deselect-all-users-current-page-btn'>De-Select All From Current Page</button>                
+                <button class='btn btn-default select-all-users-btn'>{{_ "Admin.SelectAll" }}</button> 
+                <button class='btn btn-default deselect-all-users-btn'>{{_ "Admin.De-SelectAll" }}</button>                                   
+                <button class='btn btn-default select-all-users-current-page-btn'>{{_ "Admin.SelectAllFromCurrentPage" }}</button>
+                <button class='btn btn-default deselect-all-users-current-page-btn'>{{_ "Admin.De-SelectAllFromCurrentPage" }}</button>                
                 
                 {{#if showOptions}}
                     <br/>
-                    <button class='btn btn-danger remove-distribution-lists-btn'>Remove Distribution List(s)</button>                 
+                    <button class='btn btn-danger remove-distribution-lists-btn'>{{_ "Admin.RemoveDistributionList(s)" }}</button>                 
                     <!--<button class='btn btn-success add-users-to-role'>Add User(s) to Role</button>
                     <button class='btn btn-danger remove-users-from-role'>Remove User(s) from Role</button>
                     <select id='selected-role' class="form-control">
@@ -33,8 +33,8 @@
                     <thead>
                     <tr>
                         <th>&nbsp;</th>
-                        <th>List Name</th>
-                        <th>Users</th>
+                        <th>{{_ "Admin.ListName" }}</th>
+                        <th>{{_ "Admin.Users" }}</th>
                                                                        
                     </tr>
                     </thead>
@@ -67,7 +67,7 @@
                 </div>                
                 {{> EasySearch.Pagination index=distributionListIndex maxPages=10 customRenderPagination='CustomEasySearchPagination'}}
              {{else}}
-               <p>Loading...</p>
+               <p>{{_ "Admin.Loading" }}</p>
              {{/if}}
         </div>
     </div>

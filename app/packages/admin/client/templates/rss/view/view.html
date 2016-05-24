@@ -1,19 +1,19 @@
 <template name="AdminRss">
     <div class="panel panel-flat">
         <div class="panel-heading">
-            <h1>RSS</h1>
+            <h1>{{_ "Admin.RSS" }}</h1>
         </div>
 
         <div class="panel-body">
-            <p>You may link a RSS feed to a newsgroup so all new entries to the feed will be sent to the newsgroup.</p>
+            <p>{{_ "Admin.linkaRSSfeedtoanewsgroup" }}</p>
             
             <table id="AdminUsersImport__preview-table" class="table datatable-basic">
                 <thead>
                     <tr>
-                        <th>RSS Feed Name</th>
-                        <th>RSS URL</th>
-                        <th>Newgroups</th>
-                        <th>Remove Link</th>
+                        <th>{{_ "Admin.RSSFeedName" }}</th>
+                        <th>{{_ "Admin.RSSURL" }}</th>
+                        <th>{{_ "Admin.Newgroups" }}</th>
+                        <th>{{_ "Admin.RemoveLink" }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,7 +28,7 @@
                 </tbody>
             </table>
             <div class="text-right">
-                <button id="AdminRss-save" type="submit" class="btn btn-primary">Save</button>
+                <button id="AdminRss-save" type="submit" class="btn btn-primary">{{_ "Admin.Save" }}</button>
             </div>
         </div>
     </div>

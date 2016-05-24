@@ -27,7 +27,6 @@
                         </div>
                     </div>
                 </div>
-                <button id="AdminAbsenceProcessed__updateFilter" type="submit" class="btn btn-primary">Update Filters <i class="icon-arrow-right14"></i></button>
             </div>
 
             <div class="form-group col-xs-6">
@@ -57,7 +56,7 @@
                         <div class="radio">
                             <label>
                                 <input type="radio" name="status-filter" class="control-success" value="missing">
-                                Show <button class="label label-danger">{{_ "Admin.Missing" }}</button> <small>({{_ "Admin.AbsentLateNoNotice" }})</small>
+                                {{_ "Admin.Show" }} <button class="label label-danger">{{_ "Admin.Missing" }}</button> <small>({{_ "Admin.AbsentLateNoNotice" }})</small>
                             </label>
                         </div>
                     </div>
@@ -93,17 +92,17 @@
                     <tbody>
                         {{#each absentees}}
                             <tr>
-                                <td><button class="AdminAbsentees__changeStatus label label-{{labelClass}}" data-id="{{_id}}" data-status="{{status}}">{{status}}</button></td>
+                                <td><button class="AdminAbsentees__changeStatus label label-{{labelClass}}" data-id="{{_id}}" data-status="{{status}}">{{_ "Admin.Status" }}</button></td>
                                 {{#with userData}}
-                                    <td>{{profile.firstName}}</td>
-                                    <td>{{profile.lastName}}</td>
-                                    <td>{{classroom}}</td>
+                                    <td>{{_ "Admin.FirstName" }}</td>
+                                    <td>{{_ "Admin.LastName" }}</td>
+                                    <td>{{_ "Admin.classroom" }}</td>
                                 {{/with}}
-                                <td>{{date}}</td>
-                                <td>{{lastNotified}}</td>
-                                <td>{{eta}}</td>
-                                <td>{{arrivalTime}}</td>
-                                <td>{{admin}}</td>
+                                <td>{{_ "Admin.Date" }}</td>
+                                <td>{{_ "Admin.lastNotified" }}</td>
+                                <td>{{_ "Admin.ETA" }}</td>
+                                <td>{{_ "Admin.arrivalTime" }}</td>
+                                <td>{{_ "Admin.admin" }}</td>
                             </tr>
                         {{/each}}
                     </tbody>

@@ -1,35 +1,35 @@
 <template name="AdminClassesSearch">
     <div class="panel panel-flat">
         <div class="panel-heading">
-            <h1>Search Classes</h1>
+            <h1>{{_ "Admin.SearchClasses" }}</h1>
         </div>
 
         <div class="panel-body">
             {{#if Template.subscriptionsReady}}
             {{> EasySearch.Input index=classesIndex }}
-                <span>{{totalSelectUserCount}} have been selected.</span>
+                <span>{{totalSelectUserCount}}{{_ "Admin.havebeenselected" }}</span>
                 <br/>
-                <button class='btn btn-default select-all-users-btn'>Select All</button> 
-                <button class='btn btn-default deselect-all-users-btn'>De-Select All</button>                                   
-                <button class='btn btn-default select-all-users-current-page-btn'>Select All From Current Page</button>
-                <button class='btn btn-default deselect-all-users-current-page-btn'>De-Select All From Current Page</button>                
+                <button class='btn btn-default select-all-users-btn'>{{_ "Admin.SelectAll" }}</button> 
+                <button class='btn btn-default deselect-all-users-btn'>{{_ "Admin.De-SelectAll" }}</button>                                   
+                <button class='btn btn-default select-all-users-current-page-btn'>{{_ "Admin.SelectAllFromCurrentPage" }}</button>
+                <button class='btn btn-default deselect-all-users-current-page-btn'>{{_ "Admin.De-SelectAllFromCurrentPage" }}</button>                
                 
                 {{#if showOptions}}
                     <br/>
-                    <button class='btn btn-danger remove-distribution-lists-btn'>Remove Class(es)</button>                                                                                          
+                    <button class='btn btn-danger remove-distribution-lists-btn'>{{_ "Admin.RemoveClass(es)" }}</button>                                                                                          
                 {{/if}}              
             <div class="table-responsive">  
             <table class='table'>
                     <thead>
                     <tr>
                         <th>&nbsp;</th>
-                        <th>Class Name</th>
-                        <th>Class Code</th>                        
-                        <th>Class Avatar</th>
-                        <th>Class Admins</th>
-                        <th>Created At</th>
-                        <th>Last Created At</th>
-                        <th>Last Updated By</th>
+                        <th>{{_ "Admin.ClassName" }}</th>
+                        <th>{{_ "Admin.ClassCode" }}</th>                        
+                        <th>{{_ "Admin.ClassAvatar" }}</th>
+                        <th>{{_ "Admin.ClassAdmins" }}</th>
+                        <th>{{_ "Admin.CreatedAt" }}</th>
+                        <th>{{_ "Admin.LastCreatedAt" }}</th>
+                        <th>{{_ "Admin.LastUpdatedBy" }}</th>
                                                                        
                     </tr>
                     </thead>                
@@ -65,7 +65,7 @@
               
             </table>
                 {{#EasySearch.IfNoResults index=classesIndex}}
-                    <div style='text-align:center'>No results found!</div>
+                    <div style='text-align:center'>{{_ "Admin.Noresultsfound" }}</div>
                 {{/EasySearch.IfNoResults}}              
             </div>
             {{> EasySearch.Pagination index=classesIndex maxPages=10 customRenderPagination='CustomEasySearchPagination'}}               

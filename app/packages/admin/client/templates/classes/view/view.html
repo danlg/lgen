@@ -7,9 +7,9 @@
             </div>
 
             <div class="panel-body">
-                <p>Created At: {{createdAt}}</p>
-                <p>Class Code: {{classCode}}</p>
-                <p>Age Restricted: {{ageRestricted}}</p>
+                <p>{{_ "Admin.CreatedAt" }}: {{createdAt}}</p>
+                <p>{{_ "Admin.ClassCode" }}: {{classCode}}</p>
+                <p>{{_ "Admin.Age-Restricted" }}: {{ageRestricted}}</p>
             </div>
             {{/with}}
         </div>
@@ -38,7 +38,7 @@
                     <tbody>
                         {{#each admins}} {{#with userData this}}
                         <tr class="AdminClassesView__tr">
-                            <td class="AdminClassesView__td"><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.firstName}} {{profile.lastName}}</a><button type="button" class="remove-admin label label-danger" data-user-id="{{_id}}">Remove</button></td>
+                            <td class="AdminClassesView__td"><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.firstName}} {{profile.lastName}}</a><button type="button" class="remove-admin label label-danger" data-user-id="{{_id}}">{{_ "Admin.Remove" }}</button></td>
                         </tr>
                         {{/with}} {{/each}}
                     </tbody>
@@ -50,9 +50,9 @@
             {{#with classData}}
             <div class="panel-body">
                 <!-- /large table -->
-                <h3>Manage Users</h3>
+                <h3>{{_ "Admin.ManageUsers" }}</h3>
                 <div class="col-xs-6">
-                    <h5 class="AdminClassesView__subheading">Distribution List(s)</h5>
+                    <h5 class="AdminClassesView__subheading">{{_ "Admin.DistributionLists" }}</h5>
                     <div id="AdminClassesView__add-list-container" class="form-group">
                         <div class="col-xs-12">
                             <div class="add-user-input-container input-group AdminClassesView__add-list-input-container">
@@ -75,7 +75,7 @@
                         <tbody>
                             {{#each distributionLists}} {{#with listData this}}
                             <tr class="AdminClassesView__tr">
-                                <td class="AdminClassesView__td"><a href="{{pathFor 'admin.lists.view' data=_id}}">{{name}}</a><button type="button" class="remove-list label label-danger" data-list-id="{{_id}}">Remove</button></td>
+                                <td class="AdminClassesView__td"><a href="{{pathFor 'admin.lists.view' data=_id}}">{{name}}</a><button type="button" class="remove-list label label-danger" data-list-id="{{_id}}">{{_ "Admin.Remove" }}</button></td>
                             </tr>
                             {{/with}} {{/each}}
                         </tbody>
@@ -104,7 +104,7 @@
                         <tbody>
                             {{#each users}} {{#with userData this}}
                             <tr class="AdminClassesView__tr">
-                                <td class="AdminClassesView__td"><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.firstName}} {{profile.lastName}}</a><button type="button" class="remove-user label label-danger" data-user-id="{{_id}}">Remove</button></td>
+                                <td class="AdminClassesView__td"><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.firstName}} {{profile.lastName}}</a><button type="button" class="remove-user label label-danger" data-user-id="{{_id}}">{{_ "Admin.Remove" }}</button></td>
                             </tr>
                             {{/with}} {{/each}}
                         </tbody>

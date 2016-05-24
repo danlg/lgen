@@ -2,18 +2,18 @@
     <!-- Form horizontal -->
     <div class="panel panel-flat">
         <div class="panel-heading">
-            <h1>Register Expected Absence</h1>
+            <h1>{{_ "Admin.RegisterExpectedAbsence" }}</h1>
         </div>
 
         <div class="panel-body">
-            <p class="content-group-lg">You may add new classes to your school by filling in the form below.</p>
+            <p class="content-group-lg">{{_ "Admin.addnewclassesbyfillingintheformbelow" }}</p>
 
             <form class="form-horizontal" action="#">
                 <fieldset class="content-group">
-                    <h4 class="text-bold">Class Details</h4>
+                    <h4 class="text-bold">{{_ "Admin.ClassDetails" }}</h4>
                     
                     <div class="form-group">
-                        <label class="control-label col-xs-2">Student</label>
+                        <label class="control-label col-xs-2">{{_ "Admin.Students" }}</label>
                         <div class="col-xs-10">
                             {{> EasySearch.Input index=absenceUsersIndex attributes=adminAbsenceRegisterInputAttributes}}
                         </div>
@@ -25,35 +25,35 @@
                     </div>
                     
                     <div class="form-group">
-                        <label class="control-label col-xs-2">Start Date</label>
+                        <label class="control-label col-xs-2">{{_ "Admin.StartDate" }}</label>
                         <div class="col-xs-10">
                             <input id="AdminAbsenceRegister__startDate" type="date" class="form-control" placeholder="Start Date">
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label class="control-label col-xs-2">Start Time</label>
+                        <label class="control-label col-xs-2">{{_ "Admin.StartTime" }}</label>
                         <div class="col-xs-10">
                             <input id="AdminAbsenceRegister__startTime" type="time" class="form-control" placeholder="Start Time">
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label class="control-label col-xs-2">End Date</label>
+                        <label class="control-label col-xs-2">{{_ "Admin.EndDate" }}</label>
                         <div class="col-xs-10">
                             <input id="AdminAbsenceRegister__endDate" type="date" class="form-control" placeholder="End Date">
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label class="control-label col-xs-2">End Time</label>
+                        <label class="control-label col-xs-2">{{_ "Admin.EndTime" }}</label>
                         <div class="col-xs-10">
                             <input id="AdminAbsenceRegister__endTime" type="time" class="form-control" placeholder="End Time">
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label class="control-label col-xs-2">Message (Optional)</label>
+                        <label class="control-label col-xs-2">{{_ "Admin.Message" }}</label>
                         <div class="col-xs-10">
                             <textarea id="AdminAbsenceRegister__message" class="form-control" placeholder="Message"></textarea>
                         </div>
@@ -61,7 +61,7 @@
                 </fieldset>
                 
                 <div class="text-right">
-                    <button id="AdminAbsenceRegister__submit" type="submit" class="btn btn-primary">Register Absence <i class="icon-arrow-right14 position-right"></i></button>
+                    <button id="AdminAbsenceRegister__submit" type="submit" class="btn btn-primary">{{_ "Admin.RegisterAbsence" }}<i class="icon-arrow-right14 position-right"></i></button>
                 </div>
             </form>
         </div>

@@ -7,14 +7,14 @@
                 </div>
 
                 <div class="panel-body">
-                    <p>Created At {{createdAt}}</p>
+                    <p>{{_ "Admin.CreatedAt" }}{{createdAt}}</p>
                     <p>Url {{url}}</p>
-                    <p>Mandatory {{mandatory}}</p>
-                    <button class='delete-newsgroup' data-newsgroup-id='{{_id}}'>Delete This Newsgroup</button>
+                    <p>{{_ "Admin.Mandatory" }} {{mandatory}}</p>
+                    <button class='delete-newsgroup' data-newsgroup-id='{{_id}}'>{{_ "Admin.DeleteThisNewsgroup" }}</button>
                 </div>
 
                 <div class="panel-body">
-                    <h3>Admins</h3>
+                    <h3>{{_ "Admin.Admins" }} </h3>
                     {{#each admins}}
                         {{#with userData this}}
                             <li><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.firstName}} {{profile.lastName}}</a><!--<button class="remove-admin">&times;</button>--></li>
@@ -24,7 +24,7 @@
                 </div>
                 
                 <div class="panel-body">
-                    <h3>Distribution List</h3>
+                    <h3>{{_ "Admin.DistributionLists" }}</h3>
                     
                     
                     {{#each getAllDistributionList}}
@@ -35,7 +35,7 @@
                             {{/if}}
 
                     {{else}}
-                        No distribution list    
+                        {{_ "Admin.Nodistributionlist" }}    
                     {{/each}}
                 </div>
                                                 
@@ -59,18 +59,18 @@
         
         <div class="panel panel-flat">
             <div class="panel-heading">
-                <h1>Newsgroups News</h1>
+                <h1>{{_ "Admin.NewsgroupsNews" }}</h1>
             </div>
             <div class="panel-body">
                 
                 <!-- Large table -->
                 <table class="table datatable-basic">
                     <thead>
-                        <th>Title</th>
-                        <th>Content</th>
-                        <th>Created Date</th>
-                        <th>Show/Hidden News</th>
-                        <th>Remove News</th>
+                        <th>{{_ "Admin.Title" }}</th>
+                        <th>{{_ "Admin.Content" }}</th>
+                        <th>{{_ "Admin.CreatedDate" }}</th>
+                        <th>{{_ "Admin.Show/HiddenNews" }}</th>
+                        <th>{{_ "Admin.RemoveNews" }}</th>
                     </thead>
                     <tbody>
                         {{#each news}}
@@ -80,17 +80,17 @@
                                     <td>{{createdAt}}</td>
                                     <td>
                                         {{#if hidden}}
-                                            <button class='show-news-btn' data-msg-id="{{_id}}" type="button">Show</button>
+                                            <button class='show-news-btn' data-msg-id="{{_id}}" type="button">{{_ "Admin.Show" }}</button>
                                         {{else}}
-                                            <button class='hide-news-btn' data-msg-id="{{_id}}" type="button">Hide</button>
+                                            <button class='hide-news-btn' data-msg-id="{{_id}}" type="button">{{_ "Admin.Hide" }}</button>
                                         {{/if}}
                                     </td>                        
                                     <td>
-                                        <button class='remove-news-btn' data-msg-id="{{_id}}" type="button">Remove</button>
+                                        <button class='remove-news-btn' data-msg-id="{{_id}}" type="button">{{_ "Admin.Remove" }}</button>
                                     </td>
                                 </tr>
                         {{else}}
-                            <tr><td colspan="5" style='text-align:center'>No existing news</td></tr>
+                            <tr><td colspan="5" style='text-align:center'>{{_ "Admin.Noexistingnews" }}</td></tr>
                         {{/each}}
                     </tbody>
                 </table>

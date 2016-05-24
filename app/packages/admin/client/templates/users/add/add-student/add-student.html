@@ -3,23 +3,23 @@
         <div class="panel-body">
             <form class="form-horizontal" action="#">
                 <fieldset class="content-group">
-                    <h4 class="text-bold">User Details</h4>
+                    <h4 class="text-bold">{{_ "Admin.UserDetails" }}</h4>
                     
                     <div class="form-group">
                         <div class="col-xs-4">
-                            <label class="control-label">First Name*</label>
+                            <label class="control-label">{{_ "Admin.FirstName" }}</label>
                             <div>
                                 <input id="AdminAddStudent__firstName" type="text" class="form-control AdminAddStudent__input" placeholder="First Name" required>
                             </div>
                         </div>
                         <div class="col-xs-4">
-                            <label class="control-label">Last Name*</label>
+                            <label class="control-label">{{_ "Admin.LastName" }}</label>
                             <div>
                                 <input id="AdminAddStudent__lastName" type="text" class="form-control AdminAddStudent__input" placeholder="Last Name" required>
                             </div>
                         </div>
                         <div class="col-xs-4">
-                            <label class="control-label">Date of Birth*</label>
+                            <label class="control-label">{{_ "Admin.DateofBirth" }}</label>
                             <div>
                                 <input id="AdminAddStudent__dob" type="text" class="form-control pickadate AdminAddStudent__input" placeholder="Date of Birth" required>
                             </div>
@@ -28,26 +28,26 @@
                     <div class="form-group">
                         
                         <div class="col-xs-4">
-                            <label class="control-label">Telephone Number</label>
+                            <label class="control-label">{{_ "Admin.TelephoneNumber" }}</label>
                             <div>
                                 <input id="AdminAddStudent__tel" type="tel" class="form-control AdminAddStudent__input" placeholder="Telephone Number">
                             </div>
                         </div>
                         <div class="col-xs-4">
-                            <label class="control-label">Username</label>
+                            <label class="control-label">{{_ "Admin.Username" }}</label>
                             <div>
                                 <input id="AdminAddStudent__username" type="text" class="form-control AdminAddStudent__input" placeholder="Username">
                             </div>
                         </div>
                         <div class="col-xs-4">
-                            <label class="control-label">Email</label>
+                            <label class="control-label">{{_ "Admin.Email" }}</label>
                             <div>
                                 <input id="AdminAddStudent__email" type="email" class="form-control AdminAddStudent__input" placeholder="Email">
                             </div>
                         </div>
                     </div>
                     <div class="AdminAddStudent__passwordContainer">
-                        <p>You may manually set a password for the user. This is <strong>required</strong> if <i>Email</i> is not provided.</p>
+                        <p>{{_ "Admin.setapasswordfortheuser" }}. {{_ "Admin.Thisis" }}<strong>{{_ "Admin.required" }}</strong>  {{_ "Admin.if" }} <i>{{_ "Admin.Email" }}</i> {{_ "Admin.Notprovided" }}</p>
                         <div>
                             <input id="AdminAddStudent__password" class="AdminAddStudent__input" type="password" placeholder="Type your password">
                         </div>
@@ -60,14 +60,14 @@
     <div class="panel panel-flat">
         <div class="panel-body">
             <div id="AdminAddStudent__newRelationshipsContainer">
-                <div id="AdminAddStudent__addRelationship" class="col-xs-6">+ Add New Relationship</div>
+                <div id="AdminAddStudent__addRelationship" class="col-xs-6">{{_ "Admin.AddNewRelationship" }}</div>
             </div>
         </div>
     </div>
     <div class="panel panel-flat">
         <div class="panel-body">
             <div class="text-right">
-                <button id="AdminAddStudent__submit" type="submit" class="btn btn-primary">Add User <i class="icon-arrow-right14 position-right"></i></button>
+                <button id="AdminAddStudent__submit" type="submit" class="btn btn-primary">{{_ "Admin.AddUser" }} <i class="icon-arrow-right14 position-right"></i></button>
             </div>
         </div>
     </div>
