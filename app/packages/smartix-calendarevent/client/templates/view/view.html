@@ -12,7 +12,7 @@
             
             {{#if isAllDayEvent}}
             <div class="row" >
-                <div class="col">{{_ "smartix-calendarevent.alldayevent" }}</div>
+                <div class="col">{{_ "smartix-calendarevent.Alldayevent" }}</div>
             </div>                                
             {{else}}
             <div class="row" >
@@ -23,7 +23,11 @@
             </div>
             {{/if}}                          
             <div class="row" >                                                                 
-                <div class="col" style="text-align:right"><button class='add-to-calendar' data-start-date='{{startDate}}' data-end-date='{{endDate}}' data-event-name='{{eventName}}' data-event-location='{{location}}' data-description='{{../data.content}}'>{{_ "smartix-calendarevent.Addcalendar" }} </button></div>
+                <div class="col" style="text-align:right">
+                  <button class='add-to-calendar' data-start-date='{{startDate}}'
+                    data-end-date='{{endDate}}' data-event-name='{{eventName}}'
+                    data-event-location='{{location}}' data-description='{{../data.content}}'>{{_ "smartix-calendarevent.AddToCalendar" }}
+                  </button></div>
             </div>                                                                
         </div>  
 </template>

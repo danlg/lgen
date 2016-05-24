@@ -279,9 +279,9 @@
         "Calendar":"日曆",
         "Contact":"連絡",
         "Settings":"設定",
-        "Switchschool" : "切換學校",
+        "SwitchSchool" : "切換學校",
         "Hi":"你好,",
-        "Youareat":"你現在正在",
+        "YouAreAt":"你現在正在",
         "Home":"主頁",
         "News":"新聞"
     }
