@@ -37,7 +37,9 @@ Template.AddSchool.events({
           preferences: {
               schoolBackgroundColor: $("#school-background-color").val(),
               schoolTextColor: $("#school-text-color").val()
-          } 
+          },
+          allowStudentStudentChat:  document.getElementById("student-to-student-chat").checked
+          
         };
         
         

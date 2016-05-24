@@ -32,6 +32,13 @@ Template.EditSchool.helpers({
     },
     getSchoolObj: function(){
             return  SmartixSchoolsCol.findOne({username: Router.current().params.school});            
+    },
+    isStudentToStudentChatAllow:function(){
+        if(this.allowStudentStudentChat){
+           return 'checked'; 
+        }else{
+           return "";
+        }
     }
 });
 
@@ -57,10 +64,11 @@ Template.EditSchool.events({
           preferences: {
               schoolBackgroundColor: $("#school-background-color").val(),
               schoolTextColor: $("#school-text-color").val()
-          } 
+          },
+          allowStudentStudentChat:  document.getElementById("student-to-student-chat").checked
         };
         
-        
+        console.log('editSchoolObj',editSchoolObj);
         Meteor.call('smartix:schools/editSchool',$("#school-id").val(),editSchoolObj,function(err,result){
             if(err){
                 toastr.error(err.reason);
