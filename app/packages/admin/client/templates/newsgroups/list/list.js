@@ -57,6 +57,13 @@ Template.AdminNewsgroupsSearch.helpers({
         return Smartix.Groups.Collection.findOne({
             _id: data
         });      
+  }, 
+   newsgroupSearchInputAttributes : function () {
+    return {
+        placeholder: TAPi18n.__("Search"),
+        class: "form-control",
+        id: "newsgroupSearchInput"
+    }
   }
 });
 

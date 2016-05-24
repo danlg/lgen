@@ -28,7 +28,7 @@ Package.onUse(function(api) {
         'i18n/fr/fr_t3.jpg',
         'i18n/fr/fr_t4.jpg',
         'i18n/fr/fr_t5.jpg',
-        'i18n/fr/fr_t6.jpg',               
+        'i18n/fr/fr_t6.jpg'
     ], 'client');
     
     api.addAssets([
@@ -37,14 +37,14 @@ Package.onUse(function(api) {
         'i18n/zh-CN/zh_cn_t3.jpg',
         'i18n/zh-CN/zh_cn_t4.jpg',
         'i18n/zh-CN/zh_cn_t5.jpg',
-        'i18n/zh-CN/zh_cn_t6.jpg',                              
+        'i18n/zh-CN/zh_cn_t6.jpg'
     ], 'client');
            
 
     api.addFiles([
         'i18n/fr/app_tour_image.fr.scss',
         'i18n/zh-CN/app_tour_image.zh-CN.scss',
-        'i18n/zh-TW/app_tour_image.zh-TW.scss',
+        'i18n/zh-TW/app_tour_image.zh-TW.scss'
     ], 'client');
 
     // TAPi18n
