@@ -187,7 +187,21 @@ Template.AdminDistributionListView.events({
         }      
     },
    'click .select-all-users-btn':function(event,template){
-     var userObjects = Meteor.users.find( {},{ fields:{ _id: 1} } ).fetch();
+     
+     var selectedRole = $('input[name="filter-by-role"]:checked').val();
+     var userObjects
+     if (selectedRole) {
+         if(selectedRole === 'all'){
+              toastr.info('All users are selected');
+         }else{
+              toastr.info('All '+selectedRole+ ' are selected');
+         }
+         userObjects = DistributionListUsersIndex.search('', { limit: 999999, props: { schoolNamespace: template.namespace, role: selectedRole } }).fetch();
+     } else {
+         toastr.info('All users are selected');
+         userObjects = DistributionListUsersIndex.search('', { limit: 999999 }).fetch();
+     }
+     
      var userIds = lodash.map(userObjects,"_id");
      let latestArray = template.usersChecked.set(userIds);  
    },
@@ -220,10 +234,17 @@ Template.AdminDistributionListView.events({
    'click .deselect-all-users-btn':function(event,template){
       template.usersChecked.set([]);
    },
-   'click .filter-by-role-btn':function(event,template){
-       var chosenRole =  $(event.target).data('role');
+   'click .filter-by-role':function(event,template){
+       var chosenRole =  $(event.target).val();
         DistributionListUsersIndex.getComponentMethods().addProps('schoolNamespace', template.namespace);
         DistributionListUsersIndex.getComponentMethods().addProps('role', chosenRole);
-               
+        
+        //if user change filter by role, we need to clear the list so that users not in selected role would not be selected
+        template.usersChecked.set([]);
+        
+        //https://github.com/matteodem/meteor-easy-search/issues/440
+        //we also need to take user back to the first page of results
+        DistributionListUsersIndex.getComponentDict().set('currentPage', 1);
+        DistributionListUsersIndex.getComponentMethods().paginate(1);          
    }      
 });

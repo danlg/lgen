@@ -7,7 +7,7 @@
         </div>
 
         <div class="panel-body">
-            <p>{{_ "Admin.ListCode" }}: {{url}}</p>
+            <!--<p>{{_ "Admin.ListCode" }}: {{url}}</p>-->
 
             <h3>{{_ "Admin.Users" }}</h3>
             <div id="AdminClassesView__add-user-container" class="form-group">
@@ -17,13 +17,13 @@
                         <span>{{totalSelectUserCount}} have been selected.</span>
                         <br/>
                         Filter:
-                            <div class="btn-group">
-                                <button type="button" data-role='all' class="btn btn-primary filter-by-role-btn">All</button>
-                                <button type="button" data-role='parent' class="btn btn-primary filter-by-role-btn">Parent</button>
-                                <button type="button" data-role='student' class="btn btn-primary filter-by-role-btn">Student</button>
-                                <button type="button" data-role='teacher' class="btn btn-primary filter-by-role-btn">Teacher</button>
-                                <button type="button" data-role='admin' class="btn btn-primary filter-by-role-btn">Admin</button>                        
-                            </div>
+                                <label class="radio-inline">   <input type="radio" class='filter-by-role' name="filter-by-role" id="filter-by-role-all" value="all"> All  </label>
+                                <label class="radio-inline">   <input type="radio" class='filter-by-role' name="filter-by-role" id="filter-by-role-parent" value="parent"> Parent  </label>
+                                <label class="radio-inline">   <input type="radio" class='filter-by-role' name="filter-by-role" id="filter-by-role-student" value="student"> Student  </label>
+                                <label class="radio-inline">   <input type="radio" class='filter-by-role' name="filter-by-role" id="filter-by-role-teacher" value="teacher"> Teacher  </label>
+                                <label class="radio-inline">   <input type="radio" class='filter-by-role' name="filter-by-role" id="filter-by-role-admin" value="admin"> Admin  </label>
+                                                                                                                                                                                       
+                           
                         <br/>
                         <button class='btn btn-default select-all-users-btn'>Select All</button> 
                         <button class='btn btn-default deselect-all-users-btn'>De-Select All</button>                                   
@@ -35,8 +35,8 @@
                             <button class='btn btn-danger remove-users-from-distribution-list'>Remove User(s) from Distribution List</button>                                                                               
                         {{/if}}                    
                     </div>
-                    <div class="table-responsive">                
-                    <table class='table' >
+                    <div class="table-responsive" style='height:300px;'>                
+                    <table class='table table-condensed' >
                         <thead align="left">
                         <tr>
                             <th>&nbsp;</th>
@@ -89,7 +89,10 @@
                             <button type="button" data-user-id="{{_id}}" class="AdminDistributionListView__remove-user btn border-warning text-warning-600 btn-flat btn-icon btn-rounded"><i class="icon-minus2"></i></button>
                         </td>
                     </tr>
-                    {{/with}} {{/each}}
+                    {{/with}}
+                    {{else}}
+                        <tr><td> No User in distribution list yet.</td> </tr>
+                    {{/each}}
                 </tbody>
             </table>
             <!-- /large table -->
