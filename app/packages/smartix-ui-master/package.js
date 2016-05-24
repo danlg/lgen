@@ -13,9 +13,9 @@ Package.onUse(function(api) {
 		'mongo',
 		'ecmascript',
 		'templating',
-		'underscore',
+		'underscore'
 	]);
-    
+	//api.use('smartix:lib@0.0.1');
     api.use('zimme:active-route');
     
 	api.addFiles('master/master_layout.html', 'client');
