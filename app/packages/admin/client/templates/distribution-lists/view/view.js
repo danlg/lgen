@@ -196,12 +196,23 @@ Template.AdminDistributionListView.events({
          }else{
               toastr.info('All '+selectedRole+ ' are selected');
          }
-         userObjects = DistributionListUsersIndex.search('', { limit: 999999, props: { schoolNamespace: template.namespace, role: selectedRole } }).fetch();
-     } else {
+         let searchString = DistributionListUsersIndex.getComponentDict().keys.searchDefinition;
+         //remove wrapping double quote
+         searchString = searchString.replace(/"/g,"");
+         //console.log(searchString);
+         userObjects = DistributionListUsersIndex.search( searchString, { limit: 999999, props: { schoolNamespace: template.namespace, role: selectedRole } }).fetch();
+         //console.log(userObjects);
+       } else {
          toastr.info('All users are selected');
-         userObjects = DistributionListUsersIndex.search('', { limit: 999999 }).fetch();
+      
+         let searchString = DistributionListUsersIndex.getComponentDict().keys.searchDefinition;
+         //remove wrapping double quote                  
+         searchString = searchString.replace(/"/g,"");
+         
+         //console.log(searchString);
+         userObjects = DistributionListUsersIndex.search( searchString , { limit: 999999 }).fetch();
      }
-     
+    
      var userIds = lodash.map(userObjects,"_id");
      let latestArray = template.usersChecked.set(userIds);  
    },
