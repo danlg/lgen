@@ -19,31 +19,31 @@
                 
                 {{> EasySearch.Input index=usersIndex attributes=userSearchInputAttributes timeout=100}}
                 <!--<span>Total User: {{totalUserCount}} </span>-->
-                <span>{{totalSelectUserCount}} have been selected.</span>
+                <span>{{totalSelectUserCount}} {{_ "Admin.havebeenselected" }}</span>
                 <br/>
-                Filter:
+                {{_ "Admin.Filter:" }}
                     <div class="btn-group">
-                        <button type="button" data-role='all' class="btn btn-primary filter-by-role-btn">All</button>
-                        <button type="button" data-role='parent' class="btn btn-primary filter-by-role-btn">Parent</button>
-                        <button type="button" data-role='student' class="btn btn-primary filter-by-role-btn">Student</button>
-                        <button type="button" data-role='teacher' class="btn btn-primary filter-by-role-btn">Teacher</button>
-                        <button type="button" data-role='admin' class="btn btn-primary filter-by-role-btn">Admin</button>                        
+                        <button type="button" data-role='all' class="btn btn-primary filter-by-role-btn">{{_ "Admin.All" }}</button>
+                        <button type="button" data-role='parent' class="btn btn-primary filter-by-role-btn">{{_ "Admin.Parent" }}</button>
+                        <button type="button" data-role='student' class="btn btn-primary filter-by-role-btn">{{_ "Admin.Student" }}</button>
+                        <button type="button" data-role='teacher' class="btn btn-primary filter-by-role-btn">{{_ "Admin.Teacher" }}</button>
+                        <button type="button" data-role='admin' class="btn btn-primary filter-by-role-btn">{{_ "Admin.Admin" }}</button>                        
                     </div>
                 <br/>
-                <button class='btn btn-default select-all-users-btn'>Select All</button> 
-                <button class='btn btn-default deselect-all-users-btn'>De-Select All</button>                                   
-                <button class='btn btn-default select-all-users-current-page-btn'>Select All From Current Page</button>
-                <button class='btn btn-default deselect-all-users-current-page-btn'>De-Select All From Current Page</button>                
+                <button class='btn btn-default select-all-users-btn'>{{_ "Admin.SelectAll" }}</button> 
+                <button class='btn btn-default deselect-all-users-btn'>{{_ "Admin.De-SelectAll" }}</button>                                   
+                <button class='btn btn-default select-all-users-current-page-btn'>{{_ "Admin.SelectAllFromCurrentPage" }}</button>
+                <button class='btn btn-default deselect-all-users-current-page-btn'>{{_ "Admin.De-SelectAllFromCurrentPage" }}</button>                
                 {{#if showOptions}}
                     <br/>
-                    <button class='btn btn-danger remove-users-btn'>Remove User(s)</button>                 
-                    <button class='btn btn-success add-users-to-role'>Add User(s) to Role</button>
-                    <button class='btn btn-danger remove-users-from-role'>Remove User(s) from Role</button>
+                    <button class='btn btn-danger remove-users-btn'>{{_ "Admin.RemoveUserl" }}</button>                 
+                    <button class='btn btn-success add-users-to-role'>{{_ "Admin.AddUser(s)toRole" }}</button>
+                    <button class='btn btn-danger remove-users-from-role'>{{_ "Admin.RemoveUser(s)fromRole" }}</button>
                     <select id='selected-role' class="form-control">
-                        <option value="parent">Parent</option>
-                        <option value="student">Student</option>
-                        <option value="teacher">Teacher</option>
-                        <option value="admin">Admin</option>
+                        <option value="parent">{{_ "Admin.Parent" }}</option>
+                        <option value="student">{{_ "Admin.Student" }}</option>
+                        <option value="teacher">{{_ "Admin.Teacher" }}</option>
+                        <option value="admin">{{_ "Admin.Admin" }}</option>
                     </select>                                                                               
                 {{/if}}
                 <div class="table-responsive">                
@@ -52,12 +52,12 @@
                     <tr>
                         <th>&nbsp;</th>
                        
-                        <th>Role</th>
-                        <th>Last Name</th>
-                        <th>First Name</th>
-                        <th>Email</th>                        
-                        <th>User Name</th>
-                        <th>Grade</th>
+                        <th>{{_ "Admin.Roles" }}</th>
+                        <th>{{_ "Admin.LastName" }}</th>
+                        <th>{{_ "Admin.FirstName" }}</th>
+                        <th>{{_ "Admin.Email" }}</th>                        
+                        <th>{{_ "Admin.Username" }}</th>
+                        <th>{{_ "Admin.Grade" }}</th>
                         
                     </tr>
                     </thead>
@@ -86,7 +86,7 @@
                 {{> EasySearch.Pagination index=usersIndex maxPages=10 customRenderPagination='CustomEasySearchPagination'}}               
             </div>
         {{else}}
-            Loading...
+            {{_ "Admin.Loading" }}
         {{/if}}
     </div>
 </template>
@@ -113,15 +113,15 @@
         <td>{{profile.lastName}}</td>
         <td>{{getUserEmail}}</td>   
         <td>{{getUserRoles}}</td>   
-        <td><button>Edit</button></td>         
-        <td><button>Remove</button></td>                
+        <td><button> {{_ "Admin.Edit" }}</button></td>         
+        <td><button>{{_ "Admin.Remove" }}</button></td>                
     </tr>
 </template>
 
 
 <template name="SchoolUserList">
   <div class="table-responsive">
-  <input type='search' placeholder="Type User Name or Email to filter"/>  <button>Remove</button> Total User : {{getTotalUserCount}}
+  <input type='search' placeholder="Type User Name or Email to filter"/>  <button>{{_ "Admin.Remove" }}</button> {{_ "Admin.TotalUser" }} {{getTotalUserCount}}
   {{> pages}} 
   </div>
   {{> pagesNav}}

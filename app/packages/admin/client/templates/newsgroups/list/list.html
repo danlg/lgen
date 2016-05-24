@@ -5,7 +5,7 @@
         </div>
         {{#if Template.subscriptionsReady}}
         <div class="panel-body">
-            <p>{{_ "Admin.subscribeexistingnewsgroupsanduser" }}</p>
+            <p>{{_ "Admin.subscribeexistingnewsgroupsanduser" attributes=newsgroupSearchInputAttributes }}</p>
             {{> EasySearch.Input index=newsgroupsIndex }}
             <span>{{totalSelectUserCount}} have been selected.</span>
             <br/>

@@ -6,18 +6,18 @@
         </div>
         
         <div class="panel-body">
-            <p>First Name: {{profile.firstName}}</p>
-            <p>Last Name: {{profile.lastName}}</p>
-            <p>Username: {{username}}</p>
-            <p>Email: {{userEmail}}</p>
+            <p>{{_ "Admin.FirstName" }}: {{profile.firstName}}</p>
+            <p>{{_ "Admin.LastName" }}: {{profile.lastName}}</p>
+            <p>{{_ "Admin.Username" }}: {{username}}</p>
+            <p>{{_ "Admin.Email" }}: {{userEmail}}</p>
             <!--TODO here display info depending on student
               dob , class, grade but not for everyone-->
-            <p>Date of Birth: {{dob}}</p>
-            <p>Telephone: {{tel}}</p>
-            <p>Role: {{userRoles}}</p>
+            <p>{{_ "Admin.DateofBirth" }}: {{dob}}</p>
+            <p>{{_ "Admin.Telephone" }}: {{tel}}</p>
+            <p>{{_ "Admin.Roles" }}: {{userRoles}}</p>
             {{> AdminUsersAddRelationships}}
             {{> RelatedUsersMobile}}
         </div>
-        {{/with}} {{else}} Loading... {{/if}}
+        {{/with}} {{else}} {{_ "Admin.Loading" }} {{/if}}
     </div>
 </template>
