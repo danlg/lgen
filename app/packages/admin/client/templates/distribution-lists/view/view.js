@@ -220,8 +220,8 @@ Template.AdminDistributionListView.events({
    'click .deselect-all-users-btn':function(event,template){
       template.usersChecked.set([]);
    },
-   'click .filter-by-role-btn':function(event,template){
-       var chosenRole =  $(event.target).data('role');
+   'click .filter-by-role':function(event,template){
+       var chosenRole =  $(event.target).val();
         DistributionListUsersIndex.getComponentMethods().addProps('schoolNamespace', template.namespace);
         DistributionListUsersIndex.getComponentMethods().addProps('role', chosenRole);
                

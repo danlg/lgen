@@ -17,13 +17,13 @@
                         <span>{{totalSelectUserCount}} have been selected.</span>
                         <br/>
                         Filter:
-                            <div class="btn-group">
-                                <button type="button" data-role='all' class="btn btn-primary filter-by-role-btn">All</button>
-                                <button type="button" data-role='parent' class="btn btn-primary filter-by-role-btn">Parent</button>
-                                <button type="button" data-role='student' class="btn btn-primary filter-by-role-btn">Student</button>
-                                <button type="button" data-role='teacher' class="btn btn-primary filter-by-role-btn">Teacher</button>
-                                <button type="button" data-role='admin' class="btn btn-primary filter-by-role-btn">Admin</button>                        
-                            </div>
+                                <label class="radio-inline">   <input type="radio" class='filter-by-role' name="filter-by-role" id="filter-by-role-all" value="all"> All  </label>
+                                <label class="radio-inline">   <input type="radio" class='filter-by-role' name="filter-by-role" id="filter-by-role-parent" value="parent"> Parent  </label>
+                                <label class="radio-inline">   <input type="radio" class='filter-by-role' name="filter-by-role" id="filter-by-role-student" value="student"> Student  </label>
+                                <label class="radio-inline">   <input type="radio" class='filter-by-role' name="filter-by-role" id="filter-by-role-teacher" value="teacher"> Teacher  </label>
+                                <label class="radio-inline">   <input type="radio" class='filter-by-role' name="filter-by-role" id="filter-by-role-admin" value="admin"> Admin  </label>
+                                                                                                                                                                                       
+                           
                         <br/>
                         <button class='btn btn-default select-all-users-btn'>Select All</button> 
                         <button class='btn btn-default deselect-all-users-btn'>De-Select All</button>                                   
