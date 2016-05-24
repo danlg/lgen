@@ -35,8 +35,8 @@
                             <button class='btn btn-danger remove-users-from-distribution-list'>Remove User(s) from Distribution List</button>                                                                               
                         {{/if}}                    
                     </div>
-                    <div class="table-responsive">                
-                    <table class='table' >
+                    <div class="table-responsive" style='height:300px;'>                
+                    <table class='table table-condensed' >
                         <thead align="left">
                         <tr>
                             <th>&nbsp;</th>
@@ -89,7 +89,10 @@
                             <button type="button" data-user-id="{{_id}}" class="AdminDistributionListView__remove-user btn border-warning text-warning-600 btn-flat btn-icon btn-rounded"><i class="icon-minus2"></i></button>
                         </td>
                     </tr>
-                    {{/with}} {{/each}}
+                    {{/with}}
+                    {{else}}
+                        <tr><td> No User in distribution list yet.</td> </tr>
+                    {{/each}}
                 </tbody>
             </table>
             <!-- /large table -->
