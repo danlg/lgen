@@ -114,5 +114,12 @@ Template.AdminDistributionListsSearch.events({
             });
             template.usersChecked.set([]); 
         }             
-   }
+   },
+    distSearchInputAttributes: function () {
+        return {
+            placeholder: TAPi18n.__("Search"),
+            class: "form-control",
+            id: "DistListSearchInput"
+        }
+    }
 });

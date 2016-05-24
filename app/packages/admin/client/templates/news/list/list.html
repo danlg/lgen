@@ -5,7 +5,7 @@
         </div>
 
         <div class="panel-body">
-            {{> EasySearch.Input index=classesIndex }}
+            {{> EasySearch.Input index=classesIndex attributes=newsSearchInputAttributes}}
             <ul>
                 {{#EasySearch.Each index=classesIndex }}
                     <li><a href="{{pathFor route='admin.classes.view' data=classCode}}">{{className}}</a></li>

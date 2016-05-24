@@ -40,7 +40,7 @@ Template.AdminClassesSearch.helpers({
   },
   showOptions:function(){
      return Template.instance().usersChecked.get().length > 0 ;
-    
+
   },
   userData: function (data) {
         if(Template.instance().subscriptionsReady()) {
@@ -48,6 +48,13 @@ Template.AdminClassesSearch.helpers({
                 _id: data
             });
         }
+  },
+  classesSearchInputAttributes: function () {
+    return {
+        placeholder: TAPi18n.__("Search"),
+        class: "form-control",
+        id: "classesSearchInput"
+    }
   }
 });
 

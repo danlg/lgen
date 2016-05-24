@@ -11,7 +11,15 @@ Template.AdminClassesSearch.onCreated(function () {
 });
 
 Template.AdminClassesSearch.helpers({
-  classesIndex: function () {
-      return ClassesIndex;
-  }
+    classesIndex: function () {
+        return ClassesIndex;
+    },
+
+    newsSearchInputAttributes: function () {
+        return {
+            placeholder: TAPi18n.__("Search"),
+            class: "form-control",
+            id: "newsSearchInput"
+        }
+    }
 });

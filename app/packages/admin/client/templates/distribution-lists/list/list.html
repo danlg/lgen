@@ -8,8 +8,8 @@
            <p>{{_ "Admin.Forexample" }}</p>
 
            {{#if Template.subscriptionsReady}}
-                {{> EasySearch.Input index=distributionListIndex }}
-                <span>{{totalSelectUserCount}} have been selected.</span>
+                {{> EasySearch.Input index=distributionListIndex attributes=distSearchInputAttributes}}
+                <span>{{totalSelectUserCount}} {{_ "Admin.havebeenselected" }}.</span>
                 <br/>
                 <button class='btn btn-default select-all-users-btn'>{{_ "Admin.SelectAll" }}</button> 
                 <button class='btn btn-default deselect-all-users-btn'>{{_ "Admin.De-SelectAll" }}</button>                                   
