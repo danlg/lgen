@@ -40,15 +40,22 @@ Template.AdminDistributionListsSearch.helpers({
       return Template.instance().usersChecked.get().length;
   },
   showOptions:function(){
-     return Template.instance().usersChecked.get().length > 0 ;
-    
+      return Template.instance().usersChecked.get().length > 0;
+
   },
   userData: function (data) {
-        if(Template.instance().subscriptionsReady()) {
-            return Meteor.users.findOne({
-                _id: data
-            });
-        }
+      if (Template.instance().subscriptionsReady()) {
+          return Meteor.users.findOne({
+              _id: data
+          });
+      }
+  },
+  distSearchInputAttributes: function () {
+      return {
+          placeholder: TAPi18n.__("Search"),
+          class: "form-control",
+          id: "DistListSearchInput"
+      }
   }
 });
 
@@ -114,12 +121,5 @@ Template.AdminDistributionListsSearch.events({
             });
             template.usersChecked.set([]); 
         }             
-   },
-    distSearchInputAttributes: function () {
-        return {
-            placeholder: TAPi18n.__("Search"),
-            class: "form-control",
-            id: "DistListSearchInput"
-        }
-    }
+   }
 });
