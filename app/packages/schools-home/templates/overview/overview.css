@@ -214,3 +214,9 @@
 .card.square-card.bg.bg-more{
    background-image: url('/packages/smartix_schools-home/icons/more.png');
 }
+
+.overview-bottom-section{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
