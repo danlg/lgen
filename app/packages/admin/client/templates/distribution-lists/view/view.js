@@ -240,6 +240,11 @@ Template.AdminDistributionListView.events({
         DistributionListUsersIndex.getComponentMethods().addProps('role', chosenRole);
         
         //if user change filter by role, we need to clear the list so that users not in selected role would not be selected
-        template.usersChecked.set([]);       
+        template.usersChecked.set([]);
+        
+        //https://github.com/matteodem/meteor-easy-search/issues/440
+        //we also need to take user back to the first page of results
+        DistributionListUsersIndex.getComponentDict().set('currentPage', 1);
+        DistributionListUsersIndex.getComponentMethods().paginate(1);          
    }      
 });
