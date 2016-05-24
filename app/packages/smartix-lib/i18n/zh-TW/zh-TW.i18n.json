@@ -270,5 +270,18 @@
                 "AddSuccess": "成功添加用戶"
             }
         }
+    },
+    "smartix-ui-master":{
+        "Admin":"管理",
+        "Attendance":"出勤",
+        "Classes":"課堂",
+        "Chat":"聊天",
+        "Calendar":"日曆",
+        "Contact":"連絡",
+        "Settings":"設定",
+        "Switchschool" : "切換學校",
+        "Hi":"你好,",
+        "Youareat":"你現在正在",
+        "Home":"主頁"
     }
 }

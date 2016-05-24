@@ -119,4 +119,143 @@ Template.AppLayout.onCreated(function() {
         self.subscribe('mySchools');
     });
 
+    
 });
+
+Template.AppLayout.onRendered(function(){
+    checkLanguage();
+})
+ function checkLanguage(pause) {
+    // see https://developer.apple.com/library/ios/documentation/MacOSX/Conceptual/BPInternational/LanguageandLocaleIDs/LanguageandLocaleIDs.html
+    //itap18n doesn't support the iOS notation
+    //todo check that this is loaded when initializing screen on cordova
+    if (Meteor.isCordova) {
+      navigator.globalization.getPreferredLanguage(
+        function (mobilePhoneLanguage) {
+          // alert('language: ' + language.value + '\n');
+          //log.info("checkLanguage:cordova:'"+ mobilePhoneLanguage.value+ "'");
+          var lang;
+          if (Smartix.helpers.isChinese( mobilePhoneLanguage.value) ) {
+            var chineseMap = {};
+            chineseMap["zh-Hant"] = "zh-TW";
+            chineseMap["zh-HK"]   = "zh-TW";
+            chineseMap["zh-TW"]   = "zh-TW";
+
+            chineseMap["zh-CN"]   = "zh-CN";
+            chineseMap["zh-Hans"] = "zh-CN";
+            //possible values are :'zh-HK', 'zh-Hans-HK','zh-CN', zh-Hans-CN
+            //log.info("checkLanguage:cordova:ChineseMap:'" + lodash.toString (chineseMap));
+            //log.info("checkLanguage:cordova:Chinese:'" + mobilePhoneLanguage.value + "'");
+            if (Smartix.helpers.isHan(mobilePhoneLanguage.value)) {
+              
+              //we remove the country
+              var langPartsArray = mobilePhoneLanguage.value.split('-');
+              var langtmp;
+              if(langPartsArray.length > 2){
+                  langtmp = langPartsArray[0]+"-"+langPartsArray[1];
+              } else {
+                  langtmp = mobilePhoneLanguage.value;
+              }           
+              
+              //what is min?
+              //var langtmp = mobilePhoneLanguage.value.substr(0, min(7, mobilePhoneLanguage.value.length));
+              lang = chineseMap [langtmp];
+              //log.info("checkLanguage:cordova:chineseMap:Han'" + langtmp + "->" +lang);
+            } else {  //zh-HK,zh-CN,..
+              lang = chineseMap [mobilePhoneLanguage.value];
+              //log.info("checkLanguage:cordova:chineseMap:NoHan'" + mobilePhoneLanguage.value + "->" +lang);
+            }
+          }
+          else {
+            var pattern = /-.*/g; //remove the country e.g. fr-HK => fr
+            lang = mobilePhoneLanguage.value.replace(pattern, "");
+          }
+          //log.info("checkLanguage:TAPi18n.getLanguages:before'");
+          var supportedLanguages = TAPi18n.getLanguages();
+          //log.info("checkLanguage:TAPi18n.getLanguages:after'");
+          //log.info("checkLanguage:supportedLanguages:before'"+ supportedLanguages+ "'");          
+          //log.info(supportedLanguages);
+          //log.info("checkLanguage:supportedLanguages:after'"+ supportedLanguages+ "'");          
+          //if (!lodash.includes(supportedLanguages, lang))
+          if (Object.keys(supportedLanguages).indexOf(lang) == -1 ) {
+            log.warn("checkLanguage:Defaulting to English");
+            lang = "en";
+          } else {
+            //log.info("checkLanguage:Found lang mapping");
+          }
+
+          //log.info("checkLanguage:setLang:'" + lang + "'");
+          TAPi18n.setLanguage(lang);
+         
+         //&& ( !Meteor.user().lang || Meteor.user().lang =="")
+         if(Meteor.userId() ){
+           //update user language
+           Meteor.call("updateProfileByPath", 'lang', lang); 
+         }       
+        },
+        function () {
+          toastr.error('Error getting language\n');
+        }
+      );
+    }
+    else //web
+    {
+        //debugger;
+        var lang;
+        var languagePrefs = navigator.languages;
+        
+        //safari does not support navigator.languages, so navigator.language is used instead
+        if(!languagePrefs){
+            var languageFromSafari = navigator.language;
+            var languageFromSafariInParts;
+            if(languageFromSafari.indexOf("-") > -1){
+                languageFromSafariInParts =  languageFromSafari.split('-');
+            }
+            if(languageFromSafari.indexOf("_") > -1){
+                languageFromSafariInParts =  languageFromSafari.split('_');
+            }
+            if(languageFromSafari.indexOf("zh") > -1 && languageFromSafari.length == 2){
+               languageFromSafari = languageFromSafariInParts[0] + "-" + 'TW';
+            }else if(languageFromSafari.indexOf("zh") > -1){
+               languageFromSafari = languageFromSafariInParts[0] + "-" + languageFromSafariInParts[1].toUpperCase();
+            }
+            else{
+               languageFromSafari = languageFromSafariInParts[0];
+            }
+            languagePrefs = [];
+            languagePrefs.push(languageFromSafari);
+        }
+        
+          //log.info("checkLanguage:web:langprefs:"+languagePrefs);
+          lang = languagePrefs[0];
+          
+          //fallback to zh-TW in this case
+          if(lang == 'zh'){
+              lang = 'zh-TW';
+          }
+          var supportedLanguages = TAPi18n.getLanguages();
+          //log.info("checkLanguage:TAPi18n.getLanguages:after'");
+          //log.info("checkLanguage:supportedLanguages:before'"+ supportedLanguages+ "'");          
+          //log.info(supportedLanguages);
+          //log.info("checkLanguage:supportedLanguages:after'"+ supportedLanguages+ "'");          
+          //if (!lodash.includes(supportedLanguages, lang))
+          if( Object.keys(supportedLanguages).indexOf(lang) == -1 )
+          {
+            log.warn("checkLanguage:Defaulting to English");
+            lang = "en";
+          }
+          else{
+            //log.info("checkLanguage:Found lang mapping");
+          }
+          
+          //log.info("checkLanguage:setLang:'"+ lang+ "'");
+          TAPi18n.setLanguage(lang);
+        
+         //&& ( !Meteor.user().lang || Meteor.user().lang =="")
+         if(Meteor.userId() ){
+           //update user language
+           Meteor.call("updateProfileByPath", 'lang', lang); 
+         }
+            
+    }
+  }
