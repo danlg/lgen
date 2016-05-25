@@ -55,7 +55,7 @@ Template.AttendanceRecordAdd.events({
             buttons: [
                 {
                     text: TAPi18n.__("Confirm"),
-                    type: 'button-assertive',
+                    type: 'button-positive',
                     onTap: function () {
                         IonPopup.close();
 
@@ -75,7 +75,8 @@ Template.AttendanceRecordAdd.events({
                     }
                 },
                 {
-                    text: TAPi18n.__("Cancel"), type: 'button',
+                    text: TAPi18n.__("Cancel"),
+                    type: 'button-grey',
                     onTap: function () {
                         IonPopup.close();
                     }

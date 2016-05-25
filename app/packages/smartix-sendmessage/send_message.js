@@ -53,7 +53,7 @@ var setCalendar = function(event,sendMsgtemplate){
       },
       {
         text: 'Cancel',
-        type: 'button-assertive',
+        type: 'button-grey',
         onTap:function(){
           IonPopup.close();
         }

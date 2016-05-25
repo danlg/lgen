@@ -70,6 +70,12 @@
     margin-bottom: $button-block-margin;
   }
 
+  &.button-grey {
+    @include button-style(#cccccc, #cccccc, #cccccc, #cccccc, #000000);
+    @include button-clear(#cccccc);
+    @include button-outline(#cccccc);
+  }
+  
   &.button-light {
     @include button-style($button-light-bg, $button-light-border, $button-light-active-bg, $button-light-active-border, $button-light-text);
     @include button-clear($button-light-border);

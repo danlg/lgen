@@ -16,10 +16,12 @@ Template.AppLayout.helpers({
                                         .bar.bar-stable,
                                         .button.button-stable,
                                         .button.button-positive,
+                                        .button.button-positive.active,
+                                        .button.button-positive.activated                                        
                                         .tabs,
                                         .button-bar .button-bar-button,
                                         .input-box-panel .button
-                                        {background-color:${schoolBackgroundColor};color:${schoolTextColor};}
+                                        {border-color: ${schoolBackgroundColor};background-color:${schoolBackgroundColor};color:${schoolTextColor};}
                                         
                                         .bar.bar-stable .title{
                                             color:${schoolTextColor};
@@ -123,6 +125,7 @@ Template.AppLayout.onCreated(function() {
 });
 
 Template.AppLayout.onRendered(function(){
+    log.info('Template.AppLayout.onRendered : checkLanguage');
     checkLanguage();
 })
  function checkLanguage(pause) {
@@ -172,6 +175,7 @@ Template.AppLayout.onRendered(function(){
           }
           //log.info("checkLanguage:TAPi18n.getLanguages:before'");
           var supportedLanguages = TAPi18n.getLanguages();
+          log.info('supportedLanguages',supportedLanguages);
           //log.info("checkLanguage:TAPi18n.getLanguages:after'");
           //log.info("checkLanguage:supportedLanguages:before'"+ supportedLanguages+ "'");          
           //log.info(supportedLanguages);
@@ -234,10 +238,10 @@ Template.AppLayout.onRendered(function(){
               lang = 'zh-TW';
           }
           var supportedLanguages = TAPi18n.getLanguages();
-          //log.info("checkLanguage:TAPi18n.getLanguages:after'");
-          //log.info("checkLanguage:supportedLanguages:before'"+ supportedLanguages+ "'");          
-          //log.info(supportedLanguages);
-          //log.info("checkLanguage:supportedLanguages:after'"+ supportedLanguages+ "'");          
+          log.info("checkLanguage:TAPi18n.getLanguages:after'");
+          log.info("checkLanguage:supportedLanguages:before'"+ supportedLanguages+ "'");          
+          log.info(supportedLanguages);
+          log.info("checkLanguage:supportedLanguages:after'"+ supportedLanguages+ "'");          
           //if (!lodash.includes(supportedLanguages, lang))
           if( Object.keys(supportedLanguages).indexOf(lang) == -1 )
           {
