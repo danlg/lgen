@@ -1,6 +1,6 @@
 <template name="Tabs">
   {{#if isAndroid}}
-    {{#ionTabs style="android" class="tabs-background-positive tabs-color-light"}}
+    {{#ionTabs style="android"}}
       <!-- {{> ionTab title="Home" path="Home" icon="android-home"}} -->
       {{> ionTab title=_Classes path="TabClasses" icon="android-people" badgeNumber=sumOfNewClassMessageAndCommentCounter}}
       {{> ionTab title=_Chat    path="TabChat" icon="android-chat" badgeNumber=sumOfNewChatMessageCounter }}

@@ -17,8 +17,9 @@ Template.AppLayout.helpers({
                                         .button.button-stable,
                                         .button.button-positive,
                                         .button.button-positive.active,
-                                        .button.button-positive.activated,                                        
+                                        .button.button-positive.activated,                                                                                               
                                         .tabs,
+                                        .tabs-striped .tabs,
                                         .button-bar .button-bar-button,
                                         .input-box-panel .button
                                         {border-color: ${schoolBackgroundColor};background-color:${schoolBackgroundColor};color:${schoolTextColor};}
@@ -45,7 +46,10 @@ Template.AppLayout.helpers({
                                         {
                                             border-color:${schoolBackgroundColor};
                                             background-color:${schoolBackgroundColor};
-                                        }                                                                        
+                                        }
+                                        .tabs-top.tabs-striped .tab-item.tab-item-active, .tabs-top.tabs-striped .tab-item.active, .tabs-top.tabs-striped .tab-item.activated{
+                                            border-color:${schoolTextColor};
+                                        }                                                                       
                                     </style>
                 
                                 `;
