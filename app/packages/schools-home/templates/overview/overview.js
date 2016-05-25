@@ -78,6 +78,9 @@ Template.MobileSchoolHome.helpers({
 
 
 
+    },
+    needMaskImageFallback:function(){
+      return (document.documentElement.style['-webkit-mask-image'] !== undefined) ? "" : "mask-image-fallback"
     }
     
     

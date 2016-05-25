@@ -71,6 +71,43 @@
     min-height: 3em;
 }
 
+/** fallback for non-webkit browser **/
+.mask-image-fallback .card.square-card .mask{
+    background-color: initial;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.mask-image-fallback .card.square-card .mask.mask-news{
+    background-image: url('/packages/smartix_schools-home/icons/news.svg')  ;
+}
+
+.mask-image-fallback .card.square-card .mask.mask-class{
+    background-image: url('/packages/smartix_schools-home/icons/class.svg')  ;    
+}
+
+.mask-image-fallback .card.square-card .mask.mask-absence{
+    background-image: url('/packages/smartix_schools-home/icons/attendance-black.svg')  ;
+}
+
+.mask-image-fallback .card.square-card .mask.mask-calendar{
+    background-image: url('/packages/smartix_schools-home/icons/calendar.svg')  ;
+}
+
+.mask-image-fallback .card.square-card .mask.mask-contact{
+    background-image: url('/packages/smartix_schools-home/icons/contact.svg')  ;
+}
+
+.mask-image-fallback .card.square-card .mask.mask-chat{
+    background-image: url('/packages/smartix_schools-home/icons/chat.svg') ; 
+}
+
+.mask-image-fallback .card.square-card .mask.mask-more{
+    background-image: url('/packages/smartix_schools-home/icons/more.png')  ;
+}
+/** fallback for non-webkit browser ends**/
+
 .card.square-card .mask.mask-news{
     -webkit-mask-image: url('/packages/smartix_schools-home/icons/news.svg')  ;
     mask-image: url('/packages/smartix_schools-home/icons/news.svg')  ;    
@@ -105,6 +142,7 @@
     -webkit-mask-image: url('/packages/smartix_schools-home/icons/more.png')  ;
     mask-image: url('/packages/smartix_schools-home/icons/more.png')  ;    
 }
+
 
 .one-line{
     overflow: hidden;
