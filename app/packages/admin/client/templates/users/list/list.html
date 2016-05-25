@@ -2,7 +2,7 @@
     {{> BootstrapModal modalName=getModalName modalTitle=getModalTitle modalBody=getModalBody }}
     <div class="panel panel-flat">
         <div class="panel-heading">
-            <h1>Search users {{#if Template.subscriptionsReady}}({{totalUserCount}}){{/if}} </h1>
+            <h1>{{_ "Admin.SchoolDirectory"}} {{#if Template.subscriptionsReady}}({{totalUserCount}}){{/if}} </h1>
             {{#if doingOperations}}
                 <style>
                     .spinner{
@@ -21,7 +21,6 @@
                 <!--<span>Total User: {{totalUserCount}} </span>-->
                 <span>{{totalSelectUserCount}} {{_ "Admin.havebeenselected" }}</span>
                 <br/>
-                {{_ "Admin.Filter:" }}
                     <div class="btn-group">
                         <button type="button" data-role='all' class="btn btn-primary filter-by-role-btn">{{_ "Admin.All" }}</button>
                         <button type="button" data-role='parent' class="btn btn-primary filter-by-role-btn">{{_ "Admin.Parent" }}</button>
@@ -30,15 +29,19 @@
                         <button type="button" data-role='admin' class="btn btn-primary filter-by-role-btn">{{_ "Admin.Admin" }}</button>                        
                     </div>
                 <br/>
-                <button class='btn btn-default select-all-users-btn'>{{_ "Admin.SelectAll" }}</button> 
-                <button class='btn btn-default deselect-all-users-btn'>{{_ "Admin.De-SelectAll" }}</button>                                   
-                <button class='btn btn-default select-all-users-current-page-btn'>{{_ "Admin.SelectAllFromCurrentPage" }}</button>
-                <button class='btn btn-default deselect-all-users-current-page-btn'>{{_ "Admin.De-SelectAllFromCurrentPage" }}</button>                
-                {{#if showOptions}}
+                <br/>
+                    <div class="btn-group">
+                      <button class='btn btn-default select-all-users-btn'>{{_ "Admin.SelectAll" }}</button>
+                      <button class='btn btn-default deselect-all-users-btn'>{{_ "Admin.SelectNone" }}</button>
+                      <button class='btn btn-default select-all-users-current-page-btn'>{{_ "Admin.SelectAllFromCurrentPage" }}</button>
+                      <button class='btn btn-default deselect-all-users-current-page-btn'>{{_ "Admin.SelectNoneFromCurrentPage" }}</button>
+                    </div>
+                <br/>
+               {{#if showOptions}}
                     <br/>
-                    <button class='btn btn-danger remove-users-btn'>{{_ "Admin.RemoveUserl" }}</button>                 
-                    <button class='btn btn-success add-users-to-role'>{{_ "Admin.AddUser(s)toRole" }}</button>
-                    <button class='btn btn-danger remove-users-from-role'>{{_ "Admin.RemoveUser(s)fromRole" }}</button>
+                    <button class='btn btn-danger remove-users-btn'>{{_ "Admin.RemoveUser" }}</button>
+                    <button class='btn btn-success add-users-to-role'>{{_ "Admin.AddUserRole" }}</button>
+                    <button class='btn btn-danger remove-users-from-role'>{{_ "Admin.RemoveUserRole" }}</button>
                     <select id='selected-role' class="form-control">
                         <option value="parent">{{_ "Admin.Parent" }}</option>
                         <option value="student">{{_ "Admin.Student" }}</option>

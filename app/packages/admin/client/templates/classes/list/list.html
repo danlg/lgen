@@ -9,11 +9,14 @@
             {{> EasySearch.Input index=classesIndex attributes=classesSearchInputAttributes}}
                 <span>{{totalSelectUserCount}} {{_ "Admin.havebeenselected" }}</span>
                 <br/>
-                <button class='btn btn-default select-all-users-btn'>{{_ "Admin.SelectAll" }}</button> 
-                <button class='btn btn-default deselect-all-users-btn'>{{_ "Admin.De-SelectAll" }}</button>                                   
+              <br/>
+              <div class="btn-group">
+                <button class='btn btn-default select-all-users-btn'>{{_ "Admin.SelectAll" }}</button>
+                <button class='btn btn-default deselect-all-users-btn'>{{_ "Admin.SelectNone" }}</button>
                 <button class='btn btn-default select-all-users-current-page-btn'>{{_ "Admin.SelectAllFromCurrentPage" }}</button>
-                <button class='btn btn-default deselect-all-users-current-page-btn'>{{_ "Admin.De-SelectAllFromCurrentPage" }}</button>                
-                
+                <button class='btn btn-default deselect-all-users-current-page-btn'>{{_ "Admin.SelectNoneFromCurrentPage" }}</button>
+              </div>
+              <br/>
                 {{#if showOptions}}
                     <br/>
                     <button class='btn btn-danger remove-distribution-lists-btn'>{{_ "Admin.RemoveClass(es)" }}</button>                                                                                          
