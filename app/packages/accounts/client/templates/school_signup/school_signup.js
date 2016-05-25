@@ -1,10 +1,29 @@
 Template.SchoolSignup.onCreated(function(){
  
    this.chosenRole = new ReactiveVar('');
-   this.chosenNumberOfStudent = new ReactiveVar(0);   
+   this.chosenNumberOfStudent = new ReactiveVar(0);  
+   this.mySchoolName = new ReactiveVar(''); 
 });
 
+Template.SchoolSignup.helpers({
+    mySchoolName:function(){
+        return Template.instance().mySchoolName.get();
+    },
+    mySchoolNameForSimulatedScreen:function(){
+        if( Template.instance().mySchoolName.get() === '' ){
+             return "Your school name";
+        }else{
+            return Template.instance().mySchoolName.get();     
+           
+        }
+    },    
+})
+
 Template.SchoolSignup.events({
+  'keyup .school-name':function(event,template){
+    template.mySchoolName.set(     $(event.target).val()  );
+ 
+  },
   'click .role-selection':function(event,template){
       //$(event.target).data('role');
       $(".role-selection").removeClass('chosen-role');

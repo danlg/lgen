@@ -68,7 +68,10 @@
                         <!-- floating label example -->
                         <div id="example-forms-floating-labels" class="ionic-body">
                           <div class="bar bar-positive" style='position:initial'>
-                            <h3 class="">Your School Name</h3>
+                            <button class="button button-clear pull-left button-entering button-active active">
+                                    <i class="icon ion-navicon"></i>
+                            </button>                            
+<h1 class="title title-entering title-center title-active" style="left: 23px; right: 23px;font-size:xx-small"> {{mySchoolNameForSimulatedScreen}} </h1>
                           </div>
                           {{> MobileSchoolHomeFake}}
                         </div>
@@ -78,7 +81,7 @@
 
           <div class='col col-50'>
             <label class="item item-input">
-              <input type="text" placeholder="School Name" class="school-name" required>
+              <input type="text" placeholder="My School Name" class="school-name" value='{{mySchoolName}}' required>
             </label>           
           </div>
         </div>       
