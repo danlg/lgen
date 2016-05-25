@@ -41,10 +41,15 @@
         </div>
         <label class="item item-input">
             Your Role:
-            <div class="row" style='text-align:center;'>
+            <select>
+              <option>Principal</option>
+              <option>Teacher</option>
+              <option>IT department of School</option>                        
+            </select>
+           <!-- <div class="row" style='text-align:center;'>
                 <div data-role='Principal' class="role-selection col "><i class="icon ion-paintbrush"></i><br/>Principal</div>                
                 <div data-role='Teacher' class="role-selection col  "><i class="icon ion-person"></i><br/>Teacher</div>
-            </div>                        
+            </div> -->                       
         </label>        
         <div class="item item-divider">
           School Info
@@ -52,7 +57,22 @@
         <div class='row'>
           <div class='col col-50' style='text-align:center;'>
             <p> School Homepage Preview</p>
-            <i id='pick-an-icon-btn' class='icon ion-ios-person-outline' style='font-size:5em;'></i>
+                      <div class="device-preview ionic ng-scope"  style="left: auto;">
+                        <div class="screen-bg"></div>
+                        <div class="default-screen ionic-body">
+                          <div class="content-wrapper">
+                            <div class="content padding has-header"></div>
+                          </div>
+                        </div>
+
+                        <!-- floating label example -->
+                        <div id="example-forms-floating-labels" class="ionic-body">
+                          <div class="bar bar-positive" style='position:initial'>
+                            <h3 class="">Your School Name</h3>
+                          </div>
+                          {{> MobileSchoolHomeFake}}
+                        </div>
+                    </div>
            
           </div>
 
@@ -69,13 +89,7 @@
           </label>
         </div>        
         <label class="item item-input">
-            Number of Students:
-            <div class="row" style='text-align:center;'>
-                <div data-number='100' class="number-of-student-selection col "><i class="icon ion-person"></i><br/>1 - 100</div>
-                <div data-number='500' class="number-of-student-selection col "><i class="icon ion-person-stalker"></i><br/>101 - 500</div>
-                <div data-number='1000'  class="number-of-student-selection col  "><i class="icon ion-ios-people"></i><br/>500 - 1000</div>
-                <div data-number='1001'  class="number-of-student-selection col  "><i class="icon ion-android-person-add"></i><br/>1000+</div>                
-            </div>                        
+            <input type="number" placeholder="Number of Students" class="number-of-students" required>                 
         </label> 
                 
         <button class="button button-full button-positive createBtn">

@@ -1,0 +1,222 @@
+
+.card.tiles{
+    margin: 5px;
+}
+.card.square-card-small{
+    flex: 1 0;
+}
+
+.card.square-card-middle{
+    width:150px;
+    height:150px;
+}
+
+.card.square-card-large{
+    width:200px;
+    height:200px;
+}
+
+.card.square-card{
+    height: 20vh;    
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;    
+}
+
+.card.square-card .item{
+    border:0;
+}
+
+
+
+
+.card.square-card .icon{
+    font-size: 50px;
+    font-size: 20.5vw;
+    vertical-align: middle;
+}
+
+.card.square-card .square-card-description{
+    font-size: 9px;
+    position: absolute;
+    bottom:1px;
+    left:10px;
+    z-index: 9999;
+}
+
+.card.square-card .square-card-counter{
+    font-size: 9px;
+    position: absolute;
+    top:4px;
+    right:5px;
+    z-index: 9999;
+    left:initial;
+}
+
+.card.square-card .mask{
+    width: 50%;
+    height: 50%;
+
+    margin: 0 auto; 
+    
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    -webkit-mask-position: center;
+    
+    mask-repeat: no-repeat;
+    mask-size: contain;    
+    mask-position: center;
+    
+    min-height: 3em;
+}
+
+.card.square-card .mask.mask-news{
+    -webkit-mask-image: url('/packages/smartix_schools-home/icons/news.svg')  ;
+    mask-image: url('/packages/smartix_schools-home/icons/news.svg')  ;    
+}
+
+.card.square-card .mask.mask-class{
+    -webkit-mask-image: url('/packages/smartix_schools-home/icons/class.svg')  ;
+    mask-image: url('/packages/smartix_schools-home/icons/class.svg')  ;    
+}
+
+.card.square-card .mask.mask-absence{
+    -webkit-mask-image: url('/packages/smartix_schools-home/icons/attendance-black.svg')  ;
+    mask-image: url('/packages/smartix_schools-home/icons/attendance-black.svg')  ;    
+}
+
+.card.square-card .mask.mask-calendar{
+    -webkit-mask-image: url('/packages/smartix_schools-home/icons/calendar.svg')  ;
+    mask-image: url('/packages/smartix_schools-home/icons/calendar.svg')  ;    
+}
+
+.card.square-card .mask.mask-contact{
+    -webkit-mask-image: url('/packages/smartix_schools-home/icons/contact.svg')  ;
+    mask-image: url('/packages/smartix_schools-home/icons/contact.svg')  ;    
+}
+
+.card.square-card .mask.mask-chat{
+    -webkit-mask-image: url('/packages/smartix_schools-home/icons/chat.svg') ;
+    mask-image: url('/packages/smartix_schools-home/icons/chat.svg')  ;    
+}
+
+.card.square-card .mask.mask-more{
+    -webkit-mask-image: url('/packages/smartix_schools-home/icons/more.png')  ;
+    mask-image: url('/packages/smartix_schools-home/icons/more.png')  ;    
+}
+
+.one-line{
+    overflow: hidden;
+    white-space: nowrap;    
+}
+
+.one-line .counter{
+    padding-left: 1px;    
+}
+
+.square-cards-wrapper{
+  display: flex;
+  flex-wrap:  wrap;
+  justify-content: space-around;
+  align-items: stretch;  
+}
+
+.square-cards-wrapper .card{
+   text-align: center;
+}
+.news-slidebox-wrapper{
+    height:16vh;
+}
+
+.school-logo-wrapper{
+    height:25vh;
+}
+.school-logo-wrapper .school-logo-background{
+  /*position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1;
+
+  display: block;*/
+  /*background-image: url('//www.carmel.edu.hk/modules/mod_image_show_gk4/cache/slider.Carmel%20School-31gk-is-98.jpg');*/
+  background-size: cover;
+  width: 100%;
+  height: 25vh; /* same as school-logo-wrapper*/
+
+  /*-webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);*/
+}
+
+.school-logo-wrapper .school-logo{
+    /*position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    margin-top:  20px;
+    margin-left: 20px;
+    margin-right: 20px; */  
+     
+    height: 25vh;
+    text-align: center;
+}
+
+.school-logo-wrapper .school-logo img{
+    height: 100%;
+}
+
+
+.news-slidebox-wrapper .slide-box-bg{
+    height:100%; 
+    width:100%;   
+    display:table;
+}
+
+.news-slidebox-wrapper .slide-box-bg .content{
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+
+.card.square-card.bg{
+    background-repeat: no-repeat;
+    background-size: 50% 50%;
+    background-position: center;    
+}
+.card.square-card.bg.bg-news{
+   background-image: url('/packages/smartix_schools-home/icons/news.svg');
+}
+
+.card.square-card.bg.bg-class{
+   background-image: url('/packages/smartix_schools-home/icons/class.svg');
+}
+
+.card.square-card.bg.bg-absence{
+   background-image: url('/packages/smartix_schools-home/icons/attendance-black.svg');
+}
+
+.card.square-card.bg.bg-calendar{
+   background-image: url('/packages/smartix_schools-home/icons/calendar.svg');
+}
+
+.card.square-card.bg.bg-contact{
+   background-image: url('/packages/smartix_schools-home/icons/contact.svg');
+}
+
+.card.square-card.bg.bg-chat{
+   background-image: url('/packages/smartix_schools-home/icons/chat.svg');
+}
+
+.card.square-card.bg.bg-more{
+   background-image: url('/packages/smartix_schools-home/icons/more.png');
+}
+
+.overview-bottom-section{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}

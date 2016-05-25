@@ -103,6 +103,11 @@ Package.onUse(function(api) {
         'client/templates/my_account/my_account.js'
         ], 'client');
 
+    api.addFiles([
+        'client/templates/overview_fake/overview_fake.html',
+        'client/templates/overview_fake/overview_fake.css'
+        ], 'client');
+        
     api.addFiles('lib/routes.js', ['client', 'server']);
     api.addFiles('client/init.js', 'client');
     
