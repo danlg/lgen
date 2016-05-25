@@ -214,6 +214,19 @@ input[type="color"] {
   }
 }
 
+/** reset height, line-height for ios for proper vertical align of below input types**/
+.platform-ios {
+  input[type="datetime-local"],
+  input[type="date"],
+  input[type="month"],
+  input[type="time"],
+  input[type="week"] {
+    height:initial;
+    line-height: initial;
+  }
+}
+
+
 input,
 textarea {
   width: 100%;
