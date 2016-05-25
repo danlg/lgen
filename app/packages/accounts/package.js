@@ -67,6 +67,12 @@ Package.onUse(function(api) {
     ], 'client');
 
     api.addFiles([
+        'client/templates/school_signup/school_signup.html',
+        'client/templates/school_signup/school_signup.js',
+        'client/templates/school_signup/school_signup.css',
+    ], 'client');
+    
+    api.addFiles([
         'client/templates/email_signup/email_signup.html',
         'client/templates/email_signup/email_signup.js',
         'client/templates/email_signup/email_signup.css',

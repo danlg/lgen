@@ -1,0 +1,94 @@
+<template name="SchoolSignup">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton path='Login' text=" "}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">{{_ "SignANewAccount"}}</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+   <!-- <button class="button button-clear button-entering button-active createBtn"> {{_ "SignUp"}} </button>-->
+  {{/contentFor}}
+  
+  {{#ionView}}
+    {{#ionContent}}
+           
+      <div class="list">
+
+        <div class="item item-divider">
+          Personal Info
+        </div>        
+        <div class="">
+          <label class="item item-input">
+            <input type="text" placeholder="{{_ "firstname" }}" class="fn" required>
+          </label>
+        </div>
+        <div class="">
+          <label class="item item-input">
+            <input type="text" placeholder="{{_ "lastname" }}" class="ln" required>
+          </label>
+        </div>
+        <div class="">
+          <label class="item item-input">
+            <input type="email" placeholder="Email" class="email" required>
+          </label>
+        </div>
+        <div class="">
+          <label class="item item-input">
+            <input type="password" placeholder="Type your password" class="password" required>
+          </label>
+        </div>
+        <label class="item item-input">
+            Your Role:
+            <div class="row" style='text-align:center;'>
+                <div data-role='Principal' class="role-selection col "><i class="icon ion-paintbrush"></i><br/>Principal</div>                
+                <div data-role='Teacher' class="role-selection col  "><i class="icon ion-person"></i><br/>Teacher</div>
+            </div>                        
+        </label>        
+        <div class="item item-divider">
+          School Info
+        </div>
+        <div class='row'>
+          <div class='col col-50' style='text-align:center;'>
+            <p> School Homepage Preview</p>
+            <i id='pick-an-icon-btn' class='icon ion-ios-person-outline' style='font-size:5em;'></i>
+           
+          </div>
+
+          <div class='col col-50'>
+            <label class="item item-input">
+              <input type="text" placeholder="School Name" class="school-name" required>
+            </label>           
+          </div>
+        </div>       
+
+        <div class="">
+          <label class="item item-input">
+            <input type="text" placeholder="Country" class="country" required>
+          </label>
+        </div>        
+        <label class="item item-input">
+            Number of Students:
+            <div class="row" style='text-align:center;'>
+                <div data-number='100' class="number-of-student-selection col "><i class="icon ion-person"></i><br/>1 - 100</div>
+                <div data-number='500' class="number-of-student-selection col "><i class="icon ion-person-stalker"></i><br/>101 - 500</div>
+                <div data-number='1000'  class="number-of-student-selection col  "><i class="icon ion-ios-people"></i><br/>500 - 1000</div>
+                <div data-number='1001'  class="number-of-student-selection col  "><i class="icon ion-android-person-add"></i><br/>1000+</div>                
+            </div>                        
+        </label> 
+                
+        <button class="button button-full button-positive createBtn">
+          Try my white-label school app for free for 30 days. 
+        </button>
+        <div class="card">
+          <div class="item item-text-wrap smaller">
+            No credit card requires.
+          </div>
+        </div>
+  
+           
+      </div>
+    {{/ionContent}}
+  {{/ionView}}
+</template>
