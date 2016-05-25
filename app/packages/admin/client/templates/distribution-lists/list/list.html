@@ -8,15 +8,17 @@
            <p>{{_ "Admin.Forexample" }}</p>
 
            {{#if Template.subscriptionsReady}}
-                {{> EasySearch.Input index=distributionListIndex attributes=distSearchInputAttributes}}
-                <span>{{totalSelectUserCount}} {{_ "Admin.havebeenselected" }}.</span>
-                <br/>
-                <button class='btn btn-default select-all-users-btn'>{{_ "Admin.SelectAll" }}</button> 
-                <button class='btn btn-default deselect-all-users-btn'>{{_ "Admin.De-SelectAll" }}</button>                                   
-                <button class='btn btn-default select-all-users-current-page-btn'>{{_ "Admin.SelectAllFromCurrentPage" }}</button>
-                <button class='btn btn-default deselect-all-users-current-page-btn'>{{_ "Admin.De-SelectAllFromCurrentPage" }}</button>                
-                
-                {{#if showOptions}}
+              {{> EasySearch.Input index=distributionListIndex attributes=distSearchInputAttributes}}
+              <span>{{totalSelectUserCount}} {{_ "Admin.havebeenselected" }}.</span>
+              <br/>
+                <div class="btn-group">
+                  <button class='btn btn-default select-all-users-btn'>{{_ "Admin.SelectAll" }}</button>
+                  <button class='btn btn-default deselect-all-users-btn'>{{_ "Admin.SelectNone" }}</button>
+                  <button class='btn btn-default select-all-users-current-page-btn'>{{_ "Admin.SelectAllFromCurrentPage" }}</button>
+                  <button class='btn btn-default deselect-all-users-current-page-btn'>{{_ "Admin.SelectNoneFromCurrentPage" }}</button>
+                </div>
+              <br/>
+               {{#if showOptions}}
                     <br/>
                     <button class='btn btn-danger remove-distribution-lists-btn'>{{_ "Admin.RemoveDistributionList(s)" }}</button>                 
                     <!--<button class='btn btn-success add-users-to-role'>Add User(s) to Role</button>

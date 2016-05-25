@@ -268,7 +268,7 @@ Template.AdminUsersSearch.helpers({
     },
     userSearchInputAttributes: function () {
         return {
-            placeholder: TAPi18n.__("Search"),
+            placeholder: TAPi18n.__("Admin.FilterUser"),
             class: "form-control",
             id: "AdminUsersSearchInput"
         }
