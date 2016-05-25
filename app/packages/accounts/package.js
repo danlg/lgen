@@ -70,6 +70,9 @@ Package.onUse(function(api) {
         'client/templates/school_signup/school_signup.html',
         'client/templates/school_signup/school_signup.js',
         'client/templates/school_signup/school_signup.css',
+        'client/templates/school_signup/school_signup_page2.html',
+        'client/templates/school_signup/school_signup_page2.js',
+        'client/templates/school_signup/school_signup_page2.css',        
     ], 'client');
     
     api.addFiles([

@@ -35,5 +35,10 @@ Template.SchoolSignup.events({
       $(".number-of-student-selection").removeClass('chosen-number-of-student');
       $(event.currentTarget).addClass('chosen-number-of-student');          
       template.chosenNumberOfStudent.set($(event.currentTarget).data('number'));
-  }  
+  },
+  'click .createBtn':function(event,template){
+      //TODO: really pass data to page 2 , form input checking 
+      console.log('route to page 2');
+      Router.go('SchoolSignupPage2');
+  }
 });
