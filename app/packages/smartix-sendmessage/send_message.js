@@ -14,53 +14,55 @@ var messageListHeightBorrower = ReactiveVar([]);
 var canVote = ReactiveVar(true);
 
 
-var setCalendar = function(event,sendMsgtemplate){
-     IonPopup.show({
-      title: 'Set a calendar event',
-      templateName: 'CalendarEvent',
-      buttons: [{
-        text: 'Set',
-        type: 'button-positive',
-        onTap: function(event,template) {
-          
-          log.info($(template.firstNode).find('#event-name').val());
-          
-         // $(template.firstNode).find('.hidden').click();
-          if($(template.firstNode).find('#event-name').get(0).checkValidity() &&
-          $(template.firstNode).find('#location').get(0).checkValidity() &&
-          $(template.firstNode).find('#start-date').get(0).checkValidity() &&
-          $(template.firstNode).find('#start-date-time').get(0).checkValidity() &&
-          $(template.firstNode).find('#end-date').get(0).checkValidity() &&
-          $(template.firstNode).find('#end-date-time').get(0).checkValidity())
-          { } else{
-              toastr.info('Please fill the form');
-              return;
-          }
-          
-          sendMsgtemplate.calendarEvent.set({
-            eventName: $(template.firstNode).find('#event-name').val(),
-            location: $(template.firstNode).find('#location').val(),
-            startDate:$(template.firstNode).find('#start-date').val(),
-            startDateTime:$(template.firstNode).find('#start-date-time').val(),
-            endDate:$(template.firstNode).find('#end-date').val(),
-            endDateTime:$(template.firstNode).find('#end-date-time').val()       
-          });
-          
-          log.info(sendMsgtemplate.calendarEvent.get());
-          
+var setCalendar = function (event, sendMsgtemplate) {
+  IonPopup.show({
+    title: 'Set a calendar event',
+    templateName: 'CalendarEvent',
+    buttons: [
+      {
+        text: 'Cancel',
+        type: 'button-grey',
+        onTap: function () {
           IonPopup.close();
         }
       },
       {
-        text: 'Cancel',
-        type: 'button-grey',
-        onTap:function(){
+        text: 'Set',
+        type: 'button-positive',
+        onTap: function (event, template) {
+
+          log.info($(template.firstNode).find('#event-name').val());
+
+          // $(template.firstNode).find('.hidden').click();
+          if ($(template.firstNode).find('#event-name').get(0).checkValidity() &&
+            $(template.firstNode).find('#location').get(0).checkValidity() &&
+            $(template.firstNode).find('#start-date').get(0).checkValidity() &&
+            $(template.firstNode).find('#start-date-time').get(0).checkValidity() &&
+            $(template.firstNode).find('#end-date').get(0).checkValidity() &&
+            $(template.firstNode).find('#end-date-time').get(0).checkValidity())
+          { } else {
+            toastr.info('Please fill the form');
+            return;
+          }
+
+          sendMsgtemplate.calendarEvent.set({
+            eventName: $(template.firstNode).find('#event-name').val(),
+            location: $(template.firstNode).find('#location').val(),
+            startDate: $(template.firstNode).find('#start-date').val(),
+            startDateTime: $(template.firstNode).find('#start-date-time').val(),
+            endDate: $(template.firstNode).find('#end-date').val(),
+            endDateTime: $(template.firstNode).find('#end-date-time').val()
+          });
+
+          log.info(sendMsgtemplate.calendarEvent.get());
+
           IonPopup.close();
         }
-      }
-      ]
-    });
-  };
+      },
+
+    ]
+  });
+};
 /*****************************************************************************/
 /* SendMessage: Event Handlers */
 /*****************************************************************************/

@@ -54,6 +54,13 @@ Template.AttendanceRecordAdd.events({
             subTitle: "From " + transformObj.startDate + '\nTo ' + transformObj.endDate,
             buttons: [
                 {
+                    text: TAPi18n.__("Cancel"),
+                    type: 'button-grey',
+                    onTap: function () {
+                        IonPopup.close();
+                    }
+                },                
+                {
                     text: TAPi18n.__("Confirm"),
                     type: 'button-positive',
                     onTap: function () {
@@ -73,14 +80,8 @@ Template.AttendanceRecordAdd.events({
 
                         });
                     }
-                },
-                {
-                    text: TAPi18n.__("Cancel"),
-                    type: 'button-grey',
-                    onTap: function () {
-                        IonPopup.close();
-                    }
                 }
+
             ]
         });
 
