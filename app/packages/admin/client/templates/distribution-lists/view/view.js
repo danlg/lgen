@@ -52,7 +52,7 @@ Template.AdminDistributionListView.helpers({
     },
     adminUserSearchInputAttributes: function () {
         return {
-            placeholder: "Type the name of your new admin",
+            placeholder: TAPi18n.__("Search"),
             class: "form-control",
             id: "AdminDistributionListView__add-user-input"
         }

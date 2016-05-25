@@ -18,17 +18,18 @@
                         <br/>
                         Filter:
                                 <label class="radio-inline">   <input type="radio" class='filter-by-role' name="filter-by-role" id="filter-by-role-all" value="all"> All  </label>
-                                <label class="radio-inline">   <input type="radio" class='filter-by-role' name="filter-by-role" id="filter-by-role-parent" value="parent"> Parent  </label>
-                                <label class="radio-inline">   <input type="radio" class='filter-by-role' name="filter-by-role" id="filter-by-role-student" value="student"> Student  </label>
-                                <label class="radio-inline">   <input type="radio" class='filter-by-role' name="filter-by-role" id="filter-by-role-teacher" value="teacher"> Teacher  </label>
-                                <label class="radio-inline">   <input type="radio" class='filter-by-role' name="filter-by-role" id="filter-by-role-admin" value="admin"> Admin  </label>
-                                                                                                                                                                                       
-                           
+                                <label class="radio-inline">   <input type="radio" class='filter-by-role' name="filter-by-role" id="filter-by-role-parent" value="parent"> {{_ "Parent"}} </label>
+                                <label class="radio-inline">   <input type="radio" class='filter-by-role' name="filter-by-role" id="filter-by-role-student" value="student"> {{_ "Student"}} </label>
+                                <label class="radio-inline">   <input type="radio" class='filter-by-role' name="filter-by-role" id="filter-by-role-teacher" value="teacher"> {{_ "Teacher"}} </label>
+                                <label class="radio-inline">   <input type="radio" class='filter-by-role' name="filter-by-role" id="filter-by-role-admin" value="admin"> {{_ "Admin.Admin"}}  </label>
                         <br/>
-                        <button class='btn btn-default select-all-users-btn'>Select All</button> 
-                        <button class='btn btn-default deselect-all-users-btn'>De-Select All</button>                                   
-                        <button class='btn btn-default select-all-users-current-page-btn'>Select All From Current Page</button>
-                        <button class='btn btn-default deselect-all-users-current-page-btn'>De-Select All From Current Page</button>                
+                          <div class="btn-group">
+                            <button class='btn btn-default select-all-users-btn'>{{_ "Admin.SelectAll" }}</button>
+                            <button class='btn btn-default deselect-all-users-btn'>{{_ "Admin.SelectNone" }}</button>
+                            <button class='btn btn-default select-all-users-current-page-btn'>{{_ "Admin.SelectAllFromCurrentPage" }}</button>
+                            <button class='btn btn-default deselect-all-users-current-page-btn'>{{_ "Admin.SelectNoneFromCurrentPage" }}</button>
+                          </div>
+                        <br/>
                         {{#if showOptions}}
                             <br/>
                             <button class='btn btn-success add-users-to-distribution-list'>Add User(s) to Distribution List</button>
@@ -74,6 +75,7 @@
                 </div>
             </div>
             <!-- Large table -->
+            <h3>User in distribution list</h3>
             <table class="table datatable-basic">
                 <thead>
                     <th>{{_ "Admin.FirstName" }}</th>
