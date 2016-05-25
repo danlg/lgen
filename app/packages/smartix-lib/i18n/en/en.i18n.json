@@ -96,6 +96,7 @@
     "NewClassMessageMailTitle": "Message from class __class_name__",
     "NewPassword": "New Password",
     "NewPasswordConfirm": "Confirm New Password",
+    "News":"News",
     "Nonews":"No news",
     "NoClass": "No class found",
     "No_chat_yet": "No chat yet",
@@ -157,6 +158,7 @@
     "StudentAndParentVisitLinkToJoinClass": "Students and parents can visit this link to join your class. They can copy and paste in their browser.",
     "Subscriber": "member",
     "Subscriber_plural": "members",
+    "SwitchSchool": "Switch school",
     "Take_a_private_note": "Take a private note",
     "Teacher": "Teacher",
     "Terms_of_service": "Terms of service",
@@ -179,6 +181,14 @@
     "Whatisyourdateofbirth": "What is your date of birth?",
     "You": "You",
     "YouAre": "You are",
+    "YouAreAt": "You are at",
+
+    "AdminDashboard":"Admin dashboard",
+    "Contact":"Contact",
+    "Settings":"Settings",
+    "Hi":"Hi ",
+    "Home":"Home",
+
     "your_class_is_ready_classname": "Your class __ classname__ is ready!",
     "NewNotification": "New Notification",
     "To": "To:",
@@ -262,18 +272,6 @@
     "applicationError": {
         "refreshRequired": "There is an error from our end. Please hard refresh the page and try again."
     },
-    "admin": {
-        "users": {
-            "import": {
-                "incorrectImportFormat": "The file provided for import does not fit the required format. Please check and try again.",
-                "importSuccess": "Users were imported successfully"
-            },
-            "add": {
-                "studentDobRequired": "Date of Birth is required for students",
-                "addSuccess": "User was added successfully"
-            }
-        }
-    },
     "absence": {
         "ApplyForLeave"  : "Apply for leave",
         "SelectChild"  : "Which child will miss school?",
@@ -321,6 +319,18 @@
         "TypeName" :"Type Name",
         "Namespace": "Namespace",
         "Norecord" : "No relationship record"
+    },
+    "admin": {
+        "users": {
+            "import": {
+                "incorrectImportFormat": "The file provided for import does not fit the required format. Please check and try again.",
+                "importSuccess": "Users were imported successfully"
+            },
+            "add": {
+                "studentDobRequired": "Date of Birth is required for students",
+                "addSuccess": "User was added successfully"
+            }
+        }
     },
     "Admin":{
         "All":"All",
@@ -656,18 +666,6 @@
     },
     "smartix-sharer":{
         "SignupWithEmail":"Current User with email? Sign in here"
-    },
-    "smartix-ui-master":{
-        "Admin":"Admin",
-        "Attendance":"Attendance",
-        "Classes":" Classes",
-        "Chat":"Chat",
-        "Calendar":" Calendar",
-        "Contact":"Contact",
-        "Settings":"Settings",
-        "SwitchSchool" : "Switch School",
-        "Hi":"Hi,",
-        "YouAreAt":"You are at",
-        "Home":"Home"
-     }
+    }
+
 }

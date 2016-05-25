@@ -3,22 +3,22 @@
    {{#ionSideMenuContainer side="left" dragContent="false"}}
         {{#ionSideMenu}}
           <div class="bar bar-header bar-dark">
-            <h1 class="title">{{_ "smartix-ui-master.Hi" }} {{getUserName}} !</h1>
+            <h1 class="title">{{_ "Hi" }} {{getUserName}} !</h1>
           </div>
           <div class="content has-header">
             <div class="list">
               <div class="item item-icon-right" data-ion-menu-close>
-               {{_ "smartix-ui-master.YouAreAt" }} {{getCurrentSchoolNameDisplay}}
+               {{_ "YouAreAt" }} {{getCurrentSchoolNameDisplay}}
                 
                 {{#if belongToMultiSchool}}
-                    <a href="{{pathFor route='SchoolPick'}}" class='btn'>{{_ "smartix-ui-master.SwitchSchool" }}</a>
+                    <a href="{{pathFor route='SchoolPick'}}" class='btn'>{{_ "SwitchSchool" }}</a>
                 {{/if}}
                 
               </div>
               <!--only if in school namespace - the below should available -->                
               {{#if isSchoolNamespace}}             
               <a href="{{pathFor route='mobile.school.home' school=getCurrentSchoolName}}"  class="item item-icon-right" data-ion-menu-close>
-                {{getCurrentSchoolNameDisplay}} {{_ "smartix-ui-master.Home" }}
+                {{getCurrentSchoolNameDisplay}} {{_ "Home" }}
               </a>
               {{else}}
               
@@ -28,13 +28,13 @@
               <!--only if in school namespace - the above should available-->
               
               <a href="{{pathFor route='TabClasses'}}" class="item item-icon-right" data-ion-menu-close>
-                {{_ "smartix-ui-master.Classes" }}
+                {{_ "Classes" }}
                 {{#if sumOfNewClassMessageAndCommentCounter}}
                   <span class="badge badge-assertive">{{sumOfNewClassMessageAndCommentCounter}}</span>
                 {{/if}}
               </a>
               <a href="{{pathFor route='TabChat'}}" class="item item-icon-right" data-ion-menu-close>
-                {{_ "smartix-ui-master.Chat" }}
+                {{_ "Chat" }}
                 {{#if sumOfNewChatMessageCounter}}
                   <span class="badge badge-assertive">{{sumOfNewChatMessageCounter}}</span>
                 {{/if}}
@@ -44,16 +44,16 @@
               <!--only if in school namespace - the below should available -->
               {{#if isSchoolNamespace}}
               <a href="{{pathFor route='newsgroups.news.list'}}" class="item item-icon-right" data-ion-menu-close>
-               {{_ "smartix-ui-master.News" }}
+               {{_ "News" }}
               </a>              
               <a href="{{pathFor route='calendar.list'}}" class="item item-icon-right" data-ion-menu-close>
-                {{_ "smartix-ui-master.Calendar" }}
+                {{_ "Calendar" }}
               </a>
               <a href="{{pathFor route='attendance.home' school=getCurrentSchoolName}}" class="item item-icon-right" data-ion-menu-close>
-                {{_ "smartix-ui-master.Attendance" }}
+                {{_ "Attendance" }}
               </a>
               <a href="{{pathFor route='mobile.school.contact' school=getCurrentSchoolName}}" class="item item-icon-right" data-ion-menu-close>
-                {{_ "smartix-ui-master.Contact" }}
+                {{_ "Contact" }}
               </a>
               {{else}}
                 
@@ -63,14 +63,14 @@
               <!--only if in school namespace - the above should available-->
               
               <a href="{{pathFor route='TabYou'}}" class="item item-icon-right" data-ion-menu-close>
-                {{_ "smartix-ui-master.Settings" }}
+                {{_ "Settings" }}
               </a>
 
               <!--TODO: only if user is school admin-->
               {{#if isSchoolNamespace}}
                 {{#if isAdminInCurrentNamespace}}
                 <a href="{{pathFor route='admin.dashboard' school=getCurrentSchoolName}}" class="item item-icon-right" data-ion-menu-close>
-                 {{_ "smartix-ui-master.Admin" }}
+                 {{_ "AdminDashboard" }}
                 </a>
                 {{/if}}
               {{/if}}                                

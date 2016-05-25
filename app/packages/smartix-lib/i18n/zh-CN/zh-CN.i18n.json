@@ -176,7 +176,16 @@
     "YouAre": "你是",
     "your_class_is_ready_classname": "你的课室 __ 课室名称__ 已准备好!",
     "NewNotification": "新通知",
-    "To": "给:",
+
+    "AdminDashboard":"管理",
+    "Contact":"联络",
+    "Settings":"设定",
+    "SwitchSchool" : "切换学校",
+    "Hi":"你好",
+    "YouAreAt":"你现在正在",
+    "Home":"主页",
+    "News":"新闻",
+
     "message": "信息",
     "Copy": "复制",
     "SendInvitations": "发送邀请",
@@ -195,7 +204,6 @@
     "OfficeHoursExplanation": "你可设定和管理方便联络的工作时间",
     "TimeDays": "工作时段",
     "PUSH": "发送通知",
-    "Notification": "通知",
     "ReceivingMessagesVia": "接受信息通过:",
     "From": "从",
     "To": "至",
@@ -658,19 +666,5 @@
     },
     "smartix-sharer":{
         "SignupWithEmail":"使用当前用户及电邮在此注册？"
-    },   
-    "smartix-ui-master":{
-        "Admin":"管理",
-        "Attendance":"出勤",
-        "Classes":"课堂",
-        "Chat":"聊天",
-        "Calendar":"日历",
-        "Contact":"联络",
-        "Settings":"设定",
-        "SwitchSchool" : "切换学校",
-        "Hi":"你好,",
-        "YouAreAt":"你现在正在",
-        "Home":"主页",
-        "News":"新闻"
     }
 }
