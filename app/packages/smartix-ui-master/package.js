@@ -13,7 +13,8 @@ Package.onUse(function(api) {
 		'mongo',
 		'ecmascript',
 		'templating',
-		'underscore'
+		'underscore',
+		'smartix:lib'
 	]);
 	//api.use('smartix:lib@0.0.1');
     api.use('zimme:active-route');
