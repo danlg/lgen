@@ -1,0 +1,52 @@
+<template name="SchoolSignupPage2">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton text=" "}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">{{_ "SignANewAccount"}}</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+   <!-- <button class="button button-clear button-entering button-active createBtn"> {{_ "SignUp"}} </button>-->
+  {{/contentFor}}
+  
+  {{#ionView}}
+    {{#ionContent}}
+           
+      <div class="list">
+
+        <div class="card">
+          <div class="item item-text-wrap smaller">
+            Few more questions to go.
+          </div>
+        </div>      
+        <div class="">
+          How do you find this app?
+          <label class="item item-input">
+            <input type="text" placeholder='' class="fn" required>
+          </label>
+        </div>
+        <div class="">
+          What issues do you face in the school?
+          <label class="item item-input">
+            <input type="text" placeholder='' class="ln" required>
+          </label>
+        </div>
+        <div class="">
+          How do you expect Smartix to solve the issues? 
+          <label class="item item-input">
+            <input type="text" placeholder='' class="email" required>
+          </label>
+        </div>
+                
+        <button class="button button-full button-positive createBtn">
+          Finish
+        </button>
+
+  
+           
+      </div>
+    {{/ionContent}}
+  {{/ionView}}
+</template>
