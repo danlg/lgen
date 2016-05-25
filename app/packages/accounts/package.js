@@ -28,6 +28,7 @@ Package.onUse(function(api) {
     api.use('reactive-var', 'client');
     api.use('session');
     api.use('smartix:core');
+    api.use('smartix:lib');
 
     // template dependency ends
     api.use('smartix:accounts-system');

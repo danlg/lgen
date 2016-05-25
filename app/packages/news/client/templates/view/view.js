@@ -67,9 +67,8 @@ Template.NewsgroupsNewsView.events({
         var eventName = this.eventName;
         var location = this.location;
         var description = $(event.target).data('description');
-        
         Smartix.Messages.Addons.Calendar.addEvent(eventName,location,description,startDate,endDate,function(){
-            toastr.info('Event added to your calendar'); 
+            toastr.info(TAPi18n.__("EventAddCalendar"));
         });
     },
     'click .content .item .content a': function (e) {
@@ -79,7 +78,7 @@ Template.NewsgroupsNewsView.events({
     'click .content .item .document a': function (e) {
         Smartix.FileHandler.openFile(e);
         e.preventDefault();
-    },      
+    } 
 });
 
 Template.NewsgroupsNewsView.onDestroyed(function(){

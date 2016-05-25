@@ -74,9 +74,9 @@ Template.EmailSignup.events({
                     
                     Meteor.loginWithPassword(email,password,function(err){
                         if(err){
-                            toastr.error('Sign up fail. The emails is already taken');
+                            toastr.error('Sign up fail. The email is already taken');
                         }else{
-                            toastr.info('Welcome. An verification email has also sent to your account. Click it to enable more features!')
+                            toastr.info(TAPi18n.__("WelcomeVerification"));
                             log.info("login:meteor:" + Meteor.userId());
                             Smartix.helpers.routeToTabClasses();                            
                         }

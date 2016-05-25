@@ -54,6 +54,7 @@
     "EnjoyTheApp": "Go Smartix and get more engagement from students and parents!",
     "Enter": "Enter",
     "EnterClassCode": "Input the class code (without @)",
+    "EventAddCalendar": "Event added to your calendar",
     "Feedback": "Feedback",
     "feedbackTextarea": "Tell us what you think! Your feedback enables us to continuously improve our services and to make our members happy",
     "FillEventDetail": "Please provide event details",
@@ -174,6 +175,7 @@
     "Vote": "Vote",
     "WeHaveAppVersion": "We have an app version which is even better. You can download it from ",
     "WelcomeBack": "Welcome back!",
+    "WelcomeVerification": "Welcome to Smartix. A verification email has also sent to your account. Click it to enable more features!",
     "Whatisyourdateofbirth": "What is your date of birth?",
     "You": "You",
     "YouAre": "You are",
@@ -298,7 +300,6 @@
         "Reference" : "ReferenceID",
         "Student" : "Student",
         "Apply" : "Applied by",
-        "Reasontoleave" : "Reason to leave",
         "Approve" : "Approved?",
         "Yes" : "Yes",
         "No": "No",
@@ -309,7 +310,8 @@
         "StartBeforeEnd" : "Start date needs to be earlier than end date",
         "ReasonLeave" : "Please provide reason to leave",
         "LeaveNoticeFailed" : "Leave notice has failed. Please try again",
-        "LeaveNoticeOK" : "Leave notice has been sent to school"
+        "LeaveNoticeOK" : "Leave notice has been sent to school",
+        "SchoolNotified" : "School is notified of your acknowledgement"
     } ,
     "accounts-relationships": {
         "Family": "Family",

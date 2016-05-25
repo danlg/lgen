@@ -43,7 +43,7 @@ Template.AttendanceList.onDestroyed(function(){
 Template.AttendanceList.events({
     'click .approve-acknowledge-btn':function(event,template){
         Meteor.call('setNotificationAsRead', $(event.target).data('id') , function(err,result){
-            toastr.info('School will know that you have confirmed it.')
+            toastr.info(TAPi18n.__("SchoolNotified"));
         });
     }
-})
+});

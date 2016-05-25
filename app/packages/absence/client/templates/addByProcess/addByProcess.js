@@ -29,11 +29,8 @@ Template.AttendanceRecordAddByProcess.events({
             endDateTime: $('#end-date-time').val(),
             studentId: document.getElementById("children-id").value,
             studentName: document.getElementById('children-name').value
-        }
-
+        };
         //console.log(applyLeaveObj);
-
-
         var transformObj = {
             processId: applyLeaveObj.processId,
             namespace: applyLeaveObj.namespace,
@@ -45,15 +42,12 @@ Template.AttendanceRecordAddByProcess.events({
             startDate: new Date(applyLeaveObj.startDate + " " + applyLeaveObj.startDateTime + " GMT+0800").toLocaleString({},{timeZone:"Asia/Hong_Kong"}),
             endDate: new Date(applyLeaveObj.endDate + " " + applyLeaveObj.endDateTime + " GMT+0800").toLocaleString({},{timeZone:"Asia/Hong_Kong"}),
             studentName: applyLeaveObj.studentName
-        }
-
+        };
         //console.log(transformObj);
-
         if (!transformObj.message) {
-            toastr.info('Please fill in reason to leave');
+            toastr.info(TAPi18n.__("absence.ReasonLeave"));
             return;
         }
-
         IonPopup.show({
             title: TAPi18n.__("ConfirmToApplyLeaveFor") + ": " + transformObj.studentName,
             subTitle: transformObj.startDate +' - '+ transformObj.endDate,
@@ -63,19 +57,15 @@ Template.AttendanceRecordAddByProcess.events({
                     type: 'button-assertive',
                     onTap: function () {
                         IonPopup.close();
-
                         //add record here
                         Meteor.call('smartix:absence/replyWithReason', transformObj, function (err, result) {
-
                             if (err) {
-                                toastr.error('Apply Leave fails');
+                                toastr.error(TAPi18n.__("absence.LeaveNoticeFailed"));
                                 log.info(err);
                             } else {
-                                toastr.info('Apply Leave Success');
+                                toastr.info(TAPi18n.__("absence.LeaveNoticeOK"));
                                 $('#leave-reason').val("");
                             }
-
-
                         });
                     }
                 },
@@ -87,12 +77,7 @@ Template.AttendanceRecordAddByProcess.events({
                 }
             ]
         });
-
-
-
-
     }
-
 });
 
 Template.AttendanceRecordAddByProcess.helpers({
@@ -124,22 +109,18 @@ Template.AttendanceRecordAddByProcess.helpers({
       return "17:00"
     },
     getAllChildrens:function(){
-
         var schoolDoc = SmartixSchoolsCol.findOne({
             username: Router.current().params.school
         });
-            
         var childs = [];
         var findChilds = Smartix.Accounts.Relationships.Collection.find({ parent: Meteor.userId(), namespace: schoolDoc._id }).fetch();
         //console.log('findParents', findParents);
         findChilds.map(function (relationship) {
             childs.push(relationship.child);
         });
-        
         return childs;     
     },
     getUserById: function(userId) {
-        var targetUserObj = Meteor.users.findOne(userId);
-        return targetUserObj;
+        return Meteor.users.findOne(userId);
     }
-})
+});
