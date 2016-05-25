@@ -17,7 +17,7 @@ Template.AppLayout.helpers({
                                         .button.button-stable,
                                         .button.button-positive,
                                         .button.button-positive.active,
-                                        .button.button-positive.activated                                        
+                                        .button.button-positive.activated,                                        
                                         .tabs,
                                         .button-bar .button-bar-button,
                                         .input-box-panel .button
