@@ -9,7 +9,6 @@ Template.AttendanceRecordAdd.onCreated(function(){
 });
 
 Template.AttendanceRecordAdd.events({
-
     'click .apply-leave-btn': function () {
         var schoolDoc = SmartixSchoolsCol.findOne({
             username: Router.current().params.school
@@ -37,18 +36,15 @@ Template.AttendanceRecordAdd.events({
             endDate: moment(applyLeaveObj.endDate + " " + applyLeaveObj.endDateTime + "+0800").format("LLLL"),
             studentName: applyLeaveObj.studentName
         };
-
         //console.log(transformObj);
         if (transformObj.dateFrom > transformObj.dateTo) {
-            toastr.info('Leave start date needs to be earlier than Leave end date');
+            toastr.info(TAPi18n.__("absence.StartBeforeEnd"));
             return;
         }
-
         if (!transformObj.message) {
-            toastr.info('Please fill in reason to leave');
+            toastr.info(TAPi18n.__("absence.ReasonLeave"));
             return;
         }
-
         IonPopup.show({
             title: TAPi18n.__("absence.ConfirmToApplyLeaveFor") + " for " + transformObj.studentName,
             subTitle: "From " + transformObj.startDate + '\nTo ' + transformObj.endDate,
@@ -65,19 +61,15 @@ Template.AttendanceRecordAdd.events({
                     type: 'button-positive',
                     onTap: function () {
                         IonPopup.close();
-
                         //add record here
                         Meteor.call('smartix:absence/registerExpectedAbsence', transformObj, function (err, result) {
-
                             if (err) {
-                                toastr.error('Apply Leave fails');
-                                log.info(err);
+                                toastr.error(TAPi18n.__("absence.LeaveNoticeFailed"));
+                                log.error(err);
                             } else {
-                                toastr.info('Apply Leave Success');
+                                toastr.info(TAPi18n.__("absence.LeaveNoticeOK"));
                                 $('#leave-reason').val("");
                             }
-
-
                         });
                     }
                 }

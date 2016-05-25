@@ -16,23 +16,21 @@ var canVote = ReactiveVar(true);
 
 var setCalendar = function (event, sendMsgtemplate) {
   IonPopup.show({
-    title: 'Set a calendar event',
+    title: TAPi18n.__("SetEvent"),
     templateName: 'CalendarEvent',
     buttons: [
       {
-        text: 'Cancel',
+        text: TAPi18n.__("Cancel"),
         type: 'button-grey',
         onTap: function () {
           IonPopup.close();
         }
       },
       {
-        text: 'Set',
+        text: TAPi18n.__("Confirm"),
         type: 'button-positive',
         onTap: function (event, template) {
-
-          log.info($(template.firstNode).find('#event-name').val());
-
+          //log.info($(template.firstNode).find('#event-name').val());
           // $(template.firstNode).find('.hidden').click();
           if ($(template.firstNode).find('#event-name').get(0).checkValidity() &&
             $(template.firstNode).find('#location').get(0).checkValidity() &&
@@ -41,10 +39,9 @@ var setCalendar = function (event, sendMsgtemplate) {
             $(template.firstNode).find('#end-date').get(0).checkValidity() &&
             $(template.firstNode).find('#end-date-time').get(0).checkValidity())
           { } else {
-            toastr.info('Please fill the form');
+            toastr.info(TAPi18n.__("FillEventDetail"));
             return;
           }
-
           sendMsgtemplate.calendarEvent.set({
             eventName: $(template.firstNode).find('#event-name').val(),
             location: $(template.firstNode).find('#location').val(),
@@ -53,12 +50,10 @@ var setCalendar = function (event, sendMsgtemplate) {
             endDate: $(template.firstNode).find('#end-date').val(),
             endDateTime: $(template.firstNode).find('#end-date-time').val()
           });
-
-          log.info(sendMsgtemplate.calendarEvent.get());
-
+          //log.info(sendMsgtemplate.calendarEvent.get());
           IonPopup.close();
         }
-      },
+      }
 
     ]
   });
