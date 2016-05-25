@@ -12,3 +12,32 @@
     -ms-transition: background-color 1000ms ease;
     transition: background-color 1000ms ease;    
 }
+
+.device-preview {
+    width: 380px;
+    height: 810px;
+    background: url('/packages/smartix_accounts/client/asset/Apple-iPhone-6s-Plus-Silver.png') no-repeat top;
+    background-size: contain;
+    position:absolute;
+    left: calc(100% - 78%);
+}
+
+.device-preview > div {
+    position: absolute;
+    top: 97px;
+    left: 24px;
+    z-index: 0;
+    width: 331px;
+    height: 584px;
+    border: 4px solid #22272d;
+    background-color: white;
+    transition: opacity .2s ease-in-out;
+}
+
+
+#example-forms-floating-labels .bar.bar-positive {
+    border-color: #811719;
+    background-color: #811719;
+    background-image: linear-gradient(0deg, #811719, #811719 50%, transparent 50%);
+    color: #fff;
+}

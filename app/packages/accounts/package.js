@@ -22,6 +22,7 @@ Package.onUse(function(api) {
     //template dependency
     api.use('tap:i18n@1.8.0');
     api.use('templating');
+    api.use('fourseven:scss@2.0.0','client');    
     api.use('iron:router');
     api.use('aldeed:collection2');
     api.use('aldeed:simple-schema');
@@ -66,6 +67,8 @@ Package.onUse(function(api) {
         'client/templates/email_signin/email_signin.js'
     ], 'client');
 
+    api.addAssets(['client/asset/Apple-iPhone-6s-Plus-Silver.png',
+                   'client/asset/graduation_ceremony_picture@1x.jpg'],'client');
     api.addFiles([
         'client/templates/school_signup/school_signup.html',
         'client/templates/school_signup/school_signup.js',
@@ -108,7 +111,7 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'client/templates/overview_fake/overview_fake.html',
-        'client/templates/overview_fake/overview_fake.css'
+        'client/templates/overview_fake/overview_fake.scss'
         ], 'client');
         
     api.addFiles('lib/routes.js', ['client', 'server']);
