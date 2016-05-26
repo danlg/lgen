@@ -8,6 +8,7 @@ Template.SchoolSignup.onCreated(function(){
    this.inputTextColor = new ReactiveVar('#FFFFFF');
 });
 
+
 Template.SchoolSignup.helpers({
     mySchoolName:function(){
         return Template.instance().mySchoolName.get();
@@ -76,11 +77,39 @@ Template.SchoolSignup.events({
   },
   'click .start-my-trial-btn':function(event,template){
       //TODO: really pass data to page 2 , form input checking
+      var school = {};
+      school.schoolFullName        = template.mySchoolName.get();
+      school.schoolCountry         = $('#school-country').val();
+      school.schoolCity            = $('#school-city').val();
+      school.schoolNumberOfStudent = $('#school-number-of-student').val();
+      school.schoolBackgroundColor = template.inputBackgroundColor.get();
+      school.schoolTextColor       =template.inputTextColor.get();
       
+      var user = {};
+      user.userFirstName         = $('#user-first-name').val();
+      user.userLastName          = $('#user-last-name').val();
+      user.userEmail             = $('#user-email').val();
+      user.userPosition          = $('#user-position').val();
+
+      console.log('school',school);
+      console.log('user',user);
       
+      var SchoolTrialAccountCreationObj = {school: school, user: user};
       
-      console.log('route to page 2');
-      Router.go('SchoolSignupPage2');
+      //http://stackoverflow.com/questions/11866910/how-to-force-a-html5-form-validation-without-submitting-it-via-jquery
+      if($('#school-trial-account-create')[0].checkValidity()){
+        //checkValidity without form submission
+        event.preventDefault();
+        
+        Session.set('schoolTrialAccountCreation',SchoolTrialAccountCreationObj);
+        console.log('route to page 2');
+        Router.go('SchoolSignupPage2');          
+      }else{
+        console.log('not valid form');
+      }
+      
+
+
   },
   'change #school-background-color':function(event,template){
       
