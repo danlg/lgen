@@ -6,10 +6,14 @@ Template.SchoolSignup.onCreated(function(){
    
    this.inputBackgroundColor = new ReactiveVar('#811719');
    this.inputTextColor = new ReactiveVar('#FFFFFF');
+   this.currentSchoolFormTemplate = new ReactiveVar('SchoolSignupForm');
 });
 
 
 Template.SchoolSignup.helpers({
+    getCurrentSchoolFormTemplate:function(){
+      return Template.instance().currentSchoolFormTemplate.get();
+    },
     mySchoolName:function(){
         return Template.instance().mySchoolName.get();
     },
@@ -102,8 +106,10 @@ Template.SchoolSignup.events({
         event.preventDefault();
         
         Session.set('schoolTrialAccountCreation',SchoolTrialAccountCreationObj);
-        console.log('route to page 2');
-        Router.go('SchoolSignupPage2');          
+        //console.log('route to page 2');
+        //Router.go('SchoolSignupPage2');
+        template.currentSchoolFormTemplate.set('SchoolSignupForm2');
+           
       }else{
         console.log('not valid form');
       }
