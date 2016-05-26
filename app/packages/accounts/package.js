@@ -68,7 +68,8 @@ Package.onUse(function(api) {
     ], 'client');
 
     api.addAssets(['client/asset/Apple-iPhone-6s-Plus-Silver.png',
-                   'client/asset/graduation_ceremony_picture@1x.jpg'],'client');
+                   'client/asset/graduation_ceremony_picture@1x.jpg',
+                   'client/asset/HBS_shield_logo.svg'],'client');
     api.addFiles([
         'client/templates/school_signup/school_signup.html',
         'client/templates/school_signup/school_signup.js',

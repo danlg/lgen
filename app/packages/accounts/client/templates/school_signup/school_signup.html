@@ -56,6 +56,16 @@
             <label class="item item-input">
               <input type="text" placeholder="My School Name" class="school-name" value='{{mySchoolName}}' required>
             </label>
+ 
+             <label class="item item-input">
+                {{_ "schools.SchoolBackgroundColor" }}
+                <input id='school-background-color' type="color" name="school-background-color" value='#811719'>
+            </label>
+            
+            <label class="item item-input">
+               {{_ "schools.SchoolTextColor" }}
+               <input id='school-text-color' type="color" name="school-text-color" value='#FFFFFF'>           
+            </label>                       
             <div class="">
               <label class="item item-input">
                 <input type="text" placeholder="Country" class="country" required>
