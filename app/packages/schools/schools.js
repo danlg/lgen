@@ -7,10 +7,8 @@ SmartixSchoolsCol = new Mongo.Collection('schools');
 SchoolsSchema = new SimpleSchema({
    name:{ type:String //the long name
    }
-   , username:{  type:String//the name in the URL
-                ,unique: true
-                ,optional: true
-               // mongodb cannot ignore optional http://stackoverflow.com/questions/16930073/adding-unique-index-in-mongodb-ignoring-nulls 
+   , username:{  type:String,//the name in the URL
+                 optional:true
    }
    , logo:{ type:String, optional : true
    }

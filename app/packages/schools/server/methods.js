@@ -46,7 +46,7 @@ Meteor.methods({
         check(options, SchoolsSchema);        
         
         var schoolId; 
-        
+      
         // checks that schoolname is not taken ! implemented in schema, unique
         try {
             schoolId = SmartixSchoolsCol.insert({
@@ -100,7 +100,12 @@ Meteor.methods({
 
             var schoolId;
             //TODO: logo pass upload image id
-
+            
+            var existingSchool = SmartixSchoolsCol.findOne({username:options.username});
+            if(existingSchool){
+                log.error('school short name has been taken');     
+                throw new Meteor.Error("short-name-taken", "school short name has been taken");                
+            }
             // checks that schoolname is not taken ! implemented in schema, unique
             try {
                 schoolId = SmartixSchoolsCol.insert({
