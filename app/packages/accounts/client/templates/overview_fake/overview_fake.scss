@@ -28,9 +28,6 @@
         border:0;
     }
 
-
-
-
     .card.square-card .icon{
         font-size: 50px;
         font-size: 20.5vw;
@@ -43,6 +40,7 @@
         bottom:1px;
         left:10px;
         z-index: 9999;
+        text-transform: uppercase;
     }
 
     .card.square-card .square-card-counter{
