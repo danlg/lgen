@@ -30,6 +30,48 @@ Meteor.methods({
             return targetSchool;
         }
     },
+    'smartix:schools/createSchoolTrial':function(options){
+
+        if (options) {
+            options.createdAt = new Date();
+            
+            //TEMP: hardcode expired date = today + 30 days
+            options.planTrialExpiryDate = new Date();
+            options.planTrialExpiryDate.setDate( options.planTrialExpiryDate.getDate() + 30);
+        } else {
+            throw new Meteor.Error("require-options", "Pass School Object to create a school");
+        }
+        
+        SchoolsSchema.clean(options);
+        check(options, SchoolsSchema);        
+        
+        var schoolId; 
+        
+        // checks that schoolname is not taken ! implemented in schema, unique
+        try {
+            schoolId = SmartixSchoolsCol.insert({
+                name: options.name,
+                logo: options.logo,
+                country: options.country,
+                city:    options.city,
+                tel: options.tel,
+                web: options.web,
+                email: options.email,
+                active: true,
+                preferences: {
+                    schoolBackgroundColor:options.preferences.schoolBackgroundColor,
+                    schoolTextColor:options.preferences.schoolTextColor
+                },
+                createdAt: options.createdAt,
+                planTrialExpiryDate: options.planTrialExpiryDate,
+                revenueToDate: options.revenueToDate,
+                revenueToDateCcy: options.revenueToDateCcy
+            });
+        } catch (err) {
+            throw err;
+        }
+        return schoolId;
+    },
     'smartix:schools/createSchool': function(options, admins) {
         /*
         Meteor.call('smartix:schools/createSchool',{name:'Shau Kei Wan - Elsa High',username:'elsahighadmin',logo:'1234567',tel:'36655388',web:'http://www.carmel.edu.hk/',email:'elsahighschool@carmel.edu.hk.test',active:true,preferences:{}});

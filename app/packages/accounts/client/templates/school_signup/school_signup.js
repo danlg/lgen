@@ -7,6 +7,7 @@ Template.SchoolSignup.onCreated(function(){
    this.inputBackgroundColor = new ReactiveVar('#811719');
    this.inputTextColor = new ReactiveVar('#FFFFFF');
    this.currentSchoolFormTemplate = new ReactiveVar('SchoolSignupForm');
+   this.newSchoolId = new ReactiveVar('');
 });
 
 
@@ -108,7 +109,34 @@ Template.SchoolSignup.events({
         Session.set('schoolTrialAccountCreation',SchoolTrialAccountCreationObj);
         //console.log('route to page 2');
         //Router.go('SchoolSignupPage2');
-        template.currentSchoolFormTemplate.set('SchoolSignupForm2');
+        
+        Meteor.call('smartix:schools/createSchoolTrial',{
+            
+            name : school.schoolFullName ,
+            logo : '',
+            tel  : '',
+            web  : '',
+            email: user.userEmail,
+            country: school.schoolCountry ,
+            city:    school.schoolCity,
+            preferences:{
+                schoolBackgroundColor: school.schoolBackgroundColor,
+                schoolTextColor:       school.schoolTextColor 
+            }
+            
+            
+            
+        },function(err,result){
+            if(result){
+              console.log('newSchoolId',result);
+              template.newSchoolId.set(result);
+              template.currentSchoolFormTemplate.set('SchoolSignupForm2');
+              
+            }else{
+              console.log('fail to create school');
+            }
+        });
+        
            
       }else{
         console.log('not valid form');
@@ -120,6 +148,9 @@ Template.SchoolSignup.events({
   'change #school-background-color':function(event,template){
       
       template.inputBackgroundColor.set(  $(event.target).val() );
+      
+  },
+  'click .createBtn':function(event,template){
       
   }
 });

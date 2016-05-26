@@ -8,17 +8,20 @@ SchoolsSchema = new SimpleSchema({
    name:{ type:String //the long name
    }
    , username:{  type:String//the name in the URL
-     , unique: true
+                ,unique: true
+                ,optional: true
    }
-   , logo:{ type:String
+   , logo:{ type:String, optional : true
    }
-   , tel:{ type:String
+   , tel:{ type:String, optional : true
    }
-   , web:{ type:String //URL
+   , web:{ type:String, optional : true //URL
    }
    , email:{ type:String
    }
-   , active:{ type:Boolean
+   , active:{
+     type:Boolean,
+     defaultValue: true
    }
    , preferences:{ type: Object
       , blackbox: true
