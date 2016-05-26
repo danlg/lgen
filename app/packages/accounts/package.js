@@ -67,9 +67,9 @@ Package.onUse(function(api) {
         'client/templates/email_signin/email_signin.js'
     ], 'client');
 
-    api.addAssets(['client/asset/Apple-iPhone-6s-Plus-Silver.png',
+    api.addAssets(['client/asset/iphone6s-plus-silver-vertical.png',
                    'client/asset/graduation_ceremony_picture@1x.jpg',
-                   'client/asset/HBS_shield_logo.svg'],'client');
+                   'client/asset/sample-school-logo.svg'],'client');
     api.addFiles([
         'client/templates/school_signup/school_signup.html',
         'client/templates/school_signup/school_signup.js',
@@ -78,13 +78,13 @@ Package.onUse(function(api) {
         'client/templates/school_signup/school_signup_page2.js',
         'client/templates/school_signup/school_signup_page2.css',
         'client/templates/school_signup/school_signup_form.html',
-        'client/templates/school_signup/school_signup_form2.html',                  
+        'client/templates/school_signup/school_signup_form2.html'                 
     ], 'client');
     
     api.addFiles([
         'client/templates/email_signup/email_signup.html',
         'client/templates/email_signup/email_signup.js',
-        'client/templates/email_signup/email_signup.css',
+        'client/templates/email_signup/email_signup.css'
     ], 'client');
 
     api.addFiles([
@@ -115,7 +115,7 @@ Package.onUse(function(api) {
     api.addFiles([
         'client/templates/overview_fake/overview_fake.html',
         'client/templates/overview_fake/overview_fake.scss',
-        'client/templates/overview_fake/overview_fake.js',
+        'client/templates/overview_fake/overview_fake.js'
         ], 'client');
         
     api.addFiles('lib/routes.js', ['client', 'server']);
