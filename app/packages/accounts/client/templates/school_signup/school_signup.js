@@ -32,7 +32,7 @@ Template.SchoolSignup.helpers({
     customizeTheme:function(){
         var schoolBackgroundColor = Template.instance().inputBackgroundColor.get();
         var schoolTextColor       = Template.instance().inputTextColor.get();
-        console.log(schoolBackgroundColor,schoolTextColor);
+        console.log(schoolBackgroundColor);//,schoolTextColor);
         var customStyle = `
             
         <style>
@@ -45,7 +45,7 @@ Template.SchoolSignup.helpers({
                 }
                 
                 .bar.bar-stable .title, .bar-stable .button.button-clear{
-                color: ${schoolTextColor};
+                  color: ${schoolTextColor};
                 }
                 
                 .card.square-card .mask{
