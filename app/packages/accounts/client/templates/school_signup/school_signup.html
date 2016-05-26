@@ -13,29 +13,12 @@
   
   {{#ionView}}
     {{#ionContent}}
-      
-      <style>
-        
-        #example-forms-floating-labels .bar.bar-positive, .bar.bar-positive, .bar.bar-stable,
-        .button.button-positive.active, .button.button-positive {
-            border-color: #811719;
-            background-color: #811719;
-            background-image: linear-gradient(0deg, #811719, #811719 50%, transparent 50%);
-            color: #fff;
-        }
-        
-        .bar.bar-stable .title, .bar-stable .button.button-clear{
-          color: #fff;
-        }
-        
-        .card.square-card .mask{
-            background-color: #811719; 
-        }        
-      </style>
+      {{{customizeTheme}}}
+
       <div class="list">
         
         <div class='row responsive-sm' style='padding:0px;margin-left:initial;margin-right:initial;'>
-          <div class='col col-50 ' style='text-align:center;position:relative;height:60em;padding-top:20px;background-color:#811719'>
+          <div class='col col-50 device-preview-backdrop' style='text-align:center;position:relative;height:60em;padding-top:20px'>
               <div class="device-preview ionic ng-scope"  style="">
                 <div class="screen-bg"></div>
 
@@ -55,32 +38,32 @@
 
           <div class='col col-50' style='padding-top:82px;'>            
             <div class="item item-divider">
-              School Info
+              About your school
             </div>            
             <label class="item item-input">
-              <input type="text" placeholder="My School Name" class="school-name" value='{{mySchoolName}}' required>
+              <input type="text" placeholder="Type your school name and watch the magic" class="school-name" value='{{mySchoolName}}' required>
+              <span style='font-size:x-small;'>School Color:</span>
+              <input id='school-background-color' type="color" name="school-background-color" value='{{getInputBackgroundColor}}'>
             </label>
- 
-             <label class="item item-input">
-                {{_ "schools.SchoolBackgroundColor" }}
-                <input id='school-background-color' type="color" name="school-background-color" value='#811719'>
-            </label>
-            
-            <label class="item item-input">
-               {{_ "schools.SchoolTextColor" }}
-               <input id='school-text-color' type="color" name="school-text-color" value='#FFFFFF'>           
-            </label>                       
+                                  
             <div class="">
               <label class="item item-input">
                 <input type="text" placeholder="Country" class="country" required>
               </label>
-            </div>        
+            </div>
+
+            <div class="">
+              <label class="item item-input">
+                <input type="text" placeholder="City" class="city" required>
+              </label>
+            </div>  
+                           
             <label class="item item-input">
                 <input type="number" placeholder="Number of Students" class="number-of-students" required>                 
             </label> 
 
             <div class="item item-divider">
-              Personal Info
+              About you
             </div>        
             <div class="">
               <label class="item item-input">
@@ -107,7 +90,8 @@
                 <select>
                   <option>Principal</option>
                   <option>Teacher</option>
-                  <option>IT manager</option>   
+                  <option>IT manager</option>
+                  <option>Communication manager</option>                    
                   <option>Parent</option>                        
                   <option>Other</option>                                                                        
                 </select>
@@ -117,18 +101,20 @@
                 </div> -->                       
             </label> 
                                
-            <button class="button button-full button-positive createBtn">
-              Try my white-label school app for free for 30 days. 
-            </button>                     
+            <button class="button button-full button-positive start-my-trial-btn">
+              Start my 30-day FREE trial of my personalised app 
+            </button> 
+
+            <div class="card">
+              <div class="item item-text-wrap smaller">
+                No credit card requires.
+              </div>
+            </div>                               
           </div>
         </div>       
 
 
-        <!--<div class="card">
-          <div class="item item-text-wrap smaller">
-            No credit card requires.
-          </div>
-        </div>-->
+
   
            
       </div>
