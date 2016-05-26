@@ -110,6 +110,8 @@ Template.SchoolSignup.events({
         //console.log('route to page 2');
         //Router.go('SchoolSignupPage2');
         
+        
+        //TODO: insert user position, and step = 1, logo (optional)
         Meteor.call('smartix:schools/createSchoolTrial',{
             
             name : school.schoolFullName ,
@@ -145,12 +147,22 @@ Template.SchoolSignup.events({
 
 
   },
+  'click .start-my-trial-page2-btn':function(event,template){
+      //TODO
+      
+      //update school shortname from  template.newSchoolId.get()
+      
+      //update step = 2
+      
+      //create school admin account for user, send enrolment email
+      
+      //notify user to open the email, set password and start to use.
+      
+      
+  },
   'change #school-background-color':function(event,template){
       
       template.inputBackgroundColor.set(  $(event.target).val() );
-      
-  },
-  'click .createBtn':function(event,template){
       
   }
 });
