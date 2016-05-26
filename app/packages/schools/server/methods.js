@@ -179,6 +179,28 @@ Meteor.methods({
             log.info('caller is not authed');
             throw new Meteor.Error("caller-not-authed", "caller is not authed");
         }
+    },
+    'smartix:schools/editSchoolTrial': function (id, options) {
+        var targetSchool = SmartixSchoolsCol.findOne(id);
+        
+        //only if the school is totally new, it can be updated by anonymous
+        if (targetSchool.username) {
+            log.info('caller is not authed');
+            throw new Meteor.Error("caller-not-authed", "caller is not authed");
+        }
+        //console.log('raw',targetSchool);
+
+        // https://github.com/aldeed/meteor-simple-schema/issues/387
+        delete targetSchool._id;
+        lodash.merge(targetSchool, options);
+        //console.log('afterMerge',targetSchool);        
+        SchoolsSchema.clean(targetSchool);
+        check(targetSchool, SchoolsSchema);
+        //console.log('afterClean',targetSchool);
+
+        //return 1 if update success
+        return SmartixSchoolsCol.update(id, { $set: targetSchool });
+
     }
 
 });
