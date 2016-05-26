@@ -13,11 +13,25 @@
   
   {{#ionView}}
     {{#ionContent}}
-           
+      
+      <style>
+        
+        #example-forms-floating-labels .bar.bar-positive, .bar.bar-positive, .bar.bar-stable,
+        .button.button-positive.active, .button.button-positive {
+            border-color: #811719;
+            background-color: #811719;
+            background-image: linear-gradient(0deg, #811719, #811719 50%, transparent 50%);
+            color: #fff;
+        }
+        
+        .bar.bar-stable .title, .bar-stable .button.button-clear{
+          color: #fff;
+        }
+      </style>
       <div class="list">
-
-        <div class='row responsive-sm'>
-          <div class='col col-50 ' style='text-align:center;position:relative;'>
+        
+        <div class='row responsive-sm' style='padding:0px;'>
+          <div class='col col-50 ' style='text-align:center;position:relative;height:60em;padding-top:20px;background-color:#811719'>
               <div class="device-preview ionic ng-scope"  style="">
                 <div class="screen-bg"></div>
 
@@ -35,7 +49,22 @@
            
           </div>
 
-          <div class='col col-50'>
+          <div class='col col-50' style='padding-top:82px;'>            
+            <div class="item item-divider">
+              School Info
+            </div>            
+            <label class="item item-input">
+              <input type="text" placeholder="My School Name" class="school-name" value='{{mySchoolName}}' required>
+            </label>
+            <div class="">
+              <label class="item item-input">
+                <input type="text" placeholder="Country" class="country" required>
+              </label>
+            </div>        
+            <label class="item item-input">
+                <input type="number" placeholder="Number of Students" class="number-of-students" required>                 
+            </label> 
+
             <div class="item item-divider">
               Personal Info
             </div>        
@@ -72,22 +101,8 @@
                     <div data-role='Principal' class="role-selection col "><i class="icon ion-paintbrush"></i><br/>Principal</div>                
                     <div data-role='Teacher' class="role-selection col  "><i class="icon ion-person"></i><br/>Teacher</div>
                 </div> -->                       
-            </label>             
-            <div class="item item-divider">
-              School Info
-            </div>            
-            <label class="item item-input">
-              <input type="text" placeholder="My School Name" class="school-name" value='{{mySchoolName}}' required>
-            </label>
-            <div class="">
-              <label class="item item-input">
-                <input type="text" placeholder="Country" class="country" required>
-              </label>
-            </div>        
-            <label class="item item-input">
-                <input type="number" placeholder="Number of Students" class="number-of-students" required>                 
             </label> 
-                    
+                               
             <button class="button button-full button-positive createBtn">
               Try my white-label school app for free for 30 days. 
             </button>                     

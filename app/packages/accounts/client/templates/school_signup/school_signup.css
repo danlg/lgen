@@ -19,7 +19,9 @@
     background: url('/packages/smartix_accounts/client/asset/Apple-iPhone-6s-Plus-Silver.png') no-repeat top;
     background-size: contain;
     position:absolute;
-    left: calc(100% - 78%);
+    left: 0;
+    right: 0;
+    margin: auto;
 }
 
 .device-preview > div {
@@ -35,9 +37,3 @@
 }
 
 
-#example-forms-floating-labels .bar.bar-positive {
-    border-color: #811719;
-    background-color: #811719;
-    background-image: linear-gradient(0deg, #811719, #811719 50%, transparent 50%);
-    color: #fff;
-}
