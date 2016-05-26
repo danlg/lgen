@@ -69,6 +69,15 @@
         min-height: 3em;
     }
 
+    /** fallback for non-webkit browser **/
+    .mask-image-fallback .card.square-card .mask{
+        background-color: initial;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+    /** fallback for non-webkit browser **/
+    
     .card.square-card .mask.mask-news{
         -webkit-mask-image: url('/packages/smartix_schools-home/icons/news.svg')  ;
         mask-image: url('/packages/smartix_schools-home/icons/news.svg')  ;    

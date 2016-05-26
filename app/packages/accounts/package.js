@@ -112,7 +112,8 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'client/templates/overview_fake/overview_fake.html',
-        'client/templates/overview_fake/overview_fake.scss'
+        'client/templates/overview_fake/overview_fake.scss',
+        'client/templates/overview_fake/overview_fake.js',
         ], 'client');
         
     api.addFiles('lib/routes.js', ['client', 'server']);

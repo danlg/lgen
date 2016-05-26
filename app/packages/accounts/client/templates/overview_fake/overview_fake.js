@@ -1,5 +1,7 @@
-// Template.MobileSchoolHomeFake.helpers({
-// 	toUpperI18N: function (key) {
-// 		return TAPi18n.__(key).toUpperCase();
-// 	}
-// });
+ Template.MobileSchoolHomeFake.helpers({
+    needMaskImageFallback:function(){
+       console.log('needMaskImageFallback');
+      return (document.documentElement.style['-webkit-mask-image'] !== undefined) ? "" : "mask-image-fallback"
+    }
+ });
+
