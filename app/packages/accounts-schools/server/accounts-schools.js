@@ -195,7 +195,15 @@ Smartix.Accounts.School.createUser = function(school, options) {
 };
 
 Smartix.Accounts.School.canCreateUser = function(namespace, types, currentUser) {
+    
+    
     check(namespace, String);
+
+    //only if the school has zero user, anonymous can create user account
+    if( Meteor.users.find({schools:namespace}).count() == 0){
+        return true;
+    }
+        
     check(currentUser, Match.Maybe(String));
     // Get the `_id` of the currently-logged in user
     if(!(currentUser === null)) {

@@ -180,7 +180,8 @@ Meteor.methods({
             throw new Meteor.Error("caller-not-authed", "caller is not authed");
         }
     },
-    'smartix:schools/editSchoolTrial': function (id, options) {
+    'smartix:schools/editSchoolTrial': function (id, schoolOptions,userOptions) {
+        console.log('smartix:schools/editSchoolTrial',id,schoolOptions,userOptions);
         var targetSchool = SmartixSchoolsCol.findOne(id);
         
         //only if the school is totally new, it can be updated by anonymous
@@ -192,15 +193,31 @@ Meteor.methods({
 
         // https://github.com/aldeed/meteor-simple-schema/issues/387
         delete targetSchool._id;
-        lodash.merge(targetSchool, options);
+        lodash.merge(targetSchool, schoolOptions);
         //console.log('afterMerge',targetSchool);        
         SchoolsSchema.clean(targetSchool);
         check(targetSchool, SchoolsSchema);
         //console.log('afterClean',targetSchool);
 
         //return 1 if update success
-        return SmartixSchoolsCol.update(id, { $set: targetSchool });
+        var updateCount = SmartixSchoolsCol.update(id, { $set: targetSchool });
 
+    
+        if(updateCount === 1){
+            //create school admin account for user, send enrolment email                
+            Meteor.call('smartix:accounts-schools/createSchoolUser',
+                userOptions.email,
+                {
+                    username: userOptions.firstName+userOptions.lastName,
+                    profile: {
+                        firstName: userOptions.firstName,
+                        lastName: userOptions.lastName
+                    }
+                },
+                id,
+                ['admin'], false);
+                       
+        }
     }
 
 });

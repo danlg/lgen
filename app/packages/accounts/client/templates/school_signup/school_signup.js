@@ -160,14 +160,29 @@ Template.SchoolSignup.events({
   },
   'click .start-my-trial-page2-btn':function(event,template){
       
-      Meteor.call()
+      var schoolShortName = $('#school-short-name').val();
+      var SchoolTrialAccountCreationObj = Session.get('schoolTrialAccountCreation');
+      console.log('start-my-trial-page2-btn',SchoolTrialAccountCreationObj);
+      //update school shortname from  template.newSchoolId.get()           
+      Meteor.call('smartix:schools/editSchoolTrial',template.newSchoolId.get()
+                  ,{
+                    username:  schoolShortName
+                  }
+                  ,{
+                    email: SchoolTrialAccountCreationObj.user.userEmail,
+                    firstName: SchoolTrialAccountCreationObj.user.userFirstName,
+                    lastName:SchoolTrialAccountCreationObj.user.userLastName
+                  }
+                 ,function(){
+                     toastr.info('We have sent you an email. Open it to finish registration.')
+                     Router.go('LoginSplash');
+                 });
       //TODO
       
-      //update school shortname from  template.newSchoolId.get()
+
       
       //update step = 2
       
-      //create school admin account for user, send enrolment email
       
       //notify user to open the email, set password and start to use.
       
