@@ -51,6 +51,7 @@ Template.SchoolSignup.helpers({
                 #example-forms-floating-labels .bar.bar-positive, .bar.bar-positive, .bar.bar-stable,
                 .button.button-positive.active, .button.button-positive {
                     border-color: ${schoolBackgroundColor};
+                    transition: background-color 0.5s ease,  border-color 0.5s ease;
                     background-color: ${schoolBackgroundColor};
                     background-image: linear-gradient(0deg, ${schoolBackgroundColor}, ${schoolBackgroundColor} 50%, transparent 50%);
                     color: ${schoolTextColor};
@@ -61,10 +62,12 @@ Template.SchoolSignup.helpers({
                 }
                 
                 .card.square-card .mask{
+                    transition: background-color 0.5s ease;
                     background-color: ${schoolBackgroundColor}; 
                 }
                 
                 .device-preview-backdrop {
+                    transition: background-color 0.5s ease;
                     background-color: ${schoolBackgroundColor};                         
                 }       
             </style>
