@@ -4,7 +4,6 @@
     "PORT": 80,
     "MONGO_URL": "mongodb://127.0.0.1/littlegenius"
   },
-  //stage
   "servers": [
     {
       "host": "carmelu.gosmartix.com",

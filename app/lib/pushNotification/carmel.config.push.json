@@ -4,9 +4,9 @@
     "projectNumber": 122417300165
   },
   "apn": {
-    "passphrase": "mw140120",
-    "key": "apn/production_io.littlegenius.genie.pkey",
-    "cert": "apn/production_io.littlegenius.genie.pem"
+    "passphrase": "carmel123",
+    "key": "apn/carmel_key.pem",
+    "cert": "apn/carmel_cert.pem"
   },
   "production": true,
 

@@ -19,7 +19,7 @@
   "mup": {
     "version": "mup",
     "development": "/config/development",
-    "stage"      : "/config/stage",
+    "uat"      : "/config/uat",
     "production" : "/config/production"
   }
 }
