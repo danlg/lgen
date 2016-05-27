@@ -51,6 +51,7 @@ Template.SchoolSignup.helpers({
                 #example-forms-floating-labels .bar.bar-positive, .bar.bar-positive, .bar.bar-stable,
                 .button.button-positive.active, .button.button-positive {
                     border-color: ${schoolBackgroundColor};
+                    transition: background-color 0.5s ease,  border-color 0.5s ease;
                     background-color: ${schoolBackgroundColor};
                     background-image: linear-gradient(0deg, ${schoolBackgroundColor}, ${schoolBackgroundColor} 50%, transparent 50%);
                     color: ${schoolTextColor};
@@ -61,10 +62,12 @@ Template.SchoolSignup.helpers({
                 }
                 
                 .card.square-card .mask{
+                    transition: background-color 0.5s ease;
                     background-color: ${schoolBackgroundColor}; 
                 }
                 
                 .device-preview-backdrop {
+                    transition: background-color 0.5s ease;
                     background-color: ${schoolBackgroundColor};                         
                 }       
             </style>
@@ -127,11 +130,7 @@ Template.SchoolSignup.events({
         event.preventDefault();
         
         Session.set('schoolTrialAccountCreation',SchoolTrialAccountCreationObj);
-        //console.log('route to page 2');
-        //Router.go('SchoolSignupPage2');
-        
-        
-        //TODO: insert user position, and step = 1, logo (optional)
+
         Meteor.call('smartix:schools/createSchoolTrial',{
             
             name : school.schoolFullName ,
@@ -188,16 +187,7 @@ Template.SchoolSignup.events({
                      toastr.info('We have sent you an email. Open it to finish registration.')
                      Router.go('LoginSplash');
                  });
-      //TODO
       
-
-      
-      //update step = 2
-      
-      
-      //notify user to open the email, set password and start to use.
-      
-
   },
   'change #school-background-color-picker-polyfill': function (event, template) {
 
