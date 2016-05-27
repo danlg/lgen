@@ -26,6 +26,7 @@ log = log4js.getLogger('lg');//global variable
 
 Meteor.startup(function () {
   Push.debug = true;
+  //Push.Configure();
   log.setLevel('INFO');
 
   log.info("Using env DDP_DEFAULT_CONNECTION_URL="+ Meteor.settings.DDP_DEFAULT_CONNECTION_URL);

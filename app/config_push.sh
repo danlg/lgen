@@ -7,7 +7,7 @@ if [ $# -ne 1 ];
 fi
 cd lib/pushNotification
 #echo `pwd`
-config=$1".config.push.json"
+config=$1".config.push"
 #ls -l $config
 echo "Copying " `pwd`/$config " -> " `pwd`/config.push.json
 cp -f $config config.push.json
