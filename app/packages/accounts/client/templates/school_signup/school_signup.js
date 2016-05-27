@@ -10,6 +10,17 @@ Template.SchoolSignup.onCreated(function(){
    this.newSchoolId = new ReactiveVar('');
 });
 
+Template.SchoolSignup.onRendered(function(){
+    console.log('SchoolSignupForm',this.inputBackgroundColor);
+    $('#school-background-color-picker-polyfill').spectrum({
+        color: this.inputBackgroundColor.get(),
+        preferredFormat: "hex",
+        showInput: true,
+        showPalette: true,
+        palette: [["red","green" ,"blue"]],
+        showButtons: false
+    });
+});
 
 Template.SchoolSignup.helpers({
     getCurrentSchoolFormTemplate:function(){
@@ -148,6 +159,8 @@ Template.SchoolSignup.events({
 
   },
   'click .start-my-trial-page2-btn':function(event,template){
+      
+      Meteor.call()
       //TODO
       
       //update school shortname from  template.newSchoolId.get()
@@ -160,7 +173,7 @@ Template.SchoolSignup.events({
       
       
   },
-  'change #school-background-color':function(event,template){
+  'change #school-background-color-picker-polyfill':function(event,template){
       
       template.inputBackgroundColor.set(  $(event.target).val() );
       

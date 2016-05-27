@@ -10,6 +10,7 @@ Package.onUse(function(api) {
     api.versionsFrom('1.2.1');
 
     api.use('ecmascript');
+    api.use('jquery');    
     api.use('check');
     api.use('splendido:accounts-meld');
     api.use('accounts-base');
@@ -49,6 +50,7 @@ Package.onUse(function(api) {
     api.addFiles('server/publications.js', 'server');
     api.addFiles('server/methods.js', 'server');
 
+
     api.addFiles([
         'client/templates/login_splash/login.html',
         'client/templates/login_splash/login.css',
@@ -70,6 +72,9 @@ Package.onUse(function(api) {
     api.addAssets(['client/asset/iphone6s-plus-silver-vertical.png',
                    'client/asset/graduation_ceremony_picture@1x.jpg',
                    'client/asset/sample-school-logo.svg'],'client');
+                   
+    api.addFiles(['lib/vendor/spectrum/spectrum.js',
+                  'lib/vendor/spectrum/spectrum.css'],'client');
     api.addFiles([
         'client/templates/school_signup/school_signup.html',
         'client/templates/school_signup/school_signup.js',
@@ -78,6 +83,7 @@ Package.onUse(function(api) {
         'client/templates/school_signup/school_signup_page2.js',
         'client/templates/school_signup/school_signup_page2.css',
         'client/templates/school_signup/school_signup_form.html',
+        'client/templates/school_signup/school_signup_form.js',        
         'client/templates/school_signup/school_signup_form2.html'                 
     ], 'client');
     
