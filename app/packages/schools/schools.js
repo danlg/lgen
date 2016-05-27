@@ -51,6 +51,7 @@ SchoolsSchema = new SimpleSchema({
    , createdAt: { type:Date, optional:true }
    , deletedAt: { type:Date, optional:true }
    , allowStudentStudentChat : {type: Boolean, defaultValue: true}
+   , lead :{type:Object, optional:true, blackbox :true}
 });
 
 

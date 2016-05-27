@@ -108,9 +108,17 @@ Template.SchoolSignup.events({
       user.userEmail             = $('#user-email').val();
       user.userPosition          = $('#user-position').val();
 
+      var lead = {
+                firstName: user.userFirstName,
+                lastName:  user.userLastName,
+                position:  user.userPosition,
+                stage: "page-1",
+                email:user.userEmail,
+                howManyStudents: school.schoolNumberOfStudent
+      };      
       console.log('school',school);
       console.log('user',user);
-      
+      console.log('lead',lead);
       var SchoolTrialAccountCreationObj = {school: school, user: user};
       
       //http://stackoverflow.com/questions/11866910/how-to-force-a-html5-form-validation-without-submitting-it-via-jquery
@@ -136,16 +144,14 @@ Template.SchoolSignup.events({
             preferences:{
                 schoolBackgroundColor: school.schoolBackgroundColor,
                 schoolTextColor:       school.schoolTextColor 
-            }
-            
-            
-            
+            },
+            lead: lead
+              
         },template.previewSchoolLogoBlob.get(),function(err,result){
             if(result){
               console.log('newSchoolId',result);
               template.newSchoolId.set(result);
-              template.currentSchoolFormTemplate.set('SchoolSignupForm2');
-              
+              template.currentSchoolFormTemplate.set('SchoolSignupForm2');  
             }else{
               console.log('fail to create school');
             }
@@ -167,12 +173,16 @@ Template.SchoolSignup.events({
       //update school shortname from  template.newSchoolId.get()           
       Meteor.call('smartix:schools/editSchoolTrial',template.newSchoolId.get()
                   ,{
-                    username:  schoolShortName
+                    username:  schoolShortName,
+                    lead:{
+                        stage: 'page-2'
+                    }
                   }
                   ,{
                     email: SchoolTrialAccountCreationObj.user.userEmail,
                     firstName: SchoolTrialAccountCreationObj.user.userFirstName,
-                    lastName:SchoolTrialAccountCreationObj.user.userLastName
+                    lastName:SchoolTrialAccountCreationObj.user.userLastName,
+
                   }
                  ,function(){
                      toastr.info('We have sent you an email. Open it to finish registration.')

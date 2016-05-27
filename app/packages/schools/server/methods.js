@@ -73,11 +73,29 @@ Meteor.methods({
                 createdAt: options.createdAt,
                 planTrialExpiryDate: options.planTrialExpiryDate,
                 revenueToDate: options.revenueToDate,
-                revenueToDateCcy: options.revenueToDateCcy
+                revenueToDateCcy: options.revenueToDateCcy,
+                lead: options.lead || {}
             });
         } catch (err) {
             throw err;
         }
+        
+        if(options.lead){
+            Meteor.defer(function(){
+                Email.send(
+                    { 
+                        from: 'contactemail@gosmartix.com',
+                        to:   'terenceng2010@gmail.com',
+                        subject : 'new lead' + options.lead.firstName + ' ' + options.lead.lastName,
+                        text: options.lead.toString()
+                    
+                    }
+                );                
+            })
+
+        }
+        
+        
         return schoolId;
     },
     'smartix:schools/createSchool': function(options, admins) {
