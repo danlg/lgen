@@ -127,11 +127,7 @@ Template.SchoolSignup.events({
         event.preventDefault();
         
         Session.set('schoolTrialAccountCreation',SchoolTrialAccountCreationObj);
-        //console.log('route to page 2');
-        //Router.go('SchoolSignupPage2');
-        
-        
-        //TODO: insert user position, and step = 1, logo (optional)
+
         Meteor.call('smartix:schools/createSchoolTrial',{
             
             name : school.schoolFullName ,
@@ -188,16 +184,7 @@ Template.SchoolSignup.events({
                      toastr.info('We have sent you an email. Open it to finish registration.')
                      Router.go('LoginSplash');
                  });
-      //TODO
       
-
-      
-      //update step = 2
-      
-      
-      //notify user to open the email, set password and start to use.
-      
-
   },
   'change #school-background-color-picker-polyfill': function (event, template) {
 
