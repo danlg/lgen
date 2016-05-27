@@ -8,6 +8,7 @@ Template.SchoolSignup.onCreated(function(){
    this.inputTextColor = new ReactiveVar('#FFFFFF');
    this.currentSchoolFormTemplate = new ReactiveVar('SchoolSignupForm');
    this.newSchoolId = new ReactiveVar('');
+   this.previewSchoolLogoBlob = new ReactiveVar('');
 });
 
 Template.SchoolSignup.onRendered(function(){
@@ -139,7 +140,7 @@ Template.SchoolSignup.events({
             
             
             
-        },function(err,result){
+        },template.previewSchoolLogoBlob.get(),function(err,result){
             if(result){
               console.log('newSchoolId',result);
               template.newSchoolId.set(result);
@@ -186,11 +187,27 @@ Template.SchoolSignup.events({
       
       //notify user to open the email, set password and start to use.
       
-      
+
   },
-  'change #school-background-color-picker-polyfill':function(event,template){
-      
-      template.inputBackgroundColor.set(  $(event.target).val() );
-      
-  }
+  'change #school-background-color-picker-polyfill': function (event, template) {
+
+      template.inputBackgroundColor.set($(event.target).val());
+
+  },
+  'change #school-logo': function (event, template) {
+      var files = event.target.files;
+
+      if (files.length > 0) {
+            var reader = new FileReader();
+            reader.onload = function (readerEvent) {
+                console.log(readerEvent);
+                // get loaded data and render thumbnail.
+                
+                document.getElementById("school-logo-preview").src = readerEvent.currentTarget.result;
+                template.previewSchoolLogoBlob.set( readerEvent.currentTarget.result );
+            };
+            // read the image file as a data URL.
+            reader.readAsDataURL(files[0]);
+      }
+  },  
 });
