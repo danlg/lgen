@@ -158,8 +158,14 @@ Template.SchoolSignup.events({
         
            
       }else{
-        event.preventDefault();
-        console.log('not valid form');
+          var userAgent = window.navigator.userAgent;
+          if( userAgent.match(/Safari/i)  && !userAgent.match(/Chrome/i) ){
+             toastr.info('Please complete the form');
+             event.preventDefault();
+          }
+
+          $('#school-trial-account-create').addClass('invalid'); 
+          console.log('not valid form');
       }
       
 
@@ -212,3 +218,8 @@ Template.SchoolSignup.events({
       }
   },  
 });
+
+
+function hasHtml5Validation () {
+  return typeof document.createElement('input').checkValidity === 'function';
+}
