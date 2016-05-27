@@ -36,4 +36,12 @@
     transition: opacity .2s ease-in-out;
 }
 
+.invalid input:required:invalid {
+    background: #BE4C54;
+}
+
+.invalid input:required:valid {
+    background: #17D654 ;
+}
+
 
