@@ -197,6 +197,14 @@ Meteor.methods({
             log.info('caller is not authed');
             throw new Meteor.Error("caller-not-authed", "caller is not authed");
         }
+        
+        var existingSchoolWithSameShortName = SmartixSchoolsCol.findOne({username: schoolOptions.username});
+        if(existingSchoolWithSameShortName){
+            log.info('school short name has been taken');
+            throw new Meteor.Error("short-name-taken", "school short name has been taken. Pick another one");            
+        }
+        
+        
         //console.log('raw',targetSchool);
 
         // https://github.com/aldeed/meteor-simple-schema/issues/387
