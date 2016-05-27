@@ -455,15 +455,18 @@
                 else {
                     set($(e.target).closest(".sp-thumb-el").data("color"));
                     move();
+                    
 
+                    updateOriginalInput(true);
+                    
                     // If the picker is going to close immediately, a palette selection
                     // is a change.  Otherwise, it's a move only.
-                    if (opts.hideAfterPaletteSelect) {
+                    /*if (opts.hideAfterPaletteSelect) {
                         updateOriginalInput(true);
                         hide();
                     } else {
                         updateOriginalInput();
-                    }
+                    }*/
                 }
 
                 return false;
