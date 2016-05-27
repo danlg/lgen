@@ -15,7 +15,15 @@ Template.Tour.events({
 
 Template.Tour.onCreated(function(){
   if (Meteor.userId()) {
-     Smartix.helpers.routeToTabClasses();     
+     
+     //Tour from help page
+     if(Router.current().route.path(this).indexOf('tour') !== -1){
+        //do nothing
+     }else{
+     //Tour from Loin Page
+        Smartix.helpers.routeToTabClasses();    
+     }
+ 
   }  
 })
 
