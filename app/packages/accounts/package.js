@@ -79,12 +79,12 @@ Package.onUse(function(api) {
         'client/templates/school_signup/school_signup.html',
         'client/templates/school_signup/school_signup.js',
         'client/templates/school_signup/school_signup.css',
-        'client/templates/school_signup/school_signup_page2.html',
-        'client/templates/school_signup/school_signup_page2.js',
-        'client/templates/school_signup/school_signup_page2.css',
+        
         'client/templates/school_signup/school_signup_form.html',
-        'client/templates/school_signup/school_signup_form.js',        
-        'client/templates/school_signup/school_signup_form2.html'                 
+        'client/templates/school_signup/school_signup_form.js', 
+              
+        'client/templates/school_signup/school_signup_form2.html' 
+                        
     ], 'client');
     
     api.addFiles([
