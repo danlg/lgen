@@ -13,45 +13,50 @@
   
   {{#ionView}}
     {{#ionContent}}
+      {{> EmailSignupForm}}
+    {{/ionContent}}
+  {{/ionView}}
+</template>
+
+<template name='EmailSignupForm'>
       
     <button class="button button-full button-calm google-login-btn" style='color:white;'>
         <i class="icon ion-social-google"></i>
       {{_ "SignUpWithGoogle"}}
     </button>      
       <div style='width:100%;text-align:center;'>{{_ "OR"}}</div> 
-      <div class="list">
+    <div class="list">
+      <form id='emailSignUpForm'>
         <div class="">
           <label class="item item-input">
-            <input type="text" placeholder="{{_ "firstname" }}" class="fn" required>
-          </label>
+                <input type="text" placeholder="{{_ "firstname" }}" class="fn" required>
+              </label>
         </div>
         <div class="">
           <label class="item item-input">
-            <input type="text" placeholder="{{_ "lastname" }}" class="ln" required>
-          </label>
+                <input type="text" placeholder="{{_ "lastname" }}" class="ln" required>
+              </label>
         </div>
         <div class="">
           <label class="item item-input">
-            <input type="email" placeholder="Email" class="email" required>
-          </label>
+                <input type="email" placeholder="Email" class="email" required>
+              </label>
         </div>
         <div class="">
           <label class="item item-input">
-            <input type="password" placeholder="Type your password" class="password" required>
-          </label>
+                <input type="password" placeholder="Type your password" class="password" required>
+              </label>
         </div>
         <!--div>
-          <label class="item item-input doblabel" for="dobInput">
-              <div class="dobplaceholder"> {{_ "DateOfBirth"}}</div>
-              <input type="date" placeholder="{{_ "DateOfBirth"}}" class="dob" id="dobInput" value="">
-          </label>
-        </div-->
+              <label class="item item-input doblabel" for="dobInput">
+                  <div class="dobplaceholder"> {{_ "DateOfBirth"}}</div>
+                  <input type="date" placeholder="{{_ "DateOfBirth"}}" class="dob" id="dobInput" value="">
+              </label>
+            </div-->
         <button class="button button-full button-positive createBtn">
-        {{_ "SignUp"}}
-        </button>
+            {{_ "SignUp"}}
+            </button>
         <a href="{{pathFor route='SchoolSignup'}}">Create organization account for school </a>
-           
-      </div>
-    {{/ionContent}}
-  {{/ionView}}
+      </form>
+    </div>
 </template>

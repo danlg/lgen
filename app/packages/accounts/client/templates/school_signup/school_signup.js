@@ -216,7 +216,10 @@ Template.SchoolSignup.events({
             // read the image file as a data URL.
             reader.readAsDataURL(files[0]);
       }
-  },  
+  },
+  'click #person-sign-up':function(event,template){
+    template.currentSchoolFormTemplate.set('EmailSignupForm'); 
+  }  
 });
 
 

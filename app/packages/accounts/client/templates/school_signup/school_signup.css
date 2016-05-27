@@ -37,11 +37,10 @@
 }
 
 .invalid input:required:invalid {
-    background: #BE4C54;
+    border-color: #BE4C54;
+    border-style:  solid;
+    border-width: 1px;
 }
 
-.invalid input:required:valid {
-    background: #17D654 ;
-}
 
 
