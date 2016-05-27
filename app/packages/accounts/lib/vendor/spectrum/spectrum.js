@@ -801,7 +801,10 @@
 
                 displayColor = realColor.toString(format);
             }
-
+            
+            //immediately fire change event
+            updateOriginalInput(true);
+            
             // Update the text entry input as it changes happen
             if (opts.showInput) {
                 textInput.val(displayColor);
