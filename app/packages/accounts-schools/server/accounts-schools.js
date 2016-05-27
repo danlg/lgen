@@ -135,9 +135,10 @@ Smartix.Accounts.School.createParentIndi = function(namespace, parentObj, curren
         namespace: namespace,
         name: parentObj.type
     }, currentUser);
-    
-}
+};
 
+/*
+ Smartix.Accounts.School.createUser is not used
 Smartix.Accounts.School.createUser = function(school, options) {
     // Check the arguments provided are of the correct type
     check(school, String);
@@ -193,7 +194,7 @@ Smartix.Accounts.School.createUser = function(school, options) {
     Accounts.sendEnrollmentEmail(newUserId);
     return newUserId;
 };
-
+*/
 Smartix.Accounts.School.canCreateUser = function(namespace, types, currentUser) {
     
     

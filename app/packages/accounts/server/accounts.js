@@ -67,10 +67,7 @@ Smartix.Accounts.canCreateUser = function(namespace, roles, currentUser) {
             // Pass checking permissions to `smartix:accounts-school`
             hasPermission = Smartix.Accounts.School.canCreateUser(namespace, roles, currentUser);
     }
-    if (!hasPermission) {
-        return false;
-    }
-    return true;
+    return hasPermission;
 };
 
 /**
