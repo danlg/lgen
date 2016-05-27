@@ -158,6 +158,7 @@ Template.SchoolSignup.events({
         
            
       }else{
+        event.preventDefault();
         console.log('not valid form');
       }
       
