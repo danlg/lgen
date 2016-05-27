@@ -17,7 +17,7 @@ Template.SchoolSignup.onRendered(function(){
         preferredFormat: "hex",
         showInput: true,
         showPalette: true,
-        palette: [["red","green" ,"blue"]],
+        palette: [["#3F5D7D","#279B61" ,"#008AB8","#993333","#A3E496","#95CAE4","#CC3333","#FFCC33","#CC6699"]],
         showButtons: false
     });
 });
