@@ -279,7 +279,9 @@ Smartix.Accounts.sendEnrollmentEmail = function(email, newUserId, doNotifyEmail)
         if (doNotifyEmail) {
             try {
                 log.info("Sending enrollment email to ", email);
-                Accounts.sendEnrollmentEmail(newUserId);
+                Meteor.defer(function(){
+                  Accounts.sendEnrollmentEmail(newUserId);
+                })
             } catch (e) {
                 log.error("Cannot send enrollment email to ", email, e);
             }
