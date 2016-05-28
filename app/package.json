@@ -42,7 +42,8 @@
     "deploy-ko":  "cd ../dist && scp app.tar.gz lg@uat.gosmartix.com:~/app && ssh lg@uat.gosmartix.com \"cd app && tar xzvf app.tar.gz\"",
 
     "deploy-uat-debug": "./clean_build.sh && cd ../config && mup deploy --config=uat.mup.json --settings=uat.settings.json",
-    "config-target"  : "./config_target.sh smartix",
+    "config-target-smartix": "./config_target.sh smartix",
+    "config-target-carmel" : "./config_target.sh carmel",
 
     "deploy-uat"    : "./clean_build.sh && ./config_target.sh smartix && cd ../config && NODE_ENV=production mup deploy --config=uat.mup.json --settings=uat.settings.json",
     "deploy-carmelu": "./clean_build.sh && ./config_target.sh carmel  && cd ../config && NODE_ENV=production mup deploy --config=carmelu.mup.json --settings=carmelu.settings.json",
