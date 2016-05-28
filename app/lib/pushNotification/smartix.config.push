@@ -4,9 +4,9 @@
     "projectNumber": 122417300165
   },
   "apn": {
-    "passphrase": "mw140120",
-    "key": "apn/production_io.littlegenius.genie.pkey",
-    "cert": "apn/production_io.littlegenius.genie.pem"
+    "passphrase": "smartix123",
+    "key": "apn/io.littlegenius.genie-smartix-ok-key.pem",
+    "cert": "apn/io.littlegenius.genie-smartix-ok-cert.pem"
   },
   "production": true,
 
