@@ -247,7 +247,7 @@ Template.ClassDetail.rendered = function () {
       okText: TAPi18n.__("OKay")
     });
     //set the flag to false so it would not show again
-    Meteor.users.update(Meteor.userId(), {$set: {"firstClassJoined": false}}); 
+    Meteor.call('smartix:accounts/setFirstClassJoined'); 
   }
   
     $( ".class-detail" ).scroll(function() {

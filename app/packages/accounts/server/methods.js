@@ -40,5 +40,8 @@ Meteor.methods({
     },
     'smartix:accounts/setHybridAppPromote': function () {
         Meteor.users.update(Meteor.userId(), { $set: { "hybridAppPromote": true } });
+    },
+    'smartix:accounts/setFirstClassJoined': function () {
+     Meteor.users.update(Meteor.userId(), {$set: {"firstClassJoined": false}}); 
     }
 });
