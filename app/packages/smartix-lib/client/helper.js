@@ -108,22 +108,37 @@ Smartix.helpers.registerNewUser = function(email, firstName, lastName, password)
     userObj.email = email;
     userObj.profile.firstName = firstName;
     userObj.profile.lastName = lastName;
-
+    userObj.password = password;
+    
     if (!Smartix.helpers.validateEmail(userObj.email)) {
         toastr.error("Incorrect Email");
     } else if (password.length < 4) {
         toastr.error("At least 3 characters Password");
     } else {
-        Accounts.createUser({
-            email: userObj.email,
-            password: password,
-            profile: userObj.profile
-        }, function(err) {
-            if (err) {
-                toastr.error(err.reason);
-                log.error(err);
-            }
-        });
+            Meteor.call('smartix:accounts/createUser', email, userObj, 'global', ['user'], function(err, res) {
+                if (err) {
+                    toastr.error(err.reason);
+                    log.error(err);
+                } else {
+                    //create User successfully
+                    analytics.track("Sign Up", {
+                        date: new Date(),
+                        email: userObj.email,
+                        verified: false
+                    });
+                    
+                    Meteor.loginWithPassword(email,password,function(err){
+                        if(err){
+                            toastr.error('Sign up fail. The email is already taken');
+                        }else{
+                            toastr.info(TAPi18n.__("WelcomeVerification"));
+                            log.info("login:meteor:" + Meteor.userId());
+                            Smartix.helpers.routeToTabClasses();                            
+                        }
+                    });
+                }
+
+            });
     }
 
 };

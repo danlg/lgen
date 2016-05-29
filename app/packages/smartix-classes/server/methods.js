@@ -91,19 +91,29 @@ Meteor.methods({
             var resultset = Smartix.Groups.Collection.findOne({ "classCode": { $regex: regexp } });//OK
 
             var targetSchoolNamespace = doc.schoolName;
-            if (doc.schoolName === 'global' || doc.schoolName === 'system') {
-                targetSchoolNamespace = doc.schoolName;
-            } else {
-                var targetSchool = SmartixSchoolsCol.findOne({ username: doc.schoolName });
-                targetSchoolNamespace = targetSchool._id;
+            
+            
+            if(doc.schoolName){
+                if (doc.schoolName === 'global' || doc.schoolName === 'system') {
+                    targetSchoolNamespace = doc.schoolName;
+                } else {
+                    var targetSchool = SmartixSchoolsCol.findOne({ username: doc.schoolName });
+                    targetSchoolNamespace = targetSchool._id;
+                }
+            }else{
+                //if schoolNamespace is not passed, we skip checking of class-different-namespace.
             }
 
             if (resultset) {
-
-                if (resultset.namespace !== targetSchoolNamespace) {
-                    log.error('smartix:classes/join: cannot join the class of a different namespace');
-                    throw new Meteor.Error("class-different-namespace", "Can't join the group in different school");
+                
+                //if schoolNamespace is not passed, we skip checking of class-different-namespace.
+                if(targetSchoolNamespace){
+                    if (resultset.namespace !== targetSchoolNamespace) {
+                        log.error('smartix:classes/join: cannot join the class of a different namespace');
+                        throw new Meteor.Error("class-different-namespace", "Can't join the group in different school");
+                    }                    
                 }
+
 
                 if (resultset.admins.indexOf(userToAdd) > -1) {
                     log.warn("smartix:classes/join: can't join the class you own:" + classCode + ":from user:" + userToAdd);
