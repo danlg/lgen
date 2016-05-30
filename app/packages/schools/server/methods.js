@@ -30,7 +30,7 @@ Meteor.methods({
             return targetSchool;
         }
     },
-    'smartix:schools/createSchoolTrial':function(options,imagesData){
+    'smartix:schools/createSchoolTrial':function(options,imagesData, backgroundImagesData){
         
         if (options) {
             options.createdAt = new Date();
@@ -47,9 +47,17 @@ Meteor.methods({
         if(imagesData){
             imageObj = Images.insert(imagesData);
             imageObjId = imageObj._id;
-            console.log('imageObj',imageObj);
+            //console.log('imageObj',imageObj);
         }
-        
+
+        var backgroundImagesObj;
+        var backgroundImagesObjId ;
+        if(backgroundImagesData){
+            backgroundImagesObj = Images.insert(backgroundImagesData);
+            backgroundImagesObjId = backgroundImagesObj._id;
+            //console.log('imageObj',imageObj);
+        }
+               
         SchoolsSchema.clean(options);
         check(options, SchoolsSchema);        
         
@@ -60,6 +68,7 @@ Meteor.methods({
             schoolId = SmartixSchoolsCol.insert({
                 name: options.name,
                 logo: imageObjId || "",
+                backgroundImage: backgroundImagesObjId || "",
                 country: options.country,
                 city:    options.city,
                 tel: options.tel,

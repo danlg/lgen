@@ -146,7 +146,7 @@ Template.SchoolSignup.events({
             },
             lead: lead
               
-        },template.previewSchoolLogoBlob.get(),function(err,result){
+        },template.previewSchoolLogoBlob.get(),template.previewSchoolBackgroundImageBlob.get(),function(err,result){
             if(result){
               //console.log('newSchoolId',result);
               template.newSchoolId.set(result);
