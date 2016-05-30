@@ -81,7 +81,73 @@ Template.MobileSchoolHome.helpers({
     },
     needMaskImageFallback:function(){
       return (document.documentElement.style['-webkit-mask-image'] !== undefined) ? "" : "mask-image-fallback"
-    }
+    },
+    getSchoolLogoBackground:function(){
+
+        var schoolBackgroundImageId;
+        var schoolDoc = SmartixSchoolsCol.findOne({
+            username: Router.current().params.school
+        });
+        var customStyle;
+        //console.log('schoolDoc',schoolDoc);
+        if(schoolDoc) {
+            schoolBackgroundImageId = schoolDoc.backgroundImage;
+        }
+        //console.log('schoolBackgroundImageId',schoolBackgroundImageId);
+        //console.log(schoolLogoId);
+        if(schoolBackgroundImageId){
+            var  bgObj =  Images.findOne(schoolBackgroundImageId);
+            //console.log('bgObj',bgObj);
+
+             customStyle = `
+                                <style>                        
+                                    .school-logo-wrapper .school-logo-background{
+                                    background-image: url('${bgObj.url()}');
+                                    }                                                                    
+                                </style>
+                            `;
+        }else{
+             customStyle = `
+                                <style>                        
+                                    .school-logo-wrapper .school-logo-background{
+                                    background-image: url('/packages/smartix_accounts/client/asset/graduation_ceremony_picture@1x.jpg');
+                                    }                                                                    
+                                </style>
+                            `;
+        }
+
+
+        return customStyle;
+    },
+    customizeTheme: function() {
+        var pickSchool = SmartixSchoolsCol.findOne(Session.get('pickedSchoolId'));
+
+        if (!pickSchool) {
+            return "";
+        }
+
+        if (pickSchool.preferences.schoolBackgroundColor && pickSchool.preferences.schoolTextColor) {
+            var schoolBackgroundColor = pickSchool.preferences.schoolBackgroundColor;
+            var schoolTextColor = pickSchool.preferences.schoolTextColor;
+            if (schoolBackgroundColor && schoolTextColor) {
+                var customStyle = `
+                                    <style>                        
+                                         .school-logo-wrapper .school-logo img{
+                                              border: 3px solid ${schoolBackgroundColor};
+                                         }                                                                        
+                                    </style>
+                                `;
+
+                return customStyle;
+            } else {
+                return "";
+            }
+        } else {
+            return "";
+        }
+
+
+    },
     
     
 });
