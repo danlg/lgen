@@ -12,16 +12,21 @@
     </label>
 
     <div class="">
-      <label class="item item-input">
+      <style>
+          .color-and-logos span, .color-and-logos input {
+              display: inline-block;
+          }      
+      </style>  
+      <label class="item color-and-logos">
         <span style='font-size:x-small;'>{{_ "ChooseColor" }} </span>
         <style>
         .sp-replacer{border:initial;}          
         </style>
         <input type="color" id='school-background-color-picker-polyfill' />
         <span style='font-size:x-small;'>{{_ "schools.Schoollogo" }} ({{_ "Optional" }})</span>
-        <input id='school-logo' type="file" name="school-logo" accept="image/*">
-        <span style='font-size:x-small;'>{{_ "schools.SchoolBackgroundImage" }} ({{_ "Optional" }})</span>
-        <input id='school-background-image' type="file" name="school-logo" accept="image/*">        
+        <input id='school-logo' type="file" name="school-logo" accept="image/*" style='width:70px;'>
+        <span style='font-size:x-small;'>Background ({{_ "Optional" }})</span>
+        <input id='school-background-image' type="file" name="school-logo" accept="image/*" style='width:70px;'>        
       </label>
     </div>
 
