@@ -9,7 +9,7 @@
 
             <img src="/packages/smartix_admin/client/assets/import-student-preview.png" alt="" style="max-width: 100%">
 
-            <p>{{_ "Admin.CreateSpreadsheet" }}</p>
+            <p>{{_ "Admin.CreateSpreadSheet" }}</p>
             <table>
                 <tr>
                     <td>{{_ "Admin.StudentID" }}</td>
@@ -17,15 +17,15 @@
                 </tr>
                 <tr>
                     <td>{{_ "Admin.FirstName" }}</td>
-                    <td>{{_ "Admin.Requiredfieldsforallstudents" }}</td>
+                    <td>{{_ "Admin.RequiredFieldsStudents" }}</td>
                 </tr>
                 <tr>
                     <td>{{_ "Admin.LastName" }}</td>
-                    <td>{{_ "Admin.Requiredfieldsforallstudents" }}</td>
+                    <td>{{_ "Admin.RequiredFieldsStudents" }}</td>
                 </tr>
                 <tr>
-                    <td>{{_ "Admin.E-mailAddress" }}</td>
-                    <td>{{_ "Admin.RequiredfieldforallGrade6students" }}
+                    <td>{{_ "Admin.EmailAddress" }}</td>
+                    <td>{{_ "Admin.RequiredGrade6Students" }}
                     </td>
                 </tr>
                 <tr>
@@ -38,16 +38,16 @@
                 </tr>
                 <tr>
                     <td>{{_ "Admin.Gender" }}</td>
-                    <td>{{_ "Admin.required" }}</td>
+                    <td>{{_ "Admin.Required" }}</td>
                 </tr>
                 <tr>
-                    <td>{{_ "Admin.DateofBirth" }}</td>
-                    <td>{{_ "Admin.RequiredPleaseinputinDD-MM-YYYYformat" }}</td>
+                    <td>{{_ "Admin.DateOfBirth" }}</td>
+                    <td>{{_ "Admin.RequiredInputFormat" }}</td>
                 </tr>
             </table>
 
 
-            <p>{{_ "Admin.Note:AllotherfieldsareoptionalincludingPassword" }} <span style="color: red">{{_ "Admin.red" }}</span>.{{_ "Admin.DownloadourCSVstarted" }} </p>
+            <p>{{_ "Admin.AllFieldsOptional" }} <span style="color: red">{{_ "Admin.Red" }}</span>.{{_ "Admin.DownloadOurCSVStarted" }} </p>
 
             <a target="_blank" href="/packages/smartix_admin/client/assets/students_import_template.csv" download="smartix-import-sample-students.csv">
                 <button type="submit" class="btn btn-primary">{{_ "Admin.DownloadTemplate" }}</button>
@@ -59,7 +59,7 @@
             <br>
             <h3><p><strong>{{_ "Admin.Step3" }}</strong></p></h3>
 
-            <p>{{_ "Admin.PleaseImport" }} <code>{{_ "Admin.csv" }}</code>{{_ "Admin.fileHeaderEncode" }} </p>
+            <p>{{_ "Admin.PleaseImport" }} <code>{{_ "Admin.Csv" }}</code>{{_ "Admin.FileHeaderEncode" }} </p>
             <div id="AdminUsersImport__file-input" class="file-input file-input-new">
                 <div tabindex="500" class="btn btn-primary btn-file legitRipple">
                     <i class="icon-file-plus"></i> <span class="hidden-xs">{{_ "Admin.Browse" }}</span>
@@ -74,11 +74,11 @@
                             <th>{{_ "Admin.StudentID" }}</th>
                             <th>{{_ "Admin.FirstName" }}</th>
                             <th>{{_ "Admin.LastName" }}</th>
-                            <th>{{_ "Admin.StudentE-mail" }}</th>
+                            <th>{{_ "Admin.StudentEmail" }}</th>
                             <th>{{_ "Admin.Grade" }}</th>
                             <th>{{_ "Admin.Classroom" }}</th>
                             <th>{{_ "Admin.Gender" }}</th>
-                            <th>{{_ "Admin.DateofBirth" }}</th>
+                            <th>{{_ "Admin.DateOfBirth" }}</th>
                             <th>{{_ "Admin.TelephoneNumber" }}</th>
                             <th>{{_ "Admin.Password" }}</th>
                         </tr>
@@ -104,7 +104,7 @@
 
             <div class="align-bottom-right">
                 <div class="form-group" style="margin:0;">
-                    <label class="control-label">{{_ "Admin.Notifyuserwithanemail" }}</label>
+                    <label class="control-label">{{_ "Admin.NotifyUserEmail" }}</label>
                     <div class="checkbox checkbox-switchery">
                         <label>
                             <!--<input id="notifyuserwithemail" type="checkbox" class="switchery" checked>-->
