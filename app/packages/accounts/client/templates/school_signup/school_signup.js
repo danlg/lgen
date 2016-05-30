@@ -9,6 +9,7 @@ Template.SchoolSignup.onCreated(function(){
    this.currentSchoolFormTemplate = new ReactiveVar('SchoolSignupForm');
    this.newSchoolId = new ReactiveVar('');
    this.previewSchoolLogoBlob = new ReactiveVar('');
+   this.previewSchoolBackgroundImageBlob = new ReactiveVar('');
 });
 
 Template.SchoolSignup.onRendered(function(){
@@ -24,6 +25,7 @@ Template.SchoolSignup.onRendered(function(){
 });
 
 Template.SchoolSignup.helpers({
+    
     getCurrentSchoolFormTemplate:function(){
       return Template.instance().currentSchoolFormTemplate.get();
     },
@@ -79,7 +81,34 @@ Template.SchoolSignup.helpers({
         `;
         
         return customStyle;
-    }
+    },
+    getSchoolLogoBackground:function(){
+        var customStyle;
+
+        //console.log('schoolBackgroundImageId',schoolBackgroundImageId);
+        //console.log(schoolLogoId);
+        if( Template.instance().previewSchoolBackgroundImageBlob.get() ){
+
+             customStyle = `
+                                <style>                        
+                                    .mobile-school-home-fake .school-logo-wrapper .school-logo-background{
+                                    background-image: url('${Template.instance().previewSchoolBackgroundImageBlob.get()}');
+                                    }                                                                    
+                                </style>
+                            `;
+        }else{
+             customStyle = `
+                                <style>                        
+                                    .mobile-school-home-fake .school-logo-wrapper .school-logo-background{
+                                    background-image: url('/packages/smartix_accounts/client/asset/graduation_ceremony_picture@1x.jpg');
+                                    }                                                                    
+                                </style>
+                            `;
+        }
+
+
+        return customStyle;
+    },   
        
 })
 
@@ -217,6 +246,21 @@ Template.SchoolSignup.events({
                 
                 document.getElementById("school-logo-preview").src = readerEvent.currentTarget.result;
                 template.previewSchoolLogoBlob.set( readerEvent.currentTarget.result );
+            };
+            // read the image file as a data URL.
+            reader.readAsDataURL(files[0]);
+      }
+  },
+  'change #school-background-image': function (event, template) {
+      var files = event.target.files;
+
+      if (files.length > 0) {
+            var reader = new FileReader();
+            reader.onload = function (readerEvent) {
+                console.log(readerEvent);
+                // get loaded data and render thumbnail.
+                
+                template.previewSchoolBackgroundImageBlob.set( readerEvent.currentTarget.result );
             };
             // read the image file as a data URL.
             reader.readAsDataURL(files[0]);
