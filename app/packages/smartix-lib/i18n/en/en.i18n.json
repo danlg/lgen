@@ -26,6 +26,7 @@
     "Chat_settings": "Chat settings",
     "ChatRoomInfo": "Chat room details",
     "ChatRoomName": "Chat room name",
+    "Child": "Child",
     "ClassCode": "Class code",
     "ClassCodeErrorMessage": "Only lower case letter (a-z) or digit (0-9) are accepted in class code e.g. math123. But the class name is free of choice.",
     "Class_code_not_available": "is not available. You may try",
@@ -339,12 +340,11 @@
     } ,
     "accounts-relationships": {
         "Family": "Family",
-        "child" : "child",
-        "Parent" : "Parent",
         "Type" : "Type",
         "TypeName" :"Type Name",
-        "Namespace": "Namespace",
-        "Norecord" : "No relationship record"
+        "Namespace": "School",
+        "Norecord" : "No relationship record",
+        "Relationship" : "Relationship"
     },
     "admin": {
         "users": {
@@ -411,6 +411,7 @@
         "Content":"Content",
         "Close":"Close",
         "Created":"Created At",
+        "CreatedAt":"Created At",
         "CreatedDate":"Created Date",
         "CreateEvent":"Create an event",
         "ClassAnnouncements":"Class Announcements",
