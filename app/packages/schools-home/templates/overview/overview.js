@@ -81,7 +81,47 @@ Template.MobileSchoolHome.helpers({
     },
     needMaskImageFallback:function(){
       return (document.documentElement.style['-webkit-mask-image'] !== undefined) ? "" : "mask-image-fallback"
-    }
+    },
+    getSchoolLogoBackground:function(){
+        var customStyle = `
+                            <style>                        
+                                .school-logo-wrapper .school-logo-background{
+                                 background-image: url('//www.carmel.edu.hk/modules/mod_image_show_gk4/cache/slider.Carmel%20School-31gk-is-98.jpg');
+                                }                                                                    
+                            </style>
+                        `;
+
+        return customStyle;        
+    },
+    customizeTheme: function() {
+        var pickSchool = SmartixSchoolsCol.findOne(Session.get('pickedSchoolId'));
+
+        if (!pickSchool) {
+            return "";
+        }
+
+        if (pickSchool.preferences.schoolBackgroundColor && pickSchool.preferences.schoolTextColor) {
+            var schoolBackgroundColor = pickSchool.preferences.schoolBackgroundColor;
+            var schoolTextColor = pickSchool.preferences.schoolTextColor;
+            if (schoolBackgroundColor && schoolTextColor) {
+                var customStyle = `
+                                    <style>                        
+                                         .school-logo-wrapper .school-logo img{
+                                              border: 3px solid ${schoolBackgroundColor};
+                                         }                                                                        
+                                    </style>
+                                `;
+
+                return customStyle;
+            } else {
+                return "";
+            }
+        } else {
+            return "";
+        }
+
+
+    },
     
     
 });
