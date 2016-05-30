@@ -173,6 +173,8 @@ Template.SchoolSignup.events({
   },
   'click .start-my-trial-page2-btn':function(event,template){
       
+      //TODO add checkValidity
+      
       var schoolShortName = $('#school-short-name').val();
       var SchoolTrialAccountCreationObj = Session.get('schoolTrialAccountCreation');
       console.log('start-my-trial-page2-btn',SchoolTrialAccountCreationObj);
@@ -181,7 +183,10 @@ Template.SchoolSignup.events({
                   ,{
                     username:  schoolShortName,
                     lead:{
-                        stage: 'page-2'
+                        stage: 'page-2',
+                        howDidYourFind : $('textarea#how-did-you-find').val(),
+                        whichIssues:     $('textarea#which-issues').val() ,
+                        HowSmartixExpect:$('textarea#how-smartix-expect').val()
                     }
                   }
                   ,{
