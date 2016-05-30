@@ -218,7 +218,7 @@
 
     "your_class_is_ready_classname": "Your class __ classname__ is ready!",
     "NewNotification": "New Notification",
-    "To": "To:",
+    "To": "To",
     "message": "message",
     "Copy": "Copy",
     "SendInvitations": "Send Invitations",
@@ -450,7 +450,6 @@
         "ExcusedAbsent":"Excused Absent",
         "ExcuseMessage":"Excuse message received by parent but not yet acknowledged by the school.",
         "FilterUser":"Filter by first/last name",
-        "From":"From",
         "Father":"Father",
         "Filter:":"Filter:", 
         "FilterbyType":"Filter by Type",
