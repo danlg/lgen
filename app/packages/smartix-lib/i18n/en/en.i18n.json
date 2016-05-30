@@ -595,7 +595,7 @@
         "MakeLogInDetails":"Please make a note of the login details now, they will not be shown again.", 
         "MarkedTemplate":"or marked with a * in the template.We advise you to transpose the spreadsheet to help filling it. Download our CSV template to get started.",
         "if":"if",
-        "ImportUsers":"Import Users",
+        "ImportUsers":"Import Students",
         "ImportedUsersNoEmails":"Imported Users with No Emails",
         "ImportClasses":"Import Classes",
         "ImportParents":"Import Parents",
