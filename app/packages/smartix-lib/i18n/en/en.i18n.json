@@ -493,7 +493,7 @@
         "SubscribeNewsgroupsUser":"You can see existing newsgroups and users being subscribed to the newsgroups in here",
         "FillClickAddNews":"Simply fill in fields and click Add News.",
         "SearchDistributionLists":"Search Distribution Lists",
-        "SelectListCopyUsers":"Select the distribution list(s) to copy users from. For multiple selection, press Ctrl(PC) or &#8984;(Mac)",
+        "SelectListCopyUsers":"Select the distribution list(s) to copy users from. For multiple selection, press Ctrl(PC) or ⌘ (Mac)",
         "SetPasswordUser":"You may manually set a password for the user.",
         "StudentIDSkipped":"Student ID can be skipped if Student E-mail is present, and vice versa. At least one parent or carer is mandatory.",
         "Text":"Text",
