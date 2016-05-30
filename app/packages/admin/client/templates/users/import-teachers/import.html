@@ -1,24 +1,25 @@
 <template name="AdminTeachersImport">
     <div class="panel panel-flat">
         <div class="panel-heading">
-            <h1>{{_ "Admin.ImportTeachersandStaff" }}</h1>
+            <h1>{{_ "Admin.ImportTeachersStaff" }}</h1>
         </div>
 
         <div class="panel-body">
           <h3><p><strong>{{_ "Admin.Step1" }}</strong></p></h3>
           <!--TODO change image-->
+          
           <img src="/packages/smartix_admin/client/assets/import-teachers-preview.png" alt="" style="max-width: 100%">
 
-          <p>{{_ "Admin.CreateSpreadsheet" }} </p>
+          <p>{{_ "Admin.CreateSpreadSheet" }} </p>
           <p>{{_ "Admin.StructureFile" }}</p>
           <table class="table">
             <tr>
               <td style="width: 200px;"><b>{{_ "Admin.TeacherFirstName" }}</b></td>
-              <td>{{_ "Admin.Requiredfieldforteacher" }}</td>
+              <td>{{_ "Admin.RequiredFieldTeacher" }}</td>
             </tr>
             <tr>
               <td><b>{{_ "Admin.TeacherLastName" }}</b></td>
-              <td>{{_ "Admin.Requiredfieldforteacher" }}</td>
+              <td>{{_ "Admin.RequiredFieldTeacher" }}</td>
             </tr>
             <tr>
               <td><b>{{_ "Admin.Gender" }}</b></td>
@@ -26,7 +27,7 @@
             </tr>
             <tr>
               <td><b>{{_ "Admin.TeacherEmail" }}</b></td>
-              <td>{{_ "Admin.Requiredfieldforteacher" }}</td>
+              <td>{{_ "Admin.RequiredFieldTeacher" }}</td>
             </tr>
             <tr>
               <td><b>{{_ "Admin.MobilePhone" }}</b></td>
@@ -34,15 +35,15 @@
             </tr>
             <tr>
               <td><b>{{_ "Admin.SubjectTaught1" }}</b></td>
-              <td>{{_ "Admin.Requiredatleastone" }}</td>
+              <td>{{_ "Admin.RequiredAtLeastOne" }}</td>
             </tr>
             <tr>
               <td><b>{{_ "Admin.Class1" }}</b></td>
-              <td>{{_ "Admin.Requiredatleastoneclassroom" }}</td>
+              <td>{{_ "Admin.RequiredOneClassroom" }}</td>
             </tr>
             <tr>
               <td><b>{{_ "Admin.SmartixClassname1" }}</b></td>
-              <td>{{_ "Admin.Optionalclassname" }}</td>
+              <td>{{_ "Admin.OptionalClassname" }}</td>
             </tr>
             <tr>
               <td><b>{{_ "Admin.Inviteparentsclass1" }}</b></td>
@@ -53,9 +54,9 @@
               <td>{{_ "OptionalMarkXStudents" }}</td>
             </tr>
           </table>
-          <p> {{_ "Admin.RequiredFieldsHighlighted" }} <span style="color: red">{{_ "Admin.Red" }}</span> {{_ "Admin.markedwitha*inthetemplate" }}</p>
+          <p> {{_ "Admin.RequiredFieldsHighlighted" }} <span style="color: red">{{_ "Admin.Red" }}</span> {{_ "Admin.MarkedTemplate" }}</p>
 
-          <p>{{_ "Admin.DownloadteachersCSVstarted" }}</p>
+          <p>{{_ "Admin.DownloadTeachersCSVStarted" }}</p>
 
           <a target="_blank" href="/packages/smartix_admin/client/assets/teachers_import_template.csv" download="smartix-import-sample-teachers.csv">
             <button id="AdminTeachersImport__downloadTemplate" type="submit" class="btn btn-primary">{{_ "Admin.DownloadTemplate" }}</button>
@@ -69,7 +70,7 @@
 
           <h3><p><strong>{{_ "Admin.Step3" }}</strong></p></h3>
 
-            <p>{{_ "Admin.OnceyourCSVfilehasbeenuploaded" }}</p>
+            <p>{{_ "Admin.CSVUploaded" }}</p>
             <p>{{_ "Admin.PleaseImport" }} <code>{{_ "Admin.csv" }}</code> {{_ "Admin.FileHeaderEncode" }}</p>
             <div id="AdminTeachersImport__file-input" class="file-input file-input-new">
                 <div tabindex="500" class="btn btn-primary btn-file legitRipple">
@@ -198,7 +199,7 @@
                 </div>
                 <div class="align-bottom-right">
                  <div class="form-group" style="margin:0;">
-                    <label class="control-label">{{_ "Admin.Notifyuserwithanemail" }}</label>
+                    <label class="control-label">{{_ "Admin.NotifyUserEmail" }}</label>
                     <div class="checkbox checkbox-switchery">
                     <label>
                         <!--<input id="notifyuserwithemail" type="checkbox" class="switchery" checked>-->
@@ -210,7 +211,7 @@
                     <button id="AdminTeachersImport__clear" type="submit" class="btn btn-default">{{_ "Admin.ClearData" }}</button>
                 </div>
                 <div class="text-right">
-                    <button id="AdminTeachersImport__submit" type="submit" class="btn btn-primary">{{_ "Admin.ImportTeachersandStaff" }} <i class="icon-arrow-right14 position-right"></i></button>
+                    <button id="AdminTeachersImport__submit" type="submit" class="btn btn-primary">{{_ "Admin.ImportTeachersStaff" }} <i class="icon-arrow-right14 position-right"></i></button>
                 </div>
                 </div>
             {{/if}}
