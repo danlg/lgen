@@ -107,7 +107,6 @@ Template.AdminDistributionListView.helpers({
 
 Template.AdminDistributionListView.events({
     'click .AdminDistributionListView__user-search-result': function (event, template) {
-        
         var userToAdd = event.currentTarget.dataset.userId;
         var currentList;
         if(Router.current()
@@ -115,7 +114,6 @@ Template.AdminDistributionListView.events({
         && Router.current().params.code) {
             currentList = Router.current().params.code;
         }
-        
         if(userToAdd && currentList) {
             Meteor.call('smartix:distribution-lists/addUsersByListName', currentList, [userToAdd], function (err, res) {
                 // console.log(err);
@@ -123,8 +121,8 @@ Template.AdminDistributionListView.events({
             })
         }
     },
+    
     'click .AdminDistributionListView__remove-user': function (event, template) {
-        
         var userToRemove = event.currentTarget.dataset.userId;
         var currentList;
         if(Router.current()
@@ -132,7 +130,6 @@ Template.AdminDistributionListView.events({
         && Router.current().params.code) {
             currentList = Router.current().params.code;
         }
-        
         if(userToRemove && currentList) {
             Meteor.call('smartix:distribution-lists/removeUsersByListName', currentList, [userToRemove], function (err, res) {
                 // console.log(err);
@@ -140,6 +137,7 @@ Template.AdminDistributionListView.events({
             })
         }
     },
+    
     'click .add-users-to-distribution-list':function(event,template){
         let userIdsToAdd = template.usersChecked.get()
         let listOfUsers = Meteor.users.find({_id:{$in: userIdsToAdd }}).fetch();
@@ -147,36 +145,33 @@ Template.AdminDistributionListView.events({
         let listOfUserNames = listOfUsers.map(function(eachUserObj){
             return eachUserObj.profile.firstName + " " + eachUserObj.profile.lastName;
         });
-
         Meteor.call('smartix:distribution-lists/addUsersByListName', currentList, userIdsToAdd, function (err, res) {
             toastr.info(listOfUserNames.toString() + ' added to distributionList');
             // console.log(err);
             // console.log(res);
         })               
     },
+    
     'click .remove-users-from-distribution-list':function(event,template){
-        let userIdsToRemove = template.usersChecked.get()
-     
+        let userIdsToRemove = template.usersChecked.get();
         let listOfUsers = Meteor.users.find({_id:{$in: userIdsToRemove }}).fetch();
         var currentList = Router.current().params.code;     
         let listOfUserNames = listOfUsers.map(function(eachUserObj){
             return eachUserObj.profile.firstName + " " + eachUserObj.profile.lastName;
-        })
-        
+        });
         Meteor.call('smartix:distribution-lists/removeUsersByListName', currentList, userIdsToRemove, function (err, res) {
             toastr.info(listOfUserNames.toString() + ' removed from distributionList');            
             // console.log(err);
             // console.log(res);
-        })        
-      
-    },    
+        })
+    },
+    
     'click .school-directory-user-checkbox':function(event,template){
         
         if( $(event.target).prop('checked') ) {
            let latestArray = template.usersChecked.get();
-           log.info($(event.target).val());
+           //log.info($(event.target).val());
            latestArray.push( $(event.target).val() );
-           
            template.usersChecked.set( latestArray  );            
         }else{
            let latestArray = template.usersChecked.get();
@@ -186,10 +181,10 @@ Template.AdminDistributionListView.events({
            template.usersChecked.set( latestArray  );              
         }      
     },
+    
    'click .select-all-users-btn':function(event,template){
-     
      var selectedRole = $('input[name="filter-by-role"]:checked').val();
-     var userObjects
+     var userObjects;
      if (selectedRole) {
          if(selectedRole === 'all'){
               toastr.info('All users are selected');
@@ -212,10 +207,10 @@ Template.AdminDistributionListView.events({
          //console.log(searchString);
          userObjects = DistributionListUsersIndex.search( searchString , { limit: 999999 }).fetch();
      }
-    
      var userIds = lodash.map(userObjects,"_id");
      let latestArray = template.usersChecked.set(userIds);  
    },
+    
    'click .select-all-users-current-page-btn':function(event,template){
       $('.school-directory-user-checkbox').each(function(index){
           if( $(this).prop('checked') ){
@@ -229,6 +224,7 @@ Template.AdminDistributionListView.events({
           }
       });
    },
+    
    'click .deselect-all-users-current-page-btn':function(event,template){
       $('.school-directory-user-checkbox').each(function(index){
           if( $(this).prop('checked') ){
@@ -242,9 +238,11 @@ Template.AdminDistributionListView.events({
           }
       });
    },   
+    
    'click .deselect-all-users-btn':function(event,template){
       template.usersChecked.set([]);
    },
+    
    'click .filter-by-role':function(event,template){
        var chosenRole =  $(event.target).val();
         DistributionListUsersIndex.getComponentMethods().addProps('schoolNamespace', template.namespace);
