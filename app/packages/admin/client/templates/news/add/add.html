@@ -17,19 +17,19 @@
     <!-- Form horizontal -->
     <div class="panel panel-flat">
         <div class="panel-heading">
-            <h1>{{_ "Admin.Communicatenewstoyourcommunity" }}</h1>
+            <h1>{{_ "Admin.CommunicateCommunity" }}</h1>
         </div>
 
         <div class="panel-body">
-            <p class="content-group-lg">{{_ "Admin.SimplyfillinfieldsandclickAddNews" }} {{_ "Admin.That'sit" }}</p>
+            <p class="content-group-lg">{{_ "Admin.FillClickAddNews" }} {{_ "Admin.ThatSit" }}</p>
 
             <form class="form-horizontal" action="#">
                 <fieldset class="content-group">
                    <!--todo lowercase legend-->
-                    <h4 class="text-bold" style="text-transform:initial;"> {{_ "Admin.Newsdetails" }}</h4>
+                    <h4 class="text-bold" style="text-transform:initial;"> {{_ "Admin.NewsDetails" }}</h4>
                     
                     <div class="form-group">
-                        <label class="control-label col-xs-2">{{_ "Admin.Broadcastnewstonewsgroup" }}</label>
+                        <label class="control-label col-xs-2">{{_ "Admin.BroadcastNewsgroup" }}</label>
                         <div class="col-xs-10">
                             {{#each newsgroups}}
                                 <input type="checkbox" name="addNews-newsgroup" id="{{url}}" value="{{url}}"><label for="{{url}}">{{name}}</label><br>
@@ -79,13 +79,13 @@
                         </div>
                         <div class="col-xs-10">
                             <div class="btn-group" role="group" aria-label="...">
-                              <label class='btn btn-default' for="imageBtn"><i class="icon-camera"></i>{{_ "Admin.Addanimage" }}</label>
+                              <label class='btn btn-default' for="imageBtn"><i class="icon-camera"></i>{{_ "Admin.AddImage" }}</label>
                               <input id='imageBtn' type="file" name='imageBtn' class="inputfile imageBtn"/>
 
-                              <label class='btn btn-default' for="documentBtn"><i class="icon-file-text2"></i>{{_ "Admin.Addadoc" }}</label>
+                              <label class='btn btn-default' for="documentBtn"><i class="icon-file-text2"></i>{{_ "Admin.AddDoc" }}</label>
                               <input id='documentBtn' type="file" name='documentBtn' class="inputfile documentBtn"/>
 
-                              <button type="button" class="btn btn-default set-calendar"><i class="icon-calendar22"></i>{{_ "Admin.Createanevent" }}</button>
+                              <button type="button" class="btn btn-default set-calendar"><i class="icon-calendar22"></i>{{_ "Admin.CreateEvent" }}</button>
                             </div>
 
                         </div>   

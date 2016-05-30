@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     <div class="col-xs-12">
-                        <label class="control-label col-md-4">{{_ "Admin.To" }}</label>
+                        <label class="control-label col-md-4">{{_ "To" }}</label>
                         <div class="col-md-8">
                             <input class="form-control" type="date" name="endDate" id="AdminAbsenceProcessed__endDate" value="{{filterEndDate}}">
                         </div>
@@ -51,7 +51,7 @@
                         <div class="radio">
                             <label>
                                 <input type="radio" name="status-filter" class="control-success" value="pending">
-                                 {{_ "Admin.Show" }} <button class="label label-info"> {{_ "Admin.Pending" }}</button> <small>({{_ "Admin.AbsenceRequestMadeNotApproved" }})</small>
+                                 {{_ "Admin.Show" }} <button class="label label-info"> {{_ "Admin.Pending" }}</button> <small>({{_ "Admin.AbsenceRequestNotApproved" }})</small>
                             </label>
                         </div>
                         
@@ -101,9 +101,9 @@
                                     <td>{{_ "Admin.classroom" }}</td>
                                 {{/with}}
                                 <td>{{_ "Admin.Date" }}</td>
-                                <td>{{_ "Admin.lastNotified" }}</td>
+                                <td>{{_ "Admin.LastNotified" }}</td>
                                 <td>{{_ "Admin.ETA" }}</td>
-                                <td>{{_ "Admin.arrivalTime" }}</td>
+                                <td>{{_ "Admin.ArrivalTime" }}</td>
                                 <td>{{_ "Admin.admin" }}</td>
                             </tr>
                         {{/each}}

@@ -10,7 +10,7 @@
           <img src="/packages/smartix_admin/client/assets/import-teachers-preview.png" alt="" style="max-width: 100%">
 
           <p>{{_ "Admin.CreateSpreadsheet" }} </p>
-          <p>{{_ "Admin.Thestructureofthefile" }}</p>
+          <p>{{_ "Admin.StructureFile" }}</p>
           <table class="table">
             <tr>
               <td style="width: 200px;"><b>{{_ "Admin.TeacherFirstName" }}</b></td>
@@ -22,10 +22,10 @@
             </tr>
             <tr>
               <td><b>{{_ "Admin.Gender" }}</b></td>
-              <td>{{_ "Admin.required" }}</td>
+              <td>{{_ "Admin.Required" }}</td>
             </tr>
             <tr>
-              <td><b>{{_ "Admin.Teacheremail" }}</b></td>
+              <td><b>{{_ "Admin.TeacherEmail" }}</b></td>
               <td>{{_ "Admin.Requiredfieldforteacher" }}</td>
             </tr>
             <tr>
@@ -53,9 +53,9 @@
               <td>{{_ "OptionalMarkXStudents" }}</td>
             </tr>
           </table>
-          <p> {{_ "Admin.Requiredfieldsarehighlightedin" }} <span style="color: red">{{_ "Admin.red" }}</span> {{_ "Admin.markedwitha*inthetemplate" }}</p>
+          <p> {{_ "Admin.RequiredFieldsHighlighted" }} <span style="color: red">{{_ "Admin.Red" }}</span> {{_ "Admin.markedwitha*inthetemplate" }}</p>
 
-          <p>{{_ "Admin.Downloadteachers'CSVtemplatetogetstarted" }}</p>
+          <p>{{_ "Admin.DownloadteachersCSVstarted" }}</p>
 
           <a target="_blank" href="/packages/smartix_admin/client/assets/teachers_import_template.csv" download="smartix-import-sample-teachers.csv">
             <button id="AdminTeachersImport__downloadTemplate" type="submit" class="btn btn-primary">{{_ "Admin.DownloadTemplate" }}</button>
@@ -63,14 +63,14 @@
 
 
           <h3><p><strong>{{_ "Admin.Step2" }}</strong></p></h3>
-            <p>{{_ "Admin.TheexampleshownisfromMicrosoftExcel" }}</p>
+            <p>{{_ "Admin.ExampleShownMicrosoftExcel" }}</p>
 
             <img src="/packages/smartix_admin/client/assets/import-guide-excel-csv.png" alt="import-guide-excel">
 
           <h3><p><strong>{{_ "Admin.Step3" }}</strong></p></h3>
 
             <p>{{_ "Admin.OnceyourCSVfilehasbeenuploaded" }}</p>
-            <p>{{_ "Admin.PleaseImport" }} <code>{{_ "Admin.csv" }}</code> {{_ "Admin.fileHeaderEncode" }}</p>
+            <p>{{_ "Admin.PleaseImport" }} <code>{{_ "Admin.csv" }}</code> {{_ "Admin.FileHeaderEncode" }}</p>
             <div id="AdminTeachersImport__file-input" class="file-input file-input-new">
                 <div tabindex="500" class="btn btn-primary btn-file legitRipple">
                     <i class="icon-file-plus"></i> <span class="hidden-xs">{{_ "Admin.Browse" }}</span>
@@ -84,7 +84,7 @@
                             <tr>
                                 <th>{{_ "Admin.TeacherFirstName" }}</th>
                                 <th>{{_ "Admin.TeacherLastName" }}</th>
-                                <th>{{_ "Admin.Teacheremail" }}</th>
+                                <th>{{_ "Admin.TeacherEmail" }}</th>
                                 <th>{{_ "Admin.Gender" }}</th>
                                 <th>{{_ "Admin.MobilePhone" }}</th>
                                 <th>{{_ "Admin.SubjectTaught" }} 1</th>
