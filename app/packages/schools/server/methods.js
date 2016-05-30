@@ -82,9 +82,9 @@ Meteor.methods({
                         {
                             from: Meteor.settings.SALES_EMAIL,
                             to:   Meteor.settings.SALES_EMAIL,
-                            subject : 'new lead' + options.lead.firstName + ' ' + options.lead.lastName,
+                            subject : 'You have a new lead from ' + options.lead.firstName + ' ' + options.lead.lastName,
                             //html: JSON.stringify(options)
-                            html: 'From ' + options.email +  '\n' + JSON.stringify(options)
+                            html: 'From ' + options.email +  '\n\n' + JSON.stringify(options,null, '\t')
                         }
                     );
                 })

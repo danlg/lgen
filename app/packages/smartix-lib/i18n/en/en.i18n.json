@@ -117,8 +117,7 @@
     "HowSmartixExpect" :"How do you expect Smartix to solve them?",
     "PersonalDomain" :"Your personalised school domain",
     "PersonalDomainHelp" :"school name (1 word, no spaces)",
-
-
+    "PhoneNumber":"Phone Number",
     "No_chat_yet": "No chat yet",
     "No_private_note_yet": "Here you can take a private note, which is not shared with the member. For example, you can write the parent's name or any other useful information",
     "Notification": "Notification",
@@ -135,6 +134,7 @@
     "PasswordChanged": "Your password has been changed. Welcome back!",
     "PasswordNotEnoughLength": "At least 4 characters Password",
     "PasswordNotTheSame": "Password and Confirm Password is not the same.",
+    "PersonalSignup" : "Sign up for an individual account",
     "PressCtrlCorLongPressToCopy": "Long press on the link to copy or Press Crtl·C to copy",
     "PressCrtlCToCopyMac": "Press ⌘·C to copy",
     "Privacy_policy": "Privacy policy",
@@ -165,7 +165,7 @@
     "ShareThisLinkHelpsStudentsAndParentJoinYourClass": "Students and parents will be able to join your class",
     "Show": "Show",
     "ShowClass": "Show your class how to join",
-    "SignANewAccount": "Sign a new account",
+    "SignANewAccount": "Sign up for a new account",
     "SignIn": "Sign in",
     "SignOut": "Sign out",
     "SignUp": "Sign up",
@@ -466,7 +466,7 @@
         "Pending":"Pending",
         "SchoolDirectory":"School Directory",
         "SelectAll":"Select All",
-        "SelectCurrentPage":"All (this page)",
+        "SelectAllCurrentPage":"All (this page)",
         "SelectNone":"None",
         "SelectNoneCurrentPage":"None (this page)",
         "Search":"Search Distribution Lists",
@@ -505,8 +505,8 @@
         "ThatSit":"That's it",
         "ThisIs":"This is",
         "TotalUser":"Total User :",
-        "Telephone":"Telephone:",
-        "TelephoneNumber":"Telephone Number",
+        "Phone":"Phone",
+        "PhoneNumber":"Phone Number",
         "TeacherEmail":"Teacher email",
         "TeacherFirstName":"Teacher First Name",
         "TeacherLastName":"Teacher Last Name",
@@ -571,7 +571,7 @@
         "LinkRSSNewsgroup":"You may link a RSS feed to a newsgroup so all new entries to the feed will be sent to the newsgroup.",
         "Users":"Users",
         "UserDetails":"User Details",
-        "UserName":"Username",
+        "Username":"Username",
         "UpdateFilters":"Update Filters",
         "Upload":"Upload",
         "UploadXLSX":"Upload XLSX",
@@ -606,7 +606,6 @@
         "InviteStudentsClass":"Invite students class",
         "Hide":"Hide",
         "HaveBeenSelected":"have been selected.",
-        "WelcometoSmartixAdmin":"Welcome to Smartix Admin!",
         "Poll":"Poll",
         "Password":"Password",
         "PleaseImport":"Please import the user data as a",
@@ -618,7 +617,8 @@
         "CSVUploaded":"Once your CSV file has been uploaded, you will be able to confirm the parent information before importing.",
         "Grade":"Grade",
         "Gradelevels":"Grade levels. Required fields for all students.",
-        "Gender":"Gender"
+        "Gender":"Gender",
+        "WelcometoSmartixAdmin":"Welcome to Smartix Admin!"
     },
     "messages": {
         "Send": "Send"
@@ -631,22 +631,20 @@
         "Schoolname":"School name",
         "Schoolshortname":"School shortname, would be seen in the route:",
         "Schooladminusername":"School admin username, if it is blank, school shortname would be used as the admin username :",
-        "Schoollogo":"School logo",
-        "telephonenumber":"telephone number",
-        "Schoolwebsite:":"School website",
-        "Schoolemail:":"School email",
+        "Schoollogo" : "School logo",
+        "Schoolwebsite" : "School website",
+        "SchoolEmail":"School email",
         "SchoolBackgroundColor":"School Background Color",
         "SchoolTextColor":"School Text Color",
         "Schoollongname":"School long name",
         "Shortname":"School short name (1 word only no space, it will appear in the URL)",
         "Noexisting":" No existing school logo",
         "Upload":"Upload a new school logo ",
-        "Schooladministratoremail":"School administrator email (this login has full control on the Smartix school configuration)"
+        "SchoolAdministratorEmail":"School administrator email (this login has full control on the Smartix school configuration)"
     },
     "schools-home":{
         "Contact" :"School Contact",
         "Homepage":"Homepage",
-        "PhoneNumbe":"Phone Number",
         "Email":"Email"
     },
     "smartix-calendarevent":{
