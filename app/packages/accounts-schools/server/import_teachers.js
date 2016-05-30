@@ -8,7 +8,7 @@ Smartix.Accounts.School.importTeachersSchema = new SimpleSchema({
 	gender: { type: String , optional: true },
 	mobile: { type: String , optional: true },
 
-	subjectTaught1: { type: String },
+	subjectTaught1: { type: String , optional: true },
 	subjectTaught2: { type: String , optional: true },
 	subjectTaught3: { type: String , optional: true },
 	subjectTaught4: { type: String , optional: true },
