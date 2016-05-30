@@ -19,13 +19,25 @@
             {{this.url}}
             <img src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="thumbnail" />        
         {{/each}}
-        <br> {{_ "schools.telephonenumber" }}
+
+
+        <br> School Background Image
+        <input id='school-background-image' type="file" name="school-background-image">
+
+        {{uploadedSchoolBackgroundImageId}}
+        {{#each uploadedSchoolBackgroundImage}}
+            {{this.url}}
+            <img src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="thumbnail" />        
+        {{/each}}
+                        
+        <br> {{_ "Phonenumber" }}
+
         <input id='tel' type="text" name="tel">
         
         <br> {{_ "schools.Schoolwebsite" }}
         <input id='web' type="text" name="web">
         
-        <br> {{_ "schools.Schoolemail" }}
+        <br> {{_ "schools.SchoolEmail" }}
         <input id='email' type="text" name="email">
 
         <br> {{_ "schools.SchoolBackgroundColor" }}
