@@ -16,7 +16,7 @@ Package.onUse(function(api) {
 
   api.use('alanning:roles@1.2.15');
   api.use('reactive-var','client');
-  
+  api.use('smartix:lib@0.0.1');
   api.use('smartix:accounts', null, {unordered:true});
   api.use('smartix:accounts-schools', {unordered: true});
   api.use('smartix:accounts-system');
