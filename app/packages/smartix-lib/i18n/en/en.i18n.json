@@ -553,7 +553,7 @@
         "NotifyUserEmail":"Notify user with an email",
         "NotProvided":"is not provided.",
         "NoExistingNews":"No existing news",
-        "NoResultsFound":"No results found!",
+        "NoResultsFound":"No result found!",
         "NoDistributionList":"No distribution list",
         "NotExcused":"Absent/late not excused yet by parents.",
         "AllFieldsOptional":"Note: All other fields are optional including Password, which allows you to pre-set a student's password. Required fields are highlighted in",
