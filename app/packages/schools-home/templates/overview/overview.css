@@ -171,7 +171,7 @@
     height:25vh;
 }
 .school-logo-wrapper .school-logo-background{
-  position: fixed;
+  position: absolute;
   left: 0;
   right: 0;
   z-index: 1;
