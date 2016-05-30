@@ -13,22 +13,22 @@
                     <h4 class="text-bold">{{_ "Admin.NewsgroupDetails" }}</h4>
                     
                     <div class="form-group">
-                        <label class="control-label col-xs-2">{{_ "Admin.NewsgroupName" }}</label>
-                        <div class="col-xs-10">
-                            <input id="addNewsgroup-name" type="text" class="form-control" placeholder="Class Name">
+                        <label class="control-label col-xs-6">{{_ "Admin.NewsgroupName" }}</label>
+                        <div class="col-xs-6">
+                            <input id="addNewsgroup-name" type="text" class="form-control" placeholder="{{_ 'Admin.NewsgroupName' }}">
                         </div>
                     </div>
                     
                     <!--<div class="form-group">
-                        <label class="control-label col-xs-2">Newsgroup Code</label>
-                        <div class="col-xs-10">
+                        <label class="control-label col-xs-6">Newsgroup Code</label>
+                        <div class="col-xs-6">
                             <input id="addNewsgroup-code" type="text" class="form-control" placeholder="Class Code">
                         </div>
                     </div>-->
                     
                     <div class="form-group">
-                        <label class="control-label col-xs-2">{{_ "Admin.Mandatory" }}</label>
-                        <div class="col-xs-10">
+                        <label class="control-label col-xs-6">{{_ "Admin.Mandatory" }}</label>
+                        <div class="col-xs-6">
                             <div class="checkbox checkbox-switchery">
                                 <label>
                                     <input id="newsgroupMandatory" type="checkbox" class="switchery">
@@ -37,15 +37,15 @@
                         </div>
                     </div>
                     <!--<div class="form-group">-->
-                        <!--<label class="control-label col-xs-2">How do you want to add users?</label>-->
-                        <!--<div class="col-xs-10">-->
+                        <!--<label class="control-label col-xs-6">How do you want to add users?</label>-->
+                        <!--<div class="col-xs-6">-->
                                 <!--<input type="radio" name="addUserMethod" value="copyFromList" checked> 1. Copy users from distribution list(s)  <br>-->
                                 <!--<input type="radio" name="addUserMethod" value="ReferFromList">  2. Reference users from distribution list(s)   <br>                            -->
                         <!--</div>-->
                     <!--</div>-->
                     <div class="form-group">
-                        <label class="control-label col-xs-2">{{_ "Admin.SelectDistributionlistCopyUsers" }} </label>
-                        <div class="col-xs-10">
+                        <label class="control-label col-xs-6">{{_ "Admin.SelectListCopyUsers" }} </label>
+                        <div class="col-xs-6">
                             <select id='distribution-list' name="distribution-list" multiple>
                                 {{#each distributionListItems}}
                                     <option value="{{_id}}">{{name}}</option>
