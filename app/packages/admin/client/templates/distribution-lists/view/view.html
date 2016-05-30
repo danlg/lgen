@@ -3,13 +3,13 @@
     <div class="panel panel-flat">
         {{#with listData}}
         <div class="panel-heading">
-            <h1>{{name}}</h1>
+            <h1>Managing distribution list {{name}}</h1>
         </div>
 
         <div class="panel-body">
             <!--<p>{{_ "Admin.ListCode" }}: {{url}}</p>-->
 
-            <h3>{{_ "Admin.Users" }}</h3>
+            <h3> Available {{_ "Admin.Users" }} </h3>
             <div id="AdminClassesView__add-user-container" class="form-group">
                 <div class="col-xs-12">
                     <div class="add-user-input-container input-group AdminDistributionListView__add-user-input-container">
@@ -54,7 +54,10 @@
                         {{#EasySearch.Each index=distributionListUsersIndex }}
                         <tr>
                             <td><input {{isUserChecked _id}} type="checkbox" name="user" class='school-directory-user-checkbox' value="{{_id}}"/></td>
-                            <td><button class="AdminDistributionListView__user-search-result" data-user-id="{{_id}}">Add</button></td>
+                            <td><button style="background:cornflowerblue;" class="AdminDistributionListView__user-search-result" data-user-id="{{_id}}">
+                              <!--<i class="icon-add-to-list" ></i>-->
+                              <i class="icon-plus2" ></i>
+                            </button></td>
                             <td>{{getUserRoles}}</td>
                             <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}">{{profile.lastName}}</a></td>
                             <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}">{{profile.firstName}}</a></td>
@@ -75,7 +78,7 @@
                 </div>
             </div>
             <!-- Large table -->
-            <h3>User in distribution list</h3>
+            <h3>Actual users in distribution list</h3>
             <table class="table datatable-basic">
                 <thead>
                     <th>{{_ "Admin.FirstName" }}</th>
@@ -88,7 +91,9 @@
                         <td><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.firstName}}</a></td>
                         <td><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.lastName}}</a></td>
                         <td>
-                            <button type="button" data-user-id="{{_id}}" class="AdminDistributionListView__remove-user btn border-warning text-warning-600 btn-flat btn-icon btn-rounded"><i class="icon-minus2"></i></button>
+                            <button type="button" data-user-id="{{_id}}"
+                                    class="AdminDistributionListView__remove-user btn border-warning text-warning-600 btn-flat btn-icon btn-rounded">
+                              <i class="icon-minus2"></i></button>
                         </td>
                     </tr>
                     {{/with}}
