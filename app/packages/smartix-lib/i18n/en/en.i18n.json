@@ -467,7 +467,7 @@
         "Pending":"Pending",
         "SchoolDirectory":"School Directory",
         "SelectAll":"Select All",
-        "SelectCurrentPage":"All (this page)",
+        "SelectAllCurrentPage":"All (this page)",
         "SelectNone":"None",
         "SelectNoneCurrentPage":"None (this page)",
         "Search":"Search Distribution Lists",
