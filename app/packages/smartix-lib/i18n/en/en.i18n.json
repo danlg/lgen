@@ -607,7 +607,6 @@
         "InviteStudentsClass":"Invite students class",
         "Hide":"Hide",
         "HaveBeenSelected":"have been selected.",
-        "WelcometoSmartixAdmin":"Welcome to Smartix Admin!",
         "Poll":"Poll",
         "Password":"Password",
         "PleaseImport":"Please import the user data as a",
@@ -619,7 +618,8 @@
         "CSVUploaded":"Once your CSV file has been uploaded, you will be able to confirm the parent information before importing.",
         "Grade":"Grade",
         "Gradelevels":"Grade levels. Required fields for all students.",
-        "Gender":"Gender"
+        "Gender":"Gender",
+        "WelcometoSmartixAdmin":"Welcome to Smartix Admin!"
     },
     "messages": {
         "Send": "Send"
