@@ -88,7 +88,6 @@ Template.SchoolSignup.helpers({
         //console.log('schoolBackgroundImageId',schoolBackgroundImageId);
         //console.log(schoolLogoId);
         if( Template.instance().previewSchoolBackgroundImageBlob.get() ){
-
              customStyle = `
                                 <style>                        
                                     .mobile-school-home-fake .school-logo-wrapper .school-logo-background{
@@ -105,30 +104,30 @@ Template.SchoolSignup.helpers({
                                 </style>
                             `;
         }
-
-
         return customStyle;
-    },   
-       
-})
+    }
+});
 
 Template.SchoolSignup.events({
   'keyup .school-name':function(event,template){
     template.mySchoolName.set(     $(event.target).val()  );
  
   },
+    
   'click .role-selection':function(event,template){
       //$(event.target).data('role');
       $(".role-selection").removeClass('chosen-role');
       $(event.currentTarget).addClass('chosen-role');          
       template.chosenRole.set($(event.currentTarget).data('role'));
   },
+    
   'click .number-of-student-selection':function(event,template){
       //$(event.target).data('role');
       $(".number-of-student-selection").removeClass('chosen-number-of-student');
       $(event.currentTarget).addClass('chosen-number-of-student');          
       template.chosenNumberOfStudent.set($(event.currentTarget).data('number'));
   },
+    
   'click .start-my-trial-btn':function(event,template){
       //TODO: really pass data to page 2 , form input checking
       var school = {};
@@ -157,54 +156,48 @@ Template.SchoolSignup.events({
       //console.log('user',user);
       //console.log('lead',lead);
       var SchoolTrialAccountCreationObj = {school: school, user: user};
-      
       //http://stackoverflow.com/questions/11866910/how-to-force-a-html5-form-validation-without-submitting-it-via-jquery
       if($('#school-trial-account-create')[0].checkValidity()){
         //checkValidity without form submission
         event.preventDefault();
-        
         Session.set('schoolTrialAccountCreation',SchoolTrialAccountCreationObj);
-
-        Meteor.call('smartix:schools/createSchoolTrial',{
-            
-            name : school.schoolFullName ,
-            logo : '',
-            tel  : '',
-            web  : '',
-            email: user.userEmail,
-            country: school.schoolCountry ,
-            city:    school.schoolCity,
-            preferences:{
-                schoolBackgroundColor: school.schoolBackgroundColor,
-                schoolTextColor:       school.schoolTextColor 
-            },
-            lead: lead
-              
-        },template.previewSchoolLogoBlob.get(),template.previewSchoolBackgroundImageBlob.get(),function(err,result){
+        Meteor.call('smartix:schools/createSchoolTrial',
+            {
+	            name : school.schoolFullName,
+	            logo : '',
+	            tel  : '',
+	            web  : '',
+	            email: user.userEmail,
+	            country: school.schoolCountry ,
+	            city:    school.schoolCity,
+	            preferences:{
+	                schoolBackgroundColor: school.schoolBackgroundColor,
+	                schoolTextColor:       school.schoolTextColor 
+	            },
+	            lead: lead
+             }
+            , template.previewSchoolLogoBlob.get()
+            , template.previewSchoolBackgroundImageBlob.get(),function(err,result){
             if(result){
-              console.log('newSchoolId',result);
+              log.info('newSchoolId',result);
               template.newSchoolId.set(result);
               template.currentSchoolFormTemplate.set('SchoolSignupForm2');  
             }else{
-              console.log('fail to create school');
+              log.error('Failed to create school',school.schoolFullName);
             }
         });
-        
-           
-      }else{
+      }
+      else{
           var userAgent = window.navigator.userAgent;
           if( userAgent.match(/Safari/i)  && !userAgent.match(/Chrome/i) ){
              toastr.info('Please complete the form');
              event.preventDefault();
           }
-
-          $('#school-trial-account-create').addClass('invalid'); 
-          console.log('not valid form');
+          $('#school-trial-account-create').addClass('invalid');
+          //log.warn('Form incomplete');
       }
-      
-
-
   },
+    
   'click .start-my-trial-page2-btn':function(event,template){
         if ($('#school-trial-account-create-page2')[0].checkValidity()) {
             //checkValidity without form submission
@@ -212,7 +205,7 @@ Template.SchoolSignup.events({
 
             var schoolShortName = $('#school-short-name').val();
             var SchoolTrialAccountCreationObj = Session.get('schoolTrialAccountCreation');
-            console.log('start-my-trial-page2-btn', SchoolTrialAccountCreationObj);
+            //console.log('start-my-trial-page2-btn', SchoolTrialAccountCreationObj);
             //update school shortname from  template.newSchoolId.get()
             Meteor.call('smartix:schools/editSchoolTrial', template.newSchoolId.get()
                 , {
