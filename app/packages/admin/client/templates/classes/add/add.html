@@ -13,22 +13,22 @@
                     <h4 class="text-bold">{{_ "Admin.ClassDetails" }}</h4>
 
                     <div class="form-group">
-                        <label class="control-label col-xs-2">{{_ "Admin.ClassName" }}</label>
-                        <div class="col-xs-10">
+                        <label class="control-label col-xs-6">{{_ "Admin.ClassName" }}</label>
+                        <div class="col-xs-6">
                             <input id="addClass-name" type="text" class="form-control" placeholder="Class Name">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-xs-2">{{_ "Admin.ClassCode" }}</label>
-                        <div class="col-xs-10">
+                        <label class="control-label col-xs-6">{{_ "Admin.ClassCode" }}</label>
+                        <div class="col-xs-6">
                             <input id="addClass-code" type="text" class="form-control" placeholder="Class Code">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-xs-2">{{_ "Admin.AgeRestricted" }}</label>
-                        <div class="col-xs-10">
+                        <label class="control-label col-xs-6">{{_ "Admin.AgeRestricted" }}</label>
+                        <div class="col-xs-6">
                             <div class="checkbox checkbox-switchery">
                                 <label>
                                     <input id="addClass-ageRestricted" type="checkbox" class="switchery" checked="checked">
@@ -37,9 +37,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-xs-2">{{_ "Admin.SelectListCopyUsers" }}
-                            </label>
-                        <div class="col-xs-10">
+                        <label class="control-label col-xs-6">{{_ "Admin.SelectListCopyUsers" }}</label>
+                        <div class="col-xs-6">
                             <select id='distribution-list' name="distribution-list" multiple>
                                 {{#each distributionListItems}}
                                 <option value="{{_id}}">{{name}}</option>
@@ -49,23 +48,23 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-2 text-semibold">{{_ "Admin.Mode" }}</label>
-                        <div class="col-md-10 row">
-                            <div class="col-md-12">
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="addMode" class="control-success" value="copy" checked="checked"> {{_ "Admin.AddCopyUsers" }}
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="addMode" class="control-success" value="ref">{{_ "Admin.AddReference" }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <!--<div class="form-group">-->
+                        <!--<label class="control-label col-md-2 text-semibold">{{_ "Admin.Mode" }}</label>-->
+                        <!--<div class="col-md-10 row">-->
+                            <!--<div class="col-md-12">-->
+                                <!--<div class="radio">-->
+                                    <!--<label>-->
+                                        <!--<input type="radio" name="addMode" class="control-success" value="copy" checked="checked"> {{_ "Admin.AddCopyUsers" }}-->
+                                    <!--</label>-->
+                                <!--</div>-->
+                                <!--<div class="radio">-->
+                                    <!--<label>-->
+                                        <!--<input type="radio" name="addMode" class="control-success" value="ref">{{_ "Admin.AddReference" }}-->
+                                    <!--</label>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
                 </fieldset>
 
                 <div class="text-right">
