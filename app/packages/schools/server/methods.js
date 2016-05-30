@@ -31,10 +31,8 @@ Meteor.methods({
         }
     },
     'smartix:schools/createSchoolTrial':function(options,imagesData){
-        
         if (options) {
             options.createdAt = new Date();
-            
             //TEMP: hardcode expired date = today + 30 days
             options.planTrialExpiryDate = new Date();
             options.planTrialExpiryDate.setDate( options.planTrialExpiryDate.getDate() + 30);
@@ -47,14 +45,11 @@ Meteor.methods({
         if(imagesData){
             imageObj = Images.insert(imagesData);
             imageObjId = imageObj._id;
-            console.log('imageObj',imageObj);
+            //console.log('imageObj',imageObj);
         }
-        
         SchoolsSchema.clean(options);
-        check(options, SchoolsSchema);        
-        
-        var schoolId; 
-      
+        check(options, SchoolsSchema);
+        var schoolId;
         // checks that schoolname is not taken ! implemented in schema, unique
         try {
             schoolId = SmartixSchoolsCol.insert({
@@ -79,32 +74,34 @@ Meteor.methods({
         } catch (err) {
             throw err;
         }
-        
         if(options.lead){
-            Meteor.defer(function(){
-                Email.send(
-                    { 
-                        from: Meteor.settings.FROM_EMAIL,
-                        to:   Meteor.settings.FEEDBACK_EMAIL,
-                        subject : 'new lead' + options.lead.firstName + ' ' + options.lead.lastName,
-                        html: JSON.stringify(options)
-                    
-                    }
-                );                
-            })
-
+            try {
+                log.info("Tracking new lead from "+ options.email);
+                Meteor.defer(function(){
+                    Email.send(
+                        {
+                            from: Meteor.settings.SALES_EMAIL,
+                            to:   Meteor.settings.SALES_EMAIL,
+                            subject : 'new lead' + options.lead.firstName + ' ' + options.lead.lastName,
+                            //html: JSON.stringify(options)
+                            html: 'From ' + options.email +  '\n' + JSON.stringify(options)
+                        }
+                    );
+                })
+            } 
+            catch (e) {
+                log.error("Cannot track lead", options.email);
+            }
         }
-        
-        
         return schoolId;
     },
+
     'smartix:schools/createSchool': function(options, admins) {
         /*
         Meteor.call('smartix:schools/createSchool',{name:'Shau Kei Wan - Elsa High',username:'elsahighadmin',logo:'1234567',tel:'36655388',web:'http://www.carmel.edu.hk/',email:'elsahighschool@carmel.edu.hk.test',active:true,preferences:{}});
         */
         if (options) {
             options.createdAt = new Date();
-            
             //TEMP: hardcode expired date = today + 30 days
             options.planTrialExpiryDate = new Date();
             options.planTrialExpiryDate.setDate( options.planTrialExpiryDate.getDate() + 30);
@@ -114,22 +111,17 @@ Meteor.methods({
         if (Roles.userIsInRole(Meteor.userId(), 'admin', 'system')) {
             var adminUsername = options.adminUsername || options.username;
             delete options.adminUsername;
-            
             SchoolsSchema.clean(options);
             check(options, SchoolsSchema);
-            
-            
             if (lodash.includes(RESERVED_SCHOOL_NAMES, options.username)) {
                 log.error(CANNOT_BE_SAME_AS_RESERVED_NAMES);
                 return;
             }
-
             var schoolId;
             //TODO: logo pass upload image id
-            
             var existingSchool = SmartixSchoolsCol.findOne({username:options.username});
             if(existingSchool){
-                log.error('school short name has been taken');     
+                log.error('school short name has been taken: '+ options.username);
                 throw new Meteor.Error("short-name-taken", "school short name has been taken");                
             }
             // checks that schoolname is not taken ! implemented in schema, unique
@@ -175,7 +167,6 @@ Meteor.methods({
                     },
                     schoolId,
                     ['admin'], true);
-
                 return { school: schoolId, initialAdmin: { username: newAdmin, initialPassword: newAdminPassword } };
             }
         } else {
@@ -207,7 +198,7 @@ Meteor.methods({
         }
     },
     'smartix:schools/editSchoolTrial': function (id, schoolOptions,userOptions) {
-        console.log('smartix:schools/editSchoolTrial',id,schoolOptions,userOptions);
+        //console.log('smartix:schools/editSchoolTrial',id,schoolOptions,userOptions);
         var targetSchool = SmartixSchoolsCol.findOne(id);
         
         //only if the school is totally new, it can be updated by anonymous
@@ -235,8 +226,6 @@ Meteor.methods({
 
         //return 1 if update success
         var updateCount = SmartixSchoolsCol.update(id, { $set: targetSchool });
-
-    
         if(updateCount === 1){
             //create school admin account for user, send enrolment email                
             Meteor.call('smartix:accounts-schools/createSchoolUser',

@@ -51,7 +51,7 @@ Template.SchoolSignup.helpers({
                 #example-forms-floating-labels .bar.bar-positive, .bar.bar-positive, .bar.bar-stable,
                 .button.button-positive.active, .button.button-positive {
                     border-color: ${schoolBackgroundColor};
-                    transition: background-color 0.5s ease,  border-color 0.5s ease;
+                    transition: background-color 0.2s ease,  border-color 0.2s ease;
                     background-color: ${schoolBackgroundColor};
                     background-image: linear-gradient(0deg, ${schoolBackgroundColor}, ${schoolBackgroundColor} 50%, transparent 50%);
                     color: ${schoolTextColor};
@@ -62,12 +62,12 @@ Template.SchoolSignup.helpers({
                 }
                 
                 .card.square-card .mask{
-                    transition: background-color 0.5s ease;
+                    transition: background-color 0.2s ease;
                     background-color: ${schoolBackgroundColor}; 
                 }
                 
                 .device-preview-backdrop {
-                    transition: background-color 0.5s ease;
+                    transition: background-color 0.2s ease;
                     background-color: ${schoolBackgroundColor};                         
                 }       
             </style>
@@ -103,7 +103,7 @@ Template.SchoolSignup.events({
       school.schoolCity            = $('#school-city').val();
       school.schoolNumberOfStudent = $('#school-number-of-student').val();
       school.schoolBackgroundColor = template.inputBackgroundColor.get();
-      school.schoolTextColor       =template.inputTextColor.get();
+      school.schoolTextColor       = template.inputTextColor.get();
       
       var user = {};
       user.userFirstName         = $('#user-first-name').val();
@@ -119,20 +119,17 @@ Template.SchoolSignup.events({
                 email:user.userEmail,
                 howManyStudents: school.schoolNumberOfStudent
       };      
-      console.log('school',school);
-      console.log('user',user);
-      console.log('lead',lead);
+      //console.log('school',school);
+      //console.log('user',user);
+      //console.log('lead',lead);
       var SchoolTrialAccountCreationObj = {school: school, user: user};
       
       //http://stackoverflow.com/questions/11866910/how-to-force-a-html5-form-validation-without-submitting-it-via-jquery
       if($('#school-trial-account-create')[0].checkValidity()){
         //checkValidity without form submission
         event.preventDefault();
-        
         Session.set('schoolTrialAccountCreation',SchoolTrialAccountCreationObj);
-
         Meteor.call('smartix:schools/createSchoolTrial',{
-            
             name : school.schoolFullName ,
             logo : '',
             tel  : '',
@@ -145,32 +142,31 @@ Template.SchoolSignup.events({
                 schoolTextColor:       school.schoolTextColor 
             },
             lead: lead
-              
         },template.previewSchoolLogoBlob.get(),function(err,result){
             if(result){
-              console.log('newSchoolId',result);
-              template.newSchoolId.set(result);
-              template.currentSchoolFormTemplate.set('SchoolSignupForm2');  
-            }else{
-              console.log('fail to create school');
+                log.info('newSchoolId',result);
+                template.newSchoolId.set(result);
+                template.currentSchoolFormTemplate.set('SchoolSignupForm2');
+            }
+            else{
+              log.error('fail to create school' + school.schoolFullName);
             }
         });
-        
-           
-      }else{
+      }
+      else{
           var userAgent = window.navigator.userAgent;
           if( userAgent.match(/Safari/i)  && !userAgent.match(/Chrome/i) ){
              toastr.info('Please complete the form');
              event.preventDefault();
           }
-
-          $('#school-trial-account-create').addClass('invalid'); 
-          console.log('not valid form');
+          $('#school-trial-account-create').addClass('invalid');
+          log.warn('not a valid form');
       }
       
 
 
   },
+
   'click .start-my-trial-page2-btn':function(event,template){
 
       if ($('#school-trial-account-create-page2')[0].checkValidity()) {
@@ -198,7 +194,9 @@ Template.SchoolSignup.events({
 
               }
               , function () {
-                  toastr.info('We have sent you an email. Open it to finish registration.')
+                  toastr.info(
+                      'We have sent you an email to ' +SchoolTrialAccountCreationObj.user.userEmail +
+                      '. Open it to finish registration (please check also your Spam folder).');
                   Router.go('LoginSplash');
               });
       }else{
@@ -212,20 +210,18 @@ Template.SchoolSignup.events({
           console.log('not valid form');
       }
   },
+
   'change #school-background-color-picker-polyfill': function (event, template) {
-
       template.inputBackgroundColor.set($(event.target).val());
-
   },
+
   'change #school-logo': function (event, template) {
       var files = event.target.files;
-
       if (files.length > 0) {
             var reader = new FileReader();
             reader.onload = function (readerEvent) {
-                console.log(readerEvent);
+                //console.log(readerEvent);
                 // get loaded data and render thumbnail.
-                
                 document.getElementById("school-logo-preview").src = readerEvent.currentTarget.result;
                 template.previewSchoolLogoBlob.set( readerEvent.currentTarget.result );
             };
@@ -233,8 +229,9 @@ Template.SchoolSignup.events({
             reader.readAsDataURL(files[0]);
       }
   },
+
   'click #person-sign-up':function(event,template){
-    template.currentSchoolFormTemplate.set('EmailSignupForm'); 
+      template.currentSchoolFormTemplate.set('EmailSignupForm'); 
   }  
 });
 

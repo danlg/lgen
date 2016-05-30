@@ -606,14 +606,25 @@ Smartix.Class.NotifyParents = Smartix.Class.NotifyStudents = function(userId, cl
         return false;
         // throw new Meteor.Error("class-not-found", "Class with ID of " + classId + " could not be found");
     }
-    //TODO: async send not to block main thread?
-    Email.send({
-        subject: "You've been added to a class",
-        from: Meteor.settings.FROM_EMAIL,
-        //"from_name": Meteor.settings.FROM_NAME,
-        to: user.emails[0].address,
-        html: Smartix.notifyEmailTemplate(user, classObj)
-    })
+    try {
+        if (user.emails[0] && user.emails[0].address ) {
+            log.info("NotifyParents by email "+ user.emails[0].address);
+            Meteor.defer(function(){
+                Email.send({
+                    subject: "You've been added to a class",
+                    from: Meteor.settings.FROM_EMAIL,
+                    //"from_name": Meteor.settings.FROM_NAME,
+                    to: user.emails[0].address,
+                    html: Smartix.notifyEmailTemplate(user, classObj)
+                })
+            })
+        }
+        else{
+            log.warn("Cannot NotifyParents lead", JSON.stringify(user.emails[0]));
+        }
+    } catch (e) {
+        log.error("Cannot NotifyParents lead", JSON.stringify(user.emails[0]));
+    }
 };
 
 Smartix.Class.getDistributionListsOfClass = function (classCode) {

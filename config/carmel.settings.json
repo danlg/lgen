@@ -29,6 +29,7 @@
   "FROM_EMAIL": "dan@gosmartix.com",
   "FROM_NAME": "Smartix",
   "FEEDBACK_EMAIL": "feedback@gosmartix.com",
+  "SALES_EMAIL":    "sales@gosmartix.com",
 
   "RSS_FETCH_INTERVAL": 30000,
   "RSS_PROCESS_INTERVAL": 30000,

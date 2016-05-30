@@ -5,94 +5,105 @@ Smartix = Smartix || {};
 //unit testing
 //Smartix.messageEmailTemplate(['dan@gosmartix.com'],['dan@gosmartix.com'],'content is great',{chatRoomName:'math'})
 Smartix.messageEmailTemplate = function (RecipientUsers, OriginateUser, content, options) {
-  var originateUserName = OriginateUser.profile.firstName + " " + OriginateUser.profile.lastName;
-  //var originateUserName = "dummy";
-  options.lang = options.lang || 'en';
-  var bccList = [];
-  RecipientUsers.forEach(function (RecipientUser) {
-    var bcc = {};
-    bcc.email = RecipientUser.email;
-    bcc.name = RecipientUser.name;
-    bcc.type = "bcc";
-    bccList.push(bcc);
-  });
-  var subject;
-  if (options.type === 'class') {
-    subject = TAPi18n.__("NewClassMessageMailTitle",
-      {
-        class_name: options.className
-      },
-      options.lang);
-  }
-  else {
-    options.chatRoomName  = (options.chatRoomName) ? "@" + options.chatRoomName : "";
-    subject = TAPi18n.__("NewChatMessageMailTitle", {
-      user_name: originateUserName,
-      chat_room_name: options.chatRoomName
-    }, options.lang);
-  }
-  log.info("messageEmailTemplate MAIL_URL:" + process.env.MAIL_URL);
-  //Accounts.emailTemplates.from = "Smartix <dan@gosmartix.com>";
-  Email.send(
-    {
-      subject: subject,
-      from: Meteor.settings.FROM_EMAIL,
-      //"from_name": Meteor.settings.FROM_NAME,
-      bcc: bccList,
-      html: Spacebars.toHTML(
-        {
-          title: content,
-          GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = options.lang),
-          UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = options.lang)
-        },
-        Assets.getText("emailMessageMasterTemplate.html")
-      )
+    var originateUserName = OriginateUser.profile.firstName + " " + OriginateUser.profile.lastName;
+    //var originateUserName = "dummy";
+    options.lang = options.lang || 'en';
+    var bccList = [];
+    RecipientUsers.forEach(function (RecipientUser) {
+        var bcc = {};
+        bcc.email = RecipientUser.email;
+        bcc.name = RecipientUser.name;
+        bcc.type = "bcc";
+        bccList.push(bcc);
+    });
+    var subject;
+    if (options.type === 'class') {
+        subject = TAPi18n.__("NewClassMessageMailTitle",
+          {
+            class_name: options.className
+          },
+          options.lang);
     }
-  );
+    else {
+        options.chatRoomName  = (options.chatRoomName) ? "@" + options.chatRoomName : "";
+        subject = TAPi18n.__("NewChatMessageMailTitle", {
+              user_name: originateUserName,
+              chat_room_name: options.chatRoomName
+            }, options.lang);
+    }
+    //log.info("messageEmailTemplate MAIL_URL:" + process.env.MAIL_URL);
+    try {
+        log.info("Smartix.messageEmailTemplate");
+        Meteor.defer(function(){
+            Email.send(
+                {
+                    subject: subject,
+                    from: Meteor.settings.FROM_EMAIL,
+                    //"from_name": Meteor.settings.FROM_NAME,
+                    bcc: bccList,
+                    html: Spacebars.toHTML(
+                        {
+                            title: content,
+                            GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = options.lang),
+                            UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = options.lang)
+                        },
+                        Assets.getText("emailMessageMasterTemplate.html")
+                    )
+                }
+            );
+        })
+    }
+    catch (e) {
+        log.error("Cannot Smartix.messageEmailTemplate", JSON.stringify(bccList));
+    }
 };
 
 //OK unit tested with > meteor shell
 //Smartix.newClassMailTemplate ('dan@gosmartix.com','mathematiques','maths')
 //to unit test,  replace var emailLang = "en";
 Smartix.newClassMailTemplate = function (to, classname, classCode) {
-  //var emailLang = "en";
-  var emailLang = Meteor.user().lang || "en"; //comment me to unit test
-
-  var newClassMailContent;
-  try { //get the new class mail template of the specific lang
-    newClassMailContent = Assets.getText("lang/" + emailLang + "/emailNewClassTemplate.html");
-  }
-  catch (e) {
-    log.error(e); //fallback to english
-    newClassMailContent = Assets.getText("lang/en/emailNewClassTemplate.html");
-  }
-  var newClassMailContentTemp =
-    Spacebars.toHTML(
-      {
-        classname : classname,
-        classCode : classCode,
-        ROOT_URL: Meteor.settings.public.ROOT_URL,
-        SHARE_URL: Meteor.settings.public.SHARE_URL
-      },
-      newClassMailContent
-    );
-  log.info("Sending newClassMailTemplate:" + classCode);
-  var titlestr = TAPi18n.__("NewClassMailTitle", {class_name: classname}, emailLang);
-  Email.send({
-    "from": Meteor.settings.FROM_EMAIL,
-    "to": to,
-    "subject": titlestr,
-    "html": Spacebars.toHTML(
-      {
-        title     : titlestr,
-        content   : newClassMailContentTemp,
-        GetTheApp                    : TAPi18n.__("GetTheApp", {}, lang_tag = emailLang),
-        UnsubscribeEmailNotification : TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = emailLang),
-      },
-      Assets.getText("emailMessageMasterTemplate.html")
-    )
+    var emailLang = Meteor.user().lang || "en"; //comment me to unit test
+    var newClassMailContent;
+    try { //get the new class mail template of the specific lang
+        newClassMailContent = Assets.getText("lang/" + emailLang + "/emailNewClassTemplate.html");
     }
-  );
+    catch (e) {
+        log.error(e); //fallback to english
+        newClassMailContent = Assets.getText("lang/en/emailNewClassTemplate.html");
+    }
+    var newClassMailContentTemp = Spacebars.toHTML(
+        {
+            classname : classname,
+            classCode : classCode,
+            ROOT_URL: Meteor.settings.public.ROOT_URL,
+            SHARE_URL: Meteor.settings.public.SHARE_URL
+        },
+        newClassMailContent
+    );
+    try {
+        log.info("Sending newClassMailTemplate:" + classCode);
+        var titlestr = TAPi18n.__("NewClassMailTitle", {class_name: classname}, emailLang);
+        Meteor.defer(function(){
+            Email.send({
+                    "from": Meteor.settings.FROM_EMAIL,
+                    "to": to,
+                    "subject": titlestr,
+                    "html": Spacebars.toHTML(
+                        {
+                            title     : titlestr,
+                            content   : newClassMailContentTemp,
+                            GetTheApp                    : TAPi18n.__("GetTheApp", {}, lang_tag = emailLang),
+                            UnsubscribeEmailNotification : TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = emailLang)
+                        }, Assets.getText("emailMessageMasterTemplate.html")
+                    )
+                }
+            );
+        })
+    }
+    catch (e) {
+        log.error("Cannot send newClassMailTemplate", JSON.stringify(to));
+    }
+
 };
 
 //OK unit tested with > meteor shell
