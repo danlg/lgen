@@ -8,12 +8,16 @@
             {{#if userIsChildOrParent}}       
                 {{#if userIsParent parent}}
                     {{getChildNameById child}}
-                    <div style="font-size: smaller;color:grey">{{_ "accounts-relationships.child" }} @ {{namespace}} </div>
+                    <div style="font-size: smaller;color:grey">{{_ "accounts-relationships.child" }}
+                      <!--@ {{namespace}} -->
+                    </div>
                 {{/if}}
                         
                 {{#if userIsChild child}}
                     {{getParentNameById parent}}
-                    <div style="font-size: smaller;color:grey">{{type}} ({{name}}) @ {{namespace}} </div>               
+                    <div style="font-size: smaller;color:grey">{{type}} ({{name}})
+                      <!--@ {{namespace}} -->
+                    </div>
                 {{/if}}
             {{else}}
                 <!-- is admin-->
