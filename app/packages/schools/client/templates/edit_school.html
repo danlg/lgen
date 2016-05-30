@@ -18,9 +18,9 @@
         <br> {{_ "schools.Upload" }}    
         <input id='school-logo' type="file" name="school-logo">
         
-        {{uploadedSchoolLogoId}}
+        <!--{{uploadedSchoolLogoId}}-->
         {{#each uploadedSchoolLogo}}
-            {{this.url}}
+            <!--{{this.url}}-->
             <img src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="thumbnail" />        
         {{/each}}
         <br> {{_ "PhoneNumber" }}
