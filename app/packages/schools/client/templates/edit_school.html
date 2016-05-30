@@ -23,6 +23,22 @@
             <!--{{this.url}}-->
             <img src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="thumbnail" />        
         {{/each}}
+
+        <br>{{_ "schools.SchoolBackgroundImage" }}
+        {{#with existingSchoolBackgroundImage}}
+            <img id='existing-school-background-image' data-existing-school-background-image-id={{_id}} src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="thumbnail" />                    
+        {{else}}
+            {{_ "schools.Noexisting" }}
+        {{/with}}
+        <br> {{_ "schools.Upload" }}    
+        <input id='school-background-image' type="file" name="school-background-image">
+        
+        <!--{{uploadedSchoolLogoId}}-->
+        {{#each uploadedSchoolBackgroundImage}}
+            <!--{{this.url}}-->
+            <img src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="thumbnail" />        
+        {{/each}}
+                
         <br> {{_ "PhoneNumber" }}
         <input id='tel' type="text" name="tel" value='{{tel}}'>
         

@@ -1,7 +1,8 @@
 Template.EditSchool.onCreated(function() {
 
     this.newSchoolLogo = new ReactiveVar("");
-
+    this.newSchoolBackgroundImage = new ReactiveVar("");   
+    
     var self = this;
     if(Router.current()
     && Router.current().params
@@ -16,12 +17,16 @@ Template.EditSchool.onCreated(function() {
 
 Template.EditSchool.onDestroyed(function(){
     this.newSchoolLogo = new ReactiveVar("");
+    this.newSchoolBackgroundImage = new ReactiveVar("");    
 });
 
 Template.EditSchool.helpers({
     'existingSchoolLogo':function(){
         return Images.findOne(this.logo);
     },
+    'existingSchoolBackgroundImage':function(){
+        return Images.findOne(this.backgroundImage);
+    },    
     uploadedSchoolLogoId: function() {
         var newSchoolLogoId = Template.instance().newSchoolLogo.get();
         return newSchoolLogoId;
@@ -30,6 +35,14 @@ Template.EditSchool.helpers({
         var newSchoolLogoId = Template.instance().newSchoolLogo.get();
         return Images.find(newSchoolLogoId);
     },
+    uploadedSchoolBackgroundImageId: function() {
+        var newSchoolBackgroundImageId = Template.instance().newSchoolBackgroundImage.get();
+        return newSchoolBackgroundImageId;
+    },
+    uploadedSchoolBackgroundImage: function() {
+        var newSchoolBackgroundImageId = Template.instance().newSchoolBackgroundImage.get();
+        return Images.find(newSchoolBackgroundImageId);
+    },  
     getSchoolObj: function(){
             return  SmartixSchoolsCol.findOne({username: Router.current().params.school});            
     },
@@ -43,6 +56,13 @@ Template.EditSchool.helpers({
 });
 
 Template.EditSchool.events({
+    'change #school-background-image': function(event, template) {
+        var files = event.target.files;
+
+        if (files.length > 0) {
+            SmartixSchools.editSchoolBackground(files[0], template);
+        }
+    },     
     'change #school-logo': function(event, template) {
         var files = event.target.files;
 
@@ -57,6 +77,7 @@ Template.EditSchool.events({
         {
           name: $("#name").val(),
           username: $("#username").val(),
+          backgroundImage: template.newSchoolBackgroundImage.get() || $('existing-school-background-image-id').data('existingSchoolBackgroundImageId'),            
           logo: template.newSchoolLogo.get() || $('existing-school-logo').data('existingSchoolLogoId'), 
           tel: $("#tel").val(),
           web: $("#web").val(),
