@@ -172,34 +172,45 @@ Template.SchoolSignup.events({
 
   },
   'click .start-my-trial-page2-btn':function(event,template){
-      
-      //TODO add checkValidity
-      
-      var schoolShortName = $('#school-short-name').val();
-      var SchoolTrialAccountCreationObj = Session.get('schoolTrialAccountCreation');
-      console.log('start-my-trial-page2-btn',SchoolTrialAccountCreationObj);
-      //update school shortname from  template.newSchoolId.get()           
-      Meteor.call('smartix:schools/editSchoolTrial',template.newSchoolId.get()
-                  ,{
-                    username:  schoolShortName,
-                    lead:{
-                        stage: 'page-2',
-                        howDidYourFind : $('textarea#how-did-you-find').val(),
-                        whichIssues:     $('textarea#which-issues').val() ,
-                        HowSmartixExpect:$('textarea#how-smartix-expect').val()
-                    }
-                  }
-                  ,{
-                    email: SchoolTrialAccountCreationObj.user.userEmail,
-                    firstName: SchoolTrialAccountCreationObj.user.userFirstName,
-                    lastName:SchoolTrialAccountCreationObj.user.userLastName,
 
+      if ($('#school-trial-account-create-page2')[0].checkValidity()) {
+          //checkValidity without form submission
+          event.preventDefault();
+          
+          var schoolShortName = $('#school-short-name').val();
+          var SchoolTrialAccountCreationObj = Session.get('schoolTrialAccountCreation');
+          console.log('start-my-trial-page2-btn', SchoolTrialAccountCreationObj);
+          //update school shortname from  template.newSchoolId.get()           
+          Meteor.call('smartix:schools/editSchoolTrial', template.newSchoolId.get()
+              , {
+                  username: schoolShortName,
+                  lead: {
+                      stage: 'page-2',
+                      howDidYourFind: $('textarea#how-did-you-find').val(),
+                      whichIssues: $('textarea#which-issues').val(),
+                      HowSmartixExpect: $('textarea#how-smartix-expect').val()
                   }
-                 ,function(){
-                     toastr.info('We have sent you an email. Open it to finish registration.')
-                     Router.go('LoginSplash');
-                 });
-      
+              }
+              , {
+                  email: SchoolTrialAccountCreationObj.user.userEmail,
+                  firstName: SchoolTrialAccountCreationObj.user.userFirstName,
+                  lastName: SchoolTrialAccountCreationObj.user.userLastName,
+
+              }
+              , function () {
+                  toastr.info('We have sent you an email. Open it to finish registration.')
+                  Router.go('LoginSplash');
+              });
+      }else{
+          var userAgent = window.navigator.userAgent;
+          if( userAgent.match(/Safari/i)  && !userAgent.match(/Chrome/i) ){
+             event.preventDefault();
+          }
+          
+          toastr.info('Please complete the form');
+          $('#school-trial-account-create-page2').addClass('invalid'); 
+          console.log('not valid form');
+      }
   },
   'change #school-background-color-picker-polyfill': function (event, template) {
 
