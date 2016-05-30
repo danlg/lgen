@@ -26,7 +26,7 @@
   "SPARKPOST_USERNAME": "SMTP_Injection",
   "SPARKPOST_PASSWORD": "67eaa68e98ff43eca9441b6a9a9888a864fe8064",
     
-  "FROM_EMAIL": "contactemail@gosmartix.com",
+  "FROM_EMAIL": "dan@gosmartix.com",
   "FROM_NAME": "Smartix",
   "FEEDBACK_EMAIL": "feedback@gosmartix.com",
 

@@ -38,7 +38,7 @@
 
 
 Accounts.emailTemplates.sitename = "Smartix";
-Accounts.emailTemplates.from = "Smartix <contactemail@gosmartix.com>";
+Accounts.emailTemplates.from = "Smartix <dan@gosmartix.com>";
 
 Accounts.emailTemplates.verifyEmail = {
   html: function (user, url) {

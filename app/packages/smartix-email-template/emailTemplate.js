@@ -32,7 +32,7 @@ Smartix.messageEmailTemplate = function (RecipientUsers, OriginateUser, content,
     }, options.lang);
   }
   log.info("messageEmailTemplate MAIL_URL:" + process.env.MAIL_URL);
-  //Accounts.emailTemplates.from = "Smartix <contactemail@gosmartix.com>";
+  //Accounts.emailTemplates.from = "Smartix <dan@gosmartix.com>";
   Email.send(
     {
       subject: subject,
@@ -120,7 +120,7 @@ Smartix.feedback = function (content) {
         log.info("Sending feedback to " + Meteor.settings.FEEDBACK_EMAIL + " from " + fullName);
 
         Email.send({
-          "from": "contactemail@gosmartix.com",
+          "from": "dan@gosmartix.com",
           "to": email,
           "subject": "Feedback from " + fullName,
           "html": "<h3> Feedback from " + fullName + " </h3><p>" + content + "</p>"
