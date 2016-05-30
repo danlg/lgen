@@ -1,6 +1,7 @@
 Template.AddSchool.onCreated(function() {
 
-    this.newSchoolLogo = new ReactiveVar("");        
+    this.newSchoolLogo = new ReactiveVar("");
+    this.newSchoolBackgroundImage = new ReactiveVar("");   
 });
 
 Template.AddSchool.helpers({
@@ -11,10 +12,25 @@ Template.AddSchool.helpers({
     uploadedSchoolLogo: function() {
         var newSchoolLogoId = Template.instance().newSchoolLogo.get();
         return Images.find(newSchoolLogoId);
-    }
+    },
+    uploadedSchoolBackgroundImageId: function() {
+        var newSchoolBackgroundImageId = Template.instance().newSchoolBackgroundImage.get();
+        return newSchoolBackgroundImageId;
+    },
+    uploadedSchoolBackgroundImage: function() {
+        var newSchoolBackgroundImageId = Template.instance().newSchoolBackgroundImage.get();
+        return Images.find(newSchoolBackgroundImageId);
+    }    
 });
 
 Template.AddSchool.events({
+    'change #school-background-image': function(event, template) {
+        var files = event.target.files;
+
+        if (files.length > 0) {
+            SmartixSchools.editSchoolBackground(files[0], template);
+        }
+    },    
     'change #school-logo': function(event, template) {
         var files = event.target.files;
 
@@ -29,7 +45,8 @@ Template.AddSchool.events({
         { name: $("#name").val(),
           username: $("#username").val(),
           adminUsername: $("#admin-username").val(),
-          logo: template.newSchoolLogo.get(), 
+          logo: template.newSchoolLogo.get(),
+          backgroundImage: template.newSchoolBackgroundImage.get(),          
           tel: $("#tel").val(),
           web: $("#web").val(),
           email: $("#email").val(),

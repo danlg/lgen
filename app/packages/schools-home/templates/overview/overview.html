@@ -25,6 +25,7 @@
      
   {{#ionView}}
     {{#ionContent}}
+      {{#if Template.subscriptionsReady}}
       {{{customizeTheme}}}
       {{{getSchoolLogoBackground}}}
       <div class='school-logo-wrapper'>
@@ -36,7 +37,7 @@
             </div>           
         </div>                             
       </div>
-      {{#if Template.subscriptionsReady}}
+
       <div class='news-slidebox-wrapper'>
         <div class='ion-slide-box'>
             {{#each getSlidingNews}}

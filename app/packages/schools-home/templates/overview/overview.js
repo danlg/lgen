@@ -83,14 +83,40 @@ Template.MobileSchoolHome.helpers({
       return (document.documentElement.style['-webkit-mask-image'] !== undefined) ? "" : "mask-image-fallback"
     },
     getSchoolLogoBackground:function(){
-        var customStyle = `
-                            <style>                        
-                                .school-logo-wrapper .school-logo-background{
-                                 background-image: url('//www.carmel.edu.hk/modules/mod_image_show_gk4/cache/slider.Carmel%20School-31gk-is-98.jpg');
-                                }                                                                    
-                            </style>
-                        `;
 
+        var schoolBackgroundImageId;
+        var schoolDoc = SmartixSchoolsCol.findOne({                                                    
+            username: Router.current().params.school                                                                     
+        });
+        var customStyle;
+        //console.log('schoolDoc',schoolDoc);
+        if(schoolDoc) {
+            schoolBackgroundImageId = schoolDoc.backgroundImage;
+        }
+        //console.log('schoolBackgroundImageId',schoolBackgroundImageId);
+        //console.log(schoolLogoId);
+        if(schoolBackgroundImageId){
+            var  bgObj =  Images.findOne(schoolBackgroundImageId);
+            //console.log('bgObj',bgObj);
+            
+             customStyle = `
+                                <style>                        
+                                    .school-logo-wrapper .school-logo-background{
+                                    background-image: url('${bgObj.url()}');
+                                    }                                                                    
+                                </style>
+                            `;            
+        }else{
+             customStyle = `
+                                <style>                        
+                                    .school-logo-wrapper .school-logo-background{
+                                    background-image: url('/packages/smartix_accounts/client/asset/graduation_ceremony_picture@1x.jpg');
+                                    }                                                                    
+                                </style>
+                            `;               
+        }
+
+                       
         return customStyle;        
     },
     customizeTheme: function() {
