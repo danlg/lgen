@@ -69,7 +69,12 @@ Template.SchoolSignup.helpers({
                 .device-preview-backdrop {
                     transition: background-color 0.5s ease;
                     background-color: ${schoolBackgroundColor};                         
-                }       
+                }
+                
+
+                .school-logo-wrapper .school-logo img{
+                    border: 3px solid ${schoolBackgroundColor};
+                }                          
             </style>
         `;
         
