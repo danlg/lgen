@@ -12,9 +12,9 @@
             <p>{{_ "Admin.Createaspreadsheetlisting" }}</p>
 
             <p>{{_ "Admin.Requiredfieldsarehighlightedin" }} <span style="color: red">{{_ "Admin.red" }}</span>.
-                <strong>{{_ "Admin.AllFieldsParentRecord" }}</strong> {{_ "Admin.StudentIDcanbeskipped" }}</p>
+                <strong>{{_ "Admin.AllParentRecord" }}</strong> {{_ "Admin.StudentIDcanbeskipped" }}</p>
 
-            <p>{{_ "Admin.Downloadparents'CSVtemplatetogetstarted" }}</p>
+            <p>{{_ "Admin.DownloadparentCSVstarted" }}</p>
 
             <a target="_blank" href="/packages/smartix_admin/client/assets/parents_import_template.csv" download="smartix-import-sample-parents.csv">
               <div class="text-right">
@@ -103,9 +103,9 @@
             {{#if manualNotifyUsers}}
                 <div id="errorMsgBlock AdminParentsImport__manualNotifyBlock">
                     <h3>{{_ "Admin.ImportedUserswithNoEmails" }}</h3>
-                    <p>{{_ "Admin.createdauserrecordforthefollowingparents" }}</p>
+                    <p>{{_ "Admin.CreatedParentRecord" }}</p>
                     <p>{{_ "Admin.makeanoteofthelogindetails" }}</p>
-                    <button id="ParentsImport_notifyClear" type="submit" class="btn btn-default">{{_ "Admin.ClearList" }}</button>
+                    <button id="ParentsImport_notCifyClear" type="submit" class="btn btn-default">{{_ "Admin.ClearList" }}</button>
                     <div class="table-responsive">
                         <table class="table datatable-basic">
                             <thead>
