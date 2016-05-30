@@ -27,7 +27,8 @@ Package.onUse(function (api) {
   api.use('alanning:roles@1.2.15');
   api.use('easy:search@2.0.9');
   api.use('stevezhu:lodash@4.6.1');
-
+  api.use('malkesh:trumbowyg@0.0.1','client');
+  
   api.use('smartix:lib@0.0.1');
   api.use('smartix:utilities@0.0.1');
   api.use('smartix:news@0.0.1');
@@ -40,7 +41,7 @@ Package.onUse(function (api) {
   api.use('smartix:messages@0.0.1', 'client')
   api.use('smartix:calendarevent', 'client');
   api.use('smartix:absence', ['client', 'server']);
-
+  
   api.use('danielqiu:feed');
 
   api.addAssets('client/assets/parents_import_template.csv', 'client');
@@ -355,6 +356,7 @@ Package.onUse(function (api) {
   api.addFiles('client/limitless/js/app.js', 'web.browser');
 
 
+ 
   api.addFiles('client/plugins/intl-tel-input/js/intlTelInput.js', ['web.browser']);
   api.addFiles('client/plugins/intl-tel-input/js/utils.js', ['web.browser']);
   api.addAssets('client/plugins/intl-tel-input/img/flags.png', ['web.browser']);

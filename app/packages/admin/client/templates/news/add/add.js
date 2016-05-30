@@ -29,6 +29,14 @@ Template.AdminNewsAdd.onCreated(function () {
 
 });
 
+Template.AdminNewsAdd.onRendered(function(){
+   
+  $('#addNews-content').trumbowyg(); 
+
+
+    
+});
+
 Template.AdminNewsAdd.helpers({
     newsgroups: function () {
         if(Template.instance().subscriptionsReady()) {
@@ -105,7 +113,7 @@ Template.AdminNewsAdd.events({
         }
 
         var title = $('#addNews-title').val();
-        var content = $('#addNews-content').val();
+        var content =  $('#addNews-content').trumbowyg('html'); //$('#addNews-content').val();
         
         if(!title || !content) {
             toastr.error('Please ensure both the Title and Content fields are filled in.');

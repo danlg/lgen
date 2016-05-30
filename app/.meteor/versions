@@ -101,6 +101,7 @@ less@2.6.0
 livedata@1.0.18
 localstorage@1.0.9
 logging@1.0.12
+malkesh:trumbowyg@0.0.1
 manuel:isdev@1.0.0
 manuel:reactivearray@1.0.5
 manuel:viewmodel@4.0.14
