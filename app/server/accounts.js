@@ -57,9 +57,7 @@ Accounts.emailTemplates.resetPassword ={
   },
   subject:function(user) {
     var subjectLang = user.lang || "en";
-    
-    var resetPasswordEmailSubject = TAPi18n.__("ResetPasswordEmailSubject", {}, lang_tag= subjectLang);
-    return resetPasswordEmailSubject;
+    return TAPi18n.__("ResetPasswordEmailSubject", {}, lang_tag= subjectLang);
   }     
 };
 
@@ -69,8 +67,17 @@ Accounts.emailTemplates.enrollAccount ={
   },
   subject:function(user) {
     var subjectLang = user.lang || "en";
-    
-    var enrollmentEmailSubject = TAPi18n.__("EnrollmentEmailSubject", {}, lang_tag= subjectLang);
+    var enrollmentEmailSubject;
+    //log.info("Accounts.emailTemplates.enrollAccount- User"+ user);
+    //log.info(user.profile);
+    if (user.profile && user.profile.firstName) {
+      enrollmentEmailSubject = TAPi18n.__("Hi") + " " + user.profile.firstName + ". " + TAPi18n.__("WelcomeTo") + " " + TAPi18n.__("Smartix");
+    }
+    else {
+      enrollmentEmailSubject = TAPi18n.__("WelcomeTo") + " " + TAPi18n.__("Smartix");
+    }
+    //log.info("enrollmentEmailSubject="+ enrollmentEmailSubject);
+    //var enrollmentEmailSubject = TAPi18n.__("EnrollmentEmailSubject", {}, lang_tag= subjectLang);
     return enrollmentEmailSubject;
-  }     
+  }
 };
