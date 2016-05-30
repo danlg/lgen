@@ -3,31 +3,18 @@
     <div class="list">
     
     {{#each relationships}}
-        <div class="item item-icon-right less-top-bottom-padding user-item">                     
-
-            {{#if userIsChildOrParent}}       
-                {{#if userIsParent parent}}
-                    {{getChildNameById child}}
-                    <div style="font-size: smaller;color:grey">{{_ "accounts-relationships.child" }}
-                      <!--@ {{namespace}} -->
-                    </div>
-                {{/if}}
-                        
-                {{#if userIsChild child}}
-                    {{getParentNameById parent}}
-                    <div style="font-size: smaller;color:grey">{{type}} ({{name}})
-                      <!--@ {{namespace}} -->
-                    </div>
-                {{/if}}
+        <div class="item item-icon-right less-top-bottom-padding user-item">
+            {{#if userIsChild }}
+             <span>
+               {{getFirstAndLastNameById parent}}<div style="font-size: smaller;color:grey">{{type}} ({{name}}) </div>
+             </span>
+                  <!--@ {{namespace}} -->
             {{else}}
-                <!-- is admin-->
-                <p>{{_ "Parent" }}:       {{getParentNameById parent}}</p>
-                <p>{{_ "Child" }}:        {{getChildNameById child}} </p>
-                <p>{{_ "accounts-relationships.Relationship" }}:     {{name}}</p>
-                
-                <i data-relationship-id={{_id}} style='' class="icon assertive  ion-android-remove-circle remove-relationship-btn ">                   
-                </i>               
+               {{getFirstAndLastNameById child}}
             {{/if}}
+
+            <i data-relationship-id={{_id}} style='' class="icon assertive  ion-android-remove-circle remove-relationship-btn ">
+            </i>
 
         </div>
         {{else}}
