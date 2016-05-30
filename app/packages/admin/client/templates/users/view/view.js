@@ -15,34 +15,31 @@ Template.AdminUsersView.helpers({
         });
     },
     userEmail: function () {
-        log.info(this);
+        //log.info(this);
         if(this.emails && Array.isArray(this.emails)) {
             return this.emails[0].address;
         }
     },
     userRoles: function () {
         // Get the `_id` of the school from its username
-        var schoolDoc = SmartixSchoolsCol.findOne({
-            username: Router.current().params.school
-        });
-        
         var schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(Router.current().params.school);
-        
-        // return Meteor.users.findOne({
-        //     _id: Router.current().params.uid
-        // }, {
-        //     fields: roles
-        // }).roles[schoolDoc._id].toString();
-        
-        var user = Meteor.users.findOne({
-            _id: Router.current().params.uid
-        });
-        
+        var user = Meteor.users.findOne({ _id: Router.current().params.uid });
         if(user && user.roles[schoolNamespace]) {
             return user.roles[schoolNamespace].toString()
         } else {
             return false;
         }
+    },
+
+    userIsChild:function(){
+        var schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(Router.current().params.school);
+        var user = Meteor.users.findOne({ _id: Router.current().params.uid });
+        if(user && user.roles[schoolNamespace]) {
+            var isStudent =  ( user.roles[schoolNamespace].indexOf(Smartix.Accounts.School.STUDENT) > -1);
+            //log.info("userIsChild="+ isStudent);
+            return isStudent;
+        }
+        return false;
     }
 
 });
