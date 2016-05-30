@@ -5,7 +5,7 @@
         </div>
         {{#if Template.subscriptionsReady}}
         <div class="panel-body">
-            <p>{{_ "Admin.subscribeexistingnewsgroupsanduser" attributes=newsgroupSearchInputAttributes }}</p>
+            <p>{{_ "Admin.SubscribeNewsgroupsUser" attributes=newsgroupSearchInputAttributes }}</p>
             {{> EasySearch.Input index=newsgroupsIndex }}
             <span>{{totalSelectUserCount}} have been selected.</span>
             <br/>
@@ -13,13 +13,13 @@
             <div class="btn-group">
               <button class='btn btn-default select-all-users-btn'>{{_ "Admin.SelectAll" }}</button>
               <button class='btn btn-default deselect-all-users-btn'>{{_ "Admin.SelectNone" }}</button>
-              <button class='btn btn-default select-all-users-current-page-btn'>{{_ "Admin.SelectAllFromCurrentPage" }}</button>
-              <button class='btn btn-default deselect-all-users-current-page-btn'>{{_ "Admin.SelectNoneFromCurrentPage" }}</button>
+              <button class='btn btn-default select-all-users-current-page-btn'>{{_ "Admin.SelectAllCurrentPage" }}</button>
+              <button class='btn btn-default deselect-all-users-current-page-btn'>{{_ "Admin.SelectNoneCurrentPage" }}</button>
             </div>
             <br/>
             {{#if showOptions}}
                 <br/>
-                <button class='btn btn-danger remove-distribution-lists-btn'>{{_ "Admin.RemoveNewsgroup(s)" }}</button>                                                                                           
+                <button class='btn btn-danger remove-distribution-lists-btn'>{{_ "Admin.RemoveNewsgroup" }}</button>
             {{/if}}                     
             <div class="table-responsive">                
             <table class='table'>
@@ -33,10 +33,13 @@
                 </thead>
                 {{#EasySearch.Each index=newsgroupsIndex }}
                     <tr>
-                        <td><input {{isUserChecked _id}} type="checkbox" name="user" class='school-directory-user-checkbox' value="{{_id}}"/></td>
+                        <td><input {{isUserChecked _id}} type="checkbox" name="user"
+                                                         class='school-directory-user-checkbox' value="{{_id}}"/></td>
                         <td><a href="{{pathFor route='admin.newsgroups.view' data=routeData}}"> {{name}} </a></td>
                         <td>
-                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse-user-list-{{_id}}" aria-expanded="false" aria-controls="collapse-user-list-{{_id}}">
+                            <button class="btn btn-primary" type="button" data-toggle="collapse"
+                                    data-target="#collapse-user-list-{{_id}}"
+                                    aria-expanded="false" aria-controls="collapse-user-list-{{_id}}">
                             <i class="icon-user"></i> 
                             </button>                                
                             <ul class="collapse" id="collapse-user-list-{{_id}}">
