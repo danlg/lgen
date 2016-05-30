@@ -1,25 +1,25 @@
 <template name='SchoolSignupForm2'>
-      <form>
-      <div class="list">
 
+      <div class="list">
+        <form id='school-trial-account-create-page2'>
         <div class="item item-divider" style="text-align:center">One last step and you can enjoy the app ;-)</div>
         <div class=""><label class="item item-input">  </label></div>
         <div class="">
           {{_ "HowDidYouFind"}}
           <label class="item item-input">
-            <textarea rows="4"></textarea>
+            <textarea id='how-did-you-find' rows="4" required></textarea>
           </label>
         </div>
         <div class="">
           {{_ "WhichIssues"}}
           <label class="item item-input">
-            <textarea rows="4"></textarea>
+            <textarea id='which-issues' rows="4" required></textarea>
           </label>
         </div>
         <div class="">
           {{_ "HowSmartixExpect"}}
           <label class="item item-input">
-            <textarea rows="4"></textarea>
+            <textarea id='how-smartix-expect' rows="4" required></textarea>
           </label>
         </div>
 
@@ -29,7 +29,7 @@
             <input id='school-short-name' type="text" placeholder={{_ "PersonalDomainHelp" }} class="ln" required>.gosmartix.com
           </label>
         </div>
-                            
+        </form>
         <button type="button" class="button button-full button-positive start-my-trial-page2-btn">
           {{_ "StartFreeTrial"}}
         </button>
@@ -37,6 +37,7 @@
         <div class="" style="text-align:center; color:grey">
           {{_ "NoCreditCardRequired"}}
         </div>
+
       </div>
-      </form>
+
 </template>
