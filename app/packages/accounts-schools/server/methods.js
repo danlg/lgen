@@ -107,12 +107,11 @@ if(Meteor.isServer){
             
         },
         'smartix:accounts-schools/createParent': function (schoolName, parentObj, doNotifyEmail) {
-            
             check(schoolName, String);
             check(parentObj, Object);
             // doNotifyEmail is casted to a Boolean using `!!`
-            
             let namespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolName);
+            log.info("smartix:accounts-schools/createParent",!!doNotifyEmail);
             if(namespace) {
                 return Smartix.Accounts.School.createParentIndi(namespace, parentObj, this.userId, !!doNotifyEmail);
             } else {

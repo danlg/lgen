@@ -87,22 +87,20 @@ Smartix.Accounts.School.createParentsSchema = new SimpleSchema({
     },
     type: {
         type: String
-    },
-    
+    }
 });
 
 Smartix.Accounts.School.createParentIndi = function(namespace, parentObj, currentUser, doNotifyEmail) {
-    
     check(namespace, String);
-    
     Smartix.Accounts.School.createParentsSchema.clean(parentObj);
     check(parentObj, Smartix.Accounts.School.createParentsSchema);
-    
     check(currentUser, Match.Maybe(String));
     // Get the `_id` of the currently-logged in user
     if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
+    log.info("Smartix.Accounts.School.createParentIndi- doNotifyEmail",  doNotifyEmail);
+    log.info("Smartix.Accounts.School.createParentIndi- doNotifyEmail",  !!doNotifyEmail);
     let newUserObj = Smartix.Accounts.createUser(
         parentObj.email
         , {
@@ -118,17 +116,6 @@ Smartix.Accounts.School.createParentIndi = function(namespace, parentObj, curren
         , true
         , !!doNotifyEmail
     );
-    
-    
-    // let newUserId = Smartix.Accounts.School.createUser(namespace, {
-    //     profile: {
-    //         firstName: parentObj.firstName,
-    //         lastName: parentObj.lastName
-    //     },
-    //     email: parentObj.email,
-    //     roles: ['parent']
-    // })
-    
     let returnObj = Smartix.Accounts.Relationships.createRelationship({
         parent: newUserObj.id,
         child: parentObj.studentId,

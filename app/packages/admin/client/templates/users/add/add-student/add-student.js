@@ -78,18 +78,13 @@ Template.AdminAddStudent.events({
     },
     'click #AdminAddStudent__submit': function(event, template) {
         event.preventDefault();
-        
         let relCheckRes = checkAllRelationshipsAreValid(template);
-        
         if(!relCheckRes) {
             return false;
         }
-        
         // Create new object to store user info
         var newUserObj = {};
-        newUserObj.profile = {};
-        
-        // Get the first name and last name
+        newUserObj.profile = {};// Get the first name and last name
         newUserObj.profile.firstName = template.$('#AdminAddStudent__firstName').eq(0).val();
         newUserObj.profile.lastName = template.$('#AdminAddStudent__lastName').eq(0).val();
         
@@ -100,28 +95,18 @@ Template.AdminAddStudent.events({
         } else {
             newUserObj.dob = moment(new Date(template.$('#AdminAddStudent__dob').eq(0).val())).format('DD-MM-YYYY');
         }
-        
         // Retrieve Telephone Number
         newUserObj.tel = template.$('#AdminAddStudent__tel').intlTelInput("getNumber", intlTelInputUtils.numberFormat.E164);
-        
         // Retrieve the username, or generate one
         newUserObj.username = template.$('#AdminAddStudent__username').eq(0).val();
-        
         // Retrieve email
         var email = template.$('#AdminAddStudent__email').eq(0).val();
-        
         // Retrieve password
         newUserObj.password = template.$('#AdminAddStudent__password').eq(0).val();
-        
-        ////////////
         // CHECKS //
-        ////////////
-        
         // First Name, Last Name and DOB are required.
         // DOB were already checked above
-        
-        // If the first name or last name is not filled
-        // Throw an error as they are required fields
+        // If the first name or last name is not filledb throw an error as they are required fields
         if(!newUserObj.profile.firstName
         || !newUserObj.profile.lastName) {
             toastr.error(TAPi18n.__("requiredFields"));
@@ -141,20 +126,14 @@ Template.AdminAddStudent.events({
                 // Remove the email value
                 toastr.error("Please ensure the email provided is valid");
                 return false;
-                
             }
         } else {
-            
-            // Email is not present
-            // Check if a password is provided
-                
+            // Email is not present Check if a password is provided
             if(newUserObj.password.length < 4) {
                 toastr.error("Please provide an email or a password with at least 4 characters");
                 return false;
             }
         }
-        
-        
         check(newUserObj, {
             profile: Object,
             dob: String,
@@ -163,8 +142,7 @@ Template.AdminAddStudent.events({
 	        username: Match.Maybe(String)
         });
         
-        console.log(newUserObj);
-
+        //console.log(newUserObj);
         // Call the Meteor method to create the school user
         Meteor.call(
             'smartix:accounts-schools/createSchoolUser',
@@ -173,21 +151,20 @@ Template.AdminAddStudent.events({
             Template.instance().currentSchool,
             ['student'], // Roles
             true, // autoEmailVerified
+            //TODO implement flag like import to notify user in UI
+            false, // notify false (until we implement the flag for create user)
             function(err, res) {
                 if (!err) {
                     toastr.info(TAPi18n.__("admin.users.add.addSuccess"));
-                    
                     // User is created, now we submit each of the parents
-                    // Create the parent objects
-                    // It was already validated before, so should not throw an error
+                    // Create the parent objects , It was already validated before, so should not throw an error
                     createParents(res.id, template);
-                    
                     // Clears the input fields
                     template.$('.AdminAddStudent__input').val("");
                 } else {
-                    console.log(err);
+                    log.error(err);
                 }
             }
         );
     }
-})
+});
