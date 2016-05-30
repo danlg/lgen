@@ -9,6 +9,7 @@ Template.SchoolSignup.onCreated(function(){
    this.currentSchoolFormTemplate = new ReactiveVar('SchoolSignupForm');
    this.newSchoolId = new ReactiveVar('');
    this.previewSchoolLogoBlob = new ReactiveVar('');
+   this.previewSchoolBackgroundImageBlob = new ReactiveVar('');
 });
 
 Template.SchoolSignup.onRendered(function(){
@@ -24,6 +25,7 @@ Template.SchoolSignup.onRendered(function(){
 });
 
 Template.SchoolSignup.helpers({
+    
     getCurrentSchoolFormTemplate:function(){
       return Template.instance().currentSchoolFormTemplate.get();
     },
@@ -69,12 +71,44 @@ Template.SchoolSignup.helpers({
                 .device-preview-backdrop {
                     transition: background-color 0.5s ease;
                     background-color: ${schoolBackgroundColor};                         
-                }       
+                }
+                
+
+                .school-logo-wrapper .school-logo img{
+                    border: 3px solid ${schoolBackgroundColor};
+                }                          
             </style>
         `;
         
         return customStyle;
-    }
+    },
+    getSchoolLogoBackground:function(){
+        var customStyle;
+
+        //console.log('schoolBackgroundImageId',schoolBackgroundImageId);
+        //console.log(schoolLogoId);
+        if( Template.instance().previewSchoolBackgroundImageBlob.get() ){
+
+             customStyle = `
+                                <style>                        
+                                    .mobile-school-home-fake .school-logo-wrapper .school-logo-background{
+                                    background-image: url('${Template.instance().previewSchoolBackgroundImageBlob.get()}');
+                                    }                                                                    
+                                </style>
+                            `;
+        }else{
+             customStyle = `
+                                <style>                        
+                                    .mobile-school-home-fake .school-logo-wrapper .school-logo-background{
+                                    background-image: url('/packages/smartix_accounts/client/asset/graduation_ceremony_picture@1x.jpg');
+                                    }                                                                    
+                                </style>
+                            `;
+        }
+
+
+        return customStyle;
+    },   
        
 })
 
@@ -148,11 +182,11 @@ Template.SchoolSignup.events({
               
         },template.previewSchoolLogoBlob.get(),template.previewSchoolBackgroundImageBlob.get(),function(err,result){
             if(result){
-              //console.log('newSchoolId',result);
+              console.log('newSchoolId',result);
               template.newSchoolId.set(result);
               template.currentSchoolFormTemplate.set('SchoolSignupForm2');  
             }else{
-              //console.log('fail to create school');
+              console.log('fail to create school');
             }
         });
         
@@ -171,7 +205,6 @@ Template.SchoolSignup.events({
 
 
   },
-
   'click .start-my-trial-page2-btn':function(event,template){
         if ($('#school-trial-account-create-page2')[0].checkValidity()) {
             //checkValidity without form submission
