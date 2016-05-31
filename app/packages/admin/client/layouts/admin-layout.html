@@ -14,7 +14,12 @@
             <!--<img src='{{this.url}}'/>-->
             <!--{{/with}}-->
 
-            <img src="/img/carmel.png" alt="" class="schoolLogo">
+            {{#with existingSchoolLogo}}
+                <img  src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="schoolLogo" />                    
+            {{else}}
+                <img src="/img/android_xxhdpi.png" alt="" class="schoolLogo">
+            {{/with}}
+
             <span class="welcome_msg">{{_ "WelcomeTo"}} {{schoolName}}</span>
         </div>
     </div>

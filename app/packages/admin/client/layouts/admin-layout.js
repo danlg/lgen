@@ -83,6 +83,8 @@ Template.adminLayout.onCreated(function () {
     && Router.current().params.school) {
         this.subscribe('schoolInfo', Router.current().params.school);
     }
+    
+    this.subscribe('images'); 
 });
 
 Template.adminLayout.events({
@@ -144,7 +146,13 @@ Template.adminLayout.helpers({
         });
         
         return schoolDoc ? schoolDoc.name : '';
-    }
+    },
+    'existingSchoolLogo':function(){
+        var schoolDoc = SmartixSchoolsCol.findOne({
+            username: Router.current().params.school
+        });        
+        return Images.findOne(schoolDoc.logo);
+    },    
 });
 
 Template.registerHelper('currentUsername', function () {
