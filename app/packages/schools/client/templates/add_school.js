@@ -1,5 +1,4 @@
 Template.AddSchool.onCreated(function() {
-
     this.newSchoolLogo = new ReactiveVar("");        
     this.newSchoolBackgroundImage = new ReactiveVar("");           
 });
@@ -26,21 +25,19 @@ Template.AddSchool.helpers({
 Template.AddSchool.events({
     'change #school-logo': function(event, template) {
         var files = event.target.files;
-
         if (files.length > 0) {
             SmartixSchools.editLogo(files[0], template);
         }
     },
+    
     'change #school-background-image': function(event, template) {
         var files = event.target.files;
-
         if (files.length > 0) {
             SmartixSchools.editBackgroundImage(files[0], template);
         }
     },    
+    
     'click #edit-school-submit': function(event, template) {
-        
-        
         var newSchoolObj =
         { name: $("#name").val(),
           username: $("#username").val(),
@@ -56,12 +53,10 @@ Template.AddSchool.events({
               schoolTextColor: $("#school-text-color").val()
           } 
         };
-        
-        
         Meteor.call('smartix:schools/createSchool',newSchoolObj,function(err,result){
             if(err){
                 toastr.error(err.reason);
-                log.info(err);
+                log.error(err);
             }else{
                 toastr.info('create school success: you may sign out from system admin to continue');
                 toastr.info('initial admin:' + result.initialAdmin.username +' pw:' + result.initialAdmin.initialPassword);
@@ -69,7 +64,9 @@ Template.AddSchool.events({
             }
         } );
 
-    },'click .signOut': function () {
+    },
+    
+    'click .signOut': function () {
         log.info("logout:" + Meteor.userId());
         Meteor.logout(
         function (err) {
