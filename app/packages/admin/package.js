@@ -27,7 +27,6 @@ Package.onUse(function (api) {
   api.use('alanning:roles@1.2.15');
   api.use('easy:search@2.0.9');
   api.use('stevezhu:lodash@4.6.1');
-  api.use('malkesh:trumbowyg@0.0.1','client');
   
   api.use('smartix:lib@0.0.1');
   api.use('smartix:utilities@0.0.1');
@@ -355,6 +354,14 @@ Package.onUse(function (api) {
   api.addFiles('client/limitless/js/datatable_basic.js', 'web.browser');
   api.addFiles('client/limitless/js/app.js', 'web.browser');
 
+  api.addFiles('client/plugins/trumbowyg/ui/trumbowyg.css', ['web.browser']);
+  api.addAssets('client/plugins/trumbowyg/ui/images/icons.png', ['web.browser']);
+  api.addAssets('client/plugins/trumbowyg/ui/images/icons-2x.png', ['web.browser']);    
+  api.addFiles('client/plugins/trumbowyg/trumbowyg.js', ['web.browser']);
+  api.addFiles('client/plugins/trumbowyg/plugins/colors/ui/trumbowyg.colors.css', ['web.browser']);
+  api.addAssets('client/plugins/trumbowyg/plugins/colors/ui/images/icons.png', ['web.browser']);
+  api.addAssets('client/plugins/trumbowyg/plugins/colors/ui/images/icons-2x.png', ['web.browser']);    
+  api.addFiles('client/plugins/trumbowyg/plugins/colors/trumbowyg.colors.js', ['web.browser']);
 
  
   api.addFiles('client/plugins/intl-tel-input/js/intlTelInput.js', ['web.browser']);

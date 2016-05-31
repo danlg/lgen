@@ -31,7 +31,9 @@ Template.AdminNewsAdd.onCreated(function () {
 
 Template.AdminNewsAdd.onRendered(function(){
    
-  $('#addNews-content').trumbowyg(); 
+  $('#addNews-content').trumbowyg({
+     btnsAdd: ['foreColor', 'backColor']
+  }); 
 
 
     
