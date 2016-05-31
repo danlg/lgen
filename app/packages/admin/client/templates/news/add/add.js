@@ -70,7 +70,7 @@ Template.AdminNewsAdd.helpers({
 });
 
 checkNews = function(broadcastList){
-  if (broadcastList.size()===0 ) {
+  if (broadcastList.length < 1 ) {
     toastr.info('To send a news, please create at least one newsgroup first');
     return false;
   }
