@@ -230,11 +230,19 @@ Template.SchoolSignup.events({
                     firstName: SchoolTrialAccountCreationObj.user.userFirstName,
                     lastName: SchoolTrialAccountCreationObj.user.userLastName
                 }
-                , function () {
-                    toastr.info(
-                        'We have sent you an email to ' +SchoolTrialAccountCreationObj.user.userEmail +
-                        '. Open it to finish registration (please check also your Spam folder).');
-                    Router.go('LoginSplash');
+                , function (err,result) {
+                    
+                    if(err){
+                        if(err && err.error === 'short-name-taken'){
+                            toastr.info('school domain name has been taken. Please choose another one.')
+                        }
+                    }else{
+                        toastr.info(
+                            'We have sent you an email to ' +SchoolTrialAccountCreationObj.user.userEmail +
+                            '. Open it to finish registration (please check also your Spam folder).');
+                        Router.go('LoginSplash');                        
+                    }
+
                 });
         }else{
             var userAgent = window.navigator.userAgent;
