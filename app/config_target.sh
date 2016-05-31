@@ -9,31 +9,50 @@ cd lib/pushNotification
 #echo `pwd`
 config=$1".config.push"
 #ls -l $config
-echo "Copying " `pwd`/$config " -> " `pwd`/config.push.json
+echo "1. Configuring push notification"
+echo "   Copying " `pwd`/$config " -> " `pwd`/config.push.json
 cp -f $config config.push.json
 
 if [ $? -eq 0 ];
   then
-    echo "Config $1 push successfully set up"
+    echo "   Config $1 push successfully set up"
   else
-    echo "Config $1 push set up failed ***"
+    echo "   Config $1 push set up failed ***"
     exit 1
 fi
 
 cd ../..
-echo "Configuring mobile-config asset file icon for the app"
-
+echo ""
+echo "2. Configuring mobile-config asset file icon for the app"
+echo "   Copying " `pwd`/$mobile " -> " `pwd`/mobile-config.js
 mobile="mobile-config.js."$1
 #echo `pwd`
 #echo "mobile-config="$mobile
 #ls -l $mobile
-echo "Copying " `pwd`/$mobile " -> " `pwd`/mobile-config.js
+
 cp -f $mobile mobile-config.js
 
 if [ $? -eq 0 ];
   then
-    echo "Config $1 cordova successfully set up"
+    echo "   Config $1 cordova successfully set up"
   else
-    echo "Config $1 cordova set up failed ***"
+    echo "   Config $1 cordova set up failed ***"
+    exit 1
+fi
+
+#Preparing symbolic link for mup
+cd ../config/
+echo ""
+echo "3. Preparing symbolic link for mup - WARNING works only for UAT"
+echo "   Sym linking " `pwd`/mup.json " -> "  `pwd`/${1}u.mup.json
+echo "   Sym linking " `pwd`/settings.json " -> " `pwd`/${1}u.settings.json
+#echo "config="$1
+rm -f mup.json && rm -f settings.json
+ln -s ${1}u.mup.json mup.json && ln -s ${1}u.settings.json settings.json
+if [ $? -eq 0 ];
+  then
+    echo "   Config $1 sym link successfully set up"
+  else
+    echo "   Config $1 sym link set up failed ***"
     exit 1
 fi
