@@ -68,9 +68,9 @@
                </div>  
               {{/if}}                       
             <div class='col col-50'>
-               {{> afFieldInput name="firstName" placeholder=getFirstNamePlaceHolder value=profile.firstName }}
+               {{> afFieldInput name="profile.firstName" placeholder=getFirstNamePlaceHolder value=currentUserObj.profile.firstName }}
               <br/>
-               {{> afFieldInput name="lastName" placeholder=getLastNamePlaceHolder value=profile.lastName }}
+               {{> afFieldInput name="profile.lastName" placeholder=getLastNamePlaceHolder value=currentUserObj.profile.lastName }}
             </div>            
           </div>
 
@@ -79,7 +79,7 @@
           </label>
           <!--todo add country-->
           <label class="item item-input item-stacked-label">
-            {{> afFieldInput id='organization' name="organization" placeholder=getOrganizationPlaceHolder value=profile.organization  }}
+            {{> afFieldInput id='organization' name="organization" placeholder=getOrganizationPlaceHolder value=currentUserObj.organization  }}
           </label>
           <label>
               {{#if getSimilarOrganizations}}
@@ -93,21 +93,12 @@
           
           </label>
           <label class="item item-input item-stacked-label">
-            {{> afFieldInput id='city' name="city" placeholder=getCityPlaceHolder value=city  }}
-          </label>
-          <label>
-              {{#if getSimilarCities}}
-              Are you looking for:
-              {{/if}}
-              {{#each getSimilarCities}}
-               <label class="item item-input item-stacked-label suggestedCities">
-               {{this}}
-              </label>     
-              {{/each}}    
-          </label>          
+            {{> afFieldInput id='city' name="city" placeholder=getCityPlaceHolder value=currentUserObj.city  }}
+          </label>       
           <label class="item item-input item-stacked-label">
+            {{getCurrentCountry}}
             <div id='country-code-select'>
-            {{> afFieldInput type='select' name="country" firstOption="(Select a Country)" options=countriesWithValueOnly value=profile.country}}                
+            {{> afFieldInput type='select' name="country" firstOption="(Select a Country)" options=countriesWithValueOnly value=currentUserObj.country}}                
             </div>
           </label>
           <div class="item item-divider"> Roles </div>

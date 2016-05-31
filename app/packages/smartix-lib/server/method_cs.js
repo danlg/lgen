@@ -42,9 +42,10 @@ Meteor.methods({
     //console.log('profile/edit','only changes would be inputted',doc);
     var email = doc.email;
     doc = lodash.omit(doc, 'email')
-    Meteor.call('smartix:accounts/editUser', Meteor.userId(), {
-      profile: doc
-    });
+    //console.log('profile/edit doc:',doc);
+    var ModifiedDoc = lodash.merge(Meteor.user(), doc);
+    //console.log('profile/edit ModifiedDoc:',ModifiedDoc); 
+    Meteor.call('smartix:accounts/editUser', Meteor.userId(), ModifiedDoc);
     /*var email = doc.email;
      doc = lodash.omit(doc, 'email');
      var _id = Meteor.userId();

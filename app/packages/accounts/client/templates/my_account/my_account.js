@@ -4,7 +4,8 @@ var similarCities = ReactiveVar([]);
 
 Schema = Schema || {};
 
-Schema.editprofile = new SimpleSchema({
+/**  obsolete. use the one from account package instead **/
+/*Schema.editprofile = new SimpleSchema({
     firstName: {
         type: String
     },
@@ -24,7 +25,7 @@ Schema.editprofile = new SimpleSchema({
         type: String,
         optional: true
     }
-});
+});*/
 
 /*****************************************************************************/
 /* MyAccount: Event Handlers */
@@ -111,9 +112,9 @@ Template.MyAccount.helpers({
   , email: function () {
     return ( Meteor.user() && Meteor.user().emails) ? Meteor.user().emails[0].address : "";
   }
-  , editprofile: Schema.editprofile
-  , profile: function () {
-    return Meteor.user().profile;
+  , editprofile: Smartix.Accounts.editUserSchema
+  , currentUserObj: function () {
+    return Meteor.user();
   }
   , getFirstNamePlaceHolder: function(){
     return TAPi18n.__("FirstNamePlaceHolder");
@@ -163,6 +164,17 @@ Template.MyAccount.helpers({
   },
   userRoles: function () {
       return Roles.getRolesForUser(Meteor.userId(), Session.get('pickedSchoolId'));
+  },
+  getCurrentCountry:function(){
+      var countriesObj = CountryCodes.getList();
+      console.log(countriesObj);
+      var userCountry = Meteor.user().country;
+      if(userCountry){
+        // lodash.find(countriesObj,{})
+        return countriesObj[userCountry];
+      }else{
+        return 'Country'
+      }
   }
 
 });

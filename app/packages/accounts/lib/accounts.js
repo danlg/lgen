@@ -131,5 +131,28 @@ Smartix.Accounts.Schema = new SimpleSchema({
     classroom: {
         type: String,
         optional: true
+    },
+    country: {
+        type: String,
+        optional: true
+    },
+    organization: {
+        type: String,
+        optional: true
     }
 });
+
+//need to be shared between client(my_account page) and server
+//only the below fields can be updated by the user her/himself
+Smartix.Accounts.editUserSchema = Smartix.Accounts.Schema.pick([
+    'username',
+    'profile.firstName',
+    'profile.lastName',
+    'dob',
+    'city',
+    'lang',
+    'tel',
+    'profile.avatarValue',
+    'country',
+    'organization'
+]);

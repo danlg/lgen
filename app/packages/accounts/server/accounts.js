@@ -349,16 +349,7 @@ Smartix.Accounts.removeUser = function(userId, namespace, currentUser) {
     return true;
 };
 
-Smartix.Accounts.editUserSchema = Smartix.Accounts.Schema.pick([
-    'username',
-    'profile.firstName',
-    'profile.lastName',
-    'dob',
-    'city',
-    'lang',
-    'tel',
-    'profile.avatarValue'
-]);
+
 
 Smartix.Accounts.editUser = function(userId, options, currentUser) {
     log.info('Smartix.Accounts.editUser', options);
