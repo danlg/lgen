@@ -44,7 +44,7 @@
                 <a href="{{pathFor route='newsgroups.news.view' msgid=_id}}" class='slide-box-bg ion-slide' data-msg-id='{{_id}}'>
                     <div class='content'>
                     <b>{{data.title}}</b>
-                    <div style=' white-space: nowrap; overflow:hidden;text-overflow:ellipsis;width:100vw;'>{{data.content}}</div>
+                    <div style=' white-space: nowrap; overflow:hidden;text-overflow:ellipsis;width:100vw;'>{{{data.content}}}</div>
                     <div>{{formatDate createdAt}}</div>
                     <div>Read More</div>                    
                     </div>
