@@ -1,71 +1,56 @@
 {
   "name": "littlegenius",
   "scripts": {
-
     "clean-build": "rm -rf ../build",
     "clean-local": "./clean_build.sh",
-
-    "localdev" : "meteor run --settings ../config/dev.settings.json",
-    "localdev-ssl" : "export MONGO_URL=mongodb://127.0.0.1:28888/littlegenius && meteor --settings ../config/dev.settings.json",
-    "localdev-ssl-prd-beware" : "export MONGO_URL=mongodb://127.0.0.1:29999/littlegenius && meteor --settings ../config/dev.settings.json",
-    "localdev-clean" : "./clean_build.sh && meteor -v --settings ../config/dev.settings.json",
-
+    "localdev": "meteor run --settings ../config/dev.settings.json",
+    "localdev-ssl": "export MONGO_URL=mongodb://127.0.0.1:28888/littlegenius && meteor --settings ../config/dev.settings.json",
+    "localdev-ssl-prd-beware": "export MONGO_URL=mongodb://127.0.0.1:29999/littlegenius && meteor --settings ../config/dev.settings.json",
+    "localdev-clean": "./clean_build.sh && meteor -v --settings ../config/dev.settings.json",
     "ios-local": "meteor run ios --settings ../config/dev.settings.json --mobile-server=http://localhost:3000",
     "ios-local-clean": "./clean_build.sh && meteor run ios --settings ../config/dev.settings.json --mobile-server=http://localhost:3000",
     "ios-device-local": "./clean_build.sh && meteor run ios-device -v --settings ../config/dev.settings.json --mobile-server=http://localhost:3000",
-
     "ios-uat": "./clean_build.sh && meteor run ios --settings ../config/smartixu.settings.json --mobile-server=https://uat.gosmartix.com -p 4000",
-    "ios-device-uat"    : "./clean_build.sh && ./config_target.sh smartix && meteor run ios-device --settings ../config/smartixu.settings.json --mobile-server=https://uat.gosmartix.com -p 4000",
+    "ios-device-uat": "./clean_build.sh && ./config_target.sh smartix && meteor run ios-device --settings ../config/smartixu.settings.json --mobile-server=https://uat.gosmartix.com -p 4000",
     "ios-device-carmelu": "./clean_build.sh && ./config_target.sh carmel  && meteor run ios-device --production --settings ../config/carmelu.settings.json --mobile-server=https://carmelu.gosmartix.com -p 4000",
     "ios-device-devhcp": "./clean_build.sh && meteor run ios-device  --production --settings ../config/devhcp.settings.json --mobile-server=https://devhcp.gosmartix.com -p 4000",
     "ios-device-prd-carmel": "./clean_build.sh && ./config_target.sh carmel && NODE_ENV=production meteor run ios-device --production --settings ../config/carmel.settings.json --mobile-server=https://carmel.gosmartix.com -p 5000",
-
     "ios-prd": "./clean_build.sh && NODE_ENV=production meteor run ios -v --settings ../config/smartix.settings.json --mobile-server=https://app.gosmartix.com -p 5000",
     "ios-device-prd": "./clean_build.sh && ./config_target.sh smartix && NODE_ENV=production meteor run -v ios-device --settings ../config/smartix.settings.json --mobile-server=https://app.gosmartix.com -p 5000",
-
     "build-apk": "./build-android.sh $1 https://app.gosmartix.com",
     "build-apk-carmel": "./build-android.sh $1 https://carmel.gosmartix.com",
     "sign-apk": "./sign-android.sh $1",
-
     "android-local": "./clean_build.sh && meteor run android --settings ../config/dev.settings.json --mobile-server=http://10.0.2.2:3000",
     "android": "meteor run android --settings ../config/smartixu.settings.json --mobile-server=https://uat.gosmartix.com",
     "android-device": "meteor run android-device --settings ../config/smartixu.settings.json --mobile-server=https://uat.gosmartix.com",
     "android-device-carmelu": "meteor run android-device --settings ../config/carmelu.settings.json --mobile-server=https://carmelu.gosmartix.com",
-
     "runlocal-android-emulator": "meteor run android -v --settings ../config/dev.settings.json",
     "build-example": "NODE_ENV=production VULCANIZE=true meteor build ../myapp-dist --server=https://api.myapp.com/ --mobile-settings settings-production.json",
-
-    "build-uat":  "rm -rf ../build && meteor build ../build  --mobile-settings=../config/smartixu.settings.json --server=https://uat.gosmartix.com",
-    "build-uat2":  "meteor build .meteor/local -v --mobile-settings=../config/smartixu.settings.json --server=https://uat.gosmartix.com",
-    "build-carmel":  "rm -rf ../build && meteor build ../build --server-only  --architecture os.linux.x86_64 --mobile-settings=../config/carmel.settings.json --server=https://carmel.gosmartix.com",
-
-    "deploy-ko":  "cd ../dist && scp app.tar.gz lg@uat.gosmartix.com:~/app && ssh lg@uat.gosmartix.com \"cd app && tar xzvf app.tar.gz\"",
-
+    "build-uat": "rm -rf ../build && meteor build ../build  --mobile-settings=../config/smartixu.settings.json --server=https://uat.gosmartix.com",
+    "build-uat2": "meteor build .meteor/local -v --mobile-settings=../config/smartixu.settings.json --server=https://uat.gosmartix.com",
+    "build-carmel": "rm -rf ../build && meteor build ../build --server-only  --architecture os.linux.x86_64 --mobile-settings=../config/carmel.settings.json --server=https://carmel.gosmartix.com",
+    "deploy-ko": "cd ../dist && scp app.tar.gz lg@uat.gosmartix.com:~/app && ssh lg@uat.gosmartix.com \"cd app && tar xzvf app.tar.gz\"",
     "deploy-uat-debug": "./clean_build.sh && cd ../config && mup deploy --config=smartixu.mup.json --settings=smartixu.settings.json",
     "config-target-smartix": "./config_target.sh smartix",
-    "config-target-carmel" : "./config_target.sh carmel",
-
-    "deploy-uat"    : "./clean_build.sh && ./config_target.sh smartix && cd ../config && NODE_ENV=production mup deploy --config=smartixu.mup.json --settings=smartixu.settings.json",
+    "config-target-carmel": "./config_target.sh carmel",
+    "deploy-uat": "./clean_build.sh && ./config_target.sh smartix && cd ../config && NODE_ENV=production mup deploy --config=smartixu.mup.json --settings=smartixu.settings.json",
     "deploy-carmelu": "./clean_build.sh && ./config_target.sh carmel  && cd ../config && NODE_ENV=production mup deploy --config=carmelu.mup.json --settings=carmelu.settings.json",
-
     "deploy-devhcp": "./clean_build.sh && cd ../config && NODE_ENV=production mup deploy --config=devhcp.mup.json --settings=devhcp.settings.json",
-
-    "deploy-prd"   : "./clean_build.sh && cd ../config && NODE_ENV=production mup deploy --config=smartix.mup.json --settings=smartix.settings.json",
+    "deploy-prd": "./clean_build.sh && cd ../config && NODE_ENV=production mup deploy --config=smartix.mup.json --settings=smartix.settings.json",
     "deploy-carmel": "./clean_build.sh && cd ../config && NODE_ENV=production mup deploy --config=carmel.mup.json --settings=carmel.settings.json",
-
-    "setup"    : "cd ../config && DEBUG=* mup setup   --config=smartixu.mup.json --settings=smartixu.settings.json",
-    "stop"     : "cd ../config && DEBUG=* mup stop   --config=smartixu.mup.json --settings=smartixu.settings.json",
-    "restart"  : "cd ../config && DEBUG=* mup restart   --config=smartixu.mup.json --settings=smartixu.settings.json",
-    "reconfig"         : "cd ../config && DEBUG=* mup reconfig  --config=smartixu.mup.json --settings=smartixu.settings.json",
-    "reconfig-carmelu" : "cd ../config && DEBUG=* mup reconfig  --config=carmelu.mup.json --settings=carmelu.settings.json",
-    "logs"     : "cd ../config && DEBUG=* mup logs  ",
-
+    "setup": "cd ../config && DEBUG=* mup setup   --config=smartixu.mup.json --settings=smartixu.settings.json",
+    "stop": "cd ../config && DEBUG=* mup stop   --config=smartixu.mup.json --settings=smartixu.settings.json",
+    "restart": "cd ../config && DEBUG=* mup restart   --config=smartixu.mup.json --settings=smartixu.settings.json",
+    "reconfig": "cd ../config && DEBUG=* mup reconfig  --config=smartixu.mup.json --settings=smartixu.settings.json",
+    "reconfig-carmelu": "cd ../config && DEBUG=* mup reconfig  --config=carmelu.mup.json --settings=carmelu.settings.json",
+    "logs": "cd ../config && DEBUG=* mup logs  ",
     "listplugins": "ls -lrt .meteor/local/cordova-build/plugins"
-   },
+  },
   "dependencies": {
-    "meteor-node-stubs": "^0.2.3",
-    "xlsx": "^0.8.0",
     "jszip": "^3.0.0",
-    "log4js": "^0.6.29"
+    "log4js": "^0.6.29",
+    "meteor-node-stubs": "^0.2.3",
+    "trumbowyg": "^2.1.0",
+    "xlsx": "^0.8.0"
   }
 }

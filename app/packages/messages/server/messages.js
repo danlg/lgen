@@ -64,6 +64,9 @@ Smartix.Messages.cleanAndValidate = function (message) {
 };
 
 Smartix.Messages.createMessage = function (groupId, messageType, data, addons, isPush, currentUser) {
+    
+    var cheerio = Npm.require('cheerio');
+    
     log.info('Smartix.Messages.createMessage',groupId,messageType,data,addons, isPush);
     check(groupId, String);
     check(messageType, String);
@@ -167,12 +170,15 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
                 messageCreateTimestamp: message.createdAt,
                 messageCreateByUserId: currentUser
             },function(){
-                if(meteorUser) {
-                        //3. send push notification and in-app notification
+                if(meteorUser) { 
+                    //3. send push notification and in-app notification
+                    
+                    $ = cheerio.load(message.data.content);               
+                    //console.log('cheerioWithhtmlText',$('*').text());                   
                     var notificationObj = {
                         from : Smartix.helpers.getFullNameByProfileObj(meteorUser.profile),
                         title : Smartix.helpers.getFullNameByProfileObj(meteorUser.profile),
-                        text: message.data.content || "",
+                        text: $('*').text() || "",
                         payload:{
                             type: group.type,
                             groupId: groupId

@@ -10,6 +10,10 @@ Package.describe({
   documentation: 'README.md'
 });
 
+Npm.depends({
+  cheerio: "0.20.0",
+});
+
 Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
   api.use('ecmascript');
