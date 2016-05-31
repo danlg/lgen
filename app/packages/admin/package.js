@@ -353,7 +353,9 @@ Package.onUse(function (api) {
   api.addFiles('client/limitless/js/extra_fab.js', 'web.browser');
   api.addFiles('client/limitless/js/datatable_basic.js', 'web.browser');
   api.addFiles('client/limitless/js/app.js', 'web.browser');
-
+  
+  /** add trumbowyg plugin **/
+  /** adapt from Trumbowyg tag 1.17 https://github.com/Alex-D/Trumbowyg/tree/1.1.7/dist **/
   api.addFiles('client/plugins/trumbowyg/ui/trumbowyg.css', ['web.browser']);
   api.addAssets('client/plugins/trumbowyg/ui/images/icons.png', ['web.browser']);
   api.addAssets('client/plugins/trumbowyg/ui/images/icons-2x.png', ['web.browser']);    
@@ -362,7 +364,7 @@ Package.onUse(function (api) {
   api.addAssets('client/plugins/trumbowyg/plugins/colors/ui/images/icons.png', ['web.browser']);
   api.addAssets('client/plugins/trumbowyg/plugins/colors/ui/images/icons-2x.png', ['web.browser']);    
   api.addFiles('client/plugins/trumbowyg/plugins/colors/trumbowyg.colors.js', ['web.browser']);
-
+ /** add trumbowyg plugin ends**/
  
   api.addFiles('client/plugins/intl-tel-input/js/intlTelInput.js', ['web.browser']);
   api.addFiles('client/plugins/intl-tel-input/js/utils.js', ['web.browser']);
