@@ -17,3 +17,19 @@ SmartixSchools.editLogo = function(filePath,template) {
         }
     });
 };
+
+SmartixSchools.editBackgroundImage = function(filePath,template) {
+    
+    Images.insert(filePath, function(err, fileObj) {
+        if (err) log.error(err);
+        else {
+            log.info(fileObj);
+            
+            //if there is a reactiveVar named newSchoolBackgroundImage
+            if(template && template.newSchoolBackgroundImage){
+                template.newSchoolBackgroundImage.set(fileObj._id);
+            }
+                    
+        }
+    });
+};

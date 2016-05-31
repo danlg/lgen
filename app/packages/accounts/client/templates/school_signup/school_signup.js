@@ -88,6 +88,7 @@ Template.SchoolSignup.helpers({
         //console.log('schoolBackgroundImageId',schoolBackgroundImageId);
         //console.log(schoolLogoId);
         if( Template.instance().previewSchoolBackgroundImageBlob.get() ){
+
              customStyle = `
                                 <style>                        
                                     .mobile-school-home-fake .school-logo-wrapper .school-logo-background{
@@ -104,30 +105,30 @@ Template.SchoolSignup.helpers({
                                 </style>
                             `;
         }
+
+
         return customStyle;
-    }
-});
+    },   
+       
+})
 
 Template.SchoolSignup.events({
   'keyup .school-name':function(event,template){
     template.mySchoolName.set(     $(event.target).val()  );
  
   },
-    
   'click .role-selection':function(event,template){
       //$(event.target).data('role');
       $(".role-selection").removeClass('chosen-role');
       $(event.currentTarget).addClass('chosen-role');          
       template.chosenRole.set($(event.currentTarget).data('role'));
   },
-    
   'click .number-of-student-selection':function(event,template){
       //$(event.target).data('role');
       $(".number-of-student-selection").removeClass('chosen-number-of-student');
       $(event.currentTarget).addClass('chosen-number-of-student');          
       template.chosenNumberOfStudent.set($(event.currentTarget).data('number'));
   },
-    
   'click .start-my-trial-btn':function(event,template){
       //TODO: really pass data to page 2 , form input checking
       var school = {};
@@ -152,52 +153,59 @@ Template.SchoolSignup.events({
                 email:user.userEmail,
                 howManyStudents: school.schoolNumberOfStudent
       };      
-      //console.log('school',school);
-      //console.log('user',user);
-      //console.log('lead',lead);
+      console.log('school',school);
+      console.log('user',user);
+      console.log('lead',lead);
       var SchoolTrialAccountCreationObj = {school: school, user: user};
+      
       //http://stackoverflow.com/questions/11866910/how-to-force-a-html5-form-validation-without-submitting-it-via-jquery
       if($('#school-trial-account-create')[0].checkValidity()){
         //checkValidity without form submission
         event.preventDefault();
+        
         Session.set('schoolTrialAccountCreation',SchoolTrialAccountCreationObj);
-        Meteor.call('smartix:schools/createSchoolTrial',
-            {
-	            name : school.schoolFullName,
-	            logo : '',
-	            tel  : '',
-	            web  : '',
-	            email: user.userEmail,
-	            country: school.schoolCountry ,
-	            city:    school.schoolCity,
-	            preferences:{
-	                schoolBackgroundColor: school.schoolBackgroundColor,
-	                schoolTextColor:       school.schoolTextColor 
-	            },
-	            lead: lead
-             }
-            , template.previewSchoolLogoBlob.get()
-            , template.previewSchoolBackgroundImageBlob.get(),function(err,result){
+        
+        console.log('call smartix:schools/createSchoolTrial');
+        Meteor.call('smartix:schools/createSchoolTrial',{
+            
+            name : school.schoolFullName ,
+            logo : '',
+            tel  : '',
+            web  : '',
+            email: user.userEmail,
+            country: school.schoolCountry ,
+            city:    school.schoolCity,
+            preferences:{
+                schoolBackgroundColor: school.schoolBackgroundColor,
+                schoolTextColor:       school.schoolTextColor 
+            },
+            lead: lead
+              
+        },template.previewSchoolLogoBlob.get(),template.previewSchoolBackgroundImageBlob.get(),function(err,result){
             if(result){
-              log.info('newSchoolId',result);
+              console.log('newSchoolId',result);
               template.newSchoolId.set(result);
               template.currentSchoolFormTemplate.set('SchoolSignupForm2');  
             }else{
-              log.error('Failed to create school',school.schoolFullName);
+              console.log('fail to create school');
             }
         });
-      }
-      else{
+        
+           
+      }else{
           var userAgent = window.navigator.userAgent;
           if( userAgent.match(/Safari/i)  && !userAgent.match(/Chrome/i) ){
              toastr.info('Please complete the form');
              event.preventDefault();
           }
-          $('#school-trial-account-create').addClass('invalid');
-          //log.warn('Form incomplete');
+
+          $('#school-trial-account-create').addClass('invalid'); 
+          console.log('not valid form');
       }
+      
+
+
   },
-    
   'click .start-my-trial-page2-btn':function(event,template){
         if ($('#school-trial-account-create-page2')[0].checkValidity()) {
             //checkValidity without form submission
@@ -238,33 +246,50 @@ Template.SchoolSignup.events({
             $('#school-trial-account-create-page2').addClass('invalid');
             console.log('not valid form');
         }
-    },
 
-    'change #school-background-color-picker-polyfill': function (event, template) {
-        template.inputBackgroundColor.set($(event.target).val());
-    },
+  },
+  'change #school-background-color-picker-polyfill': function (event, template) {
 
-    'change #school-logo': function (event, template) {
-        var files = event.target.files;
-        if (files.length > 0) {
+      template.inputBackgroundColor.set($(event.target).val());
+
+  },
+  'change #school-logo': function (event, template) {
+      var files = event.target.files;
+
+      if (files.length > 0) {
             var reader = new FileReader();
             reader.onload = function (readerEvent) {
-                //console.log(readerEvent);
+                console.log(readerEvent);
                 // get loaded data and render thumbnail.
+                
                 document.getElementById("school-logo-preview").src = readerEvent.currentTarget.result;
                 template.previewSchoolLogoBlob.set( readerEvent.currentTarget.result );
             };
             // read the image file as a data URL.
             reader.readAsDataURL(files[0]);
-        }
-    },
+      }
+  },
+  'change #school-background-image': function (event, template) {
+      var files = event.target.files;
 
-    'click #person-sign-up':function(event,template){
-        template.currentSchoolFormTemplate.set('EmailSignupForm');
-    }
+      if (files.length > 0) {
+            var reader = new FileReader();
+            reader.onload = function (readerEvent) {
+                console.log(readerEvent);
+                // get loaded data and render thumbnail.
+                
+                template.previewSchoolBackgroundImageBlob.set( readerEvent.currentTarget.result );
+            };
+            // read the image file as a data URL.
+            reader.readAsDataURL(files[0]);
+      }
+  },
+  'click #person-sign-up':function(event,template){
+    template.currentSchoolFormTemplate.set('EmailSignupForm'); 
+  }  
 });
 
 
 function hasHtml5Validation () {
-    return typeof document.createElement('input').checkValidity === 'function';
+  return typeof document.createElement('input').checkValidity === 'function';
 }

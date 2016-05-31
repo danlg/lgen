@@ -12,8 +12,8 @@ SchoolsSchema = new SimpleSchema({
    }
    , logo:{ type:String, optional : true
    }
-   , tel:{ type:String, optional : true
-   }
+   ,backgroundImage:{type : String, optional:true}
+   ,tel:{ type:String, optional : true}
    , web:{ type:String, optional : true //URL
    }
    , email:{ type:String

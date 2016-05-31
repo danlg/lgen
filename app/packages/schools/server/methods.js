@@ -141,6 +141,7 @@ Meteor.methods({
                     name: options.name,
                     username: options.username,
                     logo: options.logo,
+                    backgroundImage: options.backgroundImage,
                     tel: options.tel,
                     web: options.web,
                     email: options.email,

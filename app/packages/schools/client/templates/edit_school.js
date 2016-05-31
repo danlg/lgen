@@ -1,7 +1,8 @@
 Template.EditSchool.onCreated(function() {
 
     this.newSchoolLogo = new ReactiveVar("");
-
+    this.newSchoolBackgroundImage = new ReactiveVar("");
+    
     var self = this;
     if(Router.current()
     && Router.current().params
@@ -22,12 +23,23 @@ Template.EditSchool.helpers({
     'existingSchoolLogo':function(){
         return Images.findOne(this.logo);
     },
+    'existingSchoolBackgroundImage':function(){
+        return Images.findOne(this.backgroundImage);
+    },    
     uploadedSchoolLogoId: function() {
         var newSchoolLogoId = Template.instance().newSchoolLogo.get();
         return newSchoolLogoId;
     },
     uploadedSchoolLogo: function() {
         var newSchoolLogoId = Template.instance().newSchoolLogo.get();
+        return Images.find(newSchoolLogoId);
+    },    
+    uploadedSchoolBackgroundImageId: function() {
+        var newSchoolLogoId = Template.instance().newSchoolBackgroundImage.get();
+        return newSchoolLogoId;
+    },
+    uploadedSchoolBackgroundImage: function() {
+        var newSchoolLogoId = Template.instance().newSchoolBackgroundImage.get();
         return Images.find(newSchoolLogoId);
     },
     getSchoolObj: function(){
@@ -50,6 +62,13 @@ Template.EditSchool.events({
             SmartixSchools.editLogo(files[0], template);
         }
     },
+    'change #school-background-image': function(event, template) {
+        var files = event.target.files;
+
+        if (files.length > 0) {
+            SmartixSchools.editBackgroundImage(files[0], template);
+        }
+    },    
     'click #edit-school-submit': function(event, template) {
         
         
@@ -58,6 +77,7 @@ Template.EditSchool.events({
           name: $("#name").val(),
           username: $("#username").val(),
           logo: template.newSchoolLogo.get() || $('existing-school-logo').data('existingSchoolLogoId'), 
+          backgroundImage: template.newSchoolBackgroundImage.get() || $('existing-school-background-image').data('existingSchoolBackgroundImageId'), 
           tel: $("#tel").val(),
           web: $("#web").val(),
           email: $("#email").val(),
