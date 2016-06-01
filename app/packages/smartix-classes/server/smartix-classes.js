@@ -204,7 +204,7 @@ Smartix.Class.editClass = function(classId, options, currentUser) {
     // * Admin for the school (namespace) specified
     // * One of the admins for the class
 
-    if (!canEditClass(classId, currentUser)) {
+    if (!Smartix.Class.canEditClass(classId, currentUser)) {
         log.warn('no right to edit class from'+ currentUser);
         return false;
         // Optional: Throw an appropriate error if not
