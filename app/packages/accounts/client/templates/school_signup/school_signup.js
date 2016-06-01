@@ -279,7 +279,55 @@ Template.SchoolSignup.events({
 
     'click #person-sign-up':function(event,template){
         template.currentSchoolFormTemplate.set('EmailSignupForm');
-    }
+    },
+
+    'click .individual-create-btn': function(event, template) {
+        var userObj = {};
+        userObj.profile = {};
+        var email = $(".email").val();
+        var password = $(".password").val();
+        
+        if(password.length < 4) {
+           toastr.error("At least 4 characters Password");
+        }
+        userObj.password = password;
+        
+        userObj.profile.firstName = $(".fn").val();
+        userObj.profile.lastName = $(".ln").val();
+        userObj.dob = $("#dobInput").val() || "";
+
+        if (!Smartix.helpers.validateEmail(email)) {
+            toastr.error("Incorrect Email");
+        } else {
+            Meteor.call('smartix:accounts/createUser', email, userObj, 'global', ['user'], function(err, res) {
+                if (err) {
+                    toastr.error(err.reason);
+                    log.error(err);
+                } else {
+                    //create User successfully
+                    analytics.track("Sign Up", {
+                        date: new Date(),
+                        email: userObj.email,
+                        verified: false
+                    });
+                    
+                    Meteor.loginWithPassword(email,password,function(err){
+                        if(err){
+                            toastr.error('Sign up fail. The email is already taken');
+                        }else{
+                            toastr.info(TAPi18n.__("WelcomeVerification"));
+                            log.info("login:meteor:" + Meteor.userId());
+                            Smartix.helpers.routeToTabClasses();                            
+                        }
+                    });
+                }
+
+            });
+        }
+    },
+    'click .individual-google-login-btn':function(event, template) {
+        Smartix.Accounts.registerOrLoginWithGoogle();
+    }     
 });
 
 
