@@ -94,7 +94,7 @@ var clearForm = function (index, broadcastList, sentToNewgroupNames, template) {
     if( (index + 1) === broadcastList.length) {
         
         // Clear form values
-        $('#addNews-title').val("");
+        // $('#addNews-title').val("");
         $('#addNews-content').val("");
         
         template.imageArr.set([]); 
@@ -195,8 +195,8 @@ Template.AdminNewsAdd.events({
         }else{
            template.showCalendarForm.set(true);
         }
-       
-        //TODO: change to Bootstrap equvialent implementation
+        
+                //TODO: change to Bootstrap equvialent implementation
         /*
         IonPopup.show({
         title: 'Set a calendar event',
@@ -246,7 +246,10 @@ Template.AdminNewsAdd.events({
             
         });
        showPreview("document");
-    }     
+    },
+    'click .reset-title':function(event,template){
+        $('#addNews-title').val("");
+    }   
 });
 
 function showPreview(filetype){
