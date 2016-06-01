@@ -71,7 +71,7 @@ Package.onUse(function(api) {
 
     api.addAssets(['client/asset/iphone6s-plus-silver-vertical.png',
                    'client/asset/graduation_ceremony_picture@1x.jpg',
-                   'client/asset/sample-school-logo.svg'],'client');
+                   'client/asset/hbs_logo.svg'],'client');
                    
     api.addFiles(['lib/vendor/spectrum/spectrum.js',
                   'lib/vendor/spectrum/spectrum.css'],'client');
@@ -79,12 +79,9 @@ Package.onUse(function(api) {
         'client/templates/school_signup/school_signup.html',
         'client/templates/school_signup/school_signup.js',
         'client/templates/school_signup/school_signup.css',
-        
         'client/templates/school_signup/school_signup_form.html',
-        'client/templates/school_signup/school_signup_form.js', 
-              
-        'client/templates/school_signup/school_signup_form2.html' 
-                        
+        'client/templates/school_signup/school_signup_form.js',
+        'client/templates/school_signup/school_signup_form2.html'
     ], 'client');
     
     api.addFiles([
