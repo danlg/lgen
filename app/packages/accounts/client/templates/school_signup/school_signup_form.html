@@ -33,13 +33,25 @@
         .sp-replacer{border:initial;}          
         </style>
         <input type="color" id='school-background-color-picker-polyfill' />
+
         <span style='font-size:x-small;'>{{_ "schools.Schoollogo" }} ({{_ "Optional" }})</span>
         <label class='btn' for="school-logo"><i class="icon ion-image"></i></label>
         <input id='school-logo' class='inputfile' type="file" name="school-logo" accept="image/*" >
+
+        <!--<label class='btn' for="school-background-image">-->
+          <!--<span style='font-size:x-small;'>Background ({{_ "Optional" }})</span>-->
+          <!--<i class="icon ion-image"></i>-->
+        <!--</label>-->
         <span style='font-size:x-small;'>Background ({{_ "Optional" }})</span>
         <label class='btn' for="school-background-image"><i class="icon ion-image"></i></label>
         <input id='school-background-image' class='inputfile' type="file" name="school-background-image" accept="image/*" >
-        <label class='btn reset-color-and-logos'><i class="icon ion-android-cancel"></i></label>        
+
+        <!--<span style='font-size:x-small;'> {{_ "Reset" }}</span>-->
+        <!--<label class='btn reset-color-and-logos' style='font-size:x-small;text-transform:capitalize'>-->
+        <label class='reset-color-and-logos' style='font-size:x-small;text-transform:capitalize'>
+          {{_ "Reset" }}
+          <!--<i class="icon ion-android-cancel"></i>-->
+        </label>
       </label>
     </div>
 
