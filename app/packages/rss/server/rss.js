@@ -35,17 +35,21 @@ Smartix.Rss.linkRssWithGroups = function (namespace, name, url, selectedNewsgrou
             newsgroups: selectedNewsgroups
         }
     });
-}
+};
 
 Smartix.Rss.removeLink = function (namespace, url) {
-    
     // TODO - check permissions
-    
+    log.info("Removing RSS", namespace, url);
     Smartix.Rss.FeedGroupLinks.remove({
         namespace: namespace,
         url: url
     });
-}
+    //TODO BETTER clean up RSS are still processed even after removed!
+    //we do not want to remove RSS in feeds in case the RSS is mapped to multiple newsgroup though
+    // Smartix.Rss.Feeds.remove({
+    //     _id: url
+    // });
+};
 
 Smartix.Rss.getNewsgroupsOfFeed = function (feedId) {
     let feedObj = Smartix.Rss.FeedGroupLinks.findOne({
