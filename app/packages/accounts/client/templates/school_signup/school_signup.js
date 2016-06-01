@@ -276,7 +276,13 @@ Template.SchoolSignup.events({
             reader.readAsDataURL(files[0]);
         }
     },
-
+    'click .reset-color-and-logos':function(event, template) {
+        template.inputBackgroundColor.set('#811719');
+        template.inputTextColor.set('#FFFFFF');
+        template.previewSchoolLogoBlob.set('');
+        template.previewSchoolBackgroundImageBlob.set(''); 
+        document.getElementById("school-logo-preview").src = '/packages/smartix_accounts/client/asset/sample-school-logo.svg';
+    } , 
     'click #person-sign-up':function(event,template){
         template.currentSchoolFormTemplate.set('EmailSignupForm');
     },
