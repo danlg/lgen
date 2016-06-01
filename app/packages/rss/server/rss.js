@@ -1,10 +1,10 @@
 Smartix = Smartix || {};
 Smartix.Rss = Smartix.Rss || {};
 
-Smartix.Rss.linkRssWithGroups = function (namespace, name, url, selectedNewgroups, currentUser) {
+Smartix.Rss.linkRssWithGroups = function (namespace, name, url, selectedNewsgroups, currentUser) {
     
     check(url, String);
-    check(selectedNewgroups, [String]);
+    check(selectedNewsgroups, [String]);
     
     // TODO - Checks permissions
     
@@ -32,7 +32,7 @@ Smartix.Rss.linkRssWithGroups = function (namespace, name, url, selectedNewgroup
     }, {
         $set: {
             name: name,
-            newsgroups: selectedNewgroups
+            newsgroups: selectedNewsgroups
         }
     });
 }

@@ -2,7 +2,7 @@ Smartix = Smartix || {};
 
 Smartix.Newsgroup = Smartix.Newsgroup || {};
 
-Smartix.Newsgroup.getNewsGroupOfUser = function (id) {
+Smartix.Newsgroup.getNewsgroupOfUser = function (id) {
 	if(Match.test(id, String)) {
 		// Ensures `id` points to an existing user
 		id = !!Meteor.users.findOne({_id: id}) ? id : undefined;
