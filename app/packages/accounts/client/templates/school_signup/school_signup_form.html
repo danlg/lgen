@@ -1,4 +1,14 @@
 <template name='SchoolSignupForm'>
+    <style>
+        .inputfile {
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
+        }
+    </style>  
   <form id='school-trial-account-create'>
     <div class="item item-divider" style="text-align:center">
       {{_ "SignUpMotto1"}}
@@ -24,9 +34,11 @@
         </style>
         <input type="color" id='school-background-color-picker-polyfill' />
         <span style='font-size:x-small;'>{{_ "schools.Schoollogo" }} ({{_ "Optional" }})</span>
-        <input id='school-logo' type="file" name="school-logo" accept="image/*" style='width:70px;'>
+        <label class='btn' for="school-logo"><i class="icon ion-image"></i></label>
+        <input id='school-logo' class='inputfile' type="file" name="school-logo" accept="image/*" >
         <span style='font-size:x-small;'>Background ({{_ "Optional" }})</span>
-        <input id='school-background-image' type="file" name="school-logo" accept="image/*" style='width:70px;'>        
+        <label class='btn' for="school-background-image"><i class="icon ion-image"></i></label>
+        <input id='school-background-image' class='inputfile' type="file" name="school-background-image" accept="image/*" >        
       </label>
     </div>
 
