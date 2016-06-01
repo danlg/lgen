@@ -82,7 +82,7 @@ Template.MobileSchoolHome.helpers({
     needMaskImageFallback:function(){
       return (document.documentElement.style['-webkit-mask-image'] !== undefined) ? "" : "mask-image-fallback"
     },
-    getSchoolLogoBackground:function(){
+    getSchoolBannerBackground:function(){
 
         var schoolBackgroundImageId;
         var schoolDoc = SmartixSchoolsCol.findOne({
@@ -101,7 +101,7 @@ Template.MobileSchoolHome.helpers({
 
              customStyle = `
                                 <style>                        
-                                    .school-logo-wrapper .school-logo-background{
+                                    .school-banner-wrapper .school-banner-background{
                                     background-image: url('${bgObj.url()}');
                                     }                                                                    
                                 </style>
@@ -109,7 +109,7 @@ Template.MobileSchoolHome.helpers({
         }else{
              customStyle = `
                                 <style>                        
-                                    .school-logo-wrapper .school-logo-background{
+                                    .school-banner-wrapper .school-banner-background{
                                     background-image: url('/packages/smartix_accounts/client/asset/graduation_ceremony_picture@1x.jpg');
                                     }                                                                    
                                 </style>
@@ -120,6 +120,8 @@ Template.MobileSchoolHome.helpers({
         return customStyle;
     },
     customizeTheme: function() {
+        
+        /*
         var pickSchool = SmartixSchoolsCol.findOne(Session.get('pickedSchoolId'));
 
         if (!pickSchool) {
@@ -144,7 +146,7 @@ Template.MobileSchoolHome.helpers({
             }
         } else {
             return "";
-        }
+        }*/
 
 
     },

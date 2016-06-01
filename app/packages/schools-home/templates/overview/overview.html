@@ -27,7 +27,7 @@
     {{#ionContent}}
       {{#if Template.subscriptionsReady}}
       {{{customizeTheme}}}
-      {{{getSchoolLogoBackground}}}
+      {{{getSchoolBannerBackground}}}
       <div class='school-logo-wrapper'>
         <div class='school-logo-background'>
             <div class='school-logo'>
@@ -37,14 +37,18 @@
             </div>           
         </div>                             
       </div>
-
+    <div class='school-banner-wrapper'>
+      <div class='school-banner-background'>
+        <div class='school-banner'>
+        </div>
+      </div>
+    </div>
       <div class='news-slidebox-wrapper'>
         <div class='ion-slide-box'>
             {{#each getSlidingNews}}
                 <a href="{{pathFor route='newsgroups.news.view' msgid=_id}}" class='slide-box-bg ion-slide' data-msg-id='{{_id}}'>
                     <div class='content'>
                     <b>{{data.title}}</b>
-                    <div style=' white-space: nowrap; overflow:hidden;text-overflow:ellipsis;width:100vw;'>{{{data.content}}}</div>
                     <div>{{formatDate createdAt}}</div>
                     <div>Read More</div>                    
                     </div>

@@ -83,21 +83,21 @@ Template.SchoolSignup.helpers({
         //console.log('schoolBackgroundImageId',schoolBackgroundImageId);
         //console.log(schoolLogoId);
         if( Template.instance().previewSchoolBackgroundImageBlob.get() ){
-            /*customStyle = `
+            customStyle = `
                                 <style>                        
-                                    .mobile-school-home-fake .school-logo-wrapper .school-logo-background{
+                                    .mobile-school-home-fake .school-banner-wrapper .school-banner-background{
                                     background-image: url('${Template.instance().previewSchoolBackgroundImageBlob.get()}');
                                     }                                                                    
                                 </style>
-                            `;*/
+                            `;
         }else{
-           /* customStyle = `
+            customStyle = `
                                 <style>                        
-                                    .mobile-school-home-fake .school-logo-wrapper .school-logo-background{
+                                    .mobile-school-home-fake .school-banner-wrapper .school-banner-background{
                                     background-image: url('/packages/smartix_accounts/client/asset/graduation_ceremony_picture@1x.jpg');
                                     }                                                                    
                                 </style>
-                            `;*/
+                            `;
         }
         return customStyle;
     }
@@ -269,7 +269,7 @@ Template.SchoolSignup.events({
             reader.onload = function (readerEvent) {
                 //console.log(readerEvent);
                 // get loaded data and render thumbnail.
-                document.getElementById("school-background-image-preview").src = readerEvent.currentTarget.result;
+                //document.getElementById("school-background-image-preview").src = readerEvent.currentTarget.result;
                 template.previewSchoolBackgroundImageBlob.set( readerEvent.currentTarget.result );
             };
             // read the image file as a data URL.
