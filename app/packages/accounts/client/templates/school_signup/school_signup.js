@@ -281,7 +281,7 @@ Template.SchoolSignup.events({
         template.inputTextColor.set('#FFFFFF');
         template.previewSchoolLogoBlob.set('');
         template.previewSchoolBackgroundImageBlob.set(''); 
-        document.getElementById("school-logo-preview").src = '/packages/smartix_accounts/client/asset/sample-school-logo.svg';
+        document.getElementById("school-logo-preview").src = '/packages/smartix_accounts/client/asset/hbs_logo.svg';
     } , 
     'click #person-sign-up':function(event,template){
         template.currentSchoolFormTemplate.set('EmailSignupForm');
