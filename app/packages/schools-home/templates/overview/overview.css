@@ -177,7 +177,7 @@
   z-index: 1;
 
   display: block;
-  background-image: url('//www.carmel.edu.hk/modules/mod_image_show_gk4/cache/slider.Carmel%20School-31gk-is-98.jpg');
+ /* background-image: url('//www.carmel.edu.hk/modules/mod_image_show_gk4/cache/slider.Carmel%20School-31gk-is-98.jpg');*/
   background-size: cover;
   background-position: center;
   width: 100%;
@@ -207,9 +207,9 @@
 
 .school-logo-wrapper .school-logo img{
     height: 80%;
-    border: 3px solid #811719;
+    /*border: 3px solid #811719;
     border-radius: 12px;
-    background: white;
+    background: white;*/
     margin-top: 2vh;    
 }
 
