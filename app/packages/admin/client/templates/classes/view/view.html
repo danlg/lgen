@@ -2,15 +2,18 @@
     {{#if Template.subscriptionsReady}}
         <div class="panel panel-flat">
             {{#with classData}}
-            <div class="panel-heading">
-                <h1>{{className}}</h1>
-            </div>
-
-            <div class="panel-body">
-                <p>{{_ "Admin.CreatedAt" }}: {{createdAt}}</p>
-                <p>{{_ "Admin.ClassCode" }}: {{classCode}}</p>
-                <p>{{_ "Admin.Age-Restricted" }}: {{ageRestricted}}</p>
-            </div>
+              <div class="panel-heading">
+                  <h1>{{className}}</h1>
+              </div>
+              <div class="panel-body">
+                  <p><strong>{{_ "Admin.CreatedAt" }}</strong>: {{formatDate createdAt}}</p>
+                  <p><strong>{{_ "Admin.ClassCode" }}</strong>: {{classCode}}</p>
+                  <p><strong>{{_ "Admin.AgeRestricted" }}</strong>:
+                    {{#if ageRestricted}} {{_ "Admin.AgeRestrictedComment" }}
+                    {{else }}  {{_ "Admin.AgeNotRestrictedComment" }}
+                    {{/if}}
+                  </p>
+              </div>
             {{/with}}
         </div>
         <div class="panel panel-flat">

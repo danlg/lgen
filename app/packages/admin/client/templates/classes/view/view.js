@@ -125,21 +125,21 @@ Template.AdminClassesView.helpers({
     },
     adminAdminSearchInputAttributes: function () {
         return {
-            placeholder: "Type the name of your new admin",
+            placeholder: TAPi18n.__("Admin.AdminSearchInput"),
             class: "form-control",
             id: "AdminClassesView__add-admin-input"
         }
     },
     adminUserSearchInputAttributes: function () {
         return {
-            placeholder: "Type the name of your new user",
+            placeholder: TAPi18n.__("Admin.UserSearchInput"),
             class: "form-control",
             id: "AdminClassesView__add-user-input"
         }
     },
     adminListSearchInputAttributes: function () {
         return {
-            placeholder: "Type the name/url of the distribution list to add",
+            placeholder: TAPi18n.__("Admin.ListSearchInput"),
             class: "form-control",
             id: "AdminClassesView__add-list-input"
         }

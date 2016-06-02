@@ -300,15 +300,13 @@ Smartix.Class.deleteClasses = function(ids) {
         var existGroup = Smartix.Groups.Collection.findOne({
             _id: eachClassId
         });
-        
         if(!existGroup){
-            log.info('some groups to be deleted do not exist!')
+            log.warn('Class to be deleted does not exist', eachClassId);
             return false;
         }
-        
         if (!(Smartix.Class.isClassAdmin(Meteor.userId(), eachClassId)
             || Smartix.Accounts.School.isAdmin(existGroup.namespace))) {
-            log.info('you have no permission to operate on some of the groups')
+            log.warn('No permission to operate on some of the groups')
             return false;
             // Optional: Throw an appropriate error if not
         }        
