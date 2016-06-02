@@ -6,6 +6,19 @@ Smartix.Rss.linkRssWithGroups = function (namespace, name, url, selectedNewsgrou
     check(url, String);
     check(selectedNewsgroups, [String]);
     
+    // Checks that at least one newsgroup in the array exists
+    // This is to prevent an RSS feed with no linked groups
+    let atLeastOneNewsgroupExists = Smartix.Groups.Collection.findOne({
+        type: 'newsgroup',
+		_id: {
+            $in: selectedNewsgroups
+        }
+	});
+    
+    if(!atLeastOneNewsgroupExists) {
+        throw new Meteor.Error('non-existent-newsgroup', 'Newsgroups specified not found. Please provide at least one valid newsgroup.');
+    }
+    
     // TODO - Checks permissions
     
     // If feed does not exist already

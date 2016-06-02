@@ -17,6 +17,7 @@ Package.onUse(function(api) {
   api.use('stevezhu:lodash@4.6.1');
   api.use('smartix:core');
   api.use('danielqiu:feed');
+  api.use('smartix:newsgroups');
   api.addFiles('lib/rss.js', ['client', 'server']);
   api.addFiles('server/startup.js', 'server');
   api.addFiles('server/rss.js', 'server');
