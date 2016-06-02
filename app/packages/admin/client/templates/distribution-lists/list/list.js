@@ -14,6 +14,9 @@ Template.AdminDistributionListsSearch.onCreated(function () {
     }
     this.usersChecked = new ReactiveVar([]);
     this.doingOperations = new ReactiveVar(false);    
+    this.modalName = new ReactiveVar("remove-distribution-lists-modal");
+    this.modalTitle = new ReactiveVar("Do you really want to remove the selected distribution list(s)?");
+    this.modalBody = new ReactiveVar("");      
 });
 
 Template.AdminDistributionListsSearch.helpers({
@@ -56,6 +59,15 @@ Template.AdminDistributionListsSearch.helpers({
           class: "form-control",
           id: "DistListSearchInput"
       }
+  },
+  getModalName: function () {
+      return Template.instance().modalName.get();
+  },
+  getModalTitle: function () {
+      return Template.instance().modalTitle.get();
+  },
+  getModalBody: function () {
+      return Template.instance().modalBody.get();
   }
 });
 
@@ -114,12 +126,35 @@ Template.AdminDistributionListsSearch.events({
    },      
    'click .remove-distribution-lists-btn':function(event,template){
         let latestArray = template.usersChecked.get();
-        let listOfUsers = latestArray.join('\n');
+        let listOfDistributionlists = Smartix.Groups.Collection.find({_id:{$in: latestArray }}).fetch();
+        let listOfDistributionlistsNames = listOfDistributionlists.map(function(eachDistributionListObj){
+            return eachDistributionListObj.name;
+        })        
+
+        template.modalBody.set(listOfDistributionlistsNames.join('<br/>'));
+
+        Meteor.setTimeout(function(){
+           $('#remove-distribution-lists-modal-btn').click();  
+        },200);          
+        /*let listOfUsers = latestArray.join('\n');
         if (window.confirm("Do you really want to remove the selected distribution lists?:\n"+listOfUsers)) {             
             latestArray.map(function(eachDistributionListId){
                 Meteor.call('smartix:distribution-lists/remove',eachDistributionListId);            
             });
             template.usersChecked.set([]); 
-        }             
-   }
+        }*/           
+   },
+    'click .modal .save':function(event,template){
+        if( $(event.target).hasClass('remove-distribution-lists-modal') ){
+            let latestArray = template.usersChecked.get();
+         
+            //hide modal
+            $('.modal .close').click();
+                  
+            //call method to delete distribution lists
+            latestArray.map(function(eachDistributionListId){
+                Meteor.call('smartix:distribution-lists/remove',eachDistributionListId);            
+            });           
+        }
+    },
 });
