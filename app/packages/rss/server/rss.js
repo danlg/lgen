@@ -57,11 +57,18 @@ Smartix.Rss.removeLink = function (namespace, url) {
         namespace: namespace,
         url: url
     });
-    //TODO BETTER clean up RSS are still processed even after removed!
-    //we do not want to remove RSS in feeds in case the RSS is mapped to multiple newsgroup though
-    // Smartix.Rss.Feeds.remove({
-    //     _id: url
-    // });
+    
+    // Check if another newsgroup is linked to this RSS feed
+    let shouldKeepFeed = Smartix.Rss.FeedGroupLinks.findOne({
+        url: url
+    });
+    
+    // If not, remove it
+    if(!shouldKeepFeed) {
+        Smartix.Rss.Feeds.remove({
+            _id: url
+        });
+    }
 };
 
 Smartix.Rss.getNewsgroupsOfFeed = function (feedId) {
