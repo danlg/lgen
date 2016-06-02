@@ -46,6 +46,8 @@ Template.AdminDistributionListsAdd.events({
                     console.log('distributionId', result);
                     var newDistributionList = Smartix.Groups.Collection.findOne(result);
                     console.log(newDistributionList);
+                    toastr.info('Distribution List '+ newDistributionList.name +' has been created.');
+                    
                     Router.go('admin.lists.view', { school: namespace, code: newDistributionList.url });
                 } else {
                     var existingDistributionList = Smartix.Groups.Collection.findOne({name: name});
