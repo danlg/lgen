@@ -45,7 +45,7 @@
                             <ul class="collapse" id="collapse-user-list-{{_id}}">
                             {{#each distributionLists}}
                                 {{#with distributionListData this}}
-                                <li>{{name}}</li>
+                                    <li><a href="{{pathFor route='admin.lists.view' code=url school=currentSchoolName }}">{{name}}</a></li>
                                 {{/with}}
                             {{/each}}
                             </ul>

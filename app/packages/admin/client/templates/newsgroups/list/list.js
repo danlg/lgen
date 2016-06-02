@@ -13,10 +13,14 @@ Template.AdminNewsgroupsSearch.onCreated(function () {
         log.info("Please specify a school to list the classes for");
     }
     this.usersChecked = new ReactiveVar([]);
-    this.doingOperations = new ReactiveVar(false);        
+    this.doingOperations = new ReactiveVar(false);  
+    
 });
 
 Template.AdminNewsgroupsSearch.helpers({
+  currentSchoolName:function(){
+      return Router.current().params.school;
+  },
   newsgroupsIndex: function () {
       return NewsgroupsIndex;
   },
