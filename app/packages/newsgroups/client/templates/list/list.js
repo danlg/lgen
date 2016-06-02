@@ -18,7 +18,7 @@ Template.NewsgroupsList.helpers({
         return Smartix.Groups.Collection.find({ type: 'newsgroup' });
     },
     getGroupName:function(groupId){
-        console.log('getGroupName',groupId);
+        //console.log('getGroupName',groupId);
        return Smartix.Groups.Collection.findOne(groupId).name;
     },
     userInNewsgroup:function(){
