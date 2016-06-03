@@ -8,33 +8,19 @@ Template.NotificationSetting.events({
     var userObj = Meteor.user();
 
     var type = $(e.target).data('type');
-
+    
+    var enableToDisable ;
     if ($(e.target).is(':checked')) {
-      lodash.set(userObj, 'profile.' + type, true);
+      enableOrDisable = true;
     } else {
-      lodash.set(userObj, 'profile.' + type, false);
+      enableOrDisable = false;
     }
-
-
-    Meteor.call("profileUpdateByObj", userObj, function (error, result) {
-      if (error) {
-        log.error("error", error);
-      } else {
-
-        // if(type.toUpperCase()==="PUSH"){
-        //
-        //   var tag = lodash.get(userObj,'pushNotifications')? "push notification activated "
-        //
-        //   analytics.track(tag, {
-        //     date: new Date(),
-        //   });
-        //
-        // }
-
-
-      }
-
-    });
+    
+    if(type === 'email'){
+      Meteor.call('emailNotificationToggle',enableOrDisable);
+    }else if (type === 'push'){
+      Meteor.call('pushNotificationToggle',enableOrDisable);      
+    }
 
   }
 });
@@ -44,7 +30,7 @@ Template.NotificationSetting.events({
 /*****************************************************************************/
 Template.NotificationSetting.helpers({
   checked: function (type) {
-    return lodash.get(Meteor.user(), 'profile.' + type) ? "checked" : "";
+    return lodash.get(Meteor.user(), type) ? "checked" : "";
   },
   isEmailVerified: function() {
         //if user is registered with meteor account

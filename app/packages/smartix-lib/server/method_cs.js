@@ -63,6 +63,12 @@ Meteor.methods({
     var usersProfile = user.profile;
     Meteor.users.update(Meteor.userId(), {$set: {profile: usersProfile}});
   },
+  'pushNotificationToggle': function (toggle) {
+    Meteor.users.update(Meteor.userId(), {$set: {pushNotifications: toggle}});
+  },
+  'emailNotificationToggle': function (toggle) {
+    Meteor.users.update(Meteor.userId(), {$set: {emailNotifications: toggle}});
+  },    
   'getSimilarOrganizations': function (inputOrganizationKeyword) {
 
     var regexp = new RegExp("^" + inputOrganizationKeyword, "i");
@@ -147,62 +153,6 @@ Meteor.methods({
     Smartix.Messages.Collection.update(messageid, modifier, {validate: false});
 
   },
-
-  //move this to server only !
-  "Smartix.sendEmailMessageToClasses": function (targetUserids, classes, message, originateUser) {
-      //if it is a solely image or voice message, exit early.
-      if (message == "") {
-        return;
-      }
-
-      var arrayOfTargetUsers = Meteor.users.find({_id: {$in: targetUserids}}).fetch();
-      log.info("sendEmailMessageToClasses:arrayOfTargetUsers:start");
-      log.info(arrayOfTargetUsers);
-      log.info("sendEmailMessageToClasses:arrayOfTargetUsers:end");
-      var optInUsersGroupByLang = lodash.chain(arrayOfTargetUsers)
-        .filter(function (user) {
-          if (user.emailNotifications) {
-            if (user.emails[0].verified || user.services.google.verified_email) {
-              return true;
-            }
-          }
-          else {
-            return false;
-          }
-        })
-        .groupBy('lang')
-        .value();
-
-      //extract and join all the classes name to a single string
-      var allClassNameJoined = lodash.flatten(lodash.map(classes, 'className')).join();
-      log.info("sendEmailMessageToClasses:className:" + allClassNameJoined);
-      for (var lang in optInUsersGroupByLang) {
-        var classRecepientArr = [];
-        optInUsersGroupByLang[lang].map(function (eachUser) {
-          var classRoomRecepient = {
-            email: eachUser.emails[0].address,
-            name: eachUser.profile.firstName + " " + eachUser.profile.lastName
-          };
-          classRecepientArr.push(classRoomRecepient);
-        });
-
-        log.info("sendEmailMessageToClasses:classRecepientArr:lang:" + lang + ":start");
-        log.info(classRecepientArr);
-        log.info("sendEmailMessageToClasses:classRecepientArr:lang:" + lang + ":end");
-        try {
-          this.unblock();
-          //send email
-          Smartix.messageEmailTemplate(classRecepientArr, originateUser, message, {
-            type: 'class',
-            lang: lang,
-            className: allClassNameJoined
-          });
-        }
-        catch (e) {
-          log.error(e);
-        }
-      }
-  }
 });
 
 
