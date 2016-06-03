@@ -1,6 +1,6 @@
 {
   "env": {
-    "ROOT_URL": "https://app.gosmartix.com",
+    "ROOT_URL": "https://now.gosmartix.com",
     "PORT": 80
   },
   //production
@@ -8,15 +8,15 @@
   //             "mup reconfig" !!!
   "servers": [
     {
-      "host": "app.gosmartix.com",
+      "host": "now.gosmartix.com",
       "username": "root",
-      "password": "xxxxx"
+      "password": "lgen124"
     }
   ],
   "setupMongo": false,
-  "setupNode": true,
-  "nodeVersion": "0.10.40",
-  "setupPhantom": true,
+  "setupNode": false,
+  "nodeVersion": "0.10.43",
+  "setupPhantom": false,
   "enableUploadProgressBar": true,
   "appName": "lg",
   "app": "/Users/dan/DEV/PRD/lgen/app",
