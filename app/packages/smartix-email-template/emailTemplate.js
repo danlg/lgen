@@ -29,7 +29,8 @@ Smartix.messageEmailTemplate = function (RecipientUsers, OriginateUser, messageO
       chat_room_name: ""
     }, lang);    
   }else if(groupObj.type === 'newsgroup'){
-    subject = messageObj.data.title
+    var schoolObj = SmartixSchoolsCol.findOne(groupObj.namespace);
+    subject = messageObj.data.title + ' News from ' + schoolObj.name;
   }
   else {
 
