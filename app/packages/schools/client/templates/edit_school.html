@@ -2,6 +2,12 @@
 <template name='EditSchool'>
     {{#if Template.subscriptionsReady}}
     {{#with getSchoolObj}}
+    <style>
+        .pane
+        {
+            overflow:auto;
+        }
+    </style>
     <form>
         <input id='school-id' type="hidden" name="school-id" value='{{_id}}'>
         {{_ "schools.Schoollongname" }}
