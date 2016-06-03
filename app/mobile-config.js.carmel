@@ -91,3 +91,7 @@ App.accessRule('https://localhost:*');
 App.setPreference('WebAppStartupTimeout', '60000');
 
 App.accessRule('*://*.gosmartix.com:*/*');
+
+//csp in head.html would further restraint what can be loaded
+App.accessRule('http://*');
+App.accessRule('https://*');
