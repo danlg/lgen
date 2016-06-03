@@ -3,8 +3,6 @@ var classObj;
 //var classObjReactive = ReactiveVar({});
 var teacherName = ReactiveVar("");
 var teacherAvatar = ReactiveVar("");
-var teacherAvatarType = ReactiveVar("");
-
 var isRecording = false;
 var media = "";
 var isPlayingSound = false;
@@ -175,10 +173,7 @@ Template.ClassDetail.helpers({
   },
   teacherName: function () {
     return teacherName.get();
-  }, 
-  isEmoji:function(userId){
-        return ( teacherAvatarType.get()==="emoji") ? true: false;   
-    },
+  },
   teacherAvatar: function(){
     return teacherAvatar.get();     
   },
@@ -243,10 +238,6 @@ Template.ClassDetail.rendered = function () {
   Meteor.call('getAvatarById', classObj.admins[0], function (err, data) {
     //log.info(data);
     return teacherAvatar.set(data);
-  });
- Meteor.call('getAvatarTypeId', classObj.admins[0], function (err, data) {
-    //log.info(data);
-    return teacherAvatarType.set(data);
   });
   //greet first-time user
   if(Meteor.user().firstClassJoined){

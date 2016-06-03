@@ -3,16 +3,14 @@ import Cropper from 'cropperjs'
 var img,inputParameters;
 
 Template.UploadIcon.events({	
-	'click #save': function(event, tmp){
-        var imageCropped = img.getCroppedCanvas().toDataURL()
-        var newData480 = imageResize(imageCropped, 480, 480)
-        log.info("img480 created");
-        var newData120 = imageResize(imageCropped, 120, 120);
-        log.info("img120 created");
-        Session.set(inputParameters.parentInputParameters.sessionToBeSet,newData120);
-        Session.set(inputParameters.parentInputParameters.imageLarge,newData480);
-        IonModal.close('YouIconChoose');      
-    }
+	'click button': function(event, tmp){
+      var imageCropped = img.getCroppedCanvas().toDataURL()
+      var newData480 = imageResize(imageCropped, 480, 480)
+      log.info("img480"+newData480);
+      var newData120 = imageResize(imageCropped, 120, 120);
+      log.info("img120"+newData120);
+      Session.set(inputParameters.sessionToBeSet,newData120);
+		}
 });
 
 Template.UploadIcon.rendered = function () {    
@@ -25,17 +23,16 @@ Template.UploadIcon.rendered = function () {
 function CropPls(image) 
 {
     var cropper = new Cropper(image, {
-        aspectRatio: 1 / 1,
-        viewMode: 1,
-        dragMode: 'move',
-        restore: false,
-        autoCropArea: 0.65,
-        modal: false,
-        center:false,
-        guides: false,
-        highlight: false,
-        cropBoxMovable: false,
-        cropBoxResizable: false
+      aspectRatio: 1 / 1,
+      viewMode: 1,
+      dragMode: 'move',
+      restore: false,
+      autoCropArea: 1,
+      modal: false,
+      guides: false,
+      highlight: false,
+      cropBoxMovable: false,
+      cropBoxResizable: false
     });
 
   return cropper;

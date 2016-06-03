@@ -7,15 +7,9 @@
           {{> UI.contentBlock}}
         {{else}}
           <div class="{{barClass}}">
-            {{#if inputText}}
-            <label class="button button-icon">
-                <input style="display:none" id="imageBtn" type="file"/>
-                <i class="icon ion-ios-camera-outline"></i>
-            </label>                    
-            {{/if}}  
             <h2 class="{{titleClass}}">{{title}}</h2>
             {{#if closeText}}
-              <button data-dismiss="modal" class="button button-clear button-entering button-active">{{closeText}}</button>
+              <button data-dismiss="modal" class="button button-positive button-clear">{{closeText}}</button>
             {{else}}
               <button data-dismiss="modal" class="button button-icon"><i class="icon ion-ios-close-empty"></i></button>
             {{/if}}

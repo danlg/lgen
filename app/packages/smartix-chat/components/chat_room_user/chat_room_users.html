@@ -4,11 +4,7 @@
             
             {{#with getUserById this}}
                     {{#if profile.avatarValue}}
-                        {{#if isEmoji this}}
-                            <i id='pick-an-icon-btn' class="icon e1a-{{profile.avatarValue}} e1a-1x emojicon"></i>
-                        {{else}}
-                            <img class="icon icon-avatar e1a-1x" id='pick-an-icon-btn' src="{{profile.avatarValue}}" />
-                        {{/if}}
+                        <i class="icon e1a-{{profile.avatarValue}} e1a-1x emojicon"></i>
                     {{else}}
                         <i class="icon e1a-green_apple e1a-1x emojicon"></i>
                     {{/if}}            

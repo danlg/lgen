@@ -14,7 +14,5 @@ Template.ChatRoomUsers.helpers({
         var targetUserObj = Meteor.users.findOne(userId);
         return targetUserObj;      
     }
-    , isEmoji:function(userId){
-        return ( Meteor.users.findOne(userId).profile.avatarType==="emoji") ? true: false;   
-    }
+    
 });

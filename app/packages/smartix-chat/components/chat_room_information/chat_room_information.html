@@ -33,25 +33,20 @@
             <div class="item item-divider">
             {{_ "ChatRoomName"}}
             </div>            
-            <div class="item item-icon-left user-item">
-                {{#if chatRoomProfile.chatRoomAvatar}}
-                    <i class="icon e1a-{{chatRoomProfile.chatRoomAvatar}} e1a-1x emojicon"></i>       
-                {{/if}} 
-                {{chatRoomProfile.chatRoomName}}
-            </div>
-            <!--<div class="item">This chat room has no name</div>-->        
+            <div class="item">{{chatRoomProfile.chatRoomName}}</div>
             {{else}}
-                {{#if chatRoomProfile.chatRoomAvatar}}
-                <div class="item item-icon-left user-item">
-                    <i class="icon e1a-{{chatRoomProfile.chatRoomAvatar}} e1a-1x emojicon"></i> 
-                    <br /> 
-                </div>     
-                {{/if}} 
+            <!--<div class="item">This chat room has no name</div>-->        
             {{/if}}
             
 
             
-           
+            {{#if chatRoomProfile.chatRoomAvatar}}
+            <div class="item item-divider">
+             <i class="icon e1a-{{chatRoomProfile.chatRoomAvatar}} e1a-1x emojicon"></i>
+            </div>            
+            {{else}}
+             <!--<div class="item">This chat room has no avatar</div>-->         
+            {{/if}}            
             
         <!--{{/if}} -->   
                         
@@ -64,17 +59,14 @@
                 {{#each chatRoomProfile.admins}}
                     {{#with getUserById this }}
                         {{#if profile.avatarValue}}
-                            {{#if isEmoji this}}
-                                <i id='pick-an-icon-btn' class="icon e1a-{{profile.avatarValue}} e1a-1x emojicon"></i>
-                            {{else}}
-                                <img class="icon  icon-avatar e1a-1x" id='pick-an-icon-btn' src="{{profile.avatarValue}}" />
-                            {{/if}}
+                            <i class="icon e1a-{{profile.avatarValue}} e1a-1x emojicon"></i>
                         {{else}}
                             <i class="icon e1a-green_apple e1a-1x emojicon"></i>
                         {{/if}}
                     {{profile.firstName}} {{profile.lastName}}
                     {{/with}}                
                 {{/each}}
+
             </div>
           
         <div class="item item-divider">

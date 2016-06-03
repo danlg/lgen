@@ -1,10 +1,12 @@
-<template name="UploadIcon">   
-    {{#ionModal title = (_ "smartix-iconchooser.UploadImage") }}
-             <div style="border-radius:50%;height: 50%;margin-top:2em; text-align:-webkit-center">
-                <img id="imageCrop" style="max-width: 100%;" name="avatar" src="">
-                <button data-dismiss="modal" type="button" id="save">
-                    {{_ "Save" }}
-                </button>
-            </div>
-    {{/ionModal}}
+<template name="UploadIcon">
+  {{#ionModal title="Upload Image"}}
+
+      <div style="margin-top: 50px;">
+          <img id="imageCrop" style="max-width: 100%;" name="avatar" src="">
+      </div>
+      <button type="button" >
+        {{_ "smartix-iconchooser.Save" }}
+     </button>
+
+  {{/ionModal}}
 </template>

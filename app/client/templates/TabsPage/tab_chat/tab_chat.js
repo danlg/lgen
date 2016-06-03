@@ -152,56 +152,30 @@ Template.TabChat.helpers({
       }
       else return true;
   },
-  isEmoji:function(){
-      var type;
-      if(this.chatRoomAvatar) {
-            type = true;    
-      }
-      else {
-          var userObjArr = Meteor.users.find({_id: {$in: this.users}}).fetch();
-          if(userObjArr.length > 2){
-             type =  true;
-          }
-          else{
-            lodash.forEach(userObjArr, function (el, index) {
-              if (el._id !== Meteor.userId()) {
-                type = (el.profile.avatarType==="emoji" ? true : false);
-              }
-            });
-          }
-      }
-      return type; 
-   },
+
   'chatRoomUserAvatar': function () {
-      var avatar;
+      var avatars = [];
       if(this.chatRoomAvatar) {
-          avatar = "e1a-" + this.chatRoomAvatar;
+          avatars.push("e1a-"+ this.chatRoomAvatar);
       }
       else {
           var userObjArr = Meteor.users.find({_id: {$in: this.users}}).fetch();
           if(userObjArr.length > 2){
-              avatar = "e1a-green_apple";
+              avatars.push("e1a-green_apple");
           }
           else{
             lodash.forEach(userObjArr, function (el, index) {
               if (el._id !== Meteor.userId()) {
-                  var type = el.profile.avatarType;
-                    if(type === "emoji")
-                    {
-                        if ( el.profile.avatarValue ){
-                        avatar = "e1a-" +  el.profile.avatarValue;
-                        }
-                    }
-                    else if(type==="image")
-                    {
-                         avatar = el.profile.avatarValue
-                    }
-                  else avatar = "e1a-green_apple";
+                  var avatar = el.profile.avatarValue;
+                  if (avatar){
+                    avatars.push("e1a-" + avatar)
+                  }
+                  else avatars.push("e1a-green_apple");
               }
             });
           }
       }
-      return avatar;
+      return lodash(avatars).toString();
   },
 
   'newMessageCounter':function(chatroomId) {

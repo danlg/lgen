@@ -11,8 +11,7 @@ Accounts.onCreateUser(function (options, user) {
     user.profile = lodash.assign({
         firstName: "",
         lastName: "",
-        avatarValue: "apple",
-        avatarType: "emoji"
+        avatarValue: "apple"
     }, user.profile);
     user.dob = "";
     user.city = "";
