@@ -9,14 +9,14 @@ Template.About.helpers({
     //https://gist.github.com/hstaudacher/d78b154509e2783cfcc2 - timestamp_version_bump.js
     if (Meteor.isCordova) {
       //version = window.cordova.compileTime.version; //now broken with carmel branch
-      version = "1.2.1";
+      version = "1.2.2";
       return version;
     }
     //TODO fix me on web version !
     else {
       //let txt = Assets.getText("../../mobile-config.js");
       //log.info(txt);
-      return (Meteor.settings && Meteor.settings.VERSION) ?  Meteor.settings.VERSION : "1.2.1";
+      return (Meteor.settings && Meteor.settings.VERSION) ?  Meteor.settings.VERSION : "1.2.2";
     }
 
   },
