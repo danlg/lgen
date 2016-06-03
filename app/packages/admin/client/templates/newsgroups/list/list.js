@@ -13,10 +13,16 @@ Template.AdminNewsgroupsSearch.onCreated(function () {
         log.info("Please specify a school to list the classes for");
     }
     this.usersChecked = new ReactiveVar([]);
-    this.doingOperations = new ReactiveVar(false);        
+    this.doingOperations = new ReactiveVar(false);  
+    this.modalName = new ReactiveVar("remove-newsgroups-modal");
+    this.modalTitle = new ReactiveVar("Do you really want to remove the selected newsgroups? ?");
+    this.modalBody = new ReactiveVar("");    
 });
 
 Template.AdminNewsgroupsSearch.helpers({
+  currentSchoolName:function(){
+      return Router.current().params.school;
+  },
   newsgroupsIndex: function () {
       return NewsgroupsIndex;
   },
@@ -54,16 +60,25 @@ Template.AdminNewsgroupsSearch.helpers({
       console.log('distributionListData',Smartix.Groups.Collection.findOne({
             _id: data
         })     );
-        return Smartix.Groups.Collection.findOne({
-            _id: data
-        });      
-  }, 
-   newsgroupSearchInputAttributes : function () {
-    return {
-        placeholder: TAPi18n.__("Search"),
-        class: "form-control",
-        id: "newsgroupSearchInput"
-    }
+      return Smartix.Groups.Collection.findOne({
+          _id: data
+      });
+  },
+  newsgroupSearchInputAttributes: function () {
+      return {
+          placeholder: TAPi18n.__("Search"),
+          class: "form-control",
+          id: "newsgroupSearchInput"
+      }
+  },
+  getModalName: function () {
+      return Template.instance().modalName.get();
+  },
+  getModalTitle: function () {
+      return Template.instance().modalTitle.get();
+  },
+  getModalBody: function () {
+      return Template.instance().modalBody.get();
   }
 });
 
@@ -122,10 +137,37 @@ Template.AdminNewsgroupsSearch.events({
    },      
    'click .remove-distribution-lists-btn':function(event,template){
         let latestArray = template.usersChecked.get();
-        let listOfUsers = latestArray.join('\n');
-        if (window.confirm("Do you really want to remove the selected newsgroups?:\n"+listOfUsers)) {             
+        let listOfNewsgroups = Smartix.Groups.Collection.find({_id:{$in: latestArray }}).fetch();
+        let listOfNewsgroupsNames = listOfNewsgroups.map(function(eachNewsgroupObj){
+            return eachNewsgroupObj.name;
+        })        
+
+        template.modalBody.set(listOfNewsgroupsNames.join('<br/>'));
+
+        Meteor.setTimeout(function(){
+           $('#remove-newsgroups-modal-btn').click();  
+        },200);         
+        /*let listOfNewsgroupIds = latestArray.join('\n');
+        if (window.confirm("Do you really want to remove the selected newsgroups?:\n"+listOfNewsgroupIds)) {             
             Meteor.call('smartix:newsgroups/deleteNewsgroups',latestArray);            
             template.usersChecked.set([]); 
-        }             
-   }
+        } */            
+   },
+    'click .modal .save':function(event,template){
+        if( $(event.target).hasClass('remove-newsgroups-modal') ){
+            let latestArray = template.usersChecked.get();
+            //show spinner
+            template.doingOperations.set(true);          
+            //hide modal
+            $('.modal .close').click();      
+            //call method to delete newsgroups
+            Meteor.call('smartix:newsgroups/deleteNewsgroups',latestArray,function(){
+                //when finished:
+                //hide spinner
+                template.doingOperations.set(false);          
+                //un-select all newsgroups
+                template.usersChecked.set([]);             
+            });            
+        }
+    },
 });

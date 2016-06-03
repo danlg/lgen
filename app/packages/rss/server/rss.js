@@ -1,10 +1,23 @@
 Smartix = Smartix || {};
 Smartix.Rss = Smartix.Rss || {};
 
-Smartix.Rss.linkRssWithGroups = function (namespace, name, url, selectedNewgroups, currentUser) {
+Smartix.Rss.linkRssWithGroups = function (namespace, name, url, selectedNewsgroups, currentUser) {
     
     check(url, String);
-    check(selectedNewgroups, [String]);
+    check(selectedNewsgroups, [String]);
+    
+    // Checks that at least one newsgroup in the array exists
+    // This is to prevent an RSS feed with no linked groups
+    let atLeastOneNewsgroupExists = Smartix.Groups.Collection.findOne({
+        type: 'newsgroup',
+		_id: {
+            $in: selectedNewsgroups
+        }
+	});
+    
+    if(!atLeastOneNewsgroupExists) {
+        throw new Meteor.Error('non-existent-newsgroup', 'Newsgroups specified not found. Please provide at least one valid newsgroup.');
+    }
     
     // TODO - Checks permissions
     
@@ -32,20 +45,31 @@ Smartix.Rss.linkRssWithGroups = function (namespace, name, url, selectedNewgroup
     }, {
         $set: {
             name: name,
-            newsgroups: selectedNewgroups
+            newsgroups: selectedNewsgroups
         }
     });
-}
+};
 
 Smartix.Rss.removeLink = function (namespace, url) {
-    
     // TODO - check permissions
-    
+    log.info("Removing RSS", namespace, url);
     Smartix.Rss.FeedGroupLinks.remove({
         namespace: namespace,
         url: url
     });
-}
+    
+    // Check if another newsgroup is linked to this RSS feed
+    let shouldKeepFeed = Smartix.Rss.FeedGroupLinks.findOne({
+        url: url
+    });
+    
+    // If not, remove it
+    if(!shouldKeepFeed) {
+        Smartix.Rss.Feeds.remove({
+            _id: url
+        });
+    }
+};
 
 Smartix.Rss.getNewsgroupsOfFeed = function (feedId) {
     let feedObj = Smartix.Rss.FeedGroupLinks.findOne({

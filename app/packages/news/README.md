@@ -32,5 +32,5 @@ Generates a news feed from the aggregation of those newsgroups.
 
 #### Implementation
 
-* Using `getNewsGroupOfUser()` from `smartix:newsgroups`, get all the newsgroup a user is subscribed to
+* Using `getNewsgroupOfUser()` from `smartix:newsgroups`, get all the newsgroup a user is subscribed to
 * Using the list, publish all non-deleted, non-hidden messages with this group, sorted by `createdAt`, limited by the `limit`

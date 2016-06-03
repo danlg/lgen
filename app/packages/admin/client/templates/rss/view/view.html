@@ -5,14 +5,14 @@
         </div>
 
         <div class="panel-body">
-            <p>{{_ "Admin.linkaRSSfeedtoanewsgroup" }}</p>
+            <p>{{_ "Admin.LinkRSSNewsgroup" }}</p>
             
             <table id="AdminUsersImport__preview-table" class="table datatable-basic">
                 <thead>
                     <tr>
                         <th>{{_ "Admin.RSSFeedName" }}</th>
                         <th>{{_ "Admin.RSSURL" }}</th>
-                        <th>{{_ "Admin.Newgroups" }}</th>
+                        <th>{{_ "Admin.Newsgroups" }}</th>
                         <th>{{_ "Admin.RemoveLink" }}</th>
                     </tr>
                 </thead>
@@ -22,7 +22,10 @@
                             <td>{{name}}</td>
                             <td>{{url}}</td>
                             <td>{{newsgroups}}</td>
-                            <td><button type="button" data-url="{{url}}" class="AdminRss-remove btn border-warning text-warning-600 btn-flat btn-icon btn-rounded"><i class="icon-minus2"></i></button></td>
+                            <td>
+                              <button type="button" data-url="{{url}}"
+                                      class="AdminRss-remove btn border-warning text-warning-600 btn-flat btn-icon btn-rounded">
+                              <i class="icon-minus2"></i></button></td>
                         </tr>
                     {{/each}}
                 </tbody>

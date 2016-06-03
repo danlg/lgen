@@ -1,4 +1,5 @@
 <template name="AdminClassesSearch">
+    {{> BootstrapModal modalName=getModalName modalTitle=getModalTitle modalBody=getModalBody }}        
     <div class="panel panel-flat">
         <div class="panel-heading">
             <h1>{{_ "Admin.SearchClasses" }}</h1>
@@ -19,7 +20,7 @@
               <br/>
                 {{#if showOptions}}
                     <br/>
-                    <button class='btn btn-danger remove-distribution-lists-btn'>{{_ "RemoveClass" }}</button>
+                    <button class='btn btn-danger remove-classes-btn'>{{_ "RemoveClass" }}</button>
                 {{/if}}              
             <div class="table-responsive">  
             <table class='table'>

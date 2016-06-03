@@ -7,18 +7,18 @@
           </div>
           <div class="content has-header">
             <div class="list">
-              <div class="item item-icon-right" data-ion-menu-close>
-               {{_ "YouAreAt" }} {{getCurrentSchoolNameDisplay}}
-                
+              <div class="item item-icon-left" data-ion-menu-close>
                 {{#if belongToMultiSchool}}
+                  {{_ "YouAreAt" }} {{getCurrentSchoolNameDisplay}}
                     <a href="{{pathFor route='SchoolPick'}}" class='btn'>{{_ "SwitchSchool" }}</a>
                 {{/if}}
-                
               </div>
               <!--only if in school namespace - the below should available -->                
               {{#if isSchoolNamespace}}             
-              <a href="{{pathFor route='mobile.school.home' school=getCurrentSchoolName}}"  class="item item-icon-right" data-ion-menu-close>
-                {{getCurrentSchoolNameDisplay}} {{_ "Home" }}
+              <a href="{{pathFor route='mobile.school.home' school=getCurrentSchoolName}}"
+                 class="item item-icon-left" data-ion-menu-close>
+                <i class="icon ion-ios-home-outline"></i>
+                <strong>{{getCurrentSchoolNameDisplay}} {{_ "Home" }}</strong>
               </a>
               {{else}}
               
@@ -27,13 +27,15 @@
               {{/if}}
               <!--only if in school namespace - the above should available-->
               
-              <a href="{{pathFor route='TabClasses'}}" class="item item-icon-right" data-ion-menu-close>
+              <a href="{{pathFor route='TabClasses'}}" class="item item-icon-left" data-ion-menu-close>
+                <i class="icon ion-ios-people-outline"></i>
                 {{_ "Classes" }}
                 {{#if sumOfNewClassMessageAndCommentCounter}}
                   <span class="badge badge-assertive">{{sumOfNewClassMessageAndCommentCounter}}</span>
                 {{/if}}
               </a>
-              <a href="{{pathFor route='TabChat'}}" class="item item-icon-right" data-ion-menu-close>
+              <a href="{{pathFor route='TabChat'}}" class="item item-icon-left" data-ion-menu-close>
+                <i class="icon ion-ios-chatbubble-outline"></i>
                 {{_ "Chat" }}
                 {{#if sumOfNewChatMessageCounter}}
                   <span class="badge badge-assertive">{{sumOfNewChatMessageCounter}}</span>
@@ -43,38 +45,56 @@
               
               <!--only if in school namespace - the below should available -->
               {{#if isSchoolNamespace}}
-              <a href="{{pathFor route='newsgroups.news.list'}}" class="item item-icon-right" data-ion-menu-close>
+              <a href="{{pathFor route='newsgroups.news.list'}}"
+                 class="item item-icon-left" data-ion-menu-close>
+                <i class="icon ion-ios-bolt-outline"></i>
                {{_ "News" }}
               </a>              
-              <a href="{{pathFor route='calendar.list'}}" class="item item-icon-right" data-ion-menu-close>
+              <a href="{{pathFor route='calendar.list'}}"
+                 class="item item-icon-left" data-ion-menu-close>
+                <i class="icon ion-ios-calendar-outline"></i>
                 {{_ "Calendar" }}
               </a>
-              <a href="{{pathFor route='attendance.home' school=getCurrentSchoolName}}" class="item item-icon-right" data-ion-menu-close>
+              <a href="{{pathFor route='attendance.home' school=getCurrentSchoolName}}"
+                 class="item item-icon-left" data-ion-menu-close>
+                <i class="icon ion-university"></i>
                 {{_ "Attendance" }}
               </a>
-              <a href="{{pathFor route='mobile.school.contact' school=getCurrentSchoolName}}" class="item item-icon-right" data-ion-menu-close>
-                {{_ "Contact" }}
-              </a>
+              <!--No information overload-->
+              <!--<a href="{{pathFor route='mobile.school.contact' school=getCurrentSchoolName}}"-->
+                 <!--class="item item-icon-left" data-ion-menu-close>-->
+                <!--{{_ "Contact" }}-->
+              <!--</a>-->
               {{else}}
                 
                  <!--TODO: go to a promote page-->
                  
               {{/if}}
               <!--only if in school namespace - the above should available-->
-              
-              <a href="{{pathFor route='TabYou'}}" class="item item-icon-right" data-ion-menu-close>
+              <div class="item item-divider"></div>
+              <a href="{{pathFor route='TabYou'}}" class="item item-icon-left" data-ion-menu-close>
+                <i class="icon ion-ios-gear-outline"></i>
                 {{_ "Settings" }}
               </a>
 
               <!--TODO: only if user is school admin-->
               {{#if isSchoolNamespace}}
                 {{#if isAdminInCurrentNamespace}}
-                <a href="{{pathFor route='admin.dashboard' school=getCurrentSchoolName}}" class="item item-icon-right" data-ion-menu-close>
+                <a href="{{pathFor route='admin.dashboard' school=getCurrentSchoolName}}"
+                   class="item item-icon-left" data-ion-menu-close>
+                  <i class="icon ion-stats-bars"></i>
                  {{_ "AdminDashboard" }}
                 </a>
                 {{/if}}
               {{/if}}                                
-              <!--TODO: only if user is school admin ends -->  
+              <!--TODO: only if user is school admin ends -->
+
+              <a class="item item-icon-left " data-ion-menu-close>
+                <div class="signOut">
+                  <i class="icon ion-log-out translucid"></i>
+                  {{_ "SignOut"}}
+                </div>
+              </a>
                                                                                     
             </div>
           </div>

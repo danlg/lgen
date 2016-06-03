@@ -19,70 +19,50 @@ Template.MobileSchoolHome.helpers({
     
     schoolFullName:function(){
         var schoolLogoId;
-        
         var schoolDoc = SmartixSchoolsCol.findOne({                                                    
             username: Router.current().params.school                                                                     
         });
-        
         if(schoolDoc){
          return schoolDoc.name;             
         }
-      
     },
+
     getCurrentSchoolName: function() {
         return Router.current().params.school;
     },
     getSlidingNews:function(){
         var newsgroupsIds = [];
-        
-        
         var newsgroupsByUserArray =  Smartix.Groups.Collection.find({ type: 'newsgroup', users: Meteor.userId() }).fetch(); 
         var newsgroupsByUserArrayIds = lodash.map(newsgroupsByUserArray,'_id');
-        
         var distributionListsUserBelong = Smartix.Groups.Collection.find({type: 'distributionList', users: Meteor.userId() }).fetch();
         var distributionListsUserBelongIds = lodash.map(distributionListsUserBelong,'_id');
-        
         //console.log('distributionListsUserBelongIds',distributionListsUserBelongIds);
-        
         var newsgroupsBydistributionLists =  Smartix.Groups.Collection.find({ type: 'newsgroup', distributionLists: {$in : distributionListsUserBelongIds } , optOutUsersFromDistributionLists :{  $nin : [Meteor.userId()] } }).fetch();      
         var newsgroupsBydistributionListsIds = lodash.map(newsgroupsBydistributionLists,'_id');
-        
         //console.log('newsgroupsBydistributionListsIds',newsgroupsBydistributionListsIds);
-        
         newsgroupsIds = newsgroupsIds.concat(newsgroupsByUserArrayIds,newsgroupsBydistributionListsIds);
-        
         //console.log('newsgroupsIds',newsgroupsIds);
-        
         Template.instance().canGetSlidNews.set(true);
-        
         return Smartix.Messages.Collection.find({$or:[
             {
                 group: { $in: newsgroupsIds },
                 hidden : false,
-                deletedAt:"",
-
+                deletedAt:""
             },
             {
                 group: { $in: newsgroupsIds },
                 hidden: false,
-                deletedAt: { $exists: false },
-                 
+                deletedAt: { $exists: false }
             }
         ]}
         , {sort: {createdAt: -1 }, reactive: false }
-        );  
-                
-
-          
-
-
-
-
+        );
     },
+    
     needMaskImageFallback:function(){
       return (document.documentElement.style['-webkit-mask-image'] !== undefined) ? "" : "mask-image-fallback"
     },
-    getSchoolLogoBackground:function(){
+    getSchoolBannerBackground:function(){
 
         var schoolBackgroundImageId;
         var schoolDoc = SmartixSchoolsCol.findOne({
@@ -101,7 +81,7 @@ Template.MobileSchoolHome.helpers({
 
              customStyle = `
                                 <style>                        
-                                    .school-logo-wrapper .school-logo-background{
+                                    .school-banner-wrapper .school-banner-background{
                                     background-image: url('${bgObj.url()}');
                                     }                                                                    
                                 </style>
@@ -109,7 +89,7 @@ Template.MobileSchoolHome.helpers({
         }else{
              customStyle = `
                                 <style>                        
-                                    .school-logo-wrapper .school-logo-background{
+                                    .school-banner-wrapper .school-banner-background{
                                     background-image: url('/packages/smartix_accounts/client/asset/graduation_ceremony_picture@1x.jpg');
                                     }                                                                    
                                 </style>
@@ -120,6 +100,8 @@ Template.MobileSchoolHome.helpers({
         return customStyle;
     },
     customizeTheme: function() {
+        
+        /*
         var pickSchool = SmartixSchoolsCol.findOne(Session.get('pickedSchoolId'));
 
         if (!pickSchool) {
@@ -144,7 +126,7 @@ Template.MobileSchoolHome.helpers({
             }
         } else {
             return "";
-        }
+        }*/
 
 
     },

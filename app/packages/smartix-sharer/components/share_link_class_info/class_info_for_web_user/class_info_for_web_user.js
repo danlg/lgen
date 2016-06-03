@@ -5,6 +5,43 @@ Session.setDefault("Referral",false);
 /* Home: Event Handlers */
 /*****************************************************************************/
 Template.ClassInformationForWebUser.events({
+  'click .loginBtn':function () {
+    
+    if(Meteor.user()){
+      log.info("user is logged in=" + Meteor.userId());
+      
+      var doc = {};
+      doc.classCode = Session.get("search");
+      
+      //if existing user, help user to join class directly and router go to the class page
+      Meteor.call("smartix:classes/join", doc , function (error, result) {
+        
+        log.info(error);
+        log.info(result);
+        if (error) {
+          log.error("error", error);
+        }else{
+         
+          log.info("Redirecting you to the class");
+          Router.go("classDetail",{classCode : doc.classCode});          
+        }
+      });
+
+    }else{
+      log.info("user is NOT logged in");
+          
+        Meteor.loginWithPassword($('.email').val(), $('.password').val(), function (err) {
+          if (err){
+            toastr.error("user not found");
+            log.error(err);
+          }
+          else {
+            log.info("login:meteor:" + Meteor.userId());
+            Smartix.helpers.routeToTabClasses();
+          }
+        });
+      }
+  },  
   'click .signUpBtn':function () {
     
     if(Meteor.user()){
@@ -124,6 +161,17 @@ Template.ClassInformationForWebUser.helpers({
       return "Join " + teacher.profile.firstName + " " + teacher.profile.lastName + "'s " + classObj.className + " class";
     }
 
+  },
+  isSchoolClass:function(){
+    var classCode =  Router.current().params.classCode;
+    var classObj = Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode:classCode
+    });
+    console.log('isSchoolClass',classObj);    
+    if(classObj){
+          return classObj.namespace !=='global'  
+    }
   },
   isDisable:function () {
     return Router.current().params.classCode ? "disabled" : "";

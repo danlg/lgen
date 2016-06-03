@@ -168,7 +168,7 @@
 }
 
 .school-logo-wrapper{
-    height:25vh;
+    height:10vh;
 }
 .school-logo-wrapper .school-logo-background{
   position: fixed;
@@ -177,11 +177,11 @@
   z-index: 1;
 
   display: block;
-  background-image: url('//www.carmel.edu.hk/modules/mod_image_show_gk4/cache/slider.Carmel%20School-31gk-is-98.jpg');
+ /* background-image: url('//www.carmel.edu.hk/modules/mod_image_show_gk4/cache/slider.Carmel%20School-31gk-is-98.jpg');*/
   background-size: cover;
   background-position: center;
   width: 100%;
-  height: 25vh; /* same as school-logo-wrapper*/
+  height: 10vh; /* same as school-logo-wrapper*/
 
   /*-webkit-filter: blur(5px);
   -moz-filter: blur(5px);
@@ -200,19 +200,42 @@
     margin-left: 20px;
     margin-right: 20px; */  
      
-    height: 25vh;
+    height: 10vh;
     text-align: center;
     padding: 0 8% 0 8%;
 }
 
 .school-logo-wrapper .school-logo img{
     height: 80%;
-    border: 3px solid #811719;
+    /*border: 3px solid #811719;
     border-radius: 12px;
-    background: white;
-    margin-top: 2vh;    
+    background: white;*/
+    margin-top: 1vh;
 }
 
+.school-banner-wrapper{
+    height:25vh;
+}
+.school-banner-wrapper .school-banner-background{
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1;
+
+  display: block;
+ /* background-image: url('//www.carmel.edu.hk/modules/mod_image_show_gk4/cache/slider.Carmel%20School-31gk-is-98.jpg');*/
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 25vh; /* same as school-banner-wrapper*/
+
+  /*-webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+  */
+}
 
 .news-slidebox-wrapper .slide-box-bg{
     height:100%; 

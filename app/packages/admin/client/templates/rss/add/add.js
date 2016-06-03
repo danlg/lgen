@@ -20,22 +20,19 @@ Template.AdminRssAdd.helpers({
 
 Template.AdminRssAdd.events({
     'click #addRss-submit': function (event, template) {
-        
         event.preventDefault();
-        
         var name = template.$('#addRss-name').eq(0).val();
         var url = template.$('#addRss-url').eq(0).val();
-        
-        var selectedNewgroups = [];    
+        var selectedNewsgroups = [];    
         $("#newsgroups :selected").each(function(){
-            selectedNewgroups.push($(this).val()); 
+            selectedNewsgroups.push($(this).val()); 
         });
         
         Meteor.call('smartix:rss/linkRssWithGroups'
             , Smartix.Accounts.School.getNamespaceFromSchoolName(Router.current().params.school)
             , name
             , url
-            , selectedNewgroups
+            , selectedNewsgroups
             , function (err, res) {
             if(err) {
                 log.info(err);

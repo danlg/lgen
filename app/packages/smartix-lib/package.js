@@ -53,6 +53,11 @@ Package.onUse(function(api) {
         'i18n/fr/fr.i18n.json',
         'i18n/zh-CN/zh-CN.i18n.json',
         'i18n/zh-TW/zh-TW.i18n.json',
+        'i18n/ar/ar.i18n.json', 'i18n/de/de.i18n.json', 'i18n/es/es.i18n.json', 'i18n/fi/fi.i18n.json',
+        'i18n/he/he.i18n.json', 'i18n/hi/hi.i18n.json', 'i18n/it/it.i18n.json', 'i18n/ja/ja.i18n.json',
+        'i18n/ko/ko.i18n.json', 'i18n/nl/nl.i18n.json', 'i18n/pl/pl.i18n.json', 'i18n/pt/pt.i18n.json',
+        'i18n/ru/ru.i18n.json', 'i18n/sv/sv.i18n.json', 'i18n/tr/tr.i18n.json',
+
         'i18n/project-tap.i18n'
     ]);
     api.use('tap:i18n');

@@ -32,6 +32,16 @@ Meteor.publish('allSchoolUsersPerRole', function (school) {
     }
     
     var allSchoolUsers = []; 
+    
+    //if user is a school admin:
+    //can talk to everyone in that school
+    if (Roles.userIsInRole(this.userId, Smartix.Accounts.School.ADMIN, schoolDoc._id)) {
+        //exit early
+        return Meteor.users.find({
+            schools: schoolDoc._id
+        });         
+    }
+    
     //if user is a teacher:
     //can talk to another teacher
     //can talk to students who the teacher is teaching

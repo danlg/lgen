@@ -12,7 +12,10 @@ Template.AdminClassesSearch.onCreated(function () {
         log.info("Please specify a school to list the classes for");
     }
     this.usersChecked = new ReactiveVar([]);
-    this.doingOperations = new ReactiveVar(false);     
+    this.doingOperations = new ReactiveVar(false);  
+    this.modalName = new ReactiveVar("remove-classes-modal");
+    this.modalTitle = new ReactiveVar("Do you really want to remove the selected class(es)?");
+    this.modalBody = new ReactiveVar("");         
 });
 
 Template.AdminClassesSearch.helpers({
@@ -46,15 +49,24 @@ Template.AdminClassesSearch.helpers({
         if(Template.instance().subscriptionsReady()) {
             return Meteor.users.findOne({
                 _id: data
-            });
-        }
+          });
+      }
   },
   classesSearchInputAttributes: function () {
-    return {
-        placeholder: TAPi18n.__("Search"),
-        class: "form-control",
-        id: "classesSearchInput"
-    }
+      return {
+          placeholder: TAPi18n.__("Search"),
+          class: "form-control",
+          id: "classesSearchInput"
+      }
+  },
+  getModalName: function () {
+      return Template.instance().modalName.get();
+  },
+  getModalTitle: function () {
+      return Template.instance().modalTitle.get();
+  },
+  getModalBody: function () {
+      return Template.instance().modalBody.get();
   }
 });
 
@@ -111,13 +123,38 @@ Template.AdminClassesSearch.events({
    'click .deselect-all-users-btn':function(event,template){
       template.usersChecked.set([]);
    },      
-   'click .remove-distribution-lists-btn':function(event,template){
+   'click .remove-classes-btn':function(event,template){
         let latestArray = template.usersChecked.get();
-        let listOfUsers = latestArray.join('\n');
+
+        let listOfClasses = Smartix.Groups.Collection.find({_id:{$in: latestArray }}).fetch();
+        let listOfClassesNames = listOfClasses.map(function(eachClassObj){
+            return eachClassObj.className;
+        })        
+
+        template.modalBody.set(listOfClassesNames.join('<br/>'));
+
+        Meteor.setTimeout(function(){
+           $('#remove-classes-modal-btn').click();  
+        },200);   
+                
+        /*let listOfUsers = latestArray.join('\n');
         if (window.confirm("Do you really want to remove the selected class(es):\n"+listOfUsers)) {             
                 Meteor.call('smartix:classes/removeClasses',latestArray,function(){
                    template.usersChecked.set([]); 
                 });            
-        }             
-   }
+        }*/         
+   },
+    'click .modal .save':function(event,template){
+        if( $(event.target).hasClass('remove-classes-modal') ){
+            let latestArray = template.usersChecked.get();
+         
+            //hide modal
+            $('.modal .close').click();
+                  
+            //call method to delete distribution lists
+            latestArray.map(function(eachDistributionListId){
+                Meteor.call('smartix:classes/removeClasses',latestArray);            
+            });           
+        }
+    },
 });

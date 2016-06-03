@@ -32,7 +32,7 @@ Plus these additional fields:
 
 ## Server-side Functions
 
-### `getNewsGroupOfUser()`
+### `getNewsgroupOfUser()`
 
 Get newsgroup a user belongs to
 
@@ -49,7 +49,7 @@ Get newsgroup a user belongs to
 
 ## Server-side Methods
 
-### `createNewsGroup()`
+### `createNewsgroup()`
 
 Create a new newsgroup.
 
@@ -70,7 +70,7 @@ Create a new newsgroup.
 * Add the `comments` property and set it to `false`
 * Passes the modified group object to `Smartix.Groups.createGroup()`, which is provided by the `smartix:groups` package.
 
-### `editNewsGroup()`
+### `editNewsgroup()`
 
 Edit an existing newsgroup.
 
@@ -90,7 +90,7 @@ Edit an existing newsgroup.
 * Remove the `namespace` and `type` properties from `options`, if they exists
 * Passes the `options` object to `Smartix.Groups.editGroup()`, provided by `smartix:groups`
 
-### `deleteNewsGroup()`
+### `deleteNewsgroup()`
 
 Delete an existing newsgroup.
 
@@ -175,4 +175,4 @@ Publishes the newsgroup a user is subscribed to.
 
 #### Implementation
 
-* Return result of `getNewsGroupOfUser()`
+* Return result of `getNewsgroupOfUser()`

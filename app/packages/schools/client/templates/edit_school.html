@@ -1,5 +1,6 @@
 <!--a stub for dev only. Usage: system admin to create/edit school. Expect: return of school id and school admin initial password-->
 <template name='EditSchool'>
+    {{#if Template.subscriptionsReady}}
     {{#with getSchoolObj}}
     <form>
         <input id='school-id' type="hidden" name="school-id" value='{{_id}}'>
@@ -61,4 +62,5 @@
        <input id='edit-school-submit' type="button" value="Edit" >
     </form>
    {{/with}}
+   {{/if}}
 </template>

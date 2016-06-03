@@ -102,7 +102,7 @@
     "NoClass": "No class found",
 
     "NoCreditCardRequired": "No credit card required",
-    "StartFreeTrial":"Start my 30-day FREE trial of my personalised app",
+    "StartFreeTrial":"Start my 30-day FREE trial of my personalised school app",
     "Communication_manager":"Communication manager",
     "IT_manager":"IT manager",
     "YourRole":"Your role",
@@ -111,7 +111,7 @@
     "SignUpMotto3": "Type your school name and watch the magic",
     "AboutSchool": "About your school",
     "AboutYou": "About you",
-    "ChooseColor": "Choose your color",
+    "ChooseColor": "Magic color",
     "Optional":"optional",
     "HowDidYouFind" :"How did you find us?",
     "WhichIssues" :" Which issues do you face the most at school?",
@@ -148,6 +148,7 @@
     "Report": "Report",
     "Report_desc": "Reporting inappropriate content",
     "Report_subtitle": "Keeping Smartix safe is our priority, but it is a shared responsibility",
+    "Reset": "Reset",
     "ResetPassword": "Reset Password",
     "ResetPasswordEmailSubject": "Reset Password - Smartix",
     "ResetPasswordEmailContent": "__first_name__, You told us you forgot your password. If you really did, click below to choose a new one:",
@@ -168,7 +169,7 @@
     "ShowClass": "Show your class how to join",
     "SignANewAccount": "Sign up for a new account",
     "SignIn": "Sign in",
-    "SignOut": "Sign out",
+    "SignOut": "Logout",
     "SignUp": "Sign up",
     "SignUpAgreeToTOSAndPP": "By signing up, you agree to the",
     "SignUpWithGoogle": "Sign up with Google",
@@ -297,7 +298,7 @@
     },
     "requiredFields": "Please ensure all required fields are filled-in",
     "applicationError": {
-        "refreshRequired": "There is an error from our end. Please hard refresh the page and try again."
+        "refreshRequired": "There is an error from our end. Please refresh the page and try again."
     },
     "absence": {
         "ApplyForLeave"  : "Apply for leave",
@@ -383,7 +384,9 @@
         "Approved":"Approved",
         "ArrivalTime":"arrivalTime",
         "Article":"Article",
-        "AgeRestricted":"Age-Restricted",
+        "AgeRestricted":"Members are at least 13 years-old",
+        "AgeRestrictedComment":"Yes",
+        "AgeNotRestrictedComment":"No",
         "AddCopyUsers":"Add by Copying Users",
         "AddReference":" Add by Reference",
         "AllParentRecord":"All fields after Student E-mail belong to a parent record.",
@@ -411,8 +414,8 @@
         "ClearLogs":"Clear Logs",
         "Content":"Content",
         "Close":"Close",
-        "Created":"Created At",
-        "CreatedAt":"Created At",
+        "Created":"Created on",
+        "CreatedAt":"Created on",
         "CreatedDate":"Created Date",
         "CreateEvent":"Create an event",
         "ClassAnnouncements":"Class Announcements",
@@ -482,7 +485,9 @@
         "StudentEmail":"Student E-mail",
         "Step1":"Step 1 - Download our CSV template, and complete the columns",
         "Step2":"Step 2: Save your spreadsheet as a CSV file.",
-        "Step3":"Step 3: Upload your CSV file of parents",
+        "Step3Parents":"Step 3: Upload your CSV file of parents",
+        "Step3Students":"Step 3: Upload your CSV file of students",
+        "Step3Teachers":"Step 3: Upload your CSV file of teachers and staff",
         "Show/HiddenNews":"Show/Hidden News",
         "SearchNewsgroups":"Search Newsgroups",
         "StudentName":"Student Name",
@@ -544,7 +549,7 @@
         "News":"News",
         "NewsCode":"News Code",
         "NewsDetails":"News details",
-        "NewGroups":"Newgroups",
+        "Newsgroups":"Newsgroups",
         "NewsgroupDetails":"Newsgroup Details",
         "NewsgroupName":"Newsgroup Name",
         "NewsgroupsNews":"Newsgroups News",
@@ -619,6 +624,9 @@
         "Grade":"Grade",
         "Gradelevels":"Grade levels. Required fields for all students.",
         "Gender":"Gender",
+        "AdminSearchInput":"Type the admin's name you want to add",
+        "UserSearchInput":"Type the user's name you want to add",
+        "ListSearchInput":"Type the name of the distribution list you want to add",
         "WelcometoSmartixAdmin":"Welcome to Smartix Admin!"
     },
     "messages": {
@@ -639,7 +647,7 @@
         "SchoolBackgroundImage":"School background image",
         "SchoolTextColor":"School Text Color",
         "Schoollongname":"School long name",
-        "Shortname":"School short name (1 word only no space, it will appear in the URL)",
+        "Shortname":"School short name (one word only, no space, it will appear in the URL)",
         "Noexisting":" No existing school logo",
         "Upload":"Upload a new school logo ",
         "SchoolAdministratorEmail":"School administrator email (this login has full control on the Smartix school configuration)"
@@ -671,7 +679,8 @@
         "Chatsetting" : "Chat Setting"
     },
     "smartix-classes":{
-        "Loadmessages" : "Load Previous Messages"
+        "Loadmessages" : "Load Previous Messages",
+        "ViewUsers" : "Show members"
     },
     "smartix-core":{
         "Version":"Version"

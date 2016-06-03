@@ -7,8 +7,8 @@ App.info({
   author: 'Little Genius Education',
   email: 'contact@gosmartix.com',
   website: 'https://app.gosmartix.com',
-  version: '1.2.1',
-  buildNumber: '214'
+  version: '1.2.2',
+  buildNumber: '220'
 });
 
 //generated with meteor-assets
@@ -91,3 +91,7 @@ App.accessRule('https://localhost:*');
 App.setPreference('WebAppStartupTimeout', '60000');
 
 App.accessRule('*://*.gosmartix.com:*/*');
+
+//csp in head.html would further restraint what can be loaded
+App.accessRule('http://*');
+App.accessRule('https://*');

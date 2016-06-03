@@ -72,10 +72,7 @@ Template.SchoolSignup.helpers({
                     transition: background-color 0.1s ease;
                     background-color: ${schoolBackgroundColor};                         
                 }
-                
-                .school-logo-wrapper .school-logo img{
-                    border: 3px solid ${schoolBackgroundColor};
-                }                          
+                                        
             </style>
         `;
         return customStyle;
@@ -88,7 +85,7 @@ Template.SchoolSignup.helpers({
         if( Template.instance().previewSchoolBackgroundImageBlob.get() ){
             customStyle = `
                                 <style>                        
-                                    .mobile-school-home-fake .school-logo-wrapper .school-logo-background{
+                                    .mobile-school-home-fake .school-banner-wrapper .school-banner-background{
                                     background-image: url('${Template.instance().previewSchoolBackgroundImageBlob.get()}');
                                     }                                                                    
                                 </style>
@@ -96,7 +93,7 @@ Template.SchoolSignup.helpers({
         }else{
             customStyle = `
                                 <style>                        
-                                    .mobile-school-home-fake .school-logo-wrapper .school-logo-background{
+                                    .mobile-school-home-fake .school-banner-wrapper .school-banner-background{
                                     background-image: url('/packages/smartix_accounts/client/asset/graduation_ceremony_picture@1x.jpg');
                                     }                                                                    
                                 </style>
@@ -272,16 +269,71 @@ Template.SchoolSignup.events({
             reader.onload = function (readerEvent) {
                 //console.log(readerEvent);
                 // get loaded data and render thumbnail.
+                //document.getElementById("school-background-image-preview").src = readerEvent.currentTarget.result;
                 template.previewSchoolBackgroundImageBlob.set( readerEvent.currentTarget.result );
             };
             // read the image file as a data URL.
             reader.readAsDataURL(files[0]);
         }
     },
-
+    'click .reset-color-and-logos':function(event, template) {
+        template.inputBackgroundColor.set('#811719');
+        template.inputTextColor.set('#FFFFFF');
+        template.previewSchoolLogoBlob.set('');
+        template.previewSchoolBackgroundImageBlob.set(''); 
+        document.getElementById("school-logo-preview").src = '/packages/smartix_accounts/client/asset/hbs_logo.svg';
+    } , 
     'click #person-sign-up':function(event,template){
         template.currentSchoolFormTemplate.set('EmailSignupForm');
-    }
+    },
+
+    'click .individual-create-btn': function(event, template) {
+        var userObj = {};
+        userObj.profile = {};
+        var email = $(".email").val();
+        var password = $(".password").val();
+        
+        if(password.length < 4) {
+           toastr.error("At least 4 characters Password");
+        }
+        userObj.password = password;
+        
+        userObj.profile.firstName = $(".fn").val();
+        userObj.profile.lastName = $(".ln").val();
+        userObj.dob = $("#dobInput").val() || "";
+
+        if (!Smartix.helpers.validateEmail(email)) {
+            toastr.error("Incorrect Email");
+        } else {
+            Meteor.call('smartix:accounts/createUser', email, userObj, 'global', ['user'], function(err, res) {
+                if (err) {
+                    toastr.error(err.reason);
+                    log.error(err);
+                } else {
+                    //create User successfully
+                    analytics.track("Sign Up", {
+                        date: new Date(),
+                        email: userObj.email,
+                        verified: false
+                    });
+                    
+                    Meteor.loginWithPassword(email,password,function(err){
+                        if(err){
+                            toastr.error('Sign up fail. The email is already taken');
+                        }else{
+                            toastr.info(TAPi18n.__("WelcomeVerification"));
+                            log.info("login:meteor:" + Meteor.userId());
+                            Smartix.helpers.routeToTabClasses();                            
+                        }
+                    });
+                }
+
+            });
+        }
+    },
+    'click .individual-google-login-btn':function(event, template) {
+        Smartix.Accounts.registerOrLoginWithGoogle();
+    }     
 });
 
 
