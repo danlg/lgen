@@ -16,7 +16,8 @@ SchoolsSchema = new SimpleSchema({
    ,tel:{ type:String, optional : true}
    , web:{ type:String, optional : true //URL
    }
-   , email:{ type:String
+   , email:{ type:String,
+     regEx:SimpleSchema.RegEx.Email
    }
    , active:{
      type:Boolean,
