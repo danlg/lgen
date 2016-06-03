@@ -62,9 +62,9 @@
         <input class="targetCB"  type='checkbox' name="person" value="{{_id}}" data-userid='{{_id}}'>
         </label>
         {{#if isEmoji _id}}
-            <i class="icon e1a-{{profile.avatarValue}} e1a-3x emojicon"></i>
+            <i id='pick-an-icon-btn' class="icon e1a-{{profile.avatarValue}} e1a-3x emojicon"></i>
         {{else}}
-            <img class="icon icon-avatar e1a-3x" src="{{profile.avatarValue}}" />
+            <img class="icon e1a-3x" id='pick-an-icon-btn' src="{{profile.avatarValue}}" />
         {{/if}}                
         {{profile.firstName}}
         {{profile.lastName}}        

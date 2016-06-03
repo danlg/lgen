@@ -81,7 +81,7 @@ Template.ChatRoom.helpers({
             if (userObj.profile.avatarType==="emoji")
                 return "<i class=\"icon e1a-"+userObj.profile.avatarValue+" e1a-2x emojicon\"></i>";       
             else
-                return "<img class=\"icon icon-avatar e1a-2x\" src="+userObj.profile.avatarValue+" />";        }
+                return "<img class=\"icon icon-avatar e1a-2x\" id='pick-an-icon-btn' src="+userObj.profile.avatarValue+" />";        }
     }else{
         return "";
     }

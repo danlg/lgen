@@ -43,9 +43,9 @@
                 <div class="item item-icon-left" style="padding-top: 3px; padding-bottom: 3px;min-height:50px;">
                   {{{newMessageCounter _id}}}                  
                     {{#if isEmoji}}
-                        <i class="icon {{chatRoomUserAvatar}} e1a-1x emojicon"></i>
+                        <i id='pick-an-icon-btn' class="icon {{chatRoomUserAvatar}} e1a-1x emojicon"></i>
                     {{else}}
-                        <img class="icon e1a-1x icon-avatar" src="{{chatRoomUserAvatar}}" />
+                        <img class="icon e1a-1x icon-avatar" id='pick-an-icon-btn' src="{{chatRoomUserAvatar}}" />
                     {{/if}}
                   <h2>{{chatroomMemberName 4 }}</h2>
                   {{#if Template.subscriptionsReady}}
