@@ -6,7 +6,7 @@ App.info({
   description: 'Instant, safe, simple communication for teachers, students and parents',
   author: 'Little Genius Education',
   email: 'contact@gosmartix.com',
-  website: 'https://app.gosmartix.com',
+  website: 'http://www.gosmartix.com',
   version: '1.2.2',
   buildNumber: '222'
 });
