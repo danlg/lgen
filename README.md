@@ -76,7 +76,7 @@ Both are colocated in San Francisco DigitalOcean datacenter (not available in As
 
 ## INFRASTRUCTURE ##
 The UAT server is `uat.gosmartix.com`
-The production server is `app.gosmartix.com`
+The production server is `now.gosmartix.com`
 They use a floating IPs. See https://www.digitalocean.com/company/blog/floating-ips-start-architecting-your-applications-for-high-availability/
 
 #Server side#
