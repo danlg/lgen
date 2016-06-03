@@ -142,8 +142,9 @@ Template.AppLayout.onCreated(function() {
 Template.AppLayout.onRendered(function(){
     log.info('Template.AppLayout.onRendered : checkLanguage');
     checkLanguage();
-})
- function checkLanguage(pause) {
+});
+
+function checkLanguage(pause) {
     // see https://developer.apple.com/library/ios/documentation/MacOSX/Conceptual/BPInternational/LanguageandLocaleIDs/LanguageandLocaleIDs.html
     //itap18n doesn't support the iOS notation
     //todo check that this is loaded when initializing screen on cordova
@@ -165,7 +166,6 @@ Template.AppLayout.onRendered(function(){
             //log.info("checkLanguage:cordova:ChineseMap:'" + lodash.toString (chineseMap));
             //log.info("checkLanguage:cordova:Chinese:'" + mobilePhoneLanguage.value + "'");
             if (Smartix.helpers.isHan(mobilePhoneLanguage.value)) {
-              
               //we remove the country
               var langPartsArray = mobilePhoneLanguage.value.split('-');
               var langtmp;
@@ -173,8 +173,7 @@ Template.AppLayout.onRendered(function(){
                   langtmp = langPartsArray[0]+"-"+langPartsArray[1];
               } else {
                   langtmp = mobilePhoneLanguage.value;
-              }           
-              
+              }
               //what is min?
               //var langtmp = mobilePhoneLanguage.value.substr(0, min(7, mobilePhoneLanguage.value.length));
               lang = chineseMap [langtmp];
@@ -188,29 +187,20 @@ Template.AppLayout.onRendered(function(){
             var pattern = /-.*/g; //remove the country e.g. fr-HK => fr
             lang = mobilePhoneLanguage.value.replace(pattern, "");
           }
-          //log.info("checkLanguage:TAPi18n.getLanguages:before'");
           var supportedLanguages = TAPi18n.getLanguages();
-          log.info('supportedLanguages',supportedLanguages);
-          //log.info("checkLanguage:TAPi18n.getLanguages:after'");
-          //log.info("checkLanguage:supportedLanguages:before'"+ supportedLanguages+ "'");          
-          //log.info(supportedLanguages);
-          //log.info("checkLanguage:supportedLanguages:after'"+ supportedLanguages+ "'");          
-          //if (!lodash.includes(supportedLanguages, lang))
-          if (Object.keys(supportedLanguages).indexOf(lang) == -1 ) {
-            log.warn("checkLanguage:Defaulting to English");
-            lang = "en";
-          } else {
-            //log.info("checkLanguage:Found lang mapping");
+          log.info("SupportedLanguages'"+ JSON.stringify(supportedLanguages)+ "'");
+          if( Object.keys(supportedLanguages).indexOf(lang) === -1 )
+          {
+              log.warn(lang, " not found. Defaulting to English");
+              lang = "en";
           }
-
-          //log.info("checkLanguage:setLang:'" + lang + "'");
+          else {
+              log.info("Found lang mapping", lang);
+          }
           TAPi18n.setLanguage(lang);
-         
-         //&& ( !Meteor.user().lang || Meteor.user().lang =="")
-         if(Meteor.userId() ){
-           //update user language
-           Meteor.call("updateProfileByPath", 'lang', lang); 
-         }       
+          if(Meteor.userId() ) { //update user language
+            Meteor.call("updateProfileByPath", 'lang', lang);
+          }
         },
         function () {
           toastr.error('Error getting language\n');
@@ -219,62 +209,47 @@ Template.AppLayout.onRendered(function(){
     }
     else //web
     {
-        //debugger;
         var lang;
         var languagePrefs = navigator.languages;
-        
         //safari does not support navigator.languages, so navigator.language is used instead
-        if(!languagePrefs){
+        if(!languagePrefs) {
             var languageFromSafari = navigator.language;
             var languageFromSafariInParts;
             if(languageFromSafari.indexOf("-") > -1){
-                languageFromSafariInParts =  languageFromSafari.split('-');
+            languageFromSafariInParts =  languageFromSafari.split('-');
             }
             if(languageFromSafari.indexOf("_") > -1){
-                languageFromSafariInParts =  languageFromSafari.split('_');
+            languageFromSafariInParts =  languageFromSafari.split('_');
             }
             if(languageFromSafari.indexOf("zh") > -1 && languageFromSafari.length == 2){
-               languageFromSafari = languageFromSafariInParts[0] + "-" + 'TW';
+                languageFromSafari = languageFromSafariInParts[0] + "-" + 'TW';
             }else if(languageFromSafari.indexOf("zh") > -1){
-               languageFromSafari = languageFromSafariInParts[0] + "-" + languageFromSafariInParts[1].toUpperCase();
+                languageFromSafari = languageFromSafariInParts[0] + "-" + languageFromSafariInParts[1].toUpperCase();
             }
             else{
-               languageFromSafari = languageFromSafariInParts[0];
+                languageFromSafari = languageFromSafariInParts[0];
             }
             languagePrefs = [];
             languagePrefs.push(languageFromSafari);
         }
-        
-          //log.info("checkLanguage:web:langprefs:"+languagePrefs);
-          lang = languagePrefs[0];
-          
-          //fallback to zh-TW in this case
-          if(lang == 'zh'){
-              lang = 'zh-TW';
-          }
-          var supportedLanguages = TAPi18n.getLanguages();
-          log.info("checkLanguage:TAPi18n.getLanguages:after'");
-          log.info("checkLanguage:supportedLanguages:before'"+ supportedLanguages+ "'");          
-          log.info(supportedLanguages);
-          log.info("checkLanguage:supportedLanguages:after'"+ supportedLanguages+ "'");          
-          //if (!lodash.includes(supportedLanguages, lang))
-          if( Object.keys(supportedLanguages).indexOf(lang) == -1 )
-          {
-            log.warn("checkLanguage:Defaulting to English");
+        lang = languagePrefs[0];
+        if(lang === 'zh'){  //fallback to zh-TW if zh
+            lang = 'zh-TW';
+        }
+        var supportedLanguages = TAPi18n.getLanguages();
+        log.info("SupportedLanguages'"+ JSON.stringify(supportedLanguages)+ "'");
+        if( Object.keys(supportedLanguages).indexOf(lang) === -1 )
+        {
+            log.warn(lang, " not found. Defaulting to English");
             lang = "en";
-          }
-          else{
-            //log.info("checkLanguage:Found lang mapping");
-          }
-          
-          //log.info("checkLanguage:setLang:'"+ lang+ "'");
-          TAPi18n.setLanguage(lang);
-        
-         //&& ( !Meteor.user().lang || Meteor.user().lang =="")
-         if(Meteor.userId() ){
-           //update user language
-           Meteor.call("updateProfileByPath", 'lang', lang); 
-         }
-            
+        }
+        else {
+            log.info("Found lang mapping", lang);
+        }
+        TAPi18n.setLanguage(lang);
+        //we store the user language preferred language
+        if(Meteor.userId() ){
+            Meteor.call("updateProfileByPath", 'lang', lang);
+        }
     }
   }
