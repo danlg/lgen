@@ -298,7 +298,7 @@
     },
     "requiredFields": "Please ensure all required fields are filled-in",
     "applicationError": {
-        "refreshRequired": "There is an error from our end. Please hard refresh the page and try again."
+        "refreshRequired": "There is an error from our end. Please refresh the page and try again."
     },
     "absence": {
         "ApplyForLeave"  : "Apply for leave",
@@ -647,7 +647,7 @@
         "SchoolBackgroundImage":"School background image",
         "SchoolTextColor":"School Text Color",
         "Schoollongname":"School long name",
-        "Shortname":"School short name (1 word only no space, it will appear in the URL)",
+        "Shortname":"School short name (one word only, no space, it will appear in the URL)",
         "Noexisting":" No existing school logo",
         "Upload":"Upload a new school logo ",
         "SchoolAdministratorEmail":"School administrator email (this login has full control on the Smartix school configuration)"
