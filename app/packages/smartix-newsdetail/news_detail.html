@@ -15,6 +15,11 @@
                        {{formatDateCalendar createdAt}} &nbsp; &nbsp;  {{getGroupName group}}
                     </div>                    
                     <div>
+                        <style>
+                            img{
+                                max-width: 100%;
+                            }
+                        </style>
                         <i class="icon {{isNewMessage createdAt}} new-message-icon"></i>
                         {{{docPreview data.content}}}                     
                         {{#autolink}}<span class='content'><pre>{{{data.content}}}</pre></span>{{/autolink}}
