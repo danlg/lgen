@@ -162,6 +162,14 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
         //3. send email notifications if user opt to receive email notification/
         $ = cheerio.load(message.data.content);  
         
+        
+        /*$email = cheerio.load(message.data.content); 
+        $email('img').attr('width','320');
+        console.log('$email('*').html()', $email('*').html());
+        var emailMessage = message;
+        
+        emailMessage.data.content =  $email('*').html() || emailMessage.data.content;
+        console.log('emailMessage.data.content' ,emailMessage.data.content);*/
         Smartix.Messages.emailMessage(allUserToDoPushNotifications, message, group, meteorUser)
 
         allUserToDoPushNotifications.map(function(eachTargetUser){
