@@ -4,51 +4,57 @@
 Smartix = Smartix || {};
 //unit testing
 //Smartix.messageEmailTemplate(['dan@gosmartix.com'],['dan@gosmartix.com'],'content is great',{chatRoomName:'math'})
-Smartix.messageEmailTemplate = function (RecipientUsers, OriginateUser, content, options) {
+Smartix.messageEmailTemplate = function (RecipientUsers, OriginateUser, messageObj, groupObj,lang) {
   var originateUserName = OriginateUser.profile.firstName + " " + OriginateUser.profile.lastName;
   //var originateUserName = "dummy";
-  options.lang = options.lang || 'en';
+  lang = lang || 'en';
   var bccList = [];
   RecipientUsers.forEach(function (RecipientUser) {
     var bcc = {};
     bcc.email = RecipientUser.email;
     bcc.name = RecipientUser.name;
     bcc.type = "bcc";
-    bccList.push(bcc);
+    bccList.push(bcc.email);
   });
   var subject;
-  if (options.type === 'class') {
+  if (groupObj.type === 'class') {
     subject = TAPi18n.__("NewClassMessageMailTitle",
       {
-        class_name: options.className
+        class_name: groupObj.className
       },
-      options.lang);
-  }
-  else {
-    options.chatRoomName  = (options.chatRoomName) ? "@" + options.chatRoomName : "";
+      lang);
+  }else if(groupObj.type === 'chat'){
     subject = TAPi18n.__("NewChatMessageMailTitle", {
       user_name: originateUserName,
-      chat_room_name: options.chatRoomName
-    }, options.lang);
+      chat_room_name: ""
+    }, lang);    
+  }else if(groupObj.type === 'newsgroup'){
+    subject = messageObj.data.title
+  }
+  else {
+
   }
   log.info("messageEmailTemplate MAIL_URL:" + process.env.MAIL_URL);
   //Accounts.emailTemplates.from = "Smartix <dan@gosmartix.com>";
-  Email.send(
-    {
-      subject: subject,
-      from: Meteor.settings.FROM_EMAIL,
-      //"from_name": Meteor.settings.FROM_NAME,
-      bcc: bccList,
-      html: Spacebars.toHTML(
-        {
-          title: content,
-          GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = options.lang),
-          UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = options.lang)
-        },
-        Assets.getText("emailMessageMasterTemplate.html")
-      )
-    }
-  );
+  Meteor.defer(function(){
+    Email.send(
+      {
+        subject: subject,
+        from: Meteor.settings.FROM_EMAIL,
+        //"from_name": Meteor.settings.FROM_NAME,
+        bcc: bccList,
+        html: Spacebars.toHTML(
+          {
+            title: messageObj.data.content,
+            GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = lang),
+            UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = lang)
+          },
+          Assets.getText("emailMessageMasterTemplate.html")
+        )
+      }
+    );       
+  });
+
 };
 
 //OK unit tested with > meteor shell

@@ -158,6 +158,12 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
         }
         //log.info('allUserToDoPushNotifications',allUserToDoPushNotifications);
         let meteorUser = Meteor.users.findOne({    _id: currentUser   });
+        
+        //3. send email notifications if user opt to receive email notification/
+        $ = cheerio.load(message.data.content);  
+        
+        Smartix.Messages.emailMessage(allUserToDoPushNotifications, message, group, meteorUser)
+
         allUserToDoPushNotifications.map(function(eachTargetUser){
             Notifications.insert({
                 eventType:"new"+group.type+"message",
@@ -171,14 +177,14 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
                 messageCreateByUserId: currentUser
             },function(){
                 if(meteorUser) { 
-                    //3. send push notification and in-app notification
+                    //4. send push notification and in-app notification
                     
-                    $ = cheerio.load(message.data.content);               
+                                 
                     //console.log('cheerioWithhtmlText',$('*').text());                   
                     var notificationObj = {
                         from : Smartix.helpers.getFullNameByProfileObj(meteorUser.profile),
                         title : Smartix.helpers.getFullNameByProfileObj(meteorUser.profile),
-                        text: $('*').text() || "",
+                        text: message.data.content || "",
                         payload:{
                             type: group.type,
                             groupId: groupId
@@ -188,6 +194,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
                     };
                     if(group.type === 'newsgroup'){
                         notificationObj.title = message.data.title || "";
+                        notificationObj.text  = $('*').text() || message.data.content;
                     }
                     Meteor.call("doPushNotification", notificationObj,{
                         groupId: groupId,
@@ -366,3 +373,52 @@ Smartix.Messages.undeleteMessage = function () {
         }
     });
 }
+
+Smartix.Messages.emailMessage = function (targetUserids, messageObj, groupObj, originateUserObj) {
+
+      var arrayOfTargetUsers = Meteor.users.find({_id: {$in: targetUserids}}).fetch();
+      
+      console.log('arrayOfTargetUsers',arrayOfTargetUsers);
+      //keep user opt-in to receive email notification, group them by their UI language
+      var optInUsersGroupByLang = lodash.chain(arrayOfTargetUsers)
+        .filter(function (user) {
+          
+          //if user enable email notification
+          if (user.emailNotifications) {  
+              console.log('user.emailNotifications', user.emailNotifications )
+            //if email is verified
+            if (user.emails && user.emails[0] && user.emails[0].verified) {
+              console.log('user.emails', user.emails[0],' ',user.emails[0].verified )
+              return true;
+            }
+          }
+          else {
+            console.log('user.emailNotifications', user.emailNotifications )  
+            return false;
+          }
+        })
+        .groupBy('lang')
+        .value();
+      
+      console.log('optInUsersGroupByLang',optInUsersGroupByLang);
+
+      for (var lang in optInUsersGroupByLang) {
+        var receivers = [];
+        optInUsersGroupByLang[lang].map(function (eachUser) {
+          var receiver = {
+            email: eachUser.emails[0].address,
+            name: eachUser.profile.firstName + " " + eachUser.profile.lastName
+          };
+          receivers.push(receiver);
+        });
+
+        log.info("sendEmailMessageToClasses", lang, receivers);
+        try {
+          //send email
+          Smartix.messageEmailTemplate(receivers, originateUserObj, messageObj, groupObj, lang);
+        }
+        catch (e) {
+          log.error(e);
+        }
+      }
+  };
