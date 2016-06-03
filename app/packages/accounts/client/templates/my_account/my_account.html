@@ -20,10 +20,7 @@
   {{#contentFor "headerButtonRight"}}
     {{#if fromRegisterFlow}}
         <button class="button button-clear button-entering button-active finish-account-btn">Finish</button>        
-    {{else}}
-        <button class="button button-clear button-entering button-active editAccountBtn">{{_ "Update"}}</button>  
     {{/if}}  
-
   {{/contentFor}}
 
   {{#ionView}}
@@ -38,34 +35,26 @@
       {{#autoForm schema=editprofile id="editprofile" resetOnSuccess=false type="method" doc=this meteormethod="profile/edit"  }}
         <div class="list">     
           <div class='row'>
-              {{> afFieldInput name="avatarValue" style='display:none;' value=getYouAvatar }}  
+              
+              <!--Save the avatar values to Schema-->
+              {{> afFieldInput name="profile.avatarType" style='display:none;' value=getAvatarType }}              
+              {{> afFieldInput name="profile.avatarLarge" style='display:none;' value=getAvatarLarge }}              
+              {{> afFieldInput name="profile.avatarValue" style='display:none;' value=getYouAvatar }}  
               {{#if getYouAvatar}}
                <div class='col col-50'  style='text-align:center;'>
-                <br/>
-                  <i id='pick-an-icon-btn' class="icon e1a-{{getYouAvatar}} e1a-5x emojicon"></i>
-                <br/>
-                <!--<span>Avatar-->
-                <!--<label class="toggle toggle-balanced">-->
-                  <!--<input type="checkbox">-->
-                  <!--<div class="track">-->
-                    <!--<div class="handle"></div>-->
-                  <!--</div>-->
-                <!--</label>-->
-                <!--Upload Photo</span>-->
+                {{#if isEmoji}}
+                    <br/>
+                    <i id='pick-an-icon-btn' class="icon e1a-{{getYouAvatar}} e1a-5x emojicon"></i>
+                {{else}}
+                    <img style="border-radius:50%;" id='pick-an-icon-btn' src="{{getYouAvatar}}" />
+                {{/if}}                         
                </div> 
               {{else}}
                <div  class='col col-50'  style='text-align:center;' >              
                 <p> Choose an avatar</p>  
                   <i id='pick-an-icon-btn' class='icon ion-ios-person-outline' style='font-size:5em;'></i>
                 <br/>
-                <!--Avatar<label class="toggle toggle-balanced">-->
-                  <!--<input type="checkbox">-->
-                  <!--<div class="track">-->
-                    <!--<div class="handle"></div>-->
-                  <!--</div>-->
-                <!--</label>-->
-                <!--Upload Photo             -->
-               </div>  
+                </div>  
               {{/if}}                       
             <div class='col col-50'>
                {{> afFieldInput name="profile.firstName" placeholder=getFirstNamePlaceHolder value=currentUserObj.profile.firstName }}
@@ -107,15 +96,6 @@
                 <p>{{letterCaseToCapitalCase this}}</p>
                 {{/each}}
           </label>   
-            <!--{{#if getYouUpload}}-->
-               <!--<div class='col col-50'  style='text-align:center;'>-->
-                <!--<br/>-->
-                <!--<img src="{{getYouUpload}}" />-->
-                <!--<input type="file" id ="attachment">-->
-               <!--</div> -->
-              <!--{{else}}-->
-                    <!--<input type="file" id ="attachment">-->
-              <!--{{/if}}       -->
         </div>
       {{/autoForm}}
       

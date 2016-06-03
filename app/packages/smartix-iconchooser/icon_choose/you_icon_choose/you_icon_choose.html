@@ -1,5 +1,5 @@
 <template name="YouIconChoose">
-  {{#ionModal title=""}}
+  {{#ionModal title = (_ "smartix-iconchooser.SelectEmojiOrUploadImage" ) inputText="true"}}
   <div class="padding" style="background-color:white;">
     {{{iconChooseHelper getYouIconList}}}
   </div>

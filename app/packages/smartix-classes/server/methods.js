@@ -34,6 +34,16 @@ Meteor.methods({
         }
 
     },
+    getAvatarTypeId: function(id) {
+        var userObj = Meteor.users.findOne({ _id: id });
+
+        if (userObj && userObj.profile && userObj.profile.avatarType) {
+            return userObj.profile.avatarType;
+        } else {
+            return "emoji";
+        }
+
+    },
 
     'smartix:classes/createClass': function(schoolName, classObj) {
 
