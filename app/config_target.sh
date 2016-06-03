@@ -43,16 +43,37 @@ fi
 #Preparing symbolic link for mup
 cd ../config/
 echo ""
-echo "3. Preparing symbolic link for mup - WARNING works only for UAT"
-echo "   Sym linking " `pwd`/mup.json " -> "  `pwd`/${1}u.mup.json
-echo "   Sym linking " `pwd`/settings.json " -> " `pwd`/${1}u.settings.json
-#echo "config="$1
-rm -f mup.json && rm -f settings.json
-ln -s ${1}u.mup.json mup.json && ln -s ${1}u.settings.json settings.json
-if [ $? -eq 0 ];
+echo "3. Preparing symbolic link for mup"
+
+if [ "$1" = "smartix" ];
+then
+  echo "   Sym linking " `pwd`/mup.json " -> "  `pwd`/${1}.mup.json
+  echo "   Sym linking " `pwd`/settings.json " -> " `pwd`/${1}.settings.json
+  #echo "config="$1
+  rm -f mup.json && rm -f settings.json
+  ln -s ${1}.mup.json mup.json && ln -s ${1}.settings.json settings.json
+
+else if [ "$1" = "carmel" ];
   then
+    echo "   Sym linking " `pwd`/mup.json " -> "  `pwd`/${1}.mup.json
+    echo "   Sym linking " `pwd`/settings.json " -> " `pwd`/${1}.settings.json
+    #echo "config="$1
+    rm -f mup.json && rm -f settings.json
+    ln -s ${1}.mup.json mup.json && ln -s ${1}.settings.json settings.json
+
+  else #uat
+    echo "   Sym linking " `pwd`/mup.json " -> "  `pwd`/${1}u.mup.json
+    echo "   Sym linking " `pwd`/settings.json " -> " `pwd`/${1}u.settings.json
+    #echo "config="$1
+    rm -f mup.json && rm -f settings.json
+    ln -s ${1}u.mup.json mup.json && ln -s ${1}u.settings.json settings.json
+  fi
+fi
+
+if [ $? -eq 0 ];
+then
     echo "   Config $1 sym link successfully set up"
-  else
+else
     echo "   Config $1 sym link set up failed ***"
     exit 1
 fi
