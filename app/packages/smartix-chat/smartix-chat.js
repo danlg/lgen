@@ -15,7 +15,7 @@ Smartix.Chat.Schema = new SimpleSchema({
 		type: String,
 		defaultValue: 'chat'
 	},
-	name: {
+	chatRoomName: {
 		type: String,
 		optional: true
 	},
@@ -111,8 +111,15 @@ Smartix.Chat.createChat = function (chatObj) {
 	Chat.users = chatObj.users;
 	Chat.namespace = chatObj.namespace;
 	Chat.type = 'chat';
-	Chat.name = chatObj.name;
-	Chat.admins = [
+    if(chatObj.chatRoomName)
+    {	
+        Chat.chatRoomName = chatObj.chatRoomName;
+    }	
+    if(chatObj.chatRoomAvatar)
+    {
+        Chat.chatRoomAvatar = chatObj.chatRoomAvatar;
+    }
+    Chat.admins = [
 		Meteor.userId()
 	];
     Chat.addons = ['voice','images','documents'];
