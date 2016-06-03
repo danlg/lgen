@@ -67,15 +67,13 @@ Template.GroupChatInviteChooser.helpers({
     var targetClass = Smartix.Groups.Collection.findOne({
         type: 'class',
         classCode: Router.current().params.classCode
-    });
-    
+    });    
     return Meteor.users.find({
         _id: {
             $in: targetClass.users
         }
     });
   }
-
 });
 
 Template.GroupChatInviteWrapper.helpers({
@@ -89,8 +87,14 @@ Template.GroupChatInviteWrapper.helpers({
     if(chosenIcon){
       return chosenIcon;
     }
-  }
+  } 
     
+});
+
+Template.GroupChatInviteChooserEachPerson.helpers({
+    'isEmoji': function (userId) {
+        return (Meteor.users.findOne(userId).profile.avatarType==="emoji") ? true: false;   
+    }
 });
 
 Template.GroupChatInviteChooser.destroyed = function () {

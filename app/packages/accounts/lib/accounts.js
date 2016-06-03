@@ -44,6 +44,10 @@ Smartix.Accounts.Schema = new SimpleSchema({
     "profile.avatarValue": {
         type: String,
         optional: true
+    },
+    "profile.avatarLarge": {
+        type: String,
+        optional: true
     },    
     services: {
         type: Object,
@@ -153,6 +157,8 @@ Smartix.Accounts.editUserSchema = Smartix.Accounts.Schema.pick([
     'lang',
     'tel',
     'profile.avatarValue',
+    'profile.avatarType',
+    'profile.avatarLarge',
     'country',
     'organization'
 ]);

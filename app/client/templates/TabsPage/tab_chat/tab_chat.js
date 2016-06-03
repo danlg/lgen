@@ -152,30 +152,56 @@ Template.TabChat.helpers({
       }
       else return true;
   },
-
-  'chatRoomUserAvatar': function () {
-      var avatars = [];
+  isEmoji:function(){
+      var type;
       if(this.chatRoomAvatar) {
-          avatars.push("e1a-"+ this.chatRoomAvatar);
+            type = true;    
       }
       else {
           var userObjArr = Meteor.users.find({_id: {$in: this.users}}).fetch();
           if(userObjArr.length > 2){
-              avatars.push("e1a-green_apple");
+             type =  true;
           }
           else{
             lodash.forEach(userObjArr, function (el, index) {
               if (el._id !== Meteor.userId()) {
-                  var avatar = el.profile.avatarValue;
-                  if (avatar){
-                    avatars.push("e1a-" + avatar)
-                  }
-                  else avatars.push("e1a-green_apple");
+                type = (el.profile.avatarType==="emoji" ? true : false);
               }
             });
           }
       }
-      return lodash(avatars).toString();
+      return type; 
+   },
+  'chatRoomUserAvatar': function () {
+      var avatar;
+      if(this.chatRoomAvatar) {
+          avatar = "e1a-" + this.chatRoomAvatar;
+      }
+      else {
+          var userObjArr = Meteor.users.find({_id: {$in: this.users}}).fetch();
+          if(userObjArr.length > 2){
+              avatar = "e1a-green_apple";
+          }
+          else{
+            lodash.forEach(userObjArr, function (el, index) {
+              if (el._id !== Meteor.userId()) {
+                  var type = el.profile.avatarType;
+                    if(type === "emoji")
+                    {
+                        if ( el.profile.avatarValue ){
+                        avatar = "e1a-" +  el.profile.avatarValue;
+                        }
+                    }
+                    else if(type==="image")
+                    {
+                         avatar = el.profile.avatarValue
+                    }
+                  else avatar = "e1a-green_apple";
+              }
+            });
+          }
+      }
+      return avatar;
   },
 
   'newMessageCounter':function(chatroomId) {
