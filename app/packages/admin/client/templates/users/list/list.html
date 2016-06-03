@@ -39,19 +39,21 @@
                 <br/>
                {{#if showOptions}}
                     <br/>
+                    <div class="btn-group">
                     <button class='btn btn-danger remove-users-btn'>{{_ "Admin.RemoveUser" }}</button>
                     <button class='btn btn-success add-users-to-role'>{{_ "Admin.AddUserRole" }}</button>
                     <button class='btn btn-danger remove-users-from-role'>{{_ "Admin.RemoveUserRole" }}</button>
-                    <select id='selected-role' class="form-control">
+                    <select id='selected-role' style="width:inherit;" class="btn form-control">
                         <option value="parent">{{_ "Parent" }}</option>
                         <option value="student">{{_ "Student" }}</option>
                         <option value="teacher">{{_ "Teacher" }}</option>
                         <option value="admin">{{_ "Admin.Admin" }}</option>
-                    </select>                                                                               
+                    </select>    
+                    </div>                                                                           
                 {{/if}}
                 <div class="table-responsive">                
                 <table class='table' >
-                    <thead align="left">
+                    <thead style="font-weight:bold;">
                     <tr>
                         <th>&nbsp;</th>
                        
@@ -64,7 +66,7 @@
                         
                     </tr>
                     </thead>
-                    
+                    <tbody>
                     {{#EasySearch.Each index=usersIndex }}
                         <tr>
                             <td><input {{isUserChecked _id}} type="checkbox" name="user" class='school-directory-user-checkbox' value="{{_id}}"/></td>
@@ -79,7 +81,7 @@
                
                         </tr>                    
                     {{/EasySearch.Each}}
-
+                    </tbody>
                     {{#EasySearch.IfNoResults index=usersIndex}}
                         <div>No results found!</div>
                     {{/EasySearch.IfNoResults}}                        

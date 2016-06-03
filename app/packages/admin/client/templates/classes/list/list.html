@@ -37,7 +37,7 @@
                                                                        
                     </tr>
                     </thead>                
-                
+                <tbody>
                 {{#EasySearch.Each index=classesIndex }}
                         <tr>
                             <td><input {{isUserChecked _id}} type="checkbox" name="user" class='school-directory-user-checkbox' value="{{_id}}"/></td>
@@ -65,7 +65,7 @@
                
                         </tr>                 
                 {{/EasySearch.Each}}
-                
+                </tbody>
               
             </table>
                 {{#EasySearch.IfNoResults index=classesIndex}}

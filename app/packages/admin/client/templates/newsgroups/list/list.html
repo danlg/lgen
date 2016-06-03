@@ -32,6 +32,7 @@
                                                                     
                 </tr>
                 </thead>
+                <tbody>
                 {{#EasySearch.Each index=newsgroupsIndex }}
                     <tr>
                         <td><input {{isUserChecked _id}} type="checkbox" name="user"
@@ -54,7 +55,7 @@
             
                     </tr>                 
                 {{/EasySearch.Each}}
-                
+                </tbody>
                 {{#EasySearch.IfNoResults index=newsgroupsIndex}}
                     <div>{{_ "Admin.NoResultsFound" }}</div>
                 {{/EasySearch.IfNoResults}}                

@@ -41,7 +41,7 @@
                                                                        
                     </tr>
                     </thead>
-                    
+                    <tbody>
                     {{#EasySearch.Each index=distributionListIndex }}
                         <tr>
                             <td><input {{isUserChecked _id}} type="checkbox" name="user" class='school-directory-user-checkbox' value="{{_id}}"/></td>
@@ -61,7 +61,7 @@
                
                         </tr>                    
                     {{/EasySearch.Each}}
-
+                    </tbody>
                     {{#EasySearch.IfNoResults index=distributionListIndex}}
                         <div>No results found!</div>
                     {{/EasySearch.IfNoResults}}                        
