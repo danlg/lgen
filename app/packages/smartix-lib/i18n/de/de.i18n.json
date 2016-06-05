@@ -118,7 +118,7 @@
     "FileHeaderEncode": "Datei mit der ersten Zeile wird die Überschriften. Bitte stellen Sie auch sicher, dass die Datei in UTF-8 codiert ist.",
     "FillClickAddNews": "Einfach Felder füllen Sie aus und klicken Sie auf Add News.",
     "Filter:": "Filter:",
-    "FilterUser": "Filtern Sie nach Vorname/Nachname",
+    "FilterUser": "Filtern Sie nach vor- oder Nachname",
     "FilterbyType": "Nach Typ filtern",
     "FirstName": "Vorname",
     "ForExample": "Sie haben zum Beispiel Klassen pro Klasse definiert. Sie können dann diese Listen wiederverwenden und senden an mehrere Klassen gleichzeitig anstatt alle Mitglieder wieder.",
@@ -277,7 +277,7 @@
     "ViewExpectedAbsences": "Voraussichtliche Abwesenheiten anzeigen",
     "ViewRSSFeeds": "Anzeigen RSS-Feeds",
     "WelcometoSmartixAdmin": "Willkommen bei Smartix Admin!",
-    "if": "If"
+    "if": "ob"
   },
   "AdminDashboard": "Admin-dashboard",
   "Allow_this_class_to_be_searched": "Ermöglichen Sie diese Klasse gesucht werden soll",
@@ -524,10 +524,9 @@
     "Application": "Lassen Sie Anwendungen",
     "Apply": "Angewendet von",
     "ApplyForLeave": "Beantragen",
-    "ApplyForleave": "Sie können auch Urlaub beantragen",
     "Approve": "Genehmigt?",
     "Attendance": "Teilnahme",
-    "AttendanceRecord": "Von Besucherrekord:",
+    "AttendanceRecord": "Zuschauerrekord",
     "ConfirmToApplyLeaveFor": "Anfrage zu verlassen",
     "Contact": "Kontakt-Schule",
     "EndDate": "Enddatum",
@@ -544,20 +543,18 @@
     "Reason": "Weil...",
     "ReasonLeave": "Bitte geben Sie Grund zu verlassen",
     "Reference": "ReferenceID",
+    "SchoolHasApprovedApplication": "Schule hat dieser Antrag genehmigt. ",
     "SchoolNotified": "Schule ist Ihre Bestätigung mitgeteilt.",
-    "Schoolhas": "Schule hat",
     "SelectChild": "Welches Kind Schule vermissen werden?",
     "StartBeforeEnd": "Start Datum muss vor dem Enddatum liegen",
     "StartDate": "Startdatum",
     "Student": "Student",
     "Submit": "Senden",
     "Submitted": "Anwendung verlassen wurde vorgelegt",
-    "Thisapplication": "Diese Anwendung bei",
     "To": "An",
     "Viewapplication": "Angewandte Leave(s) anzeigen",
     "Why": "Wissen Sie warum?",
-    "Yes": "Ja",
-    "approved": "genehmigt"
+    "Yes": "Ja"
   },
   "accounts-relationships": {
     "Family": "Familie",
@@ -676,7 +673,7 @@
     "ChooseGroupAvatar": "Wählen Sie einen Gruppe Avatar (optional)",
     "CreateChat": "Chat erstellen",
     "GroupChat": "Gruppen-Chat",
-    "Loadmessage": "Frühere Nachrichten laden"
+    "Loadmessage": "..."
   },
   "smartix-classes": {
     "Loadmessages": "Frühere Nachrichten laden",

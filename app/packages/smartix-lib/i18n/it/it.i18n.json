@@ -118,7 +118,7 @@
     "FileHeaderEncode": "file con la prima riga essendo le intestazioni. Si prega inoltre di garantire che il file è codificato in UTF-8.",
     "FillClickAddNews": "Basta compilare i campi e fare clic su Add News.",
     "Filter:": "Filtro:",
-    "FilterUser": "Filtra per nome/cognome",
+    "FilterUser": "Filtra per nome o cognome",
     "FilterbyType": "Filtra per tipo di",
     "FirstName": "Primo nome",
     "ForExample": "Ad esempio, è stato definito lezioni a grado. È quindi possibile riutilizzare questi elenchi e inviare a diverse classi allo stesso tempo invece di elencare tutti i membri nuovamente.",
@@ -160,10 +160,7 @@
     "MessageSent": "Questi sono i messaggi per i quali il genitore/tutore del colloquiano hanno inviato come avviso che lo studente sarà tardi/assente. Si prega di riconoscere quanto prima questi messaggi.",
     "Missing": "Manca",
     "MobilePhone": "Telefono cellulare",
-    "Mode": "Modalità",
-    "Mother": "Madre",
     "MotherEmail": "E-mail di madre",
-    "MotherFirstName": "Nome madre",
     "MotherLastName": "Cognome madre",
     "MotherMobile": "Mobile di madre",
     "MotherSalutation": "Saluto al madre",
@@ -524,10 +521,9 @@
     "Application": "Lasciare le applicazioni",
     "Apply": "Applicate da",
     "ApplyForLeave": "Chiedere un'aspettativa",
-    "ApplyForleave": "È inoltre possibile applicare per il congedo",
     "Approve": "Approvato?",
     "Attendance": "Presenze",
-    "AttendanceRecord": "Da Record di presenze:",
+    "AttendanceRecord": "Record di presenze",
     "ConfirmToApplyLeaveFor": "Lasciare la richiesta",
     "Contact": "Contatto scuola",
     "EndDate": "Data di fine",
@@ -544,20 +540,18 @@
     "Reason": "Perché...",
     "ReasonLeave": "Si prega di fornire motivo di lasciare",
     "Reference": "ReferenceID",
+    "SchoolHasApprovedApplication": "Scuola ha approvato questa applicazione ",
     "SchoolNotified": "Scuola viene avvisato della vostra conferma",
-    "Schoolhas": "Scuola ha",
     "SelectChild": "Quale bambino mancherà la scuola?",
     "StartBeforeEnd": "Data inizio deve essere precedente alla data di fine",
     "StartDate": "Data di inizio",
     "Student": "Studente",
     "Submit": "Invia",
     "Submitted": "È stata presentata domanda di congedo",
-    "Thisapplication": "Questa applicazione alle",
     "To": "A",
     "Viewapplication": "Mostra leave(s) applicata",
     "Why": "Sapete perché?",
-    "Yes": "Sì",
-    "approved": "approvato"
+    "Yes": "Sì"
   },
   "accounts-relationships": {
     "Family": "Famiglia",
@@ -630,9 +624,6 @@
       },
       "lastname": {
         "placeholder": "Cognome"
-      },
-      "password": {
-        "placeholder": "Password"
       }
     }
   },
@@ -676,7 +667,7 @@
     "ChooseGroupAvatar": "Scegli un avatar di gruppo (facoltativo)",
     "CreateChat": "Creare Chat",
     "GroupChat": "Chat di gruppo",
-    "Loadmessage": "Caricare i messaggi precedenti"
+    "Loadmessage": "..."
   },
   "smartix-classes": {
     "Loadmessages": "Caricare i messaggi precedenti",
