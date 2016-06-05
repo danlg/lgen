@@ -118,7 +118,7 @@
     "FileHeaderEncode": "tiedoston ensimmäisellä rivillä on otsikoita. Varmista, että tiedosto on koodattu UTF-8.",
     "FillClickAddNews": "Täytä kentät ja valitse Lisää uutiset.",
     "Filter:": "Suodatus:",
-    "FilterUser": "Suodata ensimmäisessä ja viimeisessä",
+    "FilterUser": "Suodata etu- tai sukunimeä",
     "FilterbyType": "Suodata tyypin mukaan",
     "FirstName": "Etunimi",
     "ForExample": "Jos esimerkiksi olet määrittänyt luokkaa per luokka. Voit sitten käyttää näitä luetteloita ja lähettää useita luokkia samalla luetteloimisen kaikki jäsenet uudelleen.",
@@ -524,10 +524,9 @@
     "Application": "Jättää sovelluksia",
     "Apply": "Soveltamien",
     "ApplyForLeave": "Hakea lupaa",
-    "ApplyForleave": "Voit käyttää myös jättää",
     "Approve": "Hyväksytty?",
     "Attendance": "Osallistuminen",
-    "AttendanceRecord": "Alkaen yleisöennätys:",
+    "AttendanceRecord": "Yleisöennätys",
     "ConfirmToApplyLeaveFor": "Jätä pyyntö",
     "Contact": "Yhteystiedot koulu",
     "EndDate": "Päättymispäivä",
@@ -544,20 +543,18 @@
     "Reason": "Koska...",
     "ReasonLeave": "Anna syytä lähteä",
     "Reference": "ReferenceID",
+    "SchoolHasApprovedApplication": "Koulu on hyväksytty tämän sovelluksen ",
     "SchoolNotified": "Koulun ilmoitetaan faxata",
-    "Schoolhas": "Koulussa on",
     "SelectChild": "Jossa lapsi jää koulussa?",
     "StartBeforeEnd": "Käynnistä päivämäärän on oltava aiempi kuin päättymispäivä",
     "StartDate": "Alkamispäivä",
     "Student": "Opiskelija",
     "Submit": "Lähetä",
     "Submitted": "Jätä hakemus on tehty",
-    "Thisapplication": "Tämä sovellus on",
     "To": "Jotta",
     "Viewapplication": "Näkymä käytössä leave(s)",
     "Why": "Tiedätkö miksi?",
-    "Yes": "Kyllä",
-    "approved": "hyväksytty"
+    "Yes": "Kyllä"
   },
   "accounts-relationships": {
     "Family": "Perhe",
@@ -676,7 +673,7 @@
     "ChooseGroupAvatar": "Valitse ryhmän avatar (valinnainen)",
     "CreateChat": "Luoda Chat",
     "GroupChat": "Ryhmäkeskustelu",
-    "Loadmessage": "Ladata aiemmat viestit"
+    "Loadmessage": "..."
   },
   "smartix-classes": {
     "Loadmessages": "Ladata aiemmat viestit",

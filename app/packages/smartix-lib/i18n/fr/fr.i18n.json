@@ -378,8 +378,8 @@
   "Moderator": "Modérateur",
   "Mon": "Lundi",
   "Monday": "Lundi",
-  "Motto1": "Simple, gratuite",
-  "Motto2": "la messagerie instantanée",
+  "Motto1": "Messagerie instantanée",
+  "Motto2": "simple et gratuite",
   "Motto3": "pour l’école",
   "MyAccount": "Mon compte",
   "NewChatMessageMailTitle": "__user_name__ __chat_room_name__ vous envoie un message",
@@ -390,7 +390,7 @@
   "NewPasswordConfirm": "Confirmer le nouveau mot de passe",
   "News": "Nouvelles",
   "Newsgroups": {
-    "Displaynewsgroup": "Groupes de discussion de l’école tout sont affichent ici. Vous pouvez opt-dehors certains des groupes de discussion en cliquant sur la tique. Après l’opt-out, vous ne recevrez pas les notifications et les messages de ces groupes de discussion. Pas tous les groupes de discussion peuvent être opt-out. Groupes de discussion déjà opt-out est toujours affiché ici, donc vous pouvez participer librement à tout moment plus tard, le.",
+    "Displaynewsgroup": "Groupes de discussion de l’école sont  tous affichés ici. Vous pouvez vous désabonner des groupes de discussion en décochant. Vous ne recevrez plus les notifications et les messages de ces groupes de discussion",
     "Newsgroups": "Groupes de discussion"
   },
   "Next": "Prochaine",
@@ -543,20 +543,18 @@
     "Reason": "Parce que...",
     "ReasonLeave": "S’il vous plaît, donner la raison de l'absence",
     "Reference": "ReferenceID",
+    "SchoolHasApprovedApplication": "L’école a approuvé cette demande ",
     "SchoolNotified": "L’école est informé de votre accusé de réception",
-    "Schoolhas": "A l’école",
     "SelectChild": "Quel enfant va manquer l’école ?",
     "StartBeforeEnd": "Start date doit être antérieure à la date de fin",
     "StartDate": "Date de début",
     "Student": "Elève",
     "Submit": "Envoyer",
     "Submitted": "Demande d’autorisation a été présentée",
-    "Thisapplication": "Cette demande à",
     "To": "À",
     "Viewapplication": "Vue appliquée stagiaire",
     "Why": "Savez-vous pourquoi ?",
-    "Yes": "Oui",
-    "approved": "approuvé"
+    "Yes": "Oui"
   },
   "accounts-relationships": {
     "Family": "Famille",
@@ -673,9 +671,9 @@
     "Chatsetting": "Définition de chat",
     "Check/UncheckAll": "Cocher / décocher tous",
     "ChooseGroupAvatar": "Choisir un avatar de groupe (facultatif)",
-    "CreateChat": "Créer des chat",
+    "CreateChat": "Créer une discussion",
     "GroupChat": "Groupe de discussion",
-    "Loadmessage": "Charger les Messages précédents"
+    "Loadmessage": "..."
   },
   "smartix-classes": {
     "Loadmessages": "Charger les messages précédents",

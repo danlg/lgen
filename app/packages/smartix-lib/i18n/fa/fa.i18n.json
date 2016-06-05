@@ -524,10 +524,9 @@
     "Application": "ترک برنامه های کاربردی",
     "Apply": "اعمال شده توسط",
     "ApplyForLeave": "درخواست مرخصی",
-    "ApplyForleave": "شما همچنین می توانید درخواست برای مرخصی",
     "Approve": "مورد تایید است؟",
     "Attendance": "حضور و غیاب",
-    "AttendanceRecord": "از حضور رکورد:",
+    "AttendanceRecord": "ثبت حضور و غیاب",
     "ConfirmToApplyLeaveFor": "درخواست مرخصی",
     "Contact": "تماس با مدرسه",
     "EndDate": "تاریخ پایان",
@@ -544,20 +543,18 @@
     "Reason": "چون...",
     "ReasonLeave": "لطفاً وارد دلیلی برای ترک",
     "Reference": "ReferenceID",
+    "SchoolHasApprovedApplication": "مدرسه نمی تواند این برنامه را تایید کرده است ",
     "SchoolNotified": "مدرسه از اذعان به شما اطلاع داده است",
-    "Schoolhas": "مدرسه",
     "SelectChild": "که کودک را از مدرسه دست?",
     "StartBeforeEnd": "تاریخ شروع باید زودتر از پایان تاریخ است",
     "StartDate": "تاریخ شروع",
     "Student": "دانش آموز",
     "Submit": "ارسال",
     "Submitted": "ارسال درخواست مرخصی",
-    "Thisapplication": "این نرم افزار در",
     "To": "به",
     "Viewapplication": "مشاهده اعمال leave(s)",
     "Why": "آیا می دانید چرا",
-    "Yes": "بله",
-    "approved": "تایید"
+    "Yes": "بله"
   },
   "accounts-relationships": {
     "Family": "خانواده",
@@ -676,7 +673,7 @@
     "ChooseGroupAvatar": "انتخاب آواتار گروه (اختیاری)",
     "CreateChat": "ایجاد چت",
     "GroupChat": "چت گروهی",
-    "Loadmessage": "پیام های قبلی بار"
+    "Loadmessage": "..."
   },
   "smartix-classes": {
     "Loadmessages": "پیام های قبلی بار",

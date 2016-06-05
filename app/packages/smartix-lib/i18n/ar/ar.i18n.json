@@ -118,7 +118,7 @@
     "FileHeaderEncode": "الملف مع الصف الأول يجري العناوين. يرجى أيضا التأكد من أن يتم ترميز الملف في utf-8.",
     "FillClickAddNews": "ببساطة قم بملء حقول، ثم انقر فوق \"إضافة أخبار\".",
     "Filter:": "عامل التصفية:",
-    "FilterUser": "تصفية حسب الاسم الأول/الأخير",
+    "FilterUser": "تصفية حسب الاسم الأول أو الأخير",
     "FilterbyType": "تصفية حسب النوع",
     "FirstName": "الاسم الأول",
     "ForExample": "على سبيل المثال، قمت بتعريف فئات في الرتبة الواحدة. يمكنك ثم إعادة استخدام هذه القوائم وإرسالها إلى عدة فئات في نفس الوقت بدلاً من سرد جميع الأعضاء مرة أخرى.",
@@ -524,10 +524,9 @@
     "Application": "ترك التطبيقات",
     "Apply": "التي تطبقها",
     "ApplyForLeave": "طلب إجازة",
-    "ApplyForleave": "يمكنك أيضا تطبيق للإجازة",
     "Approve": "وافق؟",
     "Attendance": "الحضور",
-    "AttendanceRecord": "من سجل الحضور:",
+    "AttendanceRecord": "سجل الحضور",
     "ConfirmToApplyLeaveFor": "طلب إجازة",
     "Contact": "مدرسة الاتصال",
     "EndDate": "تاريخ الانتهاء",
@@ -544,20 +543,18 @@
     "Reason": "لأن...",
     "ReasonLeave": "ويرجى تقديم سبب لترك",
     "Reference": "ريفيرينسيد",
+    "SchoolHasApprovedApplication": "وقد وافقت مدرسة هذا التطبيق ",
     "SchoolNotified": "تخطر المدرسة الاعتراف الخاص بك",
-    "Schoolhas": "يوجد في المدرسة",
     "SelectChild": "سيغيب فيها الطفل المدرسة؟",
     "StartBeforeEnd": "بدء تاريخ يجب أن يكون أقدم من تاريخ انتهاء",
     "StartDate": "تاريخ البدء",
     "Student": "طالب",
     "Submit": "إرسال",
     "Submitted": "وقد قدم طلب إجازة",
-    "Thisapplication": "هذا التطبيق في",
     "To": "إلى",
     "Viewapplication": "تطبيق طريقة العرض leave(s)",
     "Why": "هل تعرف لماذا؟",
-    "Yes": "نعم",
-    "approved": "وافق"
+    "Yes": "نعم"
   },
   "accounts-relationships": {
     "Family": "الأسرة",
@@ -676,7 +673,7 @@
     "ChooseGroupAvatar": "اختر صورة مجموعة (اختياري)",
     "CreateChat": "إنشاء دردشة",
     "GroupChat": "مجموعة دردشة",
-    "Loadmessage": "تحميل الرسائل السابقة"
+    "Loadmessage": "..."
   },
   "smartix-classes": {
     "Loadmessages": "تحميل الرسائل السابقة",

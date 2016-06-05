@@ -118,7 +118,7 @@
     "FileHeaderEncode": "archivo con la primera fila están los títulos. También asegúrese de que el archivo está codificado en UTF-8.",
     "FillClickAddNews": "Simplemente rellene los campos y haga clic en agregar noticias.",
     "Filter:": "Filtro:",
-    "FilterUser": "Filtrar por nombre primero/último",
+    "FilterUser": "Filtrar por nombre o apellido nombre",
     "FilterbyType": "Filtrar por tipo",
     "FirstName": "Nombre",
     "ForExample": "Por ejemplo, han definido clases por grado. Luego puede reutilizar estas listas y enviar a varias clases al mismo tiempo en lugar de listado de todos los miembros otra vez.",
@@ -524,10 +524,9 @@
     "Application": "Dejar aplicaciones",
     "Apply": "Aplicado por",
     "ApplyForLeave": "Solicitar la licencia",
-    "ApplyForleave": "También puede aplicar para la licencia",
     "Approve": "¿Aprobado?",
     "Attendance": "Asistencia",
-    "AttendanceRecord": "De registro de asistencia:",
+    "AttendanceRecord": "Registro de asistencia",
     "ConfirmToApplyLeaveFor": "Dejar solicitud",
     "Contact": "Contacto escuela",
     "EndDate": "Fecha de finalización",
@@ -544,20 +543,18 @@
     "Reason": "Porque...",
     "ReasonLeave": "Indique la razón para dejar",
     "Reference": "ReferenceID",
+    "SchoolHasApprovedApplication": "La escuela ha aprobado esta solicitud ",
     "SchoolNotified": "Escuela es notificada de su acuse de recibo",
-    "Schoolhas": "La escuela tiene",
     "SelectChild": "¿Qué niño le faltan a la escuela?",
     "StartBeforeEnd": "Fecha de inicio deben ser anteriores a la fecha de finalización",
     "StartDate": "Fecha de inicio",
     "Student": "Estudiante",
     "Submit": "Enviar",
     "Submitted": "Ha presentado solicitud de licencia",
-    "Thisapplication": "Esta aplicación en",
     "To": "Para",
     "Viewapplication": "Ve deja aplicada",
     "Why": "¿Sabes por qué?",
-    "Yes": "Sí",
-    "approved": "aprobado"
+    "Yes": "Sí"
   },
   "accounts-relationships": {
     "Family": "Familia",
@@ -676,7 +673,7 @@
     "ChooseGroupAvatar": "Elegir un avatar de grupo (opcional)",
     "CreateChat": "Crear Chat",
     "GroupChat": "Chat de grupo",
-    "Loadmessage": "Carga de mensajes anteriores"
+    "Loadmessage": "..."
   },
   "smartix-classes": {
     "Loadmessages": "Carga de mensajes anteriores",
