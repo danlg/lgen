@@ -11,6 +11,7 @@
         },
         "ROOT_URL": "https://now.gosmartix.com",
         "PORT": 443,
+
         "SHARE_URL": "https://now.gosmartix.com",
         "GOOGLE_PLAY_URL": "https://play.google.com/store/apps/details?id=com.gosmartix.smartix",
         "APP_STORE_URL": "https://itunes.apple.com/hk/app/smartix-school-instant-messaging/id1036105942?mt=8&ign-mpt=uo%3D4"
@@ -26,7 +27,7 @@
     "FROM_EMAIL": "dan@gosmartix.com",
     "FROM_NAME": "Smartix",
     "FEEDBACK_EMAIL": "feedback@gosmartix.com",
-
+    "SALES_EMAIL":    "sales@gosmartix.com",
     "RSS_FETCH_INTERVAL": 300000,
     "RSS_PROCESS_INTERVAL": 300000
 }

@@ -1,7 +1,8 @@
 {
   "env": {
     "ROOT_URL": "https://now.gosmartix.com",
-    "PORT": 80
+    "PORT": 80,
+    "MONGO_URL" : "mongodb://127.0.0.1/littlegenius"
   },
   //production
   //use only to
