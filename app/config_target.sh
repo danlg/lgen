@@ -24,8 +24,8 @@ fi
 cd ../..
 echo ""
 echo "2. Configuring mobile-config asset file icon for the app"
-echo "   Copying " `pwd`/$mobile " -> " `pwd`/mobile-config.js
 mobile="mobile-config.js."$1
+echo "   Copying " `pwd`/$mobile " -> " `pwd`/mobile-config.js
 #echo `pwd`
 #echo "mobile-config="$mobile
 #ls -l $mobile
@@ -41,34 +41,14 @@ if [ $? -eq 0 ];
 fi
 
 #Preparing symbolic link for mup
-cd ../config/
 echo ""
 echo "3. Preparing symbolic link for mup"
 
-if [ "$1" = "smartix" ];
-then
-  echo "   Sym linking " `pwd`/mup.json " -> "  `pwd`/${1}.mup.json
-  echo "   Sym linking " `pwd`/settings.json " -> " `pwd`/${1}.settings.json
-  #echo "config="$1
-  rm -f mup.json && rm -f settings.json
-  ln -s ${1}.mup.json mup.json && ln -s ${1}.settings.json settings.json
-
-else if [ "$1" = "carmel" ];
-  then
-    echo "   Sym linking " `pwd`/mup.json " -> "  `pwd`/${1}.mup.json
-    echo "   Sym linking " `pwd`/settings.json " -> " `pwd`/${1}.settings.json
-    #echo "config="$1
-    rm -f mup.json && rm -f settings.json
-    ln -s ${1}.mup.json mup.json && ln -s ${1}.settings.json settings.json
-
-  else #uat
-    echo "   Sym linking " `pwd`/mup.json " -> "  `pwd`/${1}u.mup.json
-    echo "   Sym linking " `pwd`/settings.json " -> " `pwd`/${1}u.settings.json
-    #echo "config="$1
-    rm -f mup.json && rm -f settings.json
-    ln -s ${1}u.mup.json mup.json && ln -s ${1}u.settings.json settings.json
-  fi
-fi
+echo "   Sym linking " `pwd`/mup.json " -> "  `pwd`/${1}u.mup.json
+echo "   Sym linking " `pwd`/settings.json " -> " `pwd`/${1}u.settings.json
+#echo "config="$1
+rm -f mup.json && rm -f settings.json
+ln -s ${1}u.mup.json mup.json && ln -s ${1}u.settings.json settings.json
 
 if [ $? -eq 0 ];
 then
