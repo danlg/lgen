@@ -1,4 +1,4 @@
 {
-    "supported_languages": ["en", "zh-CN","fr","zh-TW", "ar", "de", "es", "fi", "he", "hi", "it", "ja", "ko", "nl", "pl", "pt", "ru", "sv", "tr"],
+    "supported_languages": ["en", "zh-CN","fr","zh-TW", "ar", "da", "de", "es", "fa", "fi", "fr", "he", "hi", "hu", "id", "it", "ja", "ko", "nl", "no", "pl", "pt", "ro", "ru", "sv", "sw", "th", "tr"],
     "preloaded_langs": ["*"]
 }
