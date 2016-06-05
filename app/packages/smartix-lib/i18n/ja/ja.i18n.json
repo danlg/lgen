@@ -118,7 +118,7 @@
     "FileHeaderEncode": "見出しが最初の行を持つファイル。また、ファイルが utf-8 でエンコードされていることを確認してください。",
     "FillClickAddNews": "単にフィールドに入力し、[ニュースの追加] をクリックします。",
     "Filter:": "フィルター:",
-    "FilterUser": "姓/名でフィルターします。",
+    "FilterUser": "姓または名でフィルターします。",
     "FilterbyType": "種類でフィルターします。",
     "FirstName": "最初の名前",
     "ForExample": "たとえば、学年ごとにクラスを定義しました。これらのリストを再利用し、再度すべてのメンバーをリストする代わりに同時にいくつかのクラスに送信できます。",
@@ -524,10 +524,9 @@
     "Application": "アプリケーションを残す",
     "Apply": "によって適用されます。",
     "ApplyForLeave": "休暇を申請します。",
-    "ApplyForleave": "また休暇を申請することができます。",
     "Approve": "承認か。",
     "Attendance": "出席",
-    "AttendanceRecord": "出席の記録: から",
+    "AttendanceRecord": "出席記録",
     "ConfirmToApplyLeaveFor": "要求のままに",
     "Contact": "連絡先学校",
     "EndDate": "終了日",
@@ -544,20 +543,18 @@
     "Reason": ".",
     "ReasonLeave": "ままにする理由を入力してください。",
     "Reference": "参照 id が",
+    "SchoolHasApprovedApplication": "学校は、このアプリケーションを承認しました。",
     "SchoolNotified": "学校は、受信確認を通知します。",
-    "Schoolhas": "学校には",
     "SelectChild": "子は学校を欠場か。",
     "StartBeforeEnd": "開始日終了日より前である必要",
     "StartDate": "開始日",
     "Student": "学生",
     "Submit": "送信",
     "Submitted": "休暇申請します。",
-    "Thisapplication": "このアプリケーションに",
     "To": "宛先",
     "Viewapplication": "適用された leave(s) を表示します。",
     "Why": "あなたは理由を知っていますか。",
-    "Yes": "[はい]",
-    "approved": "承認"
+    "Yes": "[はい]"
   },
   "accounts-relationships": {
     "Family": "家族",
@@ -676,7 +673,7 @@
     "ChooseGroupAvatar": "(省略可能) グループのアバターを選択します。",
     "CreateChat": "チャットを作成します。",
     "GroupChat": "グループ チャット",
-    "Loadmessage": "以前のメッセージを読み込む"
+    "Loadmessage": "..."
   },
   "smartix-classes": {
     "Loadmessages": "以前のメッセージを読み込む",
