@@ -42,7 +42,7 @@
           <!--<span style='font-size:x-small;'>Background ({{_ "Optional" }})</span>-->
           <!--<i class="icon ion-image"></i>-->
         <!--</label>-->
-        <span style='font-size:x-small;'>Background ({{_ "Optional" }})</span>
+        <span style='font-size:x-small;'> {{_ "Background" }}({{_ "Optional" }})</span>
         <label class='btn' for="school-background-image"><i class="icon ion-image"></i></label>
         <input id='school-background-image' class='inputfile' type="file" name="school-background-image" accept="image/*" >
 
@@ -57,18 +57,18 @@
 
     <div class="">
       <label class="item item-input">
-        <input id='school-city' type="text" placeholder="City" class="city" required>
+        <input id='school-city' type="text" placeholder="{{_ 'CityPlaceHolder'}}" class="city" required>
       </label>
     </div>
 
     <div class="">
       <label class="item item-input">
-        <input id='school-country' type="text" placeholder="Country" class="country" required>
+        <input id='school-country' type="text" placeholder="{{_ 'Country'}}" class="country" required>
       </label>
     </div>
 
     <label class="item item-input">
-      <input id='school-number-of-student' type="number" placeholder="Number of Students" class="number-of-students" required>
+      <input id='school-number-of-student' type="number" placeholder="{{_ 'NumberStudents'}} " class="number-of-students" required>
     </label>
 
     <div class="item item-divider">
@@ -86,7 +86,7 @@
     </div>
     <div class="">
       <label class="item item-input">
-        <input id='user-email' type="email" placeholder="Email" class="email" required>
+        <input id='user-email' type="email" placeholder="{{_ 'Email'}}" class="email" required>
       </label>
     </div>
 
