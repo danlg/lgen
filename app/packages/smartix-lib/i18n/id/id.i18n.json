@@ -118,7 +118,7 @@
     "FileHeaderEncode": "file dengan baris pertama yang menjadi judul. Pastikan juga bahwa file yang dikodekan dalam UTF-8.",
     "FillClickAddNews": "Cukup isi bidang dan klik Tambahkan berita.",
     "Filter:": "Filter:",
-    "FilterUser": "Filter menurut nama pertama/terakhir",
+    "FilterUser": "Filter menurut nama pertama atau terakhir",
     "FilterbyType": "Filter menurut tipe",
     "FirstName": "Nama pertama",
     "ForExample": "Misalnya, Anda telah mendefinisikan kelas per kelas. Anda kemudian dapat menggunakan kembali daftar ini dan mengirim ke beberapa kelas pada saat yang sama alih-alih daftar semua anggota lagi.",
@@ -524,10 +524,9 @@
     "Application": "Tinggalkan aplikasi",
     "Apply": "Diterapkan oleh",
     "ApplyForLeave": "Mengajukan permohonan untuk meninggalkan",
-    "ApplyForleave": "Anda juga dapat mengajukan permohonan untuk meninggalkan",
     "Approve": "Disetujui?",
     "Attendance": "Jumlah Penonton",
-    "AttendanceRecord": "Dari catatan kehadiran:",
+    "AttendanceRecord": "Kehadiran",
     "ConfirmToApplyLeaveFor": "Permintaan cuti",
     "Contact": "Hubungi sekolah",
     "EndDate": "Tanggal akhir",
@@ -544,20 +543,18 @@
     "Reason": "Karena...",
     "ReasonLeave": "Harap memberikan alasan untuk meninggalkan",
     "Reference": "ReferenceID",
+    "SchoolHasApprovedApplication": "Sekolah telah menyetujui aplikasi ini ",
     "SchoolNotified": "Sekolah diberitahu tentang pengakuan Anda",
-    "Schoolhas": "Sekolah",
     "SelectChild": "Anak yang akan bolos sekolah?",
     "StartBeforeEnd": "Mulai tanggal perlu lebih awal daripada tanggal akhir",
     "StartDate": "Tanggal mulai",
     "Student": "Mahasiswa",
     "Submit": "Kirim",
     "Submitted": "Tinggalkan aplikasi telah disampaikan",
-    "Thisapplication": "aplikasi ini di",
     "To": "Untuk",
     "Viewapplication": "Lihat diterapkan leave(s)",
     "Why": "Apakah Anda tahu mengapa?",
-    "Yes": "Ya",
-    "approved": "disetujui"
+    "Yes": "Ya"
   },
   "accounts-relationships": {
     "Family": "Keluarga",
@@ -676,7 +673,7 @@
     "ChooseGroupAvatar": "Pilih avatar kelompok (opsional)",
     "CreateChat": "Membuat Chat",
     "GroupChat": "Grup Chat",
-    "Loadmessage": "Memuat pesan sebelumnya"
+    "Loadmessage": "..."
   },
   "smartix-classes": {
     "Loadmessages": "Memuat pesan sebelumnya",

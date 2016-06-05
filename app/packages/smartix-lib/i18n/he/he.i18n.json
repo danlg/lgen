@@ -118,7 +118,7 @@
     "FileHeaderEncode": "קובץ עם השורה הראשונה הכותרות. בבקשה גם להבטיח כי הקובץ מקודד ב- UTF-8.",
     "FillClickAddNews": "פשוט מלאו את השדות, לחץ על הוסף חדשות.",
     "Filter:": "מסנן:",
-    "FilterUser": "לסנן לפי שם ראשונה/אחרונה",
+    "FilterUser": "לסנן לפי שם",
     "FilterbyType": "סינון לפי סוג",
     "FirstName": "שם פרטי",
     "ForExample": "לדוגמה, הגדרת שיעורים לכל כיתה. ואז ניתן להשתמש ברשימות אלו, לשלוח כמה כיתות במקביל במקום לרשום שוב את כל החברים.",
@@ -524,10 +524,9 @@
     "Application": "תעזוב יישומי",
     "Apply": "שהוחלו על-ידי",
     "ApplyForLeave": "מועמדות לעזוב",
-    "ApplyForleave": "באפשרותך גם להחיל על עזוב",
     "Approve": "מאושר?",
     "Attendance": "נוכחות",
-    "AttendanceRecord": "נוכחות רשומה:",
+    "AttendanceRecord": "תיק הנוכחות",
     "ConfirmToApplyLeaveFor": "בקשה לעזוב",
     "Contact": "צור קשר עם בית הספר",
     "EndDate": "תאריך סיום",
@@ -544,20 +543,18 @@
     "Reason": "כי...",
     "ReasonLeave": "נא לספק סיבה לעזוב",
     "Reference": "ReferenceID",
+    "SchoolHasApprovedApplication": "הספר אישרה יישום זה ",
     "SchoolNotified": "הספר הוא הודעה של התייחסות שלך",
-    "Schoolhas": "בית הספר",
     "SelectChild": "איזה ילד יתגעגע בבית הספר?",
     "StartBeforeEnd": "תאריך התחלה צריך להיות מוקדם יותר מתאריך סיום",
     "StartDate": "תאריך התחלה",
     "Student": "סטודנט",
     "Submit": "שלח",
     "Submitted": "יישום לעזוב נשלחה",
-    "Thisapplication": "יישום זה ב",
     "To": "כדי",
     "Viewapplication": "הצג את leave(s) יישומית",
     "Why": "אתה יודע למה?",
-    "Yes": "כן",
-    "approved": "אושרה"
+    "Yes": "כן"
   },
   "accounts-relationships": {
     "Family": "המשפחה",
@@ -676,7 +673,7 @@
     "ChooseGroupAvatar": "בחר קבוצה של אווטר (אופציונלי)",
     "CreateChat": "ליצור צ'אט",
     "GroupChat": "קבוצת צ'ט",
-    "Loadmessage": "לטעון הודעות קודמות"
+    "Loadmessage": "..."
   },
   "smartix-classes": {
     "Loadmessages": "לטעון הודעות קודמות",

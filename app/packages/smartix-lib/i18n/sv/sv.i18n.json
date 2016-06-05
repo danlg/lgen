@@ -118,7 +118,7 @@
     "FileHeaderEncode": "filen med den första raden som rubriker. Se också till att filen är kodad i UTF-8.",
     "FillClickAddNews": "Bara fylla i fälten och klicka på Lägg till nyheter.",
     "Filter:": "Filter:",
-    "FilterUser": "Filtrera efter första/sista namn",
+    "FilterUser": "Filtrera efter förnamn eller efternamn",
     "FilterbyType": "Filtrera efter typ",
     "FirstName": "Förnamn",
     "ForExample": "Du har exempelvis definierat klasser per årskurs. Du kan sedan återanvända dessa listor och skicka till flera klasser samtidigt istället för att lista alla medlemmar igen.",
@@ -524,10 +524,9 @@
     "Application": "Lämna ansökan",
     "Apply": "Tillämpas av",
     "ApplyForLeave": "Ansöka om ledighet",
-    "ApplyForleave": "Du kan också ansöka om ledighet",
     "Approve": "Godkänd?",
     "Attendance": "Närvaro",
-    "AttendanceRecord": "Från publikrekord:",
+    "AttendanceRecord": "Publikrekord",
     "ConfirmToApplyLeaveFor": "Lämna begäran",
     "Contact": "Kontakta skolan",
     "EndDate": "Avsluta datum",
@@ -544,20 +543,18 @@
     "Reason": "Eftersom...",
     "ReasonLeave": "Ge anledning att lämna",
     "Reference": "ReferenceID",
+    "SchoolHasApprovedApplication": "Skolan har godkänt denna ansökan ",
     "SchoolNotified": "Skola anmäls av din bekräftelse",
-    "Schoolhas": "Skolan har",
     "SelectChild": "Som barnet kommer att missa skolan?",
     "StartBeforeEnd": "Start datum måste vara tidigare än slutdatum",
     "StartDate": "Start datum",
     "Student": "Student",
     "Submit": "Lämna in",
     "Submitted": "Lämna ansökan har lämnats in",
-    "Thisapplication": "denna ansökan på",
     "To": "Till",
     "Viewapplication": "Visa tillämpad leave(s)",
     "Why": "Vet du varför?",
-    "Yes": "Ja",
-    "approved": "godkänd"
+    "Yes": "Ja"
   },
   "accounts-relationships": {
     "Family": "Familj",
@@ -676,7 +673,7 @@
     "ChooseGroupAvatar": "Välj en grupp avatar (valfritt)",
     "CreateChat": "Skapa chatt",
     "GroupChat": "Gruppchatt",
-    "Loadmessage": "Ladda tidigare meddelanden"
+    "Loadmessage": "..."
   },
   "smartix-classes": {
     "Loadmessages": "Ladda tidigare meddelanden",

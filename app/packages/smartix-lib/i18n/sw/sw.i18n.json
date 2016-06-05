@@ -118,7 +118,7 @@
     "FileHeaderEncode": "faili na safu ya kwanza kuwa ya vichwa. Tafadhali pia kuhakikisha kwamba faili iliyosimbikwa katika UTF-8.",
     "FillClickAddNews": "Tu kujaza katika nyanja na bofya Ongeza habari.",
     "Filter:": "Kichujio:",
-    "FilterUser": "Chuja kwa jina la kwanza/mwisho",
+    "FilterUser": "Chuja kwa jina la kwanza au ya mwisho",
     "FilterbyType": "Chuja kwa aina",
     "FirstName": "Jina la kwanza",
     "ForExample": "Kwa mfano, umefafanua madarasa kwa kila daraja. Kisha unaweza Tumia upya orodha hizi na kupeleka madarasa kadhaa kwa wakati mmoja badala ya kuorodhesha washiriki wote tena.",
@@ -524,10 +524,9 @@
     "Application": "Kuondoka maombi",
     "Apply": "Kutekelezwa kwa",
     "ApplyForLeave": "Tekeleza kwa kuondoka",
-    "ApplyForleave": "Unaweza pia kutumia kwa ajili ya kuondoka",
     "Approve": "Kupitishwa?",
     "Attendance": "Mahudhurio",
-    "AttendanceRecord": "Kutoka rekodi ya mahudhurio:",
+    "AttendanceRecord": "Rekodi ya mahudhurio",
     "ConfirmToApplyLeaveFor": "Kuondoka ombi",
     "Contact": "Shule ya mwasiliani",
     "EndDate": "Tarehe ya mwisho",
@@ -544,20 +543,18 @@
     "Reason": "Kwa sababu...",
     "ReasonLeave": "Tafadhali toa sababu kuondoka",
     "Reference": "ReferenceID",
+    "SchoolHasApprovedApplication": "Shule ina kupitishwa programu tumizi hii ",
     "SchoolNotified": "Shule ni juu ya kukiri yako",
-    "Schoolhas": "Shule ina",
     "SelectChild": "Mtoto ambayo miss shule?",
     "StartBeforeEnd": "Mahitaji ya tarehe ya kuanza kuwa awali kuliko tarehe ya mwisho",
     "StartDate": "Tarehe ya kuanza",
     "Student": "Mwanafunzi",
     "Submit": "Kuwasilisha",
     "Submitted": "Wacha maombi kuwasilishwa",
-    "Thisapplication": "programu tumizi hii katika",
     "To": "Kwa",
     "Viewapplication": "Onesha iliyotekelezwa leave(s)",
     "Why": "Je unajua kwa nini?",
-    "Yes": "Ndio",
-    "approved": "kupitishwa"
+    "Yes": "Ndio"
   },
   "accounts-relationships": {
     "Family": "Familia",
@@ -676,7 +673,7 @@
     "ChooseGroupAvatar": "Chagua avatar ya kikundi (hiari)",
     "CreateChat": "Unda Chat",
     "GroupChat": "Kundi Chat",
-    "Loadmessage": "Ujumbe wa awali wa mzigo"
+    "Loadmessage": "..."
   },
   "smartix-classes": {
     "Loadmessages": "Ujumbe wa awali wa mzigo",

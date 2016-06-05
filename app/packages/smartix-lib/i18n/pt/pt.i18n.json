@@ -118,7 +118,7 @@
     "FileHeaderEncode": "arquivo com a primeira linha, sendo as rubricas. Também certifique-se que o arquivo é codificado em UTF-8.",
     "FillClickAddNews": "Simplesmente preencha campos e clique em adicionar notícias.",
     "Filter:": "Filtro:",
-    "FilterUser": "Filtrar por primeiro/último nome",
+    "FilterUser": "Filtrar por nome ou sobrenome",
     "FilterbyType": "Filtrar por tipo",
     "FirstName": "Primeiro nome",
     "ForExample": "Por exemplo, você definiu classes por grau. Então, você pode reutilizar essas listas e enviar para várias classes ao mesmo tempo em vez de listar todos os membros novamente.",
@@ -524,10 +524,9 @@
     "Application": "Deixar de aplicações",
     "Apply": "Aplicada pelo",
     "ApplyForLeave": "Pedir uma licença",
-    "ApplyForleave": "Você também pode pedir uma licença",
     "Approve": "Aprovado?",
     "Attendance": "Atendimento",
-    "AttendanceRecord": "De registo de presenças:",
+    "AttendanceRecord": "Registo de presenças",
     "ConfirmToApplyLeaveFor": "Deixar pedido",
     "Contact": "Contato escola",
     "EndDate": "Data de término",
@@ -544,20 +543,18 @@
     "Reason": "Porque...",
     "ReasonLeave": "Por favor, forneça o motivo para sair",
     "Reference": "ReferenceID",
+    "SchoolHasApprovedApplication": "Escola aprovou esta aplicação ",
     "SchoolNotified": "Escola é notificada do seu reconhecimento",
-    "Schoolhas": "Escola tem",
     "SelectChild": "Que a criança vai sentir falta da escola?",
     "StartBeforeEnd": "Data de início precisa ser anterior à data de término",
     "StartDate": "Data de início",
     "Student": "Estudante",
     "Submit": "Enviar",
     "Submitted": "Foi apresentado pedido de licença",
-    "Thisapplication": "Esta aplicação no",
     "To": "Para",
     "Viewapplication": "Ver os leave(s) aplicada",
     "Why": "Você sabe por que?",
-    "Yes": "Sim",
-    "approved": "aprovado"
+    "Yes": "Sim"
   },
   "accounts-relationships": {
     "Family": "Família",
@@ -676,7 +673,7 @@
     "ChooseGroupAvatar": "Escolher um avatar de grupo (opcional)",
     "CreateChat": "Criar Chat",
     "GroupChat": "Chat em grupo",
-    "Loadmessage": "Carregar as mensagens anteriores"
+    "Loadmessage": "..."
   },
   "smartix-classes": {
     "Loadmessages": "Carregar as mensagens anteriores",

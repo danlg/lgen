@@ -118,7 +118,7 @@
     "FileHeaderEncode": "plik z pierwszego wiersza jako nagłówków. Również upewnij się, że plik jest zakodowany w formacie UTF-8.",
     "FillClickAddNews": "Po prostu wypełnij pola i kliknij przycisk Dodaj News.",
     "Filter:": "Filtr:",
-    "FilterUser": "Filtruj według nazwy pierwszego/ostatniego",
+    "FilterUser": "Filtruj według nazwy pierwszego lub ostatniego",
     "FilterbyType": "Filtruj według typu",
     "FirstName": "Imię",
     "ForExample": "Na przykład mają zdefiniowane klasy według klasy. Następnie można ponownie użyć tych list i wysłać kilka klas w tym samym czasie, zamiast ponownie listę wszystkich członków.",
@@ -524,10 +524,9 @@
     "Application": "Pozostaw aplikacji",
     "Apply": "Stosowane przez",
     "ApplyForLeave": "Złożyć wniosek o urlop",
-    "ApplyForleave": "Można również ubiegać się o urlop",
     "Approve": "Na jakiej podstawie?",
     "Attendance": "Obecności",
-    "AttendanceRecord": "Od rekord frekwencji:",
+    "AttendanceRecord": "Rekord frekwencji",
     "ConfirmToApplyLeaveFor": "Pozostawić wniosek",
     "Contact": "Szkoła kontakt",
     "EndDate": "Data zakończenia",
@@ -544,20 +543,18 @@
     "Reason": "Ponieważ...",
     "ReasonLeave": "Proszę podać powód, aby opuścić",
     "Reference": "Identyfikator odwołania",
+    "SchoolHasApprovedApplication": "Szkoła posiada zatwierdzony tej aplikacji ",
     "SchoolNotified": "Szkoła jest powiadamiany o swoje potwierdzenie",
-    "Schoolhas": "Szkoła ma",
     "SelectChild": "Które dziecko będzie miss szkoły?",
     "StartBeforeEnd": "Start Data musi być wcześniejsza niż data zakończenia",
     "StartDate": "Data rozpoczęcia",
     "Student": "Student",
     "Submit": "Prześlij",
     "Submitted": "Złożono urlopu",
-    "Thisapplication": "Ta aplikacja o",
     "To": "Do",
     "Viewapplication": "Zobacz stosowane leave(s)",
     "Why": "Czy wiesz dlaczego?",
-    "Yes": "Tak",
-    "approved": "zatwierdzony"
+    "Yes": "Tak"
   },
   "accounts-relationships": {
     "Family": "Rodzina",
@@ -676,7 +673,7 @@
     "ChooseGroupAvatar": "Wybierz avatar grupy (opcjonalnie)",
     "CreateChat": "Utwórz czat",
     "GroupChat": "Czat grupowy",
-    "Loadmessage": "Poprzednie wiadomości obciążenia"
+    "Loadmessage": "..."
   },
   "smartix-classes": {
     "Loadmessages": "Poprzednie wiadomości obciążenia",

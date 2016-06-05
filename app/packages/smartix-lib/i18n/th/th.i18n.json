@@ -118,7 +118,7 @@
     "FileHeaderEncode": "ไฟล์แถวแรกเป็นหัวข้อ กรุณายังมั่นใจว่า แฟ้มมีการเข้ารหัส UTF 8",
     "FillClickAddNews": "เพียงแค่กรอกข้อมูลในฟิลด์จาก นั้นคลิกเพิ่มข่าว",
     "Filter:": "ตัวกรอง:",
-    "FilterUser": "กรองตามชื่อสกุล",
+    "FilterUser": "กรองตามชื่อแรก หรือครั้งสุดท้าย",
     "FilterbyType": "กรองตามประเภท",
     "FirstName": "ชื่อแรก",
     "ForExample": "ตัวอย่างเช่น คุณมีกำหนดเรียนต่อเกรด คุณสามารถใช้รายการเหล่านี้ แล้วส่งไปหลายชั้นเรียนในเวลาเดียวกันแทนที่จะแสดงรายการสมาชิกทั้งหมดอีกครั้ง",
@@ -524,10 +524,9 @@
     "Application": "ออกจากโปรแกรมประยุกต์",
     "Apply": "ใช้โดย",
     "ApplyForLeave": "ใช้สำหรับปล่อย",
-    "ApplyForleave": "นอกจากนี้คุณยังสามารถใช้สำหรับออกจาก",
     "Approve": "อนุมัติหรือไม่",
     "Attendance": "เข้าร่วมประชุม",
-    "AttendanceRecord": "จากประวัติการเข้า:",
+    "AttendanceRecord": "เข้าร่วมประชุม",
     "ConfirmToApplyLeaveFor": "ปล่อยให้ร้องขอ",
     "Contact": "ติดต่อโรงเรียน",
     "EndDate": "วันสิ้นสุด",
@@ -544,20 +543,18 @@
     "Reason": "เนื่องจาก...",
     "ReasonLeave": "โปรดให้เหตุผลที่จะออก",
     "Reference": "ReferenceID",
+    "SchoolHasApprovedApplication": "โรงเรียนได้รับรองโปรแกรมประยุกต์นี้ ",
     "SchoolNotified": "โรงเรียนได้รับทราบเกี่ยวกับการรับทราบ",
-    "Schoolhas": "โรงเรียนมี",
     "SelectChild": "ซึ่งเด็กจะพลาดโรงเรียน",
     "StartBeforeEnd": "เริ่มต้นวันต้องเป็นวันก่อนหน้าวันสิ้นสุด",
     "StartDate": "วันเริ่มต้น",
     "Student": "นักเรียน",
     "Submit": "ส่ง",
     "Submitted": "มีการส่งออกแอพลิเคชัน",
-    "Thisapplication": "โปรแกรมประยุกต์นี้เมื่อ",
     "To": "ถึง",
     "Viewapplication": "มุมมองถูกใช้ leave(s)",
     "Why": "คุณรู้หรือไม่ว่าทำไม",
-    "Yes": "ใช่",
-    "approved": "ได้รับอนุมัติ"
+    "Yes": "ใช่"
   },
   "accounts-relationships": {
     "Family": "ครอบครัว",
@@ -676,7 +673,7 @@
     "ChooseGroupAvatar": "เลือก avatar เป็นกลุ่ม (ถ้ามี)",
     "CreateChat": "สร้างแชท",
     "GroupChat": "สนทนากลุ่ม",
-    "Loadmessage": "โหลดข้อความก่อนหน้านี้"
+    "Loadmessage": "..."
   },
   "smartix-classes": {
     "Loadmessages": "โหลดข้อความก่อนหน้านี้",

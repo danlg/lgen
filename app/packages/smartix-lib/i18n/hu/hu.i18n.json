@@ -118,7 +118,7 @@
     "FileHeaderEncode": "az első sor a címsorokat fájlt. Kérjük, biztosítása érdekében, hogy a fájl UTF-8 kódolása.",
     "FillClickAddNews": "Egyszerűen töltse ki a mezőket, és kattintson Add hírek.",
     "Filter:": "Szűrő:",
-    "FilterUser": "Szűrés az első/utolsó név",
+    "FilterUser": "Szűrése az első vagy az utolsó név",
     "FilterbyType": "Szűrjük típusa",
     "FirstName": "Utónév",
     "ForExample": "Például határoztak meg per besorolási osztályok. Majd újra ezeket a listákat, és küld több osztályok helyett minden tag ismét egy időben.",
@@ -524,10 +524,9 @@
     "Application": "Hagyja az alkalmazások",
     "Apply": "Által alkalmazott",
     "ApplyForLeave": "Szabadságot",
-    "ApplyForleave": "Akkor tud is alkalmaz részére szabadság",
     "Approve": "Jóváhagyott?",
     "Attendance": "Részvétel",
-    "AttendanceRecord": "Rekord Nézőszám:",
+    "AttendanceRecord": "Óralátogatási nyilvántartás",
     "ConfirmToApplyLeaveFor": "Hagyja a kérelem",
     "Contact": "Iskola kapcsolat",
     "EndDate": "Záró dátuma",
@@ -544,20 +543,18 @@
     "Reason": "Mert...",
     "ReasonLeave": "Adja meg az oka, hogy elmenjek",
     "Reference": "ReferenceID",
+    "SchoolHasApprovedApplication": "Iskola jóváhagyta az alkalmazás ",
     "SchoolNotified": "Iskola a nyugtázó értesítést",
-    "Schoolhas": "Iskola",
     "SelectChild": "Melyik gyermek hiányozni fog az iskolában?",
     "StartBeforeEnd": "Kezdő dátum kell lehet korábbi, mint a záró dátuma",
     "StartDate": "Kezdő dátuma",
     "Student": "Diák",
     "Submit": "Nyújtson be",
     "Submitted": "Szabadság iránti kérelem",
-    "Thisapplication": "Ez az alkalmazás:",
     "To": "A",
     "Viewapplication": "Nézd alkalmazott leave(s)",
     "Why": "Tudod, miért?",
-    "Yes": "igen",
-    "approved": "jóváhagyott"
+    "Yes": "igen"
   },
   "accounts-relationships": {
     "Family": "Család",
@@ -676,7 +673,7 @@
     "ChooseGroupAvatar": "Válassza ki a csoport avatar (nem kötelező)",
     "CreateChat": "Hozzon létre a Chat",
     "GroupChat": "Csoportos csevegés",
-    "Loadmessage": "Betölteni a korábbi üzenetek"
+    "Loadmessage": "..."
   },
   "smartix-classes": {
     "Loadmessages": "Betölteni a korábbi üzenetek",

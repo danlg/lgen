@@ -118,7 +118,7 @@
     "FileHeaderEncode": "되 고 머리글 첫 번째 행으로 파일입니다. 또한 파일은 u t F-8에서로 인코딩된 확인 하십시오.",
     "FillClickAddNews": "단순히 필드를 추가 뉴스를 클릭 합니다.",
     "Filter:": "필터:",
-    "FilterUser": "첫 번째/마지막 이름으로 필터링",
+    "FilterUser": "첫 번째 또는 마지막 이름으로 필터링",
     "FilterbyType": "유형으로 필터링",
     "FirstName": "이름",
     "ForExample": "예를 들어 학년 당 클래스를 정의 했습니다. 다음 이러한 목록을 다시 사용 하 고 다시 모든 멤버를 나열 하는 대신 동시에 여러 클래스를 보낼 수 있습니다.",
@@ -524,10 +524,9 @@
     "Application": "응용 프로그램을 떠나",
     "Apply": "하 여 적용",
     "ApplyForLeave": "휴가 신청",
-    "ApplyForleave": "허가 신청할 수 있습니다.",
     "Approve": "승인?",
     "Attendance": "출석",
-    "AttendanceRecord": "출석 기록:",
+    "AttendanceRecord": "출석 기록",
     "ConfirmToApplyLeaveFor": "요청을 두고",
     "Contact": "학교 연락처",
     "EndDate": "끝 날짜",
@@ -544,20 +543,18 @@
     "Reason": "때문에...",
     "ReasonLeave": "떠날 이유를 제공 하십시오",
     "Reference": "ReferenceID",
+    "SchoolHasApprovedApplication": "학교는이 응용 프로그램을 승인 했습니다. ",
     "SchoolNotified": "학교는 귀하의 승인 통지",
-    "Schoolhas": "학교는",
     "SelectChild": "어떤 아이 학교를 놓칠 것 이다?",
     "StartBeforeEnd": "시작 날짜 해야 끝 날짜 보다 이전",
     "StartDate": "시작 날짜",
     "Student": "학생",
     "Submit": "전송",
     "Submitted": "휴가 신청서가 제출 되었는지",
-    "Thisapplication": "이 응용 프로그램에서",
     "To": "받는 사람",
     "Viewapplication": "보기 적용 leave(s)",
     "Why": "당신은 왜 아는가?",
-    "Yes": "예",
-    "approved": "승인"
+    "Yes": "예"
   },
   "accounts-relationships": {
     "Family": "가족",
@@ -676,7 +673,7 @@
     "ChooseGroupAvatar": "(선택 사항) 그룹 아바타 선택",
     "CreateChat": "채팅 만들기",
     "GroupChat": "그룹 채팅",
-    "Loadmessage": "이전 메시지 로드"
+    "Loadmessage": "..."
   },
   "smartix-classes": {
     "Loadmessages": "이전 메시지 로드",

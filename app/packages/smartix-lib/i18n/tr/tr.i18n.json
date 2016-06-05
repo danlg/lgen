@@ -118,7 +118,7 @@
     "FileHeaderEncode": "dosyanın ilk satırı başlıkları olmak ile. Lütfen dosyanın UTF-8 biçiminde kodlanır emin olun.",
     "FillClickAddNews": "Sadece alanları doldurun ve haber Ekle'yi tıklatın.",
     "Filter:": "Filtre Uygula:",
-    "FilterUser": "İlk/son ada göre filtre uygulama",
+    "FilterUser": "İlk veya son ada göre filtre uygulama",
     "FilterbyType": "Türüne göre filtre",
     "FirstName": "İlk ad",
     "ForExample": "Örneğin, sınıflar sınıf başına tanımladınız. Sonra bu listeler yeniden ve yeniden tüm üyeler listesi yerine aynı anda birkaç sınıf için gönderin.",
@@ -524,10 +524,9 @@
     "Application": "Uygulamaları bırakın",
     "Apply": "Tarafından uygulanan",
     "ApplyForLeave": "Başvurmak",
-    "ApplyForleave": "Ayrıca, izin için uygulayabilirsiniz",
     "Approve": "Onayladı mı?",
     "Attendance": "Katılım",
-    "AttendanceRecord": "Devam durumu kaydı:",
+    "AttendanceRecord": "Devam durumu kaydı",
     "ConfirmToApplyLeaveFor": "İsteği bırakabilir",
     "Contact": "İlgili kişi okul",
     "EndDate": "Bitiş tarihi",
@@ -544,20 +543,18 @@
     "Reason": "Çünkü...",
     "ReasonLeave": "Ayrılmak için bir sebep veriniz",
     "Reference": "ReferenceID",
+    "SchoolHasApprovedApplication": "Okul bu uygulama onayladı ",
     "SchoolNotified": "Okul senin alındısı bildirilir",
-    "Schoolhas": "Okul vardır",
     "SelectChild": "Hangi çocuk okul özleyecek misin?",
     "StartBeforeEnd": "Başlangıç tarihi bitiş tarihinden önce olması gereken",
     "StartDate": "Başlangıç tarihi",
     "Student": "Öğrenci",
     "Submit": "Gönder",
     "Submitted": "Bırak uygulama sundu",
-    "Thisapplication": "Bu uygulama",
     "To": "Hedef",
     "Viewapplication": "Uygulanan görünümü leave(s)",
     "Why": "Neden biliyor musun?",
-    "Yes": "Evet",
-    "approved": "onaylı"
+    "Yes": "Evet"
   },
   "accounts-relationships": {
     "Family": "Aile",
@@ -676,7 +673,7 @@
     "ChooseGroupAvatar": "Bir grup avatar (isteğe bağlı) seçin",
     "CreateChat": "Sohbet oluşturmak",
     "GroupChat": "Grup sohbeti",
-    "Loadmessage": "Önceki iletiler yükle"
+    "Loadmessage": "..."
   },
   "smartix-classes": {
     "Loadmessages": "Önceki iletiler yükle",

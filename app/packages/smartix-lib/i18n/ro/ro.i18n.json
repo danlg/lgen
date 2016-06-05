@@ -118,7 +118,7 @@
     "FileHeaderEncode": "fişier cu primul rând fiind titlurile. De asemenea, asiguraţi-vă că fişierul este codificat UTF-8.",
     "FillClickAddNews": "Pur şi simplu completaţi câmpurile şi faceţi clic pe Add Stiri.",
     "Filter:": "Filtru:",
-    "FilterUser": "Filtrare după primul/ultimul nume",
+    "FilterUser": "Filtrare după primul sau ultimul nume",
     "FilterbyType": "Filtrare după tip",
     "FirstName": "Prenume",
     "ForExample": "De exemplu, aţi definit clasele fiecare grad. Apoi puteţi reutiliza aceste liste şi trimite la mai multe clase, în acelaşi timp în loc de listarea tuturor membrilor din nou.",
@@ -524,10 +524,9 @@
     "Application": "Părăsească aplicaţii",
     "Apply": "Aplicate de",
     "ApplyForLeave": "Aplica pentru concediu",
-    "ApplyForleave": "De asemenea, puteţi aplica pentru concediu",
     "Approve": "Aprobat?",
     "Attendance": "Frecventarea",
-    "AttendanceRecord": "Înregistrare de participare:",
+    "AttendanceRecord": "Record de prezenţă",
     "ConfirmToApplyLeaveFor": "Lăsaţi cerere",
     "Contact": "Contact scoala",
     "EndDate": "Data de sfârşit",
@@ -544,20 +543,18 @@
     "Reason": "Pentru că...",
     "ReasonLeave": "Vă rugăm să furnizaţi un motiv pentru a lăsa",
     "Reference": "ReferenceID",
+    "SchoolHasApprovedApplication": "Scoala a aprobat această cerere ",
     "SchoolNotified": "Scoala este notificat de confirmare dumneavoastră",
-    "Schoolhas": "Şcoala are",
     "SelectChild": "Copilul care va fi dor de scoala?",
     "StartBeforeEnd": "Start data trebuie să fie anterioară datei din urmă",
     "StartDate": "Data inceperii",
     "Student": "Student",
     "Submit": "Prezinte",
     "Submitted": "A fost prezentată cererea de concediu",
-    "Thisapplication": "Aceasta aplicatie la",
     "To": "Pentru a",
     "Viewapplication": "Vezi aplicate leave(s)",
     "Why": "Stii de ce?",
-    "Yes": "da",
-    "approved": "aprobat"
+    "Yes": "da"
   },
   "accounts-relationships": {
     "Family": "Familia",
@@ -676,7 +673,7 @@
     "ChooseGroupAvatar": "Alege un avatar de grup (opțional)",
     "CreateChat": "Crea Chat",
     "GroupChat": "Chatul de grup",
-    "Loadmessage": "Încărcare mesaje anterioare"
+    "Loadmessage": "..."
   },
   "smartix-classes": {
     "Loadmessages": "Încărcare mesaje anterioare",
