@@ -54,5 +54,7 @@ Template.AdminClassesAdd.events({
                 toastr.info("The class " + newClass.className + " has been created successfully.")
             }
         });
+        Router.go('admin.classes.view', {school: Router.current().params.school, classCode: newClass.classCode});
     }
+    
 });
