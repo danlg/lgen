@@ -44,7 +44,6 @@ Smartix.Messages.cleanAndValidate = function (message) {
     //console.log('message-afterclean: ', message);
     var correspondingSchema = Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)].Schema;
     //console.log( correspondingSchema );
-    
     var result = check(message, correspondingSchema);
     // As a backup in case the child packages , Did not implement the schema correctly,
     // Clean the `message` object with the master `Smartix.Messages.Schema`
@@ -149,8 +148,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
         let meteorUser = Meteor.users.findOne({    _id: currentUser   });
         
         //3. send email notifications if user opt to receive email notification/
-        $ = cheerio.load(message.data.content);  
-
+        $ = cheerio.load(message.data.content);
         /*$email = cheerio.load(message.data.content); 
         $email('img').attr('width','320');
         console.log('$email('*').html()', $email('*').html());
@@ -173,8 +171,6 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
             },function(){
                 if(meteorUser) { 
                     //4. send push notification and in-app notification
-                    
-                                 
                     //console.log('cheerioWithhtmlText',$('*').text());                   
                     var notificationObj = {
                         from : Smartix.helpers.getFullNameByProfileObj(meteorUser.profile),
@@ -214,14 +210,12 @@ Smartix.Messages.editMessage = function (messageId, newData, newAddons) {
     var originalMessage = Smartix.Messages.Collection.findOne({
         _id: messageId
     });
-    
     // If the original message does not exist
     // Return `false`
     if(!originalMessage) {
         return false;
         // OPTIONAL: Throw an error indicating that the message does not exist
     }
-
     /* CHECKS FOR PERMISSION TO EDIT IN GROUP */
     var group = Smartix.Messages.getGroupFromMessageId(messageId);
     // Checks if group exists
@@ -229,7 +223,6 @@ Smartix.Messages.editMessage = function (messageId, newData, newAddons) {
         return false;
         // OPTIONAL: Throw error saying the group specified does not exists
     }
-    
     // Checks whether the currently logged-in user has permission to edit a message for the group
     // The logic behind this would be different for different group types
     if(!Smartix[Smartix.Utilities.letterCaseToCapitalCase(group.type)].Messages.canEditMessage(groupId)) {
@@ -237,30 +230,23 @@ Smartix.Messages.editMessage = function (messageId, newData, newAddons) {
         // OPTIONAL: Throw error saying you do not have
         // permission to edit messages for this group
     }
-    
     var editedMessage = originalMessage;
     /* CHECKS THE VALIDITY OF NEW DATA */
     if(newData) {
         // Get the schema for the type and use it to clean the `newData` object
         Smartix.Messages[letterCaseToCapitalCase(originalMessage.type)].Schema.pick(['data']).clean(newData);
-        
         // Validate using the same schema to ensure it conforms
         check(newData, Smartix.Messages[letterCaseToCapitalCase(originalMessage.type)].Schema.pick(['data']));
-
         /* CREATE NEW VERSION OF MESSAGE */
         // overwrite any fields in the original message
         // with the new message
         var newMessage = _.assignIn(originalMessage, {data: newData});
-        
         // Remove the `_id` property from the `newMessage`
         delete newMessage._id;
-        
         // Adds the `id` of the original message to the `versions` array
         newMessage.versions = newMessage.versions || [];
         newMessage.versions.push(messageId);
-        
         Smartix.Messages.cleanAndValidate(newMessage)
-        
         // Create a new message
         editedMessage = Smartix.Messages.Collection.insert(newMessage);
     }
@@ -330,15 +316,15 @@ Smartix.Messages.emailMessage = function (targetUserids, messageObj, groupObj, o
         .filter(function (user) {
           //if user enable email notification
           if (user.emailNotifications) {  
-              console.log('user.emailNotifications', user.emailNotifications )
+              //console.log('user.emailNotifications', user.emailNotifications )
             //if email is verified
             if (user.emails && user.emails[0] && user.emails[0].verified) {
-              console.log('user.emails', user.emails[0],' ',user.emails[0].verified )
+              //console.log('user.emails', user.emails[0],' ',user.emails[0].verified )
               return true;
             }
           }
           else {
-            console.log('user.emailNotifications', user.emailNotifications )  
+            //console.log('user.emailNotifications', user.emailNotifications )
             return false;
           }
         })
