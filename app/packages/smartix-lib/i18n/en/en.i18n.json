@@ -624,6 +624,7 @@
         "OptionalClassname":"Optional. classname e.g English G4B. You can list up to 10 classnames by teacher (a teacher can have several classes)",
         "OptionalMarkXParents":"Optional. Mark by \"X\" if you want the parents to join this class (e.g the parent of class Grade 4B). Up to 10 classes. Tip: invite parents for primary classes",
         "OptionalMarkXStudents":"Optional. Mark by \"X\" if you want the students to join this class (e.g the parent of class Grade 4B). Up to 10 classes.In this case, the class name in this file need to match the class name in the student file upload (Grade 4B). Tip: invite students for secondary classes",
+        "ResendEmail": "Resend Email",
         "CSVUploaded":"Once your CSV file has been uploaded, you will be able to confirm the parent information before importing.",
         "Grade":"Grade",
         "Gradelevels":"Grade levels. Required fields for all students.",
@@ -631,7 +632,9 @@
         "AdminSearchInput":"Type the admin's name you want to add",
         "UserSearchInput":"Type the user's name you want to add",
         "ListSearchInput":"Type the name of the distribution list you want to add",
-        "WelcometoSmartixAdmin":"Welcome to Smartix Admin!"
+        "WelcometoSmartixAdmin":"Welcome to Smartix Admin!",
+        "VerifictionConfirmation": "Verification email sent!",
+        "VerificationIssue":"There was an issue with sending the emails"
     },
     "messages": {
         "Send": "Send"
