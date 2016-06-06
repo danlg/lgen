@@ -52,18 +52,17 @@ Template.AdminUsersSearch.events({
         
         if( $(event.target).prop('checked') ) {
            let latestArray = template.usersChecked.get();
-           log.info($(event.target).val());
+           //log.info($(event.target).val());
            latestArray.push( $(event.target).val() );
-           
            template.usersChecked.set( latestArray  );            
         }else{
            let latestArray = template.usersChecked.get();
-           log.info($(event.target).val());
+           //log.info($(event.target).val());
            lodash.pull(latestArray, $(event.target).val());
-                       
            template.usersChecked.set( latestArray  );              
         }      
     },
+
     'click .remove-users-btn':function(event,template){
         let latestArray = template.usersChecked.get();
         if(latestArray.indexOf(Meteor.userId()) > -1){
