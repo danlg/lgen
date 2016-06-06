@@ -35,8 +35,8 @@ Template.AdminNewsgroupsSearch.helpers({
         }
   },
   isUserChecked:function(){
-      //console.log(this._id )
-    //console.log(Template.instance().usersChecked.get());
+      //log.info(this._id )
+    //log.info(Template.instance().usersChecked.get());
     return (  Template.instance().usersChecked.get().indexOf(this._id) !== -1 ) ? "checked" : "";
   },
   totalUserCount:function(){
@@ -57,7 +57,7 @@ Template.AdminNewsgroupsSearch.helpers({
         }
   },
   distributionListData :function(data){
-      console.log('distributionListData',Smartix.Groups.Collection.findOne({
+      //log.info('distributionListData',Smartix.Groups.Collection.findOne({
             _id: data
         })     );
       return Smartix.Groups.Collection.findOne({

@@ -27,12 +27,12 @@ Template.CalendarListView.helpers({
         var distributionListsUserBelong = Smartix.Groups.Collection.find({type: 'distributionList', users: Meteor.userId() }).fetch();
         var distributionListsUserBelongIds = lodash.map(distributionListsUserBelong,'_id');
         
-        //console.log('distributionListsUserBelongIds',distributionListsUserBelongIds);
+        //log.info('distributionListsUserBelongIds',distributionListsUserBelongIds);
         
         var newsgroupsBydistributionLists =  Smartix.Groups.Collection.find({ type: 'newsgroup', distributionLists: {$in : distributionListsUserBelongIds } , optOutUsersFromDistributionLists :{  $nin : [Meteor.userId()] } }).fetch();      
         var newsgroupsBydistributionListsIds = lodash.map(newsgroupsBydistributionLists,'_id');
         
-        //console.log('newsgroupsBydistributionListsIds',newsgroupsBydistributionListsIds);
+        //log.info('newsgroupsBydistributionListsIds',newsgroupsBydistributionListsIds);
         
         newsgroupsIds = newsgroupsIds.concat(newsgroupsByUserArrayIds,newsgroupsBydistributionListsIds);
        
@@ -61,7 +61,7 @@ Template.CalendarListView.helpers({
                 
     },
     getGroupName:function(groupId){
-        //console.log('getGroupName',groupId);
+        //log.info('getGroupName',groupId);
        return Smartix.Groups.Collection.findOne(groupId).name;
     },
     getCalendar:function(){
@@ -72,7 +72,7 @@ Template.CalendarListView.helpers({
         return moment(date).calendar();
     },
     isAllDayEvent: function(){
-        console.log('isAllDayEvent', 'startDate:',this.startDate,'endDate:', this.endDate);
+        //log.info('isAllDayEvent', 'startDate:',this.startDate,'endDate:', this.endDate);
         return (this.startDate.getTime() === this.endDate.getTime())
     }
     

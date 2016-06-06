@@ -185,7 +185,7 @@ Meteor.startup(function () {
         params: {school : schoolDoc.username}
     };
     
-    //console.log('attendanceSubmission',pathToRouteObj);
+    //log.info('attendanceSubmission',pathToRouteObj);
     if ('Notification' in window && Notification.permission == 'granted') {
         //if Notification API is supported
         Smartix.helpers.spawnDesktopNotification(data.text, '/img/logo-new.png', data.from, pathToRouteObj);

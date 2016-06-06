@@ -24,7 +24,7 @@ Template.AttendanceRecordAdd.events({
             studentName: document.getElementById('children-id').selectedOptions[0].text
         };
 
-        //console.log(applyLeaveObj);
+        //log.info(applyLeaveObj);
         var transformObj = {
             namespace: applyLeaveObj.namespace,
             studentId: applyLeaveObj.studentId,
@@ -36,7 +36,7 @@ Template.AttendanceRecordAdd.events({
             endDate: moment(applyLeaveObj.endDate + " " + applyLeaveObj.endDateTime + "+0800").format("LLLL"),
             studentName: applyLeaveObj.studentName
         };
-        //console.log(transformObj);
+        //log.info(transformObj);
         if (transformObj.dateFrom > transformObj.dateTo) {
             toastr.info(TAPi18n.__("absence.StartBeforeEnd"));
             return;
@@ -109,7 +109,7 @@ Template.AttendanceRecordAdd.helpers({
             
         var childs = [];
         var findChilds = Smartix.Accounts.Relationships.Collection.find({ parent: Meteor.userId(), namespace: schoolDoc._id }).fetch();
-        //console.log('findParents', findParents);
+        //log.info('findParents', findParents);
         findChilds.map(function (relationship) {
             childs.push(relationship.child);
         });

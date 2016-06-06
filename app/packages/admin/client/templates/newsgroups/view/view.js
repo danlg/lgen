@@ -83,7 +83,7 @@ Template.AdminNewsgroupsView.events({
 
     if (window.confirm("Do you really want to delete this newsgroup?")) { 
        var groupId = $(event.target).data('newsgroupId');
-       console.log('deleteNewsgroup',groupId);
+       //log.info('deleteNewsgroup',groupId);
        Meteor.call('smartix:newsgroups/deleteNewsgroup',groupId,function(){
            toastr.info('This newsgroup has been removed');
        });    

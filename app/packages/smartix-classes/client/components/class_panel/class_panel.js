@@ -168,7 +168,7 @@ Template.ClassPanel.helpers({
             }else{
                 eachMessage.isFirstMsgInOneDay = false;
             }
-            //console.log(transformCount,' ',eachMessage.data.content ,' ',eachMessage.createdAt);
+            //log.info(transformCount,' ',eachMessage.data.content ,' ',eachMessage.createdAt);
             
             
             return eachMessage;

@@ -167,7 +167,7 @@ Template.MyAccount.helpers({
   },
   getCurrentCountry:function(){
       var countriesObj = CountryCodes.getList();
-      console.log(countriesObj);
+      //log.info(countriesObj);
       var userCountry = Meteor.user().country;
       if(userCountry){
         // lodash.find(countriesObj,{})

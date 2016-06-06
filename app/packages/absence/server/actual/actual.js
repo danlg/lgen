@@ -25,7 +25,7 @@ var convertAttendanceFormat = function (originalRecord, namespace) {
     
     newRecord.namespace = namespace;
     
-    console.log(newRecord);
+    //log.info(newRecord);
     
     return newRecord;
 }

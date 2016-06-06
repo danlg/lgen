@@ -79,7 +79,7 @@ Smartix.Chat.getChatOfUser = function (id) {
 }
 
 Smartix.Chat.canCreateChat = function (namespace, currentUser) {
-	//console.log('canCreateChat',namespace);
+	//log.info('canCreateChat',namespace);
     check(namespace, String);
     check(currentUser, Match.Maybe(String));
     

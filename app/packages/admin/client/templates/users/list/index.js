@@ -28,7 +28,7 @@ UsersIndex = new EasySearch.Index({
             }
 
             //TO examine the above mongo selector,un-comment the below console log
-            //console.log(selector);
+            //log.info(selector);
             
             return selector;
         }

@@ -43,9 +43,9 @@ Template.AdminDistributionListsAdd.events({
                 
                 //result is the new distribution list entry's id
                 if (result) {
-                    console.log('distributionId', result);
+                    //log.info('distributionId', result);
                     var newDistributionList = Smartix.Groups.Collection.findOne(result);
-                    console.log(newDistributionList);
+                    //log.info(newDistributionList);
                     toastr.info('Distribution List '+ newDistributionList.name +' has been created.');
                     
                     Router.go('admin.lists.view', { school: namespace, code: newDistributionList.url });

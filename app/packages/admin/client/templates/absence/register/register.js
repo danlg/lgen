@@ -46,8 +46,8 @@ Template.AdminAbsenceRegister.events({
         Smartix.Absence.expectedAbsenceSchema.clean(options);
         
         Meteor.call('smartix:absence/registerExpectedAbsence', options, function (err, res) {
-            console.log(err);
-            console.log(res);
+            //log.info(err);
+            //log.info(res);
         });
     }
 });

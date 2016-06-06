@@ -2,10 +2,10 @@ Smartix = Smartix || {};
 
 Smartix.Messages = Smartix.Messages || {};
 
-//console.log('smartix:messages:validTypes@message', Smartix.Messages.ValidTypes);
+//log.info('smartix:messages:validTypes@message', Smartix.Messages.ValidTypes);
 Smartix.Messages.ValidTypes = Smartix.Messages.ValidTypes || [];
 
-//console.log('message-addons-calendar@message',Smartix.Messages.Addons.Calendar.Schema);
+//log.info('message-addons-calendar@message',Smartix.Messages.Addons.Calendar.Schema);
 
 // Checks whether a type is supported
 Smartix.Messages.isValidType = function (type) {
@@ -34,16 +34,16 @@ Smartix.Messages.getGroupFromMessageId = function (messageId) {
 Smartix.Messages.cleanAndValidate = function (message) {
     check(message, Object);
     check(message.type, String);
-    //console.log('Smartix.Utilities.letterCaseToCapitalCase(message.type)', Smartix.Utilities.letterCaseToCapitalCase(message.type));
-    //console.log('Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)]', Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)]);
-    //console.log('message-beforeclean; ', message);
+    //log.info('Smartix.Utilities.letterCaseToCapitalCase(message.type)', Smartix.Utilities.letterCaseToCapitalCase(message.type));
+    //log.info('Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)]', Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)]);
+    //log.info('message-beforeclean; ', message);
     // Clean the message
     Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)].Schema.clean(message);
     
     // Checks the data provided conforms to the schema for that message type
-    //console.log('message-afterclean: ', message);
+    //log.info('message-afterclean: ', message);
     var correspondingSchema = Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)].Schema;
-    //console.log( correspondingSchema );
+    //log.info( correspondingSchema );
     var result = check(message, correspondingSchema);
     // As a backup in case the child packages , Did not implement the schema correctly,
     // Clean the `message` object with the master `Smartix.Messages.Schema`
@@ -132,11 +132,11 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
         var allUserToDoPushNotifications = [];
         allUserToDoPushNotifications = allUserToDoPushNotifications.concat( group.users );
         if(group.distributionLists){
-            //console.log('group.distributionLists',group.distributionLists);
+            //log.info('group.distributionLists',group.distributionLists);
             var allLinkedDistributionLists = Smartix.Groups.Collection.find({_id:{$in: group.distributionLists}}).fetch();
-            //console.log('allLinkedDistributionLists',allLinkedDistributionLists);
+            //log.info('allLinkedDistributionLists',allLinkedDistributionLists);
             var allUsersInDistributionLists = lodash.map(allLinkedDistributionLists,'users');
-            //console.log('allUsersInDistributionLists',allUsersInDistributionLists);
+            //log.info('allUsersInDistributionLists',allUsersInDistributionLists);
             allUsersInDistributionLists = lodash.flatten(allUsersInDistributionLists);
             allUserToDoPushNotifications = allUserToDoPushNotifications.concat( allUsersInDistributionLists );
             if(group.optOutUsersFromDistributionLists){
@@ -171,7 +171,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
             },function(){
                 if(meteorUser) { 
                     //4. send push notification and in-app notification
-                    //console.log('cheerioWithhtmlText',$('*').text());                   
+                    //log.info('cheerioWithhtmlText',$('*').text());                   
                     var notificationObj = {
                         from : Smartix.helpers.getFullNameByProfileObj(meteorUser.profile),
                         title : Smartix.helpers.getFullNameByProfileObj(meteorUser.profile),
@@ -310,27 +310,27 @@ Smartix.Messages.undeleteMessage = function () {
 
 Smartix.Messages.emailMessage = function (targetUserids, messageObj, groupObj, originateUserObj) {
       var arrayOfTargetUsers = Meteor.users.find({_id: {$in: targetUserids}}).fetch();
-      //console.log('arrayOfTargetUsers',arrayOfTargetUsers);
+      //log.info('arrayOfTargetUsers',arrayOfTargetUsers);
       //keep user opt-in to receive email notification, group them by their UI language
       var optInUsersGroupByLang = lodash.chain(arrayOfTargetUsers)
         .filter(function (user) {
           //if user enable email notification
           if (user.emailNotifications) {  
-              //console.log('user.emailNotifications', user.emailNotifications )
+              //log.info('user.emailNotifications', user.emailNotifications )
             //if email is verified
             if (user.emails && user.emails[0] && user.emails[0].verified) {
-              //console.log('user.emails', user.emails[0],' ',user.emails[0].verified )
+              //log.info('user.emails', user.emails[0],' ',user.emails[0].verified )
               return true;
             }
           }
           else {
-            //console.log('user.emailNotifications', user.emailNotifications )
+            //log.info('user.emailNotifications', user.emailNotifications )
             return false;
           }
         })
         .groupBy('lang')
         .value();
-      //console.log('optInUsersGroupByLang',optInUsersGroupByLang);
+      //log.info('optInUsersGroupByLang',optInUsersGroupByLang);
       for (var lang in optInUsersGroupByLang) {
         var receivers = [];
         optInUsersGroupByLang[lang].map(function (eachUser) {

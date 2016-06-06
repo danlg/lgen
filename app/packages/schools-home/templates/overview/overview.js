@@ -8,12 +8,12 @@ Template.MobileSchoolHome.helpers({
         var schoolDoc = SmartixSchoolsCol.findOne({                                                    
             username: Router.current().params.school                                                                     
         });
-        //console.log('schoolDoc',schoolDoc);
+        //log.info('schoolDoc',schoolDoc);
         if(schoolDoc) {
             schoolLogoId = schoolDoc.logo;
         
         }
-        //console.log(schoolLogoId);
+        //log.info(schoolLogoId);
         return Images.findOne(schoolLogoId);
     },
     
@@ -36,12 +36,12 @@ Template.MobileSchoolHome.helpers({
         var newsgroupsByUserArrayIds = lodash.map(newsgroupsByUserArray,'_id');
         var distributionListsUserBelong = Smartix.Groups.Collection.find({type: 'distributionList', users: Meteor.userId() }).fetch();
         var distributionListsUserBelongIds = lodash.map(distributionListsUserBelong,'_id');
-        //console.log('distributionListsUserBelongIds',distributionListsUserBelongIds);
+        //log.info('distributionListsUserBelongIds',distributionListsUserBelongIds);
         var newsgroupsBydistributionLists =  Smartix.Groups.Collection.find({ type: 'newsgroup', distributionLists: {$in : distributionListsUserBelongIds } , optOutUsersFromDistributionLists :{  $nin : [Meteor.userId()] } }).fetch();      
         var newsgroupsBydistributionListsIds = lodash.map(newsgroupsBydistributionLists,'_id');
-        //console.log('newsgroupsBydistributionListsIds',newsgroupsBydistributionListsIds);
+        //log.info('newsgroupsBydistributionListsIds',newsgroupsBydistributionListsIds);
         newsgroupsIds = newsgroupsIds.concat(newsgroupsByUserArrayIds,newsgroupsBydistributionListsIds);
-        //console.log('newsgroupsIds',newsgroupsIds);
+        //log.info('newsgroupsIds',newsgroupsIds);
         Template.instance().canGetSlidNews.set(true);
         return Smartix.Messages.Collection.find({$or:[
             {
@@ -69,15 +69,15 @@ Template.MobileSchoolHome.helpers({
             username: Router.current().params.school
         });
         var customStyle;
-        //console.log('schoolDoc',schoolDoc);
+        //log.info('schoolDoc',schoolDoc);
         if(schoolDoc) {
             schoolBackgroundImageId = schoolDoc.backgroundImage;
         }
-        //console.log('schoolBackgroundImageId',schoolBackgroundImageId);
-        //console.log(schoolLogoId);
+        //log.info('schoolBackgroundImageId',schoolBackgroundImageId);
+        //log.info(schoolLogoId);
         if(schoolBackgroundImageId){
             var  bgObj =  Images.findOne(schoolBackgroundImageId);
-            //console.log('bgObj',bgObj);
+            //log.info('bgObj',bgObj);
 
              customStyle = `
                                 <style>                        

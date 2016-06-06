@@ -1210,7 +1210,7 @@
             var colorInput = $("<input type='color'/>")[0]; // if color element is supported, value will default to not null
             inputTypeColorSupport._cachedResult = colorInput.type === "color" && colorInput.value !== "";
         }
-        console.log('inputTypeColorSupport._cachedResult',inputTypeColorSupport._cachedResult);
+        //log.info('inputTypeColorSupport._cachedResult',inputTypeColorSupport._cachedResult);
         return inputTypeColorSupport._cachedResult;
     };
 

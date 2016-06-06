@@ -52,7 +52,7 @@ if(Meteor.isServer){
             Roles.setUserRoles(users, roles, school);  
         },     
         'smartix:accounts-schools/approveSchool': function(schoolId){
-            //console.log(this.userId(),schoolId);
+            //log.info(this.userId(),schoolId);
             return Meteor.users.update({
                 _id: this.userId
             }, {

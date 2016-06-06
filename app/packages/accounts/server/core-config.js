@@ -4,7 +4,7 @@ Accounts.config({
 
 Accounts.onCreateUser(function (options, user) {
     
-    //console.log('onCreateUser');
+    //log.info('onCreateUser');
     
     // Setting default values
     user.profile = options.profile || {};
@@ -29,7 +29,7 @@ Accounts.onCreateUser(function (options, user) {
     user.hasUserSeenTour = false;
     user.referral = 0;
 
-    //console.log("user.profile.avatarValue", user.profile.avatarValue);
+    //log.info("user.profile.avatarValue", user.profile.avatarValue);
 
     // If available, overwrite current using Google accounts details
     if (user.services.hasOwnProperty('google')) {

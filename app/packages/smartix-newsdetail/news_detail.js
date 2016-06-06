@@ -8,13 +8,13 @@ Template.NewsDetail.helpers({
     return Images.findOne(id);
   },
   isNewMessage:function(createdAt){
-    //console.log('isNewMessage',createdAt);   
+    //log.info('isNewMessage',createdAt);   
      var result = Notifications.findOne({'eventType':'newclassmessage','messageCreateTimestamp':createdAt});       
      //backward comptability
      if(!result){
          return "";
      }
-     //console.log(result);  
+     //log.info(result);  
      if(result.hasRead == false){
          return 'ion-record';
      }else{
@@ -65,7 +65,7 @@ Template.NewsDetail.helpers({
     return commentObjs;          
   },
     getGroupName:function(groupId){
-        //console.log('getGroupName',groupId);
+        //log.info('getGroupName',groupId);
        return Smartix.Groups.Collection.findOne(groupId).name;
     }
 });

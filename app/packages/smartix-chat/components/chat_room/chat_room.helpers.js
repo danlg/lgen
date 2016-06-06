@@ -45,7 +45,7 @@ Template.ChatRoom.helpers({
             }else{
                 eachMessage.isFirstMsgInOneDay = false;
             }
-            //console.log(transformCount,' ',eachMessage.data.content ,' ',eachMessage.createdAt);
+            //log.info(transformCount,' ',eachMessage.data.content ,' ',eachMessage.createdAt);
             return eachMessage;
         }  
 
@@ -189,7 +189,7 @@ Template.ChatRoom.helpers({
         target = Smartix.helpers.getAnotherUser();
     }
 
-    //console.log('target',target);
+    //log.info('target',target);
     //TODO: migrate to Groups
     if (
         Roles.userIsInRole(target, 'user',currentChat.namespace) ||

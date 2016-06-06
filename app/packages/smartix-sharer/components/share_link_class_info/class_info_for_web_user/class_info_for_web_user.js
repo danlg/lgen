@@ -168,7 +168,7 @@ Template.ClassInformationForWebUser.helpers({
         type: 'class',
         classCode:classCode
     });
-    console.log('isSchoolClass',classObj);    
+    //log.info('isSchoolClass',classObj);    
     if(classObj){
           return classObj.namespace !=='global'  
     }

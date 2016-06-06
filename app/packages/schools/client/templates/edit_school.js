@@ -87,7 +87,7 @@ Template.EditSchool.events({
           }
         };
         
-        console.log('editSchoolObj',editSchoolObj);
+        //log.info('editSchoolObj',editSchoolObj);
         Meteor.call('smartix:schools/editSchool',$("#school-id").val(),editSchoolObj,function(err,result){
             if(err){
                 toastr.error(err.reason);

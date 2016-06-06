@@ -170,7 +170,7 @@ Template.AdminNewsAdd.events({
         //Image is inserted from here via FS.Utility
         Smartix.FileHandler.imageUpload(event,'class',template.imageArr.get(),
             function(result){
-                //console.log('imageArr',result);
+                //log.info('imageArr',result);
                 template.imageArr.set(result);
             });
         showPreview("image");
@@ -183,7 +183,7 @@ Template.AdminNewsAdd.events({
     'change #documentBtn': function (event, template) {
         Smartix.FileHandler.documentUpload(event,'newsInAdmin',template.documentArr.get(),
         function(result){
-                console.log('documentArr',result);
+                //log.info('documentArr',result);
                 template.documentArr.set(result);
         });
        showPreview("document");
@@ -204,22 +204,22 @@ function populateAddons(addons, mediaObj)
 {
   //add images to addons one by one if any
   if (mediaObj.imageArr.length > 0) {
-    //console.log('there is image');
+    //log.info('there is image');
     mediaObj.imageArr.map(function (eachImage) {
       addons.push({type: 'images', fileId: eachImage});
     })
   }
   //add documents to addons one by one if any
   if (mediaObj.documentArr.length > 0) {
-    //console.log('there is doc');
+    //log.info('there is doc');
     mediaObj.documentArr.map(function (eachDocument) {
       addons.push({type: 'documents', fileId: eachDocument});
     })
   }
   //add calendar to addons one by one if any
   if (mediaObj.calendarEvent.eventName && mediaObj.calendarEvent.eventName != "") {
-    //console.log('there is calendar');
-    //console.log(mediaObj.calendarEvent);
+    //log.info('there is calendar');
+    //log.info(mediaObj.calendarEvent);
     addons.push(populateCalendar(mediaObj));
   }
 }

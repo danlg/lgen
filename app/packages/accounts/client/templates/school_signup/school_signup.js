@@ -13,7 +13,7 @@ Template.SchoolSignup.onCreated(function(){
 });
 
 Template.SchoolSignup.onRendered(function(){
-    console.log('SchoolSignupForm',this.inputBackgroundColor);
+    //log.info('SchoolSignupForm',this.inputBackgroundColor);
     $('#school-background-color-picker-polyfill').spectrum({
         color: this.inputBackgroundColor.get(),
         preferredFormat: "hex",
@@ -46,7 +46,7 @@ Template.SchoolSignup.helpers({
     customizeTheme:function(){
         var schoolBackgroundColor = Template.instance().inputBackgroundColor.get();
         var schoolTextColor       = Template.instance().inputTextColor.get();
-        console.log(schoolBackgroundColor);//,schoolTextColor);
+        //log.info(schoolBackgroundColor);//,schoolTextColor);
         var customStyle = `
             
         <style>
@@ -80,8 +80,8 @@ Template.SchoolSignup.helpers({
 
     getSchoolLogoBackground:function(){
         var customStyle;
-        //console.log('schoolBackgroundImageId',schoolBackgroundImageId);
-        //console.log(schoolLogoId);
+        //log.info('schoolBackgroundImageId',schoolBackgroundImageId);
+        //log.info(schoolLogoId);
         if( Template.instance().previewSchoolBackgroundImageBlob.get() ){
             customStyle = `
                                 <style>                        
@@ -147,9 +147,9 @@ Template.SchoolSignup.events({
             email:user.userEmail,
             howManyStudents: school.schoolNumberOfStudent
         };
-        //console.log('school',school);
-        //console.log('user',user);
-        //console.log('lead',lead);
+        //log.info('school',school);
+        //log.info('user',user);
+        //log.info('lead',lead);
         var SchoolTrialAccountCreationObj = {school: school, user: user};
         //http://stackoverflow.com/questions/11866910/how-to-force-a-html5-form-validation-without-submitting-it-via-jquery
         if($('#school-trial-account-create')[0].checkValidity()){
@@ -202,7 +202,7 @@ Template.SchoolSignup.events({
 
             var schoolShortName = $('#school-short-name').val();
             var SchoolTrialAccountCreationObj = Session.get('schoolTrialAccountCreation');
-            //console.log('start-my-trial-page2-btn', SchoolTrialAccountCreationObj);
+            //log.info('start-my-trial-page2-btn', SchoolTrialAccountCreationObj);
             //update school shortname from  template.newSchoolId.get()
             Meteor.call('smartix:schools/editSchoolTrial',
                 template.newSchoolId.get(),
@@ -252,7 +252,7 @@ Template.SchoolSignup.events({
         if (files.length > 0) {
             var reader = new FileReader();
             reader.onload = function (readerEvent) {
-                //console.log(readerEvent);
+                //log.info(readerEvent);
                 // get loaded data and render thumbnail.
                 document.getElementById("school-logo-preview").src = readerEvent.currentTarget.result;
                 template.previewSchoolLogoBlob.set( readerEvent.currentTarget.result );
@@ -267,7 +267,7 @@ Template.SchoolSignup.events({
         if (files.length > 0) {
             var reader = new FileReader();
             reader.onload = function (readerEvent) {
-                //console.log(readerEvent);
+                //log.info(readerEvent);
                 // get loaded data and render thumbnail.
                 //document.getElementById("school-background-image-preview").src = readerEvent.currentTarget.result;
                 template.previewSchoolBackgroundImageBlob.set( readerEvent.currentTarget.result );

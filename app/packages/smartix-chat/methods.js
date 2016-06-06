@@ -3,7 +3,7 @@ Meteor.methods({
   chatCreate: function (chatArr,chatObjExtra,schoolName) {
     
     var namespaceId;
-    //console.log('namespace',schoolName);
+    //log.info('namespace',schoolName);
     if(schoolName === 'global' || schoolName === 'system'){
       namespaceId = schoolName;
     }else{

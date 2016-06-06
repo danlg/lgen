@@ -183,7 +183,7 @@ Meteor.publish('smartix:classes/adminsOfJoinedClasses', function (schoolName) {
         }).fetch();        
     }
     
-    //console.log('adminsOfJoinedClasses:joinedClasses',joinedClasses);
+    //log.info('adminsOfJoinedClasses:joinedClasses',joinedClasses);
 
     // Extract all the users from the `users` property
     // from all classes into another array  
