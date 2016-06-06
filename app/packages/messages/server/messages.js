@@ -11,54 +11,44 @@ Smartix.Messages.ValidTypes = Smartix.Messages.ValidTypes || [];
 Smartix.Messages.isValidType = function (type) {
     //log.info('Smartix.Messages.isValidType',Smartix.Messages.ValidTypes);
     return Smartix.Messages.ValidTypes.indexOf(type) > -1;
-}
+};
 
 // Returns the group object for which the message belongs to
 Smartix.Messages.getGroupFromMessageId = function (messageId) {
-    
     // Checks that the `messageId` is of the correct type
     check(messageId, String);
-    
     // Retrieve the message object
     var message = Smartix.Messages.Collection.findOne({
         _id: messageId
     });
-    
     if(!message) {
         return false;
         // OPTIONAL: Throw an error indicating the message does not exists
     }
-    
     // Get the group associated with the message
     return Smartix.Groups.Collection.findOne({
         _id: message.group
     });
-}
+};
 
 Smartix.Messages.cleanAndValidate = function (message) {
     check(message, Object);
     check(message.type, String);
-    
     //console.log('Smartix.Utilities.letterCaseToCapitalCase(message.type)', Smartix.Utilities.letterCaseToCapitalCase(message.type));
     //console.log('Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)]', Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)]);
-    
     //console.log('message-beforeclean; ', message);
     // Clean the message
     Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)].Schema.clean(message);
     
     // Checks the data provided conforms to the schema for that message type
     //console.log('message-afterclean: ', message);
-    
     var correspondingSchema = Smartix.Messages[Smartix.Utilities.letterCaseToCapitalCase(message.type)].Schema;
     //console.log( correspondingSchema );
     
     var result = check(message, correspondingSchema);
-    
-    // As a backup in case the child packages
-    // Did not implement the schema correctly,
+    // As a backup in case the child packages , Did not implement the schema correctly,
     // Clean the `message` object with the master `Smartix.Messages.Schema`
 	Smartix.Messages.Schema.clean(message);
-
 	// Checks that the `message` object conforms to the `Smartix.Messages.Schema`
 	check(message, Smartix.Messages.Schema);
 };
@@ -132,7 +122,6 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
         /* CHECKS THE VALIDITY OF THE ADDONS AND ATTACH */
         Smartix.Messages.Addons.attachAddons(newMessage, addons);
     }
-    
     if(isPush) {
         //2. add notification to notifications collection, add notifications to db
         //Remove current user himself/herself from the push notification list
@@ -161,13 +150,11 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
         
         //3. send email notifications if user opt to receive email notification/
         $ = cheerio.load(message.data.content);  
-        
-        
+
         /*$email = cheerio.load(message.data.content); 
         $email('img').attr('width','320');
         console.log('$email('*').html()', $email('*').html());
         var emailMessage = message;
-        
         emailMessage.data.content =  $email('*').html() || emailMessage.data.content;
         console.log('emailMessage.data.content' ,emailMessage.data.content);*/
         Smartix.Messages.emailMessage(allUserToDoPushNotifications, message, group, meteorUser)
@@ -212,7 +199,6 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
             })
        });
     }
-    
     //update group lastUpdateBy, lastUpdatedAt fields to indicate modification in this group and by whom
     Smartix.Groups.Collection.update(
         {  _id  : groupId},
@@ -221,11 +207,9 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
 };
 
 Smartix.Messages.editMessage = function (messageId, newData, newAddons) {
-    
     check(messageId, String);
     check(newData, Match.Maybe(Object));
     check(newAddons, Match.Maybe([Object]));
-    
     // Get the original message
     var originalMessage = Smartix.Messages.Collection.findOne({
         _id: messageId
@@ -237,21 +221,16 @@ Smartix.Messages.editMessage = function (messageId, newData, newAddons) {
         return false;
         // OPTIONAL: Throw an error indicating that the message does not exist
     }
-    
-    /* ************************************** */
+
     /* CHECKS FOR PERMISSION TO EDIT IN GROUP */
-    /* ************************************** */
-    
     var group = Smartix.Messages.getGroupFromMessageId(messageId);
-    
     // Checks if group exists
     if(!group) {
         return false;
         // OPTIONAL: Throw error saying the group specified does not exists
     }
     
-    // Checks whether the currently logged-in user
-    // has permission to edit a message for the group
+    // Checks whether the currently logged-in user has permission to edit a message for the group
     // The logic behind this would be different for different group types
     if(!Smartix[Smartix.Utilities.letterCaseToCapitalCase(group.type)].Messages.canEditMessage(groupId)) {
         return false;
@@ -260,22 +239,15 @@ Smartix.Messages.editMessage = function (messageId, newData, newAddons) {
     }
     
     var editedMessage = originalMessage;
-    
-    /* ******************************* */
     /* CHECKS THE VALIDITY OF NEW DATA */
-    /* ******************************* */
-    
     if(newData) {
         // Get the schema for the type and use it to clean the `newData` object
         Smartix.Messages[letterCaseToCapitalCase(originalMessage.type)].Schema.pick(['data']).clean(newData);
         
         // Validate using the same schema to ensure it conforms
         check(newData, Smartix.Messages[letterCaseToCapitalCase(originalMessage.type)].Schema.pick(['data']));
-        
-        /* ***************************** */
+
         /* CREATE NEW VERSION OF MESSAGE */
-        /* ***************************** */  
-        
         // overwrite any fields in the original message
         // with the new message
         var newMessage = _.assignIn(originalMessage, {data: newData});
@@ -292,19 +264,14 @@ Smartix.Messages.editMessage = function (messageId, newData, newAddons) {
         // Create a new message
         editedMessage = Smartix.Messages.Collection.insert(newMessage);
     }
-    
-    
-    /* ***************************************** */
+
     /* CHECKS FOR PERMISSION TO ATTACH THE ADDON */
-    /* ***************************************** */
-    
     if(newAddons) {
         if(!Smartix[Smartix.Utilities.letterCaseToCapitalCase(group.type)].Messages.canAttachAddons(groupId, addons)) {
             return false;
             // OPTIONAL: Throw error saying you do not have
             // permission to attach an addon for this group
         }
-        
         // Checks that the group allows for this type of addon
         // If the addon type specified is not in
         // the array of allowed addons, return `false`
@@ -313,84 +280,54 @@ Smartix.Messages.editMessage = function (messageId, newData, newAddons) {
             // OPTIONAL: Throw error indicating the add-on
             // you are trying to attached in not an approved type
         }
-        
-        /* ********************************************************* */
         /* CHECKS THE VALIDITY OF THE NEW ADDONS AND ATTACH/REPLACE  */
-        /* ********************************************************* */
-        
         Smartix.Messages.Addons.attachAddons(editedMessage._id, newAddons);
     }
-}
+};
 
 Smartix.Messages.showMessage = function (id) {
-    
     // Checks that the `id` provided is of type String
     check(id, String);
-    
     // Create a new message using `createMessage()`
     Smartix.Messages.Collection.update({
-        _id: id
-    }, {
-        $set: {
-            hidden: false
-        }
+        _id: id}, {
+        $set: {hidden: false }
     });
-}
+};
 
 Smartix.Messages.hideMessage = function (id) {
-    
     // Checks that the `id` provided is of type String
     check(id, String);
-    
     // Create a new message using `createMessage()`
-    Smartix.Messages.Collection.update({
-        _id: id
-    }, {
-        $set: {
-            hidden: true
-        }
+    Smartix.Messages.Collection.update(
+        { _id: id}, { $set: {  hidden: true}
     });
-}
+};
 
 Smartix.Messages.deleteMessage = function (id) {
-    
     // Checks that the `id` provided is of type String
     check(id, String);
-    
     // Create a new message using `createMessage()`
-    Smartix.Messages.Collection.update({
-        _id: id
-    }, {
-        $set: {
-            deletedAt: Date.now()
-        }
+    Smartix.Messages.Collection.update(
+        { _id: id}, { $set: {  deletedAt: Date.now()}
     });
-}
+};
 
 Smartix.Messages.undeleteMessage = function () {
-    
     // Checks that the `id` provided is of type String
     check(id, String);
-    
     // Create a new message using `createMessage()`
-    Smartix.Messages.Collection.update({
-        _id: id
-    }, {
-        $unset: {
-            deletedAt: ""
-        }
+    Smartix.Messages.Collection.update(
+        {    _id: id   }, {   $unset: {    deletedAt: ""   }
     });
-}
+};
 
 Smartix.Messages.emailMessage = function (targetUserids, messageObj, groupObj, originateUserObj) {
-
       var arrayOfTargetUsers = Meteor.users.find({_id: {$in: targetUserids}}).fetch();
-      
-      console.log('arrayOfTargetUsers',arrayOfTargetUsers);
+      //console.log('arrayOfTargetUsers',arrayOfTargetUsers);
       //keep user opt-in to receive email notification, group them by their UI language
       var optInUsersGroupByLang = lodash.chain(arrayOfTargetUsers)
         .filter(function (user) {
-          
           //if user enable email notification
           if (user.emailNotifications) {  
               console.log('user.emailNotifications', user.emailNotifications )
@@ -407,9 +344,7 @@ Smartix.Messages.emailMessage = function (targetUserids, messageObj, groupObj, o
         })
         .groupBy('lang')
         .value();
-      
-      console.log('optInUsersGroupByLang',optInUsersGroupByLang);
-
+      //console.log('optInUsersGroupByLang',optInUsersGroupByLang);
       for (var lang in optInUsersGroupByLang) {
         var receivers = [];
         optInUsersGroupByLang[lang].map(function (eachUser) {
@@ -419,8 +354,7 @@ Smartix.Messages.emailMessage = function (targetUserids, messageObj, groupObj, o
           };
           receivers.push(receiver);
         });
-
-        log.info("sendEmailMessageToClasses", lang, receivers);
+        //log.info("sendEmailMessageToClasses", lang, receivers);
         try {
           //send email
           Smartix.messageEmailTemplate(receivers, originateUserObj, messageObj, groupObj, lang);
