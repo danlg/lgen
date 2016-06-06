@@ -152,7 +152,7 @@ Smartix.Accounts.createUser = function(email, userObj, namespace, roles, current
         Meteor.users.update({ _id: newUserId }, { $set: newlyCreatedUserObj });
         Meteor.users.update({ _id: newUserId }, { $set: { registered_emails: registered_emails } });
 
-        Smartix.Accounts.notifyByEmail(email, newUserId, tempPassword, autoEmailVerified, !!doNotifyEmail);
+        Smartix.Accounts.notifyByEmail(email, newUserId, autoEmailVerified, !!doNotifyEmail);
         
         //if user does not have password, send enrollment email to user to setup initial password
         if(!tempPassword){
@@ -222,11 +222,11 @@ Smartix.Accounts.setPassword = function(newUserId, tmpPassword) {
  * Verification is actually a notification.
  * @param email
  * @param newUserId
- * @param tmpPassword
  * @param autoEmailVerified
  * @param doNotifyEmail
  */
-Smartix.Accounts.notifyByEmail = function(email, newUserId, tmpPassword, autoEmailVerified, doNotifyEmail) {
+
+Smartix.Accounts.notifyByEmail = function(email, newUserId, autoEmailVerified, doNotifyEmail) {
     if (email) {
         if (autoEmailVerified) {
             var newlyCreatedUser = Meteor.users.findOne(newUserId);

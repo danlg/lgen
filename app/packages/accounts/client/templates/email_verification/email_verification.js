@@ -20,14 +20,14 @@ Template.EmailVerification.destroyed = function () {};
 
 Template.EmailVerification.events({
   'click .resendVerifyEmail': function(event,template){
-      log.info('clicked');
-      log.info(Meteor.userId());
+    //   log.info('clicked');
+    //   log.info(Meteor.userId());
       Meteor.call('resendVerificationEmail');
   }
   , 'click .updateEmailBtn': function(event,template){
      var updateEmail = $('.updateEmail').val();
-      log.info('clicked');
-      log.info(Meteor.userId());
+    //   log.info('clicked');
+    //   log.info(Meteor.userId());
       Meteor.call('resendVerificationEmail',updateEmail);
    }
    , 'click .signOut': function () {

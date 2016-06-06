@@ -170,6 +170,26 @@ Template.AdminUsersSearch.events({
             });
         }*/      
     },
+    'click .resend-email-to-user':function(event, template){
+        let latestArray = template.usersChecked.get()
+        let listOfUsers = Meteor.users.find({_id:{$in: latestArray }}).fetch();
+        log.info(listOfUsers);        
+        if(Router
+            && Router.current()
+            && Router.current().params
+            && Router.current().params.school
+        ){
+            Meteor.call('smartix:accounts-schools/resendEmail', Router.current().params.school, listOfUsers, function (err, res) {                    
+                    if(!err) {
+                        toastr.info("Verification email sent!");
+                    } else {
+                        toastr.error("There was an issue with sending the Emails");
+                        log.error(err.reason);
+                    }
+                });
+        }
+    },
+    
     'click .modal .save':function(event,template){
         if( $(event.target).hasClass('remove-users-modal') ){
             let latestArray = template.usersChecked.get();

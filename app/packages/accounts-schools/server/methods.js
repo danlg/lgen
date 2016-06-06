@@ -92,6 +92,21 @@ if(Meteor.isServer){
             }
             
         },
+        'smartix:accounts-schools/resendEmail': function(schoolName, userIds){            let namespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolName);
+            check(schoolName, String);
+            check(userIds, [Object]);           
+            if(namespace) {
+                for (count in userIds)
+                {
+                    id = userIds[count]._id;
+                    email = userIds[count].emails[0].address;
+                    Smartix.Accounts.sendEnrollmentEmail(email, id, true);
+                }
+                return;    
+                } else {
+                throw new Meteor.Error("non-existent-school", "The school with the school code " + schoolName + " does not exists.");
+            }
+        },
         'smartix:accounts-schools/importTeachers': function (schoolName, data, doNotifyEmail) {
             
             check(schoolName, String);
