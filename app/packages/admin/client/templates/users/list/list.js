@@ -181,7 +181,7 @@ Template.AdminUsersSearch.events({
         ){
             Meteor.call('smartix:accounts-schools/resendEmail', Router.current().params.school, listOfUsers, function (err, res) {                    
                     if(!err) {
-                        let message = TAPi18n.__('Admin.VerifictionConfirmation');
+                        let message = TAPi18n.__('Admin.VerificationConfirmation');
                         toastr.info(message);
                     } else {
                         let message = TAPi18n.__('Admin.VerifictionIssue');

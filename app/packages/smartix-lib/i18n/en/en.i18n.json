@@ -630,7 +630,7 @@
         "UserSearchInput":"Type the user's name you want to add",
         "ListSearchInput":"Type the name of the distribution list you want to add",
         "WelcometoSmartixAdmin":"Welcome to Smartix Admin!",
-        "VerifictionConfirmation": "Verification email sent!",
+        "VerificationConfirmation": "Verification email sent!",
         "VerificationIssue":"There was an issue with sending the emails"
     },
     "messages": {
