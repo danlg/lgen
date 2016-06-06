@@ -1,5 +1,5 @@
 #AdminClassesView__add-user-container {
-    display: inline-block;
+    /*display: inline-block;*/
     width: 100%;
 }
 
@@ -19,7 +19,7 @@
 
 .AdminDistributionListView__user-search-result {
     height: 3rem;
-    border-bottom: 1px solid #cccccc;
+    /*border-bottom: 1px solid #cccccc;*/
     line-height: 3rem;
     padding-left: 1.5rem;
 }

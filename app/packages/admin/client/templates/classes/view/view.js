@@ -162,6 +162,15 @@ Template.AdminClassesView.events({
                     toastr.error(err.message);
                 }
             });
+            window.setTimeout(function(){
+                var list = template.$(".add-admin-result-container");
+                var inputBox = template.$("#AdminClassesView__add-admin-input")
+                inputBox[0].value = "";
+                list[0].hidden = true;
+                inputBox[0].onkeyup = function () {
+                    list[0].hidden = false;
+                }
+            }, 0);
         } else {
             toastr.error(TAPi18n.__("applicationError.refreshRequired"));
         }
@@ -181,6 +190,15 @@ Template.AdminClassesView.events({
                     toastr.error(err.message);
                 }
             });
+        window.setTimeout(function(){
+            var list = template.$(".add-user-result-container");
+            var inputBox = template.$("#AdminClassesView__add-user-input")
+            inputBox[0].value = "";
+            list[0].hidden = true;
+            inputBox[0].onkeyup = function () {
+                list[0].hidden = false;
+            }
+        }, 0);
         } else {
             toastr.error(TAPi18n.__("applicationError.refreshRequired"));
         }
@@ -202,6 +220,15 @@ Template.AdminClassesView.events({
             } else {
                 toastr.error(TAPi18n.__("applicationError.refreshRequired"));
             }
+            window.setTimeout(function(){
+                var list = template.$(".add-list-result-container");
+                var inputBox = template.$("#AdminClassesView__add-list-input")
+                inputBox[0].value = "";
+                list[0].hidden = true;
+                inputBox[0].onkeyup = function () {
+                    list[0].hidden = false;
+                }
+            }, 0);            
         } else {
             toastr.error(TAPi18n.__("applicationError.refreshRequired"));
         }
