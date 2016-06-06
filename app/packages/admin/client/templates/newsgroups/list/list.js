@@ -57,9 +57,9 @@ Template.AdminNewsgroupsSearch.helpers({
         }
   },
   distributionListData :function(data){
-      //log.info('distributionListData',Smartix.Groups.Collection.findOne({
-            _id: data
-        })     );
+      log.info('distributionListData',
+        Smartix.Groups.Collection.findOne({_id: data
+       })     );
       return Smartix.Groups.Collection.findOne({
           _id: data
       });
