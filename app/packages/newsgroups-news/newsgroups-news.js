@@ -103,7 +103,7 @@ Smartix.Newsgroup.Messages.canAttachAddons = function (announcementId, addons) {
     }
 
     // If there are addons with types not allowed for this Newsgroup, return `false`
-    console.log('notAllowedTypes',addonTypes,_Newsgroup.addons);
+    //log.info('notAllowedTypes',addonTypes,_Newsgroup.addons);
     var notAllowedTypes = _.difference(addonTypes, _Newsgroup.addons);
     
     if(notAllowedTypes.length > 0){

@@ -89,8 +89,8 @@ Template.AdminDistributionListView.helpers({
         return this._id;
     },
     isUserChecked:function(){
-        //console.log(this._id )
-        //console.log(Template.instance().usersChecked.get());
+        //log.info(this._id )
+        //log.info(Template.instance().usersChecked.get());
         return (  Template.instance().usersChecked.get().indexOf(this._id) !== -1 ) ? "checked" : "";
     },
     totalUserCount:function(){
@@ -194,9 +194,9 @@ Template.AdminDistributionListView.events({
          let searchString = DistributionListUsersIndex.getComponentDict().keys.searchDefinition;
          //remove wrapping double quote
          searchString = searchString.replace(/"/g,"");
-         //console.log(searchString);
+         //log.info(searchString);
          userObjects = DistributionListUsersIndex.search( searchString, { limit: 999999, props: { schoolNamespace: template.namespace, role: selectedRole } }).fetch();
-         //console.log(userObjects);
+         //log.info(userObjects);
        } else {
          toastr.info('All users are selected');
       
@@ -204,7 +204,7 @@ Template.AdminDistributionListView.events({
          //remove wrapping double quote                  
          searchString = searchString.replace(/"/g,"");
          
-         //console.log(searchString);
+         //log.info(searchString);
          userObjects = DistributionListUsersIndex.search( searchString , { limit: 999999 }).fetch();
      }
      var userIds = lodash.map(userObjects,"_id");

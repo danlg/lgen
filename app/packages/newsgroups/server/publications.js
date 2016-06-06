@@ -14,7 +14,7 @@ Meteor.publish('newsInGroup', function(id, limit, query) {
 
 
 Meteor.publish('newsgroupsForUser', function(limit, query, namespace) {
-    //console.log('newsgroupsForUser',limit,query,namespace);
+    //log.info('newsgroupsForUser',limit,query,namespace);
     var schoolDoc = SmartixSchoolsCol.findOne({
         username: namespace
     });
@@ -57,7 +57,7 @@ Meteor.publish('newsForUser', function(limit, query, namespace) {
     var distributionListsUserBelong = Smartix.Groups.Collection.find({type: 'distributionList', users: this.userId }).fetch();
     var distributionListsUserBelongIds = lodash.map(distributionListsUserBelong,'_id');
     
-    //console.log('distributionListsUserBelongIds',distributionListsUserBelongIds);
+    //log.info('distributionListsUserBelongIds',distributionListsUserBelongIds);
     
     var groups = Smartix.Groups.Collection.find({$or:[
             {

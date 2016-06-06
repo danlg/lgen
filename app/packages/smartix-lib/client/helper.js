@@ -1,5 +1,5 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
-//console.log('lib-helpers-client','is Smartix exist?',Smartix || {});
+//log.info('lib-helpers-client','is Smartix exist?',Smartix || {});
 Smartix = Smartix || {};
 Smartix.helpers = Smartix.helpers || {};
 

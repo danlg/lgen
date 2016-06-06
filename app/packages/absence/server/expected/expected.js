@@ -97,9 +97,9 @@ Smartix.Absence.setAbsenceApproval = function (id, currentUser, approve) {
         })
     }
 
-    console.log(approve);
-    console.log(currentUser);
-    console.log(id);
+    //log.info(approve);
+    //log.info(currentUser);
+    //log.info(id);
     
     return Smartix.Absence.Collections.expected.update({
         _id: id

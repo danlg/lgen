@@ -22,16 +22,16 @@ Template.NewsgroupsNewsList.helpers({
         var distributionListsUserBelong = Smartix.Groups.Collection.find({type: 'distributionList', users: Meteor.userId() }).fetch();
         var distributionListsUserBelongIds = lodash.map(distributionListsUserBelong,'_id');
         
-        //console.log('distributionListsUserBelongIds',distributionListsUserBelongIds);
+        //log.info('distributionListsUserBelongIds',distributionListsUserBelongIds);
         
         var newsgroupsBydistributionLists =  Smartix.Groups.Collection.find({ type: 'newsgroup', distributionLists: {$in : distributionListsUserBelongIds } , optOutUsersFromDistributionLists :{  $nin : [Meteor.userId()] } }).fetch();      
         var newsgroupsBydistributionListsIds = lodash.map(newsgroupsBydistributionLists,'_id');
         
-        //console.log('newsgroupsBydistributionListsIds',newsgroupsBydistributionListsIds);
+        //log.info('newsgroupsBydistributionListsIds',newsgroupsBydistributionListsIds);
         
         newsgroupsIds = newsgroupsIds.concat(newsgroupsByUserArrayIds,newsgroupsBydistributionListsIds);
         
-        //console.log('newsgroupsIds',newsgroupsIds);
+        //log.info('newsgroupsIds',newsgroupsIds);
 
         return Smartix.Messages.Collection.find({$or:[
             {
@@ -50,7 +50,7 @@ Template.NewsgroupsNewsList.helpers({
                         
     },
     getGroupName:function(groupId){
-        //console.log('getGroupName',groupId);
+        //log.info('getGroupName',groupId);
        return Smartix.Groups.Collection.findOne(groupId).name;
     },
 

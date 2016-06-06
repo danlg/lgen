@@ -30,7 +30,7 @@ Template.AttendanceRecordAddByProcess.events({
             studentId: document.getElementById("children-id").value,
             studentName: document.getElementById('children-name').value
         };
-        //console.log(applyLeaveObj);
+        //log.info(applyLeaveObj);
         var transformObj = {
             processId: applyLeaveObj.processId,
             namespace: applyLeaveObj.namespace,
@@ -43,7 +43,7 @@ Template.AttendanceRecordAddByProcess.events({
             endDate: new Date(applyLeaveObj.endDate + " " + applyLeaveObj.endDateTime + " GMT+0800").toLocaleString({},{timeZone:"Asia/Hong_Kong"}),
             studentName: applyLeaveObj.studentName
         };
-        //console.log(transformObj);
+        //log.info(transformObj);
         if (!transformObj.message) {
             toastr.info(TAPi18n.__("absence.ReasonLeave"));
             return;
@@ -114,7 +114,7 @@ Template.AttendanceRecordAddByProcess.helpers({
         });
         var childs = [];
         var findChilds = Smartix.Accounts.Relationships.Collection.find({ parent: Meteor.userId(), namespace: schoolDoc._id }).fetch();
-        //console.log('findParents', findParents);
+        //log.info('findParents', findParents);
         findChilds.map(function (relationship) {
             childs.push(relationship.child);
         });

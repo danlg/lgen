@@ -61,7 +61,7 @@ Template.TabChat.helpers({
         },
         {sort:{"lastUpdatedAt":-1}}
     );
-    //console.log('getAllMyChatRooms',allchats.fetch()    );
+    //log.info('getAllMyChatRooms',allchats.fetch()    );
     return allchats;
     
   },
@@ -122,7 +122,7 @@ Template.TabChat.helpers({
   },
 
   'lasttext': function (groupId) {
-      //console.log('lasttext',Smartix.Messages.Collection.find({group:groupId}, {sort: {createdAt: -1}, limit: 1}).fetch());
+      //log.info('lasttext',Smartix.Messages.Collection.find({group:groupId}, {sort: {createdAt: -1}, limit: 1}).fetch());
     var fetch = Smartix.Messages.Collection.find({group: groupId}, {sort: {createdAt: -1}, limit: 1}).fetch()[0];
     return (fetch && fetch.data) ? fetch.data.content : "";
   },
@@ -201,7 +201,7 @@ Template.TabChat.created = function () {
             {sort:{"lastUpdatedAt":-1}}
         ).fetch();
         var allGroupIds = lodash.map(allchats,"_id");
-        //console.log('allGroupIds',allchats,allGroupIds);
+        //log.info('allGroupIds',allchats,allGroupIds);
         self.subscribe('smartix:messages/latestMessageEachGroups',allGroupIds);               
     });
 

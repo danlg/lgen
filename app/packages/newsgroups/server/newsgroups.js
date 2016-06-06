@@ -283,7 +283,7 @@ Smartix.Newsgroup.removeUsersFromGroup = function (id, users, currentUser) {
 Smartix.Newsgroup.addDistributionListToGroup = function(id,distributionListId){
     if(Smartix.Newsgroup.canEditNewsgroup(id,Meteor.userId())){
         
-        //console.log('addDistributionListToGroup',id,distributionListId);
+        //log.info('addDistributionListToGroup',id,distributionListId);
         Smartix.Groups.Collection.update({
             _id: id
         }, {
@@ -298,7 +298,7 @@ Smartix.Newsgroup.addDistributionListToGroup = function(id,distributionListId){
 Smartix.Newsgroup.removeDistributionListToGroup = function(id,distributionListId){
     if(Smartix.Newsgroup.canEditNewsgroup(id,Meteor.userId())){
 
-        //console.log('removeDistributionListToGroup',id,distributionListId);        
+        //log.info('removeDistributionListToGroup',id,distributionListId);        
         Smartix.Groups.Collection.update({
             _id: id
         }, {

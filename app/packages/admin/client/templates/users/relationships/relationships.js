@@ -64,7 +64,7 @@ Template.AdminUsersAddRelationships.events({
                 name: relName
             }, function (err, res) {
                 if(err) {
-                    console.log(err);
+                    //log.info(err);
                     toastr.error(err.message);
                 }
             });

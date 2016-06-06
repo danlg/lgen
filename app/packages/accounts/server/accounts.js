@@ -109,7 +109,7 @@ Smartix.Accounts.createUser = function(email, userObj, namespace, roles, current
 
     var newUserId;
     
-    //console.log('check if user already exists');
+    //log.info('check if user already exists');
     // Checks if user already exists
     if (typeof email === "string" && Accounts.findUserByEmail(email) !== undefined) {
         // Set `newUserId` to the `_id` of the existing user
@@ -131,7 +131,7 @@ Smartix.Accounts.createUser = function(email, userObj, namespace, roles, current
         }
     }
     else {
-        //console.log('try create new user',userObj,email,namespace);
+        //log.info('try create new user',userObj,email,namespace);
         // Otherwise, if the user does not already exists, create a new user
         newUserId = Smartix.Accounts.createUserImpl(userObj, email, namespace);
         //splendido:accounts-meld to merge account

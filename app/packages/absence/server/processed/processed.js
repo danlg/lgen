@@ -69,8 +69,8 @@ Smartix.Absence.processAbsencesForDay = function (namespace, date, format, notif
     // Otherwise, there will be many `pending` entries
     // Caused by students not clocking in (because it's before the schoolStartTime)
     
-    console.log('dateString:', dateString);
-    console.log(moment(dateString, 'DD-MM-YYYY').isSame(new Date(), "day"));
+    //log.info('dateString:', dateString);
+    //log.info(moment(dateString, 'DD-MM-YYYY').isSame(new Date(), "day"));
     
     if(
         // If the date is today
@@ -79,8 +79,8 @@ Smartix.Absence.processAbsencesForDay = function (namespace, date, format, notif
         // Converts "08:00" to 480
         let minutesSinceMidnight = Smartix.Utilities.getMinutesSinceMidnight(moment.utc(new Date()).add(8, 'hours').format("HH:mm"));
         
-        console.log('schoolStartTimeM:', schoolStartTimeM);
-        console.log('minutesSinceMidnight:', minutesSinceMidnight);
+        //log.info('schoolStartTimeM:', schoolStartTimeM);
+        //log.info('minutesSinceMidnight:', minutesSinceMidnight);
         
         if(minutesSinceMidnight < schoolStartTimeM) {
             return false;

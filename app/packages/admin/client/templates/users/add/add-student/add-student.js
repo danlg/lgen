@@ -142,7 +142,7 @@ Template.AdminAddStudent.events({
 	        username: Match.Maybe(String)
         });
         
-        //console.log(newUserObj);
+        //log.info(newUserObj);
         // Call the Meteor method to create the school user
         Meteor.call(
             'smartix:accounts-schools/createSchoolUser',

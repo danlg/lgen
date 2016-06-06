@@ -158,7 +158,7 @@ Template.AdminClassesView.events({
                 schoolName: Router.current().params.school
             }, userId, function (err, res) {
                 if(err) {
-                    console.log(err);
+                    //log.info(err);
                     toastr.error(err.message);
                 }
             });
@@ -186,7 +186,7 @@ Template.AdminClassesView.events({
                 schoolName: Router.current().params.school
             }, userId, function (err, res) {
                 if(err) {
-                    console.log(err);
+                    //log.info(err);
                     toastr.error(err.message);
                 }
             });
@@ -213,7 +213,7 @@ Template.AdminClassesView.events({
             if(classId) {
                 Meteor.call('smartix:classes/addDistributionLists', classId, [listId], function (err, res) {
                     if(err) {
-                        console.log(err);
+                        //log.info(err);
                         toastr.error(err.message);
                     }
                 });

@@ -167,7 +167,7 @@ Template.ClassDetail.helpers({
         }
         
     });
-    //console.log('lodaedItems',loadedItems.get());
+    //log.info('lodaedItems',loadedItems.get());
     
     return classMessages;
   },

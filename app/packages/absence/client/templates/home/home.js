@@ -36,7 +36,7 @@ Template.AttendanceHome.onCreated(function(){
 });
 
 Template.AttendanceHome.onDestroyed(function(){
-    //console.log(this.schoolId);
+    //log.info(this.schoolId);
     Meteor.call('setAttendanceAsRead',this.schoolId, 'attendanceToParent');        
 });
 

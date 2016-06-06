@@ -38,7 +38,7 @@ Meteor.methods({
     var updateCount = Notifications.update(
         { "eventType" : "attendance",eventSubType:subType,userId:Meteor.userId(),namespace:currentSchool}
         ,{ $set: { hasRead: true } },{multi:true});  
-    console.log('setAttendanceAsRead:updateCount',updateCount );  
+    //log.info('setAttendanceAsRead:updateCount',updateCount );  
   }, 
   insertNotification:function(notificationObj){
       Notifications.insert(notificationObj);

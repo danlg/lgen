@@ -98,7 +98,7 @@
           <label class="item item-input item-stacked-label">
             {{getCurrentCountry}}
             <div id='country-code-select'>
-            {{> afFieldInput type='select' name="country" firstOption="(Select a Country)" options=countriesWithValueOnly value=currentUserObj.country}}                
+            {{> afFieldInput type='select' name="country" firstOption="{{_ 'SelectCountry'}}" options=countriesWithValueOnly value=currentUserObj.country}}
             </div>
           </label>
           <div class="item item-divider"> Roles </div>

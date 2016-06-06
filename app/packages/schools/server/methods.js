@@ -47,14 +47,14 @@ Meteor.methods({
         if(imagesData){
             imageObj = Images.insert(imagesData);
             imageObjId = imageObj._id;
-            //console.log('imageObj',imageObj);
+            //log.info('imageObj',imageObj);
         }
         var backgroundImagesObj;
         var backgroundImagesObjId ;
         if(backgroundImagesData){
             backgroundImagesObj = Images.insert(backgroundImagesData);
             backgroundImagesObjId = backgroundImagesObj._id;
-            //console.log('imageObj',imageObj);
+            //log.info('imageObj',imageObj);
         }
         SchoolsSchema.clean(options);
         check(options, SchoolsSchema);
@@ -191,7 +191,7 @@ Meteor.methods({
     },
     'smartix:schools/editSchool': function(id, options) {
         var targetSchool = SmartixSchoolsCol.findOne(id);
-        //console.log('raw',targetSchool);
+        //log.info('raw',targetSchool);
         if (
             Roles.userIsInRole(Meteor.userId(), 'admin', 'system') ||
             Roles.userIsInRole(Meteor.userId(), 'admin', id)
@@ -199,10 +199,10 @@ Meteor.methods({
             // https://github.com/aldeed/meteor-simple-schema/issues/387
             delete targetSchool._id;      
             lodash.merge(targetSchool, options);
-            //console.log('afterMerge',targetSchool);        
+            //log.info('afterMerge',targetSchool);        
             SchoolsSchema.clean(targetSchool);              
             check(targetSchool, SchoolsSchema);             
-            //console.log('afterClean',targetSchool);
+            //log.info('afterClean',targetSchool);
             
             //return 1 if update success
             return SmartixSchoolsCol.update(id, {$set: targetSchool });
@@ -226,14 +226,14 @@ Meteor.methods({
             log.warn('School short name has been taken:'+ targetSchool.username);
             throw new Meteor.Error("short-name-taken", "school short name has been taken. Pick another one");            
         }
-        //console.log('raw',targetSchool);
+        //log.info('raw',targetSchool);
         // https://github.com/aldeed/meteor-simple-schema/issues/387
         delete targetSchool._id;
         lodash.merge(targetSchool, schoolOptions);
-        //console.log('afterMerge',targetSchool);        
+        //log.info('afterMerge',targetSchool);        
         SchoolsSchema.clean(targetSchool);
         check(targetSchool, SchoolsSchema);
-        //console.log('afterClean',targetSchool);
+        //log.info('afterClean',targetSchool);
         //return 1 if update success
         var updateCount = SmartixSchoolsCol.update(id, { $set: targetSchool });
         if(updateCount === 1){

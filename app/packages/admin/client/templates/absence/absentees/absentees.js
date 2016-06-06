@@ -65,7 +65,7 @@ Template.AdminAbsentees.helpers({
         
         var studentIdSelector = usersWithMatchingNameIds.length > 0 ? {$in: usersWithMatchingNameIds} : {$exists: true};
         
-        console.log(usersWithMatchingNameIds);
+        //log.info(usersWithMatchingNameIds);
         
         if(status === "any") {
             status = {$exists: true};
@@ -204,14 +204,14 @@ Template.AdminAbsentees.events({
     },
     'click #AdminAbsentees__update': function () {
         Meteor.call('smartix:absence/processAbsencesForDay', Template.instance().schoolNamespace, undefined, undefined, false, function (err, res) {
-            console.log(err);
-            console.log(res);
+            //log.info(err);
+            //log.info(res);
         });
     },
     'click #AdminAbsentees__updateNotify': function () {
         Meteor.call('smartix:absence/processAbsencesForDay', Template.instance().schoolNamespace, undefined, undefined, true, function (err, res) {
-            console.log(err);
-            console.log(res);
+            //log.info(err);
+            //log.info(res);
         });
     }
 })

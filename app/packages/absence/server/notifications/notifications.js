@@ -124,10 +124,10 @@ Smartix.Absence.notificationToAdminApprovalRequest = function (expectedId, curre
 
     var currentUser = Meteor.users.findOne(currentUserId);
     var expectedObj = Smartix.Absence.Collections.expected.findOne(expectedId);
-    //console.log('Smartix.Absence.notificationToAdminApprovalRequest',expectedObj);
+    //log.info('Smartix.Absence.notificationToAdminApprovalRequest',expectedObj);
     // Get all admins
     var admins = Roles.getUsersInRole('admin', expectedObj.namespace).fetch();
-    //console.log('Smartix.Absence.notificationToAdminApprovalRequest:admins',admins);
+    //log.info('Smartix.Absence.notificationToAdminApprovalRequest:admins',admins);
     var adminIds = lodash.map(admins,'_id');
     
     adminIds.forEach(function (adminId) {
