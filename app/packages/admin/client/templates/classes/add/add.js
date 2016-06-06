@@ -52,9 +52,9 @@ Template.AdminClassesAdd.events({
                 template.$('#addClass-name').val("");
                 template.$('#addClass-code').val("");
                 toastr.info("The class " + newClass.className + " has been created successfully.")
+                Router.go('admin.classes.view', {school: Router.current().params.school, classCode: newClass.classCode});
             }
         });
-        Router.go('admin.classes.view', {school: Router.current().params.school, classCode: newClass.classCode});
     }
     
 });
