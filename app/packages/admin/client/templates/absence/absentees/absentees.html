@@ -71,8 +71,8 @@
         <div class="panel-body">
             <!--<p>This table displays the student marked as late or absent by the system. It reconciles the absences with parents' notice. Please acknowledge these messages as soon as possible.</p>-->
             <div class="col-xs-12 text-right">
-                <button id="AdminAbsentees__update" type="submit" class="btn btn-primary"><i class="icon-loop4"></i> {{_ "Admin.Refresh" }}</button>
-                <button id="AdminAbsentees__updateNotify" type="submit" class="btn btn-danger"><i class="icon-bell3"></i> {{_ "Admin.Notify" }}</button>
+                <button id="AdminAbsentees__update" type="submit" class="btn btn-primary"><i class="icon-loop4"></i> {{_ "Refresh" }}</button>
+                <button id="AdminAbsentees__updateNotify" type="submit" class="btn btn-danger"><i class="icon-bell3"></i> {{_ "Notify" }}</button>
             </div>
             
             {{#if Template.subscriptionsReady}}
@@ -81,8 +81,8 @@
                     <thead>
                         <tr>
                              <th>{{_ "Admin.Status" }}</th>
-                            <th>{{_ "Admin.FirstName" }}</th>
-                            <th>{{_ "Admin.LastName" }}</th>
+                            <th>{{_ "FirstName" }}</th>
+                            <th>{{_ "LastName" }}</th>
                             <th>{{_ "Admin.Class" }}</th>
                             <th>{{_ "Admin.Date" }}</th>
                             <th>{{_ "Admin.Notified" }}</th>
@@ -96,8 +96,8 @@
                             <tr>
                                 <td><button class="AdminAbsentees__changeStatus label label-{{labelClass}}" data-id="{{_id}}" data-status="{{status}}">{{_ "Admin.Status" }}</button></td>
                                 {{#with userData}}
-                                    <td>{{_ "Admin.FirstName" }}</td>
-                                    <td>{{_ "Admin.LastName" }}</td>
+                                    <td>{{_ "FirstName" }}</td>
+                                    <td>{{_ "LastName" }}</td>
                                     <td>{{_ "Admin.classroom" }}</td>
                                 {{/with}}
                                 <td>{{_ "Admin.Date" }}</td>
