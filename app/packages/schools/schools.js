@@ -14,11 +14,12 @@ SchoolsSchema = new SimpleSchema({
    }
    ,backgroundImage:{type : String, optional:true}
    ,tel:{ type:String, optional : true}
-   , web:{ type:String, optional : true //URL
-   }
-   , email:{ type:String,
-     regEx:SimpleSchema.RegEx.Email
-   }
+   //URL
+   , web:{ type:String, optional : true }
+   //adminemail
+   , email:{ type:String, regEx:SimpleSchema.RegEx.Email}
+   //contactemail
+   , contactemail:{ type:String, regEx:SimpleSchema.RegEx.Email, optional : true}
    , active:{
      type:Boolean,
      defaultValue: true
