@@ -29,7 +29,7 @@
     "ChatRoomName": "Chat room name",
     "Child": "Child",
     "ClassCode": "Class code",
-    "ClassCodeErrorMessage": "Only lower case letter (a-z) or digit (0-9) are accepted in class code e.g. math123. But the class name is free of choice.",
+    "ClassCodeErrorMessage": "At least 3 letters in lower case only (a-z) or digit (0-9) e.g. math123. Class name is free of choice.",
     "Class_code_not_available": "is not available. You may try",
     "ClassName": "Class name",
     "Class_details": "Class details",
