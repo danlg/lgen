@@ -29,15 +29,28 @@ Template.TabClasses.helpers({
   notJoinedEmptyList: function () {
     return Smartix.Groups.Collection.find({
         type: 'class',
-        users: Meteor.userId()
+        $or: [{
+            users: Meteor.userId()
+        }, {
+            distributionLists: {
+                $in: getDistributionListsOfUser(Meteor.userId())
+            }
+        }]
     }).count() > 0
   },
 
   joinedClass: function () {
-    return Smartix.Groups.Collection.find({
+    //   let tester = Meteor.call('Smartix.DistributionLists.getDistributionListsOfUser', Meteor.user());
+    //   log.info(tester);
+      return Smartix.Groups.Collection.find({
         type: 'class',
-        users: Meteor.userId(),
-        namespace: Session.get('pickedSchoolId')
+        $or: [{
+            users: Meteor.userId()
+        }, {
+            distributionLists: {
+                $in: getDistributionListsOfUser(Meteor.userId())
+            }
+        }]
     }, {
         sort:{
             "lastUpdatedAt":-1
@@ -185,4 +198,16 @@ var HowToInviteTour = function () {
 };
 
 Template.TabClasses.destroyed = function () {
+};
+
+
+var getDistributionListsOfUser = function(userId)
+{
+    let distributionListsOfUser = Smartix.Groups.Collection.find({
+        type: 'distributionList',
+        users: userId
+    }).fetch();   
+    return _.map(distributionListsOfUser, function(list) {
+        return list._id;
+    })
 };
