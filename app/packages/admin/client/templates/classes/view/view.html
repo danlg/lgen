@@ -111,7 +111,13 @@
                     <tbody>
                     {{#each distributionLists}} {{#with listData this}}
                       <tr class="AdminClassesView__tr">
-                        <td class="AdminClassesView__td"><a href="{{pathFor 'admin.lists.view' data=_id}}">{{name}}</a><button type="button" class="remove-list label label-danger" data-list-id="{{_id}}">{{_ "Admin.Remove" }}</button></td>
+                        <td class="AdminClassesView__td">
+                          <!--<a href="{{pathFor 'admin.lists.view' data=_id}}">{{name}}</a>-->
+                          <a href="{{pathFor 'admin.lists.view' data=routeData}}">{{name}}</a>
+                          <button type="button"
+                                  class="remove-list label label-danger" data-list-id="{{_id}}">{{_ "Admin.Remove" }}
+                          </button>
+                        </td>
                       </tr>
                     {{/with}} {{/each}}
                     </tbody>

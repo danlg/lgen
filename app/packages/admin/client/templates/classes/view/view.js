@@ -92,6 +92,14 @@ Template.AdminClassesView.helpers({
             }
         }
     },
+    routeData: function () {
+        if (Router && Router.current()) {
+            return {
+                code: this.url,
+                school: Router.current().params.school
+            };
+        }
+    },
     classData: function () {
         if(Template.instance().subscriptionsReady()) {
             return Smartix.Groups.Collection.findOne({
