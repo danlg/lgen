@@ -53,10 +53,8 @@ Smartix.Messages.cleanAndValidate = function (message) {
 };
 
 Smartix.Messages.createMessage = function (groupId, messageType, data, addons, isPush, currentUser) {
-    
     var cheerio = Npm.require('cheerio');
-    
-    log.info('Smartix.Messages.createMessage',groupId,messageType,data,addons, isPush);
+    //log.info('Smartix.Messages.createMessage',groupId,messageType,data,addons, isPush);
     check(groupId, String);
     check(messageType, String);
     check(data, Object);
@@ -77,7 +75,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
     // Checks whether the currently logged-in user has permission to create a message for the group
     // The logic behind this would be different for different group types
     if(!Smartix[Smartix.Utilities.letterCaseToCapitalCase(group.type)].Messages.canCreateMessage(groupId, group.type)) {
-        log.info('no permission to create message for this group');
+        log.warn('no permission to create message for this group');
         return false; //OPTIONAL: Throw error saying no  permission to create message for this group
     }
     /* CHECKS THE VALIDITY OF THE MESSAGE */
@@ -112,7 +110,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
         // If the addon type specified is not in the array of allowed addons, return `false`
         addons.map(function(eachAddOn){
             if(group.addons.indexOf(eachAddOn.type) < 0) {
-                log.info('not in canAttachAddons in this specific group instance', Smartix.Utilities.letterCaseToCapitalCase(group.type));
+                log.warn('not in canAttachAddons in this specific group instance', Smartix.Utilities.letterCaseToCapitalCase(group.type));
                 return false;
                 // OPTIONAL: Throw error indicating the add-on
                 // you are trying to attached in not an approved type

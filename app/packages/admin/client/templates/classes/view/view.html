@@ -54,38 +54,10 @@
             <div class="panel-body">
                 <!-- /large table -->
                 <h3>{{_ "Admin.ManageUsers" }}</h3>
+                <p>{{_ "Admin.ManageUsersExplain" }}</p>
+
                 <div class="col-xs-6">
-                    <h5 class="AdminClassesView__subheading">{{_ "Admin.DistributionLists" }}</h5>
-                    <div id="AdminClassesView__add-list-container" class="form-group">
-                        <div class="col-xs-12">
-                            <div class="add-user-input-container input-group AdminClassesView__add-list-input-container">
-                                {{> EasySearch.Input index=distributionListIndex attributes=adminListSearchInputAttributes noDocumentsOnEmpty=true}}
-                            </div>
-                            <ul class="add-list-result-container">
-                                {{#EasySearch.Each index=distributionListIndex}}
-                                    <li class="AdminClassesView__list-search-result">
-                                        <div>
-                                            <span class="AdminClassesView__list-search-name AdminClassesView__list-search-add" data-list-id="{{_id}}">{{name}}</span>
-                                        </div>
-                                    </li>
-                                {{/EasySearch.Each}}
-                                <!--{{> EasySearch.Pagination index=distributionListIndex maxPages=10}}-->
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Large table -->
-                    <table class="AdminClassesView__distributionListsTable table datatable-basic">
-                        <tbody>
-                            {{#each distributionLists}} {{#with listData this}}
-                            <tr class="AdminClassesView__tr">
-                                <td class="AdminClassesView__td"><a href="{{pathFor 'admin.lists.view' data=_id}}">{{name}}</a><button type="button" class="remove-list label label-danger" data-list-id="{{_id}}">{{_ "Admin.Remove" }}</button></td>
-                            </tr>
-                            {{/with}} {{/each}}
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-xs-6">
-                    <h5 class="AdminClassesView__subheading">Individual User(s)</h5>
+                    <h5 class="AdminClassesView__subheading">{{_ "Admin.AddUser" }}</h5>
                     <div id="AdminClassesView__add-user-container" class="form-group">
                         <div class="col-xs-12">
                             <div class="add-user-input-container input-group AdminClassesView__add-user-input-container">
@@ -113,66 +85,48 @@
                         </tbody>
                     </table>
                 </div>
+              <!--end add users-->
+
+                <div class="col-xs-6">
+                  <h5 class="AdminClassesView__subheading">{{_ "Admin.DistributionLists" }}</h5>
+                  <div id="AdminClassesView__add-list-container" class="form-group">
+                    <div class="col-xs-12">
+                      <div class="add-user-input-container input-group AdminClassesView__add-list-input-container">
+                        {{> EasySearch.Input index=distributionListIndex attributes=adminListSearchInputAttributes noDocumentsOnEmpty=true}}
+                      </div>
+                      <ul class="add-list-result-container">
+                        {{#EasySearch.Each index=distributionListIndex}}
+                          <li class="AdminClassesView__list-search-result">
+                            <div>
+                              <span class="AdminClassesView__list-search-name AdminClassesView__list-search-add" data-list-id="{{_id}}">{{name}}</span>
+                            </div>
+                          </li>
+                        {{/EasySearch.Each}}
+                        <!--{{> EasySearch.Pagination index=distributionListIndex maxPages=10}}-->
+                      </ul>
+                    </div>
+                  </div>
+                  <!-- Large table -->
+                  <table class="AdminClassesView__distributionListsTable table datatable-basic">
+                    <tbody>
+                    {{#each distributionLists}} {{#with listData this}}
+                      <tr class="AdminClassesView__tr">
+                        <td class="AdminClassesView__td">
+                          <!--<a href="{{pathFor 'admin.lists.view' data=_id}}">{{name}}</a>-->
+                          <a href="{{pathFor 'admin.lists.view' data=routeData}}">{{name}}</a>
+                          <button type="button"
+                                  class="remove-list label label-danger" data-list-id="{{_id}}">{{_ "Admin.Remove" }}
+                          </button>
+                        </td>
+                      </tr>
+                    {{/with}} {{/each}}
+                    </tbody>
+                  </table>
+                </div>
             </div>
             {{/with}}
         </div>
 
-        <!--<div class="panel panel-flat">
-            <div class="panel-heading">
-                <h1>Class Announcements</h1>
-            </div>
-            <div class="panel-body">
-                {{#each announcements}}
-                <p>Message</p>
-                {{/each}}
-                <div>
-                    <p>Create a new announcement</p>
-                    <div>
-                        <div class="col-md-12">
-                            <div class="panel panel-flat">
 
-                                {{> AdminMessageTypePicker}}
-
-                            </div>
-                        </div>
-                        <div>
-                            <div class="col-md-4">
-                                <div class="panel panel-body border-top-danger text-center">
-                                    <h6 class="no-margin text-semibold">Reactions</h6>
-                                    <p class="content-group-sm text-muted">Add a Reaction</p>
-
-                                    <ul class="fab-menu">
-                                        <li>
-                                            <a href="#" class="fab-menu-btn btn bg-blue btn-float btn-rounded btn-icon">
-                                                <i class="fab-icon-open icon-plus3"></i>
-                                                <i class="fab-icon-close icon-cross2"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="panel panel-body border-top-danger text-center">
-                                    <h6 class="no-margin text-semibold">Vote</h6>
-                                    <p class="content-group-sm text-muted">Add a Vote</p>
-
-                                    <ul class="fab-menu">
-                                        <li>
-                                            <a href="#" class="fab-menu-btn btn bg-blue btn-float btn-rounded btn-icon">
-                                                <i class="fab-icon-open icon-plus3"></i>
-                                                <i class="fab-icon-close icon-cross2"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                {{> AdminSelectPollReactions}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>-->
     {{/if}}
 </template>

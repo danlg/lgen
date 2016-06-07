@@ -34,7 +34,7 @@ Template.SchoolSignup.helpers({
     },
     mySchoolNameForSimulatedScreen:function(){
         if( Template.instance().mySchoolName.get() === '' ){
-            return "My remarkable school";
+            return TAPi18n.__("My_remarkable_school");
         }else{
             return Template.instance().mySchoolName.get();
 

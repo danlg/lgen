@@ -639,7 +639,7 @@ Smartix.Class.getDistributionListsOfClass = function (classCode) {
 /////////////////////////////////
 
 Smartix.Class.Schema.i18n("schemas.ClassesSchema");
-
+//toremove
 var msgStringError = TAPi18n.__("ClassCodeErrorMessage", {}, lang_tag = "en");
 //https://github.com/aldeed/meteor-simple-schema#customizing-validation-messages
 //custom validation message 

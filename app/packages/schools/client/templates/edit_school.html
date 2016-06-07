@@ -55,6 +55,9 @@
         <br> {{_ "schools.SchoolAdministratorEmail" }}
         <input id='email' type="text" name="email" value='{{email}}'>
 
+        <br> {{_ "schools.SchoolContactEmail" }}
+        <input id='contactemail' type="text" name="contactemail" value='{{contactemail}}'>
+
         <br> {{_ "schools.SchoolBackgroundColor" }}
         <input id='school-background-color' type="color" name="school-background-color" value='{{preferences.schoolBackgroundColor}}'>
         
@@ -65,7 +68,11 @@
         <input id='student-to-student-chat' type="checkbox" name="student-to-student-chat" {{isStudentToStudentChatAllow}} >-->
                                 
        <br>
-       <input id='edit-school-submit' type="button" value="Edit" >
+       <!--<input id='edit-school-submit' type="button" value="Edit" >-->
+
+      <div class="text-right">
+        <button id="edit-school-submit" type="submit" class="btn btn-primary">{{_ "Save" }} </button>
+      </div>
     </form>
    {{/with}}
    {{/if}}

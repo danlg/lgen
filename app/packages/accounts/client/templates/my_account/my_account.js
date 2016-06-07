@@ -131,6 +131,9 @@ Template.MyAccount.helpers({
   , getEmailPlaceHolder: function(){
     return TAPi18n.__("EmailPlaceHolder");
   },
+    selectCountryHelper: function(){
+    return TAPi18n.__("SelectCountry");
+  },
     getYouUpload:function(){
         var uploadIcon = Session.get('uploadIcon');
         if(uploadIcon){
@@ -172,8 +175,9 @@ Template.MyAccount.helpers({
       if(userCountry){
         // lodash.find(countriesObj,{})
         return countriesObj[userCountry];
-      }else{
-        return 'Country'
+      }
+      else{
+        return TAPi18n.__("Country");
       }
   }
 

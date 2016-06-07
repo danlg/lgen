@@ -70,8 +70,6 @@ Template.EditSchool.events({
         }
     },    
     'click #edit-school-submit': function(event, template) {
-        
-        
         var editSchoolObj =
         {
           name: $("#name").val(),
@@ -81,12 +79,12 @@ Template.EditSchool.events({
           tel: $("#tel").val(),
           web: $("#web").val(),
           email: $("#email").val(),
+          contactemail: $("#contactemail").val(),
           preferences: {
               schoolBackgroundColor: $("#school-background-color").val(),
               schoolTextColor: $("#school-text-color").val()
           }
         };
-        
         //log.info('editSchoolObj',editSchoolObj);
         Meteor.call('smartix:schools/editSchool',$("#school-id").val(),editSchoolObj,function(err,result){
             if(err){
