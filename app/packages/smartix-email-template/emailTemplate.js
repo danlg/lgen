@@ -35,7 +35,7 @@ Smartix.messageEmailTemplate = function (RecipientUsers, OriginateUser, messageO
   else {
 
   }
-  log.info("messageEmailTemplate MAIL_URL:" + process.env.MAIL_URL);
+  //log.info("messageEmailTemplate MAIL_URL:" + process.env.MAIL_URL);
   //Accounts.emailTemplates.from = "Smartix <dan@gosmartix.com>";
   Meteor.defer(function(){
     Email.send(
@@ -48,7 +48,9 @@ Smartix.messageEmailTemplate = function (RecipientUsers, OriginateUser, messageO
           {
             title: messageObj.data.content,
             GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = lang),
-            UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = lang)
+            UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = lang),
+            APP_STORE_URL:  Meteor.settings.public.APP_STORE_URL,
+            GOOGLE_PLAY_URL:  Meteor.settings.public.GOOGLE_PLAY_URL
           },
           Assets.getText("emailMessageMasterTemplate.html")
         )
@@ -95,6 +97,8 @@ Smartix.newClassMailTemplate = function (to, classname, classCode) {
         content   : newClassMailContentTemp,
         GetTheApp                    : TAPi18n.__("GetTheApp", {}, lang_tag = emailLang),
         UnsubscribeEmailNotification : TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = emailLang),
+        APP_STORE_URL:  Meteor.settings.public.APP_STORE_URL,
+        GOOGLE_PLAY_URL:  Meteor.settings.public.GOOGLE_PLAY_URL
       },
       Assets.getText("emailMessageMasterTemplate.html")
     )
@@ -191,6 +195,8 @@ Smartix.inviteClassMailTemplate = function (to, classObj) {
           content: inviteClassMailTemp,
           GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = emailLang),
           UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = emailLang),
+          APP_STORE_URL:  Meteor.settings.public.APP_STORE_URL,
+          GOOGLE_PLAY_URL:  Meteor.settings.public.GOOGLE_PLAY_URL
         },
         Assets.getText("emailMessageMasterTemplate.html"))
     }
@@ -213,7 +219,9 @@ Smartix.verificationEmailTemplate = function (userObj, verificationURL) {
       title: "",
       content: verifyEmailcontent,
       GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = emailLang),
-      UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = emailLang)
+      UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = emailLang),
+      APP_STORE_URL:  Meteor.settings.public.APP_STORE_URL,
+      GOOGLE_PLAY_URL:  Meteor.settings.public.GOOGLE_PLAY_URL
     },
     Assets.getText("emailMessageMasterTemplate.html")
   );
@@ -239,7 +247,9 @@ Smartix.resetPasswordEmailTemplate = function (userObj, resetPwdEmailURL) {
       title: TAPi18n.__("ResetPasswordEmailContent", {first_name: userObj.profile.firstName}, lang_tag = emailLang),
       content: '<a href="' + resetPwdEmailURL + '">' + TAPi18n.__("ResetPasswordEmailButtonText", {}, lang_tag = emailLang) + '</a>',
       GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = emailLang),
-      UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = emailLang)
+      UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = emailLang),
+      APP_STORE_URL:  Meteor.settings.public.APP_STORE_URL,
+      GOOGLE_PLAY_URL:  Meteor.settings.public.GOOGLE_PLAY_URL
     },
     Assets.getText("emailMessageMasterTemplate.html")
   );
@@ -270,7 +280,9 @@ Smartix.notifyEmailTemplate = function (userObj, classObj) {
                 title: "",
                 content: content,
                 GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = lang),
-                UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = lang)
+                UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = lang),
+                APP_STORE_URL:  Meteor.settings.public.APP_STORE_URL,
+                GOOGLE_PLAY_URL:  Meteor.settings.public.GOOGLE_PLAY_URL
             },
             Assets.getText("emailMessageMasterTemplate.html")
         )
