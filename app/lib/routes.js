@@ -223,9 +223,7 @@ Router.route('TabClasses', {
     path: "/classes",
     waitOn: function()
     {
-        Meteor.subscribe('joinedClasses'),
-        Meteor.subscribe('smartix:distribution-lists/distributionListsOfUser', Meteor.userId())
-
+        Meteor.subscribe('joinedClasses')
     }
 });
 
