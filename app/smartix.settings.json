@@ -13,6 +13,7 @@
         "PORT": 443,
 
         "SHARE_URL": "https://now.gosmartix.com",
+        "DOWNLOAD_URL":"http://www.gosmartix.com/#download",
         "GOOGLE_PLAY_URL": "https://play.google.com/store/apps/details?id=com.gosmartix.smartix",
         "APP_STORE_URL": "https://itunes.apple.com/hk/app/smartix-school-instant-messaging/id1036105942?mt=8&ign-mpt=uo%3D4"
     },
