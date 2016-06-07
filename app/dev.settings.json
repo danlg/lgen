@@ -12,8 +12,9 @@
         "ROOT_URL": "http://localhost:3000",
         "PORT": 3000,
         "SHARE_URL": "http://localhost:3000",
-        "GOOGLE_PLAY_URL": "http://google.com",
-        "APP_STORE_URL": "http://google.com"
+        "DOWNLOAD_URL":"https://itunes.apple.com/us/app/carmel-safe-school-communication/id1112054393?mt=8&ign-mpt=uo%3D4",
+        "GOOGLE_PLAY_URL":"https://play.google.com/store/apps/details?id=com.gosmartix.carmel",
+        "APP_STORE_URL":"https://itunes.apple.com/us/app/carmel-safe-school-communication/id1112054393?mt=8&ign-mpt=uo%3D4"
     },
     
     "GOOGLE_CLIENT_ID": "122417300165-4i555ct1kvrf8fesec9bp1f9vprdrlef.apps.googleusercontent.com",

@@ -4,6 +4,19 @@
 Smartix = Smartix || {};
 //unit testing
 //Smartix.messageEmailTemplate(['dan@gosmartix.com'],['dan@gosmartix.com'],'content is great',{chatRoomName:'math'})
+
+// var __privateEmailArgument = function (titlemessage){
+//     return {
+//         title: titlemessage,
+//         //content ? watchout used in some call and also beware of language
+//         GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = lang),
+//         UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = lang),
+//         DOWNLOAD_URL:  Meteor.settings.public.DOWNLOAD_URL,
+//         APP_STORE_URL:  Meteor.settings.public.APP_STORE_URL,
+//         GOOGLE_PLAY_URL:  Meteor.settings.public.GOOGLE_PLAY_URL
+//     }
+// };
+
 Smartix.messageEmailTemplate = function (RecipientUsers, OriginateUser, messageObj, groupObj,lang) {
   var originateUserName = OriginateUser.profile.firstName + " " + OriginateUser.profile.lastName;
   //var originateUserName = "dummy";
@@ -35,7 +48,7 @@ Smartix.messageEmailTemplate = function (RecipientUsers, OriginateUser, messageO
   else {
 
   }
-  log.info("messageEmailTemplate MAIL_URL:" + process.env.MAIL_URL);
+  //log.info("messageEmailTemplate MAIL_URL:" + process.env.MAIL_URL);
   //Accounts.emailTemplates.from = "Smartix <dan@gosmartix.com>";
   Meteor.defer(function(){
     Email.send(
@@ -48,7 +61,10 @@ Smartix.messageEmailTemplate = function (RecipientUsers, OriginateUser, messageO
           {
             title: messageObj.data.content,
             GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = lang),
-            UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = lang)
+            UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = lang),
+            DOWNLOAD_URL:  Meteor.settings.public.DOWNLOAD_URL,
+            APP_STORE_URL:  Meteor.settings.public.APP_STORE_URL,
+            GOOGLE_PLAY_URL:  Meteor.settings.public.GOOGLE_PLAY_URL
           },
           Assets.getText("emailMessageMasterTemplate.html")
         )
@@ -85,37 +101,44 @@ Smartix.newClassMailTemplate = function (to, classname, classCode) {
     );
   log.info("Sending newClassMailTemplate:" + classCode);
   var titlestr = TAPi18n.__("NewClassMailTitle", {class_name: classname}, emailLang);
-  Email.send({
-    "from": Meteor.settings.FROM_EMAIL,
-    "to": to,
-    "subject": titlestr,
-    "html": Spacebars.toHTML(
-      {
-        title     : titlestr,
-        content   : newClassMailContentTemp,
-        GetTheApp                    : TAPi18n.__("GetTheApp", {}, lang_tag = emailLang),
-        UnsubscribeEmailNotification : TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = emailLang),
-      },
-      Assets.getText("emailMessageMasterTemplate.html")
-    )
-    }
-  );
+    Meteor.defer(function(){
+        Email.send({
+                "from": Meteor.settings.FROM_EMAIL,
+                "to": to,
+                "subject": titlestr,
+                "html": Spacebars.toHTML(
+                    {
+                        title     : titlestr,
+                        content   : newClassMailContentTemp,
+                        GetTheApp                    : TAPi18n.__("GetTheApp", {}, lang_tag = emailLang),
+                        UnsubscribeEmailNotification : TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = emailLang),
+                        DOWNLOAD_URL:  Meteor.settings.public.DOWNLOAD_URL,
+                        APP_STORE_URL:  Meteor.settings.public.APP_STORE_URL,
+                        GOOGLE_PLAY_URL:  Meteor.settings.public.GOOGLE_PLAY_URL
+                    },
+                    Assets.getText("emailMessageMasterTemplate.html")
+                )
+            }
+        );
+    });
 };
 
 //OK unit tested with > meteor shell
 //> Smartix.testMail('dan@gosmartix.com','subject important',{classname:'abc'});
 Smartix.testMail = function (to, title, classname) {
-  Email.send({
-    "from": Meteor.settings.FROM_EMAIL,
-    "to": to,
-    "subject": title,
-    "html": Spacebars.toHTML(
-      {
-        classname : classname
-      },
-      "<h1>hello </h1> {{classname}}"
-    )
-  });
+    Meteor.defer(function(){
+          Email.send({
+            "from": Meteor.settings.FROM_EMAIL,
+            "to": to,
+            "subject": title,
+            "html": Spacebars.toHTML(
+              {
+                classname : classname
+              },
+              "<h1>hello </h1> {{classname}}"
+            )
+          });
+    });
 };
 
 //tested, to unit test comment var fullName = Smartix.helpers.getFullNameOfCurrentUser();
@@ -141,7 +164,7 @@ Smartix.feedback = function (content) {
 
 //unit tested ok
 Smartix.inviteClassMailTemplate = function (to, classObj) {
-  log.info("inviteClassMailTemplate");
+  //log.info("inviteClassMailTemplate");
   //var emailLang = "en",  first = "test_first", last  = "test_last";
   //Comment me to unit test with meteor shell
   // Smartix.inviteClassMailTemplate('dan@gosmartix.com',{classCode:'abc',className:'longclassname'});
@@ -175,26 +198,29 @@ Smartix.inviteClassMailTemplate = function (to, classObj) {
   var emailTitle = TAPi18n.__("JoinCurrentUserClassMailTitle",
     {first_name: first, last_name: last, class_name: classObj.className}, emailLang);
 
-  log.info("MAIL_URL:" + process.env.MAIL_URL);
-  Email.send(
-    {
-      //TODO tracking
-      //see https://developers.sparkpost.com/api/#/reference/smtp-api
-      // X-MSYS-API: { "options" : { "open_tracking" : true, "click_tracking" : true } }
-      "from": Meteor.settings.FROM_EMAIL,
-      "to": to,
-      "subject": emailTitle,
-      //"text": "hello world"
-      "html": Spacebars.toHTML(
-        {
-          title: emailTitle,
-          content: inviteClassMailTemp,
-          GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = emailLang),
-          UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = emailLang),
-        },
-        Assets.getText("emailMessageMasterTemplate.html"))
-    }
-  );
+  //log.info("MAIL_URL:" + process.env.MAIL_URL);
+  Meteor.defer(function(){
+      Email.send({
+          //TODO tracking
+          //see https://developers.sparkpost.com/api/#/reference/smtp-api
+          // X-MSYS-API: { "options" : { "open_tracking" : true, "click_tracking" : true } }
+          "from": Meteor.settings.FROM_EMAIL,
+          "to": to,
+          "subject": emailTitle,
+          //"text": "hello world"
+          "html": Spacebars.toHTML(
+            {
+              title: emailTitle,
+              content: inviteClassMailTemp,
+              GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = emailLang),
+              UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = emailLang),
+              DOWNLOAD_URL:  Meteor.settings.public.DOWNLOAD_URL,
+              APP_STORE_URL:  Meteor.settings.public.APP_STORE_URL,
+              GOOGLE_PLAY_URL:  Meteor.settings.public.GOOGLE_PLAY_URL
+            },
+            Assets.getText("emailMessageMasterTemplate.html"))
+      });
+  });
 };
 
 Smartix.verificationEmailTemplate = function (userObj, verificationURL) {
@@ -213,7 +239,10 @@ Smartix.verificationEmailTemplate = function (userObj, verificationURL) {
       title: "",
       content: verifyEmailcontent,
       GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = emailLang),
-      UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = emailLang)
+      UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = emailLang),
+      DOWNLOAD_URL:  Meteor.settings.public.DOWNLOAD_URL,
+      APP_STORE_URL:  Meteor.settings.public.APP_STORE_URL,
+      GOOGLE_PLAY_URL:  Meteor.settings.public.GOOGLE_PLAY_URL
     },
     Assets.getText("emailMessageMasterTemplate.html")
   );
@@ -239,7 +268,10 @@ Smartix.resetPasswordEmailTemplate = function (userObj, resetPwdEmailURL) {
       title: TAPi18n.__("ResetPasswordEmailContent", {first_name: userObj.profile.firstName}, lang_tag = emailLang),
       content: '<a href="' + resetPwdEmailURL + '">' + TAPi18n.__("ResetPasswordEmailButtonText", {}, lang_tag = emailLang) + '</a>',
       GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = emailLang),
-      UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = emailLang)
+      UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = emailLang),
+      DOWNLOAD_URL:  Meteor.settings.public.DOWNLOAD_URL,
+      APP_STORE_URL:  Meteor.settings.public.APP_STORE_URL,
+      GOOGLE_PLAY_URL:  Meteor.settings.public.GOOGLE_PLAY_URL
     },
     Assets.getText("emailMessageMasterTemplate.html")
   );
@@ -264,13 +296,16 @@ Smartix.notifyEmailTemplate = function (userObj, classObj) {
             ROOT_URL: Meteor.settings.public.ROOT_URL,
             classname: classObj.className || "",
             classcode: classObj.classCode || "",
-            GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = lang),
+            GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = lang)
         }, Spacebars.toHTML(
             {
                 title: "",
                 content: content,
                 GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = lang),
-                UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = lang)
+                UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = lang),
+                DOWNLOAD_URL:  Meteor.settings.public.DOWNLOAD_URL,
+                APP_STORE_URL:  Meteor.settings.public.APP_STORE_URL,
+                GOOGLE_PLAY_URL:  Meteor.settings.public.GOOGLE_PLAY_URL
             },
             Assets.getText("emailMessageMasterTemplate.html")
         )
