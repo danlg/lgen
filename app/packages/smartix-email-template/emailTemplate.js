@@ -17,6 +17,10 @@ Smartix = Smartix || {};
 //     }
 // };
 
+
+//http://stackoverflow.com/questions/20337309/meteor-deploy-mail-url-not-being-set
+//Need to set MAIL_URL in email package
+
 Smartix.messageEmailTemplate = function (RecipientUsers, OriginateUser, messageObj, groupObj,lang) {
   var originateUserName = OriginateUser.profile.firstName + " " + OriginateUser.profile.lastName;
   //var originateUserName = "dummy";
@@ -69,7 +73,7 @@ Smartix.messageEmailTemplate = function (RecipientUsers, OriginateUser, messageO
           Assets.getText("emailMessageMasterTemplate.html")
         )
       }
-    );       
+    );  
   });
 
 };
