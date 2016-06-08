@@ -40,6 +40,34 @@ if [ $? -eq 0 ];
     exit 1
 fi
 
+
+if [ "$1" == "carmel" ] || [ "$1" == "carmelu" ]
+  then
+  echo ""
+  echo "   Configuring stylsheet for the carmel"
+  appStylesheet="client/stylesheets/app.scss.carmel"
+  ionicVariables="client/stylesheets/meteoric_ionic-sass/stylesheets/_variables.scss.carmel"
+  echo "   Copying " $appStylesheet " -> " client/stylesheets/app.scss
+  echo "   Copying " $ionicVariables " -> " client/stylesheets/meteoric_ionic-sass/stylesheets/_variables.scss.carmel
+
+  #echo `pwd`
+  #echo "mobile-config="$mobile
+  #ls -l $mobile
+  
+  #echo $stylesheet
+  cp -f $appStylesheet client/stylesheets/app.scss
+  cp -f $ionicVariables client/stylesheets/meteoric_ionic-sass/stylesheets/_variables.scss
+
+
+  if [ $? -eq 0 ];
+    then
+      echo "   Stylesheets updated successfully"
+    else
+      echo "   There was an issue with loading the stylesheets"
+      exit 1
+  fi
+fi
+
 #Preparing symbolic link for mup
 echo ""
 echo "3. Preparing symbolic link for mup"
