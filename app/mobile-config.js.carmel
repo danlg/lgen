@@ -33,23 +33,23 @@ App.icons({
 });
 
 App.launchScreens({
-  "iphone_2x":                "resources/smartix/splashes/iphone_2x.png", // 640x490
-  "iphone5":                  "resources/smartix/splashes/iphone5.png", // 640x1136
-  "iphone6":                  "resources/smartix/splashes/iphone6.png", // 750x1334
-  "iphone6p_portrait":        "resources/smartix/splashes/iphone6p_portrait.png", // 2208x1242
-  "iphone6p_landscape":       "resources/smartix/splashes/iphone6p_landscape.png", // 2208x1242
-  "ipad_portrait":            "resources/smartix/splashes/ipad_portrait.png", // 768x1024
-  "ipad_portrait_2x":         "resources/smartix/splashes/ipad_portrait_2x.png", // 1536x2048
-  "ipad_landscape":           "resources/smartix/splashes/ipad_landscape.png", // 1024x768
-  "ipad_landscape_2x":        "resources/smartix/splashes/ipad_landscape_2x.png", // 2048x1536
-  "android_mdpi_portrait":    "resources/smartix/splashes/android_mdpi_portrait.png", // 320x480
-  "android_mdpi_landscape":   "resources/smartix/splashes/android_mdpi_landscape.png", // 480x320
-  "android_hdpi_portrait":    "resources/smartix/splashes/android_hdpi_portrait.png", // 480x800
-  "android_hdpi_landscape":   "resources/smartix/splashes/android_hdpi_landscape.png", // 800x480
-  "android_xhdpi_portrait":   "resources/smartix/splashes/android_xhdpi_portrait.png", // 720x1280
-  "android_xhdpi_landscape":  "resources/smartix/splashes/android_xhdpi_landscape.png", // 1280x720
-  "android_xxhdpi_portrait":  "resources/smartix/splashes/android_xxhdpi_portrait.png", // 1080x1440
-  "android_xxhdpi_landscape": "resources/smartix/splashes/android_xxhdpi_landscape.png" // 1440x1080
+  "iphone_2x":                "resources/carmel/splashes/iphone_2x.png", // 640x490
+  "iphone5":                  "resources/carmel/splashes/iphone5.png", // 640x1136
+  "iphone6":                  "resources/carmel/splashes/iphone6.png", // 750x1334
+  "iphone6p_portrait":        "resources/carmel/splashes/iphone6p_portrait.png", // 2208x1242
+  "iphone6p_landscape":       "resources/carmel/splashes/iphone6p_landscape.png", // 2208x1242
+  "ipad_portrait":            "resources/carmel/splashes/ipad_portrait.png", // 768x1024
+  "ipad_portrait_2x":         "resources/carmel/splashes/ipad_portrait_2x.png", // 1536x2048
+  "ipad_landscape":           "resources/carmel/splashes/ipad_landscape.png", // 1024x768
+  "ipad_landscape_2x":        "resources/carmel/splashes/ipad_landscape_2x.png", // 2048x1536
+  "android_mdpi_portrait":    "resources/carmel/splashes/android_mdpi_portrait.png", // 320x480
+  "android_mdpi_landscape":   "resources/carmel/splashes/android_mdpi_landscape.png", // 480x320
+  "android_hdpi_portrait":    "resources/carmel/splashes/android_hdpi_portrait.png", // 480x800
+  "android_hdpi_landscape":   "resources/carmel/splashes/android_hdpi_landscape.png", // 800x480
+  "android_xhdpi_portrait":   "resources/carmel/splashes/android_xhdpi_portrait.png", // 720x1280
+  "android_xhdpi_landscape":  "resources/carmel/splashes/android_xhdpi_landscape.png", // 1280x720
+  "android_xxhdpi_portrait":  "resources/carmel/splashes/android_xxhdpi_portrait.png", // 1080x1440
+  "android_xxhdpi_landscape": "resources/carmel/splashes/android_xxhdpi_landscape.png" // 1440x1080
 });
 //see https://github.com/apache/cordova-plugin-statusbar
 //Preferences see https://cordova.apache.org/docs/en/latest/config_ref/index.html
