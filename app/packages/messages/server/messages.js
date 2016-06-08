@@ -142,7 +142,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
                 allUserToDoPushNotifications = lodash.difference(allUserToDoPushNotifications, group.optOutUsersFromDistributionLists);
             }
         }
-        //log.info('allUserToDoPushNotifications',allUserToDoPushNotifications);
+        // log.info('allUserToDoPushNotifications',allUserToDoPushNotifications);
         let meteorUser = Meteor.users.findOne({    _id: currentUser   });
         
         //3. send email notifications if user opt to receive email notification/
@@ -153,7 +153,8 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
         var emailMessage = message;
         emailMessage.data.content =  $email('*').html() || emailMessage.data.content;
         console.log('emailMessage.data.content' ,emailMessage.data.content);*/
-        Smartix.Messages.emailMessage(allUserToDoPushNotifications, message, group, meteorUser)
+        
+        Smartix.Messages.emailMessage(allUserToDoPushNotifications, message, group, meteorUser);
 
         allUserToDoPushNotifications.map(function(eachTargetUser){
             Notifications.insert({
@@ -307,28 +308,38 @@ Smartix.Messages.undeleteMessage = function () {
 };
 
 Smartix.Messages.emailMessage = function (targetUserids, messageObj, groupObj, originateUserObj) {
-      var arrayOfTargetUsers = Meteor.users.find({_id: {$in: targetUserids}}).fetch();
+
+        var arrayOfTargetUsers = Meteor.users.find({_id: {$in: targetUserids}}).fetch();
+        // log.info("Target Users", arrayOfTargetUsers);
+
+
       //log.info('arrayOfTargetUsers',arrayOfTargetUsers);
       //keep user opt-in to receive email notification, group them by their UI language
-      var optInUsersGroupByLang = lodash.chain(arrayOfTargetUsers)
-        .filter(function (user) {
-          //if user enable email notification
-          if (user.emailNotifications) {  
-              //log.info('user.emailNotifications', user.emailNotifications )
-            //if email is verified
-            if (user.emails && user.emails[0] && user.emails[0].verified) {
-              //log.info('user.emails', user.emails[0],' ',user.emails[0].verified )
-              return true;
+        var optInUsersGroupByLang = lodash.chain(arrayOfTargetUsers)
+    .filter(function (user) {
+        //if user enable email notification
+        if (user.emailNotifications) {  
+        // log.info('user.emailNotifications', user.emailNotifications )
+        //if email is verified
+            if(user.emails)
+            {
+                if(user.emails[0] && user.emails[0].verified)
+                    return true;
+                else if (user.emails[0] && user.services.google.verified_email)
+                    return true;
+                else
+                    return false;
             }
-          }
-          else {
-            //log.info('user.emailNotifications', user.emailNotifications )
-            return false;
-          }
-        })
-        .groupBy('lang')
-        .value();
-      //log.info('optInUsersGroupByLang',optInUsersGroupByLang);
+        }
+        else {
+        // log.info('user.emailNotifications', user.emailNotifications )
+        return false;
+        }
+    })
+    .groupBy('lang')
+    .value();
+
+    //   log.info('optInUsersGroupByLang',optInUsersGroupByLang);
       for (var lang in optInUsersGroupByLang) {
         var receivers = [];
         optInUsersGroupByLang[lang].map(function (eachUser) {
@@ -338,7 +349,7 @@ Smartix.Messages.emailMessage = function (targetUserids, messageObj, groupObj, o
           };
           receivers.push(receiver);
         });
-        //log.info("sendEmailMessageToClasses", lang, receivers);
+        // log.info("sendEmailMessageToClasses", lang, receivers);
         try {
           //send email
           Smartix.messageEmailTemplate(receivers, originateUserObj, messageObj, groupObj, lang);

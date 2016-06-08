@@ -55,7 +55,8 @@ Smartix.messageEmailTemplate = function (RecipientUsers, OriginateUser, messageO
   //log.info("messageEmailTemplate MAIL_URL:" + process.env.MAIL_URL);
   //Accounts.emailTemplates.from = "Smartix <dan@gosmartix.com>";
   Meteor.defer(function(){
-    Email.send(
+    try{    
+      Email.send(
       {
         subject: subject,
         from: Meteor.settings.FROM_EMAIL,
@@ -72,8 +73,13 @@ Smartix.messageEmailTemplate = function (RecipientUsers, OriginateUser, messageO
           },
           Assets.getText("emailMessageMasterTemplate.html")
         )
-      }
-    );  
+      });
+      // log.info("Email Sent Successfully");
+    }
+    catch(e)
+    {
+      log.err(e);
+    } 
   });
 
 };
@@ -128,9 +134,9 @@ Smartix.newClassMailTemplate = function (to, classname, classCode) {
 };
 
 //OK unit tested with > meteor shell
-//> Smartix.testMail('dan@gosmartix.com','subject important',{classname:'abc'});
 Smartix.testMail = function (to, title, classname) {
     Meteor.defer(function(){
+      try{
           Email.send({
             "from": Meteor.settings.FROM_EMAIL,
             "to": to,
@@ -142,8 +148,17 @@ Smartix.testMail = function (to, title, classname) {
               "<h1>hello </h1> {{classname}}"
             )
           });
+          log.info("Email Sent Successfully")
+      }
+      catch(e)
+      {
+        log.err(e);
+      }
     });
 };
+
+// Smartix.testMail('aman96@gmail.com','subject important',{classname:'abc'});
+
 
 //tested, to unit test comment var fullName = Smartix.helpers.getFullNameOfCurrentUser();
 Smartix.feedback = function (content) {
