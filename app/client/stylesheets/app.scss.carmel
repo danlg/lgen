@@ -1,0 +1,387 @@
+$stable: #334685;
+$positive: #334685;
+
+.genius-color  {
+  color : #334685;
+}
+
+.translucid  {
+  color : #000000;
+  opacity: 0.5;
+}
+
+.ion-ios-star.colored {
+  color: #ffd248;
+}
+
+.ion-checkmark-round.colored {
+  color: #334685;
+}
+
+.ion-close-round.colored {
+  color: red;
+}
+
+.ion-help.colored {
+  color: #00bfff;
+}
+
+.description-plain {
+  font-size: 0.8rem;
+}
+
+.description {
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.NoRecord {
+  text-align: center;
+  font-size: 5rem;
+}
+
+.button.button-hide{
+    background-color:#FAFAF9
+}
+
+
+
+
+.wallpaper {
+  background-image: url("img/wallpaper.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.item {
+  //  border-top: 1px solid #ddd !important;
+  //  border-bottom: 1px solid #ddd !important;
+  border-top: 0 transparent;
+  border-bottom: 0 transparent;
+}
+
+.icon.disabled {
+  opacity: 0.5;
+}
+
+@import 'meteoric_ionic-sass/ionic';
+@import 'meteoric_ionicons-sass/ionicons';
+
+//for Wkwebview ?
+//see https://github.com/meteoric/meteor-ionic/issues/321
+//.content.overflow-scroll.has-header {
+//  bottom: 0px !important;
+//}
+
+/*for android vitual keyboard, so that it wont overlap with the textbox user clicks*/
+/*also do changes on ionKeyboard.js*/
+/*for detail, check https://github.com/meteoric/meteor-ionic/issues/130*/
+body.keyboard-open .platform-android .content.overflow-scroll {
+  bottom: 0px !important;
+}
+
+a {
+  text-decoration: none !important;
+  /*color: #333  !important;*/
+}
+
+.tab-classes a{
+  color: #333 
+}
+
+pre{
+      font-family: sans-serif !important;
+}
+
+.shouldhide {
+  display: none;
+}
+
+.badge.badge-assertive {
+  left: calc(50% - 35px);
+  width: 28px;
+}
+
+.help-block{
+		color: $assertive; 
+		font-size: $font-size-small;
+}
+
+.popup-container .popup{
+	  
+    .button.button-positive{
+      flex:2;
+    }
+    
+    .button.button-light{
+      font-size: smaller;
+    }
+}
+
+.smaller {
+  font-size: smaller;
+}
+
+.larger{
+  font-size: x-large;
+}
+
+.no-padding{
+  padding:0;
+}
+
+.less-padding{
+  padding:2px;
+}
+
+.less-top-bottom-padding{
+  padding-left:4px;
+  padding-right:4px;
+  padding-top:2px;
+  padding-bottom:2px;
+}
+
+.long-button{
+  width:65%;
+}
+
+.less-top-bottom-margin{
+  margin-top:0%;
+  margin-bottom:1%;
+}
+
+.responsive-img{
+  max-width: 100%;
+}
+
+.background-wallpaper{
+  background-image: url("/img/wallpaper.jpg"); 
+  background-size:cover; 
+  margin-bottom:0px;
+}
+
+/* attached image is shown without higher or wider than the screen */
+.ionic-body .modal img{
+    max-width:100vw;
+    max-height:100vh;
+}
+
+/* can scroll to the bottom of a modal even in large device*/
+@media (min-width: 680px){
+        .ionic-body .modal {
+            display: block;
+            position: absolute;
+            top: 0;
+            right:0;
+            bottom:0;
+            left:0;
+            z-index: 10;
+            overflow: hidden;
+            min-height: 100%;
+            width: 100%;
+            background-color: #fff;
+    }
+}
+
+.date-bubble-wrapper{
+    
+    text-align:center;
+    .date-bubble{
+        display:inline-block;
+        background: #DDD;
+
+        position: relative;
+        max-width: 85vw;
+        margin-top:10px;
+        margin-bottom:5px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        padding-right: 10px;
+        padding-left: 10px;
+        -moz-border-radius:    3px;
+        -webkit-border-radius: 3px;
+        border-radius:         3px;
+        font-family: sans-serif;
+        font-size:80%;
+        white-space: nowrap;
+    }    
+}
+
+.bar .title.title-twoline{
+    line-height: normal;
+}
+
+/*
+.tooltip {
+  z-index: 1001;
+  pointer-events: none;
+  transition: opacity .1s ease-out;
+  opacity: 0;
+
+  &.hide {
+    opacity: 0;
+  }
+
+  &.show {
+    opacity: 1;
+  }
+}
+
+a.tooltips {
+  position: relative;
+  display: inline;
+}
+a.tooltips span {
+  position: absolute;
+  width:140px;
+  color: #FFFFFF;
+  background: #000000;
+  height: 45px;
+  line-height: 14px;
+  text-align: center;
+  visibility: hidden;
+  opacity: 0;
+  left:0;
+  border-radius: 3px;
+  transition: all 0.5s ease;
+}
+
+a.tooltips.activated span {
+  visibility: visible;
+  opacity: 0.8;
+  left:0;  
+  z-index: 999;
+}
+
+
+a.tooltips.point-to-left span:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  margin-left: -8px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 5px 10px 5px 0;
+  border-color: transparent #000000 transparent transparent;
+}*/
+
+.popover{
+    height:auto !important;
+    background-color: black !important;
+    padding: 0px 0px 10px 10px  !important;
+    color:white  !important;
+    margin-top:12px !important;
+}
+
+ .popover {
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.08); }
+ .popover, .popover .bar-header {
+  border-radius: 10px; }
+.popover .scroll-content {
+  margin: 8px 0;
+  border-radius: 10px; }
+ .popover .scroll-content.has-header {
+  margin-top: 0; }
+ .popover-arrow {
+  position: absolute;
+  display: block;
+  top: -17px;
+  width: 30px;
+  height: 19px;
+  overflow: hidden; }
+ .popover-arrow:after {
+    position: absolute;
+    top: 12px;
+    left: 5px;
+    width: 20px;
+    height: 20px;
+    background-color: black  !important;
+    border-radius: 3px;
+    content: '';
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    color:white  !important;
+    }
+ .popover-bottom .popover-arrow {
+  top: auto;
+  bottom: -10px; }
+.popover-bottom .popover-arrow:after {
+    top: -6px; }
+
+.badge.badge-assertive {
+    left: calc(50% + 13px);
+    width: auto;
+    display: inline-table ;   
+}
+
+
+/*http://stackoverflow.com/questions/5421659/html-label-command-doesnt-work-in-iphone-browser*/
+/* make element insides label to be clickable. a fix for mobile safari */
+label { cursor: pointer; }
+  
+label span,label i {
+  pointer-events: none;
+}
+/* make element insides label to be clickable. a fix for mobile safari end*/
+
+#toast-container>div{
+    -webkit-border-radius: 0px;
+    border-radius: 0px; 
+}
+#toast-container.toast-top-full-width>div {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#toast-container > .toast-info {
+    background-image: none !important;
+}
+
+.toast-info {
+    background-color: #E6E6E6;
+    opacity: 1 !important;   
+}
+
+.toast-info div,.toast-info button{
+    color:black;
+}
+
+.toast-warning {
+  background-color: #ffcf06;
+  opacity: 1 !important;
+}
+
+.toast-warning div,.toast-warning button{
+  color:black;
+}
+
+.toast-close-button{
+   font-size: xx-large; 
+}
+
+.new-message-icon{
+    color:red;
+}
+
+/* fix the issue that sidemenu is visible on the back of other tab pages. */
+body:not(.snapjs-left) .snap-drawer{
+    /* Styles */
+        display:none;
+}
+
+.spinner-loading{
+  text-align: center;
+}
+
+.spinner-loading{
+  text-align: center;
+}
+
+.spinner-loading >i.spinner{
+  width:30px;
+  height:30px;
+  
+}

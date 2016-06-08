@@ -10,6 +10,7 @@
     "ios-local": "meteor run ios --settings dev.settings.json --mobile-server=http://localhost:3000",
     "ios-local-clean": "./clean_build.sh && meteor run ios --settings dev.settings.json --mobile-server=http://localhost:3000",
     "ios-device-local": "./clean_build.sh && meteor run ios-device -v --settings dev.settings.json --mobile-server=http://localhost:3000",
+    "ios-device-local-carmel": "./clean_build.sh && ./config_target.sh carmel && meteor run ios-device -v --settings dev.settings.json --mobile-server=http://localhost:3000",
     "ios-uat": "./clean_build.sh && meteor run ios --settings smartixu.settings.json --mobile-server=https://uat.gosmartix.com -p 4000",
     "ios-device-uat": "./clean_build.sh && ./config_target.sh smartix && meteor run ios-device --settings smartixu.settings.json --mobile-server=https://uat.gosmartix.com -p 4000",
     "ios-device-carmelu": "./clean_build.sh && ./config_target.sh carmel  && meteor run ios-device --production --settings carmelu.settings.json --mobile-server=https://carmelu.gosmartix.com -p 4000",
