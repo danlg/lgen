@@ -1,14 +1,12 @@
 <template name='EmailVerification'>
     {{#contentFor "headerButtonLeft"}}
-        {{>ionNavBackButton path='NotificationSetting' text=" "}}    
+        {{>ionNavBackButton text=" "}}    
     {{/contentFor}}
 
     {{#ionView class='background-wallpaper'}}      
       {{#ionContent}}
         <div class="card padding" style=''>
             <h3>{{_ "VerificationEmail"}} {{unverifyEmail}}</h3>
-            <p>{{_ "OpenVerification"}}</p>
- 
             <div class="list style-1">    
                 <div class="item item-icon-left resendVerifyEmail">
                 <i class="icon ion-ios-email-outline translucid"></i> {{_ "ResendVerification"}}
