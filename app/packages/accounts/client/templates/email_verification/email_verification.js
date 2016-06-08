@@ -19,17 +19,23 @@ Template.EmailVerification.rendered = function () {
 Template.EmailVerification.destroyed = function () {};
 
 Template.EmailVerification.events({
+  
   'click .resendVerifyEmail': function(event,template){
     //   log.info('clicked');
     //   log.info(Meteor.userId());
-      Meteor.call('resendVerificationEmail');
-  }
-  , 'click .updateEmailBtn': function(event,template){
-     var updateEmail = $('.updateEmail').val();
-    //   log.info('clicked');
-    //   log.info(Meteor.userId());
-      Meteor.call('resendVerificationEmail',updateEmail);
-   }
+    //   Meteor.call('resendVerificationEmail');
+       Meteor.call('smartix:accounts/resendVerificationEmail', function (err, res) {                    
+            if(!err) {
+                let message = TAPi18n.__('WelcomeVerification');
+                toastr.info(message);
+            } else {
+                toastr.error(err.reason);
+                let message = TAPi18n.__('Admin.VerificationIssue');
+                log.error(err.reason);
+            }
+       });
+    }
+    
    , 'click .signOut': function () {
     Meteor.logout(
       function (err) {

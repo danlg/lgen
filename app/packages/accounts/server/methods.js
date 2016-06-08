@@ -6,6 +6,17 @@ Meteor.methods({
         
         return Smartix.Accounts.getUserInfo(userId, namespace, this.userId);
     },
+    
+    'smartix:accounts/resendVerificationEmail': function(updateEmail){
+
+          if(Meteor.user().emails) {
+                Accounts.sendVerificationEmail(Meteor.userId());
+            }
+            else {
+                throw new Meteor.Error("No Such Email for this Account");
+            }
+    },
+    
     'smartix:accounts/createUser': function (email, userObj, namespace, types) {
         check(email, Match.Where(function (val) {
             check(val, String);
