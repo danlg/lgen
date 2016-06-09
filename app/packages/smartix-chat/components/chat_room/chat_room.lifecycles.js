@@ -19,6 +19,10 @@ Template.ChatRoom.rendered = function () {
 
    currentChatroomId = Router.current().params.chatRoomId;
 
+var scrollToBottom = function(){
+        var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight; 
+        chatroomList.scrollTop = chatroomListToBottomScrollTopValue; 
+};   
 
 var imgReadyChecking = function(){
     var hasAllImagesLoaded =true;
@@ -37,8 +41,8 @@ var imgReadyChecking = function(){
         //see http://stackoverflow.com/questions/32291382/when-the-page-loads-scroll-down-not-so-simple-meteor-js
         //scroll to bottom
         window.setTimeout(function(){
-            var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight; 
-            chatroomList.scrollTop = chatroomListToBottomScrollTopValue;                   
+                var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight; 
+                chatroomList.scrollTop = chatroomListToBottomScrollTopValue;   
         }, 200);
         
     }else{
@@ -83,22 +87,22 @@ var imgReadyChecking = function(){
             
             
             if(lastImageElement){
-            lastImageElement.alt = "loading";
-            lastImageElement.title  = "loading";
-            lastImageElement.width  = "300";   
-            lastImageElement.height  = "300";
-            lastImageElement.style.width  = "300px";   
-            lastImageElement.style.height  = "300px";            
-           
-            $(".image-bubble img").last().on('load', function () {
-                lastImageElement.width  =   lastImageElement.naturalWidth;
-                lastImageElement.height  = lastImageElement.naturalHeight;
-                lastImageElement.style.width  = lastImageElement.naturalWidth+"px";
-                lastImageElement.style.height  = lastImageElement.naturalHeight+"px";                
-                var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight; 
-                chatroomList.scrollTop = chatroomListToBottomScrollTopValue;                         
-             });
-           }
+                lastImageElement.alt = "loading";
+                lastImageElement.title  = "loading";
+                lastImageElement.width  = "300";   
+                lastImageElement.height  = "300";
+                lastImageElement.style.width  = "300px";   
+                lastImageElement.style.height  = "300px";            
+            
+                $(".image-bubble img").last().on('load', function () {
+                    lastImageElement.width  =   lastImageElement.naturalWidth;
+                    lastImageElement.height  = lastImageElement.naturalHeight;
+                    lastImageElement.style.width  = lastImageElement.naturalWidth+"px";
+                    lastImageElement.style.height  = lastImageElement.naturalHeight+"px";                
+                    var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight; 
+                    chatroomList.scrollTop = chatroomListToBottomScrollTopValue;                         
+                });
+            }
             var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight; 
             chatroomList.scrollTop = chatroomListToBottomScrollTopValue;                                   
             //imgReadyChecking();
@@ -124,10 +128,13 @@ var imgReadyChecking = function(){
     //scroll to bottom
     this.autorun(function () {
         if (template.subscriptionsReady()) {
-        Tracker.afterFlush(function () {
+            Tracker.afterFlush(function () {
+                scrollToBottom();
+                if ($('img')){
                 //run immediately for the first time
-            	imgReadyChecking();
-        });
+                    imgReadyChecking();
+                }
+            });
         }
     });
 
