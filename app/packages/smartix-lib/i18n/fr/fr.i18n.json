@@ -166,7 +166,6 @@
     "MotherLastName": "Nom de la mère",
     "MotherMobile": "Mobile de la mère",
     "MotherSalutation": "Salutation de la mère",
-    "News": "Actualités",
     "NewsCode": "Code du groupe d'actualité",
     "NewsDetails": "Détails des actualités",
     "NewsgroupDetails": "Détail du groupe d'actualité",
@@ -394,7 +393,7 @@
   "NewNotification": "Nouvelle Notification",
   "NewPassword": "Nouveau mot de passe",
   "NewPasswordConfirm": "Confirmer le nouveau mot de passe",
-  "News": "Nouvelles",
+  "News": "Actualités",
   "Newsgroups": {
     "Displaynewsgroup": "Groupes de discussion de l’école sont  tous affichés ici. Vous pouvez vous désabonner des groupes de discussion en décochant. Vous ne recevrez plus les notifications et les messages de ces groupes de discussion",
     "Newsgroups": "Groupes de discussion"
@@ -596,9 +595,6 @@
   "invite": "inviter",
   "lastname": "Nom de famille",
   "message": "Message",
-  "messages": {
-    "Send": "Envoyer"
-  },
   "password": "Mot de passe",
   "requiredFields": "Veuillez vous assurer que tous les champs obligatoires sont remplis ",
   "schemas": {

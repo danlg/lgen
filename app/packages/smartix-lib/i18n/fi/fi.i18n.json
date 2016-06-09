@@ -166,7 +166,6 @@
     "MotherLastName": "Äidin sukunimi",
     "MotherMobile": "Äiti Mobile",
     "MotherSalutation": "Äiti tervehdys",
-    "News": "Uutiset",
     "NewsCode": "Uutiset koodi",
     "NewsDetails": "Uutiset tiedot",
     "NewsgroupDetails": "Uutisryhmän tiedot",
@@ -589,9 +588,6 @@
   "invite": "kutsua",
   "lastname": "Sukunimi",
   "message": "viesti",
-  "messages": {
-    "Send": "Lähetä"
-  },
   "password": "Salasana",
   "requiredFields": "Varmista kaikki pakolliset kentät on täytetty",
   "schemas": {

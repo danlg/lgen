@@ -465,7 +465,6 @@
         "RequiredOneClassroom":"要求至少一個. 老師可以列出最多10 個課堂, 例如 年級 4B可根據年級被區分.",
         "ViewRSSFeeds":"查看 RSS 種子",
         "PendingApproval":"待批准",
-        "News":"消息",
         "NewsCode":"消息號碼",
         "NewsDetails":"消息詳情",
         "Newsgroups":"消息群組",
@@ -588,9 +587,6 @@
         "TypeName" :"名稱類別",
         "Namespace": "Namespace",
         "Norecord" : "沒有關係記錄"
-    },
-    "messages": {
-        "Send": "發送"
     },
     "Newsgroups":{
         "Newsgroups":"消息群組",

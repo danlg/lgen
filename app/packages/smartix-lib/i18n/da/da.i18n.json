@@ -166,7 +166,6 @@
     "MotherLastName": "Mor sidste navn",
     "MotherMobile": "Mor mobiltelefon",
     "MotherSalutation": "Mor starthilsen",
-    "News": "Nyheder",
     "NewsCode": "Nyheder kode",
     "NewsDetails": "Nyheder detaljer",
     "NewsgroupDetails": "Nyhedsgruppe detaljer",
@@ -589,9 +588,6 @@
   "invite": "invitere",
   "lastname": "Efternavn",
   "message": "besked",
-  "messages": {
-    "Send": "Send"
-  },
   "password": "Adgangskode",
   "requiredFields": "Kontroller, at alle obligatoriske felter er udfyldt",
   "schemas": {

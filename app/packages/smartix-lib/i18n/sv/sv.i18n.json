@@ -167,7 +167,6 @@
     "MotherLastName": "Mors efternamn",
     "MotherMobile": "Mamma mobil",
     "MotherSalutation": "Mor hälsningsfras",
-    "News": "Nyheter",
     "NewsCode": "Nyheter-kod",
     "NewsDetails": "Nyheter Detaljer",
     "NewsgroupDetails": "Diskussionsgrupp Detaljer",
@@ -590,9 +589,6 @@
   "invite": "bjuda in",
   "lastname": "Efternamn",
   "message": "meddelande",
-  "messages": {
-    "Send": "Skicka"
-  },
   "password": "Lösenord",
   "requiredFields": "Se till att alla obligatoriska fält är ifyllda",
   "schemas": {

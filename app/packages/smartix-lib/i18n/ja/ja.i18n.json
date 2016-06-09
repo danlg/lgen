@@ -166,7 +166,6 @@
     "MotherLastName": "母親の最後の名",
     "MotherMobile": "母の携帯",
     "MotherSalutation": "母の敬称",
-    "News": "ニュース",
     "NewsCode": "ニュース コード",
     "NewsDetails": "ニュース詳細",
     "NewsgroupDetails": "ニュースグループの詳細",
@@ -589,9 +588,6 @@
   "invite": "招待",
   "lastname": "最後の名前",
   "message": "メッセージ",
-  "messages": {
-    "Send": "送信"
-  },
   "password": "パスワード",
   "requiredFields": "すべての必須フィールドがいっぱいにしてください。",
   "schemas": {

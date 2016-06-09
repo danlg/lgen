@@ -166,7 +166,6 @@
     "MotherLastName": "Nama terakhir ibu",
     "MotherMobile": "Ibu Mobile",
     "MotherSalutation": "Ibu salam",
-    "News": "Berita",
     "NewsCode": "Kode Berita",
     "NewsDetails": "Berita Selengkapnya",
     "NewsgroupDetails": "Newsgroup rincian",
@@ -588,9 +587,6 @@
   "invite": "mengundang",
   "lastname": "Nama belakang",
   "message": "pesan",
-  "messages": {
-    "Send": "Kirim"
-  },
   "password": "Sandi",
   "requiredFields": "Pastikan semua bidang dibutuhkan terisi",
   "schemas": {
