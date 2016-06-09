@@ -109,6 +109,16 @@ Smartix.Chat.createChat = function (chatObj) {
 	// Creating Chat document to be inserted
 	var Chat = {};
 	Chat.users = chatObj.users;
+    if(chatObj.users.length === 2)
+    {
+      Chat.admins = chatObj.users; 
+      log.info("New 1-to-1 chat created"); 
+    }
+    else{
+    Chat.admins = [
+		Meteor.userId()
+	];
+    }
 	Chat.namespace = chatObj.namespace;
 	Chat.type = 'chat';
     if(chatObj.chatRoomName)
@@ -119,9 +129,7 @@ Smartix.Chat.createChat = function (chatObj) {
     {
         Chat.chatRoomAvatar = chatObj.chatRoomAvatar;
     }
-    Chat.admins = [
-		Meteor.userId()
-	];
+    
     Chat.addons = ['voice','images','documents'];
 
 	// Checks the arguments are of the specified type, convert it if not
@@ -141,7 +149,6 @@ Smartix.Chat.createChat = function (chatObj) {
 		return false;
 		// Optional: Throw error saying URL already exists
 	}
-
 	return Smartix.Groups.createGroup(Chat);
 };
 

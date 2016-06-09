@@ -52,9 +52,12 @@
                         
 
         
-            <div class="item item-divider">
-            {{_ "Moderator"}}
-            </div>        
+           
+            {{#if isOneToOne}}
+            {{else}}     
+             <div class="item item-divider">
+                {{_ "Moderator"}}
+            </div>   
             <div class="item item-icon-left user-item">
                 {{#each chatRoomProfile.admins}}
                     {{#with getUserById this }}
@@ -66,8 +69,8 @@
                     {{profile.firstName}} {{profile.lastName}}
                     {{/with}}                
                 {{/each}}
-
             </div>
+            {{/if}}
           
         <div class="item item-divider">
           {{_ "In Chat"}}
@@ -78,15 +81,17 @@
 
     {{/ionContent}}
   {{/ionView}}
-
-   {{#if isChatRoomModerator chatRoomProfile}} 
-   {{#ionFooterBar class='dummy bar-stable'}}   
-        {{#with chatRoomProfile}} 
-        <div class="title deleteChatRoomBtn">{{_ "RemoveChatRoom"}}</div>
-        {{/with}}
-       
-       <!--TODO: implement leave logic for non-moderator in group chat-->
-       <!--<div class="title">{{_ "Leave"}}</div>-->
-   {{/ionFooterBar}}
+    {{#if isOneToOne}}
+    {{else}}
+        {{#if isChatRoomModerator chatRoomProfile}} 
+        {{#ionFooterBar class='dummy bar-stable'}}   
+                {{#with chatRoomProfile}} 
+                <div class="title deleteChatRoomBtn">{{_ "RemoveChatRoom"}}</div>
+                {{/with}}
+            
+            <!--TODO: implement leave logic for non-moderator in group chat-->
+            <!--<div class="title">{{_ "Leave"}}</div>-->
+        {{/ionFooterBar}}
+        {{/if}}
    {{/if}}
 </template>
