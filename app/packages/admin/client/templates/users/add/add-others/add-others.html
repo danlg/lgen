@@ -38,7 +38,7 @@
                                 <div class="col-xs-6">
                                     <label class="control-label">{{_ "Admin.Username" }}</label>
                                     <div>
-                                        <input id="AdminAddOthers__username" type="text" class="form-control AdminAddOthers__input" placeholder="Last Name">
+                                        <input id="AdminAddOthers__username" type="text" class="form-control AdminAddOthers__input" placeholder="Username">
                                     </div>
                                 </div>
                             </div>
@@ -63,6 +63,15 @@
                     </div>
                 </fieldset>
                 <div class="text-right">
+                    <div class="form-group" style="margin:0;">
+                            <label class="control-label">{{_ "Admin.NotifyUserEmail" }}</label>
+                            <div class="checkbox checkbox-switchery">
+                            <label>
+                                <!--<input id="notifyuserwithemail" type="checkbox" class="switchery" checked>-->
+                                <input id="notifyuserwithemail" type="checkbox" class="switchery">
+                            </label>
+                            </div>
+                    </div>
                     <button id="AdminAddOthers__submit" type="submit" class="btn btn-primary">{{_ "Admin.AddUser" }} <i class="icon-arrow-right14 position-right"></i></button>
                 </div>
             </form>

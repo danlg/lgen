@@ -53,7 +53,7 @@ var checkAllRelationshipsAreValid = function (template) {
     return passesValidation;
 }
 
-var createParents = function (studentId, template) {
+var createParents = function (studentId, template, notifyuserwithemail) {
     // Go through each `addUser-newRelationship` block and checks that fields are complete
     template.$('.AdminAddStudent__newRelationship').each(function (i, el) {
         var parentObj = {};
@@ -64,7 +64,7 @@ var createParents = function (studentId, template) {
         parentObj.tel = $(el).find('.AddStudentNewRelationship__phone').intlTelInput("getNumber", intlTelInputUtils.numberFormat.E164);
         parentObj.type = $(el).find('.AddStudentNewRelationship__type').eq(0).val();
         
-        Meteor.call('smartix:accounts-schools/createParent', template.currentSchool, parentObj, false, function (err, res) {
+        Meteor.call('smartix:accounts-schools/createParent', template.currentSchool, parentObj, notifyuserwithemail, function (err, res) {
             if(!err) {
                 template.$('.AdminAddStudent__newRelationship').eq(i).find('.AddStudentNewRelationship__input').val("");
             }
@@ -78,6 +78,7 @@ Template.AdminAddStudent.events({
     },
     'click #AdminAddStudent__submit': function(event, template) {
         event.preventDefault();
+        var notifyuserwithemail = template.$('#notifyuserwithemail').is(":checked");
         let relCheckRes = checkAllRelationshipsAreValid(template);
         if(!relCheckRes) {
             return false;
@@ -129,7 +130,13 @@ Template.AdminAddStudent.events({
             }
         } else {
             // Email is not present Check if a password is provided
-            if(newUserObj.password.length < 4) {
+            // If Notify user is ticked, email must be provided
+            if(notifyuserwithemail)
+            {
+                toastr.error("Please ensure a valid email is provided to notify user");
+                return false;
+            }
+            else if(newUserObj.password.length < 4) {
                 toastr.error("Please provide an email or a password with at least 4 characters");
                 return false;
             }
@@ -152,13 +159,13 @@ Template.AdminAddStudent.events({
             ['student'], // Roles
             true, // autoEmailVerified
             //TODO implement flag like import to notify user in UI
-            false, // notify false (until we implement the flag for create user)
+            notifyuserwithemail, // notify false (until we implement the flag for create user)
             function(err, res) {
                 if (!err) {
                     toastr.info(TAPi18n.__("admin.users.add.addSuccess"));
                     // User is created, now we submit each of the parents
                     // Create the parent objects , It was already validated before, so should not throw an error
-                    createParents(res.id, template);
+                    createParents(res.id, template, notifyuserwithemail);
                     // Clears the input fields
                     template.$('.AdminAddStudent__input').val("");
                 } else {

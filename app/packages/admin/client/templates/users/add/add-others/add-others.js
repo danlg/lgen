@@ -3,6 +3,7 @@ Template.AdminAddOthers.events({
     'click #AdminAddOthers__submit': function(event, template) {
         event.preventDefault();
         var newUserObj = {};
+        var notifyuserwithemail = template.$('#notifyuserwithemail').is(":checked");
         newUserObj.profile = {}
         let firstName = newUserObj.profile.firstName = template.$('#AdminAddOthers__firstName').eq(0).val();
         let lastName = newUserObj.profile.lastName = template.$('#AdminAddOthers__lastName').eq(0).val();
@@ -39,9 +40,14 @@ Template.AdminAddOthers.events({
                 return false;
             }
         } else {
-            // Email is not present
-            // Check if a password is provided
-            if(newUserObj.password.length < 4) {
+            // Email is not present Check if a password is provided
+            // If Notify user is ticked, email must be provided
+            if(notifyuserwithemail)
+            {
+                toastr.error("Please ensure a valid email is provided to notify user");
+                return false;
+            }
+            else if(newUserObj.password.length < 4) {
                 toastr.error("Please provide an email or a password with at least 4 characters");
                 return false;
             }
@@ -67,7 +73,7 @@ Template.AdminAddOthers.events({
                 roles,
                 true, //autoEmailVerified,
                 //TODO implement flag like import to notify user in UI
-                false,//do not notify
+                notifyuserwithemail,//do not notify
                 function(err, res) {
                     if (!err) {
                         // Shows success message
