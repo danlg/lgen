@@ -555,7 +555,6 @@
         "RequiredOneClassroom":"Required at least one. You can list up to 10 classrooms by teacher e.g. Grade 4B, the second classroom from Grade 4. Can be identical to grade.",
         "ViewRSSFeeds":"View RSS Feeds",
         "PendingApproval":"Pending Approval",
-        "News":"News",
         "NewsCode":"News Code",
         "NewsDetails":"News details",
         "Newsgroups":"Newsgroups",
@@ -640,9 +639,6 @@
         "WelcometoSmartixAdmin":"Welcome to Smartix Admin!",
         "VerificationConfirmation": "Verification email sent!",
         "VerificationIssue":"There was an issue with sending the emails"
-    },
-    "messages": {
-        "Send": "Send"
     },
     "Newsgroups":{
         "Newsgroups":"Newsgroups",

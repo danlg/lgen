@@ -166,7 +166,6 @@
     "MotherLastName": "השם האחרון אמא",
     "MotherMobile": "אמא נייד",
     "MotherSalutation": "ברכה לאמא",
-    "News": "חדשות",
     "NewsCode": "קוד חדשות",
     "NewsDetails": "חדשות פרטים",
     "NewsgroupDetails": "דיון פרטי",
@@ -589,9 +588,6 @@
   "invite": "מזמינים",
   "lastname": "שם משפחה",
   "message": "ההודעה",
-  "messages": {
-    "Send": "שלח"
-  },
   "password": "סיסמה",
   "requiredFields": "נא ודא כל שדות החובה הם מלאים ב-",
   "schemas": {

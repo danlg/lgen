@@ -167,7 +167,6 @@
     "MotherLastName": "Mama mwisho jina",
     "MotherMobile": "Simu ya mama",
     "MotherSalutation": "Salamu mama",
-    "News": "Habari",
     "NewsCode": "Msimbo wa habari",
     "NewsDetails": "Habari maelezo",
     "NewsgroupDetails": "Maelezo ya kikundihabari",
@@ -590,9 +589,6 @@
   "invite": "Alika",
   "lastname": "Jina la mwisho",
   "message": "Ujumbe",
-  "messages": {
-    "Send": "Tuma"
-  },
   "password": "Nywila",
   "requiredFields": "Tafadhali hakikisha nyuga zote zinazohitajika kujazwa",
   "schemas": {

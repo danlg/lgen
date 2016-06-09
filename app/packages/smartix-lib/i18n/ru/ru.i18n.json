@@ -167,7 +167,6 @@
     "MotherLastName": "Фамилия матери",
     "MotherMobile": "Мать мобильный",
     "MotherSalutation": "Мать приветствие",
-    "News": "Новости",
     "NewsCode": "Новости код",
     "NewsDetails": "Новости Подробнее",
     "NewsgroupDetails": "Группы новостей детали",
@@ -590,9 +589,6 @@
   "invite": "пригласить",
   "lastname": "Фамилия",
   "message": "Сообщение",
-  "messages": {
-    "Send": "Отправить"
-  },
   "password": "Пароль",
   "requiredFields": "Пожалуйста, убедитесь, все обязательные поля заполнены в",
   "schemas": {

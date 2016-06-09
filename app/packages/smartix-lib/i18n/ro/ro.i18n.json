@@ -167,7 +167,6 @@
     "MotherLastName": "Prenumele mamei",
     "MotherMobile": "Mama Mobile",
     "MotherSalutation": "Salut mama",
-    "News": "Stiri",
     "NewsCode": "Codul de ştiri",
     "NewsDetails": "News detalii",
     "NewsgroupDetails": "Detalii grup",
@@ -590,9 +589,6 @@
   "invite": "invita",
   "lastname": "Numele de familie",
   "message": "mesaj",
-  "messages": {
-    "Send": "Trimite"
-  },
   "password": "Parola",
   "requiredFields": "Asigură-te că toate câmpurile obligatorii sunt completate",
   "schemas": {

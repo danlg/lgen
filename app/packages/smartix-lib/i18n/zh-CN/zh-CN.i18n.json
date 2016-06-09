@@ -462,7 +462,6 @@
         "RequiredOneClassroom":"要求至少一个. 老师可以列出最多10 个课堂, 例如 年级 4B可根据年级被区分.",
         "ViewRSSFeeds":"查看 RSS 种子",
         "PendingApproval":"待批准",
-        "News":"消息",
         "NewsCode":"消息号码",
         "NewsDetails":"消息详情",
         "Newsgroups":"消息群组",
@@ -585,9 +584,6 @@
         "TypeName" :"名称类别",
         "Namespace": "Namespace",
         "Norecord" : "沒有关系记录"
-    },
-    "messages": {
-        "Send": "发送"
     },
     "Newsgroups":{
         "Newsgroups":"消息群组",

@@ -166,7 +166,6 @@
     "MotherLastName": "Apellidos de la madre",
     "MotherMobile": "Móvil de la madre",
     "MotherSalutation": "Saludo de la madre",
-    "News": "Noticias",
     "NewsCode": "Código de noticias",
     "NewsDetails": "Detalles de noticias",
     "NewsgroupDetails": "Información de grupo de noticias",
@@ -594,9 +593,6 @@
   "invite": "invitar a",
   "lastname": "Apellido",
   "message": "Mensaje",
-  "messages": {
-    "Send": "Enviar"
-  },
   "password": "Contraseña",
   "requiredFields": "Asegúrese de que todos los campos requeridos están llenas",
   "schemas": {

@@ -167,7 +167,6 @@
     "MotherLastName": "แม่นามสกุล",
     "MotherMobile": "มือถือแม่",
     "MotherSalutation": "ทักทายแม่",
-    "News": "ข่าว",
     "NewsCode": "รหัสข่าว",
     "NewsDetails": "รายละเอียดข่าว",
     "NewsgroupDetails": "รายละเอียดกลุ่มข่าวสาร",
@@ -590,9 +589,6 @@
   "invite": "เชิญ",
   "lastname": "นามสกุล",
   "message": "ข้อความ",
-  "messages": {
-    "Send": "ส่ง"
-  },
   "password": "รหัสผ่าน",
   "requiredFields": "โปรดตรวจสอบว่า ฟิลด์ที่จำเป็นทั้งหมดที่เติมใน",
   "schemas": {

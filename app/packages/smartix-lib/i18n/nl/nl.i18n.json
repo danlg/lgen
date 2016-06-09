@@ -167,7 +167,6 @@
     "MotherLastName": "Achternaam van de moeder",
     "MotherMobile": "Moeder Mobile",
     "MotherSalutation": "Moeder aanhef",
-    "News": "Nieuws",
     "NewsCode": "Nieuws-Code",
     "NewsDetails": "Nieuws-details",
     "NewsgroupDetails": "Nieuwsgroep Details",
@@ -590,9 +589,6 @@
   "invite": "uitnodigen",
   "lastname": "Achternaam",
   "message": "Bericht",
-  "messages": {
-    "Send": "Verzenden"
-  },
   "password": "Wachtwoord",
   "requiredFields": "Zorg ervoor dat alle vereiste velden zijn ingevuld",
   "schemas": {

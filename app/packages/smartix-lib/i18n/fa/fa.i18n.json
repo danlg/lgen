@@ -166,7 +166,6 @@
     "MotherLastName": "مادر نام آخرین به روز رسانی",
     "MotherMobile": "همراه مادر",
     "MotherSalutation": "مادر تهنیت",
-    "News": "اخبار",
     "NewsCode": "کد خبر",
     "NewsDetails": "جزئیات خبر",
     "NewsgroupDetails": "جزئیات گروه خبری",
@@ -589,9 +588,6 @@
   "invite": "دعوت",
   "lastname": "نام خانوادگی",
   "message": "پیام",
-  "messages": {
-    "Send": "ارسال"
-  },
   "password": "رمز عبور",
   "requiredFields": "لطفا اطمینان حاصل شود تمام زمینه های مورد نیاز پر شده در",
   "schemas": {

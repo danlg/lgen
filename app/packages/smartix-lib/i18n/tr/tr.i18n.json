@@ -167,7 +167,6 @@
     "MotherLastName": "Annesi son adı",
     "MotherMobile": "Anne cep",
     "MotherSalutation": "Anne selamlama",
-    "News": "Haberler",
     "NewsCode": "Haber kodu",
     "NewsDetails": "Haber detayları",
     "NewsgroupDetails": "Haber grubu ayrıntıları",
@@ -590,9 +589,6 @@
   "invite": "davet",
   "lastname": "Soyadı",
   "message": "İleti",
-  "messages": {
-    "Send": "Gönder"
-  },
   "password": "Şifre",
   "requiredFields": "Lütfen tüm gerekli alanları dolu olduğundan emin olun",
   "schemas": {

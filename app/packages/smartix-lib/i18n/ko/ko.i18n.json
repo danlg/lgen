@@ -166,7 +166,6 @@
     "MotherLastName": "어머니 마지막 이름",
     "MotherMobile": "어머니 모바일",
     "MotherSalutation": "어머니 인사말",
-    "News": "뉴스",
     "NewsCode": "뉴스 코드",
     "NewsDetails": "뉴스 정보",
     "NewsgroupDetails": "뉴스 그룹 정보",
@@ -589,9 +588,6 @@
   "invite": "초대",
   "lastname": "마지막 이름",
   "message": "메시지",
-  "messages": {
-    "Send": "보내기"
-  },
   "password": "암호",
   "requiredFields": "모든 필수 필드는 채워진 확인 하십시오",
   "schemas": {

@@ -167,7 +167,6 @@
     "MotherLastName": "Nazwisko matki",
     "MotherMobile": "Matka Mobile",
     "MotherSalutation": "Powitanie matki",
-    "News": "Aktualności",
     "NewsCode": "Kod wiadomości",
     "NewsDetails": "Szczegóły Aktualności",
     "NewsgroupDetails": "Szczegóły grupy dyskusyjnej",
@@ -590,9 +589,6 @@
   "invite": "Zapraszam",
   "lastname": "Nazwisko",
   "message": "Komunikat",
-  "messages": {
-    "Send": "Wyślij"
-  },
   "password": "Hasło",
   "requiredFields": "Prosimy upewnić się, wszystkie wymagane pola są wypełnione w",
   "schemas": {

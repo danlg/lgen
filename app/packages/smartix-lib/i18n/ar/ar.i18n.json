@@ -166,7 +166,6 @@
     "MotherLastName": "اسم الأم الأخير",
     "MotherMobile": "جوال الأم",
     "MotherSalutation": "تحية الأم",
-    "News": "أخبار",
     "NewsCode": "أخبار المدونة",
     "NewsDetails": "تفاصيل الأخبار",
     "NewsgroupDetails": "تفاصيل الأخبار",
@@ -589,9 +588,6 @@
   "invite": "دعوة",
   "lastname": "الاسم الأخير",
   "message": "رسالة",
-  "messages": {
-    "Send": "إرسال"
-  },
   "password": "كلمة المرور",
   "requiredFields": "الرجاء التأكد من جميع الحقول المطلوبة في شغل",
   "schemas": {

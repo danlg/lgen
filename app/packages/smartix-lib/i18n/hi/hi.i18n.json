@@ -166,7 +166,6 @@
     "MotherLastName": "माँ आखिरी नाम",
     "MotherMobile": "माँ मोबाइल",
     "MotherSalutation": "माँ अभिवादन",
-    "News": "समाचार",
     "NewsCode": "समाचार कोड",
     "NewsDetails": "समाचार विवरण",
     "NewsgroupDetails": "समाचार समूह विवरण",
@@ -589,9 +588,6 @@
   "invite": "आमंत्रित करें",
   "lastname": "अंतिम नाम",
   "message": "संदेश",
-  "messages": {
-    "Send": "भेजें"
-  },
   "password": "पासवर्ड",
   "requiredFields": "कृपया सुनिश्चित करें कि सभी आवश्यक फ़ील्ड में भर रहे हैं",
   "schemas": {

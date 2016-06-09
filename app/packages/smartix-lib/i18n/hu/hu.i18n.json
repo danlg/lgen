@@ -166,7 +166,6 @@
     "MotherLastName": "Anya utolsó név",
     "MotherMobile": "Anya mobil",
     "MotherSalutation": "Anya-üdvözlés",
-    "News": "Hírek",
     "NewsCode": "Hírek-kód",
     "NewsDetails": "Hírek-részletek",
     "NewsgroupDetails": "Hírcsoport-részletek",
@@ -589,9 +588,6 @@
   "invite": "meghív",
   "lastname": "Utolsó név",
   "message": "üzenet",
-  "messages": {
-    "Send": "Küldés"
-  },
   "password": "Jelszó",
   "requiredFields": "Kérjük legyenek minden szükséges mezőt kitöltött",
   "schemas": {
