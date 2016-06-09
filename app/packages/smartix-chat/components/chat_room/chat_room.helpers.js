@@ -69,15 +69,24 @@ Template.ChatRoom.helpers({
     var userObj = Smartix.helpers.getAnotherUser();
     return userObj
   },
+
   getGroupOrCorrespondentAvatar : function () {
     var chat = Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId});
     if(chat){
         if(chat.chatRoomAvatar){
-            return chat.chatRoomAvatar;       
+            return "<i class=\"icon e1a-"+chat.chatRoomAvatar+" e1a-2x emojicon\"></i>";       
         }else{
             //get other person's avatar
             var userObj = Smartix.helpers.getAnotherUser();
-            return userObj && userObj.profile && userObj.profile.avatarValue;        
+            if(userObj.profile.avatarType)
+            {
+                if (userObj.profile.avatarType==="emoji")
+                    return "<i class=\"icon e1a-"+userObj.profile.avatarValue+" e1a-2x emojicon\"></i>";       
+                else
+                    return "<img class=\"icon icon-avatar e1a-2x\" src="+userObj.profile.avatarValue+" />";        
+            }
+            else 
+                    return "<i class=\"icon e1a-"+userObj.profile.avatarValue+" e1a-2x emojicon\"></i>";       
         }
     }else{
         return "";
@@ -87,6 +96,12 @@ Template.ChatRoom.helpers({
     var targetUserObj = Meteor.users.findOne(userId);
     return targetUserObj;      
   },
+  isEmoji:function(userId){
+      if(Meteor.users.findOne(userId).profile.avatarType)
+        return ( Meteor.users.findOne(userId).profile.avatarType==="emoji") ? true: false;   
+      else 
+        return true;  
+},
   getChatRoomName: function () {
     //we display the name of the chat room or the correspondent or the people in the group chat depending on the context
     if(getTotalChatRoomUserCount() > 2){

@@ -347,6 +347,21 @@ a.item-content {
   }
 }
 
+.item-icon-left .icon-avatar {
+    height:inherit;
+    top: ceil(($item-padding / 3) * 2);
+  &:before {
+    height: $item-icon-font-size;
+  }  
+}
+
+img.icon-avatar
+{
+    border-radius: 50%;
+}
+
+
+
 .item-icon-right {
   padding-right: ceil(($item-padding * 3) + ($item-padding / 3));
 

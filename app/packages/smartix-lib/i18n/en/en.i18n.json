@@ -697,7 +697,8 @@
         "Version":"Version"
     },
     "smartix-iconchooser":{
-        "Save":"Save"
+        "SelectEmojiOrUploadImage": "Upload an image or choose an emoji",
+        "UploadImage": "Upload image"
     },
     "smartix-sharer":{
         "SignupWithEmail":"Current User with email? Sign in here"

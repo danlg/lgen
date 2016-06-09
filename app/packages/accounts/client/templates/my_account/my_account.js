@@ -1,7 +1,6 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 var similarOrganizations = ReactiveVar([]);
 var similarCities = ReactiveVar([]);
-
 Schema = Schema || {};
 
 /**  obsolete. use the one from account package instead **/
@@ -31,24 +30,23 @@ Schema = Schema || {};
 /* MyAccount: Event Handlers */
 /*****************************************************************************/
 Template.MyAccount.events({
-  
-    'change #attachment': function(event, tmp) {
-        event.preventDefault();
-        var input = tmp.find('#attachment');
-        var imageUpload = input.files[0];
-        var reader  = new FileReader();
-        if(imageUpload.type == "image/jpeg")
-        {
-                reader.onload = tmp;
-                reader.readAsDataURL(imageUpload);
-                reader.onloadend = function () {
-                    var parentDataContext = {uploadedImage: reader, sessionToBeSet:"uploadIcon"};
-                    IonModal.open("UploadIcon", parentDataContext);
-                }
-        }
-    },
+    // 'change #attachment': function(event, tmp) {
+    //     event.preventDefault();
+    //     var input = tmp.find('#attachment');
+    //     var imageUpload = input.files[0];
+    //     var reader  = new FileReader();
+    //     if(imageUpload.type == "image/jpeg")
+    //     {
+    //             reader.onload = tmp;
+    //             reader.readAsDataURL(imageUpload);
+    //             reader.onloadend = function () {
+    //                 var parentDataContext = {uploadedImage: reader, sessionToBeSet:"uploadIcon"};
+    //                 IonModal.open("UploadIcon", parentDataContext);
+    //             }
+    //     }
+    // },
     'click #pick-an-icon-btn':function(){
-      var parentDataContext= {iconListToGet:"iconListForYou",sessionToBeSet:"chosenIconForYou"};
+      var parentDataContext= {iconListToGet:"iconListForYou", avatarType:"avatarType", sessionToBeSet:"chosenIconForYou", imageLarge:"uploadLarge"};
       IonModal.open("YouIconChoose", parentDataContext);
     },
     'keyup #organization':function(e){
@@ -139,9 +137,30 @@ Template.MyAccount.helpers({
         if(uploadIcon){
             return uploadIcon;
         }
+  },
+   isEmoji: function(){
+    if(Session.get('avatarType')){
+        var avatarType = Session.get('avatarType');
+        return (avatarType==="emoji") ? true : false;
+        }
+    else if(Meteor.user().profile.avatarType){
+        return (Meteor.user().profile.avatarType==="emoji") ? true: false;   
     }
-  , getYouAvatar:function(){
-    
+    else 
+        return true;
+    }    
+  , getAvatarType:function(){   
+    if(Session.get('avatarType')){
+        var avatarType = Session.get('avatarType');
+        if(avatarType){
+        return avatarType;
+        }           
+    }
+    else if(Meteor.user().profile.avatarValue){
+        return Meteor.user().profile.avatarType;
+    }
+  }
+  , getYouAvatar:function(){   
     if(Session.get('chosenIconForYou')){
         var chosenIcon = Session.get('chosenIconForYou');
         if(chosenIcon){
@@ -152,6 +171,11 @@ Template.MyAccount.helpers({
         return Meteor.user().profile.avatarValue;
     }
 
+  }, getAvatarLarge:function(){
+    var avatarLarge = Session.get('uploadLarge');
+    if(avatarLarge){
+      return avatarLarge;
+    }
   }, countriesWithValueOnly:function(){
       var countriesObj = CountryCodes.getList();
       var optionsCountries = [];
@@ -187,26 +211,24 @@ Template.MyAccount.helpers({
 /* MyAccount: Lifecycle Hooks */
 /*****************************************************************************/
 Template.MyAccount.created = function () {
-  
-  if(Meteor.user() && Meteor.user().profile){
-    if(Meteor.user().profile.avatarValue){
-      Session.set('uploadIcon', Meteor.user().profile.avatarValue)
-    }   
-  } 
+
 };
 
 Template.MyAccount.rendered = function () {
-
+   
 };
 
-Template.MyAccount.destroyed = function () {
-  delete Session.keys['chosenIconForYou'];
+Template.MyAccount.destroyed = function () {   
+    //Form submits when user clicks on Back to Update
+    AutoForm.submitFormById("#editprofile");
+    Session.set('chosenIconForYou', null);
+    Session.set('avatarType', null);
 };
 
 Template.ionNavBar.events({
-  'click .editAccountBtn': function () { 
-    AutoForm.submitFormById("#editprofile");
-  },
+//   'click .editAccountBtn': function () { 
+//     AutoForm.submitFormById("#editprofile");
+//   },
 
   'click .skip-account-btn': function () {
     Session.set('registerFlow',false);

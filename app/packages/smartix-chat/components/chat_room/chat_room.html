@@ -2,8 +2,13 @@
 
   {{#contentFor "headerTitle"}}
     <h1 class="title">
-      <i class="icon e1a-{{getGroupOrCorrespondentAvatar}} e1a-2x emojicon"></i>
-      {{getChatRoomName}}
+        <div>
+            <span>
+                <span>
+            {{{getGroupOrCorrespondentAvatar}}}</span>
+            </span>
+            {{getChatRoomName}}
+        </div>
     </h1>
   {{/contentFor}}
 
@@ -40,11 +45,15 @@
                         {{else}}
                             {{#with getUserById author}}        
                                 <div class='username'>
-                                    {{#if profile.useravatar}}
-                                        <i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>
+                                   {{#if profile.avatarValue}}
+                                        {{#if isEmoji this}}
+                                            <i class="icon e1a-{{profile.avatarValue}} e1a-1x emojicon"></i>
+                                        {{else}}
+                                            <img class="icon icon-avatar e1a-1x" src="{{profile.avatarValue}}" />
+                                        {{/if}}
                                     {{else}}
                                         <i class="icon e1a-green_apple e1a-1x emojicon"></i>
-                                    {{/if}}
+                                    {{/if}}  
                                     {{profile.firstName}} {{profile.lastName}}
                                     <i style='larger' class="icon {{isNewMessage ../createdAt}}  new-message-icon"></i>
                                     

@@ -52,7 +52,10 @@ Smartix.helpers.getFullNameByProfileObj = function(profile) {
     if (!profile) {
         return "";
     }
-    return profile.firstName + " " + profile.lastName;
+    if(profile.lastName)
+        return profile.firstName + " " + profile.lastName;
+    else
+        return profile.firstName;
 };
 
 Smartix.helpers.getFirstName_ByProfileObj = function(profile) {
