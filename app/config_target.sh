@@ -14,9 +14,9 @@ echo "   Copying " `pwd`/$config " -> " `pwd`/config.push.json
 cp -f $config config.push.json
 
 if [ $? -eq 0 ];
-  then
+then
     echo "   Config $1 push successfully set up"
-  else
+else
     echo "   Config $1 push set up failed ***"
     exit 1
 fi
@@ -33,44 +33,34 @@ echo "   Copying " `pwd`/$mobile " -> " `pwd`/mobile-config.js
 cp -f $mobile mobile-config.js
 
 if [ $? -eq 0 ];
-  then
+then
     echo "   Config $1 cordova successfully set up"
-  else
+else
     echo "   Config $1 cordova set up failed ***"
     exit 1
 fi
 
-
-if [ "$1" == "carmel" ] || [ "$1" == "carmelu" ]
-  then
-  echo ""
-  echo "   Configuring stylsheet for the carmel"
-  appStylesheet="client/stylesheets/app.scss.carmel"
-  ionicVariables="client/stylesheets/meteoric_ionic-sass/stylesheets/_variables.scss.carmel"
-  echo "   Copying " $appStylesheet " -> " client/stylesheets/app.scss
-  echo "   Copying " $ionicVariables " -> " client/stylesheets/meteoric_ionic-sass/stylesheets/_variables.scss.carmel
-
-  #echo `pwd`
-  #echo "mobile-config="$mobile
-  #ls -l $mobile
-  
-  #echo $stylesheet
-  cp -f $appStylesheet client/stylesheets/app.scss
-  cp -f $ionicVariables client/stylesheets/meteoric_ionic-sass/stylesheets/_variables.scss
-
-
-  if [ $? -eq 0 ];
-    then
+echo ""
+echo "3. Configuring stylesheets for " $1
+config=$1
+appStylesheet="client/stylesheets/app.scss."$config
+ionicVariables="client/stylesheets/meteoric_ionic-sass/stylesheets/_variables.scss."$config
+echo "   Copying " `pwd`/$appStylesheet " -> " `pwd`/client/stylesheets/app.scss
+echo "   Copying " `pwd`/$ionicVariables " -> " `pwd`/client/stylesheets/meteoric_ionic-sass/stylesheets/_variables.scss
+  #echo $appStylesheet
+cp -f `pwd`/$appStylesheet client/stylesheets/app.scss
+cp -f  `pwd`/$ionicVariables client/stylesheets/meteoric_ionic-sass/stylesheets/_variables.scss
+if [ $? -eq 0 ];
+then
       echo "   Stylesheets updated successfully"
-    else
-      echo "   There was an issue with loading the stylesheets"
+else
+      echo "   There was an issue copying stylesheets"
       exit 1
-  fi
 fi
 
 #Preparing symbolic link for mup
 echo ""
-echo "3. Preparing symbolic link for mup"
+echo "4. Preparing symbolic link for mup"
 
 echo "   Sym linking " `pwd`/mup.json " -> "  `pwd`/${1}u.mup.json
 echo "   Sym linking " `pwd`/settings.json " -> " `pwd`/${1}u.settings.json
