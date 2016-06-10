@@ -4,16 +4,12 @@ var targetStringVar = ReactiveVar([]);
 var targetString = [];
 var targetIds = ReactiveVar([]);
 var searchString = ReactiveVar("");
-/*****************************************************************************/
+
 /* ChatInvite: Event Handlers */
-/*****************************************************************************/
 Template.ChatInvite.events({
   'click .startChatBtn': function () {
-    /*var chatArr =  $('.js-example-basic-multiple').val();*/
       log.info('targetIds', targetIds.get() );
-      
       Meteor.call('chatCreate', targetIds.get(),null, Router.current().params.school, function (err, data) {
-      
       Router.go('ChatRoom', {chatRoomId: data});
     });
     /*log.info($('.js-example-basic-multiple').val());*/
@@ -23,11 +19,6 @@ Template.ChatInvite.events({
     targetString = [];
     targetIds.set([]);
     var localarr = [];
-    // $(".targetCB:checked").each(function(index,el){
-    // localarr.push($(el).val());
-    // targetString.push($(el).data("fullname"));
-    // });
-    // $(e.target).attr('checked','checked');
     localarr.push($(e.target).val());
     targetString.push($(e.target).data("fullname"));
     targetStringVar.set(targetString);
@@ -39,28 +30,36 @@ Template.ChatInvite.events({
   }
 });
 
-/*****************************************************************************/
 /* ChatInvite: Helpers */
-/*****************************************************************************/
 Template.ChatInvite.helpers({
-  'classesJoinedOwner': function () {
-    var classesJoinedOwner = Meteor.users.find({_id: {$nin: [Meteor.userId()]}}).fetch();
-    if (classesJoinedOwner.length < 1) {
-      return false;
-    } else {
-      return classesJoinedOwner;
-    }
-  },
+  // 'classesJoinedOwner': function () {
+  //   if (!Template.instance().subscriptionsReady()) return [];
+  //   //var classesJoinedOwner = Meteor.users.find({_id: {$nin: [Meteor.userId()]}}).fetch();
+  //   return Template.instance().allSchoolUsersPerRole();
+  //   // var classesJoinedOwner = Meteor.users.find(
+  //   //     {_id: {$nin: [Meteor.userId()]}},
+  //   //     {sort: {lastName: -1}});
+  //   // if (classesJoinedOwner.length < 1) {
+  //   //   return false;
+  //   // } else {
+  //   //   return classesJoinedOwner;
+  //   // }
+  // },
+
+   'classesJoinedOwner': function () {
+     var classesJoinedOwner = Meteor.users.find({_id: {$nin: [Meteor.userId()]}}).fetch();
+     if (classesJoinedOwner.length < 1) {
+       return false;
+     } else {
+       return classesJoinedOwner;
+     }
+   },
 
   userName: function (profile) {
     return Smartix.helpers.getFullNameByProfileObj(profile);
   },
 
   targetCB: function () {
-  },
-
-  tagertList: function () {
-    return targetStringVar.get();
   },
 
   shouldDisplay: function () {
@@ -84,17 +83,22 @@ Template.ChatInvite.helpers({
   }
 });
 
-/*****************************************************************************/
 /* ChatInvite: Lifecycle Hooks */
-/*****************************************************************************/
 Template.ChatInvite.created = function () {
-    
-      //NB: in master_layout. there is a allUsersWhoHaveJoinedYourClasses sub
-      
-      this.subscribe('allSchoolUsersPerRole', Router.current().params.school );
-      this.subscribe('smartix:classes/adminsOfJoinedClasses', Router.current().params.school );
-      
+   //NB: in master_layout. there is a allUsersWhoHaveJoinedYourClasses sub
+   this.subscribe('allSchoolUsersPerRole', Router.current().params.school );
+   this.subscribe('smartix:classes/adminsOfJoinedClasses', Router.current().params.school );
 };
+
+//http://www.meteorpedia.com/read/Understanding_Meteor_Publish_and_Subscribe
+//Template.ChatInvite.onCreated = function () {
+//  var self = this;
+//  //NB: in master_layout. there is a allUsersWhoHaveJoinedYourClasses sub
+//  self.autorun(function() {
+//    self.subscribe('allSchoolUsersPerRole', Router.current().params.school );
+//    self.subscribe('smartix:classes/adminsOfJoinedClasses', Router.current().params.school );
+//  });
+//};
 
 Template.ChatInvite.rendered = function () {
   // $(".js-example-basic-multiple").select2({

@@ -13,24 +13,14 @@
   {{/contentFor}}
 
   {{#ionView}}
-              {{#ionTabs style="android" class=""}}
-                {{> ionTab title="1-to-1 Chat" class="active" path='ChatInvite' }}
-                {{> ionTab title="Group Chat" href=getGroupChatInvitePath  }}
-            {{/ionTabs}}  
+    {{#ionTabs style="android" class=""}}
+      {{> ionTab title="1-to-1 Chat" class="active" path='ChatInvite' }}
+      {{> ionTab title="Group Chat" href=getGroupChatInvitePath  }}
+    {{/ionTabs}}
     {{#ionContent}}
 
       <div class="list">
-        <!-- <label class="item item-input">
-    To : &nbsp;
-    <select class="js-example-basic-multiple" multiple="multiple">
-        {{#each classesJoinedOwner}}
-            <option value={{_id}}>{{profile.firstName}} {{profile.lastName}}</option>
-        {{/each}}
-    </select>
-  </label> -->
-        <!-- <div class="item">
-    To: {{tagertList}}
-  </div> -->
+
         {{#with classesJoinedOwner}}
 
           <div class="item item-input">
@@ -39,7 +29,6 @@
           </div>
 
           {{#each this}}
-
             {{#if isSearchable}}
               <div class="item item-checkbox">
                 <label class="checkbox">
@@ -52,22 +41,16 @@
             {{/if}}
           {{/each}}
 
-        {{else}}
-
-          <div class="item">{{_ "No_chat_yet"}}</div>
-
+        {{else}} <!--with-->
+            <div class="item">{{_ "No_chat_yet"}}</div>
         {{/with}}
-
       </div>
 
-
-
-      <!-- <a href="{{pathFor 'ChatRoom' }}" class="button"></a> -->
     {{/ionContent}}
   {{/ionView}}
   {{#if shouldDisplay}}
-    {{#ionFooterBar class='startChatBtn bar-stable'}}   
-            <div class="title">{{_ "Next"}}</div>
+    {{#ionFooterBar class='startChatBtn bar-stable'}}
+      <div class="title">{{_ "Next"}}</div>
     {{/ionFooterBar}}
   {{/if}}
 </template>
