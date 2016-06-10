@@ -127,9 +127,9 @@ Template.TabChat.helpers({
     return (fetch && fetch.data) ? fetch.data.content : "";
   },
 
-  'lasttextTime':function(lastUpdatedAt){
-      return moment(lastUpdatedAt).fromNow();
-  },
+//   'lasttextTime':function(lastUpdatedAt){
+//       return moment().calendar(lastUpdatedAt);
+//   },
 
   'isHide': function (chatIds) {
       //var chatIdsLocal = chatIds;

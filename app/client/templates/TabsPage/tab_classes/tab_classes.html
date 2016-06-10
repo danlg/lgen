@@ -48,7 +48,7 @@
                         <i class="icon {{classAvatarIcon}} e1a-1x emojicon"></i>
                         {{this.className}}
                         <br/><span class='class-code'>@{{this.classCode}}</span>
-                        <br/><div class='description'>{{lasttextTime this.lastUpdatedAt}}</div>
+                        <br/><div class='description'>{{formatTime2 this.lastUpdatedAt}}</div>
                       </div>
                     </a>
                   {{/each}}
@@ -95,7 +95,7 @@
                       <i class="icon {{classAvatarIcon}} e1a-1x emojicon"></i>
                       {{this.className}}
                       <br/><span class='class-code'>@{{this.classCode}}</span>
-                      <br/><div class='description'>{{lasttextTime this.lastUpdatedAt}}</div>
+                      <br/><div class='description'>{{formatTime2 this.lastUpdatedAt}}</div>
                     </div>
                   </a>
                 {{/each}}
