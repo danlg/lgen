@@ -300,12 +300,7 @@ Template.ChatRoom.helpers({
 
 function isOneToOneChat(){
     var chat = Smartix.Groups.Collection.findOne({ _id: Router.current().params.chatRoomId });
-    if(chat.admins.length == 2)
-    {
-        if (chat.users.length == 2)
-            return true;
-    }
-    return false;
+    return (chat.users.length == 2) ? true : false;
 }
 
 // function lastMessageAuthor(){

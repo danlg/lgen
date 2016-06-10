@@ -109,16 +109,9 @@ Smartix.Chat.createChat = function (chatObj) {
 	// Creating Chat document to be inserted
 	var Chat = {};
 	Chat.users = chatObj.users;
-    if(chatObj.users.length === 2)
-    {
-      Chat.admins = chatObj.users; 
-      log.info("New 1-to-1 chat created"); 
-    }
-    else{
     Chat.admins = [
 		Meteor.userId()
 	];
-    }
 	Chat.namespace = chatObj.namespace;
 	Chat.type = 'chat';
     if(chatObj.chatRoomName)
