@@ -25,7 +25,7 @@
 
           <div class="item item-input">
             <i class="icon ion-search placeholder-icon"></i>
-            <input type="search" class="searchbar" placeholder="Search by names">
+            <input type="search" class="searchbar" placeholder="{{_ 'Search'}}">
           </div>
 
           {{#each this}}
@@ -36,7 +36,7 @@
                          data-fullName="{{userName profile}}">
                 </label>
                 {{userName profile}}
-                <p>{{getUserRoleInNamespace}}</p>
+                <p style="text-transform: capitalize;">{{getUserRoleInNamespace}}</p>
               </div>
             {{/if}}
           {{/each}}
