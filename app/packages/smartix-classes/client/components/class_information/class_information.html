@@ -20,19 +20,28 @@
 
 
 
-
       <div class="row row-center" style="height:30vh">
-        <div class="col">
-          <h1>{{classObj.className}}</h1>
+        <div class="col" style="padding-left:2vh;">
+          
+          <h1>
+            <i class="icon e1a-{{classObj.classAvatar}} e1a-1x emojicon"></i>
+            {{classObj.className}}
+            </h1>
         </div>
       </div>
       <div class="list">
+        
+        
         <div class="item item-divider">
+          
           {{_ "Teacher"}}
         </div>
         
         {{#each teachers}}
-            <div class="item">{{this.profile.firstName}} {{this.profile.lastName}}</div>
+            <div class="item item-icon-left">
+                   <i id='pick-an-icon-btn' class="icon e1a-{{this.profile.avatarValue}} e1a-1x emojicon"></i>
+                  <h2>{{this.profile.firstName}} {{this.profile.lastName}}</h2>
+            </div>
         {{/each}}
         <div class="item item-divider">
           {{_ "ClassCode"}}

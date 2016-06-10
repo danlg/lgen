@@ -176,22 +176,7 @@ Template.ClassDetail.helpers({
   teacherName: function () {
     return teacherName.get();
   }, 
-  isEmoji:function(userId){
-      if(teacherAvatarType)
-        return ( teacherAvatarType.get()==="emoji") ? true: false;   
-      else
-        return true;
-    },
-  teacherAvatar: function(){
-    return teacherAvatar.get();     
-  },
-  atTop:function(){
-      if(isAtTop.get()){
-          return true;
-      }else{
-          return false;
-      }
-  },
+
   isVoteOptionWithIcon:function(voteOptionIconString){
       if(voteOptionIconString){
           return true;

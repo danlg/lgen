@@ -1,14 +1,12 @@
 <template name="ClassDetail">
 
   {{#contentFor "headerTitle"   }}
-    {{#if atTop}}
-        <h1 class="title">{{classObj.className}}@{{classObj.classCode}} </h1> 
-    {{else}}
+
         <h1 class="title title-twoline">
-            <span>{{classObj.className}}</span>
-            <br/><span class='description-plain'>{{teacherName}}</span>
+          <i class="icon e1a-{{classObj.classAvatar}} e1a-1x emojicon"></i>
+          {{classObj.className}}
+          <br/><span class='description-plain'>{{teacherName}}</span>
         </h1>    
-    {{/if}}
   {{/contentFor}}
 
   {{#contentFor "headerButtonLeft"}}
@@ -32,16 +30,7 @@
 
   {{#ionView}}
     {{#ionContent class='background-wallpaper class-detail'}}
-    
-    <a class="item item-icon-left assertive" href="#" style="background: #EDE6DC" >
-        {{#if isEmoji this}}
-            <i id='pick-an-icon-btn' class="icon e1a-{{teacherAvatar}} e1a-1x emojicon"></i>
-        {{else}}
-            <img class="icon icon-avatar e1a-1x" id='pick-an-icon-btn' src="{{teacherAvatar}}" />
-        {{/if}}
-        <h2>{{teacherName}}</h2>
-       <!--<p>{{_ "Teacher"}}</p>-->
-    </a>     
+       
         <div class='date-bubble-wrapper {{isLoadMoreButtonShow}}'><button class='load-prev-msg'>{{_Loadmessages}}</button> </div>
      
       {{#with getMessagesObj}}

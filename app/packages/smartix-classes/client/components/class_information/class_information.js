@@ -27,5 +27,5 @@ Template.ClassInformation.helpers({
     if(teacherUser) {
         return Meteor.users.find( { _id: { $in: teacherUser.admins } } ).fetch();
     }
-  }
+  },
 });
