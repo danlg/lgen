@@ -249,8 +249,6 @@ var googleDocsURLToEmbedReadyURLHTML = function(originalURL) {
 
 
 Template.registerHelper('docPreview', function(url) {
-
-
     var linkList = [];
     Autolinker.link(url, {
         replaceFn: function(autolinker, match) {
@@ -314,9 +312,7 @@ Template.registerHelper('formatTimeFromNow', function(time) {
                 var trimUnixTime = fullUnixTime.substr(0, 10);
                 dateString = moment.unix(trimUnixTime).fromNow();
             }
-
         }
-
     }
     return dateString;
 });
@@ -324,12 +320,12 @@ Template.registerHelper('formatTimeFromNow', function(time) {
 Template.registerHelper('formatTime', function(time) {
     var dateString = "";
     if (time) {
-
+        var userLanguage = TAPi18n.getLanguage();
+        moment.locale(userLanguage);
         //if it is a valid javascript Date String
         if (moment(new Date(time)).isValid()) {
             dateString = moment(time).format('h:mm a');
         } else {
-
             //if it is a unix time string
             //log.info(this);
             var fullUnixTime = time;
@@ -339,7 +335,6 @@ Template.registerHelper('formatTime', function(time) {
             }
 
         }
-
     }
     return dateString;
 });
@@ -347,6 +342,8 @@ Template.registerHelper('formatTime', function(time) {
 Template.registerHelper('formatTime2', function(time) {
     var dateString = "";
     if (time) {
+        var userLanguage = TAPi18n.getLanguage();
+        moment.locale(userLanguage);
         if (moment(new Date(time)).isValid()) {
             var updatedTime = moment(new Date(time));
             if(updatedTime.isSame(moment(), 'day'))
@@ -373,6 +370,8 @@ Template.registerHelper('formatTime2', function(time) {
 Template.registerHelper('formatDate', function(time) {
     var dateString = "";
     if (time) {
+        var userLanguage = TAPi18n.getLanguage();
+        moment.locale(userLanguage);
         if (moment(new Date(time)).isValid()) {
             dateString = moment(time).format('LL');
         }
@@ -381,8 +380,6 @@ Template.registerHelper('formatDate', function(time) {
             var fullUnixTime = time;
             if (fullUnixTime) {
                 var trimUnixTime = fullUnixTime.substr(0, 10);
-                var userLanguage = TAPi18n.getLanguage();
-                moment.locale(userLanguage);
                 dateString = moment.unix(trimUnixTime).format('LL');
             }
         }
@@ -391,10 +388,14 @@ Template.registerHelper('formatDate', function(time) {
 });
 
 Template.registerHelper('formatDateCalendar', function(date) {
+    var userLanguage = TAPi18n.getLanguage();
+    moment.locale(userLanguage);
     return moment(date).format("LLLL");
 });
 
 Template.registerHelper('formatDateCalendarFromUnixTime', function(unixTime) {
+    var userLanguage = TAPi18n.getLanguage();
+    moment.locale(userLanguage);
     return moment.unix(unixTime).format("LLLL");
 });
 
