@@ -43,23 +43,25 @@
                     <div class="bubble">
                         {{#if isMineBoolean author}}
                         {{else}}
-                            {{#with getUserById author}}        
-                                <div class='username'>
-                                   {{#if profile.avatarValue}}
-                                        {{#if isEmoji this}}
-                                            <i class="icon e1a-{{profile.avatarValue}} e1a-1x emojicon"></i>
-                                        {{else}}
-                                            <img class="icon icon-avatar e1a-1x" src="{{profile.avatarValue}}" />
-                                        {{/if}}
-                                    {{else}}
-                                        <i class="icon e1a-green_apple e1a-1x emojicon"></i>
-                                    {{/if}}  
-                                    {{profile.firstName}} {{profile.lastName}}
-                                    <i style='larger' class="icon {{isNewMessage ../createdAt}}  new-message-icon"></i>
-                                    
-                                </div>
-                                <br/>                         
-                            {{/with}}
+
+                                {{#with getUserById author}}        
+                                    <div class='username'>
+                                        {{#if isGroupChat}}
+                                            {{#if profile.avatarValue}}
+                                                {{#if isEmoji this}}
+                                                    <i class="icon e1a-{{profile.avatarValue}} e1a-1x emojicon"></i>
+                                                {{else}}
+                                                    <img class="icon icon-avatar e1a-1x" src="{{profile.avatarValue}}" />
+                                                {{/if}}
+                                            {{else}}
+                                                <i class="icon e1a-green_apple e1a-1x emojicon"></i>
+                                            {{/if}}  
+                                            {{profile.firstName}} {{profile.lastName}}
+                                        {{/if}}   
+                                        <i style='larger' class="icon {{isNewMessage ../createdAt}}  new-message-icon"></i>
+                                    </div>
+                                    <br/>                         
+                                {{/with}}
                             
                         {{/if}}                 
                         {{{docPreview data.content}}}
@@ -86,14 +88,20 @@
                         {{#if isMineBoolean ../../author}}
                         {{else}}
                             {{#with getUserById ../../author}}
-                                <div class='username'> 
-                                    {{#if profile.useravatar}}
-                                        <i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>
-                                    {{else}}
-                                        <i class="icon e1a-green_apple e1a-1x emojicon"></i>
-                                    {{/if}}
-                                    {{profile.firstName}} {{profile.lastName}}
-                                    <i style='larger' class="icon {{isNewMessage ../../createdAt}}  new-message-icon"></i>
+                                <div class='username'>
+                                    {{#if isGroupChat}}
+                                        {{#if profile.avatarValue}}
+                                            {{#if isEmoji this}}
+                                                <i class="icon e1a-{{profile.avatarValue}} e1a-1x emojicon"></i>
+                                            {{else}}
+                                                <img class="icon icon-avatar e1a-1x" src="{{profile.avatarValue}}" />
+                                            {{/if}}
+                                        {{else}}
+                                            <i class="icon e1a-green_apple e1a-1x emojicon"></i>
+                                        {{/if}}  
+                                        {{profile.firstName}} {{profile.lastName}}
+                                    {{/if}}   
+                                    <i style='larger' class="icon {{isNewMessage ../createdAt}}  new-message-icon"></i>
                                 </div>
                                 <br/>
                             {{/with}}
@@ -109,14 +117,20 @@
                                     {{#if isMineBoolean ../../author}}
                                     {{else}}
                                         {{#with getUserById ../../author}}
-                                            <div class='username'> 
-                                                {{#if profile.useravatar}}
-                                                    <i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>
-                                                {{else}}
-                                                    <i class="icon e1a-green_apple e1a-1x emojicon"></i>
-                                                {{/if}}
-                                                {{profile.firstName}} {{profile.lastName}}
-                                                <i style='larger' class="icon {{isNewMessage ../../createdAt}} new-message-icon"></i>
+                                            <div class='username'>
+                                                {{#if isGroupChat}}
+                                                    {{#if profile.avatarValue}}
+                                                        {{#if isEmoji this}}
+                                                            <i class="icon e1a-{{profile.avatarValue}} e1a-1x emojicon"></i>
+                                                        {{else}}
+                                                            <img class="icon icon-avatar e1a-1x" src="{{profile.avatarValue}}" />
+                                                        {{/if}}
+                                                    {{else}}
+                                                        <i class="icon e1a-green_apple e1a-1x emojicon"></i>
+                                                    {{/if}}  
+                                                    {{profile.firstName}} {{profile.lastName}}
+                                                {{/if}}   
+                                                <i style='larger' class="icon {{isNewMessage ../createdAt}}  new-message-icon"></i>
                                             </div>
                                             <br/>
                                         {{/with}}
@@ -140,14 +154,20 @@
                                 {{#if isMineBoolean ../../author}}
                                 {{else}}
                                     {{#with getUserById ../../author}}
-                                        <div class='username'> 
-                                            {{#if profile.useravatar}}
-                                                <i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>
-                                            {{else}}
-                                                <i class="icon e1a-green_apple e1a-1x emojicon"></i>
-                                            {{/if}}
-                                            {{profile.firstName}} {{profile.lastName}}
-                                            <i style='larger' class="icon {{isNewMessage ../../createdAt}}  new-message-icon"></i>
+                                        <div class='username'>
+                                            {{#if isGroupChat}}
+                                                {{#if profile.avatarValue}}
+                                                    {{#if isEmoji this}}
+                                                        <i class="icon e1a-{{profile.avatarValue}} e1a-1x emojicon"></i>
+                                                    {{else}}
+                                                        <img class="icon icon-avatar e1a-1x" src="{{profile.avatarValue}}" />
+                                                    {{/if}}
+                                                {{else}}
+                                                    <i class="icon e1a-green_apple e1a-1x emojicon"></i>
+                                                {{/if}}  
+                                                {{profile.firstName}} {{profile.lastName}}
+                                            {{/if}}   
+                                            <i style='larger' class="icon {{isNewMessage ../createdAt}}  new-message-icon"></i>
                                         </div>
                                         <br/>
                                     {{/with}}
@@ -160,8 +180,22 @@
                                 {{#if isMineBoolean ../../author}}
                                 {{else}}
                                     {{#with getUserById ../../author}}
-                                        <div class='username'><i class="icon e1a-{{profile.useravatar}} e1a-1x emojicon"></i>{{profile.firstName}}</div><br/>
-                                    {{/with}}
+                                            <div class='username'>
+                                                {{#if isGroupChat}}
+                                                    {{#if profile.avatarValue}}
+                                                        {{#if isEmoji this}}
+                                                            <i class="icon e1a-{{profile.avatarValue}} e1a-1x emojicon"></i>
+                                                        {{else}}
+                                                            <img class="icon icon-avatar e1a-1x" src="{{profile.avatarValue}}" />
+                                                        {{/if}}
+                                                    {{else}}
+                                                        <i class="icon e1a-green_apple e1a-1x emojicon"></i>
+                                                    {{/if}}  
+                                                    {{profile.firstName}} {{profile.lastName}}
+                                                {{/if}}   
+                                                <i style='larger' class="icon {{isNewMessage ../createdAt}}  new-message-icon"></i>
+                                            </div>
+                                        {{/with}}
                                 {{/if}}                                  
                                 <audio controls>
                                     <source src="{{this.url}}" type="audio/wav">

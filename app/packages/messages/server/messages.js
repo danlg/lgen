@@ -325,8 +325,11 @@ Smartix.Messages.emailMessage = function (targetUserids, messageObj, groupObj, o
             {
                 if(user.emails[0] && user.emails[0].verified)
                     return true;
-                else if (user.emails[0] && user.services.google.verified_email)
-                    return true;
+                else if (user.emails[0] && user.services.google)
+                {
+                    if(user.services.google.verified_email)
+                        return true;
+                }
                 else
                     return false;
             }

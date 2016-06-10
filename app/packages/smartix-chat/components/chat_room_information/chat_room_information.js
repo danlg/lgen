@@ -44,9 +44,12 @@ Template.ChatRoomInformation.helpers({
     getUserById: function(userId) {
         var targetUserObj = Meteor.users.findOne(userId);
         return targetUserObj;
-    }
+    },
     
-    , isEmoji:function(userId){
-        return ( Meteor.users.findOne(userId).profile.avatarType==="emoji") ? true: false;   
+    isEmoji:function(userId){
+        if(Meteor.users.findOne(userId).profile.avatarType)
+            return ( Meteor.users.findOne(userId).profile.avatarType==="emoji") ? true: false;   
+        else 
+            return true;  
     }
 });

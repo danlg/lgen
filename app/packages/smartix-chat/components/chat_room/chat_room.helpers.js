@@ -64,6 +64,15 @@ Template.ChatRoom.helpers({
   isMineBoolean: function (currentUserId) {
     return (currentUserId === Meteor.userId());
   },
+  isGroupChat: function()
+  {
+      return !isOneToOneChat();
+  },
+  isOneToOne: function()
+  {
+      return isOneToOneChat();
+  },
+  
   userProfile: function () {
     //get another person's user object in 1 to 1 chatroom.     
     var userObj = Smartix.helpers.getAnotherUser();
@@ -78,16 +87,19 @@ Template.ChatRoom.helpers({
         }else{
             //get other person's avatar
             var userObj = Smartix.helpers.getAnotherUser();
-            if(userObj.profile.avatarType)
-            {
-                if (userObj.profile.avatarType==="emoji")
-                    return "<i class=\"icon e1a-"+userObj.profile.avatarValue+" e1a-2x emojicon\"></i>";       
-                else
-                    return "<img class=\"icon icon-avatar e1a-2x\" src="+userObj.profile.avatarValue+" />";        
-            }
-            else 
-                    return "<i class=\"icon e1a-"+userObj.profile.avatarValue+" e1a-2x emojicon\"></i>";       
+            return "<i class=\"icon e1a-"+userObj.profile.avatarValue+" e1a-2x emojicon\"></i>";  
         }
+
+            
+        //     if(userObj.profile.avatarType)
+        //     {
+        //         if (userObj.profile.avatarType==="emoji")
+        //             return "<i class=\"icon e1a-"+userObj.profile.avatarValue+" e1a-2x emojicon\"></i>";       
+        //         else
+        //             return "<img class=\"icon icon-avatar e1a-2x\" src="+userObj.profile.avatarValue+" />";        
+        //     }
+        //     else 
+        // }
     }else{
         return "";
     }
@@ -285,6 +297,24 @@ Template.ChatRoom.helpers({
   }
 
 });
+
+function isOneToOneChat(){
+    var chat = Smartix.Groups.Collection.findOne({ _id: Router.current().params.chatRoomId });
+    if(chat.admins.length == 2)
+    {
+        if (chat.users.length == 2)
+            return true;
+    }
+    return false;
+}
+
+// function lastMessageAuthor(){
+//     var chat = Smartix.Groups.Collection.findOne({ _id: Router.current().params.chatRoomId });
+//     var lastMessageAuthor = Smartix.Messages.Collection.findOne({
+//         group: Router.current().params.chatRoomId}, {sort: {createdAt: -1}} 
+//     );
+//     log.info(lastMessageAuthor);
+// }
 
 ////get another person's user object in 1 to 1 chatroom. call by chatroom helpers
 function getAnotherUser(){
