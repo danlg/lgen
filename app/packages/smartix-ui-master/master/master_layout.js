@@ -188,7 +188,7 @@ function checkLanguage(pause) {
             lang = mobilePhoneLanguage.value.replace(pattern, "");
           }
           var supportedLanguages = TAPi18n.getLanguages();
-          log.info("SupportedLanguages'"+ JSON.stringify(supportedLanguages)+ "'");
+          //log.info("SupportedLanguages'"+ JSON.stringify(supportedLanguages)+ "'");
           if( Object.keys(supportedLanguages).indexOf(lang) === -1 )
           {
               log.warn(lang, " not found. Defaulting to English");
@@ -237,7 +237,7 @@ function checkLanguage(pause) {
             lang = 'zh-TW';
         }
         var supportedLanguages = TAPi18n.getLanguages();
-        log.info("SupportedLanguages'"+ JSON.stringify(supportedLanguages)+ "'");
+        //log.info("SupportedLanguages'"+ JSON.stringify(supportedLanguages)+ "'");
         if( Object.keys(supportedLanguages).indexOf(lang) === -1 )
         {
             log.warn(lang, " not found. Defaulting to English");
