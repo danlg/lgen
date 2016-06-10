@@ -19,11 +19,20 @@ Template.AppLayout.helpers({
                                         .button.button-positive.active,
                                         .button.button-positive.activated,                                                                                               
                                         .tabs,
-                                        .tabs-striped .tabs,
+                                        /*.tabs-striped .tabs,*/
                                         .button-bar .button-bar-button,
                                         .input-box-panel .button
-                                        {border-color: ${schoolBackgroundColor};background-color:${schoolBackgroundColor};color:${schoolTextColor};}
-                                        
+                                        {
+                                          border-color: ${schoolBackgroundColor};
+                                          background-color:${schoolBackgroundColor};
+                                          color:${schoolTextColor};
+                                        }
+                                        .tabs-striped .tabs {
+                                            color:#444;
+                                        }
+                                        .tabs-top.tabs-striped .tab-item.tab-item-active, .tabs-top.tabs-striped .tab-item.active, .tabs-top.tabs-striped .tab-item.activated{
+                                            border-color:#444;
+                                        }
                                         .bar.bar-stable .title{
                                             color:${schoolTextColor};
                                         }
@@ -47,9 +56,7 @@ Template.AppLayout.helpers({
                                             border-color:${schoolBackgroundColor};
                                             background-color:${schoolBackgroundColor};
                                         }
-                                        .tabs-top.tabs-striped .tab-item.tab-item-active, .tabs-top.tabs-striped .tab-item.active, .tabs-top.tabs-striped .tab-item.activated{
-                                            border-color:${schoolTextColor};
-                                        }                                                                       
+                                                                                                          
                                     </style>
                 
                                 `;
