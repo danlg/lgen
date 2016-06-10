@@ -344,6 +344,32 @@ Template.registerHelper('formatTime', function(time) {
     return dateString;
 });
 
+Template.registerHelper('formatTime2', function(time) {
+    var dateString = "";
+    if (time) {
+        if (moment(new Date(time)).isValid()) {
+            let updatedTime = moment(new Date(time));
+            if(updatedTime.isSame(moment(), 'day'))
+            {
+                dateString = updatedTime.format('LT');
+            }
+            else if (updatedTime.isSame(moment().subtract(1, 'days').startOf('day'), 'day'))
+            {
+                var message = TAPi18n.__("Yesterday");
+                 dateString = message;
+            }
+            else if (updatedTime.isAfter(moment().subtract(7, 'days').startOf('day')))
+            {
+                dateString = updatedTime.format('dddd');
+            }
+            else
+            {
+                dateString = updatedTime.format('ll');
+            }
+        }
+    return dateString;
+    }
+});
 
 Template.registerHelper('formatDate', function(time) {
     var dateString = "";

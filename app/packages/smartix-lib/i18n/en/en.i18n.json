@@ -267,6 +267,7 @@
     "Fri": "Friday",
     "Sat": "Saturday",
     "Sun": "Sunday",
+    "Yesterday": "Yesterday",
     "Chat settings": "Chat settings",
     "schemas": {
         "WorkTimeSelection": {},
