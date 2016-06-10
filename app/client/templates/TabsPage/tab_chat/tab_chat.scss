@@ -28,6 +28,15 @@
    color:gray;
    font-size:65%; 
   }
+  .description{
+    max-height: 20px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  .item h2
+  {
+    font-weight: bold;
+  }
 }
 
 .hide {
