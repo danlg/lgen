@@ -698,5 +698,6 @@
   "smartix-sharer": {
     "SignupWithEmail": "与电子邮件的当前用户吗？在这里登陆"
   },
-  "your_class_is_ready_classname": "你班 __ classname__ 是准备好了 ！"
+  "your_class_is_ready_classname": "你班 __ classname__ 是准备好了 ！",
+  "Yesterday": "昨天"
 }

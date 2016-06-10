@@ -698,5 +698,6 @@
   "smartix-sharer": {
     "SignupWithEmail": "¿Usuario actual con el correo electrónico? Regístrese aquí"
   },
-  "your_class_is_ready_classname": "Su clase __ classname__ está listo!"
+  "your_class_is_ready_classname": "Su clase __ classname__ está listo!",
+  "Yesterday": "Ayer"
 }

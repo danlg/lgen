@@ -698,5 +698,6 @@
   "smartix-sharer": {
     "SignupWithEmail": "メールと現在のユーザー?サインインはこちらから"
   },
-  "your_class_is_ready_classname": "あなたのクラスの _ _ classname__ 準備ができて!"
+  "your_class_is_ready_classname": "あなたのクラスの _ _ classname__ 準備ができて!",
+  "Yesterday": "昨日"
 }

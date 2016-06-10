@@ -698,5 +698,6 @@
   "smartix-sharer": {
     "SignupWithEmail": "현재 사용자 이메일? 여기에 로그인"
   },
-  "your_class_is_ready_classname": "당신의 클래스 __ classname__ 준비입니다!"
+  "your_class_is_ready_classname": "당신의 클래스 __ classname__ 준비입니다!",
+  "Yesterday": "어제"
 }
