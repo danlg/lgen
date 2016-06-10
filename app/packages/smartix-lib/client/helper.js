@@ -324,16 +324,15 @@ Template.registerHelper('formatTime', function(time) {
         moment.locale(userLanguage);
         //if it is a valid javascript Date String
         if (moment(new Date(time)).isValid()) {
-            dateString = moment(time).format('h:mm a');
+            dateString = moment(time).format('LT');
         } else {
             //if it is a unix time string
             //log.info(this);
             var fullUnixTime = time;
             if (fullUnixTime) {
                 var trimUnixTime = fullUnixTime.substr(0, 10);
-                dateString = moment.unix(trimUnixTime).format('h:mm a');
+                dateString = moment.unix(trimUnixTime).format('LT');
             }
-
         }
     }
     return dateString;
