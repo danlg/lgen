@@ -34,15 +34,11 @@
         </style>
         <input type="color" id='school-background-color-picker-polyfill' />
 
-        <span style='font-size:x-small;'>{{_ "schools.Schoollogo" }} ({{_ "Optional" }})</span>
-        <label class='btn' for="school-logo"><i class="icon ion-image"></i></label>
-        <input id='school-logo' class='inputfile' type="file" name="school-logo" accept="image/*" >
+        <label for="school-logo" style='font-size:x-small;'>{{_ "schools.Schoollogo" }} ({{_ "Optional" }})</label>
+        <label for="school-logo" class='btn' ><i class="icon ion-image"></i></label>
+        <input id ="school-logo"  class='inputfile' type="file" name="school-logo" accept="image/*" >
 
-        <!--<label class='btn' for="school-background-image">-->
-          <!--<span style='font-size:x-small;'>Background ({{_ "Optional" }})</span>-->
-          <!--<i class="icon ion-image"></i>-->
-        <!--</label>-->
-        <span style='font-size:x-small;'> {{_ "Background" }}({{_ "Optional" }})</span>
+        <label for="school-background-image" style='font-size:x-small;'> {{_ "Background" }}({{_ "Optional" }})</label>
         <label class='btn' for="school-background-image"><i class="icon ion-image"></i></label>
         <input id='school-background-image' class='inputfile' type="file" name="school-background-image" accept="image/*" >
 

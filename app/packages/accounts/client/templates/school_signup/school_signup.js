@@ -1,10 +1,10 @@
 Template.SchoolSignup.onCreated(function(){
-
     this.chosenRole = new ReactiveVar('');
     this.chosenNumberOfStudent = new ReactiveVar(0);
     this.mySchoolName = new ReactiveVar('');
 
-    this.inputBackgroundColor = new ReactiveVar('#811719');
+    this.defaultColor = '#0080BF';
+    this.inputBackgroundColor = new ReactiveVar(this.defaultColor);
     this.inputTextColor = new ReactiveVar('#FFFFFF');
     this.currentSchoolFormTemplate = new ReactiveVar('SchoolSignupForm');
     this.newSchoolId = new ReactiveVar('');
@@ -19,7 +19,9 @@ Template.SchoolSignup.onRendered(function(){
         preferredFormat: "hex",
         showInput: true,
         showPalette: true,
-        palette: [["#3F5D7D","#279B61" ,"#008AB8","#993333","#A3E496","#95CAE4","#CC3333","#FFCC33","#CC6699"]],
+        //palette: [["#3F5D7D","#279B61" ,"#008AB8","#993333","#A3E496","#95CAE4","#CC3333","#FFCC33","#CC6699"]],
+        palette: [[
+            "darkred", "lightgreen", "lightblue", "gold", "forestgreen", "purple", "orange", "pink", "mediumturquoise"]],
         showButtons: false
     });
 });
@@ -106,7 +108,6 @@ Template.SchoolSignup.helpers({
 Template.SchoolSignup.events({
     'keyup .school-name':function(event,template){
         template.mySchoolName.set(     $(event.target).val()  );
-
     },
 
     'click .role-selection':function(event,template){
@@ -199,7 +200,6 @@ Template.SchoolSignup.events({
         if ($('#school-trial-account-create-page2')[0].checkValidity()) {
             //checkValidity without form submission
             event.preventDefault();
-
             var schoolShortName = $('#school-short-name').val();
             var SchoolTrialAccountCreationObj = Session.get('schoolTrialAccountCreation');
             //log.info('start-my-trial-page2-btn', SchoolTrialAccountCreationObj);
@@ -244,8 +244,30 @@ Template.SchoolSignup.events({
     },
 
     'change #school-background-color-picker-polyfill': function (event, template) {
+        //log.info("change color set ", $(event.target).val());
         template.inputBackgroundColor.set($(event.target).val());
     },
+
+    'click .reset-color-and-logos':function(event, template) {
+        //log.info("reset-color was", $(event.target).val());
+        //log.info("reset-color set", template.defaultColor);
+        template.inputBackgroundColor.set(template.defaultColor);
+        template.inputTextColor.set('#FFFFFF');
+        template.previewSchoolLogoBlob.set('');
+        template.previewSchoolBackgroundImageBlob.set('');
+        document.getElementById("school-logo-preview").src = '/packages/smartix_accounts/client/asset/hbs_logo.svg';
+        //need to reset palette
+        event.preventDefault();
+        $('#school-background-color-picker-polyfill').spectrum({
+            color: template.defaultColor,
+            preferredFormat: "hex",
+            showInput: true,
+            showPalette: true,
+            palette: [[
+                "darkred", "lightgreen", "lightblue", "gold", "forestgreen", "purple", "orange", "pink", "mediumturquoise"]],
+            showButtons: false
+        });
+    } ,
 
     'change #school-logo': function (event, template) {
         var files = event.target.files;
@@ -276,13 +298,7 @@ Template.SchoolSignup.events({
             reader.readAsDataURL(files[0]);
         }
     },
-    'click .reset-color-and-logos':function(event, template) {
-        template.inputBackgroundColor.set('#811719');
-        template.inputTextColor.set('#FFFFFF');
-        template.previewSchoolLogoBlob.set('');
-        template.previewSchoolBackgroundImageBlob.set(''); 
-        document.getElementById("school-logo-preview").src = '/packages/smartix_accounts/client/asset/hbs_logo.svg';
-    } , 
+
     'click #person-sign-up':function(event,template){
         template.currentSchoolFormTemplate.set('EmailSignupForm');
     },
@@ -292,16 +308,13 @@ Template.SchoolSignup.events({
         userObj.profile = {};
         var email = $(".email").val();
         var password = $(".password").val();
-        
         if(password.length < 4) {
            toastr.error("At least 4 characters Password");
         }
         userObj.password = password;
-        
         userObj.profile.firstName = $(".fn").val();
         userObj.profile.lastName = $(".ln").val();
         userObj.dob = $("#dobInput").val() || "";
-
         if (!Smartix.helpers.validateEmail(email)) {
             toastr.error("Incorrect Email");
         } else {
@@ -316,7 +329,6 @@ Template.SchoolSignup.events({
                         email: userObj.email,
                         verified: false
                     });
-                    
                     Meteor.loginWithPassword(email,password,function(err){
                         if(err){
                             toastr.error('Sign up fail. The email is already taken');
