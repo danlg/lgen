@@ -98,7 +98,7 @@ $button-light-active-bg: #fafafa !default;
 $button-light-active-border: #ccc !default;
 
 $button-stable-bg: $stable !default;
-$button-stable-text: #444 !default;
+$button-stable-text: #FFF !default;
 $button-stable-border: #b2b2b2 !default;
 $button-stable-active-bg: #e5e5e5 !default;
 $button-stable-active-border: #a2a2a2 !default;
