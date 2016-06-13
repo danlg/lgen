@@ -30,12 +30,10 @@ Meteor.methods({
         return Smartix.Accounts.createUser(email, userObj, namespace, types, this.userId, autoEmailVerified, doNotifyEmail);
     },
     'smartix:accounts/editUser': function(userId, options) {
-        
         check(userId, Match.Maybe(String));
         check(options, Object);
-        
         return Smartix.Accounts.editUser(userId, options, this.userId);
-    },
+    },    
     'smartix:accounts/removeUser': function (userId, namespace) {
         
         check(userId, Match.Maybe(String));

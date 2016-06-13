@@ -5,16 +5,20 @@ Template.AdminAddStudent.onCreated(function () {
 Template.AdminAddStudent.onRendered(function(){
     // Initialize pickadate in this page
     this.$('.pickadate').pickadate({
-            labelMonthNext: 'Go to the next month',
-            labelMonthPrev: 'Go to the previous month',
-            labelMonthSelect: 'Pick a month from the dropdown',
-            labelYearSelect: 'Pick a year from the dropdown',
-            selectMonths: true,
-            selectYears: 40,
-            editable:true
-        }
+                labelMonthNext: 'Go to the next month',
+                labelMonthPrev: 'Go to the previous month',
+                labelMonthSelect: 'Pick a month from the dropdown',
+                labelYearSelect: 'Pick a year from the dropdown',
+                selectMonths: true,
+                selectYears: true,
+                format: 'dd-mm-yyyy',
+                editable:true,
+                //should be Today() - 20 Years
+                min: new Date(1996,01,01),
+                //should be Today() -2 Years
+                max: new Date(2015,01,01)
+            }
     );
-    
     // Initialize intl-tel-input
     this.$("#AdminAddStudent__tel").intlTelInput({
         // Enable GEO lookup using ipinfo

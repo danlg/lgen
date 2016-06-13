@@ -367,6 +367,10 @@
             "add": {
                 "studentDobRequired": "Date of Birth is required for students",
                 "addSuccess": "User was added successfully"
+            },
+            "update": {
+                "UpdateFail": "There was an error while updating. Please try again. ",
+                "UpdateSuccess": "User was updated successfully"
             }
         }
     },

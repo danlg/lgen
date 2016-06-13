@@ -365,10 +365,10 @@ Smartix.Accounts.editUser = function(userId, options, currentUser) {
 };
 
 Smartix.Accounts.canEditUser = function(userId, options, currentUser) {
-
     check(userId, Match.Maybe(String));
-
     // Allow only users to change certain fields (e.g. users cannot change their role)
+    var namespace = options.schoolNamespace;
+    delete options.schoolNamespace;
     Smartix.Accounts.editUserSchema.clean(options);
     check(options, Smartix.Accounts.editUserSchema);
 
@@ -384,7 +384,8 @@ Smartix.Accounts.canEditUser = function(userId, options, currentUser) {
         // AND if the user is the only system administrator, you cannot delete
         && (Smartix.Accounts.System.isAdmin(currentUser)
             // OR is the user themselves
-            || userId === currentUser);
+            || userId === currentUser 
+            || Smartix.Accounts.School.isAdmin(namespace, currentUser));
 };
 
 
