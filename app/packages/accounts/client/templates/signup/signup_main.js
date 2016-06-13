@@ -1,4 +1,4 @@
-Template.SchoolSignup.onCreated(function(){
+Template.SignupMain.onCreated(function(){
     this.chosenRole = new ReactiveVar('');
     this.chosenNumberOfStudent = new ReactiveVar(0);
     this.mySchoolName = new ReactiveVar('');
@@ -18,7 +18,7 @@ Template.SchoolSignup.onCreated(function(){
     }
 });
 
-Template.SchoolSignup.onRendered(function(){
+Template.SignupMain.onRendered(function(){
     //log.info('SchoolSignupForm',this.inputBackgroundColor);
     $('#school-background-color-picker-polyfill').spectrum({
         color: this.inputBackgroundColor.get(),
@@ -32,7 +32,7 @@ Template.SchoolSignup.onRendered(function(){
     });
 });
 
-Template.SchoolSignup.helpers({
+Template.SignupMain.helpers({
     emailSignup: function(argument) {
         Schema.emailSignup.i18n("schemas.emailSignup");
         return Schema.emailSignup;
@@ -114,7 +114,7 @@ Template.SchoolSignup.helpers({
     }
 });
 
-Template.SchoolSignup.events({
+Template.SignupMain.events({
     'keyup .school-name':function(event,template){
         template.mySchoolName.set(     $(event.target).val()  );
     },
@@ -407,8 +407,8 @@ Template.SchoolSignup.events({
     'click #school-sign-up':function(event,template){
         event.preventDefault();
         log.info("click #school-sign-up");
-        template.currentSchoolFormTemplate.set('SchoolSignup');
-        //Blaze.render( Template.SchoolSignup);
+        template.currentSchoolFormTemplate.set('SchoolSignupForm');
+
     }
 });
 

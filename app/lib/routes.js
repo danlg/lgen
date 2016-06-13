@@ -204,7 +204,7 @@ var i18Init = function () {
 
 //the following routes does not require login to access
 Router.onBeforeAction(OnBeforeActions.LoginRequired, {
-  except: ['language', 'Login', 'SchoolSignup','SchoolSignupPage2', 'EmailSignup', 'EmailSignin','EmailForgetPwd','EmailResetPwd', 'role',
+  except: ['language', 'Login', 'SignupMain','SchoolSignupPage2', 'EmailSignup', 'EmailSignin','EmailForgetPwd','EmailResetPwd', 'role',
    'Testing', 'Test2','ClassInformationForWebUser','ClassSearchInformationForWebUser',
    'TermsOfService','PrivacyPolicy','TourFromHomePage','Perf','LoginSplash']
 });
