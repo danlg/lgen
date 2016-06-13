@@ -79,7 +79,8 @@ Package.onUse(function(api) {
         'client/templates/signup/signup_main.html',
         'client/templates/signup/signup_main.js',
         'client/templates/signup/signup_main.css',
-        'client/templates/signup/school_signup_form.html',
+        'client/templates/signup/school_signup_form.html',        
+        'client/templates/signup/school_signup_form.js',
         'client/templates/signup/school_signup_form2.html',
         'client/templates/signup/individual_signup.html'
     ], 'client');

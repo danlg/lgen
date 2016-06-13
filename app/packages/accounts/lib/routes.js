@@ -22,7 +22,7 @@ SchoolRequired = function() {
 }
 
 Router.onBeforeAction(SchoolRequired, {
-  except: ['language', 'Login', 'SignupMain','SchoolSignupPage2', 'EmailSignup', 'EmailSignin','EmailForgetPwd','EmailResetPwd', 'role',
+  except: ['language', 'Login', 'SignupMain', 'EmailSignup', 'EmailSignin','EmailForgetPwd','EmailResetPwd', 'role',
    'Testing', 'Test2','ClassInformationForWebUser','ClassSearchInformationForWebUser',
    'TermsOfService','PrivacyPolicy','TourFromHomePage','Perf','LoginSplash']
 });
@@ -80,10 +80,6 @@ Router.route('/login', {
 
 Router.route('/school-signup', {
   name: "SignupMain"
-});
-
-Router.route('/school-signup/last-step', {
-  name: "SchoolSignupPage2"
 });
 
 Router.route('Dob');

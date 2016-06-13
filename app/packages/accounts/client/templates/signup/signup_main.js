@@ -18,20 +18,6 @@ Template.SignupMain.onCreated(function(){
     }
 });
 
-Template.SignupMain.onRendered(function(){
-    //log.info('SchoolSignupForm',this.inputBackgroundColor);
-    $('#school-background-color-picker-polyfill').spectrum({
-        color: this.inputBackgroundColor.get(),
-        preferredFormat: "hex",
-        showInput: true,
-        showPalette: true,
-        //palette: [["#3F5D7D","#279B61" ,"#008AB8","#993333","#A3E496","#95CAE4","#CC3333","#FFCC33","#CC6699"]],
-        palette: [[
-            "darkred", "lightgreen", "lightblue", "gold", "forestgreen", "purple", "orange", "pink", "mediumturquoise"]],
-        showButtons: false
-    });
-});
-
 Template.SignupMain.helpers({
     emailSignup: function(argument) {
         Schema.emailSignup.i18n("schemas.emailSignup");
@@ -48,7 +34,6 @@ Template.SignupMain.helpers({
             return TAPi18n.__("My_remarkable_school");
         }else{
             return Template.instance().mySchoolName.get();
-
         }
     },
     getInputBackgroundColor : function(){
