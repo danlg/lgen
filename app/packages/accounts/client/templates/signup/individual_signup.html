@@ -1,0 +1,42 @@
+<template name='IndividualSignUp'>
+      
+    <button class="button button-full button-calm individual-google-login-btn" style='color:white;'>
+        <i class="icon ion-social-google"></i>
+      {{_ "SignUpWithGoogle"}}
+    </button>      
+      <div style='width:100%;text-align:center;'>{{_ "OR"}}</div>
+
+
+    <div class="list">
+      <form id='emailSignUpForm'>
+        <div class="">
+          <label class="item item-input">
+                <input type="text" placeholder="{{_ "FirstName" }}" class="fn" required>
+              </label>
+        </div>
+        <div class="">
+          <label class="item item-input">
+                <input type="text" placeholder="{{_ "LastName" }}" class="ln" required>
+              </label>
+        </div>
+        <div class="">
+          <label class="item item-input">
+                <input type="email" placeholder="{{_ "Email" }}" class="email" required>
+              </label>
+        </div>
+        <div class="">
+          <label class="item item-input">
+                <input type="password" placeholder="{{_ "Password"}}" class="password" required>
+              </label>
+        </div>
+        <button type='button' class="button button-full button-positive individual-create-btn">
+            {{_ "SignUp"}}
+        </button>
+        <div style='text-align:center;'>
+          <a id='school-sign-up' style='display:inline-block;'>
+            {{_ "SchoolSignupMsg"}}
+          </a>
+        </div>
+      </form>
+    </div>
+</template>

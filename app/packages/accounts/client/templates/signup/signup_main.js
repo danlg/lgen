@@ -10,6 +10,12 @@ Template.SchoolSignup.onCreated(function(){
     this.newSchoolId = new ReactiveVar('');
     this.previewSchoolLogoBlob = new ReactiveVar('');
     this.previewSchoolBackgroundImageBlob = new ReactiveVar('');
+
+    //from EmailSignup template merged below
+    //$("body").removeClass('modal-open');
+    if (Meteor.userId()) {
+        Smartix.helpers.routeToTabClasses();
+    }
 });
 
 Template.SchoolSignup.onRendered(function(){
@@ -27,7 +33,10 @@ Template.SchoolSignup.onRendered(function(){
 });
 
 Template.SchoolSignup.helpers({
-
+    emailSignup: function(argument) {
+        Schema.emailSignup.i18n("schemas.emailSignup");
+        return Schema.emailSignup;
+    },
     getCurrentSchoolFormTemplate:function(){
         return Template.instance().currentSchoolFormTemplate.get();
     },
@@ -299,10 +308,6 @@ Template.SchoolSignup.events({
         }
     },
 
-    'click #person-sign-up':function(event,template){
-        template.currentSchoolFormTemplate.set('EmailSignupForm');
-    },
-
     'click .individual-create-btn': function(event, template) {
         var userObj = {};
         userObj.profile = {};
@@ -339,15 +344,73 @@ Template.SchoolSignup.events({
                         }
                     });
                 }
+            });
+        }
+    },
+    
+    'click .individual-google-login-btn':function(event, template) {
+        Smartix.Accounts.registerOrLoginWithGoogle();
+    }     ,
+
+    //below individual signup
+    'click .createBtn': function(event, template) {
+        var userObj = {};
+        userObj.profile = {};
+        var email = $(".email").val();
+        var password = $(".password").val();
+        if(password.length < 4) {
+            toastr.error("At least 4 characters Password");
+        }
+        userObj.password = password;
+        userObj.profile.firstName = $(".fn").val();
+        userObj.profile.lastName = $(".ln").val();
+        //userObj.dob = $("#dobInput").val() || "";
+        if (!Smartix.helpers.validateEmail(email)) {
+            toastr.error("Incorrect Email");
+        } else {
+            Meteor.call('smartix:accounts/createUser', email, userObj, 'global', ['user'], function(err, res) {
+                if (err) {
+                    toastr.error(err.reason);
+                    log.error(err);
+                } else {
+                    //create User successfully
+                    analytics.track("Sign Up", {
+                        date: new Date(),
+                        email: userObj.email,
+                        verified: false
+                    });
+                    Meteor.loginWithPassword(email,password,function(err){
+                        if(err){
+                            toastr.error('Sign up fail. The email is already taken');
+                        }else{
+                            toastr.info(TAPi18n.__("WelcomeVerification"));
+                            log.info("login:meteor:" + Meteor.userId());
+                            Smartix.helpers.routeToTabClasses();
+                        }
+                    });
+                }
 
             });
         }
     },
-    'click .individual-google-login-btn':function(event, template) {
-        Smartix.Accounts.registerOrLoginWithGoogle();
-    }     
-});
 
+    'click .google-login-btn':function(event, template) {
+        Smartix.Accounts.registerOrLoginWithGoogle();
+    },
+
+    'click #person-sign-up':function(event,template){
+        event.preventDefault();
+        log.info("click #person-sign-up");
+        template.currentSchoolFormTemplate.set('IndividualSignUp');
+    },
+    //if we are on individual signup we go to school signup
+    'click #school-sign-up':function(event,template){
+        event.preventDefault();
+        log.info("click #school-sign-up");
+        template.currentSchoolFormTemplate.set('SchoolSignup');
+        //Blaze.render( Template.SchoolSignup);
+    }
+});
 
 function hasHtml5Validation () {
     return typeof document.createElement('input').checkValidity === 'function';
