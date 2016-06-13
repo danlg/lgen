@@ -74,9 +74,9 @@ Router.route('/email-forget-password', {
 Router.route('/login', {
   name: "EmailSignin"
 });
-Router.route('/signup', {
-  name: "EmailSignup"
-});
+// Router.route('/signup', {
+//   name: "EmailSignup"
+// });
 
 Router.route('/school-signup', {
   name: "SchoolSignup"
