@@ -13,7 +13,6 @@ var messageListBaseBorrow = 70;
 var messageListHeightBorrower = ReactiveVar([]);
 var canVote = ReactiveVar(true);
 
-
 var setCalendar = function (event, sendMsgtemplate) {
   IonPopup.show({
     title: TAPi18n.__("SetEvent"),
@@ -58,9 +57,8 @@ var setCalendar = function (event, sendMsgtemplate) {
     ]
   });
 };
-/*****************************************************************************/
+
 /* SendMessage: Event Handlers */
-/*****************************************************************************/
 Template.SendMessage.events({
   'click .showActionSheet':function(event,template){
     IonActionSheet.show({
@@ -86,24 +84,25 @@ Template.SendMessage.events({
       }
     });     
   },
+  
   'click .cancel-calendar':function(event,template){
     template.calendarEvent.set({});
   },
+  
   'click .set-calendar': setCalendar,
   'click #allowVote':function(event){
     voteEnableCheck();  
   },
+  
   'click #imageBtn': function (e) {
-
-   
     if (Meteor.isCordova) {
       if (window.device.platform === "Android") {
         e.preventDefault();
         imageAction();
       }
     }
-
   },
+  
   'click .ion-play.playBtn': function (e) {
     if (!isPlayingSound) {
       isPlayingSound = true;
@@ -111,9 +110,7 @@ Template.SendMessage.events({
       var soundUrl = $(e.target).data('clipurl');
       //  $(e.target).attr('class','icon ion-stop');
       $(e.target).attr('class', 'button button-icon icon ion-stop ');
-
       // log.info(playname);
-
       // log.info(Sounds.findOne(playname).url());
       // log.info(Sounds.findOne(playname));
       log.info(soundUrl);
@@ -125,31 +122,24 @@ Template.SendMessage.events({
       });
     }
   },
+  
   'click .file.voice:not(.disabled)': function (argument) {
-
     if (!isRecording) {
-
       log.info('startRec');
       media = Smartix.helpers.getNewRecordFile();
       media.startRecord();
       isRecording = true;
       $(".icon.ion-ios-mic-outline").attr("class", "icon ion-stop");
-
       setTimeout(function () {
         if (isRecording)
           media.stopRecord();
       }, 1000 * 60 * 3);//max 3 min
-
-
     } else {
       log.info('stopRec');
       media.stopRecord();
       //  playAudio(media.src);
       isRecording = false;
-
       $(".icon.ion-stop").attr("class", "icon ion-ios-mic-outline");
-
-
       switch (window.device.platform) {
         case "Android":
           window.resolveLocalFileSystemURL(cordova.file.externalRootDirectory + media.src, onResolveSuccess, fail);
@@ -157,30 +147,22 @@ Template.SendMessage.events({
         case "iOS":
           window.resolveLocalFileSystemURL(cordova.file.tempDirectory + media.src, onResolveSuccess, fail);
           break;
-
       }
-
       showPreview('voice');
     }
-
   },
+  
   'click .ion-close-circled.image': function (e) {
     var id = $(e.target).data('imgid');
-    log.info(id);
-
+    //log.info(id);
     var array = imageArr.get();
     var index = array.indexOf(id);
-
     if (index > -1) {
       array.splice(index, 1);
     }
-
     imageArr.set(array);
-    
     hidePreview("image");
-
     //TODO: clean up file if cancel by user
-
   },
 
   'click .ion-close-circled.voice': function (e) {
@@ -225,9 +207,9 @@ Template.SendMessage.events({
       mediaObj.documentArr = documentArr.get();
       mediaObj.calendarEvent = template.calendarEvent.get();
 
-      log.info("sendMsg:allowComment:" + mediaObj.allowComment);
-      log.info("sendMsg:allowVote:" + mediaObj.allowComment);
-      log.info("sendMsg:voteType:" + mediaObj.voteType);
+      //log.info("sendMsg:allowComment:" + mediaObj.allowComment);
+      //log.info("sendMsg:allowVote:" + mediaObj.allowComment);
+      //log.info("sendMsg:voteType:" + mediaObj.voteType);
 
       //if nothing is received from input
       if (msg === "" && (mediaObj.imageArr.length == 0)
@@ -247,7 +229,6 @@ Template.SendMessage.events({
             selectArrName: [],
             selectArrId: []
           });
-
           //input parameters clean up
           imageArr.set([]);
           soundArr.set([]);
@@ -255,11 +236,9 @@ Template.SendMessage.events({
           $(".msgBox").val("");
           template.calendarEvent.set({});
           hidePreview('all');
-
           sendBtnMediaButtonToggle();
           //force update autogrow
           document.getElementsByClassName("inputBox")[0].updateAutogrow();
-
           //scroll messagelist to bottom;
           window.setTimeout(scrollMessageListToBottom, 100);
       });
@@ -269,13 +248,13 @@ Template.SendMessage.events({
     log.info("input box keyup");
     sendBtnMediaButtonToggle();
   },
+  
   'paste .inputBox':function(e){
     log.info("input box paste");
-    
     //http://stackoverflow.com/questions/9857801/how-to-get-the-new-value-of-a-textarea-input-field-on-paste
     window.setTimeout(sendBtnMediaButtonToggle, 100);
-
   },  
+  
   'click #documentBtn':function(e){
     if (Meteor.isCordova) {
       if (window.device.platform === "Android") {
@@ -285,9 +264,9 @@ Template.SendMessage.events({
               window.setTimeout(scrollMessageListToBottom, 100);
         });  
       }
-    }      
-   
+    }
   },
+  
   'change #documentBtn': function (event, template) {
       Smartix.FileHandler.documentUpload(event,'class',documentArr.get(),function(result){
           
@@ -356,10 +335,8 @@ function populateCalendar(mediaObj) {
 function populateVote(voteObj, mediaObj) {
   voteObj.type = "poll";
   voteObj.votes = [];
-  log.info('allowVote');
-
-  log.info(mediaObj.voteType);
-
+  //log.info('allowVote');
+  //log.info(mediaObj.voteType);
   if(mediaObj.voteType == 'heartNoEvilStarQuestion'){
     voteObj.votes.push({option:'heart',optionIconType:'icon-emojicon',optionIconValue:'e1a-hearts',users:[]});
     voteObj.votes.push({option:'noevil',optionIconType:'icon-emojicon',optionIconValue:'e1a-see_no_evil',users:[]});
@@ -390,20 +367,16 @@ function populateVote(voteObj, mediaObj) {
   return voteObj;
 }
 
-
-/*****************************************************************************/
 /* SendMessage: Helpers */
-/*****************************************************************************/
 Template.SendMessage.helpers({
   
   calendarEventSet:function(){ 
    // log.info(Template.instance().calendarEvent);
-  
-   if($.isEmptyObject(Template.instance().calendarEvent.get())){
+    if($.isEmptyObject(Template.instance().calendarEvent.get())){
      return false;
-   }else{
+    }else{
      return true;
-   }
+    }
   },
   addClassBtnStatus: function () {
     return Session.get("isSelecting") ? "hidden" : "";
@@ -420,8 +393,8 @@ Template.SendMessage.helpers({
   selectArr: function () {
     return [];
   },
+  
   searchObj: function () {
-
     if (lodash.has(Router.current().params, 'classCode')) {
       if (!lodash.isUndefined(Router.current().params.classCode)) {
         log.info(Smartix.Groups.Collection.find({
@@ -441,10 +414,7 @@ Template.SendMessage.helpers({
         Session.set("sendMessageSelectedClasses", obj);
       }
     }
-
     return Session.get('sendMessageSelectedClasses');
-
-
   },
   arrToString: function (arr) {
     if (arr.length < 1) {
@@ -521,11 +491,9 @@ Template.SendMessage.helpers({
   }
 });
 
-/*****************************************************************************/
-/* SendMessage: Lifecycle Hooks */
-/*****************************************************************************/
-Template.SendMessage.created = function () {
 
+/* SendMessage: Lifecycle Hooks */
+Template.SendMessage.created = function () {
     this.calendarEvent = new ReactiveVar({});
 };
 
@@ -540,10 +508,8 @@ Template.SendMessage.rendered = function () {
         updateMessageListHeight();           
     }
   }
-  
   //initial check of vote option.
   voteEnableCheck();
-    
 };
 
 Template.SendMessage.destroyed = function () {
@@ -564,25 +530,17 @@ Template.SendMessage.destroyed = function () {
 Template.ionNavBar.events({
   'click .sendMsgBtn': function () {
     /*var target  = $(".js-example-basic-multiple").val();*/
-
-
     var target = Session.get('sendMessageSelectedClasses').selectArrId;
-    log.info(target);
-    
+    //log.info(target);
     var msg = $(".msgBox").val();
     var mediaObj = {};
     mediaObj.imageArr = imageArr.get();
     mediaObj.soundArr = soundArr.get();
-
-    log.info(target.length);
-    
+    //log.info(target.length);
     if(msg == "" && mediaObj.imageArr.length == 0 && mediaObj.soundArr.length == 0){
-      
       toastr.error("please input some message");
-      
     }    
     else if (target.length > 0) {
-      
       //loop through selected classes
       for (var count = 0; count < target.length; count++) {
         
@@ -597,57 +555,42 @@ Template.ionNavBar.events({
           Router.go('TabClasses');
         });
       }
-
     } else {
       toastr.error("no class select!");
     }
   }
 });
 
-
-
 function onSuccess(imageURI) {
   // var image = document.getElementById('myImage');
   // image.src = "data:image/jpeg;base64," + imageData;
-
-  log.info("onSuccess");
+  //log.info("onSuccess");
   // alert(imageData);
   window.resolveLocalFileSystemURL(imageURI,
     function (fileEntry) {
       // alert("got image file entry: " + fileEntry.fullPath);
-
       // log.info(fileEntry.)
       fileEntry.file(function (file) {
         // alert(file);
-        log.info(file);
-
-
+        log.info("resolveLocalFileSystemURL", file);
         Images.insert(file, function (err, fileObj) {
           if (err) {
             // handle error
             log.error(err);
           } else {
-
             // alert(fileObj._id);
             var arr = imageArr.get();
             arr.push(fileObj._id);
-            
-
-            
             imageArr.set(arr);
-
             if (Meteor.user().firstPicture) {
               analytics.track("First Picture", {
                 date: new Date(),
               });
-
               Meteor.call("updateProfileByPath", 'firstPicture', false);
             }
-            
             showPreview("image");
           }
         });
-
 
       });
     },
@@ -656,18 +599,13 @@ function onSuccess(imageURI) {
       // alert("ada");
     }
   );
-
 }
 
 function onFail(message) {
   toastr.error('Failed because: ' + message);
 }
 
-
-
 var callback = function (buttonIndex) {
-  
-            
   setTimeout(function () {
     // like other Cordova plugins (prompt, confirm) the buttonIndex is 1-based (first button is index 1)
     //  alert('button index clicked: ' + buttonIndex);
@@ -688,22 +626,17 @@ var callback = function (buttonIndex) {
         });
         break;
       default:
-
     }
-
   });
 };
 
 
 function onResolveSuccess(fileEntry) {
   log.info('onResolveSuccess: ' + fileEntry.name);
-
   fileEntry.file(function (file) {
-
     var newFile = new FS.File(file);
     //newFile.attachData();
     //log.info(newFile);
-
     Sounds.insert(newFile, function (err, fileObj) {
       if (err) {
         //handle error
@@ -715,12 +648,10 @@ function onResolveSuccess(fileEntry) {
           "file": "/cfs/files/files/" + fileObj._id
         };
         log.info(fileURL.file);
-
         var arr = soundArr.get();
         arr.push(fileObj._id);
         soundArr.set(arr);
         media = "";
-
       }
     });
   });
@@ -784,16 +715,13 @@ function showPreview(filetype){
      //$('.messageList').css({'height':'calc(100% - 180px )'})        
     }
     messageListHeightBorrower.set(borrower);
-
     updateMessageListHeight();
-      
     //http://stackoverflow.com/questions/10503606/scroll-to-bottom-of-div-on-page-load-jquery
     $('.messageList').scrollTop($('.messageList').prop("scrollHeight") );   
 }
 function hidePreview(filetype){
     log.info("hide preview:filetype:"+filetype);
     var borrower = messageListHeightBorrower.get();
-
     if(filetype == "all"){
         borrower = [];
 
@@ -810,9 +738,7 @@ function hidePreview(filetype){
         $('.preview'+'.'+filetype).hide();       
     }
     messageListHeightBorrower.set(borrower);
-   
     updateMessageListHeight();
-    
     //http://stackoverflow.com/questions/10503606/scroll-to-bottom-of-div-on-page-load-jquery   
     $('.messageList').scrollTop($('.messageList').prop("scrollHeight") );   
 }
@@ -826,7 +752,6 @@ function sendBtnMediaButtonToggle(){
     $('.sendMsgBtn').fadeOut(50, function () {
       $('.mediaButtonGroup').fadeIn(50, function () { });
     });
-
   }   
 }
 
@@ -842,29 +767,26 @@ function updateMessageListHeight(){
     var totalExtraBorrow = 0;
     var totalBorrow;
     var calcValue;
-        
     var borrower = messageListHeightBorrower.get();
-    
     borrower.map(function(obj){
         totalExtraBorrow = totalExtraBorrow + obj.height;
-    })
+    });
     totalBorrow = messageListBaseBorrow + totalExtraBorrow;
     calcValue = "calc(100% - "+totalBorrow+"px)";
-    $('.messageList').css({'height':calcValue});   
-     
+    $('.messageList').css({'height':calcValue});
 }
 
 function voteEnableCheck(){
       if($('input#allowVote:checked').length > 0){
-          canVote.set(true);
-          
+        canVote.set(true);
         if(lodash.findIndex(borrower,{type:"vote-options"}) == -1){
             var borrower = messageListHeightBorrower.get();
             borrower.push({type:"vote-options",height:20});
             messageListHeightBorrower.set(borrower);
             updateMessageListHeight();           
         }         
-      }else{
+      }
+      else{
           canVote.set(false);
           var borrower = messageListHeightBorrower.get();
           lodash.remove(borrower, function (obj) {
