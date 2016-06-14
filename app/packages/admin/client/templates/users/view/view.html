@@ -59,6 +59,8 @@
             </form>
             <button id="UpdateUser__submit" type="submit" class="btn btn-primary">{{_ "Update" }} <i class="icon-arrow-right14 position-right"></i></button>
         </div>
+        {{> AdminUsersAddRelationships }}
+        {{> RelatedUsersMobile}}
         {{/with}} 
         {{else}} {{_ "Admin.Loading" }} {{/if}}
     </div>
