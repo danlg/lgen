@@ -37,7 +37,9 @@ Router.route('ClassUsers', {
   waitOn: function () {
     return [
         Meteor.subscribe('smartix:classes/classByClassCode', this.params.classCode),
-        Meteor.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses')
+        Meteor.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses'),
+        Meteor.subscribe('smartix:classes/distributionListsOfClass', this.params.classCode),
+        
     ];
   }
 });

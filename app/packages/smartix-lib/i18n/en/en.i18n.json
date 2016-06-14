@@ -698,6 +698,7 @@
     "smartix-classes":{
         "Loadmessages" : "...",
         "ViewUsers" : "Show members"
+        , "ViewListUsers": "Members from Distribution Lists"
     },
     "smartix-core":{
         "Version":"Version"

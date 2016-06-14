@@ -117,13 +117,11 @@ Meteor.publish('smartix:classes/allUsersWhoHaveJoinedYourClasses', function () {
     // Extract all the users from the `users` property
     // from all classes into another array  
     var users = _.flatMap(classes, 'users');
-
+    var distList = _.flatMap(classes, 'distributionLists');
     // Extract all the users from the distribtion lists
-    users = _.union(users, Smartix.DistributionLists.getUsersInDistributionLists(classes.distributionLists));
-    
+    users = _.union(users, Smartix.DistributionLists.getUsersInDistributionLists(distList));
     // Remove the current user from the list of users
     users = _.pull(users, this.userId); 
-
     // Return a cursor of all users in the `users` array
     return Meteor.users.find({
     _id: {

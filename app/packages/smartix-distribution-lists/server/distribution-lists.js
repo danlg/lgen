@@ -207,9 +207,15 @@ Smartix.DistributionLists.getDistributionListsOfUser = function (userId) {
 }
 
 Smartix.DistributionLists.getUsersInDistributionLists = function (distributionLists) {
-    return _.uniq(_.reduce(distributionLists, function (users, list) {
-        users = _.concat(users, list.users);
-    }, []));
+    return _.reduce(distributionLists, 
+        function (users, listid) {
+            var distList = Smartix.Groups.Collection.find({
+                    type: 'distributionList',
+                    _id : listid
+                }).fetch();
+            users = _.union(users, distList[0].users);
+            return users;
+        }, []);
 }
 
 // Remove non-existent distribution lists from the array

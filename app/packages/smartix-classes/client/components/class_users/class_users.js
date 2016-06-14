@@ -65,11 +65,38 @@ Template.ClassUsers.helpers({
     });
     var userArray = classObj.users;
     //select users from Meteor who is not current user and has joined this class
-    var users = Meteor.users.find({$and: [{_id: { $ne: Meteor.userId()}}, {_id: {$in: userArray}}] } ).fetch();
+    var users = Meteor.users.find({$and: [{_id: { $ne: Meteor.userId()}}, {_id: {$in: userArray}}] } ).fetch();    
     /*return lodash.findByValuesNested(users,'profile','firstname',text.get())*/
     return users;
   },
-
+  distributionList:function(){
+        var classObj = Smartix.Groups.Collection.findOne({
+            type: 'class',
+            classCode: Router.current().params.classCode
+        });
+        var distributionListArray = classObj.distributionLists;
+        var distributionLists = Smartix.Groups.Collection.find({
+                    _id: {$in: distributionListArray},
+                    type: 'distributionList'
+        });
+        return distributionLists;
+    },
+  
+  usersInList: function(listId){
+      var userArray = listId.users;
+      var users = Meteor.users.find({$and: [{_id: { $ne: Meteor.userId()}}, {_id: {$in: userArray}}] } ).fetch();    
+      return users;
+  },
+  
+  isDistribution: function()
+  {
+    var classObj = Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: Router.current().params.classCode
+    });
+    return (classObj.distributionLists ?  true : false);
+  },
+  
   isSearched: function (userObj) {
     var name = Smartix.helpers.getFullNameByProfileObj(userObj.profile);
     if (text.get() === "") {
