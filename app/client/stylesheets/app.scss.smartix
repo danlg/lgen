@@ -1,8 +1,8 @@
-$stable: #008CFF;
-$positive: #008CFF;
+$stable: #3E82F7;
+$positive: #3E82F7;
 
 .genius-color  {
-  color : #008CFF;
+  color : #3E82F7;
 }
 
 .translucid  {
@@ -15,7 +15,7 @@ $positive: #008CFF;
 }
 
 .ion-checkmark-round.colored {
-  color: #008CFF;
+  color: #3E82F7;
 }
 
 .ion-close-round.colored {
