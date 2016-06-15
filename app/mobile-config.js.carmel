@@ -65,7 +65,9 @@ App.setPreference('BackupWebStorage', 'none');
 
 //ANDROID
 App.setPreference('android-minSdkVersion', '19'); //19 === android 4.4.2 webview is required
-App.setPreference('android-targetSdkVersion', '23');//should be the latest version
+//App.setPreference('android-targetSdkVersion', '23');//should be the latest version (ideally)
+//https://forum.ionicframework.com/t/android-lolipop-nexus-push-notifications-plugin-icon-is-white/29724
+App.setPreference('android-targetSdkVersion', '20');//to avoid white icon notification for lollipop
 
 //BOTH
 App.setPreference('Orientation', 'portrait');
