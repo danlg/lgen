@@ -30,13 +30,16 @@
 
           {{#each this}}
             {{#if isSearchable}}
-              <div class="item item-checkbox">
-                <label class="checkbox">
-                  <input type="radio" name="nameOfTeacher" class="targetCB" value="{{_id}}"
-                         data-fullName="{{userName profile}}">
-                </label>
-                {{userName profile}}
-                <p style="text-transform: capitalize;">{{getUserRoleInNamespace}}</p>
+              <div class="item item-icon-left item-checkbox-right item-checkbox">
+                  <label class="checkbox">
+                    <input type="radio" name="nameOfTeacher" class="targetCB" value="{{_id}}"
+                          data-fullName="{{userName profile}}">
+                  </label>
+                  {{#if profile.avatarValue}}
+                      <i class="icon e1a-{{profile.avatarValue}} e1a-1x emojicon"></i>
+                  {{/if}}
+                  {{profile.firstName}}<strong> {{profile.lastName}}</strong>
+                  <p style="text-transform: capitalize;">{{getUserRoleInNamespace}}</p>
               </div>
             {{/if}}
           {{/each}}

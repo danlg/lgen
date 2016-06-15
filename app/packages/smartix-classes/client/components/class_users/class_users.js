@@ -65,8 +65,9 @@ Template.ClassUsers.helpers({
     });
     var userArray = classObj.users;
     //select users from Meteor who is not current user and has joined this class
-    var users = Meteor.users.find({$and: [{_id: { $ne: Meteor.userId()}}, {_id: {$in: userArray}}] } ).fetch();    
-    /*return lodash.findByValuesNested(users,'profile','firstname',text.get())*/
+    var users = Meteor.users.find({$and: [{_id: { $ne: Meteor.userId()}}, {_id: {$in: userArray}}] }, 
+                {sort: { 'profile.lastName': 1, 'profile.firstName': 1}} ).fetch();    
+   /*return lodash.findByValuesNested(users,'profile','firstname',text.get())*/
     return users;
   },
   distributionList:function(){

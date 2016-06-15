@@ -1,9 +1,8 @@
 <template name="ChatRoomUsers">
-    {{#each chatRoomProfile.users}}
+    {{#each chatRoomUser}}
         <div class="item item-icon-left user-item">
             
-            {{#with getUserById this}}
-                    {{#if profile.avatarValue}}
+                 {{#if profile.avatarValue}}
                         {{#if isEmoji this}}
                             <i class="icon e1a-{{profile.avatarValue}} e1a-1x emojicon"></i>
                         {{else}}
@@ -13,15 +12,7 @@
                         <i class="icon e1a-green_apple e1a-1x emojicon"></i>
                     {{/if}}            
                     {{profile.firstName}} {{profile.lastName}}
-            {{/with}}            
             <br>
-            
-            <!--TODO: add delete function for moderator-->
-            <!--{{#if isChatRoomModerator ..}}
-            <i style='' class="icon assertive  ion-android-remove-circle remove-member-btn ">                   
-            </i>
-            {{/if}}-->
         </div>            
     {{/each}}
-            
 </template>

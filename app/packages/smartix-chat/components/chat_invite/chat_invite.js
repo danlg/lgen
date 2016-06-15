@@ -47,7 +47,7 @@ Template.ChatInvite.helpers({
   // },
 
    'classesJoinedOwner': function () {
-     var classesJoinedOwner = Meteor.users.find({_id: {$nin: [Meteor.userId()]}}).fetch();
+     var classesJoinedOwner = Meteor.users.find({_id: {$nin: [Meteor.userId()]}}, {sort: { 'profile.lastName': 1, 'profile.firstName': 1}}).fetch();
      if (classesJoinedOwner.length < 1) {
        return false;
      } else {

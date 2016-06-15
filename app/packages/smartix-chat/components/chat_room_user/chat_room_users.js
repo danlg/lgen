@@ -1,6 +1,17 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 
 Template.ChatRoomUsers.helpers({
+    chatRoomUser: function()
+    {
+        var chatObj = Smartix.Groups.Collection.findOne({
+        type: 'chat',
+        classCode: Router.current().params.chatRoomId
+    });
+    var userArray = chatObj.users;
+    //select users from Meteor who is not current user and has joined this class
+    return Meteor.users.find({_id: {$in: userArray} }, {$sort: {profile}} ).fetch()
+    },
+
     isChatRoomModerator: function(context){     
         //log.info(context);
         //log.info(chatRoomProfile)

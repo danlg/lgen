@@ -29,13 +29,13 @@
         <input id='group-chatroom-name' type="search" class="group-chatroom-name" placeholder="{{_ 'Group_name_optional'}}">
     </div>            
     </div>    
-    <div class="item item-input">
-        <i class="icon ion-search placeholder-icon"></i>
-        <input type="search" class="searchbar" placeholder="{{_ 'Search'}}">
-    </div>       
-      <div>
+    <div class="list">
+        <div class="item item-input">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="search" class="searchbar" placeholder="{{_ 'Search'}}">
+        </div>       
         {{> UI.contentBlock}}
-      </div>
+    </div>
    </div>
    {{/ionContent}}
    
@@ -52,24 +52,24 @@
 </template>
 
 <template name="GroupChatInviteChooserEachPerson">
-    <div class='item item-checkbox person'>
+    <div class='item item-icon-left item-checkbox-right item-checkbox person'>
         <label class="checkbox">
-        <input class="targetCB"  type='checkbox' name="person" value="{{_id}}" data-userid='{{_id}}'>
+            <input class="targetCB"  type='checkbox' style="position:relative;" name="person" value="{{_id}}" data-userid='{{_id}}'>
         </label>
         {{#if isEmoji _id}}
-            <i class="icon e1a-{{profile.avatarValue}} e1a-3x emojicon"></i>
+            <i class="icon e1a-{{profile.avatarValue}} e1a-1x emojicon"></i>
         {{else}}
             <img class="icon icon-avatar e1a-3x" src="{{profile.avatarValue}}" />
         {{/if}}                
         {{profile.firstName}}
-        {{profile.lastName}}        
+        <strong>{{profile.lastName}}</strong>        
     </div>
 </template>
 
 <template name='GroupChatInviteChooser'>
     {{#GroupChatInviteWrapper}}
-       {{#each joinedClassPeople}}
-        {{> GroupChatInviteChooserEachPerson}}
-       {{/each}}
+        {{#each joinedClassPeople}}
+            {{> GroupChatInviteChooserEachPerson}}
+        {{/each}}
     {{/GroupChatInviteWrapper}} 
 </template>

@@ -173,7 +173,7 @@ input:checked + .checkbox-icon:after {
 
 .item-checkbox.item-checkbox-right {
   padding-right: ($item-padding * 2) + $checkbox-width;
-  padding-left: $item-padding;
+  // padding-left: $item-padding;
 }
 
 .item-checkbox-right .checkbox input,
