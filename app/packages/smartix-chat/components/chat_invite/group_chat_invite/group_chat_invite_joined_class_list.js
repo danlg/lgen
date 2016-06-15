@@ -16,10 +16,12 @@ Template.GroupChatInviteChooser.events({
         if(checkAllBtn.hasClass('IsChecked')) {                 
           checkboxes.prop('checked', false);
           checkAllBtn.removeClass('IsChecked');
-        } else {        
+        }
+        else {
           checkboxes.prop('checked', true);
           checkAllBtn.addClass('IsChecked');
-        }     
+        }
+        var selectedChatIds = [];
         var checkboxes = $("input[type='checkbox']");
         checkboxes.map(function(){
             //only add the user id if the checkbox is checked
@@ -29,6 +31,7 @@ Template.GroupChatInviteChooser.events({
         }); 
         targetIds.set(selectedChatIds);                  
     },
+
     'click .createChatBtn':function(){
         var selectedChatIds = targetIds.get();
         var chatObjExtra = {
@@ -36,13 +39,13 @@ Template.GroupChatInviteChooser.events({
             chatRoomName: document.getElementById("group-chatroom-name").value,
             chatRoomModerator: Meteor.userId()
         };
-        
         Meteor.call('chatCreate', selectedChatIds, chatObjExtra, Router.current().params.school,  function (err, data) {
          Router.go('ChatRoom', {chatRoomId: data});
          targetIds.set([]); 
          Session.set('chosenIconForGroupChat','');
         });        
     },
+
     'change .targetCB': function (e) {
         log.info('change');
         var selectedChatIds = [];
@@ -56,6 +59,7 @@ Template.GroupChatInviteChooser.events({
         targetIds.set(selectedChatIds);
         log.info(targetIds.get());
     },
+
     'click #pick-an-icon-btn':function(){
       var parentDataContext= {iconListToGet:"iconListForClass",sessionToBeSet:"chosenIconForGroupChat"};
       IonModal.open("ClassIconChoose", parentDataContext);
