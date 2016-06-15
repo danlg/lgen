@@ -4,6 +4,13 @@ var text = ReactiveVar('');
 /*****************************************************************************/
 /* ClassUsers: Event Handlers */
 /*****************************************************************************/
+Template.ClassUsers.onCreated(function(){
+        Meteor.subscribe('smartix:classes/classByClassCode', Router.current().params.classCode);
+        Meteor.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');
+        Meteor.subscribe('smartix:classes/distributionListsOfClass', Router.current().params.classCode);
+});
+
+
 Template.ClassUsers.events({
   'keyup .searchbar': function (el) {
     text.set($(".searchbar").val());
@@ -67,7 +74,6 @@ Template.ClassUsers.helpers({
     //select users from Meteor who is not current user and has joined this class
     var users = Meteor.users.find({$and: [{_id: { $ne: Meteor.userId()}}, {_id: {$in: userArray}}] }, 
                 {sort: { 'profile.lastName': 1, 'profile.firstName': 1}} ).fetch();    
-   /*return lodash.findByValuesNested(users,'profile','firstname',text.get())*/
     return users;
   },
   distributionList:function(){
@@ -108,10 +114,10 @@ Template.ClassUsers.helpers({
   },
 
   emptyList: function () {
-    var classObj = Smartix.Groups.Collection.findOne({
+    var classObj = Smartix.Groups.Collection.find({
         type: 'class',
         classCode: Router.current().params.classCode
-    });
+    }).fetch();
     var userArray = classObj.users;
     //select users from Meteor who is not current user and has joined this class
     return Meteor.users.find({$and: [{_id: { $ne: Meteor.userId()}}, {_id: {$in: userArray}}] }).count() == 0 ;
@@ -122,6 +128,17 @@ Template.ClassUsers.helpers({
         type: 'class',
         classCode: Router.current().params.classCode
     });
+  },
+
+  allUsersCount: function(){
+      var allUsersCount = Meteor.users.find({
+        _id: {$nin: [Meteor.userId()]}}
+        ).count();
+     if (allUsersCount.length < 1) {
+       return false;
+     } else {
+       return allUsersCount;
+     } 
   },
 
   isPlural: function (count) {

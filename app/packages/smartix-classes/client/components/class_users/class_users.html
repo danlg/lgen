@@ -2,11 +2,11 @@
 
   {{#contentFor "headerTitle"}}
     <!-- bug see https://github.com/TAPevents/tap-i18n/issues/50 -->
-    {{#if isPlural classObj.users.length }}
-      <h1 class="title">{{classObj.users.length}} {{_ "Subscriber_plural"}}</h1>
+    {{#if isPlural allUsersCount }}
+      <h1 class="title">{{allUsersCount}} {{_ "Subscriber_plural"}}</h1>
     {{else}}
       <!--<h1 class="title">{{classObj.users.length}} {{_ "Subscriber" count=classObj.users.length}}</h1>-->
-      <h1 class="title">{{classObj.users.length}} {{_ "Subscriber"}}</h1>
+      <h1 class="title">{{allUsersCount}} {{_ "Subscriber"}}</h1>
     {{/if}}
   {{/contentFor}}
 
@@ -40,7 +40,7 @@
           {{#each usersProfile}}
             <!--{{#if isSearched this}}-->
                 <div class="item item-icon-right user-item">
-                  {{this.profile.firstName}} {{this.profile.lastName}} <br>
+                  {{this.profile.firstName}} <strong> {{this.profile.lastName}} </strong> <br>
                   <div style="font-size: smaller;color:grey"> {{this.profile.role}}</div>
                   <i style='' class="icon assertive  ion-android-remove-circle remove-member-btn ">                   
                   </i>
@@ -50,13 +50,12 @@
         {{/if}}
         {{#if isDistribution}}
             <div class="item item-icon-right item-divider">{{_ "smartix-classes.ViewListUsers"}}</div>
-          {{#each distributionList}}
-                {{#each usersInList this}}
+          {{#each distributionList}}              
+              {{#each usersInList this}}
                     <div class="item item-icon-right user-item">
-                    {{profile.firstName}} {{profile.lastName}} <br>
-                    <div style="font-size: smaller;color:grey"> {{this.profile.role}}</div>
-                    </div>            
-                {{/each}}            
+                    {{this.profile.firstName}} <strong> {{this.profile.lastName}} </strong>  <br>
+                    </div> 
+              {{/each}}                   
           {{/each}}
         {{/if}}
       </div>

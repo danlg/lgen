@@ -34,14 +34,6 @@ Router.route('classEdit', {
 
 Router.route('ClassUsers', {
   path: "/class/:classCode/users",
-  waitOn: function () {
-    return [
-        Meteor.subscribe('smartix:classes/classByClassCode', this.params.classCode),
-        Meteor.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses'),
-        Meteor.subscribe('smartix:classes/distributionListsOfClass', this.params.classCode),
-        
-    ];
-  }
 });
 
 Router.route('ClassInvitation', {
