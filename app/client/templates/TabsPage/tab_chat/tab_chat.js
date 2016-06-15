@@ -13,7 +13,6 @@ Template.TabChat.events({
   }
 });
 
-
 /*****************************************************************************/
 /* TabChat: Helpers */
 /*****************************************************************************/
@@ -218,9 +217,7 @@ Template.TabChat.helpers({
 
 /* TabChat: Lifecycle Hooks */
 Template.TabChat.created = function () {
-    
     var self = this;
-    
     self.subscribe('allMyChatRoomWithUser',function(){
         var allchats = Smartix.Groups.Collection.find(
             {   
@@ -233,9 +230,6 @@ Template.TabChat.created = function () {
         //log.info('allGroupIds',allchats,allGroupIds);
         self.subscribe('smartix:messages/latestMessageEachGroups',allGroupIds);               
     });
-
-    
-
 };
 
 Template.TabChat.rendered = function () {
