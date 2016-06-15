@@ -14,9 +14,9 @@ Template.AdminAddStudent.onRendered(function(){
                 format: 'dd-mm-yyyy',
                 editable:true,
                 //should be Today() - 20 Years
+                min: new Date('1996/01/01'),
                 //should be Today() -2 Years
-                max: moment('2015-01-01'),
-                min: moment('1996-01-01')
+                max: new Date('2015/01/01')
             }
     );
     // Initialize intl-tel-input

@@ -52,11 +52,6 @@ Template.AdminUsersAddRelationships.events({
             && Router.current().params.uid
         ) {
             
-            $('#AdminUsersAddRelationships__input').val("");
-            // There are no explicit/official method to clear the search results
-            // See https://github.com/matteodem/meteor-easy-search/issues/382
-            // See https://github.com/matteodem/meteor-easy-search/issues/29
-            
             Meteor.call('smartix:accounts-relationships/createRelationship', {
                 parent: userId,
                 child: Router.current().params.uid,
@@ -68,6 +63,15 @@ Template.AdminUsersAddRelationships.events({
                     toastr.error(err.message);
                 }
             });
+        window.setTimeout(function(){
+            var list = template.$(".AdminUsersAddRelationships__results-container");
+            var inputBox = template.$(".AdminUsersAddRelationships__user-search-result")
+            inputBox[0].value = "";
+            list[0].hidden = true;
+            inputBox[0].onkeyup = function () {
+                list[0].hidden = false;
+            }
+        }, 0);
         } else {
             toastr.error(TAPi18n.__("applicationError.refreshRequired"));
         }
