@@ -9,7 +9,8 @@ Template.ChatRoomUsers.helpers({
     });
     var userArray = chatObj.users;
     //select users from Meteor who is not current user and has joined this class
-    return Meteor.users.find({_id: {$in: userArray} }, {$sort: {profile}} ).fetch()
+    return Meteor.users.find({_id: {$in: userArray} }, 
+            {sort: { 'profile.lastName': 1, 'profile.firstName': 1}} ).fetch()
     },
 
     isChatRoomModerator: function(context){     
