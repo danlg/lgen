@@ -5,6 +5,10 @@ var targetString = [];
 var targetIds = ReactiveVar([]);
 var searchString = ReactiveVar("");
 
+Template.GroupChatInviteChooser.onCreated(function(){
+  Meteor.subscribe('smartix:classes/otherClassmates', Router.current().params.classCode);
+});
+
 Template.GroupChatInviteChooser.events({
     'click .checkAllBtn':function(e){
         var checkboxes = $("input[type='checkbox']");
@@ -15,16 +19,13 @@ Template.GroupChatInviteChooser.events({
         } else {        
           checkboxes.prop('checked', true);
           checkAllBtn.addClass('IsChecked');
-        }
-        
-        var selectedChatIds = [];
+        }     
         var checkboxes = $("input[type='checkbox']");
         checkboxes.map(function(){
             //only add the user id if the checkbox is checked
             if(this.checked){
                 selectedChatIds.push(this.value);                
             }
-
         }); 
         targetIds.set(selectedChatIds);                  
     },
@@ -51,7 +52,6 @@ Template.GroupChatInviteChooser.events({
             if(this.checked){
                 selectedChatIds.push(this.value);                
             }
-
         }); 
         targetIds.set(selectedChatIds);
         log.info(targetIds.get());
@@ -63,16 +63,12 @@ Template.GroupChatInviteChooser.events({
 });
 Template.GroupChatInviteChooser.helpers({
   'joinedClassPeople': function () {
-    
-    var targetClass = Smartix.Groups.Collection.findOne({
-        type: 'class',
-        classCode: Router.current().params.classCode
-    });    
-    return Meteor.users.find({
-        _id: {
-            $in: targetClass.users
-        }
-    });
+     var joinedClassPeople = Meteor.users.find({_id: {$nin: [Meteor.userId()]}}, {sort: { 'profile.lastName': 1, 'profile.firstName': 1}}).fetch();
+     if (joinedClassPeople.length < 1) {
+       return false;
+     } else {
+       return joinedClassPeople;
+     }
   }
 });
 

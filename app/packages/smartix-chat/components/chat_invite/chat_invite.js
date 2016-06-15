@@ -5,6 +5,15 @@ var targetString = [];
 var targetIds = ReactiveVar([]);
 var searchString = ReactiveVar("");
 
+/* ChatInvite: Lifecycle Hooks */
+Template.ChatInvite.onCreated(function () {
+   //NB: in master_layout. there is a allUsersWhoHaveJoinedYourClasses sub
+   this.autorun(() => {
+      this.subscribe('allSchoolUsersPerRole', Router.current().params.school );
+   });
+});
+
+
 /* ChatInvite: Event Handlers */
 Template.ChatInvite.events({
   'click .startChatBtn': function () {
@@ -83,13 +92,6 @@ Template.ChatInvite.helpers({
   }
 });
 
-/* ChatInvite: Lifecycle Hooks */
-Template.ChatInvite.created = function () {
-   //NB: in master_layout. there is a allUsersWhoHaveJoinedYourClasses sub
-   this.autorun(() => {
-      this.subscribe('allSchoolUsersPerRole', Router.current().params.school );
-   });
-};
 
 //http://www.meteorpedia.com/read/Understanding_Meteor_Publish_and_Subscribe
 //Template.ChatInvite.onCreated = function () {

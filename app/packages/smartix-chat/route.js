@@ -43,12 +43,5 @@ Router.route('GroupChatInvite', {
 
 Router.route('GroupChatInviteChooser', {
     path: "/:school/group-chat-invite/class/:classCode",
-    waitOn: function(){
-        return [
-            Meteor.subscribe('createdClassByMe'),
-            Meteor.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses'),
-            Meteor.subscribe('getAllMyChatRooms')
-        ]
-    }
 });
 

@@ -221,10 +221,6 @@ Router.route('/role', {
 
 Router.route('TabClasses', {
     path: "/classes",
-    waitOn: function()
-    {
-        Meteor.subscribe('joinedClasses')
-    }
 });
 
 Router.route('TabChat', {

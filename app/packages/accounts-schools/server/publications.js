@@ -46,6 +46,28 @@ var getContactsForTeachers = function(userId, schoolDoc)
                 });
             });
         });
+
+        //get students and parents from distributionLists
+        lodash.map(classesTaughtByTeacher, 'distributionLists').map(function (listIds) {
+            if(listIds){
+                listIds.map(function(listId){
+                    if(listId)
+                    {
+                        let listOfStudents = Smartix.Groups.Collection.find({ namespace: schoolDoc._id, _id: listId }).fetch();
+                        lodash.map(listOfStudents, 'users').map(function(studentIDs)
+                        {
+                            studentIDs.map(function (studentID) {
+                                studentsWhoTaughtByTeacher.push(studentID);
+                                let findParents = Smartix.Accounts.Relationships.Collection.find({ child: studentID, namespace: schoolDoc._id }).fetch();
+                                findParents.map(function (relationship) {
+                                    parents.push(relationship.parent);
+                                });
+                            });
+                        });
+                    }
+                });
+            }
+        });
         let allUsers = [];
         allUsers = allUsers.concat( lodash.map(teachers,'_id') );
         allUsers = allUsers.concat( lodash.map(admins,'_id') );
@@ -73,7 +95,20 @@ var getContactsForParents = function(userId, schoolDoc)
             childs.push(relationship.child);
         });
         //can talk to teacher, who teach to parent's own student
-        let groupsStudentsIn = Smartix.Groups.Collection.find({ namespace: schoolDoc._id, users: { $in: childs }, type: 'class'  }).fetch();        
+        let distributionLists = [];
+        childs.map(function(childId)
+        {
+            distributionLists.push(Smartix.DistributionLists.getDistributionListsOfUser(childId));
+        });
+        let groupsStudentsIn = Smartix.Groups.Collection.find({ namespace: schoolDoc._id,            
+            $or: [{
+                    users: { $in: childs }
+                }, {
+                    distributionLists: {
+                        $in: distributionLists
+                    }
+                }]
+            , type: 'class'  }).fetch();        
         let teachers = [];
         teachers = lodash.flatten( lodash.map(groupsStudentsIn, 'admins') );
         let parents = [];
@@ -143,7 +178,7 @@ Meteor.publish('allSchoolUsersPerRole', function (school) {
     allSchoolUsers = allSchoolUsers.concat(getContactsForStudents(this.userId, schoolDoc));
     // Returns a cursor of all users in the `allSchoolUsers` array
     if(schoolDoc) {
-        log.info("allSchoolUsers", allSchoolUsers);
+        // log.info("allSchoolUsers", allSchoolUsers);
         return Meteor.users.find(
             { _id: { $in: allSchoolUsers } }
             , {
