@@ -131,69 +131,7 @@ Meteor.publish('smartix:classes/allUsersWhoHaveJoinedYourClasses', function () {
 });
 
 // Return a cursor of all admins of classes you have joined
-Meteor.publish('smartix:classes/adminsOfJoinedClasses', function (schoolName) {
-    
-    var joinedClasses;
-    
-    if(schoolName){
-        var schoolDoc = SmartixSchoolsCol.findOne({
-            username: schoolName
-        });
-
-        if(schoolName === 'global'){
-                joinedClasses = Smartix.Groups.Collection.find({
-                    type: 'class',
-                    $or: [{
-                        users: this.userId
-                    }, {
-                        distributionLists: {
-                            $in: Smartix.DistributionLists.getDistributionListsOfUser(this.userId)
-                        }
-                    }],
-                    namespace: schoolName
-                }).fetch();
-        } else {
-            joinedClasses = Smartix.Groups.Collection.find({
-                $or: [{
-                    users: this.userId
-                }, {
-                    distributionLists: {
-                        $in: Smartix.DistributionLists.getDistributionListsOfUser(this.userId)
-                    }
-                }],
-                users: this.userId,
-                type: 'class',
-                namespace: schoolDoc._id
-            }).fetch();
-        }         
-
-         
-    } else {
-        joinedClasses = Smartix.Groups.Collection.find({
-            type: 'class',
-            $or: [{
-                users: this.userId
-            }, {
-                distributionLists: {
-                    $in: Smartix.DistributionLists.getDistributionListsOfUser(this.userId)
-                }
-            }]
-        }).fetch();        
-    }
-    
-    //log.info('adminsOfJoinedClasses:joinedClasses',joinedClasses);
-
-    // Extract all the users from the `users` property
-    // from all classes into another array  
-    var admins = _.flatMap(joinedClasses, 'admins');
-
-    // Returns a cursor of all users in the `admins` array
-    return Meteor.users.find({ 
-        _id: {
-            $in: admins 
-        }
-    });
-});
+// Meteor.publish('smartix:classes/adminsOfJoinedClasses', Smartix.Class.AdminsOfJoinedClasses); 
 
 // Returns a cursor of all admin users of a class
 Meteor.publish('smartix:classes/adminsOfClass', function (classCode) {

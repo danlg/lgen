@@ -103,6 +103,10 @@ Smartix.Class.createClass = function(classObj, currentUser) {
     if (classObj.classAvatar) {
         newClass.classAvatar = classObj.classAvatar;
     }
+    else
+    {
+        newClass.classAvatar= 'green_apple';
+    }
     // Make the current user as the admin
     newClass.admins = [currentUser];
     newClass.addons = ['voice', 'images', 'calendar', 'documents', 'poll', 'comment'];
@@ -655,3 +659,58 @@ Smartix.Class.Schema.messages({
 Smartix.Class.Schema.messages({
     notUniqueAndSuggestClasscode: "[label] " + TAPi18n.__("Class_code_not_available") + " [value]"
 });
+
+Smartix.Class.AdminsOfJoinedClasses = function (userId, schoolName) {
+    var joinedClasses;
+    if(schoolName){
+        var schoolDoc = SmartixSchoolsCol.findOne({
+            username: schoolName
+        });
+        if(schoolName === 'global'){
+                joinedClasses = Smartix.Groups.Collection.find({
+                    type: 'class',
+                    $or: [{
+                        users: userId
+                    }, {
+                        distributionLists: {
+                            $in: Smartix.DistributionLists.getDistributionListsOfUser(userId)
+                        }
+                    }],
+                    namespace: schoolName
+                }).fetch();
+        } else {
+            joinedClasses = Smartix.Groups.Collection.find({
+                $or: [{
+                    users: userId
+                }, {
+                    distributionLists: {
+                        $in: Smartix.DistributionLists.getDistributionListsOfUser(userId)
+                    }
+                }],
+                type: 'class',
+                namespace: schoolDoc._id
+            }).fetch();
+        }         
+    } else {
+        joinedClasses = Smartix.Groups.Collection.find({
+            type: 'class',
+            $or: [{
+                users: userId
+            }, {
+                distributionLists: {
+                    $in: Smartix.DistributionLists.getDistributionListsOfUser(userId)
+                }
+            }]
+        }).fetch();        
+    }
+    
+    // Extract all the users from the `users` property
+    // from all classes into another array  
+    var admins = _.flatMap(joinedClasses, 'admins');
+    // Returns a cursor of all users in the `admins` array
+    return Meteor.users.find({ 
+        _id: {
+            $in: admins 
+        }
+    }).fetch();
+};

@@ -86,8 +86,9 @@ Template.ChatInvite.helpers({
 /* ChatInvite: Lifecycle Hooks */
 Template.ChatInvite.created = function () {
    //NB: in master_layout. there is a allUsersWhoHaveJoinedYourClasses sub
-   this.subscribe('allSchoolUsersPerRole', Router.current().params.school );
-   this.subscribe('smartix:classes/adminsOfJoinedClasses', Router.current().params.school );
+   this.autorun(() => {
+      this.subscribe('allSchoolUsersPerRole', Router.current().params.school );
+   });
 };
 
 //http://www.meteorpedia.com/read/Understanding_Meteor_Publish_and_Subscribe
@@ -96,7 +97,6 @@ Template.ChatInvite.created = function () {
 //  //NB: in master_layout. there is a allUsersWhoHaveJoinedYourClasses sub
 //  self.autorun(function() {
 //    self.subscribe('allSchoolUsersPerRole', Router.current().params.school );
-//    self.subscribe('smartix:classes/adminsOfJoinedClasses', Router.current().params.school );
 //  });
 //};
 

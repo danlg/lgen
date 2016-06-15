@@ -58,7 +58,7 @@ Meteor.publishComposite('allMyChatRoomWithUser', function () {
     find: function () {
       // Find posts made by user. Note arguments for callback function
       // being used in query.
-      return Smartix.Groups.Collection.find({users: this.userId});
+      return Smartix.Groups.Collection.find({users: this.userId, type:'chat'});
     },
     children: [
       {

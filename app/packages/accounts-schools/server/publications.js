@@ -13,6 +13,114 @@ Meteor.publish('allSchoolUsers', function (schoolId) {
     }
 });
 
+var getContactsForAdmins = function(userId, schoolDoc)
+{
+    if ( Roles.userIsInRole(userId, Smartix.Accounts.School.ADMIN, schoolDoc._id) ) {
+        let allUsers = Meteor.users.find(
+            {schools: schoolDoc._id}, { '_id': 1}
+        ).fetch();
+        return lodash.map(allUsers,'_id')
+    }
+};
+
+var getContactsForTeachers = function(userId, schoolDoc)
+{
+    if (Roles.userIsInRole(userId, Smartix.Accounts.School.TEACHER, schoolDoc._id)) {
+        let teachers = Roles.getUsersInRole(Smartix.Accounts.School.TEACHER, schoolDoc._id).fetch();
+        //can talk to students who the teacher is teaching
+        //can talk to students who the teacher is not teaching
+        //let students = Roles.getUsersInRole(Smartix.Accounts.School.STUDENT, schoolDoc._id).fetch();
+        //can talk to parents whose students are taught by the teacher
+        let admins = Roles.getUsersInRole(Smartix.Accounts.School.ADMIN, schoolDoc._id).fetch();
+        let classesTaughtByTeacher = Smartix.Groups.Collection.find({ namespace: schoolDoc._id, admins: userId }).fetch();
+        let studentsWhoTaughtByTeacher = []
+        let parents = [];
+        lodash.map(classesTaughtByTeacher, 'users').map(function (studentIDs) {
+            studentIDs.map(function (studentID) {
+                //log.info('studentID', studentID);
+                studentsWhoTaughtByTeacher.push(studentID);
+                let findParents = Smartix.Accounts.Relationships.Collection.find({ child: studentID, namespace: schoolDoc._id }).fetch();
+                //log.info('findParents', findParents);
+                findParents.map(function (relationship) {
+                    parents.push(relationship.parent);
+                });
+            });
+        });
+        let allUsers = [];
+        allUsers = allUsers.concat( lodash.map(teachers,'_id') );
+        allUsers = allUsers.concat( lodash.map(admins,'_id') );
+        allUsers = allUsers.concat( lodash.map(studentsWhoTaughtByTeacher,'_id') );
+        allUsers = allUsers.concat( parents );
+        return allUsers;
+    }
+    //var parents = Roles.getUsersInRole('parent',schoolDoc._id).fetch();
+    //log.info('allSchoolUsersForTeacher',allSchoolUsers);
+};
+
+var getContactsForParents = function(userId, schoolDoc)
+{
+    //if user is a parent:
+    //can talk to another parent    //can talk to parent's own childs
+    //can talk to teacher, who teach to parent's own student 
+    if (Roles.userIsInRole(userId, Smartix.Accounts.School.PARENT, schoolDoc._id)) {
+        // let parents = Roles.getUsersInRole(Smartix.Accounts.School.PARENT, schoolDoc._id).fetch();
+        //can talk to parent's own student
+        let admins = Roles.getUsersInRole(Smartix.Accounts.School.ADMIN, schoolDoc._id).fetch();
+        let childs = [];
+        let findChilds = Smartix.Accounts.Relationships.Collection.find({ parent: userId, namespace: schoolDoc._id }).fetch();
+        //log.info('findParents', findParents);
+        findChilds.map(function (relationship) {
+            childs.push(relationship.child);
+        });
+        //can talk to teacher, who teach to parent's own student
+        let groupsStudentsIn = Smartix.Groups.Collection.find({ namespace: schoolDoc._id, users: { $in: childs }, type: 'class'  }).fetch();        
+        let teachers = [];
+        teachers = lodash.flatten( lodash.map(groupsStudentsIn, 'admins') );
+        let parents = [];
+        lodash.map(groupsStudentsIn, 'users').map(function (studentIDs) {
+            studentIDs.map(function (studentID) {
+                //log.info('studentID', studentID);
+                let findParents = Smartix.Accounts.Relationships.Collection.find({ child: studentID, namespace: schoolDoc._id }).fetch();
+                //log.info('findParents', findParents);
+                findParents.map(function (relationship) {
+                    parents.push(relationship.parent);
+                });
+            });
+        });
+        let allUsers = [];
+        allUsers = allUsers.concat( parents );
+        allUsers = allUsers.concat( childs );
+        allUsers = allUsers.concat( teachers );
+        allUsers = allUsers.concat( lodash.map(admins,'_id') )
+        return allUsers;
+    }
+};
+
+var getContactsForStudents = function(userId, schoolDoc)
+{
+    
+    //can talk to teacher who teach the student
+    //can talk to students' own parent
+    if (Roles.userIsInRole(userId, Smartix.Accounts.School.STUDENT, schoolDoc._id)) {
+        let studentID = userId;
+        let teacherOfClass = [];
+        let findAdminsOfClass = Smartix.Class.AdminsOfJoinedClasses(studentID, schoolDoc.username);
+        findAdminsOfClass.map(function(teacher)
+        {
+            teacherOfClass.push(teacher._id);
+        })
+        let parents = [];
+        let findParents = Smartix.Accounts.Relationships.Collection.find({ child: studentID, namespace: schoolDoc._id }).fetch();
+        findParents.map(function (relationship) {
+            parents.push(relationship.parent);
+        });
+        let allUsers = [];
+        allUsers = allUsers.concat(teacherOfClass);
+        allUsers = allUsers.concat(parents);
+        return allUsers;
+    }
+};
+
 Meteor.publish('allSchoolUsersPerRole', function (school) {
     // Get the `_id` of the school from its username
     var schoolDoc = SmartixSchoolsCol.findOne({
@@ -25,99 +133,26 @@ Meteor.publish('allSchoolUsersPerRole', function (school) {
         });
     }
     if(!schoolDoc){
-        log.info('allSchoolUsersPerRole: no school is found: are you in global or system namespace? they dont have school collection')
+        log.info('allSchoolUsersPerRole: no school is found: are you in global or system namespace? they dont have school collection');
         return;
     }
     var allSchoolUsers = [];
-    //if user is a school admin:
-    //can talk to everyone in that school
-    if (Roles.userIsInRole(this.userId, Smartix.Accounts.School.ADMIN, schoolDoc._id)) {
-        //exit early
-        return Meteor.users.find({
-            schools: schoolDoc._id
-        });         
-    }
-    //if user is a teacher:
-    //can talk to another teacher
-    //can talk to students who the teacher is teaching
-    //can talk to parents whose students are taught by the teacher
-    //can talk to students who the teacher is not teaching
-    if (Roles.userIsInRole(this.userId, Smartix.Accounts.School.TEACHER, schoolDoc._id)) {
-        //can talk to another teacher
-        let teachers = Roles.getUsersInRole(Smartix.Accounts.School.TEACHER, schoolDoc._id).fetch();
-        //can talk to students who the teacher is teaching
-        //can talk to students who the teacher is not teaching
-        let students = Roles.getUsersInRole(Smartix.Accounts.School.STUDENT, schoolDoc._id).fetch();
-        //can talk to parents whose students are taught by the teacher
-        let studentsWhoTaughtByTeacher = Smartix.Groups.Collection.find({ namespace: schoolDoc._id, admins: this.userId }).fetch();
-        let parents = [];
-        lodash.map(studentsWhoTaughtByTeacher, 'users').map(function (studentIDs) {
-            studentIDs.map(function (studentID) {
-                //log.info('studentID', studentID);
-                let findParents = Smartix.Accounts.Relationships.Collection.find({ child: studentID, namespace: schoolDoc._id }).fetch();
-                //log.info('findParents', findParents);
-                findParents.map(function (relationship) {
-                    parents.push(relationship.parent);
-                });
-            });
-        });
-        allSchoolUsers = allSchoolUsers.concat( lodash.map(teachers,'_id') );
-        allSchoolUsers = allSchoolUsers.concat( lodash.map(students,'_id') );
-        allSchoolUsers = allSchoolUsers.concat( parents );
-        //var parents = Roles.getUsersInRole('parent',schoolDoc._id).fetch();
-        //log.info('allSchoolUsersForTeacher',allSchoolUsers);
-    }
-    
-    //if user is a parent:
-    //can talk to another parent
-    //can talk to parent's own childs
-    //can talk to teacher, who teach to parent's own student    
-    if (Roles.userIsInRole(this.userId, Smartix.Accounts.School.PARENT, schoolDoc._id)) {
-        //can talk to another parent
-        let parents = Roles.getUsersInRole(Smartix.Accounts.School.PARENT, schoolDoc._id).fetch();
-        //can talk to parent's own student
-        let childs = [];
-        let findChilds = Smartix.Accounts.Relationships.Collection.find({ parent: this.userId, namespace: schoolDoc._id }).fetch();
-        //log.info('findParents', findParents);
-        findChilds.map(function (relationship) {
-            childs.push(relationship.child);
-        });
-        //can talk to teacher, who teach to parent's own student
-        let groupsStudentsIn = Smartix.Groups.Collection.find({ namespace: schoolDoc._id, users: { $in: childs }  }).fetch();        
-        let teachers = [];
-        teachers = lodash.flatten( lodash.map(groupsStudentsIn, 'admins') );
-        allSchoolUsers = allSchoolUsers.concat( lodash.map(parents,'_id') );
-        allSchoolUsers = allSchoolUsers.concat( childs );
-        allSchoolUsers = allSchoolUsers.concat( teachers );
-    } 
-    
-    //if user is a student:
-    //can talk to teacher who teach the student
-    //can talk to student's own parent    
-    if (Roles.userIsInRole(this.userId, Smartix.Accounts.School.STUDENT, schoolDoc._id)) {
-        //can talk to teacher who teach the student
-        //already implemented by pub smartix:classes/adminsOfJoinedClasses
-        //can talk to students' own parent
-        let studentID = this.userId;
-        let parents = [];
-        let findParents = Smartix.Accounts.Relationships.Collection.find({ child: studentID, namespace: schoolDoc._id }).fetch();
-        findParents.map(function (relationship) {
-            parents.push(relationship.parent);
-        });
-        allSchoolUsers = allSchoolUsers.concat(parents);
-    }
-
+    allSchoolUsers = allSchoolUsers.concat(getContactsForAdmins(this.userId, schoolDoc));
+    allSchoolUsers = allSchoolUsers.concat(getContactsForTeachers(this.userId, schoolDoc));
+    allSchoolUsers = allSchoolUsers.concat(getContactsForParents(this.userId, schoolDoc));
+    allSchoolUsers = allSchoolUsers.concat(getContactsForStudents(this.userId, schoolDoc));
     // Returns a cursor of all users in the `allSchoolUsers` array
     if(schoolDoc) {
+        log.info("allSchoolUsers", allSchoolUsers);
         return Meteor.users.find(
-            { _id: { $in: allSchoolUsers } }, {
-                fields: { 
+            { _id: { $in: allSchoolUsers } }
+            , {
                     'profile.firstName': 1,
                     'profile.lastName': 1,
+                    'profile.avatarValue': 1,
                     'proflle.chatSetting' : 1,
                     'emails.0.address': 1,
                     'roles':1
-                }
             }
         );
     } else {
