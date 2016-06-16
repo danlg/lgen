@@ -213,10 +213,12 @@ Smartix.DistributionLists.getUsersInDistributionLists = function (distributionLi
                     type: 'distributionList',
                     _id : listid
                 }).fetch();
-            users = _.union(users, distList[0].users);
+            if (distList[0]) {
+                users = _.union(users, distList[0].users);
+            }
             return users;
         }, []);
-}
+};
 
 // Remove non-existent distribution lists from the array
 Smartix.DistributionLists.removeNonExistentDistributionLists = function (lists) {
