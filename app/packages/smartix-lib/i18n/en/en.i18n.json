@@ -515,7 +515,7 @@
         "FillClickAddNews":"Simply fill in fields and click Add News.",
         "SearchDistributionLists":"Search distribution lists",
         "SelectListCopyUsers":"Select the distribution list(s) to copy users. For multiple selection, press Ctrl(PC) or ⌘ (Mac)",
-        "SetPasswordUser":"You may manually set a password for the user",
+        "SetPasswordUser":"You may manually set a password for the user. This is required if no e-mail is provided",
         "StudentIDSkipped":"Student ID can be skipped if Student E-mail is present, and vice versa. At least one parent or carer is mandatory.",
         "Text":"Text",
         "Title":"Title",

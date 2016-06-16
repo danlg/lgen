@@ -3,48 +3,48 @@
         <div class="panel-body">
             <form class="form-horizontal" action="#">
                 <fieldset class="content-group">
-                    <h4 class="text-bold">{{_ "Admin.UserDetails" }}</h4>
+                    <!--<h4 class="text-bold">{{_ "Admin.UserDetails" }}</h4>-->
                     <div class="form-group">
                         <div class="col-xs-8">
                             <div class="form-group">
                                 <div class="col-xs-6">
-                                    <label class="control-label">{{_ "FirstName" }}</label>
+                                    <label class="control-label"><strong>{{_ "FirstName" }}</strong></label>
                                     <div>
-                                        <input id="AdminAddOthers__firstName" type="text" class="form-control AdminAddOthers__input" placeholder="First Name">
+                                        <input id="AdminAddOthers__firstName" type="text" class="form-control AdminAddOthers__input" placeholder="{{_ "FirstName"}} ">
                                     </div>
                                 </div>
                                 <div class="col-xs-6">
-                                    <label class="control-label">{{_ "LastName" }}</label>
+                                    <label class="control-label"><strong>{{_ "LastName" }}</strong></label>
                                     <div>
-                                        <input id="AdminAddOthers__lastName" type="text" class="form-control AdminAddOthers__input" placeholder="Last Name">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-xs-6">
-                                    <label class="control-label">{{_ "Email" }}</label>
-                                    <div>
-                                        <input id="AdminAddOthers__email" type="email" class="form-control AdminAddOthers__input" placeholder="Email">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6">
-                                    <label class="control-label">{{_ "PhoneNumber" }}</label>
-                                    <div>
-                                        <input id="AdminAddOthers__tel" type="tel" class="form-control AdminAddOthers__input" placeholder="Telephone Number">
+                                        <input id="AdminAddOthers__lastName" type="text" class="form-control AdminAddOthers__input" placeholder="{{_ "LastName"}} ">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-6">
-                                    <label class="control-label">{{_ "Admin.Username" }}</label>
+                                    <label class="control-label"><strong>{{_ "Email" }}</strong></label>
                                     <div>
-                                        <input id="AdminAddOthers__username" type="text" class="form-control AdminAddOthers__input" placeholder="Username">
+                                        <input id="AdminAddOthers__email" type="email" class="form-control AdminAddOthers__input" placeholder="{{_ "Email"}} ">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <label class="control-label"><strong>{{_ "PhoneNumber" }}</strong></label>
+                                    <div>
+                                        <input id="AdminAddOthers__tel" type="tel" class="form-control AdminAddOthers__input" placeholder="{{_ "PhoneNumber"}} ">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-6">
+                                    <label class="control-label"><strong>{{_ "Admin.Username" }}</strong></label>
+                                    <div>
+                                        <input id="AdminAddOthers__username" type="text" class="form-control AdminAddOthers__input" placeholder="{{_ "Admin.Username"}} ">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xs-4">
-                            <label class="control-label">{{_ "Admin.Roles" }}</label>
+                            <label class="control-label"><strong>{{_ "Admin.Roles" }}</strong></label>
                             <div>
                                 <select id="AdminAddOthers__roles" multiple="multiple" class="form-control">
                                     <option value="parent">{{_ "Parent" }}</option>
@@ -56,23 +56,26 @@
                     </div>
                     
                     <div class="AdminAddOthers__passwordContainer">
-                        <p>{{_ "Admin.SetPasswordUser" }} . {{_ "Admin.ThisIs" }}  <strong> {{_ "Admin.Required" }}</strong> {{_ "Admin.if" }} <i>{{_ "Email" }}</i>{{_ "Admin.NotProvided" }}</p>
+                        <p>{{_ "Admin.SetPasswordUser" }}
+                          <i>{{_ "Email" }}</i>{{_ "Admin.NotProvided" }}</p>
                         <div>
                             <input id="AdminAddOthers__password" class="AdminAddOthers__input" type="password" placeholder="Type your password">
                         </div>
                     </div>
                 </fieldset>
-                <div class="text-right">
+
+                <div class="align-bottom-right">
                     <div class="form-group" style="margin:0;">
-                            <label class="control-label">{{_ "Admin.NotifyUserEmail" }}</label>
-                            <div class="checkbox checkbox-switchery">
+                        <label class="control-label">{{_ "Admin.NotifyUserEmail" }}</label>
+                        <div class="checkbox checkbox-switchery">
                             <label>
-                                <!--<input id="notifyuserwithemail" type="checkbox" class="switchery" checked>-->
                                 <input id="notifyuserwithemail" type="checkbox" class="switchery">
                             </label>
-                            </div>
+                        </div>
+                        <div class="align-bottom-right text-right">
+                          <button id="AdminAddOthers__submit" type="submit" class="btn btn-primary">{{_ "Admin.AddUser" }} <i class="icon-arrow-right14 position-right"></i></button>
+                      </div>
                     </div>
-                    <button id="AdminAddOthers__submit" type="submit" class="btn btn-primary">{{_ "Admin.AddUser" }} <i class="icon-arrow-right14 position-right"></i></button>
                 </div>
             </form>
         </div>

@@ -229,7 +229,7 @@
     "SelectListCopyUsers": "Sélectionnez la ou les listes de distribution pour copier des utilisateurs. Pour une sélection multiple, appuyez sur Ctrl(PC) ou ⌘ (Mac)",
     "SelectNone": "Aucun",
     "SelectNoneCurrentPage": "Aucun (cette page)",
-    "SetPasswordUser": "Vous pouvez définir manuellement un mot de passe pour l’utilisateur",
+    "SetPasswordUser": "Vous pouvez définir manuellement un mot de passe pour l’utilisateur, qui est obligatoire si un em-mail n'est pas fourni",
     "Show": "Afficher",
     "Show/HiddenNews": "Afficher / masquer news",
     "ShowAbsent": "Afficher absent",
