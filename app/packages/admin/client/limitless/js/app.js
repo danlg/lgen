@@ -1,22 +1,17 @@
 // Calculate min height
 function containerHeight() {
-    var availableHeight = $(window).height() - $('.page-container').offset().top - $('.navbar-fixed-bottom').outerHeight();
-
-    $('.page-container').attr('style', 'min-height:' + availableHeight + 'px');
+    var page_container = $('.page-container');
+    var navbar_fixed_bottom = $('.navbar-fixed-bottom');
+    if (page_container && navbar_fixed_bottom) {
+        var availableHeight = $(window).height() - page_container.offset().top - navbar_fixed_bottom.outerHeight();
+        page_container.attr('style', 'min-height:' + availableHeight + 'px');
+    }
 }
 
 Template.adminLayout.onRendered(function () {
-
-    // ========================================
-    //
     // Content area height
-    //
-    // ========================================
-
     // Initialize
     containerHeight();
-
-
 
 
     // ========================================
@@ -257,17 +252,7 @@ Template.adminLayout.onRendered(function () {
     });
 
 
-
-
-    // ========================================
-    //
     // Main navigation
-    //
-    // ========================================
-
-
-    // Main navigation
-    // -------------------------
 
     // Add 'active' class to parent list item in all levels
     $('.navigation').find('li.active').parents('li').addClass('active');
