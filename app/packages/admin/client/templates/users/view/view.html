@@ -1,68 +1,70 @@
 <template name="AdminUsersView">
     <div class="panel panel-flat">
-        {{#if Template.subscriptionsReady}} 
+        {{#if Template.subscriptionsReady}}
+
         {{#with userData}}
-        <div class="panel-heading">
-            <h1>{{profile.firstName}} {{profile.lastName}}</h1>
-        </div>
-        
-        <div class="panel-body">
-            <form  action="#">
-                <fieldset class="content-group">
-                    <h4 class="text-bold">{{_ "Admin.UserDetails" }}</h4>
-                    
-                    <div class="form-group row">
-                        <div class="col-xs-4">
-                            <label class="control-label">{{_ "FirstName" }}</label>
-                            <div>
-                                <input id="AdminUsers__firstName" type="text" class="form-control" value={{profile.firstName}} required>
+
+            <div class="panel-heading">
+                <h1>{{profile.firstName}} {{profile.lastName}}</h1>
+            </div>
+            <div class="panel-body">
+                <form  action="#">
+                    <fieldset class="content-group">
+                        <!--<h4 class="text-bold">{{_ "Admin.UserDetails" }}</h4>-->
+                        <div class="form-group row">
+                            <div class="col-xs-4">
+                                <label class="control-label"><strong>{{_ "FirstName" }}</strong></label>
+                                <div>
+                                    <input id="AdminUsers__firstName" type="text" class="form-control" value={{profile.firstName}} required>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="control-label"><strong>{{_ "LastName" }}</strong></label>
+                                <div>
+                                    <input id="AdminUsers__lastName" type="text" class="form-control" value={{profile.lastName}} required>
+                                </div>
+                            </div>
+
+                            {{#if userIsChild}}
+                                <div class="col-xs-4">
+                                    <label class="control-label"><strong>{{_ "DateOfBirth" }}</strong></label>
+                                    <div>
+                                        <input id="AdminUsers__dob" type="text" class="form-control pickadate" value={{dob}} required>
+                                    </div>
+                                </div>
+                            {{/if}}
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-xs-4">
+                                <label class="control-label"><strong>{{_ "PhoneNumber" }}</strong></label>
+                                <div>
+                                    <input id="AdminUsers__tel" type="tel" class="form-control" value={{tel}}>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="control-label"><strong>{{_ "Admin.Username" }}</strong></label>
+                                <div>
+                                    <input id="AdminUser__username" type="text" class="form-control" value={{username}}>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="control-label"><strong>{{_ "Email" }}</strong></label>
+                                <div>
+                                    <!--<input id="AdminAddStudent__email" type="email" class="form-control AdminAddStudent__input"  value={{emails.[0].address}} readonly>-->
+                                    <label>{{emails.[0].address}} </label>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-xs-4">
-                            <label class="control-label">{{_ "LastName" }}</label>
-                            <div>
-                                <input id="AdminUsers__lastName" type="text" class="form-control" value={{profile.lastName}} required>
-                            </div>
-                        </div>
-                        {{#if userIsChild}}
-                        
-                        <div class="col-xs-4">
-                            <label class="control-label">{{_ "DateOfBirth" }}</label>
-                            <div>
-                                <input id="AdminUsers__dob" type="text" class="form-control pickadate" value={{dob}} required>
-                            </div>
-                        </div>
-                        {{/if}}
-                    </div>
-                    <div class="form-group row">
-                        
-                        <div class="col-xs-4">
-                            <label class="control-label">{{_ "PhoneNumber" }}</label>
-                            <div>
-                                <input id="AdminUsers__tel" type="tel" class="form-control" value={{tel}}>
-                            </div>
-                        </div>
-                        <div class="col-xs-4">
-                            <label class="control-label">{{_ "Admin.Username" }}</label>
-                            <div>
-                                <input id="AdminUser__username" type="text" class="form-control" value={{username}}>
-                            </div>
-                        </div>
-                        <!--<div class="col-xs-4">
-                            <label class="control-label">{{_ "Email" }}</label>
-                            <div>
-                                <input id="AdminAddStudent__email" type="email" class="form-control AdminAddStudent__input"  value={{emails.[0].address}} readonly>
-                            </div>
-                        </div>-->
-                    </div>
-                </fieldset>                
-            </form>
-            <button id="UpdateUser__submit" type="submit" class="btn btn-primary">{{_ "Update" }} <i class="icon-arrow-right14 position-right"></i></button>
-        </div>
-        {{#if userIsChild}}
-            {{> AdminUsersAddRelationships }}
-            {{> RelatedUsersMobile}}
-        {{/if}}
+                    </fieldset>
+                </form>
+                <button id="UpdateUser__submit" type="submit" class="btn btn-primary">{{_ "Update" }} <i class="icon-arrow-right14 position-right"></i></button>
+            </div>
+
+            {{#if userIsChild}}
+                {{> AdminUsersAddRelationships }}
+                {{> RelatedUsersMobile}}
+            {{/if}}
+
         {{/with}} 
         {{else}} {{_ "Admin.Loading" }} {{/if}}
     </div>

@@ -66,59 +66,60 @@
                     <input type="file" id="user-upload-file" class="file-input" data-show-caption="false" data-show-upload="false">
                 </div>
             </div>
-            {{#if importedStudents}}
-            <div class="table-responsive">
-                <table id="AdminUsersImport__preview-table" class="table datatable-basic">
-                    <thead>
-                        <tr>
-                            <th>{{_ "Admin.StudentID" }}</th>
-                            <th>{{_ "FirstName" }}</th>
-                            <th>{{_ "LastName" }}</th>
-                            <th>{{_ "Admin.StudentEmail" }}</th>
-                            <th>{{_ "Admin.Grade" }}</th>
-                            <th>{{_ "Admin.Classroom" }}</th>
-                            <th>{{_ "Admin.Gender" }}</th>
-                            <th>{{_ "DateOfBirth" }}</th>
-                            <th>{{_ "PhoneNumber" }}</th>
-                            <th>{{_ "Admin.Password" }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#each importedStudents}}
-                        <tr>
-                            <td>{{studentId}}</td>
-                            <td>{{firstName}}</td>
-                            <td>{{lastName}}</td>
-                            <td>{{email}}</td>
-                            <td>{{grade}}</td>
-                            <td>{{classroom}}</td>
-                            <td>{{gender}}</td>
-                            <td>{{dob}}</td>
-                            <td>{{tel}}</td>
-                            <td>{{password}}</td>
-                        </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
-            </div>
 
-            <div class="align-bottom-right">
-                <div class="form-group" style="margin:0;">
-                    <label class="control-label">{{_ "Admin.NotifyUserEmail" }}</label>
-                    <div class="checkbox checkbox-switchery">
-                        <label>
-                            <!--<input id="notifyuserwithemail" type="checkbox" class="switchery" checked>-->
-                            <input id="notifyuserwithemail" type="checkbox" class="switchery">
-                        </label>
+            {{#if importedStudents}}
+
+                <div class="table-responsive">
+                    <table id="AdminUsersImport__preview-table" class="table datatable-basic">
+                        <thead>
+                            <tr>
+                                <th>{{_ "Admin.StudentID" }}</th>
+                                <th>{{_ "FirstName" }}</th>
+                                <th>{{_ "LastName" }}</th>
+                                <th>{{_ "Admin.StudentEmail" }}</th>
+                                <th>{{_ "Admin.Grade" }}</th>
+                                <th>{{_ "Admin.Classroom" }}</th>
+                                <th>{{_ "Admin.Gender" }}</th>
+                                <th>{{_ "DateOfBirth" }}</th>
+                                <th>{{_ "PhoneNumber" }}</th>
+                                <th>{{_ "Admin.Password" }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each importedStudents}}
+                            <tr>
+                                <td>{{studentId}}</td>
+                                <td>{{firstName}}</td>
+                                <td>{{lastName}}</td>
+                                <td>{{email}}</td>
+                                <td>{{grade}}</td>
+                                <td>{{classroom}}</td>
+                                <td>{{gender}}</td>
+                                <td>{{dob}}</td>
+                                <td>{{tel}}</td>
+                                <td>{{password}}</td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="align-bottom-right">
+                    <div class="form-group" style="margin:0;">
+                        <label class="control-label">{{_ "Admin.NotifyUserEmail" }}</label>
+                        <div class="checkbox checkbox-switchery">
+                            <label>
+                                <input id="notifyuserwithemail" type="checkbox" class="switchery">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <button id="importUser__clear" type="submit" class="btn btn-default">{{_ "Admin.ClearData" }}</button>
+                    </div>
+                    <div class="align-bottom-right text-right">
+                        <button id="importUser-submit" type="submit" class="btn btn-primary">{{_ "Admin.ImportUsers" }} <i class="icon-arrow-right14 position-right"></i></button>
                     </div>
                 </div>
-                <div class="text-right">
-                    <button id="importUser__clear" type="submit" class="btn btn-default">{{_ "Admin.ClearData" }}</button>
-                </div>
-                <div class="align-bottom-right text-right">
-                    <button id="importUser-submit" type="submit" class="btn btn-primary">{{_ "Admin.ImportUsers" }} <i class="icon-arrow-right14 position-right"></i></button>
-                </div>
-            </div>
+
             {{/if}}
 
             <div id="importStudents__errorMsgBlock"></div>

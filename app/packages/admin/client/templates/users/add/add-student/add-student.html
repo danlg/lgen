@@ -3,54 +3,52 @@
         <div class="panel-body">
             <form class="form-horizontal" action="#">
                 <fieldset class="content-group">
-                    <h4 class="text-bold">{{_ "Admin.UserDetails" }}</h4>
-                    
+                    <!--<h4 class="text-bold">{{_ "Admin.UserDetails" }}</h4>-->
                     <div class="form-group">
                         <div class="col-xs-4">
-                            <label class="control-label">{{_ "FirstName" }}</label>
+                            <label class="control-label"><strong>{{_ "FirstName" }}</strong></label>
                             <div>
-                                <input id="AdminAddStudent__firstName" type="text" class="form-control AdminAddStudent__input" placeholder="First Name" required>
+                                <input id="AdminAddStudent__firstName" type="text" class="form-control AdminAddStudent__input" placeholder="{{_ "FirstName"}} " required>
                             </div>
                         </div>
                         <div class="col-xs-4">
-                            <label class="control-label">{{_ "LastName" }}</label>
+                            <label class="control-label"><strong>{{_ "LastName" }}</strong></label>
                             <div>
-                                <input id="AdminAddStudent__lastName" type="text" class="form-control AdminAddStudent__input" placeholder="Last Name" required>
+                                <input id="AdminAddStudent__lastName" type="text" class="form-control AdminAddStudent__input" placeholder="{{_ "LastName"}} " required>
                             </div>
                         </div>
                         <div class="col-xs-4">
-                            <label class="control-label">{{_ "DateOfBirth" }}</label>
+                            <label class="control-label"><strong>{{_ "DateOfBirth" }}</strong></label>
                             <div>
-                                <input id="AdminAddStudent__dob" type="text" class="form-control pickadate AdminAddStudent__input" placeholder="Date of Birth" required>
+                                <input id="AdminAddStudent__dob" type="text" class="form-control pickadate AdminAddStudent__input" placeholder="{{_ "DateOfBirth"}} " required>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        
                         <div class="col-xs-4">
-                            <label class="control-label">{{_ "PhoneNumber" }}</label>
+                            <label class="control-label"><strong>{{_ "PhoneNumber" }}</strong></label>
                             <div>
-                                <input id="AdminAddStudent__tel" type="tel" class="form-control AdminAddStudent__input" placeholder="Telephone Number">
+                                <input id="AdminAddStudent__tel" type="tel" class="form-control AdminAddStudent__input" placeholder="{{_ "Number"}} ">
                             </div>
                         </div>
                         <div class="col-xs-4">
-                            <label class="control-label">{{_ "Admin.Username" }}</label>
+                            <label class="control-label"><strong>{{_ "Admin.Username" }}</strong></label>
                             <div>
                                 <input id="AdminAddStudent__username" type="text" class="form-control AdminAddStudent__input" placeholder="Username">
                             </div>
                         </div>
                         <div class="col-xs-4">
-                            <label class="control-label">{{_ "Email" }}</label>
+                            <label class="control-label"><strong>{{_ "Email" }}</strong></label>
                             <div>
                                 <input id="AdminAddStudent__email" type="email" class="form-control AdminAddStudent__input" placeholder="Email">
                             </div>
                         </div>
                     </div>
                     <div class="AdminAddStudent__passwordContainer">
-                        <p>{{_ "Admin.SetPasswordUser" }}. {{_ "Admin.ThisIs" }} <strong>{{_ "Admin.Required" }}</strong>  {{_ "Admin.if" }} <i>
+                        <p>{{_ "Admin.SetPasswordUser" }} <i>
                           {{_ "Email" }}</i> {{_ "Admin.NotProvided" }}</p>
                         <div>
-                            <input id="AdminAddStudent__password" class="AdminAddStudent__input" type="password" placeholder="Type your password">
+                            <input id="AdminAddStudent__password" class="AdminAddStudent__input" type="password" placeholder="{{_ "Password"}}">
                         </div>
                     </div>
                 </fieldset>
