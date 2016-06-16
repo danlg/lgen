@@ -206,13 +206,10 @@ Template.ClassDetail.helpers({
   }
 });
 
-/*****************************************************************************/
 /* ClassDetail: Lifecycle Hooks */
-/*****************************************************************************/
 Template.ClassDetail.onCreated(function () {
     var self = this;
-
-    log.info(Router.current().params.classCode);
+    //log.info(Router.current().params.classCode);
     var classObj = Smartix.Groups.Collection.findOne({
         type: 'class',
         classCode: Router.current().params.classCode
@@ -221,10 +218,9 @@ Template.ClassDetail.onCreated(function () {
     this.autorun(function () {
         self.subscribe('smartix:messages/groupMessages', classObj._id);
     });
-})
+});
 
 Template.ClassDetail.rendered = function () {
-    
   Meteor.call('getFullNameById', classObj.admins[0], function (err, data) {
     return teacherName.set(data);
   });

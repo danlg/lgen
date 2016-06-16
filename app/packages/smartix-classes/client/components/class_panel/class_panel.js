@@ -175,7 +175,7 @@ Template.ClassPanel.helpers({
         }  
 
     } );
-    log.info('classMessages',classMessages);
+    //log.info('classMessages',classMessages);
     return classMessages;      
   },
   classCode: function () {
@@ -256,85 +256,60 @@ Template.ClassPanel.helpers({
 
 });
 
-/*****************************************************************************/
 /* ClassPanel: Lifecycle Hooks */
-/*****************************************************************************/
 Template.ClassPanel.onCreated(function(){
-   currentClassCode = Router.current().params.classCode;
-   
-   var self = this;
-   
-    log.info(Router.current().params.classCode);
-     
-    
-  
-       
-       
+    currentClassCode = Router.current().params.classCode;
+    var self = this;
+    //log.info(Router.current().params.classCode);
     self.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');
     self.subscribe('smartix:classes/associatedClasses',function(){
         var classObj = Smartix.Groups.Collection.findOne({
             type: 'class',
             classCode: Router.current().params.classCode
-        });         
-        self.subscribe('smartix:messages/groupMessages',classObj._id); 
+        });
+        self.subscribe('smartix:messages/groupMessages',classObj._id);
     });
-           
-       
-
-
-      
 });
 
-
-
 Template.ClassPanel.rendered = function () {
-   
    //log.info('rendered',this.subscriptionsReady());
-    
-   
     var template = this;
     //scroll to bottom
     this.autorun(function () {
         if (template.subscriptionsReady()) {
-       
-        
-        Tracker.afterFlush(function () {
-                 
-                var imgReadyChecking = function(){
-                    var hasAllImagesLoaded =true;
-
-                    $('img').each(function(){
-                        if(this.complete){
-                            //log.info('loaded');
-                        }else{
-                            //log.info('not loaded');
-                            hasAllImagesLoaded = false;
+            Tracker.afterFlush(function () {
+                    var imgReadyChecking = function(){
+                        var hasAllImagesLoaded =true;
+                        $('img').each(function(){
+                            if(this.complete){
+                                //log.info('loaded');
+                            }
+                            else{
+                                //log.info('not loaded');
+                                hasAllImagesLoaded = false;
+                            }
+                        });
+                        if(hasAllImagesLoaded){
+                            log.info('scroll to bottom');
+                            //need to wrap the code inside autorun and subscriptionready
+                            //see http://stackoverflow.com/questions/32291382/when-the-page-loads-scroll-down-not-so-simple-meteor-js
+                            //scroll messagelist to bottom;
+                            var messageListDOM = document.getElementById("messageList");
+                            var messageListDOMToBottomScrollTopValue = messageListDOM.scrollHeight - messageListDOM.clientHeight;
+                            messageListDOM.scrollTop=messageListDOMToBottomScrollTopValue;
+                            //$('#messageList').animate({scrollTop:messageListDOMToBottomScrollTopValue}, 300);
                         }
-                    });
-	                
-                    if(hasAllImagesLoaded){
-                        log.info('scroll to bottom');
-                        //need to wrap the code inside autorun and subscriptionready
-                        //see http://stackoverflow.com/questions/32291382/when-the-page-loads-scroll-down-not-so-simple-meteor-js
-                        //scroll messagelist to bottom;
+                        else{
+                            log.info('run next time');
+                            //if not all images is fully loaded, scroll bottom would not work.
+                            //so we set a timer to do the imgReadyChecking again later
+                            setTimeout(imgReadyChecking, 1000);
+                        }
+                    };
+                    //run for the first time
+                    imgReadyChecking();
 
-
-                        var messageListDOM = document.getElementById("messageList");
-                        var messageListDOMToBottomScrollTopValue = messageListDOM.scrollHeight - messageListDOM.clientHeight;
-                        messageListDOM.scrollTop=messageListDOMToBottomScrollTopValue; 
-                        //$('#messageList').animate({scrollTop:messageListDOMToBottomScrollTopValue}, 300);
-                    	
-                    }else{
-                        log.info('run next time');
-                        //if not all images is fully loaded, scroll bottom would not work.
-                        //so we set a timer to do the imgReadyChecking again later
-                        setTimeout(imgReadyChecking, 1000);
-                    }                                  
-                };
-                //run for the first time
-            	imgReadyChecking();
-               
-        });
+            });
         }
     });
     

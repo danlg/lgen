@@ -397,20 +397,19 @@ Template.SendMessage.helpers({
   searchObj: function () {
     if (lodash.has(Router.current().params, 'classCode')) {
       if (!lodash.isUndefined(Router.current().params.classCode)) {
-        log.info(Smartix.Groups.Collection.find({
-            type: 'class',
-          classCode: Router.current().params.classCode
-        }).fetch());
+        // log.info(Smartix.Groups.Collection.find({
+        //     type: 'class',
+        //   classCode: Router.current().params.classCode
+        // }).fetch());
         var getDefaultClass = Smartix.Groups.Collection.findOne({
             type: 'class',
           classCode: Router.current().params.classCode
         });
-        log.info(getDefaultClass);
+        //log.info(getDefaultClass);
         var obj = {
           selectArrName: [getDefaultClass.className],
           selectArrId: [getDefaultClass._id]
         };
-
         Session.set("sendMessageSelectedClasses", obj);
       }
     }

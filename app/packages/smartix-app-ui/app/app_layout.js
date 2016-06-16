@@ -147,7 +147,7 @@ Template.AppLayout.onCreated(function() {
 });
 
 Template.AppLayout.onRendered(function(){
-    log.info('Template.AppLayout.onRendered : checkLanguage');
+    //log.info('Template.AppLayout.onRendered : checkLanguage');
     checkLanguage();
 });
 
