@@ -38,7 +38,7 @@
                             <div class="col-xs-4">
                                 <label class="control-label"><strong>{{_ "PhoneNumber" }}</strong></label>
                                 <div>
-                                    <input id="AdminUsers__tel" type="tel" class="form-control" value={{tel}}>
+                                    <input id="AdminUsers__tel" type="tel" pattern="[0-9\-]+" class="form-control" value={{tel}}>
                                 </div>
                             </div>
                             <div class="col-xs-4">
@@ -51,7 +51,7 @@
                                 <label class="control-label"><strong>{{_ "Email" }}</strong></label>
                                 <div>
                                     <!--<input id="AdminAddStudent__email" type="email" class="form-control AdminAddStudent__input"  value={{emails.[0].address}} readonly>-->
-                                    <label>{{emails.[0].address}} </label>
+                                    <a href="mailto:{{emails.[0].address}}" target="_top">{{emails.[0].address}} </a>
                                 </div>
                             </div>
                         </div>

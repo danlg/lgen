@@ -567,6 +567,8 @@
         "NewsgroupDetails":"Newsgroup Details",
         "NewsgroupName":"Newsgroup Name",
         "NewsgroupsNews":"Newsgroups News",
+        "NewsTitlePlaceholder": "A great catchy title to capture your audience",
+        "StoryPlaceHolder": "Write your great story here",
         "Notified":"Notified",
         "NotifyUserEmail":"Notify user with an email",
         "NotProvided":"is not provided.",
