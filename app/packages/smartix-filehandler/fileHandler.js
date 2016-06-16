@@ -79,13 +79,10 @@ Smartix.FileHandler = (function () {
                 }
             }
         },
-        //Image Upload for Web and iOS
-        imageUpload: function (event, identity, currentImageArray, callback) {
+        imageUpload: function (event, category, currentImageArray, callback) {
             FS.Utility.eachFile(event, function (file) {
-                var newFile = new FS.File(file);
-                newFile.owner = Meteor.userId();
-                newFile.metadata = {roomId: identity.roomId};
-                Images.insert(newFile, function (err, fileObj) {
+                file.owner = Meteor.userId();
+                Images.insert(file, function (err, fileObj) {
                     if (err) {
                         // handle error
                         log.error(err);
@@ -95,14 +92,15 @@ Smartix.FileHandler = (function () {
                             analytics.track("First Picture", { date: new Date()});
                             Meteor.call("updateProfileByPath", 'firstPicture', false);
                         }
-                        if (identity.category == "chat") {
+                        if (category == "chat") {
                             GeneralMessageSender(Router.current().params.chatRoomId,'text','New Image',[{type:'images',fileId: fileObj._id}],
                                 Smartix.helpers.getAllUserExceptCurrentUser()
                             );
-                        } else if (identity.category == "class") {
+                        } else if (category == "class") {
                             // alert(fileObj._id);
-                            var arr = currentImageArray|| [];
+                            var arr = currentImageArray;
                             arr.push(fileObj._id);
+
                             //log.info(fileObj.name());
                             //log.info(fileObj.extension());
                             //log.info(fileObj.size());
@@ -115,9 +113,7 @@ Smartix.FileHandler = (function () {
                 });
             });
         },
-
-        //Image Upload for Android 
-        imageUploadForAndroid: function (identity) {
+        imageUploadForAndroidAndIOS: function (e) {
             var onSuccess = function (imageURI) {
                 // var image = document.getElementById('myImage');
                 // image.src = "data:image/jpeg;base64," + imageData;
@@ -129,10 +125,8 @@ Smartix.FileHandler = (function () {
                         fileEntry.file(function (file) {
                             // alert(file);
                             log.info(file);
-                            var newFile = new FS.File(file);
-                            newFile.metadata = {roomId: identity.roomId};
-                            newFile.owner = Meteor.userId();
-                            Images.insert(newFile, function (err, fileObj) {
+                            file.owner = Meteor.userId();
+                            Images.insert(file, function (err, fileObj) {
                                 if (err) {
                                     // handle error
                                     log.error(err);
@@ -188,18 +182,11 @@ Smartix.FileHandler = (function () {
             };
             window.plugins.actionsheet.show(options, callback);
         },
-
-        //Send Documents for Web andiOS
-        documentUpload: function (event,identity,currentDocumentArray,callback) {
+        documentUpload: function (event,category,currentDocumentArray,callback) {
             FS.Utility.eachFile(event, function (file) {
                 //log.info(file);
-                var newFile = new FS.File(file);
-                if(identity.roomId)
-                {
-                    newFile.metadata = {roomId: identity.roomId};
-                }
-                newFile.owner = Meteor.userId();
-                Documents.insert(newFile, function (err, fileObj) {
+                file.owner = Meteor.userId();
+                Documents.insert(file, function (err, fileObj) {
                     if (err) {
                         // handle error
                         log.error(err);
@@ -209,19 +196,15 @@ Smartix.FileHandler = (function () {
                         //so we explicitly set the file obj name here.      
                         fileObj.name(file.name);
                         
-                        if (identity.category == "chat") {
-                                GeneralMessageSender(
-                                    Router.current().params.chatRoomId,
-                                    'text', 
-                                    'New Document',
-                                    [{type:'documents',fileId: fileObj._id}],
-                                    Smartix.helpers.getAllUserExceptCurrentUser()
+                        if(category == 'chat'){
+                            GeneralMessageSender(Router.current().params.chatRoomId,'text','New Document',[{type:'documents',fileId: fileObj._id}],
+                                Smartix.helpers.getAllUserExceptCurrentUser()
                             );
-                        }else if (identity.category =='class'){                                      
+                        }else if (category =='class'){                                      
                             var arr = currentDocumentArray;
                             arr.push(fileObj._id);
                             directDocumentMessage(arr,callback)                                   
-                        }else if (identity.category =='newsInAdmin'){
+                        }else if (category =='newsInAdmin'){
                             
                             var arr = currentDocumentArray;
                             arr.push(fileObj._id);
@@ -239,7 +222,7 @@ Smartix.FileHandler = (function () {
                 });
             });
         },
-        documentUploadForAndroid: function (e,identity,currentDocumentArray,callback) {
+        documentUploadForAndroid: function (e,category,currentDocumentArray,callback) {
             var successCallback = function (uri) {
                 log.info(uri);
                 window.FilePath.resolveNativePath(uri, function (localFileUri) {
@@ -248,30 +231,31 @@ Smartix.FileHandler = (function () {
                             filePathPrepend = "file:///";
                             
                     }                        
-                    window.resolveLocalFileSystemURL(filePathPrepend + localFileUri, function (fileEntry) {  
+                    window.resolveLocalFileSystemURL(filePathPrepend + localFileUri, function (fileEntry) {
+                            
                         //alert('do something');
                         log.info(localFileUri);
                         fileEntry.file(function (file) {
                             var newFile = new FS.File(file);
                             newFile.owner = Meteor.userId();
-                            newFile.metadata = {roomId: identity.roomId};
                             Documents.insert(newFile, function (err, fileObj) {
                                 if (err) {
                                     //handle error
                                     log.error("insert error" + err);
                                 }
                                 else {   
-                                    if( identity.category == 'chat'){
+                                    if( category == 'chat'){
                                         //handle success depending what you need to do
                                         console.dir(fileObj);
                                         GeneralMessageSender(Router.current().params.chatRoomId,'text','New Document',[{type:'documents',fileId: fileObj._id}],
                                             Smartix.helpers.getAllUserExceptCurrentUser()
                                         );                                         
-                                    }else if (identity.category == 'class'){
+                                    }else if (category == 'class'){
                                         var arr = currentDocumentArray;
                                         arr.push(fileObj._id);
                                         directDocumentMessage(arr,callback)  ;                                  
                                     }
+
                                 }
                             });
                         });

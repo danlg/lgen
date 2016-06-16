@@ -43,17 +43,12 @@ Meteor.publish('user', function (_id) {
   });
 });
 
-Meteor.publish("images", function (roomId) {
-  //roomId can be a classCode or chatRoomId
-  return Images.find({
-    'metadata.roomId': roomId
-  });
+Meteor.publish("images", function () {
+  return Images.find();
 });
 Meteor.publish("sounds", function () {
   return Sounds.find();
 });
-Meteor.publish("documents",function(roomId){
-  return Documents.find({
-    'metadata.roomId': roomId
-  });
-});
+Meteor.publish("documents",function(){
+  return Documents.find();
+})

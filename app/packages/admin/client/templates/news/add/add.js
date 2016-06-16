@@ -168,7 +168,7 @@ Template.AdminNewsAdd.events({
     'change #imageBtn': function (event, template) {
         //https://github.com/CollectionFS/Meteor-CollectionFS
         //Image is inserted from here via FS.Utility
-        Smartix.FileHandler.imageUpload(event,{category: 'class'},template.imageArr.get(),
+        Smartix.FileHandler.imageUpload(event,'class',template.imageArr.get(),
             function(result){
                 //log.info('imageArr',result);
                 template.imageArr.set(result);
@@ -181,7 +181,7 @@ Template.AdminNewsAdd.events({
     },
 
     'change #documentBtn': function (event, template) {
-        Smartix.FileHandler.documentUpload(event, {'category': 'newsInAdmin'},template.documentArr.get(),
+        Smartix.FileHandler.documentUpload(event,'newsInAdmin',template.documentArr.get(),
         function(result){
                 //log.info('documentArr',result);
                 template.documentArr.set(result);
