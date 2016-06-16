@@ -42,27 +42,35 @@ Template.ChatRoom.events({
     if (Meteor.isCordova) {
       if (window.device.platform === "Android") {
         e.preventDefault();
-        Smartix.FileHandler.imageUploadForAndroidAndIOS();
+        Smartix.FileHandler.imageUploadForAndroid(         
+          { category: 'chat', roomId: Router.current().params.chatRoomId }
+        );
       }
     }
   },
 
   'change #imageBtn': function (event, template) {
-      Smartix.FileHandler.imageUpload(event,'chat');
+      Smartix.FileHandler.imageUpload(
+        event, 
+        { category: 'chat', roomId: Router.current().params.chatRoomId }
+      );
   },
 
   'click #documentBtn':function(e){
     if (Meteor.isCordova) {
       if (window.device.platform === "Android") {
         e.preventDefault();
-        Smartix.FileHandler.documentUploadForAndroid(e,'chat');
-        
+        Smartix.FileHandler.documentUploadForAndroid(e, 
+          {'category': 'chat', 'roomId': Router.current().params.chatRoomId}
+        );
       }
     }      
    
   },
   'change #documentBtn': function (event, template) {
-      Smartix.FileHandler.documentUpload(event,'chat');
+      Smartix.FileHandler.documentUpload(event,
+        {'category': 'chat', 'roomId': Router.current().params.chatRoomId}
+      );
   },
 
   'click .imgThumbs': function (e) {

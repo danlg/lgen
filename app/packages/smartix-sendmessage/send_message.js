@@ -186,10 +186,12 @@ Template.SendMessage.events({
   'change #imageBtn': function (event, template) {
     //https://github.com/CollectionFS/Meteor-CollectionFS
     //Image is inserted from here via FS.Utility
-    Smartix.FileHandler.imageUpload(event,'class',imageArr.get(),
-        function(result){
-            imageArr.set(result);
-        });
+    Smartix.FileHandler.imageUpload(
+      event,
+      {category: 'class', roomId: Router.current().params.classCode}
+      ,imageArr.get(),
+      function(result){ imageArr.set(result);}
+    );
     showPreview("image");
   },
 
@@ -259,7 +261,10 @@ Template.SendMessage.events({
     if (Meteor.isCordova) {
       if (window.device.platform === "Android") {
         e.preventDefault();
-        Smartix.FileHandler.documentUploadForAndroid(event,'class',documentArr.get(),function(result){         
+        Smartix.FileHandler.documentUploadForAndroid(
+          e,
+          {'category': 'class', 'roomId': Router.current().params.classCode}
+          ,documentArr.get(),function(result){         
               documentArr.set([]);
               window.setTimeout(scrollMessageListToBottom, 100);
         });  
@@ -268,8 +273,9 @@ Template.SendMessage.events({
   },
   
   'change #documentBtn': function (event, template) {
-      Smartix.FileHandler.documentUpload(event,'class',documentArr.get(),function(result){
-          
+      Smartix.FileHandler.documentUpload(event,
+      {'category': 'class', 'roomId': Router.current().params.classCode}
+      ,documentArr.get(),function(result){    
               documentArr.set([]);
               window.setTimeout(scrollMessageListToBottom, 100);
           

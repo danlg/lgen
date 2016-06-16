@@ -15,5 +15,6 @@ GeneralMessageSender = function(groupId,messageType,messageText,addons,targetUse
         });
     }
     //callback is for UI update e.g buttonToggle, autogrow inputbox refresh, clean up inputBox
-    callback();
+    if(callback)
+        callback();
 };
