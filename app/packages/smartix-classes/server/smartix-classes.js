@@ -619,23 +619,20 @@ Smartix.Class.NotifyParents = Smartix.Class.NotifyStudents = function(userId, cl
 };
 
 Smartix.Class.getDistributionListsOfClass = function (classCode) {
-    
     // TODO - Checks for permission
-    
     let targetClass = Smartix.Groups.Collection.findOne({
         type: 'class',
         classCode: classCode
     });
-    if (targetClass) {
+    if (targetClass && targetClass.distributionLists) {
         return Smartix.Groups.Collection.find({
             type: 'distributionList',
             _id: {
                 $in: targetClass.distributionLists
             }
         });
-    } else {
-        return false;
-    }
+    } 
+    else return false;
 };
 
 /////////////////////////////////
