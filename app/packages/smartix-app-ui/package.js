@@ -1,5 +1,5 @@
 Package.describe({
-	name: 'smartix:ui-master',
+	name: 'smartix:app-ui',
 	version: '0.0.1',
 	summary: '',
 	git: '',
@@ -19,7 +19,6 @@ Package.onUse(function(api) {
 	//api.use('smartix:lib@0.0.1');
     api.use('zimme:active-route');
     
-	api.addFiles('master/master_layout.html', 'client');
-	api.addFiles('master/master_layout.js', 'client');
-
+	api.addFiles('app/app_layout.html', 'client');
+	api.addFiles('app/app_layout.js', 'client');
 });

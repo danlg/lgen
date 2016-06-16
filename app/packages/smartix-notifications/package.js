@@ -17,7 +17,7 @@ Package.onUse(function(api) {
          "session",
          "jquery"
      ], "client");
-     api.use('smartix:ui-master', 'client');
+     api.use('smartix:app-ui', 'client');
      api.use('smartix:core');
      api.use('smartix:lib','client');
      
