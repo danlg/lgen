@@ -113,7 +113,6 @@ Template.AddClass.destroyed = function () {
 
 Template.ionNavBar.events({
   'click .addClassBtn': function (e, template) {
-
     var newClassObj = {
         namespace: $('#namespace').val(),
         className: $('#className').val(),
@@ -123,30 +122,17 @@ Template.ionNavBar.events({
         ageRestricted:$('#ageRestricted').is(':checked'),
         anyoneCanChat:$('#anyoneCanChat').is(':checked')
     };
-    
     Smartix.Class.Schema.clean(newClassObj);
-    
     check(newClassObj,Smartix.Class.Schema);
-        
     Meteor.call('smartix:classes/createClass', Router.current().params.school, newClassObj,function(err,result){
-      
       if(err){
-          log.info(err);
-          toastr.info(err.reason);
+          log.error("smartix:classes/createClass", err);
+          toastr.error("smartix:classes/createClass", err.reason);
       }else{
-          log.info(result);
+          //log.info(result);
           Router.go('TabClasses');
       }
-        
     });
-    
-    
-    /*var email = getValues(Meteor.user(),"email").shift();
-     var classname = AutoForm.getFieldValue("className","insertClass");
-
-     Meteor.call('addClassMail',email,classname,function(err,res){
-     err?alert(err.reason);:Router.go('TabClasses');
-     });*/
   }
 });
 

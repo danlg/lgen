@@ -61,7 +61,7 @@ Template.AttendanceRecordAddByProcess.events({
                         Meteor.call('smartix:absence/replyWithReason', transformObj, function (err, result) {
                             if (err) {
                                 toastr.error(TAPi18n.__("absence.LeaveNoticeFailed"));
-                                log.info(err);
+                                log.error("smartix:absence/replyWithReason", err);
                             } else {
                                 toastr.info(TAPi18n.__("absence.LeaveNoticeOK"));
                                 $('#leave-reason').val("");
