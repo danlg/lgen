@@ -97,7 +97,7 @@ Template.AdminUsersView.events({
             newUserObj.dob = moment(new Date(template.$('#AdminUsers__dob').eq(0).val())).format('DD-MM-YYYY');
         }
         // Retrieve Telephone Number
-        newUserObj.tel = template.$('#AdminUsers__tel').eq(0).val();
+        newUserObj.tel = template.$('#AdminUsers__tel').intlTelInput("getNumber", intlTelInputUtils.numberFormat.E164);
         // Retrieve the username, or generate one
         newUserObj.username = template.$('#AdminUser__username').eq(0).val();
         // First Name, Last Name and DOB are required.
