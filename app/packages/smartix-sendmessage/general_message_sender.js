@@ -1,10 +1,8 @@
 GeneralMessageSender = function(groupId,messageType,messageText,addons,targetUsers,callback){
-    
     //e.g each addons :
     //{type:messageType,fileId:messageAttachmentObject._id}
     addons = addons || [];
-
-    log.info(messageType);
+    //log.info(messageType);
     //messageType is "text" or "article". An "article" contains a title in addition to a text payload.
     //both of them can have addon: image, document
     //only text message can have vote and comment
@@ -15,5 +13,6 @@ GeneralMessageSender = function(groupId,messageType,messageText,addons,targetUse
         });
     }
     //callback is for UI update e.g buttonToggle, autogrow inputbox refresh, clean up inputBox
-    callback();
+    if(callback)
+        callback();
 };

@@ -60,7 +60,7 @@ Template.AddSchool.events({
             }else{
                 toastr.info('create school success: you may sign out from system admin to continue');
                 toastr.info('initial admin:' + result.initialAdmin.username +' pw:' + result.initialAdmin.initialPassword);
-                log.info(result);
+                log.info("smartix:schools/createSchool",result);
             }
         } );
 

@@ -1,7 +1,22 @@
 
 
 Template.NewsgroupsNewsList.onCreated(function(){
-   
+   //TODO add here something similar to this for Image subscription at a granular level
+    // Template.AdminNewsgroupsView.onCreated(function () {
+    //     var self = this;
+    //     self.subscribe('smartix:newsgroups/newsgroupByUrl', Router.current().params.classCode, function (error, res) {
+    //         if(!error) {
+    //             var classData = Smartix.Groups.Collection.findOne({
+    //                 url: Router.current().params.classCode,
+    //                 type: 'newsgroup'
+    //             });
+    //             self.subscribe('smartix:messages/groupMessages', classData._id);
+    //             self.subscribe('allSchoolUsers',classData.namespace);
+    //         }
+    //     });
+    //
+    //     this.subscribe('smartix:distribution-lists/listsBySchoolName', Router.current().params.school);
+    // });
    var self = this;
    self.subscribe('newsgroupsForUser',null,null,Session.get('pickedSchoolId'),function(){
        self.subscribe('newsForUser',null,null,Session.get('pickedSchoolId'));    

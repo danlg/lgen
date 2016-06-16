@@ -22,19 +22,19 @@
                 <span>{{totalSelectUserCount}} {{_ "Admin.HaveBeenSelected" }}</span>
                 <br/>
                     <div class="btn-group">
-                        <button type="button" data-role='all' class="btn btn-primary filter-by-role-btn">{{_ "Admin.All" }}</button>
-                        <button type="button" data-role='parent' class="btn btn-primary filter-by-role-btn">{{_ "Parent" }}</button>
-                        <button type="button" data-role='student' class="btn btn-primary filter-by-role-btn">{{_ "Student" }}</button>
-                        <button type="button" data-role='teacher' class="btn btn-primary filter-by-role-btn">{{_ "Teacher" }}</button>
-                        <button type="button" data-role='admin' class="btn btn-primary filter-by-role-btn">{{_ "Admin.Admin" }}</button>                        
-                    </div>
-                <br/>
-                <br/>
-                    <div class="btn-group">
                       <button class='btn btn-default select-all-users-btn'>{{_ "Admin.SelectAll" }}</button>
                       <button class='btn btn-default deselect-all-users-btn'>{{_ "Admin.SelectNone" }}</button>
                       <button class='btn btn-default select-all-users-current-page-btn'>{{_ "Admin.SelectAllCurrentPage" }}</button>
                       <button class='btn btn-default deselect-all-users-current-page-btn'>{{_ "Admin.SelectNoneCurrentPage" }}</button>
+                    </div>
+                <br/>
+                <br/>
+                    <div class="btn-group">
+                      <button type="button" data-role='all' class="btn btn-primary filter-by-role-btn">{{_ "Admin.All" }}</button>
+                      <button type="button" data-role='parent' class="btn btn-primary filter-by-role-btn">{{_ "Parent" }}</button>
+                      <button type="button" data-role='student' class="btn btn-primary filter-by-role-btn">{{_ "Student" }}</button>
+                      <button type="button" data-role='teacher' class="btn btn-primary filter-by-role-btn">{{_ "Teacher" }}</button>
+                      <button type="button" data-role='admin' class="btn btn-primary filter-by-role-btn">{{_ "Admin.Admin" }}</button>
                     </div>
                 <br/>
                {{#if showOptions}}

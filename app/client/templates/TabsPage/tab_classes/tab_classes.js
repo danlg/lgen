@@ -170,7 +170,7 @@ var HowToInviteTour = function () {
     var createdClassCount = count;
     //log.info(createdClassCount);
     var hasSeenHowToInviteTour = Session.get("hasSeenHowToInviteTour");
-    log.info("has user seen the tour? ", hasSeenHowToInviteTour);
+    //log.info("has user seen the tour? ", hasSeenHowToInviteTour);
     if (createdClassCount == 1 && !hasSeenHowToInviteTour ) {
       IonPopup.show({
         title: TAPi18n.__("Congratulations"),

@@ -43,6 +43,21 @@ Template.AdminUsersView.helpers({
     }
 });
 
+var initTelephone = function (template) {
+    // Initialize intl-tel-input
+    template.$("#AdminUsers__tel").intlTelInput({
+        // Enable GEO lookup using ipinfo
+        geoIpLookup: function(callback) {
+            $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+                var countryCode = (resp && resp.country) ? resp.country : "";
+                callback(countryCode);
+            });
+        },
+        // Add Hong Kong, USA and UK to the most popular countries (displayed first)
+        preferredCountries: ["hk", "us", "gb"]
+    });
+};
+
 Template.AdminUsersView.events({
     'click #AdminUsers__dob': function(event, template)
     {
@@ -57,7 +72,7 @@ Template.AdminUsersView.events({
                 format: 'dd-mm-yyyy',
                 editable:true,
                 //should be Today() - 20 Years
-                min: new Date(1996,01,01),
+                min: new Date(1991,01,01),
                 //should be Today() -2 Years
                 max: new Date(2015,01,01)
             }
@@ -66,18 +81,7 @@ Template.AdminUsersView.events({
 
     'click #AdminUsers__tel': function(event, template)
     {
-        // Initialize intl-tel-input
-        template.$("#AdminUsers__tel").intlTelInput({
-            // Enable GEO lookup using ipinfo
-            geoIpLookup: function(callback) {
-                $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
-                    var countryCode = (resp && resp.country) ? resp.country : "";
-                    callback(countryCode);
-                });
-            },
-            // Add Hong Kong, USA and UK to the most popular countries (displayed first)
-            preferredCountries: ["hk", "us", "gb"]
-        });
+        initTelephone(template);
     },
 
     'click #UpdateUser__submit': function(event, template)
@@ -88,6 +92,8 @@ Template.AdminUsersView.events({
         newUserObj.profile = {};// Get the first name and last name
         newUserObj.profile.firstName = template.$('#AdminUsers__firstName').eq(0).val();
         newUserObj.profile.lastName = template.$('#AdminUsers__lastName').eq(0).val();
+
+        initTelephone(template);//to parse the telephone and transform object -> string
         
         var dateFieldVal = template.$('#AdminUsers__dob').eq(0).val();
         if (dateFieldVal === "") {

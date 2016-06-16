@@ -27,8 +27,8 @@ Template.AdminNewsgroupsAdd.events({
         Meteor.call('smartix:newsgroups/createNewsgroup', Router.current().params.school, newNewsgroup, selectedDistributionLists,function(err,result){
             
             if(err){
-                log.info(err);
-                toastr.info(err.reason);
+                log.info("smartix:newsgroups/createNewsgroup", err);
+                toastr.info("smartix:newsgroups/createNewsgroup", err.reason);
             }else{
                 toastr.info('Newsgroup is created.');
             }
