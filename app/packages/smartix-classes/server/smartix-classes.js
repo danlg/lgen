@@ -3,17 +3,15 @@ Smartix = Smartix || {};
 Smartix.Class = Smartix.Class || {};
 
 Smartix.Class.searchForClassWithClassCode = function(classCode) {
-    log.info('Checks that `classCode` conforms to the schema before searching', classCode);
+    //log.info('Checks that `classCode` conforms to the schema before searching', classCode);
     // Checks that `classCode` conforms to the schema before searching
     var classCodePattern = new RegExp(/^[a-zA-Z0-9-]{3,}$/);
-
     if (typeof classCode === "string"
         && classCodePattern.test(classCode)) {
-
         var existGroup = Smartix.Groups.Collection.findOne({
             classCode: /^classCode$/i
         });
-        log.info('existGroup', existGroup);
+        //log.info('existGroup', existGroup);
         // Returns the class object or `undefined`
         return existGroup;
     }
@@ -39,22 +37,17 @@ Smartix.Class.getClassesOfUser = function(id) {
 };
 
 Smartix.Class.isClassAdmin = function(userId, classId) {
-
     userId = userId || Meteor.userId();
-
     var queriedClass = Smartix.Groups.Collection.findOne({
         _id: classId
     });
-
     if (Array.isArray(queriedClass.admins)) {
-
         return queriedClass.admins.indexOf(userId) > -1;
-    } else {
-
+    }
+    else {
         // OPTIONAL: Throw error as `queriedClass.admins` should be an array of strings
         return false;
     }
-
 };
 
 Smartix.Class.canCreateClass = function(namespace, currentUser) {
@@ -129,11 +122,9 @@ Smartix.Class.createClass = function(classObj, currentUser) {
             newClass.distributionLists = classObj.distributionLists;
         }
     }
-    
-    
+
     // Remove duplicates from the `users` array
     newClass.users = _.uniq(newClass.users);
-    
     // Checks if classCode Already exists
     let existingClass = Smartix.Class.searchForClassWithClassCode(newClass.classCode);
     if(existingClass) {
@@ -276,20 +267,16 @@ Smartix.Class.editClass = function(classId, options, currentUser) {
 };
 
 Smartix.Class.deleteClass = function(id) {
-
     // Checks that `id` is of type String
     check(ids, String);
-
     // Checks that currently-logged in user is one of the following:
     // * Admin for the school (namespace) specified
     // * One of the admins for the class
-
     if (!(Smartix.Class.isClassAdmin(Meteor.userId(), classId)
         || Smartix.Accounts.School.isAdmin(namespace))) {
         return false;
         // Optional: Throw an appropriate error if not
     }
-
     // Remove the class specified
     Smartix.Groups.deleteGroup(id);
 };
@@ -329,7 +316,6 @@ Smartix.Class.addAdminsToClass = function(classId, users, currentUser) {
     if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
-    
     // Checks that currently-logged in user is one of the following:
     // * Admin for the school (namespace) specified
     // * One of the admins for the class
@@ -337,7 +323,6 @@ Smartix.Class.addAdminsToClass = function(classId, users, currentUser) {
         _id: classId,
         type: "class"
     });
-
     if (classObj) {
         if (!Smartix.Class.canEditClass(classId, currentUser)) {
             return false;
@@ -346,7 +331,6 @@ Smartix.Class.addAdminsToClass = function(classId, users, currentUser) {
     } else {
         return false;
     }
-
     users = Smartix.Accounts.Utilities.removeNonExistentUsers(users);
     // Push (using `$addToSet`) the new users to the existing `users` array
     Smartix.Groups.Collection.update({
@@ -372,7 +356,6 @@ Smartix.Class.addListsToClass = function(classId, lists) {
         _id: classId,
         type: "class"
     });
-
     if (classObj) {
         if (!(
             Smartix.Class.isClassAdmin(Meteor.userId(), classId)
@@ -399,7 +382,6 @@ Smartix.Class.addListsToClass = function(classId, lists) {
             
             usersInDistributionLists = _.uniq(_.pullAll(usersInDistributionLists, classObj.users));
         }
-        
         // Send emails to students if `newClass.notifyStudents` is true
         if (classObj.notifyStudents) {
             _.each(usersInDistributionLists, function(student, i, students) {
@@ -424,7 +406,6 @@ Smartix.Class.addUsersToClass = function(classId, users) {
     check(classId, String);
     // Checks that `users` is an array of Strings
     check(users, [String]);
-
     // Checks that currently-logged in user is one of the following:
     // * Admin for the school (namespace) specified
     // * One of the admins for the class
@@ -472,15 +453,11 @@ Smartix.Class.addUsersToClass = function(classId, users) {
 };
 
 Smartix.Class.removeUsersFromClass = function(classId, users, currentUser) {
-
     // Checks that `id` is of type String
     check(classId, String);
-
     // Checks that `users` is an array of Strings
     check(users, [String]);
-
     check(currentUser, Match.Maybe(String));
-
     // Get the `_id` of the currently-logged in user
     if (!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
@@ -489,7 +466,6 @@ Smartix.Class.removeUsersFromClass = function(classId, users, currentUser) {
     // Checks that currently-logged in user is one of the following:
     // * Admin for the school (namespace) specified
     // * One of the admins for the class
-
     // TODO - Optimize this so
     // only if the user is not class admin
     // would we have to fetch the class object
@@ -497,27 +473,21 @@ Smartix.Class.removeUsersFromClass = function(classId, users, currentUser) {
         _id: classId,
         type: "class"
     });
-
     if (!(Smartix.Class.isClassAdmin(currentUser, classId)
         || Smartix.Accounts.School.isAdmin(classObj.namespace))) {
         return false;
         // Optional: Throw an appropriate error if not
     }
-
     // Remove users to class
     Smartix.Groups.removeUsersFromGroup(classId, users);
 };
 
 Smartix.Class.removeAdminsFromClass = function(classId, admins, currentUser) {
-
     // Checks that `id` is of type String
     check(classId, String);
-
     // Checks that `users` is an array of Strings
     check(admins, [String]);
-
     check(currentUser, Match.Maybe(String));
-
     // Get the `_id` of the currently-logged in user
     if (!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
@@ -533,13 +503,11 @@ Smartix.Class.removeAdminsFromClass = function(classId, admins, currentUser) {
         _id: classId,
         type: "class"
     });
-
     if (!(Smartix.Class.isClassAdmin(currentUser, classId)
         || Smartix.Accounts.School.isAdmin(classObj.namespace))) {
         return false;
         // Optional: Throw an appropriate error if not
     }
-
     Smartix.Groups.Collection.update({
         _id: classId
     }, {
@@ -550,20 +518,15 @@ Smartix.Class.removeAdminsFromClass = function(classId, admins, currentUser) {
 };
 
 Smartix.Class.removeListsFromClass = function(classId, lists, currentUser) {
-
     // Checks that `id` is of type String
     check(classId, String);
-
     // Checks that `users` is an array of Strings
     check(lists, [String]);
-
     check(currentUser, Match.Maybe(String));
-
     // Get the `_id` of the currently-logged in user
     if (!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
-    
     // Checks that currently-logged in user is one of the following:
     // * Admin for the school (namespace) specified
     // * One of the admins for the class
@@ -586,24 +549,19 @@ Smartix.Class.removeListsFromClass = function(classId, lists, currentUser) {
 };
 
 Smartix.Class.NotifyParents = Smartix.Class.NotifyStudents = function(userId, classId) {
-
     check(userId, String);
     check(classId, String);
-
     let user = Meteor.users.findOne({
         _id: userId
     });
-
     if (!user) {
         return false;
         // throw new Meteor.Error("student-not-found", "Student with ID of " + studentId + " could not be found");
     }
-
     let classObj = Smartix.Groups.Collection.findOne({
         _id: classId,
         type: "class"
     });
-
     if (!classObj) {
         return false;
         // throw new Meteor.Error("class-not-found", "Class with ID of " + classId + " could not be found");
@@ -631,14 +589,11 @@ Smartix.Class.getDistributionListsOfClass = function (classCode) {
                 $in: targetClass.distributionLists
             }
         });
-    } 
+    }
     else return false;
 };
 
-/////////////////////////////////
 // OLD CODE TO BE SORTED LATER //
-/////////////////////////////////
-
 Smartix.Class.Schema.i18n("schemas.ClassesSchema");
 //toremove
 var msgStringError = TAPi18n.__("ClassCodeErrorMessage", {}, lang_tag = "en");
