@@ -3,17 +3,16 @@ Smartix = Smartix || {};
 Smartix.Class = Smartix.Class || {};
 
 Smartix.Class.searchForClassWithClassCode = function(classCode) {
-    log.info('Checks that `classCode` conforms to the schema before searching', classCode);
+    //log.info('Checks that `classCode` conforms to the schema before searching', classCode);
     // Checks that `classCode` conforms to the schema before searching
     var classCodePattern = new RegExp(/^[a-zA-Z0-9-]{3,}$/);
-
     if (typeof classCode === "string"
         && classCodePattern.test(classCode)) {
 
         var existGroup = Smartix.Groups.Collection.findOne({
             classCode: /^classCode$/i
         });
-        log.info('existGroup', existGroup);
+        //log.info('existGroup', existGroup);
         // Returns the class object or `undefined`
         return existGroup;
     }
@@ -39,9 +38,7 @@ Smartix.Class.getClassesOfUser = function(id) {
 };
 
 Smartix.Class.isClassAdmin = function(userId, classId) {
-
     userId = userId || Meteor.userId();
-
     var queriedClass = Smartix.Groups.Collection.findOne({
         _id: classId
     });
@@ -489,7 +486,6 @@ Smartix.Class.removeUsersFromClass = function(classId, users, currentUser) {
     // Checks that currently-logged in user is one of the following:
     // * Admin for the school (namespace) specified
     // * One of the admins for the class
-
     // TODO - Optimize this so
     // only if the user is not class admin
     // would we have to fetch the class object
@@ -497,13 +493,11 @@ Smartix.Class.removeUsersFromClass = function(classId, users, currentUser) {
         _id: classId,
         type: "class"
     });
-
     if (!(Smartix.Class.isClassAdmin(currentUser, classId)
         || Smartix.Accounts.School.isAdmin(classObj.namespace))) {
         return false;
         // Optional: Throw an appropriate error if not
     }
-
     // Remove users to class
     Smartix.Groups.removeUsersFromGroup(classId, users);
 };

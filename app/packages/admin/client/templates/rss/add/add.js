@@ -35,11 +35,11 @@ Template.AdminRssAdd.events({
             , selectedNewsgroups
             , function (err, res) {
             if(err) {
-                log.info(err);
-                toastr.info(err.reason);
+                log.error("smartix:rss/linkRssWithGroups", err);
+                toastr.error("smartix:rss/linkRssWithGroups",err.reason);
             } else {
                 toastr.info('RSS is linked.');
             }
         })
     }
-})
+});

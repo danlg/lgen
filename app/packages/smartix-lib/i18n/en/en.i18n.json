@@ -376,7 +376,7 @@
         }
     },
     "Admin":{
-        "All":"All",
+        "All":"Show All",
         "Admin":"Admin",
         "Admins":"Admins",
         "AddDistList":"Add distribution List",

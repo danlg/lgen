@@ -1,11 +1,10 @@
 Template.AdminNewsgroupsSearch.onCreated(function () {
     if (Router
-    && Router.current()
-    && Router.current().params
-    && Router.current().params.school
+        && Router.current()
+        && Router.current().params
+        && Router.current().params.school
     ) {
         this.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolName', Router.current().params.school);
-    
         var schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(Router.current().params.school);
         this.subscribe('smartix:accounts/allUsersInNamespace', schoolNamespace);
         this.subscribe('smartix:distribution-lists/listsBySchoolName', Router.current().params.school);        

@@ -180,7 +180,6 @@ Smartix.DistributionLists.removeUsersFromList = function (id, users, currentUser
 	// Checks that `users` is an array of Strings
 	check(users, [String]);
     check(currentUser, Match.Maybe(String));
-    
     // Get the `_id` of the currently-logged in user
     if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
@@ -200,11 +199,10 @@ Smartix.DistributionLists.getDistributionListsOfUser = function (userId) {
         type: 'distributionList',
         users: userId
     }).fetch();
-    
     return _.map(distributionListsOfUser, function(list) {
         return list._id;
     })
-}
+};
 
 Smartix.DistributionLists.getUsersInDistributionLists = function (distributionLists) {
     return _.reduce(distributionLists, 
@@ -213,16 +211,17 @@ Smartix.DistributionLists.getUsersInDistributionLists = function (distributionLi
                     type: 'distributionList',
                     _id : listid
                 }).fetch();
-            users = _.union(users, distList[0].users);
+            if (distList[0]) {
+                users = _.union(users, distList[0].users);
+            }
             return users;
         }, []);
-}
+};
 
 // Remove non-existent distribution lists from the array
 Smartix.DistributionLists.removeNonExistentDistributionLists = function (lists) {
     // Checks `users` is an array of Strings
     check(lists, [String]);
-
     // Checks if all the lists exists
     if (lists.length === Smartix.Groups.Collection.find({
         type: "distributionList",
@@ -243,4 +242,4 @@ Smartix.DistributionLists.removeNonExistentDistributionLists = function (lists) 
             });
         });
     }
-}
+};

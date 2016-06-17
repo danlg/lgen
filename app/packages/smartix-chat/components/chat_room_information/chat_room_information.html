@@ -10,65 +10,51 @@
   {{#ionView}}
     {{#ionContent}}
       <div class="list">       
-        <!--to-do allow moderator to edit the chat room settings-->
-        <!--{{#if isChatRoomModerator chatRoomProfile}}  
-            <div class='row'>
-                {{#if chatRoomProfile.chatRoomAvatar}}
-                <div class='col col-50'  style='text-align:center;'>
-                <br/>
-                <i id='pick-an-icon-btn' class="icon e1a-{{chatRoomProfile.chatRoomAvatar}} e1a-5x emojicon"></i>
-                </div> 
-                {{else}}
-                <div id='pick-an-icon-btn' class='col col-50'  style='text-align:center;' >              
-                <p> Choose a group avatar (optional)</p>  
-                <i class='icon ion-ios-person-outline' style='font-size:5em;'></i>
-                </div>  
-                {{/if}}                       
-            <div class='col col-50'>
-                <input value="{{chatRoomProfile.chatRoomName}}" id='group-chatroom-name' type="search" class="group-chatroom-name" placeholder="{{_ 'Group_name_optional'}}">
-            </div>            
-            </div>  
-        {{else}}-->        
+
             {{#if chatRoomProfile.chatRoomName}}
-            <div class="item item-divider">
-            {{_ "ChatRoomName"}}
-            </div>            
-            <div class="item item-icon-left user-item">
-                {{#if chatRoomProfile.chatRoomAvatar}}
-                    <i class="icon e1a-{{chatRoomProfile.chatRoomAvatar}} e1a-1x emojicon"></i>       
-                {{/if}} 
-                {{chatRoomProfile.chatRoomName}}
-            </div>
-            <!--<div class="item">This chat room has no name</div>-->        
-            {{else}}
-                {{#if chatRoomProfile.chatRoomAvatar}}
+
+                <div class="item item-divider">
+                {{_ "ChatRoomName"}}
+                </div>
                 <div class="item item-icon-left user-item">
-                    <i class="icon e1a-{{chatRoomProfile.chatRoomAvatar}} e1a-1x emojicon"></i> 
-                    <br /> 
-                </div>     
-                {{/if}} 
+                    {{#if chatRoomProfile.chatRoomAvatar}}
+                        <i class="icon e1a-{{chatRoomProfile.chatRoomAvatar}} e1a-1x emojicon"></i>
+                    {{/if}}
+                    {{chatRoomProfile.chatRoomName}}
+                </div>
+
+            {{else}}
+
+                {{#if chatRoomProfile.chatRoomAvatar}}
+                    <div class="item item-icon-left user-item">
+                        <i class="icon e1a-{{chatRoomProfile.chatRoomAvatar}} e1a-1x emojicon"></i>
+                        <br />
+                    </div>
+                {{/if}}
+
             {{/if}}
+
             {{#if isOneToOne}}
             {{else}}     
-             <div class="item item-divider">
-                {{_ "Moderator"}}
-            </div>   
-            <div class="item item-icon-left user-item">
-                {{#each chatRoomProfile.admins}}
-                    {{#with getUserById this }}
-                        {{#if profile.avatarValue}}
-                            {{#if isEmoji this}}
-                                <i class="icon e1a-{{profile.avatarValue}} e1a-1x emojicon"></i>
+                 <div class="item item-divider">
+                    {{_ "Moderator"}}
+                </div>
+                <div class="item item-icon-left user-item">
+                    {{#each chatRoomProfile.admins}}
+                        {{#with getUserById this }}
+                            {{#if profile.avatarValue}}
+                                {{#if isEmoji this}}
+                                    <i class="icon e1a-{{profile.avatarValue}} e1a-1x emojicon"></i>
+                                {{else}}
+                                    <img class="icon icon-avatar e1a-1x" src="{{profile.avatarValue}}" />
+                                {{/if}}
                             {{else}}
-                                <img class="icon icon-avatar e1a-1x" src="{{profile.avatarValue}}" />
+                                <i class="icon e1a-green_apple e1a-1x emojicon"></i>
                             {{/if}}
-                        {{else}}
-                            <i class="icon e1a-green_apple e1a-1x emojicon"></i>
-                        {{/if}}
-                    {{profile.firstName}} <strong>{{profile.lastName}}</strong>
-                    {{/with}}                
-                {{/each}}
-            </div>
+                        {{profile.firstName}} <strong>{{profile.lastName}}</strong>
+                        {{/with}}
+                    {{/each}}
+                </div>
             {{/if}}
           
         <div class="item item-divider">
