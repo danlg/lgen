@@ -70,7 +70,6 @@ function trueFunc(userId) {
     // must be logged in
     return false;
   }
-
   return true;
 }
 function falseFunc() {
@@ -85,7 +84,7 @@ function falseFunc() {
 // });
 
 Images.allow({
-  insert: trueFunc,
+  insert: () => { return true; } ,
   update: trueFunc,
   remove: trueFunc,
   download: trueFunc

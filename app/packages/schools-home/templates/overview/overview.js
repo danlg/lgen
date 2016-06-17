@@ -147,7 +147,7 @@ Template.MobileSchoolHome.onCreated(function(){
    self.subscribe('newsgroupsForUser',null,null, Router.current().params.school,function(){
     self.subscribe('newsForUser',null,null, Router.current().params.school);       
    });
-   self.subscribe('images', Router.current().params.school);
+   self.subscribe('images', Router.current().params.school, 'school');
 })
 
 Template.MobileSchoolHome.onRendered(function(){

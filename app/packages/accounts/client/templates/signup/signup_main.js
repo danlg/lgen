@@ -196,6 +196,11 @@ Template.SignupMain.events({
             var SchoolTrialAccountCreationObj = Session.get('schoolTrialAccountCreation');
             //log.info('start-my-trial-page2-btn', SchoolTrialAccountCreationObj);
             //update school shortname from  template.newSchoolId.get()
+
+            //Add Method to upload files using filehandler
+            var logoId = createImage(template.previewSchoolLogoBlob.get(),schoolShortName);
+            var bgImgId = createImage (template.previewSchoolBackgroundImageBlob.get(), schoolShortName);
+
             Meteor.call('smartix:schools/editSchoolTrial',
                 template.newSchoolId.get(),
                 {
@@ -205,15 +210,15 @@ Template.SignupMain.events({
                         howDidYourFind: $('textarea#how-did-you-find').val(),
                         whichIssues: $('textarea#which-issues').val(),
                         HowSmartixExpect: $('textarea#how-smartix-expect').val()
-                    }
+                    },
+                    logo: logoId || "",
+                    backgroundImage: bgImageId || ""
                 },
                 {
                     email: SchoolTrialAccountCreationObj.user.userEmail,
                     firstName: SchoolTrialAccountCreationObj.user.userFirstName,
                     lastName: SchoolTrialAccountCreationObj.user.userLastName
                 },                
-                template.previewSchoolLogoBlob.get(),
-                template.previewSchoolBackgroundImageBlob.get(),
                 function (err,result) {
                     if(err){
                         if(err.error === 'short-name-taken'){
@@ -400,3 +405,16 @@ Template.SignupMain.events({
 function hasHtml5Validation () {
     return typeof document.createElement('input').checkValidity === 'function';
 }
+
+var createImage = function(imagesData, shortname) {
+    var imageObj;
+    var imageObjId ;
+    if(imagesData){
+        var newFile = new FS.File(imagesData);
+        newFile.metadata = {'id': shortname, 'category': 'school'};
+        imageObj = Images.insert(newFile);
+        imageObjId = imageObj._id;
+        //log.info('imageObj',imageObj);
+    }
+    return imageObjId;
+};

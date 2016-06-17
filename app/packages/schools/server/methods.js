@@ -1,28 +1,3 @@
-var createImage = function(imagesData, backgroundImagesData, shortname) {
-    var imageObj;
-    var imageObjId ;
-    if(imagesData){
-        var newFile = new FS.File(imagesData);
-        newFile.metadata = {roomId: shortname};
-        imageObj = Images.insert(newFile);
-        imageObjId = imageObj._id;
-        //log.info('imageObj',imageObj);
-    }
-    var backgroundImagesObj;
-    var backgroundImagesObjId ;
-    if(backgroundImagesData){
-        var newFile = new FS.File(backgroundImagesData);
-        newFile.metadata = {roomId: shortname};
-        backgroundImagesObj = Images.insert(newFile);
-        backgroundImagesObjId = backgroundImagesObj._id;
-        //log.info('imageObj',imageObj);
-    }
-    return {
-        logoId: imageObjId,
-        bgImageId: backgroundImagesObjId
-    }
-}
-
 Meteor.methods({
 
     'smartix:schools/getSchoolName': function(id) {
@@ -113,7 +88,7 @@ Meteor.methods({
     },
     
     //Save Logo and Background Image, Creates schoolShortname
-    'smartix:schools/editSchoolTrial': function (id, schoolOptions,userOptions,imagesData,backgroundImagesData) {
+    'smartix:schools/editSchoolTrial': function (id, schoolOptions,userOptions) {
         log.info('smartix:schools/editSchoolTrial',id);
         var targetSchool = SmartixSchoolsCol.findOne(id);
         //only if the school is totally new, it can be updated by anonymous
@@ -130,9 +105,9 @@ Meteor.methods({
         // https://github.com/aldeed/meteor-simple-schema/issues/387
         
         //upload background and logo, update schoolOptions to add logo and background ids
-        var imgObject = createImage(imagesData, backgroundImagesData, schoolOptions.username);
-        schoolOptions.logo = imgObject.logoId || "";
-        schoolOptions.backgroundImage = imgObject.bgImageId || "";     
+        // var imgObject = createImage(imagesData, backgroundImagesData, schoolOptions.username);
+        // schoolOptions.logo = imgObject.logoId || "";
+        // schoolOptions.backgroundImage = imgObject.bgImageId || "";     
         
         delete targetSchool._id;
         lodash.merge(targetSchool, schoolOptions);

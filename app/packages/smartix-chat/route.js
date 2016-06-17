@@ -9,7 +9,7 @@ Router.route('ChatRoom', {
   path: "/chat/:chatRoomId",
   waitOn: function () {
     return [
-      Meteor.subscribe('images', this.params.chatRoomId),
+      Meteor.subscribe('images', this.params.chatRoomId, 'chat'),
       Meteor.subscribe('documents', this.params.chatRoomId),
       Meteor.subscribe('sounds'),
       Meteor.subscribe('chatRoomWithUser', this.params.chatRoomId)

@@ -7,12 +7,13 @@ Template.EditSchool.onCreated(function() {
     && Router.current().params.school) {
         var schoolUsername = Router.current().params.school;
         self.subscribe('schoolInfo', schoolUsername);
-        self.subscribe('images', schoolUsername);   
+        self.subscribe('images', schoolUsername, 'school');   
     }
     var schoolId = SmartixSchoolsCol.findOne({username: schoolUsername});
-    Template.instance().newSchoolLogo.set(Images.findOne(schoolId.logo)._id);
-    Template.instance().newSchoolBackgroundImage.set(Images.findOne(schoolId.backgroundImage)._id); 
-    log.info("Image", Template.instance().newSchoolLogo.get());
+    if(schoolId.logo)
+        Template.instance().newSchoolLogo.set(Images.findOne(schoolId.logo)._id);
+    if(schoolId.backgroundImage)
+        Template.instance().newSchoolBackgroundImage.set(Images.findOne(schoolId.backgroundImage)._id); 
 });
 
 Template.EditSchool.onDestroyed(function(){
@@ -23,20 +24,11 @@ Template.EditSchool.onDestroyed(function(){
 Template.EditSchool.onRendered(function(){
 });
 
-Template.EditSchool.helpers({
-    'existingSchoolLogo':function(){
-        return Images.findOne(this.logo);
-    },
-    'existingSchoolBackgroundImage':function(){
-        return Images.findOne(this.backgroundImage);
-    },    
-   
+Template.EditSchool.helpers({ 
     uploadedSchoolLogo: function() {
         var newSchoolLogoId = Template.instance().newSchoolLogo.get();
-        log.info("SchoolId", newSchoolLogoId);
         return Images.find(newSchoolLogoId);
     },    
-    
     uploadedSchoolBackgroundImage: function() {
         var newSchoolLogoId = Template.instance().newSchoolBackgroundImage.get();
         return Images.find(newSchoolLogoId);
@@ -97,10 +89,9 @@ Template.EditSchool.events({
     }
 });
 
-
 var editImage = function(filePath,template, schoolUserName, image) {
     var newFile = new FS.File(filePath);
-    newFile.metadata = {roomId: schoolUserName};
+    newFile.metadata = {id: schoolUserName, category: 'school'};
     Images.insert(newFile, function(err, fileObj) {
         if (err) log.error(err);
         else {

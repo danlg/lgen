@@ -43,17 +43,19 @@ Meteor.publish('user', function (_id) {
   });
 });
 
-Meteor.publish("images", function (roomId) {
+Meteor.publish("images", function (id, category) {
   //roomId can be a classCode or chatRoomId
   return Images.find({
-    'metadata.roomId': roomId
+    'metadata.id': id,
+    'metadata.category': category
   });
 });
 Meteor.publish("sounds", function () {
   return Sounds.find();
 });
-Meteor.publish("documents",function(roomId){
+Meteor.publish("documents",function(id, category){
   return Documents.find({
-    'metadata.roomId': roomId
+    'metadata.id': id,
+    'metadata.category': category
   });
 });

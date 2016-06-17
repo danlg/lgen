@@ -83,7 +83,7 @@ Template.adminLayout.onCreated(function () {
     && Router.current().params.school) {
         this.subscribe('schoolInfo', Router.current().params.school);
     }
-    self.subscribe('images', Router.current().params.school); 
+    self.subscribe('images', Router.current().params.school, 'school'); 
 });
 
 Template.adminLayout.events({

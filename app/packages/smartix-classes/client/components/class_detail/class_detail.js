@@ -210,7 +210,7 @@ Template.ClassDetail.onCreated(function () {
 
     this.autorun(function () {
         self.subscribe('smartix:messages/groupMessages', classObj._id);
-        self.subscribe('images', Router.current().params.classCode);
+        self.subscribe('images', Router.current().params.classCode, 'class');
         self.subscribe('documents', Router.current().params.classCode);
         self.subscribe('sounds');
 

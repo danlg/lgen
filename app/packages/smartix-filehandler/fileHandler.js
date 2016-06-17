@@ -83,8 +83,8 @@ Smartix.FileHandler = (function () {
         imageUpload: function (event, identity, currentImageArray, callback) {
             FS.Utility.eachFile(event, function (file) {
                 var newFile = new FS.File(file);
+                newFile.metadata = identity;
                 newFile.owner = Meteor.userId();
-                newFile.metadata = {roomId: identity.roomId};
                 Images.insert(newFile, function (err, fileObj) {
                     if (err) {
                         // handle error
@@ -103,12 +103,18 @@ Smartix.FileHandler = (function () {
                             // alert(fileObj._id);
                             var arr = currentImageArray|| [];
                             arr.push(fileObj._id);
-                            //log.info(fileObj.name());
-                            //log.info(fileObj.extension());
-                            //log.info(fileObj.size());
-                            //log.info(fileObj.type());
-                            //log.info(fileObj.updatedAt());
-                            //log.info(fileObj._id);
+                            callback(arr);
+                        }
+                        else if (identity.category == "newsInAdmin") {
+                            // alert(fileObj._id);
+                            var arr = currentImageArray|| [];
+                            arr.push(fileObj._id);
+                            callback(arr);
+                        }
+                        else if (identity.category == "school")
+                        {
+                            var arr;
+                            arr = fileObj._id;
                             callback(arr);
                         }
                     }
@@ -130,7 +136,7 @@ Smartix.FileHandler = (function () {
                             // alert(file);
                             log.info(file);
                             var newFile = new FS.File(file);
-                            newFile.metadata = {roomId: identity.roomId};
+                            newFile.metadata = identity;
                             newFile.owner = Meteor.userId();
                             Images.insert(newFile, function (err, fileObj) {
                                 if (err) {
@@ -194,10 +200,7 @@ Smartix.FileHandler = (function () {
             FS.Utility.eachFile(event, function (file) {
                 //log.info(file);
                 var newFile = new FS.File(file);
-                if(identity.roomId)
-                {
-                    newFile.metadata = {roomId: identity.roomId};
-                }
+                newFile.metadata = identity;
                 newFile.owner = Meteor.userId();
                 Documents.insert(newFile, function (err, fileObj) {
                     if (err) {
@@ -223,12 +226,6 @@ Smartix.FileHandler = (function () {
                         }else if (identity.category =='newsInAdmin'){
                             var arr = currentDocumentArray;
                             arr.push(fileObj._id);
-                            //log.info(fileObj.name());
-                            //log.info(fileObj.extension());
-                            //log.info(fileObj.size());
-                            //log.info(fileObj.type());
-                            //log.info(fileObj.updatedAt());
-                            //log.info(fileObj._id);
                             callback(arr);                            
                         }
                     }
@@ -251,7 +248,7 @@ Smartix.FileHandler = (function () {
                         fileEntry.file(function (file) {
                             var newFile = new FS.File(file);
                             newFile.owner = Meteor.userId();
-                            newFile.metadata = {roomId: identity.roomId};
+                            newFile.metadata = identity;
                             Documents.insert(newFile, function (err, fileObj) {
                                 if (err) {
                                     //handle error

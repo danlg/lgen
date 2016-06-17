@@ -63,34 +63,5 @@ Meteor.methods({
   'chat/setting/update': function (doc) {
     Meteor.users.update({_id: Meteor.userId()}, {$set: {'profile.chatSetting': doc}}, {validate: false});
   }
-  
-  // chatSendImage: function (file, chatRoomId) {
-  //   var newFile = new FS.File(file);
-  //   newFile.metadata = {roomId: identity.roomId};
-  //   file.metadata = {roomId: chatRoomId};
-  //   Images.insert(file, function (err, fileObj) {
-  //     if (err) {
-  //       // handle error
-  //     } else {
-  //       // handle success depending what you need to do
-  //       var userId = Meteor.userId();
-  //       var imagesURL = {
-  //         'profile.image': '/cfs/files/images/' + fileObj._id
-  //       };
-  //       // Meteor.users.update(userId, {
-  //       //   $set: imagesURL
-  //       // });
-
-  //       var pushObj = {};
-  //       pushObj.from = Meteor.user();
-  //       pushObj.sendAt = moment().format('x');
-  //       pushObj.text = "";
-  //       pushObj.image = fileObj._id;
-
-  //       Smartix.Groups.Collection.update({_id: Router.current().params.chatRoomId}, {$push: {messagesObj: pushObj}});
-  //     }
-  //   });
-  // },      
-    
     
 });
