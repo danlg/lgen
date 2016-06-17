@@ -37,6 +37,7 @@
 //         }
 //     },    
     
+<<<<<<< HEAD
 //     'click #edit-school-submit': function(event, template) {
 //         var newSchoolObj =
 //         { name: $("#name").val(),
@@ -63,6 +64,32 @@
 //                 log.info(result);
 //             }
 //         } );
+// 'click #edit-school-submit': function(event, template) {
+//     var newSchoolObj =
+//     { name: $("#name").val(),
+//       username: $("#username").val(),
+//       adminUsername: $("#admin-username").val(),
+//       logo: template.newSchoolLogo.get(),
+//       backgroundImage: template.newSchoolBackgroundImage.get(), 
+//       tel: $("#tel").val(),
+//       web: $("#web").val(),
+//       email: $("#email").val(),
+//       active: true,
+//       preferences: {
+//           schoolBackgroundColor: $("#school-background-color").val(),
+//           schoolTextColor: $("#school-text-color").val()
+//       } 
+//     };
+//     Meteor.call('smartix:schools/createSchool',newSchoolObj,function(err,result){
+//         if(err){
+//             toastr.error(err.reason);
+//             log.error(err);
+//         }else{
+//             toastr.info('create school success: you may sign out from system admin to continue');
+//             toastr.info('initial admin:' + result.initialAdmin.username +' pw:' + result.initialAdmin.initialPassword);
+//             log.info("smartix:schools/createSchool",result);
+//         }
+//     } );
 
 //     },
     
