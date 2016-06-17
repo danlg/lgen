@@ -25,13 +25,13 @@ Package.onUse(function(api) {
   api.addFiles('reserved-school-names.js');  
   api.addFiles('schools.js');
   api.addFiles('server/methods.js', 'server');
-  api.addFiles('client/helpers.js','client');
   api.addFiles('publications.js','server');
   
-  api.addFiles('routes.js');
-  api.addFiles(['client/templates/add_school.html',
-                'client/templates/add_school.js']
-               ,'client');
+  // api.addFiles('routes.js');
+  // Use School Signup Instead
+  // api.addFiles(['client/templates/add_school.html',
+  //               'client/templates/add_school.js']
+  //              ,'client');
   api.addFiles(['client/templates/edit_school.html',
                 'client/templates/edit_school.js']
                ,'client');   

@@ -4,13 +4,10 @@
    <button class="button button-clear pull-left" data-ion-menu-toggle="left">
         {{> ionIcon icon='navicon'}}
     </button>
-  {{/contentFor}}
-      
+  {{/contentFor}}  
   {{#contentFor "headerTitle"}}
     <h1 class="title">{{_ "Classes"}}</h1>
   {{/contentFor}}
-
-
   {{#contentFor "headerButtonRight"}}
     <!--Newsgroups news-->
    <!-- <a href="{{ pathFor 'newsgroups.news.list' }}" class="button button-clear button-entering button-active">
@@ -21,11 +18,8 @@
   {{#ionView}}
     {{#ionContent}}
       <div class="tab-classes">
-
         {{#if canCreateClass}}
-
           <div class="listview-container createdClass">
-
             <a href="{{pathFor 'AddClass' school=getCurrentSchoolName  }}">
               <div class="row row-center add-join-bar">
                 <div class="col col-90">{{_ "ClassesIOwn"}}</div>
@@ -53,24 +47,17 @@
                     </a>
                   {{/each}}
                 </ul>
-
-              {{else}}
-
+             {{else}}
                 <div class="row row-center listview-nth">
                   <div class="col">
                     <a class="button button-stable long-button"
                        href="{{pathFor 'AddClass' school=getCurrentSchoolName  }}"> {{_ "CreateAClass"}} </a>
                   </div>
                 </div>
-
               {{/if}}
-
             </div>
           </div>
-
         {{/if}}
-
-
         <div class="listview-container joinedClass">
           <a href="{{pathFor 'JoinClass' school=getCurrentSchoolName  }}">
             <div class="row row-center add-join-bar">
@@ -84,14 +71,12 @@
           </a>
 
           {{#if notJoinedEmptyList}}
-
             <div>
               <ul class="list">
                 {{#each joinedClass}}
                   <a href={{ pathFor 'classDetail'   }}>
                     <div class="item item-icon-left" style="padding-top: 7px; padding-bottom: 7px">
-                      {{{newMessageCounter this._id}}}
-                      
+                      {{{newMessageCounter this._id}}}             
                       <i class="icon {{classAvatarIcon}} e1a-1x emojicon"></i>
                       {{this.className}}
                       <br/><span class='class-code'>@{{this.classCode}}</span>
@@ -101,9 +86,7 @@
                 {{/each}}
               </ul>
             </div>
-
           {{else}}
-
             <div class="row row-center listview-nth">
               <div class="col">
                 <a class="button button-stable long-button" href="{{pathFor 'JoinClass'  school=getCurrentSchoolName  }}">{{_ "JoinAClass"}}</a>

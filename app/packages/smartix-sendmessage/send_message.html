@@ -1,36 +1,21 @@
 <template name="SendMessage">
-
-
   {{#if callFromClassPanel}}
-   
   {{else}}
     {{#contentFor "headerTitle"}}
       <h1 class="title">{{_ "NewNotification"}}</h1>
     {{/contentFor}}
   
-  
-  
-  
     {{#contentFor "headerButtonLeft"}}
       {{>ionNavBackButton href="/Classes" text=" "}}
     {{/contentFor}}
-  
-  
-  
     {{#contentFor "headerButtonRight"}}
       <div style="position: absolute; right: 0;">
-        
         <button class="button button-icon icon ion-paper-airplane stable sendMsgBtn"></button>
-  
       </div>
     {{/contentFor}}
   {{/if}}
-
-
   {{#if callFromClassPanel}}
-  
-      <div class="list" style='padding-top:0;'>
-         
+        <div class="list" style='padding-top:0;'>  
         <div class="image preview" style='display:none'>
           {{#each uploadPic}} {{#with FS.GetFile "images" this}}
           <!-- In here, we can use the FS.File instance methods that work as helpers, such as {{url}} or {{isImage}} -->
@@ -102,9 +87,7 @@
                 <label onclick="" style='font-size:x-small;display: flex;align-items: center;line-height:inherit;'><input type="radio" name="voteTypeOption" value="yesNo">
                   <i class="icon e1a-white_check_mark e1a-2x emojicon"></i>
                   <i  class="icon e1a-negative_squared_cross_mark e1a-2x emojicon"></i>
-                </label>
-                       
-             
+                </label>          
         </div>
         {{/unless}}         
         <div class="item item-input input-box-panel" style="">
@@ -134,16 +117,11 @@
                 <i class="icon ion-ios-calendar-outline imageIcon set-calendar"></i>
             </span>-->     
           </span>
-        </div>
-   
-
-      
+        </div>   
       </div>
   {{else}}
     {{#ionContent}}
-    
      <div class="list">
-     
          <div class="padding preview" style="display:none;">
           {{#each uploadPic}} {{#with FS.GetFile "images" this}}
           <!-- In here, we can use the FS.File instance methods that work as helpers, such as {{url}} or {{isImage}} -->
@@ -174,23 +152,18 @@
             <div class="bubble">
              <a href="{{this.url}}"><i class="icon ion-ios-upload-outline"></i>&nbsp;{{this.name}}</a>
             </div>
-
            {{/with}}
           {{/each}}
-        </div>
-             
+        </div>    
         <a href="{{pathFor 'MessageClassSelection' }}">
           <div class="item">
             {{_ "To" }} {{ arrToString searchObj.selectArrName }}
           </div>
         </a>
-      
         <label class="item item-input {{messageBox}}" style="height:40vh">
           <textarea class="msgBox" placeholder="{{_'message'}}" style="height:100%;font-size:20px;"></textarea>
         </label>
-
-        <div class="">
-            
+        <div class="">       
           <div class="row">
             <div class="col col-10">
               <div class="file ">
@@ -213,23 +186,8 @@
             {{/if}}
           </div>
         </div>
-
-      
-      </div>      
-       
-       
-             
+      </div>             
     {{/ionContent}}
   {{/if}}
-
-
-
-
-
-
-
-
-
-
 </template>
 

@@ -47,7 +47,6 @@ Router.route('ClassInvitation', {
 
 Router.route('ClassPanel',{
     path: "/class/:classCode/panel"
-    
 });
 
 Router.route('AddClass', {

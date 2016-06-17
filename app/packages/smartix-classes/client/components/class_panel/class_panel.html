@@ -1,51 +1,26 @@
 <template name="ClassPanel">
-
-  
+ 
   {{#contentFor "headerTitle"}}
-    <!-- new code to display classCode in small
-    <div>
-      <h1 class="title"
-        style="top: -.5rem !important;overflow: visible !important;">
-        {{classObj.className}}</h1>
-      <br>
-      <div class="title"
-           style="font-size:smaller;position: absolute;left: 0;  right: 0;  top: 0.5rem;opacity:0.7">
-        @{{classObj.classCode}}</div>
-    </div>
-    -->
-
-    <h1 class="title">
-  
-      <i class="icon e1a-{{classObj.classAvatar}} e1a-2x emojicon"></i>
+     <h1 class="title">
+        <i class="icon e1a-{{classObj.classAvatar}} e1a-2x emojicon"></i>
       {{classObj.className}}
-
     </h1>
-
   {{/contentFor}}
   {{#contentFor "headerButtonLeft"}}
     {{>ionNavBackButton path='TabClasses' text=" "}}
   {{/contentFor}}
   {{#contentFor "headerButtonRight"}}
-
     <div style="position: absolute; right: 0;">
-
       <a href="{{pathFor 'ClassInvitation' classCode=classObj.classCode  }}"
-         class="button button-clear button-entering button-active "><i class="icon ion-android-share-alt"></i></a>
-              
+         class="button button-clear button-entering button-active "><i class="icon ion-android-share-alt"></i></a>  
       <a href="{{pathFor 'classEdit' classCode=classObj.classCode  }}"
          class="button button-clear button-entering button-active "><i class="icon ion-ios-information-outline"></i></a>
-
     </div>
   {{/contentFor}}
   
   {{#if Template.subscriptionsReady}}
   {{#ionView}}
     {{#ionContent}}
- 
-
-
-
-
         <div class="list messageList background-wallpaper"  id="messageList">
            <div class='date-bubble-wrapper {{isLoadMoreButtonShow}}'><button class='load-prev-msg'>{{_ "smartix-classes.Loadmessages" }} </button> </div>
                {{#each classMessages}}
@@ -57,26 +32,22 @@
                     {{>CalendarDisplay this}}
                 {{/each}}
                 <div class="item less-top-bottom-padding">
-                    <div>
-                    
+                    <div>        
                     {{{docPreview data.content}}}    
                     {{#autolink}}<div class='content'><pre>{{data.content}}</pre></div>{{/autolink}}
                     <div>
-                        
-                        
-                            {{#each attachImages}}
-                                {{#with getImage}}
-                                {{#if this.isUploaded}}
-                                    {{#if this.hasStored 'images'}}
-                                    <div class="">
-                                        <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs responsive-img" data-fullsizeimage="{{this.url  }}">
-                                        <!-- <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a> -->
-                                    </div>
-                                    {{/if}}
+                        {{#each attachImages}}
+                            {{#with getImage}}
+                            {{#if this.isUploaded}}
+                                {{#if this.hasStored 'images'}}
+                                <div class="">
+                                    <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs responsive-img" data-fullsizeimage="{{this.url  }}">
+                                    <!-- <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a> -->
+                                </div>
                                 {{/if}}
-                                {{/with}}
-                            {{/each}}
-                        
+                            {{/if}}
+                            {{/with}}
+                        {{/each}}
                     </div>
                     <div>
                         {{#each attachVoices}}                      
@@ -104,7 +75,6 @@
                         {{/each}}
                     </div>
                     <div>
-                        
                         {{#each attachDocuments}}
                             {{#with getDocument}}
                             {{#if this.isUploaded}}
@@ -120,15 +90,12 @@
                             {{/if}}
                             {{/with}}
                         {{/each}}
-                                              
                     </div>
                     </div>
-                    
                     <p>
                         {{#each attachVotes}}
                             {{> AppDisplayVote this}}
                         {{/each}}
-                        
                     <span class='timestamp'>{{formatTime createdAt}}</span>  
                     <span>
                         {{#each attachComment}}
@@ -140,7 +107,6 @@
                     </p>
                     
                 </div>
-                
                 <div class='extraInfo {{showByDefaultIfWithComments}}'>
                     {{> MessageExtraInfo msgCode=msgId inputMessageObj=this }}
                 </div>
@@ -148,10 +114,7 @@
                 <!-- </a> -->
               {{/each}}
         </div>
-        
-        
         {{> SendMessage callFromClassPanel=true }}
-
     {{/ionContent}}
   {{/ionView}}
   {{/if}}

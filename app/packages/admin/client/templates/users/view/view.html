@@ -1,9 +1,7 @@
 <template name="AdminUsersView">
     <div class="panel panel-flat">
         {{#if Template.subscriptionsReady}}
-
         {{#with userData}}
-
             <div class="panel-heading">
                 <h1>{{profile.firstName}} {{profile.lastName}}</h1>
             </div>
@@ -59,12 +57,10 @@
                 </form>
                 <button id="UpdateUser__submit" type="submit" class="btn btn-primary">{{_ "Update" }} <i class="icon-arrow-right14 position-right"></i></button>
             </div>
-
             {{#if userIsChild}}
                 {{> AdminUsersAddRelationships }}
                 {{> RelatedUsersMobile}}
             {{/if}}
-
         {{/with}} 
         {{else}} {{_ "Admin.Loading" }} {{/if}}
     </div>

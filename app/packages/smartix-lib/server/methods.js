@@ -187,15 +187,6 @@ Meteor.methods({
     }
   },
 
-  insertImageTest: function (filePath) {
-    Images.insert(filePath, function (err, fileObj) {
-      if (err)log.error(err);
-      else {
-        log.info(fileObj);
-      }
-    });
-  },
-
   addInvitedPplId: function (id) {
     var profile = "";
     if (!Meteor.user().profile['invitedContactIds']) {

@@ -208,7 +208,6 @@ Smartix.FileHandler = (function () {
                         //for reason unknown, filename cannot be inserted directly if using iphone cordova,
                         //so we explicitly set the file obj name here.      
                         fileObj.name(file.name);
-                        
                         if (identity.category == "chat") {
                                 GeneralMessageSender(
                                     Router.current().params.chatRoomId,
@@ -222,10 +221,8 @@ Smartix.FileHandler = (function () {
                             arr.push(fileObj._id);
                             directDocumentMessage(arr,callback)                                   
                         }else if (identity.category =='newsInAdmin'){
-                            
                             var arr = currentDocumentArray;
                             arr.push(fileObj._id);
-
                             //log.info(fileObj.name());
                             //log.info(fileObj.extension());
                             //log.info(fileObj.size());
@@ -234,11 +231,11 @@ Smartix.FileHandler = (function () {
                             //log.info(fileObj._id);
                             callback(arr);                            
                         }
-
                     }
                 });
             });
         },
+        
         documentUploadForAndroid: function (e,identity,currentDocumentArray,callback) {
             var successCallback = function (uri) {
                 log.info(uri);
