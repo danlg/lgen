@@ -190,12 +190,8 @@ Template.SendMessage.events({
 		//Image is inserted from here via FS.Utility
 		Smartix.FileHandler.imageUpload(
 			event,
-			'class',
-			//{
-			//	category: 'class'
-				//, roomId: Router.current().params.classCode
-			//},
-			imageArr.get(),
+			{category: 'class', roomId: Router.current().params.classCode}
+			, imageArr.get(),
 			function (result) {
 				imageArr.set(result);
 			}
@@ -268,12 +264,8 @@ Template.SendMessage.events({
 				e.preventDefault();
 				Smartix.FileHandler.documentUploadForAndroid(
 					e,
-					'class',
-					//{
-					//	'category': 'class'
-					//	, 'roomId': Router.current().params.classCode
-					//},
-					documentArr.get(), function (result) {
+					{'category': 'class', 'roomId': Router.current().params.classCode}
+					, documentArr.get(), function (result) {
 						documentArr.set([]);
 						window.setTimeout(scrollMessageListToBottom, 100);
 					});
@@ -282,16 +274,12 @@ Template.SendMessage.events({
 	},
 
 	'change #documentBtn': function (event, template) {
-		Smartix.FileHandler.documentUpload(
-			event,
-			'class',
-			//{
-			// 	'category': 'class',
-			//, 'roomId': Router.current().params.classCode
-			//}
-			documentArr.get(), function (result) {
+		Smartix.FileHandler.documentUpload(event,
+			{'category': 'class', 'roomId': Router.current().params.classCode}
+			, documentArr.get(), function (result) {
 				documentArr.set([]);
 				window.setTimeout(scrollMessageListToBottom, 100);
+
 			});
 	}
 });
