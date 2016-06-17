@@ -7,12 +7,20 @@ Template.EditSchool.onCreated(function() {
     && Router.current().params.school) {
         var schoolUsername = Router.current().params.school;
         self.subscribe('schoolInfo', schoolUsername);
+        self.subscribe('images', schoolUsername);   
     }
-    self.subscribe('images', schoolUsername);    
+    var schoolId = SmartixSchoolsCol.findOne({username: schoolUsername});
+    Template.instance().newSchoolLogo.set(Images.findOne(schoolId.logo)._id);
+    Template.instance().newSchoolBackgroundImage.set(Images.findOne(schoolId.backgroundImage)._id); 
+    log.info("Image", Template.instance().newSchoolLogo.get());
 });
 
 Template.EditSchool.onDestroyed(function(){
     this.newSchoolLogo = new ReactiveVar("");
+});
+
+
+Template.EditSchool.onRendered(function(){
 });
 
 Template.EditSchool.helpers({
@@ -22,18 +30,13 @@ Template.EditSchool.helpers({
     'existingSchoolBackgroundImage':function(){
         return Images.findOne(this.backgroundImage);
     },    
-    uploadedSchoolLogoId: function() {
-        var newSchoolLogoId = Template.instance().newSchoolLogo.get();
-        return newSchoolLogoId;
-    },
+   
     uploadedSchoolLogo: function() {
         var newSchoolLogoId = Template.instance().newSchoolLogo.get();
+        log.info("SchoolId", newSchoolLogoId);
         return Images.find(newSchoolLogoId);
     },    
-    uploadedSchoolBackgroundImageId: function() {
-        var newSchoolLogoId = Template.instance().newSchoolBackgroundImage.get();
-        return newSchoolLogoId;
-    },
+    
     uploadedSchoolBackgroundImage: function() {
         var newSchoolLogoId = Template.instance().newSchoolBackgroundImage.get();
         return Images.find(newSchoolLogoId);
