@@ -1,4 +1,30 @@
+var createImage = function(imagesData, backgroundImagesData, shortname) {
+    var imageObj;
+    var imageObjId ;
+    if(imagesData){
+        var newFile = new FS.File(imagesData);
+        newFile.metadata = {roomId: shortname};
+        imageObj = Images.insert(newFile);
+        imageObjId = imageObj._id;
+        //log.info('imageObj',imageObj);
+    }
+    var backgroundImagesObj;
+    var backgroundImagesObjId ;
+    if(backgroundImagesData){
+        var newFile = new FS.File(backgroundImagesData);
+        newFile.metadata = {roomId: shortname};
+        backgroundImagesObj = Images.insert(newFile);
+        backgroundImagesObjId = backgroundImagesObj._id;
+        //log.info('imageObj',imageObj);
+    }
+    return {
+        logoId: imageObjId,
+        bgImageId: backgroundImagesObjId
+    }
+}
+
 Meteor.methods({
+
     'smartix:schools/getSchoolName': function(id) {
         if(id === 'global'){
             Roles.userIsInRole(Meteor.userId(), 'user', 'global');
@@ -32,7 +58,7 @@ Meteor.methods({
         }
     },
     
-    'smartix:schools/createSchoolTrial':function(options,imagesData, backgroundImagesData){
+    'smartix:schools/createSchoolTrial':function(options){
         if (options) {
             options.createdAt = new Date();
             
@@ -42,20 +68,6 @@ Meteor.methods({
         } else {
             throw new Meteor.Error("require-options", "Pass School Object to create a school");
         }
-        var imageObj;
-        var imageObjId ;
-        if(imagesData){
-            imageObj = Images.insert(imagesData);
-            imageObjId = imageObj._id;
-            //log.info('imageObj',imageObj);
-        }
-        var backgroundImagesObj;
-        var backgroundImagesObjId ;
-        if(backgroundImagesData){
-            backgroundImagesObj = Images.insert(backgroundImagesData);
-            backgroundImagesObjId = backgroundImagesObj._id;
-            //log.info('imageObj',imageObj);
-        }
         SchoolsSchema.clean(options);
         check(options, SchoolsSchema);
         var schoolId;
@@ -63,8 +75,8 @@ Meteor.methods({
         try {
             schoolId = SmartixSchoolsCol.insert({
                 name: options.name,
-                logo: imageObjId || "",
-                backgroundImage: backgroundImagesObjId || "",
+                logo:  "",
+                backgroundImage:  "",
                 country: options.country,
                 city:    options.city,
                 tel: options.tel,
@@ -100,120 +112,8 @@ Meteor.methods({
         return schoolId;
     },
     
-    'smartix:schools/createSchool': function(options, admins) {
-        log.info("smartix:schools/createSchool", options, admins);
-        /*
-        Meteor.call('smartix:schools/createSchool',{name:'Shau Kei Wan - Elsa High',username:'elsahighadmin',logo:'1234567',tel:'36655388',web:'http://www.carmel.edu.hk/',email:'elsahighschool@carmel.edu.hk.test',active:true,preferences:{}});
-        */
-        if (options) {
-            options.createdAt = new Date();
-            
-            //TEMP: hardcode expired date = today + 30 days
-            options.planTrialExpiryDate = new Date();
-            options.planTrialExpiryDate.setDate( options.planTrialExpiryDate.getDate() + 30);
-        } else {
-            throw new Meteor.Error("require-options", "Pass School Object to create a school");
-        }
-        if (Roles.userIsInRole(Meteor.userId(), 'admin', 'system')) {
-            var adminUsername = options.adminUsername || options.username;
-            delete options.adminUsername;
-            
-            SchoolsSchema.clean(options);
-            check(options, SchoolsSchema);
-            
-            
-            if (lodash.includes(RESERVED_SCHOOL_NAMES, options.username)) {
-                log.error(CANNOT_BE_SAME_AS_RESERVED_NAMES);
-                return;
-            }
-
-            var schoolId;
-            //TODO: logo pass upload image id
-            
-            var existingSchool = SmartixSchoolsCol.findOne({username:options.username});
-            if(existingSchool){
-                log.error('school short name has been taken');     
-                throw new Meteor.Error("short-name-taken", "school short name has been taken");                
-            }
-            // checks that schoolname is not taken ! implemented in schema, unique
-            try {
-                schoolId = SmartixSchoolsCol.insert({
-                    name: options.name,
-                    username: options.username,
-                    logo: options.logo,
-                    backgroundImage: options.backgroundImage,
-                    tel: options.tel,
-                    web: options.web,
-                    email: options.email,
-                    active: true,
-                    preferences: {
-                        schoolBackgroundColor:options.preferences.schoolBackgroundColor,
-                        schoolTextColor:options.preferences.schoolTextColor
-                    },
-                    createdAt: options.createdAt,
-                    planTrialExpiryDate: options.planTrialExpiryDate,
-                    revenueToDate: options.revenueToDate,
-                    revenueToDateCcy: options.revenueToDateCcy
-                });
-            } catch (err) {
-                throw err;
-            }
-
-            var newAdmin = adminUsername;
-            var newAdminPassword = "admin";
-            if (admins) {
-                admins.map(function(eachAdmin) {
-                    Roles.addUsersToRoles(eachAdmin, 'admin', schoolId);
-                });
-                return { school: schoolId };
-            } else {
-                Meteor.call('smartix:accounts-schools/createSchoolUser',
-                    options.email,
-                    {
-                        username: newAdmin,
-                        password: newAdminPassword,
-                        profile: {
-                            firstName: newAdmin,
-                            lastName: ""
-                        }
-                    },
-                    schoolId,
-                    ['admin'],
-                    true, //autoverify
-                    false //notify
-                 );
-                return { school: schoolId, initialAdmin: { username: newAdmin, initialPassword: newAdminPassword } };
-            }
-        } else {
-            log.info('caller is not authed');
-            throw new Meteor.Error("caller-not-authed", "caller is not authed");
-        }
-    },
-    'smartix:schools/editSchool': function(id, options) {
-        var targetSchool = SmartixSchoolsCol.findOne(id);
-        //log.info('raw',targetSchool);
-        if (
-            Roles.userIsInRole(Meteor.userId(), 'admin', 'system') ||
-            Roles.userIsInRole(Meteor.userId(), 'admin', id)
-        ) {
-            // https://github.com/aldeed/meteor-simple-schema/issues/387
-            delete targetSchool._id;      
-            lodash.merge(targetSchool, options);
-            //log.info('afterMerge',targetSchool);        
-            SchoolsSchema.clean(targetSchool);              
-            check(targetSchool, SchoolsSchema);             
-            //log.info('afterClean',targetSchool);
-            
-            //return 1 if update success
-            return SmartixSchoolsCol.update(id, {$set: targetSchool });
-
-        } else {
-            log.info('caller is not authed');
-            throw new Meteor.Error("caller-not-authed", "caller is not authed");
-        }
-    },
-
-    'smartix:schools/editSchoolTrial': function (id, schoolOptions,userOptions) {
+    //Save Logo and Background Image, Creates schoolShortname
+    'smartix:schools/editSchoolTrial': function (id, schoolOptions,userOptions,imagesData,backgroundImagesData) {
         log.info('smartix:schools/editSchoolTrial',id);
         var targetSchool = SmartixSchoolsCol.findOne(id);
         //only if the school is totally new, it can be updated by anonymous
@@ -225,9 +125,15 @@ Meteor.methods({
         if(existingSchoolWithSameShortName){
             log.warn('School short name has been taken:'+ targetSchool.username);
             throw new Meteor.Error("short-name-taken", "school short name has been taken. Pick another one");            
-        }
+        } 
         //log.info('raw',targetSchool);
         // https://github.com/aldeed/meteor-simple-schema/issues/387
+        
+        //upload background and logo, update schoolOptions to add logo and background ids
+        var imgObject = createImage(imagesData, backgroundImagesData, schoolOptions.username);
+        schoolOptions.logo = imgObject.logoId || "";
+        schoolOptions.backgroundImage = imgObject.bgImageId || "";     
+        
         delete targetSchool._id;
         lodash.merge(targetSchool, schoolOptions);
         //log.info('afterMerge',targetSchool);        
@@ -254,8 +160,115 @@ Meteor.methods({
              );
                        
         }
-    }
+    },
 
+    // 'smartix:schools/createSchool': function(options, admins) {
+    //     log.info("smartix:schools/createSchool", options, admins);
+    //     /*
+    //     Meteor.call('smartix:schools/createSchool',{name:'Shau Kei Wan - Elsa High',username:'elsahighadmin',logo:'1234567',tel:'36655388',web:'http://www.carmel.edu.hk/',email:'elsahighschool@carmel.edu.hk.test',active:true,preferences:{}});
+    //     */
+    //     if (options) {
+    //         options.createdAt = new Date();
+    //         options.planTrialExpiryDate = new Date();
+    //         options.planTrialExpiryDate.setDate( options.planTrialExpiryDate.getDate() + 30);
+    //     } else {
+    //         throw new Meteor.Error("require-options", "Pass School Object to create a school");
+    //     }
+    //     if (Roles.userIsInRole(Meteor.userId(), 'admin', 'system')) {
+    //         var adminUsername = options.adminUsername || options.username;
+    //         delete options.adminUsername;
+            
+    //         SchoolsSchema.clean(options);
+    //         check(options, SchoolsSchema);
+                     
+    //         if (lodash.includes(RESERVED_SCHOOL_NAMES, options.username)) {
+    //             log.error(CANNOT_BE_SAME_AS_RESERVED_NAMES);
+    //             return;
+    //         }
+    //         var schoolId;   
+    //         //TODO: logo pass upload image id
+    //         var existingSchool = SmartixSchoolsCol.findOne({username:options.username});
+    //         if(existingSchool){
+    //             log.error('school short name has been taken');     
+    //             throw new Meteor.Error("short-name-taken", "school short name has been taken");                
+    //         }
+    //         // checks that schoolname is not taken ! implemented in schema, unique
+    //         try {
+    //             schoolId = SmartixSchoolsCol.insert({
+    //                 name: options.name,
+    //                 username: options.username,
+    //                 // logo: options.logo,
+    //                 // backgroundImage: options.backgroundImage,
+    //                 tel: options.tel,
+    //                 web: options.web,
+    //                 email: options.email,
+    //                 active: true,
+    //                 preferences: {
+    //                     schoolBackgroundColor:options.preferences.schoolBackgroundColor,
+    //                     schoolTextColor:options.preferences.schoolTextColor
+    //                 },
+    //                 createdAt: options.createdAt,
+    //                 planTrialExpiryDate: options.planTrialExpiryDate,
+    //                 revenueToDate: options.revenueToDate,
+    //                 revenueToDateCcy: options.revenueToDateCcy
+    //             });
+    //         } catch (err) {
+    //             throw err;
+    //         }
+    //         var newAdmin = adminUsername;
+    //         var newAdminPassword = "admin";
+    //         if (admins) {
+    //             admins.map(function(eachAdmin) {
+    //                 Roles.addUsersToRoles(eachAdmin, 'admin', schoolId);
+    //             });
+    //             return { school: schoolId };
+    //         } else {
+    //             Meteor.call('smartix:accounts-schools/createSchoolUser',
+    //                 options.email,
+    //                 {
+    //                     username: newAdmin,
+    //                     password: newAdminPassword,
+    //                     profile: {
+    //                         firstName: newAdmin,
+    //                         lastName: ""
+    //                     }
+    //                 },
+    //                 schoolId,
+    //                 ['admin'],
+    //                 true, //autoverify
+    //                 false //notify
+    //              );
+    //             return { school: schoolId, initialAdmin: { username: newAdmin, initialPassword: newAdminPassword } };
+    //         }
+    //     } else {
+    //         log.info('caller is not authed');
+    //         throw new Meteor.Error("caller-not-authed", "caller is not authed");
+    //     }
+    // },
+
+    'smartix:schools/editSchool': function(id, options) {
+
+        var targetSchool = SmartixSchoolsCol.findOne(id);
+        //log.info('raw',targetSchool);
+        if (
+            Roles.userIsInRole(Meteor.userId(), 'admin', 'system') ||
+            Roles.userIsInRole(Meteor.userId(), 'admin', id)
+        ) {
+            // https://github.com/aldeed/meteor-simple-schema/issues/387
+            delete targetSchool._id;      
+            lodash.merge(targetSchool, options);
+            //log.info('afterMerge',targetSchool);        
+            SchoolsSchema.clean(targetSchool);              
+            check(targetSchool, SchoolsSchema);             
+            //log.info('afterClean',targetSchool);           
+            //return 1 if update success
+            return SmartixSchoolsCol.update(id, {$set: targetSchool });
+
+        } else {
+            log.info('caller is not authed');
+            throw new Meteor.Error("caller-not-authed", "caller is not authed");
+        }
+    }
 });
 
 

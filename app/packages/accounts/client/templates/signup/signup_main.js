@@ -167,8 +167,6 @@ Template.SignupMain.events({
                     },
                     lead: lead
                 },
-                template.previewSchoolLogoBlob.get(),
-                template.previewSchoolBackgroundImageBlob.get(),
                 function(err,result){
                     if(result){
                         log.info('newSchoolId',result);
@@ -213,7 +211,9 @@ Template.SignupMain.events({
                     email: SchoolTrialAccountCreationObj.user.userEmail,
                     firstName: SchoolTrialAccountCreationObj.user.userFirstName,
                     lastName: SchoolTrialAccountCreationObj.user.userLastName
-                },
+                },                
+                template.previewSchoolLogoBlob.get(),
+                template.previewSchoolBackgroundImageBlob.get(),
                 function (err,result) {
                     if(err){
                         if(err.error === 'short-name-taken'){

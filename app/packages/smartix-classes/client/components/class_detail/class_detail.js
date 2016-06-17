@@ -20,15 +20,11 @@ var localClassMessagesCollection = new Meteor.Collection(null);
 Template.ClassDetail.events({
   'click .tab-item': function (e) {
     var msgId = $(e.target.parentNode).data("msgid");
-    var action = $(e.target.parentNode).data("action");
-    
-    if(msgId && action){
-     
-        
+    var action = $(e.target.parentNode).data("action");  
+    if(msgId && action){    
        // log.info("clickvotebtn:",classObj);
         Meteor.call('smartix:messages-addons-poll/castVote', msgId,action, function (error,result) {});        
     }
-
   },
   'click .imgThumbs': function (e) {
     e.preventDefault();
@@ -98,7 +94,6 @@ Template.ClassDetail.helpers({
         classCode: Router.current().params.classCode
     });
     classObj = latestClassObj;
-    //classObjReactive.set(Smartix.Groups.Collection.findOne({classCode: Router.current().params.classCode}));
     return classObj;
   },
   className: function () {
@@ -136,9 +131,7 @@ Template.ClassDetail.helpers({
     if(skipMsg < 0){
         skipMsg = 0;
     }
-    var limitMsg = loadedItems.get();
-    
-    
+    var limitMsg = loadedItems.get(); 
     
     //store the latest timestamp of msg we are processing. msg are processsging in time in ascending order. Earlier msg is processed first.
     var latestDayInMessages = "";
@@ -217,6 +210,10 @@ Template.ClassDetail.onCreated(function () {
 
     this.autorun(function () {
         self.subscribe('smartix:messages/groupMessages', classObj._id);
+        self.subscribe('images', Router.current().params.classCode);
+        self.subscribe('documents', Router.current().params.classCode);
+        self.subscribe('sounds');
+
     });
 });
 

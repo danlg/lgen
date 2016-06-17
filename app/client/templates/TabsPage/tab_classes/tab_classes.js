@@ -2,6 +2,10 @@
 
 Template.TabClasses.events({});
 
+Template.TabClasses.onCreated(function(){
+      var self = this;
+      self.subscribe('joinedClasses');
+});
 
 Template.TabClasses.helpers({
    'getCurrentSchool':function(){
@@ -21,48 +25,36 @@ Template.TabClasses.helpers({
 
   notCreateEmptyList: function () {
     return Smartix.Groups.Collection.find({
-        type: 'class',
         admins: Meteor.userId()
     }).count() > 0
   },
 
   notJoinedEmptyList: function () {
-    return Smartix.Groups.Collection.find({
-        type: 'class',
-        $or: [{
-            users: Meteor.userId()
-        }, {
-            distributionLists: {
-                $in: getDistributionListsOfUser(Meteor.userId())
-            }
-        }]
-    }).count() > 0
+    var joinedClasses = Smartix.Groups.Collection.find(
+      {
+          admins :{  $nin : [Meteor.userId()] }
+      }
+    );
+    return joinedClasses.length < 1 ? false : true;
   },
 
   joinedClass: function () {
     //   let tester = Meteor.call('Smartix.DistributionLists.getDistributionListsOfUser', Meteor.user());
     //   log.info(tester);
-      return Smartix.Groups.Collection.find({
-        type: 'class',
-        $or: [{
-            users: Meteor.userId()
-        }, {
-            distributionLists: {
-                $in: getDistributionListsOfUser(Meteor.userId())
-            }
-        }]
-    }, {
-        sort:{
-            "lastUpdatedAt":-1
-        }
-    });
-  },
+    var joinedClasses = Smartix.Groups.Collection.find(
+      {
+          admins :{  $nin : [Meteor.userId()] }
+      }
+    ).fetch();
+    if (joinedClasses.length < 1) {
+       return false;
+     } else {
+       return joinedClasses;
+     }
+   },
 
   canCreateClass: function () {
-
-    
     var currentSchoolId =  Session.get('pickedSchoolId') ;
-    
     //global only have single role => user , so chat option is always available
     if(!currentSchoolId || currentSchoolId == 'global'){
         return true;
@@ -198,16 +190,4 @@ var HowToInviteTour = function () {
 };
 
 Template.TabClasses.destroyed = function () {
-};
-
-
-var getDistributionListsOfUser = function(userId)
-{
-    let distributionListsOfUser = Smartix.Groups.Collection.find({
-        type: 'distributionList',
-        users: userId
-    }).fetch();   
-    return _.map(distributionListsOfUser, function(list) {
-        return list._id;
-    })
 };

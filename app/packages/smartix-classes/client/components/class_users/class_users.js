@@ -5,11 +5,11 @@ var text = ReactiveVar('');
 /* ClassUsers: Event Handlers */
 /*****************************************************************************/
 Template.ClassUsers.onCreated(function(){
-        Meteor.subscribe('smartix:classes/classByClassCode', Router.current().params.classCode);
-        Meteor.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');
-        Meteor.subscribe('smartix:classes/distributionListsOfClass', Router.current().params.classCode);
+        var self = this;
+        self.subscribe('smartix:classes/classByClassCode', Router.current().params.classCode);
+        self.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');
+        self.subscribe('smartix:classes/distributionListsOfClass', Router.current().params.classCode);
 });
-
 
 Template.ClassUsers.events({
   'keyup .searchbar': function (el) {

@@ -1,18 +1,14 @@
 Template.EditSchool.onCreated(function() {
-
     this.newSchoolLogo = new ReactiveVar("");
-    this.newSchoolBackgroundImage = new ReactiveVar("");
-    
+    this.newSchoolBackgroundImage = new ReactiveVar("");   
     var self = this;
     if(Router.current()
     && Router.current().params
     && Router.current().params.school) {
-
         var schoolUsername = Router.current().params.school;
         self.subscribe('schoolInfo', schoolUsername);
     }
-    
-    this.subscribe('images');    
+    self.subscribe('images', schoolUsername);    
 });
 
 Template.EditSchool.onDestroyed(function(){
@@ -57,18 +53,18 @@ Template.EditSchool.helpers({
 Template.EditSchool.events({
     'change #school-logo': function(event, template) {
         var files = event.target.files;
-
         if (files.length > 0) {
-            SmartixSchools.editLogo(files[0], template);
+            editImage(files[0], template, Router.current().params.school, template.newSchoolLogo);
         }
     },
+
     'change #school-background-image': function(event, template) {
         var files = event.target.files;
-
         if (files.length > 0) {
-            SmartixSchools.editBackgroundImage(files[0], template);
+            editImage(files[0], template, Router.current().params.school, template.newSchoolBackgroundImage);
         }
     },    
+
     'click #edit-school-submit': function(event, template) {
         var editSchoolObj =
         {
@@ -99,4 +95,15 @@ Template.EditSchool.events({
 });
 
 
-
+var editImage = function(filePath,template, schoolUserName, image) {
+    var newFile = new FS.File(filePath);
+    newFile.metadata = {roomId: schoolUserName};
+    Images.insert(newFile, function(err, fileObj) {
+        if (err) log.error(err);
+        else {
+            if(template && image){
+                image.set(fileObj._id);
+            }                  
+        }
+    });
+};

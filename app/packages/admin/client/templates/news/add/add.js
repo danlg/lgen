@@ -18,8 +18,8 @@ Template.AdminNewsAdd.onCreated(function () {
             });
         }
     });
-    this.subscribe('images');
-    this.subscribe('documents');
+    // this.subscribe('images');
+    // this.subscribe('documents');
     this.imageArr = new ReactiveVar([]);
     this.documentArr = new ReactiveVar([]);
     this.calendarEvent = new ReactiveVar({});

@@ -1,4 +1,20 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
+Template.AppLayout.onCreated(function() {
+
+    //TODO: subscription to be filtered based on selected school
+    this.subscribe('smartix:classes/associatedClasses');
+    this.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');
+    this.subscribe('smartix:accounts/ownUserData');
+    this.subscribe('smartix:accounts/basicInfoOfAllUsersInNamespace', 'global');
+    // this.subscribe('allMyChatRoomWithUser');
+
+    var self = this;
+    self.autorun(function() {
+        self.subscribe('userRelationships', Meteor.userId());
+        self.subscribe('mySchools');
+    });
+});
+
 Template.AppLayout.helpers({
     customizeTheme: function() {
         var pickSchool = SmartixSchoolsCol.findOne(Session.get('pickedSchoolId'));
@@ -74,7 +90,7 @@ Template.AppLayout.helpers({
 
     getCurrentSchoolName: function() {
         if (Session.get('pickedSchoolId') === 'global') return 'global';
-        if (Session.get('pickedSchoolId') === 'system') return 'system';
+        // if (Session.get('pickedSchoolId') === 'system') return 'system';
         var pickSchool = SmartixSchoolsCol.findOne(Session.get('pickedSchoolId'));
         return pickSchool ? pickSchool.username : false;
     },
@@ -123,28 +139,7 @@ Template.AppLayout.events({
     }
 });
 
-Template.AppLayout.onCreated(function() {
 
-    this.subscribe('images');
-    this.subscribe('sounds');
-    this.subscribe('documents');
-
-
-    //TODO: subscription to be filtered based on selected school
-    this.subscribe('smartix:classes/associatedClasses');
-    this.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');
-    this.subscribe('smartix:accounts/ownUserData');
-    this.subscribe('smartix:accounts/basicInfoOfAllUsersInNamespace', 'global');
-    // this.subscribe('allMyChatRoomWithUser');
-    
-    var self = this;
-    self.autorun(function() {
-        self.subscribe('userRelationships', Meteor.userId());
-        self.subscribe('mySchools');
-    });
-
-    
-});
 
 Template.AppLayout.onRendered(function(){
     //log.info('Template.AppLayout.onRendered : checkLanguage');

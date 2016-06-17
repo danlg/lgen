@@ -11,3 +11,6 @@ Template.MobileSchoolContact.helpers({
     }
     
 });
+Template.MobileSchoolContact.onCreated(function(){
+   this.subscribe('images', Router.current().params.school);
+});

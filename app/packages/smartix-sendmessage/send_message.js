@@ -499,7 +499,12 @@ Template.SendMessage.helpers({
 
 /* SendMessage: Lifecycle Hooks */
 Template.SendMessage.created = function () {
-    this.calendarEvent = new ReactiveVar({});
+    var self = this;
+    self.calendarEvent = new ReactiveVar({});
+    self.subscribe('createdClassByMe');
+    self.subscribe('images', Router.current().params.classCode);
+    self.subscribe('documents', Router.current().params.classCode);
+    self.subscribe('sounds');
 };
 
 Template.SendMessage.rendered = function () {
