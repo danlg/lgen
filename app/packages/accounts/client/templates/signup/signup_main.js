@@ -198,9 +198,8 @@ Template.SignupMain.events({
             //update school shortname from  template.newSchoolId.get()
 
             //Add Method to upload files using filehandler
-            var logoId = createImage(template.previewSchoolLogoBlob.get(),schoolShortName);
-            var bgImgId = createImage (template.previewSchoolBackgroundImageBlob.get(), schoolShortName);
-
+            var logoId  = createImage (template.previewSchoolLogoBlob.get(), schoolShortName);
+            var bgImageId = createImage (template.previewSchoolBackgroundImageBlob.get(), schoolShortName);
             Meteor.call('smartix:schools/editSchoolTrial',
                 template.newSchoolId.get(),
                 {
