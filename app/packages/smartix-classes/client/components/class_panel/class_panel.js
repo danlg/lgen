@@ -281,6 +281,7 @@ Template.ClassPanel.onCreated(function(){
         });
         self.subscribe('smartix:messages/groupMessages',classObj._id);
     });
+});
 
 Template.ClassPanel.rendered = function () {
 	//log.info('rendered',this.subscriptionsReady());
@@ -334,4 +335,3 @@ Template.ClassPanel.destroyed = function () {
 	 loadExtraItems = 5;
 	 localClassMessagesCollection = null;*/
 };
-

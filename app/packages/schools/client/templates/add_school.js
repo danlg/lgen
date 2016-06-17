@@ -36,8 +36,6 @@
 //             SmartixSchools.editBackgroundImage(files[0], template, Router.current().params.school);
 //         }
 //     },    
-    
-<<<<<<< HEAD
 //     'click #edit-school-submit': function(event, template) {
 //         var newSchoolObj =
 //         { name: $("#name").val(),
