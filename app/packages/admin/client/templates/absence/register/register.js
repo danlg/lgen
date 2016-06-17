@@ -1,21 +1,13 @@
 Template.AdminAbsenceRegister.onCreated(function () {
     var self = this;
-    if (Router
-        && Router.current()
-        && Router.current().params
-        && Router.current().params.school
-    ) {
         // subscribe to the school info first
-        var schoolUsername = Router.current().params.school;
-        self.subscribe('schoolInfo', schoolUsername, function () {
-            var schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolUsername)
-            if(schoolNamespace) {
-                self.subscribe('smartix:accounts/allUsersInNamespace', Smartix.Accounts.School.getNamespaceFromSchoolName(schoolUsername));
-            }
-        })
-    } else {
-        log.info("Please specify a school to list the users for");
-    }
+    var schoolUsername = UI._globalHelpers['getCurrentSchoolName']();
+    self.subscribe('schoolInfo', schoolUsername, function () {
+        var schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
+        if(schoolNamespace) {
+            self.subscribe('smartix:accounts/allUsersInNamespace', schoolNamespace);
+        }
+    })
 });
 
 Template.AdminAbsenceRegister.events({
@@ -29,7 +21,7 @@ Template.AdminAbsenceRegister.events({
         
         options = {};
         
-        options.namespace = Smartix.Accounts.School.getNamespaceFromSchoolName(Router.current().params.school);
+        options.namespace = UI._globalHelpers['getCurrentSchoolId']();
         options.studentId = Session.get('absent-student');
         options.reporterId = Meteor.userId();
         

@@ -1,15 +1,9 @@
 Template.AdminDistributionListsAdd.onCreated(function(){
- 
-    if (Router
-    && Router.current()
-    && Router.current().params
-    && Router.current().params.school
-    ) {
-        this.subscribe('smartix:distribution-lists/listsBySchoolName', Router.current().params.school);
     
-        var schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(Router.current().params.school);
+    var schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
+    if (schoolNamespace) {
+        this.subscribe('smartix:distribution-lists/listsBySchoolName', getCurrentSchoolName);
         this.subscribe('smartix:accounts/allUsersInNamespace', schoolNamespace);
-
     } else {
         log.info("Please specify a school to list the classes for");
     }   

@@ -1,11 +1,8 @@
 Template.AdminNewsgroupsSearch.onCreated(function () {
-    if (Router
-        && Router.current()
-        && Router.current().params
-        && Router.current().params.school
-    ) {
-        this.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolName', Router.current().params.school);
-        var schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(Router.current().params.school);
+    var schoolName = UI._globalHelpers['getCurrentSchoolName']();
+    if (schoolName) {
+        this.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolName', UI._globalHelpers['getCurrentSchoolName']());
+        var schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
         this.subscribe('smartix:accounts/allUsersInNamespace', schoolNamespace);
         this.subscribe('smartix:distribution-lists/listsBySchoolName', Router.current().params.school);        
     } else {

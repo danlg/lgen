@@ -8,21 +8,6 @@ Template.TabClasses.onCreated(function(){
 });
 
 Template.TabClasses.helpers({
-   'getCurrentSchool':function(){
-       return Session.get('pickedSchoolId');
-   },
-
-   'getCurrentSchoolName': function(){
-       if(Session.get('pickedSchoolId') === 'global'){
-           return 'global';
-       }
-       if(Session.get('pickedSchoolId') === 'system'){
-           return 'system';
-       }
-       var pickSchool = SmartixSchoolsCol.findOne(Session.get('pickedSchoolId'));
-       return pickSchool ? pickSchool.username : false;
-   },
-
   notCreateEmptyList: function () {
     return Smartix.Groups.Collection.find({
         admins: Meteor.userId()
@@ -117,11 +102,6 @@ Template.TabClasses.helpers({
       return lastUpdatedAtDate ? moment(lastUpdatedAtDate).fromNow() : "";
    }
 });
-
-
-/* TabClasses: Lifecycle Hooks */
-Template.TabClasses.created = function () {
-};
 
 Template.TabClasses.rendered = function () {
   //we do not need to show the tour as it is shown before login

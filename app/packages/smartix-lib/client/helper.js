@@ -248,6 +248,39 @@ var googleDocsURLToEmbedReadyURLHTML = function(originalURL) {
 };
 
 
+
+Template.registerHelper('getCurrentSchoolName',function(){
+    if(Router && Router.current() && Router.current().params.school) {
+        return Router.current().params.school;
+    }
+    else{
+        let pickedSchoolId = Session.get('pickedSchoolId');
+        if( pickedSchoolId === 'global'){
+            return 'global';
+        }
+        if( pickedSchoolId === 'system'){
+            return 'system';
+        }
+        let pickSchool = SmartixSchoolsCol.findOne(pickedSchoolId);
+        return pickSchool ? pickSchool.username : false;
+    }
+});
+
+Template.registerHelper('getCurrentSchoolId',function(){
+    if(Router && Router.current() && Router.current().params.school) {
+        var schoolName = Router.current().params.school;
+        var schoolDoc = SmartixSchoolsCol.findOne({
+            username: schoolName
+        });
+        return schoolDoc ? schoolDoc._id : false;
+    }
+    else{
+        let pickedSchoolId = Session.get('pickedSchoolId');
+        return pickSchoolId ? pickSchoolId : false;
+    }
+});
+
+
 Template.registerHelper('docPreview', function(url) {
     var linkList = [];
     Autolinker.link(url, {

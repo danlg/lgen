@@ -17,22 +17,6 @@ Template.TabChat.events({
 /* TabChat: Helpers */
 /*****************************************************************************/
 Template.TabChat.helpers({
-   'getCurrentSchool':function(){
-       return Session.get('pickedSchoolId');
-   },
-
-   'getCurrentSchoolName':function(){
-       let pickedSchool = Session.get('pickedSchoolId');
-       if( pickedSchool === 'global'){
-           return 'global';
-       }
-       if( pickedSchool === 'system'){
-           return 'system';
-       }
-       var pickSchool = SmartixSchoolsCol.findOne(pickedSchool);
-       return pickSchool ? pickSchool.username : false;
-   },
-
   'displayChatOption': function () {
     var currentSchoolId =  Session.get('pickedSchoolId') ;
     //global only have single role => user , so create class is always available

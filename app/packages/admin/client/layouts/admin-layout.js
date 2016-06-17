@@ -78,12 +78,8 @@ function resizeDetached() {
 
 Template.adminLayout.onCreated(function () {
     var self = this;
-    if(Router
-    && Router.current()
-    && Router.current().params.school) {
-        this.subscribe('schoolInfo', Router.current().params.school);
-    }
-    self.subscribe('images', Router.current().params.school, 'school'); 
+    self.subscribe('schoolInfo', UI._globalHelpers['getCurrentSchoolName']());
+    self.subscribe('images', UI._globalHelpers['getCurrentSchoolName'](), 'school', UI._globalHelpers['getCurrentSchoolName']()); 
 });
 
 Template.adminLayout.events({

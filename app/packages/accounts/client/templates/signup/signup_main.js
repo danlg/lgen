@@ -411,7 +411,7 @@ var createImage = function(imagesData, shortname) {
     var imageObjId ;
     if(imagesData){
         var newFile = new FS.File(imagesData);
-        newFile.metadata = {'id': shortname, 'category': 'school'};
+        newFile.metadata = {'id': shortname, 'category': 'school', 'school': shortname};
         imageObj = Images.insert(newFile);
         imageObjId = imageObj._id;
         //log.info('imageObj',imageObj);

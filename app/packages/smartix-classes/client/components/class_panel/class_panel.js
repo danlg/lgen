@@ -270,8 +270,8 @@ Template.ClassPanel.onCreated(function(){
     currentClassCode = Router.current().params.classCode;
     var self = this;
     //log.info(Router.current().params.classCode);
-    self.subscribe('images', currentClassCode, 'class');
-    self.subscribe('documents', currentClassCode);
+    self.subscribe('images', UI._globalHelpers['getCurrentSchoolName'](), 'class', currentClassCode);
+    self.subscribe('documents', UI._globalHelpers['getCurrentSchoolName'](), 'class', currentClassCode);
     self.subscribe('sounds');
     self.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');
     self.subscribe('smartix:classes/associatedClasses',function(){

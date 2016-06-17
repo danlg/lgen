@@ -1,9 +1,7 @@
 Template.AdminRss.onCreated(function () {
     
-    if(Router
-    && Router.current()
-    && Router.current().params.school) {
-        var schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(Router.current().params.school);
+    if(UI._globalHelpers['getCurrentSchoolName']()) {
+        var schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
         this.subscribe('feedsForNamespace', schoolNamespace);
         this.subscribe('feedLinksForNamespace', schoolNamespace);
         this.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolName', Router.current().params.school)
@@ -15,7 +13,7 @@ Template.AdminRss.helpers({
         if(Template.instance().subscriptionsReady()) {
             
             var feedsForNamespace = Smartix.Rss.FeedGroupLinks.find({
-                namespace: Smartix.Accounts.School.getNamespaceFromSchoolName(Router.current().params.school)
+                namespace: UI._globalHelpers['getCurrentSchoolId']()
             }).fetch();
             
             return feedsForNamespace.map(function(feed) {
@@ -38,7 +36,7 @@ Template.AdminRss.events({
         //    Smartix.Accounts.School.getNamespaceFromSchoolName(Router.current().params.school),
         //    event.currentTarget.dataset.url);
         Meteor.call('smartix:rss/removeFeedByUrl'
-        , Smartix.Accounts.School.getNamespaceFromSchoolName(Router.current().params.school)
+        , UI._globalHelpers['getCurrentSchoolId']()
         , event.currentTarget.dataset.url);
     }
 });

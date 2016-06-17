@@ -29,7 +29,7 @@ Template.AdminRssAdd.events({
         });
         
         Meteor.call('smartix:rss/linkRssWithGroups'
-            , Smartix.Accounts.School.getNamespaceFromSchoolName(Router.current().params.school)
+            , UI._globalHelpers['getCurrentSchoolId']()
             , name
             , url
             , selectedNewsgroups

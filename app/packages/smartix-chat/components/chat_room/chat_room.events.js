@@ -43,7 +43,7 @@ Template.ChatRoom.events({
       if (window.device.platform === "Android") {
         e.preventDefault();
         Smartix.FileHandler.imageUploadForAndroid(         
-          { category: 'chat', id: Router.current().params.chatRoomId }
+          { category: 'chat', id: Router.current().params.chatRoomId, 'school':UI._globalHelpers['getCurrentSchoolName']() }
         );
       }
     }
@@ -52,7 +52,7 @@ Template.ChatRoom.events({
   'change #imageBtn': function (event, template) {
       Smartix.FileHandler.imageUpload(
         event, 
-        { category: 'chat', id: Router.current().params.chatRoomId }
+        { category: 'chat', id: Router.current().params.chatRoomId, 'school': UI._globalHelpers['getCurrentSchoolName']()}
       );
   },
 
@@ -61,7 +61,7 @@ Template.ChatRoom.events({
       if (window.device.platform === "Android") {
         e.preventDefault();
         Smartix.FileHandler.documentUploadForAndroid(e, 
-          {'category': 'chat', 'id': Router.current().params.chatRoomId}
+          {'category': 'chat', 'id': Router.current().params.chatRoomId, 'school': UI._globalHelpers['getCurrentSchoolName']()}
         );
       }
     }      
@@ -69,7 +69,7 @@ Template.ChatRoom.events({
   },
   'change #documentBtn': function (event, template) {
       Smartix.FileHandler.documentUpload(event,
-        {'category': 'chat', 'id': Router.current().params.chatRoomId}
+        {'category': 'chat', 'id': Router.current().params.chatRoomId, 'school': UI._globalHelpers['getCurrentSchoolName']()}
       );
   },
 

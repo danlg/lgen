@@ -1,8 +1,8 @@
 Template.AdminUsersView.onCreated(function () {
     var self = this;
     var userId = Router.current().params.uid;
-    var schoolUsername = Router.current().params.school;
-    var schoolId = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolUsername);
+    var schoolUsername = UI._globalHelpers['getCurrentSchoolName']();
+    var schoolId = UI._globalHelpers['getCurrentSchoolId']();
     self.subscribe('smartix:accounts/allUsersInNamespace', schoolId );
     self.subscribe('mySchools');
     self.subscribe('userRelationshipsInNamespace', userId,schoolId);
@@ -22,7 +22,7 @@ Template.AdminUsersView.helpers({
     },
     userRoles: function () {
         // Get the `_id` of the school from its username
-        var schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(Router.current().params.school);
+        var schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
         var user = Meteor.users.findOne({ _id: Router.current().params.uid });
         if(user && user.roles[schoolNamespace]) {
             return user.roles[schoolNamespace].toString()
@@ -32,7 +32,7 @@ Template.AdminUsersView.helpers({
     },
 
     userIsChild:function(){
-        var schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(Router.current().params.school);
+        var schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
         var user = Meteor.users.findOne({ _id: Router.current().params.uid });
         if(user && user.roles[schoolNamespace]) {
             var isStudent =  ( user.roles[schoolNamespace].indexOf(Smartix.Accounts.School.STUDENT) > -1);
@@ -121,7 +121,7 @@ Template.AdminUsersView.events({
             password: Match.Maybe(String),
             username: Match.Maybe(String)
         });
-        newUserObj.schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(Router.current().params.school);
+        newUserObj.schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
         //log.info(newUserObj);
         // Call the Meteor method to create the school user
         Meteor.call(

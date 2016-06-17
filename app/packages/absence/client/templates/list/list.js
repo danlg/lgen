@@ -1,7 +1,5 @@
 Template.AttendanceList.helpers({
-    getCurrentSchoolName: function() {
-        return Router.current().params.school;
-    },
+
     getAttendanceRecord:function(){
        var schoolDoc = SmartixSchoolsCol.findOne({
            username: Router.current().params.school

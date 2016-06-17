@@ -6,9 +6,9 @@ Template.AdminAbsenceExpected.onCreated(function () {
         && Router.current().params.school
     ) {
         // subscribe to the school info first
-        var schoolUsername = Router.current().params.school;
+        var schoolUsername = UI._globalHelpers['getCurrentSchoolName']();
         self.subscribe('schoolInfo', schoolUsername, function () {
-            var schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolUsername)
+            var schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
             if(schoolNamespace) {
                 self.subscribe('smartix:absence/expectedAbsences', schoolNamespace, function () {
                     self.subscribe('smartix:absence/expectedAbsencesUsers', schoolNamespace, function () {
@@ -94,7 +94,7 @@ Template.AdminAbsenceExpected.helpers({
                 $gte: dateFromTS
             },
             approved: status,
-            namespace: Smartix.Accounts.School.getNamespaceFromSchoolName(Router.current().params.school)
+            namespace: UI._globalHelpers['getCurrentSchoolId']()
         });
     },
     userData: function () {

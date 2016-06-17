@@ -43,19 +43,22 @@ Meteor.publish('user', function (_id) {
   });
 });
 
-Meteor.publish("images", function (id, category) {
+Meteor.publish("images", function (school, category, id) {
   //roomId can be a classCode or chatRoomId
-  return Images.find({
-    'metadata.id': id,
-    'metadata.category': category
-  });
+    return Images.find({
+      'metadata.school': school,
+      'metadata.category': category,
+      'metadata.id': id
+    });
 });
+
 Meteor.publish("sounds", function () {
   return Sounds.find();
 });
-Meteor.publish("documents",function(id, category){
+Meteor.publish("documents",function(school, category, id){
   return Documents.find({
-    'metadata.id': id,
-    'metadata.category': category
+      'metadata.school': school,
+      'metadata.category': category,
+      'metadata.id': id
   });
 });

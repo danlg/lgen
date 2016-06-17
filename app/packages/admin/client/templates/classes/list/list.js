@@ -6,7 +6,7 @@ Template.AdminClassesSearch.onCreated(function () {
     ) {
         this.subscribe('smartix:classes/allClassesFromSchoolName', Router.current().params.school);
 
-        var schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(Router.current().params.school);
+        var schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
         this.subscribe('smartix:accounts/allUsersInNamespace', schoolNamespace);        
     } else {
         log.info("Please specify a school to list the classes for");

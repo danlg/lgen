@@ -3,13 +3,15 @@
 /* ChatRoom: Lifecycle Hooks */
 /*****************************************************************************/
 var currentChatroomId;
-Template.ChatRoom.created = function () {
+Template.ChatRoom.onCreated = function () {
     this.loadedItems = new ReactiveVar(10);
     this.loadExtraItems = 5;
     this.localChatMessagesCollection = new Meteor.Collection(null);
-
     var self = this;
-
+    self.subscribe('images', UI._globalHelpers['getCurrentSchoolName'](), 'chat', this.params.chatRoomId),
+    self.subscribe('documents', UI._globalHelpers['getCurrentSchoolName'](), 'chat',this.params.chatRoomId),
+    self.subscribe('sounds'),
+    self.subscribe('chatRoomWithUser', this.params.chatRoomId)
     this.autorun(function () {
         self.subscribe('smartix:messages/groupMessages', Router.current().params.chatRoomId);
     });    

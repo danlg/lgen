@@ -27,10 +27,10 @@ Template.AdminClassesView.onCreated(function () {
         var schoolUsername = Router.current().params.school;
         
         // Subscription for school info is already done at the admin layout's js file
-        var schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolUsername)
+        var schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
         if(schoolNamespace) {
             self.subscribe('smartix:distribution-lists/listsInNamespace', schoolNamespace);
-            self.subscribe('smartix:accounts/allUsersInNamespace', Smartix.Accounts.School.getNamespaceFromSchoolName(schoolUsername));
+            self.subscribe('smartix:accounts/allUsersInNamespace', schoolNamespace);
         }
     }
 

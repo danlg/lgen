@@ -27,9 +27,6 @@ Template.MobileSchoolHome.helpers({
         }
     },
 
-    getCurrentSchoolName: function() {
-        return Router.current().params.school;
-    },
     getSlidingNews:function(){
         var newsgroupsIds = [];
         var newsgroupsByUserArray =  Smartix.Groups.Collection.find({ type: 'newsgroup', users: Meteor.userId() }).fetch(); 
@@ -147,7 +144,7 @@ Template.MobileSchoolHome.onCreated(function(){
    self.subscribe('newsgroupsForUser',null,null, Router.current().params.school,function(){
     self.subscribe('newsForUser',null,null, Router.current().params.school);       
    });
-   self.subscribe('images', Router.current().params.school, 'school');
+   self.subscribe('images', Router.current().params.school, 'school', Router.current().params.school);
 })
 
 Template.MobileSchoolHome.onRendered(function(){

@@ -1,28 +1,14 @@
 Template.AdminDistributionListView.onCreated(function () {
+    var schoolName = UI._globalHelpers['getCurrentSchoolName']();
     var self = this;
-    if(Router.current()
-    && Router.current().params
-    && Router.current().params.code) {
+    if(schoolName) {
         var currentCode = Router.current().params.code;
-        var schoolName = Router.current().params.school;
         self.subscribe('schoolInfo', schoolName, function (err, res) {
-            var schoolId = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolName);
+            var schoolId = UI._globalHelpers['getCurrentSchoolId']();
             self.namespace = schoolId;
             self.subscribe('smartix:distribution-lists/listByCode', currentCode, function (error, res) {
-                self.subscribe('smartix:accounts/basicInfoOfAllUsersInNamespace', schoolId, function (err, res) {
-                    
+                self.subscribe('smartix:accounts/basicInfoOfAllUsersInNamespace', schoolId, function (err, res) { 
                 });
-                
-                // if(!error) {
-                //     var listData = Smartix.Groups.Collection.findOne({
-                //         url: currentCode,
-                //         type: 'distributionList'
-                //     });
-                    
-                //     // if(listData && listData._id) {
-                //     //     self.subscribe('smartix:messages/groupMessages', listData._id);
-                //     // }
-                // }
             });
         });
     }
@@ -67,7 +53,7 @@ Template.AdminDistributionListView.helpers({
     },
     getUserRoles:function(){
         var schoolUsername = Router.current().params.school;
-        var schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolUsername);
+        var schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
         if(schoolNamespace){
             let role = "";
             if(this.roles) {
@@ -82,9 +68,7 @@ Template.AdminDistributionListView.helpers({
         }            
 
     },
-    getCurrentSchoolName:function(){
-        return Router.current().params.school;
-    },
+
     getUserId:function(){
         return this._id;
     },

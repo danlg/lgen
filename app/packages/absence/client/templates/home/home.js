@@ -1,8 +1,5 @@
 
 Template.AttendanceHome.helpers({
-    getCurrentSchoolName: function() {
-        return Router.current().params.school;
-    },
     getProcessId:function(){
       return this._id;  
     },

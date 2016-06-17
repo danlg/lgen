@@ -190,7 +190,7 @@ Template.SendMessage.events({
 		//Image is inserted from here via FS.Utility
 		Smartix.FileHandler.imageUpload(
 			event,
-			{category: 'class', id: Router.current().params.classCode}
+			{category: 'class', id: Router.current().params.classCode, 'school': UI._globalHelpers['getCurrentSchoolName']()}
 			, imageArr.get(),
 			function (result) {
 				imageArr.set(result);
@@ -264,7 +264,7 @@ Template.SendMessage.events({
 				e.preventDefault();
 				Smartix.FileHandler.documentUploadForAndroid(
 					e,
-					{'category': 'class', 'id': Router.current().params.classCode}
+					{'category': 'class', 'id': Router.current().params.classCode, 'school': UI._globalHelpers['getCurrentSchoolName']()}
 					, documentArr.get(), function (result) {
 						documentArr.set([]);
 						window.setTimeout(scrollMessageListToBottom, 100);
@@ -275,7 +275,7 @@ Template.SendMessage.events({
 
 	'change #documentBtn': function (event, template) {
 		Smartix.FileHandler.documentUpload(event,
-			{'category': 'class', 'id': Router.current().params.classCode}
+			{'category': 'class', 'id': Router.current().params.classCode, 'school': Router.current().params.school}
 			, documentArr.get(), function (result) {
 				documentArr.set([]);
 				window.setTimeout(scrollMessageListToBottom, 100);
@@ -543,8 +543,8 @@ Template.SendMessage.created = function () {
 
     var self = this;
     self.subscribe('createdClassByMe');
-    self.subscribe('images', Router.current().params.classCode, 'class');
-    self.subscribe('documents', Router.current().params.classCode);
+    self.subscribe('images', Router.current().params.school, 'class', Router.current().params.classCode);
+    self.subscribe('documents', Router.current().params.school, 'class', Router.current().params.classCode);
     self.subscribe('sounds');
 
 	this.calendarEvent = new ReactiveVar({});

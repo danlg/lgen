@@ -7,7 +7,7 @@ Template.EditSchool.onCreated(function() {
     && Router.current().params.school) {
         var schoolUsername = Router.current().params.school;
         self.subscribe('schoolInfo', schoolUsername);
-        self.subscribe('images', schoolUsername, 'school');   
+        self.subscribe('images', schoolUsername, 'school', Router.current().params.school);   
     }
     var schoolId = SmartixSchoolsCol.findOne({username: schoolUsername});
     if(schoolId.logo)
@@ -91,7 +91,7 @@ Template.EditSchool.events({
 
 var editImage = function(filePath,template, schoolUserName, image) {
     var newFile = new FS.File(filePath);
-    newFile.metadata = {id: schoolUserName, category: 'school'};
+    newFile.metadata = {id: schoolUserName, category: 'school', school: schoolUserName};
     Images.insert(newFile, function(err, fileObj) {
         if (err) log.error(err);
         else {

@@ -8,8 +8,8 @@ Template.AdminUsersSearch.helpers({
       }
   },
   getUserRoles:function(){
-      var schoolUsername = Router.current().params.school;
-      var schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolUsername);
+      var schoolUsername = UI._globalHelpers['getCurrentSchoolName']();
+      var schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
       if(schoolNamespace){
           let role = "";
           if(this.roles) {
@@ -24,9 +24,7 @@ Template.AdminUsersSearch.helpers({
       }            
 
   },
-  getCurrentSchoolName:function(){
-      return Router.current().params.school;
-  },
+
   getUserId:function(){
       return this._id;
   },
@@ -244,20 +242,14 @@ Template.AdminUsersSearch.events({
 
 Template.AdminUsersSearch.onCreated(function () {
     var self = this;
-    if (Router
-        && Router.current()
-        && Router.current().params
-        && Router.current().params.school
-    ) {
+    var schoolUsername = UI._globalHelpers['getCurrentSchoolName']();
+    if (schoolUsername) {
         // subscribe to the school info first
-        var schoolUsername = Router.current().params.school;
         log.info('packages/admin/client/template/users/list#schoolUsername: ' + schoolUsername);
-        var schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolUsername)
-        log.info('packages/admin/client/template/users/list#schoolNamespace: ' + schoolNamespace);
-        
+        var schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
+        log.info('packages/admin/client/template/users/list#schoolNamespace: ' + schoolNamespace);     
         if(schoolNamespace) {
-            self.subscribe('smartix:accounts/allUsersInNamespace', schoolNamespace, function (err, res) {
-                
+            self.subscribe('smartix:accounts/allUsersInNamespace', schoolNamespace, function (err, res) {             
             });
             self.namespace = schoolNamespace;
         }

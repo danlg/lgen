@@ -8,12 +8,11 @@ Template.AdminUsersAddRelationships.onCreated(function () {
         defaultSearchOptions : {limit: 5}
     });
     
-    var schoolUsername = Router.current().params.school;
-    
+    var schoolUsername = UI._globalHelpers['getCurrentSchoolName']();
     // Subscription for school info is already done at the admin layout's js file
-    var schoolNamespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolUsername)
+    var schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
     if(schoolNamespace) {
-        self.subscribe('smartix:accounts/allUsersInNamespace', Smartix.Accounts.School.getNamespaceFromSchoolName(schoolUsername));
+        self.subscribe('smartix:accounts/allUsersInNamespace', schoolNamespace);
     }
     
     this.relationshipType = new ReactiveVar("Mother");
@@ -46,16 +45,11 @@ Template.AdminUsersAddRelationships.events({
         if(!userId) {
             Toastr.error('Please select a user');
         }
-        if (Router
-            && Router.current()
-            && Router.current().params.school
-            && Router.current().params.uid
-        ) {
-            
+        if (UI._globalHelpers['getCurrentSchoolName']()) {            
             Meteor.call('smartix:accounts-relationships/createRelationship', {
                 parent: userId,
                 child: Router.current().params.uid,
-                namespace: Smartix.Accounts.School.getNamespaceFromSchoolName(Router.current().params.school),
+                namespace: UI._globalHelpers['getCurrentSchoolId'](),
                 name: relName
             }, function (err, res) {
                 if(err) {
