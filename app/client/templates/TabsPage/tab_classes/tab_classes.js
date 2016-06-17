@@ -26,25 +26,27 @@ Template.TabClasses.helpers({
   notCreateEmptyList: function () {
     return Smartix.Groups.Collection.find({
         admins: Meteor.userId()
-    }).count() > 0
+    }).count() > 0;
   },
 
   notJoinedEmptyList: function () {
-    var joinedClasses = Smartix.Groups.Collection.find(
-      {
+    return ( Smartix.Groups.Collection.find({
           admins :{  $nin : [Meteor.userId()] }
-      }
-    );
-    return joinedClasses.length < 1 ? false : true;
+    }).count() > 0 ) ;
+    //return (joinedClasses.length >= 1) ;
   },
 
   joinedClass: function () {
     //   let tester = Meteor.call('Smartix.DistributionLists.getDistributionListsOfUser', Meteor.user());
     //   log.info(tester);
-    var joinedClasses = Smartix.Groups.Collection.find(
-      {
-          admins :{  $nin : [Meteor.userId()] }
-      }
+    var joinedClasses = Smartix.Groups.Collection.find
+    (
+        {
+            admins :{  $nin : [Meteor.userId()] }
+        },
+        {
+            sort   :{  "lastUpdatedAt":-1 }
+        }
     ).fetch();
     if (joinedClasses.length < 1) {
        return false;
@@ -61,13 +63,12 @@ Template.TabClasses.helpers({
     } else {
       if(Meteor.user() && Meteor.user().roles && Meteor.user().roles[currentSchoolId]){
         var userRolesInCurrentNamespace = Meteor.user().roles[currentSchoolId];
-        if(userRolesInCurrentNamespace.indexOf(Smartix.Accounts.School.ADMIN)!==-1 ||
-           userRolesInCurrentNamespace.indexOf(Smartix.Accounts.School.PARENT)!==-1 ||
-           userRolesInCurrentNamespace.indexOf(Smartix.Accounts.School.TEACHER)!==-1){
-          return true;
-        } else {
-          return false;
-        }
+        //student cannot create class
+        return (
+            userRolesInCurrentNamespace.indexOf(Smartix.Accounts.School.ADMIN)!==-1 ||
+            userRolesInCurrentNamespace.indexOf(Smartix.Accounts.School.PARENT)!==-1 ||
+            userRolesInCurrentNamespace.indexOf(Smartix.Accounts.School.TEACHER)!==-1
+        );
       }
     }
   },
@@ -111,29 +112,18 @@ Template.TabClasses.helpers({
          return '<span class="badge" style="background-color: #ef473a;color: #fff;">'+ newMessageCount +'</span>'
      }
   },
+
   'lasttextTime':function(lastUpdatedAtDate){
       return lastUpdatedAtDate ? moment(lastUpdatedAtDate).fromNow() : "";
    }
-
 });
 
-/*****************************************************************************/
+
 /* TabClasses: Lifecycle Hooks */
-/*****************************************************************************/
 Template.TabClasses.created = function () {
 };
 
 Template.TabClasses.rendered = function () {
-  //if user is registered with meteor account <-- this logic is disabled so new user is easier to get started
-  /*if (typeof Meteor.user().emails[0].verified !== 'undefined') {
-    //if email is not yet verfied
-    if (Meteor.user().emails[0].verified == false) {
-      Router.go('EmailVerification');
-      
-      return;
-    }
-  }*/
-  
   //we do not need to show the tour as it is shown before login
   //if sign up by google oauth or user's email is already verified
   if(Meteor.user() && Meteor.user().emails && Meteor.user().emails[0].verified)

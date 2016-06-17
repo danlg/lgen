@@ -129,7 +129,7 @@ Smartix.helpers.registerNewUser = function(email, firstName, lastName, password)
                     
                     Meteor.loginWithPassword(email,password,function(err){
                         if(err){
-                            toastr.error('Sign up fail. The email is already taken');
+                            toastr.error('Sorry, the email is already taken');
                         }else{
                             toastr.info(TAPi18n.__("WelcomeVerification"));
                             log.info("login:meteor:" + Meteor.userId());

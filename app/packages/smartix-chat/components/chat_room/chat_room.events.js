@@ -80,7 +80,7 @@ Template.ChatRoom.events({
 
   'click .voice': function (argument) {
     if (!isRecording) {
-      log.info('startRec');
+      //log.info('startRec');
       media = Smartix.helpers.getNewRecordFile();
       media.startRecord();
       isRecording = true;
@@ -91,7 +91,7 @@ Template.ChatRoom.events({
       }, 1000 * 60 * 3);//3 min max
     }
     else {
-      log.info('stopRec');
+      //log.info('stopRec');
       media.stopRecord();
       //  playAudio(media.src);
       isRecording = false;
@@ -159,7 +159,7 @@ function onResolveSuccess(fileEntry) {
     Sounds.insert(newFile, function (err, fileObj) {
       if (err) {
         //handle error
-        log.error("insert error" + err);
+        log.error("onResolveSuccess, Sounds.insert error", err);
       }
       else {
         //handle success depending what you need to do
@@ -167,7 +167,7 @@ function onResolveSuccess(fileEntry) {
         var fileURL = {
           "file": "/cfs/files/files/" + fileObj._id
         };
-        log.info(fileURL.file);
+        //log.info(fileURL.file);
         var textDesc = "New voice message";
         textDesc = ( Meteor.user() && Meteor.user().profile )
           ? ( textDesc + " from " + Meteor.user().profile.firstName + " " + Meteor.user().profile.lastName )

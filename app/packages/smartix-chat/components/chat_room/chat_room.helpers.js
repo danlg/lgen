@@ -1,8 +1,6 @@
 /*! Copyright (c) 2015-2016 Little Genius Education Ltd.  All Rights Reserved. */
 
-/*****************************************************************************/
 /* ChatRoom: Helpers */
-/*****************************************************************************/
 Template.ChatRoom.helpers({
   getChatRoomId:function(){
       return Router.current().params.chatRoomId;
@@ -200,7 +198,6 @@ Template.ChatRoom.helpers({
     var currentChat = Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId});
     var target;
     var displayOffline = false;
-        
     //if it is a group chat
     if(currentChat.chatRoomModerator) {
         if(currentChat.chatRoomModerator == Meteor.userId()) {
@@ -224,7 +221,7 @@ Template.ChatRoom.helpers({
         Roles.userIsInRole(target, Smartix.Accounts.School.PARENT, currentChat.namespace)
        )
     {
-      log.info('chat setting');
+      //log.info('chat setting');
       //debugger;
       if (target.profile.chatSetting && target.profile.chatSetting.workHour) {
         var workHourTime = target.profile.chatSetting.workHourTime;
@@ -300,7 +297,7 @@ Template.ChatRoom.helpers({
 
 function isOneToOneChat(){
     var chat = Smartix.Groups.Collection.findOne({ _id: Router.current().params.chatRoomId });
-    return (chat.users.length == 2) ? true : false;
+    return ( chat.users.length == 2) ;
 }
 
 // function lastMessageAuthor(){
@@ -320,7 +317,6 @@ function getAnotherUser(){
     //find and remove the userid of the current user
     var currentUserIdIndex = arr.indexOf(Meteor.userId());
     arr.splice(currentUserIdIndex, 1);
-
     //return another user's user object
     var targetUserObj = Meteor.users.findOne(arr[0]);
     return targetUserObj;
@@ -332,9 +328,7 @@ function getAllUser(){
     var arr = Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId}).chatIds;
     //log.info(arr);
     //return all user objects
-    var targetUsers =  Meteor.users.find({
-         _id :{ $in: arr}
-    }).fetch();
+    var targetUsers =  Meteor.users.find( { _id :{ $in: arr} }).fetch();
     return targetUsers;
 }
 
