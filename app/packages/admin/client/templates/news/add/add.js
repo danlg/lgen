@@ -1,22 +1,16 @@
 Template.AdminNewsAdd.onCreated(function () {
+    const self = Template.instance();
     this.autorun(() => {
-        this.currentSchoolName = new ReactiveVar('currentSchoolName');
-        if(Router
-            && Router.current()
-            && Router.current().params
-            && Router.current().params.school
-        ) {
-            this.currentSchoolName = Router.current().params.school;
-            this.subscribe('schoolInfo', this.currentSchoolName, (err, res) => {
-                if(!err) {
-                    this.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolName',
-                        this.currentSchoolName, function (err, res) {
-                        // console.log(err);
-                        // console.log(res);
-                    });
-                }
-            });
-        }
+        var schoolName = UI._globalHelpers['getCurrentSchoolName']();
+        self.subscribe('schoolInfo', schoolName , (err, res) => {
+            if(!err) {
+                self.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolName',
+                    schoolName, function (err, res) {
+                    // console.log(err);
+                    // console.log(res);
+                });
+            }
+        });
     });
     // this.subscribe('images');
     // this.subscribe('documents');
@@ -35,12 +29,9 @@ Template.AdminNewsAdd.onRendered(function(){
 Template.AdminNewsAdd.helpers({
     newsgroups: function () {
         if(Template.instance().subscriptionsReady()) {
-            var schoolDoc = SmartixSchoolsCol.findOne({
-                username: Template.instance().currentSchoolName
-            });
             if(schoolDoc) {
                 return Smartix.Groups.Collection.find({
-                    namespace: schoolDoc._id,
+                    namespace: UI._globalHelpers['getCurrentSchoolId'](),
                     type: 'newsgroup'
                 });
             }

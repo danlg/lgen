@@ -10,11 +10,8 @@ Meteor.publish('smartix:accounts/ownUserData', function () {
 });
 
 Meteor.publish('smartix:accounts/basicInfoOfAllUsersInNamespace', function (namespace) {
-    
     check(namespace, String);
-    
     var hasPermission;
-    
     // Pass the permission checks to the corresponding child package
     switch(namespace) {
         case 'system':

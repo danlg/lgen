@@ -1,16 +1,17 @@
 Template.MobileSchoolContact.helpers({
-   
     getSchoolObj:function(){
-        var schoolDoc = SmartixSchoolsCol.findOne({                                                    
-            username: Router.current().params.school                                                                     
+        var schoolDoc = SmartixSchoolsCol.findOne({
+            username: UI._globalHelpers['getCurrentSchoolName']()                                                          
         });
-        
-         if(schoolDoc){
+        if(schoolDoc){
          return schoolDoc            
-        }               
+        }              
     }
-    
 });
+
 Template.MobileSchoolContact.onCreated(function(){
-   this.subscribe('images', Router.current().params.school, 'school', Router.current().params.school);
+   this.subscribe('images', 
+       UI._globalHelpers['getCurrentSchoolName'](), 
+       'school', 
+       UI._globalHelpers['getCurrentSchoolName']());
 });

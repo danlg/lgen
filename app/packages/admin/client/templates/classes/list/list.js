@@ -1,16 +1,7 @@
 Template.AdminClassesSearch.onCreated(function () {
-    if (Router
-    && Router.current()
-    && Router.current().params
-    && Router.current().params.school
-    ) {
-        this.subscribe('smartix:classes/allClassesFromSchoolName', Router.current().params.school);
+    this.subscribe('smartix:classes/allClassesFromSchoolName', UI._globalHelpers['getCurrentSchoolName']() );
+    this.subscribe('smartix:accounts/allUsersInNamespace', UI._globalHelpers['getCurrentSchoolId']());
 
-        var schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
-        this.subscribe('smartix:accounts/allUsersInNamespace', schoolNamespace);        
-    } else {
-        log.info("Please specify a school to list the classes for");
-    }
     this.usersChecked = new ReactiveVar([]);
     this.doingOperations = new ReactiveVar(false);  
     this.modalName = new ReactiveVar("remove-classes-modal");
@@ -23,12 +14,10 @@ Template.AdminClassesSearch.helpers({
       return ClassesIndex;
   },
   routeData: function () {
-        if (Router && Router.current()) {
-            return {
+      return {
                 classCode: this.classCode,
-                school: Router.current().params.school
+                school: UI._globalHelpers['getCurrentSchoolName']()
             };
-        }
  },
   isUserChecked:function(){
       //log.info(this._id )

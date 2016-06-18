@@ -13,6 +13,183 @@ var messageListBaseBorrow = 70;
 var messageListHeightBorrower = ReactiveVar([]);
 var canVote = ReactiveVar(true);
 
+Template.SendMessage.created = function () {
+	this.calendarEvent = new ReactiveVar({});
+	//log.info("Template.SendMessage.created");
+	//log.info(this.calendarEvent);
+};
+
+Template.SendMessage.onCreated = function () {
+	//log.info("Template.SendMessage.onCreated");
+	var schoolName = UI._globalHelpers['getCurrentSchoolName']();
+	//log.info("schoolName", schoolName);
+
+	this.subscribe('createdClassByMe');
+	this.subscribe('images', schoolName, 'class', Router.current().params.classCode);
+	this.subscribe('documents', schoolName, 'class', Router.current().params.classCode);
+	this.subscribe('sounds');
+};
+
+Template.SendMessage.destroyed = function () {
+	imageArr.set([]);
+	soundArr.set([]);
+	isRecording = false;
+	media = "";
+	isPlayingSound = false;
+	Session.set("sendMessageSelectedClasses", {
+		selectArrName: [],
+		selectArrId: []
+	});
+	canVote.set(true);
+	messageListHeightBorrower.set([]);
+	calendarEvent.set({});
+};
+
+Template.SendMessage.rendered = function () {
+	$(".msgBox").autogrow();
+	//log.info(canVote.get());
+	if (canVote.get()) {
+		var borrower = messageListHeightBorrower.get();
+		if (lodash.findIndex(borrower, {type: "vote-options"}) == -1) {
+			borrower.push({type: "vote-options", height: 20});
+			messageListHeightBorrower.set(borrower);
+			updateMessageListHeight();
+		}
+	}
+	//initial check of vote option.
+	voteEnableCheck();
+};
+
+/* SendMessage: Helpers */
+Template.SendMessage.helpers({
+	calendarEventSet: function () {
+		// log.info("calendarEventSet");
+		// log.info(Template.instance());
+		// log.info(Template.instance().calendarEvent);
+		var inner = Template.instance().calendarEvent.get();
+		return ( ! ($.isEmptyObject(inner) ) ) ;
+	},
+
+	addClassBtnStatus: function () {
+		return Session.get("isSelecting") ? "hidden" : "";
+	},
+
+	doneClassBtnStatus: function () {
+		return Session.get("isSelecting") ? "" : "hidden";
+	},
+
+	checkbox: function () {
+		return Session.get("isSelecting") ? "" : "hidden";
+	},
+
+	isSelect: function (classCode) {
+		return classCode == Router.current().params.classCode ? "selected" : "";
+	},
+
+	selectArr: function () {
+		return [];
+	},
+
+	searchObj: function () {
+		if (lodash.has(Router.current().params, 'classCode')) {
+			if (!lodash.isUndefined(Router.current().params.classCode)) {
+				// log.info(Smartix.Groups.Collection.find({
+				//     type: 'class',
+				//   classCode: Router.current().params.classCode
+				// }).fetch());
+				var getDefaultClass = Smartix.Groups.Collection.findOne({
+					type: 'class',
+					classCode: Router.current().params.classCode
+				});
+				//log.info(getDefaultClass);
+				var obj = {
+					selectArrName: [getDefaultClass.className],
+					selectArrId: [getDefaultClass._id]
+				};
+				Session.set("sendMessageSelectedClasses", obj);
+			}
+		}
+		return Session.get('sendMessageSelectedClasses');
+	},
+	arrToString: function (arr) {
+		if (arr.length < 1) {
+			return "";
+		}
+		else {
+			return lodash(arr).toString();
+		}
+	},
+	uploadPic: function (argument) {
+		return imageArr.get();
+	},
+	uploadSound: function (argument) {
+		return soundArr.get();
+	},
+	uploadDocument: function (argument) {
+		return documentArr.get();
+	},
+	uploadDocuments: function (argument) {
+		return documentArr.get();
+	},
+	getImage: function () {
+		var id = this.toString();
+		return Images.findOne(id);
+	},
+	getSound: function () {
+		var id = this.toString();
+		return Sounds.findOne(id);
+	},
+	getDocument: function () {
+		var id = this.toString();
+		return Documents.findOne(id);
+	},
+	isVotingTypeDisabled: function () {
+		if (canVote.get() == true) {
+			return "";
+		}
+		else {
+			return "display:none;";
+		}
+	},
+	isDisabled: function (type) {
+		switch (type) {
+			case 'camera':
+				return imageArr.get().length > 0 || soundArr.get().length > 0 ? "disabled" : "";
+			case 'voice':
+				return imageArr.get().length > 0 || soundArr.get().length > 0 ? "disabled" : "";
+			default:
+
+		}
+	},
+	isHidden: function () {
+		if (imageArr.get().length > 0 || soundArr.get().length > 0 || documentArr.get().length > 0) {
+			return "display:none;"
+		}
+		else {
+			return "";
+		}
+	},
+	isShown: function () {
+		if (imageArr.get().length > 0 || soundArr.get().length > 0 || documentArr.get().length > 0) {
+			return "display:block !important;"
+		}
+		else {
+			return "";
+		}
+	},
+	isPlaceHolder: function () {
+		// we put the placeholder to guide user only for web version
+		return Meteor.isCordova ? "" : TAPi18n.__("Type_Message_Here");
+	},
+	withExtraRightPadding: function () {
+		if (!Meteor.isCordova) {
+			return "padding-right:40px;"
+		}
+		else {
+			return "";
+		}
+	}
+});
 var setCalendar = function (event, sendMsgtemplate) {
 	IonPopup.show({
 		title: TAPi18n.__("SetEvent"),
@@ -65,8 +242,8 @@ Template.SendMessage.events({
 		IonActionSheet.show({
 			//titleText: 'What to attach?',
 			buttons: [
-				{text: 'Attach a document'},
-				{text: 'Attach an event'}
+				{text: TAPi18n.__("AttachDocument") },
+				{text: TAPi18n.__("AttachEvent")}
 			],
 			cancelText: 'Cancel',
 			cancel: function () {
@@ -227,7 +404,7 @@ Template.SendMessage.events({
 		var addons = [];
 		populateAddons(addons, mediaObj);
 		GeneralMessageSender(target[0], 'text', msg, addons, null, function () {
-			log.info('callback@GeneralMessageSender');
+			//log.info('callback@GeneralMessageSender');
 			Session.set("sendMessageSelectedClasses", {
 				selectArrName: [],
 				selectArrId: []
@@ -275,11 +452,10 @@ Template.SendMessage.events({
 
 	'change #documentBtn': function (event, template) {
 		Smartix.FileHandler.documentUpload(event,
-			{'category': 'class', 'id': Router.current().params.classCode, 'school': Router.current().params.school}
+			{'category': 'class', 'id': Router.current().params.classCode, 'school':  UI._globalHelpers['getCurrentSchoolName']()}
 			, documentArr.get(), function (result) {
 				documentArr.set([]);
 				window.setTimeout(scrollMessageListToBottom, 100);
-
 			});
 	}
 });
@@ -407,178 +583,6 @@ function populateVote(voteObj, mediaObj) {
 	}
 	return voteObj;
 }
-
-/* SendMessage: Helpers */
-Template.SendMessage.helpers({
-
-	calendarEventSet: function () {
-		// log.info(Template.instance().calendarEvent);
-		if ($.isEmptyObject(Template.instance().calendarEvent.get())) {
-			return false;
-		}
-		else {
-			return true;
-		}
-	},
-	addClassBtnStatus: function () {
-		return Session.get("isSelecting") ? "hidden" : "";
-	},
-	doneClassBtnStatus: function () {
-		return Session.get("isSelecting") ? "" : "hidden";
-	},
-	checkbox: function () {
-		return Session.get("isSelecting") ? "" : "hidden";
-	},
-	isSelect: function (classCode) {
-		return classCode == Router.current().params.classCode ? "selected" : "";
-	},
-	selectArr: function () {
-		return [];
-	},
-
-	searchObj: function () {
-		if (lodash.has(Router.current().params, 'classCode')) {
-			if (!lodash.isUndefined(Router.current().params.classCode)) {
-				// log.info(Smartix.Groups.Collection.find({
-				//     type: 'class',
-				//   classCode: Router.current().params.classCode
-				// }).fetch());
-				var getDefaultClass = Smartix.Groups.Collection.findOne({
-					type: 'class',
-					classCode: Router.current().params.classCode
-				});
-				//log.info(getDefaultClass);
-				var obj = {
-					selectArrName: [getDefaultClass.className],
-					selectArrId: [getDefaultClass._id]
-				};
-				Session.set("sendMessageSelectedClasses", obj);
-			}
-		}
-		return Session.get('sendMessageSelectedClasses');
-	},
-	arrToString: function (arr) {
-		if (arr.length < 1) {
-			return "";
-		}
-		else {
-			return lodash(arr).toString();
-		}
-	},
-	uploadPic: function (argument) {
-		return imageArr.get();
-	},
-	uploadSound: function (argument) {
-		return soundArr.get();
-	},
-	uploadDocument: function (argument) {
-		return documentArr.get();
-	},
-	uploadDocuments: function (argument) {
-		return documentArr.get();
-	},
-	getImage: function () {
-		var id = this.toString();
-		return Images.findOne(id);
-	},
-	getSound: function () {
-		var id = this.toString();
-		return Sounds.findOne(id);
-	},
-	getDocument: function () {
-		var id = this.toString();
-		return Documents.findOne(id);
-	},
-	isVotingTypeDisabled: function () {
-		if (canVote.get() == true) {
-			return "";
-		}
-		else {
-			return "display:none;";
-		}
-	},
-	isDisabled: function (type) {
-		switch (type) {
-			case 'camera':
-				return imageArr.get().length > 0 || soundArr.get().length > 0 ? "disabled" : "";
-			case 'voice':
-				return imageArr.get().length > 0 || soundArr.get().length > 0 ? "disabled" : "";
-			default:
-
-		}
-	},
-	isHidden: function () {
-		if (imageArr.get().length > 0 || soundArr.get().length > 0 || documentArr.get().length > 0) {
-			return "display:none;"
-		}
-		else {
-			return "";
-		}
-	},
-	isShown: function () {
-		if (imageArr.get().length > 0 || soundArr.get().length > 0 || documentArr.get().length > 0) {
-			return "display:block !important;"
-		}
-		else {
-			return "";
-		}
-	},
-	isPlaceHolder: function () {
-		// we put the placeholder to guide user only for web version
-		return Meteor.isCordova ? "" : TAPi18n.__("Type_Message_Here");
-	},
-	withExtraRightPadding: function () {
-		if (!Meteor.isCordova) {
-			return "padding-right:40px;"
-		}
-		else {
-			return "";
-		}
-	}
-});
-
-
-/* SendMessage: Lifecycle Hooks */
-Template.SendMessage.created = function () {
-
-    var self = this;
-    self.subscribe('createdClassByMe');
-    self.subscribe('images', Router.current().params.school, 'class', Router.current().params.classCode);
-    self.subscribe('documents', Router.current().params.school, 'class', Router.current().params.classCode);
-    self.subscribe('sounds');
-
-	this.calendarEvent = new ReactiveVar({});
-
-};
-
-Template.SendMessage.rendered = function () {
-	$(".msgBox").autogrow();
-	//log.info(canVote.get());
-	if (canVote.get()) {
-		var borrower = messageListHeightBorrower.get();
-		if (lodash.findIndex(borrower, {type: "vote-options"}) == -1) {
-			borrower.push({type: "vote-options", height: 20});
-			messageListHeightBorrower.set(borrower);
-			updateMessageListHeight();
-		}
-	}
-	//initial check of vote option.
-	voteEnableCheck();
-};
-
-Template.SendMessage.destroyed = function () {
-	imageArr.set([]);
-	soundArr.set([]);
-	isRecording = false;
-	media = "";
-	isPlayingSound = false;
-	Session.set("sendMessageSelectedClasses", {
-		selectArrName: [],
-		selectArrId: []
-	});
-	canVote.set(true);
-	messageListHeightBorrower.set([]);
-};
 
 //for the separated send message page
 Template.ionNavBar.events({
@@ -750,9 +754,7 @@ function imageAction() {
 
 function showPreview(filetype) {
 	log.info("show preview:filetype:" + filetype);
-
 	$('.preview' + '.' + filetype).show();
-
 	var borrower = messageListHeightBorrower.get();
 	//increase the height of input box panel
 	if (filetype && filetype == "image") {
@@ -778,8 +780,9 @@ function showPreview(filetype) {
 	//http://stackoverflow.com/questions/10503606/scroll-to-bottom-of-div-on-page-load-jquery
 	$('.messageList').scrollTop($('.messageList').prop("scrollHeight"));
 }
+
 function hidePreview(filetype) {
-	log.info("hide preview:filetype:" + filetype);
+	//log.info("hide preview:filetype:" + filetype);
 	var borrower = messageListHeightBorrower.get();
 	if (filetype == "all") {
 		borrower = [];

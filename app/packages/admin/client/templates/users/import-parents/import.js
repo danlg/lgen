@@ -83,19 +83,16 @@ Template.AdminParentsImport.events({
     },
     'click #AdminParentsImport__submit': function (event, template) {
         var importedParents = Session.get('imported-parents');
-        if(Router
-            && Router.current()
-            && Router.current().params
-            && Router.current().params.school
-        ) {
             if(Array.isArray(importedParents)) {
                 var notifyuserwithemail = template.$('#notifyuserwithemail').is(":checked");
                 var toasterOption = {
                     timeOut: 0,
                     "newestOnTop": false
                 };
-                Meteor.call('smartix:accounts-schools/importParents', Router.current().params.school, importedParents, notifyuserwithemail, function (err, res) {
-                    
+                Meteor.call('smartix:accounts-schools/importParents',
+                    UI._globalHelpers['getCurrentSchoolName'](),
+                    importedParents,
+                    notifyuserwithemail, function (err, res) {
                     if(!err) {
                         Session.set('importErrors', res.errors);
                         Session.set('manualNotifyUsers', res.manualNotifyUsers);
@@ -114,9 +111,6 @@ Template.AdminParentsImport.events({
             } else {
                 toastr.error(TAPi18n.__("admin.users.import.incorrectImportFormat"));
             }
-        } else {
-            toastr.error(TAPi18n.__("applicationError.refreshRequired"));
-        }
     },
     'click #ParentsImport_clear': function () {
         Session.set('imported-parents', undefined);

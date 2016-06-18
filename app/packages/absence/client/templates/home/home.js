@@ -1,35 +1,24 @@
+Template.AttendanceHome.onCreated(function(){
+    var self = this;
+    this.subscribe('userRelationships', Meteor.userId());
+    this.subscribe('mySchools',function(){
+        self.schoolId = UI._globalHelpers['getCurrentSchoolId']();
+        self.subscribe('smartix:absence/parentGetChildProcessed', this.schoolId);
+    });
+    this.subscribe('allSchoolUsersPerRole',UI._globalHelpers['getCurrentSchoolName']());
+});
 
 Template.AttendanceHome.helpers({
     getProcessId:function(){
       return this._id;  
     },
     attendanceRecordProcessedRequests:function(){
-       var schoolDoc = SmartixSchoolsCol.findOne({
-           username: Router.current().params.school
-       });               
-       
-       return Smartix.Absence.Collections.processed.find({namespace:schoolDoc._id,status:'missing'});        
+       return Smartix.Absence.Collections.processed.find({namespace:UI._globalHelpers['getCurrentSchoolId'](),status:'missing'});
     },
     getUserById: function(userId) {
         var targetUserObj = Meteor.users.findOne(userId);
         return targetUserObj;
     }
-});
-
-Template.AttendanceHome.onCreated(function(){
-    var self = this;
-    
-    self.subscribe('userRelationships', Meteor.userId());
-    self.subscribe('mySchools',function(){
-       var schoolDoc = SmartixSchoolsCol.findOne({
-           username: Router.current().params.school
-       });        
-      self.subscribe('smartix:absence/parentGetChildProcessed',schoolDoc._id);
-      self.schoolId = schoolDoc._id;
-    });    
-    self.subscribe('allSchoolUsersPerRole',Router.current().params.school);
-    
-          
 });
 
 Template.AttendanceHome.onDestroyed(function(){

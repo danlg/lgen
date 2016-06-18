@@ -1,14 +1,11 @@
 Template.EditSchool.onCreated(function() {
     this.newSchoolLogo = new ReactiveVar("");
-    this.newSchoolBackgroundImage = new ReactiveVar("");   
-    var self = this;
-    if(Router.current()
-    && Router.current().params
-    && Router.current().params.school) {
-        var schoolUsername = Router.current().params.school;
-        self.subscribe('schoolInfo', schoolUsername);
-        self.subscribe('images', schoolUsername, 'school', Router.current().params.school);   
-    }
+    this.newSchoolBackgroundImage = new ReactiveVar("");
+
+    var schoolUsername = UI._globalHelpers['getCurrentSchoolName']();
+    this.subscribe('schoolInfo', schoolUsername);
+    this.subscribe('images', schoolUsername, 'school', schoolUsername);
+
     var schoolId = SmartixSchoolsCol.findOne({username: schoolUsername});
     if(schoolId.logo)
         Template.instance().newSchoolLogo.set(Images.findOne(schoolId.logo)._id);
@@ -19,7 +16,6 @@ Template.EditSchool.onCreated(function() {
 Template.EditSchool.onDestroyed(function(){
     this.newSchoolLogo = new ReactiveVar("");
 });
-
 
 Template.EditSchool.onRendered(function(){
 });
@@ -34,7 +30,7 @@ Template.EditSchool.helpers({
         return Images.find(newSchoolLogoId);
     },
     getSchoolObj: function(){
-            return  SmartixSchoolsCol.findOne({username: Router.current().params.school});            
+            return  SmartixSchoolsCol.findOne({username: UI._globalHelpers['getCurrentSchoolName']()});
     },
     isStudentToStudentChatAllow:function(){
         if(this.allowStudentStudentChat){
@@ -49,14 +45,14 @@ Template.EditSchool.events({
     'change #school-logo': function(event, template) {
         var files = event.target.files;
         if (files.length > 0) {
-            editImage(files[0], template, Router.current().params.school, template.newSchoolLogo);
+            editImage(files[0], template, UI._globalHelpers['getCurrentSchoolName'](), template.newSchoolLogo);
         }
     },
 
     'change #school-background-image': function(event, template) {
         var files = event.target.files;
         if (files.length > 0) {
-            editImage(files[0], template, Router.current().params.school, template.newSchoolBackgroundImage);
+            editImage(files[0], template, UI._globalHelpers['getCurrentSchoolName'](), template.newSchoolBackgroundImage);
         }
     },    
 

@@ -246,11 +246,13 @@ Template.ClassPanel.helpers({
 			type: 'class',
 			classCode: Router.current().params.classCode
 		});
-		var msgCount = Smartix.Messages.Collection.find({
-			group: currentClassObj._id
-		}).count();
-		if (loadedItems.get() >= msgCount) {
-			return "hidden";
+		if (currentClassObj)  {
+			var msgCount = Smartix.Messages.Collection.find({
+				group: currentClassObj._id
+			}).count();
+			if (loadedItems.get() >= msgCount) {
+				return "hidden";
+			}
 		}
 		else {
 			return "";

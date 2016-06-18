@@ -1,27 +1,18 @@
 Template.AttendanceRecordAddByProcess.onCreated(function(){
-    
     var self = this;
-
-    self.subscribe('userRelationships', Meteor.userId());
-    self.subscribe('mySchools',function(){
-       var schoolDoc = SmartixSchoolsCol.findOne({
-           username: Router.current().params.school
-       });        
-      self.subscribe('smartix:absence/parentGetChildProcessed',schoolDoc._id); 
+    this.subscribe('userRelationships', Meteor.userId());
+    this.subscribe('mySchools',function(){
+      self.subscribe('smartix:absence/parentGetChildProcessed',UI._globalHelpers['getCurrentSchoolId']());
     });       
-    self.subscribe('allSchoolUsersPerRole',Router.current().params.school);
-    
+    this.subscribe('allSchoolUsersPerRole', UI._globalHelpers['getCurrentSchoolName']());
 });
 
 Template.AttendanceRecordAddByProcess.events({
 
     'click .apply-leave-btn': function () {
-        var schoolDoc = SmartixSchoolsCol.findOne({
-            username: Router.current().params.school
-        });
         var applyLeaveObj = {
             processId: $('#process-id').val(),
-            namespace: schoolDoc._id,
+            namespace:  UI._globalHelpers['getCurrentSchoolId'](),
             leaveReason: $('#leave-reason').val(),
             startDate: $('#start-date').val(),
             startDateTime: $('#start-date-time').val(),
@@ -108,18 +99,17 @@ Template.AttendanceRecordAddByProcess.helpers({
     getDefaultEndDateTime:function(){
       return "17:00"
     },
+
     getAllChildrens:function(){
-        var schoolDoc = SmartixSchoolsCol.findOne({
-            username: Router.current().params.school
-        });
         var childs = [];
-        var findChilds = Smartix.Accounts.Relationships.Collection.find({ parent: Meteor.userId(), namespace: schoolDoc._id }).fetch();
+        var findChilds = Smartix.Accounts.Relationships.Collection.find({ parent: Meteor.userId(), namespace:  UI._globalHelpers['getCurrentSchoolId']() }).fetch();
         //log.info('findParents', findParents);
         findChilds.map(function (relationship) {
             childs.push(relationship.child);
         });
         return childs;     
     },
+
     getUserById: function(userId) {
         return Meteor.users.findOne(userId);
     }

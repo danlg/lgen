@@ -1,17 +1,13 @@
 Template.AttendanceRecordAdd.onCreated(function(){
-    
-    var self = this;
-
-    self.subscribe('userRelationships', Meteor.userId());
-    self.subscribe('mySchools');    
-    self.subscribe('allSchoolUsersPerRole',Router.current().params.school);
-    
+    this.subscribe('userRelationships', Meteor.userId());
+    this.subscribe('mySchools');
+    this.subscribe('allSchoolUsersPerRole', UI._globalHelpers['getCurrentSchoolName']());
 });
 
 Template.AttendanceRecordAdd.events({
     'click .apply-leave-btn': function () {
         var schoolDoc = SmartixSchoolsCol.findOne({
-            username: Router.current().params.school
+            username: UI._globalHelpers['getCurrentSchoolName']()
         });
         var applyLeaveObj = {
             namespace: schoolDoc._id,
@@ -76,12 +72,7 @@ Template.AttendanceRecordAdd.events({
 
             ]
         });
-
-
-
-
     }
-
 });
 
 Template.AttendanceRecordAdd.helpers({
@@ -98,26 +89,23 @@ Template.AttendanceRecordAdd.helpers({
     getDefaultStartDateTime:function(){
       return "08:00";  
     },
+
     getDefaultEndDateTime:function(){
       return "17:00"
     },
-    getAllChildrens:function(){
 
-        var schoolDoc = SmartixSchoolsCol.findOne({
-            username: Router.current().params.school
-        });
-            
+    getAllChildrens:function(){
         var childs = [];
-        var findChilds = Smartix.Accounts.Relationships.Collection.find({ parent: Meteor.userId(), namespace: schoolDoc._id }).fetch();
+        var findChilds = Smartix.Accounts.Relationships.Collection.find({ parent: Meteor.userId(),
+            namespace: UI._globalHelpers['getCurrentSchoolId']() }).fetch();
         //log.info('findParents', findParents);
         findChilds.map(function (relationship) {
             childs.push(relationship.child);
         });
-        
         return childs;     
     },
     getUserById: function(userId) {
         var targetUserObj = Meteor.users.findOne(userId);
         return targetUserObj;
     }
-})
+});

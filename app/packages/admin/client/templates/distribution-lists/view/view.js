@@ -1,18 +1,14 @@
 Template.AdminDistributionListView.onCreated(function () {
     var schoolName = UI._globalHelpers['getCurrentSchoolName']();
+    var currentCode = Router.current().params.code;
     var self = this;
-    if(schoolName) {
-        var currentCode = Router.current().params.code;
-        self.subscribe('schoolInfo', schoolName, function (err, res) {
-            var schoolId = UI._globalHelpers['getCurrentSchoolId']();
-            self.namespace = schoolId;
-            self.subscribe('smartix:distribution-lists/listByCode', currentCode, function (error, res) {
-                self.subscribe('smartix:accounts/basicInfoOfAllUsersInNamespace', schoolId, function (err, res) { 
-                });
-            });
+    this.subscribe('schoolInfo', schoolName, function (err, res) {
+        var schoolId = UI._globalHelpers['getCurrentSchoolId']();
+        self.namespace = schoolId;
+        self.subscribe('smartix:distribution-lists/listByCode', currentCode, function (error, res) {
+                self.subscribe('smartix:accounts/basicInfoOfAllUsersInNamespace', schoolId, function (err, res) {});
         });
-    }
-    
+    });
     this.usersChecked = new ReactiveVar([]);
     this.doingOperations = new ReactiveVar(false);
 });
@@ -52,7 +48,6 @@ Template.AdminDistributionListView.helpers({
         }
     },
     getUserRoles:function(){
-        var schoolUsername = Router.current().params.school;
         var schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
         if(schoolNamespace){
             let role = "";

@@ -156,37 +156,25 @@ Template.AdminUsersSearch.events({
         template.modalName.set('remove-users-from-role-modal');
         Meteor.setTimeout(function(){
            $('#remove-users-from-role-modal-btn').click();  
-        },200); 
-                             
-        /*if (window.confirm("Do you really want to remove role "+ selectedRole +" from the selected users?:\n"+listOfUsers)) { 
-            //show spinner
-            template.doingOperations.set(true);            
-            Meteor.call('smartix:accounts-schools/retractSchoolRole',template.namespace,latestArray,selectedRole,function(){
-                //hide spinner
-                template.doingOperations.set(false);                
-            });
-        }*/      
+        },200);
     },
+
     'click .resend-email-to-user':function(event, template){
-        let latestArray = template.usersChecked.get()
+        let latestArray = template.usersChecked.get();
         let listOfUsers = Meteor.users.find({_id:{$in: latestArray }}).fetch();
-        log.info(listOfUsers);        
-        if(Router
-            && Router.current()
-            && Router.current().params
-            && Router.current().params.school
-        ){
-            Meteor.call('smartix:accounts-schools/resendEmail', Router.current().params.school, listOfUsers, function (err, res) {                    
-                    if(!err) {
-                        let message = TAPi18n.__('Admin.VerificationConfirmation');
-                        toastr.info(message);
-                    } else {
-                        let message = TAPi18n.__('Admin.VerifictionIssue');
-                        toastr.error("There was an issue with sending the emails");
-                        log.error(err.reason);
-                    }
-                });
-        }
+        //log.info(listOfUsers);
+        Meteor.call('smartix:accounts-schools/resendEmail',
+            UI._globalHelpers['getCurrentSchoolName'](),
+            listOfUsers, function (err, res) {
+            if(!err) {
+                let message = TAPi18n.__('Admin.VerificationConfirmation');
+                toastr.info(message);
+            } else {
+                let message = TAPi18n.__('Admin.VerifictionIssue');
+                toastr.error("There was an issue with sending the emails");
+                log.error(err.reason);
+            }
+        });
     },
     
     'click .modal .save':function(event,template){
@@ -270,14 +258,10 @@ Template.AdminUsersSearch.helpers({
       }
   },
   routeData: function () {
-        if (Template.instance().subscriptionsReady()
-            && Router
-            && Router.current()) {
-            return {
-                uid: this._id,
-                school: Router.current().params.school
-            };
-        }
+        return {
+            uid: this._id,
+            school: UI._globalHelpers['getCurrentSchoolName']()
+        };
     },
     userSearchInputAttributes: function () {
         return {

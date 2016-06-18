@@ -261,8 +261,8 @@ Template.registerHelper('getCurrentSchoolName',function(){
         if( pickedSchoolId === 'system'){
             return 'system';
         }
-        let pickSchool = SmartixSchoolsCol.findOne(pickedSchoolId);
-        return pickSchool ? pickSchool.username : false;
+        let pickSchoolName = SmartixSchoolsCol.findOne(pickedSchoolId);
+        return pickSchoolName ? pickSchoolName.username : false;
     }
 });
 
@@ -276,7 +276,7 @@ Template.registerHelper('getCurrentSchoolId',function(){
     }
     else{
         let pickedSchoolId = Session.get('pickedSchoolId');
-        return pickSchoolId ? pickSchoolId : false;
+        return pickedSchoolId ? pickedSchoolId : false;
     }
 });
 

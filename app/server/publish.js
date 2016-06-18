@@ -43,19 +43,28 @@ Meteor.publish('user', function (_id) {
   });
 });
 
-Meteor.publish("images", function (school, category, id) {
+Meteor.publish('images', function (school, category, id) {
   //roomId can be a classCode or chatRoomId
-    return Images.find({
-      'metadata.school': school,
-      'metadata.category': category,
-      'metadata.id': id
+    log.info("publishing images", school, category, id);
+    var images = Images.find({
+        'metadata.school': school,
+        'metadata.category': category,
+        'metadata.id': id
     });
+    log.info("images.count", images.count());
+    var images2 = Images.find({
+        //'metadata.school': school,
+        'metadata.category': category,
+        'metadata.id': id
+    });
+    log.info("images2.count", images2.count());
+    return images;
 });
 
-Meteor.publish("sounds", function () {
+Meteor.publish('sounds', function () {
   return Sounds.find();
 });
-Meteor.publish("documents",function(school, category, id){
+Meteor.publish('documents',function(school, category, id){
   return Documents.find({
       'metadata.school': school,
       'metadata.category': category,

@@ -1,6 +1,5 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 Template.AppLayout.onCreated(function() {
-
     //TODO: subscription to be filtered based on selected school
     this.subscribe('smartix:classes/associatedClasses');
     this.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');

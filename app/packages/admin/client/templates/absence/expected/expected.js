@@ -1,30 +1,18 @@
 Template.AdminAbsenceExpected.onCreated(function () {
+    // subscribe to the school info first
+    var schoolName = UI._globalHelpers['getCurrentSchoolName']();
     var self = this;
-    if (Router
-        && Router.current()
-        && Router.current().params
-        && Router.current().params.school
-    ) {
-        // subscribe to the school info first
-        var schoolUsername = UI._globalHelpers['getCurrentSchoolName']();
-        self.subscribe('schoolInfo', schoolUsername, function () {
-            var schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
-            if(schoolNamespace) {
-                self.subscribe('smartix:absence/expectedAbsences', schoolNamespace, function () {
-                    self.subscribe('smartix:absence/expectedAbsencesUsers', schoolNamespace, function () {
-                        
-                    })
-                });
-            } else {
-                log.info("Could not find school with code " + schoolUsername);
-            }
-        })
-    } else {
-        log.info("Please specify a school to list the users for");
-    }
-    
+    this.subscribe('schoolInfo', schoolName, function () {
+        var schoolId = UI._globalHelpers['getCurrentSchoolId']();
+        if(schoolId) {
+            self.subscribe('smartix:absence/expectedAbsences', schoolId, function () {
+                self.subscribe('smartix:absence/expectedAbsencesUsers', schoolId);
+            });
+        } else {
+            log.error("Could not find school with code " + schoolName);
+        }
+    });
     // Set defaults for the filter
-    
     this.expectedAbsencesFilter = new ReactiveDict();
     this.expectedAbsencesFilter.set('from', moment(Date.now()).format("YYYY-MM-DD"));
     this.expectedAbsencesFilter.set('to', moment(Date.now()).add(1, 'day').format("YYYY-MM-DD"));

@@ -129,25 +129,19 @@ Template.adminLayout.events({
 
 Template.adminLayout.helpers({
     routeData: function () {
-        if (Router && Router.current()) {
-            return {
-                school: Router.current().params.school
-            };
+       return {
+                school:  UI._globalHelpers['getCurrentSchoolName']()
         }
     },
     schoolName: function () {
-        var schoolDoc = SmartixSchoolsCol.findOne({
-            username: Router.current().params.school
-        });
-        
-        return schoolDoc ? schoolDoc.name : '';
+        return  UI._globalHelpers['getCurrentSchoolName']();
     },
     'existingSchoolLogo':function(){
         var schoolDoc = SmartixSchoolsCol.findOne({
-            username: Router.current().params.school
-        });        
+            username:  UI._globalHelpers['getCurrentSchoolName']()
+        });
         return Images.findOne(schoolDoc.logo);
-    },    
+    }
 });
 
 Template.registerHelper('currentUsername', function () {

@@ -77,7 +77,9 @@ Template.AdminUploadAttendance.events({
         reader.readAsText(file);
     },
     'click #AdminUploadAttendance__submit': function (event, template) {
-        Meteor.call('smartix:absence/updateAttendanceRecord', Session.get('imported-attendance'), Router.current().params.school, function (err, res) {
+        Meteor.call('smartix:absence/updateAttendanceRecord',
+            Session.get('imported-attendance'),
+            UI._globalHelpers['getCurrentSchoolName'](), function (err, res) {
             if(!err) {
                 // Toaster to notify success
                 log.info(res);

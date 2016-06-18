@@ -1,6 +1,6 @@
 Template.AdminAddStudent.onCreated(function () {
-    this.currentSchool = Router.current().params.school;
-})
+    this.currentSchool = UI._globalHelpers['getCurrentSchoolName']();
+});
 
 Template.AdminAddStudent.onRendered(function(){
     // Initialize pickadate in this page
@@ -55,7 +55,7 @@ var checkAllRelationshipsAreValid = function (template) {
         }
     });
     return passesValidation;
-}
+};
 
 var createParents = function (studentId, template, notifyuserwithemail) {
     // Go through each `addUser-newRelationship` block and checks that fields are complete

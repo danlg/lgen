@@ -1,22 +1,14 @@
 Template.AdminRssAdd.onCreated(function () {
-    if (Router
-    && Router.current()
-    && Router.current().params
-    && Router.current().params.school
-    ) {
-        this.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolName', Router.current().params.school);
-    } else {
-        log.info("Please specify a school to list the classes for");
-    }
+    this.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolName',  UI._globalHelpers['getCurrentSchoolName']());
 });
 
 Template.AdminRssAdd.helpers({
-    'newsgroups': function () {
+    'newsgroups':  () => {
         return Smartix.Groups.Collection.find({
             type: 'newsgroup'
         })
     }
-})
+});
 
 Template.AdminRssAdd.events({
     'click #addRss-submit': function (event, template) {

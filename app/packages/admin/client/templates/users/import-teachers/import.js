@@ -99,14 +99,10 @@ Template.AdminTeachersImport.events({
     },
     'click #AdminTeachersImport__submit': function (event, template) {
         var importedTeachers = Session.get('imported-teachers');
-        if(Router
-            && Router.current()
-            && Router.current().params
-            && Router.current().params.school
-        ) {
+
             if(Array.isArray(importedTeachers)) {
                 var notifyuserwithemail = template.$('#notifyuserwithemail').is(":checked");
-                Meteor.call('smartix:accounts-schools/importTeachers', Router.current().params.school, importedTeachers, notifyuserwithemail
+                Meteor.call('smartix:accounts-schools/importTeachers', UI._globalHelpers['getCurrentSchoolName'](), importedTeachers, notifyuserwithemail
                     , function (err, res) {
                         var toasterOption = { timeOut:0,"newestOnTop": false };
                         if(!err) {
@@ -132,10 +128,6 @@ Template.AdminTeachersImport.events({
             } else {
                 toastr.error(TAPi18n.__("admin.users.import.incorrectImportFormat"));
             }
-        } else {
-            toastr.error(TAPi18n.__("applicationError.refreshRequired"));
-        }
-        
     }
 });
 

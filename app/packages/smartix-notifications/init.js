@@ -1,5 +1,4 @@
 Template.AppLayout.onCreated(function () {
-
   // Use this.subscribe inside onCreated callback
   this.subscribe("notifications");
 

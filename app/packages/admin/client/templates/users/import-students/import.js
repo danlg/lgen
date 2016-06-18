@@ -52,11 +52,6 @@ Template.AdminUsersImport.events({
         reader.readAsText(file);
     },
     'click #importUser-submit': function (event, template) {
-        if(
-            Router
-            && Router.current()
-            && Router.current().params.school
-        ) {
             var importedStudents = Session.get('imported-students');
             if(Array.isArray(importedStudents)) {
                 toastr.info("Users are being added. You will be notified once they have been imported.");
@@ -64,7 +59,7 @@ Template.AdminUsersImport.events({
                 $("#user-upload-file").val('');
                 var notifyuserwithemail = template.$('#notifyuserwithemail').is(":checked");
                 //log.info("NotifyUser" + notifyuserwithemail);
-                Meteor.call('smartix:accounts-schools/importStudents', Router.current().params.school, importedStudents, notifyuserwithemail 
+                Meteor.call('smartix:accounts-schools/importStudents', UI._globalHelpers['getCurrentSchoolName'](), importedStudents, notifyuserwithemail
                     , function (err, res) {
                         var toasterOption = { timeOut:0,"newestOnTop": false };
                         if(!err) {
@@ -88,9 +83,6 @@ Template.AdminUsersImport.events({
             } else {
                 toastr.error(TAPi18n.__("admin.users.import.incorrectImportFormat"));
             }
-        } else {
-            toastr.error(TAPi18n.__("applicationError.refreshRequired"));
-        }
     }
 });
 

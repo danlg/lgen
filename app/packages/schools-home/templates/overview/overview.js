@@ -4,26 +4,24 @@ Template.MobileSchoolHome.helpers({
     },
 
     schoolLogoUrl:function(){
-        var schoolLogoId;
-        var schoolDoc = SmartixSchoolsCol.findOne({                                                    
-            username: Router.current().params.school                                                                     
+        var schoolDoc = SmartixSchoolsCol.findOne({
+            username: UI._globalHelpers['getCurrentSchoolName']()
         });
         //log.info('schoolDoc',schoolDoc);
+        var schoolLogoId;
         if(schoolDoc) {
             schoolLogoId = schoolDoc.logo;
-        
         }
         //log.info(schoolLogoId);
         return Images.findOne(schoolLogoId);
     },
     
     schoolFullName:function(){
-        var schoolLogoId;
-        var schoolDoc = SmartixSchoolsCol.findOne({                                                    
-            username: Router.current().params.school                                                                     
+        var schoolDoc = SmartixSchoolsCol.findOne({
+            username: UI._globalHelpers['getCurrentSchoolName']()
         });
         if(schoolDoc){
-         return schoolDoc.name;             
+            return schoolDoc.name;
         }
     },
 
@@ -59,14 +57,13 @@ Template.MobileSchoolHome.helpers({
     needMaskImageFallback:function(){
       return (document.documentElement.style['-webkit-mask-image'] !== undefined) ? "" : "mask-image-fallback"
     },
-    getSchoolBannerBackground:function(){
 
+    getSchoolBannerBackground:function(){
         var schoolBackgroundImageId;
         var schoolDoc = SmartixSchoolsCol.findOne({
-            username: Router.current().params.school
+            username: UI._globalHelpers['getCurrentSchoolName']()
         });
         var customStyle;
-        //log.info('schoolDoc',schoolDoc);
         if(schoolDoc) {
             schoolBackgroundImageId = schoolDoc.backgroundImage;
         }
@@ -132,20 +129,16 @@ Template.MobileSchoolHome.helpers({
 });
 
 Template.MobileSchoolHome.onDestroyed(function(){
-   
    this.canGetSlidNews = new ReactiveVar(false);
-     
-})
+});
 
 Template.MobileSchoolHome.onCreated(function(){
-   
-   this.canGetSlidNews = new ReactiveVar(false);
-   var self = this;
-   self.subscribe('newsgroupsForUser',null,null, Router.current().params.school,function(){
-    self.subscribe('newsForUser',null,null, Router.current().params.school);       
-   });
-   self.subscribe('images', Router.current().params.school, 'school', Router.current().params.school);
-})
+    this.canGetSlidNews = new ReactiveVar(false);
+    var schoolName =  UI._globalHelpers['getCurrentSchoolName']();
+    this.subscribe('newsgroupsForUser',null,null, schoolName);
+    this.subscribe('newsForUser',null,null, schoolName);
+    this.subscribe('images', schoolName, 'school', schoolName);
+});
 
 Template.MobileSchoolHome.onRendered(function(){
     var self = this;

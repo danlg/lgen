@@ -1,6 +1,6 @@
 Template.AdminNewsgroupsView.onCreated(function () {
     var self = this;
-    self.subscribe('smartix:newsgroups/newsgroupByUrl', Router.current().params.classCode, function (error, res) {
+    this.subscribe('smartix:newsgroups/newsgroupByUrl', Router.current().params.classCode, function (error, res) {
         if(!error) {
             var classData = Smartix.Groups.Collection.findOne({
                 url: Router.current().params.classCode,
@@ -10,8 +10,7 @@ Template.AdminNewsgroupsView.onCreated(function () {
             self.subscribe('allSchoolUsers',classData.namespace);
         }
     });
-    
-    this.subscribe('smartix:distribution-lists/listsBySchoolName', Router.current().params.school);
+    this.subscribe('smartix:distribution-lists/listsBySchoolName',  UI._globalHelpers['getCurrentSchoolName']());
 });
 
 Template.AdminNewsgroupsView.helpers({

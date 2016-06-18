@@ -60,29 +60,24 @@ Template.AdminAddOthers.events({
             password: Match.Maybe(String),
 	        username: Match.Maybe(String)
         });
-        if (Router
-            && Router.current()
-            && Router.current().params
-            && Router.current().params.school
-        ) {
-            // Call the Meteor method to create the school user
-            Meteor.call('smartix:accounts-schools/createSchoolUser',
-                email,
-                newUserObj,
-                Router.current().params.school,
-                roles,
-                true, //autoEmailVerified,
-                //TODO implement flag like import to notify user in UI
-                notifyuserwithemail,//do not notify
-                function(err, res) {
-                    if (!err) {
-                        // Shows success message
-                        toastr.info(TAPi18n.__("admin.users.add.addSuccess"));
-                        // Clear the fields
-                        $('.AdminAddOthers__input').val('');
-                    }
-                });
-        }
+       
+        // Call the Meteor method to create the school user
+        Meteor.call('smartix:accounts-schools/createSchoolUser',
+            email,
+            newUserObj,
+            UI._globalHelpers['getCurrentSchoolName'](),
+            roles,
+            true, //autoEmailVerified,
+            //TODO implement flag like import to notify user in UI
+            notifyuserwithemail,//do not notify
+            function(err, res) {
+                if (!err) {
+                    // Shows success message
+                    toastr.info(TAPi18n.__("admin.users.add.addSuccess"));
+                    // Clear the fields
+                    $('.AdminAddOthers__input').val('');
+                }
+            });
     }
 });
 

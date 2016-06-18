@@ -1,25 +1,17 @@
 Template.AdminDistributionListsAdd.onCreated(function(){
-    
-    var schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
-    if (schoolNamespace) {
-        this.subscribe('smartix:distribution-lists/listsBySchoolName', getCurrentSchoolName);
-        this.subscribe('smartix:accounts/allUsersInNamespace', schoolNamespace);
-    } else {
-        log.info("Please specify a school to list the classes for");
-    }   
-    
-});
+    var schoolName = UI._globalHelpers['getCurrentSchoolName']();
+    this.subscribe('smartix:distribution-lists/listsBySchoolName', schoolName);
 
+    var schoolId = UI._globalHelpers['getCurrentSchoolId']();
+    this.subscribe('smartix:accounts/allUsersInNamespace', schoolId);
+});
 
 Template.AdminDistributionListsAdd.events({
     'click #addDistributionList-submit': function (event, template) {
         event.preventDefault();
-        
-        var namespace = Router.current().params.school;
-        
+        var schoolName =  UI._globalHelpers['getCurrentSchoolName']();
         var name = template.$('#addDistributionList-name').eq(0).val();
         var code = "";
-        
         // Checks that the values are not empty
         if(!namespace) {
             toastr.error("Application error. Please refresh the page and try again.");
@@ -27,21 +19,14 @@ Template.AdminDistributionListsAdd.events({
         if(!name) {
             toastr.error("Please ensure the list name is filled in");
         }
-        // Allow cases where code is not provided
-        // if(!code) {
-        //     toastr.error("Please ensure the list code is filled in");
-        // }
-        
         if(namespace && name) {
-            Meteor.call('smartix:distribution-lists/create', [], namespace, name, code,function(err,result){
-                
+            Meteor.call('smartix:distribution-lists/create', [], schoolName, name, code,function(err,result){
                 //result is the new distribution list entry's id
                 if (result) {
                     //log.info('distributionId', result);
                     var newDistributionList = Smartix.Groups.Collection.findOne(result);
                     //log.info(newDistributionList);
                     toastr.info('Distribution List '+ newDistributionList.name +' has been created.');
-                    
                     Router.go('admin.lists.view', { school: namespace, code: newDistributionList.url });
                 } else {
                     var existingDistributionList = Smartix.Groups.Collection.findOne({name: name});
@@ -51,9 +36,7 @@ Template.AdminDistributionListsAdd.events({
                     }else{
                         toastr.error('Fail to create distribution list');
                     }
-
                 }
-               
             });
         }
     }

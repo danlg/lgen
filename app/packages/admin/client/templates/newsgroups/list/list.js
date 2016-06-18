@@ -1,13 +1,9 @@
 Template.AdminNewsgroupsSearch.onCreated(function () {
     var schoolName = UI._globalHelpers['getCurrentSchoolName']();
-    if (schoolName) {
-        this.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolName', UI._globalHelpers['getCurrentSchoolName']());
-        var schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
-        this.subscribe('smartix:accounts/allUsersInNamespace', schoolNamespace);
-        this.subscribe('smartix:distribution-lists/listsBySchoolName', Router.current().params.school);        
-    } else {
-        log.info("Please specify a school to list the classes for");
-    }
+    this.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolName', schoolName);
+    this.subscribe('smartix:distribution-lists/listsBySchoolName', schoolName);
+    this.subscribe('smartix:accounts/allUsersInNamespace', UI._globalHelpers['getCurrentSchoolId']());
+
     this.usersChecked = new ReactiveVar([]);
     this.doingOperations = new ReactiveVar(false);  
     this.modalName = new ReactiveVar("remove-newsgroups-modal");
@@ -17,18 +13,16 @@ Template.AdminNewsgroupsSearch.onCreated(function () {
 
 Template.AdminNewsgroupsSearch.helpers({
   currentSchoolName:function(){
-      return Router.current().params.school;
+      return UI._globalHelpers['getCurrentSchoolName']()
   },
   newsgroupsIndex: function () {
       return NewsgroupsIndex;
   },
   routeData: function () {
-        if (Router && Router.current()) {
-            return {
-                classCode: this.url,
-                school: Router.current().params.school
-            };
-        }
+    return {
+        classCode: this.url,
+        school: UI._globalHelpers['getCurrentSchoolName']()
+    };
   },
   isUserChecked:function(){
       //log.info(this._id )
@@ -136,18 +130,11 @@ Template.AdminNewsgroupsSearch.events({
         let listOfNewsgroups = Smartix.Groups.Collection.find({_id:{$in: latestArray }}).fetch();
         let listOfNewsgroupsNames = listOfNewsgroups.map(function(eachNewsgroupObj){
             return eachNewsgroupObj.name;
-        })        
-
+        });
         template.modalBody.set(listOfNewsgroupsNames.join('<br/>'));
-
         Meteor.setTimeout(function(){
            $('#remove-newsgroups-modal-btn').click();  
-        },200);         
-        /*let listOfNewsgroupIds = latestArray.join('\n');
-        if (window.confirm("Do you really want to remove the selected newsgroups?:\n"+listOfNewsgroupIds)) {             
-            Meteor.call('smartix:newsgroups/deleteNewsgroups',latestArray);            
-            template.usersChecked.set([]); 
-        } */            
+        },200);
    },
     'click .modal .save':function(event,template){
         if( $(event.target).hasClass('remove-newsgroups-modal') ){

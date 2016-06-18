@@ -1,12 +1,7 @@
 Template.AdminDistributionListsSearch.onCreated(function () {
-    
-    var schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
-    if (schoolNamespace) {
-        this.subscribe('smartix:distribution-lists/listsBySchoolName', UI._globalHelpers['getCurrentSchoolName']());
-        this.subscribe('smartix:accounts/allUsersInNamespace', schoolNamespace);
-    } else {
-        log.info("Please specify a school to list the classes for");
-    }
+    this.subscribe('smartix:distribution-lists/listsBySchoolName', UI._globalHelpers['getCurrentSchoolName']());
+    this.subscribe('smartix:accounts/allUsersInNamespace', UI._globalHelpers['getCurrentSchoolId']());
+
     this.usersChecked = new ReactiveVar([]);
     this.doingOperations = new ReactiveVar(false);    
     this.modalName = new ReactiveVar("remove-distribution-lists-modal");
@@ -19,12 +14,10 @@ Template.AdminDistributionListsSearch.helpers({
       return DistributionListIndex;
   },
   routeData: function () {
-        if (Router && Router.current()) {
-            return {
-                code: this.url,
-                school: Router.current().params.school
-            };
-        }
+        return {
+            code: this.url,
+            school: UI._globalHelpers['getCurrentSchoolName']()
+        };
   },
   isUserChecked:function(){
       //log.info(this._id )

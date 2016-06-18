@@ -9,7 +9,7 @@ var searchString = ReactiveVar("");
 Template.ChatInvite.onCreated(function () {
    //NB: in master_layout. there is a allUsersWhoHaveJoinedYourClasses sub
    this.autorun(() => {
-      this.subscribe('allSchoolUsersPerRole', Router.current().params.school );
+      this.subscribe('allSchoolUsersPerRole', UI._globalHelpers['getCurrentSchoolName']() );
    });
 });
 
@@ -18,7 +18,7 @@ Template.ChatInvite.onCreated(function () {
 Template.ChatInvite.events({
   'click .startChatBtn': function () {
       log.info('targetIds', targetIds.get() );
-      Meteor.call('chatCreate', targetIds.get(),null, Router.current().params.school, function (err, data) {
+      Meteor.call('chatCreate', targetIds.get(),null, UI._globalHelpers['getCurrentSchoolName'](), function (err, data) {
       Router.go('ChatRoom', {chatRoomId: data});
     });
     /*log.info($('.js-example-basic-multiple').val());*/
@@ -41,19 +41,6 @@ Template.ChatInvite.events({
 
 /* ChatInvite: Helpers */
 Template.ChatInvite.helpers({
-  // 'classesJoinedOwner': function () {
-  //   if (!Template.instance().subscriptionsReady()) return [];
-  //   //var classesJoinedOwner = Meteor.users.find({_id: {$nin: [Meteor.userId()]}}).fetch();
-  //   return Template.instance().allSchoolUsersPerRole();
-  //   // var classesJoinedOwner = Meteor.users.find(
-  //   //     {_id: {$nin: [Meteor.userId()]}},
-  //   //     {sort: {lastName: -1}});
-  //   // if (classesJoinedOwner.length < 1) {
-  //   //   return false;
-  //   // } else {
-  //   //   return classesJoinedOwner;
-  //   // }
-  // },
 
    'classesJoinedOwner': function () {
      var classesJoinedOwner = Meteor.users.find({_id: {$nin: [Meteor.userId()]}}, {sort: { 'profile.lastName': 1, 'profile.firstName': 1}}).fetch();
@@ -80,15 +67,13 @@ Template.ChatInvite.helpers({
   },
 
   getGroupChatInvitePath:function(){
-    return  Router.path('GroupChatInvite',{school: Router.current().params.school});
+    return  Router.path('GroupChatInvite',{school: UI._globalHelpers['getCurrentSchoolName']()});
   },
 
-  getUserRoleInNamespace:function(){
-    if(Router.current().params.school !== 'global' && Router.current().params.school !== 'system'){
-      var currentSchool = SmartixSchoolsCol.findOne({username:Router.current().params.school});
-      var role = this.roles[currentSchool._id];
+  getUserRoleInNamespace:function()
+  {
+      var role = this.roles[UI._globalHelpers['getCurrentSchoolId']()];
       return role ? role.toString() : "";
-    }
   }
 });
 

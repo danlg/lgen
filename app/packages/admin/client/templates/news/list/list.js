@@ -1,13 +1,5 @@
 Template.AdminClassesSearch.onCreated(function () {
-    if (Router
-    && Router.current()
-    && Router.current().params
-    && Router.current().params.school
-    ) {
-        this.subscribe('smartix:classes/allClassesFromSchoolName', Router.current().params.school);
-    } else {
-        log.info("Please specify a school to list the classes for");
-    }
+    this.subscribe('smartix:classes/allClassesFromSchoolName', UI._globalHelpers['getCurrentSchoolName']());
 });
 
 Template.AdminClassesSearch.helpers({

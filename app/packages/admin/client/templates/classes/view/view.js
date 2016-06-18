@@ -4,34 +4,14 @@ Template.AdminClassesView.onCreated(function () {
     && Router.current().params
     && Router.current().params.classCode) {
         var currentClassCode = Router.current().params.classCode;
-        
         // Subscribe to information about the class
         self.subscribe('smartix:classes/classByClassCode', currentClassCode, function (error, res) {
-            if(!error) {
-                
-                // Get all users in the school so they can be searched
-                
-                
-                // Used for getting class messages/announcements
-                // var classData = Smartix.Groups.Collection.findOne({
-                //     classCode: currentClassCode,
-                //     type: 'class'
-                // });
-                
-                // if(classData && classData._id) {
-                //     self.subscribe('smartix:messages/groupMessages', classData._id);
-                // }
-            }
+
         });
-        
-        var schoolUsername = Router.current().params.school;
-        
         // Subscription for school info is already done at the admin layout's js file
-        var schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
-        if(schoolNamespace) {
-            self.subscribe('smartix:distribution-lists/listsInNamespace', schoolNamespace);
-            self.subscribe('smartix:accounts/allUsersInNamespace', schoolNamespace);
-        }
+        var schoolId = UI._globalHelpers['getCurrentSchoolId']();
+        self.subscribe('smartix:distribution-lists/listsInNamespace', schoolId);
+        self.subscribe('smartix:accounts/allUsersInNamespace', schoolId);
     }
 
     this.DistributionListsIndex = new EasySearch.Index({
@@ -39,14 +19,11 @@ Template.AdminClassesView.onCreated(function () {
         fields: ['name', 'url'],
         engine: new EasySearch.Minimongo({
             selector: function(searchObject, options, aggregation) {
-
                 // selector contains the default mongo selector that Easy Search would use
                 var selector = this.defaultConfiguration().selector(searchObject, options, aggregation);
-
                 // modify the selector to only match documents where region equals "New York"
                 selector.type = "distributionList";
-                selector.namespace = schoolNamespace;
-
+                selector.namespace = schoolId;
                 return selector;
             }
         }),
@@ -92,14 +69,14 @@ Template.AdminClassesView.helpers({
             }
         }
     },
+
     routeData: function () {
-        if (Router && Router.current()) {
             return {
                 code: this.url,
-                school: Router.current().params.school
+                school: UI._globalHelpers['getCurrentSchoolName']()
             };
-        }
     },
+
     classData: function () {
         if(Template.instance().subscriptionsReady()) {
             return Smartix.Groups.Collection.findOne({
@@ -163,7 +140,7 @@ Template.AdminClassesView.events({
         ) {
             Meteor.call('smartix:classes/joinAsAdmin', {
                 classCode: Router.current().params.classCode,
-                schoolName: Router.current().params.school
+                schoolName: UI._globalHelpers['getCurrentSchoolName']()
             }, userId, function (err, res) {
                 if(err) {
                     //log.info(err);
@@ -191,7 +168,7 @@ Template.AdminClassesView.events({
         ) {
             Meteor.call('smartix:classes/join', {
                 classCode: Router.current().params.classCode,
-                schoolName: Router.current().params.school
+                schoolName: UI._globalHelpers['getCurrentSchoolName']()
             }, userId, function (err, res) {
                 if(err) {
                     //log.info(err);
@@ -230,7 +207,7 @@ Template.AdminClassesView.events({
             }
             window.setTimeout(function(){
                 var list = template.$(".add-list-result-container");
-                var inputBox = template.$("#AdminClassesView__add-list-input")
+                var inputBox = template.$("#AdminClassesView__add-list-input");
                 inputBox[0].value = "";
                 list[0].hidden = true;
                 inputBox[0].onkeyup = function () {
@@ -246,8 +223,7 @@ Template.AdminClassesView.events({
         var classObj = Smartix.Groups.Collection.findOne({
             classCode: Router.current().params.classCode,
             type: "class"
-        })
-        
+        });
         var userId = event.currentTarget.dataset.userId;
         if(!classObj) {
             toastr.error('Could not find the class with class code ' + Router.current().params.classCode);
@@ -265,13 +241,11 @@ Template.AdminClassesView.events({
         var classObj = Smartix.Groups.Collection.findOne({
             classCode: Router.current().params.classCode,
             type: "class"
-        })
-        
+        });
         var userId = event.currentTarget.dataset.userId;
         if(!classObj) {
             toastr.error('Could not find the class with class code ' + Router.current().params.classCode);
         }
-        
         if(classObj && userId) {
             Meteor.call('smartix:classes/removeAdmins', classObj._id, [userId], function (err, res) {
                 // console.log(err);
@@ -284,13 +258,11 @@ Template.AdminClassesView.events({
         var classObj = Smartix.Groups.Collection.findOne({
             classCode: Router.current().params.classCode,
             type: "class"
-        })
-        
+        });
         var listId = event.currentTarget.dataset.listId;
         if(!classObj) {
             toastr.error('Could not find the class with class code ' + Router.current().params.classCode);
         }
-        
         if(classObj && listId) {
             Meteor.call('smartix:classes/removeDistributionLists', classObj._id, [listId], function (err, res) {
                 // console.log(err);

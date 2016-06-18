@@ -9,7 +9,7 @@ var searchString = ReactiveVar("");
 Template.GroupChatInvite.events({
   'click .classItem':function(){
     log.info(this);
-    Router.go('GroupChatInviteChooser',{classCode:this.classCode, school: Router.current().params.school});
+    Router.go('GroupChatInviteChooser',{classCode:this.classCode, school: UI._globalHelpers['getCurrentSchoolName']()});
   },
 
   'click .startChatBtn': function () {
@@ -50,7 +50,7 @@ Template.GroupChatInvite.helpers({
   },
 
   getChatInvitePath:function(){
-    return  Router.path('ChatInvite',{school: Router.current().params.school});
+    return  Router.path('ChatInvite',{school: UI._globalHelpers['getCurrentSchoolName']()});
   }
 });
 

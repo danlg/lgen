@@ -39,8 +39,8 @@ Template.JoinClass.helpers({
         users: Meteor.userId()
     });
   },
-  getSchoolName: function() {
-    return Router.current().params.school;
+  getSchoolName: () => {
+    return UI._globalHelpers['getCurrentSchoolName']();
   }
 });
 
