@@ -23,7 +23,6 @@ Smartix.Rss.linkRssWithGroups = function (namespace, name, url, selectedNewsgrou
     
     // If feed does not exist already
     // Create the feed
-    
     if(Smartix.Rss.Feeds.find({
         _id: url
     }).count() < 1) {
@@ -31,14 +30,13 @@ Smartix.Rss.linkRssWithGroups = function (namespace, name, url, selectedNewsgrou
             _id: url,
             category: url,
             link: url,
-            refresh_interval: Meteor.settings.RSS_FETCH_INTERVAL
+            refresh_interval: Meteor.settings.RSS_FETCH_INTERVAL || 300000
         };
         Feed.createAtomFeed(feed);
         Feed.read();
     }
     
     // Create a link between the feed and the newsgroup
-    
     Smartix.Rss.FeedGroupLinks.upsert({
         url: url,
         namespace: namespace
