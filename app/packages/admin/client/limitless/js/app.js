@@ -2,7 +2,7 @@
 function containerHeight() {
     var page_container = $('.page-container');
     var navbar_fixed_bottom = $('.navbar-fixed-bottom');
-    if (page_container && navbar_fixed_bottom) {
+    if (page_container && page_container.offset() && navbar_fixed_bottom) {
         var availableHeight = $(window).height() - page_container.offset().top - navbar_fixed_bottom.outerHeight();
         page_container.attr('style', 'min-height:' + availableHeight + 'px');
     }
