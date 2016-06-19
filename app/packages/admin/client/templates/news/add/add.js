@@ -172,7 +172,7 @@ Template.AdminNewsAdd.events({
     },
 
     'change #documentBtn': function (event, template) {
-        Smartix.FileHandler.documentUpload(event, {'category': 'newsInAdmin'},template.documentArr.get(),
+        Smartix.FileHandler.documentUpload(event, {'category': 'news'},template.documentArr.get(),
         function(result){
                 //log.info('documentArr',result);
                 template.documentArr.set(result);
