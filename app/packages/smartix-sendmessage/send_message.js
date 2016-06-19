@@ -14,7 +14,16 @@ var messageListHeightBorrower = ReactiveVar([]);
 var canVote = ReactiveVar(true);
 
 Template.SendMessage.created = function () {
-	this.calendarEvent = new ReactiveVar({});
+	 this.calendarEvent = new ReactiveVar({});
+	// this.imageArr = ReactiveVar([]);
+	// this.soundArr = ReactiveVar([]);
+	// this.documentArr = ReactiveVar([]);
+	// this.isRecording = false;
+	// this.media = "";
+	// this.isPlayingSound = false;
+	// this.messageListBaseBorrow = 70;
+	// this.messageListHeightBorrower = ReactiveVar([]);
+	// this.canVote = ReactiveVar(true);
 	//log.info("Template.SendMessage.created");
 	//log.info(this.calendarEvent);
 };
@@ -31,6 +40,8 @@ Template.SendMessage.onCreated = function () {
 };
 
 Template.SendMessage.destroyed = function () {
+	this.calendarEvent.set({});
+
 	imageArr.set([]);
 	soundArr.set([]);
 	isRecording = false;
@@ -42,7 +53,6 @@ Template.SendMessage.destroyed = function () {
 	});
 	canVote.set(true);
 	messageListHeightBorrower.set([]);
-	calendarEvent.set({});
 };
 
 Template.SendMessage.rendered = function () {
@@ -219,7 +229,8 @@ var setCalendar = function (event, sendMsgtemplate) {
 						toastr.info(TAPi18n.__("FillEventDetail"));
 						return;
 					}
-					sendMsgtemplate.calendarEvent.set({
+					//sendMsgtemplate.calendarEvent.set({
+					this.calendarEvent.set({
 						eventName: $(template.firstNode).find('#event-name').val(),
 						location: $(template.firstNode).find('#location').val(),
 						startDate: $(template.firstNode).find('#start-date').val(),

@@ -4,7 +4,7 @@ Template.AppLayout.onCreated(function() {
     this.subscribe('smartix:classes/associatedClasses');
     this.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');
     this.subscribe('smartix:accounts/ownUserData');
-    this.subscribe('smartix:accounts/basicInfoOfAllUsersInNamespace', 'global');
+    this.subscribe('smartix:accounts/basicInfoOfAllUsersInNamespace', 'global');//?
     // this.subscribe('allMyChatRoomWithUser');
 
     var self = this;
@@ -89,7 +89,7 @@ Template.AppLayout.helpers({
 
     getCurrentSchoolNameDisplay: function() {
         if (Session.get('pickedSchoolId') === 'global') return 'global';
-        if (Session.get('pickedSchoolId') === 'system') return 'system';
+        //if (Session.get('pickedSchoolId') === 'system') return 'system';
         var pickSchool = SmartixSchoolsCol.findOne(Session.get('pickedSchoolId'));
         return pickSchool ? pickSchool.name : false;
     },
@@ -97,7 +97,7 @@ Template.AppLayout.helpers({
     belongToMultiSchool: function() {     
         if(Meteor.userId()){
             if(Meteor.user() && Meteor.user().roles){
-                return (Object.keys(Meteor.user().roles).length > 1 ) ? true: false;                   
+                return (Object.keys(Meteor.user().roles).length > 1 );
             } 
         }
     },
@@ -106,7 +106,8 @@ Template.AppLayout.helpers({
         return Meteor.user().profile.firstName || "";
     },
     isSchoolNamespace:function(){
-        return (Session.get('pickedSchoolId') === 'global' || Session.get('pickedSchoolId') === 'system') ? false : true;
+        return true;
+        //(Session.get('pickedSchoolId') === 'global' || Session.get('pickedSchoolId') === 'system') ? false : true;
     },
     isAdminInCurrentNamespace:function(){
         if(Meteor.userId()){

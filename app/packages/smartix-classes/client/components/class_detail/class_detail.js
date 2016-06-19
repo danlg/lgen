@@ -14,9 +14,7 @@ var loadedItems = ReactiveVar(10);
 var loadExtraItems = 5;
 var localClassMessagesCollection = new Meteor.Collection(null);
 
-/*****************************************************************************/
 /* ClassDetail: Event Handlers */
-/*****************************************************************************/
 Template.ClassDetail.events({
   'click .tab-item': function (e) {
     var msgId = $(e.target.parentNode).data("msgid");

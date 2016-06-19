@@ -45,7 +45,7 @@ Meteor.publish('user', function (_id) {
 
 Meteor.publish('images', function (school, category, id) {
   //roomId can be a classCode or chatRoomId
-    log.info("publishing images", school, category, id);
+    log.info("Publishing images school=", school,", category=", category, ", id=", id);
     var images = Images.find({
         'metadata.school': school,
         'metadata.category': category,

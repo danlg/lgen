@@ -1,3 +1,8 @@
+Template.adminLayout.onCreated(function () {
+    this.subscribe('schoolInfo', UI._globalHelpers['getCurrentSchoolName']());
+    this.subscribe('images', UI._globalHelpers['getCurrentSchoolName'](), 'school', UI._globalHelpers['getCurrentSchoolName']());
+});
+
 function miniSidebar() {
     if ($('body').hasClass('sidebar-xs')) {
         $('.sidebar-main .sidebar-fixed .sidebar-content').on('mouseenter', function () {
@@ -17,8 +22,6 @@ function miniSidebar() {
 }
 
 // // Nice scroll
-// // ------------------------------
-
 // // Setup
 // function initScroll() {
 //     $(".sidebar-fixed .sidebar-content").niceScroll({
@@ -75,12 +78,6 @@ function resizeDetached() {
 //         }
 //     });
 // });
-
-Template.adminLayout.onCreated(function () {
-    var self = this;
-    self.subscribe('schoolInfo', UI._globalHelpers['getCurrentSchoolName']());
-    self.subscribe('images', UI._globalHelpers['getCurrentSchoolName'](), 'school', UI._globalHelpers['getCurrentSchoolName']()); 
-});
 
 Template.adminLayout.events({
     'click .sidebar-main-toggle': function () {

@@ -99,12 +99,9 @@ Meteor.methods({
             var classCode = doc.classCode.trim();
             var regexp = new RegExp("^" + classCode.trim() + "$", "i");
             var resultset = Smartix.Groups.Collection.findOne({ "classCode": { $regex: regexp } });//OK
-
             var targetSchoolNamespace = doc.schoolName;
-            
-            
             if(doc.schoolName){
-                if (doc.schoolName === 'global' || doc.schoolName === 'system') {
+                if (doc.schoolName === 'global' ) {
                     targetSchoolNamespace = doc.schoolName;
                 } else {
                     var targetSchool = SmartixSchoolsCol.findOne({ username: doc.schoolName });
@@ -171,7 +168,7 @@ Meteor.methods({
             var resultset = Smartix.Groups.Collection.findOne({ "classCode": { $regex: regexp } });//OK
 
             var targetSchoolNamespace = doc.schoolName;
-            if (doc.schoolName === 'global' || doc.schoolName === 'system') {
+            if (doc.schoolName === 'global' ) {
                 targetSchoolNamespace = doc.schoolName;
             } else {
                 var targetSchool = SmartixSchoolsCol.findOne({ username: doc.schoolName });

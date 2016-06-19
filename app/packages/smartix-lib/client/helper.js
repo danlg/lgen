@@ -64,7 +64,7 @@ Smartix.helpers.isCordova = function() {
 //else, just redirect use to tab classes
 Smartix.helpers.routeToTabClasses = function() {
     var classToBeJoined = Session.get("search");
-    log.info("routeToTabClasses:searching class:" + classToBeJoined);
+    //log.info("routeToTabClasses:searching class:" + classToBeJoined);
     if (classToBeJoined) {
         var doc = { classCode: classToBeJoined };
         //help user to join class
@@ -76,7 +76,6 @@ Smartix.helpers.routeToTabClasses = function() {
             }
         });
     }
-
     var userNamespaceCount;
     if (Meteor.user() && Meteor.user().roles) {
         // Get the keys (namespace) from the `roles` object
@@ -84,17 +83,18 @@ Smartix.helpers.routeToTabClasses = function() {
     }
     if (userNamespaceCount === 1) {
         var userNamespace = Object.keys(Meteor.user().roles)[0];
-        if (userNamespace != 'system' && userNamespace != 'global') {
+        log.info("routeToTabClasses:userNamespace", userNamespace);
+        if ( (userNamespace !== 'global') && (userNamespace !== 'sysadmin') ) {
             Meteor.call('smartix:schools/getSchoolName', userNamespace, function(err, result) {
                 if (err) {
-                    log.info(err);
+                    log.error('smartix:schools/getSchoolName', err);
                 }
                 if (result) {
-                    log.info(result);
                     Router.go('mobile.school.home', { school: result });
                 }
             });
-        } else {
+        } else { //if global
+            //todo change this later to be like a school
             Router.go("TabClasses");
         }
     } else {
@@ -258,9 +258,9 @@ Template.registerHelper('getCurrentSchoolName',function(){
         if( pickedSchoolId === 'global'){
             return 'global';
         }
-        if( pickedSchoolId === 'system'){
-            return 'system';
-        }
+        // if( pickedSchoolId === 'system'){
+        //     return 'system';
+        // }
         let pickSchoolName = SmartixSchoolsCol.findOne(pickedSchoolId);
         return pickSchoolName ? pickSchoolName.username : false;
     }

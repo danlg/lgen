@@ -1,22 +1,23 @@
 Meteor.methods({
 
-    'smartix:schools/getSchoolName': function(id) {
-        if(id === 'global'){
+    'smartix:schools/getSchoolName': function(schoolName) {
+        if(schoolName === 'global'){
             Roles.userIsInRole(Meteor.userId(), 'user', 'global');
             return 'global';
         }
-        if(id === 'system'){
-            Roles.userIsInRole(Meteor.userId(), 'admin', 'system');
-            return 'system';
-        }               
-        var targetSchool = SmartixSchoolsCol.findOne(id);
-            
+        log.info('smartix:schools/getSchoolName', schoolName);
+        if(schoolName === 'sysadmin'){
+            //we have to set a school
+            Roles.userIsInRole(Meteor.userId(), 'sysadmin');
+            return 'global';
+        }
+        var targetSchool = SmartixSchoolsCol.findOne(schoolName);
         if (
-            Roles.userIsInRole(Meteor.userId(), 'admin', 'system') ||
-            Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.ADMIN, id)||
-            Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.PARENT, id)||
-            Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.STUDENT, id)||
-            Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.TEACHER, id)
+            Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.SYSADMIN, schoolName) ||
+            Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.ADMIN, schoolName)||
+            Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.PARENT, schoolName)||
+            Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.STUDENT, schoolName)||
+            Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.TEACHER, schoolName)
         ) {
             return targetSchool.username;
         }
@@ -24,9 +25,8 @@ Meteor.methods({
     
     'smartix:schools/getSchoolInfo': function(id) {
         var targetSchool = SmartixSchoolsCol.findOne(id);
-
         if (
-            Roles.userIsInRole(Meteor.userId(), 'admin', 'system') ||
+            Roles.userIsInRole(Meteor.userId(), 'sysadmin') ||
             Roles.userIsInRole(Meteor.userId(), 'admin', id)
         ) {
             return targetSchool;
@@ -36,7 +36,6 @@ Meteor.methods({
     'smartix:schools/createSchoolTrial':function(options){
         if (options) {
             options.createdAt = new Date();
-            
             //TEMP: hardcode expired date = today + 30 days
             options.planTrialExpiryDate = new Date();
             options.planTrialExpiryDate.setDate( options.planTrialExpiryDate.getDate() + 30);
@@ -89,11 +88,11 @@ Meteor.methods({
     
     //Save Logo and Background Image, Creates schoolShortname
     'smartix:schools/editSchoolTrial': function (id, schoolOptions,userOptions) {
-        log.info('smartix:schools/editSchoolTrial',id);
+        //log.info('smartix:schools/editSchoolTrial',id);
         var targetSchool = SmartixSchoolsCol.findOne(id);
         //only if the school is totally new, it can be updated by anonymous
         if (targetSchool.username) {
-            log.info('caller is not authed');
+            log.error('caller is not authed');
             throw new Meteor.Error("caller-not-authed", "caller is not authed");
         }
         var existingSchoolWithSameShortName = SmartixSchoolsCol.findOne({username: schoolOptions.username});
@@ -226,7 +225,7 @@ Meteor.methods({
         var targetSchool = SmartixSchoolsCol.findOne(id);
         //log.info('raw',targetSchool);
         if (
-            Roles.userIsInRole(Meteor.userId(), 'admin', 'system') ||
+            Roles.userIsInRole(Meteor.userId(), 'sysadmin') ||
             Roles.userIsInRole(Meteor.userId(), 'admin', id)
         ) {
             // https://github.com/aldeed/meteor-simple-schema/issues/387

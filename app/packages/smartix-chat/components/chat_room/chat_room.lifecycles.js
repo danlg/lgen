@@ -1,30 +1,24 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
-/*****************************************************************************/
 /* ChatRoom: Lifecycle Hooks */
-/*****************************************************************************/
 var currentChatroomId;
 Template.ChatRoom.onCreated = function () {
     this.loadedItems = new ReactiveVar(10);
     this.loadExtraItems = 5;
-    this.localChatMessagesCollection = new Meteor.Collection(null);
-    var self = this;
-    self.subscribe('images', UI._globalHelpers['getCurrentSchoolName'](), 'chat', this.params.chatRoomId),
-    self.subscribe('documents', UI._globalHelpers['getCurrentSchoolName'](), 'chat',this.params.chatRoomId),
-    self.subscribe('sounds'),
-    self.subscribe('chatRoomWithUser', this.params.chatRoomId)
+    this.subscribe('images', UI._globalHelpers['getCurrentSchoolName'](), 'chat', this.params.chatRoomId);
+    this.subscribe('documents', UI._globalHelpers['getCurrentSchoolName'](), 'chat',this.params.chatRoomId);
+    this.subscribe('sounds');
+    this.subscribe('chatRoomWithUser', this.params.chatRoomId);
     this.autorun(function () {
-        self.subscribe('smartix:messages/groupMessages', Router.current().params.chatRoomId);
+        this.subscribe('smartix:messages/groupMessages', Router.current().params.chatRoomId);
     });    
 };
 
 Template.ChatRoom.rendered = function () {
-
-   currentChatroomId = Router.current().params.chatRoomId;
-
-var scrollToBottom = function(){
-        var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight; 
-        chatroomList.scrollTop = chatroomListToBottomScrollTopValue; 
-};   
+    currentChatroomId = Router.current().params.chatRoomId;
+    var scrollToBottom = function(){
+    var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight;
+    chatroomList.scrollTop = chatroomListToBottomScrollTopValue;
+};
 
 var imgReadyChecking = function(){
     var hasAllImagesLoaded =true;

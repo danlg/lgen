@@ -271,7 +271,7 @@ Template.ClassPanel.helpers({
 Template.ClassPanel.onCreated(function(){
     currentClassCode = Router.current().params.classCode;
     var self = this;
-    //log.info(Router.current().params.classCode);
+    log.info("Template.ClassPanel.onCreated", UI._globalHelpers['getCurrentSchoolName']());
     self.subscribe('images', UI._globalHelpers['getCurrentSchoolName'](), 'class', currentClassCode);
     self.subscribe('documents', UI._globalHelpers['getCurrentSchoolName'](), 'class', currentClassCode);
     self.subscribe('sounds');

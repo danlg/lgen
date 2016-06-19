@@ -52,22 +52,7 @@ Smartix.Accounts.createUserOptionsSchema = new SimpleSchema([Smartix.Accounts.Sc
  * @returns {boolean}
  */
 Smartix.Accounts.canCreateUser = function(namespace, roles, currentUser) {
-    var hasPermission = false;
-    switch (namespace) {
-        case 'system':
-            // Check permissions on `smartix:accounts-system`
-            hasPermission = Smartix.Accounts.System.canCreateUser(roles, currentUser);
-            break;
-        case 'global':
-            // Check permission on `smartix:accounts-global`
-            // everyone can create a new account in global namespace
-            hasPermission = true;
-            break;
-        default:
-            // Pass checking permissions to `smartix:accounts-school`
-            hasPermission = Smartix.Accounts.School.canCreateUser(namespace, roles, currentUser);
-    }
-    return hasPermission;
+    return Smartix.Accounts.School.canCreateUser(namespace, roles, currentUser);
 };
 
 /**
@@ -317,28 +302,11 @@ Smartix.Accounts.removeUser = function(userId, namespace, currentUser) {
 
     // Retrieve the target user
     var targetUser = Meteor.users.findOne({ _id: userId });
-    var hasPermission = false;
-    //TODO user new function checkPermission to factor the code
-    // Pass the permission checks to the corresponding child package
-    switch (namespace) {
-        case 'system':
-            // Check permissions on `smartix:accounts-system`
-            hasPermission = Smartix.Accounts.System.canRemoveUser(userId, currentUser);
-            break;
-        case 'global':
-            // Check permission on `smartix:accounts-global`
-            hasPermission = Smartix.Accounts.Global.canRemoveUser(userId, currentUser);
-            break;
-        default:
-            // Pass checking permissions to `smartix:accounts-school`
-            hasPermission = Smartix.Accounts.School.canRemoveUser(userId, namespace, currentUser);
-    }
-
+    var hasPermission  = Smartix.Accounts.School.canRemoveUser(userId, namespace, currentUser);
     if (!hasPermission) {
         return false;
         // OPTIONAL: Throw error indicating user does not have permission
     }
-
     // Remove the school/global/system namespace from `roles` and the `schools` array
     Roles.removeUsersFromRoles(userId, ['user',
         Smartix.Accounts.School.ADMIN,
@@ -424,82 +392,42 @@ Smartix.Accounts.canDeleteUser = function(userId, currentUser) {
         currentUser = currentUser || Meteor.userId();
     }
     // If the user is the only system administrator, you cannot delete
-    return (Smartix.Accounts.System.isAdmin(currentUser) && Roles.getUsersInRole('admin', 'system').count() > 0)
+    return (Smartix.Accounts.System.isAdmin(currentUser) && Roles.getUsersInRole('sysadmin').count() > 0)
         // the user themselves
         || userId === currentUser;
 };
 
 Smartix.Accounts.getUserInfo = function(id, namespace, currentUser) {
-
     // Check that the arguments are of the correct type
     check(id, String);
     check(namespace, String);
     check(currentUser, Match.Maybe(String));
-
     // Get the `_id` of the currently-logged in user
     if (!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
-
     // Retrieve the target user
     var targetUser = Meteor.users.findOne({
         _id: id
     });
-
-    var hasPermission = false;
-
-    // Pass the permission checks to the corresponding child package
-    switch (namespace) {
-        case 'system':
-            // Check permissions on `smartix:accounts-system`
-            hasPermission = Smartix.Accounts.System.canGetUserInfo(id, currentUser);
-            break;
-        case 'global':
-            // Check permission on `smartix:accounts-global`
-            hasPermission = Smartix.Accounts.Global.canGetUserInfo(id, currentUser);
-            break;
-        default:
-            // Pass checking permissions to `smartix:accounts-school`
-            hasPermission = Smartix.Accounts.School.canGetUserInfo(id, namespace, currentUser);
-    }
-
+    var hasPermission = Smartix.Accounts.School.canGetUserInfo(id, namespace, currentUser);
     if (!hasPermission) {
         return false;
         // OPTIONAL: Throw error indicating user does not have permission
     }
-
     return targetUser;
-}
+};
 
 Smartix.Accounts.getAllUsersInNamespace = function(namespace, currentUser) {
     check(namespace, String);
     check(currentUser, Match.Maybe(String));
-
     // Get the `_id` of the currently-logged in user
     if (!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
-
-    var hasPermission;
-
-    // Pass the permission checks to the corresponding child package
-    switch (namespace) {
-        case 'system':
-            // Check permissions on `smartix:accounts-system`
-            hasPermission = Smartix.Accounts.System.canGetAllUsers(currentUser);
-            break;
-        case 'global':
-            // Check permission on `smartix:accounts-global`
-            hasPermission = Smartix.Accounts.Global.canGetAllUsers(currentUser);
-            break;
-        default:
-            // Pass checking permissions to `smartix:accounts-school`
-            hasPermission = Smartix.Accounts.School.canGetAllUsers(namespace, currentUser);
-    }
-
+    var hasPermission = Smartix.Accounts.School.canGetAllUsers(namespace, currentUser);
     if (hasPermission) {
         var meteorQuery = {};
-        
         // OLD SYNTAX
         // meteorQuery.schools = namespace;
         // var tempRoles = "roles." + namespace;
@@ -513,13 +441,12 @@ Smartix.Accounts.getAllUsersInNamespace = function(namespace, currentUser) {
         return Meteor.users.find({
             schools: namespace,
             ['roles.'+namespace]: {  $exists: true }
-        })
-        
+        });
         // return Roles.getUsersInRole(['user', 'admin', 'student', 'teacher', 'parent'], namespace);
     } else {
         return false;
     }
-}
+};
 
 Smartix.Accounts.updateDob = function(dob, currentUser) {
 
