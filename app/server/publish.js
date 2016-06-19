@@ -43,6 +43,12 @@ Meteor.publish('user', function (_id) {
   });
 });
 
+/**
+ * Publish images
+ * @param school
+ * @param category 'chat', 'class' or 'news'
+ * @param id chatRoomId or classCode
+ */
 Meteor.publish('images', function (school, category, id) {
   //roomId can be a classCode or chatRoomId
     log.info("Publishing images school=", school,", category=", category, ", id=", id);
@@ -61,9 +67,23 @@ Meteor.publish('images', function (school, category, id) {
     return images;
 });
 
-Meteor.publish('sounds', function () {
-  return Sounds.find();
+/**
+ * Publish sound
+ * @param school
+ * @param category chat or class
+ * @param id chatRoomId or classCode
+ */
+Meteor.publish('sounds', function (school, category, id) {
+    log.info("Publishing sounds school=", school,", category=", category, ", id=", id);
+    var sounds = Sounds.find({
+      'metadata.school': school,
+      'metadata.category': category,
+      'metadata.id': id
+    });
+    log.info("sounds.count", sounds.count());
+    return sounds;
 });
+
 Meteor.publish('documents',function(school, category, id){
   return Documents.find({
       'metadata.school': school,

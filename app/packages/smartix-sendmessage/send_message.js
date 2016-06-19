@@ -30,13 +30,14 @@ Template.SendMessage.created = function () {
 
 Template.SendMessage.onCreated = function () {
 	//log.info("Template.SendMessage.onCreated");
-	var schoolName = UI._globalHelpers['getCurrentSchoolName']();
+	let schoolName = UI._globalHelpers['getCurrentSchoolName']();
+	let classCode  = Router.current().params.classCode;
 	//log.info("schoolName", schoolName);
 
 	this.subscribe('createdClassByMe');
-	this.subscribe('images', schoolName, 'class', Router.current().params.classCode);
-	this.subscribe('documents', schoolName, 'class', Router.current().params.classCode);
-	this.subscribe('sounds');
+	this.subscribe('images', schoolName, 'class', classCode);
+	this.subscribe('documents', schoolName, 'class', classCode);
+	this.subscribe('sounds', schoolName, 'class', classCode);
 };
 
 Template.SendMessage.destroyed = function () {
@@ -708,6 +709,12 @@ function onResolveSuccess(fileEntry) {
 		var newFile = new FS.File(file);
 		//newFile.attachData();
 		//log.info(newFile);
+		var classCode = Router.current().params.classCode;
+		log.info("setting sound metadata ", "school:", UI._globalHelpers['getCurrentSchoolName'](), "category:class", "id:", classCode);
+		newFile.metadata = {
+			school: UI._globalHelpers['getCurrentSchoolName'](),
+			category: 'chat',
+			id: classCode };
 		Sounds.insert(newFile, function (err, fileObj) {
 			if (err) {
 				//handle error
@@ -716,9 +723,7 @@ function onResolveSuccess(fileEntry) {
 			else {
 				//handle success depending what you need to do
 				//console.dir(fileObj);
-				var fileURL = {
-					"file": "/cfs/files/files/" + fileObj._id
-				};
+				// var fileURL = {	"file": "/cfs/files/files/" + fileObj._id };
 				//log.info(fileURL.file);
 				var arr = soundArr.get();
 				arr.push(fileObj._id);
