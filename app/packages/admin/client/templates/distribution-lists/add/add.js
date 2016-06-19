@@ -13,13 +13,13 @@ Template.AdminDistributionListsAdd.events({
         var name = template.$('#addDistributionList-name').eq(0).val();
         var code = "";
         // Checks that the values are not empty
-        if(!namespace) {
+        if(!schoolName) {
             toastr.error("Application error. Please refresh the page and try again.");
         }
         if(!name) {
             toastr.error("Please ensure the list name is filled in");
         }
-        if(namespace && name) {
+        if(schoolName && name) {
             Meteor.call('smartix:distribution-lists/create', [], schoolName, name, code,function(err,result){
                 //result is the new distribution list entry's id
                 if (result) {
