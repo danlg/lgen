@@ -20,7 +20,7 @@ Package.onUse(function(api) {
     api.use('stevezhu:lodash@4.6.1');
     api.use('smartix:core');
     api.use('smartix:groups');
-    api.use('emojione:emojione@2.1.3');
+    api.use('emojione:emojione');
     api.addFiles('lib/messages-addons-poll.js', ['client', 'server']);
     api.addFiles('client/admin/select-poll/reactions/reactions.html', ['client']);
     api.addFiles('client/admin/select-poll/reactions/reactions.js', ['client']);
