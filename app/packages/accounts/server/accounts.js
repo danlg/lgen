@@ -102,11 +102,8 @@ Smartix.Accounts.createUser = function(email, userObj, namespace, roles, current
         log.warn("Adding role(s) " + roles + " to existing user " + email + " with id " + newUserId);
         // Add the role to the user
         Roles.addUsersToRoles(newUserId, roles, namespace);
-
-
         // If the user is a student, create a distribution list based on the student's class
         Smartix.Accounts.createOrAddToDistributionList(newUserId, namespace, userObj.classroom, currentUser);
-
         // Add the namespace to the user
         Meteor.users.update({ _id: newUserId }, { $addToSet: { schools: namespace } });
         //if (userObj.dob) { Meteor.users.update({_id: newUserId}, {$set: {"dob": userObj.dob} } ); }
@@ -136,14 +133,11 @@ Smartix.Accounts.createUser = function(email, userObj, namespace, roles, current
         //log.info('merged user obj',newlyCreatedUserObj);
         Meteor.users.update({ _id: newUserId }, { $set: newlyCreatedUserObj });
         Meteor.users.update({ _id: newUserId }, { $set: { registered_emails: registered_emails } });
-
         Smartix.Accounts.notifyByEmail(email, newUserId, autoEmailVerified, !!doNotifyEmail);
-        
         //if user does not have password, send enrollment email to user to setup initial password
         if(!tempPassword){
               Smartix.Accounts.sendEnrollmentEmail  (email, newUserId, !!doNotifyEmail);
         }
-        
         // Add the role to the user
         Roles.addUsersToRoles(newUserId, roles, namespace);
         // If the user is a student, create a distribution list based on the student's class

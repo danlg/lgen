@@ -8,6 +8,7 @@ Smartix.Accounts.helpers.generateUniqueUserName = function(firstname, lastname){
     // Check the arguments are of the correct type
     check(firstname, String);
     check(lastname, String);
+    //log.info("Smartix.Accounts.helpers.generateUniqueUserName:in", firstname, lastname);
     
     //remove all non-ascii character and space
     var firstnameTrim = firstname.replace(/[^\x00-\x7F,]/g, "").trim().toLowerCase();
@@ -26,7 +27,7 @@ Smartix.Accounts.helpers.generateUniqueUserName = function(firstname, lastname){
     if (uniqueName.length > 10) {
         uniqueName = uniqueName.substr(0,10);
     }
-    var uniqueName = uniqueName.replace(/\W/g, "");//remove space and any non a-Z0-9 character
+    var uniqueName = uniqueName.replace(/\W/g, "").toLowerCase();//remove space and any non a-Z0-9 character
     var index = 1;
     if (Meteor.users.find({ username: uniqueName }).count() != 0) {
         while (Meteor.users.find({ username: uniqueName + index }).count() != 0) {
@@ -34,5 +35,6 @@ Smartix.Accounts.helpers.generateUniqueUserName = function(firstname, lastname){
         }
         uniqueName = uniqueName + index;
     }
+    //log.info("Smartix.Accounts.helpers.generateUniqueUserName:out", uniqueName);
     return uniqueName;
 };
