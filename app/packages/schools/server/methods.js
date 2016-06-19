@@ -121,7 +121,7 @@ Meteor.methods({
             Meteor.call('smartix:accounts-schools/createSchoolUser',
                 userOptions.email,
                 {
-                    username: userOptions.firstName+userOptions.lastName,
+                    username: Smartix.Accounts.helpers.generateUniqueUserName (userOptions.firstName, userOptions.lastName),
                     profile: {
                         firstName: userOptions.firstName,
                         lastName: userOptions.lastName
