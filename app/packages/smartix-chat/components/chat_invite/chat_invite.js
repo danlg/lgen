@@ -87,13 +87,13 @@ Template.ChatInvite.helpers({
 //  });
 //};
 
-Template.ChatInvite.rendered = function () {
+Template.ChatInvite.onRendered( function() {
   // $(".js-example-basic-multiple").select2({
   //   tags: true,
   //   tokenSeparators: [',', ' '],
   //   width:"100%"
   //   });
-};
+});
 
 Template.ChatInvite.destroyed = function () {
  targetStringVar = ReactiveVar([]);

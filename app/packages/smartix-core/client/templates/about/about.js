@@ -27,9 +27,8 @@ Template.About.helpers({
 });
 
 
-Template.About.created = function () {
-};
-
+Template.About.onCreated( function() {
+});
 
 Template.About.destroyed = function () {
 };
@@ -40,8 +39,8 @@ Template.ionNavBar.events({
 Template.About.events({
 
 });
-Template.About.rendered = function () {
+Template.About.onRendered( function() {
 
-};
+});
 
 

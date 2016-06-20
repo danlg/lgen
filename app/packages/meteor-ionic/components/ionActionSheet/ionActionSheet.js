@@ -76,13 +76,13 @@ IonActionSheet = {
   }
 };
 
-Template.ionActionSheet.rendered = function () {
+Template.ionActionSheet.onRendered( function() {
   $(window).on('keyup.ionActionSheet', function(event) {
     if (event.which == 27) {
       IonActionSheet.cancel();
     }
   });
-};
+});
 
 Template.ionActionSheet.destroyed = function () {
   $(window).off('keyup.ionActionSheet');

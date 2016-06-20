@@ -1,4 +1,4 @@
-Template.ionView.rendered = function () {
+Template.ionView.onRendered( function() {
   // Reset our transition preference
   IonNavigation.skipTransitions = false;
 
@@ -8,7 +8,7 @@ Template.ionView.rendered = function () {
     $('.overflow-scroll').not('.nav-view-leaving .overflow-scroll').scrollTop(IonScrollPositions[routePath]);
     delete IonScrollPositions[routePath];
   }
-};
+});
 
 Template.ionView.helpers({
   classes: function () {

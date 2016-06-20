@@ -13,22 +13,9 @@ var messageListBaseBorrow = 70;
 var messageListHeightBorrower = ReactiveVar([]);
 var canVote = ReactiveVar(true);
 
-Template.SendMessage.created = function () {
-	 this.calendarEvent = new ReactiveVar({});
-	// this.imageArr = ReactiveVar([]);
-	// this.soundArr = ReactiveVar([]);
-	// this.documentArr = ReactiveVar([]);
-	// this.isRecording = false;
-	// this.media = "";
-	// this.isPlayingSound = false;
-	// this.messageListBaseBorrow = 70;
-	// this.messageListHeightBorrower = ReactiveVar([]);
-	// this.canVote = ReactiveVar(true);
-	//log.info("Template.SendMessage.created");
-	//log.info(this.calendarEvent);
-};
+Template.SendMessage.onCreated( function() {
+	this.calendarEvent = new ReactiveVar({});
 
-Template.SendMessage.onCreated = function () {
 	//log.info("Template.SendMessage.onCreated");
 	let schoolName = UI._globalHelpers['getCurrentSchoolName']();
 	let classCode  = Router.current().params.classCode;
@@ -38,7 +25,19 @@ Template.SendMessage.onCreated = function () {
 	this.subscribe('images', schoolName, 'class', classCode);
 	this.subscribe('documents', schoolName, 'class', classCode);
 	this.subscribe('sounds', schoolName, 'class', classCode);
-};
+
+	// this.imageArr = ReactiveVar([]);
+	// this.soundArr = ReactiveVar([]);
+	// this.documentArr = ReactiveVar([]);
+	// this.isRecording = false;
+	// this.media = "";
+	// this.isPlayingSound = false;
+	// this.messageListBaseBorrow = 70;
+	// this.messageListHeightBorrower = ReactiveVar([]);
+	// this.canVote = ReactiveVar(true);
+	//log.info("Template.SendMessage.onCreated");
+	//log.info(this.calendarEvent);
+});
 
 Template.SendMessage.destroyed = function () {
 	this.calendarEvent.set({});
@@ -56,7 +55,7 @@ Template.SendMessage.destroyed = function () {
 	messageListHeightBorrower.set([]);
 };
 
-Template.SendMessage.rendered = function () {
+Template.SendMessage.onRendered( function() {
 	$(".msgBox").autogrow();
 	//log.info(canVote.get());
 	if (canVote.get()) {
@@ -69,7 +68,7 @@ Template.SendMessage.rendered = function () {
 	}
 	//initial check of vote option.
 	voteEnableCheck();
-};
+});
 
 /* SendMessage: Helpers */
 Template.SendMessage.helpers({
@@ -231,7 +230,7 @@ var setCalendar = function (event, sendMsgtemplate) {
 						return;
 					}
 					//sendMsgtemplate.calendarEvent.set({
-					this.calendarEvent.set({
+					Template.instance().calendarEvent.set({
 						eventName: $(template.firstNode).find('#event-name').val(),
 						location: $(template.firstNode).find('#location').val(),
 						startDate: $(template.firstNode).find('#start-date').val(),

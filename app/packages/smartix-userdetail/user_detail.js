@@ -97,14 +97,12 @@ Template.UserDetail.helpers({
 
 });
 
-/*****************************************************************************/
 /* UserDetail: Lifecycle Hooks */
-/*****************************************************************************/
-Template.UserDetail.created = function () {
-};
+Template.UserDetail.onCreated( function() {
+});
 
-Template.UserDetail.rendered = function () {
-};
+Template.UserDetail.onRendered( function() {
+});
 
 Template.UserDetail.destroyed = function () {
 };

@@ -19,11 +19,11 @@ Template.ionNavBackButton.events({
   }
 });
 
-Template.ionNavBackButton.created = function () {
+Template.ionNavBackButton.onCreated( function() {
   this.data = this.data || {};
-};
+});
 
-Template.ionNavBackButton.rendered = function () {
+Template.ionNavBackButton.onRendered( function() {
   var self = this;
   this.getBackUrl = function () {
     var backUrl = null;
@@ -44,7 +44,7 @@ Template.ionNavBackButton.rendered = function () {
     }
     return backUrl;
   };
-};
+});
 
 Template.ionNavBackButton.helpers({
   classes: function () {

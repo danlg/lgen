@@ -22,9 +22,7 @@ Template.ionSpinner.helpers({
 // spinner names is in the init function at the bottom of this file.
 // Almost all of the rest of the code is from the ionic version. 
 
-Template.ionSpinner.rendered = function() {
-
-
+Template.ionSpinner.onRendered( function() {
   var TRANSLATE32 = 'translate(32,32)';
   var STROKE_OPACITY = 'stroke-opacity';
   var ROUND = 'round';
@@ -440,11 +438,10 @@ Template.ionSpinner.rendered = function() {
 
     start(spinnerName, $element);
 
-  };
+  }
 
   function start(spinnerName, ele) {
     animations[spinnerName] && animations[spinnerName](ele[0])();
-  };
-
-
-}
+  }
+  
+});

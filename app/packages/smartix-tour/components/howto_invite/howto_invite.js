@@ -11,12 +11,11 @@ Template.HowToInvite.events({
  
 });
 
-Template.HowToInvite.rendered = function()
-{
+Template.HowToInvite.onRendered ( () => {
    var sim = document.getElementById("inputClassCodeSimulation");
    type(democlass,sim);
    Session.set("hasSeenHowToInviteTour", true);
-};
+});
 
 Template.HowToInvite.helpers ({
   getShareURLdemo : function() {

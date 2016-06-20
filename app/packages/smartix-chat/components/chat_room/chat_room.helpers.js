@@ -87,8 +87,6 @@ Template.ChatRoom.helpers({
             var userObj = Smartix.helpers.getAnotherUser();
             return "<i class=\"icon e1a-"+userObj.profile.avatarValue+" e1a-2x emojicon\"></i>";  
         }
-
-            
         //     if(userObj.profile.avatarType)
         //     {
         //         if (userObj.profile.avatarType==="emoji")
@@ -99,6 +97,7 @@ Template.ChatRoom.helpers({
         //     else 
         // }
     }else{
+        log.warn("Cannot find getGroupOrCorrespondentAvatar", Router.current().params.chatRoomId);
         return "";
     }
   },
@@ -199,14 +198,14 @@ Template.ChatRoom.helpers({
     var target;
     var displayOffline = false;
     //if it is a group chat
-    if(currentChat.chatRoomModerator) {
+    if(currentChat && currentChat.chatRoomModerator) {
         if(currentChat.chatRoomModerator == Meteor.userId()) {
             //if current user is the moderator of the chatroom,
             //this user is not limited by the office hour.
             return displayOffline;      
         }
         else {
-         target = Meteor.users.findOne( currentChat.chatRoomModerator );             
+            target = Meteor.users.findOne( currentChat.chatRoomModerator );
         }
     }
     else{ //if it is a one-to-one chat
@@ -216,14 +215,17 @@ Template.ChatRoom.helpers({
     //log.info('target',target);
     //TODO: migrate to Groups
     if (
-        Roles.userIsInRole(target, 'user',currentChat.namespace) ||
-        Roles.userIsInRole(target, Smartix.Accounts.School.TEACHER, currentChat.namespace) ||
-        Roles.userIsInRole(target, Smartix.Accounts.School.PARENT, currentChat.namespace)
+        currentChat &&
+        (
+            Roles.userIsInRole(target, 'user',currentChat.namespace) ||
+            Roles.userIsInRole(target, Smartix.Accounts.School.TEACHER, currentChat.namespace) ||
+            Roles.userIsInRole(target, Smartix.Accounts.School.PARENT, currentChat.namespace)
+        )
        )
     {
       //log.info('chat setting');
       //debugger;
-      if (target.profile.chatSetting && target.profile.chatSetting.workHour) {
+      if (target.profile && target.profile.chatSetting && target.profile.chatSetting.workHour) {
         var workHourTime = target.profile.chatSetting.workHourTime;
         var dayOfWeek = moment().day();
         
@@ -280,17 +282,23 @@ Template.ChatRoom.helpers({
   },
 
   isLoadMoreButtonShow: function(){
-      var currentChat= Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId});
-      
-      var msgCount =Smartix.Messages.Collection.find({
+    //log.info("isLoadMoreButtonShow", Router.current().params.chatRoomId);
+    var currentChat= Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId});
+    //log.info("isLoadMoreButtonShow:_id", currentChat._id);
+    if (currentChat) {
+        var msgCount =Smartix.Messages.Collection.find({
           group: currentChat._id
-      }).count();
-        
-      if(Template.instance().loadedItems.get() >= msgCount ){
-          return "hidden";
-      }else{
-          return "";
-      }
+        }).count();
+    }
+    else {
+        return "";
+    }
+    if(Template.instance().loadedItems.get() >= msgCount ){
+      return "hidden";
+    }
+    else{
+      return "";
+    }
   }
 
 });
@@ -309,28 +317,28 @@ function isOneToOneChat(){
 // }
 
 ////get another person's user object in 1 to 1 chatroom. call by chatroom helpers
-function getAnotherUser(){
-  //find all userids in this chat rooms
-  var query = Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId});
-  if (query) {
-    var arr = query.chatIds;
-    //find and remove the userid of the current user
-    var currentUserIdIndex = arr.indexOf(Meteor.userId());
-    arr.splice(currentUserIdIndex, 1);
-    //return another user's user object
-    var targetUserObj = Meteor.users.findOne(arr[0]);
-    return targetUserObj;
-  }
-}
+// function getAnotherUser(){
+//   //find all userids in this chat rooms
+//   var query = Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId});
+//   if (query) {
+//     var arr = query.chatIds;
+//     //find and remove the userid of the current user
+//     var currentUserIdIndex = arr.indexOf(Meteor.userId());
+//     arr.splice(currentUserIdIndex, 1);
+//     //return another user's user object
+//     var targetUserObj = Meteor.users.findOne(arr[0]);
+//     return targetUserObj;
+//   }
+// }
 
-function getAllUser(){
-    //find all userids in this chat rooms
-    var arr = Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId}).chatIds;
-    //log.info(arr);
-    //return all user objects
-    var targetUsers =  Meteor.users.find( { _id :{ $in: arr} }).fetch();
-    return targetUsers;
-}
+// function getAllUser(){
+//     //find all userids in this chat rooms
+//     var arr = Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId}).chatIds;
+//     //log.info(arr);
+//     //return all user objects
+//     var targetUsers =  Meteor.users.find( { _id :{ $in: arr} }).fetch();
+//     return targetUsers;
+// }
 
 function getTotalChatRoomUserCount(){
     var chatObj = Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId});

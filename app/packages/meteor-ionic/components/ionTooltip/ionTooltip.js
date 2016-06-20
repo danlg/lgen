@@ -56,25 +56,19 @@ IonTooltip = {
 
   hide: function () {
     if (typeof this.view !== 'undefined') {
-      /*var $backdrop = $(this.view.firstNode());
-      $backdrop.removeClass('active');
-  
-      var $popover = $backdrop.find('.popover');
-      $popover.css({opacity: 0});
-    */
       Blaze.remove(this.view);
     }
   }
 };
 
-Template.ionTooltip.rendered = function () {
+Template.ionTooltip.onRendered( function() {
   $(window).on('keyup.ionTooltip', function(event) {
     if (event.which == 27) {
       IonTooltip.hide();
       event.preventDefault();
     }
   });
-};
+});
 
 Template.ionTooltip.destroyed = function () {
   $(window).off('keyup.ionTooltip');

@@ -47,22 +47,19 @@ Template.YouIconChoose.helpers({
 	}
 });
 
-Template.YouIconChoose.created = function () {
+Template.YouIconChoose.onCreated( function() {
 	inputParameters = Template.parentData(0);
 	//TODO this should be the only thing being in child Object class
 	//the rest should be in base class IconChoose
 	//base class for YouIconChoose and ClassIconChoose
 	//do not want any side effect with Session so duplicate code for now....
-    
 	$.getJSON('/packages/smartix_iconchooser/icon_list/profile_avatar.json',function(result){
 		Session.set(inputParameters.iconListToGet, result);
 	});	
-};
+});
 
-Template.YouIconChoose.rendered = function () {
-
-
-};
+Template.YouIconChoose.onRendered( function() {
+});
 
 Template.YouIconChoose.destroyed = function () {
 };
@@ -79,7 +76,7 @@ function imageUpload(event, imageObj) {
                     IonModal.open("UploadIcon", parentDataContext);
                 }
         }
-};
+}
 
 function imageUploadForAndroidAndIOS(e) {
     var onSuccess = function (imageURI) {

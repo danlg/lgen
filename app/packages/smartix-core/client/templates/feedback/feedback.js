@@ -2,11 +2,11 @@
 Template.Feedback.events({});
 
 /* Lifecycle Hooks */
-Template.Feedback.created = function () {
-};
+Template.Feedback.onCreated( function() {
+});
 
-Template.Feedback.rendered = function () {
-};
+Template.Feedback.onRendered( function() {
+});
 
 Template.Feedback.destroyed = function () {
 };

@@ -49,15 +49,15 @@ IonHeaderBar = {
   }
 };
 
-Template.ionHeaderBar.created = function () {
+Template.ionHeaderBar.onCreated( function() {
   this.data = this.data || {};
-};
+});
 
-Template.ionHeaderBar.rendered = function () {
+Template.ionHeaderBar.onRendered( function() {
   Session.set('hasHeader', true);
   IonHeaderBar.alignTitle.call(this);
   IonHeaderBar.positionTitle.call(this);
-};
+});
 
 Template.ionHeaderBar.destroyed = function () {
   Session.set('hasHeader', false);

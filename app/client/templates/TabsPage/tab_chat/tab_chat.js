@@ -3,9 +3,33 @@ var text = ReactiveVar('');
 var totalResult;
 var notFoundResult = ReactiveVar(0);
 
-/*****************************************************************************/
+/* TabChat: Lifecycle Hooks */
+Template.TabChat.onCreated(  function() {
+    var self = this;
+    this.subscribe('allMyChatRoomWithUser',function(){
+        var allchats = Smartix.Groups.Collection.find(
+            {
+                type:'chat',
+                namespace: Session.get('pickedSchoolId')
+            },
+            {sort:{"lastUpdatedAt":-1}}
+        ).fetch();
+        var allGroupIds = lodash.map(allchats,"_id");
+        //log.info('allGroupIds',allchats,allGroupIds);
+        self.subscribe('smartix:messages/latestMessageEachGroups',allGroupIds);
+    });
+});
+
+Template.TabChat.onRendered( function() {
+    text.set("");
+    $("body").removeClass('modal-open');
+});
+
+Template.TabChat.destroyed = function () {
+    text.set("");
+};
+
 /* TabChat: Event Handlers */
-/*****************************************************************************/
 Template.TabChat.events({
   'keyup .searchbar': function () {
     notFoundResult.set(0);
@@ -13,9 +37,7 @@ Template.TabChat.events({
   }
 });
 
-/*****************************************************************************/
 /* TabChat: Helpers */
-/*****************************************************************************/
 Template.TabChat.helpers({
   'displayChatOption': function () {
     var currentSchoolId =  Session.get('pickedSchoolId') ;
@@ -198,29 +220,3 @@ Template.TabChat.helpers({
        }
   }
 });
-
-/* TabChat: Lifecycle Hooks */
-Template.TabChat.created = function () {
-    var self = this;
-    self.subscribe('allMyChatRoomWithUser',function(){
-        var allchats = Smartix.Groups.Collection.find(
-            {   
-                type:'chat',
-                namespace: Session.get('pickedSchoolId')
-            },
-            {sort:{"lastUpdatedAt":-1}}
-        ).fetch();
-        var allGroupIds = lodash.map(allchats,"_id");
-        //log.info('allGroupIds',allchats,allGroupIds);
-        self.subscribe('smartix:messages/latestMessageEachGroups',allGroupIds);               
-    });
-};
-
-Template.TabChat.rendered = function () {
-    text.set("");
-    $("body").removeClass('modal-open');
-};
-
-Template.TabChat.destroyed = function () {
-    text.set("");
-};

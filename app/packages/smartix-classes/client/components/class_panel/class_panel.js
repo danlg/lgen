@@ -285,7 +285,7 @@ Template.ClassPanel.onCreated(function(){
     });
 });
 
-Template.ClassPanel.rendered = function () {
+Template.ClassPanel.onRendered( function() {
 	//log.info('rendered',this.subscriptionsReady());
 	var template = this;
 	//scroll to bottom
@@ -326,7 +326,7 @@ Template.ClassPanel.rendered = function () {
 		}
 	});
 	// Session.set('hasFooter',false);
-};
+});
 
 Template.ClassPanel.destroyed = function () {
 	loadedItems.set(10);

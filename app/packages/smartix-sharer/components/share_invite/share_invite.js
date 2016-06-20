@@ -1,9 +1,8 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 var shareLink = ReactiveVar('');
 var classObj;
-/*****************************************************************************/
+
 /* ShareInvite: Event Handlers */
-/*****************************************************************************/
 Template.ShareInvite.events({
   'click .copyBth': function (e) {
 
@@ -59,24 +58,18 @@ Template.ShareInvite.events({
   }
 });
 
-/*****************************************************************************/
 /* ShareInvite: Helpers */
-/*****************************************************************************/
 Template.ShareInvite.helpers({
-
   getclassCode: function (argument) {
     return Router.current().params.classCode;
   },
   getShareLink: function () {
     return  shareLink.get();
   }
-
 });
 
-/*****************************************************************************/
 /* ShareInvite: Lifecycle Hooks */
-/*****************************************************************************/
-Template.ShareInvite.created = function () {
+Template.ShareInvite.onCreated( function() {
   var link = Meteor.settings.public.SHARE_URL;
   log.info ("Setting SHARE_URL="+link);
 
@@ -85,10 +78,10 @@ Template.ShareInvite.created = function () {
       classCode: Router.current().params.classCode
     });
   shareLink.set (link + "/join/"+ classObj.classCode);
-};
+});
 
-Template.ShareInvite.rendered = function () {
-};
+Template.ShareInvite.onRendered( function() {
+});
 
 Template.ShareInvite.destroyed = function () {
 };

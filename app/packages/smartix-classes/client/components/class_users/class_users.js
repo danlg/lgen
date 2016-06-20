@@ -146,16 +146,15 @@ Template.ClassUsers.helpers({
   }
 });
 
-/*****************************************************************************/
-/* ClassUsers: Lifecycle Hooks */
-/*****************************************************************************/
-Template.ClassUsers.created = function () {
-  // classObj.set(Smartix.Groups.Collection.findOne({type: 'class', classCode:Router.current().params.classCode}));
-};
 
-Template.ClassUsers.rendered = function () {
+/* ClassUsers: Lifecycle Hooks */
+Template.ClassUsers.onCreated( function() {
+  // classObj.set(Smartix.Groups.Collection.findOne({type: 'class', classCode:Router.current().params.classCode}));
+});
+
+Template.ClassUsers.onRendered( function() {
   text.set("");
-};
+});
 
 Template.ClassUsers.destroyed = function () {
 };

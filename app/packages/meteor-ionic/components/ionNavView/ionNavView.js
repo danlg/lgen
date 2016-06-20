@@ -2,13 +2,14 @@ IonNavigation = {
   skipTransitions: false
 };
 
-Template.ionNavView.created = function () {
+Template.ionNavView.onCreated( function() {
   this.data = this.data || {};
   Session.setDefault('ionNavDirection', 'forward');
 
   if (Platform.isAndroid()) {
     this.transition = 'android';
-  } else {
+  }
+  else {
     this.transition = 'ios';
   }
 
@@ -19,12 +20,13 @@ Template.ionNavView.created = function () {
 
   if (this.transition === 'ios') {
     this.transitionDuration = 450;
-  } else {
+  }
+  else {
     this.transitionDuration = 320;
   }
-};
+});
 
-Template.ionNavView.rendered = function () {
+Template.ionNavView.onRendered( function() {
   var template = this;
   var container = this.find('[data-nav-container]');
 
@@ -66,7 +68,7 @@ Template.ionNavView.rendered = function () {
       }, template.transitionDuration);
     }
   };
-};
+});
 
 Template.ionNavView.helpers({
   transition: function () {

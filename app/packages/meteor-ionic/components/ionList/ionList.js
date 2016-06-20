@@ -13,17 +13,13 @@ Template.ionList.helpers({
   }
 });
 
-
-Template.ionList.rendered = function() {
-
- if (this.data && this.data.ionSortable){
-  Session.set("ionSortable", true );
-  var list = this.$('.list')[0]; 
-  new Slip(list);
-}
-
-};
-
+Template.ionList.onRendered( function() {
+  if (this.data && this.data.ionSortable){
+    Session.set("ionSortable", true );
+    var list = this.$('.list')[0];
+    new Slip(list);
+  }
+});
 
 Template.ionList.events({
   'click .item-delete' : function(e, template){

@@ -9,16 +9,15 @@ Template.HowToInviteShort.events({
   }
 });
 
-Template.HowToInviteShort.created = function(){
+Template.HowToInviteShort.onCreated( function() {
   classCodeLocal = Router.current().params.classCode;
-};
+});
 
-Template.HowToInviteShort.rendered = function()
-{
+Template.HowToInviteShort.onRendered ( () => {
    var sim = document.getElementById("inputClassCodeSimulation");
    type(classCodeLocal,sim);
    Session.set("hasSeenHowToInviteTour", true);
-};
+});
 
 //adopt from: http://stackoverflow.com/questions/23688149/simulate-the-look-of-typing-not-the-actual-keypresses-in-javascript
 function type(string,element){

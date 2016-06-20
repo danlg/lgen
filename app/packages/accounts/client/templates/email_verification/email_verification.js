@@ -1,12 +1,9 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
-/*****************************************************************************/
 /* EmailSignup: Lifecycle Hooks */
-/*****************************************************************************/
-Template.EmailVerification.created = function () {
+Template.EmailVerification.onCreated( function() {
+});
 
-};
-
-Template.EmailVerification.rendered = function () {
+Template.EmailVerification.onRendered( function() {
  
   //this page would be redirected by reactivity depend on verified Boolean of the email
   var self = this;
@@ -15,7 +12,8 @@ Template.EmailVerification.rendered = function () {
          Smartix.helpers.routeToTabClasses();
      }
    });
-};
+});
+
 Template.EmailVerification.destroyed = function () {};
 
 Template.EmailVerification.events({

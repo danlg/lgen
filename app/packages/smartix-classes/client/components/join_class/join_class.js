@@ -1,7 +1,5 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
-/*****************************************************************************/
 /* JoinClass: Event Handlers */
-/*****************************************************************************/
 Template.JoinClass.events({
   'click .joinBtn': function () {
     var classCodeInput = $(".classCodeInput").val().trim();
@@ -27,9 +25,7 @@ Template.JoinClass.events({
   }
 });
 
-/*****************************************************************************/
 /* JoinClass: Helpers */
-/*****************************************************************************/
 Template.JoinClass.helpers({
   leaveClassSchema: Smartix.Class.AutoformSchema.leaveClass,
   joinClassSchema: Smartix.Class.AutoformSchema.joinClass,
@@ -44,14 +40,11 @@ Template.JoinClass.helpers({
   }
 });
 
-/*****************************************************************************/
-/* JoinClass: Lifecycle Hooks */
-/*****************************************************************************/
-Template.JoinClass.created = function () {
-};
+Template.JoinClass.onCreated( function() {
+});
 
-Template.JoinClass.rendered = function () {
-};
+Template.JoinClass.onRendered( function() {
+});
 
 Template.JoinClass.destroyed = function () {
 };

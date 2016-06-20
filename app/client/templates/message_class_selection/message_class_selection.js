@@ -26,9 +26,7 @@ Template.MessageClassSelection.events({
   }
 });
 
-/*****************************************************************************/
 /* MessageClassSelection: Helpers */
-/*****************************************************************************/
 Template.MessageClassSelection.helpers({
   createdClasses: function () {
     return Smartix.Groups.Collection.find({
@@ -43,14 +41,12 @@ Template.MessageClassSelection.helpers({
   }
 });
 
-/*****************************************************************************/
 /* MessageClassSelection: Lifecycle Hooks */
-/*****************************************************************************/
-Template.MessageClassSelection.created = function () {
-};
+Template.MessageClassSelection.onCreated( function() {
+});
 
-Template.MessageClassSelection.rendered = function () {
-};
+Template.MessageClassSelection.onRendered( function() {
+});
 
 Template.MessageClassSelection.destroyed = function () {
 };

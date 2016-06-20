@@ -2,9 +2,8 @@
 
 Template.TabClasses.events({});
 
-Template.TabClasses.onCreated(function(){
-      var self = this;
-      self.subscribe('joinedClasses');
+Template.TabClasses.onCreated( function() {
+    this.subscribe('joinedClasses');
 });
 
 Template.TabClasses.helpers({
@@ -103,7 +102,7 @@ Template.TabClasses.helpers({
    }
 });
 
-Template.TabClasses.rendered = function () {
+Template.TabClasses.onRendered( function() {
   //we do not need to show the tour as it is shown before login
   //if sign up by google oauth or user's email is already verified
   if(Meteor.user() && Meteor.user().emails && Meteor.user().emails[0].verified)
@@ -124,7 +123,7 @@ Template.TabClasses.rendered = function () {
       }
   }
   HowToInviteTour();
-};
+});
 
 var HowToInviteTour = function () {
   //TODO: less annoying

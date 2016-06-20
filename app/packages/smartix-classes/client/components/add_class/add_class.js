@@ -87,13 +87,11 @@ Template.AddClass.helpers({
   }
 });
 
-/*****************************************************************************/
 /* AddClass: Lifecycle Hooks */
-/*****************************************************************************/
-Template.AddClass.created = function () {
-};
+Template.AddClass.onCreated( function() {
+});
 
-Template.AddClass.rendered = function () {
+Template.AddClass.onRendered( function() {
   //var origClassCode = $this.$("input[name=classCode]").val();
   //if user deletes all input in class name, leave the class code field blank.
   //this.$("input[name=classCode]").val(origClassCode.trim().toLowerCase());
@@ -105,7 +103,7 @@ Template.AddClass.rendered = function () {
   $('#ageRestricted').attr("checked", "checked");
   //setTimeout(function(){ $('#pick-an-icon-help-btn').addClass('activated'); },1500)
   //setTimeout(function(){$('#pick-an-icon-help-btn').removeClass('activated'); },5000)  
-};
+});
 
 Template.AddClass.destroyed = function () {
   delete Session.keys['chosenIconForNewClass'];

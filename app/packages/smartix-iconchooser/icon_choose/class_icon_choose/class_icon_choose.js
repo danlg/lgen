@@ -23,20 +23,16 @@ Template.ClassIconChoose.helpers({
 	}
 });
 
-/*****************************************************************************/
 /* ClassIconChoose: Lifecycle Hooks */
-/*****************************************************************************/
-Template.ClassIconChoose.created = function () {
+Template.ClassIconChoose.onCreated( function() {
 	var inputParameters = Template.parentData(0);
 	$.getJSON('/packages/smartix_iconchooser/icon_list/class_avatar.json',function(result){
 		Session.set(inputParameters.iconListToGet, result);
 	});	
-};
+});
 
-Template.ClassIconChoose.rendered = function () {
-
-
-};
+Template.ClassIconChoose.onRendered( function() {
+});
 
 Template.ClassIconChoose.destroyed = function () {
 };

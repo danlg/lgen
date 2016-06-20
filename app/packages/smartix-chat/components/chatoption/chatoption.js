@@ -14,10 +14,8 @@ Template.Chatoption.events({
 });
 
 /* Chatoption: Created Handlers */
-Template.Chatoption.created = function () {
-
-
-};
+Template.Chatoption.onCreated( function() {
+});
 
 /* Chatoption: Helpers */
 Template.Chatoption.helpers({
@@ -68,7 +66,7 @@ Template.Chatoption.helpers({
 /*****************************************************************************/
 /* Chatoption: Lifecycle Hooks */
 /*****************************************************************************/
-Template.Chatoption.rendered = function () {
+Template.Chatoption.onRendered( function() {
 
   //hack possibly implement with a callback called when Meteor.user() is ready 
   //http://stackoverflow.com/questions/14847575/meteor-user-profile-can-only-read-after-refresh?rq=1
@@ -86,9 +84,8 @@ Template.Chatoption.rendered = function () {
         }, 300)
       }
     }
-  })  
-
-};
+  })
+});
 
 Template.Chatoption.destroyed = function () {
 

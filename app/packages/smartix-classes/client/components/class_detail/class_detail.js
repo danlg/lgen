@@ -217,7 +217,7 @@ Template.ClassDetail.helpers({
 });
 
 
-Template.ClassDetail.rendered = function () {
+Template.ClassDetail.onRendered( function() {
 	Meteor.call('getFullNameById', classObj.admins[0], function (err, data) {
 		return teacherName.set(data);
 	});
@@ -317,7 +317,7 @@ Template.ClassDetail.rendered = function () {
 			});
 		}
 	});
-};
+});
 
 function playAudio(url, callback) {
 	// Play the audio file at url

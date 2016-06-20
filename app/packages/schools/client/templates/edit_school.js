@@ -2,11 +2,11 @@ Template.EditSchool.onCreated(function() {
     this.newSchoolLogo = new ReactiveVar("");
     this.newSchoolBackgroundImage = new ReactiveVar("");
 
-    var schoolUsername = UI._globalHelpers['getCurrentSchoolName']();
-    this.subscribe('schoolInfo', schoolUsername);
-    this.subscribe('images', schoolUsername, 'school', schoolUsername);
+    var schoolName = UI._globalHelpers['getCurrentSchoolName']();
+    this.subscribe('schoolInfo', schoolName);
+    this.subscribe('images', schoolName, 'school', schoolName);
 
-    var schoolId = SmartixSchoolsCol.findOne({username: schoolUsername});
+    var schoolId = SmartixSchoolsCol.findOne({username: schoolName});
     if(schoolId.logo)
         Template.instance().newSchoolLogo.set(Images.findOne(schoolId.logo)._id);
     if(schoolId.backgroundImage)

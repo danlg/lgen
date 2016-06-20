@@ -1,23 +1,28 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 /* ChatRoom: Lifecycle Hooks */
 var currentChatroomId;
-Template.ChatRoom.created = function () {
+
+Template.ChatRoom.onCreated( function () {
+	//log.info("Template.ChatRoom.onCreated ");
+
 	this.loadedItems = new ReactiveVar(10);
 	this.loadExtraItems = 5;
-};
 
-Template.ChatRoom.onCreated = function () {
-	this.subscribe('images', UI._globalHelpers['getCurrentSchoolName'](), 'chat', this.params.chatRoomId);
-	this.subscribe('documents', UI._globalHelpers['getCurrentSchoolName'](), 'chat', this.params.chatRoomId);
-	this.subscribe('sounds', UI._globalHelpers['getCurrentSchoolName'](), 'chat', this.params.chatRoomId);
-	log.info("subscribed to chatRoomWithUser", this.params.chatRoomId);
-	this.subscribe('chatRoomWithUser', this.params.chatRoomId);
+	let chatRoomId = Router.current().params.chatRoomId;
+	//log.info("Template.ChatRoom.onCreated ", chatRoomId);
+
+	this.subscribe('images', UI._globalHelpers['getCurrentSchoolName'](), 'chat', chatRoomId);
+	this.subscribe('documents', UI._globalHelpers['getCurrentSchoolName'](), 'chat', chatRoomId);
+	this.subscribe('sounds', UI._globalHelpers['getCurrentSchoolName'](), 'chat', chatRoomId);
+
+	//log.info("subscribed to chatRoomWithUser", chatRoomId);
+	this.subscribe('chatRoomWithUser', chatRoomId);
 	this.autorun(function () {
-		this.subscribe('smartix:messages/groupMessages', Router.current().params.chatRoomId);
+		this.subscribe('smartix:messages/groupMessages',chatRoomId);
 	});
-};
+});
 
-Template.ChatRoom.rendered = function () {
+Template.ChatRoom.onRendered( function() {
 	currentChatroomId = Router.current().params.chatRoomId;
 	var scrollToBottom = function () {
 		var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight;
@@ -133,7 +138,7 @@ Template.ChatRoom.rendered = function () {
 		'<i class="icon ion-android-arrow-dropdown"></i> NEW MESSAGES ' +
 		'<i class="icon ion-android-arrow-dropdown"></i> </div> </div>';
 	$('i.ion-record').first().parents('div.item').before(newMessageBubbleText);
-};
+});
 
 Template.ChatRoom.destroyed = function () {
 

@@ -207,16 +207,12 @@ Template.MyAccount.helpers({
 
 });
 
-/*****************************************************************************/
 /* MyAccount: Lifecycle Hooks */
-/*****************************************************************************/
-Template.MyAccount.created = function () {
+Template.MyAccount.onCreated( function() {
+});
 
-};
-
-Template.MyAccount.rendered = function () {
-   
-};
+Template.MyAccount.onRendered( function() {
+});
 
 Template.MyAccount.destroyed = function () {   
     //Form submits when user clicks on Back to Update

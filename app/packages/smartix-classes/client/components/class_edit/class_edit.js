@@ -61,14 +61,12 @@ Template.ClassEdit.helpers({
   }
 });
 
-/*****************************************************************************/
 /* ClassEdit: Lifecycle Hooks */
-/*****************************************************************************/
-Template.ClassEdit.created = function () {
-};
+Template.ClassEdit.onCreated( function() {
+});
 
-Template.ClassEdit.rendered = function () {
-};
+Template.ClassEdit.onRendered( function() {
+});
 
 Template.ClassEdit.destroyed = function () {
   delete Session.keys['chosenIconForEditClass'];

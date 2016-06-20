@@ -4,9 +4,9 @@ var contactsObj;
 var searchText = ReactiveVar("");
 var classObj;
 var isInputAnEmail = ReactiveVar(false);
-/*****************************************************************************/
+
 /* EmailInvite: Event Handlers */
-/*****************************************************************************/
+
 Template.EmailInvite.events({
   'click .inviteBtn': function (e) {
 
@@ -72,39 +72,35 @@ Template.EmailInvite.events({
 
 });
 
-/*****************************************************************************/
 /* EmailInvite: Helpers */
-/*****************************************************************************/
 Template.EmailInvite.helpers({
   invited: function (argument) {
     if (!Meteor.user().profile['contactsIds']) {
       return "";
     }
-
     else {
-
       var contactsIds = Meteor.user().profile['contactsIds'];
-
       if (contactsIds.indexOf(this.id) > -1) {
         // return "hide";
         return "";
       } else {
         return "";
       }
-
     }
-
   },
+  
   classObj: function () {
     return Smartix.Groups.Collection.findOne({
         type: 'class',
         classCode: Router.current().params.classCode
     });
   },
+  
   inviteClassSchema: Smartix.Class.AutoformSchema.inviteClass,
   contactList: function () {
     return contactList.get();
   },
+  
   getName: function (contactObj) {
     log.info(contactObj);
     if (contactObj.displayName !== null && contactObj.displayName !== "")
@@ -116,6 +112,7 @@ Template.EmailInvite.helpers({
     else
       return lodash.map(contactObj.phoneNumbers, 'value')[0];
   },
+  
   isSearched: function (contactObj) {
     var name = "";
     if (contactObj.displayName !== null)
@@ -124,15 +121,13 @@ Template.EmailInvite.helpers({
       name = contactObj.nickname;
     else
       name = contactObj.name.formatted;
-
     var id = this.id;
     var targerObj = lodash.findByValues2(contactsObj, "id", id);
     var targetEmails = lodash.map(targerObj[0].emails, "value");
     var targetFirstEmail = targetEmails[0];
-
-
     return lodash.includes(name.toUpperCase(), searchText.get().toUpperCase()) || lodash.includes(targetFirstEmail.toUpperCase(), searchText.get().toUpperCase());
   },
+  
   displayInviteButton : function(){
     if(isInputAnEmail.get()){
       return "showInviteBtn";
@@ -142,10 +137,8 @@ Template.EmailInvite.helpers({
   }
 });
 
-/*****************************************************************************/
 /* EmailInvite: Lifecycle Hooks */
-/*****************************************************************************/
-Template.EmailInvite.created = function () {
+Template.EmailInvite.onCreated( function() {
   contactList.set("");
   searchText.set("");
   if (Meteor.isCordova) {
@@ -158,10 +151,10 @@ Template.EmailInvite.created = function () {
   } else {
     contactList.set([]);
   }
-};
+});
 
-Template.EmailInvite.rendered = function () {
-};
+Template.EmailInvite.onRendered( function() {
+});
 
 Template.EmailInvite.destroyed = function () {
   contactList.set("");
@@ -170,14 +163,10 @@ Template.EmailInvite.destroyed = function () {
 
 function onSuccess(contacts) {
   /*alert('Found ' + contacts.length + ' contacts.');*/
-
   contacts = lodash.filter(contacts, function (item) {
     return item.emails !== null;
   });
-
   contactsObj = contacts;
-
-
   contactList.set(contacts);
 }
 

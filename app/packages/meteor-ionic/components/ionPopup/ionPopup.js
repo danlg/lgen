@@ -146,13 +146,13 @@ IonPopup = {
   }
 };
 
-Template.ionPopup.rendered = function () {
+Template.ionPopup.onRendered( function() {
   $(window).on('keyup.ionPopup', function(event) {
     if (event.which == 27) {
       IonPopup.close();
     }
   });
-};
+});
 
 Template.ionPopup.destroyed = function () {
   $(window).off('keyup.ionPopup');

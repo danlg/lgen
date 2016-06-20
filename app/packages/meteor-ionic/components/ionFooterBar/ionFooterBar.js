@@ -1,6 +1,6 @@
-Template.ionFooterBar.rendered = function () {
+Template.ionFooterBar.onRendered( function() {
   Session.set('hasFooter', true);
-};
+});
 
 Template.ionFooterBar.destroyed = function () {
   Session.set('hasFooter', false);

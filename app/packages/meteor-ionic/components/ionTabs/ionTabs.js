@@ -1,8 +1,8 @@
-Template.ionTabs.created = function () {
+Template.ionTabs.onCreated( function() {
   this.data = this.data || {};
-};
+});
 
-Template.ionTabs.rendered = function () {
+Template.ionTabs.onRendered( function() {
   if ((this.data.class && this.data.class.indexOf('tabs-top') > -1) || this.data.style === 'android' || ( !this.data.style && Platform.isAndroid())) {
     Session.set('hasTabsTop', true);
   } else {
@@ -16,7 +16,7 @@ Template.ionTabs.rendered = function () {
       Session.set('ionTab.current', href);
     }
   });
-};
+});
 
 Template.ionTabs.destroyed = function () {
   Session.set('hasTabs', false);

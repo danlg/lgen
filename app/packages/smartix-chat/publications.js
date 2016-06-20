@@ -15,28 +15,30 @@ Meteor.publish('getAllMyChatRooms', function () {
   });
 });
 
-Meteor.publish('getChatRoomMenbers', function () {
-  var chat = Chat.find({
-    users: {
-      $in: [this.userId]
-    }
-  }).fetch();
-  var arr = lodash.map(chat, "chatIds");
-  arr = lodash.pull(lodash.flatten(arr), this.userId);
-  return Meteor.users.find({
-    _id: {
-      $in: arr
-    }
-  });
-
-});
+// Meteor.publish('getChatRoomMenbers', function () {
+//   var chat = Chat.find({
+//     users: {
+//       $in: [this.userId]
+//     }
+//   }).fetch();
+//   var arr = lodash.map(chat, "chatIds");
+//   arr = lodash.pull(lodash.flatten(arr), this.userId);
+//   return Meteor.users.find({
+//     _id: {
+//       $in: arr
+//     }
+//   });
+//
+// });
 
 Meteor.publishComposite('chatRoomWithUser', function (chatRoomId) {
   return {
     find: function () {
       // Find posts made by user. Note arguments for callback function
       // being used in query.
-      return Smartix.Groups.Collection.find(chatRoomId);
+	    var cursor = Smartix.Groups.Collection.find(chatRoomId);
+        log.info("publishComposite:chatRoomWithUse", chatRoomId);
+        return cursor;
     },
     children: [
       {

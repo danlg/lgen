@@ -15,12 +15,12 @@ Template.UploadIcon.events({
     }
 });
 
-Template.UploadIcon.rendered = function () {    
+Template.UploadIcon.onRendered( function() {    
     inputParameters = Template.parentData(0);
     var imgHolder = this.find('#imageCrop');
     imgHolder.src = inputParameters.uploadedImage.result;
     img = CropPls(imgHolder);      
-};
+});
 
 function CropPls(image) 
 {

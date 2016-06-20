@@ -1,7 +1,5 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
-/*****************************************************************************/
 /* EmailSignin: Event Handlers */
-/*****************************************************************************/
 Template.EmailSignin.events({
   'input #email':function(event,template){
       template.email.set($("#email").val());
@@ -29,25 +27,20 @@ Template.EmailSignin.events({
   }    
 });
 
-/*****************************************************************************/
 /* EmailSignin: Helpers */
-/*****************************************************************************/
 Template.EmailSignin.helpers({});
 
-/*****************************************************************************/
 /* EmailSignin: Lifecycle Hooks */
-/*****************************************************************************/
-Template.EmailSignin.created = function () {
+Template.EmailSignin.onCreated( function() {
     this.email = new ReactiveVar("");
     this.password = new ReactiveVar("");
-    
     if (Meteor.userId()) {
       Smartix.helpers.routeToTabClasses(); 
-    }    
-};
+    }
+});
 
-Template.EmailSignin.rendered = function () {
-};
+Template.EmailSignin.onRendered( function() {
+});
 
 Template.EmailSignin.destroyed = function () {
 };
