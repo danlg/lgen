@@ -84,7 +84,8 @@ function falseFunc() {
 // });
 
 Images.allow({
-  insert: () => { return true; } ,
+//for school signup, the user  is not logged in so we need to authorize to upload image
+  insert: function()  { return true; } ,
   update: trueFunc,
   remove: trueFunc,
   download: trueFunc
@@ -100,7 +101,7 @@ Documents.allow({
   update: trueFunc,
   remove: trueFunc,
   download: trueFunc
-})
+});
 
 // Docs.allow({
 //   insert: trueFunc,

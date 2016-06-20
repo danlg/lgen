@@ -254,14 +254,14 @@ Template.registerHelper('getCurrentSchoolName',function(){
         return Router.current().params.school;
     }
     else{
-        let pickedSchoolId = Session.get('pickedSchoolId');
+        var pickedSchoolId = Session.get('pickedSchoolId');
         if( pickedSchoolId === 'global'){
             return 'global';
         }
         // if( pickedSchoolId === 'system'){
         //     return 'system';
         // }
-        let pickSchoolName = SmartixSchoolsCol.findOne(pickedSchoolId);
+        var pickSchoolName = SmartixSchoolsCol.findOne(pickedSchoolId);
         return pickSchoolName ? pickSchoolName.username : false;
     }
 });
@@ -275,7 +275,7 @@ Template.registerHelper('getCurrentSchoolId',function(){
         return schoolDoc ? schoolDoc._id : false;
     }
     else{
-        let pickedSchoolId = Session.get('pickedSchoolId');
+        var pickedSchoolId = Session.get('pickedSchoolId');
         return pickedSchoolId ? pickedSchoolId : false;
     }
 });

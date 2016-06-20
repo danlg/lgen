@@ -8,7 +8,12 @@ Package.describe({
 Package.onUse(function(api) {
     api.versionsFrom("1.2");
     api.use('iron:router');
+    //we cannot use ecmascript in smartix:lib
     //api.use('ecmascript');
+    //[1.3.2.4] ecmascript incompatible with tap:i18n
+    //https://github.com/meteor/meteor/issues/6941
+    //not working in Meteor 1.3.2.4 while tap-i18n defined in package #166
+    //https://github.com/TAPevents/tap-i18n/issues/166
     api.use('smartix:core');
     api.use('templating', 'client');
     api.use('stevezhu:lodash');
@@ -63,6 +68,8 @@ Package.onUse(function(api) {
         'i18n/sv/sv.i18n.json', 'i18n/sw/sw.i18n.json', 'i18n/th/th.i18n.json', 'i18n/tr/tr.i18n.json',
 
         'i18n/project-tap.i18n'
+    //],'client');
+        //
     ]);
     api.use('tap:i18n');
     api.imply('tap:i18n');
