@@ -3,11 +3,8 @@
 var currentChatroomId;
 
 Template.ChatRoom.onCreated( function () {
-	//log.info("Template.ChatRoom.onCreated ");
-
 	this.loadedItems = new ReactiveVar(10);
 	this.loadExtraItems = 5;
-
 	let chatRoomId = Router.current().params.chatRoomId;
 	//log.info("Template.ChatRoom.onCreated ", chatRoomId);
 
@@ -17,51 +14,21 @@ Template.ChatRoom.onCreated( function () {
 
 	//log.info("subscribed to chatRoomWithUser", chatRoomId);
 	this.subscribe('chatRoomWithUser', chatRoomId);
+	var self = this;
 	this.autorun(function () {
-		this.subscribe('smartix:messages/groupMessages',chatRoomId);
+		self.subscribe('smartix:messages/groupMessages', chatRoomId);
 	});
 });
 
 Template.ChatRoom.onRendered( function() {
+	//log.info("subcriptionsReady"+ Template.instance().subcriptionsReady());
 	currentChatroomId = Router.current().params.chatRoomId;
-	var scrollToBottom = function () {
-		var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight;
-		chatroomList.scrollTop = chatroomListToBottomScrollTopValue;
-	};
-
-	var imgReadyChecking = function () {
-		var hasAllImagesLoaded = true;
-		$('img').each(function () {
-			if (this.complete) {
-				//log.info('loaded');
-			}
-			else {
-				//log.info('not loaded');
-				hasAllImagesLoaded = false;
-			}
-		});
-		if (hasAllImagesLoaded) {
-			//log.info('scroll to bottom');
-			//need to wrap the code inside autorun and subscriptionready
-			//see http://stackoverflow.com/questions/32291382/when-the-page-loads-scroll-down-not-so-simple-meteor-js
-			//scroll to bottom
-			window.setTimeout(function () {
-				var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight;
-				chatroomList.scrollTop = chatroomListToBottomScrollTopValue;
-			}, 200);
-
-		}
-		else {
-			//if not all images is fully loaded, scroll bottom would not work.
-			//so we set a timer to do the imgReadyChecking again later
-			setTimeout(imgReadyChecking, 1000);
-		}
-	};
-
 	//$(".list.chatroomList").height("100%");
 	//$(".list.chatroomList").height(($(".list.chatroomList").height() - 123) + "px");
 	$(".inputBox").autogrow();
+
 	var chatroomList = this.find('.chatroomList');
+	//debugger;
 	var initialChatObj = Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId});
 	var initialCount;
 	if (initialChatObj) {
@@ -123,22 +90,57 @@ Template.ChatRoom.onRendered( function() {
 	/****track if there are any new messages - END *********/
 	var template = this;
 	//scroll to bottom
+	//log.info("Before autorun", chatroomList);
 	this.autorun(function () {
 		if (template.subscriptionsReady()) {
 			Tracker.afterFlush(function () {
-				scrollToBottom();
+				//log.info("Tracker.afterFlush:scrollToBottom", chatroomList);
+				scrollToBottom(chatroomList);
 				if ($('img')) {
 					//run immediately for the first time
 					imgReadyChecking();
 				}
-			});
+			}.bind(this));
 		}
-	});
+	}.bind(this));
 	var newMessageBubbleText = '<div class="new-message-bubble"> <div class="">' +
 		'<i class="icon ion-android-arrow-dropdown"></i> NEW MESSAGES ' +
 		'<i class="icon ion-android-arrow-dropdown"></i> </div> </div>';
 	$('i.ion-record').first().parents('div.item').before(newMessageBubbleText);
 });
+
+var scrollToBottom = function (list) {
+	var chatroomListToBottomScrollTopValue = list.scrollHeight - list.clientHeight;
+	list.scrollTop = chatroomListToBottomScrollTopValue;
+};
+
+var imgReadyChecking = function () {
+	var hasAllImagesLoaded = true;
+	$('img').each(function () {
+		if (this.complete) {
+			//log.info('loaded');
+		}
+		else {
+			//log.info('not loaded');
+			hasAllImagesLoaded = false;
+		}
+	});
+	if (hasAllImagesLoaded) {
+		//log.info('scroll to bottom');
+		//need to wrap the code inside autorun and subscriptionready
+		//see http://stackoverflow.com/questions/32291382/when-the-page-loads-scroll-down-not-so-simple-meteor-js
+		//scroll to bottom
+		window.setTimeout(function () {
+			var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight;
+			chatroomList.scrollTop = chatroomListToBottomScrollTopValue;
+		}, 200);
+	}
+	else {
+		//if not all images is fully loaded, scroll bottom would not work.
+		//so we set a timer to do the imgReadyChecking again later
+		setTimeout(imgReadyChecking, 1000);
+	}
+};
 
 Template.ChatRoom.destroyed = function () {
 

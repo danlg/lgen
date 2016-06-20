@@ -8,9 +8,10 @@ var searchString = ReactiveVar("");
 /* ChatInvite: Lifecycle Hooks */
 Template.ChatInvite.onCreated(function () {
    //NB: in master_layout. there is a allUsersWhoHaveJoinedYourClasses sub
-   this.autorun(() => {
-      this.subscribe('allSchoolUsersPerRole', UI._globalHelpers['getCurrentSchoolName']() );
-   });
+    var self = this;
+    this.autorun(function() {
+        self.subscribe('allSchoolUsersPerRole', UI._globalHelpers['getCurrentSchoolName']() );
+    });
 });
 
 

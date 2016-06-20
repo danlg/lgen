@@ -97,7 +97,7 @@ Template.ChatRoom.helpers({
         //     else 
         // }
     }else{
-        log.warn("Cannot find getGroupOrCorrespondentAvatar", Router.current().params.chatRoomId);
+        //log.warn("Cannot find getGroupOrCorrespondentAvatar", Router.current().params.chatRoomId);
         return "";
     }
   },

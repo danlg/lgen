@@ -22,11 +22,12 @@ Template.ClassDetail.onCreated(function () {
 		type: 'class',
 		classCode: classcode
 	});
+	var self = this;
 	this.autorun(function () {
-		this.subscribe('smartix:messages/groupMessages', classObj._id);
-		this.subscribe('images', UI._globalHelpers['getCurrentSchoolName'](), 'class', classcode);
-		this.subscribe('documents', UI._globalHelpers['getCurrentSchoolName'](), 'class', classcode);
-		this.subscribe('sounds', UI._globalHelpers['getCurrentSchoolName'](), 'class', classcode);
+		self.subscribe('smartix:messages/groupMessages', classObj._id);
+		self.subscribe('images', UI._globalHelpers['getCurrentSchoolName'](), 'class', classcode);
+		self.subscribe('documents', UI._globalHelpers['getCurrentSchoolName'](), 'class', classcode);
+		self.subscribe('sounds', UI._globalHelpers['getCurrentSchoolName'](), 'class', classcode);
 	});
 });
 
