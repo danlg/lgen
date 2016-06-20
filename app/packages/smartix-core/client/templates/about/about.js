@@ -7,17 +7,18 @@ Template.About.helpers({
     //require plugin cordova-plugin-compile-time
     //http://eclipsesource.com/blogs/2015/04/07/an-apache-cordova-hook-to-auto-bump-ios-cfbundleversion-and-android-versioncode/
     //https://gist.github.com/hstaudacher/d78b154509e2783cfcc2 - timestamp_version_bump.js
-    var version = "1.2.2 build 250";
-    if (Meteor.isCordova) {
-      //version = window.cordova.compileTime.version; //now broken with carmel branch
-      return version;
-    }
-    //TODO fix me on web version !
-    else {
-      //let txt = Assets.getText("../../mobile-config.js");
-      //log.info(txt);
-      return (Meteor.settings && Meteor.settings.VERSION) ?  Meteor.settings.VERSION : version;
-    }
+    var version = "1.2.2 build 251";
+    return version;
+    // if (Meteor.isCordova) {
+    //   //version = window.cordova.compileTime.version; //now broken with carmel branch
+    //   return version;
+    // }
+    // //TODO fix me on web version !
+    // else {
+    //   //let txt = Assets.getText("../../mobile-config.js");
+    //   //log.info(txt);
+    //   return (Meteor.settings && Meteor.settings.VERSION) ?  Meteor.settings.VERSION : version;
+    // }
   },
 
   getlegal: function () {
