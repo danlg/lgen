@@ -166,7 +166,7 @@ Template.AdminAddStudent.events({
             notifyuserwithemail, // notify false (until we implement the flag for create user)
             function(err, res) {
                 if (!err) {
-                    toastr.info(TAPi18n.__("admin.users.add.addSuccess"));
+                    toastr.info(TAPi18n.__("Admin.AddSuccess"));
                     // User is created, now we submit each of the parents
                     // Create the parent objects , It was already validated before, so should not throw an error
                     createParents(res.id, template, notifyuserwithemail);

@@ -40,7 +40,7 @@
     "AgeNotRestrictedComment": "Non",
     "AgeRestricted": "Les membres ont au moins 13 ans",
     "AgeRestrictedComment": "Oui",
-    "All": "Tous les",
+    "All": "Tous",
     "AllFieldsOptional": "Remarque : Tous les autres champs sont facultatifs dont le mot de passe qui permet de prérégler le mot de passe de l’élève. Les champs obligatoires sont indiqués en",
     "AllParentRecord": "Tous les champs après Courriel étudiant font partie d’un enregistrement parent.",
     "Approved": "Approuvé",
@@ -281,7 +281,14 @@
     "ViewExpectedAbsences": "Absences prévues",
     "ViewRSSFeeds": "Affichage de flux RSS",
     "WelcometoSmartixAdmin": "Bienvenue sur Smartix Admin !",
-    "if": "If"
+    "if": "If",
+
+    "ImportIncorrectFormat": "Le fichier fourni à l’importation ne correspond pas au format requis. Merci de vérifier et réessayer.",
+    "ImportSuccess": "Les utilisateurs ont été importés avec succès",
+    "StudentDobRequired": "Date de naissance requise pour les étudiants",
+    "AddSuccess": "L’utilisateur a été ajouté avec succès",
+    "UpdateFail": "There was an error while updating. Please try again. ",
+    "UpdateSuccess": "User was updated successfully"
   },
   "AdminDashboard": "Tableau de bord admin",
   "Allow_this_class_to_be_searched": "Autoriser la recherche de cette classe",
@@ -427,6 +434,7 @@
   "OrganizationPlaceHolder": "Mon école ou organisation",
   "Other": "Autres",
   "PUSH": "Notification push",
+  "parent": "parent",
   "Parent": "Parent",
   "Parents": "Parents",
   "Password": "Mot de passe",
@@ -492,6 +500,7 @@
   "Smartix": "Smartix",
   "StartFreeTrial": "Commencer l'essai gratuit de 30 jours de mon app d'école personnalisée",
   "StartNewChat": "Démarrer un nouveau chat",
+  "student": "élève",
   "Student": "Elève",
   "StudentAndParentCanJoinByClassCode": "Élèves et parents peuvent se joindre à votre classe en tapant le code de classe dans l’application ou dans un navigateur.",
   "StudentAndParentVisitLinkToJoinClass": "Élèves et les parents peuvent visiter ce lien pour rejoindre votre classe. Ils peuvent copier et coller dans leur navigateur.",
@@ -583,18 +592,6 @@
   },
   "addClassDescription": "C’est OK si les élèves sont moins de 13 ans ; Nous allons leur demander par courriel des parents pour garder tout le monde dans la boucle.",
   "addClassTerm": "",
-  "admin": {
-    "users": {
-      "add": {
-        "addSuccess": "L’utilisateur a été ajouté avec succès",
-        "studentDobRequired": "Date de naissance requise pour les étudiants"
-      },
-      "import": {
-        "importSuccess": "Les utilisateurs ont été importées avec succès",
-        "incorrectImportFormat": "Le fichier fourni à l’importation ne correspond pas au format requis. Merci de vérifier et réessayer."
-      }
-    }
-  },
   "and": " et ",
   "applicationError": {
     "refreshRequired": "Il y a une erreur de notre part. S’il vous plaît, actualisez la page et essayez à nouveau."

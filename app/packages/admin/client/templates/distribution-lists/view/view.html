@@ -59,7 +59,7 @@
                               <!--<i class="icon-add-to-list" ></i>-->
                               <i class="icon-plus2" ></i>
                             </button></td>
-                            <td>{{getUserRoles}}</td>
+                            <td style="text-transform: capitalize">{{getUserRoles}}</td>
                             <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}">{{profile.lastName}}</a></td>
                             <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}">{{profile.firstName}}</a></td>
                             <td>{{getUserEmail}}</td> 

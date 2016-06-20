@@ -97,7 +97,7 @@ Template.AdminUsersView.events({
         
         var dateFieldVal = template.$('#AdminUsers__dob').eq(0).val();
         if (dateFieldVal === "") {
-            toastr.error(TAPi18n.__("admin.users.add.studentDobRequired"));
+            toastr.error(TAPi18n.__("Admin.StudentDobRequired"));
             return false;
         } else {
             newUserObj.dob = moment(new Date(template.$('#AdminUsers__dob').eq(0).val())).format('DD-MM-YYYY');
@@ -130,9 +130,9 @@ Template.AdminUsersView.events({
             newUserObj,
             function(err, res) {
                 if (!err) {
-                    toastr.info(TAPi18n.__("admin.users.update.UpdateSuccess"));
+                    toastr.info(TAPi18n.__("Admin.UpdateSuccess"));
                 } else {
-                    toastr.info(TAPi18n.__("admin.users.update.UpdateFail"));
+                    toastr.info(TAPi18n.__("Admin.UpdateFail"));
                     log.error(err);
                 }
             }

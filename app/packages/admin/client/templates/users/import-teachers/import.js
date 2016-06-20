@@ -114,7 +114,7 @@ Template.AdminTeachersImport.events({
                                 toastr.warning("Creating a user sharing an e-mail with an existing user or adding a new role to an existing user are the possible causes of the warning", null,toasterOption);
                             }
                             else {
-                                //toastr.info(TAPi18n.__("admin.users.import.importSuccess"), {timeOut:0});
+                                //toastr.info(TAPi18n.__("Admin.ImportSuccess"), {timeOut:0});
                                 toastr.info(success + "/" + total + " users have been imported successfully", null,toasterOption);
                             }
                             Session.set('imported-teachers', undefined);

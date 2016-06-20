@@ -72,16 +72,13 @@
                     {{#EasySearch.Each index=usersIndex }}
                         <tr>
                             <td><input {{isUserChecked _id}} type="checkbox" name="user" class='school-directory-user-checkbox' value="{{_id}}"/></td>
-                            <td>{{getUserRoles}}</td>
+                            <td style="text-transform: capitalize">{{getUserRoles}}</td>
                             <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}">{{profile.lastName}}</a></td>
                             <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}">{{profile.firstName}}</a></td>
                             <td>{{getUserEmail}}</td> 
                             <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}"> {{username}} </a></td>
-                            <td>{{grade}}</td> 
-                              
-                            
-               
-                        </tr>                    
+                            <td>{{grade}}</td>
+                        </tr>
                     {{/EasySearch.Each}}
                     </tbody>
                     {{#EasySearch.IfNoResults index=usersIndex}}
@@ -119,7 +116,7 @@
         <td>{{profile.firstName}}</td>
         <td>{{profile.lastName}}</td>
         <td>{{getUserEmail}}</td>   
-        <td>{{getUserRoles}}</td>   
+        <td style="text-transform: capitalize">{{getUserRoles}}</td>
         <td><button> {{_ "Admin.Edit" }}</button></td>         
         <td><button>{{_ "Admin.Remove" }}</button></td>                
     </tr>

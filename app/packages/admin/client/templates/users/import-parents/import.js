@@ -100,7 +100,7 @@ Template.AdminParentsImport.events({
                         toastr.info(res.newUsers.length + " new users have been imported.", null, toasterOption);
                         toastr.info(res.existingUsers.length + " users already exists and were not imported.", null, toasterOption);
                     } else {
-                        toastr.error(TAPi18n.__("admin.users.import.incorrectImportFormat"), null,toasterOption);
+                        toastr.error(TAPi18n.__("incorrectImportFormat"), null,toasterOption);
                         toastr.error(err.reason, null, toasterOption);
                         log.error(err.reason);
                     }
@@ -109,7 +109,7 @@ Template.AdminParentsImport.events({
                 Session.set('imported-parents', undefined);
                 $("#parents-upload-file").val('');
             } else {
-                toastr.error(TAPi18n.__("admin.users.import.incorrectImportFormat"));
+                toastr.error(TAPi18n.__("Admin.ImportIncorrectFormat"));
             }
     },
     'click #ParentsImport_clear': function () {

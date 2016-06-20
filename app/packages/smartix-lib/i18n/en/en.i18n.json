@@ -142,6 +142,7 @@
     "OKayGotIt": "OK got it",
     "OK_lets_get_started": "OK let's get started !",
     "OR": "OR",
+    "parent": "parent",
     "Parent": "Parent",
     "Parents": "Parents",
     "Password": "Password",
@@ -193,6 +194,7 @@
     "Skip": "Skip",
     "Smartix": "Smartix",
     "StartNewChat": "Start a new chat",
+    "student": "student",
     "Student": "Student",
     "Students": "Students",
     "StudentAndParentCanJoinByClassCode": "Students and parents can join your class by typing the class code in the app or in a browser.",
@@ -201,6 +203,7 @@
     "Subscriber_plural": "Members",
     "SwitchSchool": "Switch school",
     "Take_a_private_note": "Take a private note",
+    "teacher": "teacher",
     "Teacher": "Teacher",
     "Teachers": "Teachers",
     "Terms_of_service": "Terms of service",
@@ -360,22 +363,6 @@
         "Namespace": "School",
         "Norecord" : "No relationship record",
         "Relationship" : "Relationship"
-    },
-    "admin": {
-        "users": {
-            "import": {
-                "incorrectImportFormat": "The file provided for import does not fit the required format. Please check and try again.",
-                "importSuccess": "Users were imported successfully"
-            },
-            "add": {
-                "studentDobRequired": "Date of Birth is required for students",
-                "addSuccess": "User was added successfully"
-            },
-            "update": {
-                "UpdateFail": "There was an error while updating. Please try again. ",
-                "UpdateSuccess": "User was updated successfully"
-            }
-        }
     },
     "Admin":{
         "All":"Show All",
@@ -648,7 +635,14 @@
         "ListSearchInput":"Type the name of the distribution list you want to add",
         "WelcometoSmartixAdmin":"Welcome to Smartix Admin!",
         "VerificationConfirmation": "Verification email sent!",
-        "VerificationIssue":"There was an issue with sending the emails"
+        "VerificationIssue":"There was an issue with sending the emails",
+
+        "ImportIncorrectFormat": "The file provided for import does not fit the required format. Please check and try again.",
+        "ImportSuccess": "Users were imported successfully",
+        "StudentDobRequired": "Date of Birth is required for students",
+        "AddSuccess": "User was added successfully",
+        "UpdateFail": "There was an error while updating. Please try again. ",
+        "UpdateSuccess": "User was updated successfully"
     },
     "Newsgroups":{
         "Newsgroups":"Newsgroups",

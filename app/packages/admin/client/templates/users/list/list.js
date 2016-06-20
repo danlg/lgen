@@ -2,32 +2,29 @@ Template.AdminUsersSearch.helpers({
   doingOperations:function(){
    return Template.instance().doingOperations.get();   
   },
+    
   getUserEmail:function(){
       if(this.emails){
        return this.emails[0].address;
       }
   },
+    
   getUserRoles:function(){
-      var schoolUsername = UI._globalHelpers['getCurrentSchoolName']();
-      var schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
-      if(schoolNamespace){
+      var schoolId = UI._globalHelpers['getCurrentSchoolId']();
+      if(schoolId){
           let role = "";
           if(this.roles) {
-              //tod this more clever
-              role = this.roles[schoolNamespace].toString();
-              if (role === "student") { role = "Student" }
-              if (role === "parent") { role = "Parent" }
-              if (role === "teacher") { role = "Teacher" }
-              if (role === "admin") { role = "Admin" }
+              role = this.roles[schoolId].toString();//in English
+              role = TAPi18n.__ ( role);
           }
           return role;
-      }            
-
+      }
   },
 
   getUserId:function(){
       return this._id;
   },
+    
   isUserChecked:function(){
       //log.info(this._id )
     //log.info(Template.instance().usersChecked.get());
