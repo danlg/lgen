@@ -31,6 +31,7 @@
     "AddRSS": "הוספת RSS ",
     "AddRSSFeed": "הוספת RSS Feed",
     "AddReference": " להוסיף על-ידי הפניה",
+    "AddSuccess": "משתמש נוסף בהצלחה",
     "AddUser": "הוספת משתמש",
     "AddUserRole": "הוסף התפקיד",
     "AddnewRSSfeed": "אולי להוסיף הזנות חדשות וקשר זה דיון שלך.",
@@ -40,7 +41,7 @@
     "AgeNotRestrictedComment": "לא",
     "AgeRestricted": "חברי הם בת 13 לפחות",
     "AgeRestrictedComment": "כן",
-    "All": "כל",
+    "All": "הצג הכל",
     "AllFieldsOptional": "הערה: כל השדות האחרים הם אופציונליים כולל הסיסמה, אשר מאפשרת לך להגדיר מראש את הסיסמה של התלמיד. שדות חובה מסומנים ב-",
     "AllParentRecord": "כל השדות לאחר סטודנט אלקטרוני שייכות רשומת אב.",
     "Approved": "אושרה",
@@ -127,9 +128,11 @@
     "HaveBeenSelected": "נבחרו.",
     "Hide": "הסתר",
     "ImportClasses": "מחלקות ייבוא",
+    "ImportIncorrectFormat": "הקובץ שסופק עבור ייבוא אינו תואם את תבנית נדרש. אנא בדוק ונסה שוב.",
     "ImportNewsArticles": "לייבא מאמרים חדשות",
     "ImportNewsgroups": "לייבא קבוצות דיון",
     "ImportParents": "ייבוא ההורים",
+    "ImportSuccess": "משתמשים יובאו בהצלחה",
     "ImportTeachersStaff": "ייבוא המורים והעובדים",
     "ImportUsers": "לייבא תלמידים",
     "ImportedUsersNoEmails": "משתמשים מיובאים עם אין מיילים",
@@ -168,6 +171,7 @@
     "MotherSalutation": "ברכה לאמא",
     "NewsCode": "קוד חדשות",
     "NewsDetails": "חדשות פרטים",
+    "NewsTitlePlaceholder": "כותרת קליטה מעולה כדי ללכוד את הקהל שלך",
     "NewsgroupDetails": "דיון פרטי",
     "NewsgroupName": "דיון שם",
     "Newsgroups": "קבוצות דיון",
@@ -228,7 +232,7 @@
     "SelectListCopyUsers": "בחר את (ות) תפוצה כדי להעתיק משתמשים. עבור בחירה מרובים, הקש Ctrl(PC) או ⌘ (Mac)",
     "SelectNone": "אף אחד",
     "SelectNoneCurrentPage": "אף אחד (בדף זה)",
-    "SetPasswordUser": "ייתכן באופן ידני להגדיר סיסמה עבור המשתמש",
+    "SetPasswordUser": "ייתכן באופן ידני להגדיר סיסמה עבור המשתמש. פעולה זו נדרשת אם דואר אלקטרוני לא מסופק",
     "Show": "הצג",
     "Show/HiddenNews": "הצג / הסתר חדשות",
     "ShowAbsent": "הצג נעדר",
@@ -244,7 +248,9 @@
     "Step3Parents": "שלב 3: העלאת בקובץ ה-CSV של ההורים",
     "Step3Students": "שלב 3: העלאת בקובץ ה-CSV של סטודנטים",
     "Step3Teachers": "שלב 3: העלאת בקובץ ה-CSV של המורים והעובדים",
+    "StoryPlaceHolder": "לכתוב את הסיפור. הגדול שלך כאן",
     "StructureFile": "המבנה של הקובץ היא בעצם שורה אחת לכל מורה. העמודות מתאר כיצד יאורגנו מחלקות של המורה. אנא עיין בהנחיות הבאות להזנת נתונים המורה לתוך הגיליון האלקטרוני:",
+    "StudentDobRequired": "תאריך הלידה נדרש עבור סטודנטים",
     "StudentEmail": "סטודנט דואר אלקטרוני",
     "StudentID": "מזהה סטודנט",
     "StudentIDSkipped": "מזהה סטודנט ניתן לדלג אם התלמיד דואר אלקטרוני זה קיים, ולהיפך. אחד לפחות ההורה או המטפל הוא חובה.",
@@ -263,7 +269,9 @@
     "Title": "כותרת",
     "TotalUser": "סה כ משתמשים:",
     "Type": "סוג",
+    "UpdateFail": "אירעה שגיאה בעת עדכון. נא נסה שוב. ",
     "UpdateFilters": "עדכון מסנני",
+    "UpdateSuccess": "משתמש עודכן בהצלחה",
     "Upload": "להעלות",
     "UploadAttendenceRecords": "העלאת קובץ וביקור",
     "UploadCSV": "להעלות CSV",
@@ -287,6 +295,8 @@
   "App_tour_explain": "סיור app: להראות לי את היתרונות!",
   "AskParentAndStudentToDownloadApp": "לשאול את ההורים והתלמידים כדי להוריד את האפליקצייה \"Smartix\" ב- App Store או על Google Play",
   "AskParentAndStudentToDownloadApp_IOS": "לשאול את ההורים והתלמידים כדי להוריד את האפליקצייה \"Smartix\" ",
+  "AttachDocument": "לצרף מסמך",
+  "AttachEvent": "לצרף אירוע",
   "Attendance": "נוכחות",
   "Background": "רקע",
   "Calendar": "לוח שנה",
@@ -427,7 +437,7 @@
   "Password": "סיסמה",
   "PasswordChanged": "הסיסמה שונתה. ברוך הבא!",
   "PasswordNotEnoughLength": "לפחות 4 תווים סיסמה",
-  "PasswordNotTheSame": "סיסמה, הסיסמה אינה זהה.",
+  "PasswordNotTheSame": "הסיסמה ואשר סיסמה לא אותו הדבר",
   "PersonalDomain": "התחום ספר אישי שלך",
   "PersonalDomainHelp": "שם בית הספר (מילה אחת, ללא רווחים)",
   "PersonalSignup": "להירשם לקבלת חשבון בודדים",
@@ -456,6 +466,7 @@
   "Sat": "שבת",
   "Saturday": "שבת",
   "Save": "שמור",
+  "SchoolSignupMsg": "צור חשבון הארגון לבית הספר",
   "Search": "חיפוש",
   "SelectCountry": "בחר מדינה",
   "Send": "שלח",
@@ -503,7 +514,7 @@
   "Thanks_for_sharing": "המון תודה על שהענקת לנו משוב כדי לשפר את השירותים שלנו",
   "TheFollowingMemberWouldBeRemoved": "האיבר הבא יוסר",
   "ThisCommentIsHidden": "זו הערה מוסתרת",
-  "ThisCommentIsHiddenFromJoinedMembers": "זו הערה מוסתרת מחברי המצורפים",
+  "ThisCommentIsHiddenFromJoinedMembers": "ההערה הזו הייתה מונחית",
   "Thu": "חמישי",
   "Thursday": "חמישי",
   "TimeDays": "זמן ימים",
@@ -520,7 +531,7 @@
   "VerificationEmail": "דואל:",
   "VerifyEmailSubject": "ברוכים הבאים Smartix - אנא בדוק את הדוא ל שלך",
   "Vote": "ההצבעה",
-  "WeHaveAppVersion": ". יש לנו גירסה app שזה יותר טוב... אתה יכול להוריד את זה ממנו ",
+  "WeHaveAppVersion": "Smartix זמינה גם ליישום נייד לנוחותך. אתה יכול להוריד את זה ממנו ",
   "Wed": "רביעי",
   "Wednesday": "רביעי",
   "WelcomeBack": "ברוך הבא!",
@@ -528,6 +539,7 @@
   "WelcomeVerification": "ברוכים הבאים Smartix. דואר אלקטרוני לאימות שלחה גם לחשבון שלך. לחץ עליו כדי לאפשר תכונות נוספות!",
   "Whatisyourdateofbirth": "מהו תאריך הלידה שלך?",
   "WhichIssues": " אילו בעיות בפניך ביותר בבית הספר?",
+  "Yesterday": "אתמול",
   "You": "אתה",
   "YouAre": ". אתה",
   "YouAreAt": ". אתה-",
@@ -578,18 +590,6 @@
   },
   "addClassDescription": "זה בסדר אם התלמידים הם מתחת לגיל 13; אנו נבקש מהם דוא של ההורה שלהם כדי לשמור על כולם בתמונה.",
   "addClassTerm": "",
-  "admin": {
-    "users": {
-      "add": {
-        "addSuccess": "משתמש נוסף בהצלחה",
-        "studentDobRequired": "תאריך הלידה נדרש עבור סטודנטים"
-      },
-      "import": {
-        "importSuccess": "משתמשים יובאו בהצלחה",
-        "incorrectImportFormat": "הקובץ שסופק עבור ייבוא אינו תואם את תבנית נדרש. אנא בדוק ונסה שוב."
-      }
-    }
-  },
   "and": " ו ",
   "applicationError": {
     "refreshRequired": "יש שגיאה מהצד שלנו. אנא רענן את הדף ונסה שוב."
@@ -598,6 +598,7 @@
   "feedbackTextarea": "ספר לנו מה אתה חושב! המשוב שלך מאפשרת לנו כדי לשפר את השירותים שלנו וכדי לשמח את החברים שלנו",
   "invite": "מזמינים",
   "message": "ההודעה",
+  "parent": "האב",
   "password": "סיסמה",
   "requiredFields": "נא ודא כל שדות החובה הם מלאים ב-",
   "schemas": {
@@ -687,16 +688,20 @@
   },
   "smartix-classes": {
     "Loadmessages": "...",
+    "ViewListUsers": "חברי מרשימות תפוצה",
     "ViewUsers": "הצג חברים"
   },
   "smartix-core": {
     "Version": "גירסה"
   },
   "smartix-iconchooser": {
-    "Save": "שמור"
+    "SelectEmojiOrUploadImage": "להעלות תמונה או לבחור של emoji",
+    "UploadImage": "להעלות תמונה"
   },
   "smartix-sharer": {
     "SignupWithEmail": "המשתמש הנוכחי עם דוא? . תחתום כאן"
   },
+  "student": "סטודנט",
+  "teacher": "המורה",
   "your_class_is_ready_classname": "Classname__ _ _ הכיתה שלך מוכן!"
 }

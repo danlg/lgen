@@ -31,6 +31,7 @@
     "AddRSS": "RSS 추가 ",
     "AddRSSFeed": "RSS 피드 추가",
     "AddReference": " 참조로 추가",
+    "AddSuccess": "사용자가 성공적으로 추가",
     "AddUser": "사용자 추가",
     "AddUserRole": "역할 추가",
     "AddnewRSSfeed": "새 RSS 피드를 추가 하 고 당신의 뉴스 그룹에 연결할 수 있습니다.",
@@ -40,7 +41,7 @@
     "AgeNotRestrictedComment": "없음",
     "AgeRestricted": "멤버는 적어도 13 살",
     "AgeRestrictedComment": "예",
-    "All": "모든",
+    "All": "모두 보기",
     "AllFieldsOptional": "참고: 다른 모든 필드는 미리 학생의 암호를 설정 하면 암호를 포함 하 여 옵션입니다. 필수 필드에는 강조 표시 됩니다.",
     "AllParentRecord": "학생 전자 메일 후 모든 필드를 부모 레코드에 속한다.",
     "Approved": "승인",
@@ -127,9 +128,11 @@
     "HaveBeenSelected": "선택 되었습니다.",
     "Hide": "숨기기",
     "ImportClasses": "클래스 가져오기",
+    "ImportIncorrectFormat": "파일 가져오기에 대 한 제공에 필요한 형식을 적합 하지 않습니다. 확인 하 고 다시 시도 하십시오.",
     "ImportNewsArticles": "뉴스 기사 가져오기",
     "ImportNewsgroups": "뉴스 그룹 가져오기",
     "ImportParents": "부모를 가져오기",
+    "ImportSuccess": "사용자가 성공적으로 가져온",
     "ImportTeachersStaff": "가져오기 교사 및 직원",
     "ImportUsers": "가져오기 학생",
     "ImportedUsersNoEmails": "아니 이메일을 가져온된 사용자가",
@@ -168,6 +171,7 @@
     "MotherSalutation": "어머니 인사말",
     "NewsCode": "뉴스 코드",
     "NewsDetails": "뉴스 정보",
+    "NewsTitlePlaceholder": "귀하의 고객을 잡으려고 큰 익숙한 제목",
     "NewsgroupDetails": "뉴스 그룹 정보",
     "NewsgroupName": "뉴스 그룹 이름",
     "Newsgroups": "뉴스 그룹",
@@ -228,7 +232,7 @@
     "SelectListCopyUsers": "사용자가 복사 배포 목록을 선택 합니다. 다중 선택에 대 한 Ctrl(PC) 또는 ⌘ (Mac)를 누릅니다",
     "SelectNone": "없음",
     "SelectNoneCurrentPage": "없음 (이 페이지)",
-    "SetPasswordUser": "사용자에 대 한 암호를 수동으로 설정할 수 있습니다.",
+    "SetPasswordUser": "수동으로 사용자에 대 한 암호를 설정할 수 있습니다. 이것은 필요 없는 전자 메일을 제공 하는 경우",
     "Show": "보기",
     "Show/HiddenNews": "표시/숨기기 뉴스",
     "ShowAbsent": "결 석 표시",
@@ -244,7 +248,9 @@
     "Step3Parents": "3 단계: 부모의 CSV 파일 업로드",
     "Step3Students": "3 단계: 학생의 CSV 파일 업로드",
     "Step3Teachers": "3 단계: 교사와 직원의 CSV 파일 업로드",
+    "StoryPlaceHolder": "여기에 당신의 위대한 이야기 쓰기",
     "StructureFile": "파일의 구조는 기본적으로 교사 당 1 줄. 열은 선생님의 빌드하면 됩니다 구성 하는 방법을 설명 합니다. 스프레드시트에 교사 데이터를 입력 하기 위한 다음 지침을 참조 하십시오.",
+    "StudentDobRequired": "출생의 날짜는 학생 들을 위한 필요",
     "StudentEmail": "학생 전자 메일",
     "StudentID": "학생 ID",
     "StudentIDSkipped": "있으면 학생 전자 메일, 학생 ID를 건너뛸 수 있습니다 반대로. 하나 이상의 부모 또는 보호자는 필수입니다.",
@@ -263,7 +269,9 @@
     "Title": "제목",
     "TotalUser": "총 사용자:",
     "Type": "유형",
+    "UpdateFail": "업데이트 하는 동안 오류가 발생 했습니다. 다시 시도 하십시오. ",
     "UpdateFilters": "업데이트 필터",
+    "UpdateSuccess": "사용자가 성공적으로 업데이트 되었습니다.",
     "Upload": "업로드",
     "UploadAttendenceRecords": "출석 파일 업로드",
     "UploadCSV": "CSV 업로드",
@@ -287,6 +295,8 @@
   "App_tour_explain": "응용 프로그램 투어: 혜택을 보여줘!",
   "AskParentAndStudentToDownloadApp": "\"Smartix\" 또는 Google의 App 스토어에서 응용 프로그램을 다운로드 하는 학부모와 학생 들에 게",
   "AskParentAndStudentToDownloadApp_IOS": "응용 프로그램 \"Smartix\"를 다운로드 하는 학부모와 학생 들에 게 ",
+  "AttachDocument": "문서 첨부",
+  "AttachEvent": "이벤트 연결",
   "Attendance": "출석",
   "Background": "배경",
   "Calendar": "달력",
@@ -427,7 +437,7 @@
   "Password": "암호",
   "PasswordChanged": "비밀 번호 변경 되었습니다. 안녕하세요!",
   "PasswordNotEnoughLength": "4 문자 암호",
-  "PasswordNotTheSame": "암호 및 암호 확인은 동일 하지 않습니다.",
+  "PasswordNotTheSame": "암호와 확인 암호가 동일 하지는",
   "PersonalDomain": "맞춤형된 학교 도메인",
   "PersonalDomainHelp": "학교 이름 (1 단어, 공백 없이)",
   "PersonalSignup": "개별 계정에 가입",
@@ -456,6 +466,7 @@
   "Sat": "토요일",
   "Saturday": "토요일",
   "Save": "저장",
+  "SchoolSignupMsg": "학교에 대 한 조직 계정 만들기",
   "Search": "검색",
   "SelectCountry": "국가 선택",
   "Send": "보내기",
@@ -503,7 +514,7 @@
   "Thanks_for_sharing": "우리에 게 지속적으로 우리의 서비스를 개선 하기 위해 피드백을 제공에 대 한 많은 감사",
   "TheFollowingMemberWouldBeRemoved": "다음 멤버는 제거 될 것 이다",
   "ThisCommentIsHidden": "이 주석은 숨겨집니다.",
-  "ThisCommentIsHiddenFromJoinedMembers": "이 덧 글 가입된 회원에서 숨겨집니다.",
+  "ThisCommentIsHiddenFromJoinedMembers": "이 덧 글 검토 됨",
   "Thu": "목요일",
   "Thursday": "목요일",
   "TimeDays": "시간 일",
@@ -520,7 +531,7 @@
   "VerificationEmail": "확인 이메일:",
   "VerifyEmailSubject": "Smartix에 오신것을 환영 합니다-귀하의 이메일을 확인 하십시오",
   "Vote": "투표",
-  "WeHaveAppVersion": "우리는 더 나은 애플 리 케이 션 버전이 있다. 그것을 다운로드할 수 있습니다. ",
+  "WeHaveAppVersion": "Smartix 사용자의 편의 위한 모바일 애플 리 케이 션으로 사용할 수 있다. 그것을 다운로드할 수 있습니다. ",
   "Wed": "수요일",
   "Wednesday": "수요일",
   "WelcomeBack": "안녕하세요!",
@@ -528,6 +539,7 @@
   "WelcomeVerification": "오신 것을 환영 합니다 Smartix. 확인 이메일은 또한 귀하의 계정에 전송 됩니다. 더 많은 기능을 사용할 수 클릭!",
   "Whatisyourdateofbirth": "출생의 날짜는 무엇입니까?",
   "WhichIssues": " 학교에서 가장 얼굴 어떤 문제 당신은?",
+  "Yesterday": "어제",
   "You": "당신",
   "YouAre": "당신은",
   "YouAreAt": "당신은에 있습니다.",
@@ -578,18 +590,6 @@
   },
   "addClassDescription": "그것은 확인 경우 학생 들이 13이 하; 우리는 그들에 게 루프에 모든 사람을 유지 그들의 부모의 이메일 거 야.",
   "addClassTerm": "",
-  "admin": {
-    "users": {
-      "add": {
-        "addSuccess": "사용자가 성공적으로 추가",
-        "studentDobRequired": "출생의 날짜는 학생 들을 위한 필요"
-      },
-      "import": {
-        "importSuccess": "사용자가 성공적으로 가져온",
-        "incorrectImportFormat": "파일 가져오기에 대 한 제공에 필요한 형식을 적합 하지 않습니다. 확인 하 고 다시 시도 하십시오."
-      }
-    }
-  },
   "and": " 그리고 ",
   "applicationError": {
     "refreshRequired": "우리의 끝에서 오류가 있다. 페이지를 새로 고침 하 고 다시 시도 하십시오."
@@ -598,6 +598,7 @@
   "feedbackTextarea": "무슨 생각을 알려주십시오! 귀하의 의견을 수 있도록 지속적으로 우리의 서비스를 개선 하 고 우리의 회원을 행복 하 게",
   "invite": "초대",
   "message": "메시지",
+  "parent": "부모",
   "password": "암호",
   "requiredFields": "모든 필수 필드는 채워진 확인 하십시오",
   "schemas": {
@@ -687,17 +688,20 @@
   },
   "smartix-classes": {
     "Loadmessages": "...",
+    "ViewListUsers": "메일 그룹에서 구성원",
     "ViewUsers": "멤버 표시"
   },
   "smartix-core": {
     "Version": "버전"
   },
   "smartix-iconchooser": {
-    "Save": "저장"
+    "SelectEmojiOrUploadImage": "이미지를 업로드 하거나는 emoji를 선택",
+    "UploadImage": "이미지 업로드"
   },
   "smartix-sharer": {
     "SignupWithEmail": "현재 사용자 이메일? 여기에 로그인"
   },
-  "your_class_is_ready_classname": "당신의 클래스 __ classname__ 준비입니다!",
-  "Yesterday": "어제"
+  "student": "학생",
+  "teacher": "교사",
+  "your_class_is_ready_classname": "당신의 클래스 __ classname__ 준비입니다!"
 }

@@ -31,6 +31,7 @@
     "AddRSS": "RSS を追加します。",
     "AddRSSFeed": "RSS フィードを追加します。",
     "AddReference": "参照を追加します。",
+    "AddSuccess": "ユーザーは正常に追加されました",
     "AddUser": "ユーザーを追加します。",
     "AddUserRole": "役割を追加します。",
     "AddnewRSSfeed": "新しい RSS フィードを追加し、ニュースグループへのリンクがあります。",
@@ -40,7 +41,7 @@
     "AgeNotRestrictedComment": "違います",
     "AgeRestricted": "メンバーは、少なくとも 13 歳",
     "AgeRestrictedComment": "[はい]",
-    "All": "すべて",
+    "All": "全件表示します。",
     "AllFieldsOptional": "注: 他のすべてのフィールドは、生徒のパスワードを事前設定することができますパスワードを含むオプションです。必須フィールドに強調表示されます。",
     "AllParentRecord": "学生メール後すべてのフィールドは、親レコードに属する。",
     "Approved": "承認",
@@ -127,9 +128,11 @@
     "HaveBeenSelected": "選択されています。",
     "Hide": "非表示",
     "ImportClasses": "クラスをインポートします。",
+    "ImportIncorrectFormat": "インポートに指定ファイル必要な形式と一致しません。確認してください、もう一度やり直してください。",
     "ImportNewsArticles": "ニュース記事をインポートします。",
     "ImportNewsgroups": "ニュースグループをインポートします。",
     "ImportParents": "両親をインポートします。",
+    "ImportSuccess": "ユーザーが正常にインポートされました。",
     "ImportTeachersStaff": "インポート教職員",
     "ImportUsers": "学生をインポートします。",
     "ImportedUsersNoEmails": "インポートされたユーザーにメールを送信しません。",
@@ -168,6 +171,7 @@
     "MotherSalutation": "母の敬称",
     "NewsCode": "ニュース コード",
     "NewsDetails": "ニュース詳細",
+    "NewsTitlePlaceholder": "あなたの聴衆をキャプチャする素晴らしいキャッチーなタイトル",
     "NewsgroupDetails": "ニュースグループの詳細",
     "NewsgroupName": "ニュースグループ名",
     "Newsgroups": "ニュースグループ",
@@ -222,13 +226,12 @@
     "Search": "配布リストの検索",
     "SearchClasses": "検索クラス",
     "SearchDistributionLists": "配布リストの検索",
-    "SearchNewsgroups": "ニュースグループの検索",
     "SelectAll": "すべてを選択します。",
     "SelectAllCurrentPage": "すべて (このページ)",
     "SelectListCopyUsers": "ユーザーをコピーする配布リストを選択します。複数選択は、Ctrl(PC) または ⌘ (Mac) を押してください。",
     "SelectNone": "どれも",
     "SelectNoneCurrentPage": "どれも (このページ)",
-    "SetPasswordUser": "ユーザーのパスワードを手動で設定することがあります。",
+    "SetPasswordUser": "手動で、ユーザーのパスワードを設定することがあります。電子メールが指定されていない場合、これは必須",
     "Show": "ショー",
     "Show/HiddenNews": "表示/非表示にします。",
     "ShowAbsent": "不在表示します。",
@@ -244,7 +247,9 @@
     "Step3Parents": "手順 3: 親の CSV ファイルをアップロードします。",
     "Step3Students": "ステップ 3: 学生の CSV ファイルをアップロードします。",
     "Step3Teachers": "ステップ 3: 教職員の CSV ファイルをアップロードします。",
+    "StoryPlaceHolder": "ここにあなたの偉大な物語を書く",
     "StructureFile": "ファイルの構造は、基本的に教師 1 人あたり 1 行です。列は、先生のクラスの編成方法について説明します。スプレッドシートに教師データを入力するための次のガイドラインを参照してください。",
+    "StudentDobRequired": "生年月日は学生に必要です",
     "StudentEmail": "学生メール",
     "StudentID": "学生証",
     "StudentIDSkipped": "学生メールが存在する場合、学生証をスキップことができますその逆。少なくとも 1 つの親や介護者は必須です。",
@@ -263,7 +268,9 @@
     "Title": "タイトル",
     "TotalUser": "総ユーザー:",
     "Type": "タイプ",
+    "UpdateFail": "更新中にエラーが発生しました。もう一度やり直してください。",
     "UpdateFilters": "更新プログラムのフィルター",
+    "UpdateSuccess": "ユーザーは正常に更新されました",
     "Upload": "アップロード",
     "UploadAttendenceRecords": "出席ファイルをアップロードします。",
     "UploadCSV": "CSV をアップロードします。",
@@ -287,6 +294,8 @@
   "App_tour_explain": "アプリ ツアー: 利点を教えて!",
   "AskParentAndStudentToDownloadApp": "\"Smartix\"App Store でまたは Google Play でアプリをダウンロードするための保護者と生徒を質問します。",
   "AskParentAndStudentToDownloadApp_IOS": "アプリ「Smartix」をダウンロードするための保護者と生徒を質問",
+  "AttachDocument": "ドキュメントを添付します。",
+  "AttachEvent": "イベントにアタッチします。",
   "Attendance": "出席",
   "Background": "バック グラウンド",
   "Calendar": "カレンダー",
@@ -426,8 +435,8 @@
   "Parents": "両親",
   "Password": "パスワード",
   "PasswordChanged": "パスワードが変更されました。再びようこそ！",
-  "PasswordNotEnoughLength": "少なくとも 4 文字パスワード",
-  "PasswordNotTheSame": "パスワードとパスワードの確認は、同じではありません。",
+  "PasswordNotEnoughLength": "4 文字以上でパスワード",
+  "PasswordNotTheSame": "パスワードと確認パスワードは同じではないです。",
   "PersonalDomain": "個別学校ドメイン",
   "PersonalDomainHelp": "学校名 (1 ワード、スペースなし)",
   "PersonalSignup": "個々 のアカウントにサインアップします。",
@@ -456,6 +465,7 @@
   "Sat": "土曜日",
   "Saturday": "土曜日",
   "Save": "保存",
+  "SchoolSignupMsg": "学校の組織のアカウントを作成します。",
   "Search": "検索",
   "SelectCountry": "国を選択します。",
   "Send": "送信",
@@ -503,7 +513,7 @@
   "Thanks_for_sharing": "私たちに継続的に当社のサービスを改善するためのフィードバックを与えるための多くの感謝",
   "TheFollowingMemberWouldBeRemoved": "次のメンバーが削除されます。",
   "ThisCommentIsHidden": "このコメントは非表示に",
-  "ThisCommentIsHiddenFromJoinedMembers": "このコメントは、参加メンバーから隠されています。",
+  "ThisCommentIsHiddenFromJoinedMembers": "このコメントがモデレートされました",
   "Thu": "(木曜日)",
   "Thursday": "(木曜日)",
   "TimeDays": "時間日",
@@ -520,7 +530,7 @@
   "VerificationEmail": "メール:",
   "VerifyEmailSubject": "あなたのメール アドレスを確認してください - Smartix へようこそ",
   "Vote": "投票",
-  "WeHaveAppVersion": "我々 も優れているアプリ バージョンを持っています。それをダウンロードすることができます。",
+  "WeHaveAppVersion": "Smartix、便宜上携帯アプリとして提供しています。それをダウンロードすることができます。",
   "Wed": "(水曜日)",
   "Wednesday": "(水曜日)",
   "WelcomeBack": "再びようこそ！",
@@ -528,6 +538,7 @@
   "WelcomeVerification": "Smartix へようこそ。確認メールがあなたのアカウントにも送信されます。多くの機能を有効にするをクリックしてください!",
   "Whatisyourdateofbirth": "生年月日は何ですか。",
   "WhichIssues": "問題点を学校で最も直面するか。",
+  "Yesterday": "昨日",
   "You": "あなた",
   "YouAre": "あなたは",
   "YouAreAt": "あなたは、します。",
@@ -578,18 +589,6 @@
   },
   "addClassDescription": "受講者が 13 歳未満の場合、それは [ok] です。ループでみんなを保つために彼らの親のメールもらってよ。",
   "addClassTerm": "",
-  "admin": {
-    "users": {
-      "add": {
-        "addSuccess": "ユーザーは正常に追加されました",
-        "studentDobRequired": "生年月日は学生に必要です"
-      },
-      "import": {
-        "importSuccess": "ユーザーが正常にインポートされました。",
-        "incorrectImportFormat": "インポートに指定ファイル必要な形式と一致しません。確認してください、もう一度やり直してください。"
-      }
-    }
-  },
   "and": "と",
   "applicationError": {
     "refreshRequired": "私たちの終わりからエラーがあります。ページを更新して、もう一度やり直してください。"
@@ -598,6 +597,7 @@
   "feedbackTextarea": "あなたの考えを教えてください!あなたのフィードバックによって継続的に当社のサービスを改善するために、私たちのメンバーを幸せにする",
   "invite": "招待",
   "message": "メッセージ",
+  "parent": "親",
   "password": "パスワード",
   "requiredFields": "すべての必須フィールドがいっぱいにしてください。",
   "schemas": {
@@ -687,17 +687,20 @@
   },
   "smartix-classes": {
     "Loadmessages": "...",
+    "ViewListUsers": "配布リストのメンバー",
     "ViewUsers": "メンバーの表示"
   },
   "smartix-core": {
     "Version": "バージョン"
   },
   "smartix-iconchooser": {
-    "Save": "保存"
+    "SelectEmojiOrUploadImage": "画像をアップロードしたり、絵文字を選択",
+    "UploadImage": "画像をアップロードします。"
   },
   "smartix-sharer": {
     "SignupWithEmail": "メールと現在のユーザー?サインインはこちらから"
   },
-  "your_class_is_ready_classname": "あなたのクラスの _ _ classname__ 準備ができて!",
-  "Yesterday": "昨日"
+  "student": "学生",
+  "teacher": "先生",
+  "your_class_is_ready_classname": "あなたのクラスの _ _ classname__ 準備ができて!"
 }

@@ -31,6 +31,7 @@
     "AddRSS": "添加 RSS",
     "AddRSSFeed": "添加 RSS 源",
     "AddReference": "通过引用添加",
+    "AddSuccess": "已成功添加用户",
     "AddUser": "添加用户",
     "AddUserRole": "添加角色",
     "AddnewRSSfeed": "你可以添加新的 RSS 源并将其链接到您的新闻组。",
@@ -40,7 +41,7 @@
     "AgeNotRestrictedComment": "没有",
     "AgeRestricted": "成员有至少 13 年的历史",
     "AgeRestrictedComment": "是的",
-    "All": "所有",
+    "All": "全部显示",
     "AllFieldsOptional": "注 ︰ 所有其他字段都是可选包括允许你预先设定一个学生密码的密码。以突出显示必填的字段",
     "AllParentRecord": "之后学生电子邮件的所有领域都属于父记录。",
     "Approved": "批准",
@@ -127,9 +128,11 @@
     "HaveBeenSelected": "已选定。",
     "Hide": "隐藏",
     "ImportClasses": "导入类",
+    "ImportIncorrectFormat": "提供导入的文件不符合所需的格式。请检查并再试一次。",
     "ImportNewsArticles": "导入新闻文章",
     "ImportNewsgroups": "导入新闻组",
     "ImportParents": "导入的父母",
+    "ImportSuccess": "导入成功的用户",
     "ImportTeachersStaff": "导入教师和工作人员",
     "ImportUsers": "导入学生",
     "ImportedUsersNoEmails": "没有电子邮件导入的用户",
@@ -168,6 +171,7 @@
     "MotherSalutation": "母亲的称呼",
     "NewsCode": "消息代码",
     "NewsDetails": "消息详细信息",
+    "NewsTitlePlaceholder": "一个非常引人注目的标题，来捕捉你的听众",
     "NewsgroupDetails": "新闻组的详细信息",
     "NewsgroupName": "新闻组的名称",
     "Newsgroups": "新闻组",
@@ -228,7 +232,7 @@
     "SelectListCopyUsers": "选择通讯组列表中要复制的用户。多重选择，请按 Ctrl(PC) 或 ⌘ (Mac)",
     "SelectNone": "没有一个",
     "SelectNoneCurrentPage": "无 （此页）",
-    "SetPasswordUser": "您可以手动为用户设置密码",
+    "SetPasswordUser": "手动可能为用户设置密码。这是必需的如果没有电子邮件提供",
     "Show": "显示",
     "Show/HiddenNews": "显示/隐藏消息",
     "ShowAbsent": "显示缺席",
@@ -244,7 +248,9 @@
     "Step3Parents": "第 3 步 ︰ 上传您的父母的 CSV 文件",
     "Step3Students": "第 3 步 ︰ 上传您的学生的 CSV 文件",
     "Step3Teachers": "第 3 步 ︰ 上传您的老师和工作人员的 CSV 文件",
+    "StoryPlaceHolder": "写你伟大的故事",
     "StructureFile": "文件的结构基本上是每位教师 1 线。列描述了如何将组织老师的类。请参阅老师数据输入到电子表格中的下列准则 ︰",
+    "StudentDobRequired": "出生日期是必需为学生",
     "StudentEmail": "学生电子邮件",
     "StudentID": "学生 ID",
     "StudentIDSkipped": "学生 ID 可以跳过，如果学生电子邮件存在，反之亦然。至少一个父母或照顾者是强制性的。",
@@ -263,7 +269,9 @@
     "Title": "标题",
     "TotalUser": "总用户 ︰",
     "Type": "类型",
+    "UpdateFail": "在更新时出错。请再试一次。",
     "UpdateFilters": "更新筛选器",
+    "UpdateSuccess": "用户已成功更新",
     "Upload": "上传",
     "UploadAttendenceRecords": "上传考勤文件",
     "UploadCSV": "上传 csv 格式",
@@ -287,6 +295,8 @@
   "App_tour_explain": "应用程序之旅 ︰ 显示我的好处 ！",
   "AskParentAndStudentToDownloadApp": "问家长和学生来下载应用程序\"Smartix\"在 App Store 或谷歌播放",
   "AskParentAndStudentToDownloadApp_IOS": "问家长和学生来下载应用程序\"Smartix\"",
+  "AttachDocument": "附加文档",
+  "AttachEvent": "附加事件",
   "Attendance": "出勤",
   "Background": "背景",
   "Calendar": "日历",
@@ -427,7 +437,7 @@
   "Password": "密码",
   "PasswordChanged": "您的密码已更改。欢迎回来！",
   "PasswordNotEnoughLength": "至少 4 个字符的密码",
-  "PasswordNotTheSame": "密码和确认密码不是相同的。",
+  "PasswordNotTheSame": "密码和确认密码不一样",
   "PersonalDomain": "您的个性化的学校域",
   "PersonalDomainHelp": "学校名称 （1 字，不能有空格）",
   "PersonalSignup": "注册个人帐户",
@@ -456,6 +466,7 @@
   "Sat": "星期六",
   "Saturday": "星期六",
   "Save": "保存",
+  "SchoolSignupMsg": "创建学校组织帐户",
   "Search": "搜索",
   "SelectCountry": "选择一个国家",
   "Send": "发送",
@@ -503,7 +514,7 @@
   "Thanks_for_sharing": "谢谢你给我们的反馈，不断提高我们的服务",
   "TheFollowingMemberWouldBeRemoved": "将删除以下成员",
   "ThisCommentIsHidden": "此注释是隐藏",
-  "ThisCommentIsHiddenFromJoinedMembers": "此注释是隐藏的加入成员",
+  "ThisCommentIsHiddenFromJoinedMembers": "此注释已放缓",
   "Thu": "星期四",
   "Thursday": "星期四",
   "TimeDays": "时间天",
@@ -520,7 +531,7 @@
   "VerificationEmail": "验证电子邮件 ︰",
   "VerifyEmailSubject": "欢迎来到 Smartix-请验证您的电子邮件",
   "Vote": "投票",
-  "WeHaveAppVersion": "我们有一个应用程序版本，就更好了。你可以从这里下载",
+  "WeHaveAppVersion": "Smartix 也是可以作为一个移动应用程序为您提供便利。你可以从这里下载",
   "Wed": "星期三",
   "Wednesday": "星期三",
   "WelcomeBack": "欢迎回来！",
@@ -528,6 +539,7 @@
   "WelcomeVerification": "欢迎来到 Smartix。验证电子邮件也已发送到您的帐户。点击它，使更多的功能 ！",
   "Whatisyourdateofbirth": "你日期是出生的什么？",
   "WhichIssues": "你在学校最面对哪些问题？",
+  "Yesterday": "昨天",
   "You": "你",
   "YouAre": "你是",
   "YouAreAt": "你是在",
@@ -578,18 +590,6 @@
   },
   "addClassDescription": "没关系，如果学生未满 13 岁;我们会问他们父母的电子邮件，让每个人都在循环中。",
   "addClassTerm": "",
-  "admin": {
-    "users": {
-      "add": {
-        "addSuccess": "已成功添加用户",
-        "studentDobRequired": "出生日期是必需为学生"
-      },
-      "import": {
-        "importSuccess": "导入成功的用户",
-        "incorrectImportFormat": "提供导入的文件不符合所需的格式。请检查并再试一次。"
-      }
-    }
-  },
   "and": "和",
   "applicationError": {
     "refreshRequired": "这是从我们的终端错误的。请刷新页面，然后重试。"
@@ -598,6 +598,7 @@
   "feedbackTextarea": "告诉我们你的想法 ！您的反馈能使我们不断改进我们的服务，使我们的成员快乐",
   "invite": "邀请",
   "message": "消息",
+  "parent": "父",
   "password": "密码",
   "requiredFields": "请确保所有必填的字段都填写",
   "schemas": {
@@ -687,17 +688,20 @@
   },
   "smartix-classes": {
     "Loadmessages": "...",
+    "ViewListUsers": "通讯组列表的成员",
     "ViewUsers": "显示成员"
   },
   "smartix-core": {
     "Version": "版本"
   },
   "smartix-iconchooser": {
-    "Save": "保存"
+    "SelectEmojiOrUploadImage": "上传图像或选择表情符号",
+    "UploadImage": "上传图片"
   },
   "smartix-sharer": {
     "SignupWithEmail": "与电子邮件的当前用户吗？在这里登陆"
   },
-  "your_class_is_ready_classname": "你班 __ classname__ 是准备好了 ！",
-  "Yesterday": "昨天"
+  "student": "学生",
+  "teacher": "老师",
+  "your_class_is_ready_classname": "你班 __ classname__ 是准备好了 ！"
 }

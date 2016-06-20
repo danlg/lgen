@@ -31,6 +31,7 @@
     "AddRSS": "添加 RSS",
     "AddRSSFeed": "添加 RSS 源",
     "AddReference": "通過引用添加",
+    "AddSuccess": "已成功添加使用者",
     "AddUser": "添加使用者",
     "AddUserRole": "添加角色",
     "AddnewRSSfeed": "你可以添加新的 RSS 源並將其連結到您的新聞群組。",
@@ -40,7 +41,7 @@
     "AgeNotRestrictedComment": "沒有",
     "AgeRestricted": "成員有至少 13 年的歷史",
     "AgeRestrictedComment": "是的",
-    "All": "所有",
+    "All": "全部顯示",
     "AllFieldsOptional": "注 ︰ 所有其他欄位都是可選包括允許你預先設定一個學生密碼的密碼。以突出顯示必填的欄位",
     "AllParentRecord": "之後學生電子郵件的所有領域都屬於父記錄。",
     "Approved": "批准",
@@ -127,9 +128,11 @@
     "HaveBeenSelected": "已選定。",
     "Hide": "隱藏",
     "ImportClasses": "導入類",
+    "ImportIncorrectFormat": "提供導入的檔不符合所需的格式。請檢查並再試一次。",
     "ImportNewsArticles": "導入新聞文章",
     "ImportNewsgroups": "導入新聞群組",
     "ImportParents": "導入的父母",
+    "ImportSuccess": "導入成功的使用者",
     "ImportTeachersStaff": "導入教師和工作人員",
     "ImportUsers": "導入學生",
     "ImportedUsersNoEmails": "沒有電子郵件導入的使用者",
@@ -168,6 +171,7 @@
     "MotherSalutation": "母親的稱呼",
     "NewsCode": "消息代碼",
     "NewsDetails": "消息詳細資訊",
+    "NewsTitlePlaceholder": "一個非常引人注目的標題，來捕捉你的聽眾",
     "NewsgroupDetails": "新聞群組的詳細資訊",
     "NewsgroupName": "新聞群組的名稱",
     "Newsgroups": "新聞群組",
@@ -228,7 +232,7 @@
     "SelectListCopyUsers": "選擇通訊群組清單中要複製的使用者。多重選取，請按 Ctrl(PC) 或 ⌘ (Mac)",
     "SelectNone": "沒有一個",
     "SelectNoneCurrentPage": "無 （此頁）",
-    "SetPasswordUser": "您可以手動為使用者設置密碼",
+    "SetPasswordUser": "手動可能為使用者設置密碼。這是必需的如果沒有電子郵件提供",
     "Show": "顯示",
     "Show/HiddenNews": "顯示/隱藏消息",
     "ShowAbsent": "顯示缺席",
@@ -244,7 +248,9 @@
     "Step3Parents": "第 3 步 ︰ 上傳您的父母的 CSV 檔",
     "Step3Students": "第 3 步 ︰ 上傳您的學生的 CSV 檔",
     "Step3Teachers": "第 3 步 ︰ 上傳您的老師和工作人員的 CSV 檔",
+    "StoryPlaceHolder": "寫你偉大的故事",
     "StructureFile": "檔的結構基本上是每位教師 1 線。列描述了如何將組織老師的類。請參閱老師資料輸入到試算表中的下列準則 ︰",
+    "StudentDobRequired": "出生日期是必需為學生",
     "StudentEmail": "學生電子郵件",
     "StudentID": "學生 ID",
     "StudentIDSkipped": "學生 ID 可以跳過，如果學生電子郵件存在，反之亦然。至少一個父母或照顧者是強制性的。",
@@ -263,7 +269,9 @@
     "Title": "標題",
     "TotalUser": "總使用者 ︰",
     "Type": "類型",
+    "UpdateFail": "在更新時出錯。請再試一次。",
     "UpdateFilters": "更新篩選器",
+    "UpdateSuccess": "使用者已成功更新",
     "Upload": "上傳",
     "UploadAttendenceRecords": "上傳考勤檔",
     "UploadCSV": "上傳 csv 格式",
@@ -287,6 +295,8 @@
   "App_tour_explain": "應用程式之旅 ︰ 顯示我的好處 ！",
   "AskParentAndStudentToDownloadApp": "問家長和學生來下載應用程式\"Smartix\"在 App Store 或谷歌播放",
   "AskParentAndStudentToDownloadApp_IOS": "問家長和學生來下載應用程式\"Smartix\"",
+  "AttachDocument": "附加文檔",
+  "AttachEvent": "附加事件",
   "Attendance": "出勤",
   "Background": "背景",
   "Calendar": "日曆",
@@ -427,7 +437,7 @@
   "Password": "密碼",
   "PasswordChanged": "您的密碼已更改。歡迎回來！",
   "PasswordNotEnoughLength": "至少 4 個字元的密碼",
-  "PasswordNotTheSame": "密碼和確認密碼不是相同的。",
+  "PasswordNotTheSame": "密碼和確認密碼不一樣",
   "PersonalDomain": "您的個人化的學校域",
   "PersonalDomainHelp": "學校名稱 （1 字，不能有空格）",
   "PersonalSignup": "註冊個人帳戶",
@@ -456,6 +466,7 @@
   "Sat": "星期六",
   "Saturday": "星期六",
   "Save": "保存",
+  "SchoolSignupMsg": "創建學校組織帳戶",
   "Search": "搜索",
   "SelectCountry": "選擇一個國家",
   "Send": "發送",
@@ -503,7 +514,7 @@
   "Thanks_for_sharing": "謝謝你給我們的回饋，不斷提高我們的服務",
   "TheFollowingMemberWouldBeRemoved": "將刪除以下成員",
   "ThisCommentIsHidden": "此注釋是隱藏",
-  "ThisCommentIsHiddenFromJoinedMembers": "此注釋是隱藏的加入成員",
+  "ThisCommentIsHiddenFromJoinedMembers": "此注釋已放緩",
   "Thu": "星期四",
   "Thursday": "星期四",
   "TimeDays": "時間天",
@@ -520,7 +531,7 @@
   "VerificationEmail": "驗證電子郵件 ︰",
   "VerifyEmailSubject": "歡迎來到 Smartix-請驗證您的電子郵件",
   "Vote": "投票",
-  "WeHaveAppVersion": "我們有一個應用程式版本，就更好了。你可以從這裡下載",
+  "WeHaveAppVersion": "Smartix 也是可以作為一個移動應用程式為您提供便利。你可以從這裡下載",
   "Wed": "星期三",
   "Wednesday": "星期三",
   "WelcomeBack": "歡迎回來！",
@@ -528,6 +539,7 @@
   "WelcomeVerification": "歡迎來到 Smartix。驗證電子郵件也已發送到您的帳戶。點擊它，使更多的功能 ！",
   "Whatisyourdateofbirth": "你日期是出生的什麼？",
   "WhichIssues": "你在學校最面對哪些問題？",
+  "Yesterday": "昨天",
   "You": "你",
   "YouAre": "你是",
   "YouAreAt": "你是在",
@@ -578,18 +590,6 @@
   },
   "addClassDescription": "沒關係，如果學生未滿 13 歲;我們會問他們父母的電子郵件，讓每個人都在迴圈中。",
   "addClassTerm": "",
-  "admin": {
-    "users": {
-      "add": {
-        "addSuccess": "已成功添加使用者",
-        "studentDobRequired": "出生日期是必需為學生"
-      },
-      "import": {
-        "importSuccess": "導入成功的使用者",
-        "incorrectImportFormat": "提供導入的檔不符合所需的格式。請檢查並再試一次。"
-      }
-    }
-  },
   "and": "和",
   "applicationError": {
     "refreshRequired": "這是從我們的終端錯誤的。請刷新頁面，然後重試。"
@@ -598,6 +598,7 @@
   "feedbackTextarea": "告訴我們你的想法 ！您的回饋能使我們不斷改進我們的服務，使我們的成員快樂",
   "invite": "邀請",
   "message": "消息",
+  "parent": "父",
   "password": "密碼",
   "requiredFields": "請確保所有必填的欄位都填寫",
   "schemas": {
@@ -687,17 +688,20 @@
   },
   "smartix-classes": {
     "Loadmessages": "...",
+    "ViewListUsers": "通訊群組清單的成員",
     "ViewUsers": "顯示成員"
   },
   "smartix-core": {
     "Version": "版本"
   },
   "smartix-iconchooser": {
-    "Save": "保存"
+    "SelectEmojiOrUploadImage": "上傳圖像或選擇表情符號",
+    "UploadImage": "上傳圖片"
   },
   "smartix-sharer": {
     "SignupWithEmail": "與電子郵件的當前使用者嗎？在這裡登陸"
   },
-  "your_class_is_ready_classname": "你班 __ classname__ 是準備好了 ！",
-  "Yesterday": "昨天"
+  "student": "學生",
+  "teacher": "老師",
+  "your_class_is_ready_classname": "你班 __ classname__ 是準備好了 ！"
 }

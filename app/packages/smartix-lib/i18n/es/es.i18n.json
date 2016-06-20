@@ -31,6 +31,7 @@
     "AddRSS": "Añadir RSS ",
     "AddRSSFeed": "Agregar RSS Feed",
     "AddReference": " Agregar referencia",
+    "AddSuccess": "Usuario fue agregado con éxito",
     "AddUser": "Agregar usuario",
     "AddUserRole": "Añadir papel",
     "AddnewRSSfeed": "Puede agregar nuevos feeds RSS y un enlace a su grupo de noticias.",
@@ -40,7 +41,7 @@
     "AgeNotRestrictedComment": "No",
     "AgeRestricted": "Los miembros son por lo menos 13 años de edad",
     "AgeRestrictedComment": "Sí",
-    "All": "Todos",
+    "All": "Mostrar todos",
     "AllFieldsOptional": "Nota: Todos los demás campos son opcionales incluyendo la contraseña, que le permite establecer la contraseña de un estudiante. Campos requeridos están resaltados en",
     "AllParentRecord": "Todos los campos después de correo electrónico de estudiantes pertenecen a un registro primario.",
     "Approved": "Aprobado",
@@ -127,9 +128,11 @@
     "HaveBeenSelected": "han sido seleccionados.",
     "Hide": "Ocultar",
     "ImportClasses": "Clases de importación",
+    "ImportIncorrectFormat": "El archivo de importación no ajusta el formato requerido. Por favor verifique e inténtelo de nuevo.",
     "ImportNewsArticles": "Importación de artículos de noticias",
     "ImportNewsgroups": "Importar grupos de noticias",
     "ImportParents": "Padres de importación",
+    "ImportSuccess": "Los usuarios fueron importados con éxito",
     "ImportTeachersStaff": "Importación de maestros y personal",
     "ImportUsers": "Estudiantes de importación",
     "ImportedUsersNoEmails": "Usuarios importados con ningún email",
@@ -168,6 +171,7 @@
     "MotherSalutation": "Saludo de la madre",
     "NewsCode": "Código de noticias",
     "NewsDetails": "Detalles de noticias",
+    "NewsTitlePlaceholder": "Un gran título pegadizo para captar su audiencia",
     "NewsgroupDetails": "Información de grupo de noticias",
     "NewsgroupName": "Nombre de grupo de noticias",
     "Newsgroups": "Grupos de noticias",
@@ -228,7 +232,7 @@
     "SelectListCopyUsers": "Seleccione las listas de distribución para copiar usuarios. Para selección múltiple, pulse Ctrl(PC) o ⌘ + (Mac)",
     "SelectNone": "Ninguno",
     "SelectNoneCurrentPage": "Ninguno (esta página)",
-    "SetPasswordUser": "Puede configurar manualmente una contraseña para el usuario",
+    "SetPasswordUser": "Manualmente, puede establecer una contraseña para el usuario. Esto es necesario si no se proporciona ningún correo electrónico",
     "Show": "Mostrar",
     "Show/HiddenNews": "Mostrar / ocultar noticias",
     "ShowAbsent": "Muestran ausentes",
@@ -244,7 +248,9 @@
     "Step3Parents": "Paso 3: Subir el archivo CSV de los padres",
     "Step3Students": "Paso 3: Subir el archivo CSV de los estudiantes",
     "Step3Teachers": "Paso 3: Subir el archivo CSV de los docentes y personal",
+    "StoryPlaceHolder": "Escribir su gran historia aquí",
     "StructureFile": "La estructura del archivo es básicamente 1 línea por maestro. Las columnas se describe cómo se organizará la clase del profesor. Por favor refiérase a las siguientes pautas para ingresar datos de profesor en la hoja de cálculo:",
+    "StudentDobRequired": "Fecha de nacimiento es necesaria para los estudiantes",
     "StudentEmail": "Correo electrónico de estudiante",
     "StudentID": "Identificación del estudiante",
     "StudentIDSkipped": "Identificación del estudiante puede ser saltado si estudiante es presente y viceversa. Por lo menos un padre o cuidador es obligatorio.",
@@ -263,7 +269,9 @@
     "Title": "Título",
     "TotalUser": "Total usuarios:",
     "Type": "Tipo",
+    "UpdateFail": "Hubo un error durante la actualización. Por favor, inténtelo de nuevo. ",
     "UpdateFilters": "Actualización de filtros",
+    "UpdateSuccess": "Usuario se actualizó con éxito",
     "Upload": "Subir",
     "UploadAttendenceRecords": "Subir archivo asistencia",
     "UploadCSV": "Subir el CSV",
@@ -287,6 +295,8 @@
   "App_tour_explain": "Tour de la aplicación: mostrar los beneficios!",
   "AskParentAndStudentToDownloadApp": "Pedir a los padres y estudiantes para descargar la aplicación \"Smartix\" en la App Store o en Google Play",
   "AskParentAndStudentToDownloadApp_IOS": "Pedir a los padres y estudiantes para descargar la aplicación \"Smartix\" ",
+  "AttachDocument": "Adjunte un documento",
+  "AttachEvent": "Adjuntar un evento",
   "Attendance": "Asistencia",
   "Background": "Fondo",
   "Calendar": "Calendario",
@@ -426,8 +436,8 @@
   "Parents": "Padres",
   "Password": "Contraseña",
   "PasswordChanged": "Su contraseña ha sido cambiada. ¡Bienvenido!",
-  "PasswordNotEnoughLength": "Al menos 4 caracteres de contraseña",
-  "PasswordNotTheSame": "Contraseña y Confirmar contraseña no es lo mismo.",
+  "PasswordNotEnoughLength": "Contraseña de al menos 4 caracteres",
+  "PasswordNotTheSame": "Contraseña y Confirmar contraseña son los mismos",
   "PersonalDomain": "Su dominio de la escuela personalizada",
   "PersonalDomainHelp": "nombre de la escuela (1 palabra, sin espacios)",
   "PersonalSignup": "Regístrese para una cuenta individual",
@@ -456,6 +466,7 @@
   "Sat": "Sábado",
   "Saturday": "Sábado",
   "Save": "Guardar",
+  "SchoolSignupMsg": "Crear cuenta de la organización para la escuela",
   "Search": "Búsqueda de",
   "SelectCountry": "Seleccione un país",
   "Send": "Enviar",
@@ -503,7 +514,7 @@
   "Thanks_for_sharing": "Muchas gracias por darnos feedback para mejorar continuamente nuestros servicios",
   "TheFollowingMemberWouldBeRemoved": "Se eliminará el miembro",
   "ThisCommentIsHidden": "Este comentario está oculto",
-  "ThisCommentIsHiddenFromJoinedMembers": "Este comentario está oculto a los miembros adjuntos",
+  "ThisCommentIsHiddenFromJoinedMembers": "Este comentario ha sido moderado",
   "Thu": "Jueves",
   "Thursday": "Jueves",
   "TimeDays": "Tiempo días",
@@ -520,7 +531,7 @@
   "VerificationEmail": "Correo electrónico de verificación:",
   "VerifyEmailSubject": "Bienvenido a Smartix - por favor verifique su correo electrónico",
   "Vote": "Voto",
-  "WeHaveAppVersion": "Contamos con una versión de la aplicación que es incluso mejor. Lo puedes descargar de ",
+  "WeHaveAppVersion": "Smartix también está disponible como una aplicación móvil para su comodidad. Lo puedes descargar de ",
   "Wed": "Miércoles",
   "Wednesday": "Miércoles",
   "WelcomeBack": "¡Bienvenido!",
@@ -528,6 +539,7 @@
   "WelcomeVerification": "¡ Bienvenido a Smartix. También ha enviado un correo electrónico de verificación a su cuenta. Haga clic para habilitar más funciones!",
   "Whatisyourdateofbirth": "¿Cuál es tu fecha de nacimiento?",
   "WhichIssues": " ¿Qué problemas enfrenta más en la escuela?",
+  "Yesterday": "Ayer",
   "You": "Se",
   "YouAre": "Estás",
   "YouAreAt": "Usted está en",
@@ -578,18 +590,6 @@
   },
   "addClassDescription": "Está bien si los estudiantes son menores de 13 años; les pedimos correo electrónico de sus padres para mantener a todos en el circuito.",
   "addClassTerm": "",
-  "admin": {
-    "users": {
-      "add": {
-        "addSuccess": "Usuario fue agregado con éxito",
-        "studentDobRequired": "Fecha de nacimiento es necesaria para los estudiantes"
-      },
-      "import": {
-        "importSuccess": "Los usuarios fueron importados con éxito",
-        "incorrectImportFormat": "El archivo de importación no ajusta el formato requerido. Por favor verifique e inténtelo de nuevo."
-      }
-    }
-  },
   "and": " y ",
   "applicationError": {
     "refreshRequired": "Hay un error de nuestro fin. Por favor actualice la página y vuelva a intentarlo."
@@ -598,6 +598,7 @@
   "feedbackTextarea": "Dinos lo que piensas! Su opinión nos permite mejorar continuamente nuestros servicios y nuestros miembros feliz",
   "invite": "invitar a",
   "message": "Mensaje",
+  "parent": "padres",
   "password": "Contraseña",
   "requiredFields": "Asegúrese de que todos los campos requeridos están llenas",
   "schemas": {
@@ -687,17 +688,20 @@
   },
   "smartix-classes": {
     "Loadmessages": "...",
+    "ViewListUsers": "Miembros de las listas de distribución",
     "ViewUsers": "Mostrar miembros"
   },
   "smartix-core": {
     "Version": "Versión"
   },
   "smartix-iconchooser": {
-    "Save": "Guardar"
+    "SelectEmojiOrUploadImage": "Subir una imagen o elegir una emoji",
+    "UploadImage": "Subir imagen"
   },
   "smartix-sharer": {
     "SignupWithEmail": "¿Usuario actual con el correo electrónico? Regístrese aquí"
   },
-  "your_class_is_ready_classname": "Su clase __ classname__ está listo!",
-  "Yesterday": "Ayer"
+  "student": "estudiante",
+  "teacher": "Profesor",
+  "your_class_is_ready_classname": "Su clase __ classname__ está listo!"
 }
