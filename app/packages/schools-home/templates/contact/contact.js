@@ -1,7 +1,7 @@
 Template.MobileSchoolContact.helpers({
     getSchoolObj:function(){
         var schoolDoc = SmartixSchoolsCol.findOne({
-            username: UI._globalHelpers['getCurrentSchoolName']()                                                          
+            shortname: UI._globalHelpers['getCurrentSchoolName']()                                                          
         });
         if(schoolDoc){
          return schoolDoc            

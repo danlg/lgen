@@ -16,7 +16,7 @@ Meteor.publish('newsInGroup', function(id, limit, query) {
 Meteor.publish('newsgroupsForUser', function(limit, query, namespace) {
     //log.info('newsgroupsForUser',limit,query,namespace);
     var schoolDoc = SmartixSchoolsCol.findOne({
-        username: namespace
+        shortname: namespace
     });
 
     if (!schoolDoc) {
@@ -36,24 +36,19 @@ Meteor.publish('newsgroupsForUser', function(limit, query, namespace) {
 });
 
 Meteor.publish('newsForUser', function(limit, query, namespace) {
-    
     check(limit, Match.Maybe(Number));
     check(namespace, String);
-
     if (!limit) {
         limit = 9999;
     }
-
     var schoolDoc = SmartixSchoolsCol.findOne({
-        username: namespace
+        shortname: namespace
     });
-
     if (!schoolDoc) {
         schoolDoc = SmartixSchoolsCol.findOne({
             _id: namespace
         });
     }
-
     var distributionListsUserBelong = Smartix.Groups.Collection.find({type: 'distributionList', users: this.userId }).fetch();
     var distributionListsUserBelongIds = lodash.map(distributionListsUserBelong,'_id');
     
@@ -93,7 +88,7 @@ Meteor.publish('newsForUser', function(limit, query, namespace) {
 // Returns a cursor of all classes,
 Meteor.publish('smartix:newsgroups/allNewsgroupsFromSchoolName', function(schoolName) {
     var schoolDoc = SmartixSchoolsCol.findOne({
-        username: schoolName
+        shortname: schoolName
     });
     if (schoolDoc) {
         return Smartix.Groups.Collection.find({

@@ -46,13 +46,12 @@ Meteor.methods({
     },
 
     'smartix:classes/createClass': function(schoolName, classObj) {
-
         //global does not have school doc
         if (schoolName === 'global') {
             classObj.namespace = 'global';
         } else {
             var schoolDoc = SmartixSchoolsCol.findOne({
-                username: schoolName
+                shortname: schoolName
             });
             if (schoolDoc) {
                 classObj.namespace = schoolDoc._id;
@@ -86,76 +85,58 @@ Meteor.methods({
     },
 
     'smartix:classes/join': function(doc, userToAdd) {
-
         check(userToAdd, Match.Maybe(String));
-
         // Get the `_id` of the currently-logged in user
         if (!(userToAdd === null)) {
             userToAdd = userToAdd || this.userId || Meteor.userId();
         }
-
         if (doc && doc.classCode) {
             log.info("smartix:classes/join:" + doc.classCode.trim());
             var classCode = doc.classCode.trim();
             var regexp = new RegExp("^" + classCode.trim() + "$", "i");
             var resultset = Smartix.Groups.Collection.findOne({ "classCode": { $regex: regexp } });//OK
+            //TODO STOP MIXING NAMESPACE=ID AND SHORTNAME. THIS MAKES THE CODE VERY BUGGY AND DIFFICULT TO MAINTAIN
             var targetSchoolNamespace = doc.schoolName;
-            if(doc.schoolName){
+            if(doc.schoolName){ // TODO dead code probably (as targetSchoolNamespace = doc.schoolName is never passed)
                 if (doc.schoolName === 'global' ) {
                     targetSchoolNamespace = doc.schoolName;
                 } else {
-                    var targetSchool = SmartixSchoolsCol.findOne({ username: doc.schoolName });
+                    var targetSchool = SmartixSchoolsCol.findOne({ shortname: doc.schoolName });
                     targetSchoolNamespace = targetSchool._id;
                 }
-            }else{
-                //if schoolNamespace is not passed, we skip checking of class-different-namespace.
             }
-
             if (resultset) {
-                
-                //if schoolNamespace is not passed, we skip checking of class-different-namespace.
+                //if schoolNamespace is not passed, we skip checking of class-different-namespace
+                //TODO I don't think this is ever user as targetSchoolNamespace = doc.schoolName is never passed
                 if(targetSchoolNamespace){
                     if (resultset.namespace !== targetSchoolNamespace) {
                         log.error('smartix:classes/join: cannot join the class of a different namespace');
                         throw new Meteor.Error("class-different-namespace", "Can't join the group in different school");
                     }                    
                 }
-
-
                 if (resultset.admins.indexOf(userToAdd) > -1) {
                     log.warn("smartix:classes/join: can't join the class you own:" + classCode + ":from user:" + userToAdd);
                     throw new Meteor.Error("class-you-own", "Can't join a class you own");
                 }
                 else {
                     log.info("User " + userToAdd + " attempting to join class " + doc.classCode);
-                    //log.info("Server?"+Meteor.isServer);
-                    //this was the trick to make it case insensitive
-
                     Smartix.Class.addUsersToClass(resultset._id, [userToAdd]);
-
-
-                    //   Smartix.Groups.Collection.update(
-                    //     {"classCode": {$regex: regexp}},
-                    //     {
-                    //       $addToSet: {users: userToAdd}
-                    //     });
                     return true;
                 }
             }
             else { //class is not found
-                log.info("classcode '" + classCode + "' not found");
+                log.warn("classcode '" + classCode + "' not found");
                 throw new Meteor.Error("class-not-foun", "Can't find the class");
             }
         }
         else {
-            log.warn("there is no input");
+            log.warn("smartix:classes/join", "classcode missing");
         }
         return false;
     },
-    'smartix:classes/joinAsAdmin': function(doc, userToAdd) {
-        
-        check(userToAdd, Match.Maybe(String));
 
+    'smartix:classes/joinAsAdmin': function(doc, userToAdd) {
+        check(userToAdd, Match.Maybe(String));
         // Get the `_id` of the currently-logged in user
         if (!(userToAdd === null)) {
             userToAdd = userToAdd || this.userId || Meteor.userId();
@@ -171,7 +152,7 @@ Meteor.methods({
             if (doc.schoolName === 'global' ) {
                 targetSchoolNamespace = doc.schoolName;
             } else {
-                var targetSchool = SmartixSchoolsCol.findOne({ username: doc.schoolName });
+                var targetSchool = SmartixSchoolsCol.findOne({ shortname: doc.schoolName });
                 targetSchoolNamespace = targetSchool._id;
             }
 

@@ -3,7 +3,7 @@ if(Meteor.isServer){
         'smartix:accounts-schools/createSchoolUser': function(email, options, schoolName, type, emailVerified, doNotifyEmail) {
             // Find school by username first
             var schoolDoc = SmartixSchoolsCol.findOne({
-                username: schoolName
+                shortname: schoolName
             });
             // In some occasion, it is easier to pass school id e.g when school is just inserted, of which id is returned from insert method
             if(!schoolDoc) {

@@ -6,13 +6,11 @@ Session.setDefault("Referral", false);
 Template.ClassInformationForWebUser.events({
 	'click .loginBtn': function () {
 		if (Meteor.user()) {
-			log.info("user is logged in=" + Meteor.userId());
+			//log.info("user is logged in=" + Meteor.userId());
 			var doc = {};
 			doc.classCode = Session.get("search");
 			//if existing user, help user to join class directly and router go to the class page
 			Meteor.call("smartix:classes/join", doc, function (error, result) {
-				//log.info(error);
-				//log.info(result);
 				if (error) {
 					log.error("error", error);
 				}
@@ -30,7 +28,7 @@ Template.ClassInformationForWebUser.events({
 					log.error(err);
 				}
 				else {
-					log.info("login:meteor:" + Meteor.userId());
+					//log.info("login:meteor:" + Meteor.userId());
 					Smartix.helpers.routeToTabClasses();
 				}
 			});
@@ -44,8 +42,6 @@ Template.ClassInformationForWebUser.events({
 			doc.classCode = Session.get("search");
 			//if existing user, help user to join class directly and router go to the class page
 			Meteor.call("smartix:classes/join", doc, function (error, result) {
-				log.info(error);
-				log.info(result);
 				if (error) {
 					log.error("error", error);
 				}
@@ -56,7 +52,7 @@ Template.ClassInformationForWebUser.events({
 			});
 		}
 		else {
-			log.info("user is NOT logged in");
+			log.warn("user is NOT logged in");
 			var role = ""; //role would be chosen by user later on
 			var fn = $('.first-name').val();
 			var ln = $('.last-name').val();
@@ -85,7 +81,7 @@ Template.ClassInformationForWebUser.events({
 			});
 		}
 		else {
-			log.info("user is NOT logged in");
+			log.warn("user is NOT logged in");
 			Smartix.Accounts.registerOrLoginWithGoogle();
 		}
 	}

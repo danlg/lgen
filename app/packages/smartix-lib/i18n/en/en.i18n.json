@@ -366,6 +366,7 @@
     },
     "Admin":{
         "All":"Show All",
+        "ActualUsersDistList":"Actual users in distribution list",
         "Admin":"Admin",
         "Admins":"Admins",
         "AddDistList":"Add distribution List",
@@ -445,7 +446,7 @@
         "DownloadOurCSVStarted":"Download our CSV template to get started.",
         "DownloadTeachersCSVStarted":"Download teachers' CSV template to get started.",
         "Edit":"Edit",
-        "EditSchool":"Edit School",
+        "EditSchool":"School settings",
         "ErrorLogs":"Error Logs",
         "ETA":"ETA",
         "End":"End",

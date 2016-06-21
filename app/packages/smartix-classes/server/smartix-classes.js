@@ -658,7 +658,7 @@ Smartix.Class.AdminsOfJoinedClasses = function (userId, schoolName) {
     var joinedClasses;
     if(schoolName){
         var schoolDoc = SmartixSchoolsCol.findOne({
-            username: schoolName
+            shortname: schoolName
         });
         if(schoolName === 'global'){
                 joinedClasses = Smartix.Groups.Collection.find({

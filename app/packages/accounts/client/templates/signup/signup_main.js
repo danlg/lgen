@@ -119,7 +119,6 @@ Template.SignupMain.events({
     },
 
     'click .start-my-trial-btn':function(event,template){
-        //TODO: really pass data to page 2 , form input checking
         var school = {};
         school.schoolFullName        = template.mySchoolName.get();
         school.schoolCountry         = $('#school-country').val();
@@ -154,7 +153,7 @@ Template.SignupMain.events({
             log.info('start-my-trial-btn');
             Meteor.call('smartix:schools/createSchoolTrial',
                 {
-                    name : school.schoolFullName ,
+                    fullname : school.schoolFullName ,
                     logo : '',
                     tel  : '',
                     web  : '',
@@ -203,7 +202,7 @@ Template.SignupMain.events({
             Meteor.call('smartix:schools/editSchoolTrial',
                 template.newSchoolId.get(),
                 {
-                    username: schoolShortName,
+                    shortname: schoolShortName,
                     lead: {
                         stage: 'page-2',
                         howDidYourFind: $('textarea#how-did-you-find').val(),

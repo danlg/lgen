@@ -262,7 +262,7 @@ Template.registerHelper('getCurrentSchoolName',function(){
         //     return 'system';
         // }
         var pickSchoolName = SmartixSchoolsCol.findOne(pickedSchoolId);
-        return pickSchoolName ? pickSchoolName.username : false;
+        return pickSchoolName ? pickSchoolName.shortname : false;
     }
 });
 
@@ -270,7 +270,7 @@ Template.registerHelper('getCurrentSchoolId',function(){
     if(Router && Router.current() && Router.current().params.school) {
         var schoolName = Router.current().params.school;
         var schoolDoc = SmartixSchoolsCol.findOne({
-            username: schoolName
+            shortname: schoolName
         });
         return schoolDoc ? schoolDoc._id : false;
     }

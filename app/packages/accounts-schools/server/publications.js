@@ -159,7 +159,7 @@ var getContactsForStudents = function(userId, schoolDoc)
 Meteor.publish('allSchoolUsersPerRole', function (school) {
     // Get the `_id` of the school from its username
     var schoolDoc = SmartixSchoolsCol.findOne({
-        username: school
+        shortname: school
     });
     //else, try to get by school id
     if(!schoolDoc){
@@ -201,7 +201,7 @@ Meteor.publish('schoolUser', function (school, userId) {
     
     // Get the `_id` of the school from its username
     var schoolDoc = SmartixSchoolsCol.findOne({
-        username: school
+        shortname: school
     });
     
     if(schoolDoc) {

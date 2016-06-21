@@ -182,7 +182,7 @@ Meteor.startup(function () {
     var schoolDoc = SmartixSchoolsCol.findOne(data.namespace);
     var pathToRouteObj ={
         routeName:'admin.absence.expected',
-        params: {school : schoolDoc.username}
+        params: {school : schoolDoc.shortname}
     };
     
     //log.info('attendanceSubmission',pathToRouteObj);
@@ -219,7 +219,7 @@ Meteor.startup(function () {
             if(schoolDoc){
                 
                 pathToRouteObj.routeName = 'mobile.school.home';
-                pathToRouteObj.params = {school : schoolDoc.username}
+                pathToRouteObj.params = {school : schoolDoc.shortname}
                 Session.set('pickedSchoolId',schoolDoc._id);               
             }     
 

@@ -7,7 +7,7 @@ Meteor.methods({
     if(schoolName === 'global' ){
       namespaceId = schoolName;
     }else{
-      var targetSchool = SmartixSchoolsCol.findOne({username:schoolName});
+      var targetSchool = SmartixSchoolsCol.findOne({shortname:schoolName});
       if(targetSchool){
         namespaceId = targetSchool._id;
       }else{

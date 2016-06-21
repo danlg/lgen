@@ -19,7 +19,7 @@ Meteor.methods({
             Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.STUDENT, schoolName)||
             Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.TEACHER, schoolName)
         ) {
-            return targetSchool.username;
+            return targetSchool.shortname;
         }
     },      
     
@@ -48,7 +48,7 @@ Meteor.methods({
         // checks that schoolname is not taken ! implemented in schema, unique
         try {
             schoolId = SmartixSchoolsCol.insert({
-                name: options.name,
+                fullname: options.fullname,
                 logo:  "",
                 backgroundImage:  "",
                 country: options.country,
@@ -68,6 +68,7 @@ Meteor.methods({
                 lead: options.lead || {}
             });
         } catch (err) {
+            log.error(err.message);
             throw err;
         }
         if(options.lead){
@@ -91,13 +92,13 @@ Meteor.methods({
         //log.info('smartix:schools/editSchoolTrial',id);
         var targetSchool = SmartixSchoolsCol.findOne(id);
         //only if the school is totally new, it can be updated by anonymous
-        if (targetSchool.username) {
+        if (targetSchool.shortname) {
             log.error('caller is not authed');
             throw new Meteor.Error("caller-not-authed", "caller is not authed");
         }
-        var existingSchoolWithSameShortName = SmartixSchoolsCol.findOne({username: schoolOptions.username});
+        var existingSchoolWithSameShortName = SmartixSchoolsCol.findOne({shortname: schoolOptions.shortname});
         if(existingSchoolWithSameShortName){
-            log.warn('School short name has been taken:'+ targetSchool.username);
+            log.warn('School short name has been taken:'+ targetSchool.shortname);
             throw new Meteor.Error("short-name-taken", "school short name has been taken. Pick another one");            
         } 
         //log.info('raw',targetSchool);

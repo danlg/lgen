@@ -287,7 +287,7 @@ Smartix.Accounts.School.getNamespaceFromSchoolName = function(schoolName) {
     check(schoolName, String);
     // Get the `_id` of the school from its username
     var schoolDoc = SmartixSchoolsCol.findOne({
-        username: schoolName
+        shortname: schoolName
     });
     return schoolDoc ? schoolDoc._id : false;
 };

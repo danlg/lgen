@@ -1,13 +1,10 @@
 Meteor.methods({
     'smartix:newsgroups/createNewsgroup':function(schoolName, newgroupObj, distributionLists){
-        
         check(schoolName, String);
         check(newgroupObj, Object);
-        
         var schoolDoc = SmartixSchoolsCol.findOne({
-            username: schoolName
+            shortname: schoolName
         });
-        
         if(!schoolDoc) {
             throw new Meteor.Error("school-not-exist", "The school with name " + schoolName + " does not exist.")
         }

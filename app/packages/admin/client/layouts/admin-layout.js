@@ -130,15 +130,20 @@ Template.adminLayout.helpers({
                 school:  UI._globalHelpers['getCurrentSchoolName']()
         }
     },
-    schoolName: function () {
-        return  UI._globalHelpers['getCurrentSchoolName']();
-    },
-    'existingSchoolLogo':function(){
+    //we should put here the long school name, watchout if use for server side
+    schoolDisplayName: function () {
         var schoolDoc = SmartixSchoolsCol.findOne({
-            username:  UI._globalHelpers['getCurrentSchoolName']()
+            shortname:  UI._globalHelpers['getCurrentSchoolName']()
         });
-        return Images.findOne(schoolDoc.logo);
+        return  schoolDoc.fullname;
     }
+
+    // existingSchoolLogo:function(){
+    //     var schoolDoc = SmartixSchoolsCol.findOne({
+    //         shortname:  UI._globalHelpers['getCurrentSchoolName']()
+    //     });
+    //     return Images.findOne(schoolDoc.logo);
+    // }
 });
 
 Template.registerHelper('currentUsername', function () {

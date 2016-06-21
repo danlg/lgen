@@ -5,7 +5,7 @@ Template.MobileSchoolHome.helpers({
 
     schoolLogoUrl:function(){
         var schoolDoc = SmartixSchoolsCol.findOne({
-            username: UI._globalHelpers['getCurrentSchoolName']()
+            shortname: UI._globalHelpers['getCurrentSchoolName']()
         });
         //log.info('schoolDoc',schoolDoc);
         var schoolLogoId;
@@ -18,10 +18,13 @@ Template.MobileSchoolHome.helpers({
     
     schoolFullName:function(){
         var schoolDoc = SmartixSchoolsCol.findOne({
-            username: UI._globalHelpers['getCurrentSchoolName']()
+            _id: UI._globalHelpers['getCurrentSchoolId']()
         });
+        log.info("schoolFullName", _id);
+        log.info("schoolFullName:shortname", schoolDoc.shortname);
+        log.info("schoolFullName:fullname", schoolDoc.fullname);
         if(schoolDoc){
-            return schoolDoc.name;
+            return schoolDoc.fullname;
         }
     },
 
@@ -61,7 +64,7 @@ Template.MobileSchoolHome.helpers({
     getSchoolBannerBackground:function(){
         var schoolBackgroundImageId;
         var schoolDoc = SmartixSchoolsCol.findOne({
-            username: UI._globalHelpers['getCurrentSchoolName']()
+            shortname: UI._globalHelpers['getCurrentSchoolName']()
         });
         var customStyle;
         if(schoolDoc) {

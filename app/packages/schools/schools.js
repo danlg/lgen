@@ -5,10 +5,12 @@
 SmartixSchoolsCol = new Mongo.Collection('schools');
 
 SchoolsSchema = new SimpleSchema({
-   name:{ type:String //the long name
+   fullname:{ type:String //the long name
+      , optional:true
    }
-   , username:{  type:String,//the name in the URL
-                 optional:true
+   , shortname:{  //the name in the URL
+      type:String,
+      optional:true //to make it possible to create a school at step 1 of trial
    }
    , logo:{ type:String, optional : true
    }

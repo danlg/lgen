@@ -10,7 +10,7 @@ Meteor.publish('smartix:classes/allClasses', function () {
 // Returns a cursor of all classes,
 Meteor.publish('smartix:classes/allClassesFromSchoolName', function (schoolName) {
     var schoolDoc = SmartixSchoolsCol.findOne({
-        username: schoolName
+        shortname: schoolName
     });
     if(schoolDoc) {
         return Smartix.Groups.Collection.find({

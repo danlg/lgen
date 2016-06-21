@@ -6,7 +6,7 @@ Template.EditSchool.onCreated(function() {
     this.subscribe('schoolInfo', schoolName);
     this.subscribe('images', schoolName, 'school', schoolName);
 
-    var schoolId = SmartixSchoolsCol.findOne({username: schoolName});
+    var schoolId = SmartixSchoolsCol.findOne({shortname: schoolName});
     if(schoolId.logo)
         Template.instance().newSchoolLogo.set(Images.findOne(schoolId.logo)._id);
     if(schoolId.backgroundImage)
@@ -30,7 +30,7 @@ Template.EditSchool.helpers({
         return Images.find(newSchoolLogoId);
     },
     getSchoolObj: function(){
-            return  SmartixSchoolsCol.findOne({username: UI._globalHelpers['getCurrentSchoolName']()});
+            return  SmartixSchoolsCol.findOne({shortname: UI._globalHelpers['getCurrentSchoolName']()});
     },
     isStudentToStudentChatAllow:function(){
         if(this.allowStudentStudentChat){
@@ -60,7 +60,7 @@ Template.EditSchool.events({
         var editSchoolObj =
         {
           name: $("#name").val(),
-          username: $("#username").val(),
+          shortname: $("#shortname").val(),
           logo: template.newSchoolLogo.get() || $('existing-school-logo').data('existingSchoolLogoId'), 
           backgroundImage: template.newSchoolBackgroundImage.get() || $('existing-school-background-image').data('existingSchoolBackgroundImageId'), 
           tel: $("#tel").val(),

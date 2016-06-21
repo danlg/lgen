@@ -7,7 +7,7 @@ Template.AttendanceRecordAdd.onCreated(function(){
 Template.AttendanceRecordAdd.events({
     'click .apply-leave-btn': function () {
         var schoolDoc = SmartixSchoolsCol.findOne({
-            username: UI._globalHelpers['getCurrentSchoolName']()
+            shortname: UI._globalHelpers['getCurrentSchoolName']()
         });
         var applyLeaveObj = {
             namespace: schoolDoc._id,
