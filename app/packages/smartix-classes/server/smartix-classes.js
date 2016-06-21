@@ -178,6 +178,9 @@ Smartix.Class.canEditClass = function (classId, currentUser) {
     if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
+    var existingClass = Smartix.Groups.Collection.findOne({
+        _id: classId
+    });
     return (Smartix.Class.isClassAdmin(currentUser, classId)
         || Smartix.Accounts.School.isAdmin(existingClass.namespace, currentUser));
 };

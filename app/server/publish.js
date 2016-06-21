@@ -51,19 +51,21 @@ Meteor.publish('user', function (_id) {
  */
 Meteor.publish('images', function (school, category, id) {
   //roomId can be a classCode or chatRoomId
-    log.info("Publishing images school=", school,", category=", category, ", id=", id);
+  if (id.constructor === Array){
     var images = Images.find({
-        'metadata.school': school,
-        'metadata.category': category,
-        'metadata.id': id
-    });
-    log.info("images.count", images.count());
-    var images2 = Images.find({
-        //'metadata.school': school,
-        'metadata.category': category,
-        'metadata.id': id
-    });
-    log.info("images2.count", images2.count());
+      'metadata.school': school,
+      'metadata.category': category,
+      'metadata.id': {$in: id}
+  });
+  }
+  else
+  {
+        var images = Images.find({
+          'metadata.school': school,
+          'metadata.category': category,
+          'metadata.id': id
+      });
+  }
     return images;
 });
 
@@ -74,20 +76,40 @@ Meteor.publish('images', function (school, category, id) {
  * @param id chatRoomId or classCode
  */
 Meteor.publish('sounds', function (school, category, id) {
-    log.info("Publishing sounds school=", school,", category=", category, ", id=", id);
+  if (id.constructor === Array){
     var sounds = Sounds.find({
+      'metadata.school': school,
+      'metadata.category': category,
+      'metadata.id': {$in: id}
+  });
+  }
+  else
+  {    
+    var sounds = Sounds.find({
+          'metadata.school': school,
+          'metadata.category': category,
+          'metadata.id': id
+      });
+  }
+  return sounds;
+});
+
+Meteor.publish('documents',function(school, category, id){
+  if(id.constructor === Array)
+  { 
+    var documents = Documents.find({
+        'metadata.school': school,
+        'metadata.category': category,
+        'metadata.id': {$in: id}
+    });
+  }
+  else
+  {    
+    var documents = Documents.find({
       'metadata.school': school,
       'metadata.category': category,
       'metadata.id': id
     });
-    log.info("sounds.count", sounds.count());
-    return sounds;
-});
-
-Meteor.publish('documents',function(school, category, id){
-  return Documents.find({
-      'metadata.school': school,
-      'metadata.category': category,
-      'metadata.id': id
-  });
+  }
+  return documents;
 });
