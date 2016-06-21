@@ -64,7 +64,8 @@ Template.ClassDetail.events({
       var text = $(e.target).parent().find('.add-comment-annoucement-textbox').val();
       var msgId = $(e.target).data().msgid;
       Meteor.call('smartix:messages-addons-comment/addNewComment',msgId, text);
-      
+      //clear comment
+      $(e.target).parent().find('.add-comment-annoucement-textbox').val("");
   },
   'click .commentToggleBtn':function(e){
     toggleCommentSection(e);
