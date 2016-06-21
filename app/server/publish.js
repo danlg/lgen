@@ -51,20 +51,11 @@ Meteor.publish('user', function (_id) {
  */
 Meteor.publish('images', function (school, category, id) {
   //roomId can be a classCode or chatRoomId
-    log.info("Publishing images school=", school,", category=", category, ", id=", id);
-    var images = Images.find({
-        'metadata.school': school,
-        'metadata.category': category,
-        'metadata.id': id
-    });
-    log.info("images.count", images.count());
-    var images2 = Images.find({
-        //'metadata.school': school,
-        'metadata.category': category,
-        'metadata.id': id
-    });
-    log.info("images2.count", images2.count());
-    return images;
+  return images = Images.find({
+      'metadata.school': school,
+      'metadata.category': category,
+      'metadata.id': {$in: id}
+  });
 });
 
 /**
@@ -74,14 +65,11 @@ Meteor.publish('images', function (school, category, id) {
  * @param id chatRoomId or classCode
  */
 Meteor.publish('sounds', function (school, category, id) {
-    log.info("Publishing sounds school=", school,", category=", category, ", id=", id);
-    var sounds = Sounds.find({
+    return Sounds.find({
       'metadata.school': school,
       'metadata.category': category,
       'metadata.id': id
-    });
-    log.info("sounds.count", sounds.count());
-    return sounds;
+  });
 });
 
 Meteor.publish('documents',function(school, category, id){
