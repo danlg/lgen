@@ -56,10 +56,10 @@ Smartix.Class.Schema = new SimpleSchema({
         type: Boolean,
 		defaultValue: true
     },
-    anyoneCanChat:{
-        type: Boolean,
-		defaultValue: true
-    },
+    // anyoneCanChat:{
+    //     type: Boolean,
+	// 	defaultValue: true
+    // },
     createdAt: {
         type: Date,
         autoValue: function () {

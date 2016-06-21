@@ -90,7 +90,7 @@ Smartix.Class.createClass = function(classObj, currentUser) {
     newClass.classCode = classObj.classCode.trim();
     
     newClass.ageRestricted = classObj.ageRestricted;
-    newClass.anyoneCanChat = classObj.anyoneCanChat;
+    // newClass.anyoneCanChat = classObj.anyoneCanChat;
     newClass.notifyStudents = classObj.notifyStudents;
     newClass.notifyParents = classObj.notifyParents;
     if (classObj.classAvatar) {
@@ -257,10 +257,10 @@ Smartix.Class.editClass = function(classId, options, currentUser) {
         check(options.ageRestricted, Boolean);
         updateObj.ageRestricted = options.ageRestricted;
     }
-    if (options.anyoneCanChat) {
-        check(options.anyoneCanChat, Boolean);
-        updateObj.anyoneCanChat = options.anyoneCanChat;
-    }
+    // if (options.anyoneCanChat) {
+    //     check(options.anyoneCanChat, Boolean);
+    //     updateObj.anyoneCanChat = options.anyoneCanChat;
+    // }
     // Update the group object using `$set`
     log.info('Smartix.Groups.editGroup@editClass', updateObj)
     Smartix.Groups.editGroup(existingClass._id, updateObj);
