@@ -51,22 +51,11 @@ Meteor.publish('user', function (_id) {
  */
 Meteor.publish('images', function (school, category, id) {
   //roomId can be a classCode or chatRoomId
-  if (id.constructor === Array){
-    var images = Images.find({
+  return images = Images.find({
       'metadata.school': school,
       'metadata.category': category,
       'metadata.id': {$in: id}
   });
-  }
-  else
-  {
-        var images = Images.find({
-          'metadata.school': school,
-          'metadata.category': category,
-          'metadata.id': id
-      });
-  }
-    return images;
 });
 
 /**
@@ -76,40 +65,17 @@ Meteor.publish('images', function (school, category, id) {
  * @param id chatRoomId or classCode
  */
 Meteor.publish('sounds', function (school, category, id) {
-  if (id.constructor === Array){
-    var sounds = Sounds.find({
-      'metadata.school': school,
-      'metadata.category': category,
-      'metadata.id': {$in: id}
-  });
-  }
-  else
-  {    
-    var sounds = Sounds.find({
-          'metadata.school': school,
-          'metadata.category': category,
-          'metadata.id': id
-      });
-  }
-  return sounds;
-});
-
-Meteor.publish('documents',function(school, category, id){
-  if(id.constructor === Array)
-  { 
-    var documents = Documents.find({
-        'metadata.school': school,
-        'metadata.category': category,
-        'metadata.id': {$in: id}
-    });
-  }
-  else
-  {    
-    var documents = Documents.find({
+    return Sounds.find({
       'metadata.school': school,
       'metadata.category': category,
       'metadata.id': id
-    });
-  }
-  return documents;
+  });
+});
+
+Meteor.publish('documents',function(school, category, id){
+  return Documents.find({
+      'metadata.school': school,
+      'metadata.category': category,
+      'metadata.id': id
+  });
 });
