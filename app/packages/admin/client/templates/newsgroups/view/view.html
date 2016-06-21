@@ -77,7 +77,7 @@
                                 <tr>
                                     <td>{{data.title}}</td>
                                     <td>{{{data.content}}}</td>
-                                    <td>{{createdAt}}</td>
+                                    <td>{{formatDateCalendar createdAt}}</td>
                                     <td>
                                         {{#if hidden}}
                                             <button class='show-news-btn' data-msg-id="{{_id}}" type="button">{{_ "Admin.Show" }}</button>

@@ -46,7 +46,9 @@ Template.AdminNewsgroupsView.helpers({
                         group: classData._id,  
                         deletedAt: { $exists: false }                     
                     }
-                ]});
+                ]}, {
+                    sort: {createdAt: -1},
+                });
             }
         }
     },
