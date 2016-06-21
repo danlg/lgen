@@ -247,6 +247,19 @@ var googleDocsURLToEmbedReadyURLHTML = function(originalURL) {
     return outputHTML;
 };
 
+//make sure the url is precedded with http://
+Template.registerHelper('openExternalLink', function(url) {
+    var link;
+    Autolinker.link(url, {
+        replaceFn: function(autolinker, match) {
+            switch (match.getType()) {
+                case 'url':
+                    link = match.getUrl();
+            }
+        }
+    });
+    return link;
+});
 
 Template.registerHelper('docPreview', function(url) {
     var linkList = [];
