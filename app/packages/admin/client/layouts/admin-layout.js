@@ -144,15 +144,14 @@ Template.adminLayout.helpers({
         var schoolDoc = SmartixSchoolsCol.findOne({
             username: Router.current().params.school
         });
-        
-        return schoolDoc ? schoolDoc.name : '';
+        return schoolDoc ? schoolDoc.username : '';
     },
     'existingSchoolLogo':function(){
         var schoolDoc = SmartixSchoolsCol.findOne({
             username: Router.current().params.school
         });        
         return Images.findOne(schoolDoc.logo);
-    },    
+    }
 });
 
 Template.registerHelper('currentUsername', function () {

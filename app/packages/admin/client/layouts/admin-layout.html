@@ -117,6 +117,13 @@
                                         <a href="{{pathFor route='admin.school.edit' data=routeData}}"><i class="icon-database-edit2"></i> <span>{{_ "Admin.EditSchool" }}</span></a>
                                     </li>
                                     <li>
+                                      <a href="{{pathFor route='mobile.school.home' school=schoolName}}">
+                                        <!--<i class="icon ion-ios-home-outline"></i>-->
+                                        <i class="icon-home4"></i>
+                                        <span>{{_ "Admin.BackToApp" }}</span>
+                                      </a>
+                                    </li>
+                                    <li>
                                         <a id="adminLayout__signOut" href="#"><i class="icon-exit3"></i> <span>{{_ "SignOut"}}</span></a>
                                     </li>
                                         <!-- /main -->
