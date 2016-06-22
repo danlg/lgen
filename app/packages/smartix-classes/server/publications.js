@@ -75,28 +75,23 @@ Meteor.publish('joinedClasses', function () {
     });
 });
 
-Meteor.publish('smartix:classes/otherClassmates', function(classCode) {
-
+Meteor.publish('smartix:classes/classMembers', function(classCode) {
     var group = Smartix.Groups.Collection.findOne({ classCode: classCode });
     if (group) {
-        
         let classmates = [];
-        
         // Add to `classmates` from the `users` array
         classmates = _.union(classmates, group.users);
-        
+        // Add to `classmates` from the `admin` array
+        classmates = _.union(classmates, group.admins);
         // Get all users in distribution lists
         classmates = _.union(classmates, Smartix.DistributionLists.getUsersInDistributionLists(group.distributionLists));
-        
         lodash.pull(classmates, this.userId);
-        
         return Meteor.users.find({
             _id: {
                 $in: classmates
             }
         });
     }
-
 });
 
 // Returns a cursor of all users that have joined ANY one of the current teacher's classes
@@ -113,9 +108,8 @@ Meteor.publish('smartix:classes/allUsersWhoHaveJoinedYourClasses', function () {
             distributionLists: 1
         }
     }).fetch();
-
     // Extract all the users from the `users` property
-    // from all classes into another array  
+    // from all classes into another array 
     var users = _.flatMap(classes, 'users');
     var distList = _.flatMap(classes, 'distributionLists');
     // Extract all the users from the distribtion lists
@@ -123,11 +117,11 @@ Meteor.publish('smartix:classes/allUsersWhoHaveJoinedYourClasses', function () {
     // Remove the current user from the list of users
     users = _.pull(users, this.userId); 
     // Return a cursor of all users in the `users` array
-    return Meteor.users.find({
-    _id: {
-        $in: users
-    }
-    });
+    if(users){
+        return Meteor.users.find({_id: {$in: users}});
+        }
+    else
+        this.ready();
 });
 
 // Return a cursor of all admins of classes you have joined
@@ -153,9 +147,7 @@ Meteor.publish('smartix:classes/adminsOfClass', function (classCode) {
 });
 
 Meteor.publish('smartix:classes/distributionListsOfClass', function (classCode) {
-    
     let distributionListsOfClass = Smartix.Class.getDistributionListsOfClass(classCode);
-    
     if(distributionListsOfClass) {
         return distributionListsOfClass;
     } else {

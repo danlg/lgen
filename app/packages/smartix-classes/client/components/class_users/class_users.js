@@ -5,9 +5,8 @@ var text = ReactiveVar('');
 /* ClassUsers: Event Handlers */
 /*****************************************************************************/
 Template.ClassUsers.onCreated(function(){
-        Meteor.subscribe('smartix:classes/classByClassCode', Router.current().params.classCode);
-        Meteor.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');
-        Meteor.subscribe('smartix:classes/distributionListsOfClass', Router.current().params.classCode);
+        this.subscribe('smartix:classes/classByClassCode', Router.current().params.classCode);
+        this.subscribe('smartix:classes/classMembers', Router.current().params.classCode);
 });
 
 
@@ -66,44 +65,42 @@ Template.ClassUsers.events({
 /*****************************************************************************/
 Template.ClassUsers.helpers({
   usersProfile: function () {
-    var classObj = Smartix.Groups.Collection.findOne({
-        type: 'class',
-        classCode: Router.current().params.classCode
-    });
-    var userArray = classObj.users;
+    //uses data from subscription otherClassmates
     //select users from Meteor who is not current user and has joined this class
-    var users = Meteor.users.find({$and: [{_id: { $ne: Meteor.userId()}}, {_id: {$in: userArray}}] }, 
-                {sort: { 'profile.lastName': 1, 'profile.firstName': 1}} ).fetch();    
-    return users;
+      var allUsers = Meteor.users.find({},{sort: { 'profile.lastName': 1, 'profile.firstName': 1}}).fetch();
+      if (allUsers.length < 1) {
+        return false;
+      } else {
+        return allUsers;
+      } 
   },
-  distributionList:function(){
-        var classObj = Smartix.Groups.Collection.findOne({
-            type: 'class',
-            classCode: Router.current().params.classCode
-        });
-        var distributionListArray = classObj.distributionLists;
-        var distributionLists = Smartix.Groups.Collection.find({
-                    _id: {$in: distributionListArray},
-                    type: 'distributionList'
-        });
-        return distributionLists;
-    },
-  
-  usersInList: function(listId){
-      var userArray = listId.users;
-      var users = Meteor.users.find({$and: [{_id: { $ne: Meteor.userId()}}, {_id: {$in: userArray}}] } ).fetch();    
-      return users;
-  },
-  
-  isDistribution: function()
+
+  isIndividualUser: function(userId)
   {
     var classObj = Smartix.Groups.Collection.findOne({
         type: 'class',
-        classCode: Router.current().params.classCode
     });
-    return (classObj.distributionLists ?  true : false);
+    if(classObj){
+      var userArray = classObj.users;
+      return lodash.includes(userArray, userId);
+    }
+    else
+      return;
   },
   
+  isAdmin: function(userId)
+  {
+    var classObj = Smartix.Groups.Collection.findOne({
+        type: 'class',
+    });
+    if(classObj){
+      var userArray = classObj.admins;
+      return lodash.includes(userArray, userId);
+    }
+    else
+      return;
+  },
+
   isSearched: function (userObj) {
     var name = Smartix.helpers.getFullNameByProfileObj(userObj.profile);
     if (text.get() === "") {
@@ -114,13 +111,8 @@ Template.ClassUsers.helpers({
   },
 
   emptyList: function () {
-    var classObj = Smartix.Groups.Collection.find({
-        type: 'class',
-        classCode: Router.current().params.classCode
-    }).fetch();
-    var userArray = classObj.users;
     //select users from Meteor who is not current user and has joined this class
-    return Meteor.users.find({$and: [{_id: { $ne: Meteor.userId()}}, {_id: {$in: userArray}}] }).count() == 0 ;
+    return Meteor.users.find().count() == 0 ;
   },
 
   classObj: function (argument) {
@@ -131,14 +123,12 @@ Template.ClassUsers.helpers({
   },
 
   allUsersCount: function(){
-      var allUsersCount = Meteor.users.find({
-        _id: {$nin: [Meteor.userId()]}}
-        ).count();
-     if (allUsersCount.length < 1) {
-       return false;
-     } else {
-       return allUsersCount;
-     } 
+      var allUsersCount = Meteor.users.find().fetch();
+      if (allUsersCount.length < 1) {
+        return false;
+      } else {
+        return allUsersCount.length;
+      } 
   },
 
   isPlural: function (count) {
