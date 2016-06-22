@@ -1,6 +1,6 @@
 <template name="ClassPanel">
 
-  
+{{#if Template.subscriptionsReady}}
   {{#contentFor "headerTitle"}}
     <!-- new code to display classCode in small
     <div>
@@ -155,4 +155,5 @@
     {{/ionContent}}
   {{/ionView}}
   {{/if}}
+{{/if}}
 </template>

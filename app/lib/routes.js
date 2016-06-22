@@ -241,13 +241,7 @@ Router.route('Notification', {
 });
 
 Router.route('MessageExtraInfo', {
-  path: "/panel/notice/:msgCode",
-  waitOn: function () {
-    return [
-      Meteor.subscribe('smartix:messages/messagesById', this.params.msgCode),
-      Meteor.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses') 
-    ];
-  }
+  path: "/panel/notice/:msgCode"
 });
 
 Router.route('NotificationDetail', {

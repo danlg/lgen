@@ -6,6 +6,23 @@ var currentClassCode;
 var loadedItems = ReactiveVar(10);
 var loadExtraItems = 5;
 
+/* ClassPanel: Lifecycle Hooks */
+Template.ClassPanel.onCreated(function () {
+	currentClassCode = Router.current().params.classCode;
+	var self = this;
+	//log.info(Router.current().params.classCode);
+	// self.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');
+	self.subscribe('smartix:classes/classByClassCode', {currentClassCode}, 
+	{
+		onReady: function () {
+		var classObj = Smartix.Groups.Collection.findOne({
+			type: 'class',
+			classCode: Router.current().params.classCode
+		});
+		self.subscribe('smartix:messages/groupMessages', classObj._id);}
+	});
+});
+
 /* ClassPanel: Event Handlers */
 Template.ClassPanel.events({
 	'keyup .search': function () {
@@ -263,21 +280,6 @@ Template.ClassPanel.helpers({
 		});
 		return commentObjs;
 	}
-});
-
-/* ClassPanel: Lifecycle Hooks */
-Template.ClassPanel.onCreated(function () {
-	currentClassCode = Router.current().params.classCode;
-	var self = this;
-	//log.info(Router.current().params.classCode);
-	self.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');
-	self.subscribe('smartix:classes/associatedClasses', function () {
-		var classObj = Smartix.Groups.Collection.findOne({
-			type: 'class',
-			classCode: Router.current().params.classCode
-		});
-		self.subscribe('smartix:messages/groupMessages', classObj._id);
-	});
 });
 
 Template.ClassPanel.rendered = function () {

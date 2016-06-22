@@ -1,6 +1,6 @@
 Meteor.publish('smartix:messages/messagesById', function (id) {
   // Check for permission
-  return Smartix.Messages.find({ _id: id });
+  return Smartix.Messages.Collection.find({ _id: id });
 });
 
 Meteor.publish('smartix:messages/groupMessages', function (groupId) {

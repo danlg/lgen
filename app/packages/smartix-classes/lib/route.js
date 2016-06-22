@@ -19,7 +19,7 @@ Router.route('classDetail', {
     waitOn: function(){
       return[
         Meteor.subscribe('smartix:classes/associatedClasses'),
-        Meteor.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses'),
+        // Meteor.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses'),
         Meteor.subscribe('smartix:classes/classMembers', this.params.classCode)               
       ]
     } 
