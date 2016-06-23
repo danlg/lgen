@@ -1,3 +1,15 @@
+Template.MobileSchoolHome.onCreated(function(){
+    this.canGetSlidNews = new ReactiveVar(false);
+    var self = this;
+    var schoolName =  UI._globalHelpers['getCurrentSchoolName']();
+    if(schoolName)
+    {
+        // self.subscribe('newsgroupsForUser',null,null, schoolName);
+        self.subscribe('newsForUser',null,null, schoolName);
+        self.subscribe('images', schoolName, 'school', schoolName);
+    }
+});
+
 Template.MobileSchoolHome.helpers({
     toUpperI18N:function(key) {
         return TAPi18n.__(key).toUpperCase();
@@ -29,32 +41,10 @@ Template.MobileSchoolHome.helpers({
     },
 
     getSlidingNews:function(){
-        var newsgroupsIds = [];
-        var newsgroupsByUserArray =  Smartix.Groups.Collection.find({ type: 'newsgroup', users: Meteor.userId() }).fetch(); 
-        var newsgroupsByUserArrayIds = lodash.map(newsgroupsByUserArray,'_id');
-        var distributionListsUserBelong = Smartix.Groups.Collection.find({type: 'distributionList', users: Meteor.userId() }).fetch();
-        var distributionListsUserBelongIds = lodash.map(distributionListsUserBelong,'_id');
-        //log.info('distributionListsUserBelongIds',distributionListsUserBelongIds);
-        var newsgroupsBydistributionLists =  Smartix.Groups.Collection.find({ type: 'newsgroup', distributionLists: {$in : distributionListsUserBelongIds } , optOutUsersFromDistributionLists :{  $nin : [Meteor.userId()] } }).fetch();      
-        var newsgroupsBydistributionListsIds = lodash.map(newsgroupsBydistributionLists,'_id');
-        //log.info('newsgroupsBydistributionListsIds',newsgroupsBydistributionListsIds);
-        newsgroupsIds = newsgroupsIds.concat(newsgroupsByUserArrayIds,newsgroupsBydistributionListsIds);
-        //log.info('newsgroupsIds',newsgroupsIds);
         Template.instance().canGetSlidNews.set(true);
-        return Smartix.Messages.Collection.find({$or:[
-            {
-                group: { $in: newsgroupsIds },
-                hidden : false,
-                deletedAt:""
-            },
-            {
-                group: { $in: newsgroupsIds },
-                hidden: false,
-                deletedAt: { $exists: false }
-            }
-        ]}
-        , {sort: {createdAt: -1 }, reactive: false }
-        );
+        return Smartix.Messages.Collection.find({}, 
+            {sort: {createdAt: -1 }, reactive: false }
+            ); 
     },
     
     needMaskImageFallback:function(){
@@ -135,18 +125,8 @@ Template.MobileSchoolHome.onDestroyed(function(){
    this.canGetSlidNews = new ReactiveVar(false);
 });
 
-Template.MobileSchoolHome.onCreated(function(){
-    this.canGetSlidNews = new ReactiveVar(false);
-    var schoolName =  UI._globalHelpers['getCurrentSchoolName']();
-    this.subscribe('newsgroupsForUser',null,null, schoolName);
-    this.subscribe('newsForUser',null,null, schoolName);
-    this.subscribe('images', schoolName, 'school', schoolName);
-});
-
 Template.MobileSchoolHome.onRendered(function(){
     var self = this;
-
-
     self.autorun(function(){
         if(self.canGetSlidNews.get()){
             self.$('.ion-slide-box').slick({
@@ -163,16 +143,7 @@ Template.MobileSchoolHome.onRendered(function(){
             });            
         }
     })
-        
-
-  
-
-
-
-
 })
 
 Template.MobileSchoolHome.onDestroyed(function(){   
-
-
 })
