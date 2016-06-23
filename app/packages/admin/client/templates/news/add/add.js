@@ -5,7 +5,8 @@ Template.AdminNewsAdd.onCreated(function () {
         if(schoolName)
         {
             self.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolName', schoolName); 
-            self.subscribe('smartix:newsgroups/imagesForNewsUpload', schoolName);   
+            self.subscribe('smartix:newsgroups/imagesForNewsUpload', schoolName); 
+            self.subscribe('smartix:newsgroups/documentsForNewsUpload', schoolName);   
         }
     });
     this.imageArr = new ReactiveVar([]);

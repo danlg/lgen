@@ -64,14 +64,24 @@ Meteor.publishComposite('newsForUser', function(limit, query, namespace) {
                                 return addOns.type === 'images'
                             });
                         var imageIds = imageIds || [];
-                        log.info("Images", images);
                         imageIds = images.map(function(addOns){
                             return addOns.fileId;
                         });
-                        log.info("ImageIds", imageIds);
-                        var cursor = Images.find({'_id': {$in: imageIds}});
-                        log.info("Cursor Count", cursor.count());
-                        return cursor;
+                        // log.info("ImageIds", imageIds);
+                        return Images.find({'_id': {$in: imageIds}});
+                    }
+                },
+                {
+                     find: function(messageObj){
+                        var documents = [];
+                        documents = lodash.filter(messageObj.addons, function(addOns){
+                                return addOns.type === 'documents'
+                            });
+                        var documentIds = documentIds || [];
+                        documentIds = documents.map(function(addOns){
+                            return addOns.fileId;
+                        });
+                        return Documents.find({'_id': {$in: documentIds}});
                     }
                 }
             ]
@@ -110,6 +120,14 @@ Meteor.publish('smartix:newsgroups/newsgroupByUrl', function(url) {
 Meteor.publish('smartix:newsgroups/imagesForNewsUpload', function(schoolName)
 {
     return Images.find({
+        'metadata.school': schoolName,
+        'metadata.category': 'news'
+    })
+});
+
+Meteor.publish('smartix:newsgroups/documentsForNewsUpload', function(schoolName)
+{
+    return Documents.find({
         'metadata.school': schoolName,
         'metadata.category': 'news'
     })
