@@ -17,22 +17,21 @@
   
   {{#ionView}}
     {{#ionContent}}
-    <div class="list">
-        {{#if Template.subscriptionsReady}}
-         {{#with getNews}}     
-            {{#each this}}
-                {{> NewsDetail }}           
-            {{else}}
-            
-                <a class="item" href="#">
-                  {{_ "Nonews" }}
-                </a>         
-            {{/each}}
-         {{/with}}      
-        {{else}}
-          <div class="spinner-loading">{{> ionSpinner icon="spiral"}}</div>
-        {{/if}}
-    </div>
+      <div class="list">
+          {{#if Template.subscriptionsReady}}
+          {{#with getNews}}     
+              {{#each this}}
+                  {{> NewsDetail }}           
+              {{else}}
+                  <a class="item" href="#">
+                    {{_ "Nonews" }}
+                  </a>         
+              {{/each}}
+          {{/with}}      
+          {{else}}
+            <div class="spinner-loading">{{> ionSpinner icon="spiral"}}</div>
+          {{/if}}
+      </div>
     {{/ionContent}}
   {{/ionView}}
 </template>

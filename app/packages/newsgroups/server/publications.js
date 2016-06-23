@@ -116,19 +116,3 @@ Meteor.publish('smartix:newsgroups/newsgroupByUrl', function(url) {
         type: 'newsgroup'
     });
 });
-
-Meteor.publish('smartix:newsgroups/imagesForNewsUpload', function(schoolName)
-{
-    return Images.find({
-        'metadata.school': schoolName,
-        'metadata.category': 'news'
-    })
-});
-
-Meteor.publish('smartix:newsgroups/documentsForNewsUpload', function(schoolName)
-{
-    return Documents.find({
-        'metadata.school': schoolName,
-        'metadata.category': 'news'
-    })
-});

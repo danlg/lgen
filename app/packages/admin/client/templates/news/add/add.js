@@ -4,12 +4,11 @@ Template.AdminNewsAdd.onCreated(function () {
         var schoolName = UI._globalHelpers['getCurrentSchoolName']();
         if(schoolName)
         {
-            self.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolName', schoolName); 
-            self.subscribe('smartix:newsgroups/imagesForNewsUpload', schoolName); 
-            self.subscribe('smartix:newsgroups/documentsForNewsUpload', schoolName);   
+            self.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolName', schoolName);   
         }
     });
     this.imageArr = new ReactiveVar([]);
+    this.fileArr = new ReactiveVar([]);
     this.documentArr = new ReactiveVar([]);
     this.calendarEvent = new ReactiveVar({});
     this.showCalendarForm = new ReactiveVar(false);
@@ -47,6 +46,9 @@ Template.AdminNewsAdd.helpers({
     },
     showCalendarForm:function(){
         return Template.instance().showCalendarForm.get();
+    },
+    uploadedFileNames: function(){
+        return Template.instance().fileArr.get();
     }
 });
 
@@ -158,8 +160,11 @@ Template.AdminNewsAdd.events({
             function(result){
                 //log.info('imageArr',result);
                 template.imageArr.set(result);
+                var fileArr = template.fileArr.get();
+                fileArr.push(event.target.files[0].name);
+                template.fileArr.set(fileArr);
             });
-        showPreview("image");
+
     },
 
     'click .set-calendar':function(event,template){
@@ -171,20 +176,22 @@ Template.AdminNewsAdd.events({
         function(result){
                 //log.info('documentArr',result);
                 template.documentArr.set(result);
+                var fileArr = template.fileArr.get();
+                fileArr.push(event.target.files[0].name);
+                template.fileArr.set(fileArr);
         });
-       showPreview("document");
     }
 });
 
-function showPreview(filetype){
-    //log.info("show preview:filetype:"+filetype);
-    $('.preview'+'.'+filetype).show();  
-}
+// function showPreview(filetype){
+//     //log.info("show preview:filetype:"+filetype);
+//     $('.preview'+'.'+filetype).show();  
+// }
 
-function hidePreview(filetype){
-    //log.info("hide preview:filetype:"+filetype);
-    $('.preview'+'.'+filetype).hide();
-}
+// function hidePreview(filetype){
+//     //log.info("hide preview:filetype:"+filetype);
+//     $('.preview'+'.'+filetype).hide();
+// }
 
 function populateAddons(addons, mediaObj)
 {

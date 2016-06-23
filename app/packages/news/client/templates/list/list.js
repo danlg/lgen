@@ -1,43 +1,16 @@
 Template.NewsgroupsNewsList.onCreated(function(){
-   var self = this;
-   var schoolName = UI._globalHelpers['getCurrentSchoolName']();
-    if(schoolName)
-    {
+    var self = this;
+    var schoolId = UI._globalHelpers['getCurrentSchoolId']();
+    if(schoolId){
         self.autorun(function(){
-            self.subscribe('newsgroupsForUser',null,null,schoolName);
-            self.subscribe('newsForUser',null,null,schoolName);  
-        });  
+            self.subscribe('newsgroupsForUser',null,null,schoolId);
+            self.subscribe('newsForUser',null,null,schoolId);
+        }); 
     }
 });
 
 Template.NewsgroupsNewsList.helpers({
     getNews:function(){
-        // var newsgroupsIds = [];
-        // var newsgroupsByUserArray =  Smartix.Groups.Collection.find({ type: 'newsgroup', users: Meteor.userId() }).fetch(); 
-        // var newsgroupsByUserArrayIds = lodash.map(newsgroupsByUserArray,'_id');
-        // var distributionListsUserBelong = Smartix.Groups.Collection.find({type: 'distributionList', users: Meteor.userId() }).fetch();
-        // var distributionListsUserBelongIds = lodash.map(distributionListsUserBelong,'_id');
-        // //log.info('distributionListsUserBelongIds',distributionListsUserBelongIds);
-        // var newsgroupsBydistributionLists =  Smartix.Groups.Collection.find({ type: 'newsgroup', distributionLists: {$in : distributionListsUserBelongIds } , optOutUsersFromDistributionLists :{  $nin : [Meteor.userId()] } }).fetch();      
-        // var newsgroupsBydistributionListsIds = lodash.map(newsgroupsBydistributionLists,'_id');
-        // //log.info('newsgroupsBydistributionListsIds',newsgroupsBydistributionListsIds);
-        // newsgroupsIds = newsgroupsIds.concat(newsgroupsByUserArrayIds,newsgroupsBydistributionListsIds);
-        // //log.info('newsgroupsIds',newsgroupsIds);
-        // return Smartix.Messages.Collection.find(
-        //     {$or:[
-        //     {
-        //         group: { $in: newsgroupsIds },
-        //         hidden : false,
-        //         deletedAt:""
-        //     },
-        //     {
-        //         group: { $in: newsgroupsIds },
-        //         hidden: false,
-        //         deletedAt: { $exists: false }                     
-        //     }
-        // ]},
-        // {sort: {createdAt: -1 } }
-        // );
         return Smartix.Messages.Collection.find();          
     },
     getGroupName:function(groupId){
