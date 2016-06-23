@@ -45,7 +45,7 @@ Template.AdminNewsgroupsView.helpers({
                         group: classData._id,  
                         deletedAt: { $exists: false }                     
                     }
-                ]}, {
+                ]}, { //news most recent on the top
                     sort: {createdAt: -1},
                 });
             }

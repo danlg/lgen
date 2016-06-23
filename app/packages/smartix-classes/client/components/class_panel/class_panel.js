@@ -303,7 +303,6 @@ Template.ClassPanel.onCreated(function(){
 });
 
 Template.ClassPanel.onRendered( function() {
-Template.ClassPanel.rendered = function () {
 	//log.info('rendered',this.subscriptionsReady());
 	var template = this;
 	//scroll to bottom

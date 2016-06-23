@@ -68,11 +68,10 @@ checkNews = function(broadcastList){
   return true;
 };
 
-var notifyAdmin = function (sentToNewgroupNames, lastNewsGroupCode) {
+var notifyAdmin = function (sentToNewgroupNames) {
     // If last element
     clearForm();
     toastr.info('News sent to group: ' + sentToNewgroupNames.toString() );
-    Router.go('admin.newsgroups.view', { school: Router.current().params.school, classCode: lastNewsGroupCode });
 };
 
 var clearForm = function ( ) {
@@ -150,7 +149,9 @@ Template.AdminNewsAdd.events({
             }
         });
         //we notify the admin sender after the messages are sent
-        notifyAdmin(sentToNewgroupNames, lastNewsGroupCode);
+        notifyAdmin(sentToNewgroupNames);
+        //we redirect to the page where the news is shown
+        Router.go('admin.newsgroups.view', { school: Router.current().params.school, classCode: lastNewsGroupCode });
     },
 
     'change #imageBtn': function (event, template) {

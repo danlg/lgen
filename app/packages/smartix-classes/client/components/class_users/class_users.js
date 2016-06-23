@@ -1,15 +1,20 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
+
 var text = ReactiveVar('');
-// var classObj = ReactiveVar({});
-/*****************************************************************************/
-/* ClassUsers: Event Handlers */
-/*****************************************************************************/
+
+/* ClassUsers: LifeCycle */
 Template.ClassUsers.onCreated(function(){
         this.subscribe('smartix:classes/classByClassCode', Router.current().params.classCode);
         this.subscribe('smartix:classes/classMembers', Router.current().params.classCode);
 });
 
+Template.ClassUsers.onRendered( function() {
+    text.set("");
+});
 
+Template.ClassUsers.destroyed = function () { };
+
+/* ClassUsers: Event Handlers */
 Template.ClassUsers.events({
   'keyup .searchbar': function (el) {
     text.set($(".searchbar").val());
@@ -112,7 +117,7 @@ Template.ClassUsers.helpers({
 
   emptyList: function () {
     //select users from Meteor who is not current user and has joined this class
-    return Meteor.users.find().count() == 0 ;
+    return Meteor.users.find().count() === 0 ;
   },
 
   classObj: function (argument) {
@@ -136,10 +141,3 @@ Template.ClassUsers.helpers({
   }
 });
 
-
-Template.ClassUsers.onRendered( function() {
-  text.set("");
-});
-
-Template.ClassUsers.destroyed = function () {
-};

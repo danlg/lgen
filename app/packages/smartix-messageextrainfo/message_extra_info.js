@@ -3,17 +3,13 @@ var classObj;
 var isRecording = false;
 var media = "";
 var isPlayingSound = false;
-/*****************************************************************************/
-/* MessageExtraInfo: Event Handlers */
-/*****************************************************************************/
+
 Template.MessageExtraInfo.onCreated( function(){
       this.subscribe('smartix:messages/messagesById', Router.current().params.msgCode);
       this.subscribe('smartix:classes/classMembers', Router.current().params.classCode); 
 });
 
-/*****************************************************************************/
 /* MessageExtraInfo: Helpers */
-/*****************************************************************************/
 Template.MessageExtraInfo.helpers({
   classObj: function () {
     classObj = Smartix.Groups.Collection.findOne({
