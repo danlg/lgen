@@ -135,7 +135,10 @@ Template.adminLayout.helpers({
         var schoolDoc = SmartixSchoolsCol.findOne({
             shortname:  UI._globalHelpers['getCurrentSchoolName']()
         });
-        return  schoolDoc.fullname;
+        if(schoolDoc)
+            return  schoolDoc.fullname;
+        else
+            return "";
     }
 
     // existingSchoolLogo:function(){

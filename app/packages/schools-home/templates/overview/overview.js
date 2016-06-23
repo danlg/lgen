@@ -18,8 +18,7 @@ Template.MobileSchoolHome.helpers({
     schoolLogoUrl:function(){
         var schoolDoc = SmartixSchoolsCol.findOne({
             shortname: UI._globalHelpers['getCurrentSchoolName']()
-        });
-        //log.info('schoolDoc',schoolDoc);
+        });        //log.info('schoolDoc',schoolDoc);
         var schoolLogoId;
         if(schoolDoc) {
             schoolLogoId = schoolDoc.logo;
@@ -30,11 +29,8 @@ Template.MobileSchoolHome.helpers({
     
     schoolFullName:function(){
         var schoolDoc = SmartixSchoolsCol.findOne({
-            _id: UI._globalHelpers['getCurrentSchoolId']()
+            shortname: UI._globalHelpers['getCurrentSchoolName']()
         });
-        log.info("schoolFullName", _id);
-        log.info("schoolFullName:shortname", schoolDoc.shortname);
-        log.info("schoolFullName:fullname", schoolDoc.fullname);
         if(schoolDoc){
             return schoolDoc.fullname;
         }

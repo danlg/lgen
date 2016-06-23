@@ -1,16 +1,14 @@
 
-Meteor.publish('schoolInfo', function (schoolName) {
-    
+Meteor.publish('schoolInfo', function (schoolName) { 
     check(schoolName, String);
-    
     // Get school object
     let schoolObj = SmartixSchoolsCol.findOne({
-        username: schoolName
+        shortname: schoolName
     });
     if(schoolObj) {
         if(Smartix.Accounts.School.isMember(this.userId, schoolObj._id)) {
             return SmartixSchoolsCol.find({
-                username: schoolName
+                shortname: schoolName
             });
         }
     }
