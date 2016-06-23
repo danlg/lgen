@@ -2,14 +2,9 @@
   {{#contentFor "headerTitle"}}
      <h1 class="title">{{_ "Newsgroups.Newsgroups"}}</h1>
   {{/contentFor}}
-
-
   {{#contentFor "headerButtonLeft"}}
     {{>ionNavBackButton text=" "}}
   {{/contentFor}}
-
-
-  
   {{#ionView}}
     {{#ionContent}}
         <style>
@@ -26,12 +21,10 @@
             {{#each getNewsgroups}}
                 <li class="item item-toggle">
                     {{name}}
-                    
                     {{#if mandatory}}
-                    
+                    <!--No checkbox if mandatory-->
                     {{else}}
                         <label class="toggle toggle-positive">
-                        
                             {{#if userInNewsgroup}}
                                 {{#if userInUserArray}}
                                     <input class='opt-out' type="checkbox" checked="checked" data-group-id={{_id}} />
@@ -44,9 +37,7 @@
                                 {{else}}
                                      <input class='opt-in' type="checkbox" data-group-id={{_id}} />                                
                                 {{/if}}
-
                             {{/if}}
-                            
                             <div class="track">
                                 <div class="handle"></div>
                             </div>

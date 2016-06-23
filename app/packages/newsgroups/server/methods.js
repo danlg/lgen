@@ -53,11 +53,9 @@ Meteor.methods({
         
     },
     'smartix:newsgroups/addToOptOutList':function(newsgroupId){
-        
        var newsgroup = Smartix.Groups.Collection.findOne(newsgroupId);
        if(newsgroup){
            var userNamespaces = Object.keys(Meteor.user().roles);
-           
            if(userNamespaces.indexOf(newsgroup.namespace ) > -1){
             Smartix.Groups.Collection.update(
                 {_id: newsgroupId},
@@ -75,11 +73,9 @@ Meteor.methods({
                
     },    
     'smartix:newsgroups/removeFromOptOutList':function(newsgroupId){
-        
        var newsgroup = Smartix.Groups.Collection.findOne(newsgroupId);
        if(newsgroup){
            var userNamespaces = Object.keys(Meteor.user().roles);
-           
            if(userNamespaces.indexOf(newsgroup.namespace ) > -1){
             Smartix.Groups.Collection.update(
                 {_id: newsgroupId},
@@ -90,11 +86,9 @@ Meteor.methods({
            }else{
             throw new Meteor.Error("group-different-namespace", "Can't join the group in different school");
            }
-           
        }else{
         throw new Meteor.Error("class-not-foun", "Can't find the group");           
        } 
-               
     },    
     'smartix:newsgroups/deleteNewsgroup':function(newsgroupId){
         Smartix.Newsgroup.deleteNewsgroup(newsgroupId, Meteor.userId());

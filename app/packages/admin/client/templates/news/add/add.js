@@ -2,18 +2,12 @@ Template.AdminNewsAdd.onCreated(function () {
     const self = Template.instance();
     this.autorun(() => {
         var schoolName = UI._globalHelpers['getCurrentSchoolName']();
-        self.subscribe('schoolInfo', schoolName , (err, res) => {
-            if(!err) {
-                self.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolName',
-                    schoolName, function (err, res) {
-                    // console.log(err);
-                    // console.log(res);
-                });
-            }
-        });
+        if(schoolName)
+        {
+            self.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolName', schoolName); 
+            self.subscribe('smartix:newsgroups/imagesForNewsUpload', schoolName);   
+        }
     });
-    // this.subscribe('images');
-    // this.subscribe('documents');
     this.imageArr = new ReactiveVar([]);
     this.documentArr = new ReactiveVar([]);
     this.calendarEvent = new ReactiveVar({});
@@ -29,12 +23,12 @@ Template.AdminNewsAdd.onRendered(function(){
 Template.AdminNewsAdd.helpers({
     newsgroups: function () {
         if(Template.instance().subscriptionsReady()) {
-            if(schoolDoc) {
+            // var schoolDoc = UI._globalHelpers['getCurrentSchoolName']();
+            // if(schoolDoc) {
                 return Smartix.Groups.Collection.find({
-                    namespace: UI._globalHelpers['getCurrentSchoolId'](),
                     type: 'newsgroup'
                 });
-            }
+            // }
         }
     },
     uploadPic: function (argument) { 
@@ -159,7 +153,7 @@ Template.AdminNewsAdd.events({
     'change #imageBtn': function (event, template) {
         //https://github.com/CollectionFS/Meteor-CollectionFS
         //Image is inserted from here via FS.Utility
-        Smartix.FileHandler.imageUpload(event,{category: 'class'},template.imageArr.get(),
+        Smartix.FileHandler.imageUpload(event,{category: 'news', school: UI._globalHelpers['getCurrentSchoolName']()},template.imageArr.get(),
             function(result){
                 //log.info('imageArr',result);
                 template.imageArr.set(result);
@@ -172,7 +166,7 @@ Template.AdminNewsAdd.events({
     },
 
     'change #documentBtn': function (event, template) {
-        Smartix.FileHandler.documentUpload(event, {'category': 'news'},template.documentArr.get(),
+        Smartix.FileHandler.documentUpload(event, {'category': 'news', school: UI._globalHelpers['getCurrentSchoolName']()},template.documentArr.get(),
         function(result){
                 //log.info('documentArr',result);
                 template.documentArr.set(result);

@@ -2,7 +2,7 @@ Smartix = Smartix || {};
 
 Smartix.Newsgroup = Smartix.Newsgroup || {};
 
-Smartix.Newsgroup.getNewsgroupOfUser = function (id) {
+Smartix.Newsgroup.getNewsgroupOfUser = function (id, school) {
 	if(Match.test(id, String)) {
 		// Ensures `id` points to an existing user
 		id = !!Meteor.users.findOne({_id: id}) ? id : undefined;
@@ -12,11 +12,22 @@ Smartix.Newsgroup.getNewsgroupOfUser = function (id) {
 		id = Meteor.userId()
 	}
 	if(id) {
-		return Smartix.Groups.Collection.find({
-			type: 'newsgroup',
-			users: id,
-			namespace: Smartix.Acccounts.listUserSchools(id)
-		})
+		var distributionListsUserBelong = Smartix.Groups.Collection.find({type: 'distributionList', users: id }).fetch();
+        var distributionListsUserBelongIds = lodash.map(distributionListsUserBelong,'_id');
+        return Smartix.Groups.Collection.find({$or:[
+				{
+					// namespace: school.username,
+					type: 'newsgroup',
+					users: id
+				},
+				{
+					// namespace: school.username,
+					type: 'newsgroup',
+					distributionLists: {$in : distributionListsUserBelongIds },
+					optOutUsersFromDistributionLists :{  $nin : [id] } 
+				},            
+			]}
+		);
 	}
 };
 
@@ -309,3 +320,4 @@ Smartix.Newsgroup.removeDistributionListToGroup = function(id,distributionListId
         
     }    
 };
+

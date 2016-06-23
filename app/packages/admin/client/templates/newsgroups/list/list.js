@@ -1,9 +1,11 @@
 Template.AdminNewsgroupsSearch.onCreated(function () {
     var schoolName = UI._globalHelpers['getCurrentSchoolName']();
-    this.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolName', schoolName);
-    this.subscribe('smartix:distribution-lists/listsBySchoolName', schoolName);
-    this.subscribe('smartix:accounts/allUsersInNamespace', UI._globalHelpers['getCurrentSchoolId']());
-
+    if(schoolName)
+    {
+        this.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolName', schoolName);
+        this.subscribe('smartix:distribution-lists/listsBySchoolName', schoolName);
+        this.subscribe('smartix:accounts/allUsersInNamespace', UI._globalHelpers['getCurrentSchoolId']());
+    }
     this.usersChecked = new ReactiveVar([]);
     this.doingOperations = new ReactiveVar(false);  
     this.modalName = new ReactiveVar("remove-newsgroups-modal");
@@ -47,9 +49,9 @@ Template.AdminNewsgroupsSearch.helpers({
         }
   },
   distributionListData :function(data){
-      log.info('distributionListData',
-        Smartix.Groups.Collection.findOne({_id: data
-       })     );
+    //   log.info('distributionListData',
+    //     Smartix.Groups.Collection.findOne({_id: data
+    //    })     );
       return Smartix.Groups.Collection.findOne({
           _id: data
       });

@@ -54,7 +54,7 @@ Meteor.publish('images', function (school, category, id) {
   return images = Images.find({
       'metadata.school': school,
       'metadata.category': category,
-      'metadata.id': {$in: id}
+      'metadata.id': id
   });
 });
 

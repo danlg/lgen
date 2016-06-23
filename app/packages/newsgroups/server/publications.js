@@ -7,35 +7,32 @@ Meteor.publish('newsgroups', function(newsgroups) {
     });
 });
 
-Meteor.publish('newsInGroup', function(id, limit, query) {
-
-});
-
-
-
 Meteor.publish('newsgroupsForUser', function(limit, query, namespace) {
     //log.info('newsgroupsForUser',limit,query,namespace);
     var schoolDoc = SmartixSchoolsCol.findOne({
         shortname: namespace
     });
-
     if (!schoolDoc) {
         schoolDoc = SmartixSchoolsCol.findOne({
             _id: namespace
         });
     }
-    
     if(schoolDoc) {
-        return Smartix.Groups.Collection.find({
-            namespace: schoolDoc._id,
-            type: 'newsgroup'
-        });
+        groups = Smartix.Newsgroup.getNewsgroupOfUser(this.userId, schoolDoc);
+        return groups;
     } else {
         this.ready();
     }
 });
 
-Meteor.publish('newsForUser', function(limit, query, namespace) {
+
+/**
+ * Publish Composite Function
+ * @return Messages for a particular user (Parent)
+ * @return Images for each messageObj (Child)
+ * imageIds cotains union of all fileIds for particular message
+ */
+Meteor.publishComposite('newsForUser', function(limit, query, namespace) {
     check(limit, Match.Maybe(Number));
     check(namespace, String);
     if (!limit) {
@@ -49,43 +46,43 @@ Meteor.publish('newsForUser', function(limit, query, namespace) {
             _id: namespace
         });
     }
-    var distributionListsUserBelong = Smartix.Groups.Collection.find({type: 'distributionList', users: this.userId }).fetch();
-    var distributionListsUserBelongIds = lodash.map(distributionListsUserBelong,'_id');
-    
-    //log.info('distributionListsUserBelongIds',distributionListsUserBelongIds);
-    
-    var groups = Smartix.Groups.Collection.find({$or:[
-            {
-                namespace: schoolDoc._id,
-                type: 'newsgroup',
-                users: this.userId
-            },
-            {
-                namespace: schoolDoc._id,
-                type: 'newsgroup',
-                distributionLists: {$in : distributionListsUserBelongIds }
-            },            
-        ]}, {
-        fields: {
-            _id: 1
-        } 
-    }).fetch();
-
-    return Smartix.Messages.Collection.find({
-            group: {
-                $in: lodash.map(groups, '_id')
-            }
-        }, {
-            sort: {
-                createdAt: -1
-            },
-            limit: limit
+    if (schoolDoc){
+        var groups = Smartix.Newsgroup.getNewsgroupOfUser(this.userId, schoolDoc).fetch();
+        return { 
+            find: function(){
+                return Smartix.Messages.Collection.find({
+                        group: {$in: lodash.map(groups, '_id')}},
+                        {sort: {createdAt: -1},
+                        limit: limit
+                    }
+                );},
+            children:[
+                {
+                    find: function(messageObj){
+                        var images = [];
+                        images = lodash.filter(messageObj.addons, function(addOns){
+                                return addOns.type === 'images'
+                            });
+                        var imageIds = imageIds || [];
+                        log.info("Images", images);
+                        imageIds = images.map(function(addOns){
+                            return addOns.fileId;
+                        });
+                        log.info("ImageIds", imageIds);
+                        var cursor = Images.find({'_id': {$in: imageIds}});
+                        log.info("Cursor Count", cursor.count());
+                        return cursor;
+                    }
+                }
+            ]
         }
-    );
-
+    }
+    else {
+        this.ready();
+    }
 });
 
-// Returns a cursor of all classes,
+// Returns a cursor of all newsgroups,
 Meteor.publish('smartix:newsgroups/allNewsgroupsFromSchoolName', function(schoolName) {
     var schoolDoc = SmartixSchoolsCol.findOne({
         shortname: schoolName
@@ -108,4 +105,12 @@ Meteor.publish('smartix:newsgroups/newsgroupByUrl', function(url) {
         url: url,
         type: 'newsgroup'
     });
+});
+
+Meteor.publish('smartix:newsgroups/imagesForNewsUpload', function(schoolName)
+{
+    return Images.find({
+        'metadata.school': schoolName,
+        'metadata.category': 'news'
+    })
 });

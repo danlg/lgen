@@ -1,63 +1,58 @@
-
-
 Template.NewsgroupsNewsView.onCreated(function(){
-   
    var self = this;
-   self.subscribe('newsgroupsForUser',null,null,Session.get('pickedSchoolId'),function(){
-      self.subscribe('newsForUser',null,null,Session.get('pickedSchoolId'));
+   var schoolName =  UI._globalHelpers['getCurrentSchoolName']()
+   if(schoolName)
+    {
+        self.subscribe('newsgroupsForUser',null,null,schoolName);
+        self.subscribe('newsForUser',null,null,schoolName);
+    }
    });    
-
-});
     
 Template.NewsgroupsNewsView.helpers({
-    
     getNews:function(){
-        var newsgroupsIds = [];
+        // var newsgroupsIds = [];       
+        // var newsgroupsByUserArray =  Smartix.Groups.Collection.find({ type: 'newsgroup', users: Meteor.userId() }).fetch(); 
+        // var newsgroupsByUserArrayIds = lodash.map(newsgroupsByUserArray,'_id');
         
+        // var distributionListsUserBelong = Smartix.Groups.Collection.find({type: 'distributionList', users: Meteor.userId() }).fetch();
+        // var distributionListsUserBelongIds = lodash.map(distributionListsUserBelong,'_id');
         
-        var newsgroupsByUserArray =  Smartix.Groups.Collection.find({ type: 'newsgroup', users: Meteor.userId() }).fetch(); 
-        var newsgroupsByUserArrayIds = lodash.map(newsgroupsByUserArray,'_id');
+        // //log.info('distributionListsUserBelongIds',distributionListsUserBelongIds);
         
-        var distributionListsUserBelong = Smartix.Groups.Collection.find({type: 'distributionList', users: Meteor.userId() }).fetch();
-        var distributionListsUserBelongIds = lodash.map(distributionListsUserBelong,'_id');
+        // var newsgroupsBydistributionLists =  Smartix.Groups.Collection.find({ type: 'newsgroup', distributionLists: {$in : distributionListsUserBelongIds } , optOutUsersFromDistributionLists :{  $nin : [Meteor.userId()] } }).fetch();      
+        // var newsgroupsBydistributionListsIds = lodash.map(newsgroupsBydistributionLists,'_id');
         
-        //log.info('distributionListsUserBelongIds',distributionListsUserBelongIds);
+        // //log.info('newsgroupsBydistributionListsIds',newsgroupsBydistributionListsIds);
         
-        var newsgroupsBydistributionLists =  Smartix.Groups.Collection.find({ type: 'newsgroup', distributionLists: {$in : distributionListsUserBelongIds } , optOutUsersFromDistributionLists :{  $nin : [Meteor.userId()] } }).fetch();      
-        var newsgroupsBydistributionListsIds = lodash.map(newsgroupsBydistributionLists,'_id');
+        // newsgroupsIds = newsgroupsIds.concat(newsgroupsByUserArrayIds,newsgroupsBydistributionListsIds);
         
-        //log.info('newsgroupsBydistributionListsIds',newsgroupsBydistributionListsIds);
-        
-        newsgroupsIds = newsgroupsIds.concat(newsgroupsByUserArrayIds,newsgroupsBydistributionListsIds);
-        
-        //log.info('newsgroupsIds',newsgroupsIds);
+        // //log.info('newsgroupsIds',newsgroupsIds);
 
-        return Smartix.Messages.Collection.find({$or:[
-            {
-                group: { $in: newsgroupsIds },
-                hidden : false,
-                deletedAt:"",
-                _id: Router.current().params.msgid
-            },
-            {
-                group: { $in: newsgroupsIds },
-                hidden: false,
-                deletedAt: { $exists: false },
-                _id: Router.current().params.msgid                   
-            }
-        ]}
-        , {sort: {createdAt: -1 } }
-        );
-               
+        // return Smartix.Messages.Collection.find({$or:[
+        //     {
+        //         group: { $in: newsgroupsIds },
+        //         hidden : false,
+        //         deletedAt:"",
+        //         _id: Router.current().params.msgid
+        //     },
+        //     {
+        //         group: { $in: newsgroupsIds },
+        //         hidden: false,
+        //         deletedAt: { $exists: false },
+        //         _id: Router.current().params.msgid                   
+        //     }
+        // ]}
+        // , {sort: {createdAt: -1 } }
+        // );
+        return Smartix.Messages.Collection.find(
+            {_id: Router.current().params.msgid}
+        );         
         
     },
     getGroupName:function(groupId){
         //log.info('getGroupName',groupId);
        return Smartix.Groups.Collection.findOne(groupId).name;
     }  
-    
-
-    
 });
 
 Template.NewsgroupsNewsView.events({
@@ -82,8 +77,6 @@ Template.NewsgroupsNewsView.events({
 });
 
 Template.NewsgroupsNewsView.onDestroyed(function(){
-   
  Meteor.call('setAllNewsAsRead',Session.get('pickedSchoolId'));
-
 });
 
