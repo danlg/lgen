@@ -207,12 +207,12 @@ Smartix.DistributionLists.getDistributionListsOfUser = function (userId) {
 Smartix.DistributionLists.getUsersInDistributionLists = function (distributionLists) {
     return _.reduce(distributionLists, 
         function (users, listid) {
-            var distList = Smartix.Groups.Collection.find({
+            var distList = Smartix.Groups.Collection.findOne({
                     type: 'distributionList',
                     _id : listid
-                }).fetch();
-            if (distList[0]) {
-                users = _.union(users, distList[0].users);
+                });
+            if (distList) {
+                users = _.union(users, distList.users);
             }
             return users;
         }, []);

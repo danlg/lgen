@@ -53,9 +53,8 @@ Template.AdminUploadAttendance.events({
             Session.set('imported-attendance', processedAttendanceJSON);
         };
         reader.readAsBinaryString(file);
-        
-        
     },
+    
     'change #AdminUploadAttendance__upload-csv': function (event, template) {
         var files = event.currentTarget.files;
         var file = files[0];

@@ -21,13 +21,11 @@
     {{#ionContent}}
         {{#with getSchoolObj}}          
             <div class="list card">
-
-            <a href="{{web}}" target="_blank" class="item item-icon-left">
+            <a href="{{openExternalLink web}}" target="_blank" id="schoolWebsite" class="item item-icon-left">
                 <i class="icon ion-home"></i>
                 <h2>{{_ "schools-home.Homepage" }}</h2>
                 <p>{{web}}</p>
             </a>
-
             <a href="tel:{{tel}}" class="item item-icon-left">
                 <i class="icon ion-ios-telephone"></i>
                 <h2>{{_ "PhoneNumber" }}</h2>

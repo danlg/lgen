@@ -199,8 +199,8 @@
     "Students": "Students",
     "StudentAndParentCanJoinByClassCode": "Students and parents can join your class by typing the class code in the app or in a browser.",
     "StudentAndParentVisitLinkToJoinClass": "Students and parents can visit this link to join your class. They can copy and paste in their browser.",
-    "Subscriber": "Member",
-    "Subscriber_plural": "Members",
+    "Subscriber": "member",
+    "Subscriber_plural": "members",
     "SwitchSchool": "Switch school",
     "Take_a_private_note": "Take a private note",
     "teacher": "teacher",
@@ -209,8 +209,8 @@
     "Terms_of_service": "Terms of service",
     "Thanks_for_sharing": "Many thanks for giving us feedback to continuously improve our services",
     "TheFollowingMemberWouldBeRemoved": "The following member will be removed",
-    "ThisCommentIsHidden": "This comment is hidden",
-    "ThisCommentIsHiddenFromJoinedMembers": "This comment has been moderated",
+    "ThisCommentIsHidden": "Comment moderated",
+    "ThisCommentIsHiddenFromJoinedMembers": "Comment moderated",
     "Type_Class_Name": "Type your class name e.g. 'math y6'",
     "Type_Class_Code": "Class code shared with your class (modifiable)",
     "Type_Message_Here": "Type your message here",
@@ -364,9 +364,24 @@
         "Norecord" : "No relationship record",
         "Relationship" : "Relationship"
     },
+    "admin": {
+        "users": {
+            "import": {
+                "incorrectImportFormat": "The file provided for import does not fit the required format. Please check and try again.",
+                "importSuccess": "Users were imported successfully"
+            },
+            "add": {
+                "studentDobRequired": "Date of Birth is required for students",
+                "addSuccess": "User was added successfully"
+            },
+            "update": {
+                "UpdateFail": "There was an error while updating. Please try again. ",
+                "UpdateSuccess": "User was updated successfully"
+            }
+        }
+    },
     "Admin":{
         "All":"Show All",
-        "ActualUsersDistList":"Actual users in distribution list",
         "Admin":"Admin",
         "Admins":"Admins",
         "AddDistList":"Add distribution List",
@@ -401,6 +416,7 @@
         "AddNewDistList":"You may add new distribution lists to your school by filling in the form below.",
         "AddNewsgroupFillingForm":"You may add new newsgroup to your school by filling in the form below.",
         "CombinationLetters":"Any combination of letters and numbers unique to each student.",
+        "BackToApp":"Back to Smartix",
         "Browse":"Browse",
         "BulkImport":"Bulk import",
         "BroadcastNewsgroup":"Broadcast news to newsgroup",
@@ -434,7 +450,7 @@
         "Date":"Date",
         "DateOfBirth":"Date of Birth*",
         "Department":"Department",
-        "Dashboard":"Dashboard",
+        "Dashboard":"Admin Home",
         "DistributionLists":"Distribution Lists",
         "DistributionGroups":"Distribution Groups",
         "DisplayEntriesFrom":"Display entries from, and including, this date",
@@ -636,14 +652,7 @@
         "ListSearchInput":"Type the name of the distribution list you want to add",
         "WelcometoSmartixAdmin":"Welcome to Smartix Admin!",
         "VerificationConfirmation": "Verification email sent!",
-        "VerificationIssue":"There was an issue with sending the emails",
-
-        "ImportIncorrectFormat": "The file provided for import does not fit the required format. Please check and try again.",
-        "ImportSuccess": "Users were imported successfully",
-        "StudentDobRequired": "Date of Birth is required for students",
-        "AddSuccess": "User was added successfully",
-        "UpdateFail": "There was an error while updating. Please try again. ",
-        "UpdateSuccess": "User was updated successfully"
+        "VerificationIssue":"There was an issue with sending the emails"
     },
     "Newsgroups":{
         "Newsgroups":"Newsgroups",

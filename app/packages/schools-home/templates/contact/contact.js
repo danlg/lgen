@@ -15,3 +15,15 @@ Template.MobileSchoolContact.onCreated(function(){
        'school', 
        UI._globalHelpers['getCurrentSchoolName']());
 });
+
+Template.MobileSchoolContact.events({
+    'click #schoolWebsite': function(event, template)
+    {
+        if(Smartix.helpers.isCordova())
+        {    
+            event.preventDefault();
+            var url = template.$("#schoolWebsite").attr('href');
+            window.open(url, '_system', 'location=yes');
+        }
+    }
+});

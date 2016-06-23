@@ -20,42 +20,34 @@
 
   {{#ionView}}
     {{#ionContent}}
-
       <div class="list">
         {{#if emptyList}}
-
           <div class="item">
             <div class="row row-center">
               <div class="col">{{_ "No_subscriber"}}</div>
             </div>
           </div>
-
         {{else}}
-
-          <!--<label class="item item-input">
+          <label class="item item-input">
             <i class="icon ion-search placeholder-icon"></i>
             <input type="text" placeholder="{{_ "Search" }}" class="searchbar">
-          </label>-->
-
+          </label>
           {{#each usersProfile}}
             <!--{{#if isSearched this}}-->
                 <div class="item item-icon-right user-item">
                   {{this.profile.firstName}} <strong> {{this.profile.lastName}} </strong> <br>
                   <div style="font-size: smaller;color:grey"> {{this.profile.role}}</div>
-                  <i style='' class="icon assertive  ion-android-remove-circle remove-member-btn ">                   
+                  <!--If user is in distributionList and individualUser, when removed
+                                        the user remains in class (As distListUser)-->
+                  {{#if isIndividualUser this._id}}
+                  <i style='' class="icon assertive  ion-android-remove-circle remove-member-btn ">
                   </i>
-                </div>            
+                  {{/if}}
+                  {{#if isAdmin this._id}}
+                  <i style='font-size:smaller' class="icon assertive smaller">{{_ "Admin.Admin"}}</i>
+                  {{/if}}
+                </div>
             <!--{{/if}}-->
-          {{/each}}
-        {{/if}}
-        {{#if isDistribution}}
-            <!--<div class="item item-icon-right item-divider">{{_ "smartix-classes.ViewListUsers"}}</div>-->
-          {{#each distributionList}}              
-              {{#each usersInList this}}
-                    <div class="item item-icon-right user-item">
-                    {{this.profile.firstName}} <strong> {{this.profile.lastName}} </strong>  <br>
-                    </div> 
-              {{/each}}                   
           {{/each}}
         {{/if}}
       </div>

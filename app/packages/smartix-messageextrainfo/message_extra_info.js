@@ -6,8 +6,9 @@ var isPlayingSound = false;
 /*****************************************************************************/
 /* MessageExtraInfo: Event Handlers */
 /*****************************************************************************/
-Template.MessageExtraInfo.events({
-
+Template.MessageExtraInfo.onCreated( function(){
+      this.subscribe('smartix:messages/messagesById', Router.current().params.msgCode);
+      this.subscribe('smartix:classes/classMembers', Router.current().params.classCode); 
 });
 
 /*****************************************************************************/
@@ -39,8 +40,11 @@ Template.MessageExtraInfo.helpers({
     return action.length > 0;
   },
   getNameById: function (userId) {
-    var userObj = Meteor.users.findOne(userId);
-    return userObj._id == Meteor.userId() ? "You" : userObj.profile.firstName + " " + userObj.profile.lastName;
+    var userObj = Meteor.users.findOne({ '_id': userId});
+    if(userObj)
+      return userObj._id == Meteor.userId() ? "You" : userObj.profile.firstName + " " + userObj.profile.lastName;
+    else 
+      return "";  
   },
   getName: function (userObj) {
     return userObj._id == Meteor.userId() ? "You" : userObj.profile.firstName + " " + userObj.profile.lastName;
@@ -52,12 +56,10 @@ Template.MessageExtraInfo.helpers({
     var msgArr = this.inputMessageObj;
     var arr = [];
     var filtedArr = lodash.findByValues(msgArr, "msgId", this.msgCode);
-
     arr.push(filtedArr[0].star);
     arr.push(filtedArr[0].close);
     arr.push(filtedArr[0].help);
     arr.push(filtedArr[0].checked);
-
     return lodash.flatten(arr);
   },
   geticon: function (userObj) {

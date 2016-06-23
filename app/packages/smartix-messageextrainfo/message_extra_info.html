@@ -40,7 +40,7 @@
                         {{#if isShown}}                     
                             <div style='display: flex;justify-content: space-between;align-items: baseline;'>
                                 <h3>{{getNameById createdBy}} </h3>
-                            <button data-msgid='{{../../inputMessageObj._id}}' data-commentindex='{{@index}}' data-action='hide' class="commentShownToggle button button-hide">
+                            <button data-msgid='{{../../inputMessageObj._id}}' style="color:#888" data-commentindex='{{@index}}' data-action='hide' class="commentShownToggle button button-hide">
                                 {{_ "Hide"}}
                             </button>
                             </div>                            
@@ -54,7 +54,7 @@
                                 {{_ "Show"}}
                             </button> 
                             </div>                             
-                            <p><i style='color:red;' class="ion-ios-flag-outline colored">{{_ "ThisCommentIsHiddenFromJoinedMembers"}}</i><br/>{{comment}}</p>
+                            <p><i style='color:#888;' class="ion-ios-flag-outline colored smaller subdued">{{_ "ThisCommentIsHiddenFromJoinedMembers"}}</i><br/>{{comment}}</p>
                             <p> {{formatTimeFromNow createdAt}}</p>
                       
                         {{/if}}

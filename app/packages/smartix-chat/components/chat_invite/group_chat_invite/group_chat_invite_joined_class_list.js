@@ -6,7 +6,7 @@ var targetIds = ReactiveVar([]);
 var searchString = ReactiveVar("");
 
 Template.GroupChatInviteChooser.onCreated(function(){
-  Meteor.subscribe('smartix:classes/otherClassmates', Router.current().params.classCode);
+  Meteor.subscribe('smartix:classes/classMembers', Router.current().params.classCode);
 });
 
 Template.GroupChatInviteChooser.events({

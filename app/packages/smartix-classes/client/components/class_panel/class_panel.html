@@ -1,5 +1,6 @@
 <template name="ClassPanel">
- 
+
+  {{#if Template.subscriptionsReady}}
   {{#contentFor "headerTitle"}}
      <h1 class="title">
         <i class="icon e1a-{{classObj.classAvatar}} e1a-2x emojicon"></i>
@@ -12,7 +13,7 @@
   {{#contentFor "headerButtonRight"}}
     <div style="position: absolute; right: 0;">
       <a href="{{pathFor 'ClassInvitation' classCode=classObj.classCode  }}"
-         class="button button-clear button-entering button-active "><i class="icon ion-android-share-alt"></i></a>  
+         class="button button-clear button-entering button-active "><i class="icon ion-android-share-alt"></i></a>
       <a href="{{pathFor 'classEdit' classCode=classObj.classCode  }}"
          class="button button-clear button-entering button-active "><i class="icon ion-ios-information-outline"></i></a>
     </div>
@@ -32,7 +33,7 @@
                     {{>CalendarDisplay this}}
                 {{/each}}
                 <div class="item less-top-bottom-padding">
-                    <div>        
+                    <div>
                     {{{docPreview data.content}}}    
                     {{#autolink}}<div class='content'><pre>{{data.content}}</pre></div>{{/autolink}}
                     <div>
@@ -118,4 +119,5 @@
     {{/ionContent}}
   {{/ionView}}
   {{/if}}
+{{/if}}
 </template>

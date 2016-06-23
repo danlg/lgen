@@ -68,11 +68,11 @@ checkNews = function(broadcastList){
   return true;
 };
 
-var notifyUser = function (index, broadcastList, sentToNewgroupNames) {
+var notifyAdmin = function (sentToNewgroupNames, lastNewsGroupCode) {
     // If last element
-    if( (index + 1) === broadcastList.length) {
-        toastr.info('News sent to group: ' + sentToNewgroupNames.toString() );                                               
-    }
+    clearForm();
+    toastr.info('News sent to group: ' + sentToNewgroupNames.toString() );
+    Router.go('admin.newsgroups.view', { school: Router.current().params.school, classCode: lastNewsGroupCode });
 };
 
 var clearForm = function ( ) {
@@ -132,25 +132,25 @@ Template.AdminNewsAdd.events({
         mediaObj.calendarEvent = template.calendarEvent.get();
         populateAddons(addons, mediaObj);
         var sentToNewgroupNames = [];
+        var lastNewsGroupCode;
         broadcastList.each(function (index) {
             var self = this;
             if (self.checked) {
                 Meteor.call('smartix:messages/createNewsMessage'
-                , self.value
-                , 'article'
-                , {
-                    content: content,
-                    title: title
-                }
-                , addons
-                , doPushNotificationB
-                , function() {
-                    // TODO - add here newsgroup name 
-                    sentToNewgroupNames.push($('label[for=' + self.value + ']').text());
-                    notifyUser(index, broadcastList, sentToNewgroupNames);
-                });
+                    , self.value
+                    , 'article'
+                    , {
+                        content: content,
+                        title: title
+                    }
+                    , addons
+                    , doPushNotificationB);
+                sentToNewgroupNames.push($('label[for=' + self.value + ']').text());
+                lastNewsGroupCode = self.value;
             }
         });
+        //we notify the admin sender after the messages are sent
+        notifyAdmin(sentToNewgroupNames, lastNewsGroupCode);
     },
 
     'change #imageBtn': function (event, template) {
