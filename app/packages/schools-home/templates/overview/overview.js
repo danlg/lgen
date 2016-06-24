@@ -26,15 +26,6 @@ Template.MobileSchoolHome.helpers({
         //log.info(schoolLogoId);
         return Images.findOne(schoolLogoId);
     },
-    
-    schoolFullName:function(){
-        var schoolDoc = SmartixSchoolsCol.findOne({
-            shortname: UI._globalHelpers['getCurrentSchoolName']()
-        });
-        if(schoolDoc){
-            return schoolDoc.fullname;
-        }
-    },
 
     getSlidingNews:function(){
         Template.instance().canGetSlidNews.set(true);
