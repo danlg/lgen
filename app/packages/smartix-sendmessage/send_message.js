@@ -709,7 +709,7 @@ function onResolveSuccess(fileEntry) {
 		//newFile.attachData();
 		//log.info(newFile);
 		var classCode = Router.current().params.classCode;
-		log.info("setting sound metadata ", "school:", UI._globalHelpers['getCurrentSchoolName'](), "category:class", "id:", classCode);
+		log.info("Setting sound metadata ", "school:", UI._globalHelpers['getCurrentSchoolName'](), "category:class", "id:", classCode);
 		newFile.metadata = {
 			school: UI._globalHelpers['getCurrentSchoolName'](),
 			category: 'chat',

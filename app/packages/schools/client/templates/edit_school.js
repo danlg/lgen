@@ -87,9 +87,12 @@ Template.EditSchool.events({
     }
 });
 
-var editImage = function(filePath,template, schoolUserName, image) {
+var editImage = function(filePath, template, schoolShortName, image) {
     var newFile = new FS.File(filePath);
-    newFile.metadata = {id: schoolUserName, category: 'school', school: schoolUserName};
+    newFile.metadata = { school: schoolShortName,
+        id: schoolShortName, 
+        category: 'school'
+    };
     Images.insert(newFile, function(err, fileObj) {
         if (err) log.error(err);
         else {

@@ -157,7 +157,8 @@ Template.AdminNewsAdd.events({
     'change #imageBtn': function (event, template) {
         //https://github.com/CollectionFS/Meteor-CollectionFS
         //Image is inserted from here via FS.Utility
-        Smartix.FileHandler.imageUpload(event,{category: 'news', school: UI._globalHelpers['getCurrentSchoolName']()},template.imageArr.get(),
+        var metadata = {category: 'news', school: UI._globalHelpers['getCurrentSchoolName']()};
+        Smartix.FileHandler.imageUpload(event, metadata, template.imageArr.get(),
             function(result){
                 //log.info('imageArr',result);
                 template.imageArr.set(result);
@@ -165,7 +166,6 @@ Template.AdminNewsAdd.events({
                 fileArr.push(event.target.files[0].name);
                 template.fileArr.set(fileArr);
             });
-
     },
 
     'click .set-calendar':function(event,template){
@@ -173,7 +173,8 @@ Template.AdminNewsAdd.events({
     },
 
     'change #documentBtn': function (event, template) {
-        Smartix.FileHandler.documentUpload(event, {'category': 'news', school: UI._globalHelpers['getCurrentSchoolName']()},template.documentArr.get(),
+	    const metadata = { category: 'news', school: UI._globalHelpers['getCurrentSchoolName']() };
+        Smartix.FileHandler.documentUpload(event, metadata,template.documentArr.get(),
         function(result){
                 //log.info('documentArr',result);
                 template.documentArr.set(result);
