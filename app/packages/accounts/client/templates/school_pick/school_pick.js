@@ -45,15 +45,12 @@ Template.SchoolPick.helpers({
     var logoId = this.logo;
     return Images.findOne(logoId);
   },
-  inGlobal:function(){
-      if(Roles.userIsInRole(Meteor.userId(),['user'],'global')
-         || Roles.userIsInRole(Meteor.userId(),['admin'],'global')){
-          return true;
-      }else{
-          return false;
-      }
+  inGlobal:function() {
+      return (
+          Roles.userIsInRole(Meteor.userId(), ['user'], 'global')
+          || Roles.userIsInRole(Meteor.userId(), ['admin'], 'global')
+      );
   }
-    
 });
 
 Template.SchoolPick.events({
@@ -69,10 +66,10 @@ Template.SchoolPick.events({
        Session.set('pickedSchoolId', schoolId);
        log.info("Session", Session.get('pickedSchoolId'));
        if(Session.get('pickedSchoolId') !== 'global'){
-           Router.go('mobile.school.home', {school:schoolName});
+           Router.go('mobile.school.home', { school:schoolName });
        }else{
            Router.go('TabClasses');
        }
       
     }
-})
+});

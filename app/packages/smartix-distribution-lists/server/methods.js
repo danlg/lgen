@@ -1,13 +1,13 @@
 Meteor.methods({
-    'smartix:distribution-lists/create': function (users, schoolName, name, url) {
-        let namespace = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolName);
+    'smartix:distribution-lists/create': function (users, schoolName, distlistName, url) {
+        let schoolId = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolName);
         if(!namespace) {
             throw new Meteor.Error("school-not-exist", "The school with code " + schoolName + " does not exist.")
         }
         return Smartix.DistributionLists.createDistributionList({
             users: users,
-            namespace: namespace,
-            name: name,
+            namespace: schoolId,
+            name: distlistName,
             url: url,
             expectDuplicates: false,
             upsert: false
@@ -44,5 +44,5 @@ Meteor.methods({
         } else {
             throw new Meteor.Error('list-not-found', "Distribution list with the code " + name + " could not be found.");
         }
-    },
+    }
 });

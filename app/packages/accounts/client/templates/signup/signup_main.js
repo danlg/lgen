@@ -144,13 +144,13 @@ Template.SignupMain.events({
         //log.info('school',school);
         //log.info('user',user);
         //log.info('lead',lead);
-        var SchoolTrialAccountCreationObj = {school: school, user: user};
+        var schoolTrialAccountCreationObj = {school: school, user: user};
         //http://stackoverflow.com/questions/11866910/how-to-force-a-html5-form-validation-without-submitting-it-via-jquery
         if($('#school-trial-account-create')[0].checkValidity()){
             //checkValidity without form submission
             event.preventDefault();
-            Session.set('schoolTrialAccountCreation',SchoolTrialAccountCreationObj);
-            log.info('start-my-trial-btn');
+            Session.set('schoolTrialAccountCreation', schoolTrialAccountCreationObj);
+            //log.info('start-my-trial-btn');
             Meteor.call('smartix:schools/createSchoolTrial',
                 {
                     fullname : school.schoolFullName ,
