@@ -662,7 +662,7 @@
         "SchoolBackgroundImage":"School background image",
         "SchoolTextColor":"School Text Color",
         "Schoollongname":"School long name",
-        "Shortname":"School short name (one word only, no space, it will appear in the URL)",
+        "Shortname":"School short name (readonly)",
         "Noexisting":" No school logo yet",
         "Upload":"Upload a new school logo ",
         "SchoolAdministratorEmail":"School administrator email (this login has full control on the Smartix school configuration)"
