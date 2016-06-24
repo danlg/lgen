@@ -8,14 +8,9 @@
         <ul class="nav navbar-nav">
             <li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
         </ul>
-        <div>
-            <!--TODO implement properly (no harcoding) like overview.html-->
-            <!--{{#with schoolLogoUrl}}-->
-            <!--<img src='{{this.url}}'/>-->
-            <!--{{/with}}-->
-            
+        <div>           
             {{#if Template.subscriptionsReady}}
-                {{#with existingSchoolLogo}}
+                {{#with schoolLogo}}
                     <img  src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="schoolLogo" />                    
                 {{else}}
                     <img src="/img/logo-new.png" alt="" class="schoolLogo">

@@ -1,23 +1,25 @@
 Template.EditSchool.onCreated(function() {
     this.newSchoolLogo = new ReactiveVar("");
     this.newSchoolBackgroundImage = new ReactiveVar("");
-
     var schoolName = UI._globalHelpers['getCurrentSchoolName']();
-    this.subscribe('schoolInfo', schoolName);
-    this.subscribe('images', schoolName, 'school', schoolName);
+    if(schoolName)
+    {
+        this.subscribe('schoolInfo', schoolName);
+        this.subscribe('images', schoolName, 'school', schoolName);
+    }
 
-    var schoolId = SmartixSchoolsCol.findOne({shortname: schoolName});
+});
+
+Template.EditSchool.onDestroyed(function(){
+    // this.newSchoolLogo = new ReactiveVar("");
+});
+
+Template.EditSchool.onRendered(function(){
+    var schoolId = SmartixSchoolsCol.findOne();
     if(schoolId.logo)
         Template.instance().newSchoolLogo.set(Images.findOne(schoolId.logo)._id);
     if(schoolId.backgroundImage)
         Template.instance().newSchoolBackgroundImage.set(Images.findOne(schoolId.backgroundImage)._id); 
-});
-
-Template.EditSchool.onDestroyed(function(){
-    this.newSchoolLogo = new ReactiveVar("");
-});
-
-Template.EditSchool.onRendered(function(){
 });
 
 Template.EditSchool.helpers({ 
@@ -30,7 +32,7 @@ Template.EditSchool.helpers({
         return Images.find(newSchoolLogoId);
     },
     getSchoolObj: function(){
-            return  SmartixSchoolsCol.findOne({shortname: UI._globalHelpers['getCurrentSchoolName']()});
+        return  SmartixSchoolsCol.findOne();
     },
     isStudentToStudentChatAllow:function(){
         if(this.allowStudentStudentChat){
