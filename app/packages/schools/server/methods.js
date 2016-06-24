@@ -76,14 +76,13 @@ Meteor.methods({
                 Email.send(
                     { 
                         from: Meteor.settings.FROM_EMAIL,
-                        to:   Meteor.settings.FEEDBACK_EMAIL,
-                        subject : 'new lead' + options.lead.firstName + ' ' + options.lead.lastName,
+                        to:   Meteor.settings.SALES_EMAIL,
+                        subject : 'New Lead from ' + options.lead.firstName + ' ' + options.lead.lastName,
                         html: JSON.stringify(options)
-                    
                     }
                 );
+                log.info("New lead from", options.lead.firstName + ' ' + options.lead.lastName, "to", Meteor.settings.SALES_EMAIL);
             });
-            log.info("New lead from", options.lead.firstName + ' ' + options.lead.lastName, "to", Meteor.settings.FEEDBACK_EMAIL);
         }
         else{
             lor.error("Cannot send new lead email");
@@ -107,11 +106,6 @@ Meteor.methods({
         } 
         //log.info('raw',targetSchool);
         // https://github.com/aldeed/meteor-simple-schema/issues/387
-        
-        //upload background and logo, update schoolOptions to add logo and background ids
-        // var imgObject = createImage(imagesData, backgroundImagesData, schoolOptions.username);
-        // schoolOptions.logo = imgObject.logoId || "";
-        // schoolOptions.backgroundImage = imgObject.bgImageId || "";     
         
         delete targetSchool._id;
         lodash.merge(targetSchool, schoolOptions);
@@ -140,90 +134,6 @@ Meteor.methods({
                        
         }
     },
-
-    // 'smartix:schools/createSchool': function(options, admins) {
-    //     log.info("smartix:schools/createSchool", options, admins);
-    //     /*
-    //     Meteor.call('smartix:schools/createSchool',{name:'Shau Kei Wan - Elsa High',username:'elsahighadmin',logo:'1234567',tel:'36655388',web:'http://www.carmel.edu.hk/',email:'elsahighschool@carmel.edu.hk.test',active:true,preferences:{}});
-    //     */
-    //     if (options) {
-    //         options.createdAt = new Date();
-    //         options.planTrialExpiryDate = new Date();
-    //         options.planTrialExpiryDate.setDate( options.planTrialExpiryDate.getDate() + 30);
-    //     } else {
-    //         throw new Meteor.Error("require-options", "Pass School Object to create a school");
-    //     }
-    //     if (Roles.userIsInRole(Meteor.userId(), 'admin', 'system')) {
-    //         var adminUsername = options.adminUsername || options.username;
-    //         delete options.adminUsername;
-            
-    //         SchoolsSchema.clean(options);
-    //         check(options, SchoolsSchema);
-                     
-    //         if (lodash.includes(RESERVED_SCHOOL_NAMES, options.username)) {
-    //             log.error(CANNOT_BE_SAME_AS_RESERVED_NAMES);
-    //             return;
-    //         }
-    //         var schoolId;   
-    //         //TODO: logo pass upload image id
-    //         var existingSchool = SmartixSchoolsCol.findOne({username:options.username});
-    //         if(existingSchool){
-    //             log.error('school short name has been taken');     
-    //             throw new Meteor.Error("short-name-taken", "school short name has been taken");                
-    //         }
-    //         // checks that schoolname is not taken ! implemented in schema, unique
-    //         try {
-    //             schoolId = SmartixSchoolsCol.insert({
-    //                 name: options.name,
-    //                 username: options.username,
-    //                 // logo: options.logo,
-    //                 // backgroundImage: options.backgroundImage,
-    //                 tel: options.tel,
-    //                 web: options.web,
-    //                 email: options.email,
-    //                 active: true,
-    //                 preferences: {
-    //                     schoolBackgroundColor:options.preferences.schoolBackgroundColor,
-    //                     schoolTextColor:options.preferences.schoolTextColor
-    //                 },
-    //                 createdAt: options.createdAt,
-    //                 planTrialExpiryDate: options.planTrialExpiryDate,
-    //                 revenueToDate: options.revenueToDate,
-    //                 revenueToDateCcy: options.revenueToDateCcy
-    //             });
-    //         } catch (err) {
-    //             throw err;
-    //         }
-    //         var newAdmin = adminUsername;
-    //         var newAdminPassword = "admin";
-    //         if (admins) {
-    //             admins.map(function(eachAdmin) {
-    //                 Roles.addUsersToRoles(eachAdmin, 'admin', schoolId);
-    //             });
-    //             return { school: schoolId };
-    //         } else {
-    //             Meteor.call('smartix:accounts-schools/createSchoolUser',
-    //                 options.email,
-    //                 {
-    //                     username: newAdmin,
-    //                     password: newAdminPassword,
-    //                     profile: {
-    //                         firstName: newAdmin,
-    //                         lastName: ""
-    //                     }
-    //                 },
-    //                 schoolId,
-    //                 ['admin'],
-    //                 true, //autoverify
-    //                 false //notify
-    //              );
-    //             return { school: schoolId, initialAdmin: { username: newAdmin, initialPassword: newAdminPassword } };
-    //         }
-    //     } else {
-    //         log.info('caller is not authed');
-    //         throw new Meteor.Error("caller-not-authed", "caller is not authed");
-    //     }
-    // },
 
     'smartix:schools/editSchool': function(id, options) {
 
