@@ -81,8 +81,12 @@ Meteor.methods({
                         html: JSON.stringify(options)
                     
                     }
-                );                
-            })
+                );
+            });
+            log.info("New lead from", options.lead.firstName + ' ' + options.lead.lastName, "to", Meteor.settings.FEEDBACK_EMAIL);
+        }
+        else{
+            lor.error("Cannot send new lead email");
         }
         return schoolId;
     },
