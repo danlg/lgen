@@ -131,13 +131,14 @@ Smartix.Groups.isUserInGroup = function(user, group) {
 
     // Checks that `group` is of type String
     check(group, String);
-
+    var group = Smartix.Groups.Collection.findOne({
+        _id: group
+    });
+    var classmates = group.users;
+    classmates = lodash.union(classmates, Smartix.DistributionLists.getUsersInDistributionLists(group.distributionLists));
     // Returns the group object if it exists
     // Returns `undefined` if it does not exist
-    return Smartix.Groups.Collection.findOne({
-        _id: group,
-        users: user
-    });
+    return (lodash.includes(classmates, user)) ? group : "";
 }
 
 Smartix.Accounts.isUserSchoolAdminForGroup = function(id, currentUser) {
