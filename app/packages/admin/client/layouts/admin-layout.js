@@ -25,28 +25,27 @@ Template.adminLayout.events({
         // removeScroll();
         $(".sidebar-fixed .sidebar-content").removeAttr('style').removeAttr('tabindex');
     },
-    // Remove affix and scrollbar on mobile
+
     'resize window': function() {
         setTimeout(function() {            
             if($(window).width() <= 768) {
-
                 // Remove nicescroll on mobiles
                 // removeScroll();
-
-                // Remove affix on mobile
-                $(window).off('.affix')
+                // Remove affix on mobile  and scrollbar on mobile
+                $(window).off('.affix');
                 $('.sidebar-fixed').removeData('affix').removeClass('affix affix-top affix-bottom');
             }
         }, 100);
         $(window).resize();
     },
+
     'click #adminLayout__signOut': function (event, template) {
         event.preventDefault();
         Meteor.logout(function (err) {
             if(!err) {
-                toastr.info(TAPi18n.__('SignOutSuccess'))
+                toastr.info(TAPi18n.__('SignOutSuccess'));
             } else {
-                toastr.error(TAPi18n.__('SignOutFailure'))
+                toastr.error(TAPi18n.__('SignOutFailure'));
             }
         })
     }
@@ -55,16 +54,8 @@ Template.adminLayout.events({
 Template.adminLayout.helpers({
     routeData: function () {
        return {
-                school:  UI._globalHelpers['getCurrentSchoolName']()
-        }
-    },
-    //we should put here the long school name, watchout if use for server side
-    schoolDisplayName: function () {
-        var schoolDoc = SmartixSchoolsCol.findOne();
-        if(schoolDoc)
-            return  schoolDoc.fullname;
-        else
-            return "";
+           school:  UI._globalHelpers['getCurrentSchoolName']()
+       }
     },
 
     schoolLogo:function(){
