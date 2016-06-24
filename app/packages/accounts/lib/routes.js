@@ -21,7 +21,7 @@ SchoolRequired = function() {
         }
     }
     this.next();
-}
+};
 
 Router.onBeforeAction(SchoolRequired, {
   except: ['language', 'Login', 'SignupMain', 'EmailSignup', 'EmailSignin','EmailForgetPwd','EmailResetPwd', 'role',
@@ -30,25 +30,19 @@ Router.onBeforeAction(SchoolRequired, {
 });
 
 Roles.ifUserHasRoleInAnyGroup = function (userId, role) {
-    
     check(userId, Match.Maybe(String));
     check(role, String);
-    
     var userObj = Meteor.users.findOne({
         _id: userId
     });
-    
     if(!userId) {
         return false;
         // OPTIONAL: Throw error indicating the user does not exists
     }
-    
     if(!userObj.roles) {
         return false;
     }
-    
     var userHasRole = false;
-    
     _.each(userObj.roles, function (rolesInGroup, group, groups) {
         if(!Array.isArray(rolesInGroup)) {
             throw new Error('Roles are formatted incorrectly');
@@ -60,9 +54,8 @@ Roles.ifUserHasRoleInAnyGroup = function (userId, role) {
             userHasRole = true;
         }
     });
-    
     return userHasRole;
-}
+};
 
 
 Router.route('/email-reset-password', {
@@ -90,9 +83,11 @@ Router.route('EmailVerification');
 
 Router.route('/splash',{
     name: "LoginSplash"
-})
+});
 
-Router.route('SchoolPick');
+Router.route('/choose-school',{
+    name: "SchoolPick"
+});
 
 Router.route('/myaccount',{
     name:"MyAccount"
