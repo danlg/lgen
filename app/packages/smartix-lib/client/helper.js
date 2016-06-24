@@ -263,33 +263,41 @@ Template.registerHelper('openExternalLink', function(url) {
 
 
 Template.registerHelper('getCurrentSchoolName',function(){
-    if(Router && Router.current() && Router.current().params.school) {
-        return Router.current().params.school;
+    if ( Meteor.isClient ) {
+        var pickedSchoolId = Session.get('pickedSchoolId');
+            if( pickedSchoolId === 'global'){
+                return 'global';
+            }
+            var pickSchoolName = SmartixSchoolsCol.findOne(pickedSchoolId);
+        if(pickSchoolName)
+        {
+            return pickSchoolName.shortname;
+        }
+        if(Router && Router.current() && Router.current().params.school) {
+            return Router.current().params.school;
+        }
     }
     else{
-        var pickedSchoolId = Session.get('pickedSchoolId');
-        if( pickedSchoolId === 'global'){
-            return 'global';
-        }
-        // if( pickedSchoolId === 'system'){
-        //     return 'system';
-        // }
-        var pickSchoolName = SmartixSchoolsCol.findOne(pickedSchoolId);
-        return pickSchoolName ? pickSchoolName.shortname : false;
+        log.error("getCurrentSchoolName cannot be called from server");
     }
+    
 });
 
 Template.registerHelper('getCurrentSchoolId',function(){
-    if(Router && Router.current() && Router.current().params.school) {
-        var schoolName = Router.current().params.school;
-        var schoolDoc = SmartixSchoolsCol.findOne({
-            shortname: schoolName
-        });
-        return schoolDoc ? schoolDoc._id : false;
+    if ( Meteor.isClient ) {
+        var pickedSchoolId = Session.get('pickedSchoolId');
+        if(pickedSchoolId)
+            return pickedSchoolId;
+        if(Router && Router.current() && Router.current().params.school) {
+            var schoolName = Router.current().params.school;
+            var schoolDoc = SmartixSchoolsCol.findOne({
+                shortname: schoolName
+            });
+            return schoolDoc ? schoolDoc._id : false;
+        }
     }
     else{
-        var pickedSchoolId = Session.get('pickedSchoolId');
-        return pickedSchoolId ? pickedSchoolId : false;
+        log.error("getCurrentSchoolId cannot be called from server");
     }
 });
 

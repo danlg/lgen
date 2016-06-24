@@ -8,6 +8,8 @@ Package.describe({
 Package.onUse(function(api) {
     api.versionsFrom("1.2");
     api.use('iron:router');
+    api.use('session', 'client');
+    
     //we cannot use ecmascript in smartix:lib
     //api.use('ecmascript');
     //[1.3.2.4] ecmascript incompatible with tap:i18n

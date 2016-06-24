@@ -58,8 +58,8 @@ Template.SchoolPick.events({
        
        Session.set('pickedSchoolId',schoolId);
        
-       if(schoolId != 'global'){
-           Router.go('mobile.school.home',{school:schoolName});
+       if(schoolId !== 'global'){
+           Router.go('mobile.school.home', {school:schoolName});
        }else{
            Router.go('TabClasses');
        }

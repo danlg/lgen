@@ -1,7 +1,10 @@
 Template.AdminClassesSearch.onCreated(function () {
-    this.subscribe('smartix:classes/allClassesFromSchoolName', UI._globalHelpers['getCurrentSchoolName']() );
-    this.subscribe('smartix:accounts/allUsersInNamespace', UI._globalHelpers['getCurrentSchoolId']());
-
+    var schoolName = UI._globalHelpers['getCurrentSchoolName']();
+    if(schoolName)
+    {
+        this.subscribe('smartix:classes/allClassesFromSchoolName', schoolName );
+        this.subscribe('smartix:accounts/allUsersInNamespace', UI._globalHelpers['getCurrentSchoolId']());
+    }
     this.usersChecked = new ReactiveVar([]);
     this.doingOperations = new ReactiveVar(false);  
     this.modalName = new ReactiveVar("remove-classes-modal");

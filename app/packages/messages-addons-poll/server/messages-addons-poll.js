@@ -47,17 +47,15 @@ Smartix.Messages.Addons.Poll.canChangeVotes = function (messageId) {
 
 Smartix.Messages.Addons.Poll.updateNewPoll = function (messageId, pollObj) {
     // Update the message
-    log.info(Smartix.Messages.Addons.Poll.Type);
+    // log.info(Smartix.Messages.Addons.Poll.Type);
     Smartix.Messages.Collection.update({
         _id: messageId
     },
     { $pull: { addons: {type: Smartix.Messages.Addons.Poll.Type }  } },
     function (error, n) {
         if(!error) {
-            
-            log.info(pollObj)
-            log.info(pollObj.votes);
-            
+            // log.info(pollObj)
+            // log.info(pollObj.votes);
             Smartix.Messages.Collection.update({
                 _id: messageId
             }, {

@@ -214,15 +214,16 @@ Meteor.startup(function () {
     };  
     
     //if message is a school msg with namespace, try to route user back to school home to continue
-    if(data.namespace && data.namespace !== 'global'){      
+    if(data.namespace ){      
             var schoolDoc = SmartixSchoolsCol.findOne(data.namespace);   
             if(schoolDoc){
-                
                 pathToRouteObj.routeName = 'mobile.school.home';
                 pathToRouteObj.params = {school : schoolDoc.shortname}
                 Session.set('pickedSchoolId',schoolDoc._id);               
-            }     
-
+            }   
+            if (data.namespace === 'global') {
+                 Session.set('pickedSchoolId','global');
+            }  
     }
   
     if ('Notification' in window && Notification.permission == 'granted') {
