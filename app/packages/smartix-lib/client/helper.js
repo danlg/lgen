@@ -83,21 +83,21 @@ Smartix.helpers.routeToTabClasses = function() {
     }
     if (userNamespaceCount >= 1) {
         var userNamespace = Object.keys(Meteor.user().roles)[0];
-        log.info("routeToTabClasses:userNamespace", userNamespace);
-        if ( (userNamespace !== 'global') && (userNamespace !== 'sysadmin') ) {
-            Meteor.call('smartix:schools/getSchoolName', userNamespace, function(err, result) {
-                if (err) {
-                    log.error('smartix:schools/getSchoolName', err);
-                }
-                if (result) {
-                    Session.set('pickedSchoolId', userNamespace);
-                    Router.go('mobile.school.home', { school: result });
-                }
-            });
-        } else { //if global
-            //todo change this later to be like a school
-            Router.go("TabClasses");
-        }
+        // if ( (userNamespace !== 'global') && (userNamespace !== 'sysadmin') ) {
+        Meteor.call('smartix:schools/getSchoolName', userNamespace, function(err, result) {
+            if (err) {
+                log.error('smartix:schools/getSchoolName', err);
+            }
+            if (result) {
+                log.info("routeToHome", result);
+                Session.set('pickedSchoolId', userNamespace);
+                Router.go('mobile.school.home', { school: result });
+            }
+        });
+        // } else { //if global
+        //     //todo change this later to be like a school
+        //     Router.go("TabClasses");
+        // }
     } 
     //TO DO need to add method to go to the last used school
     else {
@@ -268,10 +268,7 @@ Template.registerHelper('openExternalLink', function(url) {
 Template.registerHelper('getCurrentSchoolName',function(){
     if ( Meteor.isClient ) {
         var pickedSchoolId = Session.get('pickedSchoolId');
-            if( pickedSchoolId === 'global'){
-                return 'global';
-            }
-            var pickSchoolName = SmartixSchoolsCol.findOne(pickedSchoolId);
+        var pickSchoolName = SmartixSchoolsCol.findOne(pickedSchoolId);
         if(pickSchoolName)
         {
             return pickSchoolName.shortname;

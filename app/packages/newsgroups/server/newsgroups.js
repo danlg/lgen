@@ -9,7 +9,7 @@ Smartix.Newsgroup.getNewsgroupOfUser = function (id, school) {
 	} else {
 		// If `id` is not a string, `undefined`,`null` etc.
 		// Use the currently-logged in user
-		id = Meteor.userId()
+		id = this.userId;
 	}
 	if(id) {
 		var distributionListsUserBelong = Smartix.Groups.Collection.find({type: 'distributionList', users: id }).fetch();

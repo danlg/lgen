@@ -47,16 +47,16 @@ Meteor.methods({
 
     'smartix:classes/createClass': function(schoolName, classObj) {
         //global does not have school doc
-        if (schoolName === 'global') {
-            classObj.namespace = 'global';
-        } else {
+        // if (schoolName === 'smartix') {
+        //     classObj.namespace = 'global';
+        // } else {
             var schoolDoc = SmartixSchoolsCol.findOne({
                 shortname: schoolName
             });
             if (schoolDoc) {
                 classObj.namespace = schoolDoc._id;
             }
-        }
+        // }
         var result = Smartix.Class.createClass(classObj, this.userId);
         log.info(result);
         if (result == "no-right-create-class") {
@@ -98,12 +98,12 @@ Meteor.methods({
             //TODO STOP MIXING NAMESPACE=ID AND SHORTNAME. THIS MAKES THE CODE VERY BUGGY AND DIFFICULT TO MAINTAIN
             var targetSchoolNamespace = doc.schoolName;
             if(doc.schoolName){ // TODO dead code probably (as targetSchoolNamespace = doc.schoolName is never passed)
-                if (doc.schoolName === 'global' ) {
-                    targetSchoolNamespace = doc.schoolName;
-                } else {
+                // if (doc.schoolName === 'smartix' ) {
+                //     targetSchoolNamespace = 'global';
+                // } else {
                     var targetSchool = SmartixSchoolsCol.findOne({ shortname: doc.schoolName });
                     targetSchoolNamespace = targetSchool._id;
-                }
+                // }
             }
             if (resultset) {
                 //if schoolNamespace is not passed, we skip checking of class-different-namespace
@@ -149,12 +149,12 @@ Meteor.methods({
             var resultset = Smartix.Groups.Collection.findOne({ "classCode": { $regex: regexp } });//OK
 
             var targetSchoolNamespace = doc.schoolName;
-            if (doc.schoolName === 'global' ) {
-                targetSchoolNamespace = doc.schoolName;
-            } else {
+            // if (doc.schoolName === 'smartix' ) {
+            //     targetSchoolNamespace = 'global';
+            // } else {
                 var targetSchool = SmartixSchoolsCol.findOne({ shortname: doc.schoolName });
                 targetSchoolNamespace = targetSchool._id;
-            }
+            // }
 
             if (resultset) {
 

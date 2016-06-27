@@ -14,11 +14,11 @@ SchoolRequired = function() {
         } else if (userGroups.length > 1 && Session.get('pickedSchoolId')){
             //do nothing if user is in multiple schools
         }
-        else{
-            Session.set('pickedSchoolId', 'global');
-            // if user does not belonged to any group, user still uses an old account that needs update
-            // assign user role in global group
-        }
+        // else{
+        //     Session.set('pickedSchoolId', 'global');
+        //     // if user does not belonged to any group, user still uses an old account that needs update
+        //     // assign user role in global group
+        // }
     }
     this.next();
 };

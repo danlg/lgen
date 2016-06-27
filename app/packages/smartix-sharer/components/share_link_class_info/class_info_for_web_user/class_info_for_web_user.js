@@ -148,9 +148,10 @@ Template.ClassInformationForWebUser.helpers({
 			classCode: classCode
 		});
 		//log.info('isSchoolClass',classObj);    
-		if (classObj) {
-			return classObj.namespace !== 'global'
-		}
+		return (classObj) ? true: false;
+		// {
+		// 	return classObj.namespace !== 'global'
+		// }
 	},
 	isDisable: function () {
 		return Router.current().params.classCode ? "disabled" : "";

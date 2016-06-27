@@ -4,9 +4,9 @@ Meteor.methods({
     
     var namespaceId;
     //log.info('namespace',schoolName);
-    if(schoolName === 'global' ){
-      namespaceId = schoolName;
-    }else{
+    // if(schoolName === 'smartix' ){
+    //   namespaceId = 'global';
+    // }else{
       var targetSchool = SmartixSchoolsCol.findOne({shortname:schoolName});
       if(targetSchool){
         namespaceId = targetSchool._id;
@@ -14,7 +14,7 @@ Meteor.methods({
         log.info('chatCreate:targetSchoolNotFound');
         return ;
       }  
-    }
+    // }
     
     //user who create this chat is also added into the chat
     chatArr.push(Meteor.userId());

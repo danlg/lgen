@@ -663,19 +663,19 @@ Smartix.Class.AdminsOfJoinedClasses = function (userId, schoolName) {
         var schoolDoc = SmartixSchoolsCol.findOne({
             shortname: schoolName
         });
-        if(schoolName === 'global'){
-                joinedClasses = Smartix.Groups.Collection.find({
-                    type: 'class',
-                    $or: [{
-                        users: userId
-                    }, {
-                        distributionLists: {
-                            $in: Smartix.DistributionLists.getDistributionListsOfUser(userId)
-                        }
-                    }],
-                    namespace: schoolName
-                }).fetch();
-        } else {
+        // if(schoolName === 'smartix'){
+        //         joinedClasses = Smartix.Groups.Collection.find({
+        //             type: 'class',
+        //             $or: [{
+        //                 users: userId
+        //             }, {
+        //                 distributionLists: {
+        //                     $in: Smartix.DistributionLists.getDistributionListsOfUser(userId)
+        //                 }
+        //             }],
+        //             namespace: 'global'
+        //         }).fetch();
+        // } else {
             joinedClasses = Smartix.Groups.Collection.find({
                 $or: [{
                     users: userId
@@ -687,7 +687,7 @@ Smartix.Class.AdminsOfJoinedClasses = function (userId, schoolName) {
                 type: 'class',
                 namespace: schoolDoc._id
             }).fetch();
-        }         
+        // }         
     } else {
         joinedClasses = Smartix.Groups.Collection.find({
             type: 'class',

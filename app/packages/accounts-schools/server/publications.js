@@ -25,53 +25,61 @@ var getContactsForAdmins = function(userId, schoolDoc)
 
 var getContactsForTeachers = function(userId, schoolDoc)
 {
-    if (Roles.userIsInRole(userId, Smartix.Accounts.School.TEACHER, schoolDoc._id)) {
-        let teachers = Roles.getUsersInRole(Smartix.Accounts.School.TEACHER, schoolDoc._id).fetch();
+    if (Roles.userIsInRole(userId, Smartix.Accounts.School.TEACHER, schoolDoc._id)
+    //if user is in global, check if user
+    || Roles.userIsInRole(userId, 'user', schoolDoc._id)) {
         //can talk to students who the teacher is teaching
         //can talk to students who the teacher is not teaching
         //let students = Roles.getUsersInRole(Smartix.Accounts.School.STUDENT, schoolDoc._id).fetch();
         //can talk to parents whose students are taught by the teacher
-        let admins = Roles.getUsersInRole(Smartix.Accounts.School.ADMIN, schoolDoc._id).fetch();
+        let teachers = [];
+        let admins = []
         let classesTaughtByTeacher = Smartix.Groups.Collection.find({ namespace: schoolDoc._id, admins: userId }).fetch();
         let studentsWhoTaughtByTeacher = []
         let parents = [];
         lodash.map(classesTaughtByTeacher, 'users').map(function (studentIDs) {
             studentIDs.map(function (studentID) {
-                //log.info('studentID', studentID);
                 studentsWhoTaughtByTeacher.push(studentID);
                 let findParents = Smartix.Accounts.Relationships.Collection.find({ child: studentID, namespace: schoolDoc._id }).fetch();
                 //log.info('findParents', findParents);
-                findParents.map(function (relationship) {
-                    parents.push(relationship.parent);
-                });
+                if(findParents)
+                {
+                    findParents.map(function (relationship) {
+                        parents.push(relationship.parent);
+                    });
+                }
             });
         });
-
-        //get students and parents from distributionLists
-        lodash.map(classesTaughtByTeacher, 'distributionLists').map(function (listIds) {
-            if(listIds){
-                listIds.map(function(listId){
-                    if(listId)
-                    {
-                        let listOfStudents = Smartix.Groups.Collection.find({ namespace: schoolDoc._id, _id: listId }).fetch();
-                        lodash.map(listOfStudents, 'users').map(function(studentIDs)
+        if(schoolDoc._id !== 'global')
+        {
+            teachers = Roles.getUsersInRole(Smartix.Accounts.School.TEACHER, schoolDoc._id).fetch();
+            admins = Roles.getUsersInRole(Smartix.Accounts.School.ADMIN, schoolDoc._id).fetch();        
+            //get students and parents from distributionLists
+            lodash.map(classesTaughtByTeacher, 'distributionLists').map(function (listIds) {
+                if(listIds){
+                    listIds.map(function(listId){
+                        if(listId)
                         {
-                            studentIDs.map(function (studentID) {
-                                studentsWhoTaughtByTeacher.push(studentID);
-                                let findParents = Smartix.Accounts.Relationships.Collection.find({ child: studentID, namespace: schoolDoc._id }).fetch();
-                                findParents.map(function (relationship) {
-                                    parents.push(relationship.parent);
+                            let listOfStudents = Smartix.Groups.Collection.find({ namespace: schoolDoc._id, _id: listId }).fetch();
+                            lodash.map(listOfStudents, 'users').map(function(studentIDs)
+                            {
+                                studentIDs.map(function (studentID) {
+                                    studentsWhoTaughtByTeacher.push(studentID);
+                                    let findParents = Smartix.Accounts.Relationships.Collection.find({ child: studentID, namespace: schoolDoc._id }).fetch();
+                                    findParents.map(function (relationship) {
+                                        parents.push(relationship.parent);
+                                    });
                                 });
                             });
-                        });
-                    }
-                });
-            }
-        });
+                        }
+                    });
+                }
+            });
+        }
         let allUsers = [];
         allUsers = allUsers.concat( lodash.map(teachers,'_id') );
         allUsers = allUsers.concat( lodash.map(admins,'_id') );
-        allUsers = allUsers.concat( lodash.map(studentsWhoTaughtByTeacher,'_id') );
+        allUsers = allUsers.concat( lodash.map(studentsWhoTaughtByTeacher) );
         allUsers = allUsers.concat( parents );
         return allUsers;
     }
@@ -133,10 +141,11 @@ var getContactsForParents = function(userId, schoolDoc)
 
 var getContactsForStudents = function(userId, schoolDoc)
 {
-    
     //can talk to teacher who teach the student
     //can talk to students' own parent
-    if (Roles.userIsInRole(userId, Smartix.Accounts.School.STUDENT, schoolDoc._id)) {
+    if (Roles.userIsInRole(userId, Smartix.Accounts.School.STUDENT, schoolDoc._id) 
+    //if user is in global, check for teachers of class
+    || Roles.userIsInRole(userId, 'user', schoolDoc._id)) {
         let studentID = userId;
         let teacherOfClass = [];
         let findAdminsOfClass = Smartix.Class.AdminsOfJoinedClasses(studentID, schoolDoc.username);
