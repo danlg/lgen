@@ -244,11 +244,19 @@ Meteor.methods({
   },
 
   updateProfileByPath: function (path, value) {
-    // var obj = {};
-    // obj = lodash.set(obj,path,value);
-    var user = Meteor.user();
-    lodash.set(user, path, value);
-    Meteor.users.update(Meteor.userId(), user);
+      // var obj = {};
+      // obj = lodash.set(obj,path,value);
+      var user = Meteor.user();
+      lodash.set(user, path, value);
+      if(typeof user === 'object') {
+          Meteor.users.update(Meteor.userId(), user);
+      }
+      else {
+          //invoking method 'updateProfileByPath' Error: Invalid modifier. Modifier must be an object
+          log.error("updateProfileByPath:latent bug", (typeof user));
+          log.error("updateProfileByPath:latent bug:user", user);
+          log.error("updateProfileByPath:latent bug:value", value);
+      }
   },
 
   updateProfileByPath2: function (path, fuc) {
