@@ -68,11 +68,11 @@ Template.SchoolPick.events({
       
        Session.set('pickedSchoolId', schoolId);
        log.info("Session", Session.get('pickedSchoolId'));
-       if(Session.get('pickedSchoolId') !== 'global'){
+    //    if(Session.get('pickedSchoolId') !== 'global'){
            Router.go('mobile.school.home', { school:schoolName });
-       }else{
-           Router.go('TabClasses');
-       }
+    //    }else{
+    //        Router.go('TabClasses');
+    //    }
       
     }
 });

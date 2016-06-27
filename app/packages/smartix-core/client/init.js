@@ -221,9 +221,9 @@ Meteor.startup(function () {
                 pathToRouteObj.params = {school : schoolDoc.shortname}
                 Session.set('pickedSchoolId',schoolDoc._id);               
             }   
-            if (data.namespace === 'global') {
-                 Session.set('pickedSchoolId','global');
-            }  
+            // if (data.namespace === 'global') {
+            //      Session.set('pickedSchoolId','global');
+            // }  
     }
   
     if ('Notification' in window && Notification.permission == 'granted') {

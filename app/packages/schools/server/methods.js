@@ -1,23 +1,23 @@
 Meteor.methods({
 
-    'smartix:schools/getSchoolName': function(schoolName) {
-        if(schoolName === 'global'){
-            Roles.userIsInRole(Meteor.userId(), 'user', 'global');
-            return 'global';
+    'smartix:schools/getSchoolName': function(namespace) {
+        if(namespace === 'global'){
+            Roles.userIsInRole(Meteor.userId(), 'user', 'smartix');
+            return 'smartix';
         }
-        log.info('smartix:schools/getSchoolName', schoolName);
-        if(schoolName === 'sysadmin'){
+        // log.info('smartix:schools/getSchoolName', namespace);
+        if(namespace === 'sysadmin'){
             //we have to set a school
             Roles.userIsInRole(Meteor.userId(), 'sysadmin');
-            return 'global';
+            return 'smartix';
         }
-        var targetSchool = SmartixSchoolsCol.findOne(schoolName);
+        var targetSchool = SmartixSchoolsCol.findOne(namespace);
         if (
-            Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.SYSADMIN, schoolName) ||
-            Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.ADMIN, schoolName)||
-            Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.PARENT, schoolName)||
-            Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.STUDENT, schoolName)||
-            Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.TEACHER, schoolName)
+            Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.SYSADMIN, namespace) ||
+            Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.ADMIN, namespace)||
+            Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.PARENT, namespace)||
+            Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.STUDENT, namespace)||
+            Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.TEACHER, namespace)
         ) {
             return targetSchool.shortname;
         }
