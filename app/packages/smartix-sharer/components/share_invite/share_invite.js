@@ -31,7 +31,7 @@ Template.ShareInvite.events({
          //https://zenorocha.github.io/clipboard.js/        
           IonPopup.alert({
             title: 'Oops',
-            template: TAPi18n.__("PressCrtlCToCopyMac"),
+            template: TAPi18n.__("PressCtrlCToCopyMac"),
             okText: TAPi18n.__("OKayGotIt")
           });           
         }

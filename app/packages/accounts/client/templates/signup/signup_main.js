@@ -124,8 +124,7 @@ Template.SignupMain.events({
             email:user.userEmail,
             howManyStudents: school.schoolNumberOfStudent
         };
-        var SchoolTrialAccountCreationObj = {school: school, user: user};
-
+        var schoolTrialAccountCreationObj = {school: school, user: user};
         //http://stackoverflow.com/questions/11866910/how-to-force-a-html5-form-validation-without-submitting-it-via-jquery
         if($('#school-trial-account-create')[0].checkValidity()){
             //checkValidity without form submission
