@@ -47,44 +47,48 @@ Meteor.publishComposite('newsForUser', function(limit, query, namespace) {
         });
     }
     if (schoolDoc){
-        var groups = Smartix.Newsgroup.getNewsgroupOfUser(this.userId, schoolDoc).fetch();
-        return { 
-            find: function(){
-                return Smartix.Messages.Collection.find({
-                        group: {$in: lodash.map(groups, '_id')}},
-                        {sort: {createdAt: -1},
-                        limit: limit
-                    }
-                );},
-            children:[
-                {
-                    find: function(messageObj){
-                        var images = [];
-                        images = lodash.filter(messageObj.addons, function(addOns){
-                                return addOns.type === 'images'
+        var groups = Smartix.Newsgroup.getNewsgroupOfUser(this.userId, schoolDoc);
+        if(groups)
+        {
+            groups = groups.fetch();
+            return { 
+                find: function(){
+                    return Smartix.Messages.Collection.find({
+                            group: {$in: lodash.map(groups, '_id')}},
+                            {sort: {createdAt: -1},
+                            limit: limit
+                        }
+                    );},
+                children:[
+                    {
+                        find: function(messageObj){
+                            var images = [];
+                            images = lodash.filter(messageObj.addons, function(addOns){
+                                    return addOns.type === 'images'
+                                });
+                            var imageIds = imageIds || [];
+                            imageIds = images.map(function(addOns){
+                                return addOns.fileId;
                             });
-                        var imageIds = imageIds || [];
-                        imageIds = images.map(function(addOns){
-                            return addOns.fileId;
-                        });
-                        // log.info("ImageIds", imageIds);
-                        return Images.find({'_id': {$in: imageIds}});
-                    }
-                },
-                {
-                     find: function(messageObj){
-                        var documents = [];
-                        documents = lodash.filter(messageObj.addons, function(addOns){
-                                return addOns.type === 'documents'
+                            // log.info("ImageIds", imageIds);
+                            return Images.find({'_id': {$in: imageIds}});
+                        }
+                    },
+                    {
+                        find: function(messageObj){
+                            var documents = [];
+                            documents = lodash.filter(messageObj.addons, function(addOns){
+                                    return addOns.type === 'documents'
+                                });
+                            var documentIds = documentIds || [];
+                            documentIds = documents.map(function(addOns){
+                                return addOns.fileId;
                             });
-                        var documentIds = documentIds || [];
-                        documentIds = documents.map(function(addOns){
-                            return addOns.fileId;
-                        });
-                        return Documents.find({'_id': {$in: documentIds}});
+                            return Documents.find({'_id': {$in: documentIds}});
+                        }
                     }
-                }
-            ]
+                ]
+            }
         }
     }
     else {
