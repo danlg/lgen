@@ -301,7 +301,7 @@ Template.registerHelper('getCurrentSchoolId',function(){
     }
 });
 
-Template.registerHelper('getSchoolFullName', () => {
+Template.registerHelper('getSchoolFullName', function() {
     var schoolDoc = SmartixSchoolsCol.findOne({
         shortname: UI._globalHelpers['getCurrentSchoolName']()
     });
