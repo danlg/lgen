@@ -109,9 +109,8 @@
     "NewPassword": "New Password",
     "NewPasswordConfirm": "Confirm New Password",
     "News":"News",
-    "Nonews":"No news",
+    "NoNews":"No news",
     "NoClass": "No class found",
-
     "NoCreditCardRequired": "No credit card required",
     "OneLastStep": "One last step and you can enjoy the app ;-)",
     "StartFreeTrial":"Start my 30-day FREE trial of my personalised school app",
@@ -340,7 +339,6 @@
         "Reason": "Because...",
         "Contact": "Contact School",
         "Viewapplication": "View applied leave(s)",
-        "NoNews": "No News",
         "Application": "Leave Applications",
         "Reference": "ReferenceID",
         "Student": "Student",
