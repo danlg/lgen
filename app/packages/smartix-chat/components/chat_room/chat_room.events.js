@@ -78,16 +78,15 @@ Template.ChatRoom.events({
 				);
 			}
 		}
-
 	},
+	
 	'change #documentBtn': function (event, template) {
-		Smartix.FileHandler.documentUpload(event,
-			{
-				'category': 'chat',
-				'id': Router.current().params.chatRoomId,
-				'school': UI._globalHelpers['getCurrentSchoolName']()
-			}
-		);
+		const metadata = {
+			school: UI._globalHelpers['getCurrentSchoolName'](),
+			category: 'chat',
+			id: Router.current().params.chatRoomId
+		};
+		Smartix.FileHandler.documentUpload(event, metadata);
 	},
 
 	'click .imgThumbs': function (e) {
@@ -173,11 +172,13 @@ function onResolveSuccess(fileEntry) {
 		//newFile.attachData();
 		//log.info(newFile);
 		var chatRoomId = Router.current().params.chatRoomId;
-		log.info("setting sound metadata ", "school:", UI._globalHelpers['getCurrentSchoolName'](), "category:chat", "id:", chatRoomId);
+
+		log.info("Setting sound metadata ", "school:", UI._globalHelpers['getCurrentSchoolId'](), "category:chat", "id:", chatRoomId);
 		newFile.metadata = { 
-			school: UI._globalHelpers['getCurrentSchoolName'](), 
+			school: UI._globalHelpers['getCurrentSchoolId'](),
 			category: 'chat', 
-			id: chatRoomId };
+			id: chatRoomId
+		};
 		Sounds.insert(newFile, function (err, fileObj) {
 			if (err) {
 				//handle error

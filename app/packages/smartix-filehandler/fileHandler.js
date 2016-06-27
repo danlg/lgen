@@ -80,10 +80,10 @@ Smartix.FileHandler = (function () {
 		},
 
 		//Image Upload for Web and iOS
-		imageUpload: function (event, identity, currentImageArray, callback) {
+		imageUpload: function (event, metadata, currentImageArray, callback) {
 			FS.Utility.eachFile(event, function (file) {
 				var newFile = new FS.File(file);
-				newFile.metadata = identity;
+				newFile.metadata = metadata;
 				newFile.owner = Meteor.userId();
 				Images.insert(newFile, function (err, fileObj) {
 					if (err) {
@@ -96,7 +96,7 @@ Smartix.FileHandler = (function () {
 							analytics.track("First Picture", {date: new Date()});
 							Meteor.call("updateProfileByPath", 'firstPicture', false);
 						}
-						if (identity.category === "chat") {
+						if (metadata.category === "chat") {
 							GeneralMessageSender(Router.current().params.chatRoomId, 'text', 'New Image', [{
 									type: 'images',
 									fileId: fileObj._id
@@ -104,13 +104,13 @@ Smartix.FileHandler = (function () {
 								Smartix.helpers.getAllUserExceptCurrentUser()
 							);
 						}
-						else if (( identity.category === "class") || ( identity.category === "news")) {
+						else if (( metadata.category === "class") || ( metadata.category === "news")) {
 							// alert(fileObj._id);
 							arr = currentImageArray || [];
 							arr.push(fileObj._id);
 							callback(arr);
 						}
-						else if (identity.category === "school") {
+						else if (metadata.category === "school") {
 							arr = fileObj._id;
 							callback(arr);
 						}
@@ -120,7 +120,7 @@ Smartix.FileHandler = (function () {
 		},
 
 		//Image Upload for Android
-		imageUploadForAndroid: function (identity) {
+		imageUploadForAndroid: function (metadata) {
 			var onSuccess = function (imageURI) {
 				// var image = document.getElementById('myImage');
 				// image.src = "data:image/jpeg;base64," + imageData;
@@ -133,7 +133,7 @@ Smartix.FileHandler = (function () {
 							// alert(file);
 							log.info(file);
 							var newFile = new FS.File(file);
-							newFile.metadata = identity;
+							newFile.metadata = metadata;
 							newFile.owner = Meteor.userId();
 							Images.insert(newFile, function (err, fileObj) {
 								if (err) {
@@ -197,11 +197,11 @@ Smartix.FileHandler = (function () {
 		},
 
 		//Send Documents for Web andiOS
-		documentUpload: function (event, identity, currentDocumentArray, callback) {
+		documentUpload: function (event, metadata, currentDocumentArray, callback) {
 			FS.Utility.eachFile(event, function (file) {
 				//log.info(file);
 				var newFile = new FS.File(file);
-				newFile.metadata = identity;
+				newFile.metadata = metadata;
 				newFile.owner = Meteor.userId();
 				Documents.insert(newFile, function (err, fileObj) {
 					if (err) {
@@ -213,7 +213,7 @@ Smartix.FileHandler = (function () {
 						//so we explicitly set the file obj name here.
 						var arr;
 						fileObj.name(file.name);
-						if (identity.category === 'chat') {
+						if (metadata.category === 'chat') {
 							GeneralMessageSender(
 								Router.current().params.chatRoomId,
 								'text',
@@ -222,12 +222,12 @@ Smartix.FileHandler = (function () {
 								Smartix.helpers.getAllUserExceptCurrentUser()
 							);
 						}
-						else if (identity.category === 'class') {
+						else if (metadata.category === 'class') {
 							arr = currentDocumentArray;
 							arr.push(fileObj._id);
 							directDocumentMessage(arr, callback)
 						}
-						else if (identity.category === 'news') {
+						else if (metadata.category === 'news') {
 							arr = currentDocumentArray;
 							arr.push(fileObj._id);
 							callback(arr);
@@ -237,7 +237,7 @@ Smartix.FileHandler = (function () {
 			});
 		},
 
-		documentUploadForAndroid: function (e, identity, currentDocumentArray, callback) {
+		documentUploadForAndroid: function (e, metadata, currentDocumentArray, callback) {
 			var successCallback = function (uri) {
 				log.info(uri);
 				window.FilePath.resolveNativePath(uri, function (localFileUri) {
@@ -251,14 +251,14 @@ Smartix.FileHandler = (function () {
 						fileEntry.file(function (file) {
 							var newFile = new FS.File(file);
 							newFile.owner = Meteor.userId();
-							newFile.metadata = identity;
+							newFile.metadata = metadata;
 							Documents.insert(newFile, function (err, fileObj) {
 								if (err) {
 									//handle error
 									log.error("insert error" + err);
 								}
 								else {
-									if (identity.category === 'chat') {
+									if (metadata.category === 'chat') {
 										//handle success depending what you need to do
 										//console.dir(fileObj);
 										GeneralMessageSender(Router.current().params.chatRoomId, 'text', 'New Document', [{
@@ -268,7 +268,7 @@ Smartix.FileHandler = (function () {
 											Smartix.helpers.getAllUserExceptCurrentUser()
 										);
 									}
-									else if (identity.category === 'class') {
+									else if (metadata.category === 'class') {
 										var arr = currentDocumentArray;
 										arr.push(fileObj._id);
 										directDocumentMessage(arr, callback);

@@ -1,71 +1,70 @@
 <!--a stub for dev only. Usage: system admin to create/edit school. Expect: return of school id and school admin initial password-->
 <template name='EditSchool'>
     {{#if Template.subscriptionsReady}}
-    {{#with getSchoolObj}}
-    <style>
-        .pane
-        {
-            overflow:auto;
-        }
-    </style>
-    <form>
-        <input id='school-id' type="hidden" name="school-id" value='{{_id}}'>
-        {{_ "schools.Schoollongname" }}
-        <input id='name' type="text" name="name" value='{{fullname}}'>
-        
-        <br> {{_ "schools.Shortname" }}
-        <input id='shortname' type="text" name="shortname" value='{{shortname}}'>
-                
-        <br>
-        <!--
-        {{#with existingSchoolLogo}}
-            <img id='existing-school-logo' data-existing-school-logo-id={{_id}} src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="thumbnail" />                    
-        {{else}}
-            {{_ "schools.Noexisting" }}
-        {{/with}}
-        -->
+        {{#with getSchoolObj}}
+            <style>
+                .pane {
+                    overflow: auto;
+                }
+            </style>
+            <form>
+                <input id='school-id' type="hidden" name="school-id" value='{{_id}}'>
+                {{_ "schools.Schoollongname" }}
+                <input id='name' type="text" name="name" value='{{fullname}}'>
 
-        {{_ "schools.Schoollogo" }}
-        {{#each uploadedSchoolLogo}}
-            <img src="{{ this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="thumbnail" />        
-        {{/each}}
-        <input id='school-logo' type="file" name="school-logo">
-        {{_ "schools.SchoolBackgroundImage" }} 
-        {{#each uploadedSchoolBackgroundImage}}
-            <img src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="thumbnail" />        
-        {{/each}}
+                <br> {{_ "schools.Shortname" }}
+                <!--<input id='shortname' type="text" name="shortname" value='{{shortname}}' readonly>-->
+                <br>
+                <label><strong>{{shortname}}</strong></label>
+                <br>
+                <br>
+                {{_ "schools.Schoollogo" }}
+                {{#each uploadedSchoolLogo}}
+                    <img
+                        src="{{ this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}"
+                        alt="" class="thumbnail"/>
+                {{/each}}
+                <input id='school-logo' type="file" name="school-logo">
+                {{_ "schools.SchoolBackgroundImage" }}
+                {{#each uploadedSchoolBackgroundImage}}
+                    <img
+                        src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}"
+                        alt="" class="thumbnail"/>
+                {{/each}}
 
-        <br>      
-        <input id='school-background-image' type="file" name="school-background-image">
-        
-        <br> {{_ "PhoneNumber" }}
-        <input id='tel' type="text" name="tel" value='{{tel}}'>
-        
-        <br> {{_ "schools.Schoolwebsite" }}
-        <input id='web' type="text" name="web" value='{{web}}'>
-        
-        <br> {{_ "schools.SchoolAdministratorEmail" }}
-        <input id='email' type="text" name="email" value='{{email}}'>
+                <br>
+                <input id='school-background-image' type="file" name="school-background-image">
 
-        <br> {{_ "schools.SchoolContactEmail" }}
-        <input id='contactemail' type="text" name="contactemail" value='{{contactemail}}'>
+                <br> {{_ "PhoneNumber" }}
+                <input id='tel' type="text" name="tel" value='{{tel}}'>
 
-        <br> {{_ "schools.SchoolBackgroundColor" }}
-        <input id='school-background-color' type="color" name="school-background-color" value='{{preferences.schoolBackgroundColor}}'>
-        
-        <br> {{_ "schools.SchoolTextColor" }}
-        <input id='school-text-color' type="color" name="school-text-color" value='{{preferences.schoolTextColor}}'>
+                <br> {{_ "schools.Schoolwebsite" }}
+                <input id='web' type="text" name="web" value='{{web}}'>
 
-        <!--<br> Allow student to student chat
+                <br> {{_ "schools.SchoolAdministratorEmail" }}
+                <input id='email' type="text" name="email" value='{{email}}'>
+
+                <br> {{_ "schools.SchoolContactEmail" }}
+                <input id='contactemail' type="text" name="contactemail" value='{{contactemail}}'>
+
+                <br> {{_ "schools.SchoolBackgroundColor" }}
+                <input id='school-background-color' type="color" name="school-background-color"
+                       value='{{preferences.schoolBackgroundColor}}'>
+
+                <br> {{_ "schools.SchoolTextColor" }}
+                <input id='school-text-color' type="color" name="school-text-color"
+                       value='{{preferences.schoolTextColor}}'>
+
+                <!--<br> Allow student to student chat
         <input id='student-to-student-chat' type="checkbox" name="student-to-student-chat" {{isStudentToStudentChatAllow}} >-->
-                                
-       <br>
-       <!--<input id='edit-school-submit' type="button" value="Edit" >-->
 
-      <div class="text-right">
-        <button id="edit-school-submit" type="submit" class="btn btn-primary">{{_ "Save" }} </button>
-      </div>
-    </form>
-   {{/with}}
-   {{/if}}
+                <br>
+                <!--<input id='edit-school-submit' type="button" value="Edit" >-->
+
+                <div class="text-right">
+                    <button id="edit-school-submit" type="submit" class="btn btn-primary">{{_ "Save" }} </button>
+                </div>
+            </form>
+        {{/with}}
+    {{/if}}
 </template>

@@ -83,15 +83,6 @@ Template.AppLayout.helpers({
         } else {
             return "";
         }
-
-
-    },
-
-    getCurrentSchoolNameDisplay: function() {
-        if (Session.get('pickedSchoolId') === 'global') return 'global';
-        //if (Session.get('pickedSchoolId') === 'system') return 'system';
-        var pickSchool = SmartixSchoolsCol.findOne(UI._globalHelpers['getCurrentSchoolId']());
-        return pickSchool ? pickSchool.fullname : false;
     },
 
     belongToMultiSchool: function() {     
