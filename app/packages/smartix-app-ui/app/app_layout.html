@@ -7,12 +7,12 @@
                 </div>
                 <div class="content has-header">
                     <div class="list">
-                        <div class="item item-divider" data-ion-menu-close>
-                            {{#if belongToMultiSchool}}
-                                {{_ "YouAreAt" }} {{getSchoolFullName}}
+                        {{#if belongToMultiSchool}}
+                        <div class="item item-divider" style="text-align:center" data-ion-menu-close>
+                                {{_ "YouAreAt" }} <strong>{{getSchoolFullName}}</strong>
                                 <a href="{{pathFor route='SchoolPick'}}" class='btn'>{{_ "SwitchSchool" }}</a>
-                            {{/if}}
                         </div>
+                        {{/if}}
                         <!--only if in school namespace - the below should available -->
                         {{#if isSchoolNamespace}}
                             <a href="{{pathFor route='mobile.school.home' school=getCurrentSchoolName}}"

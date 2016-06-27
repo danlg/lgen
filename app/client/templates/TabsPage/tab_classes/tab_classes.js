@@ -42,7 +42,7 @@ Template.TabClasses.helpers({
   canCreateClass: function () {
     var currentSchoolId =  Session.get('pickedSchoolId') ;
     //global only have single role => user , so chat option is always available
-    if(!currentSchoolId || currentSchoolId == 'global'){
+    if(!currentSchoolId || currentSchoolId === 'global'){
         return true;
     } else {
       if(Meteor.user() && Meteor.user().roles && Meteor.user().roles[currentSchoolId]){
