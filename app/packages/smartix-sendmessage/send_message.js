@@ -655,7 +655,7 @@ function onSuccess(imageURI) {
 						imageArr.set(arr);
 						if (Meteor.user().firstPicture) {
 							analytics.track("First Picture", {
-								date: new Date(),
+								date: new Date()
 							});
 							Meteor.call("updateProfileByPath", 'firstPicture', false);
 						}
