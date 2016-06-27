@@ -9,7 +9,7 @@
                     <div class="list">
                         <div class="item item-divider" data-ion-menu-close>
                             {{#if belongToMultiSchool}}
-                                {{_ "YouAreAt" }} {{getCurrentSchoolNameDisplay}}
+                                {{_ "YouAreAt" }} {{getSchoolFullName}}
                                 <a href="{{pathFor route='SchoolPick'}}" class='btn'>{{_ "SwitchSchool" }}</a>
                             {{/if}}
                         </div>

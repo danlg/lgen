@@ -10,7 +10,7 @@ Template.EmailSignin.events({
   'click .loginBtn': function (event,template) {
     Meteor.loginWithPassword(template.email.get(), template.password.get(), function (err) {
       if (err){
-        toastr.error("user not found");
+        toastr.error(err.reason);
         log.error(err);
       }
       else {

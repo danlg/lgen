@@ -81,7 +81,7 @@ Smartix.helpers.routeToTabClasses = function() {
         // Get the keys (namespace) from the `roles` object
         userNamespaceCount = Object.keys(Meteor.user().roles).length;
     }
-    if (userNamespaceCount === 1) {
+    if (userNamespaceCount >= 1) {
         var userNamespace = Object.keys(Meteor.user().roles)[0];
         log.info("routeToTabClasses:userNamespace", userNamespace);
         if ( (userNamespace !== 'global') && (userNamespace !== 'sysadmin') ) {
@@ -90,6 +90,7 @@ Smartix.helpers.routeToTabClasses = function() {
                     log.error('smartix:schools/getSchoolName', err);
                 }
                 if (result) {
+                    Session.set('pickedSchoolId', userNamespace);
                     Router.go('mobile.school.home', { school: result });
                 }
             });
@@ -97,7 +98,9 @@ Smartix.helpers.routeToTabClasses = function() {
             //todo change this later to be like a school
             Router.go("TabClasses");
         }
-    } else {
+    } 
+    //TO DO need to add method to go to the last used school
+    else {
         Router.go("TabClasses");
     }
 };

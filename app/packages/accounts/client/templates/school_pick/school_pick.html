@@ -15,10 +15,10 @@
   {{#ionView}}
     {{#ionContent}}
     <div class="list">
+        {{#if inGlobal}}
         <div class="item item-divider">
            General Account
         </div>       
-        {{#if inGlobal}}
             <div class="card school-card " data-school-id='global'>
                 <div class="item item-icon-left">
                     <i class='icon ion-earth'></i>
@@ -43,8 +43,9 @@
                 </div>
             {{/if}}
         {{else}}
-           No approved school.
-         
+            <div class="item">
+                <h2>No approved school.</h2>                       
+            </div>
         {{/each}}
         
         <div class="item item-divider">
@@ -64,7 +65,9 @@
                 </div>
             {{/if}}
         {{else}}
-           No pending school.
+            <div class="item">
+                <h2>No pending school.</h2>                       
+            </div>        
         {{/each}}    
         </div>    
     {{/ionContent}}
