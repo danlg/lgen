@@ -9,8 +9,11 @@ Template.SchoolPick.onCreated(function () {
                     allSchools.map(function(schoolId)
                     {
                         var school = SmartixSchoolsCol.findOne(schoolId);
-                        var schoolName = school.shortname;
-                        self.subscribe('images', schoolName, 'school', schoolName);
+                        if(school)
+                        {
+                            var schoolName = school.shortname;
+                            self.subscribe('images', schoolName, 'school', schoolName);
+                        }
                     })
                 }
     });

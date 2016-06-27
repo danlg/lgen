@@ -6,6 +6,11 @@ Package.describe({
     documentation: 'README.md'
 });
 
+
+Npm.depends({
+   'blob-util': "1.2.1",
+});
+
 Package.onUse(function(api) {
     api.versionsFrom('1.2.1');
 
@@ -71,7 +76,7 @@ Package.onUse(function(api) {
 
     api.addAssets(['client/asset/iphone6s-plus-silver-vertical.png',
                    'client/asset/graduation_ceremony_picture@1x.jpg',
-                   'client/asset/hbs_logo.svg'],'client');
+                   'client/asset/hbs_logo.svg', 'client/asset/smartix_logo.png'],'client');
                    
     api.addFiles(['lib/vendor/spectrum/spectrum.js',
                   'lib/vendor/spectrum/spectrum.css'],'client');

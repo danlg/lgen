@@ -146,7 +146,6 @@
         z-index: 1; 
                
         display: block;
-        /*background-image: url('/packages/smartix_accounts/client/asset/graduation_ceremony_picture@1x.jpg');*/
         
         background-size: cover;
         background-position: center;
@@ -177,7 +176,7 @@
         z-index: 1;
 
         display: block;
-        background-image: url('/packages/smartix_accounts/client/asset/graduation_ceremony_picture@1x.jpg');
+        // background-image: url('/packages/smartix_accounts/client/asset/graduation_ceremony_picture@1x.jpg');
         background-size: cover;
         background-position: center;
         width: 100%;
@@ -190,7 +189,21 @@
         filter: blur(5px);
         */
     }
-    
+    .school-banner-wrapper .school-banner{
+        height: 100%;
+        text-align: center;
+        padding: 5px;
+    }
+
+    .school-banner-wrapper .school-banner img{
+        height: 100%;
+        width: 100%;
+        //border-radius: 12px;
+        background: white;
+        margin-top: 0px;
+    }
+
+
     .news-slidebox-wrapper .slide-box-bg{
         height:100%; 
         width:100%;   

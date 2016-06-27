@@ -1,3 +1,5 @@
+import base64 from 'blob-util'
+
 Template.SignupMain.onCreated(function(){
     this.chosenRole = new ReactiveVar('');
     this.chosenNumberOfStudent = new ReactiveVar(0);
@@ -17,6 +19,11 @@ Template.SignupMain.onCreated(function(){
         Smartix.helpers.routeToTabClasses();
     }
 });
+
+Template.SignupMain.onRendered(function()
+{
+    loadDefaultImage(this);
+})
 
 Template.SignupMain.helpers({
     emailSignup: function(argument) {
@@ -73,30 +80,6 @@ Template.SignupMain.helpers({
         `;
         return customStyle;
     },
-
-    getSchoolLogoBackground:function(){
-        var customStyle;
-        //log.info('schoolBackgroundImageId',schoolBackgroundImageId);
-        //log.info(schoolLogoId);
-        if( Template.instance().previewSchoolBackgroundImageBlob.get() ){
-            customStyle = `
-                                <style>                        
-                                    .mobile-school-home-fake .school-banner-wrapper .school-banner-background{
-                                    background-image: url('${Template.instance().previewSchoolBackgroundImageBlob.get()}');
-                                    }                                                                    
-                                </style>
-                            `;
-        }else{
-            customStyle = `
-                                <style>                        
-                                    .mobile-school-home-fake .school-banner-wrapper .school-banner-background{
-                                    background-image: url('/packages/smartix_accounts/client/asset/graduation_ceremony_picture@1x.jpg');
-                                    }                                                                    
-                                </style>
-                            `;
-        }
-        return customStyle;
-    }
 });
 
 Template.SignupMain.events({
@@ -141,9 +124,6 @@ Template.SignupMain.events({
             email:user.userEmail,
             howManyStudents: school.schoolNumberOfStudent
         };
-        //log.info('school',school);
-        //log.info('user',user);
-        //log.info('lead',lead);
         var SchoolTrialAccountCreationObj = {school: school, user: user};
         //http://stackoverflow.com/questions/11866910/how-to-force-a-html5-form-validation-without-submitting-it-via-jquery
         if($('#school-trial-account-create')[0].checkValidity()){
@@ -193,10 +173,6 @@ Template.SignupMain.events({
             event.preventDefault();
             var schoolShortName = $('#school-short-name').val();
             var SchoolTrialAccountCreationObj = Session.get('schoolTrialAccountCreation');
-            //log.info('start-my-trial-page2-btn', SchoolTrialAccountCreationObj);
-            //update school shortname from  template.newSchoolId.get()
-
-            //Add Method to upload files using filehandler
             var logoId  = createImage (template.previewSchoolLogoBlob.get(), schoolShortName);
             var bgImageId = createImage (template.previewSchoolBackgroundImageBlob.get(), schoolShortName);
             Meteor.call('smartix:schools/editSchoolTrial',
@@ -250,9 +226,9 @@ Template.SignupMain.events({
         //log.info("reset-color set", template.defaultColor);
         template.inputBackgroundColor.set(template.defaultColor);
         template.inputTextColor.set('#FFFFFF');
-        template.previewSchoolLogoBlob.set('');
-        template.previewSchoolBackgroundImageBlob.set('');
-        document.getElementById("school-logo-preview").src = '/packages/smartix_accounts/client/asset/hbs_logo.svg';
+        document.getElementById("school-logo-preview").src = '/packages/smartix_accounts/client/asset/smartix_logo.png';
+        document.getElementById("school-banner-preview").src = '/packages/smartix_accounts/client/asset/graduation_ceremony_picture@1x.jpg';
+        loadDefaultImage(Template.instance());
         //need to reset palette
         event.preventDefault();
         $('#school-background-color-picker-polyfill').spectrum({
@@ -288,7 +264,7 @@ Template.SignupMain.events({
             reader.onload = function (readerEvent) {
                 //log.info(readerEvent);
                 // get loaded data and render thumbnail.
-                //document.getElementById("school-background-image-preview").src = readerEvent.currentTarget.result;
+                document.getElementById("school-banner-preview").src = readerEvent.currentTarget.result;
                 template.previewSchoolBackgroundImageBlob.set( readerEvent.currentTarget.result );
             };
             // read the image file as a data URL.
@@ -405,14 +381,33 @@ function hasHtml5Validation () {
 }
 
 var createImage = function(imagesData, shortname) {
-    var imageObj;
-    var imageObjId ;
+    let imageObj;
+    let imageObjId ;
     if(imagesData){
         var newFile = new FS.File(imagesData);
         newFile.metadata = {'id': shortname, 'category': 'school', 'school': shortname};
         imageObj = Images.insert(newFile);
         imageObjId = imageObj._id;
-        //log.info('imageObj',imageObj);
+        return imageObjId;
     }
-    return imageObjId;
 };
+
+
+//This method loads the base64 URL of the default images into the reactiveVars
+var loadDefaultImage = function(template)
+{
+    var schoolLogoSource = document.getElementById("school-logo-preview").src;;
+    var schoolbannerSource = document.getElementById("school-banner-preview").src;
+    var schoolBackground = base64.imgSrcToDataURL(schoolLogoSource,  {crossOrigin: 'Anonymous'}).then(function (dataURL) {
+        template.previewSchoolLogoBlob.set(dataURL);
+    }).catch(function (err) {
+        log.info(err);
+    });  
+
+    var schoolBackground = base64.imgSrcToDataURL(schoolbannerSource, 'image/jpeg', {crossOrigin: 'Anonymous'}).then(function (dataURL) {
+        template.previewSchoolBackgroundImageBlob.set(dataURL);
+        // log.info(schoolbannerSource, dataURL);
+    }).catch(function (err) {
+        log.info(err);
+    });  
+}
