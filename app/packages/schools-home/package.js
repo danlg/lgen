@@ -21,13 +21,12 @@ Package.onUse(function(api) {
 
   api.addAssets([
                  'icons/more.png',
-                 
                  'icons/chat.svg',
                  'icons/attendance-black.svg',
                  'icons/calendar.svg',
                  'icons/class.svg',
                  'icons/contact.svg',
-                 'icons/news.svg',
+                 'icons/news.svg'
                               
                 ],'client');
   api.addFiles(['templates/overview/overview.css','templates/overview/overview.html','templates/overview/overview.js'],'client');
