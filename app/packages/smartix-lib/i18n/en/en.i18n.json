@@ -1,5 +1,6 @@
 {
     "About": "About",
+    "AccountUpdated": "Your account is updated",
     "Add": "Add",
     "AddClass": "Add class",
     "AddClassClassNameTooltip": "The class name is displayed to everyone who joins. Choose a 'user friendly' name e.g 'math y6'",
@@ -86,6 +87,7 @@
     "JoinCurrentUserClassMailTitle": "Join __first_name__ __last_name__'s __class_name__ class",
     "JoinedFirstClass": "Congrats! You have just joined you first class.",
     "Joined_Classes": "Joined classes",
+    "Later": "Later",
     "Leave": "Leave",
     "Login": "Login",
     "LoginWithGoogle": "Login With Google",
@@ -136,6 +138,7 @@
     "Notification": "Notification",
     "No_message_yet": "No message yet",
     "No_subscriber": "No member yet",
+    "OK": "OK",
     "OKay": "OK!",
     "Other": "Other",
     "OKayGotIt": "OK got it",

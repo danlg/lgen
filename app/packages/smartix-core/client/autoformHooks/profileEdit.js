@@ -7,7 +7,8 @@ var postHooks = {
   },
   onSuccess: function (operation, result, template) {
     // display success, reset form status
-    toastr.success("Your account information is updated");
+    //TODO localization
+    toastr.success(TAPi18n.__("AccountUpdated"));
   },
   onError: function (formType, error) {
     log.info('profileEditHook:onError',error);

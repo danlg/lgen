@@ -138,7 +138,7 @@ var HowToInviteTour = function () {
         template: TAPi18n.__("InviteTeacherToLearnHowToAdd"),
         buttons: [
           {
-            text: 'OK',
+            text: TAPi18n.__("OK"),
             type: 'button-positive',
             onTap: function () {
               IonPopup.close();
@@ -146,7 +146,8 @@ var HowToInviteTour = function () {
             }
           },
           {
-            text: 'Later', type: 'button-light',
+            text:  TAPi18n.__("Later"),
+            type: 'button-light',
             onTap: function () {
               Session.set("hasSeenHowToInviteTour",true);
               IonPopup.close();
