@@ -314,9 +314,9 @@ Smartix.Accounts.removeUser = function(userId, namespace, currentUser) {
 
 
 Smartix.Accounts.editUser = function(userId, options, currentUser) {
-    log.info('Smartix.Accounts.editUser', options);
+    //log.info('Smartix.Accounts.editUser', options);
     if (Smartix.Accounts.canEditUser(userId, options, currentUser)) {
-        log.info('Smartix.Accounts.editUser:canEditUser', options);
+        //log.info('Smartix.Accounts.editUser:canEditUser', options);
         return Meteor.users.update({
             _id: userId
         }, {
@@ -336,9 +336,7 @@ Smartix.Accounts.canEditUser = function(userId, options, currentUser) {
     }
     Smartix.Accounts.editUserSchema.clean(options);
     check(options, Smartix.Accounts.editUserSchema);
-
     check(currentUser, Match.Maybe(String));
-
     // Get the `_id` of the currently-logged in user
     if (!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();

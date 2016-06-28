@@ -3,21 +3,21 @@
     <div class="panel panel-flat">
         {{#with listData}}
         <div class="panel-heading">
-            <h1>Managing distribution list {{name}}</h1>
+            <h1>{{_ "Admin.ManageDistList" }} {{name}}</h1>
         </div>
 
         <div class="panel-body">
             <!--<p>{{_ "Admin.ListCode" }}: {{url}}</p>-->
 
-            <h3> Available {{_ "Admin.Users" }} </h3>
+            <h3> {{_ "Admin.Users" }} </h3>
             <div id="AdminClassesView__add-user-container" class="form-group">
                 <div class="col-xs-12">
                     <div class="add-user-input-container input-group AdminDistributionListView__add-user-input-container">
                         {{> EasySearch.Input index=distributionListUsersIndex attributes=adminUserSearchInputAttributes timeout=100}}
                         <br />
-                        <span>   &nbsp; &nbsp; {{totalSelectUserCount}} have been selected.</span>
+                        <span>   &nbsp; &nbsp; {{totalSelectUserCount}} {{_ "HaveBeenSelected"}}</span>
                         <br/>
-                        Filter:
+                        {{_ "Admin.Filter" }}
                                 <label class="radio-inline">   <input type="radio" class='filter-by-role' name="filter-by-role" id="filter-by-role-all" value="all"> All  </label>
                                 <label class="radio-inline">   <input type="radio" class='filter-by-role' name="filter-by-role" id="filter-by-role-parent" value="parent"> {{_ "Parent"}} </label>
                                 <label class="radio-inline">   <input type="radio" class='filter-by-role' name="filter-by-role" id="filter-by-role-student" value="student"> {{_ "Student"}} </label>
@@ -33,8 +33,9 @@
                         <br/>
                         {{#if showOptions}}
                             <br/>
-                            <button class='btn btn-success add-users-to-distribution-list'>Add User(s) to Distribution List</button>
-                            <button class='btn btn-danger remove-users-from-distribution-list'>Remove User(s) from Distribution List</button>                                                                               
+                            <!--Add/ remove  user to distribution list-->
+                            <button class='btn btn-success add-users-to-distribution-list'>{{_ "Admin.AddUser" }}</button>
+                            <button class='btn btn-danger remove-users-from-distribution-list'>{{_ "Admin.RemoveUser" }}</button>
                         {{/if}}                    
                     </div>
                     <div class="table-responsive" style='height:300px;'>                
@@ -42,14 +43,13 @@
                         <thead align="left">
                         <tr>
                             <th>&nbsp;</th>
-                            <th>Add</th>
-                            <th>Role</th>
-                            <th>Last Name</th>
-                            <th>First Name</th>
-                            <th>Email</th>                        
-                            <th>User Name</th>
-                            <th>Grade</th>
-                            
+                            <th>{{_ "Add" }}</th>
+                            <th>{{_ "Roles" }}</th>
+                            <th>{{_ "LastName" }}</th>
+                            <th>{{_ "FirstName" }}</th>
+                            <th>{{_ "Email" }}</th>
+                            <th>{{_ "Admin.Username" }}</th>
+                            <th>{{_ "Admin.Grade" }}</th>
                         </tr>
                         </thead>
                         {{#EasySearch.Each index=distributionListUsersIndex }}
@@ -87,19 +87,20 @@
                     <th>{{_ "Admin.RemoveUser" }}</th>
                 </thead>
                 <tbody>
-                    {{#each users}} {{#with userData this}}
-                    <tr>
-                        <td><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.firstName}}</a></td>
-                        <td><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.lastName}}</a></td>
-                        <td>
-                            <button type="button" data-user-id="{{_id}}"
-                                    class="AdminDistributionListView__remove-user btn border-warning text-warning-600 btn-flat btn-icon btn-rounded">
-                              <i class="icon-minus2"></i></button>
-                        </td>
-                    </tr>
-                    {{/with}}
+                    {{#each users}}
+                        {{#with userData this}}
+                            <tr>
+                                <td><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.firstName}}</a></td>
+                                <td><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.lastName}}</a></td>
+                                <td>
+                                    <button type="button" data-user-id="{{_id}}"
+                                            class="AdminDistributionListView__remove-user btn border-warning text-warning-600 btn-flat btn-icon btn-rounded">
+                                      <i class="icon-minus2"></i></button>
+                                </td>
+                            </tr>
+                        {{/with}}
                     {{else}}
-                        <tr><td> No User in distribution list yet.</td> </tr>
+                            <tr><td> {{_ "Admin.NoUserDistList" }}</td> </tr>
                     {{/each}}
                 </tbody>
             </table>

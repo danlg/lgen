@@ -1,8 +1,14 @@
 Meteor.methods({
     'smartix:distribution-lists/create': function (users, schoolName, distlistName, url) {
+        // log.info('smartix:distribution-lists/create:users', users);
+        // log.info('smartix:distribution-lists/create:schoolName', schoolName);
+        // log.info('smartix:distribution-lists/create:distlistName', distlistName);
+        // log.info('smartix:distribution-lists/create:url', url);
         let schoolId = Smartix.Accounts.School.getNamespaceFromSchoolName(schoolName);
-        if(!namespace) {
-            throw new Meteor.Error("school-not-exist", "The school with code " + schoolName + " does not exist.")
+        if(!schoolId) {
+            const msg = "The school with code " + schoolName + " does not exist.";
+            log.error(msg);
+            throw new Meteor.Error("school-not-exist", msg);
         }
         return Smartix.DistributionLists.createDistributionList({
             users: users,
