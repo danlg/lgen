@@ -28,7 +28,9 @@
     "android-device-carmelu": "meteor run android-device --settings carmelu.settings.json --mobile-server=https://carmelu.gosmartix.com",
     "runlocal-android-emulator": "meteor run android -v --settings dev.settings.json",
     "build-example": "NODE_ENV=production VULCANIZE=true meteor build ../myapp-dist --server=https://api.myapp.com/ --mobile-settings settings-production.json",
-    "build-uat": "rm -rf ../build && meteor build ../build  --mobile-settings=smartixu.settings.json --server=https://uat.gosmartix.com",
+
+    "build-uat-server": "echo `date` && rm -rf ../build && meteor build ../build --server-only --server=https://uat.gosmartix.com --architecture=os.linux.x86_64 && echo `date`",
+
     "build-uat2": "meteor build .meteor/local -v --mobile-settings=smartixu.settings.json --server=https://uat.gosmartix.com",
     "build-carmel": "rm -rf ../build && meteor build ../build --server-only  --architecture os.linux.x86_64 --mobile-settings=carmel.settings.json --server=https://carmel.gosmartix.com",
     "deploy-ko": "cd ../dist && scp app.tar.gz lg@uat.gosmartix.com:~/app && ssh lg@uat.gosmartix.com \"cd app && tar xzvf app.tar.gz\"",
