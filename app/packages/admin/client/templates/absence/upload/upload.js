@@ -3,6 +3,7 @@ import XLSX from 'xlsx';
 var processData = function(csv) {
     var allTextLines = csv.split(/\r\n|\n/);
     var yo = allTextLines[0]
+        .replace("No.", "studentId")
         .replace("Absent", "absent")
         .replace("Clock In", "clockIn")
         .replace("Date", "date")
