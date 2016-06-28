@@ -61,7 +61,7 @@ Template.EditSchool.events({
     'click #edit-school-submit': function(event, template) {
         var editSchoolObj =
         {
-          name: $("#name").val(),
+          fullname: $("#name").val(),
           shortname: $("#shortname").val(),
           logo: template.newSchoolLogo.get() || $('existing-school-logo').data('existingSchoolLogoId'), 
           backgroundImage: template.newSchoolBackgroundImage.get() || $('existing-school-background-image').data('existingSchoolBackgroundImageId'), 
@@ -80,7 +80,7 @@ Template.EditSchool.events({
                 toastr.error(err.reason);
                 log.info(err);
             }else{
-                toastr.info('School information has been updated.');
+                toastr.info(TAPi18n.__("SchoolInfoUpdated"));
             }
         } );
 

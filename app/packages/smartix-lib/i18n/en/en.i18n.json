@@ -362,7 +362,7 @@
         "Type" : "Type",
         "TypeName" :"Type Name",
         "Namespace": "School",
-        "Norecord" : "No relationship record",
+        "Norecord" : "No relationship between parent and student",
         "Relationship" : "Relationship"
     },
     "Admin":{
@@ -482,6 +482,7 @@
         "Search":"Search distribution lists",
         "SearchClasses":"Search classes",
         "Save":"Save",
+        "SchoolInfoUpdated":"School information has been updated",
         "Show":"Show",
         "ShowLate":"Show late",
         "ShowAbsent":"Show absent",
