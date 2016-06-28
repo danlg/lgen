@@ -5,27 +5,17 @@ function isValidDate(value) {
 
 
 var convertAttendanceFormat = function (originalRecord, namespace) {
-    
     var newRecord = {};
-    
     newRecord.studentId = Smartix.Accounts.School.getStudentId(originalRecord.studentId, namespace);
-    
     if(newRecord.studentId === false) {
         return "Student with the name " + originalRecord.name + " could not be found";
     }
-    
-    newRecord.date = moment(originalRecord.date, 'DD-MM-YYYY');
-    
+    newRecord.date = moment(originalRecord.date, ["DD/MM/YYYY", "DD-MM-YYYY", "DD-MM-YY", "DD/MM/YY"]).unix();
     if(!newRecord.date) {
-        return "The date " + newRecord.date + " for the record with student name " + originalRecord.name + " could not be parsed";
+        return "The date " + originalRecord.date + " for the record with student name " + originalRecord.name + " could not be parsed";
     }
-    
     newRecord.clockIn = Smartix.Utilities.getMinutesSinceMidnight(originalRecord.clockIn);
-    
     newRecord.namespace = namespace;
-    
-    //log.info(newRecord);
-    
     return newRecord;
 }
 
@@ -102,10 +92,12 @@ Smartix.Absence.updateAttendanceRecord = function (records, schoolName, currentU
             multi: false
         });
     });
-    
+
+    //TODO date needs to be more dynamic
+    var dayOfRecords = records[0].date;
     // Add a delay of 100 miliseconds to ensure all records are updated
     Meteor.setTimeout(function () {
-        Smartix.Absence.processAbsencesForDay(namespace, undefined, undefined, true, currentUser);
+        Smartix.Absence.processAbsencesForDay(namespace, dayOfRecords, undefined, true, currentUser);
     }, 100);
     
     return {

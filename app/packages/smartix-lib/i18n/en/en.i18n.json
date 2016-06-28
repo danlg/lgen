@@ -572,6 +572,7 @@
     "Notification": "We will send you a notification and ask for details if we find that your children is not presented in a school day.",
     "Reason": "Because...",
     "ReasonLeave": "Please provide reason to leave",
+    "ReasonToLeave": "Reason of leave",
     "Reference": "ReferenceID",
     "SchoolHasApprovedApplication": "School has approved this application ",
     "SchoolNotified": "School is notified of your acknowledgement",

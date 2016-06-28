@@ -24,7 +24,7 @@ Smartix.Absence.processAbsences = function (namespace, currentUser) {
 
 Smartix.Absence.processAbsencesForDay = function (namespace, date, format, notify, currentUser) {
     check(namespace, String);
-    check(date, Match.Maybe(Match.OneOf(String, Date)));
+    // check(date, Match.Maybe(Match.OneOf(String, Date, [Number])));
     check(format, Match.Maybe(String));
     check(currentUser, Match.Maybe(String));
     
@@ -39,28 +39,15 @@ Smartix.Absence.processAbsencesForDay = function (namespace, date, format, notif
     
     let parsedDate;
     
-    if(date) {
-        if(typeof date instanceof Date) {
-            // `date` is of type `Date`, but can be an invalid date
-            parsedDate = moment(date);
-        } else if (typeof date === "string") {
-            // `date` is of type `String`
-            // Parse using format if provided
-            if(typeof format === "string") {
-                parsedDate = moment.utc(date, format);
-            } else {
-                parsedDate = moment.utc(date);
-            }
-        } else if (typeof date === "number") {
-            parsedDate = moment.utc(date * 1000);
-        } else {
-            parsedDate = moment.utc().startOf('day');
-        }
-    } else {
+    if(!date) {
         parsedDate = moment.utc().startOf('day');
     }
-    
-    let dateString = parsedDate.format('DD-MM-YYYY');
+    else
+    {
+        parsedDate = moment.unix(date).format('DD-MM-YYYY');
+    }
+
+    let dateString = moment(parsedDate, 'DD-MM-YYYY').format('DD-MM-YYYY');
     
     let schoolStartTimeM = Smartix.Utilities.getMinutesSinceMidnight(schoolStartTime);
     
@@ -90,9 +77,11 @@ Smartix.Absence.processAbsencesForDay = function (namespace, date, format, notif
     /////////////////////////////////////
     // GET ATTENDENCE RECORDS FOR DATE //
     /////////////////////////////////////
-    
+
+    let unixDate = moment(dateString, 'DD-MM-YYYY').unix();
+
     let attendanceRecord = Smartix.Absence.Collections.actual.find({
-        date: dateString,
+        date: unixDate,
         namespace: namespace
     }).fetch();
     

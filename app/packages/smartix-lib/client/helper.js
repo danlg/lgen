@@ -454,10 +454,16 @@ Template.registerHelper('formatDateCalendar', function(date) {
     return moment(date).format("LLLL");
 });
 
-Template.registerHelper('formatDateCalendarFromUnixTime', function(unixTime) {
+Template.registerHelper('formatDateTimeCalendarFromUnixTime', function(unixTime) {
     var userLanguage = TAPi18n.getLanguage();
     moment.locale(userLanguage);
     return moment.unix(unixTime).format("LLLL");
+});
+
+Template.registerHelper('formatDateCalendarFromUnixTime', function(unixTime) {
+    var userLanguage = TAPi18n.getLanguage();
+    moment.locale(userLanguage);
+    return moment.unix(unixTime).format("LL");
 });
 
 

@@ -3,11 +3,9 @@ Template.AdminAbsentees.onCreated(function () {
         self.schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
         if(self.schoolNamespace) {
             self.subscribe('schoolAdmins', self.schoolNamespace);
-            self.subscribe('smartix:absence/allAbsences', self.schoolNamespace, function () {
-                self.subscribe('smartix:absence/absentUsers', self.schoolNamespace, function () {
-                });
-            });
-            self.subscribe('smartix:absence/expectedAbsences', self.schoolNamespace);
+            self.subscribe('smartix:absence/allAbsences', self.schoolNamespace)
+            self.subscribe('smartix:absence/absentUsers', self.schoolNamespace)
+            self.subscribe('smartix:absence/expectedAbsencesUsers', self.schoolNamespace);
         }   
     // Set defaults for the filter
     
@@ -26,14 +24,12 @@ Template.AdminAbsentees.helpers({
         return Template.instance().processedAbsencesFilter.get('to');
     },
     'absentees': function () {
-        
-        var dateFrom = moment(Template.instance().processedAbsencesFilter.get('from'), "YYYY-MM-DD").format("DD-MM-YYYY");
-        var dateTo = moment(Template.instance().processedAbsencesFilter.get('to'), "YYYY-MM-DD").format("DD-MM-YYYY");
+        var dateFrom = moment(Template.instance().processedAbsencesFilter.get('from'), "YYYY-MM-DD").unix();
+        var dateTo = moment(Template.instance().processedAbsencesFilter.get('to'), "YYYY-MM-DD").unix();
         var status = Template.instance().processedAbsencesFilter.get('status');
         var name = Template.instance().processedAbsencesFilter.get('name');
         
         var usersWithMatchingNameIds = [];
-        
         if(name) {
             // Find all users with 
             var usersWithMatchingName = Meteor.users.find({
@@ -49,31 +45,46 @@ Template.AdminAbsentees.helpers({
                         }
                     }
                 ]
-                
             }).fetch();
-            
             usersWithMatchingNameIds = _.map(usersWithMatchingName, function (user) {
                 return user._id;
             })
         }
-        
         var studentIdSelector = usersWithMatchingNameIds.length > 0 ? {$in: usersWithMatchingNameIds} : {$exists: true};
-        
-        //log.info(usersWithMatchingNameIds);
-        
         if(status === "any") {
             status = {$exists: true};
         }
-        
-        return Smartix.Absence.Collections.processed.find({
+
+        var studentsProcessed = Smartix.Absence.Collections.processed.find({
             studentId: studentIdSelector,
             date: {
                 $lte: dateTo,
                 $gte: dateFrom
             },
             status: status,
-            namespace: Template.instance().schoolNamespace
-        });
+            namespace: UI._globalHelpers['getCurrentSchoolId']()
+        }).fetch();
+
+        //Method still not working. Needs fixing. 
+        var studentsExpected = Smartix.Absence.Collections.expected.find({
+            studentId: studentIdSelector,
+            $or:[{
+                dateFrom: {
+                    $lte: dateTo,
+                    $gte: dateFrom
+                }},
+                {
+                dateTo: {
+                    $lte: dateTo,
+                    $gte: dateFrom
+                }}
+            ],
+            status: status,
+            namespace: UI._globalHelpers['getCurrentSchoolId']()
+        }).fetch();
+        var studentObj = lodash.union(studentsProcessed, studentsExpected);
+
+        return studentObj;
     },
     'labelClass': function () {
         switch(this.status) {
@@ -99,7 +110,8 @@ Template.AdminAbsentees.helpers({
     },
     'arrivalTime': function () {
         if(this.clockIn) {
-            return moment(this.date + " 00:00", 'DD-MM-YYYY').add(this.clockIn, "minutes").format("HH:mm");
+            var date = moment.unix(this.date).format('DD-MM-YYYY');
+            return moment(date + " 00:00", 'DD-MM-YYYY').add(this.clockIn, "minutes").format("HH:mm");
         } else {
             return "-";
         }
