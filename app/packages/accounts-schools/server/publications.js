@@ -29,14 +29,15 @@ var getContactsForTeachers = function(userId, schoolDoc)
     //if user is in global, check if user
     || Roles.userIsInRole(userId, 'user', schoolDoc._id)) {
         //can talk to students who the teacher is teaching
-        //can talk to students who the teacher is not teaching
         //let students = Roles.getUsersInRole(Smartix.Accounts.School.STUDENT, schoolDoc._id).fetch();
-        //can talk to parents whose students are taught by the teacher
-        let teachers = [];
-        let admins = []
+        let teachers = [];//it is actual the class owner if role 'user'
+        let admins   = [];
         let classesTaughtByTeacher = Smartix.Groups.Collection.find({ namespace: schoolDoc._id, admins: userId }).fetch();
-        let studentsWhoTaughtByTeacher = []
+        let studentsWhoTaughtByTeacher = [];
         let parents = [];
+
+        //can talk to parents whose students are taught by the teacher if there is a relationship
+        //none for 'global' school / 'user' role will not go inside this loop
         lodash.map(classesTaughtByTeacher, 'users').map(function (studentIDs) {
             studentIDs.map(function (studentID) {
                 studentsWhoTaughtByTeacher.push(studentID);
@@ -50,6 +51,8 @@ var getContactsForTeachers = function(userId, schoolDoc)
                 }
             });
         });
+        //find other teachers, admins and students in distributionLists
+        // teacher to teacher is only for "real" school
         if(schoolDoc._id !== 'global')
         {
             teachers = Roles.getUsersInRole(Smartix.Accounts.School.TEACHER, schoolDoc._id).fetch();
