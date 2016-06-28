@@ -20,7 +20,7 @@ Template.AttendanceList.onCreated(function(){
     this.subscribe('userRelationships', Meteor.userId());
     this.subscribe('mySchools',function() {
         self.schoolId = UI._globalHelpers['getCurrentSchoolId']();
-        self.subscribe('smartix:absence/parentGetChildExpected', this.schoolId);
+        self.subscribe('smartix:absence/parentGetChildExpected', self.schoolId);
     });    
     this.subscribe('allSchoolUsersPerRole',UI._globalHelpers['getCurrentSchoolName']());
 });

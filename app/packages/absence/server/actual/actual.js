@@ -8,14 +8,13 @@ var convertAttendanceFormat = function (originalRecord, namespace) {
     
     var newRecord = {};
     
-    // Convert the names into user's IDs
-    newRecord.studentId = Smartix.Accounts.School.getStudentIdFromName(originalRecord.name, namespace);
+    newRecord.studentId = Smartix.Accounts.School.getStudentId(originalRecord.studentId, namespace);
     
     if(newRecord.studentId === false) {
         return "Student with the name " + originalRecord.name + " could not be found";
     }
     
-    newRecord.date = moment(originalRecord.date).format('DD-MM-YYYY');
+    newRecord.date = moment(originalRecord.date, 'DD-MM-YYYY');
     
     if(!newRecord.date) {
         return "The date " + newRecord.date + " for the record with student name " + originalRecord.name + " could not be parsed";
@@ -55,6 +54,7 @@ Smartix.Absence.attendanceRecordsSchema = new SimpleSchema({
 });
 
 var attendanceRecordsPattern = {
+    studentId: String,
     name: String,
     date: String,
     clockIn: Match.Maybe(String),
@@ -64,12 +64,14 @@ var attendanceRecordsPattern = {
 };
 
 Smartix.Absence.updateAttendanceRecord = function (records, schoolName, currentUser) {
-    
-    check(records, Match.OneOf(attendanceRecordsPattern, [attendanceRecordsPattern])),
-    check(schoolName, String),
+
+    check(records, Match.OneOf(attendanceRecordsPattern, [attendanceRecordsPattern]));
+    check(schoolName, String);
     check(currentUser, Match.Maybe(String));
     
-    let namespace = UI._globalHelpers['getCurrentSchoolId']();
+    let namespace =  SmartixSchoolsCol.findOne({
+                shortname: schoolName
+    })._id;
     
     // Get the `_id` of the currently-logged in user
     if(!(currentUser === null)) {
@@ -105,7 +107,6 @@ Smartix.Absence.updateAttendanceRecord = function (records, schoolName, currentU
     Meteor.setTimeout(function () {
         Smartix.Absence.processAbsencesForDay(namespace, undefined, undefined, true, currentUser);
     }, 100);
-    
     
     return {
         insertCount: records.length,
