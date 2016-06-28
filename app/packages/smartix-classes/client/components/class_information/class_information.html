@@ -1,25 +1,15 @@
 <template name="ClassInformation">
-
   {{#contentFor "headerTitle"}}
     <h1 class="title">{{_ "Class_details"}}</h1>
   {{/contentFor}}
   {{#contentFor "headerButtonLeft"}}
     {{>ionNavBackButton  text=" "}}
   {{/contentFor}}
-
-
-
   <!-- {{#contentFor "headerButtonRight"}}
     <button  class="button button-clear button-entering button-active addClassBtn">Add</button>
   {{/contentFor}} -->
-
-
   {{#ionView}}
     {{#ionContent}}
-
-
-
-
       <div class="row row-center" style="height:30vh">
         <div class="col" style="padding-left:2vh;">
           
@@ -30,13 +20,10 @@
         </div>
       </div>
       <div class="list">
-        
-        
         <div class="item item-divider">
           
           {{_ "Teacher"}}
         </div>
-        
         {{#each teachers}}
             <div class="item item-icon-left">
                    <i id='pick-an-icon-btn' class="icon e1a-{{this.profile.avatarValue}} e1a-1x emojicon"></i>
@@ -46,21 +33,11 @@
         <div class="item item-divider">
           {{_ "ClassCode"}}
         </div>
-
-
         <div class="item">@{{classObj.classCode}}</div>
-
       </div>
-
-
       <div class="bar bar-footer bar-stable unsub">
         <div class="title">{{_ "Unsubsribe"}}</div>
       </div>
-
-
-
-
     {{/ionContent}}
   {{/ionView}}
-
 </template>

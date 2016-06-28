@@ -19,6 +19,25 @@ Template.ClassUsers.events({
   'keyup .searchbar': function (el) {
     text.set($(".searchbar").val());
   },
+  
+  'click .removeAllUserBtn': function () {
+    Meteor.call("class/deleteAllUser", Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: Router.current().params.classCode
+    }), function () {
+      toastr.success("success removed!");
+    });
+  },
+
+  'click .removeClass': function () {
+    Meteor.call("class/delete", Smartix.Groups.Collection.findOne({
+        type: 'class',
+        classCode: Router.current().params.classCode
+    }), function () {
+      Router.go('TabClasses');
+    });
+  },
+
   'click .user-item':function(e){
       //log.info(this);
       //log.info(e);

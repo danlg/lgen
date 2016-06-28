@@ -9,12 +9,9 @@
   {{#contentFor "headerButtonRight"}}
     <button class="button button-clear button-entering button-active saveClassBtn">{{_ "Save" }} </button>
   {{/contentFor}}
-
   {{#ionView}}
     {{#ionContent}}
-
       {{#autoForm schema="Smartix.Class.Schema" id="updateClass" type="method-update" meteormethod="smartix:classes/editClass" doc=classObj   }}
-
         <ul class="list ">
           <li class="item">
             <div class='row'>
@@ -52,23 +49,9 @@
             </label>
           </li>
         </ul>
-
-       
       {{/autoForm}}
 
-      <div style="position: fixed; width: 100vw; bottom: 0;">
-
-        <!--<ul class="list ">-->
-          <!--<li class="item item-input ion-">-->
-            <!--DangerZone-->
-            <!--&lt;!&ndash;{{_ "DangerZone"}}&ndash;&gt;-->
-          <!--</li>-->
-        <!--</ul>-->
-        <a class="button button-small button-full removeUserBtn"> {{_ "smartix-classes.ViewUsers" }} </a>  
-        <a class="button button-small button-full button-assertive button-outline removeUserBtn ion-alert-circled"> {{_ "RemoveUser"}} </a>
-        <a class="button button-small button-full button-assertive button-outline removeAllUserBtn ion-alert-circled"> {{_ "RemoveAllUsers"}}</a>
-        <a class="button button-small button-full button-assertive button-outline removeClass ion-alert-circled"> {{_ "RemoveClass"}}</a>
-      </div>
+      {{> ClassUsers}}
 
     {{/ionContent}}
   {{/ionView}}

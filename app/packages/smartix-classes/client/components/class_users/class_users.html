@@ -1,43 +1,33 @@
 <template name="ClassUsers">
-
-  {{#contentFor "headerTitle"}}
-    <!-- bug see https://github.com/TAPevents/tap-i18n/issues/50 -->
-    {{#if isPlural allUsersCount }}
-      <h1 class="title">{{allUsersCount}} {{_ "Subscriber_plural"}}</h1>
-    {{else}}
-      <!--<h1 class="title">{{classObj.users.length}} {{_ "Subscriber" count=classObj.users.length}}</h1>-->
-      <h1 class="title">{{allUsersCount}} {{_ "Subscriber"}}</h1>
-    {{/if}}
-  {{/contentFor}}
-
-  {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton text=" "}}
-  {{/contentFor}}
-
-  {{#contentFor "headerButtonRight"}}
-    <!-- <button  class="button button-clear button-entering button-active addClassBtn">search</button> -->
-  {{/contentFor}}
-
-  {{#ionView}}
-    {{#ionContent}}
-      <div class="list">
-        {{#if emptyList}}
-          <div class="item">
-            <div class="row row-center">
-              <div class="col">{{_ "No_subscriber"}}</div>
-            </div>
-          </div>
+  <div class="list" style="margin-top:1vh">
+      <div class="item item-divider">
+        {{#if isPlural allUsersCount }}
+          <h2 class="title" style="font-weight:bold;">{{allUsersCount}} {{_ "Subscriber_plural"}}</h2>
         {{else}}
-
-          <!--<label class="item item-input">
-            <i class="icon ion-search placeholder-icon"></i>
-            <input type="text" placeholder="{{_ "Search" }}" class="searchbar">
-          </label>-->
-
-          {{#each usersProfile}}
-            <!--{{#if isSearched this}}-->
-                <div class="item item-icon-right user-item">
-                  {{this.profile.firstName}} <strong> {{this.profile.lastName}} </strong> <br>
+          <!--<h1 class="title">{{classObj.users.length}} {{_ "Subscriber" count=classObj.users.length}}</h1>-->
+          <h2 class="title" style="font-weight:bold;">{{allUsersCount}} {{_ "Subscriber"}}</h2>
+        {{/if}}
+      </div>
+      <div class="item">
+          <a href="{{ pathFor 'ShareInvite' classCode=classObj.classCode }}">
+              <h2 class='title genius-color'>{{_ "Addstudentsandparents"}}</h2>
+          </a>
+      </div>
+      {{#if emptyList}}
+        <div class="item">
+          <div class="row row-center">
+            <div class="col">{{_ "No_subscriber"}}</div>
+          </div>
+        </div>
+      {{else}}
+        <!--<label class="item item-input">
+          <i class="icon ion-search placeholder-icon"></i>
+          <input type="text" placeholder="{{_ "Search" }}" class="searchbar">
+        </label>-->
+        {{#each usersProfile}}
+          <!--{{#if isSearched this}}-->
+              <div class="item item-icon-right user-item">
+                  {{this.profile.firstName}} {{this.profile.lastName}} <br>
                   <div style="font-size: smaller;color:grey"> {{this.profile.role}}</div>
                   <!--If user is in distributionList and individualUser, when removed
                                         the user remains in class (As distListUser)-->
@@ -48,20 +38,21 @@
                   {{#if isAdmin this._id}}
                   <i style='font-size:smaller' class="icon assertive smaller">{{_ "Admin.Admin"}}</i>
                   {{/if}}
-                </div>
-            <!--{{/if}}-->
-          {{/each}}
-        {{/if}}
+              </div>
+          <!--{{/if}}-->
+        {{/each}}
+      {{/if}}
+      <div class="item" style="margin-top:1vh; text-align:center">
+          <a class="removeAllUserBtn"> 
+            <h2 class="title new-message-icon"> {{_ "RemoveAllUsers"}} </h2>
+          </a>
       </div>
-    {{/ionContent}}
-  {{/ionView}}
-   {{#ionFooterBar class='dummy bar-stable'}}
-   
-        
-            <a class="" href="{{ pathFor 'ShareInvite' classCode=classObj.classCode }}">
-                <div class='title'>{{_ "Addstudentsandparents"}}</div>
-            </a>
-         
-        
-   {{/ionFooterBar}}
+      <div class="item" style="text-align:center">
+          <a class="removeClass"> 
+            <h2 class="title new-message-icon"> {{_ "RemoveClass"}} </h2>
+          </a>
+      </div>
+  </div>
+
+
 </template>

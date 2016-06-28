@@ -4,27 +4,6 @@
 /* ClassEdit: Event Handlers */
 /*****************************************************************************/
 Template.ClassEdit.events({
-  'click .removeUserBtn': function () {
-      Router.go('ClassUsers',{classCode: Router.current().params.classCode});
-  },    
-  'click .removeAllUserBtn': function () {
-    Meteor.call("class/deleteAllUser", Smartix.Groups.Collection.findOne({
-        type: 'class',
-        classCode: Router.current().params.classCode
-    }), function () {
-      toastr.success("success removed!");
-    });
-  },
-
-  'click .removeClass': function () {
-    Meteor.call("class/delete", Smartix.Groups.Collection.findOne({
-        type: 'class',
-        classCode: Router.current().params.classCode
-    }), function () {
-      Router.go('TabClasses');
-    });
-  },
-
   'click #pick-an-icon-btn':function(){
     var parentDataContext= {iconListToGet:"iconListForClass",sessionToBeSet:"chosenIconForEditClass"};
     IonModal.open("ClassIconChoose", parentDataContext);
