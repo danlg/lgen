@@ -172,7 +172,7 @@ Template.SignupMain.events({
             //checkValidity without form submission
             event.preventDefault();
             var schoolShortName = $('#school-short-name').val();
-            var SchoolTrialAccountCreationObj = Session.get('schoolTrialAccountCreation');
+            var schoolTrialAccountCreationObj = Session.get('schoolTrialAccountCreation');
             var logoId  = createImage (template.previewSchoolLogoBlob.get(), schoolShortName);
             var bgImageId = createImage (template.previewSchoolBackgroundImageBlob.get(), schoolShortName);
             Meteor.call('smartix:schools/editSchoolTrial',
@@ -189,9 +189,9 @@ Template.SignupMain.events({
                     backgroundImage: bgImageId || ""
                 },
                 {
-                    email: SchoolTrialAccountCreationObj.user.userEmail,
-                    firstName: SchoolTrialAccountCreationObj.user.userFirstName,
-                    lastName: SchoolTrialAccountCreationObj.user.userLastName
+                    email: schoolTrialAccountCreationObj.user.userEmail,
+                    firstName: schoolTrialAccountCreationObj.user.userFirstName,
+                    lastName: schoolTrialAccountCreationObj.user.userLastName
                 },                
                 function (err,result) {
                     if(err){
@@ -200,7 +200,7 @@ Template.SignupMain.events({
                         }
                     }else{
                         toastr.info(
-                            'We have sent you an email to ' +SchoolTrialAccountCreationObj.user.userEmail +
+                            'We have sent you an email to ' +schoolTrialAccountCreationObj.user.userEmail +
                             '. Open it to finish registration (please check also your Spam folder).');
                         Router.go('LoginSplash');
                     }
