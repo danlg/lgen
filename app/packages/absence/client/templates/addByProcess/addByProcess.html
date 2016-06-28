@@ -43,7 +43,7 @@
         </div>
         
           <label class="item less-top-bottom-padding">
-             {{_ "absence.StartDate" }}{{date}}
+             {{_ "absence.StartDate" }}
             <input id='start-date' type="date" value='{{getProcessDate}}' oninvalid="setCustomValidity('Start Date cannot be emptied')"
             oninput="setCustomValidity('')" placeholder="Start Date" required>
           </label>
@@ -53,7 +53,7 @@
             oninput="setCustomValidity('')" placeholder="Start Date Time" required>
           </label>        
           <label class="item less-top-bottom-padding">
-            {{_ "absence.EndDate" }}  {{date}}
+            {{_ "absence.EndDate" }} 
             <input id='end-date' type="date" value='{{getProcessDate}}' placeholder="End Date" required>
           </label>
           <label class="item less-top-bottom-padding">

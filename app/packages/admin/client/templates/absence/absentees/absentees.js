@@ -55,7 +55,7 @@ Template.AdminAbsentees.helpers({
             status = {$exists: true};
         }
 
-        var studentsProcessed = Smartix.Absence.Collections.processed.find({
+       return Smartix.Absence.Collections.processed.find({
             studentId: studentIdSelector,
             date: {
                 $lte: dateTo,
@@ -63,29 +63,9 @@ Template.AdminAbsentees.helpers({
             },
             status: status,
             namespace: UI._globalHelpers['getCurrentSchoolId']()
-        }).fetch();
-
-        //Method still not working. Needs fixing. 
-        var studentsExpected = Smartix.Absence.Collections.expected.find({
-            studentId: studentIdSelector,
-            $or:[{
-                dateFrom: {
-                    $lte: dateTo,
-                    $gte: dateFrom
-                }},
-                {
-                dateTo: {
-                    $lte: dateTo,
-                    $gte: dateFrom
-                }}
-            ],
-            status: status,
-            namespace: UI._globalHelpers['getCurrentSchoolId']()
-        }).fetch();
-        var studentObj = lodash.union(studentsProcessed, studentsExpected);
-
-        return studentObj;
+        }).fetch();    
     },
+    
     'labelClass': function () {
         switch(this.status) {
             case 'approved':

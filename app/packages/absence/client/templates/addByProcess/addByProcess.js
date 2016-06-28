@@ -40,7 +40,7 @@ Template.AttendanceRecordAddByProcess.events({
             return;
         }
         IonPopup.show({
-            title: TAPi18n.__("ConfirmToApplyLeaveFor") + ": " + transformObj.studentName,
+            title: TAPi18n.__("absence.ConfirmToApplyLeaveFor") + ": " + transformObj.studentName,
             subTitle: transformObj.startDate +' - '+ transformObj.endDate,
             buttons: [
                 {
@@ -78,7 +78,7 @@ Template.AttendanceRecordAddByProcess.helpers({
     getProcessDate:function(){
         //return wire format, according to RFC3339 spec is yyyy-mm-dd
         //http://stackoverflow.com/questions/7372038/is-there-any-way-to-change-input-type-date-format
-        var dateinDB = this.date;
+        var dateinDB = moment.unix(this.date).format('DD-MM-YYYY');
         var dateDayMonthYear = dateinDB.split('-');
         var dateYearMonthDay = dateDayMonthYear[2] + '-' + dateDayMonthYear[1] + '-' + dateDayMonthYear[0];
         return dateYearMonthDay;
