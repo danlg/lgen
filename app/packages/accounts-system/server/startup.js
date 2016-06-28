@@ -41,26 +41,23 @@ Smartix.Accounts.System.createDefaultSchool = function()
 };
 
 Smartix.Accounts.System.createFirstAdmin = function(schoolId) {
-    log.info("Creating first admin");
-    // If there are no users with the role `admin` for `system`
-    if (Roles.getUsersInRole('sysadmin', schoolId).count() === 0) {
-        // Generate a new user with the username `admin`
-        // and return its `_id`
+    const rs = Meteor.users.find({'username':'sysadmin'});
+    const count = rs.count();
+    if (count === 0 ) {
+        log.info("Creating first sysadmin");
         var id = Accounts.createUser({
             username: 'sysadmin',
             password: 'genie421'
         });
-        
         // Add the newly created user to have the role of system administrator
-        //we should get rid school but we get an exception when we do so
         Roles.addUsersToRoles(id, ['sysadmin'] , schoolId);
         Roles.addUsersToRoles(id, ['admin'], schoolId);
-        //Roles.addUsersToRoles(id, ['admin'], 'system');
-        // Automatically approve,
-        // Exception while invoking method 'smartix:schools/getSchoolName' TypeError: Cannot read property 'username' of undefined
-        Meteor.users.update({ _id: id }, 
-        { $addToSet: { schools: schoolId } });
-        // 'profile.firstName': 'System',
+        Meteor.users.update({ _id: id },
+            { $addToSet: { schools: schoolId } });
+        // 'profile.firstName': 'System', //this info is not inserted with Accounts.createUser
         // 'profile.lastName': 'Administrator'
+    }
+    else {
+        log.info("Sysadmin already created");
     }
 };
