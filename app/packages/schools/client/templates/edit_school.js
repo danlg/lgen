@@ -80,7 +80,7 @@ Template.EditSchool.events({
                 toastr.error(err.reason);
                 log.info(err);
             }else{
-                toastr.info(TAPi18n.__("SchoolInfoUpdated"));
+                toastr.info(TAPi18n.__("Admin.SchoolInfoUpdated"));
             }
         } );
 
