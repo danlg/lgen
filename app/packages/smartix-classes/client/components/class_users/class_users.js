@@ -4,8 +4,11 @@ var text = ReactiveVar('');
 
 /* ClassUsers: LifeCycle */
 Template.ClassUsers.onCreated(function(){
-        this.subscribe('smartix:classes/classByClassCode', Router.current().params.classCode);
-        this.subscribe('smartix:classes/classMembers', Router.current().params.classCode);
+    var self = this;
+    this.autorun(function(){
+      self.subscribe('smartix:classes/classByClassCode', Router.current().params.classCode);
+      self.subscribe('smartix:classes/classMembers', Router.current().params.classCode);
+    })
 });
 
 Template.ClassUsers.onRendered( function() {
@@ -21,21 +24,59 @@ Template.ClassUsers.events({
   },
   
   'click .removeAllUserBtn': function () {
-    Meteor.call("class/deleteAllUser", Smartix.Groups.Collection.findOne({
-        type: 'class',
-        classCode: Router.current().params.classCode
-    }), function () {
-      toastr.success("success removed!");
-    });
+      IonPopup.show({
+          title:  TAPi18n.__("smartix-classes.RemoveAllUsersConfirmation"),
+          buttons: [
+          {
+              text: TAPi18n.__("Confirm"),
+              type: 'button-assertive',
+              onTap: function () {
+              IonPopup.close();
+                //remove this memeber here
+                Meteor.call("class/deleteAllUser", Smartix.Groups.Collection.findOne({
+                    type: 'class',
+                    classCode: Router.current().params.classCode
+                }), function () {
+                  toastr.success(TAPi18n.__("Success"));
+                });          
+              }
+          },
+          {
+              text: TAPi18n.__("Cancel"), type: 'button',
+              onTap: function () {
+              IonPopup.close();
+              }
+          }
+          ]
+      });            
   },
 
   'click .removeClass': function () {
-    Meteor.call("class/delete", Smartix.Groups.Collection.findOne({
-        type: 'class',
-        classCode: Router.current().params.classCode
-    }), function () {
-      Router.go('TabClasses');
-    });
+      IonPopup.show({
+          title:  TAPi18n.__("smartix-classes.RemoveClassConfirmation"),
+          buttons: [
+          {
+              text: TAPi18n.__("Confirm"),
+              type: 'button-assertive',
+              onTap: function () {
+              IonPopup.close();
+                  //remove this memeber here
+                Meteor.call("class/delete", Smartix.Groups.Collection.findOne({
+                    type: 'class',
+                    classCode: Router.current().params.classCode
+                }), function () {
+                  Router.go('TabClasses');
+                });                 
+              }
+          },
+          {
+              text: TAPi18n.__("Cancel"), type: 'button',
+              onTap: function () {
+              IonPopup.close();
+              }
+          }
+          ]
+      });            
   },
 
   'click .user-item':function(e){
@@ -60,10 +101,9 @@ Template.ClassUsers.events({
                     type: 'button-assertive',
                     onTap: function () {
                     IonPopup.close();
-
                         //remove this memeber here
                         Meteor.call("class/deleteUser", classObj,userid , function () {
-                            toastr.success("success removed!");
+                            toastr.success(TAPi18n.__("Success"));
                         });                   
                     }
                 },

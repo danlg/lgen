@@ -509,6 +509,7 @@
   "StudentAndParentVisitLinkToJoinClass": "Students and parents can visit this link to join your class. They can copy and paste in their browser.",
   "Students": "Students",
   "Subscriber": "member",
+  "Success": "Success",
   "Subscriber_plural": "members",
   "Sun": "Sunday",
   "Sunday": "Sunday",
@@ -694,7 +695,9 @@
   "smartix-classes": {
     "Loadmessages": "...",
     "ViewListUsers": "Members from distribution lists",
-    "ViewUsers": "Show members"
+    "ViewUsers": "Show members",
+    "RemoveClassConfirmation": "Are you sure you want to remove class?",
+    "RemoveAllUsersConfirmation": "Are you sure you want to remove all users?"
   },
   "smartix-core": {
     "Version": "Version"
