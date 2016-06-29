@@ -3,7 +3,6 @@ Template.AttendanceHome.onCreated(function(){
     this.subscribe('userRelationships', Meteor.userId());
     this.subscribe('mySchools',function(){
         self.schoolId = UI._globalHelpers['getCurrentSchoolId']();
-        log.info(self.schoolId);
         self.subscribe('smartix:absence/parentGetChildProcessed', self.schoolId);
     });
     this.subscribe('allSchoolUsersPerRole',UI._globalHelpers['getCurrentSchoolName']());

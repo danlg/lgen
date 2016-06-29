@@ -9,7 +9,7 @@ Meteor.publish('smartix:absence/parentGetChildProcessed',function(namespace){
             return Smartix.Absence.Collections.processed.find({studentId:{$in: childIds}});
         }
     }
-    else this.ready();           
+    this.ready();           
 });
 
 //Get All Expected attendance record for parent

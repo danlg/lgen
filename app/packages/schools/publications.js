@@ -24,6 +24,7 @@ Meteor.publish('mySchools', function() {
             return SmartixSchoolsCol.find({ _id: { $in: schoolIds } });
         }
     }
+    this.ready();
 });
 
 Meteor.publish('allSchools',function(){

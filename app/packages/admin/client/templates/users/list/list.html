@@ -4,12 +4,7 @@
         <div class="panel-heading">
             <h1>{{_ "Admin.SchoolDirectory"}} {{#if Template.subscriptionsReady}}({{totalUserCount}}){{/if}} </h1>
             {{#if doingOperations}}
-                <style>
-                    .spinner{
-                        width:10px;
-                    }
-                </style>
-                {{> ionSpinner icon="spiral"}}
+                <div style ="padding-top:2vh; height: 5vh;" class="spinner-loading">{{> ionSpinner icon="spiral"}}</div>
              {{/if}}
         </div>
 

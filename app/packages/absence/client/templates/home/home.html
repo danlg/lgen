@@ -20,79 +20,54 @@
   
   {{#ionView}}
     {{#ionContent}}
-        <div class="card">
-            <div class="item item-text-wrap smaller">
-               {{_ "absence.Notification" }}
-               <br/>
-               {{_ "absence.ApplyForLeave" }}
-            </div>
-        </div>
-        
-        {{#each attendanceRecordProcessedRequests}}
-        <div class='card'>
-                
-                    <div class="item item-divider">
-                    {{_ "absence.AttendanceRecord" }}
-                    </div>            
-                    <div class="item item-text-wrap smaller">
-                        {{#with getUserById studentId}}
-                            {{profile.firstName}} {{profile.lastName}}
-                        {{/with}}
-                        {{_ "absence.Noinschool" }} {{formatDateCalendarFromUnixTime date}}.
-                        {{_ "absence.Why" }}
-                    </div>
-                    <div class="button-bar bar-light">
-                        <a href="{{pathFor route='attendance.addByProcess' school=getCurrentSchoolName processId=getProcessId }}" class="button">{{_ "absence.Reason" }}</a>
-                        <!--<a data-id='{{_id}}' class="i-dont-know-btn button">I don't know</a>-->
-                        <a href="{{pathFor route='mobile.school.contact' school=getCurrentSchoolName}}" class="button">{{_ "absence.Contact" }}</a>
-                    </div>                
-                
-                <!--<div class="item item-divider">
-                   From Attendance Record:
-                </div>            
-                <div class="item item-text-wrap smaller">
-                    Terence hasn't been school in 2016-03-01. Do you know why?
-                </div>
-                <div class="button-bar bar-light">
-                    <a href="{{pathFor route='attendance.add' school=getCurrentSchoolName}}" class="button">Because...</a>
-                    <a class="button">I don't know</a>
-                    <a href="{{pathFor route='mobile.school.contact' school=getCurrentSchoolName}}" class="button">Contact School</a>
-                </div>-->
-        </div>
-        {{/each}}  
-    <div class="list">
-        <a href="{{pathFor route='attendance.add' school=getCurrentSchoolName}}" class="item item-button-right">
-            {{_ "absence.ApplyForLeave" }}
-            <button class="button button-positive">
-            <i class="icon ion-ios-plus-outline"></i>
-            </button>
-        </a>
-        <a href="{{pathFor route='attendance.list' school=getCurrentSchoolName}}" class="item item-button-right">
-            {{_ "absence.Viewapplication" }}
-            {{#if sumOfNewAttendanceApprovedCounter}}
-              <span class='badge badge-assertive'>{{sumOfNewAttendanceApprovedCounter}}</span>
-            {{/if}}   
-            <button class="button button-positive">
-            <i class="icon ion-checkmark-circled"></i>
-            </button>
-        </a>
-        
-              
         {{#if Template.subscriptionsReady}}
-         {{#with getAttendanceRecord}}
-            {{#each this}}
-                        
-            {{else}}
-            
-                <a class="item" href="#">
-                    {{_ "NoNews" }}
-                </a>         
-            {{/each}}
-         {{/with}}      
-        {{else}}
-          <div class="spinner-loading">{{> ionSpinner icon="spiral"}}</div>
+            <div class="card">
+                <div class="item item-text-wrap smaller">
+                {{_ "absence.Notification" }}
+                <br/>
+                {{_ "absence.ApplyForLeave" }}
+                </div>
+            </div>
+            {{#each attendanceRecordProcessedRequests}}
+            <div class='card'>
+                    
+                        <div class="item item-divider">
+                        {{_ "absence.AttendanceRecord" }}
+                        </div>            
+                        <div class="item item-text-wrap smaller">
+                            {{#with getUserById studentId}}
+                                {{profile.firstName}} {{profile.lastName}}
+                            {{/with}}
+                            {{_ "absence.Noinschool" }} {{formatDateCalendarFromUnixTime date}}.
+                            {{_ "absence.Why" }}
+                        </div>
+                        <div class="button-bar bar-light">
+                            <a href="{{pathFor route='attendance.addByProcess' school=getCurrentSchoolName processId=getProcessId }}" class="button">{{_ "absence.Reason" }}</a>
+                            <!--<a data-id='{{_id}}' class="i-dont-know-btn button">I don't know</a>-->
+                            <a href="{{pathFor route='mobile.school.contact' school=getCurrentSchoolName}}" class="button">{{_ "absence.Contact" }}</a>
+                        </div>                
+            </div>
+            {{/each}}  
+            <div class="list">
+                <a href="{{pathFor route='attendance.add' school=getCurrentSchoolName}}" class="item item-button-right">
+                    {{_ "absence.ApplyForLeave" }}
+                    <button class="button button-positive">
+                    <i class="icon ion-ios-plus-outline"></i>
+                    </button>
+                </a>
+                <a href="{{pathFor route='attendance.list' school=getCurrentSchoolName}}" class="item item-button-right">
+                    {{_ "absence.Viewapplication" }}
+                    {{#if sumOfNewAttendanceApprovedCounter}}
+                    <span class='badge badge-assertive'>{{sumOfNewAttendanceApprovedCounter}}</span>
+                    {{/if}}   
+                    <button class="button button-positive">
+                    <i class="icon ion-checkmark-circled"></i>
+                    </button>
+                </a>
+            </div>
+        {{else}}   
+            <div style ="padding-top:2vh; height: 5vh;" class="spinner-loading">{{> ionSpinner icon="spiral"}}</div>
         {{/if}}
-    </div>
     {{/ionContent}}
   {{/ionView}}
 </template>

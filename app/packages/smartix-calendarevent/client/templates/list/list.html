@@ -7,11 +7,8 @@
   {{#contentFor "headerTitle"}}
      <h1 class="title">{{_ "smartix-calendarevent.Calendar" }}</h1>
   {{/contentFor}}   
-  
     {{#ionView}}
     {{#ionContent}} 
-    
-
                  {{#if Template.subscriptionsReady}}
                     {{#each getEvents}}
                         
@@ -21,9 +18,8 @@
                     {{else}}
                         {{_ "smartix-calendarevent.NoIncomingEvents" }}
                     {{/each}}
-                    
                 {{else}}
-                    <div class="spinner-loading">{{> ionSpinner icon="spiral"}}</div>
+                    <div style ="padding-top:2vh; height: 5vh;" class="spinner-loading">{{> ionSpinner icon="sprial"}}</div>
                 {{/if}}                 
        {{/ionContent}}
   {{/ionView}}              
