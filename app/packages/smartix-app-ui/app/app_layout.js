@@ -127,6 +127,8 @@ Template.AppLayout.events({
 
 Template.AppLayout.onRendered(function(){
     //log.info('Template.AppLayout.onRendered : checkLanguage');
+    //Opens snapper to right on load; since not available on left, it closes the snapper
+    IonSideMenu.snapper.open('right');
     checkLanguage();
 });
 
