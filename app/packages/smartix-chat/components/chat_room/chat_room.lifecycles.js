@@ -6,89 +6,61 @@ Template.ChatRoom.onCreated( function () {
 	this.loadedItems = new ReactiveVar(10);
 	this.loadExtraItems = 5;
 	let chatRoomId = Router.current().params.chatRoomId;
-	//log.info("Template.ChatRoom.onCreated ", chatRoomId);
-
-	this.subscribe('images', UI._globalHelpers['getCurrentSchoolName'](), 'chat', chatRoomId);
-	this.subscribe('documents', UI._globalHelpers['getCurrentSchoolName'](), 'chat', chatRoomId);
-	this.subscribe('sounds', UI._globalHelpers['getCurrentSchoolName'](), 'chat', chatRoomId);
-
-	//log.info("subscribed to chatRoomWithUser", chatRoomId);
-	this.subscribe('chatRoomWithUser', chatRoomId);
+		this.subscribe('chatRoomWithUser', chatRoomId);
 	var self = this;
 	this.autorun(function () {
 		self.subscribe('smartix:messages/groupMessages', chatRoomId);
+		self.subscribe('images', UI._globalHelpers['getCurrentSchoolName'](), 'chat', chatRoomId);
+		self.subscribe('documents', UI._globalHelpers['getCurrentSchoolName'](), 'chat', chatRoomId);
+		self.subscribe('sounds', UI._globalHelpers['getCurrentSchoolName'](), 'chat', chatRoomId);
 	});
 });
 
 Template.ChatRoom.onRendered( function() {
-	//log.info("subcriptionsReady"+ Template.instance().subcriptionsReady());
 	currentChatroomId = Router.current().params.chatRoomId;
-	//$(".list.chatroomList").height("100%");
-	//$(".list.chatroomList").height(($(".list.chatroomList").height() - 123) + "px");
-	$(".inputBox").autogrow();
 
-	var chatroomList = this.find('.chatroomList');
-	//debugger;
-	var initialChatObj = Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId});
-	var initialCount;
-	if (initialChatObj) {
-		if (!initialChatObj.messagesObj) {
-			initialCount = 0;
-		}
-		else {
-			initialCount = initialChatObj.messagesObj.length;
-		}
-	}
+	// initiae initial count with 0
+	var initialCount = 0;
+	var template = this;
 	//http://stackoverflow.com/questions/32461639/how-to-execute-a-callback-after-an-each-is-done
 	this.autorun(function () {
-		var latestChatObj = Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId});
-		// we need to register a dependency on the number of documents returned by the
-		// cursor to actually make this computation rerun everytime the count is altered
-		var latestCount;
-		if (latestChatObj) {
-			if (!latestChatObj.messagesObj) {
-				latestCount = 0;
-			}
-			else {
-				latestCount = latestChatObj.messagesObj.length;
-			}
-		}
-		Tracker.afterFlush(function () {
-			if (latestCount > initialCount) {
-				//scroll to bottom
-				var lastImageElement = $(".image-bubble img").last().get(0);
-				if (lastImageElement) {
-					lastImageElement.alt = "loading";
-					lastImageElement.title = "loading";
-					lastImageElement.width = "300";
-					lastImageElement.height = "300";
-					lastImageElement.style.width = "300px";
-					lastImageElement.style.height = "300px";
-					$(".image-bubble img").last().on('load', function () {
-						lastImageElement.width = lastImageElement.naturalWidth;
-						lastImageElement.height = lastImageElement.naturalHeight;
-						lastImageElement.style.width = lastImageElement.naturalWidth + "px";
-						lastImageElement.style.height = lastImageElement.naturalHeight + "px";
-						var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight;
-						chatroomList.scrollTop = chatroomListToBottomScrollTopValue;
-					});
+		//wait for subscriptions to load the chat_room page and then initiate scroll
+		if (template.subscriptionsReady()) {
+			var chatroomList = template.$('.chatroomList');
+			var latestCount = Smartix.Messages.Collection.find({group: currentChatroomId}).count();
+
+			Tracker.afterFlush(function () {
+				if (latestCount > initialCount) {
+					//scroll to bottom
+					var lastImageElement = $(".image-bubble img").last().get(0);
+					if (lastImageElement) {
+						lastImageElement.alt = "Loading";
+						lastImageElement.title = "Loading";
+						lastImageElement.width = "300";
+						lastImageElement.style.width = "300px";
+						$(".image-bubble img").last().on('load', function () {
+							lastImageElement.width = lastImageElement.naturalWidth;
+							lastImageElement.height = lastImageElement.naturalHeight;
+							lastImageElement.style.width = lastImageElement.naturalWidth + "px";
+							lastImageElement.style.height = lastImageElement.naturalHeight + "px";
+							var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight;
+							chatroomList.scrollTop = chatroomListToBottomScrollTopValue;
+						});
+					}
+					var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight;
+					chatroomList.scrollTop = chatroomListToBottomScrollTopValue;
+					$('.new-message-bubble').remove();
+					var newMessageBubbleText = '<div class="new-message-bubble"> <div class=""><i class="icon ion-android-arrow-dropdown">' +
+						'</i>NEW MESSAGES<i class="icon ion-android-arrow-dropdown"></i> </div> </div>';
+					window.setTimeout(function () {
+						$('i.ion-record').first().parents('div.item').before(newMessageBubbleText);
+					}, 500);
+					initialCount = latestCount;
 				}
-				var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight;
-				chatroomList.scrollTop = chatroomListToBottomScrollTopValue;
-				//imgReadyChecking();
-				//log.info('show new message bubble');
-				$('.new-message-bubble').remove();
-				var newMessageBubbleText = '<div class="new-message-bubble"> <div class=""><i class="icon ion-android-arrow-dropdown">' +
-					'</i>NEW MESSAGES<i class="icon ion-android-arrow-dropdown"></i> </div> </div>';
-				window.setTimeout(function () {
-					$('i.ion-record').first().parents('div.item').before(newMessageBubbleText);
-				}, 500);
-				initialCount = latestCount;
-			}
-		}.bind(this));
+			}.bind(this));
+		}
 	}.bind(this));
 	/****track if there are any new messages - END *********/
-	var template = this;
 	//scroll to bottom
 	//log.info("Before autorun", chatroomList);
 	this.autorun(function () {
@@ -118,26 +90,18 @@ var imgReadyChecking = function () {
 	var hasAllImagesLoaded = true;
 	$('img').each(function () {
 		if (this.complete) {
-			//log.info('loaded');
 		}
 		else {
-			//log.info('not loaded');
 			hasAllImagesLoaded = false;
 		}
 	});
 	if (hasAllImagesLoaded) {
-		//log.info('scroll to bottom');
-		//need to wrap the code inside autorun and subscriptionready
-		//see http://stackoverflow.com/questions/32291382/when-the-page-loads-scroll-down-not-so-simple-meteor-js
-		//scroll to bottom
 		window.setTimeout(function () {
 			var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight;
 			chatroomList.scrollTop = chatroomListToBottomScrollTopValue;
 		}, 200);
 	}
 	else {
-		//if not all images is fully loaded, scroll bottom would not work.
-		//so we set a timer to do the imgReadyChecking again later
 		setTimeout(imgReadyChecking, 1000);
 	}
 };

@@ -1,14 +1,13 @@
 <template name="ChatRoom">
-  <!--{{#if Template.subscriptionsReady}}-->
+  {{#if Template.subscriptionsReady}}
     {{#contentFor "headerTitle"}}
       <h1 class="title">
-        <div>
-            <span>
-                <span>
-                  {{{getGroupOrCorrespondentAvatar}}}</span>
-            </span>
+          {{#if isChatRoomAvatar}}
+            {{{getGroupAvatar}}}
+          {{else}}
+            {{{getUserAvatar}}}
+          {{/if}}
           {{getChatRoomName}}
-        </div>
       </h1>
     {{/contentFor}}
 
@@ -256,7 +255,7 @@
         </div>
       {{/ionContent}}
     {{/ionView}}
-  <!--{{/if}} &lt;!&ndash;end if Template.subscriptionsReady&ndash;&gt;-->
+  {{/if}} 
 </template>
 
 <template name="imageModal">

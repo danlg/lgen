@@ -77,30 +77,26 @@ Template.ChatRoom.helpers({
     return userObj
   },
 
-  getGroupOrCorrespondentAvatar : function () {
+
+  isChatRoomAvatar: function(){
     var chat = Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId});
-    if(chat){
-        if(chat.chatRoomAvatar){
-            return "<i class=\"icon e1a-"+chat.chatRoomAvatar+" e1a-2x emojicon\"></i>";       
-        }else{
-            //get other person's avatar
-            var userObj = Smartix.helpers.getAnotherUser();
-            return "<i class=\"icon e1a-"+userObj.profile.avatarValue+" e1a-2x emojicon\"></i>";  
-        }
-        //     if(userObj.profile.avatarType)
-        //     {
-        //         if (userObj.profile.avatarType==="emoji")
-        //             return "<i class=\"icon e1a-"+userObj.profile.avatarValue+" e1a-2x emojicon\"></i>";       
-        //         else
-        //             return "<img class=\"icon icon-avatar e1a-2x\" src="+userObj.profile.avatarValue+" />";        
-        //     }
-        //     else 
-        // }
-    }else{
-        //log.warn("Cannot find getGroupOrCorrespondentAvatar", Router.current().params.chatRoomId);
-        return "";
-    }
+    if(chat)
+        return chat.chatRoomAvatar ? true : false;
   },
+
+  getGroupAvatar : function () {
+    var chat = Smartix.Groups.Collection.findOne({_id: Router.current().params.chatRoomId});
+    return "<i class=\"icon e1a-"+chat.chatRoomAvatar+" e1a-2x emojicon\"></i>";       
+            //get other person's avatar
+            
+  },
+
+  getUserAvatar: function(){
+    var userObj = Smartix.helpers.getAnotherUser();
+    if(userObj)
+      return "<i class=\"icon e1a-"+userObj.profile.avatarValue+" e1a-2x emojicon\"></i>";  
+  },
+
   getUserById:function(userId){
     var targetUserObj = Meteor.users.findOne(userId);
     return targetUserObj;      

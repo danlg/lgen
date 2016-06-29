@@ -23,6 +23,7 @@ Template.ChatRoom.events({
 	},
 	
 	'keyup .inputBox': function () {
+		$(".inputBox").autogrow();
 		sendBtnMediaButtonToggle();
 	},
 	
