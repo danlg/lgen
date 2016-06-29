@@ -28,25 +28,28 @@
           }      
       </style>  
       <label class="item color-and-logos">
-        <span style='font-size:x-small;'>{{_ "ChooseColor" }} </span>
-        <style>
-        .sp-replacer{border:initial;}          
-        </style>
-        <input type="color" id='school-background-color-picker-polyfill' />
-
-        <label for="school-logo" style='font-size:x-small;'>{{_ "schools.Schoollogo" }} ({{_ "Optional" }})</label>
-        <label for="school-logo" class='btn' ><i class="icon ion-image"></i></label>
+        <label for="school-background-color-picker-polyfill" style='font-size:x-small; font-weight:normal; text-transform:capitalize' class='btn'>
+          {{_ "ChooseColor" }} &nbsp;
+          <style>
+          .sp-replacer{
+            border:initial;
+            padding: 0;
+          }          
+          </style>
+          <input type="color" id='school-background-color-picker-polyfill' />
+         </label>
+        <label for="school-logo" style='font-size:x-small; font-weight:normal; text-transform:capitalize' class='btn' >
+            <div style="display: inline-block; vertical-align:super;"> {{_ "schools.Schoollogo" }} ({{_ "Optional" }}) &nbsp; </div> 
+            <i class="icon ion-image"></i>
+        </label>
         <input id ="school-logo"  class='inputfile' type="file" name="school-logo" accept="image/*" >
-
-        <label for="school-background-image" style='font-size:x-small;'> {{_ "Background" }}({{_ "Optional" }})</label>
-        <label class='btn' for="school-background-image"><i class="icon ion-image"></i></label>
+        <label class='btn' for="school-background-image" style='font-size:x-small; font-weight:normal; text-transform:capitalize'> 
+            <div style="display: inline-block; vertical-align:super;">{{_ "Background" }}({{_ "Optional" }})&nbsp; </div>
+            <i class="icon ion-image"></i>
+        </label>
         <input id='school-background-image' class='inputfile' type="file" name="school-background-image" accept="image/*" >
-
-        <!--<span style='font-size:x-small;'> {{_ "Reset" }}</span>-->
-        <!--<label class='btn reset-color-and-logos' style='font-size:x-small;text-transform:capitalize'>-->
-        <label class='reset-color-and-logos' style='font-size:x-small;text-transform:capitalize'>
+        <label class='reset-color-and-logos btn' style='font-size:x-small; font-weight:normal; text-transform:capitalize'>
           {{_ "Reset" }}
-          <!--<i class="icon ion-android-cancel"></i>-->
         </label>
       </label>
     </div>
