@@ -11,7 +11,7 @@ Meteor.publish('userRelationships', function(userId) {
     this.ready();
 });
 
-//Return the cursor of users in the relationship
+//Return the cursor of all parents and children in the relationship with currentUser
 Meteor.publish('usersFromRelationships', function(userId){
     check(userId, Match.Maybe(String));
     if(!(userId === null)) {
@@ -23,11 +23,14 @@ Meteor.publish('usersFromRelationships', function(userId){
         if(relationshipsArray)
         {
             let users = [];
-            relationshipsArray = relationshipsArray.fetch();
+            relationshipsArray = relationshipsArray.fetch();            
             lodash.map(relationshipsArray, function(relationship){
                 users.push(relationship.child);
-                users.push(relationship.parent);
-            })
+                let findParents = Smartix.Accounts.Relationships.Collection.find({ child: relationship.child}).fetch();
+                findParents.map(function (parents) {
+                    users.push(parents.parent);
+                });
+            });
             return Meteor.users.find(
                 {_id: {$in: users}}
             );
