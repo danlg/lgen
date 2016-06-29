@@ -36,13 +36,16 @@
                 <ul class="list">
                   {{#each createdClass}}
                     <a href={{ pathFor 'ClassPanel'   }}>
-                      <div class="item item-icon-left" style="padding-top: 7px; padding-bottom: 7px">
+                      <div class="item item-icon-left item-checkbox-right item-checkbox">
                         {{{newCommentCounter this._id}}} 
-                          
                         <i class="icon {{classAvatarIcon}} e1a-1x emojicon"></i>
                         {{this.className}}
-                        <br/><span class='class-code'>@{{this.classCode}}</span>
-                        <br/><div class='description'>{{formatTime2 this.lastUpdatedAt}}</div>
+                        <div class="description class-code">@{{this.classCode}}</div>
+                        <div class='description checkbox'>
+                          <span class="description" style="position:relative; float:right; top:-8px; line-height:initial"> 
+                              {{formatTime2 this.lastUpdatedAt}}
+                          </span>
+                        </div>
                       </div>
                     </a>
                   {{/each}}
@@ -75,12 +78,16 @@
               <ul class="list">
                 {{#each joinedClass}}
                   <a href={{ pathFor 'classDetail'   }}>
-                    <div class="item item-icon-left" style="padding-top: 7px; padding-bottom: 7px">
+                    <div class="item item-icon-left item-checkbox-right item-checkbox">
                       {{{newMessageCounter this._id}}}             
-                      <i class="icon {{classAvatarIcon}} e1a-1x emojicon"></i>
+                        <i class="icon {{classAvatarIcon}} e1a-1x emojicon"></i>
                       {{this.className}}
-                      <br/><span class='class-code'>@{{this.classCode}}</span>
-                      <br/><div class='description'>{{formatTime2 this.lastUpdatedAt}}</div>
+                      <div class="description class-code">@{{this.classCode}}</div>
+                      <div class='description checkbox'>
+                        <span class="description" style="position:relative; float:right; top:-8px; line-height:initial"> 
+                          {{formatTime2 this.lastUpdatedAt}}
+                        </span>
+                      </div>
                     </div>
                   </a>
                 {{/each}}

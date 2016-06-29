@@ -216,7 +216,7 @@ Template.TabChat.helpers({
        // log.info(chatroomId);
        var newMessageCount =  Notifications.find({'groupId':chatroomId,'hasRead':false}).count();
        if(newMessageCount > 0 ){
-           return '<span class="badge" style="background-color: #ef473a;color: #fff;">'+ newMessageCount +'</span>'
+           return '<span class="badge" style="top:32px; background-color: #ef473a;color: #fff;">'+ newMessageCount +'</span>'
        }
   }
 });

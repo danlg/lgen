@@ -84,7 +84,7 @@ Template.TabClasses.helpers({
        var newMessageCount =  Notifications.find({"eventType" : "newclassmessage",'groupId':groupId,'hasRead':false}).count();
 
        if(newMessageCount > 0 ){
-           return '<span class="badge" style="background-color: #ef473a;color: #fff;">'+ newMessageCount +'</span>'
+           return '<span class="badge" style="top:32px; background-color: #ef473a;color: #fff;">'+ newMessageCount +'</span>'
        }
   },
 
@@ -93,7 +93,7 @@ Template.TabClasses.helpers({
      var newMessageCount =  Notifications.find({"eventType" : "newclasscomment",'groupId':groupId,'hasRead':false}).count();
 
      if(newMessageCount > 0 ){
-         return '<span class="badge" style="background-color: #ef473a;color: #fff;">'+ newMessageCount +'</span>'
+         return '<span class="badge" style="top:32px; background-color:#ef473a; color: #fff;">'+ newMessageCount +'</span>'
      }
   },
 

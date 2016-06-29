@@ -40,7 +40,7 @@
             {{#if isHide }}
 
               <a href="{{ pathFor 'ChatRoom' chatRoomId=_id }}">
-                <div class="item item-icon-left" style="padding-top: 3px; padding-bottom: 3px;min-height:50px;">
+                <div class="item item-icon-left item-checkbox-right item-checkbox">
                   {{{newMessageCounter _id}}}                  
                     {{#if isEmoji}}
                         <i class="icon {{chatRoomUserAvatar}} e1a-1x emojicon"></i>
@@ -50,7 +50,9 @@
                   <h2>{{chatroomMemberName 4 }}</h2>
                   {{#if Template.subscriptionsReady}}
                     <div class="description">{{lasttext _id}}</div>
-                    <div class="description">{{formatTime2 this.lastUpdatedAt}}</div>
+                    <div class="description checkbox">
+                      <span class="description" style="position:relative; float:right; top:-8px; line-height:initial"> {{formatTime2 this.lastUpdatedAt}} </span>
+                    </div>
                   {{/if}}
                 </div>
               </a>
