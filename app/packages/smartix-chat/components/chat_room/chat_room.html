@@ -10,30 +10,23 @@
           {{getChatRoomName}}
       </h1>
     {{/contentFor}}
-
     {{#contentFor "headerButtonLeft"}}
       {{>ionNavBackButton href="/chat" text=" "}}
     {{/contentFor}}
-
     {{#contentFor "headerButtonRight"}}
-
       <div style="position: absolute; right: 0;">
-
         <a href="{{pathFor 'ChatRoomInformation'   chatRoomId= getChatRoomId  }}"
            class="button button-clear button-entering button-active "><i class="icon ion-ios-information-outline"></i></a>
         <!-- <button  class="button button-clear button-entering button-active addClassBtn">?</button> -->
       </div>
     {{/contentFor}}
-
     {{#ionView}}
       {{#ionContent}}
-
-
         <div class="list chatroomList background-wallpaper" id="chatroomList">
           <div class='date-bubble-wrapper {{isLoadMoreButtonShow}}'><button class='load-prev-msg'>{{_ "smartix-chat.Loadmessage" }}</button> </div>
           {{#each chatRoomProfile}}
             {{#if isFirstMsgInOneDay}}
-              <div class='date-bubble-wrapper'> <div class='date-bubble'>{{formatDate createdAt}}</div> </div>
+              <div class='date-bubble-wrapper'> <div class='date-bubble'>{{formatDate2 createdAt}}</div> </div>
             {{/if}}
             <div class="item {{isMine}}">
               {{#if isText}}
@@ -206,25 +199,15 @@
                   {{/if}}
                 {{/with}}
               {{/each}}
-
-
-
-
             </div>
-
           {{/each}}
-
         </div>
-
         <div class="list inputBoxList">
-
           {{#if targertWorkingTime}}
             <div class="item " style="text-align:center">
               <i class="icon ion-clock"></i> {{_ "Itisworkofftime"}}
             </div>
-
           {{else}}
-
             <div class="item item-input chatroomItem">
           <span style='width:5em;'>
                 <span class="file " style='font-size:xx-large;'>
@@ -234,9 +217,9 @@
           </span>
           <textarea style="" dir="auto" name="msg" maxlength="5000"
                     class="inputBox autogrow-short" placeholder=""></textarea>
-              <button style="min-height:0;border:0;padding:0;margin:0;border-radius:6px;width:10em;display:none;"
+              <button style="min-height:0;border:0;padding:0;margin:0;border-radius:6px;width:5em;display:none;"
                       class="sendBtn button icon  ion-paper-airplane"></button>
-          <span class='mediaButtonGroup' style='width:10em;text-align:center;'>
+          <span class='mediaButtonGroup' style='width:5em;text-align:center;'>
              
                 <span class="file " style='font-size:xx-large;display:inline-block;'>
                   <i class="icon ion-ios-camera-outline imageIcon "></i>
@@ -248,7 +231,6 @@
                     <i class="icon  ion-ios-mic-outline "></i>
                   </span>
             {{/if}}
-                
           </span>
             </div>
           {{/if}}

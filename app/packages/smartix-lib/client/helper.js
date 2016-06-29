@@ -448,6 +448,34 @@ Template.registerHelper('formatDate', function(time) {
     return dateString;
 });
 
+Template.registerHelper('formatDate2', function(time) {
+    var dateString = "";
+    if (time) {
+        var userLanguage = TAPi18n.getLanguage();
+        moment.locale(userLanguage);
+        if (moment(new Date(time)).isValid()) {
+            var updatedTime = moment(new Date(time));
+            if(updatedTime.isSame(moment(), 'day'))
+            {
+                dateString = TAPi18n.__("Today");
+            }
+            else if (updatedTime.isSame(moment().subtract(1, 'days').startOf('day'), 'day'))
+            {
+                 dateString =  TAPi18n.__("Yesterday");
+            }
+            else if (updatedTime.isAfter(moment().subtract(7, 'days').startOf('day')))
+            {
+                dateString = updatedTime.format('dddd');
+            }
+            else
+            {
+                dateString = updatedTime.format('LL');
+            }
+        }
+    return dateString;
+    }
+});
+
 Template.registerHelper('formatDateCalendar', function(date) {
     var userLanguage = TAPi18n.getLanguage();
     moment.locale(userLanguage);
