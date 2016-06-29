@@ -26,7 +26,7 @@
            <div class='date-bubble-wrapper {{isLoadMoreButtonShow}}'><button class='load-prev-msg'>{{_ "smartix-classes.Loadmessages" }} </button> </div>
                {{#each classMessages}}
                 {{#if isFirstMsgInOneDay}}
-                       <div class='date-bubble-wrapper'> <div class='date-bubble'>{{formatDate createdAt}}</div> </div>
+                       <div class='date-bubble-wrapper'> <div class='date-bubble'>{{formatDate2 createdAt}}</div> </div>
                 {{/if}}                 
                 <div class="item card less-top-bottom-padding less-top-bottom-margin">
                  {{#each attachCalendar}}
