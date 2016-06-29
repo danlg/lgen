@@ -25,18 +25,22 @@
         </label>-->
         {{#each usersProfile}}
           <!--{{#if isSearched this}}-->
-              <div class="item item-icon-right user-item">
+              <div class="item item-icon-left user-item item-checkbox-right item-checkbox">
+                  <i class="icon e1a-{{profile.avatarValue}} e1a-1x emojicon"></i>
                   {{this.profile.firstName}} {{this.profile.lastName}} <br>
-                  <div style="font-size: smaller;color:grey"> {{this.profile.role}}</div>
                   <!--If user is in distributionList and individualUser, when removed
                                         the user remains in class (As distListUser)-->
-                  {{#if isIndividualUser this._id}}
-                  <i style='' class="icon assertive  ion-android-remove-circle remove-member-btn ">
-                  </i>
-                  {{/if}}
-                  {{#if isAdmin this._id}}
-                  <i style='font-size:smaller' class="icon assertive smaller">{{_ "Admin.Admin"}}</i>
-                  {{/if}}
+                    {{#if isIndividualUser this._id}}
+                    <div class="checkbox" style="position:relative; float:right">
+                        <i class="icon assertive ion-android-remove-circle remove-member-btn " >
+                        </i>
+                    </div>
+                    {{/if}}
+                    {{#if isAdmin this._id}}
+                    <div class="checkbox">
+                      <span style="float:right; position:relative;">{{_ "Admin.Admin"}}</span>
+                    </div>
+                    {{/if}}
               </div>
           <!--{{/if}}-->
         {{/each}}
