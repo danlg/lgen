@@ -106,7 +106,7 @@ function imageUploadForAndroidAndIOS(e) {
         }
 
     var onFail = function (message) {
-        toastr.error('Failed because: ' + message);
+        toastr.error(TAPi18n.__("FailedBecause") + message);
     }
     var callback = function (buttonIndex) {
         setTimeout(function () {

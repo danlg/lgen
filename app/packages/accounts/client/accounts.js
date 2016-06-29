@@ -24,7 +24,7 @@ Smartix.Accounts.registerOrLoginWithGoogle = function () {
         // set a session variable to display later if there is a login error
         Session.set('loginError', 'reason: ' + err.reason + ' message: ' + err.message || 'Unknown error');
         //alert(err.message + ":" + err.reason);
-        toastr.error('Sorry. '+err.reason);
+        toastr.error(TAPi18n.__("Sorry")+' '+err.reason);
         log.info('login:google:' + err.reason + " msg=" + err.message);
       }else{
         //if login success

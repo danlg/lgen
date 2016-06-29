@@ -114,9 +114,9 @@ Smartix.helpers.registerNewUser = function(email, firstName, lastName, password)
     userObj.password = password;
     
     if (!Smartix.helpers.validateEmail(userObj.email)) {
-        toastr.error("Incorrect Email");
+        toastr.error(TAPi18n.__("EmailFormatNotCorrect"));
     } else if (password.length < 4) {
-        toastr.error("At least 3 characters Password");
+        toastr.error(TAPi18n.__("PasswordNotEnoughLength"));
     } else {
             Meteor.call('smartix:accounts/createUser', email, userObj, 'global', ['user'], function(err, res) {
                 if (err) {
@@ -132,7 +132,7 @@ Smartix.helpers.registerNewUser = function(email, firstName, lastName, password)
                     
                     Meteor.loginWithPassword(email,password,function(err){
                         if(err){
-                            toastr.error('Sorry, the email is already taken');
+                            toastr.error(TAPi18n.__("EmailTaken"));
                         }else{
                             toastr.info(TAPi18n.__("WelcomeVerification"));
                             log.info("login:meteor:" + Meteor.userId());

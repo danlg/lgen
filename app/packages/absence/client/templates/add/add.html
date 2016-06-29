@@ -59,14 +59,14 @@
           </label>        
           <label class="item less-top-bottom-padding">
              {{_ "absence.EndDate" }}
-            <input id='end-date' type="date" value='{{getTodayDate}}' placeholder="End Date" required>
+            <input id='end-date' type="date" value='{{getTodayDate}}' required>
           </label>
           <label class="item less-top-bottom-padding">
              {{_ "absence.To" }}
-            <input id='end-date-time' type="time" value='{{getDefaultEndDateTime}}' placeholder="End Date Time" required>
+            <input id='end-date-time' type="time" value='{{getDefaultEndDateTime}}' required>
           </label>
           <label class="item item-input">
-            <input id='leave-reason' type="text" value='{{email}}' placeholder="Reason of Leave" required>
+            <input id='leave-reason' type="text" value='{{email}}' placeholder={{_ "absence.ReasonToLeave" }} required>
           </label>                 
           <!--<label class="item item-input">
             <input id='content' type="text" value='{{email}}' placeholder="Content">

@@ -51,7 +51,7 @@ Template.ChatRoom.onRendered( function() {
 					chatroomList.scrollTop = chatroomListToBottomScrollTopValue;
 					$('.new-message-bubble').remove();
 					var newMessageBubbleText = '<div class="new-message-bubble"> <div class=""><i class="icon ion-android-arrow-dropdown">' +
-						'</i>NEW MESSAGES<i class="icon ion-android-arrow-dropdown"></i> </div> </div>';
+						'</i>' + TAPi18n.__("NewMessages") + '<i class="icon ion-android-arrow-dropdown"></i> </div> </div>';
 					window.setTimeout(function () {
 						$('i.ion-record').first().parents('div.item').before(newMessageBubbleText);
 					}, 500);
@@ -76,7 +76,7 @@ Template.ChatRoom.onRendered( function() {
 		}
 	}.bind(this));
 	var newMessageBubbleText = '<div class="new-message-bubble"> <div class="">' +
-		'<i class="icon ion-android-arrow-dropdown"></i> NEW MESSAGES ' +
+		'<i class="icon ion-android-arrow-dropdown"></i>' + TAPi18n.__("NewMessages") + 
 		'<i class="icon ion-android-arrow-dropdown"></i> </div> </div>';
 	$('i.ion-record').first().parents('div.item').before(newMessageBubbleText);
 });

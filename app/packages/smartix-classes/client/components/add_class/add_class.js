@@ -125,7 +125,7 @@ Template.ionNavBar.events({
     Meteor.call('smartix:classes/createClass',  UI._globalHelpers['getCurrentSchoolName'](), newClassObj,function(err,result){
       if(err){
           log.error("smartix:classes/createClass", err);
-          toastr.error("smartix:classes/createClass", err.reason);
+          toastr.error(TAPi18n.__("ClassAddFailed"));
       }else{
           //log.info(result);
           Router.go('TabClasses');

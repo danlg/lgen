@@ -168,7 +168,7 @@ Template.AdminUsersSearch.events({
                 toastr.info(message);
             } else {
                 let message = TAPi18n.__('Admin.VerifictionIssue');
-                toastr.error("There was an issue with sending the emails");
+                toastr.error(message);
                 log.error(err.reason);
             }
         });

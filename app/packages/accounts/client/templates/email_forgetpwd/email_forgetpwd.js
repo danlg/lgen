@@ -19,7 +19,7 @@ Template.EmailForgetPwd.events({
             toastr.error(TAPi18n.__("EmailNotFound"));
             log.info('This email does not exist.');
           } else {
-            toastr.error("We are sorry but something went wrong");             
+            toastr.error(TAPi18n.__("SomethingWentWrong"));             
             log.info('We are sorry but something went wrong.',err.message);
           }
         } else {

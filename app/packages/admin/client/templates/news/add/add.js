@@ -100,7 +100,7 @@ Template.AdminNewsAdd.events({
         var title = $('#addNews-title').val();
         var content =  $('#addNews-content').trumbowyg('html'); //$('#addNews-content').val();
         if(!title || !content) {
-            toastr.error('Please ensure both the Title and Content fields are filled in.');
+            toastr.error(TAPi18n.__("Admin.NewsFieldsNotFilled"));
             return false;
         }
         var doPushNotificationB = true; //document.getElementById("addNews-push-notification").checked;

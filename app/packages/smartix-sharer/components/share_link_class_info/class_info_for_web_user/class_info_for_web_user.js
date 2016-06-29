@@ -24,7 +24,7 @@ Template.ClassInformationForWebUser.events({
 			//log.info("user is NOT logged in");
 			Meteor.loginWithPassword($('.email').val(), $('.password').val(), function (err) {
 				if (err) {
-					toastr.error("user not found");
+					toastr.error(TAPi18n.__("Admin.UserNotFound"));
 					log.error(err);
 				}
 				else {

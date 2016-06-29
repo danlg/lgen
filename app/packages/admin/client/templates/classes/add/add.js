@@ -21,10 +21,10 @@ Template.AdminClassesAdd.events({
         newClass.classCode = template.$('#addClass-code').eq(0).val();
         newClass.ageRestricted = template.$('#addClass-ageRestricted').is(":checked");
         if(!newClass.className) {
-            toastr.error("Class Name is a required field");
+            toastr.error(TAPi18n.__("ClassNameRequired"));
         }
         if(!newClass.classCode) {
-            toastr.error("Class Code is a required field");
+            toastr.error(TAPi18n.__("ClassCodeRequired"));
         }
         if(!newClass.className || !newClass.classCode) {
             return false;

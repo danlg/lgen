@@ -36,7 +36,7 @@ Template.AdminAddOthers.events({
             } else {
                 // Email does not pass validation
                 // Remove the email value
-                toastr.error("Please ensure the email provided is valid");
+                toastr.error(TAPi18n.__("EmailFormatNotCorrect"));
                 return false;
             }
         } else {
@@ -44,11 +44,11 @@ Template.AdminAddOthers.events({
             // If Notify user is ticked, email must be provided
             if(notifyuserwithemail)
             {
-                toastr.error("Please ensure a valid email is provided to notify user");
+                toastr.error(TAPi18n.__("EmailFormatNotCorrect"));
                 return false;
             }
             else if(newUserObj.password.length < 4) {
-                toastr.error("Please provide an email or a password with at least 4 characters");
+                toastr.error(TAPi18n.__("Admin.ProvideEmailOrPassword"));
                 return false;
             }
         }

@@ -50,7 +50,8 @@ var checkAllRelationshipsAreValid = function (template) {
         // || tel.length < 1
         || type.length < 1
         ) {
-            toastr.error("Please ensure all mandatory parent fields are filled in.");
+            var errorMessage = toastr.error(TAPi18n.__("Admin.FillMandatoryFields"));
+            toastr.error(errorMessage);
             passesValidation = false;
         }
     });
@@ -129,7 +130,7 @@ Template.AdminAddStudent.events({
             } else {
                 // Email does not pass validation
                 // Remove the email value
-                toastr.error("Please ensure the email provided is valid");
+                toastr.error(TAPi18n.__("EmailFormatNotCorrect"));
                 return false;
             }
         } else {
@@ -137,11 +138,11 @@ Template.AdminAddStudent.events({
             // If Notify user is ticked, email must be provided
             if(notifyuserwithemail)
             {
-                toastr.error("Please ensure a valid email is provided to notify user");
+                toastr.error(TAPi18n.__("EmailFormatNotCorrect"));
                 return false;
             }
             else if(newUserObj.password.length < 4) {
-                toastr.error("Please provide an email or a password with at least 4 characters");
+                toastr.error(TAPi18n.__("Admin.ProvideEmailOrPassword"));
                 return false;
             }
         }

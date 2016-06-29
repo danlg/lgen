@@ -25,7 +25,7 @@ var postHooks = {
   },
 
   onError: function (formType, error) {
-    toastr.error("Cannot add class, please try again");
+    toastr.error(TAPi18n.__("ClassAddFailed"));
   },
 
   beginSubmit: function () {

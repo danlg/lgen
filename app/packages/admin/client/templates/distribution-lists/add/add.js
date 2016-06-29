@@ -15,10 +15,10 @@ Template.AdminDistributionListsAdd.events({
         var code = "";
         // Checks that the values are not empty
         if(!schoolName) {
-            toastr.error("Application error. Please refresh the page and try again.");
+            toastr.error(TAPi18n.__("applicationError.refreshRequired"));
         }
         if(!distlistName) {
-            toastr.error("Please ensure the list name is filled in");
+            toastr.error(TAPi18n.__("Admin.ListNameRequired"));
         }
         if(schoolName && distlistName) {
             Meteor.call('smartix:distribution-lists/create', [], schoolName, distlistName, code,function(err,result){
@@ -35,7 +35,7 @@ Template.AdminDistributionListsAdd.events({
                         toastr.info('Distribution List already exist. Redirect you to view it.');
                         Router.go('admin.lists.view', { school: schoolName, code: existingDistributionList.url });
                     }else{
-                        toastr.error('Fail to create distribution list');
+                        toastr.error(TAPi18n.__("Admin.DistributionListsFailed"));
                     }
                 }
             });

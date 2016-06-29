@@ -226,7 +226,7 @@ Template.AdminClassesView.events({
         });
         var userId = event.currentTarget.dataset.userId;
         if(!classObj) {
-            toastr.error('Could not find the class with class code ' + Router.current().params.classCode);
+            toastr.error( TAPi18n.__("ClassNotFound") + ' ' + Router.current().params.classCode);
         }
         
         if(classObj && userId) {
@@ -244,7 +244,7 @@ Template.AdminClassesView.events({
         });
         var userId = event.currentTarget.dataset.userId;
         if(!classObj) {
-            toastr.error('Could not find the class with class code ' + Router.current().params.classCode);
+            toastr.error(TAPi18n.__("ClassNotFound") + ' ' + Router.current().params.classCode);
         }
         if(classObj && userId) {
             Meteor.call('smartix:classes/removeAdmins', classObj._id, [userId], function (err, res) {
@@ -261,7 +261,7 @@ Template.AdminClassesView.events({
         });
         var listId = event.currentTarget.dataset.listId;
         if(!classObj) {
-            toastr.error('Could not find the class with class code ' + Router.current().params.classCode);
+            toastr.error(TAPi18n.__("ClassNotFound") + ' ' + Router.current().params.classCode);
         }
         if(classObj && listId) {
             Meteor.call('smartix:classes/removeDistributionLists', classObj._id, [listId], function (err, res) {

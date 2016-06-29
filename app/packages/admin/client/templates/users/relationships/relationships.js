@@ -43,7 +43,7 @@ Template.AdminUsersAddRelationships.events({
         var userId = event.currentTarget.dataset.userId;
         var relName = template.$('#AdminUsersAddRelationships__relationship-type').eq(0).val();
         if(!userId) {
-            Toastr.error('Please select a user');
+            Toastr.error(TAPi18n.__("Admin.SelectUser"));
         }
         if (UI._globalHelpers['getCurrentSchoolName']()) {            
             Meteor.call('smartix:accounts-relationships/createRelationship', {

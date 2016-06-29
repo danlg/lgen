@@ -278,14 +278,14 @@ Template.SignupMain.events({
         var email = $(".email").val();
         var password = $(".password").val();
         if(password.length < 4) {
-           toastr.error("At least 4 characters Password");
+           toastr.error(TAPi18n.__("PasswordNotEnoughLength"));
         }
         userObj.password = password;
         userObj.profile.firstName = $(".fn").val();
         userObj.profile.lastName = $(".ln").val();
         userObj.dob = $("#dobInput").val() || "";
         if (!Smartix.helpers.validateEmail(email)) {
-            toastr.error("Incorrect Email");
+            toastr.error(TAPi18n.__("EmailNotFound"));
         } else {
             Meteor.call('smartix:accounts/createUser', email, userObj, 'global', ['user'], function(err, res) {
                 if (err) {
@@ -300,7 +300,7 @@ Template.SignupMain.events({
                     });
                     Meteor.loginWithPassword(email,password,function(err){
                         if(err){
-                            toastr.error('Sign up fail. The email is already taken');
+                            toastr.error(TAPi18n.__("EmailTaken"));
                         }else{
                             toastr.info(TAPi18n.__("WelcomeVerification"));
                             log.info("login:meteor:" + Meteor.userId());
@@ -323,14 +323,14 @@ Template.SignupMain.events({
         var email = $(".email").val();
         var password = $(".password").val();
         if(password.length < 4) {
-            toastr.error("At least 4 characters Password");
+           toastr.error(TAPi18n.__("PasswordNotEnoughLength"));
         }
         userObj.password = password;
         userObj.profile.firstName = $(".fn").val();
         userObj.profile.lastName = $(".ln").val();
         //userObj.dob = $("#dobInput").val() || "";
         if (!Smartix.helpers.validateEmail(email)) {
-            toastr.error("Incorrect Email");
+            toastr.error(TAPi18n.__("EmailFormatNotCorrect"));
         } else {
             Meteor.call('smartix:accounts/createUser', email, userObj, 'global', ['user'], function(err, res) {
                 if (err) {
@@ -345,7 +345,7 @@ Template.SignupMain.events({
                     });
                     Meteor.loginWithPassword(email,password,function(err){
                         if(err){
-                            toastr.error('Sign up fail. The email is already taken');
+                            toastr.error(TAPi18n.__("EmailTaken"));
                         }else{
                             toastr.info(TAPi18n.__("WelcomeVerification"));
                             log.info("login:meteor:" + Meteor.userId());

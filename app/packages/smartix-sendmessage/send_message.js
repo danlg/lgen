@@ -607,7 +607,7 @@ Template.ionNavBar.events({
 		mediaObj.soundArr = soundArr.get();
 		//log.info(target.length);
 		if (msg == "" && mediaObj.imageArr.length == 0 && mediaObj.soundArr.length == 0) {
-			toastr.error("please input some message");
+			toastr.error(TAPi18n.__("EnterMessageBeforeSend"));
 		}
 		else if (target.length > 0) {
 			//loop through selected classes
@@ -626,7 +626,7 @@ Template.ionNavBar.events({
 			}
 		}
 		else {
-			toastr.error("no class select!");
+			toastr.error(TAPi18n.__("Admin.SelectClass"));
 		}
 	}
 });
@@ -673,7 +673,7 @@ function onSuccess(imageURI) {
 }
 
 function onFail(message) {
-	toastr.error('Failed because: ' + message);
+	toastr.error(TAPi18n.__("FailedBecause") + message);
 }
 
 var callback = function (buttonIndex) {
