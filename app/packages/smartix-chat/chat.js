@@ -5,10 +5,10 @@ Chat.attachSchema(new SimpleSchema({
     type: [String],
     // blackbox:true
   },
-  messagesObj: {
-    type: [Object],
-    blackbox: true
-  },
+  // messagesObj: {
+  //   type: [Object],
+  //   blackbox: true
+  // },
   chatRoomName:{
     type: String,
     optional: true

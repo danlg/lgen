@@ -32,7 +32,8 @@ Meteor.methods({
       var newRoom;
       
       //add createdAt,lastUpdatedAt field in chat collection
-      var ChatObj = {users: chatArr, messagesObj: [],
+      var ChatObj = {users: chatArr, 
+        // messagesObj: [],
            createdAt: new Date(), createdBy: Meteor.userId(),
             lastUpdatedAt: new Date(),lastUpdatedBy: Meteor.userId(),
             namespace: namespaceId

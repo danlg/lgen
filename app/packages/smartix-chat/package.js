@@ -35,7 +35,7 @@ Package.onUse(function(api) {
      api.addFiles('route.js');
      api.addFiles('schema.js');
      api.addFiles('methods.js','server');
-     api.addFiles('methods_cs.js');
+    //  api.addFiles('methods_cs.js');
           
      api.addFiles(['components/chat_invite/chat_invite.html',
                    'components/chat_invite/chat_invite.js'], 'client');

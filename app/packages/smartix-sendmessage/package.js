@@ -20,7 +20,7 @@ Package.onUse(function(api) {
      api.addFiles('send_message.html','client');
      api.addFiles('send_message.js','client');     
 
-     api.addFiles('method.js','server');    
+    //  api.addFiles('method.js','server');    
      api.addFiles('route.js');
      
      api.export('GeneralMessageSender');
