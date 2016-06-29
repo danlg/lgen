@@ -1,11 +1,11 @@
 Template.AttendanceHome.onCreated(function(){
     var self = this;
     this.subscribe('userRelationships', Meteor.userId());
+    this.subscribe('usersFromRelationships', Meteor.userId());
     this.subscribe('mySchools',function(){
         self.schoolId = UI._globalHelpers['getCurrentSchoolId']();
         self.subscribe('smartix:absence/parentGetChildProcessed', self.schoolId);
     });
-    this.subscribe('allSchoolUsersPerRole',UI._globalHelpers['getCurrentSchoolName']());
 });
 
 Template.AttendanceHome.helpers({

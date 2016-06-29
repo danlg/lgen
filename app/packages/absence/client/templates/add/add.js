@@ -1,7 +1,7 @@
 Template.AttendanceRecordAdd.onCreated(function(){
     this.subscribe('userRelationships', Meteor.userId());
     this.subscribe('mySchools');
-    this.subscribe('allSchoolUsersPerRole', UI._globalHelpers['getCurrentSchoolName']());
+    this.subscribe('usersFromRelationships', Meteor.userId());
 });
 
 Template.AttendanceRecordAdd.events({

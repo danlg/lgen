@@ -1,26 +1,39 @@
 // Publish specific user's relationships
 Meteor.publish('userRelationships', function(userId) {
-    
     check(userId, Match.Maybe(String));
-    
-    // Get the `_id` of the currently-logged in user
     if(!(userId === null)) {
-        userId = userId || Meteor.userId();
+        userId = userId || this.userId;
     }
-    
     if (userId === this.userId
         || Smartix.Accounts.System.isAdmin(this.userId)) {
-        // Return relationships belong to the current user, as a parent or as a child
-        return Smartix.Accounts.Relationships.Collection.find({
-            $or: [{
-                parent: userId
-            }, {
-                child: userId
-            }]
-        });
-    } else {
-        this.ready();
+            return Smartix.Accounts.Relationships.getRelationshipsOfUser(userId);
     }
+    this.ready();
+});
+
+//Return the cursor of users in the relationship
+Meteor.publish('usersFromRelationships', function(userId){
+    check(userId, Match.Maybe(String));
+    if(!(userId === null)) {
+        userId = userId || this.userId;
+    }
+    if (userId === this.userId
+        || Smartix.Accounts.System.isAdmin(this.userId)) {
+        let relationshipsArray = Smartix.Accounts.Relationships.getRelationshipsOfUser(userId);
+        if(relationshipsArray)
+        {
+            let users = [];
+            relationshipsArray = relationshipsArray.fetch();
+            lodash.map(relationshipsArray, function(relationship){
+                users.push(relationship.child);
+                users.push(relationship.parent);
+            })
+            return Meteor.users.find(
+                {_id: {$in: users}}
+            );
+        }
+    }
+    this.ready();
 });
 
 // Publish an user's relationships in a namespace
@@ -48,7 +61,6 @@ Meteor.publish('userRelationshipsInNamespace', function (userId, namespace) {
                     namespace: namespace
                 }
             ]
-            
         });
     } else {
         this.ready();

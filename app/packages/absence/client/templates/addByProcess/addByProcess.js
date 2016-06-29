@@ -4,7 +4,7 @@ Template.AttendanceRecordAddByProcess.onCreated(function(){
     this.subscribe('mySchools',function(){
       self.subscribe('smartix:absence/parentGetChildProcessed',UI._globalHelpers['getCurrentSchoolId']());
     });       
-    this.subscribe('allSchoolUsersPerRole', UI._globalHelpers['getCurrentSchoolName']());
+    this.subscribe('usersFromRelationships', Meteor.userId());
 });
 
 Template.AttendanceRecordAddByProcess.events({

@@ -1,3 +1,13 @@
+Template.AttendanceList.onCreated(function(){
+    var self = this;
+    this.subscribe('userRelationships', Meteor.userId());
+    this.subscribe('usersFromRelationships', Meteor.userId());
+    this.subscribe('mySchools',function() {
+        self.schoolId = UI._globalHelpers['getCurrentSchoolId']();
+        self.subscribe('smartix:absence/parentGetChildExpected', self.schoolId);
+    });    
+});
+
 Template.AttendanceList.helpers({
     getAttendanceRecord:function(){
        return Smartix.Absence.Collections.expected.find({namespace:UI._globalHelpers['getCurrentSchoolId']()},{sort:{"dateFrom":-1}});
@@ -13,16 +23,6 @@ Template.AttendanceList.helpers({
        var relatedNotification =  Notifications.findOne({eventType:'attendance',eventSubType:'attendanceApproved',expectedId: expectedId});
        return relatedNotification;
     }
-});
-
-Template.AttendanceList.onCreated(function(){
-    var self = this;
-    this.subscribe('userRelationships', Meteor.userId());
-    this.subscribe('mySchools',function() {
-        self.schoolId = UI._globalHelpers['getCurrentSchoolId']();
-        self.subscribe('smartix:absence/parentGetChildExpected', self.schoolId);
-    });    
-    this.subscribe('allSchoolUsersPerRole',UI._globalHelpers['getCurrentSchoolName']());
 });
 
 Template.AttendanceList.onDestroyed(function(){

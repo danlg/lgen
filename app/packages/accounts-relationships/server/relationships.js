@@ -104,6 +104,18 @@ Smartix.Accounts.Relationships.removeRelationship = function(relId, currentUser)
 
 }
 
+
+Smartix.Accounts.Relationships.getRelationshipsOfUser = function(userId)
+{   
+    return  Smartix.Accounts.Relationships.Collection.find({
+            $or: [{
+                parent: userId
+            }, {
+                child: userId
+            }]
+    });
+}
+
 // Checks whether the (supposed) parent is actually
 // The parent for the student, as defined by
 // The school with the namespace
