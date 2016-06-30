@@ -97,6 +97,16 @@ Router.route('/:school/admin/lists/list', {
     }
 });
 
+Router.route('/:school/admin/leads',{
+    name: 'admin.leads.info',
+    layoutTemplate: 'adminLayout',
+    template: 'AdminLeads',
+    action: function()
+    {
+        this.render('AdminLeads');
+    }
+});
+
 Router.route('/:school/admin/lists/add', {
     name: 'admin.lists.add',
     layoutTemplate: 'adminLayout',

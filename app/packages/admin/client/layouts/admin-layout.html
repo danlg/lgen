@@ -111,6 +111,11 @@
                                     <li>
                                         <a href="{{pathFor route='admin.school.edit' data=routeData}}"><i class="icon-database-edit2"></i> <span>{{_ "Admin.EditSchool" }}</span></a>
                                     </li>
+                                    {{#if isGlobalSchool}}
+                                    <li>
+                                        <a href="{{pathFor route='admin.leads.info' data=routeData}}"><i class="icon-coin-dollar"></i> <span>Leads</span></a>
+                                    </li>
+                                    {{/if}}
                                     <li>
                                       <a href="{{pathFor route='mobile.school.home' data=routeData}}">
                                         <!--<i class="icon ion-ios-home-outline"></i>-->

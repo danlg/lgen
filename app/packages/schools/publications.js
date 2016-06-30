@@ -28,13 +28,13 @@ Meteor.publish('mySchools', function() {
 });
 
 Meteor.publish('allSchools',function(){
-    if( Roles.userIsInRole( this.userId ,'sysadmin') ){
-        return SmartixSchoolsCol.find();    
-    }
+    if( Roles.userIsInRole( this.userId ,'sysadmin', 'global') || Roles.userIsInRole( this.userId ,'sales', 'global') ){
+        return SmartixSchoolsCol.find();  
+    }   
 });
 
 Meteor.publish('activeSchools',function(){
-    if( Roles.userIsInRole( this.userId ,'sysadmin') ){
+    if( Roles.userIsInRole( this.userId ,'sysadmin', 'global') ){
         return SmartixSchoolsCol.find({active:true});    
     }
 });

@@ -61,7 +61,13 @@ Template.adminLayout.helpers({
     schoolLogo:function(){
         var schoolDoc = SmartixSchoolsCol.findOne();
         return Images.findOne(schoolDoc.logo);
+    },
+
+    isGlobalSchool: function()
+    {
+        return (UI._globalHelpers['getCurrentSchoolId']() === 'global') ? true : false;
     }
+
 });
 
 Template.registerHelper('currentUsername', function () {

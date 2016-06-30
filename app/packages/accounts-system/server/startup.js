@@ -52,6 +52,7 @@ Smartix.Accounts.System.createFirstAdmin = function(schoolId) {
         // Add the newly created user to have the role of system administrator
         Roles.addUsersToRoles(id, ['sysadmin'] , schoolId);
         Roles.addUsersToRoles(id, ['admin'], schoolId);
+        Roles.addUsersToRoles(id, ['sales'], schoolId);
         Meteor.users.update({ _id: id },
             { $addToSet: { schools: schoolId } });
         // 'profile.firstName': 'System', //this info is not inserted with Accounts.createUser

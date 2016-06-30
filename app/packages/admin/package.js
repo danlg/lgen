@@ -51,6 +51,8 @@ Package.onUse(function (api) {
   api.addAssets('client/assets/import-student-preview.png', 'client');
   api.addAssets('client/assets/import-teachers-preview.png', 'client');
   api.addFiles('routes.js', ['web.browser', 'server']);
+  
+ 
   api.addFiles('client/layouts/admin-layout.html', 'web.browser');
   api.addFiles('client/layouts/admin-layout.js', 'web.browser');
   api.addFiles('client/layouts/admin-layout.css', 'web.browser');
@@ -105,7 +107,6 @@ Package.onUse(function (api) {
   api.addFiles('client/templates/rss/view/view.js', 'web.browser');
   api.addFiles('client/templates/rss/add/add.html', 'web.browser');
   api.addFiles('client/templates/rss/add/add.js', 'web.browser');
-
   api.addFiles('client/templates/users/list/index.js', 'web.browser');
   api.addFiles('client/templates/users/list/list.html', 'web.browser');
   api.addFiles('client/templates/users/list/list.js', 'web.browser');
@@ -132,6 +133,10 @@ Package.onUse(function (api) {
   api.addFiles('client/templates/users/relationships/relationships.css', 'web.browser');
   api.addFiles('client/templates/users/relationships/relationships.html', 'web.browser');
   api.addFiles('client/templates/users/relationships/relationships.js', 'web.browser');
+  api.addFiles('client/templates/leads/leads.html', 'web.browser');
+  api.addFiles('client/templates/leads/leads.js', 'web.browser');
+  
+  /**Less Components */
   api.addFiles('client/less/_bootstrap/alerts.import.less', 'web.browser');
   api.addFiles('client/less/_bootstrap/badges.import.less', 'web.browser');
   api.addFiles('client/less/_bootstrap/breadcrumbs.import.less', 'web.browser');
@@ -263,7 +268,6 @@ Package.onUse(function (api) {
   api.addFiles('client/less/components/pages/task-manager.import.less', 'web.browser');
   api.addFiles('client/less/components/pages/timelines.import.less', 'web.browser');
   api.addFiles('client/less/components/pages/user-list.import.less', 'web.browser');
-  
   api.addFiles('client/less/components/plugins/forms/checkboxes/bootstrap-switch.import.less', 'web.browser');
   api.addFiles('client/less/components/plugins/forms/checkboxes/switchery.import.less', 'web.browser');
   api.addFiles('client/less/components/plugins/forms/checkboxes/uniform.import.less', 'web.browser');
@@ -347,13 +351,20 @@ Package.onUse(function (api) {
   api.addFiles('client/less/_main/colors.less', 'web.browser');
   api.addFiles('client/less/_main/components.less', 'web.browser');
   api.addFiles('client/less/_main/core.less', 'web.browser');
+  
+
+  /**Limitless Components */
   api.addFiles('client/limitless/js/startup.js', 'web.browser');
   api.addFiles('client/limitless/js/nicescroll.min.js', 'web.browser');
   api.addFiles('client/limitless/js/fab.min.js', 'web.browser');
   api.addFiles('client/limitless/js/extra_fab.js', 'web.browser');
   api.addFiles('client/limitless/js/datatable_basic.js', 'web.browser');
   api.addFiles('client/limitless/js/app.js', 'web.browser');
-  
+  /** add pickadate plugin **/
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/picker.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/picker.date.js', 'web.browser');
+  api.addFiles('client/limitless/js/plugins/pickers/pickadate/picker.time.js', 'web.browser'); 
+
   /** add trumbowyg plugin **/
   /** adapt from Trumbowyg tag 1.17 https://github.com/Alex-D/Trumbowyg/tree/1.1.7/dist **/
   api.addFiles('client/plugins/trumbowyg/ui/trumbowyg.css', ['web.browser']);
@@ -365,18 +376,12 @@ Package.onUse(function (api) {
   api.addAssets('client/plugins/trumbowyg/plugins/colors/ui/images/icons-2x.png', ['web.browser']);    
   api.addFiles('client/plugins/trumbowyg/plugins/colors/trumbowyg.colors.js', ['web.browser']);
  /** add trumbowyg plugin ends**/
- 
   api.addFiles('client/plugins/intl-tel-input/js/intlTelInput.js', ['web.browser']);
   api.addFiles('client/plugins/intl-tel-input/js/utils.js', ['web.browser']);
   api.addAssets('client/plugins/intl-tel-input/img/flags.png', ['web.browser']);
   api.addAssets('client/plugins/intl-tel-input/img/flags@2x.png', ['web.browser']);
   api.addFiles('client/plugins/intl-tel-input/css/intlTelInput.css', ['web.browser']);
 
-  /** add pickadate plugin **/
-  api.addFiles('client/limitless/js/plugins/pickers/pickadate/picker.js', 'web.browser');
-  api.addFiles('client/limitless/js/plugins/pickers/pickadate/picker.date.js', 'web.browser');
-  api.addFiles('client/limitless/js/plugins/pickers/pickadate/picker.time.js', 'web.browser');
-  
   /*pickadate plugin does not support switch lang dynamic out of the box. For now comment out translation files */
   /*api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/ar.js', 'web.browser');
   api.addFiles('client/limitless/js/plugins/pickers/pickadate/translations/bg_BG.js', 'web.browser');

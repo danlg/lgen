@@ -1,0 +1,106 @@
+<template name="AdminLeads">
+    <!-- Simple panel -->
+     <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h1>Sales Leads</h1>
+        </div>
+
+        <div class="panel-body">
+
+            <div class="col-xs-6 form-group">
+                <div class="">
+                    <label class="control-label col-xs-4">Search School by Name</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="form-control" id="AdminLeads__studentName" placeholder="Full Name or Short Name">
+                    </div>
+                </div>
+                <br />
+                <button id="AdminLeads__updateFilter" type="submit" class="btn btn-primary">{{_ "Admin.UpdateFilters" }} <i class="icon-arrow-right14 position-right"></i></button>
+            </div>
+
+            <div class="col-xs-6 form-group">
+                <div>
+                    <div class="col-md-12">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="status-filter" class="control-success" value="any" checked="checked">
+                                 {{_ "Admin.ShowAll" }} 
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="status-filter" class="control-success" value="active">
+                                 {{_ "Admin.Show" }} <button class="label label-success">  Active</button>
+                            </label>
+                        </div>
+
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="status-filter" class="control-success" value="inactive">
+                                {{_ "Admin.Show" }} <button class="label label-info"> Inactive</button>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-flat">
+        <div class="panel-body table-responsive">
+            <table class="table datatable-basic">
+                <thead>
+                    <tr>
+                        <th>Signup Status</th>
+                        <th>School Name</th>
+                        <th>City</th>
+                        <th>Country</th>
+                        <th>Name of Admin</th>
+                        <th>Designation</th>
+                        <th>Registered Email</th>
+                        <th>Number of Students</th>
+                        <th>Date Created</th>
+                        <th>Trial Till</th>
+                        <th>Found Us Through</th>
+                        <th>Issues Faced</th>
+                        <th>Reason for Smartix</th>
+                        <th>Revenue</th>
+                        <th>School Shortname</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each schoolObj}}
+                    <tr>
+                        {{#if isSignUpSuccess this.lead.stage}}
+                            <td><button class="label label-success"> Active </button></td>
+                        {{else}}
+                            <td><button class="label label-info"> Inactive </button></td>
+                        {{/if}}
+                        <td>{{this.fullname}}</td>
+                        <td>{{this.city}}</td>
+                        <td>{{this.country}}</td>
+                        <td>{{lead.firstName}} {{lead.lastName}}</td>
+                        <td>{{lead.position}}</td>
+                        <td>{{this.email}}</td>
+                        <td>{{this.lead.howManyStudents}}</td>
+                        <td>{{formatDate this.createdAt}}</td>
+                        <td>{{formatDate this.planTrialExpiryDate}}</td>
+                        <td>{{this.lead.howDidYourFind}}</td>
+                        <td>{{this.lead.whichIssues}}</td>
+                        <td>{{this.lead.HowSmartixExpect}}</td>
+                        <td>{{this.revenueToDateCcy}} {{this.revenueToDate}}</td>
+                        <td>{{this.shortname}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="panel panel-flat">
+        <div class="panel-body">
+            <button id="AdminLeads__toCSV" type="submit" class="btn btn-primary">Export to CSV <i class="icon-arrow-right14 position-right"></i></button>
+        </div>
+    </div>
+    <!-- /simple panel -->
+</template>
