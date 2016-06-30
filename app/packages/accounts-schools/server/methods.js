@@ -1,6 +1,9 @@
 if(Meteor.isServer){
     Meteor.methods({
-        'smartix:accounts-schools/createSchoolUser': function(email, options, schoolName, type, emailVerified, doNotifyEmail) {
+        /**
+         * @param roles: an array of role, e.g. single role will be [role]
+         */
+        'smartix:accounts-schools/createSchoolUser': function(email, options, schoolName, roles, emailVerified, doNotifyEmail) {
             // Find school by username first
             var schoolDoc = SmartixSchoolsCol.findOne({
                 shortname: schoolName
@@ -13,8 +16,12 @@ if(Meteor.isServer){
             }
             //need to ensure we are not dealing with global school 
             if (schoolDoc._id !== 'global') {
-                return Smartix.Accounts.createUser(email, options, schoolDoc._id, type, this.userId, emailVerified, doNotifyEmail);
-            } else {
+                return Smartix.Accounts.createUser(email, options, schoolDoc._id, roles, this.userId, emailVerified, doNotifyEmail);
+            } 
+            else if(schoolDoc._id === 'global')
+            {
+                return Smartix.Accounts.createUser(email, options, schoolDoc._id, ['user'], this.userId, emailVerified, doNotifyEmail);
+            }else {
                 return false;
             }
         },
