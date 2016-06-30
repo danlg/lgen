@@ -61,14 +61,14 @@ Template.AdminUsersSearch.events({
     'click .remove-users-btn':function(event,template){
         let latestArray = template.usersChecked.get();
         if(latestArray.indexOf(Meteor.userId()) > -1){
-            toastr.info('Please deselect your own account first. You cannot remove your account');
+            toastr.info(TAPi18n("Admin.UserCannotRemoveSelf"));
             return;
         }
         let listOfUsers = Meteor.users.find({_id:{$in: latestArray }}).fetch();
         let listOfUserNames = listOfUsers.map(function(eachUserObj){
             return eachUserObj.profile.firstName + " " + eachUserObj.profile.lastName;
         })
-        template.modalTitle.set('Do you really want to remove the selected users?');
+        template.modalTitle.set(TAPi18n.__("Admin.UserRemoveConfirmation"));
         template.modalBody.set(listOfUserNames.join('<br/>'));
         template.modalName.set('remove-users-modal');
         Meteor.setTimeout(function(){
@@ -139,7 +139,7 @@ Template.AdminUsersSearch.events({
         let latestArray = template.usersChecked.get()
      
         if(latestArray.indexOf(Meteor.userId()) > -1 && selectedRole === 'admin'){
-            toastr.info('You cannot remove your admin role');
+            toastr.info(TAPi18n.__("Admin.UserCannotRemoveAdminRole"));
             return;
         }
 

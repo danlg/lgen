@@ -84,30 +84,34 @@ Template.AdminParentsImport.events({
     'click #AdminParentsImport__submit': function (event, template) {
         var importedParents = Session.get('imported-parents');
             if(Array.isArray(importedParents)) {
+                toastr.info(TAPi18n.__("Admin.ImportInProgress"));
+                Session.set('imported-parents', undefined);
+                $("#parents-upload-file").val('');
                 var notifyuserwithemail = template.$('#notifyuserwithemail').is(":checked");
-                var toasterOption = {
-                    timeOut: 0,
-                    "newestOnTop": false
-                };
                 Meteor.call('smartix:accounts-schools/importParents',
-                    UI._globalHelpers['getCurrentSchoolName'](),
-                    importedParents,
-                    notifyuserwithemail, function (err, res) {
+                    UI._globalHelpers['getCurrentSchoolName'](),importedParents,notifyuserwithemail
+                    , function (err, res) {
+                    var toasterOption = {timeOut: 0,"newestOnTop": false};
                     if(!err) {
+                        var success = res.newUsers.length;
+                        var errors = res.errors.length;
+                        var total = success + errors;
                         Session.set('importErrors', res.errors);
                         Session.set('manualNotifyUsers', res.manualNotifyUsers);
-                        
-                        toastr.info(res.newUsers.length + " new users have been imported.", null, toasterOption);
-                        toastr.info(res.existingUsers.length + " users already exists and were not imported.", null, toasterOption);
+                        if (errors!=0) {
+                            toastr.info(success + "/" + total + TAPi18n.__("Admin.ImportedUsersWithWarnings") + res.errors.length + TAPi18n.__("warnings"), null, toasterOption);
+                            toastr.warning(TAPi18n.__("Admin.ImportUserWarningCause"), null,toasterOption);
+                        }
+                        else {
+                                //toastr.info(TAPi18n.__("admin.users.import.importSuccess"), {timeOut:0});
+                                toastr.info(success + "/" + total + " " + TAPi18n.__("Admin.ImportSuccess"), null,toasterOption);
+                        }
                     } else {
-                        toastr.error(TAPi18n.__("incorrectImportFormat"), null,toasterOption);
+                        toastr.error(TAPi18n.__("Admin.ImportIncorrectFormat"), null,toasterOption);
                         toastr.error(err.reason, null, toasterOption);
                         log.error(err.reason);
                     }
                 });
-                toastr.info('Attempting to import ' + importedParents.length + " records. Please wait a few moments and remain on the page.", null, toasterOption);
-                Session.set('imported-parents', undefined);
-                $("#parents-upload-file").val('');
             } else {
                 toastr.error(TAPi18n.__("Admin.ImportIncorrectFormat"));
             }

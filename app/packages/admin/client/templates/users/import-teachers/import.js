@@ -110,23 +110,23 @@ Template.AdminTeachersImport.events({
                             var errors = res.errors.length;
                             var total = success + errors;
                             if (errors!=0) {
-                                toastr.info(success + "/" + total + " users have been imported with " + res.errors.length + " warnings", null, toasterOption);
-                                toastr.warning("Creating a user sharing an e-mail with an existing user or adding a new role to an existing user are the possible causes of the warning", null,toasterOption);
+                                toastr.info(success + "/" + total + TAPi18n.__("Admin.ImportedUsersWithWarnings") + res.errors.length + " warnings", null, toasterOption);
+                                toastr.warning(TAPi18n.__("Admin.ImportUserWarningCause"), null,toasterOption);
                             }
                             else {
                                 //toastr.info(TAPi18n.__("Admin.ImportSuccess"), {timeOut:0});
-                                toastr.info(success + "/" + total + " users have been imported successfully", null,toasterOption);
+                                toastr.info(success + "/" + total + " " + TAPi18n.__("Admin.ImportSuccess"), null,toasterOption);
                             }
                             Session.set('imported-teachers', undefined);
                             $("#teachers-upload-file").val('');
                         } else {
-                            toastr.error(TAPi18n.__("admin.users.import.incorrectImportFormat"), null,toasterOption);
+                            toastr.error(TAPi18n.__("Admin.ImportIncorrectFormat"), null,toasterOption);
                             toastr.error(err.reason, null, toasterOption);
                             log.error(err.reason);
                         }
                     });
             } else {
-                toastr.error(TAPi18n.__("admin.users.import.incorrectImportFormat"));
+                toastr.error(TAPi18n.__("Admin.ImportIncorrectFormat"));
             }
     }
 });
