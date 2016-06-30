@@ -129,7 +129,6 @@ smartix:iconchooser
 smartix:filehandler
 smartix:email-template
 smartix:accounts
-smartix:accounts-global
 smartix:accounts-system
 smartix:accounts-usernames
 smartix:accounts-relationships

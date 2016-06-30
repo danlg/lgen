@@ -23,7 +23,7 @@ Package.onUse(function(api) {
   api.use('smartix:core');
   
   //retrieve user schema
-  api.use('smartix:accounts-global');
+  // api.use('smartix:accounts-global');
   //generate username
   api.use('smartix:accounts-usernames');      
   api.use('smartix:accounts-system');

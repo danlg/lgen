@@ -50,4 +50,8 @@ Meteor.methods({
     'smartix:accounts/setFirstClassJoined': function () {
      Meteor.users.update(Meteor.userId(), {$set: {"firstClassJoined": false}}); 
     }
+    // ,
+    // 'smartix:accounts/getNumberOfUsersInNameSpace': function(schoolId, userId){
+    //     return Smartix.Accounts.getAllUsersInNamespace(schoolId, userId).count();
+    // }
 });
