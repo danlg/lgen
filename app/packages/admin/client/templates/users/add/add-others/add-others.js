@@ -73,9 +73,13 @@ Template.AdminAddOthers.events({
             function(err, res) {
                 if (!err) {
                     // Shows success message
-                    toastr.info(TAPi18n.__("admin.users.add.addSuccess"));
+                    toastr.info(TAPi18n.__("Admin.AddSuccess"));
                     // Clear the fields
                     $('.AdminAddOthers__input').val('');
+                }
+                else {
+                    toastr.error(err.reason);
+                    log.error(err);
                 }
             });
     }

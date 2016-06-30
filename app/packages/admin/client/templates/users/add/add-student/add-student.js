@@ -73,6 +73,10 @@ var createParents = function (studentId, template, notifyuserwithemail) {
             if(!err) {
                 template.$('.AdminAddStudent__newRelationship').eq(i).find('.AddStudentNewRelationship__input').val("");
             }
+            else {
+                    toastr.error(err + parentObj.email);
+                    log.error(err);
+                }
         });
     });
 }
@@ -156,8 +160,7 @@ Template.AdminAddStudent.events({
         
         //log.info(newUserObj);
         // Call the Meteor method to create the school user
-        Meteor.call(
-            'smartix:accounts-schools/createSchoolUser',
+        Meteor.call('smartix:accounts-schools/createSchoolUser',
             email,
             newUserObj,
             Template.instance().currentSchool,
@@ -174,6 +177,7 @@ Template.AdminAddStudent.events({
                     // Clears the input fields
                     template.$('.AdminAddStudent__input').val("");
                 } else {
+                    toastr.error(err.reason);
                     log.error(err);
                 }
             }

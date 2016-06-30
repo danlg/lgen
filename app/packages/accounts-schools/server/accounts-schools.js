@@ -116,12 +116,18 @@ Smartix.Accounts.School.createParentIndi = function(namespace, parentObj, curren
         , true
         , !!doNotifyEmail
     );
-    let returnObj = Smartix.Accounts.Relationships.createRelationship({
-        parent: newUserObj.id,
-        child: parentObj.studentId,
-        namespace: namespace,
-        name: parentObj.type
-    }, currentUser);
+    if (newUserObj && newUserObj.id) {
+        Smartix.Accounts.Relationships.createRelationship({
+                parent: newUserObj.id,
+                child: parentObj.studentId,
+                namespace: namespace,
+                name: parentObj.type
+            }, currentUser); 
+        return {
+                id: newUserObj.id,
+                isNew: newUserObj.isNew
+            }
+        }      
 };
 /**
  * Everyone can create a new account in global namespace, Only admin users can create other users

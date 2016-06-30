@@ -11,7 +11,8 @@ if(Meteor.isServer){
                     _id: schoolName
                 });   
             }
-            if (schoolDoc) {
+            //need to ensure we are not dealing with global school 
+            if (schoolDoc._id !== 'global') {
                 return Smartix.Accounts.createUser(email, options, schoolDoc._id, type, this.userId, emailVerified, doNotifyEmail);
             } else {
                 return false;
