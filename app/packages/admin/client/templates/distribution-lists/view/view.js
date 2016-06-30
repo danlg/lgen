@@ -120,7 +120,7 @@ Template.AdminDistributionListView.events({
             return eachUserObj.profile.firstName + " " + eachUserObj.profile.lastName;
         });
         Meteor.call('smartix:distribution-lists/addUsersByListName', currentList, userIdsToAdd, function (err, res) {
-            toastr.info(listOfUserNames.toString() + ' added to distributionList');
+            toastr.info(listOfUserNames.toString() +' '+ TAPi18n.__("Admin.AddSuccess"));
             // console.log(err);
             // console.log(res);
         })               
@@ -134,7 +134,7 @@ Template.AdminDistributionListView.events({
             return eachUserObj.profile.firstName + " " + eachUserObj.profile.lastName;
         });
         Meteor.call('smartix:distribution-lists/removeUsersByListName', currentList, userIdsToRemove, function (err, res) {
-            toastr.info(listOfUserNames.toString() + ' removed from distributionList');            
+            toastr.info(listOfUserNames.toString() + ' ' + TAPi18n.__("Admin.RemoveSuccess"));            
             // console.log(err);
             // console.log(res);
         })
@@ -161,9 +161,9 @@ Template.AdminDistributionListView.events({
      var userObjects;
      if (selectedRole) {
          if(selectedRole === 'all'){
-              toastr.info('All users are selected');
+              toastr.info(TAPi18n.__("Admin.AllUsersAreSelected"));
          }else{
-              toastr.info('All '+selectedRole+ ' are selected');
+              toastr.info(TAPi18n.__("Admin.All")+ ' '+ TAPi18n.__(selectedRole) + TAPi18n("Admin.AreSelected"));
          }
          let searchString = DistributionListUsersIndex.getComponentDict().keys.searchDefinition;
          //remove wrapping double quote
@@ -172,7 +172,7 @@ Template.AdminDistributionListView.events({
          userObjects = DistributionListUsersIndex.search( searchString, { limit: 999999, props: { schoolNamespace: template.namespace, role: selectedRole } }).fetch();
          //log.info(userObjects);
        } else {
-         toastr.info('All users are selected');
+         toastr.info(TAPi18n.__("Admin.AllUsersAreSelected"));
       
          let searchString = DistributionListUsersIndex.getComponentDict().keys.searchDefinition;
          //remove wrapping double quote                  

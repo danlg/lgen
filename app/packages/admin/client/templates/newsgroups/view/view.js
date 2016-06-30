@@ -65,19 +65,19 @@ Template.AdminNewsgroupsView.events({
    'click .show-news-btn':function(event,template){
        var msgId = $(event.target).data('msgId');
        Meteor.call('smartix:news/showMessage',msgId,function(){
-           toastr.info('The news is shown to user again');
+           toastr.info(TAPi18n.__("Admin.NewsShownAgain"));
        }); 
    },
    'click .hide-news-btn':function(event,template){
        var msgId = $(event.target).data('msgId');
        Meteor.call('smartix:news/hideMessage',msgId,function(){
-           toastr.info('The news is hidden from user');
+           toastr.info(TAPi18n.__("Admin.NewsHiddenFromUser"));
        }); 
    },   
    'click .remove-news-btn':function(event,template){
        var msgId = $(event.target).data('msgId');
        Meteor.call('smartix:news/deleteMessage',msgId,function(){
-           toastr.info('The news has been removed');
+           toastr.info(TAPi18n.__("Admin.NewsRemoved"));
        });       
    }, 
    'click .delete-newsgroup':function(event,template){
@@ -86,7 +86,7 @@ Template.AdminNewsgroupsView.events({
        var groupId = $(event.target).data('newsgroupId');
        //log.info('deleteNewsgroup',groupId);
        Meteor.call('smartix:newsgroups/deleteNewsgroup',groupId,function(){
-           toastr.info('This newsgroup has been removed');
+           toastr.info(TAPi18n.__("Admin.NewsgroupRemoved"));
        });    
     }            
    }, 
@@ -95,7 +95,7 @@ Template.AdminNewsgroupsView.events({
        var distributionListId = $(event.target).val();
        var distributionListName = $(event.target).data('distributionListName');
        Meteor.call('smartix:newsgroups/removeDistributionListToGroup', groupId, distributionListId,function(){
-           toastr.info('Distribution List ' + distributionListName + ' has been removed from current group'); 
+           toastr.info(TAPi18n.__("Admin.DistributionList") + ' ' + distributionListName + TAPi18n.__("Admin.RemovedFromCurrentGroup"); 
        });
    },
    'click .add-distribution-list-to-group':function(event,template){
@@ -103,7 +103,7 @@ Template.AdminNewsgroupsView.events({
        var distributionListId = $(event.target).val();
        var distributionListName = $(event.target).data('distributionListName');       
        Meteor.call('smartix:newsgroups/addDistributionListToGroup', groupId, distributionListId,function(){
-           toastr.info('Distribution List ' + distributionListName + ' has been added to current group');            
+           toastr.info(TAPi18n.__("Admin.DistributionList") + ' ' + distributionListName + TAPi18n.__("Admin.AddedToCurrentGroup"));            
        });       
    },   
 });

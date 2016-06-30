@@ -27,12 +27,12 @@ Template.AdminDistributionListsAdd.events({
                     //log.info('distributionId', result);
                     var newDistributionList = Smartix.Groups.Collection.findOne(result);
                     //log.info(newDistributionList);
-                    toastr.info('Distribution List '+ newDistributionList.name +' has been created.');
+                    toastr.info(TAPi18n.__("Admin.DistributionList") + newDistributionList.name + TAPi18n.__("Admin.CreatedSuccessfully"));
                     Router.go('admin.lists.view', { school: schoolName, code: newDistributionList.url });
                 } else {
                     var existingDistributionList = Smartix.Groups.Collection.findOne({name: name});
                     if(existingDistributionList){
-                        toastr.info('Distribution List already exist. Redirect you to view it.');
+                        toastr.info(TAPi18n.__("Admin.DistributionList") + TAPi18n.__("Admin.AlreadyExists") +' ' + TAPi18n.__("Redirecting") );
                         Router.go('admin.lists.view', { school: schoolName, code: existingDistributionList.url });
                     }else{
                         toastr.error(TAPi18n.__("Admin.DistributionListsFailed"));

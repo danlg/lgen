@@ -161,7 +161,7 @@ Template.SignupMain.events({
             if( userAgent.match(/Safari/i)  && !userAgent.match(/Chrome/i) ){
                 event.preventDefault();
             }
-            toastr.info('Please complete the form');
+            toastr.error(TAPi18n.__("requiredFields"));
             $('#school-trial-account-create').addClass('invalid');
             //log.warn('Form incomplete');
         }
@@ -196,12 +196,12 @@ Template.SignupMain.events({
                 function (err,result) {
                     if(err){
                         if(err.error === 'short-name-taken'){
-                            toastr.info('school domain name has been taken. Please choose another one.')
+                            toastr.error(TAPi18n.__("PersonalDomainTaken"))
                         }
                     }else{
                         toastr.info(
-                            'We have sent you an email to ' +schoolTrialAccountCreationObj.user.userEmail +
-                            '. Open it to finish registration (please check also your Spam folder).');
+                            TAPi18n.__("EmailSentTo") +schoolTrialAccountCreationObj.user.userEmail +
+                            '. ' + TAPi18n.__("EmailToFinishRegistration"));
                         Router.go('LoginSplash');
                     }
                 });
@@ -211,7 +211,7 @@ Template.SignupMain.events({
             if( userAgent.match(/Safari/i)  && !userAgent.match(/Chrome/i) ){
                 event.preventDefault();
             }
-            toastr.info('Please complete the form');
+            toastr.error(TAPi18n.__("requiredFields"));
             $('#school-trial-account-create-page2').addClass('invalid');
         }
     },

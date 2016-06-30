@@ -38,7 +38,7 @@ Template.AdminClassesAdd.events({
             if(!err) {
                 template.$('#addClass-name').val("");
                 template.$('#addClass-code').val("");
-                toastr.info("The class " + newClass.className + " has been created successfully.");
+                toastr.info(TAPi18n.__("ClassName") +': '+ newClass.className + TAPi18n.__("Admin.CreatedSuccessfully"));
                 Router.go('admin.classes.view', {
                     school:  UI._globalHelpers['getCurrentSchoolName'](),
                     classCode: newClass.classCode});

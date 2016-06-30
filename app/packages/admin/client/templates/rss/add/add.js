@@ -30,7 +30,7 @@ Template.AdminRssAdd.events({
                 log.error("smartix:rss/linkRssWithGroups", err);
                 toastr.error("smartix:rss/linkRssWithGroups",err.reason);
             } else {
-                toastr.info('RSS is linked.');
+                toastr.info(TAPi18n.__("Admin.RSSLinked"));
             }
         })
     }

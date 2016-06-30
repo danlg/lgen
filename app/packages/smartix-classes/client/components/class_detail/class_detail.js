@@ -104,7 +104,7 @@ Template.ClassDetail.events({
 		var description = $(event.target).data('description');
 
 		Smartix.Messages.Addons.Calendar.addEvent(eventName, location, description, startDate, endDate, function () {
-			toastr.info('Event added to your calendar');
+			toastr.info(TAPi18n.__("EventAddCalendar"));
 		});
 	}
 });

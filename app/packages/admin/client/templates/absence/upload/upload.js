@@ -84,7 +84,7 @@ Template.AdminUploadAttendance.events({
                 // Toaster to notify success
                 log.info(res);
                 if(res.insertCount) {
-                    toastr.info(res.insertCount + " records were updated successfully");
+                    toastr.info(res.insertCount + TAPi18n.__("Admin.RecordsUpdateSuccess"));
                 }
                 if(res.errors) {
                     toastr.error(res.errors);

@@ -54,7 +54,7 @@ Template.AdminNewsAdd.helpers({
 
 checkNews = function(broadcastList){
   if (broadcastList.length < 1 ) {
-    toastr.info('To send a news, please create at least one newsgroup first');
+    toastr.info(TAPi18n.__("Admin.NoNewsgroupExists"));
     return false;
   }
   var anyChecked = false;
@@ -62,7 +62,7 @@ checkNews = function(broadcastList){
     anyChecked = anyChecked || this.checked;
   });
   if (!anyChecked) {
-    toastr.info('Please select at least one newsgroup');
+    toastr.info(TAPi18n.__("Admin.NoNewsgroupExists"));
     return false;
   }
   return true;
@@ -71,7 +71,7 @@ checkNews = function(broadcastList){
 var notifyAdmin = function (sentToNewgroupNames) {
     // If last element
     clearForm();
-    toastr.info('News sent to group: ' + sentToNewgroupNames.toString() );
+    toastr.info(TAPi18n.__("Admin.NewsSentToGroup") + sentToNewgroupNames.toString() );
 };
 
 var clearForm = function ( ) {
@@ -108,11 +108,11 @@ Template.AdminNewsAdd.events({
         event.preventDefault();
         if(template.showCalendarForm.get()){
             if($('#event-name').val() === ""){
-                toastr.info('Please fill in Event Name');
+                toastr.info(TAPi18n.__("FillEventDetail"));
                 return;
             }
              if($('#location').val() === ""){
-                toastr.info('Please fill in Event Location');
+                toastr.info(TAPi18n.__("FillEventDetail"));
                 return;
             }           
             template.calendarEvent.set({

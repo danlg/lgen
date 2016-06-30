@@ -54,7 +54,7 @@ Template.AdminUsersImport.events({
     'click #importUser-submit': function (event, template) {
             var importedStudents = Session.get('imported-students');
             if(Array.isArray(importedStudents)) {
-                toastr.info("Users are being added. You will be notified once they have been imported.");
+                toastr.info(TAPi18n.__("Admin.ImportInProgress"));
                 Session.set('imported-students', undefined);
                 $("#user-upload-file").val('');
                 var notifyuserwithemail = template.$('#notifyuserwithemail').is(":checked");

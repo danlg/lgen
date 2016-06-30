@@ -22,9 +22,9 @@ Template.AdminNewsgroupsAdd.events({
             function(err,result){
                 if(err){
                     log.info("smartix:newsgroups/createNewsgroup", err);
-                    toastr.info("smartix:newsgroups/createNewsgroup", err.reason);
+                    toastr.error("smartix:newsgroups/createNewsgroup", err.reason);
                 }else{
-                    toastr.info('Newsgroup is created.');
+                    toastr.info(TAPi18n.__("Admin.NewsgroupCreated"));
                 }
         });
     }
