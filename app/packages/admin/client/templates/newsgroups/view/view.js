@@ -95,7 +95,7 @@ Template.AdminNewsgroupsView.events({
        var distributionListId = $(event.target).val();
        var distributionListName = $(event.target).data('distributionListName');
        Meteor.call('smartix:newsgroups/removeDistributionListToGroup', groupId, distributionListId,function(){
-           toastr.info(TAPi18n.__("Admin.DistributionList") + ' ' + distributionListName + TAPi18n.__("Admin.RemovedFromCurrentGroup"); 
+           toastr.info(TAPi18n.__("Admin.DistributionList") + ' ' + distributionListName + TAPi18n.__("Admin.RemovedFromCurrentGroup")); 
        });
    },
    'click .add-distribution-list-to-group':function(event,template){
