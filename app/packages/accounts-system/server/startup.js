@@ -41,8 +41,8 @@ Smartix.Accounts.System.createDefaultSchool = function()
 };
 
 Smartix.Accounts.System.createFirstAdmin = function(schoolId) {
-    const rs = Meteor.users.find({'username':'sysadmin'});
-    const count = rs.count();
+    var systemAdmin = Meteor.users.find({'username':'sysadmin'});
+    const count = systemAdmin.count();
     if (count === 0 ) {
         log.info("Creating first sysadmin");
         var id = Accounts.createUser({
@@ -59,6 +59,14 @@ Smartix.Accounts.System.createFirstAdmin = function(schoolId) {
         // 'profile.lastName': 'Administrator'
     }
     else {
+        systemAdmin = systemAdmin.fetch();
+        var systemAdminId = systemAdmin._id;
+        if(!Roles.userIsInRole(systemAdminId, 'sales', schoolId))
+        {
+            Roles.addUsersToRoles(systemAdminId, ['sales'], schoolId);
+            Meteor.users.update({ _id: systemAdminId }, { $addToSet: { schools: schoolId } });
+            log.info("Added sales role to systemAdmin");
+        }
         log.info("Sysadmin already created");
     }
 };
