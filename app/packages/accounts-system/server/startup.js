@@ -38,6 +38,8 @@ Smartix.Accounts.System.createDefaultSchool = function()
             throw err;
         }
     }
+    //the _id must be 'global'
+    return 'global';
 };
 
 Smartix.Accounts.System.createFirstAdmin = function(schoolId) {
@@ -50,7 +52,7 @@ Smartix.Accounts.System.createFirstAdmin = function(schoolId) {
             password: 'genie421'
         });
         // Add the newly created user to have the role of system administrator
-        Roles.addUsersToRoles(id, ['sysadmin'] , schoolId);
+        Roles.addUsersToRoles(id, ['sysadmin'], schoolId);
         Roles.addUsersToRoles(id, ['admin'], schoolId);
         Roles.addUsersToRoles(id, ['sales'], schoolId);
         Meteor.users.update({ _id: id },
@@ -60,9 +62,10 @@ Smartix.Accounts.System.createFirstAdmin = function(schoolId) {
     }
     else {
         systemAdmin = systemAdmin.fetch();
-        var systemAdminId = systemAdmin._id;
+        var systemAdminId = systemAdmin[0]._id;
         if(!Roles.userIsInRole(systemAdminId, 'sales', schoolId))
         {
+            //db.getCollection('users').find({})[0].roles.global
             Roles.addUsersToRoles(systemAdminId, ['sales'], schoolId);
             Meteor.users.update({ _id: systemAdminId }, { $addToSet: { schools: schoolId } });
             log.info("Added sales role to systemAdmin");
