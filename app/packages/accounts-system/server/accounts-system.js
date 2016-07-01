@@ -14,9 +14,9 @@ Smartix.Accounts.System.isAdmin = function (currentUser) {
     if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
-    return Roles.userIsInRole(currentUser, 'admin', 'global') ||
-        Roles.userIsInRole(currentUser, 'sysadmin', 'global') || 
-         Roles.userIsInRole(currentUser, 'sales', 'global');
+    return Roles.userIsInRole(currentUser, 'admin', 'global')
+        || Roles.userIsInRole(currentUser, 'sysadmin', 'global');
+    //  || Roles.userIsInRole(currentUser, 'sales', 'global');
 };
 
 // Smartix.Accounts.System.canCreateUser = function (types, currentUser) {
