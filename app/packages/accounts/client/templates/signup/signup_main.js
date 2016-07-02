@@ -5,7 +5,7 @@ Template.SignupMain.onCreated(function(){
     this.chosenNumberOfStudent = new ReactiveVar(0);
     this.mySchoolName = new ReactiveVar('');
 
-    this.defaultColor = '#0080BF';
+    this.defaultColor = '#3E82F7';
     this.inputBackgroundColor = new ReactiveVar(this.defaultColor);
     this.inputTextColor = new ReactiveVar('#FFFFFF');
     this.currentSchoolFormTemplate = new ReactiveVar('SchoolSignupForm');
@@ -23,7 +23,7 @@ Template.SignupMain.onCreated(function(){
 Template.SignupMain.onRendered(function()
 {
     loadDefaultImage(this);
-})
+});
 
 Template.SignupMain.helpers({
     emailSignup: function(argument) {
@@ -226,8 +226,8 @@ Template.SignupMain.events({
         //log.info("reset-color set", template.defaultColor);
         template.inputBackgroundColor.set(template.defaultColor);
         template.inputTextColor.set('#FFFFFF');
-        document.getElementById("school-logo-preview").src = '/packages/smartix_accounts/client/asset/smartix_logo.png';
-        document.getElementById("school-banner-preview").src = '/packages/smartix_accounts/client/asset/graduation_ceremony_picture@1x.jpg';
+        document.getElementById("school-logo-preview").src = '/img/icon-hd-email.png';
+        document.getElementById("school-banner-preview").src = '/img/graduation_ceremony_picture@1x.jpg';
         loadDefaultImage(Template.instance());
         //need to reset palette
         event.preventDefault();

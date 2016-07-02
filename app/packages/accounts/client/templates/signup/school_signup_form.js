@@ -1,8 +1,8 @@
 Template.SchoolSignupForm.onRendered(function(){
     //log.info('SchoolSignupForm',this.inputBackgroundColor);
-    this.defaultColor = '#0080BF';
+    //google blue 3E82F7
+    this.defaultColor = '#3E82F7';
     this.inputBackgroundColor = new ReactiveVar(this.defaultColor);
-
     this.$('#school-background-color-picker-polyfill').spectrum({
         //color: Template.SignupMain.instanceinputBackgroundColor.get(),
         color: this.inputBackgroundColor.get(),
