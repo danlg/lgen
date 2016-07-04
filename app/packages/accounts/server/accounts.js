@@ -135,7 +135,7 @@ Smartix.Accounts.createUser = function(email, userObj, namespace, roles, current
         Meteor.users.update({ _id: newUserId }, { $set: { registered_emails: registered_emails } });
         //if user does not have password, send enrollment email to user to setup initial password
         if(!tempPassword){
-            if(Meteor.call('isGoogleAccount', email))
+            if( Smartix.Lib.Server.IsGoogleAccount(email) )
             {
                 Smartix.Accounts.notifyByEmail(email, newUserId, autoEmailVerified, !!doNotifyEmail);
             }

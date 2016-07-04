@@ -247,7 +247,7 @@ Smartix.verificationEmailTemplate = function (userObj, verificationURL) {
   var emailLang = userObj.lang || "en";
   var verifyEmailcontent;
   try {
-    if(Meteor.call('isGoogleAccount', userObj.emails[0].address))
+    if(Smartix.Lib.Server.IsGoogleAccount (userObj.emails[0].address))
         verifyEmailcontent = Assets.getText("lang/" + emailLang + "/emailVerifyTemplate.html");
     else if (userObj.services.password){
           verifyEmailcontent = Assets.getText("lang/" + emailLang + "/emailAccountDetailsVerification.html");
