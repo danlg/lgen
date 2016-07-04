@@ -328,6 +328,7 @@
     "if": "if"
   },
   "AdminDashboard": "Admin dashboard",
+  "AdminDashboardOnBrowser": "Administration dashboard only available on browser at https://now.gosmartix.com",
   "Allow_this_class_to_be_searched": "Allow this class to be searched",
   "And_amp": " & ",
   "AnyoneInThisClassCanStartAChat": "Anyone in this class can start a chat",

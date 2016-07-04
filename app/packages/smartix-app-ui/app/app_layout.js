@@ -120,7 +120,16 @@ Template.AppLayout.events({
                 Router.go('LoginSplash');
             }
         );
+    },
+
+    'click .admin-dashboard': function (event, template) {
+        if(Meteor.isCordova)
+        {
+            event.preventDefault();
+            toastr.warning(TAPi18n.__("AdminDashboardOnBrowser"));
+        }
     }
+
 });
 
 
