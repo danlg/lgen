@@ -2,8 +2,9 @@
 
 #$1 is password to storepass
 export PASSWORD=$1
-export APK_PATH=.meteor/local/cordova-build/platforms/android/build
-export UNSIGNED_APK=$APK_PATH/outputs/apk/android-release-unsigned.apk
+#export APK_PATH=.meteor/local/cordova-build/platforms/android/build
+export APK_PATH=../android-build/android
+export UNSIGNED_APK=$APK_PATH/release-unsigned.apk
 export SIGNED_APK=$APK_PATH/smartix-release-signed.apk
 
 rm -f $SIGNED_APK
