@@ -247,8 +247,14 @@ Smartix.verificationEmailTemplate = function (userObj, verificationURL) {
   var emailLang = userObj.lang || "en";
   var verifyEmailcontent;
   try {
-    // Get the verfication template of the specific lang
-    verifyEmailcontent = Assets.getText("lang/" + emailLang + "/emailVerifyTemplate.html");
+    if(Meteor.call('isGoogleAccount', userObj.emails[0].address))
+        verifyEmailcontent = Assets.getText("lang/" + emailLang + "/emailVerifyTemplate.html");
+    else if (userObj.services.password){
+          verifyEmailcontent = Assets.getText("lang/" + emailLang + "/emailAccountDetailsVerification.html");
+        }
+    else{
+        verifyEmailcontent = Assets.getText("lang/" + emailLang + "/emailSetPasswordVerification.html");
+    }
   } catch (e) {
     log.info(e);
   }
@@ -330,6 +336,4 @@ Smartix.notifyEmailTemplate = function (userObj, classObj) {
         )
     );
 }; 
-
-
     

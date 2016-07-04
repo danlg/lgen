@@ -11,10 +11,11 @@ Package.onUse(function(api) {
      api.use('ecmascript');
      api.use('smartix:core');
      api.use('dburles:spacebars-tohtml');
-     
+
      api.addAssets('emailMessageMasterTemplate.html','server');
      api.addAssets([
-         
+                    'lang/en/emailAccountDetailsVerification.html',
+                    'lang/en/emailSetPasswordVerification.html',
                     'lang/en/emailNotifyJoinClassTemplate.html',
                     'lang/en/emailVerifyTemplate.html',
                     'lang/en/emailVerifyTemplate.Parent.html',

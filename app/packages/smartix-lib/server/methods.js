@@ -302,6 +302,11 @@ Meteor.methods({
     } else {
       return [];
     }    
+  },
+
+  isGoogleAccount: function(email)
+  {
+    return lodash.endsWith(email, '@gmail.com') ? true : false;
   }
 
 });

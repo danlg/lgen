@@ -133,10 +133,20 @@ Smartix.Accounts.createUser = function(email, userObj, namespace, roles, current
         //log.info('merged user obj',newlyCreatedUserObj);
         Meteor.users.update({ _id: newUserId }, { $set: newlyCreatedUserObj });
         Meteor.users.update({ _id: newUserId }, { $set: { registered_emails: registered_emails } });
-        Smartix.Accounts.notifyByEmail(email, newUserId, autoEmailVerified, !!doNotifyEmail);
         //if user does not have password, send enrollment email to user to setup initial password
         if(!tempPassword){
-              Smartix.Accounts.sendEnrollmentEmail  (email, newUserId, !!doNotifyEmail);
+            if(Meteor.call('isGoogleAccount', email))
+            {
+                Smartix.Accounts.notifyByEmail(email, newUserId, autoEmailVerified, !!doNotifyEmail);
+            }
+            else
+            {
+                Smartix.Accounts.sendEnrollmentEmail(email, newUserId, !!doNotifyEmail);
+            }
+        }
+        else{
+            //If password exists send email with login details. 
+            Smartix.Accounts.notifyByEmail(email, newUserId, autoEmailVerified, !!doNotifyEmail);
         }
         // Add the role to the user
         Roles.addUsersToRoles(newUserId, roles, namespace);

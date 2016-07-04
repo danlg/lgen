@@ -46,8 +46,14 @@ Accounts.emailTemplates.verifyEmail = {
   },
   subject:function(user) {
     var subjectLang = user.lang || "en";
-    var verifyEmailSubject = TAPi18n.__("VerifyEmailSubject", {}, lang_tag= subjectLang);
-    return verifyEmailSubject;
+    var verifyEmailSubject;
+    if (user.profile && user.profile.firstName) {
+      verifyEmailSubject = TAPi18n.__("Hi") + " " + user.profile.firstName + ". " + TAPi18n.__("WelcomeTo") + " " + TAPi18n.__("Smartix");
+    }
+    else {
+      verifyEmailSubject = TAPi18n.__("VerifyEmailSubject");
+    }
+     return verifyEmailSubject;
   }
 };
 
@@ -74,7 +80,7 @@ Accounts.emailTemplates.enrollAccount ={
       enrollmentEmailSubject = TAPi18n.__("Hi") + " " + user.profile.firstName + ". " + TAPi18n.__("WelcomeTo") + " " + TAPi18n.__("Smartix");
     }
     else {
-      enrollmentEmailSubject = TAPi18n.__("WelcomeTo") + " " + TAPi18n.__("Smartix");
+      enrollmentEmailSubject = TAPi18n.__("VerifyEmailSubject");
     }
     //log.info("enrollmentEmailSubject="+ enrollmentEmailSubject);
     //var enrollmentEmailSubject = TAPi18n.__("EnrollmentEmailSubject", {}, lang_tag= subjectLang);
