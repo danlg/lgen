@@ -23,8 +23,8 @@ Template.ChatRoom.events({
 	},
 	
 	'keyup .inputBox': function () {
-		$(".inputBox").autogrow();
 		sendBtnMediaButtonToggle();
+		$(".inputBox").autogrow();
 	},
 	
 	'change .inputBox': function () {
@@ -209,20 +209,14 @@ function fail(error) {
 	log.error('fail: ' + error.code);
 }
 
-
 function sendBtnMediaButtonToggle() {
 	if ($('.inputBox').val().length > 0) {
-		$('.mediaButtonGroup').fadeOut(50, function () {
-			$('.sendBtn').fadeIn(50, function () {
-			});
-		});
+		$('.mediaButtonGroup')[0].style.display = "none";
+		$('.sendBtn')[0].style.display = "block";
 	}
 	else {
-		//
-		$('.sendBtn').fadeOut(50, function () {
-			$('.mediaButtonGroup').fadeIn(50, function () {
-			});
-		});
+		$('.mediaButtonGroup')[0].style.display = "block";
+		$('.sendBtn')[0].style.display = "none";
 	}
 }
 
