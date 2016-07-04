@@ -5,7 +5,7 @@
 
 .role-selection.chosen-role,
 .number-of-student-selection.chosen-number-of-student{
-    background-color: #94c528;
+    background-color: #0080BF;
     -webkit-transition: background-color 1000ms ease;
     -moz-transition: background-color 1000ms ease;
     -o-transition: background-color 1000ms ease;
@@ -16,7 +16,7 @@
 .device-preview {
     width: 380px;
     height: 810px;
-    background: url('/packages/smartix_accounts/client/asset/iphone6s-plus-silver-vertical.png') no-repeat top;
+    background: url('/img/iphone6s-plus-silver-vertical.png') no-repeat top;
     background-size: contain;
     position:absolute;
     left: 0;

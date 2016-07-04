@@ -8,26 +8,29 @@ Template.AdminLeads.onCreated(function(){
 
 Template.AdminLeads.helpers({
 
+	/**
+     * @returns the school matching the 'schoolName', all schools if not specified
+     */
     schoolObj: function(){
         var status = Template.instance().leadsFilter.get('status');
         var schoolName = Template.instance().leadsFilter.get('schoolName');
-        if(status === "any")
-        {
+        if(status === "any") {
             status = {$exists: true}
-        }else if (status === "active") {
+        }
+        else if (status === "active") {
             status = "page-2";
-        } else {
+        }
+        else {
             status = "page-1";
         }
-        if (schoolName)
-        {
+        if (schoolName) {
             return SmartixSchoolsCol.find({
                 $and: [
                 {
                     $or: [{
-                        fullname: {$regex: schoolName},
+                        fullname: {$regex: schoolName}
                     }, {
-                        shortname: {$regex: schoolName},
+                        shortname: {$regex: schoolName}
                     }]
                 },
                 {
@@ -41,34 +44,30 @@ Template.AdminLeads.helpers({
             'lead.stage': status
         }).fetch();
     },
-    // getActiveUsers: function(schoolId){
-    //     Meteor.call('smartix:accounts/getNumberOfUsersInNameSpace', schoolId, Meteor.userId());
-    // },
+
     isSignUpSuccess: function(stage)
     {
-        return stage==='page-2' ? true : false;
+        return stage === 'page-2';
     }
 
 });
 
 Template.AdminLeads.events({
     'click #AdminLeads__updateFilter': function(event, template){
-        Template.instance().leadsFilter.set('schoolName', template.$("#AdminLeads__studentName").val())
+        Template.instance().leadsFilter.set('schoolName', template.$("#AdminLeads__studentName").val());
         Template.instance().leadsFilter.set('status', template.$("input[name='status-filter']:checked").val());
     },
     'click #AdminLeads__toCSV': function(event){
         event.preventDefault();
         createCSV();
     }
-})
+});
 
-
-var createCSV = function()
-{
-    var matrix = [],
-    i = 0;
+var createCSV = function()  {
+    let matrix = [];
+    let i = 0;
     $("table tr").each(function() {
-            var j = 0;
+            let j = 0;
             matrix[i] = [];
             $(this).find('th').each(function() {
                 matrix[i][j] = $(this).text().trim().replace(/(\r\n|\n|\r)/gm, "");
@@ -86,12 +85,12 @@ var createCSV = function()
             });
             i++;
         });
-        var csv = '';
-        for (var i = 0; i < matrix.length; i++) {
+        let csv = '';
+        for ( i = 0; i < matrix.length; i++) {
             csv += matrix[i].join(',') + "\n";
         }
         window.open('data:text/csv,' + encodeURIComponent(csv));
-}
+};
 // Template.AdminLeads.onRendered(function()
 // {
 //     console.log('here');

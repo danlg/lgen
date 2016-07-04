@@ -69,17 +69,18 @@ var createParents = function (studentId, template, notifyuserwithemail) {
         parentObj.tel = $(el).find('.AddStudentNewRelationship__phone').intlTelInput("getNumber", intlTelInputUtils.numberFormat.E164);
         parentObj.type = $(el).find('.AddStudentNewRelationship__type').eq(0).val();
         
-        Meteor.call('smartix:accounts-schools/createParent', template.currentSchool, parentObj, notifyuserwithemail, function (err, res) {
-            if(!err) {
-                template.$('.AdminAddStudent__newRelationship').eq(i).find('.AddStudentNewRelationship__input').val("");
-            }
-            else {
+        Meteor.call('smartix:accounts-schools/createParent', template.currentSchool, parentObj, notifyuserwithemail,
+            function (err, res) {
+                if(!err) {
+                    template.$('.AdminAddStudent__newRelationship').eq(i).find('.AddStudentNewRelationship__input').val("");
+                }
+                else {
                     toastr.error(err + parentObj.email);
                     log.error(err);
                 }
         });
     });
-}
+};
 
 Template.AdminAddStudent.events({
     'click #AdminAddStudent__addRelationship': function (event, template) {

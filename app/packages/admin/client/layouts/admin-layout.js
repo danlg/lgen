@@ -60,12 +60,18 @@ Template.adminLayout.helpers({
 
     schoolLogo:function(){
         var schoolDoc = SmartixSchoolsCol.findOne();
-        return Images.findOne(schoolDoc.logo);
+        if (schoolDoc) {
+            return Images.findOne(schoolDoc.logo);
+        }
     },
 
-    isGlobalSchool: function()
+    isSales: function()
     {
-        return (UI._globalHelpers['getCurrentSchoolId']() === 'global') ? true : false;
+        let isGlobal =  (UI._globalHelpers['getCurrentSchoolId']() === 'global');
+        let salesInRole =  Roles.userIsInRole(Meteor.userId(), 'sales', 'global');
+        // log.info("isSales", isGlobal);
+        // log.info("salesInRole", salesInRole);
+        return isGlobal && salesInRole;
     }
 
 });

@@ -64,7 +64,7 @@ Template.MobileSchoolHome.helpers({
              customStyle = `
                                 <style>                        
                                     .school-banner-wrapper .school-banner-background{
-                                    background-image: url('/packages/smartix_accounts/client/asset/graduation_ceremony_picture@1x.jpg');
+                                    background-image: url('/img/graduation_ceremony_picture@1x.jpg');
                                     }                                                                    
                                 </style>
                             `;

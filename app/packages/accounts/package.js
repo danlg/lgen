@@ -74,9 +74,13 @@ Package.onUse(function(api) {
         'client/templates/email_signin/email_signin.js'
     ], 'client');
 
-    api.addAssets(['client/asset/iphone6s-plus-silver-vertical.png',
-                   'client/asset/graduation_ceremony_picture@1x.jpg',
-                   'client/asset/hbs_logo.svg', 'client/asset/smartix_logo.png'],'client');
+    //api.addAssets([
+        //'client/asset/iphone6s-plus-silver-vertical.png'
+        //,
+                   // 'client/asset/graduation_ceremony_picture@1x.jpg',
+                   // 'client/asset/hbs_logo.svg'
+                    // 'client/asset/smartix_logo.png'
+    //],'client');
                    
     api.addFiles(['lib/vendor/spectrum/spectrum.js',
                   'lib/vendor/spectrum/spectrum.css'],'client');
