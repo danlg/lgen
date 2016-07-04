@@ -51,7 +51,15 @@ Accounts.onCreateUser(function (options, user) {
 
            var rolesObj = {global:['user']};
            user.roles = rolesObj;
-                  
+            try {
+                log.info("Sending enrollment email to ", user.services.google.email);
+                Meteor.defer(function(){
+                  Accounts.sendEnrollmentEmail(user._id);
+                })
+            } catch (e) {
+                log.error("Cannot send enrollment email to ", user.services.google.email, e);
+            }   
+
         }else{
             if(existingUser.emails[0].verified === false){
               var updateCount = Meteor.users.update( {_id: existingUser._id},{$set:{ "emails.0.verified":true , "registered_emails.0.verified":true }} );
