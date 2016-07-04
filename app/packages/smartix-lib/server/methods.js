@@ -249,7 +249,10 @@ Meteor.methods({
       var user = Meteor.user();
       lodash.set(user, path, value);
       if(typeof user === 'object') {
-          Meteor.users.update(Meteor.userId(), user);
+          Meteor.users.update(Meteor.userId(), user, function(err, success){
+            if(err)
+              log.error("Error", err);
+          });
       }
       else {
           //invoking method 'updateProfileByPath' Error: Invalid modifier. Modifier must be an object
@@ -259,9 +262,9 @@ Meteor.methods({
       }
   },
 
-  updateProfileByPath2: function (path, fuc) {
+  updateProfileByPath2: function (path, func) {
     var value = lodash.get(Meteor.user(), 'profile.' + path) || "";
-    var newValue = fuc(value);
+    var newValue = func(value);
     var updateObj = {};
     updateObj['profile' + path] = newValue;
     Meteor.users.update(Meteor.userId(), {$set: updateObj});
