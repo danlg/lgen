@@ -172,6 +172,7 @@ Template.SignupMain.events({
             //checkValidity without form submission
             event.preventDefault();
             var schoolShortName = $('#school-short-name').val();
+            schoolShortName = schoolShortName.split(' ').join('').toLowerCase();
             var schoolTrialAccountCreationObj = Session.get('schoolTrialAccountCreation');
             var logoId  = createImage (template.previewSchoolLogoBlob.get(), schoolShortName);
             var bgImageId = createImage (template.previewSchoolBackgroundImageBlob.get(), schoolShortName);
