@@ -199,6 +199,10 @@ Template.SignupMain.events({
                         if(err.error === 'short-name-taken'){
                             toastr.error(TAPi18n.__("PersonalDomainTaken"))
                         }
+                        if(err.error === 'short-name-invalid')
+                        {
+                            toastr.error(TAPi18n.__("PersonalDomainInvalid"))
+                        }
                     }else{
                         toastr.info(
                             TAPi18n.__("EmailSentTo") +schoolTrialAccountCreationObj.user.userEmail +
@@ -212,7 +216,7 @@ Template.SignupMain.events({
             if( userAgent.match(/Safari/i)  && !userAgent.match(/Chrome/i) ){
                 event.preventDefault();
             }
-            toastr.error(TAPi18n.__("requiredFields"));
+            toastr.error(TAPi18n.__("requiredFields")+" "+TAPi18n.__("PersonalDomainInvalid"));
             $('#school-trial-account-create-page2').addClass('invalid');
         }
     },

@@ -95,6 +95,12 @@ Meteor.methods({
         //log.info('smartix:schools/editSchoolTrial',id);
         var targetSchool = SmartixSchoolsCol.findOne(id);
         //only if the school is totally new, it can be updated by anonymous
+        if(!schoolOptions.shortname || schoolOptions.shortname.length <= 3)
+        {
+            log.warn("need to enter valid shortname");
+            throw new Meteor.Error("short-name-invalid", "short name is invalid");
+        }
+        
         if (targetSchool.shortname) {
             log.error('caller is not authed');
             throw new Meteor.Error("caller-not-authed", "caller is not authed");

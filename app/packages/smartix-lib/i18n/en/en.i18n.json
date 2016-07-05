@@ -492,6 +492,7 @@
   "PasswordNotTheSame": "Password and confirm password are not the same",
   "PersonalDomain": "Your personalised school domain",
   "PersonalDomainTaken": "School domain name has been taken. Please choose another one.",
+  "PersonalDomainInvalid": "School domain name entered must be alphanumeric and 4 characters or more",
   "PersonalDomainHelp": "school name (1 word, no spaces)",
   "PersonalSignup": "Sign up for an individual account",
   "PhoneNumber": "Phone Number",
