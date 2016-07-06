@@ -195,15 +195,15 @@ Template.SignupMain.events({
                     lastName: schoolTrialAccountCreationObj.user.userLastName
                 },                
                 function (err,result) {
-                    if(err){
-                        if(err.error === 'short-name-taken'){
+                    if(err) {
+                        if(err.error === 'short-name-taken') {
                             toastr.error(TAPi18n.__("PersonalDomainTaken"))
                         }
-                        if(err.error === 'short-name-invalid')
-                        {
+                        if(err.error === 'short-name-invalid') {
                             toastr.error(TAPi18n.__("PersonalDomainInvalid"))
                         }
-                    }else{
+                    }
+                    else {
                         toastr.info(
                             TAPi18n.__("EmailSentTo") +schoolTrialAccountCreationObj.user.userEmail +
                             '. ' + TAPi18n.__("EmailToFinishRegistration"));
