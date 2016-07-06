@@ -247,6 +247,16 @@ Template.SignupMain.events({
         });
     } ,
 
+    'click #school-logo': function (event, template) {
+        Template.instance().isPickEmoji.set(false);
+        if (Meteor.isCordova) {
+            if (window.device.platform === "Android") {
+                e.preventDefault();
+                imageUploadForAndroid(template, 'logo');
+            }
+        }
+    },
+
     'change #school-logo': function (event, template) {
         var files = event.target.files;
         if (files.length > 0) {
@@ -259,6 +269,16 @@ Template.SignupMain.events({
             };
             // read the image file as a data URL.
             reader.readAsDataURL(files[0]);
+        }
+    },
+
+    'click #school-background-image': function (event, template) {
+        Template.instance().isPickEmoji.set(false);
+        if (Meteor.isCordova) {
+            if (window.device.platform === "Android") {
+                e.preventDefault();
+                imageUploadForAndroid(template, 'background');
+            }
         }
     },
 
@@ -415,4 +435,72 @@ var loadDefaultImage = function(template)
     }).catch(function (err) {
         log.info(err);
     });  
+}
+
+//Image upload for android 
+var imageUploadForAndroid = function (template, imageType) {
+    var onSuccess = function (imageURI) {
+                window.resolveLocalFileSystemURL(imageURI,
+                    function (fileEntry) {
+                        filenameofajax=fileEntry.name;
+                        var efail = function(evt) {
+                            console.log("File entry error  "+error.code);
+                        };
+                        var win=function(file) {
+                            console.log(file);
+                            var reader = new FileReader();
+                            reader.readAsDataURL(file);
+                            Template.instance().isPickEmoji.set(false);
+                            reader.onloadend = function (readerEvent) 
+                            {
+                                if(imageType === 'logo')
+                                {
+                                    document.getElementById("school-logo-preview").src = readerEvent.currentTarget.result;
+                                    template.previewSchoolLogoBlob.set(readerEvent.currentTarget.result);   
+                                }
+                                else if (imageType === 'background')
+                                {
+                                    document.getElementById("school-banner-preview").src = readerEvent.currentTarget.result;
+                                    template.previewSchoolBackgroundImageBlob.set( readerEvent.currentTarget.result );
+                                }  
+                            };
+                        };
+                        fileEntry.file(win, efail);
+                    },
+                    function () {
+                    }
+                    );
+        }
+    var onFail = function (message) {
+        toastr.error(TAPi18n.__("FailedBecause") + message);
+    }
+    var callback = function (buttonIndex) {
+        setTimeout(function () {
+            switch (buttonIndex) {
+                case 1:
+                    navigator.camera.getPicture(onSuccess, onFail, {
+                        quality: 50,
+                        destinationType: Camera.DestinationType.FILE_URI,
+                        limit: 1
+                    });
+                    break;
+                case 2:
+                    navigator.camera.getPicture(onSuccess, onFail, {
+                        quality: 50,
+                        destinationType: Camera.DestinationType.FILE_URI,
+                        sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
+                        limit: 1
+                    });
+                    break;
+                default:
+            }
+        });
+    };
+    var options = {
+        'buttonLabels': ['Take Photo From Camera', 'Select From Gallery'],
+        'androidEnableCancelButton': true, // default false
+        'winphoneEnableCancelButton': true, // default false
+        'addCancelButtonWithLabel': 'Cancel'
+    };
+    window.plugins.actionsheet.show(options, callback);
 }
