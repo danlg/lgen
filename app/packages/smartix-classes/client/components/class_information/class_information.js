@@ -27,5 +27,9 @@ Template.ClassInformation.helpers({
     if(teacherUser) {
         return Meteor.users.find( { _id: { $in: teacherUser.admins } } ).fetch();
     }
+  },
+
+  isEmoji: function(teacherObj){
+    return (teacherObj.profile.avatarType === 'emoji') ? true : false;
   }
 });

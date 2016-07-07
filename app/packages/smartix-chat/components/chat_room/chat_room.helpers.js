@@ -94,7 +94,12 @@ Template.ChatRoom.helpers({
   getUserAvatar: function(){
     var userObj = Smartix.helpers.getAnotherUser();
     if(userObj)
-      return "<i class=\"icon e1a-"+userObj.profile.avatarValue+" e1a-2x emojicon\"></i>";  
+    {
+      if (userObj.profile.avatarType === 'emoji')
+        return "<i class=\"icon e1a-" + userObj.profile.avatarValue + " e1a-2x emojicon\"></i>";
+      else if (userObj.profile.avatarType === 'image')
+        return "<img class=\"icon icon-avatar e1a-2x\" src=\"" + userObj.profile.avatarValue + "\" />"
+    }
   },
 
   getUserById:function(userId){

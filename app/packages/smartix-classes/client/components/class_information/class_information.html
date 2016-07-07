@@ -26,7 +26,11 @@
         </div>
         {{#each teachers}}
             <div class="item item-icon-left">
-                   <i id='pick-an-icon-btn' class="icon e1a-{{this.profile.avatarValue}} e1a-1x emojicon"></i>
+                  {{#if isEmoji this}}
+                      <i class="icon e1a-{{this.profile.avatarValue}} e1a-1x emojicon"></i>
+                  {{else}}
+                      <img class="icon icon-avatar e1a-1x" style="top:12px;" src="{{this.profile.avatarValue}}" />
+                  {{/if}}
                   <h2>{{this.profile.firstName}} {{this.profile.lastName}}</h2>
             </div>
         {{/each}}

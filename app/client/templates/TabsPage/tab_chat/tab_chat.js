@@ -157,60 +157,50 @@ Template.TabChat.helpers({
       }
       else return true;
   },
+
   isEmoji:function(){
-      var type;
       if(this.chatRoomAvatar) {
-            type = true;    
+            return true;    
       }
       else {
-          var userObjArr = Meteor.users.find({_id: {$in: this.users}}).fetch();
-          if(userObjArr.length > 2){
-             type =  true;
+          var userObjArr = Meteor.users.find(
+              {$and: [
+                    {_id: { $ne: Meteor.userId() }}, 
+                    {_id: {$in: this.users}}
+                ]}).fetch();
+          if(userObjArr.length > 1){
+             return true;
           }
           else{
-            lodash.forEach(userObjArr, function (el, index) {
-              if (el._id !== Meteor.userId()) {
-                if(el.profile.avatarType)  
-                    type = (el.profile.avatarType==="emoji" ? true : false);
-                else
-                    type = true;  
-            }
-            });
-          }
+            if (userObjArr[0].profile.avatarType === 'emoji')
+                return true; 
+            else return false;
+        }
       }
-      return type; 
    },
+
   'chatRoomUserAvatar': function () {
       var avatar;
       if(this.chatRoomAvatar) {
           avatar = "e1a-" + this.chatRoomAvatar;
       }
       else {
-          var userObjArr = Meteor.users.find({_id: {$in: this.users}}).fetch();
-          if(userObjArr.length > 2){
+          var userObjArr = Meteor.users.find({$and: [
+                    {_id: { $ne: Meteor.userId() }}, 
+                    {_id: {$in: this.users}}
+                ]}).fetch();
+        if(userObjArr.length > 1){
               avatar = "e1a-green_apple";
           }
           else{
-            lodash.forEach(userObjArr, function (el, index) {
-              if (el._id !== Meteor.userId()) {
-                  var type = el.profile.avatarType;
-                    if(type === "emoji")
-                    {
-                        if ( el.profile.avatarValue ){
-                        avatar = "e1a-" +  el.profile.avatarValue;
-                        }
-                    }
-                    else if(type==="image")
-                    {
-                         avatar = el.profile.avatarValue
-                    }
-                  else avatar = "e1a-" +  el.profile.avatarValue;
-              }
-            });
-          }
-      }
-      return avatar;
-  },
+                if (userObjArr[0].profile.avatarType === 'emoji')
+                    avatar = "e1a-" + userObjArr[0].profile.avatarValue; 
+                else 
+                    avatar = userObjArr[0].profile.avatarValue;
+            }
+        }
+        return avatar;
+    },
 
   'newMessageCounter':function(chatroomId) {
        // log.info(chatroomId);

@@ -71,6 +71,10 @@ Template.ChatInvite.helpers({
     return  Router.path('GroupChatInvite',{school: UI._globalHelpers['getCurrentSchoolName']()});
   },
 
+  isEmoji:function(avatarType){
+    return (avatarType === 'emoji') ? true : false;
+  },
+
   getUserRoleInNamespace:function()
   {
       var role = this.roles[UI._globalHelpers['getCurrentSchoolId']()];

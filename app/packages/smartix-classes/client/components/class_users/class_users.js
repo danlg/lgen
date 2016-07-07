@@ -152,6 +152,11 @@ Template.ClassUsers.helpers({
       return;
   },
   
+  isEmoji: function(userObj)
+  {
+      return (userObj.profile.avatarType === 'emoji') ? true : false;
+  },
+  
   isAdmin: function(userId)
   {
     var classObj = Smartix.Groups.Collection.findOne({

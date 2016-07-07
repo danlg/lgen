@@ -36,7 +36,11 @@
                           data-fullName="{{userName profile}}">
                   </label>
                   {{#if profile.avatarValue}}
+                      {{#if isEmoji profile.avatarType}}
                       <i class="icon e1a-{{profile.avatarValue}} e1a-1x emojicon"></i>
+                      {{else}}
+                          <img class="icon icon-avatar e1a-1x" src="{{profile.avatarValue}}" />
+                      {{/if}}
                   {{/if}}
                   {{profile.firstName}}<strong> {{profile.lastName}}</strong>
                   <p style="text-transform: capitalize;">{{getUserRoleInNamespace}}</p>

@@ -349,7 +349,7 @@ a.item-content {
 
 .item-icon-left .icon-avatar {
     height:inherit;
-    top: ceil(($item-padding / 3) * 2);
+    top: ceil(($item-padding / 3) * 4);
   &:before {
     height: $item-icon-font-size;
   }  
