@@ -1,7 +1,61 @@
 <template name="YouIconChoose">
-  {{#ionModal title=""}}
-  <div class="padding" style="background-color:white;">
+{{#ionModal title = (_ "smartix-iconchooser.SelectEmojiOrUploadImage")}}
+<style>
+    #tabContainer{
+        display: -webkit-box;
+        display: -webkit-inline-box;
+        width:100%;
+        margin-top:5px;
+    }
+    .subTabs{
+        width: 50%;
+        cursor: pointer; 
+        color: #3e82f7;
+        text-align: center;
+        font-size:14px;
+        border-bottom: 2px solid #3e82f7;
+
+    }
+    .activeTab{
+        background-color: #eeeeee;
+        color: black;
+        border-right: 2px solid #3e82f7;
+        border-left: 2px solid #3e82f7;
+        border-top: 2px solid #3e82f7;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        border-bottom:0px;
+    }
+    .button{
+        color: black !important;
+    }
+    #emojiBtn{
+        padding-top: 10px;
+    }
+</style>
+    <div id="tabContainer">
+        <div class="subTabs {{isEmojiTabActive}}" id="emojiBtn"><i class="icon e1a-slight_smile e1a-2x emojicon"></i></div>
+        <div class="subTabs {{isImageTabActive}}">
+            <label class="button button-icon" id="imageButton" >
+                <input style="display:none" type="file"/>
+                <i class="icon ion-ios-camera-outline"></i>
+            </label>   
+        </div>                 
+    </div>
+  {{#if isEmojiSelect}}
+    <div class="padding" style="background-color:#eee;">
     {{{iconChooseHelper getYouIconList}}}
+    </div>
+  {{else}}
+  <div class="padding" style="height:100%; background-color:#eee;">
+      <div style="border-radius:50%; background-color: #eee; max-height: 50%; margin-top:2em; text-align:-webkit-center">
+          <img id="imageCrop" style="max-width: 100%;" name="avatar" src="" alt="Loading...">
+          <br />
+          <button data-dismiss="modal" class="button" type="button" id="save">
+              {{_ "Save" }}
+          </button>
+      </div>
   </div>
-  {{/ionModal}}
+  {{/if}}
+{{/ionModal}}
 </template>
