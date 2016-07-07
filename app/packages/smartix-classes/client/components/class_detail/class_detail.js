@@ -2,8 +2,8 @@
 var classObj;
 //var classObjReactive = ReactiveVar({});
 var teacherName = ReactiveVar("");
-var teacherAvatar = ReactiveVar("");
-var teacherAvatarType = ReactiveVar("");
+// var teacherAvatar = ReactiveVar("");
+// var teacherAvatarType = ReactiveVar("");
 
 var isRecording = false;
 var media = "";
@@ -223,14 +223,17 @@ Template.ClassDetail.onRendered( function() {
 	Meteor.call('getFullNameById', classObj.admins[0], function (err, data) {
 		return teacherName.set(data);
 	});
-	Meteor.call('getAvatarById', classObj.admins[0], function (err, data) {
-		//log.info(data);
-		return teacherAvatar.set(data);
-	});
-	Meteor.call('getAvatarTypeId', classObj.admins[0], function (err, data) {
-		//log.info(data);
-		return teacherAvatarType.set(data);
-	});
+
+	//Unused
+	// Meteor.call('getAvatarById', classObj.admins[0], function (err, data) {
+	// 	//log.info(data);
+	// 	return teacherAvatar.set(data);
+	// });
+	// Meteor.call('getAvatarTypeId', classObj.admins[0], function (err, data) {
+	// 	//log.info(data);
+	// 	return teacherAvatarType.set(data);
+	// });
+
 	//greet first-time user
 	if (Meteor.user().firstClassJoined) {
 		IonPopup.alert({

@@ -196,6 +196,7 @@ Meteor.publish('allSchoolUsersPerRole', function (school) {
             , {
                     'profile.firstName': 1,
                     'profile.lastName': 1,
+                    'profile.avatarType': 1,
                     'profile.avatarValue': 1,
                     'proflle.chatSetting' : 1,
                     'emails.0.address': 1,

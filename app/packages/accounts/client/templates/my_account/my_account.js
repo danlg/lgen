@@ -3,50 +3,14 @@ var similarOrganizations = ReactiveVar([]);
 var similarCities = ReactiveVar([]);
 Schema = Schema || {};
 
-/**  obsolete. use the one from account package instead **/
-/*Schema.editprofile = new SimpleSchema({
-    firstName: {
-        type: String
-    },
-    lastName: {
-        type: String
-    },
-    organization: { type: String, optional: true },
-    city: { type: String, optional: true },
-    country: { type: String, optional: true },
-    //location not used ?
-    //location:     { type: String, optional: true },
-    email: {
-        type: String,
-        regEx: SimpleSchema.RegEx.Email
-    },
-    avatarValue: {
-        type: String,
-        optional: true
-    }
-});*/
 
 /*****************************************************************************/
 /* MyAccount: Event Handlers */
 /*****************************************************************************/
 Template.MyAccount.events({
-    // 'change #attachment': function(event, tmp) {
-    //     event.preventDefault();
-    //     var input = tmp.find('#attachment');
-    //     var imageUpload = input.files[0];
-    //     var reader  = new FileReader();
-    //     if(imageUpload.type == "image/jpeg")
-    //     {
-    //             reader.onload = tmp;
-    //             reader.readAsDataURL(imageUpload);
-    //             reader.onloadend = function () {
-    //                 var parentDataContext = {uploadedImage: reader, sessionToBeSet:"uploadIcon"};
-    //                 IonModal.open("UploadIcon", parentDataContext);
-    //             }
-    //     }
-    // },
+
     'click #pick-an-icon-btn':function(){
-      var parentDataContext= {iconListToGet:"iconListForYou", avatarType:"avatarType", sessionToBeSet:"chosenIconForYou", imageLarge:"uploadLarge"};
+      var parentDataContext= {iconListToGet:"iconListForYou", avatarType:"avatarType", imageSmall:"chosenIconForYou", imageLarge:"uploadLarge"};
       IonModal.open("YouIconChoose", parentDataContext);
     },
     'keyup #organization':function(e){
@@ -61,10 +25,6 @@ Template.MyAccount.events({
                 }
             });                
         }
-
-        //Find School name from School Entity
-        //School.find()({'schoolNames.schoolName': /^pa/})
-        //db.users.find({name: /^pa/}) //like 'pa%' 
     },
     'click .suggestedOrganization' :function(e){
          var clickedSuggestOrganization =   $(e.target).text().trim();
@@ -132,13 +92,8 @@ Template.MyAccount.helpers({
     selectCountryHelper: function(){
     return TAPi18n.__("SelectCountry");
   },
-    getYouUpload:function(){
-        var uploadIcon = Session.get('uploadIcon');
-        if(uploadIcon){
-            return uploadIcon;
-        }
-  },
-   isEmoji: function(){
+  
+    isEmoji: function(){
     if(Session.get('avatarType')){
         var avatarType = Session.get('avatarType');
         return (avatarType==="emoji") ? true : false;
