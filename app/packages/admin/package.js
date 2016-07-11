@@ -8,8 +8,8 @@ Package.describe({
 
 Npm.depends({
   jszip: "3.0.0",
-  xlsx: "https://github.com/d4nyll/js-xlsx/archive/36e68fcc15a71f49fea4e73f8bc15ff4acbaa34e.tar.gz"
-//   "intl-tel-input": "8.5.2"
+  xlsx: "https://github.com/d4nyll/js-xlsx/archive/36e68fcc15a71f49fea4e73f8bc15ff4acbaa34e.tar.gz",
+  chargebee: '2.0.9'
 });
 
 Package.onUse(function (api) {
@@ -52,7 +52,6 @@ Package.onUse(function (api) {
   api.addAssets('client/assets/import-teachers-preview.png', 'client');
   api.addFiles('routes.js', ['web.browser', 'server']);
   
- 
   api.addFiles('client/layouts/admin-layout.html', 'web.browser');
   api.addFiles('client/layouts/admin-layout.js', 'web.browser');
   api.addFiles('client/layouts/admin-layout.css', 'web.browser');
@@ -87,7 +86,7 @@ Package.onUse(function (api) {
   api.addFiles('client/templates/classes/add/add.html', 'web.browser');
   api.addFiles('client/templates/classes/add/add.js', 'web.browser');
   api.addFiles('client/templates/classes/import/import.html', 'web.browser');
-  api.addFiles('client/templates/classes/import/import.js', 'web.browser');
+  api.addFiles('client/templates/classes/import/import.js', 'web.browser');  
   api.addFiles('client/templates/dashboard/dashboard.html', 'web.browser');
   api.addFiles('client/templates/dashboard/dashboard.js', 'web.browser');
   api.addFiles('client/templates/newsgroups/list/index.js', ['client', 'server']);
@@ -135,7 +134,10 @@ Package.onUse(function (api) {
   api.addFiles('client/templates/users/relationships/relationships.js', 'web.browser');
   api.addFiles('client/templates/leads/leads.html', 'web.browser');
   api.addFiles('client/templates/leads/leads.js', 'web.browser');
-  
+  api.addFiles('client/templates/payment/payment-portal.html', 'web.browser');
+  api.addFiles('client/templates/payment/payment-portal.js', 'web.browser');
+  api.addFiles('client/templates/payment/chargebee.js', 'web.browser');
+
   /**Less Components */
   api.addFiles('client/less/_bootstrap/alerts.import.less', 'web.browser');
   api.addFiles('client/less/_bootstrap/badges.import.less', 'web.browser');

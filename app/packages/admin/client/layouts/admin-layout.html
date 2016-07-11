@@ -16,7 +16,9 @@
                     <img src="/img/logo-new.png" alt="" class="schoolLogo">
                 {{/with}}
             {{/if}}
-            <span class="welcome_msg">{{_ "WelcomeTo"}} {{getSchoolFullName}}</span>
+            <span class="welcome_msg">{{_ "WelcomeTo"}} {{getSchoolFullName}}
+                <a href="{{pathFor route='admin.payment' data=routeData}}" >Upgrade your school! </a>  
+            </span>
         </div>
     </div>
 

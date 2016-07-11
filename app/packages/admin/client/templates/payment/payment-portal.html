@@ -1,0 +1,52 @@
+<template name="AdminPayment">
+    <div class="panel panel-flat panel-body">
+        <form class="form-horizontal" action="#">
+            <fieldset class="content-group">
+                <h4>School Details</h4>
+                <div class="form-group">
+                    <label class="control-label col-xs-6">Current Plan</label>
+                    <div class="col-xs-6">
+                        <input id="currentPlan" type="text" style="text-transform: capitalize;" class="form-control" value="{{currentPlan}}" disabled>
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="control-label col-xs-6">Active Number of Students</label>
+                    <div class="col-xs-6">
+                        <input id="currentStudents" type="number" class="form-control" value="{{numberOfStudents}}" disabled>
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="control-label col-xs-6">Current Plan Expiry</label>
+                    <div class="col-xs-6">
+                        <input id="currentExpiry" type="text"  class="form-control" value="{{formatDate planExpiry}}" disabled>
+                    </div>
+                </div>
+                <hr />
+                <h4 class="text-bold">Upgrade Your Smartix Plan</h4>
+                <div class="form-group">
+                    <label class="control-label col-xs-6">Units to subscribe </label>
+                    <div class="col-xs-6">
+                        <input id="numberOfStudents" type="number" class="form-control" value="{{numberOfStudents}}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-6">Choose plan </label>
+                    <div class="col-xs-6">
+                        <select id='plan-options' class="form-control" name="plan-options" >
+                                <option value="basic">Basic</option>
+                                <option value="premium">Premium</option>
+                                <option value="vip">VIP</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+                <button id="upgrade" type="submit" class="btn btn-primary"> Upgrade!</button>
+        </form>
+    </div>
+    <div id="checkout-info" class="panel-body">
+        <div id="loading-div" style="display:none">
+            <!--Need to add a proper loading animation here-->
+            <p>Loading...</p>
+        </div>
+    </div>
+</template>

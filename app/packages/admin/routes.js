@@ -4,6 +4,15 @@ Router.route('/:school/admin', {
 	}
 });
 
+
+Router.route('/:school/admin/upgrade',{
+    name: 'admin.payment',
+	layoutTemplate: 'adminLayout',
+	action: function () {
+		this.render('AdminPayment');
+	}
+})
+
 Router.route('/:school/admin/dashboard', {
 	name: 'admin.dashboard',
 	layoutTemplate: 'adminLayout',
