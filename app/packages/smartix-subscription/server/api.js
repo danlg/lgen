@@ -18,7 +18,6 @@ Meteor.methods({
         let schoolInfo = SmartixSchoolsCol.findOne(subscriptionInfo.schoolId);
         let planType = subscriptionInfo.planOptions;
         let studentQuantity = subscriptionInfo.numberOfStudents;
-
         return chargebee.hosted_page.checkout_new({
             subscription: { 
                 plan_id: planType,
@@ -30,6 +29,7 @@ Meteor.methods({
                 email: customerInfo.emails[0].address,
                 first_name: customerInfo.profile.firstName,
                 last_name: customerInfo.profile.lastName, 
+                company: schoolInfo.fullname
             },
             embed: true,
             iframe_messaging: true
@@ -45,7 +45,6 @@ Meteor.methods({
     },
 
     updateSubscriptionRecords: function (responseId) {
-        log.info("HostedPage ID", responseId);
         return chargebee.hosted_page.retrieve(responseId).request(
             Meteor.bindEnvironment(function (error, hostedPageResult) {
                 if (error) {
