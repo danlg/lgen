@@ -52,6 +52,43 @@ Meteor.methods({
     },
 
     /**
+     * This method is used to edit exisiting subscriptions if the school wants to upgrade/downgrade plan 
+     * Can also be used to add more students to the subscription
+     * subscriptionInfo {
+     *   schoolId: Used to retrieve planSubscriptionId (to update Chargebee subscription) 
+     *   planid: Used to checkout_existing plan_id
+     *   numberOfStudents: plan_quantity
+     * }
+     * 
+     * @return object of hosted_page which is used to create the iFrame
+     * onError: Meteor.Error() 
+     */
+    editExistingSubscription: function(subscriptionInfo){
+        let schoolInfo = SmartixSchoolsCol.findOne(subscriptionInfo.schoolId);
+        let planType = subscriptionInfo.planOptions;
+        let studentQuantity = subscriptionInfo.numberOfStudents;
+        let schoolSubscriptionId = schoolInfo.planSubscriptionId;
+        log.info("Updating subscription plan for ", schoolInfo.fullname);
+        return chargebee.hosted_page.checkout_existing({
+            subscription: { 
+                id: schoolSubscriptionId,
+                plan_id: planType,
+                plan_quantity: studentQuantity 
+            },
+            embed: true,
+            iframe_messaging: true
+        }).request(function(error, result)
+        {
+            if(error){
+                log.error(subscriptionInfo.userId, error);
+            }
+            else{
+                return result;
+            }
+        })
+    },
+
+    /**
      * Method called to update SmartixSchoolsCol database onSuccess
      * @params: responseId: the hosted_page_id which is used to retrieve the transaction details 
      * First get the hosted_page details, use the subscriptionId retrieved to find the chargebee.subscription
@@ -88,6 +125,7 @@ Meteor.methods({
                                 schoolObj.planExpiryDate = newExpiryDate;
                                 schoolObj.planChosen = planId;
                                 schoolObj.planUnitsBought = planUnits;
+                                schoolObj.planSubscriptionId = subscriptionId;
                                 var targetSchool = SmartixSchoolsCol.findOne(schoolId);
                                 //Add revenue to date to total dues
                                 // schoolObj.revenueToDate = targetSchool.revenueToDate + totalDues;
