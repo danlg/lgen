@@ -65,6 +65,12 @@ Template.adminLayout.helpers({
         }
     },
 
+    isBasicPlan: function()
+    {
+       schoolObj = SmartixSchoolsCol.findOne();
+       return (!schoolObj.planChosen || schoolObj.planChosen === 'basic') ? true : false;
+    },
+
     isSales: function()
     {
         let isGlobal =  (UI._globalHelpers['getCurrentSchoolId']() === 'global');
