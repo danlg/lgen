@@ -29,10 +29,15 @@ Template.AdminPayment.events({
         subscriptionOptions.numberOfStudents = template.$('#numberOfStudents').eq(0).val();
         subscriptionOptions.schoolId = schoolId;
         subscriptionOptions.userId = Meteor.userId();
-        log.info("Selected Options", subscriptionOptions);
-
-        // successRedirectCall('m5xwgUdstmyaWkFLE8ow8sClJ7fozfmB');
+        // log.info("Selected Options", subscriptionOptions);
         
+        /**need to ensure no iFrame is already loaded*/
+        var iframeContainer = document.getElementById('checkout-info');
+        while (iframeContainer.firstChild) {
+            iframeContainer.removeChild(iframeContainer.firstChild);
+        }
+        // successRedirectCall('m5xwgUdstmyaWkFLE8ow8sClJ7fozfmB');
+
         Meteor.call('createNewSubscription', subscriptionOptions, function(error, result)
         {
             if(error)
@@ -208,7 +213,7 @@ var subscribeHandler = function (response) {
         onLoad: function (iframe, width, height) {
             hideProcessing();
             $(customerContainer).slideUp(1000);
-            var style = 'border:none;overflow:hidden;width:100%;';
+            var style = 'border:none; overflow:hidden; width:100%; max-width:500px;';
             style = style + 'height:' + height + 'px;';
             style = style + 'display:none;';//This is for slide down effect
             iframe.setAttribute('style', style);
@@ -219,7 +224,7 @@ var subscribeHandler = function (response) {
          * This will be triggered when any content of iframe is resized.
          */
         onResize: function (iframe, width, height) {
-            var style = 'border:none;overflow:hidden;width:100%;';
+            var style = 'border:none;overflow:hidden;width:100%; max-width:500px;';
             style = style + 'height:' + height + 'px;';
             iframe.setAttribute('style', style);
         },
