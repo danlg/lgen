@@ -31,7 +31,6 @@
             </fieldset>
         </form>
         {{/if}}
-        {{#if isBasicPlan}}
         <hr />
         <form class="form-horizontal" action="#">
             <fieldset class="content-group">
@@ -64,13 +63,17 @@
                     {{#if Template.subscriptionsReady}}
                         <h4>Estimate: ${{estimateCost}}</h4>
                     {{/if}}
+                    {{#if isBasicPlan}}
+                    {{else}}
+                        <p>This is only the final total, we will adjust the charges before debiting 
+                            from your account according to your previous transactions</p>
+                    {{/if}}
                 </div>
                 <div class="col-xs-6 text-right">
                     <button id="upgrade" type="submit" class="btn btn-primary"> Upgrade!</button>
                 </div>
             </fieldset>
         </form>
-        {{/if}}
     </div>
     <div class="panel panel-flat" id="loading-div" style="display:none">
         <!--Need to add a proper loading animation here-->

@@ -48,6 +48,10 @@ SchoolsSchema = new SimpleSchema({
    ,planUnitsBought: {
      type:Number, optional: true
    }
+   , planSubscriptionId: {
+     type:String, optional:true
+   }
+
 
    //cumulates the revenues from this school help to estimate LTV
    , revenueToDate: { type:Number //stored in chargebee ?

@@ -37,20 +37,32 @@ Template.AdminPayment.events({
             iframeContainer.removeChild(iframeContainer.firstChild);
         }
         // successRedirectCall('m5xwgUdstmyaWkFLE8ow8sClJ7fozfmB');
-
-        Meteor.call('createNewSubscription', subscriptionOptions, function(error, result)
-        {
-            if(error)
-            {
-                toastr.error("Sorry there was a problem handling your request at this time.");
-                log.error(error);
-            }
-            else{
-                var hostedPage = result.hosted_page;
-                hostedPage.site_name = 'smartix-test';
-                subscribeHandler(hostedPage);
-            }
-        });
+        if(currentSchoolPlan()==='basic'){
+            Meteor.call('createNewSubscription', subscriptionOptions, function (error, result) {
+                if (error) {
+                    toastr.error("Sorry there was a problem handling your request at this time.");
+                    log.error(error);
+                }
+                else {
+                    var hostedPage = result.hosted_page;
+                    hostedPage.site_name = 'smartix-test';
+                    subscribeHandler(hostedPage);
+                }
+            });
+        } 
+        else {
+            Meteor.call('editExistingSubscription', subscriptionOptions, function (error, result) {
+                if (error) {
+                    toastr.error("Sorry there was a problem handling your request at this time.");
+                    log.error(error);
+                }
+                else {
+                    var hostedPage = result.hosted_page;
+                    hostedPage.site_name = 'smartix-test';
+                    subscribeHandler(hostedPage);
+                }
+            });
+        }
 
     },
 
