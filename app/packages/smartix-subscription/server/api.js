@@ -7,17 +7,24 @@ Meteor.startup(function(){
 
 Meteor.methods({
     /**subscriptionInfo {
-     *   nbstudents
-     *   planid
+     *   userId: Used to retrieve firstName, lastName and email
+     *   schoolId: Used to retrieve fullname (stored as company in ChargeBee) 
+     *   schoolId: Stored as customer in Chargebee
+     *   planid: Used to checkout_new plan_id
+     *   numberOfStudents: plan_quantity
      * }
-     * schoolId: the id (not the short name) 
+     * 
+     * @return object of hosted_page which is used to create the iFrame
+     * onError: Meteor.Error() 
      */
     createNewSubscription: function(subscriptionInfo){
 
         let customerInfo = Meteor.users.findOne(subscriptionInfo.userId);
         let schoolInfo = SmartixSchoolsCol.findOne(subscriptionInfo.schoolId);
         let planType = subscriptionInfo.planOptions;
+        let schoolName = schoolInfo.fullname;
         let studentQuantity = subscriptionInfo.numberOfStudents;
+        log.info("Starting payment process for school", schoolName);
         return chargebee.hosted_page.checkout_new({
             subscription: { 
                 plan_id: planType,
@@ -29,7 +36,7 @@ Meteor.methods({
                 email: customerInfo.emails[0].address,
                 first_name: customerInfo.profile.firstName,
                 last_name: customerInfo.profile.lastName, 
-                company: schoolInfo.fullname
+                company: schoolName,
             },
             embed: true,
             iframe_messaging: true
@@ -44,6 +51,16 @@ Meteor.methods({
         })
     },
 
+    /**
+     * Method called to update SmartixSchoolsCol database onSuccess
+     * @params: responseId: the hosted_page_id which is used to retrieve the transaction details 
+     * First get the hosted_page details, use the subscriptionId retrieved to find the chargebee.subscription
+     * Chargebee.subscription is used to find granual details like plan_quantity purchased
+     * All the new details are saved in SmartixSchoolsCol db
+     * schoolObj.planExpiryDate = newExpiryDate;
+     * schoolObj.planChosen = planId;
+     * schoolObj.planUnitsBought = planUnits;
+     */
     updateSubscriptionRecords: function (responseId) {
         return chargebee.hosted_page.retrieve(responseId).request(
             Meteor.bindEnvironment(function (error, hostedPageResult) {
@@ -62,13 +79,18 @@ Meteor.methods({
                                 console.log(error);
                             } else {
                                 let newExpiryDate = subscriptionResult.subscription.current_term_end;
+                                let totalDues = subscriptionResult.subscription.total_dues;
+                                let planUnits = subscriptionResult.subscription.plan_quantity;
                                 //Convert from UNIX to YYMMDD
                                 newExpiryDate = moment.unix(newExpiryDate).format();
                                 //Update school plan and expiry date
                                 let schoolObj = {};
                                 schoolObj.planExpiryDate = newExpiryDate;
                                 schoolObj.planChosen = planId;
+                                schoolObj.planUnitsBought = planUnits;
                                 var targetSchool = SmartixSchoolsCol.findOne(schoolId);
+                                //Add revenue to date to total dues
+                                // schoolObj.revenueToDate = targetSchool.revenueToDate + totalDues;
                                 delete targetSchool._id;
                                 lodash.merge(targetSchool, schoolObj);
                                 return SmartixSchoolsCol.update(schoolId, { $set: targetSchool });
