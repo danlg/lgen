@@ -69,7 +69,7 @@ Meteor.methods({
         let studentQuantity = subscriptionInfo.numberOfStudents;
         let schoolSubscriptionId = schoolInfo.planSubscriptionId;
         log.info("Updating subscription plan for ", schoolName);
-        return chargebee.hosted_page.({
+        return chargebee.hosted_page.checkout_existing({
             subscription: { 
                 id: schoolSubscriptionId,
                 plan_id: planType,
