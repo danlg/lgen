@@ -1,4 +1,11 @@
 <template name="AdminPayment">
+    <style>
+        .form-control[disabled]
+        {
+            color: black;
+            cursor: pointer;
+        };
+    </style>
     <div class="panel panel-flat panel-body">
         {{#if Template.subscriptionsReady}}
         <form class="form-horizontal" action="#">
