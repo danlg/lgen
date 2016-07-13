@@ -16,9 +16,9 @@
                     <img src="/img/logo-new.png" alt="" class="schoolLogo">
                 {{/with}}
             <span class="welcome_msg">{{_ "WelcomeTo"}} {{getSchoolFullName}}
-                {{#if isBasicPlan}}
-                <br />
-                <a href="{{pathFor route='admin.payment' data=routeData}}" >Upgrade your school! </a>  
+                {{#if isBasicOrTrialPlan}}
+                    <br />
+                    <a href="{{pathFor route='admin.payment' data=routeData}}" >Upgrade your school! </a>  
                 {{/if}}
             </span>
         {{/if}}
@@ -47,9 +47,9 @@
                                             <i class="icon-home4"></i> <span>{{_ "Admin.Dashboard" }}</span></a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="icon-user"></i> <span>{{_ "Admin.Accounts" }}</span></a>
+                                        <a href="#"><i class="icon-user"></i> <span>{{_ "Admin.SchoolDirectory" }}</span></a>
                                         <ul>
-                                            <li><a href="{{pathFor route='admin.users.list' data=routeData}}"><i class="icon-search4"></i>{{_ "Admin.SchoolDirectory" }}</a></li>
+                                            <li><a href="{{pathFor route='admin.users.list' data=routeData}}"><i class="icon-search4"></i>{{_ "Admin.SearchSchoolDirectory" }}</a></li>
                                             <li><a href="#"><i class="icon-cloud-upload"></i> <span>{{_ "Admin.BulkImport" }}</span></a>
                                                 <!--TODO add submenu-->
                                                 <ul>
@@ -98,11 +98,10 @@
                                             <li><a href="{{pathFor route='admin.absence.upload' data=routeData}}"><i class="icon-cloud-upload"></i>{{_ "Admin.UploadAttendenceRecords" }}</a></li>
                                         </ul>
                                     </li>
-
                                     <li>
                                       <a href="#"><i class="icon-list3"></i> <span>{{_ "Admin.DistributionLists" }}</span></a>
                                       <ul>
-                                        <li><a href="{{pathFor route='admin.lists.list' data=routeData}}"><i class="icon-search4"></i> {{_ "Admin.Search" }}</a></li>
+                                        <li><a href="{{pathFor route='admin.lists.list' data=routeData}}"><i class="icon-search4"></i> {{_ "Admin.SearchDistributionLists" }}</a></li>
                                         <li><a href="{{pathFor route='admin.lists.add' data=routeData}}"><i class="icon-plus3"></i> {{_ "Admin.AddDistList" }}</a></li>
                                       </ul>
                                     </li>
@@ -112,6 +111,9 @@
                                             <li><a href="{{pathFor route='admin.rss.add' data=routeData}}"><i class="icon-plus3"></i> {{_ "Admin.AddRSSFeed" }}</a></li>
                                             <li><a href="{{pathFor route='admin.rss.list' data=routeData}}"><i class="icon-feed2"></i>{{_ "Admin.ViewRSSFeeds" }}</a></li>
                                         </ul>
+                                    </li>
+                                    <li>
+                                        <a href="{{pathFor route='admin.payment' data=routeData}}"><i class="icon-users4"></i> <span>{{_ "Admin.Account" }}</span></a>
                                     </li>
                                     <li>
                                         <a href="{{pathFor route='admin.school.edit' data=routeData}}"><i class="icon-database-edit2"></i> <span>{{_ "Admin.EditSchool" }}</span></a>

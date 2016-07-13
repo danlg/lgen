@@ -109,6 +109,8 @@ Meteor.methods({
                     let schoolId = hosted_page.content.customer.id;
                     let planId = hosted_page.content.subscription.plan_id;
                     let subscriptionId = hosted_page.content.subscription.id;
+                    // let invoiceAmount = hosted_page.content.invoice.amount;
+                    // log.info("invoice", invoiceAmount);
                     return chargebee.subscription.retrieve(subscriptionId).request(
                         Meteor.bindEnvironment(function (error, subscriptionResult) {
                             if (error) {

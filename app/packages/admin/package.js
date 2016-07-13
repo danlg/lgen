@@ -7,9 +7,9 @@ Package.describe({
 });
 
 Npm.depends({
-  jszip: "3.0.0",
-  xlsx: "https://github.com/d4nyll/js-xlsx/archive/36e68fcc15a71f49fea4e73f8bc15ff4acbaa34e.tar.gz",
-  chargebee: '2.0.9'
+  'jszip': "3.0.0",
+  'xlsx': "https://github.com/d4nyll/js-xlsx/archive/36e68fcc15a71f49fea4e73f8bc15ff4acbaa34e.tar.gz",
+  'chargebee': '2.0.9'
 });
 
 Package.onUse(function (api) {
@@ -27,7 +27,7 @@ Package.onUse(function (api) {
   api.use('alanning:roles@1.2.15');
   api.use('easy:search@2.0.9');
   api.use('stevezhu:lodash@4.6.1');
-  
+
   api.use('smartix:lib@0.0.1');
   api.use('smartix:utilities@0.0.1');
   api.use('smartix:news@0.0.1');
@@ -89,6 +89,7 @@ Package.onUse(function (api) {
   api.addFiles('client/templates/classes/import/import.js', 'web.browser');  
   api.addFiles('client/templates/dashboard/dashboard.html', 'web.browser');
   api.addFiles('client/templates/dashboard/dashboard.js', 'web.browser');
+  api.addFiles('client/templates/dashboard/jquery.countdown.min.js', 'web.browser');
   api.addFiles('client/templates/newsgroups/list/index.js', ['client', 'server']);
   api.addFiles('client/templates/newsgroups/list/list.html', 'web.browser');
   api.addFiles('client/templates/newsgroups/list/list.js', 'web.browser');

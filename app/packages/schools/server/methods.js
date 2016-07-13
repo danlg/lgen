@@ -39,6 +39,7 @@ Meteor.methods({
             //TEMP: hardcode expired date = today + 30 days
             options.planTrialExpiryDate = new Date();
             options.planTrialExpiryDate.setDate( options.planTrialExpiryDate.getDate() + 30);
+            options.planChosen = 'premiumTrial';
         } else {
             throw new Meteor.Error("require-options", "Pass School Object to create a school");
         }
