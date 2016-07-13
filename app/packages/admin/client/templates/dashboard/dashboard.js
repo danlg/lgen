@@ -21,7 +21,7 @@ var startCountDown = function()
 {
         var schoolObj = SmartixSchoolsCol.findOne(UI._globalHelpers['getCurrentSchoolId']());
         var timeToExpiry = schoolObj.planTrialExpiryDate;
-        log.info(timeToExpiry);
+        // log.info(timeToExpiry);
         $('#clock').countdown(timeToExpiry, function(event) {
            $(this).html(event.strftime('%D ' + TAPi18n.__("Days") + ' %H:%M:%S'+ ' left to upgrade your school! '));
         });

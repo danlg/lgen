@@ -45,7 +45,7 @@ Template.AdminPayment.events({
         while (iframeContainer.firstChild) {
             iframeContainer.removeChild(iframeContainer.firstChild);
         }
-        // successRedirectCall('m5xwgUdstmyaWkFLE8ow8sClJ7fozfmB');
+        // successRedirectCall('Q43EcABIQwVacgeTVBsgUIlcD4L9cVNO');
 
         if(UI._globalHelpers['isBasicOrTrialPlan']()){
             Meteor.call('createNewSubscription', subscriptionOptions, function (error, result) {
@@ -193,6 +193,7 @@ var showProcessing = function()
 
 var subscribeHandler = function (response) {
     var hostedPageId = response.id;
+    // log.info("HostedPageId", hostedPageId);
     var customerContainer = $('#customer-info');
     var iframeContainer = $('#checkout-info');
     showProcessing();
