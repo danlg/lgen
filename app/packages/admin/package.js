@@ -137,6 +137,10 @@ Package.onUse(function (api) {
   api.addFiles('client/templates/payment/payment-portal.html', 'web.browser');
   api.addFiles('client/templates/payment/payment-portal.js', 'web.browser');
   api.addFiles('client/templates/payment/chargebee.js', 'web.browser');
+  api.addFiles('client/templates/stickers/add/add.html', 'web.browser');
+  api.addFiles('client/templates/stickers/add/add.js', 'web.browser');
+  api.addFiles('client/templates/stickers/view/view.html', 'web.browser');
+  api.addFiles('client/templates/stickers/view/view.js', 'web.browser');
 
   /**Less Components */
   api.addFiles('client/less/_bootstrap/alerts.import.less', 'web.browser');

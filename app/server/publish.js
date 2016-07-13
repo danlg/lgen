@@ -43,6 +43,11 @@ Meteor.publish('user', function (_id) {
   });
 });
 
+Meteor.publish('stickers', function () {
+  //roomId can be a classCode or chatRoomId
+  return stickers = Stickers.find();
+});
+
 /**
  * Publish images
  * @param school

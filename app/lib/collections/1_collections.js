@@ -14,6 +14,22 @@ Images = new FS.Collection("images", {
   }
 });
 
+Stickers = new FS.Collection("stickers", {
+  stores: [
+    Stores.stickers
+  ],
+  filter: {
+    maxSize: 1 * 1024 * 1024, //in bytes [1MB]
+    allow: {
+      contentTypes: ['image/*']
+    },
+    onInvalid: function (message) {
+      toastr.error(message);
+    }
+  }
+});
+
+
 Sounds = new FS.Collection("sounds", {
   stores: [
     Stores.sounds
@@ -97,6 +113,13 @@ Sounds.allow({
   download: trueFunc
 });
 Documents.allow({
+  insert: trueFunc,
+  update: trueFunc,
+  remove: trueFunc,
+  download: trueFunc
+});
+
+Stickers.allow({
   insert: trueFunc,
   update: trueFunc,
   remove: trueFunc,

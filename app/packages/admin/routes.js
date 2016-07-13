@@ -116,6 +116,26 @@ Router.route('/:school/admin/leads',{
     }
 });
 
+Router.route('/:school/admin/stickers/view',{
+    name: 'admin.stickers.view',
+    layoutTemplate: 'adminLayout',
+    template: 'AdminStickersView',
+    action: function()
+    {
+        this.render('AdminStickersView');
+    }
+});
+
+Router.route('/:school/admin/stickers/add',{
+    name: 'admin.stickers.add',
+    layoutTemplate: 'adminLayout',
+    template: 'AdminStickersAdd',
+    action: function()
+    {
+        this.render('AdminStickersAdd');
+    }
+});
+
 Router.route('/:school/admin/lists/add', {
     name: 'admin.lists.add',
     layoutTemplate: 'adminLayout',

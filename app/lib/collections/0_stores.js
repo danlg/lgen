@@ -13,6 +13,8 @@ Stores = {};
 // });
 
 Stores.images = new FS.Store.GridFS("images");
+Stores.stickers = new FS.Store.GridFS("stickers");
+
 Stores.sounds = new FS.Store.GridFS("sounds", {
   // beforeWrite:function(fileObj){
   //   log.info("start Transform");

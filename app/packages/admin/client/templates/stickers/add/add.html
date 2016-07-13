@@ -1,0 +1,73 @@
+<template name="AdminStickersAdd">
+   <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h1>Upload a sticker library</h1>
+        </div>
+
+        <div class="panel-body">
+
+            <form class="form-horizontal" action="#">
+                <fieldset class="content-group">
+                   <!--todo lowercase legend-->
+                    
+                    <div class="form-group">
+                        <label class="control-label col-xs-5">Category</label>
+                        <div class="col-xs-7">
+                            <input id="sticker-category" type="text" class="form-control" placeholder="Primary Category">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-5">Subcategory</label>
+                        <div class="col-xs-5">
+                            <input id="sticker-subcategory" type="text" class="form-control" placeholder="Sub-category">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-5">Price</label>
+                        <div class="col-xs-7">
+                            <input id="sticker-price" type="number" class="form-control" placeholder="Free">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-5">Tradable</label>
+                        <div class="col-xs-7">
+                            <div class="checkbox checkbox-switchery">
+                                <label>
+                                    <input id="sticker-tradable" type="checkbox" class="switchery">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-right" id="sticker-buttons">
+                      <button id="sticker-clear" type="button" class="btn btn-default">{{_ "Admin.ClearData" }}</button>
+                      <button id="sticker-metadata-submit" type="button" class="btn btn-primary">Upload Library<i class="icon-arrow-right14 position-right"></i></button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+    <div class="panel panel-flat" id="uploadForm" style="display:none">
+        <form class="form-horizontal" action="#">
+            <fieldset class="content-group">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                            {{#each stickerArray}}
+                                <div class="bubble" style="background:white">
+                                    <p><i class="icon ion-paperclip"></i>&nbsp; {{this}}</p>
+                                </div> 
+                            {{/each}}
+                    </div>                                                                                                          
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                            <div class="btn-group" role="group" aria-label="...">
+                            <label class='btn btn-default' for="imageBtn"><i class="icon-camera"></i> &nbsp; {{_ "Admin.AddImage" }}</label>
+                            <input id='imageBtn' type="file" name='imageBtn' class="inputfile imageBtn"/>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</template>
