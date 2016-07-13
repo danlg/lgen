@@ -5,10 +5,13 @@
             <h6 class="text-semibold">{{_ "Admin.WelcometoSmartixAdmin" }}</h6>
             <p class="content-group">{{_ "Admin.ManageSchoolCommunication" }}</p>
             <p class="content-group">{{_ "Admin.ClickImportStudents" }} </p>
-            <br />
-            <!--Need to add expiry stuff heere-->
-            <a href="{{pathFor route='admin.payment' data=routeData}}" class="btn btn-primary" >Upgrade your school! </a>   
+
         </div>
     </div>
+    {{#if isBasicOrTrialPlan}}
+        <div class="panel panel-flat panel-body" style="text-align:center">
+            <a href="{{pathFor route='admin.payment' data=routeData}}" id="clock"  style="font-size:large" class="btn btn-primary" ></a>   
+        </div>
+    {{/if}}
     <!-- /simple panel -->
 </template>

@@ -47,7 +47,7 @@ Template.AdminPayment.events({
         }
         // successRedirectCall('m5xwgUdstmyaWkFLE8ow8sClJ7fozfmB');
 
-        if(isBasicOrTrial()){
+        if(UI._globalHelpers['isBasicOrTrialPlan']()){
             Meteor.call('createNewSubscription', subscriptionOptions, function (error, result) {
                 if (error) {
                     toastr.error("Sorry there was a problem handling your request at this time.");
@@ -110,11 +110,6 @@ Template.AdminPayment.helpers({
         return school.planUnitsBought ? school.planUnitsBought : 0;
     },
 
-    isBasicOrTrial: function()
-    {
-       return isBasicOrTrial();
-    },
-
     currentPlan: function()
     {
         return currentSchoolPlan();
@@ -161,11 +156,6 @@ var currentSchoolPlan = function()
 {
     let school = schoolObj();
     return school.planChosen ? school.planChosen : 'basic';
-}
-
-var isBasicOrTrial = function()
-{
-    return (currentSchoolPlan() === 'premiumTrial' || currentSchoolPlan() === 'basic') ? true : false;
 }
 
 /**

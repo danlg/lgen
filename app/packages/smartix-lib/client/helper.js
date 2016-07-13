@@ -310,6 +310,14 @@ Template.registerHelper('getSchoolFullName', function() {
     }
 });
 
+Template.registerHelper('isBasicOrTrialPlan', function()
+{
+    let school = SmartixSchoolsCol.findOne( UI._globalHelpers['getCurrentSchoolId']());
+    let planChosen =  school.planChosen ? school.planChosen : 'basic';
+    return (planChosen === 'premiumTrial' || planChosen === 'basic') ? true : false;
+});
+
+
 Template.registerHelper('docPreview', function(url) {
     var linkList = [];
     Autolinker.link(url, {
