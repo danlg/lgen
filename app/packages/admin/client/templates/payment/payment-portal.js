@@ -8,8 +8,7 @@ Template.AdminPayment.onCreated(function()
     {
         self.planNumberOfStudents.set(numberOfStudents());
     });
-    self.selectedPlan = new ReactiveVar(premiumPlanDetails);
-    self.planUnitPrice = new ReactiveVar(3);
+    // self.planUnitPrice = new ReactiveVar(3);
 
 });
 
@@ -19,17 +18,27 @@ Template.AdminPayment.onRendered(function()
 });
 
 Template.AdminPayment.events({
-    'click #upgrade': function(events, template)
+    'click .upgradeBtn': function(events, template)
     {
         events.preventDefault();
         let subscriptionOptions = {};
         let schoolId = UI._globalHelpers['getCurrentSchoolId']();
-        let e = document.getElementById('plan-options');
-        subscriptionOptions.planOptions = e.options[e.selectedIndex].value;
+        var btnId = events.target.id; 
+        switch (btnId)
+        {  
+            case 'goPremium':
+                subscriptionOptions.planOptions = 'premium';
+                break;
+            case 'goRemarkable':
+                subscriptionOptions.planOptions = 'remarkable';
+                break;
+            default: 
+                throw new Meteor.Error();
+        }
         subscriptionOptions.numberOfStudents = template.$('#numberOfStudents').eq(0).val();
         subscriptionOptions.schoolId = schoolId;
         subscriptionOptions.userId = Meteor.userId();
-        // log.info("Selected Options", subscriptionOptions);
+        log.info("Selected Options", subscriptionOptions);
         
         /**need to ensure no iFrame is already loaded*/
         var iframeContainer = document.getElementById('checkout-info');
@@ -37,7 +46,8 @@ Template.AdminPayment.events({
             iframeContainer.removeChild(iframeContainer.firstChild);
         }
         // successRedirectCall('m5xwgUdstmyaWkFLE8ow8sClJ7fozfmB');
-        if(currentSchoolPlan()==='basic'){
+
+        if(isBasicOrTrial()){
             Meteor.call('createNewSubscription', subscriptionOptions, function (error, result) {
                 if (error) {
                     toastr.error("Sorry there was a problem handling your request at this time.");
@@ -72,29 +82,6 @@ Template.AdminPayment.events({
         template.planNumberOfStudents.set(students);
     }, 
 
-    'change #plan-options': function(event, template)
-    {
-        event.preventDefault();
-        let select = document.getElementById('plan-options');
-        let selectedPlanOption = select.options[select.selectedIndex].value;
-        switch (selectedPlanOption)
-        {
-            case 'premium':
-            {
-                log.info("Premium Selected");
-                template.selectedPlan.set(premiumPlanDetails);
-                template.planUnitPrice.set(3);
-                break;
-            }
-            case 'vip':
-            {
-                log.info("VIP Selected");
-                template.selectedPlan.set(vipPlanDetails);
-                template.planUnitPrice.set(6);
-                break;
-            }
-        }
-    }
 })
 
 Template.AdminPayment.helpers({
@@ -116,12 +103,16 @@ Template.AdminPayment.helpers({
     unitsBought: function()
     {
         let school = schoolObj();
+        if(currentSchoolPlan()==='premiumTrial')
+        {
+            return 'Unlimited'
+        }
         return school.planUnitsBought ? school.planUnitsBought : 0;
     },
 
-    isBasicPlan: function()
+    isBasicOrTrial: function()
     {
-       return (currentSchoolPlan() === 'basic') ? true : false;
+       return isBasicOrTrial();
     },
 
     currentPlan: function()
@@ -129,19 +120,24 @@ Template.AdminPayment.helpers({
         return currentSchoolPlan();
     },
 
-    selectedPlan: function()
+    remarkablePlan: function()
     {
-        return Template.instance().selectedPlan.get();
+        return remarkablePlanDetails;
+    },
+    
+    premiumPlan: function()
+    {
+        return premiumPlanDetails;
     },
 
-    //Multiplies and returns the plan selected with the number of students in input box
-    estimateCost: function()
-    {
-        if(Template.instance().planNumberOfStudents.get() > 0)
-            return Template.instance().planNumberOfStudents.get()*Template.instance().planUnitPrice.get();
-        else
-            return Template.instance().planUnitPrice.get();
-    }
+    // //Multiplies and returns the plan selected with the number of students in input box
+    // estimateCost: function()
+    // {
+    //     if(Template.instance().planNumberOfStudents.get() > 0)
+    //         return Template.instance().planNumberOfStudents.get()*Template.instance().planUnitPrice.get();
+    //     else
+    //         return Template.instance().planUnitPrice.get();
+    // }
 })
 
 /**
@@ -167,6 +163,10 @@ var currentSchoolPlan = function()
     return school.planChosen ? school.planChosen : 'basic';
 }
 
+var isBasicOrTrial = function()
+{
+    return (currentSchoolPlan() === 'premiumTrial' || currentSchoolPlan() === 'basic') ? true : false;
+}
 
 /**
  * @param: responseId this is the hosted_page_id from chargebee 
@@ -272,11 +272,11 @@ var premiumPlanDetails = {};
 premiumPlanDetails.title = 'Premium';
 premiumPlanDetails.description = 'For Starting School with Limited Budget';
 premiumPlanDetails.features = ['Personalised App', 'Admin Dashboard', 'In School Tutorial', 'Email Support'];
-premiumPlanDetails.price = '$3';
+premiumPlanDetails.price = '$5';
 
-var vipPlanDetails = {};
-vipPlanDetails.title = 'VIP';
-vipPlanDetails.description = 'For School with Strong Branding';
-vipPlanDetails.features = ['Branded App on Apple App Store and Google Play Store', 
+var remarkablePlanDetails = {};
+remarkablePlanDetails.title = 'Remarkable';
+remarkablePlanDetails.description = 'For School with Strong Branding';
+remarkablePlanDetails.features = ['Branded App on Apple App Store and Google Play Store', 
                             'Admin Dashboard', 'In School Tutorial', 'Email Support', 'Telephone Support'];
-vipPlanDetails.price = '$6';
+remarkablePlanDetails.price = '$9';

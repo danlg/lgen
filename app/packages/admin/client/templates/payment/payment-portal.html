@@ -3,7 +3,7 @@
         .form-control[disabled]
         {
             color: black;
-            cursor: pointer;
+            cursor: text;
         };
     </style>
     <div class="panel panel-flat panel-body">
@@ -32,7 +32,7 @@
                 <div class="form-group">
                     <label class="control-label col-xs-6">Units Bought</label>
                     <div class="col-xs-6">
-                        <input id="currentUnitsBought" type="number"  class="form-control" value="{{unitsBought}}" disabled>
+                        <input id="currentUnitsBought" type="text"  class="form-control" value="{{unitsBought}}" disabled>
                     </div>
                 </div>
             </fieldset>
@@ -48,7 +48,16 @@
                         <input id="numberOfStudents" type="number" class="form-control" value="{{numberOfStudents}}">
                     </div>
                 </div>
-                <div class="form-group">
+                <!--{{#if isBasicOrTrial}}
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            {{#if Template.subscriptionsReady}}
+                                <h4>Estimate: ${{estimateCost}}</h4>
+                            {{/if}}
+                        </div>
+                    </div>
+                {{/if}}-->
+                <!--<div class="form-group">
                     <label class="control-label col-xs-6">Choose plan </label>
                     <div class="col-xs-6">
                         <select id='plan-options' class="form-control" name="plan-options" >
@@ -56,28 +65,38 @@
                                 <option value="vip">VIP</option>
                         </select>
                     </div>
+                </div>-->
+        <hr />
+                <div class="row">
+                    <div class='col-xs-6'>
+                            <h4>{{premiumPlan.title}} @ {{premiumPlan.price}} / student for one year</h4>
+                        <hr />
+                            <h5>{{premiumPlan.description}}</h5>
+                            <ul>
+                            {{#each premiumPlan.features}}
+                                <li ><i class="icon-star-full2"></i> &nbsp; {{this}}</li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                    <div class='col-xs-6'>
+                            <h4>{{remarkablePlan.title}} @ {{remarkablePlan.price}} / student for one year</h4>
+                        <hr />
+                            <h5>{{remarkablePlan.description}}</h5>
+                            <ul>
+                            {{#each remarkablePlan.features}}
+                                <li ><i class="icon-star-full2"></i> &nbsp; {{this}}</li>
+                            {{/each}}
+                        </ul>
+                    </div>
                 </div>
-                    <h4>{{selectedPlan.title}} @ {{selectedPlan.price}} / student for one year</h4>
-                <hr />
-                    <h5>{{selectedPlan.description}}</h5>
-                    <ul>
-                    {{#each selectedPlan.features}}
-                        <li ><i class="icon-star-full2"></i> &nbsp; {{this}}</li>
-                    {{/each}}
-                </ul>
-                <hr />
-                <div class="col-xs-6">
-                    {{#if Template.subscriptionsReady}}
-                        <h4>Estimate: ${{estimateCost}}</h4>
-                    {{/if}}
-                    {{#if isBasicPlan}}
-                    {{else}}
-                        <p>This is only the final total, we will adjust the charges before debiting 
-                            from your account according to your previous transactions</p>
-                    {{/if}}
-                </div>
-                <div class="col-xs-6 text-right">
-                    <button id="upgrade" type="submit" class="btn btn-primary"> Upgrade!</button>
+                <br />
+                <div class="row">
+                    <div class='col-xs-6'>
+                        <button id="goPremium" class="btn btn-primary upgradeBtn">Go {{premiumPlan.title}}</button>
+                    </div>
+                    <div class='col-xs-6'>
+                        <button id="goRemarkable" class="btn btn-primary upgradeBtn">Go {{remarkablePlan.title}}</button>
+                    </div>
                 </div>
             </fieldset>
         </form>
