@@ -116,11 +116,15 @@
                                     <li>
                                         <a href="{{pathFor route='admin.school.edit' data=routeData}}"><i class="icon-database-edit2"></i> <span>{{_ "Admin.EditSchool" }}</span></a>
                                     </li>
-                                    <li>
-                                        <a href="{{pathFor route='admin.stickers.view' data=routeData}}"><i class="icon-paw"></i> <span>{{_ "Admin.AddNewStickers" }}</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="{{pathFor route='admin.stickers.add' data=routeData}}"><i class="icon-paw"></i> <span>Upload Stickers</span></a>
+                                    <li><a href="#"><i class="icon-paw"></i> <span>Stickers</span></a>
+                                        <ul>
+                                            <li>
+                                                <a href="{{pathFor route='admin.stickers.view' data=routeData}}"><i class="icon-paw"></i> <span>Stickers Directory</span></a>
+                                            </li>
+                                            <li>
+                                                <a href="{{pathFor route='admin.stickers.add' data=routeData}}"><i class="icon-paw"></i> <span>Upload Stickers</span></a>
+                                            </li>
+                                        </ul>
                                     </li>
                                     {{#if isSales}}
                                         <li>

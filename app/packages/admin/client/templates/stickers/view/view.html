@@ -1,2 +1,88 @@
 <template name="AdminStickersView">
+    <style>
+        .sticker-thumbs{
+            max-width:50px;
+            max-height:50px;
+        }
+        td, th{
+            padding: 10px !important;
+        }
+    </style>
+
+    
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h1>All Stickers</h1>
+        </div>
+        <div class="panel-body">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <label class="control-label col-xs-4">Sticker Category</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" id="sticker_category"
+                                   placeholder="Filter Stickers by Category">
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <label class="control-label col-xs-4">Sticker Subcategory</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" id="sticker_subcategory"
+                                   placeholder="Filter Stickers by Subcategory">
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <label class="control-label col-xs-4">Sticker Name</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" id="sticker_name"
+                                   placeholder="Filter Stickers by Name">
+                        </div>
+                    </div>
+                </div>
+                <button id="stickersUpdateFilter" type="submit" class="btn btn-primary"> {{_ "Admin.UpdateFilters" }}<i class="icon-arrow-right14"></i></button>
+            </div>
+        </div>
+    </div>
+    <!-- Basic datatable -->
+    <div class="panel panel-flat">
+        <div class="panel-body">
+            {{#if showOptions}}
+            <button id="delete-stickers" class="btn btn-danger"> Delete </button>
+            <hr />
+            {{/if}}
+            {{#if Template.subscriptionsReady}}
+            <div class="col-xs-12 table-responsive">
+                <table class="table datatable-basic">
+                    <thead>
+                        <tr>
+                             <th></th>
+                            <th>Preview</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Subcategory</th>
+                            <th>Price</th>
+                            <th>Tradable</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {{#each stickerData}}
+                            <tr>
+                                <td><input {{stickersChecked this._id}} type="checkbox" name="user" class='sticker-directory-checkbox' value="{{this._id}}"/></td>
+                                <td><img  src="{{this.url store='stickers' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="sticker-thumbs" /></td>
+                                <td>{{this.metadata.name}}</td>
+                                <td>{{this.metadata.category}}</td>
+                                <td>{{this.metadata.subcategory}}</td>
+                                <td>{{this.metadata.price}}</td>
+                                <td>{{isTradable this.metadata.tradable}}</td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            {{else}}
+                <div>{{_ "Admin.Loading" }}</div>
+            {{/if}}
+        </div>
+    </div>
+    <!-- /basic datatable -->
 </template>

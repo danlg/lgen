@@ -9,7 +9,6 @@
             <form class="form-horizontal" action="#">
                 <fieldset class="content-group">
                    <!--todo lowercase legend-->
-                    
                     <div class="form-group">
                         <label class="control-label col-xs-5">Category</label>
                         <div class="col-xs-7">
@@ -18,7 +17,7 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label col-xs-5">Subcategory</label>
-                        <div class="col-xs-5">
+                        <div class="col-xs-7">
                             <input id="sticker-subcategory" type="text" class="form-control" placeholder="Sub-category">
                         </div>
                     </div>
@@ -47,17 +46,14 @@
         </div>
     </div>
 
-    <div class="panel panel-flat" id="uploadForm" style="display:none">
+    <div class="panel panel-flat panel-body" id="uploadForm" style="display:none">
         <form class="form-horizontal" action="#">
             <fieldset class="content-group">
                 <div class="form-group">
-                    <div class="col-xs-12">
-                            {{#each stickerArray}}
-                                <div class="bubble" style="background:white">
-                                    <p><i class="icon ion-paperclip"></i>&nbsp; {{this}}</p>
-                                </div> 
-                            {{/each}}
-                    </div>                                                                                                          
+                    <label class="control-label col-xs-5">Name</label>
+                    <div class="col-xs-7">
+                        <input id="sticker-name" type="text" class="form-control" placeholder="Name">
+                    </div>
                 </div>
                 <div class="form-group">
                     <div class="col-xs-12">
@@ -66,6 +62,16 @@
                             <input id='imageBtn' type="file" name='imageBtn' class="inputfile imageBtn"/>
                         </div>
                     </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <h5>Stickers in {{libraryInfo.category}}, {{libraryInfo.subcategory}} library </h5>
+                            {{#each stickerArray}}
+                                <div class="bubble" style="background:white">
+                                    <p><i class="icon-paw"></i>&nbsp; {{this}}</p>
+                                </div> 
+                            {{/each}}
+                    </div>                                                                                                          
                 </div>
             </fieldset>
         </form>

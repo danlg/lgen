@@ -1,25 +1,18 @@
 Template.AdminStickersAdd.onCreated(function () {
     let self = this;
-    this.subscribe("stickers");
-    this.stickerArr = new ReactiveVar([]);
-    this.metadataObj = new ReactiveVar({});
+    self.stickerArr = new ReactiveVar([]);
+    self.metadataObj = new ReactiveVar({});
+    self.subscribe("stickers");
 });
 
 Template.AdminStickersAdd.helpers({
-    stickerArray: function (argument) { 
-        var stickersInCategory = Stickers.find({
-            'metadata.category': Template.instance().metadataObj.category,
-            'metadata.subcategory': Template.instance().metadataObj.subcategory
-        }, {filename:1}).fetch();
-        if(stickersInCategory.length > 0)
-        {
-            var stickerArray = Template.instance().stickerArr.get();
-            log.info("stickerarr", stickersInCategory);
-            stickerArray.push(stickersInCategory);
-            Template.instance().stickerArr.set(stickerArray);
-        }
+    stickerArray: function () { 
         return Template.instance().stickerArr.get();
     },
+
+    libraryInfo: function(){
+        return Template.instance().metadataObj.get();
+    }
 });
 
 var clearForm = function ( ) {
@@ -41,16 +34,16 @@ Template.AdminStickersAdd.events({
         var metadataObj = {};
         metadataObj.category = $('#sticker-category').val();
         metadataObj.subcategory = $('#sticker-subcategory').val();
-        metadataObj.price = $('#sticker-price').val();
+        metadataObj.price = $('#sticker-price').val() || '0';
         metadataObj.tradable = $('#sticker-tradable').is(":checked");
-        log.info("Obj", metadataObj);
         template.metadataObj.set(metadataObj);
 
         $('#sticker-category').attr('readonly', 'readonly');
         $('#sticker-subcategory').attr('readonly', 'readonly');
         $('#sticker-price').attr('readonly', 'readonly');
         $('#sticker-tradable').attr('readonly', 'readonly');
-
+        // log.info(metadataObj);
+        getOtherStickersInCategory(event, template);
         var uploadContainer = $('#uploadForm');
         uploadContainer.show();
         var buttonContainer = $('#sticker-buttons');
@@ -61,24 +54,22 @@ Template.AdminStickersAdd.events({
         //https://github.com/CollectionFS/Meteor-CollectionFS
         //Image is inserted from here via FS.Utility
         var files = event.target.files;
-                if (files.length > 0) {
-                    uploadSticker(files[0], template, function(error, result)
-                    {
-                        if(!error)
-                        {
-                            var stickerArr = template.stickerArr.get();
-                            stickerArr.push(event.target.files[0].name);
-                            template.stickerArr.set(stickerArr);
-                        }
-                    });
-            }
+        if (files.length > 0) {
+            stickerName = $('#sticker-name').val();
+            uploadSticker(files[0], template, stickerName, function (error, result) {
+                if (error)
+                    log.error(error);
+            });
+        }
     },
 
 });
 
-var uploadSticker = function(filePath, template) {
+var uploadSticker = function(filePath, template, stickerName) {
     var newFile = new FS.File(filePath);
-    newFile.metadata = template.metadataObj.get();
+    let libraryMetadata = template.metadataObj.get();
+    libraryMetadata.name = stickerName;
+    newFile.metadata = libraryMetadata;
     Stickers.insert(newFile, function(err, fileObj) {
         if (err) 
         {
@@ -87,7 +78,29 @@ var uploadSticker = function(filePath, template) {
         }
         else
         {
-            log.info("Successfully uploaded!")
+            var stickerArr = template.stickerArr.get();
+            stickerArr.push(stickerName);
+            template.stickerArr.set(stickerArr);
+            log.info("Successfully uploaded!");
         }
     });
 };
+
+var getOtherStickersInCategory = function(event, template)
+{
+    let recievedData = template.metadataObj.get();
+    var stickersInCategory = Stickers.find({
+        'metadata.category': recievedData.category,
+        'metadata.subcategory': recievedData.subcategory
+    }).fetch();
+    if(stickersInCategory.length > 0)
+    {
+        lodash.forEach(stickersInCategory, function(stickerObj)
+        {
+            var stickerArray = template.stickerArr.get();
+            let name = stickerObj.metadata.name || 'name empty';
+            stickerArray.push(name);
+            template.stickerArr.set(stickerArray);
+        })
+    }
+}
