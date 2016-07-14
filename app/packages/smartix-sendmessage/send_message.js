@@ -205,6 +205,13 @@ Template.SendMessage.helpers({
 		}
 	}
 });
+
+var showStickers = function(event, template){
+	var stickerDataContext = {stickerChosen: "chosenStickerForUser"};
+	IonModal.open('StickersTab', stickerDataContext)
+}
+
+
 var setCalendar = function (event, sendMsgtemplate) {
 	IonPopup.show({
 		title: TAPi18n.__("SetEvent"),
@@ -259,7 +266,8 @@ Template.SendMessage.events({
 			//titleText: 'What to attach?',
 			buttons: [
 				{ text: TAPi18n.__("AttachDocument") },
-				{ text: TAPi18n.__("AttachEvent") }
+				{ text: TAPi18n.__("AttachEvent") },
+				{ text: "Attach Sticker"},
 			],
 			cancelText: 'Cancel',
 			cancel: function () {
@@ -273,6 +281,10 @@ Template.SendMessage.events({
 				if (index === 1) {
 					//log.info('Calendar');
 					setCalendar(event, template);
+				}
+				if (index === 2)
+				{
+					showStickers(event, template);
 				}
 				return true;
 			}

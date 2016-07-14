@@ -1,0 +1,38 @@
+<template name="StickersTab">
+{{#ionModal title = "Sticker Library"}}
+<style>   
+    .sticker-container{
+        max-width:25% !important;
+        max-height:25% !important;
+    }
+    .sticker-thumbs{
+        max-width:100% !important;
+        max-height:100% !important;
+        padding:10px;
+    }
+</style>
+<br />
+  <ul class="nav nav-tabs">
+    {{#each stickerCategory}}
+        <li class="active"><a data-toggle="tab" href="#{{this}}">{{this}}</a></li>
+    {{/each}}
+  </ul>
+
+  <div class="tab-content">
+    {{#each stickerCategory}}
+        <div id={{this}} class="tab-pane fade in active">
+            <div class="container">
+                <div class="row">
+                {{#each stickers this}}
+                    <div class="sticker-container">
+                        <img  src="{{this.url store='stickers' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="img-responsive sticker-thumbs" /> 
+                    </div>
+                {{/each}}
+                </div>
+            </div>
+        </div>
+    {{/each}}
+  </div>
+
+{{/ionModal}}
+</template>
