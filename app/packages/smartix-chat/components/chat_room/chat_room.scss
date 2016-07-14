@@ -1,5 +1,6 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
-.chat-room {
+pre{
+  background-color: initial !important;
 }
 
 .item {
@@ -22,7 +23,7 @@
   overflow-y: auto;
   height: calc(100% - 55px);
  
-  bottom: 0;
+  // bottom: 0;
   margin-bottom:0px;
   text-align: center;
   .item {

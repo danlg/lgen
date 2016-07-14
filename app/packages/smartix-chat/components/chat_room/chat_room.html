@@ -22,62 +22,17 @@
     {{/contentFor}}
     {{#ionView}}
       {{#ionContent}}
-        <div class="list chatroomList background-wallpaper" id="chatroomList">
+        <div class="list chatroomList background-wallpaper" id="messageList">
           <div class='date-bubble-wrapper {{isLoadMoreButtonShow}}'><button class='load-prev-msg'>{{_ "smartix-chat.Loadmessage" }}</button> </div>
           {{#each chatRoomProfile}}
             {{#if isFirstMsgInOneDay}}
               <div class='date-bubble-wrapper'> <div class='date-bubble'>{{formatDate2 createdAt}}</div> </div>
             {{/if}}
             <div class="item {{isMine}}">
-              {{#if isText}}
-                <div class="bubble">
-                  {{#if isMineBoolean author}}
-                  {{else}}
-
-                    {{#with getUserById author}}
-                      <div class='username'>
-                        {{#if isGroupChat}}
-                          {{#if profile.avatarValue}}
-                            {{#if isEmoji this}}
-                              <i class="icon e1a-{{profile.avatarValue}} e1a-1x emojicon"></i>
-                            {{else}}
-                              <img class="icon icon-avatar e1a-1x" src="{{profile.avatarValue}}" />
-                            {{/if}}
-                          {{else}}
-                            <i class="icon e1a-green_apple e1a-1x emojicon"></i>
-                          {{/if}}
-                          {{profile.firstName}} {{profile.lastName}}
-                        {{/if}}
-                        <i style='larger' class="icon {{isNewMessage ../createdAt}}  new-message-icon"></i>
-                      </div>
-                      <br/>
-                    {{/with}}
-
-                  {{/if}}
-                  {{{docPreview data.content}}}
-                  <style>
-                    pre{
-                      background-color: initial;
-                    }
-                  </style>
-                  {{#autolink}}<pre>{{data.content}}</pre>{{/autolink}}
-
-                  <span class='timestamp'>{{formatTime createdAt}}</span>
-
-                </div>
-
-              {{/if}}
-
-              {{#each addons}}
-                {{#with FS.GetFile "images" fileId}}
-
-                  <!--read the below to know how to access parent scope value-->
-                  <!--https://www.discovermeteor.com/blog/a-guide-to-meteor-templates-data-contexts/-->
-                  <style>.bubble.image-bubble.image{{@index}}:after{content:"{{formatTime  ../../createdAt}}";white-space: nowrap;}</style>
-                  <div class="bubble image-bubble image{{@index}}">
-                    {{#if isMineBoolean ../../author}}
+              <div class="bubble">
+                {{#if isMineBoolean author}}
                     {{else}}
-                      {{#with getUserById ../../author}}
+                      {{#with getUserById author}}
                         <div class='username'>
                           {{#if isGroupChat}}
                             {{#if profile.avatarValue}}
@@ -95,151 +50,59 @@
                         </div>
                         <br/>
                       {{/with}}
-                    {{/if}}
-                    <!--http://stackoverflow.com/questions/10426786/div-gets-extra-height-for-no-reason-->
-                    <img style='display:block;' src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs responsive-img" data-fullsizeimage="{{this.url  }}">
-                  </div>
-                {{/with}}
-                {{#with FS.GetFile "documents" fileId}}
-                  {{#if this.isUploaded}}
-                    {{#if this.hasStored 'documents'}}
-                      <div class="bubble">
-                        {{#if isMineBoolean ../../author}}
-                        {{else}}
-                          {{#with getUserById ../../author}}
-                            <div class='username'>
-                              {{#if isGroupChat}}
-                                {{#if profile.avatarValue}}
-                                  {{#if isEmoji this}}
-                                    <i class="icon e1a-{{profile.avatarValue}} e1a-1x emojicon"></i>
-                                  {{else}}
-                                    <img class="icon icon-avatar e1a-1x" src="{{profile.avatarValue}}" />
-                                  {{/if}}
-                                {{else}}
-                                  <i class="icon e1a-green_apple e1a-1x emojicon"></i>
-                                {{/if}}
-                                {{profile.firstName}} {{profile.lastName}}
-                              {{/if}}
-                              <i style='larger' class="icon {{isNewMessage ../createdAt}}  new-message-icon"></i>
-                            </div>
-                            <br/>
-                          {{/with}}
-                        {{/if}}
-                        <a href='{{this.url}}'> <i class="icon ion-paperclip"></i>&nbsp;{{this.name}}</a>
-                        <br/><span  class='timestamp'>{{formatTime  ../../createdAt}}</span>
-                      </div>
+                  {{/if}}
+                {{#if isText}}
+                    {{#autolink}}<pre>{{data.content}}</pre>{{/autolink}}
+                {{else}}
+                {{#each addons}}
+                  {{#with FS.GetFile "images" fileId}}
+                    <!--read the below to know how to access parent scope value-->
+                    <!--https://www.discovermeteor.com/blog/a-guide-to-meteor-templates-data-contexts/-->
+                    <!--<style>.bubble.image-bubble.image{{@index}}:after{content:"{{formatTime  ../../createdAt}}";white-space: nowrap;}</style>-->
+                    <!--<div class="image-bubble image{{@index}}">-->
+                      <!--http://stackoverflow.com/questions/10426786/div-gets-extra-height-for-no-reason-->
+                      <img style='display:block;' src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs responsive-img" data-fullsizeimage="{{this.url  }}">
+                    <!--</div>-->
+                  {{/with}}
+                  {{#with FS.GetFile "documents" fileId}}
+                    {{#if this.isUploaded}}
+                      {{#if this.hasStored 'documents'}}
+                        <!--<div class="bubble">-->
+                          <a href='{{this.url}}'> <i class="icon ion-paperclip"></i>&nbsp;{{this.name}}</a>
+                      {{else}}
+                        {{> LoadingSpinner}}
+                      {{/if}}
                     {{else}}
                       {{> LoadingSpinner}}
                     {{/if}}
-                  {{else}}
-                    {{> LoadingSpinner}}
-                  {{/if}}
-                {{/with}}
-                {{#with FS.GetFile "sounds" fileId}}
-                  {{#if this.isUploaded}}
-                    {{#if this.hasStored 'sounds'}}
-                      {{#if  this.url}}
-                        {{#if isCordova}}
-                          <div class="bubble sound-bubble">
-                            {{#if isMineBoolean ../../author}}
-                            {{else}}
-                              {{#with getUserById ../../author}}
-                                <div class='username'>
-                                  {{#if isGroupChat}}
-                                    {{#if profile.avatarValue}}
-                                      {{#if isEmoji this}}
-                                        <i class="icon e1a-{{profile.avatarValue}} e1a-1x emojicon"></i>
-                                      {{else}}
-                                        <img class="icon icon-avatar e1a-1x" src="{{profile.avatarValue}}" />
-                                      {{/if}}
-                                    {{else}}
-                                      <i class="icon e1a-green_apple e1a-1x emojicon"></i>
-                                    {{/if}}
-                                    {{profile.firstName}} {{profile.lastName}}
-                                  {{/if}}
-                                  <i style='larger' class="icon {{isNewMessage ../createdAt}}  new-message-icon"></i>
-                                </div>
-                                <br/>
-                              {{/with}}
-                            {{/if}}
-                            <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}"></a>
-                            <br/><span  class='timestamp'>{{formatTime  ../../createdAt}}</span>
-                          </div>
-                        {{else}}
-                          <div class="bubble sound-bubble">
-                            {{#if isMineBoolean ../../author}}
-                            {{else}}
-                              {{#with getUserById ../../author}}
-                                <div class='username'>
-                                  {{#if isGroupChat}}
-                                    {{#if profile.avatarValue}}
-                                      {{#if isEmoji this}}
-                                        <i class="icon e1a-{{profile.avatarValue}} e1a-1x emojicon"></i>
-                                      {{else}}
-                                        <img class="icon icon-avatar e1a-1x" src="{{profile.avatarValue}}" />
-                                      {{/if}}
-                                    {{else}}
-                                      <i class="icon e1a-green_apple e1a-1x emojicon"></i>
-                                    {{/if}}
-                                    {{profile.firstName}} {{profile.lastName}}
-                                  {{/if}}
-                                  <i style='larger' class="icon {{isNewMessage ../createdAt}}  new-message-icon"></i>
-                                </div>
-                              {{/with}}
-                            {{/if}}
-                            <audio controls>
-                              <source src="{{this.url}}" type="audio/wav">
-                            </audio>
-                            <br/><span  class='timestamp'>{{formatTime  ../../createdAt}}</span>
-                          </div>
+                      <br />
+                  {{/with}}
+                  {{#with FS.GetFile "sounds" fileId}}
+                    {{#if this.isUploaded}}
+                      {{#if this.hasStored 'sounds'}}
+                        {{#if  this.url}}
+                          {{#if isCordova}}
+                              <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}"></a>
+                          {{else}}
+                              <audio controls>
+                                <source src="{{this.url}}" type="audio/wav">
+                              </audio>
+                          {{/if}}
                         {{/if}}
-
                       {{/if}}
                     {{/if}}
+                  {{/with}}
+                {{/each}}    
+                  {{#if addonHasContent }}
+                    {{#autolink}}<pre>{{data.content}}</pre>{{/autolink}}
                   {{/if}}
-                {{/with}}
-              {{/each}}
+                {{/if}}
+                  <span class='timestamp'>{{formatTime createdAt}}</span>
+              </div>
             </div>
           {{/each}}
         </div>
-        <div class="list inputBoxList">
-          {{#if targertWorkingTime}}
-            <div class="item " style="text-align:center">
-              <i class="icon ion-clock"></i> {{_ "Itisworkofftime"}}
-            </div>
-          {{else}}
-            <div class="item item-input chatroomItem">
-          <span style='width:5em;'>
-                <span class="file " style='font-size:xx-large;'>
-                  <i class="icon ion-arrow-up-c imageIcon"></i>
-                  <input type="file" id="documentBtn" accept=".pdf, .doc, .docx, .ppt, .pptx, .xls, .xlsx">
-                </span>                  
-          </span>
-          <textarea style="" dir="auto" name="msg" maxlength="5000"
-                    class="inputBox autogrow-short" placeholder=""></textarea>
-              <button style="min-height:0;border:0;padding:0;margin:0;border-radius:6px;width:5em;display:none;"
-                      class="sendBtn button icon  ion-paper-airplane"></button>
-              {{#if isCordova}}
-                  <span class='mediaButtonGroup' style='width:10em;text-align:center;'>
-                      <span class="file " style='font-size:xx-large;display:inline-block;'>
-                          <i class="icon ion-ios-camera-outline imageIcon "></i>
-                          <input type="file" id="imageBtn" accept="image/*;capture=camera" capture="camera">
-                      </span>
-                      <span class="file voice" style='font-size:xx-large;display:inline-block;'>
-                        <i class="icon  ion-ios-mic-outline "></i>
-                      </span>
-                  </span>
-                  {{else}}
-                    <span class='mediaButtonGroup' style='width:5em;text-align:center;'>
-                        <span class="file " style='font-size:xx-large;display:inline-block;'>
-                            <i class="icon ion-ios-camera-outline imageIcon "></i>
-                            <input type="file" id="imageBtn" accept="image/*;capture=camera" capture="camera">
-                        </span>
-                    </span>
-                  {{/if}}
-            </div>
-          {{/if}}
-        </div>
+        {{> SendMessage callFromClassPanel=true }}
       {{/ionContent}}
     {{/ionView}}
   {{/if}} 

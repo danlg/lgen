@@ -129,7 +129,14 @@ Template.TabChat.helpers({
   'lasttext': function (groupId) {
       //log.info('lasttext',Smartix.Messages.Collection.find({group:groupId}, {sort: {createdAt: -1}, limit: 1}).fetch());
     var fetch = Smartix.Messages.Collection.find({group: groupId}, {sort: {createdAt: -1}, limit: 1}).fetch()[0];
-    return (fetch && fetch.data) ? fetch.data.content : "";
+    var content;
+    if (fetch && fetch.data && fetch.data.content !== '') {
+        content = fetch.data.content;
+    }
+    else {
+        content = "New " + fetch.addons[0].type;
+    }
+    return content; 
   },
 
 //   'lasttextTime':function(lastUpdatedAt){

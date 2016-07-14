@@ -7,129 +7,129 @@ var isPlayingSound = false;
 /* ChatRoom: Event Handlers */
 Template.ChatRoom.events({
 
-	'click .sendBtn': function () {
-		var text = $('.inputBox').val();
-		if (!lodash.isEmpty(text)) {
-			GeneralMessageSender(Router.current().params.chatRoomId, 'text', text, null, Smartix.helpers.getAllUserExceptCurrentUser(), function () {
-				$('.inputBox').val("");
-				sendBtnMediaButtonToggle();
-				document.getElementsByClassName("inputBox")[0].updateAutogrow();
-			});
-		}//else we do not send
-	},
+// 	'click .sendBtn': function () {
+// 		var text = $('.inputBox').val();
+// 		if (!lodash.isEmpty(text)) {
+// 			GeneralMessageSender(Router.current().params.chatRoomId, 'text', text, null, Smartix.helpers.getAllUserExceptCurrentUser(), function () {
+// 				$('.inputBox').val("");
+// 				sendBtnMediaButtonToggle();
+// 				document.getElementsByClassName("inputBox")[0].updateAutogrow();
+// 			});
+// 		}//else we do not send
+// 	},
 
-	'click .imageIcon': function (argument) {
-		// alert("asd");
-	},
+// 	'click .imageIcon': function (argument) {
+// 		// alert("asd");
+// 	},
 	
-	'keyup .inputBox': function () {
-		sendBtnMediaButtonToggle();
-		$(".inputBox").autogrow();
-	},
+// 	'keyup .inputBox': function () {
+// 		sendBtnMediaButtonToggle();
+// 		$(".inputBox").autogrow();
+// 	},
 	
-	'change .inputBox': function () {
-		//var height = $(".inputBoxList").height() + 2;
-		//$(".chatroomList").css(height, "(100% - " + height + "px )");
-		sendBtnMediaButtonToggle();
-	},
+// 	'change .inputBox': function () {
+// 		//var height = $(".inputBoxList").height() + 2;
+// 		//$(".chatroomList").css(height, "(100% - " + height + "px )");
+// 		sendBtnMediaButtonToggle();
+// 	},
 	
-	'paste .inputBox': function () {
-		log.info("input box paste");
+// 	'paste .inputBox': function () {
+// 		log.info("input box paste");
 
-		//http://stackoverflow.com/questions/9857801/how-to-get-the-new-value-of-a-textarea-input-field-on-paste
-		window.setTimeout(sendBtnMediaButtonToggle, 100);
-	},
+// 		//http://stackoverflow.com/questions/9857801/how-to-get-the-new-value-of-a-textarea-input-field-on-paste
+// 		window.setTimeout(sendBtnMediaButtonToggle, 100);
+// 	},
 	
-	'click #imageBtn': function (e) {
-		if (Meteor.isCordova) {
-			if (window.device.platform === "Android") {
-				e.preventDefault();
-				Smartix.FileHandler.imageUploadForAndroid(
-					{
-						category: 'chat',
-						id: Router.current().params.chatRoomId,
-						'school': UI._globalHelpers['getCurrentSchoolName']()
-					}
-				);
-			}
-		}
-	},
+// 	'click #imageBtn': function (e) {
+// 		if (Meteor.isCordova) {
+// 			if (window.device.platform === "Android") {
+// 				e.preventDefault();
+// 				Smartix.FileHandler.imageUploadForAndroid(
+// 					{
+// 						category: 'chat',
+// 						id: Router.current().params.chatRoomId,
+// 						'school': UI._globalHelpers['getCurrentSchoolName']()
+// 					}
+// 				);
+// 			}
+// 		}
+// 	},
 
-	'change #imageBtn': function (event, template) {
-		Smartix.FileHandler.imageUpload(
-			event,
-			{
-				category: 'chat',
-				id: Router.current().params.chatRoomId,
-				'school': UI._globalHelpers['getCurrentSchoolName']()
-			}
-		);
-	},
+// 	'change #imageBtn': function (event, template) {
+// 		Smartix.FileHandler.imageUpload(
+// 			event,
+// 			{
+// 				category: 'chat',
+// 				id: Router.current().params.chatRoomId,
+// 				'school': UI._globalHelpers['getCurrentSchoolName']()
+// 			}
+// 		);
+// 	},
 
-	'click #documentBtn': function (e) {
-		if (Meteor.isCordova) {
-			if (window.device.platform === "Android") {
-				e.preventDefault();
-				Smartix.FileHandler.documentUploadForAndroid(e,
-					{
-						'category': 'chat',
-						'id': Router.current().params.chatRoomId,
-						'school': UI._globalHelpers['getCurrentSchoolName']()
-					}
-				);
-			}
-		}
-	},
+// 	'click #documentBtn': function (e) {
+// 		if (Meteor.isCordova) {
+// 			if (window.device.platform === "Android") {
+// 				e.preventDefault();
+// 				Smartix.FileHandler.documentUploadForAndroid(e,
+// 					{
+// 						'category': 'chat',
+// 						'id': Router.current().params.chatRoomId,
+// 						'school': UI._globalHelpers['getCurrentSchoolName']()
+// 					}
+// 				);
+// 			}
+// 		}
+// 	},
 	
-	'change #documentBtn': function (event, template) {
-		const metadata = {
-			school: UI._globalHelpers['getCurrentSchoolName'](),
-			category: 'chat',
-			id: Router.current().params.chatRoomId
-		};
-		Smartix.FileHandler.documentUpload(event, metadata);
-	},
+// 	'change #documentBtn': function (event, template) {
+// 		const metadata = {
+// 			school: UI._globalHelpers['getCurrentSchoolName'](),
+// 			category: 'chat',
+// 			id: Router.current().params.chatRoomId
+// 		};
+// 		Smartix.FileHandler.documentUpload(event, metadata);
+// 	},
 
 	'click .imgThumbs': function (e) {
 		var imageFullSizePath = $(e.target).data('fullsizeimage');
 		IonModal.open('imageModal', {src: imageFullSizePath});
 	},
 
-	'click .voice': function (argument) {
-		if (!isRecording) {
-			//log.info('startRec');
-			media = Smartix.helpers.getNewRecordFile();
-			media.startRecord();
-			isRecording = true;
-			$(".ion-ios-mic-outline").attr("class", "icon ion-stop");
-			setTimeout(function () {
-				if (isRecording)
-					media.stopRecord();
-			}, 1000 * 60 * 3);//3 min max
-		}
-		else {
-			//log.info('stopRec');
-			media.stopRecord();
-			//  playAudio(media.src);
-			isRecording = false;
-			$(".icon.ion-stop").attr("class", "ion-ios-mic-outline");
-			switch (window.device.platform) {
-				case "Android":
-					window.resolveLocalFileSystemURL(cordova.file.externalRootDirectory + media.src, onResolveSuccess, fail);
-					break;
-				case "iOS":
-					window.resolveLocalFileSystemURL(cordova.file.tempDirectory + media.src, onResolveSuccess, fail);
-					break;
-			}
-			// Sounds.insert(media.src,function (err, fileObj) {
-			//   if(err){
-			//     alert(err);
-			//   }else{
-			//     alert('success');
-			//   }
-			// });
-		}
-	},
+	// 'click .voice': function (argument) {
+	// 	if (!isRecording) {
+	// 		//log.info('startRec');
+	// 		media = Smartix.helpers.getNewRecordFile();
+	// 		media.startRecord();
+	// 		isRecording = true;
+	// 		$(".ion-ios-mic-outline").attr("class", "icon ion-stop");
+	// 		setTimeout(function () {
+	// 			if (isRecording)
+	// 				media.stopRecord();
+	// 		}, 1000 * 60 * 3);//3 min max
+	// 	}
+	// 	else {
+	// 		//log.info('stopRec');
+	// 		media.stopRecord();
+	// 		//  playAudio(media.src);
+	// 		isRecording = false;
+	// 		$(".icon.ion-stop").attr("class", "ion-ios-mic-outline");
+	// 		switch (window.device.platform) {
+	// 			case "Android":
+	// 				window.resolveLocalFileSystemURL(cordova.file.externalRootDirectory + media.src, onResolveSuccess, fail);
+	// 				break;
+	// 			case "iOS":
+	// 				window.resolveLocalFileSystemURL(cordova.file.tempDirectory + media.src, onResolveSuccess, fail);
+	// 				break;
+	// 		}
+	// 		// Sounds.insert(media.src,function (err, fileObj) {
+	// 		//   if(err){
+	// 		//     alert(err);
+	// 		//   }else{
+	// 		//     alert('success');
+	// 		//   }
+	// 		// });
+	// 	}
+	// },
 
 	'click .playBtn': function (e) {
 		//check also https://github.com/SidneyS/cordova-plugin-nativeaudio#api

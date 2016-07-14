@@ -9,34 +9,36 @@ var documentArr = ReactiveVar([]);
 var isRecording = false;
 var media = "";
 var isPlayingSound = false;
-var messageListBaseBorrow = 70;
+var messageListBaseBorrow;
 var messageListHeightBorrower = ReactiveVar([]);
-var canVote = ReactiveVar(true);
+var canVote = ReactiveVar();
 
-Template.SendMessage.onCreated( function() {
+Template.SendMessage.onCreated(function () {
 	this.calendarEvent = new ReactiveVar({});
-
+	this.chatOrClassCode = new ReactiveVar();
+	this.panelCategory = new ReactiveVar();
 	//log.info("Template.SendMessage.onCreated");
 	let schoolName = UI._globalHelpers['getCurrentSchoolName']();
-	let classCode  = Router.current().params.classCode;
+
+	if (Router.current().params.classCode) {
+		this.chatOrClassCode.set(Router.current().params.classCode);
+		this.panelCategory.set('class');
+		this.subscribe('createdClassByMe');
+		canVote.set(true);
+		messageListBaseBorrow = 70;
+		log.info("Class Room Message Box Created", this.chatOrClassCode.get());
+	}
 	//log.info("schoolName", schoolName);
-
-	this.subscribe('createdClassByMe');
-	this.subscribe('images', schoolName, 'class', classCode);
-	this.subscribe('documents', schoolName, 'class', classCode);
-	this.subscribe('sounds', schoolName, 'class', classCode);
-
-	// this.imageArr = ReactiveVar([]);
-	// this.soundArr = ReactiveVar([]);
-	// this.documentArr = ReactiveVar([]);
-	// this.isRecording = false;
-	// this.media = "";
-	// this.isPlayingSound = false;
-	// this.messageListBaseBorrow = 70;
-	// this.messageListHeightBorrower = ReactiveVar([]);
-	// this.canVote = ReactiveVar(true);
-	//log.info("Template.SendMessage.onCreated");
-	//log.info(this.calendarEvent);
+	else if (Router.current().params.chatRoomId){
+		this.chatOrClassCode.set(Router.current().params.chatRoomId);
+		this.panelCategory.set('chat');
+		messageListBaseBorrow = 50;
+		// this.subscribe('chatRoomWithUser', this.chatOrClassCode);
+		log.info("Chat Room Message Box Created", this.chatOrClassCode.get());
+	}
+	this.subscribe('images', schoolName, this.panelCategory.get(), this.chatOrClassCode.get());
+	this.subscribe('documents', schoolName, this.panelCategory.get(), this.chatOrClassCode.get());
+	this.subscribe('sounds', schoolName, this.panelCategory.get(), this.chatOrClassCode.get());
 });
 
 Template.SendMessage.destroyed = function () {
@@ -55,58 +57,61 @@ Template.SendMessage.destroyed = function () {
 	messageListHeightBorrower.set([]);
 };
 
-Template.SendMessage.onRendered( function() {
+Template.SendMessage.onRendered(function () {
 	$(".msgBox").autogrow();
 	//log.info(canVote.get());
 	if (canVote.get()) {
 		var borrower = messageListHeightBorrower.get();
-		if (lodash.findIndex(borrower, {type: "vote-options"}) == -1) {
-			borrower.push({type: "vote-options", height: 20});
+		if (lodash.findIndex(borrower, { type: "vote-options" }) == -1) {
+			borrower.push({ type: "vote-options", height: 20 });
 			messageListHeightBorrower.set(borrower);
-			updateMessageListHeight();
 		}
 	}
+	updateMessageListHeight();
 	//initial check of vote option.
 	voteEnableCheck();
 });
 
 /* SendMessage: Helpers */
 Template.SendMessage.helpers({
+	
 	calendarEventSet: function () {
 		// log.info("calendarEventSet");
 		// log.info(Template.instance());
 		// log.info(Template.instance().calendarEvent);
 		var inner = Template.instance().calendarEvent.get();
-		return ( ! ($.isEmptyObject(inner) ) ) ;
+		return (!($.isEmptyObject(inner)));
 	},
 
-	addClassBtnStatus: function () {
-		return Session.get("isSelecting") ? "hidden" : "";
-	},
+	// addClassBtnStatus: function () {
+	// 	return Session.get("isSelecting") ? "hidden" : "";
+	// },
 
-	doneClassBtnStatus: function () {
-		return Session.get("isSelecting") ? "" : "hidden";
-	},
+	// doneClassBtnStatus: function () {
+	// 	return Session.get("isSelecting") ? "" : "hidden";
+	// },
 
-	checkbox: function () {
-		return Session.get("isSelecting") ? "" : "hidden";
-	},
+	// checkbox: function () {
+	// 	return Session.get("isSelecting") ? "" : "hidden";
+	// },
 
-	isSelect: function (classCode) {
-		return classCode == Router.current().params.classCode ? "selected" : "";
-	},
+	// isSelect: function (classCode) {
+	// 	return classCode == Router.current().params.classCode ? "selected" : "";
+	// },
 
-	selectArr: function () {
-		return [];
+	// selectArr: function () {
+	// 	return [];
+	// },
+
+
+	isClass: function()
+	{
+		return isClassPanel();
 	},
 
 	searchObj: function () {
 		if (lodash.has(Router.current().params, 'classCode')) {
 			if (!lodash.isUndefined(Router.current().params.classCode)) {
-				// log.info(Smartix.Groups.Collection.find({
-				//     type: 'class',
-				//   classCode: Router.current().params.classCode
-				// }).fetch());
 				var getDefaultClass = Smartix.Groups.Collection.findOne({
 					type: 'class',
 					classCode: Router.current().params.classCode
@@ -154,7 +159,7 @@ Template.SendMessage.helpers({
 		return Documents.findOne(id);
 	},
 	isVotingTypeDisabled: function () {
-		if (canVote.get() == true) {
+		if (canVote.get() === true) {
 			return "";
 		}
 		else {
@@ -253,8 +258,8 @@ Template.SendMessage.events({
 		IonActionSheet.show({
 			//titleText: 'What to attach?',
 			buttons: [
-				{text: TAPi18n.__("AttachDocument") },
-				{text: TAPi18n.__("AttachEvent")}
+				{ text: TAPi18n.__("AttachDocument") },
+				{ text: TAPi18n.__("AttachEvent") }
 			],
 			cancelText: 'Cancel',
 			cancel: function () {
@@ -283,14 +288,6 @@ Template.SendMessage.events({
 		voteEnableCheck();
 	},
 
-	'click #imageBtn': function (e) {
-		if (Meteor.isCordova) {
-			if (window.device.platform === "Android") {
-				e.preventDefault();
-				imageAction();
-			}
-		}
-	},
 
 	'click .ion-play.playBtn': function (e) {
 		if (!isPlayingSound) {
@@ -370,15 +367,26 @@ Template.SendMessage.events({
 
 	'click .imgThumbs': function (e) {
 		var imageFullSizePath = $(e.target).data('fullsizeimage');
-		IonModal.open('imageModal', {src: imageFullSizePath});
+		IonModal.open('imageModal', { src: imageFullSizePath });
 	},
 
+	'click #imageBtn': function (e) {
+		if (Meteor.isCordova) {
+			if (window.device.platform === "Android") {
+				e.preventDefault();
+				imageAction();
+			}
+		}
+	},
+	
 	'change #imageBtn': function (event, template) {
 		//https://github.com/CollectionFS/Meteor-CollectionFS
-		//Image is inserted from here via FS.Utility
+		//Image is inserted from here via FS.Utility'
+		let panelId = template.chatOrClassCode.get();
+		let panelCategory = template.panelCategory.get();
 		Smartix.FileHandler.imageUpload(
 			event,
-			{category: 'class', id: Router.current().params.classCode, 'school': UI._globalHelpers['getCurrentSchoolName']()}
+			{ category: panelCategory, id: panelId, 'school': UI._globalHelpers['getCurrentSchoolName']() }
 			, imageArr.get(),
 			function (result) {
 				imageArr.set(result);
@@ -387,15 +395,52 @@ Template.SendMessage.events({
 		showPreview("image");
 	},
 
+	'click #documentBtn': function (event, template) {
+		if (Meteor.isCordova) {
+			if (window.device.platform === "Android") {
+				event.preventDefault();
+				let panelId = template.chatOrClassCode.get();
+				let panelCategory = template.panelCategory.get();
+				Smartix.FileHandler.documentUploadForAndroid(
+					event,
+					{ 'category': panelCategory, 'id': panelId, 'school': UI._globalHelpers['getCurrentSchoolName']() }
+					, documentArr.get(), function (result) {
+						documentArr.set(result);
+					});
+				showPreview("document");
+			}
+		}
+	},
+
+	'change #documentBtn': function (event, template) {
+		let panelId = template.chatOrClassCode.get();
+		let panelCategory = template.panelCategory.get();
+		Smartix.FileHandler.documentUpload(event,
+			{ 'category': panelCategory, 'id': panelId, 'school': UI._globalHelpers['getCurrentSchoolName']() }
+			, documentArr.get(), function (result) {
+				documentArr.set(result);
+			});
+		showPreview("document");
+	},
+
 	'click .sendMsgBtn': function (event, template) {
-		var target = Session.get('sendMessageSelectedClasses').selectArrId;
+		if(Session.get('sendMessageSelectedClasses').selectArrId.length > 0)
+		{
+			var target = Session.get('sendMessageSelectedClasses').selectArrId;
+		}
+		else
+		{
+			var target = [Router.current().params.chatRoomId];
+		}		
 		//log.info(target);
 		var msg = $(".msgBox").val();
 		//receive addons stage
 		var mediaObj = {};
-		mediaObj.allowComment = document.getElementById('allowComment').checked;
-		mediaObj.allowVote = document.getElementById('allowVote').checked;
-		mediaObj.voteType = (mediaObj.allowVote) ? document.querySelector('input[name="voteTypeOption"]:checked').value : "";
+		if (isClassPanel()) {
+			mediaObj.allowComment = document.getElementById('allowComment').checked;
+			mediaObj.allowVote = document.getElementById('allowVote').checked;
+			mediaObj.voteType = (mediaObj.allowVote) ? document.querySelector('input[name="voteTypeOption"]:checked').value : "";
+		} 
 		mediaObj.imageArr = imageArr.get();
 		mediaObj.soundArr = soundArr.get();
 		mediaObj.documentArr = documentArr.get();
@@ -414,6 +459,7 @@ Template.SendMessage.events({
 		}
 		var addons = [];
 		populateAddons(addons, mediaObj);
+		// log.info(target);
 		GeneralMessageSender(target[0], 'text', msg, addons, null, function () {
 			//log.info('callback@GeneralMessageSender');
 			Session.set("sendMessageSelectedClasses", {
@@ -444,30 +490,6 @@ Template.SendMessage.events({
 		//log.info("input box paste");
 		//http://stackoverflow.com/questions/9857801/how-to-get-the-new-value-of-a-textarea-input-field-on-paste
 		window.setTimeout(sendBtnMediaButtonToggle, 100);
-	},
-
-	'click #documentBtn': function (e) {
-		if (Meteor.isCordova) {
-			if (window.device.platform === "Android") {
-				e.preventDefault();
-				Smartix.FileHandler.documentUploadForAndroid(
-					e,
-					{'category': 'class', 'id': Router.current().params.classCode, 'school': UI._globalHelpers['getCurrentSchoolName']()}
-					, documentArr.get(), function (result) {
-						documentArr.set([]);
-						window.setTimeout(scrollMessageListToBottom, 100);
-					});
-			}
-		}
-	},
-
-	'change #documentBtn': function (event, template) {
-		Smartix.FileHandler.documentUpload(event,
-			{'category': 'class', 'id': Router.current().params.classCode, 'school':  UI._globalHelpers['getCurrentSchoolName']()}
-			, documentArr.get(), function (result) {
-				documentArr.set([]);
-				window.setTimeout(scrollMessageListToBottom, 100);
-			});
 	}
 });
 
@@ -476,7 +498,7 @@ function populateAddons(addons, mediaObj) {
 	if (mediaObj.imageArr.length > 0) {
 		//log.info('there is image');
 		mediaObj.imageArr.map(function (eachImage) {
-			addons.push({type: 'images', fileId: eachImage});
+			addons.push({ type: 'images', fileId: eachImage });
 		})
 	}
 
@@ -484,7 +506,7 @@ function populateAddons(addons, mediaObj) {
 	if (mediaObj.documentArr.length > 0) {
 		//log.info('there is doc');
 		mediaObj.documentArr.map(function (eachDocument) {
-			addons.push({type: 'documents', fileId: eachDocument});
+			addons.push({ type: 'documents', fileId: eachDocument });
 		})
 	}
 
@@ -492,7 +514,7 @@ function populateAddons(addons, mediaObj) {
 	if (mediaObj.soundArr.length > 0) {
 		log.info('there is voice');
 		mediaObj.soundArr.map(function (eachDocument) {
-			addons.push({type: 'voice', fileId: eachDocument});
+			addons.push({ type: 'voice', fileId: eachDocument });
 		})
 	}
 
@@ -506,7 +528,7 @@ function populateAddons(addons, mediaObj) {
 	//add comments to addons one by one if any
 	if (mediaObj.allowComment) {
 		//log.info('allowComment');
-		addons.push({type: 'comment', comments: []});
+		addons.push({ type: 'comment', comments: [] });
 	}
 	//add poll to addons one by one if any
 	if (mediaObj.allowVote) {
@@ -582,10 +604,10 @@ function populateVote(voteObj, mediaObj) {
 		voteObj.options = ['like', 'dislike'];
 	}
 	else if (mediaObj.voteType == 'oneTwoThreeFour') {
-		voteObj.votes.push({option: 'one', optionIconType: 'icon-emojicon', optionIconValue: 'e1a-one', users: []});
-		voteObj.votes.push({option: 'two', optionIconType: 'icon-emojicon', optionIconValue: 'e1a-two', users: []});
-		voteObj.votes.push({option: 'three', optionIconType: 'icon-emojicon', optionIconValue: 'e1a-three', users: []});
-		voteObj.votes.push({option: 'four', optionIconType: 'icon-emojicon', optionIconValue: 'e1a-four', users: []});
+		voteObj.votes.push({ option: 'one', optionIconType: 'icon-emojicon', optionIconValue: 'e1a-one', users: [] });
+		voteObj.votes.push({ option: 'two', optionIconType: 'icon-emojicon', optionIconValue: 'e1a-two', users: [] });
+		voteObj.votes.push({ option: 'three', optionIconType: 'icon-emojicon', optionIconValue: 'e1a-three', users: [] });
+		voteObj.votes.push({ option: 'four', optionIconType: 'icon-emojicon', optionIconValue: 'e1a-four', users: [] });
 		voteObj.options = ['one', 'two', 'three', 'four'];
 	}
 	else {
@@ -605,8 +627,10 @@ Template.ionNavBar.events({
 		var mediaObj = {};
 		mediaObj.imageArr = imageArr.get();
 		mediaObj.soundArr = soundArr.get();
+		mediaObj.documentArr = documentArr.get();
 		//log.info(target.length);
-		if (msg == "" && mediaObj.imageArr.length == 0 && mediaObj.soundArr.length == 0) {
+		if (msg == "" && mediaObj.imageArr.length == 0 && 
+		mediaObj.soundArr.length == 0 && mediaObj.documentArr.length == 0) {
 			toastr.error(TAPi18n.__("EnterMessageBeforeSend"));
 		}
 		else if (target.length > 0) {
@@ -643,6 +667,16 @@ function onSuccess(imageURI) {
 			fileEntry.file(function (file) {
 				// alert(file);
 				log.info("resolveLocalFileSystemURL", file);
+				var newFile = new FS.File(file);
+				let panelId = Template.instance().chatOrClassCode.get();
+				let panelCategory = Template.instance().panelCategory.get();
+				newFile.metadata = {
+					school: UI._globalHelpers['getCurrentSchoolName'](),
+					category: panelCategory,
+					id: panelId
+				};
+				newFile.owner = Meteor.userId();
+
 				Images.insert(file, function (err, fileObj) {
 					if (err) {
 						// handle error
@@ -701,19 +735,27 @@ var callback = function (buttonIndex) {
 	});
 };
 
+var isClassPanel = function()
+{
+	return Template.instance().panelCategory.get() === 'class' ? true : false;
+};
+
 
 function onResolveSuccess(fileEntry) {
+	let panelId = Template.instance().chatOrClassCode.get();
+	let panelCategory = Template.instance().panelCategory.get();
 	log.info('onResolveSuccess: ' + fileEntry.name);
 	fileEntry.file(function (file) {
 		var newFile = new FS.File(file);
 		//newFile.attachData();
 		//log.info(newFile);
-		var classCode = Router.current().params.classCode;
-		log.info("Setting sound metadata ", "school:", UI._globalHelpers['getCurrentSchoolName'](), "category:class", "id:", classCode);
+
+		log.info("Setting sound metadata ");
 		newFile.metadata = {
 			school: UI._globalHelpers['getCurrentSchoolName'](),
-			category: 'chat',
-			id: classCode };
+			category: panelCategory,
+			id: panelId
+		};
 		Sounds.insert(newFile, function (err, fileObj) {
 			if (err) {
 				//handle error
@@ -753,7 +795,7 @@ function playAudio(url, callback) {
 		}
 	);
 	// Play audio
-	my_media.play({numberOfLoops: 1});
+	my_media.play({ numberOfLoops: 1 });
 }
 
 
@@ -774,20 +816,20 @@ function showPreview(filetype) {
 	//increase the height of input box panel
 	if (filetype && filetype == "image") {
 		//borrow 95px from messageList
-		borrower.push({type: filetype, height: 95});
+		borrower.push({ type: filetype, height: 95 });
 	}
 	else if (filetype && filetype == "document") {
 		//borrow 38px from messageList
-		borrower.push({type: filetype, height: 38});
+		borrower.push({ type: filetype, height: 38 });
 		//$('.messageList').css({'height':'calc(100% - 151px )'})
 	}
 	else if (filetype == "setting") {
 		//borrow 20px from messageList
-		borrower.push({type: filetype, height: 20});
+		borrower.push({ type: filetype, height: 20 });
 	}
 	else { //filetype == voice
 		//borrow 67px from messageList
-		borrower.push({type: filetype, height: 67});
+		borrower.push({ type: filetype, height: 67 });
 		//$('.messageList').css({'height':'calc(100% - 180px )'})
 	}
 	messageListHeightBorrower.set(borrower);
@@ -802,7 +844,7 @@ function hidePreview(filetype) {
 	if (filetype == "all") {
 		borrower = [];
 		if (canVote.get()) {
-			borrower.push({type: "vote-options", height: 20});
+			borrower.push({ type: "vote-options", height: 20 });
 		}
 		$('.preview').hide();
 	}
@@ -853,15 +895,15 @@ function updateMessageListHeight() {
 	});
 	totalBorrow = messageListBaseBorrow + totalExtraBorrow;
 	calcValue = "calc(100% - " + totalBorrow + "px)";
-	$('.messageList').css({'height': calcValue});
+	document.getElementById('messageList').style.height = calcValue ;
 }
 
 function voteEnableCheck() {
 	if ($('input#allowVote:checked').length > 0) {
 		canVote.set(true);
-		if (lodash.findIndex(borrower, {type: "vote-options"}) == -1) {
+		if (lodash.findIndex(borrower, { type: "vote-options" }) == -1) {
 			var borrower = messageListHeightBorrower.get();
-			borrower.push({type: "vote-options", height: 20});
+			borrower.push({ type: "vote-options", height: 20 });
 			messageListHeightBorrower.set(borrower);
 			updateMessageListHeight();
 		}

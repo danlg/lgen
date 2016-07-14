@@ -158,15 +158,15 @@ Template.ChatRoom.helpers({
 
   isText: function () {
     //log.debug('isText',this.data.content);
-    if(this.data.content === 'New Image' || this.data.content === 'New Document' ){
-      return false;
-    }else{
-      return true;
-    }
+    return this.addons.length === 0 ? true : false;
   },
 
   isImage: function () {
     return this.image && this.image !== "";
+  },
+
+  addonHasContent: function(){
+    return (this.data.content && this.addons.length > 0) !== '' ? true : false;
   },
 
   isSound: function (argument) {

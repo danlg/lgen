@@ -21,7 +21,7 @@
           <!-- In here, we can use the FS.File instance methods that work as helpers, such as {{url}} or {{isImage}} -->
           {{#unless this.isUploaded}} {{> LoadingSpinner}} {{else}}
           <div class="preview-bubble">
-            <img style='height:100px;margin:-5px 0;' src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}">
+            <img style='height:100px;margin:2px 0;' src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}">
             <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a>
             
           </div>
@@ -43,7 +43,7 @@
           {{#each uploadDocuments}} 
            {{#with getDocument}}
 
-            <div class="bubble">
+            <div class="bubble" style="background-color:initial;">
              <a href="{{this.url}}"><i class="icon ion-paperclip"></i>&nbsp;{{this.name}}</a>
             </div>
 
@@ -52,7 +52,7 @@
         </div>
               
         <div style="display:none;"> {{ arrToString searchObj.selectArrName }}</div>
-
+        {{#if isClass}}
         <div class="extra-options setting padding-horizontal" style='overflow:hidden;white-space:nowrap;background-color: #EBE4D9  !important;'>
             {{#if calendarEventSet}}
               <i class='icon ion-ios-calendar-outline cancel-calendar' ></i>
@@ -66,6 +66,7 @@
             <label onclick="" style='font-size:smaller'><!--<i class="icon  ion-android-checkbox-outline  "></i>-->
               <input id='allowVote' type="checkbox" name="allowVote" value="vote" > {{_ "Vote"}}</label>
         </div>
+  
           {{#unless isVotingTypeDisabled}}
           <div class="extra-options setting padding-horizontal" style='overflow:hidden;white-space:nowrap;background-color: #EBE4D9  !important;'>     
                 <label onclick="" style='font-size:x-small;display: flex;align-items: center;line-height:inherit;'><input type="radio" name="voteTypeOption" value="heartNoEvilStarQuestion" checked="checked">
@@ -89,7 +90,9 @@
                   <i  class="icon e1a-negative_squared_cross_mark e1a-2x emojicon"></i>
                 </label>          
         </div>
-        {{/unless}}         
+        {{/unless}}     
+        {{/if}}
+
         <div class="item item-input input-box-panel" style="">
           <span style='width:5em;text-align:center;'>
                 <span class="file " style='font-size:xx-large;display:inline-block;'>

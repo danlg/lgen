@@ -1,158 +1,163 @@
 <template name="MessageDetail">
-                {{#if isFirstMsgInOneDay}}
-                       <div class='date-bubble-wrapper'> <div class='date-bubble'>{{formatDate2 createdAt}}</div> </div>
-                {{/if}}
-                                      
-                <div class="list card less-top-bottom-padding less-top-bottom-margin {{reactive}}">
-                     
-
-                    <div class="item less-top-bottom-padding">
-                     <div>
-                        <h3>{{data.title}}</h3>
-                    </div>
-                    <div>
-                        <i class="icon {{isNewMessage createdAt}} new-message-icon"></i>
-                        {{#if isText}}
-                            {{{docPreview data.content}}}                     
-                            {{#autolink}}<span class='content'><pre>{{data.content}}</pre></span>{{/autolink}}
-                        {{/if}}
-                    </div>
-                    <div>
-                        <div>
-                        
-                            {{#each attachImages}}
-                            {{#with getImage}}
-                                {{#if this.isUploaded}}
-                                {{#if this.hasStored 'images'}}
-                                    <div class="">
-                                    <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs responsive-img"
-                                        data-fullsizeimage="{{this.url  }}">
-                                    <!-- <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a> -->
-                                    </div>
-                                {{/if}}
-                                {{/if}}
-                            {{/with}}
-                            {{/each}}
-                        
-                        </div>
-                        <div>
-                        
-                            {{#each attachVoices}}
-                            {{#with getSound}}
-                                {{#if this.isUploaded}}
-                                {{#if this.hasStored 'sounds'}}
-                                    {{#if  this.url}}
-                                    {{#if isCordova}}
-                                        <div class="bubble">
-                                        <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}"></a>
-                                        <!-- <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a> -->
-                                        </div>                    
-                                    {{else}}
-                                        <div class="bubble">
-                                        <audio controls>
-                                            <source src="{{this.url}}" type="audio/wav">
-                                        </audio>
-                                        <!-- <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a> -->
-                                        </div>                                                                                    
-                                    {{/if}}
-                                    {{/if}} 
-                                {{/if}}
-                                {{/if}}
-                            {{/with}}
-                            {{/each}}
-                        
-                        </div>
-                        <div class='document'>
-                        
-                            {{#each attachDocuments}}
-                            {{#with getDocument}}
-                                {{#if this.isUploaded}}
-                                {{#if this.hasStored 'documents'}}                           
-                                    <div class="bubble">
-                                    <a href='{{this.url}}'> <i class="icon ion-ios-download-outline"></i>&nbsp;{{this.name}}</a>
-                                    <br/><span  class='timestamp'>{{formatTime  ../sendAt}}</span>                       
-                                    </div>                                   
-                                {{/if}}                      
-                                {{/if}}
-                            {{/with}}
-                            {{/each}}
-                                              
-                        </div>
-                        <div>
-                            {{#each attachCalendar}}
-                                {{>CalendarDisplay this}}
-                            {{/each}}                            
-                        </div>               
-                    </div>
-                    
-
-                    <p>
-                        {{#each attachVotes}}
-                            {{> AppDisplayVote this}} 
-                        {{/each}}
-                        <span class='timestamp'>{{formatTime createdAt}}</span>  
-                    </p>
-                    </div>
-                   
-                    <!--Voting Area-->                              
-                    {{#each attachVotes}}
-                        {{#if this.expires}}
-                        
-                        {{else}}
-                        <div class="votingSection item tabs tabs-secondary tabs-icon-left">
-                         {{> AppChangeVote vote=this messageId=../_id}}
-                        </div>                     
-                        {{/if}}                   
-                    {{/each}}
-                        
-                   
-                    <!--Voting Area End-->
-                    
-                    <!--Display comments count-->
-                    {{#each attachComments}}
-                        {{#if this.allowComment}}
-                        <div class="item less-top-bottom-padding">
-                            <a class='smaller comment-counter subdued'>{{_ "CommentCounter" comment_count=this.comments.length }}</a>
-                        </div>
-                        {{/if}}
-                    {{/each}}
-                    <!--Display comments count end-->
-                    
-                    <section data-msgid={{msgId}} class="commentSection hidden">
-                    <!--Display existing comments-->
-                    
-                    {{#each attachComments}}
-                        {{#each this.comments}}
-                          
-                              {{#if this.isShown}}
-                               <div class="item item-avatar less-top-bottom-padding {{@index}} ">                    
-                                <h3>{{getNameById this.createdBy}}</h3>
-                                <p> {{this.comment}}</p>
-                                <p> {{formatTimeFromNow this.createdAt}}</p>
-                               </div>
-                             {{else}}
-                              <div class="item item-avatar less-top-bottom-padding {{@index}} " style='min-height:0px'>
-                               <p> {{_ "ThisCommentIsHidden"}}</p>
-                              </div>
-                             {{/if}}
+    <style>
+        .bubble{
+            background-color: initial;
+        }
+    </style>
+    {{#if isFirstMsgInOneDay}}
+            <div class='date-bubble-wrapper'> <div class='date-bubble'>{{formatDate2 createdAt}}</div> </div>
+    {{/if}}
                             
-                        {{/each}}
-                    {{/each}}
-                    <!--Display existing comments end-->
+    <div class="list card less-top-bottom-padding less-top-bottom-margin {{reactive}}">
+            
 
-
-                    </section>                    
-                    <!--Add comment-->
-                    {{#each attachComments}}
-                        {{#if this.allowComment}}
-                        <div class="item item-input-inset">
-                            <label class="item-input-wrapper">
-                                <input class='add-comment-annoucement-textbox' data-msgid={{../_id}} type="text" placeholder="...">
-                            </label>
-                            <button data-msgid={{../_id}} class='button button-small button-positive add-comment-annoucement'>{{_ "Comment"}}</button>
-                        </div>                    
+        <div class="item less-top-bottom-padding">
+            <div>
+            <h3>{{data.title}}</h3>
+        </div>
+        <div>
+            <i class="icon {{isNewMessage createdAt}} new-message-icon"></i>
+            {{#if isText}}
+                {{{docPreview data.content}}}                     
+                {{#autolink}}<span class='content'><pre>{{data.content}}</pre></span>{{/autolink}}
+            {{/if}}
+        </div>
+        <div>
+            <div>
+            
+                {{#each attachImages}}
+                {{#with getImage}}
+                    {{#if this.isUploaded}}
+                    {{#if this.hasStored 'images'}}
+                        <div class="">
+                        <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs responsive-img"
+                            data-fullsizeimage="{{this.url  }}">
+                        <!-- <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a> -->
+                        </div>
+                    {{/if}}
+                    {{/if}}
+                {{/with}}
+                {{/each}}
+            
+            </div>
+            <div>
+            
+                {{#each attachVoices}}
+                {{#with getSound}}
+                    {{#if this.isUploaded}}
+                    {{#if this.hasStored 'sounds'}}
+                        {{#if  this.url}}
+                        {{#if isCordova}}
+                            <div class="bubble">
+                            <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}"></a>
+                            <!-- <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a> -->
+                            </div>                    
+                        {{else}}
+                            <div class="bubble">
+                            <audio controls>
+                                <source src="{{this.url}}" type="audio/wav">
+                            </audio>
+                            <!-- <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a> -->
+                            </div>                                                                                    
                         {{/if}}
-                    {{/each}}
-                    <!--Add comment end-->                    
-                </div>    
+                        {{/if}} 
+                    {{/if}}
+                    {{/if}}
+                {{/with}}
+                {{/each}}
+            
+            </div>
+            <div class='document'>
+            
+                {{#each attachDocuments}}
+                {{#with getDocument}}
+                    {{#if this.isUploaded}}
+                    {{#if this.hasStored 'documents'}}                           
+                        <div class="bubble">
+                        <a href='{{this.url}}'> <i class="icon ion-ios-download-outline"></i>&nbsp;{{this.name}}</a>
+                        <br/><span  class='timestamp'>{{formatTime  ../sendAt}}</span>                       
+                        </div>                                   
+                    {{/if}}                      
+                    {{/if}}
+                {{/with}}
+                {{/each}}
+                                    
+            </div>
+            <div>
+                {{#each attachCalendar}}
+                    {{>CalendarDisplay this}}
+                {{/each}}                            
+            </div>               
+        </div>
+        
+
+        <p>
+            {{#each attachVotes}}
+                {{> AppDisplayVote this}} 
+            {{/each}}
+            <span class='timestamp'>{{formatTime createdAt}}</span>  
+        </p>
+        </div>
+        
+        <!--Voting Area-->                              
+        {{#each attachVotes}}
+            {{#if this.expires}}
+            
+            {{else}}
+            <div class="votingSection item tabs tabs-secondary tabs-icon-left">
+                {{> AppChangeVote vote=this messageId=../_id}}
+            </div>                     
+            {{/if}}                   
+        {{/each}}
+            
+        
+        <!--Voting Area End-->
+        
+        <!--Display comments count-->
+        {{#each attachComments}}
+            {{#if this.allowComment}}
+            <div class="item less-top-bottom-padding">
+                <a class='smaller comment-counter subdued'>{{_ "CommentCounter" comment_count=this.comments.length }}</a>
+            </div>
+            {{/if}}
+        {{/each}}
+        <!--Display comments count end-->
+        
+        <section data-msgid={{msgId}} class="commentSection hidden">
+        <!--Display existing comments-->
+        
+        {{#each attachComments}}
+            {{#each this.comments}}
+                
+                    {{#if this.isShown}}
+                    <div class="item item-avatar less-top-bottom-padding {{@index}} ">                    
+                    <h3>{{getNameById this.createdBy}}</h3>
+                    <p> {{this.comment}}</p>
+                    <p> {{formatTimeFromNow this.createdAt}}</p>
+                    </div>
+                    {{else}}
+                    <div class="item item-avatar less-top-bottom-padding {{@index}} " style='min-height:0px'>
+                    <p> {{_ "ThisCommentIsHidden"}}</p>
+                    </div>
+                    {{/if}}
+                
+            {{/each}}
+        {{/each}}
+        <!--Display existing comments end-->
+
+
+        </section>                    
+        <!--Add comment-->
+        {{#each attachComments}}
+            {{#if this.allowComment}}
+            <div class="item item-input-inset">
+                <label class="item-input-wrapper">
+                    <input class='add-comment-annoucement-textbox' data-msgid={{../_id}} type="text" placeholder="...">
+                </label>
+                <button data-msgid={{../_id}} class='button button-small button-positive add-comment-annoucement'>{{_ "Comment"}}</button>
+            </div>                    
+            {{/if}}
+        {{/each}}
+        <!--Add comment end-->                    
+    </div>    
 </template>

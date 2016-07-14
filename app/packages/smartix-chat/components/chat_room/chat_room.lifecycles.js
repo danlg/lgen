@@ -26,7 +26,7 @@ Template.ChatRoom.onRendered( function() {
 	this.autorun(function () {
 		//wait for subscriptions to load the chat_room page and then initiate scroll
 		if (template.subscriptionsReady()) {
-			var chatroomList = template.$('.chatroomList');
+			var chatroomList = template.$('#messageList');
 			var latestCount = Smartix.Messages.Collection.find({group: currentChatroomId}).count();
 
 			Tracker.afterFlush(function () {
@@ -43,12 +43,10 @@ Template.ChatRoom.onRendered( function() {
 							lastImageElement.height = lastImageElement.naturalHeight;
 							lastImageElement.style.width = lastImageElement.naturalWidth + "px";
 							lastImageElement.style.height = lastImageElement.naturalHeight + "px";
-							var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight;
-							chatroomList.scrollTop = chatroomListToBottomScrollTopValue;
+							scrollToBottom();
 						});
 					}
-					var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight;
-					chatroomList.scrollTop = chatroomListToBottomScrollTopValue;
+					scrollToBottom();
 					$('.new-message-bubble').remove();
 					var newMessageBubbleText = '<div class="new-message-bubble"> <div class=""><i class="icon ion-android-arrow-dropdown">' +
 						'</i>' + TAPi18n.__("NewMessages") + '<i class="icon ion-android-arrow-dropdown"></i> </div> </div>';
@@ -57,54 +55,20 @@ Template.ChatRoom.onRendered( function() {
 					}, 500);
 					initialCount = latestCount;
 				}
+				scrollToBottom();
 			}.bind(this));
 		}
 	}.bind(this));
-	/****track if there are any new messages - END *********/
-	//scroll to bottom
-	//log.info("Before autorun", chatroomList);
-	this.autorun(function () {
-		if (template.subscriptionsReady()) {
-			Tracker.afterFlush(function () {
-				//log.info("Tracker.afterFlush:scrollToBottom", chatroomList);
-				scrollToBottom(chatroomList);
-				if ($('img')) {
-					//run immediately for the first time
-					imgReadyChecking();
-				}
-			}.bind(this));
-		}
-	}.bind(this));
-	var newMessageBubbleText = '<div class="new-message-bubble"> <div class="">' +
-		'<i class="icon ion-android-arrow-dropdown"></i>' + TAPi18n.__("NewMessages") + 
-		'<i class="icon ion-android-arrow-dropdown"></i> </div> </div>';
-	$('i.ion-record').first().parents('div.item').before(newMessageBubbleText);
+
 });
 
-var scrollToBottom = function (list) {
+var scrollToBottom = function () {
+	var list = document.getElementById('messageList');
 	var chatroomListToBottomScrollTopValue = list.scrollHeight - list.clientHeight;
 	list.scrollTop = chatroomListToBottomScrollTopValue;
 };
 
-var imgReadyChecking = function () {
-	var hasAllImagesLoaded = true;
-	$('img').each(function () {
-		if (this.complete) {
-		}
-		else {
-			hasAllImagesLoaded = false;
-		}
-	});
-	if (hasAllImagesLoaded) {
-		window.setTimeout(function () {
-			var chatroomListToBottomScrollTopValue = chatroomList.scrollHeight - chatroomList.clientHeight;
-			chatroomList.scrollTop = chatroomListToBottomScrollTopValue;
-		}, 200);
-	}
-	else {
-		setTimeout(imgReadyChecking, 1000);
-	}
-};
+
 
 Template.ChatRoom.destroyed = function () {
 

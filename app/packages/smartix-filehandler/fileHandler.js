@@ -3,32 +3,31 @@ Smartix = Smartix || {};
 Smartix.FileHandler = Smartix.FileHandler || {};
 Smartix.FileHandler = (function () {
 
-	var directDocumentMessage = function (documentArray, callback) {
-		var target = Session.get('sendMessageSelectedClasses').selectArrId;
-		log.info(target);
-		var msg = "New Document";
-		var mediaObj = {};
-		mediaObj.imageArr = [];
-		mediaObj.soundArr = [];
-		mediaObj.documentArr = documentArray;
+	// var directDocumentMessage = function (target, documentArray, callback) {
+	// 	log.info(target);
+	// 	var msg = "New Document";
+	// 	var mediaObj = {};
+	// 	mediaObj.imageArr = [];
+	// 	mediaObj.soundArr = [];
+	// 	mediaObj.documentArr = documentArray;
 
-		if (msg == "" && mediaObj.imageArr.length == 0
-			&& mediaObj.soundArr.length == 0
-			&& mediaObj.documentArr.length == 0) {
-			toastr.warning("please input some message");
-			return;
-		}
-		addons = [];
-		//add documents to addons one by one if any
-		if (mediaObj.documentArr) {
-			//log.info('there is doc');
-			mediaObj.documentArr.map(function (eachDocument) {
-				addons.push({type: 'documents', fileId: eachDocument});
-			})
-		}
-		GeneralMessageSender(target[0], 'text', msg, addons, null, callback);
-		return true;
-	};
+	// 	if (msg == "" && mediaObj.imageArr.length == 0
+	// 		&& mediaObj.soundArr.length == 0
+	// 		&& mediaObj.documentArr.length == 0) {
+	// 		toastr.warning("please input some message");
+	// 		return;
+	// 	}
+	// 	addons = [];
+	// 	//add documents to addons one by one if any
+	// 	if (mediaObj.documentArr) {
+	// 		//log.info('there is doc');
+	// 		mediaObj.documentArr.map(function (eachDocument) {
+	// 			addons.push({type: 'documents', fileId: eachDocument});
+	// 		})
+	// 	}
+	// 	GeneralMessageSender(target[0], 'text', msg, addons, null, callback);
+	// 	return true;
+	// };
 
 	return {
 		openFile: function (e) {
@@ -97,12 +96,15 @@ Smartix.FileHandler = (function () {
 							Meteor.call("updateProfileByPath", 'firstPicture', false);
 						}
 						if (metadata.category === "chat") {
-							GeneralMessageSender(Router.current().params.chatRoomId, 'text', 'New Image', [{
-									type: 'images',
-									fileId: fileObj._id
-								}],
-								Smartix.helpers.getAllUserExceptCurrentUser()
-							);
+							// GeneralMessageSender(Router.current().params.chatRoomId, 'text', 'New Image', [{
+							// 		type: 'images',
+							// 		fileId: fileObj._id
+							// 	}],
+							// 	Smartix.helpers.getAllUserExceptCurrentUser()
+							// );
+							arr = currentImageArray || [];
+							arr.push(fileObj._id);
+							callback(arr);
 						}
 						else if (( metadata.category === "class") || ( metadata.category === "news")) {
 							// alert(fileObj._id);
@@ -119,82 +121,83 @@ Smartix.FileHandler = (function () {
 			});
 		},
 
+		//This code is not used anymore, refer to code imageAction() in send_message.js
 		//Image Upload for Android
-		imageUploadForAndroid: function (metadata) {
-			var onSuccess = function (imageURI) {
-				// var image = document.getElementById('myImage');
-				// image.src = "data:image/jpeg;base64," + imageData;
-				// alert(imageData);
-				window.resolveLocalFileSystemURL(imageURI,
-					function (fileEntry) {
-						// alert("got image file entry: " + fileEntry.fullPath);
-						// log.info(fileEntry.)
-						fileEntry.file(function (file) {
-							// alert(file);
-							log.info(file);
-							var newFile = new FS.File(file);
-							newFile.metadata = metadata;
-							newFile.owner = Meteor.userId();
-							Images.insert(newFile, function (err, fileObj) {
-								if (err) {
-									// handle error
-									log.error(err);
-								}
-								else {
-									GeneralMessageSender(Router.current().params.chatRoomId, 'text', 'New Image', [{
-											type: 'images',
-											fileId: fileObj._id
-										}],
-										Smartix.helpers.getAllUserExceptCurrentUser()
-									);
-								}
-							});
-						});
-					},
-					function () {
-						//error
-						// alert("ada");
-					}
-				);
-			};
+		// imageUploadForAndroid: function (metadata) {
+		// 	var onSuccess = function (imageURI) {
+		// 		// var image = document.getElementById('myImage');
+		// 		// image.src = "data:image/jpeg;base64," + imageData;
+		// 		// alert(imageData);
+		// 		window.resolveLocalFileSystemURL(imageURI,
+		// 			function (fileEntry) {
+		// 				// alert("got image file entry: " + fileEntry.fullPath);
+		// 				// log.info(fileEntry.)
+		// 				fileEntry.file(function (file) {
+		// 					// alert(file);
+		// 					log.info(file);
+		// 					var newFile = new FS.File(file);
+		// 					newFile.metadata = metadata;
+		// 					newFile.owner = Meteor.userId();
+		// 					Images.insert(newFile, function (err, fileObj) {
+		// 						if (err) {
+		// 							// handle error
+		// 							log.error(err);
+		// 						}
+		// 						else {
+		// 							GeneralMessageSender(Router.current().params.chatRoomId, 'text', 'New Image', [{
+		// 									type: 'images',
+		// 									fileId: fileObj._id
+		// 								}],
+		// 								Smartix.helpers.getAllUserExceptCurrentUser()
+		// 							);
+		// 						}
+		// 					});
+		// 				});
+		// 			},
+		// 			function () {
+		// 				//error
+		// 				// alert("ada");
+		// 			}
+		// 		);
+		// 	};
 
-			var onFail = function (message) {
-				toastr.error(TAPi18n.__("FailedBecause") + message);
-			};
+		// 	var onFail = function (message) {
+		// 		toastr.error(TAPi18n.__("FailedBecause") + message);
+		// 	};
 
-			var callback = function (buttonIndex) {
-				setTimeout(function () {
-					// like other Cordova plugins (prompt, confirm) the buttonIndex is 1-based (first button is index 1)
-					//  alert('button index clicked: ' + buttonIndex);
-					switch (buttonIndex) {
-						case 1:
-							navigator.camera.getPicture(onSuccess, onFail, {
-								quality: 50,
-								destinationType: Camera.DestinationType.FILE_URI,
-								limit: 1
-							});
-							break;
-						case 2:
-							navigator.camera.getPicture(onSuccess, onFail, {
-								quality: 50,
-								destinationType: Camera.DestinationType.FILE_URI,
-								sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
-								limit: 1
-							});
-							break;
-						default:
+		// 	var callback = function (buttonIndex) {
+		// 		setTimeout(function () {
+		// 			// like other Cordova plugins (prompt, confirm) the buttonIndex is 1-based (first button is index 1)
+		// 			//  alert('button index clicked: ' + buttonIndex);
+		// 			switch (buttonIndex) {
+		// 				case 1:
+		// 					navigator.camera.getPicture(onSuccess, onFail, {
+		// 						quality: 50,
+		// 						destinationType: Camera.DestinationType.FILE_URI,
+		// 						limit: 1
+		// 					});
+		// 					break;
+		// 				case 2:
+		// 					navigator.camera.getPicture(onSuccess, onFail, {
+		// 						quality: 50,
+		// 						destinationType: Camera.DestinationType.FILE_URI,
+		// 						sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
+		// 						limit: 1
+		// 					});
+		// 					break;
+		// 				default:
 
-					}
-				});
-			};
-			var options = {
-				'buttonLabels': ['Take Photo From Camera', 'Select From Gallery'],
-				'androidEnableCancelButton': true, // default false
-				'winphoneEnableCancelButton': true, // default false
-				'addCancelButtonWithLabel': 'Cancel'
-			};
-			window.plugins.actionsheet.show(options, callback);
-		},
+		// 			}
+		// 		});
+		// 	};
+		// 	var options = {
+		// 		'buttonLabels': ['Take Photo From Camera', 'Select From Gallery'],
+		// 		'androidEnableCancelButton': true, // default false
+		// 		'winphoneEnableCancelButton': true, // default false
+		// 		'addCancelButtonWithLabel': 'Cancel'
+		// 	};
+		// 	window.plugins.actionsheet.show(options, callback);
+		// },
 
 		//Send Documents for Web andiOS
 		documentUpload: function (event, metadata, currentDocumentArray, callback) {
@@ -213,19 +216,25 @@ Smartix.FileHandler = (function () {
 						//so we explicitly set the file obj name here.
 						var arr;
 						fileObj.name(file.name);
+						var targetCode = metadata.id;
 						if (metadata.category === 'chat') {
-							GeneralMessageSender(
-								Router.current().params.chatRoomId,
-								'text',
-								'New Document',
-								[{type: 'documents', fileId: fileObj._id}],
-								Smartix.helpers.getAllUserExceptCurrentUser()
-							);
+							// GeneralMessageSender(
+							// 	Router.current().params.chatRoomId,
+							// 	'text',
+							// 	'New Document',
+							// 	[{type: 'documents', fileId: fileObj._id}],
+							// 	Smartix.helpers.getAllUserExceptCurrentUser()
+							// );
+							arr = currentDocumentArray;
+							arr.push(fileObj._id);
+							callback(arr);
+							// directDocumentMessage(targetCode, arr, callback)
 						}
 						else if (metadata.category === 'class') {
 							arr = currentDocumentArray;
 							arr.push(fileObj._id);
-							directDocumentMessage(arr, callback)
+							callback(arr);
+							// directDocumentMessage(targetCode, arr, callback)
 						}
 						else if (metadata.category === 'news') {
 							arr = currentDocumentArray;
@@ -258,21 +267,23 @@ Smartix.FileHandler = (function () {
 									log.error("insert error" + err);
 								}
 								else {
-									if (metadata.category === 'chat') {
-										//handle success depending what you need to do
-										//console.dir(fileObj);
-										GeneralMessageSender(Router.current().params.chatRoomId, 'text', 'New Document', [{
-												type: 'documents',
-												fileId: fileObj._id
-											}],
-											Smartix.helpers.getAllUserExceptCurrentUser()
-										);
-									}
-									else if (metadata.category === 'class') {
+									// if (metadata.category === 'chat') {
+									// 	//handle success depending what you need to do
+									// 	//console.dir(fileObj);
+									// 	GeneralMessageSender(Router.current().params.chatRoomId, 'text', 'New Document', [{
+									// 			type: 'documents',
+									// 			fileId: fileObj._id
+									// 		}],
+									// 		Smartix.helpers.getAllUserExceptCurrentUser()
+									// 	);
+									// }
+									// else if (metadata.category === 'class') {
+										var targetCode = metadata.id;
 										var arr = currentDocumentArray;
 										arr.push(fileObj._id);
-										directDocumentMessage(arr, callback);
-									}
+										callback(arr);
+										// directDocumentMessage(targetCode, arr, callback);
+									// }
 								}
 							});
 						});
