@@ -27,6 +27,18 @@
           </div>
           {{/unless}} {{/with}} {{/each}}
         </div>
+        
+        <div class="sticker preview"  style='display:none'>
+            {{#with FS.GetFile "stickers" uploadSticker}}
+            <!-- In here, we can use the FS.File instance methods that work as helpers, such as {{url}} or {{isImage}} -->
+            {{#unless this.isUploaded}} {{> LoadingSpinner}} {{else}}
+            <div class="preview-bubble">
+              <img style='height:100px;margin:2px 0;' src="{{this.url store='stickers'  }}" alt="" class="imgThumbs" >
+              <!--<a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a>-->
+            </div>
+            {{/unless}} {{/with}}
+        </div>
+
         <div class="voice preview" style='display:none'>
           {{#each uploadSound}} {{#with FS.GetFile "sounds" this}}
           <!-- In here, we can use the FS.File instance methods that work as helpers, such as {{url}} or {{isImage}} -->

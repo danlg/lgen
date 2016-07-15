@@ -21,3 +21,18 @@ Smartix.Messages.Addons.Images.Schema = new SimpleSchema({
         type: String
     }
 });
+
+Smartix.Messages.Addons.Stickers = {};
+
+Smartix.Messages.Addons.Stickers.Type = 'stickers';
+
+Smartix.Messages.Addons.ValidTypes.push(Smartix.Messages.Addons.Stickers.Type);
+
+Smartix.Messages.Addons.Stickers.Schema = new SimpleSchema({
+    type:{
+        type:String
+    },
+    fileId: {
+        type: String
+    }
+});

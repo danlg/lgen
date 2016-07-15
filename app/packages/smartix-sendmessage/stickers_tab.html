@@ -1,38 +1,47 @@
 <template name="StickersTab">
 {{#ionModal title = "Sticker Library"}}
-<style>   
-    .sticker-container{
-        max-width:25% !important;
-        max-height:25% !important;
+{{#if Template.subscriptionsReady}}
+<style>
+    #tabContainer{
+        display: -webkit-box;
+        display: -webkit-inline-box;
+        width:100%;
+        margin-top:5px;
     }
-    .sticker-thumbs{
-        max-width:100% !important;
-        max-height:100% !important;
-        padding:10px;
+    .subTabs{
+        width: 50%;
+        cursor: pointer; 
+        color: #3e82f7;
+        text-align: center;
+        font-size:16px;
+        line-height: 2;
+        border-bottom: 2px solid #3e82f7;
+
+    }
+    .activeTab{
+        background-color: #eeeeee;
+        color: black;
+        border-right: 2px solid #3e82f7;
+        border-left: 2px solid #3e82f7;
+        border-top: 2px solid #3e82f7;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        border-bottom:0px;
     }
 </style>
-<br />
-  <ul class="nav nav-tabs">
-    {{#each stickerCategory}}
-        <li class="active"><a data-toggle="tab" href="#{{this}}">{{this}}</a></li>
-    {{/each}}
-  </ul>
-
-  <div class="tab-content">
-    {{#each stickerCategory}}
-        <div id={{this}} class="tab-pane fade in active">
-            <div class="container">
-                <div class="row">
-                {{#each stickers this}}
-                    <div class="sticker-container">
-                        <img  src="{{this.url store='stickers' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="img-responsive sticker-thumbs" /> 
-                    </div>
-                {{/each}}
-                </div>
-            </div>
+    <div id="tabContainer">
+        <div class="subTabs {{isFreeTabActive}}" id="freeBtn">Free</div>
+        <div class="subTabs {{isPremiumTabActive}}" id="premiumBtn">Premium</div>             
+    </div>
+    {{#if isFreeTab}}
+        <div class="padding" style="background-color:#eee; height:100%;">
+            {{{stickerChooserHelper stickersFree}}}
         </div>
-    {{/each}}
-  </div>
-
+    {{else}}
+        <div class="padding" style="background-color:#eee; height:100%;">
+            {{{stickerChooserHelper stickersPremium}}}
+        </div>
+    {{/if}}
+{{/if}}
 {{/ionModal}}
 </template>

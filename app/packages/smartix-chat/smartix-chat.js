@@ -123,7 +123,7 @@ Smartix.Chat.createChat = function (chatObj) {
         Chat.chatRoomAvatar = chatObj.chatRoomAvatar;
     }
     
-    Chat.addons = ['voice','images','documents'];
+    Chat.addons = ['voice','images','documents','stickers'];
 
 	// Checks the arguments are of the specified type, convert it if not
 	Smartix.Chat.Schema.clean(Chat);

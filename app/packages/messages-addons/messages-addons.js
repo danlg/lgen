@@ -7,7 +7,7 @@ Smartix.Messages.Addons = Smartix.Messages.Addons || {};
 Smartix.Messages.Addons.ValidTypes = Smartix.Messages.Addons.ValidTypes || [];
 
 //stub that should be removed by using the subpackages
-Smartix.Messages.Addons.ValidTypes.push('documents','images','poll','voice','calendar','comment');
+Smartix.Messages.Addons.ValidTypes.push('documents','stickers','images','poll','voice','calendar','comment');
 
 //log.info('messages-addons',Smartix.Messages.Addons);
 //log.info('messages-addons-poll@messages-addons',Smartix.Messages.Addons.Poll.Schema);

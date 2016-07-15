@@ -16,7 +16,7 @@ Template.registerHelper('iconChooseHelper',function(iconArray){
          }
          //at the end of the for each loop, fill in empty columns so the last row looks nice
          if((index+1) == iconArrayLength){
-             var remainCols = (index+1) % COLUMN;     
+             var remainCols = COLUMN - ((index+1) % COLUMN);     
              while(remainCols > 0){
                  output.push("<div class='col'></div>");
                  if(remainCols == 1){

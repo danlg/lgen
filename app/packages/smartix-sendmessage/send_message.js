@@ -5,6 +5,7 @@ Session.setDefault("sendMessageSelectedClasses", {
 });
 var imageArr = ReactiveVar([]);
 var soundArr = ReactiveVar([]);
+var stickerArr = ReactiveVar([]);
 var documentArr = ReactiveVar([]);
 var isRecording = false;
 var media = "";
@@ -14,6 +15,7 @@ var messageListHeightBorrower = ReactiveVar([]);
 var canVote = ReactiveVar();
 
 Template.SendMessage.onCreated(function () {
+	Session.set('chosenStickerForUser', null);
 	this.calendarEvent = new ReactiveVar({});
 	this.chatOrClassCode = new ReactiveVar();
 	this.panelCategory = new ReactiveVar();
@@ -36,6 +38,7 @@ Template.SendMessage.onCreated(function () {
 		// this.subscribe('chatRoomWithUser', this.chatOrClassCode);
 		log.info("Chat Room Message Box Created", this.chatOrClassCode.get());
 	}
+	this.subscribe('stickers');
 	this.subscribe('images', schoolName, this.panelCategory.get(), this.chatOrClassCode.get());
 	this.subscribe('documents', schoolName, this.panelCategory.get(), this.chatOrClassCode.get());
 	this.subscribe('sounds', schoolName, this.panelCategory.get(), this.chatOrClassCode.get());
@@ -43,7 +46,7 @@ Template.SendMessage.onCreated(function () {
 
 Template.SendMessage.destroyed = function () {
 	this.calendarEvent.set({});
-
+	Session.set('chosenStickerForUser', null);
 	imageArr.set([]);
 	soundArr.set([]);
 	isRecording = false;
@@ -103,7 +106,6 @@ Template.SendMessage.helpers({
 	// 	return [];
 	// },
 
-
 	isClass: function()
 	{
 		return isClassPanel();
@@ -134,6 +136,23 @@ Template.SendMessage.helpers({
 			return lodash(arr).toString();
 		}
 	},
+	uploadSticker: function()
+	{
+		if(Session.get('chosenStickerForUser'))
+		{
+			var stickerId = Session.get('chosenStickerForUser');
+			if(stickerId){
+				if (stickerArr.get().length === 0){
+					showPreview('sticker');
+					log.info(stickerId);
+					stickerArr.set([stickerId]);
+				}
+				return stickerId;
+			}
+		}
+		return "";
+	},
+
 	uploadPic: function (argument) {
 		return imageArr.get();
 	},
@@ -208,7 +227,7 @@ Template.SendMessage.helpers({
 
 var showStickers = function(event, template){
 	var stickerDataContext = {stickerChosen: "chosenStickerForUser"};
-	IonModal.open('StickersTab', stickerDataContext)
+	IonModal.open('StickersTab', stickerDataContext);
 }
 
 
@@ -262,13 +281,22 @@ var setCalendar = function (event, sendMsgtemplate) {
 /* SendMessage: Event Handlers */
 Template.SendMessage.events({
 	'click .showActionSheet': function (event, template) {
+		
+		var userRolesInCurrentNamespace = Meteor.user().roles[UI._globalHelpers['getCurrentSchoolId']()];
+        //student cannot create class
+
+		let buttonsForActionSheet =[
+			{ text: TAPi18n.__("AttachDocument") },
+			{ text: TAPi18n.__("AttachEvent") }]
+		
+		if(!isClassPanel() && userRolesInCurrentNamespace.indexOf(Smartix.Accounts.School.TEACHER)!==-1)
+		{
+			buttonsForActionSheet.push({ text: "Attach Sticker"});
+		}
+		
 		IonActionSheet.show({
 			//titleText: 'What to attach?',
-			buttons: [
-				{ text: TAPi18n.__("AttachDocument") },
-				{ text: TAPi18n.__("AttachEvent") },
-				{ text: "Attach Sticker"},
-			],
+			buttons: buttonsForActionSheet,
 			cancelText: 'Cancel',
 			cancel: function () {
 				//log.info('Cancelled!');
@@ -453,11 +481,12 @@ Template.SendMessage.events({
 			mediaObj.allowVote = document.getElementById('allowVote').checked;
 			mediaObj.voteType = (mediaObj.allowVote) ? document.querySelector('input[name="voteTypeOption"]:checked').value : "";
 		} 
+		mediaObj.stickerArr = stickerArr.get();
 		mediaObj.imageArr = imageArr.get();
 		mediaObj.soundArr = soundArr.get();
 		mediaObj.documentArr = documentArr.get();
 		mediaObj.calendarEvent = template.calendarEvent.get();
-
+		// log.info(mediaObj);
 		//log.info("sendMsg:allowComment:" + mediaObj.allowComment);
 		//log.info("sendMsg:allowVote:" + mediaObj.allowComment);
 		//log.info("sendMsg:voteType:" + mediaObj.voteType);
@@ -466,12 +495,14 @@ Template.SendMessage.events({
 			&& (mediaObj.soundArr.length == 0)
 			&& (mediaObj.documentArr.length == 0)
 			&& (mediaObj.calendarEvent == {})
+			&& (mediaObj.stickerArr == {})
 		) {
 			toastr.warning("please input some message");
 		}
 		var addons = [];
 		populateAddons(addons, mediaObj);
 		// log.info(target);
+		// log.info(addons);
 		GeneralMessageSender(target[0], 'text', msg, addons, null, function () {
 			//log.info('callback@GeneralMessageSender');
 			Session.set("sendMessageSelectedClasses", {
@@ -481,6 +512,8 @@ Template.SendMessage.events({
 			//input parameters clean up
 			imageArr.set([]);
 			soundArr.set([]);
+			stickerArr.set([]);
+			Session.set('chosenStickerForUser', null);
 			documentArr.set([]);
 			$(".msgBox").val("");
 			template.calendarEvent.set({});
@@ -514,6 +547,12 @@ function populateAddons(addons, mediaObj) {
 		})
 	}
 
+	if (mediaObj.stickerArr.length > 0) {
+		//log.info('there is image');
+		mediaObj.stickerArr.map(function (eachSticker) {
+			addons.push({ type: 'stickers', fileId: eachSticker });
+		})
+	}
 	//add documents to addons one by one if any
 	if (mediaObj.documentArr.length > 0) {
 		//log.info('there is doc');
@@ -827,6 +866,10 @@ function showPreview(filetype) {
 	var borrower = messageListHeightBorrower.get();
 	//increase the height of input box panel
 	if (filetype && filetype == "image") {
+		//borrow 95px from messageList
+		borrower.push({ type: filetype, height: 95 });
+	}
+	else if (filetype && filetype == "sticker") {
 		//borrow 95px from messageList
 		borrower.push({ type: filetype, height: 95 });
 	}
