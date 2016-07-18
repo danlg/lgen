@@ -109,7 +109,14 @@ Smartix.Chat.Messages.canAttachAddons = function (announcementId, addons) {
     //log.info('notAllowedTypes',addonTypes,_chat.addons);
     var notAllowedTypes = _.difference(addonTypes, _chat.addons);
     
+    var schoolId = _chat.namespace
+    var userRolesInCurrentNamespace = Meteor.user().roles[schoolId];
     if(notAllowedTypes.length > 0){
+        //this is to check if the user is attaching sticker and to ensure tge user is a teacher
+        if(_.includes(notAllowedTypes, 'stickers') && userRolesInCurrentNamespace.indexOf(Smartix.Accounts.School.TEACHER)!==-1)
+        {
+            return true;
+        }
         return false;
     }else{
         return true;

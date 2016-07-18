@@ -59,6 +59,11 @@ Smartix.Accounts.Schema = new SimpleSchema({
         optional: true,
         blackbox: true
     },
+    stickers: {
+        type: Object,
+        optional: true,
+        blackbox: true
+    },
     dob: {
         type: String,
         optional: true

@@ -512,8 +512,12 @@ Template.SendMessage.events({
 			//input parameters clean up
 			imageArr.set([]);
 			soundArr.set([]);
-			stickerArr.set([]);
-			Session.set('chosenStickerForUser', null);
+			if(stickerArr.get().length>0)
+			{
+				StickerAwardCollector(target[0], stickerArr.get());
+				stickerArr.set([]);
+				Session.set('chosenStickerForUser', null);
+			}
 			documentArr.set([]);
 			$(".msgBox").val("");
 			template.calendarEvent.set({});
