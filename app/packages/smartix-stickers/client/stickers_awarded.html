@@ -1,0 +1,74 @@
+<template name="StickersAwarded">
+ <style>
+   .childBox{
+     padding:2.5%;
+   }
+  .stickerThumb{
+    display: -webkit-inline-box;
+    display: inline-block;
+      width:20%;
+    margin-left:3.5%;
+    vertical-align:middle;
+  }
+   .stickerCount::before{
+     content: "x"
+   }
+  .stickerCount{
+    position: relative;
+    top:-20px;
+    font-weight:bold;
+    font-size:14px;
+    text-align:right;
+    background: rgba(255,255,255, 0.5);
+    background: -webkit-linear-gradient(left,transparent,rgba(255,255,255, 0.8)); /*Safari 5.1-6*/
+    background: -o-linear-gradient(right,transparent,rgba(255,255,255, 0.8)); /*Opera 11.1-12*/
+    background: -moz-linear-gradient(right,transparent,rgba(255,255,255, 0.8)); /*Fx 3.6-15*/
+    background: linear-gradient(to right, transparent, rgba(255,255,255, 0.8)); /*Standard*/
+  }
+</style>
+ 
+ {{#contentFor "headerTitle"}}
+    <h1 class="title">{{_ "smartix-stickers.AwardedStickers"}}</h1>
+  {{/contentFor}}
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton path='TabYou' text=" "}}
+  {{/contentFor}}
+
+  {{#ionContent}}
+  {{#if Template.subscriptionsReady}}
+
+    {{#if isParent}}
+        {{#each child}}
+          <div class="childBox">
+            <h3>{{this.profile.firstName}}</h3>
+            {{#if hasStickers this}}
+            {{#each this.stickers}}
+                <div class="stickerThumb">
+                  {{#with stickerObj this.stickerId}}
+                    <img src="{{this.url store='stickers'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}">
+                  {{/with}}
+                  <p class="stickerCount">{{this.count}}</p>
+                </div>
+            {{/each}}
+            {{else}}
+            <p>{{_ "smartix-stickers.NoStickersAwarded"}}</p>
+            {{/if}}
+          </div>
+        {{/each}}
+    {{else}}
+      {{#with studentProfile}}
+        <div class="childBox">
+          {{#each this.stickers}}
+            <div class="stickerThumb">
+              {{#with stickerObj this.stickerId}}
+              <img src="{{this.url store='stickers'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}"> {{/with}}
+              <p class="stickerCount">{{this.count}}</p>
+            </div>
+          {{/each}}
+        </div>
+      {{/with}}
+    {{/if}}
+
+  {{/if}}
+  {{/ionContent}}
+</template>

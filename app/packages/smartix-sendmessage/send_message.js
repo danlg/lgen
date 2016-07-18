@@ -61,6 +61,8 @@ Template.SendMessage.destroyed = function () {
 };
 
 Template.SendMessage.onRendered(function () {
+	Session.set('chosenStickerForUser', null);
+	stickerArr.set([]);
 	$(".msgBox").autogrow();
 	//log.info(canVote.get());
 	if (canVote.get()) {
@@ -86,26 +88,6 @@ Template.SendMessage.helpers({
 		return (!($.isEmptyObject(inner)));
 	},
 
-	// addClassBtnStatus: function () {
-	// 	return Session.get("isSelecting") ? "hidden" : "";
-	// },
-
-	// doneClassBtnStatus: function () {
-	// 	return Session.get("isSelecting") ? "" : "hidden";
-	// },
-
-	// checkbox: function () {
-	// 	return Session.get("isSelecting") ? "" : "hidden";
-	// },
-
-	// isSelect: function (classCode) {
-	// 	return classCode == Router.current().params.classCode ? "selected" : "";
-	// },
-
-	// selectArr: function () {
-	// 	return [];
-	// },
-
 	isClass: function()
 	{
 		return isClassPanel();
@@ -128,6 +110,7 @@ Template.SendMessage.helpers({
 		}
 		return Session.get('sendMessageSelectedClasses');
 	},
+
 	arrToString: function (arr) {
 		if (arr.length < 1) {
 			return "";
@@ -136,18 +119,20 @@ Template.SendMessage.helpers({
 			return lodash(arr).toString();
 		}
 	},
+
 	uploadSticker: function()
 	{
 		if(Session.get('chosenStickerForUser'))
 		{
 			var stickerId = Session.get('chosenStickerForUser');
 			if(stickerId){
-				if (stickerArr.get().length === 0){
+				if (lodash.indexOf(stickerArr.get(), stickerId) === -1){
 					showPreview('sticker');
-					log.info(stickerId);
-					stickerArr.set([stickerId]);
+					let tempArray = stickerArr.get();
+					tempArray.push(stickerId);
+					stickerArr.set(tempArray);
 				}
-				return stickerId;
+				return stickerArr.get();
 			}
 		}
 		return "";
@@ -225,59 +210,6 @@ Template.SendMessage.helpers({
 	}
 });
 
-var showStickers = function(event, template){
-	var stickerDataContext = {stickerChosen: "chosenStickerForUser"};
-	IonModal.open('StickersTab', stickerDataContext);
-}
-
-
-var setCalendar = function (event, sendMsgtemplate) {
-	IonPopup.show({
-		title: TAPi18n.__("SetEvent"),
-		templateName: 'CalendarEvent',
-		buttons: [
-			{
-				text: TAPi18n.__("Cancel"),
-				type: 'button-grey',
-				onTap: function () {
-					IonPopup.close();
-				}
-			},
-			{
-				text: TAPi18n.__("Confirm"),
-				type: 'button-positive',
-				onTap: function (event, template) {
-					//log.info($(template.firstNode).find('#event-name').val());
-					// $(template.firstNode).find('.hidden').click();
-					if ($(template.firstNode).find('#event-name').get(0).checkValidity() &&
-						$(template.firstNode).find('#location').get(0).checkValidity() &&
-						$(template.firstNode).find('#start-date').get(0).checkValidity() &&
-						$(template.firstNode).find('#start-date-time').get(0).checkValidity() &&
-						$(template.firstNode).find('#end-date').get(0).checkValidity() &&
-						$(template.firstNode).find('#end-date-time').get(0).checkValidity()) {
-					}
-					else {
-						toastr.info(TAPi18n.__("FillEventDetail"));
-						return;
-					}
-					//sendMsgtemplate.calendarEvent.set({
-					Template.instance().calendarEvent.set({
-						eventName: $(template.firstNode).find('#event-name').val(),
-						location: $(template.firstNode).find('#location').val(),
-						startDate: $(template.firstNode).find('#start-date').val(),
-						startDateTime: $(template.firstNode).find('#start-date-time').val(),
-						endDate: $(template.firstNode).find('#end-date').val(),
-						endDateTime: $(template.firstNode).find('#end-date-time').val()
-					});
-					//log.info(sendMsgtemplate.calendarEvent.get());
-					IonPopup.close();
-				}
-			}
-
-		]
-	});
-};
-
 /* SendMessage: Event Handlers */
 Template.SendMessage.events({
 	'click .showActionSheet': function (event, template) {
@@ -291,7 +223,7 @@ Template.SendMessage.events({
 		
 		if(!isClassPanel() && userRolesInCurrentNamespace.indexOf(Smartix.Accounts.School.TEACHER)!==-1)
 		{
-			buttonsForActionSheet.push({ text: "Attach Sticker"});
+			buttonsForActionSheet.push({ text: TAPi18n.__("smartix-stickers.AttachSticker")});
 		}
 		
 		IonActionSheet.show({
@@ -541,6 +473,59 @@ Template.SendMessage.events({
 		window.setTimeout(sendBtnMediaButtonToggle, 100);
 	}
 });
+
+
+var showStickers = function(event, template){
+	var stickerDataContext = {stickerChosen: "chosenStickerForUser"};
+	IonModal.open('StickersTab', stickerDataContext);
+}
+
+var setCalendar = function (event, sendMsgtemplate) {
+	IonPopup.show({
+		title: TAPi18n.__("SetEvent"),
+		templateName: 'CalendarEvent',
+		buttons: [
+			{
+				text: TAPi18n.__("Cancel"),
+				type: 'button-grey',
+				onTap: function () {
+					IonPopup.close();
+				}
+			},
+			{
+				text: TAPi18n.__("Confirm"),
+				type: 'button-positive',
+				onTap: function (event, template) {
+					//log.info($(template.firstNode).find('#event-name').val());
+					// $(template.firstNode).find('.hidden').click();
+					if ($(template.firstNode).find('#event-name').get(0).checkValidity() &&
+						$(template.firstNode).find('#location').get(0).checkValidity() &&
+						$(template.firstNode).find('#start-date').get(0).checkValidity() &&
+						$(template.firstNode).find('#start-date-time').get(0).checkValidity() &&
+						$(template.firstNode).find('#end-date').get(0).checkValidity() &&
+						$(template.firstNode).find('#end-date-time').get(0).checkValidity()) {
+					}
+					else {
+						toastr.info(TAPi18n.__("FillEventDetail"));
+						return;
+					}
+					//sendMsgtemplate.calendarEvent.set({
+					Template.instance().calendarEvent.set({
+						eventName: $(template.firstNode).find('#event-name').val(),
+						location: $(template.firstNode).find('#location').val(),
+						startDate: $(template.firstNode).find('#start-date').val(),
+						startDateTime: $(template.firstNode).find('#start-date-time').val(),
+						endDate: $(template.firstNode).find('#end-date').val(),
+						endDateTime: $(template.firstNode).find('#end-date-time').val()
+					});
+					//log.info(sendMsgtemplate.calendarEvent.get());
+					IonPopup.close();
+				}
+			}
+
+		]
+	});
+};
 
 function populateAddons(addons, mediaObj) {
 	//add images to addons one by one if any
@@ -873,7 +858,7 @@ function showPreview(filetype) {
 		//borrow 95px from messageList
 		borrower.push({ type: filetype, height: 95 });
 	}
-	else if (filetype && filetype == "sticker") {
+	else if (filetype && filetype == "sticker" ) {
 		//borrow 95px from messageList
 		borrower.push({ type: filetype, height: 95 });
 	}
@@ -922,7 +907,7 @@ function hidePreview(filetype) {
 }
 
 function sendBtnMediaButtonToggle() {
-	if ($('.inputBox').val().length > 0 || imageArr.get().length > 0 || soundArr.get().length > 0) {
+	if ($('.inputBox').val().length > 0 || imageArr.get().length > 0 || stickerArr.get().length > 0 || soundArr.get().length > 0) {
 		$('.mediaButtonGroup').fadeOut(50, function () {
 			$('.sendMsgBtn').fadeIn(50, function () {
 			});

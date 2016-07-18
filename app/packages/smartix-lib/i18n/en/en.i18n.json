@@ -764,6 +764,14 @@
   "smartix-sharer": {
     "SignupWithEmail": "Already a Smartix member? Sign in here"
   },
+  "smartix-stickers":{
+    "AttachSticker": "Attach stickers",
+    "AwardedStickers": "Awarded Stickers",
+    "NoStickersAwarded": "Student has received no stickers",
+    "Free": "Free",
+    "Premium": "Premium",
+    "StickerLibrary": "Sticker Library"
+  },
   "student": "student",
   "teacher": "teacher",
   "your_class_is_ready_classname": "Your class __ classname__ is ready!"

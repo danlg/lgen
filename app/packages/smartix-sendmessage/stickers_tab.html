@@ -1,5 +1,5 @@
 <template name="StickersTab">
-{{#ionModal title = "Sticker Library"}}
+{{ #ionModal title =(_ "smartix-stickers.StickerLibrary") }}
 {{#if Template.subscriptionsReady}}
 <style>
     #tabContainer{
@@ -30,8 +30,8 @@
     }
 </style>
     <div id="tabContainer">
-        <div class="subTabs {{isFreeTabActive}}" id="freeBtn">Free</div>
-        <div class="subTabs {{isPremiumTabActive}}" id="premiumBtn">Premium</div>             
+        <div class="subTabs {{isFreeTabActive}}" id="freeBtn">{{_ "smartix-stickers.Free"}}</div>
+        <div class="subTabs {{isPremiumTabActive}}" id="premiumBtn">{{_ "smartix-stickers.Premium"}}</div>             
     </div>
     {{#if isFreeTab}}
         <div class="padding" style="background-color:#eee; height:100%;">

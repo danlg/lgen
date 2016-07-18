@@ -2,14 +2,11 @@ Smartix = Smartix || {};
 
 Smartix.Stickers = Smartix.Stickers || {};
 
-Smartix.Stickers.awardNewSticker = function(groupId, stickerArray){
+Smartix.Stickers.awardNewSticker = function(groupId, stickerId){
     // log.info("Chat Id", groupId);
-    // log.info("Stickers", stickerArray[0]);
     check(groupId, String);
-    check(stickerArray, [String]);
+    check(stickerId, String);
 
-    //currently only one sticker is supported per message
-    let stickerId = stickerArray[0];
     var group = Smartix.Groups.Collection.findOne({ _id: groupId });
     if(!group) {
         log.error('group not exist');
