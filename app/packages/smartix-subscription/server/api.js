@@ -109,6 +109,7 @@ Meteor.methods({
                     let schoolId = hosted_page.content.customer.id;
                     let planId = hosted_page.content.subscription.plan_id;
                     let subscriptionId = hosted_page.content.subscription.id;
+                    let invoice = hosted_page.content.invoice;
                     // let invoiceAmount = hosted_page.content.invoice.amount;
                     // log.info("invoice", invoiceAmount);
                     return chargebee.subscription.retrieve(subscriptionId).request(
@@ -118,7 +119,8 @@ Meteor.methods({
                                 console.log(error);
                             } else {
                                 let newExpiryDate = subscriptionResult.subscription.current_term_end;
-                                let totalDues = subscriptionResult.subscription.total_dues;
+                                //Invoiced amount is in Cents, need to convert to Dollars
+                                let amountPaid = invoice.amount_paid/100;
                                 let planUnits = subscriptionResult.subscription.plan_quantity;
                                 //Convert from UNIX to YYMMDD
                                 newExpiryDate = moment.unix(newExpiryDate).format();
@@ -130,7 +132,7 @@ Meteor.methods({
                                 schoolObj.planSubscriptionId = subscriptionId;
                                 var targetSchool = SmartixSchoolsCol.findOne(schoolId);
                                 //Add revenue to date to total dues
-                                // schoolObj.revenueToDate = targetSchool.revenueToDate + totalDues;
+                                schoolObj.revenueToDate = targetSchool.revenueToDate + amountPaid;
                                 delete targetSchool._id;
                                 lodash.merge(targetSchool, schoolObj);
                                 return SmartixSchoolsCol.update(schoolId, { $set: targetSchool });
