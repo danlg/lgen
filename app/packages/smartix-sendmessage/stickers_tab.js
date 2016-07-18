@@ -15,12 +15,12 @@ Template.StickersTab.helpers({
     },
 
     stickersFree: function () {
-        return Stickers.find({'metadata.price': 0}).fetch();
+        return Stickers.find({'metadata.price': '0'}).fetch();
     },
 
 
     stickersPremium: function () {
-        return Stickers.find({'metadata.price': {$ne: 0}}).fetch();
+        return Stickers.find({'metadata.price': {$ne: '0'}}).fetch();
     },
 
     isFreeTabActive: function()

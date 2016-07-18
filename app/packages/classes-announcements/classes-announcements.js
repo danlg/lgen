@@ -106,7 +106,7 @@ Smartix.Class.Messages.canAttachAddons = function (announcementId, addons) {
     }
     
     // If there are addons with types not allowed for this class, return `false`
-    log.info('notAllowedTypes',addonTypes,_class.addons);
+    // log.info('notAllowedTypes',addonTypes,_class.addons);
     var notAllowedTypes = _.difference(addonTypes, _class.addons);
     
     var schoolId = _class.namespace
