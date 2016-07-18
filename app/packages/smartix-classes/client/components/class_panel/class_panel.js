@@ -197,10 +197,10 @@ Template.ClassPanel.helpers({
 		return lodash.map(imageObjects, 'fileId');
 	},
 
-	getImage: function () {
-		var id = this.toString();
-		return Images.findOne(id);
-	},
+	// getImage: function () {
+	// 	var id = this.toString();
+	// 	return Images.findOne(id);
+	// },
 
 	attachVoices: function () {
 		var voiceObjects = lodash.filter(this.addons, function (addon) {
@@ -209,10 +209,18 @@ Template.ClassPanel.helpers({
 		return lodash.map(voiceObjects, 'fileId');
 	},
 
-	getSound: function () {
-		var id = this.toString();
-		return Sounds.findOne(id);
+	attachStickers: function()
+	{
+		var stickerObjs = lodash.filter(this.addons, function (addon) {
+			return addon.type === 'stickers';
+		});
+		return lodash.map(stickerObjs, 'fileId');
 	},
+
+	// getSound: function () {
+	// 	var id = this.toString();
+	// 	return Sounds.findOne(id);
+	// },
 
 	attachDocuments: function () {
 		var docObjs = lodash.filter(this.addons, function (addon) {
@@ -221,10 +229,10 @@ Template.ClassPanel.helpers({
 		return lodash.map(docObjs, 'fileId');
 	},
 
-	getDocument: function () {
-		var id = this.toString();
-		return Documents.findOne(id);
-	},
+	// getDocument: function () {
+	// 	var id = this.toString();
+	// 	return Documents.findOne(id);
+	// },
 
 	attachVotes: function () {
 		var voteObjs = lodash.filter(this.addons, function (addon) {
@@ -289,9 +297,9 @@ Template.ClassPanel.onCreated(function(){
     currentClassCode = Router.current().params.classCode;
     var self = this;
     log.info("Template.ClassPanel.onCreated", UI._globalHelpers['getCurrentSchoolName']());
-    this.subscribe('images',    UI._globalHelpers['getCurrentSchoolName'](), 'class', currentClassCode);
-    this.subscribe('documents', UI._globalHelpers['getCurrentSchoolName'](), 'class', currentClassCode);
-	this.subscribe('sounds',    UI._globalHelpers['getCurrentSchoolName'](), 'class', currentClassCode);
+    // this.subscribe('images',    UI._globalHelpers['getCurrentSchoolName'](), 'class', currentClassCode);
+    // this.subscribe('documents', UI._globalHelpers['getCurrentSchoolName'](), 'class', currentClassCode);
+	// this.subscribe('sounds',    UI._globalHelpers['getCurrentSchoolName'](), 'class', currentClassCode);
     this.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');
     this.subscribe('smartix:classes/associatedClasses',function(){
         var classObj = Smartix.Groups.Collection.findOne({

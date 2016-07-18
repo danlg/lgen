@@ -25,7 +25,7 @@ Smartix.Stickers.awardNewSticker = function(groupId, stickerId){
         var allLinkedDistributionLists = Smartix.Groups.Collection.find({_id:{$in: group.distributionLists}}).fetch();
         var allUsersInDistributionLists = lodash.map(allLinkedDistributionLists,'users');
         allUsersInDistributionLists = lodash.flatten(allUsersInDistributionLists);
-        allUsers = union(allUsers, allUsersInDistributionLists);
+        allUsers = lodash.union(allUsers, allUsersInDistributionLists);
     }
     allUsersObject = Meteor.users.find({_id: {$in: allUsers}}).fetch();
     //Ensures only students in allUsersObjectArray

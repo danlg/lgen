@@ -42,7 +42,7 @@
                     {{#autolink}}<div class='content'><pre>{{data.content}}</pre></div>{{/autolink}}
                     <div>
                         {{#each attachImages}}
-                            {{#with getImage}}
+                            {{#with FS.GetFile "images" this}}
                             {{#if this.isUploaded}}
                                 {{#if this.hasStored 'images'}}
                                 <div class="">
@@ -55,8 +55,18 @@
                         {{/each}}
                     </div>
                     <div>
+                        {{#each attachStickers}}
+                            {{#with FS.GetFile "stickers" this}}
+                                <div class="">
+                                    <img src="{{this.url store='stickers'  }}" alt="" class="responsive-img stickerThumbs" data-fullsizeimage="{{this.url  }}">
+                                    <!-- <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a> -->
+                                </div>
+                            {{/with}}
+                        {{/each}}
+                    </div>
+                    <div>
                         {{#each attachVoices}}                      
-                            {{#with getSound}}
+                            {{#with FS.GetFile "sounds" this}}
                             {{#if this.isUploaded}}
                                 {{#if this.hasStored 'sounds'}}                           
                                 {{#if  this.url}}
@@ -81,7 +91,7 @@
                     </div>
                     <div>
                         {{#each attachDocuments}}
-                            {{#with getDocument}}
+                            {{#with FS.GetFile "documents" this}}
                             {{#if this.isUploaded}}
                                     {{#if this.hasStored 'documents'}}                           
                                         <div class="bubble">

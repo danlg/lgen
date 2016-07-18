@@ -41,3 +41,7 @@
     max-height: 9999px;
     z-index:   99;           
 }
+
+.stickerThumbs{
+    max-height:150px;
+}

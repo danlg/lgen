@@ -10,9 +10,9 @@ Template.ChatRoom.onCreated( function () {
 	var self = this;
 	this.autorun(function () {
 		self.subscribe('smartix:messages/groupMessages', chatRoomId);
-		self.subscribe('images', UI._globalHelpers['getCurrentSchoolName'](), 'chat', chatRoomId);
-		self.subscribe('documents', UI._globalHelpers['getCurrentSchoolName'](), 'chat', chatRoomId);
-		self.subscribe('sounds', UI._globalHelpers['getCurrentSchoolName'](), 'chat', chatRoomId);
+		// self.subscribe('images', UI._globalHelpers['getCurrentSchoolName'](), 'chat', chatRoomId);
+		// self.subscribe('documents', UI._globalHelpers['getCurrentSchoolName'](), 'chat', chatRoomId);
+		// self.subscribe('sounds', UI._globalHelpers['getCurrentSchoolName'](), 'chat', chatRoomId);
 	});
 });
 

@@ -23,27 +23,32 @@
             {{/if}}
         </div>
         <div>
-            <div>
-            
+            <div>  
                 {{#each attachImages}}
-                {{#with getImage}}
-                    {{#if this.isUploaded}}
-                    {{#if this.hasStored 'images'}}
-                        <div class="">
-                        <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs responsive-img"
-                            data-fullsizeimage="{{this.url  }}">
-                        <!-- <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a> -->
-                        </div>
-                    {{/if}}
-                    {{/if}}
-                {{/with}}
+                    {{#with FS.GetFile "images" this}}
+                        {{#if this.isUploaded}}
+                        {{#if this.hasStored 'images'}}
+                            <div class="">
+                            <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs responsive-img"
+                                data-fullsizeimage="{{this.url  }}">
+                            <!-- <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a> -->
+                            </div>
+                        {{/if}}
+                        {{/if}}
+                    {{/with}}
                 {{/each}}
-            
             </div>
             <div>
-            
+                {{#each attachStickers}} {{#with FS.GetFile "stickers" this}}
+                <div class="">
+                    <img src="{{this.url store='stickers'  }}" alt="" class="responsive-img stickerThumbs" style="max-height:150px;" data-fullsizeimage="{{this.url  }}">
+                    <!-- <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a> -->
+                </div>
+                {{/with}} {{/each}}
+            </div>
+            <div>       
                 {{#each attachVoices}}
-                {{#with getSound}}
+                {{#with FS.GetFile "sounds" this}}
                     {{#if this.isUploaded}}
                     {{#if this.hasStored 'sounds'}}
                         {{#if  this.url}}
@@ -68,9 +73,8 @@
             
             </div>
             <div class='document'>
-            
                 {{#each attachDocuments}}
-                {{#with getDocument}}
+                {{#with FS.GetFile "documents" this}}
                     {{#if this.isUploaded}}
                     {{#if this.hasStored 'documents'}}                           
                         <div class="bubble">

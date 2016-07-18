@@ -1,12 +1,14 @@
 Template.MessageDetail.helpers({
-  attachImages: function () {
-    var imageObjects =lodash.filter(this.addons, function(addon) { return addon.type =='images'; });
-    return lodash.map(imageObjects,'fileId');
-  },  
-  getImage: function () {
-    var id = this.toString();
-    return Images.findOne(id);
-  },
+	attachImages: function () {
+		var imageObjects = lodash.filter(this.addons, function (addon) {
+			return addon.type == 'images';
+		});
+		return lodash.map(imageObjects, 'fileId');
+	}, 
+  // getImage: function () {
+  //   var id = this.toString();
+  //   return Images.findOne(id);
+  // },
   isNewMessage:function(createdAt){
     //log.info('isNewMessage',createdAt);   
      var result = Notifications.findOne({'eventType':'newclassmessage','messageCreateTimestamp':createdAt});       
@@ -21,23 +23,36 @@ Template.MessageDetail.helpers({
          return "";
      }
   },
-  attachVoices: function () {
-    var voiceObjects =lodash.filter(this.addons, function(addon) { return addon.type =='voice'; });
-    return lodash.map(voiceObjects,'fileId');
-  },  
-  getSound: function () {
-    var id = this.toString();
-    return Sounds.findOne(id);
-  },
-  attachDocuments: function () {
-    var docObjs =lodash.filter(this.addons, function(addon) { return addon.type =='documents'; });
-    return lodash.map(docObjs,'fileId');
-  },  
 
-  getDocument: function () {
-    var id = this.toString();
-    return Documents.findOne(id);
-  },
+	attachVoices: function () {
+		var voiceObjects = lodash.filter(this.addons, function (addon) {
+			return addon.type === 'voice';
+		});
+		return lodash.map(voiceObjects, 'fileId');
+	}, 
+  // getSound: function () {
+  //   var id = this.toString();
+  //   return Sounds.findOne(id);
+  // },
+	attachDocuments: function () {
+		var docObjs = lodash.filter(this.addons, function (addon) {
+			return addon.type === 'documents';
+		});
+		return lodash.map(docObjs, 'fileId');
+	},
+	
+  attachStickers: function()
+	{
+		var stickerObjs = lodash.filter(this.addons, function (addon) {
+			return addon.type === 'stickers';
+		});
+		return lodash.map(stickerObjs, 'fileId');
+	},
+
+  // getDocument: function () {
+  //   var id = this.toString();
+  //   return Documents.findOne(id);
+  // },
   haveSound: function () {
     return this.soundArr.length > 0;
   },

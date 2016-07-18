@@ -221,7 +221,7 @@ Template.SendMessage.events({
 			{ text: TAPi18n.__("AttachDocument") },
 			{ text: TAPi18n.__("AttachEvent") }]
 		
-		if(!isClassPanel() && userRolesInCurrentNamespace.indexOf(Smartix.Accounts.School.TEACHER)!==-1)
+		if(userRolesInCurrentNamespace.indexOf(Smartix.Accounts.School.TEACHER)!==-1)
 		{
 			buttonsForActionSheet.push({ text: TAPi18n.__("smartix-stickers.AttachSticker")});
 		}

@@ -106,7 +106,7 @@ Smartix.Class.createClass = function(classObj, currentUser) {
     }
     // Make the current user as the admin
     newClass.admins = [currentUser];
-    newClass.addons = ['voice', 'images', 'calendar', 'documents', 'poll', 'comment'];
+    newClass.addons = ['voice', 'images', 'calendar', 'documents', 'poll', 'comment','stickers'];
     // If a distribution list is specified
     if (Array.isArray(classObj.distributionLists)) {
         // If `copyMode` is set to `copy

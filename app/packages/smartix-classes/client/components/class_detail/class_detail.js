@@ -28,6 +28,8 @@ Template.ClassDetail.onCreated(function () {
 		self.subscribe('images', UI._globalHelpers['getCurrentSchoolName'](), 'class', classcode);
 		self.subscribe('documents', UI._globalHelpers['getCurrentSchoolName'](), 'class', classcode);
 		self.subscribe('sounds', UI._globalHelpers['getCurrentSchoolName'](), 'class', classcode);
+		self.subscribe('smartix:stickers/stickersAwardedToMe',  UI._globalHelpers['getCurrentSchoolId']());
+
 	});
 });
 
