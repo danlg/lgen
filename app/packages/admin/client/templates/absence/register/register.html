@@ -6,22 +6,20 @@
         </div>
 
         <div class="panel-body">
-            <p class="content-group-lg">{{_ "Admin.AddNewClasses" }}</p>
-
             <form class="form-horizontal" action="#">
                 <fieldset class="content-group">
-                    <h4 class="text-bold">{{_ "Admin.ClassDetails" }}</h4>
+                    <h4 class="text-bold">{{_ "Admin.AbsenceAddNew" }}</h4>
                     
                     <div class="form-group">
-                        <label class="control-label col-xs-2">{{_ "Admin.Students" }}</label>
+                        <label class="control-label col-xs-2">{{_ "Students" }}</label>
                         <div class="col-xs-10">
-                            {{> EasySearch.Input index=absenceUsersIndex attributes=adminAbsenceRegisterInputAttributes}}
-                        </div>
-                        <ul>
-                            {{#EasySearch.Each index=absenceUsersIndex }}
+                            {{> EasySearch.Input index=absenceUsersIndex attributes=adminAbsenceRegisterInputAttributes noDocumentsOnEmpty=true}}
+                            <ul class="AdminAbsenceRegister__results-container">
+                                {{#EasySearch.Each index=absenceUsersIndex  }}
                                 <li class="AdminAbsenceRegister__user-search-result" data-user-id="{{_id}}">{{profile.firstName}} {{profile.lastName}}</li>
-                            {{/EasySearch.Each}}
-                        </ul>
+                                {{/EasySearch.Each}}
+                            </ul>
+                        </div>
                     </div>
                     
                     <div class="form-group">

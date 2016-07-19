@@ -13,6 +13,8 @@
   "Admin": {
     "Absence": "Absence",
     "AbsenceRequestNotApproved": "Excuse message received by parent but not yet acknowledged by the school",
+    "AbsenceAddNew": "Record Details",
+    "AbsenceAddSuccess": "Absence record was added successfully, parents have been notified",
     "Absent": "Absent",
     "AbsentLateNoNotice": "Absent/late not excused yet by parents",
     "Absentees": "Absentees",

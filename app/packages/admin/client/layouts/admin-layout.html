@@ -88,6 +88,7 @@
                                     <li>
                                         <a href="#"><i class="icon-warning"></i> <span>{{_ "Admin.Absence" }}</span></a>
                                         <ul>
+                                            <li><a href="{{pathFor route='admin.absence.register' data=routeData}}"><i class="icon-plus3"></i>{{_ "Admin.RegisterAbsence"}}</a></li>
                                             <li><a href="{{pathFor route='admin.absence.expected' data=routeData}}"><i class="icon-checkbox-checked"></i>{{_ "Admin.ViewExpectedAbsences" }}</a></li>
                                             <li><a href="{{pathFor route='admin.absence.absentees' data=routeData}}"><i class="icon-flag3"></i> {{_ "Admin.ViewAbsentees" }}</a></li>
                                             <li><a href="{{pathFor route='admin.absence.upload' data=routeData}}"><i class="icon-cloud-upload"></i>{{_ "Admin.UploadAttendenceRecords" }}</a></li>

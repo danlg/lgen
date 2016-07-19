@@ -45,6 +45,7 @@ Template.AdminUsersAddRelationships.events({
         if(!userId) {
             Toastr.error(TAPi18n.__("Admin.SelectUser"));
         }
+        template.$(".AdminUsersAddRelationships__user-search-result").hide();
         if (UI._globalHelpers['getCurrentSchoolName']()) {            
             Meteor.call('smartix:accounts-relationships/createRelationship', {
                 parent: userId,
@@ -57,15 +58,6 @@ Template.AdminUsersAddRelationships.events({
                     toastr.error(err.message);
                 }
             });
-        window.setTimeout(function(){
-            var list = template.$(".AdminUsersAddRelationships__results-container");
-            var inputBox = template.$(".AdminUsersAddRelationships__user-search-result")
-            inputBox[0].value = "";
-            list[0].hidden = true;
-            inputBox[0].onkeyup = function () {
-                list[0].hidden = false;
-            }
-        }, 0);
         } else {
             toastr.error(TAPi18n.__("applicationError.refreshRequired"));
         }
