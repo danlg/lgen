@@ -1,4 +1,4 @@
-.AdminAbsenceRegister__user-search-result {
+.AdminAbsenceRegister__user-search-result, .ActualAbsenceRegister__user-search-result {
     padding: 6px;
     background-color: white;
     cursor: pointer;
@@ -9,11 +9,15 @@
     transition: background-color 200ms ease-out;
 }
 
-.AdminAbsenceRegister__results-container {
+.AdminAbsenceRegister__results-container, .ActualAbsenceRegister__results-container {
     position: absolute;
     width: 100%;
     border-bottom: 1px solid green;
     border-left: 1px solid green;
     border-right: 1px solid green;
     z-index: 3;
+}
+
+#AdminRegisterAbsence__type{
+    border: 1px solid green;
 }

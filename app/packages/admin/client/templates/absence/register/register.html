@@ -1,68 +1,153 @@
 <template name="AdminAbsenceRegister">
     <!-- Form horizontal -->
     <div class="panel panel-flat">
-        <div class="panel-heading">
-            <h1>{{_ "Admin.RegisterExpectedAbsence" }}</h1>
-        </div>
-
         <div class="panel-body">
-            <form class="form-horizontal" action="#">
-                <fieldset class="content-group">
-                    <h4 class="text-bold">{{_ "Admin.AbsenceAddNew" }}</h4>
-                    
-                    <div class="form-group">
-                        <label class="control-label col-xs-2">{{_ "Students" }}</label>
-                        <div class="col-xs-10">
-                            {{> EasySearch.Input index=absenceUsersIndex attributes=adminAbsenceRegisterInputAttributes noDocumentsOnEmpty=true}}
-                            <ul class="AdminAbsenceRegister__results-container">
-                                {{#EasySearch.Each index=absenceUsersIndex  }}
-                                <li class="AdminAbsenceRegister__user-search-result" data-user-id="{{_id}}">{{profile.firstName}} {{profile.lastName}}</li>
-                                {{/EasySearch.Each}}
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="control-label col-xs-2">{{_ "Admin.StartDate" }}</label>
-                        <div class="col-xs-10">
-                            <input id="AdminAbsenceRegister__startDate" type="date" class="form-control" placeholder="Start Date">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="control-label col-xs-2">{{_ "Admin.StartTime" }}</label>
-                        <div class="col-xs-10">
-                            <input id="AdminAbsenceRegister__startTime" type="time" class="form-control" placeholder="Start Time">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="control-label col-xs-2">{{_ "Admin.EndDate" }}</label>
-                        <div class="col-xs-10">
-                            <input id="AdminAbsenceRegister__endDate" type="date" class="form-control" placeholder="End Date">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="control-label col-xs-2">{{_ "Admin.EndTime" }}</label>
-                        <div class="col-xs-10">
-                            <input id="AdminAbsenceRegister__endTime" type="time" class="form-control" placeholder="End Time">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="control-label col-xs-2">{{_ "Admin.Message" }}</label>
-                        <div class="col-xs-10">
-                            <textarea id="AdminAbsenceRegister__message" class="form-control" placeholder="Message"></textarea>
-                        </div>
-                    </div>
-                </fieldset>
-                
-                <div class="text-right">
-                    <button id="AdminAbsenceRegister__submit" type="submit" class="btn btn-primary">{{_ "Admin.RegisterAbsence" }}<i class="icon-arrow-right14 position-right"></i></button>
-                </div>
-            </form>
+            <div class="form-group">
+                    <select name="register-type" class="col-xs-12 form-control" id="AdminRegisterAbsence__type">
+                        <option value="Actual">{{_ "Admin.RegisterActualAbsence"}}</option>
+                        <option value="Expected">{{_ "Admin.RegisterExpectedAbsence"}}</option>
+                    </select>
+            </div>
         </div>
     </div>
+    {{#if isActualRegistration}}    
+        <div class="panel panel-flat" id="actual-absence-panel">
+            <div class="panel-heading">
+                <h1>{{_ "Admin.RegisterActualAbsence"}}</h1>
+            </div>
+
+            <div class="panel-body">
+                <form class="form-horizontal" action="#">
+                    <fieldset class="content-group">
+                        <h4 class="text-bold">{{_ "Admin.AbsenceAddNew"}}</h4>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">{{_ "Students"}}</label>
+                            <div class="col-xs-8">
+                                {{> EasySearch.Input index=absenceUsersIndex attributes=actualAbsenceRegisterInputAttributes noDocumentsOnEmpty=true}}
+                                <ul class="ActualAbsenceRegister__results-container">
+                                    {{#EasySearch.Each index=absenceUsersIndex  }}
+                                    <li class="ActualAbsenceRegister__user-search-result" data-user-id="{{_id}}">{{profile.firstName}} {{profile.lastName}}</li>
+                                    {{/EasySearch.Each}}
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">{{_ "Admin.StudentID"}}</label>
+                            <div class="col-xs-8">
+                                <input id="ActualAbsenceRegister__studentId" type="text" class="form-control" placeholder='{{_ "Admin.StudentID"}}'>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">{{_ "Admin.Department"}}</label>
+                            <div class="col-xs-8">
+                                <input id="ActualAbsenceRegister__department" type="text" class="form-control" placeholder='{{_ "Admin.Department"}}'>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">{{_ "Admin.Date"}}</label>
+                            <div class="col-xs-8">
+                                <input id="ActualAbsenceRegister__date" type="date" class="form-control" placeholder='{{_ "Admin.Date"}}'>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">{{_ "Admin.Late"}}</label>
+                            <div class="col-xs-8">
+                                <div class="checkbox checkbox-switchery">
+                                    <label>
+                                        <input id="studentAbsentOrLate" type="checkbox" class="switchery">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{#if isAbsent}}
+                        {{else}}
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">{{_ "Admin.TimeArrived"}}</label>
+                            <div class="col-xs-8">
+                                <input id="ActualAbsenceRegister__checkInTime" type="time" class="form-control" placeholder='{{_ "Admin.TimeArrived"}}'>
+                            </div>
+                        </div>
+                        {{/if}}
+
+                    </fieldset>
+                    
+                    <div class="text-right">
+                        <button id="ActualAbsenceRegister__submit" type="submit" class="btn btn-primary">{{_ "Admin.RegisterAbsence" }}<i class="icon-arrow-right14 position-right"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    {{else}}
+        <div class="panel panel-flat"  id="expected-absence-panel">
+            <div class="panel-heading">
+                <h1> {{_ "Admin.RegisterExpectedAbsence"}} </h1>
+            </div>
+
+            <div class="panel-body">
+                <form class="form-horizontal" action="#">
+                    <fieldset class="content-group">
+                        <h4 class="text-bold">{{_ "Admin.AbsenceAddNew" }}</h4>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">{{_ "Students" }}</label>
+                            <div class="col-xs-8">
+                                {{> EasySearch.Input index=absenceUsersIndex attributes=adminAbsenceRegisterInputAttributes noDocumentsOnEmpty=true}}
+                                <ul class="AdminAbsenceRegister__results-container">
+                                    {{#EasySearch.Each index=absenceUsersIndex  }}
+                                    <li class="AdminAbsenceRegister__user-search-result" data-user-id="{{_id}}">{{profile.firstName}} {{profile.lastName}}</li>
+                                    {{/EasySearch.Each}}
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">{{_ "Admin.StartDate" }}</label>
+                            <div class="col-xs-8">
+                                <input id="AdminAbsenceRegister__startDate" type="date" class="form-control" placeholder="Start Date">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">{{_ "Admin.StartTime" }}</label>
+                            <div class="col-xs-8">
+                                <input id="AdminAbsenceRegister__startTime" type="time" class="form-control" placeholder="Start Time">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">{{_ "Admin.EndDate" }}</label>
+                            <div class="col-xs-8">
+                                <input id="AdminAbsenceRegister__endDate" type="date" class="form-control" placeholder="End Date">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">{{_ "Admin.EndTime" }}</label>
+                            <div class="col-xs-8">
+                                <input id="AdminAbsenceRegister__endTime" type="time" class="form-control" placeholder="End Time">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">{{_ "Admin.Message" }}</label>
+                            <div class="col-xs-8">
+                                <textarea id="AdminAbsenceRegister__message" class="form-control" placeholder="Message"></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+                    
+                    <div class="text-right">
+                        <button id="AdminAbsenceRegister__submit" type="submit" class="btn btn-primary">{{_ "Admin.RegisterAbsence" }}<i class="icon-arrow-right14 position-right"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    {{/if}}
     <!-- /form horizontal -->
 </template>

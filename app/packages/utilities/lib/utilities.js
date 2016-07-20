@@ -76,16 +76,14 @@ Smartix.Utilities.getMinutesSinceMidnight = function (timeString) {
         return null;
     }
     var mmt = moment(timeString, 'HH:mm');
-
+    var mmtUnix = parseInt(mmt.unix());
     // Your moment at midnight
     var mmtMidnight = mmt.clone().startOf('day');
-
+    var mmtMidnightUnix = parseInt(mmtMidnight.unix())
     // Difference in minutes
-    var diffMinutes = mmt.clone().diff(mmtMidnight, 'minutes');
-    
-    if(isNaN(diffMinutes)) {
+    var diffMinutes = mmtUnix - mmtMidnightUnix;
+    if(isNaN(diffMinutes) || diffMinutes < 0) {
         return null;
     }
-    
     return diffMinutes;
 }
