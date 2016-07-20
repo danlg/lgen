@@ -97,7 +97,8 @@ Template.AttendanceRecordAddByProcess.helpers({
       return "08:00";  
     },
     getDefaultEndDateTime:function(){
-      return "17:00"
+        //if late then display time late till instead of endTime      
+      return (this.clockIn === null) ? "17:00" : moment.unix(this.clockIn).utc().format('HH:mm');
     },
 
     getAllChildrens:function(){

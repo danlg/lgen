@@ -38,7 +38,12 @@
                             {{#with getUserById studentId}}
                                 {{profile.firstName}} {{profile.lastName}}
                             {{/with}}
-                            {{_ "absence.Noinschool" }} {{formatDateCalendarFromUnixTime date}}.
+                            {{#if isAbsent}}
+                                {{_ "absence.Noinschool" }} 
+                            {{else}}
+                                {{_ "absence.LateToSchool" }} 
+                            {{/if}}  
+                            {{formatDateCalendarFromUnixTime date}}.
                             {{_ "absence.Why" }}
                         </div>
                         <div class="button-bar bar-light">
