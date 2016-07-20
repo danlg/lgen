@@ -18,7 +18,11 @@ Template.AttendanceHome.helpers({
     getUserById: function(userId) {
         var targetUserObj = Meteor.users.findOne(userId);
         return targetUserObj;
+    },
+    isAbsent: function(){
+        return (this.clockIn === null) ? true : false;
     }
+
 });
 
 Template.AttendanceHome.onDestroyed(function(){
