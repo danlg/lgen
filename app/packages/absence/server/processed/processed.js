@@ -38,17 +38,16 @@ Smartix.Absence.processAbsencesForDay = function (namespace, date, format, notif
     ////////////////
     
     let parsedDate;
-    
     if(!date) {
-        parsedDate = moment.utc().startOf('day');
+        parsedDate = moment.utc().startOf('day').unix();
     }
     else
     {
-        parsedDate = moment.unix(date).format('DD-MM-YYYY');
+        parsedDate = moment(date, ["DD/MM/YYYY", "DD-MM-YYYY", "DD-MM-YY", "DD/MM/YY"]).unix()
     }
 
     let dateString = moment(parsedDate, 'DD-MM-YYYY').format('DD-MM-YYYY');
-    
+
     let schoolStartTimeM = Smartix.Utilities.getMinutesSinceMidnight(schoolStartTime);
     
     // If the date is today
@@ -78,13 +77,12 @@ Smartix.Absence.processAbsencesForDay = function (namespace, date, format, notif
     // GET ATTENDENCE RECORDS FOR DATE //
     /////////////////////////////////////
 
-    let unixDate = moment(dateString, 'DD-MM-YYYY').unix();
 
     let attendanceRecord = Smartix.Absence.Collections.actual.find({
-        date: unixDate,
+        date: parsedDate,
         namespace: namespace
     }).fetch();
-    
+
     // Check the clockIn time
     // If it's `null` it means the user has not tapped in
     // If it is later than the `schoolStartTime`, the student is late
@@ -92,13 +90,14 @@ Smartix.Absence.processAbsencesForDay = function (namespace, date, format, notif
         if(record.clockIn === null || record.clockIn > schoolStartTimeM) {
             // Student is late or absent
             
+            let recordDate = moment.unix(record.date).format('DD-MM-YYYY');
             // Search the expected absences collection for today
             // Assumes all schools uses HKT (UTC +8)
-            let startOfDay = moment.utc(record.date + " " + schoolStartTime, 'DD-MM-YYYY HH:mm').subtract(8, 'hours');
-            let endOfDay = moment.utc(record.date + " " + schoolEndTime, 'DD-MM-YYYY HH:mm').subtract(8, 'hours');
+            let startOfDay = moment.utc(recordDate + " " + schoolStartTime, 'DD-MM-YYYY HH:mm').subtract(8, 'hours');
+            let endOfDay = moment.utc(recordDate + " " + schoolEndTime, 'DD-MM-YYYY HH:mm').subtract(8, 'hours');
             let clockedInTime;
             if(record.clockIn !== null) {
-                clockedInTime = moment.utc(record.date + " 00:00", 'DD-MM-YYYY').subtract(8, 'hours').add(record.clockIn, "minutes");
+                clockedInTime = moment.utc(recordDate + " 00:00", 'DD-MM-YYYY').subtract(8, 'hours').add(record.clockIn, "minutes");
             } else {
                 clockedInTime = null;
             }
@@ -115,7 +114,6 @@ Smartix.Absence.processAbsencesForDay = function (namespace, date, format, notif
                 studentId: record.studentId,
                 namespace: namespace
             }).fetch();
-            
             let expectedAbsenceRange = _.reduce(relevantAbsences, function (accumulator, value, index, collection) {
                 accumulator.ids.push(value._id);
                 accumulator.approved = accumulator.approved || value.approved;

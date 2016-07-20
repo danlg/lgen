@@ -69,8 +69,14 @@ Smartix.Absence.updateAttendanceRecord = function (records, schoolName, currentU
     }
     
     var errors = [];
-    
+    var insertCount = 0;
+    var dayOfRecords;
+
+    if(!(Array.isArray(records))){
+        records = [records];
+    }
     if(Array.isArray(records)) {
+        dayOfRecords = records[0].date;
         records = _.map(records, function (record) {
             var convertedRecord = convertAttendanceFormat(record, namespace);
             if(typeof convertedRecord === "string") {
@@ -79,22 +85,18 @@ Smartix.Absence.updateAttendanceRecord = function (records, schoolName, currentU
             }
             return convertedRecord;
         }).filter(Boolean);
-    }
-    
-    var insertCount = 0;
-    
-    _.each(records, function(record) { 
-        Smartix.Absence.Collections.actual.upsert({
-            studentId: record.studentId,
-            date: record.date,
-            namespace: namespace
-        }, record, {
-            multi: false
+        // log.info("Converted Record", records);
+        _.each(records, function(record) { 
+            Smartix.Absence.Collections.actual.upsert({
+                studentId: record.studentId,
+                date: record.date,
+                namespace: namespace
+            }, record, {
+                multi: false
+            });
         });
-    });
+    }
 
-    //TODO date needs to be more dynamic
-    var dayOfRecords = records[0].date;
     // Add a delay of 100 miliseconds to ensure all records are updated
     Meteor.setTimeout(function () {
         Smartix.Absence.processAbsencesForDay(namespace, dayOfRecords, undefined, true, currentUser);
