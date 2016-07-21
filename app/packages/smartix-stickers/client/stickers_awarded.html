@@ -42,7 +42,7 @@
           <div class="childBox">
             <h3>{{this.profile.firstName}}</h3>
             {{#if hasStickers this}}
-            {{#each this.stickers}}
+            {{#each stickers}}
                 <div class="stickerThumb">
                   {{#with stickerObj this.stickerId}}
                     <img src="{{this.url store='stickers'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}">
@@ -58,7 +58,7 @@
     {{else}}
       {{#with studentProfile}}
         <div class="childBox">
-          {{#each this.stickers}}
+          {{#each stickers}}
             <div class="stickerThumb">
               {{#with stickerObj this.stickerId}}
               <img src="{{this.url store='stickers'  }}" alt="" class="imgThumbs" data-fullsizeimage="{{this.url  }}"> {{/with}}

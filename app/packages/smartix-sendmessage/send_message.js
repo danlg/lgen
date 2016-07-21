@@ -14,6 +14,8 @@ var messageListBaseBorrow;
 var messageListHeightBorrower = ReactiveVar([]);
 var canVote = ReactiveVar();
 
+var showStickerButton = ReactiveVar(false);
+
 Template.SendMessage.onCreated(function () {
 	Session.set('chosenStickerForUser', null);
 	this.calendarEvent = new ReactiveVar({});
@@ -75,6 +77,7 @@ Template.SendMessage.onRendered(function () {
 	updateMessageListHeight();
 	//initial check of vote option.
 	voteEnableCheck();
+	canShowStickerButton();
 });
 
 /* SendMessage: Helpers */
@@ -214,15 +217,17 @@ Template.SendMessage.helpers({
 Template.SendMessage.events({
 	'click .showActionSheet': function (event, template) {
 		
-		var userRolesInCurrentNamespace = Meteor.user().roles[UI._globalHelpers['getCurrentSchoolId']()];
+		// var userRolesInCurrentNamespace = Meteor.user().roles[UI._globalHelpers['getCurrentSchoolId']()];
         //student cannot create class
 
 		let buttonsForActionSheet =[
 			{ text: TAPi18n.__("AttachDocument") },
 			{ text: TAPi18n.__("AttachEvent") }]
 		
-		if(userRolesInCurrentNamespace.indexOf(Smartix.Accounts.School.TEACHER)!==-1)
-		{
+
+		// if(userRolesInCurrentNamespace.indexOf(Smartix.Accounts.School.TEACHER)!==-1 || hasTradableStickers)
+		// {
+		if(showStickerButton.get()){
 			buttonsForActionSheet.push({ text: TAPi18n.__("smartix-stickers.AttachSticker")});
 		}
 		
@@ -474,6 +479,22 @@ Template.SendMessage.events({
 	}
 });
 
+
+var canShowStickerButton = function(){
+	var userRolesInCurrentNamespace = Meteor.user().roles[UI._globalHelpers['getCurrentSchoolId']()];
+	if(userRolesInCurrentNamespace.indexOf(Smartix.Accounts.School.STUDENT)!==-1)
+	{
+		Meteor.call('smartix:stickers/hasTradableStickers', function(err,res)
+		{
+				return showStickerButton.set(true);
+		});
+	}	
+	else if(userRolesInCurrentNamespace.indexOf(Smartix.Accounts.School.TEACHER) !== -1)
+	{
+		return showStickerButton.set(true);
+	}
+	return;
+}
 
 var showStickers = function(event, template){
 	var stickerDataContext = {stickerChosen: "chosenStickerForUser"};

@@ -23,7 +23,7 @@ StickerAwardCollector = function(groupId, stickerArr){
     log.info(stickerArr);
     if(stickerArr)
     {
-        Meteor.call('smartix:stickers/awardSticker', groupId, stickerArr, function(err, result)
+        Meteor.call('smartix:stickers/sendNewSticker', groupId, stickerArr, function(err, result)
         {
             if(err)
             {

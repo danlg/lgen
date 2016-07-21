@@ -1,3 +1,5 @@
+tradableStickersArray = new ReactiveVar([]);
+
 Template.StickersTab.onCreated(function()
 {
     this.subscribe('stickers');
@@ -18,9 +20,29 @@ Template.StickersTab.helpers({
         return Stickers.find({'metadata.price': '0'}).fetch();
     },
 
-
     stickersPremium: function () {
         return Stickers.find({'metadata.price': {$ne: '0'}}).fetch();
+    },
+    
+    stickersTradable: function(){
+        Meteor.call('smartix:stickers/myStickers', UI._globalHelpers['getCurrentSchoolId'](), function(err, res){
+            if(!err)
+            {
+                let allStickers = Stickers.find({_id: {$in: res}}).fetch();
+                let tradableStickers = lodash.remove(allStickers, function(stickerObj){
+                    return stickerObj.metadata.tradable === true;
+                }) 
+                tradableStickersArray.set(tradableStickers);
+            }
+            else
+                log.error(err);
+        });
+        return tradableStickersArray.get();
+    },
+
+    isTeacher: function(){
+        var userRolesInCurrentNamespace = Meteor.user().roles[UI._globalHelpers['getCurrentSchoolId']()];
+        return (userRolesInCurrentNamespace.indexOf(Smartix.Accounts.School.TEACHER)!==-1)
     },
 
     isFreeTabActive: function()

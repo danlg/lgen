@@ -29,17 +29,23 @@
         border-bottom:0px;
     }
 </style>
-    <div id="tabContainer">
-        <div class="subTabs {{isFreeTabActive}}" id="freeBtn">{{_ "smartix-stickers.Free"}}</div>
-        <div class="subTabs {{isPremiumTabActive}}" id="premiumBtn">{{_ "smartix-stickers.Premium"}}</div>             
-    </div>
-    {{#if isFreeTab}}
-        <div class="padding" style="background-color:#eee; height:100%;">
-            {{{stickerChooserHelper stickersFree}}}
+    {{#if isTeacher}}
+        <div id="tabContainer">
+            <div class="subTabs {{isFreeTabActive}}" id="freeBtn">{{_ "smartix-stickers.Free"}}</div>
+            <div class="subTabs {{isPremiumTabActive}}" id="premiumBtn">{{_ "smartix-stickers.Premium"}}</div>             
         </div>
+        {{#if isFreeTab}}
+            <div class="padding" style="background-color:#eee; height:100%;">
+                {{{stickerChooserHelper stickersFree}}}
+            </div>
+        {{else}}
+            <div class="padding" style="background-color:#eee; height:100%;">
+                {{{stickerChooserHelper stickersPremium}}}
+            </div>
+        {{/if}}
     {{else}}
         <div class="padding" style="background-color:#eee; height:100%;">
-            {{{stickerChooserHelper stickersPremium}}}
+            {{{stickerChooserHelper stickersTradable}}}
         </div>
     {{/if}}
 {{/if}}

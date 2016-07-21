@@ -15,8 +15,24 @@ Template.StickersAwarded.helpers({
         return Stickers.findOne(stickerId);
     },
 
+    'stickers': function(){
+        let stickerIdArray = [];
+        lodash.forEach(this.stickers, function(sticker)
+        {
+            if(sticker.count > 0)
+            {stickerIdArray.push(sticker)}
+        })
+        return (stickerIdArray.length > 0) ? stickerIdArray : false;
+    },
+
     'hasStickers': function(studentObj){
-        return (studentObj.stickers && studentObj.stickers.length>0)
+        let counter = 0;
+        lodash.forEach(studentObj.stickers, function(sticker)
+        {
+            if(sticker.count > 0)
+            {counter ++ }
+        })
+        return (counter > 0) ? true : false;
     },
 
     'child': function(){

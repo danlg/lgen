@@ -111,9 +111,11 @@ Smartix.Chat.Messages.canAttachAddons = function (announcementId, addons) {
     
     var schoolId = _chat.namespace
     var userRolesInCurrentNamespace = Meteor.user().roles[schoolId];
+
     if(notAllowedTypes.length > 0){
         //this is to check if the user is attaching sticker and to ensure tge user is a teacher
-        if(_.includes(notAllowedTypes, 'stickers') && userRolesInCurrentNamespace.indexOf(Smartix.Accounts.School.TEACHER)!==-1)
+        if(_.includes(notAllowedTypes, 'stickers') && (userRolesInCurrentNamespace.indexOf(Smartix.Accounts.School.TEACHER)!==-1 || 
+            userRolesInCurrentNamespace.indexOf(Smartix.Accounts.School.STUDENT)!==-1))
         {
             return true;
         }
