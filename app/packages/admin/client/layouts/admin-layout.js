@@ -47,7 +47,7 @@ Template.adminLayout.events({
             } else {
                 toastr.error(TAPi18n.__('SignOutFailure'));
             }
-        })
+        });
     }
 });
 
@@ -55,7 +55,7 @@ Template.adminLayout.helpers({
     routeData: function () {
        return {
            school:  UI._globalHelpers['getCurrentSchoolName']()
-       }
+       };
     },
 
     schoolLogo:function(){
@@ -158,10 +158,10 @@ function resizeDetached() {
 //     });
 // }
 
-// // Resize
-// function resizeScroll() {
-// 	$('.sidebar-fixed .sidebar-content').getNiceScroll().resize();
-// }
+// Resize
+function resizeScroll() {
+	$('.sidebar-fixed .sidebar-content').getNiceScroll().resize();
+}
 
 // // Remove
 // function removeScroll() {

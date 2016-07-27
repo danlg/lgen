@@ -1,5 +1,3 @@
-import chargebee from 'chargebee';
-
 Template.AdminPayment.onCreated(function()
 {
     var self = this;
@@ -82,7 +80,7 @@ Template.AdminPayment.events({
         template.planNumberOfStudents.set(students);
     }, 
 
-})
+});
 
 Template.AdminPayment.helpers({
     numberOfStudents: function()
@@ -105,7 +103,7 @@ Template.AdminPayment.helpers({
         let school = schoolObj();
         if(currentSchoolPlan()==='premiumTrial')
         {
-            return 'Unlimited'
+            return 'Unlimited';
         }
         return school.planUnitsBought ? school.planUnitsBought : 0;
     },
@@ -133,7 +131,7 @@ Template.AdminPayment.helpers({
     //     else
     //         return Template.instance().planUnitPrice.get();
     // }
-})
+});
 
 /**
  * Number of Active students in school. 
@@ -145,18 +143,18 @@ var numberOfStudents = function()
             Smartix.Accounts.School.STUDENT,
             UI._globalHelpers['getCurrentSchoolId']()
         ).count();
-}
+};
 
 var schoolObj = function()
 {
     return SmartixSchoolsCol.findOne( UI._globalHelpers['getCurrentSchoolId']());
-}
+};
 
 var currentSchoolPlan = function()
 {
     let school = schoolObj();
     return school.planChosen ? school.planChosen : 'basic';
-}
+};
 
 /**
  * @param: responseId this is the hosted_page_id from chargebee 
@@ -176,20 +174,20 @@ var successRedirectCall = function (responseId){
             toastr.info("Thank You for upgrading! We have sent an inovice to your registered email account");
         }
     });     
-}
+};
 
 var hideProcessing = function()
 {
     var loadingContainer = $('#loading-div');
     loadingContainer.hide();
-}
+};
 
 
 var showProcessing = function()
 {
     var loadingContainer = $('#loading-div');
     loadingContainer.show();
-}
+};
 
 var subscribeHandler = function (response) {
     var hostedPageId = response.id;
@@ -255,7 +253,7 @@ var subscribeHandler = function (response) {
             toastr.error("Payment Aborted!");
         }
     });
-}
+};
 
 
 //JSON Objects with plan details.

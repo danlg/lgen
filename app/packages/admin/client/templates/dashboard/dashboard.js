@@ -13,7 +13,7 @@ Template.AdminDashboard.helpers({
     routeData: function () {
        return {
            school:  UI._globalHelpers['getCurrentSchoolName']()
-       }
+       };
     }
 });
 
@@ -25,4 +25,4 @@ var startCountDown = function()
         $('#clock').countdown(timeToExpiry, function(event) {
            $(this).html(event.strftime('%D ' + TAPi18n.__("Days") + ' %H:%M:%S'+ ' left to upgrade your school! '));
         });
-}
+};
