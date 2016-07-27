@@ -11,7 +11,7 @@ Router.route('/:school/admin/upgrade',{
 	action: function () {
 		this.render('AdminPayment');
 	}
-})
+});
 
 Router.route('/:school/admin/dashboard', {
 	name: 'admin.dashboard',
