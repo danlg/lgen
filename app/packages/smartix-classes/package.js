@@ -18,7 +18,7 @@ Package.onUse(function(api) {
     api.use('reactive-var','client');
     api.use('session', 'client');
     api.use('templating', 'client');
-    api.use('fourseven:scss@2.0.0','client');    
+    api.use('fourseven:scss','client');    
     api.use('stevezhu:lodash@4.6.1');
     api.use('chrismbeckett:toastr');   
    
@@ -65,9 +65,11 @@ Package.onUse(function(api) {
 
     api.addFiles(['client/components/join_class/join_class.html',
                 'client/components/join_class/join_class.js',
-                'client/components/join_class/join_class.scss']
-                ,'client');  
-                
+                'client/components/join_class/join_class.scss'
+                ]
+                ,'client');
+    // api.addAssets('client/components/join_class/join_class.scss', 'client');
+
     api.addFiles(['client/components/add_class/add_class.html',
                 'client/components/add_class/add_class.js'],'client');  
 

@@ -17,7 +17,7 @@ Package.onUse(function(api) {
      api.use('reactive-var','client');
      api.use('session', 'client');
      api.use('templating', 'client');
-     api.use('fourseven:scss@2.0.0','client');
+     api.use('fourseven:scss','client');
      api.use('alanning:roles','client');
      api.use('smartix:core');
      api.use('smartix:lib');
@@ -46,11 +46,12 @@ Package.onUse(function(api) {
                    'components/chat_invite/group_chat_invite/group_chat_invite_joined_class_list.js'], 'client');
                                      
      api.addFiles(['components/chat_room/chat_room.html',
-                   'components/chat_room/chat_room.scss',
+                    'components/chat_room/chat_room.scss',
                    'components/chat_room/chat_room.events.js',
                    'components/chat_room/chat_room.helpers.js',
                    'components/chat_room/chat_room.lifecycles.js'], 'client');
-                   
+     //api.addAssets('components/chat_room/chat_room.scss', 'client');
+
      api.addFiles(['components/chat_room_information/chat_room_information.html',
                    'components/chat_room_information/chat_room_information.js'],'client');
                    

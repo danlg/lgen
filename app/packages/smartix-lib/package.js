@@ -20,7 +20,7 @@ Package.onUse(function(api) {
     api.use('templating', 'client');
     api.use('stevezhu:lodash');
     api.use('smartix:classes', { unordered: true });
-    api.use('fourseven:scss@2.0.0', 'client');
+    api.use('fourseven:scss', 'client');
 
     api.addFiles('client/helper.js', 'client');
     api.addFiles('shared/helper.js');
@@ -50,7 +50,8 @@ Package.onUse(function(api) {
     ], 'client');
            
 
-    api.addFiles([
+     api.addFiles([
+    //api.addAssets([
         'i18n/fr/app_tour_image.fr.scss',
         'i18n/zh-CN/app_tour_image.zh-CN.scss',
         'i18n/zh-TW/app_tour_image.zh-TW.scss'
