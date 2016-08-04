@@ -3,7 +3,8 @@
     "ROOT_URL": "https://uat.gosmartix.com",
     "PORT": 80,
     "MONGO_URL" : "mongodb://smartixdb:smartixpass@localhost:27011/littlegenius",
-    "MONGO_OPLOG_URL" :"mongodb://oplogger:smartixpass@localhost:27011/local?authSource=admin"
+    "MONGO_OPLOG_URL" :"mongodb://oplogger:smartixpass@localhost:27011/local?authSource=admin",
+    "MAIL_URL":"smtp://SMTP_Injection:67eaa68e98ff43eca9441b6a9a9888a864fe8064@smtp.sparkpostmail.com:587"
   },
   //uat
   "servers": [

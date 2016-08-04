@@ -16,16 +16,12 @@
     "ios-device-carmelu": "./clean_build.sh && ./config_target.sh carmel  && meteor run ios-device --production --settings carmelu.settings.json --mobile-server=https://carmelu.gosmartix.com -p 4000",
     "ios-device-devhcp": "./clean_build.sh && meteor run ios-device  --production --settings devhcp.settings.json --mobile-server=https://devhcp.gosmartix.com -p 4000",
     "ios-device-prd-carmel": "./clean_build.sh && ./config_target.sh carmel && NODE_ENV=production meteor run ios-device --production --settings carmel.settings.json --mobile-server=https://carmel.gosmartix.com -p 5000",
-
     "ios-device-prd-smartix": "./clean_build.sh && ./config_target.sh smartix && NODE_ENV=production meteor run ios-device --production --settings smartix.settings.json --mobile-server=https://now.gosmartix.com -p 5000",
-
     "ios-prd": "./clean_build.sh && NODE_ENV=production meteor run ios -v --settings smartix.settings.json --mobile-server=https://now.gosmartix.com -p 5000",
     "ios-device-prd": "./clean_build.sh && ./config_target.sh smartix && NODE_ENV=production meteor run -v ios-device --settings smartix.settings.json --mobile-server=https://now.gosmartix.com -p 5000",
     "build-apk": "./build-android.sh $1 https://now.gosmartix.com",
-
     "build-apk-carmel": "./build-android.sh  https://carmel.gosmartix.com",
     "build-apk-smartix": "rm -rf ../android-build && mkdir ../android-build && meteor build --directory ../android-build --server https://now.gosmartix.com && sign-apk.sh hello123",
-
     "sign-apk": "./sign-android.sh $1",
     "android-local": "./clean_build.sh && meteor run android --settings dev.settings.json --mobile-server=http://10.0.2.2:3000",
     "android": "meteor run android --settings smartixu.settings.json --mobile-server=https://uat.gosmartix.com",
@@ -33,10 +29,8 @@
     "android-device-carmelu": "meteor run android-device --settings carmelu.settings.json --mobile-server=https://carmelu.gosmartix.com",
     "runlocal-android-emulator": "meteor run android -v --settings dev.settings.json",
     "build-example": "NODE_ENV=production VULCANIZE=true meteor build ../myapp-dist --server=https://api.myapp.com/ --mobile-settings settings-production.json",
-
-    "build-uat-server"    : "echo `date` && rm -rf ../build && ./config_target.sh smartix && meteor build ../build --server-only --server=https://uat.gosmartix.com --architecture=os.linux.x86_64 && echo `date` && scp ../build/app.tar.gz root@uat.gosmartix.com:/opt/lg && echo `date`",
+    "build-uat-server": "echo `date` && rm -rf ../build && ./config_target.sh smartix && meteor build ../build --server-only --server=https://uat.gosmartix.com --architecture=os.linux.x86_64 && echo `date` && scp ../build/app.tar.gz root@uat.gosmartix.com:/opt/lg && echo `date`",
     "build-carmelu-server": "echo `date` && rm -rf ../build && ./config_target.sh carmel  && meteor build ../build --server-only --server=https://carmelu.gosmartix.com --architecture=os.linux.x86_64 && echo `date` && scp ../build/app.tar.gz root@carmelu.gosmartix.com:/opt/carmel && echo `date`",
-
     "build-uat2": "meteor build .meteor/local -v --mobile-settings=smartixu.settings.json --server=https://uat.gosmartix.com",
     "build-carmel": "rm -rf ../build && meteor build ../build --server-only  --architecture os.linux.x86_64 --mobile-settings=carmel.settings.json --server=https://carmel.gosmartix.com",
     "deploy-ko": "cd ../dist && scp app.tar.gz lg@uat.gosmartix.com:~/app && ssh lg@uat.gosmartix.com \"cd app && tar xzvf app.tar.gz\"",

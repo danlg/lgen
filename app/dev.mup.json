@@ -12,12 +12,10 @@
   "setupPhantom": true,
   "enableUploadProgressBar": true,
   "appName": "lg",
-  "app": "/Users/dan/DEV/github7/lgen/app",
+  "app": "/Users/dan/DEV/github8/lgen/app",
 
   "env": {
-
-
-
+    "MAIL_URL":"smtp://SMTP_Injection:67eaa68e98ff43eca9441b6a9a9888a864fe8064@smtp.sparkpostmail.com:587"
   },
 
   "deployCheckWaitTime": 120

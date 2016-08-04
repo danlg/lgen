@@ -3,7 +3,8 @@
     "ROOT_URL": "https://carmel.gosmartix.com",
     "PORT": 80,
     "MONGO_URL" : "mongodb://smartixdb:xxxx@localhost:27011/littlegenius",
-    "MONGO_OPLOG_URL" :"mongodb://oplogger:xxxx@localhost:27011/local?authSource=admin"
+    "MONGO_OPLOG_URL" :"mongodb://oplogger:xxxx@localhost:27011/local?authSource=admin",
+    "MAIL_URL":"smtp://SMTP_Injection:67eaa68e98ff43eca9441b6a9a9888a864fe8064@smtp.sparkpostmail.com:587"
   },
   //stage
   "servers": [
