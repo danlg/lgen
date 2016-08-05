@@ -163,7 +163,7 @@ Template.AdminDistributionListView.events({
          if(selectedRole === 'all'){
               toastr.info(TAPi18n.__("Admin.AllUsersAreSelected"));
          }else{
-              toastr.info(TAPi18n.__("Admin.All")+ ' '+ TAPi18n.__(selectedRole) + TAPi18n("Admin.AreSelected"));
+              toastr.info(TAPi18n.__("Admin.All")+ ' '+ TAPi18n.__(selectedRole) + TAPi18n.__("Admin.AreSelected"));
          }
          let searchString = DistributionListUsersIndex.getComponentDict().keys.searchDefinition;
          //remove wrapping double quote

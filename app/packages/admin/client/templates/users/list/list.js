@@ -61,7 +61,7 @@ Template.AdminUsersSearch.events({
     'click .remove-users-btn':function(event,template){
         let latestArray = template.usersChecked.get();
         if(latestArray.indexOf(Meteor.userId()) > -1){
-            toastr.info(TAPi18n("Admin.UserCannotRemoveSelf"));
+            toastr.info(TAPi18n.__("Admin.UserCannotRemoveSelf"));
             return;
         }
         let listOfUsers = Meteor.users.find({_id:{$in: latestArray }}).fetch();
