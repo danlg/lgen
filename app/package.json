@@ -30,7 +30,11 @@
     "build-example": "NODE_ENV=production VULCANIZE=true meteor build ../myapp-dist --server=https://api.myapp.com/ --mobile-settings settings-production.json",
     "build-uat": "rm -rf ../build && meteor build ../build  --mobile-settings=smartixu.settings.json --server=https://uat.gosmartix.com",
     "build-uat2": "meteor build .meteor/local -v --mobile-settings=smartixu.settings.json --server=https://uat.gosmartix.com",
-    "build-carmel": "rm -rf ../build && meteor build ../build --server-only  --architecture os.linux.x86_64 --mobile-settings=carmel.settings.json --server=https://carmel.gosmartix.com",
+    "build-carmel" : "rm -rf ../build && meteor build ../build --server-only  --architecture os.linux.x86_64 --mobile-settings=carmel.settings.json --server=https://carmel.gosmartix.com",
+
+    "build-carmelu": "rm -rf ../build && config_target.sh carmel && meteor build ../build --server-only  --architecture os.linux.x86_64 --mobile-settings=carmelu.settings.json --server=http://carmelu.gosmartix.com",
+    "deploy-carmelu-tar": "scp ../build/app.tar.gz root@carmelu.gosmartix.com:/opt/carmel && echo `date`",
+
     "deploy-ko": "cd ../dist && scp app.tar.gz lg@uat.gosmartix.com:~/app && ssh lg@uat.gosmartix.com \"cd app && tar xzvf app.tar.gz\"",
     "deploy-uat-debug": "./clean_build.sh  && mup deploy --config=smartixu.mup.json --settings=smartixu.settings.json",
     "config-target-smartix": "./config_target.sh smartix",
