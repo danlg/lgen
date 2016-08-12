@@ -327,11 +327,15 @@ Smartix.Accounts.editUser = function(userId, options, currentUser) {
     //log.info('Smartix.Accounts.editUser', options);
     if (Smartix.Accounts.canEditUser(userId, options, currentUser)) {
         //log.info('Smartix.Accounts.editUser:canEditUser', options);
+        log.info ("Smartix.Accounts.editUser", options);
         return Meteor.users.update({
             _id: userId
         }, {
                 $set: options
             })
+    }
+    else {
+        log.warn("cannot edit user");
     }
     return false;
 };
@@ -344,8 +348,8 @@ Smartix.Accounts.canEditUser = function(userId, options, currentUser) {
         var namespace = options.schoolNamespace;
         delete options.schoolNamespace;
     }
-    Smartix.Accounts.editUserSchema.clean(options);
-    check(options, Smartix.Accounts.editUserSchema);
+    //Smartix.Accounts.editUserSchema.clean(options);
+    //check(options, Smartix.Accounts.editUserSchema);
     check(currentUser, Match.Maybe(String));
     // Get the `_id` of the currently-logged in user
     if (!(currentUser === null)) {

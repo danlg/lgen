@@ -105,7 +105,24 @@ Template.AdminUsersView.events({
         // Retrieve Telephone Number
         newUserObj.tel = template.$('#AdminUsers__tel').intlTelInput("getNumber", intlTelInputUtils.numberFormat.E164);
         // Retrieve the username, or generate one
-        newUserObj.username = template.$('#AdminUser__username').eq(0).val();
+
+        // NB !! Crude EMAIL UPDATE  implementation - the registered_emails field is not updated and may lead to discrepancy but it works
+        //expected impact is low as this is only used for merge account with accounts-meld
+        //the runtime checks have been removed - doubt of their added value...
+        // TODO check the proper email formatting...
+        newEmail = template.$('#AdminUser__email').eq(0).val().trim();
+        //let user = Meteor.users.findOne({ _id: Router.current().params.uid });
+        //console.log(this.emails);
+        log.info("Updating email from ", this.emails[0].address," -> ", newEmail);
+        //log.info("Updating email from ", user.emails[0].address," -> ", newEmail);
+        newUserObj.emails = [];
+        newUserObj.emails[0] = { address: newEmail, verified: true};
+        
+        // Meteor.users.update(
+        //     {_id  : Router.current().params.uid},
+        //     {$set : {"emails":[{address : newEmail}]}});
+
+
         // First Name, Last Name and DOB are required.
         // DOB were already checked above
         // If the first name or last name is not filledb throw an error as they are required fields
@@ -114,14 +131,16 @@ Template.AdminUsersView.events({
             toastr.error(TAPi18n.__("requiredFields"));
             return false;
         }
-        check(newUserObj, {
-            profile: Object,
-            dob: String,
-            tel: Match.Maybe(String),
-            password: Match.Maybe(String),
-            username: Match.Maybe(String)
-        });
+        // check(newUserObj, {
+        //     profile: Object,
+        //     dob: Match.Maybe(String), //only for student
+        //     tel: Match.Maybe(String),
+        //     password: Match.Maybe(String),
+        //     username: Match.Maybe(String)
+        // });
         newUserObj.schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
+
+
         //log.info(newUserObj);
         // Call the Meteor method to create the school user
         Meteor.call(
