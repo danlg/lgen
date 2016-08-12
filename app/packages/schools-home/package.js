@@ -13,7 +13,7 @@ Package.onUse(function(api) {
   api.use('iron:router');
   api.use('aldeed:simple-schema');     
   api.use('aldeed:collection2');
-  api.use('tap:i18n');
+  api.use('tap:i18n@1.8.0');
   api.use('alanning:roles@1.2.15');
   api.use('reactive-var','client');
   api.use('smartix:schools');

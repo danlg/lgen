@@ -16,7 +16,7 @@ Package.onUse(function(api) {
     api.use('reactive-var','client');
     api.use('session', 'client');    
     api.use('templating', 'client');
-    api.use('fourseven:scss','client'); 
+    api.use('fourseven:scss@2.0.0','client'); 
     
     api.addFiles('route.js');
 
@@ -24,24 +24,24 @@ Package.onUse(function(api) {
                  
     api.addFiles([
                     'client/templates/about/about.html',
-                    'client/templates/about/about.js'                    
+                    'client/templates/about/about.js',                    
                  ],
                 'client');
 
     api.addFiles([
-                    'client/templates/connection_status/connection_status.html'                 
+                    'client/templates/connection_status/connection_status.html',                  
                  ],
                 'client');
  
      api.addFiles([
                     'client/templates/feedback/feedback.html',
                     'client/templates/feedback/feedback.js',
-                    'client/templates/feedback/feedback.css'                     
+                    'client/templates/feedback/feedback.css',                                       
                  ],
                 'client');
 
      api.addFiles([
-                    'client/templates/help/help.html'                                    
+                    'client/templates/help/help.html',                                    
                  ],
                 'client');
 
@@ -49,7 +49,7 @@ Package.onUse(function(api) {
                     'client/templates/legal/en.privacy.html',
                     'client/templates/legal/en.tandc.html',
                     'client/templates/legal/fr.privacy.html',
-                    'client/templates/legal/fr.tandc.html'                                                                                               
+                    'client/templates/legal/fr.tandc.html',                                                                                               
                  ],
                 'client');
                 
@@ -57,7 +57,7 @@ Package.onUse(function(api) {
                     'client/templates/shared/loading/loading.html',
                     'client/templates/shared/loading/loading.js',
                     'client/templates/shared/not_found/not_found.html',
-                    'client/templates/shared/not_found/not_found.js'                                                                                                                                    
+                    'client/templates/shared/not_found/not_found.js',                                                                                                                                    
                  ],
                 'client');
                                                                                                   
@@ -87,7 +87,7 @@ Package.onUse(function(api) {
                   'client/autoformHooks/emailInvite.js',
                   'client/autoformHooks/emailsignup.js',
                   'client/autoformHooks/joinClassHook.js',
-                  'client/autoformHooks/profileEdit.js'
+                  'client/autoformHooks/profileEdit.js',
                  ],'client');
         
     
