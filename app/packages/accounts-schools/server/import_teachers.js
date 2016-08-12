@@ -152,7 +152,7 @@ Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser, 
 
 				let inviteParents  = ( typeof teacher[inviteParentsFieldName ] === "string" && teacher[inviteParentsFieldName ].length > 0 );
 				let inviteStudents = ( typeof teacher[inviteStudentsFieldName] === "string" && teacher[inviteStudentsFieldName].length > 0 );
-				log.info("Creating class"+ val + " for teacher "+ teacherId);
+				log.info("Creating class "+ val + " for teacher "+ teacherId);
 				Smartix.Class.createClass({
 					users: [],
 					namespace: namespace,
@@ -163,7 +163,7 @@ Smartix.Accounts.School.importTeachers = function(namespace, data, currentUser, 
 				}, teacherId);
 			}
 			else{
-				log.warn("No class created for teacher "+ teacherId + " with key=" + key + "and classname=" + val);
+				//log.warn("No class created for teacher "+ teacherId + " with key=" + key + "and classname=" + val);
 			}
 		});
 
