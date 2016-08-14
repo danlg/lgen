@@ -1,7 +1,6 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 App.info({
-  //id: 'com.gosmartix.smartix', for android
-  id: 'com.gosmartix.carmel', //for ios because the app is registered with this id and the APN certificate
+  id: 'com.gosmartix.carmel',
   name: 'Carmel',
   description: 'Instant, safe, simple communication for teachers, students and parents',
   author: 'Little Genius Education',
@@ -65,9 +64,9 @@ App.setPreference('BackupWebStorage', 'none');
 
 //ANDROID
 App.setPreference('android-minSdkVersion', '19'); //19 === android 4.4.2 webview is required
-//App.setPreference('android-targetSdkVersion', '23');//should be the latest version (ideally)
+App.setPreference('android-targetSdkVersion', '23');//should be the latest version (ideally)
 //https://forum.ionicframework.com/t/android-lolipop-nexus-push-notifications-plugin-icon-is-white/29724
-App.setPreference('android-targetSdkVersion', '20');//to avoid white icon notification for lollipop
+//App.setPreference('android-targetSdkVersion', '20');//to avoid white icon notification for lollipop
 
 //BOTH
 App.setPreference('Orientation', 'portrait');
