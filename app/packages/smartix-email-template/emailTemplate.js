@@ -69,7 +69,8 @@ Smartix.messageEmailTemplate = function (RecipientUsers, OriginateUser, messageO
             UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = lang),
             DOWNLOAD_URL:  Meteor.settings.public.DOWNLOAD_URL,
             APP_STORE_URL:  Meteor.settings.public.APP_STORE_URL,
-            GOOGLE_PLAY_URL:  Meteor.settings.public.GOOGLE_PLAY_URL
+            GOOGLE_PLAY_URL:  Meteor.settings.public.GOOGLE_PLAY_URL, 
+            SHARE_URL:  Meteor.settings.public.SHARE_URL
           },
           Assets.getText("emailMessageMasterTemplate.html")
         )
@@ -124,7 +125,8 @@ Smartix.newClassMailTemplate = function (to, classname, classCode) {
                         UnsubscribeEmailNotification : TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = emailLang),
                         DOWNLOAD_URL:  Meteor.settings.public.DOWNLOAD_URL,
                         APP_STORE_URL:  Meteor.settings.public.APP_STORE_URL,
-                        GOOGLE_PLAY_URL:  Meteor.settings.public.GOOGLE_PLAY_URL
+                        GOOGLE_PLAY_URL:  Meteor.settings.public.GOOGLE_PLAY_URL,
+                        SHARE_URL: Meteor.settings.public.SHARE_URL
                     },
                     Assets.getText("emailMessageMasterTemplate.html")
                 )
@@ -235,7 +237,8 @@ Smartix.inviteClassMailTemplate = function (to, classObj) {
               UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = emailLang),
               DOWNLOAD_URL:  Meteor.settings.public.DOWNLOAD_URL,
               APP_STORE_URL:  Meteor.settings.public.APP_STORE_URL,
-              GOOGLE_PLAY_URL:  Meteor.settings.public.GOOGLE_PLAY_URL
+              GOOGLE_PLAY_URL:  Meteor.settings.public.GOOGLE_PLAY_URL,
+              SHARE_URL:  Meteor.settings.public.SHARE_URL
             },
             Assets.getText("emailMessageMasterTemplate.html"))
       });
@@ -267,7 +270,8 @@ Smartix.verificationEmailTemplate = function (userObj, verificationURL) {
       UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = emailLang),
       DOWNLOAD_URL:  Meteor.settings.public.DOWNLOAD_URL,
       APP_STORE_URL:  Meteor.settings.public.APP_STORE_URL,
-      GOOGLE_PLAY_URL:  Meteor.settings.public.GOOGLE_PLAY_URL
+      GOOGLE_PLAY_URL:  Meteor.settings.public.GOOGLE_PLAY_URL,
+      SHARE_URL:  Meteor.settings.public.SHARE_URL
     },
     Assets.getText("emailMessageMasterTemplate.html")
   );
@@ -296,7 +300,8 @@ Smartix.resetPasswordEmailTemplate = function (userObj, resetPwdEmailURL) {
       UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = emailLang),
       DOWNLOAD_URL:  Meteor.settings.public.DOWNLOAD_URL,
       APP_STORE_URL:  Meteor.settings.public.APP_STORE_URL,
-      GOOGLE_PLAY_URL:  Meteor.settings.public.GOOGLE_PLAY_URL
+      GOOGLE_PLAY_URL:  Meteor.settings.public.GOOGLE_PLAY_URL,
+      SHARE_URL:  Meteor.settings.public.SHARE_URL
     },
     Assets.getText("emailMessageMasterTemplate.html")
   );
