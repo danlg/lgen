@@ -231,13 +231,21 @@ Smartix.Accounts.notifyByEmail = function(email, newUserId, autoEmailVerified, d
              Meteor.defer(function(){
                 try {
                     //it is a prerequisite to have no verified email adress before sending verification
-                    if (Meteor.users.findOne({ _id: newUserId, "emails.0.verified": false })) {
-                        log.info("Sending verification email to ", email);
+                    //[App] Notification email is not sent even when selected #568
+                    if (Meteor.users.findOne({ _id: newUserId, "emails.0.verified": false }) || autoEmailVerified ) {
                         //For now we do not send the password as it is autologin
                         //In the future, we should send the password as well with autogin email.send
                         // see http://stackoverflow.com/questions/15684634/how-to-generate-new-meteor-login-tokens-server-side-in-order-to-make-a-quick-l
-                        // or https://github.com/DispatchMe/meteor-login-token             
-                            Accounts.sendVerificationEmail(newUserId);                        
+                        // or https://github.com/DispatchMe/meteor-login-token
+                        try{
+                            Accounts.sendVerificationEmail(newUserId);
+                            log.info("Sending verification email to ", email);
+                        }
+                        catch(err) {
+                            //cannot verify if already verify in this case we send enrollment email
+                            log.info("Sending sendEnrollmentEmail to ", email);
+                            Accounts.sendEnrollmentEmail(newUserId);
+                        }
                     }
                     else log.info("No need to send verification email", email);
                 } catch (e) {
