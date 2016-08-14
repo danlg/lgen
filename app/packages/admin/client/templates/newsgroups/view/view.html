@@ -1,5 +1,48 @@
 <template name="AdminNewsgroupsView">
     {{#if Template.subscriptionsReady}}
+
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h1>{{_ "Admin.NewsgroupsNews" }}</h1>
+            </div>
+            <div class="panel-body">
+
+                <!-- Large table -->
+                <table class="table datatable-basic">
+                    <thead>
+                    <th>{{_ "Admin.Title" }}</th>
+                    <th>{{_ "Admin.Content" }}</th>
+                    <th>{{_ "Admin.CreatedDate" }}</th>
+                    <th>{{_ "Admin.Show/HiddenNews" }}</th>
+                    <th>{{_ "Admin.RemoveNews" }}</th>
+                    </thead>
+                    <tbody>
+                    {{#each news}}
+                        <tr>
+                            <td>{{data.title}}</td>
+                            <td>{{{data.content}}}</td>
+                            <td>{{formatDateCalendar createdAt}}</td>
+                            <td>
+                                {{#if hidden}}
+                                    <button class='show-news-btn' data-msg-id="{{_id}}" type="button">{{_ "Admin.Show" }}</button>
+                                {{else}}
+                                    <button class='hide-news-btn' data-msg-id="{{_id}}" type="button">{{_ "Admin.Hide" }}</button>
+                                {{/if}}
+                            </td>
+                            <td>
+                                <button class='remove-news-btn' data-msg-id="{{_id}}" type="button">{{_ "Admin.Remove" }}</button>
+                            </td>
+                        </tr>
+                    {{else}}
+                        <tr><td colspan="5" style='text-align:center'>{{_ "Admin.NoExistingNews" }}</td></tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+                <!-- /large table -->
+
+            </div>
+        </div>
+
         <div class="panel panel-flat">
             {{#with classData}}
                 <div class="panel-heading">
@@ -22,81 +65,39 @@
                     {{/each}}
                     <!--<input type="text" name="text" placeholder="Type the name of your new admin" />-->
                 </div>
-                
+
                 <div class="panel-body">
                     <h3>{{_ "Admin.DistributionLists" }}</h3>
-                    
-                    
+
+
                     {{#each getAllDistributionList}}
-                            {{#if distributionListInCurrentGroup ../distributionLists}}
-                                <input type="checkbox" data-newsgroup-id='{{../_id}}' data-distribution-list-name='{{name}}' class='remove-distribution-list-from-group' id='{{url}}' name="distribution-list" value="{{_id}}" checked="checked"><label for="{{url}}">{{name}}</label><br>                            
-                            {{else}}
-                                <input type="checkbox"  data-newsgroup-id='{{../_id}}' data-distribution-list-name='{{name}}' class='add-distribution-list-to-group' id='{{url}}' name="distribution-list" value="{{_id}}"><label for="{{url}}">{{name}}</label><br>                        
-                            {{/if}}
+                        {{#if distributionListInCurrentGroup ../distributionLists}}
+                            <input type="checkbox" data-newsgroup-id='{{../_id}}' data-distribution-list-name='{{name}}' class='remove-distribution-list-from-group' id='{{url}}' name="distribution-list" value="{{_id}}" checked="checked"><label for="{{url}}">{{name}}</label><br>
+                        {{else}}
+                            <input type="checkbox"  data-newsgroup-id='{{../_id}}' data-distribution-list-name='{{name}}' class='add-distribution-list-to-group' id='{{url}}' name="distribution-list" value="{{_id}}"><label for="{{url}}">{{name}}</label><br>
+                        {{/if}}
 
                     {{else}}
                         {{_ "Admin.NoDistributionList" }}
                     {{/each}}
                 </div>
-                                                
-               <!-- <div class="panel-body">
+
+                <!-- <div class="panel-body">
                     <h3>Users</h3>
                     <ul>
                     {{#each users}}
-                        {{#with userData this}}
+                    {{#with userData this}}
                             <li><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.firstName}} {{profile.lastName}}</a><button class="remove-user">&times;</button></li>
                         {{/with}}
-                    {{/each}}
+                {{/each}}
                     </ul>
                     <input type="text" name="text" placeholder="Type the name of your new user" />
                 </div>-->
 
 
-                            
+
 
             {{/with}}
         </div>
-        
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h1>{{_ "Admin.NewsgroupsNews" }}</h1>
-            </div>
-            <div class="panel-body">
-                
-                <!-- Large table -->
-                <table class="table datatable-basic">
-                    <thead>
-                        <th>{{_ "Admin.Title" }}</th>
-                        <th>{{_ "Admin.Content" }}</th>
-                        <th>{{_ "Admin.CreatedDate" }}</th>
-                        <th>{{_ "Admin.Show/HiddenNews" }}</th>
-                        <th>{{_ "Admin.RemoveNews" }}</th>
-                    </thead>
-                    <tbody>
-                        {{#each news}}
-                                <tr>
-                                    <td>{{data.title}}</td>
-                                    <td>{{{data.content}}}</td>
-                                    <td>{{formatDateCalendar createdAt}}</td>
-                                    <td>
-                                        {{#if hidden}}
-                                            <button class='show-news-btn' data-msg-id="{{_id}}" type="button">{{_ "Admin.Show" }}</button>
-                                        {{else}}
-                                            <button class='hide-news-btn' data-msg-id="{{_id}}" type="button">{{_ "Admin.Hide" }}</button>
-                                        {{/if}}
-                                    </td>                        
-                                    <td>
-                                        <button class='remove-news-btn' data-msg-id="{{_id}}" type="button">{{_ "Admin.Remove" }}</button>
-                                    </td>
-                                </tr>
-                        {{else}}
-                            <tr><td colspan="5" style='text-align:center'>{{_ "Admin.NoExistingNews" }}</td></tr>
-                        {{/each}}
-                    </tbody>
-                </table>
-                <!-- /large table -->                
-
-            </div>
-        </div>
-   {{/if}}
+    {{/if}}
 </template>
