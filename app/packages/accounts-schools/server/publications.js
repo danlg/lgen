@@ -13,8 +13,6 @@ Meteor.publish('allSchoolUsers', function (schoolId) {
     }
 });
 
-
-
 var getContactsForAdmins = function(userId, schoolDoc)
 {
     if ( Roles.userIsInRole(userId, Smartix.Accounts.School.ADMIN, schoolDoc._id) ) {
@@ -234,13 +232,5 @@ Meteor.publish('schoolAdmins', function (schoolNamespace) {
     Smartix.Accounts.School.isAdmin(schoolNamespace, this.userId);
     
     return Roles.getUsersInRole('admin', schoolNamespace);
-
-});
-
-Meteor.publish('schoolStudents', function (schoolNamespace) {
-    // Check if the user has permission for this school
-    Smartix.Accounts.School.isAdmin(schoolNamespace, this.userId);
-    
-    return Roles.getUsersInRole(Smartix.Accounts.School.STUDENT, schoolNamespace);
 
 });
