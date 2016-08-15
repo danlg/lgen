@@ -5,7 +5,7 @@ Template.AdminAbsenceRegister.onCreated(function () {
     self.subscribe('schoolInfo', schoolUsername, function () {
         var schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
         if(schoolNamespace) {
-            self.subscribe('smartix:accounts/allUsersInNamespace', schoolNamespace);
+            self.subscribe('schoolStudents', schoolNamespace);
         }
     });
     this.isActualRegistration = new ReactiveVar(true);
@@ -80,7 +80,7 @@ Template.AdminAbsenceRegister.events({
         }
         userObj = Meteor.users.findOne(userId);
         if (userObj.studentId) {
-            template.$('#ActualAbsenceRegister__studentId').val(userObj.studentId);
+            // template.$('#ActualAbsenceRegister__studentId').val(userObj.studentId);
             log.info("Student ID", userObj.studentId)
         }
         template.find('#ActualAbsenceRegister__name').value = event.currentTarget.innerHTML;
