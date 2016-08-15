@@ -32,7 +32,12 @@ Template.AdminAbsenceRegister.events({
         if(!userId) {
             Toastr.error(TAPi18n.__("Admin.SelectUser"));
         }
+        userObj = Meteor.users.findOne(userId);
         template.studentId.set(userId);
+        if (userObj.studentId) {
+            template.studentId.set(userObj.studentId);
+            log.info("Student ID", userObj.studentId)
+        }
         template.find('#AdminAbsenceRegister__name').value = event.currentTarget.innerHTML;
         template.$(".AdminAbsenceRegister__user-search-result").hide(); 
     },
@@ -81,6 +86,7 @@ Template.AdminAbsenceRegister.events({
         userObj = Meteor.users.findOne(userId);
         if (userObj.studentId) {
             // template.$('#ActualAbsenceRegister__studentId').val(userObj.studentId);
+            template.studentId.set(userObj.studentId);
             log.info("Student ID", userObj.studentId)
         }
         template.find('#ActualAbsenceRegister__name').value = event.currentTarget.innerHTML;
@@ -93,11 +99,12 @@ Template.AdminAbsenceRegister.events({
     },
 
     'click #ActualAbsenceRegister__submit': function(event, template){
+        event.preventDefault();
         options = {};
         var studentId = template.studentId.get();
 
         options.name = template.$('#ActualAbsenceRegister__name').val();
-        options.studentId = template.$('#ActualAbsenceRegister__studentId').val();
+        options.studentId = template.studentId.get();
         options.department = template.$('#ActualAbsenceRegister__department').val();
         let date = template.$("#ActualAbsenceRegister__date").val();
         options.date = moment(date).format('DD/MM/YYYY').toString();
@@ -107,7 +114,7 @@ Template.AdminAbsenceRegister.events({
         else{
             options.clockIn = template.$("#ActualAbsenceRegister__checkInTime").val();
         }
-        log.info("Options", options);
+        // log.info("Options", options);
         Meteor.call('smartix:absence/updateAttendanceRecord', options, UI._globalHelpers['getCurrentSchoolName'](), function(err, res){
             if(err)
             {
@@ -164,4 +171,9 @@ var clearForm = function ( ) {
     $("#AdminAbsenceRegister__endDate").val(moment().add(1, 'day').format('YYYY-MM-DD'));
     $("#AdminAbsenceRegister__startTime").val('08:00');
     $("#AdminAbsenceRegister__endTime").val('08:00');
+    
+    $('#ActualAbsenceRegister__name').val("");
+    $('#ActualAbsenceRegister__department').val("");
+    $("#ActualAbsenceRegister__date").val(moment().format('YYYY-MM-DD'));
+    $("#ActualAbsenceRegister__checkInTime").val('08:00');
 };
