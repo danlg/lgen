@@ -1,4 +1,5 @@
 <template name="AdminAbsenceExpected">
+    {{#if Template.subscriptionsReady}}
     <div class="panel panel-flat">
         <div class="panel-heading">
             <h1>{{_ "Admin.ExpectedAbsences" }}</h1>
@@ -81,10 +82,12 @@
                                     <button class="AdminAbsenceExpected__approve label label-info">{{_ "Admin.Pending" }}</button>
                                 {{/if}}
                             </td>
-                            {{#with userData}}
-                                <td>{{profile.firstName}}</td>
-                                <td>{{profile.lastName}}</td>
-                            {{/with}}
+                            <!--{{#with userData}}-->
+                                <!--<td>{{profile.firstName}}</td>-->
+                                <!--<td>{{profile.lastName}}</td>-->
+                            <!--{{/with}}-->
+                            <td>{{firstName}}</td>
+                            <td>{{lastName}}</td>
                             <td>{{startDateTime}}</td>
                             <td>{{endDateTime}}</td>
                             <td>{{message}}</td>
@@ -94,5 +97,6 @@
             </table>
         </div>
     </div>
+    {{/if}}
     <!-- /basic datatable -->
 </template>

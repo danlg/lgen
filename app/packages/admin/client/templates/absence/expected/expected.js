@@ -34,12 +34,9 @@ Template.AdminAbsenceExpected.helpers({
         // Assumes UTC+8
         var dateFromTS = moment.utc(dateFrom, "YYYY-MM-DD").startOf('day').subtract(8, 'hours').unix();
         var dateToTS = moment.utc(dateTo, "YYYY-MM-DD").endOf('day').subtract(8, 'hours').unix();
-        
         var status = Template.instance().expectedAbsencesFilter.get('status');
         var name = Template.instance().expectedAbsencesFilter.get('name');
-        
         var usersWithMatchingNameIds = [];
-        
         if(name) {
             // Find all users with 
             var usersWithMatchingName = Meteor.users.find({
@@ -55,16 +52,15 @@ Template.AdminAbsenceExpected.helpers({
                         }
                     }
                 ]
-                
             }).fetch();
-            
             usersWithMatchingNameIds = _.map(usersWithMatchingName, function (user) {
                 return user._id;
             })
         }
-        
         var studentIdSelector = usersWithMatchingNameIds.length > 0 ? {$in: usersWithMatchingNameIds} : {$exists: true};
-        
+        // log.info("name",name);
+        // log.info("studentIdSelector",studentIdSelector);
+        // log.info("usersWithMatchingNameIds",usersWithMatchingNameIds);
         if(status === "any") {
             status = {$exists: true};
         } else if (status === "approved") {
@@ -75,21 +71,48 @@ Template.AdminAbsenceExpected.helpers({
         
         return Smartix.Absence.Collections.expected.find({
             studentId: studentIdSelector,
+            //? swap from <-> to ??
             dateFrom: {
-                $lte: dateToTS
+                //$lte: dateToTS
+                $gte: dateFromTS
             },
             dateTo: {
-                $gte: dateFromTS
+                //$gte: dateFromTS
+                $lte: dateToTS
             },
             approved: status,
             namespace: UI._globalHelpers['getCurrentSchoolId']()
         });
     },
-    userData: function () {
-        return Meteor.users.findOne({
-            _id: this.studentId
-        })
+    // userData: function () {
+	 //    let findOne = Meteor.users.find({
+    //         studentId: this.studentId
+    //     });
+    //     // log.info("this.studentId",this.studentId);
+    //     // log.info("findOne",findOne);
+    //     // log.info("findOne.profile",findOne.profile);
+    //     // log.info("findOne.profile.firstName", findOne.profile.firstName);
+    //     // log.info("findOne.profile.lastName", findOne.profile.lastName);
+    //     return findOne;
+    // },
+    firstName: function () {
+        let findtmp = Meteor.users.findOne({
+            "studentId": this.studentId
+        });
+        // log.info("this.studentId",this.studentId);
+        // log.info("find",findtmp);
+        // log.info("find.profile",findtmp.profile);
+        // log.info("find.profile.firstName", findtmp.profile.firstName);
+        // log.info("find.profile.lastName", findtmp.profile.lastName);
+        return findtmp.profile.firstName;
     },
+    lastName: function () {
+        let findtmp = Meteor.users.findOne({
+            "studentId": this.studentId
+        });
+        return findtmp.profile.lastName;
+    },
+
     startDateTime: function () {
         // This will be converted to the client's local timezone automatically
         return moment(this.dateFrom * 1000).format("DD-MM-YYYY HH:mm");

@@ -40,18 +40,18 @@ Meteor.publish('smartix:absence/expectedAbsencesUsers', function (namespace, dat
                 }
             }
         ]);
-        
         let studentsArray = [];
-        
         agRes.forEach(function (val) {
             studentsArray.push(val._id);
         });
-        
-        return Meteor.users.find({
-            _id: {
+        //log.info("studentsArray", studentsArray);
+	    let find = Meteor.users.find({
+            studentId: {
                 $in: studentsArray
             }
         });
+        //log.info("count", find.count());
+        return find;
     } else {
         this.ready();
     }

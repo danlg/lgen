@@ -31,8 +31,10 @@ Meteor.publish('smartix:absence/absentUsers', function (namespace) {
         agRes.forEach(function (val) {
             studentsArray.push(val._id);
         });
-        
+
         return Meteor.users.find({
+            //here the data structure seems to be different than expected collection
+            // studentId: {
             _id: {
                 $in: studentsArray
             }
