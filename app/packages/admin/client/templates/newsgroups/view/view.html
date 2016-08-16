@@ -72,9 +72,14 @@
 
                     {{#each getAllDistributionList}}
                         {{#if distributionListInCurrentGroup ../distributionLists}}
-                            <input type="checkbox" data-newsgroup-id='{{../_id}}' data-distribution-list-name='{{name}}' class='remove-distribution-list-from-group' id='{{url}}' name="distribution-list" value="{{_id}}" checked="checked"><label for="{{url}}">{{name}}</label><br>
+                            <input type="checkbox" data-newsgroup-id='{{../_id}}' data-distribution-list-name='{{name}}'
+                                   class='remove-distribution-list-from-group' id='{{url}}' name="distribution-list" value="{{_id}}"
+                                   checked="checked">
+                            <label for="{{url}}">{{name}}</label><br>
                         {{else}}
-                            <input type="checkbox"  data-newsgroup-id='{{../_id}}' data-distribution-list-name='{{name}}' class='add-distribution-list-to-group' id='{{url}}' name="distribution-list" value="{{_id}}"><label for="{{url}}">{{name}}</label><br>
+                            <input type="checkbox"  data-newsgroup-id='{{../_id}}' data-distribution-list-name='{{name}}'
+                                   class='add-distribution-list-to-group' id='{{url}}' name="distribution-list" value="{{_id}}">
+                            <label for="{{url}}">{{name}}</label><br>
                         {{/if}}
 
                     {{else}}

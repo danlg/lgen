@@ -53,12 +53,21 @@ Meteor.publishComposite('newsForUser', function(limit, query, namespace) {
             groups = groups.fetch();
             return { 
                 find: function(){
-                    return Smartix.Messages.Collection.find({
-                            group: {$in: lodash.map(groups, '_id')}},
-                            {sort: {createdAt: -1},
+                    //log.info("newsForUser.groups",groups);
+                    let find = Smartix.Messages.Collection.find(
+                        {
+                            group: {$in: lodash.map(groups, '_id')},
+                            hidden: false,
+                            deletedAt: { $exists: false }
+                        },
+                        {
+                            sort: {createdAt: -1},
                             limit: limit
                         }
-                    );},
+                    );
+                    //log.info("newsForUser.count",find.count());
+                    return find;
+                },
                 children:[
                     {
                         find: function(messageObj){
