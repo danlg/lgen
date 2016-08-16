@@ -45,28 +45,34 @@ Template.NewsgroupsList.helpers({
         }else{
             return false;
         }      
-    },    
+    }
 });
 
 Template.NewsgroupsList.events({
-   'click .opt-out':function(event,template){
-       if($(event.target).hasClass("distribution-list")){
-         var groupId = $(event.target).data("groupId");
-         Meteor.call('smartix:newsgroups/addToOptOutList', groupId);
-       }else{
-         var groupId = $(event.target).data("groupId");
-         Meteor.call('class/leave', groupId);            
-       }
-   },
-   'click .opt-in':function(event,template){
-       if($(event.target).hasClass("distribution-list")){
-         var groupId = $(event.target).data("groupId");
-         Meteor.call('smartix:newsgroups/removeFromOptOutList', groupId); 
-       }else{
-         var groupId = $(event.target).data("groupId");
-         Meteor.call('smartix:newsgroups/joinNewsgroup', groupId);          
-       }       
-   },   
+
+    'click .opt-out':function(event,template){
+        // if($(event.target).hasClass("distribution-list")){
+            var groupId = $(event.target).data("groupId");
+            //log.info("opt-out OK", groupId);
+            Meteor.call('smartix:newsgroups/addToOptOutList', groupId);
+        // }
+        // else{
+        //     var groupId = $(event.target).data("groupId");
+        //     log.info("opt-out KO", groupId);
+             Meteor.call('class/leave', groupId);
+        // }
+    },
+
+    'click .opt-in':function(event,template){
+        if($(event.target).hasClass("distribution-list")){
+            var groupId = $(event.target).data("groupId");
+            Meteor.call('smartix:newsgroups/removeFromOptOutList', groupId);
+        }
+        else{
+            var groupId = $(event.target).data("groupId");
+            Meteor.call('smartix:newsgroups/joinNewsgroup', groupId);
+        }
+    }
 });
 
 Template.NewsgroupsList.onDestroyed(function(){

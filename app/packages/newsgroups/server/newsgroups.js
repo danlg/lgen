@@ -14,7 +14,8 @@ Smartix.Newsgroup.getNewsgroupOfUser = function (id, school) {
 	if(id) {
 		var distributionListsUserBelong = Smartix.Groups.Collection.find({type: 'distributionList', users: id }).fetch();
         var distributionListsUserBelongIds = lodash.map(distributionListsUserBelong,'_id');
-        return Smartix.Groups.Collection.find({$or:[
+		let find = Smartix.Groups.Collection.find({$or:
+			[
 				{
 					// namespace: school.username,
 					type: 'newsgroup',
@@ -24,10 +25,12 @@ Smartix.Newsgroup.getNewsgroupOfUser = function (id, school) {
 					// namespace: school.username,
 					type: 'newsgroup',
 					distributionLists: {$in : distributionListsUserBelongIds },
-					optOutUsersFromDistributionLists :{  $nin : [id] } 
-				},            
+					optOutUsersFromDistributionLists :{  $nin : [id] }
+				}
 			]}
 		);
+		//log.info("Smartix.Newsgroup.getNewsgroupOfUser.count",find.count());
+		return find;
 	}
 };
 

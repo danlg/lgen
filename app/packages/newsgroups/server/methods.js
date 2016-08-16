@@ -53,6 +53,7 @@ Meteor.methods({
         
     },
     'smartix:newsgroups/addToOptOutList':function(newsgroupId){
+       // log.info("smartix:newsgroups/addToOptOutList", newsgroupId);
        var newsgroup = Smartix.Groups.Collection.findOne(newsgroupId);
        if(newsgroup){
            var userNamespaces = Object.keys(Meteor.user().roles);
@@ -73,7 +74,8 @@ Meteor.methods({
                
     },    
     'smartix:newsgroups/removeFromOptOutList':function(newsgroupId){
-       var newsgroup = Smartix.Groups.Collection.findOne(newsgroupId);
+        //log.info("smartix:newsgroups/removeFromOptOutList", newsgroupId);
+        var newsgroup = Smartix.Groups.Collection.findOne(newsgroupId);
        if(newsgroup){
            var userNamespaces = Object.keys(Meteor.user().roles);
            if(userNamespaces.indexOf(newsgroup.namespace ) > -1){
