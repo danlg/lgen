@@ -112,8 +112,8 @@ Meteor.startup(function () {
     var pathToRouteObj ={
         routeName:'classDetail',
         params: {classCode:data.classCode},
-        query: {query: "toBottom=true"},
-    }    
+        query: {query: "toBottom=true"}
+    };    
     //In Desktop, determine if browser support Notification API
     if('Notification' in window && Notification.permission == 'granted'){
         //if Notification API is supported
@@ -144,7 +144,7 @@ Meteor.startup(function () {
     var pathToRouteObj ={
         routeName:'ChatRoom',
         params: {chatRoomId:data.chatRoomId},
-        query: {query: "toBottom=true"},
+        query: {query: "toBottom=true"}
     };
     if ('Notification' in window && Notification.permission == 'granted') {
         //if Notification API is supported

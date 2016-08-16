@@ -18,10 +18,12 @@ Template.ChatInvite.onCreated(function () {
 /* ChatInvite: Event Handlers */
 Template.ChatInvite.events({
   'click .startChatBtn': function () {
-      log.info('targetIds', targetIds.get() );
-      Meteor.call('chatCreate', targetIds.get(),null, UI._globalHelpers['getCurrentSchoolName'](), function (err, data) {
-      Router.go('ChatRoom', {chatRoomId: data});
-    });
+      log.info('startChatBtn', targetIds.get() );
+      Meteor.call('chatCreate', targetIds.get(),null, UI._globalHelpers['getCurrentSchoolName'](), 
+          function (err, roomId) {
+            Router.go('ChatRoom', {chatRoomId: roomId});
+        }
+      );
     /*log.info($('.js-example-basic-multiple').val());*/
   },
 
