@@ -124,16 +124,18 @@ Template.AdminUsersView.events({
         newUserObj.tel = template.$('#AdminUsers__tel').intlTelInput("getNumber", intlTelInputUtils.numberFormat.E164);
         
         let newEmail = template.$('#AdminUser__email').eq(0).val().trim();
-        if (parseEmail(newEmail)) {
+        if ( parseEmail(newEmail)) {
             newUserObj.emails = [];
             newUserObj.emails[0] = { address: newEmail, verified: true};
             newUserObj.registered_emails = [];
             newUserObj.registered_emails[0] = { address: newEmail, verified: true};
         }
-        else {
-            //log.warn("Didn't parse new email", newEmail);
+        else if (newEmail !== "") {
+            log.warn("Didn't parse new email", newEmail);
             return false;
         }
+        //else{log.info("email optional", newEmail);}
+        //TODO warning - Bug to delete email - cannot be deleted - remains
         if (this.emails && this.emails[0]) {
             log.info("Updating email from ", this.emails[0].address," -> ", newEmail);
         }
@@ -159,7 +161,7 @@ Template.AdminUsersView.events({
         newUserObj.schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
 
 
-        //log.info(newUserObj);
+        //log.info("calling smartix:accounts/editUser", newUserObj);
         // Call the Meteor method to create the school user
         Meteor.call(
             'smartix:accounts/editUser',
