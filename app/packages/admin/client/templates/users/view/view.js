@@ -32,16 +32,27 @@ Template.AdminUsersView.helpers({
     },
 
     userIsChild:function(){
-        var schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
-        var user = Meteor.users.findOne({ _id: Router.current().params.uid });
+        let schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
+        let user = Meteor.users.findOne({ _id: Router.current().params.uid });
         if(user && user.roles[schoolNamespace]) {
-            var isStudent =  ( user.roles[schoolNamespace].indexOf(Smartix.Accounts.School.STUDENT) > -1);
+            let isStudent =  ( user.roles[schoolNamespace].indexOf(Smartix.Accounts.School.STUDENT) > -1);
             //log.info("userIsChild="+ isStudent);
             return isStudent;
         }
         return false;
     }
 });
+
+var isStudent = () => {
+    let schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
+    let user = Meteor.users.findOne({ _id: Router.current().params.uid });
+    if(user && user.roles[schoolNamespace]) {
+        let isStudent =  ( user.roles[schoolNamespace].indexOf(Smartix.Accounts.School.STUDENT) > -1);
+        //log.info("userIsChild="+ isStudent);
+        return isStudent;
+    }
+    return false;
+};
 
 var initTelephone = function (template) {
     // Initialize intl-tel-input
@@ -53,14 +64,13 @@ var initTelephone = function (template) {
                 callback(countryCode);
             });
         },
-        // Add Hong Kong, USA and UK to the most popular countries (displayed first)
-        preferredCountries: ["hk", "us", "gb"]
+        // Add a couple of countries to the most popular countries (displayed first)
+        preferredCountries: ["hk", "us", "gb", "fr", "in"]
     });
 };
 
 Template.AdminUsersView.events({
-    'click #AdminUsers__dob': function(event, template)
-    {
+    'click #AdminUsers__dob': function(event, template) {
         event.preventDefault();
         template.$("#AdminUsers__dob").pickadate({
                 labelMonthNext: 'Go to the next month',
@@ -79,8 +89,7 @@ Template.AdminUsersView.events({
         );
     },
 
-    'click #AdminUsers__tel': function(event, template)
-    {
+    'click #AdminUsers__tel': function(event, template) {
         initTelephone(template);
     },
 
@@ -96,12 +105,22 @@ Template.AdminUsersView.events({
         initTelephone(template);//to parse the telephone and transform object -> string
         
         var dateFieldVal = template.$('#AdminUsers__dob').eq(0).val();
-        if (dateFieldVal === "") {
+        if (dateFieldVal === ""
+            && isStudent ()
+            //&& Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.STUDENT, namespace)||
+        ) {
             toastr.error(TAPi18n.__("Admin.StudentDobRequired"));
             return false;
         } else {
             newUserObj.dob = moment(new Date(template.$('#AdminUsers__dob').eq(0).val())).format('DD-MM-YYYY');
         }
+        if ( isStudent() ) {
+            newUserObj.classroom = template.$('#AdminUsers__classroom').eq(0).val();
+            newUserObj.grade     = template.$('#AdminUsers__grade').eq(0).val();
+            newUserObj.studentId = template.$('#AdminUsers__studentId').eq(0).val();
+        }
+        newUserObj.username = template.$('#AdminUser__username').eq(0).val();
+
         // Retrieve Telephone Number
         newUserObj.tel = template.$('#AdminUsers__tel').intlTelInput("getNumber", intlTelInputUtils.numberFormat.E164);
         // Retrieve the username, or generate one
@@ -117,7 +136,9 @@ Template.AdminUsersView.events({
         //log.info("Updating email from ", user.emails[0].address," -> ", newEmail);
         newUserObj.emails = [];
         newUserObj.emails[0] = { address: newEmail, verified: true};
-        
+        newUserObj.registered_emails = [];
+        newUserObj.registered_emails[0] = { address: newEmail, verified: true};
+
         // Meteor.users.update(
         //     {_id  : Router.current().params.uid},
         //     {$set : {"emails":[{address : newEmail}]}});

@@ -5,34 +5,38 @@ Smartix.Notifications = Smartix.Notifications || {};
 Smartix.Notifications.Helpers = Smartix.Notifications.Helpers || {};
 
 Smartix.Notifications.Helpers.sumOfNewChatMessageCounter = function(){
-    
-   var groupsInNamespace =  Smartix.Groups.Collection.find({namespace:Session.get('pickedSchoolId')},{fields: {_id:1}}).fetch();
+   let schoolId = UI._globalHelpers['getCurrentSchoolId']();
+   //log.info("sumOfNewChatMessageCounter.schoolId", schoolId);
+   //log.info("sumOfNewChatMessageCounter.pickedSchoolId", Session.get('pickedSchoolId'));
+   var groupsInNamespace =  Smartix.Groups.Collection.find(
+       //{ namespace:Session.get('pickedSchoolId') },
+       { namespace: schoolId },
+       { fields: {_id:1} }
+   ).fetch();
    var groupIdsInNamespace = lodash.map(groupsInNamespace,"_id");
-       
    var newMessageCount =  Notifications.find({'eventType':'newchatmessage','hasRead':false,'groupId':{ $in: groupIdsInNamespace }}).count();
-      
+   log.info("sumOfNewChatMessageCounter.newMessageCount", newMessageCount);
    if(newMessageCount > 0 ){
        return newMessageCount;
    }else{
        return false;
    }    
-}
+};
 
 Smartix.Notifications.Helpers.sumOfNewClassMessageAndCommentCounter = function(){
-   
-   var groupsInNamespace =  Smartix.Groups.Collection.find({namespace:Session.get('pickedSchoolId')},{fields: {_id:1}}).fetch();
+   var groupsInNamespace =  Smartix.Groups.Collection.find(
+       { namespace:Session.get('pickedSchoolId')},
+       { fields: {_id:1}}
+   ).fetch();
    var groupIdsInNamespace = lodash.map(groupsInNamespace,"_id");
-   
-   
    var newMessageCount =  Notifications.find({'eventType':'newclassmessage','hasRead':false,'groupId':{ $in: groupIdsInNamespace }}).count();
    var newCommentCount =  Notifications.find({'eventType':'newclasscomment','hasRead':false,'groupId':{ $in: groupIdsInNamespace }}).count();
-        
    if(newMessageCount+newCommentCount > 0 ){
        return (newMessageCount+newCommentCount);
    }else{
        return false;
    }
-}
+};
 
 Smartix.Notifications.Helpers.sumOfNewNewsCounter = function(){
    
