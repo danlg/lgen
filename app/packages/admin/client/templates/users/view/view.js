@@ -119,31 +119,28 @@ Template.AdminUsersView.events({
             newUserObj.grade     = template.$('#AdminUsers__grade').eq(0).val();
             newUserObj.studentId = template.$('#AdminUsers__studentId').eq(0).val();
         }
-        newUserObj.username = template.$('#AdminUser__username').eq(0).val();
-
-        // Retrieve Telephone Number
-        newUserObj.tel = template.$('#AdminUsers__tel').intlTelInput("getNumber", intlTelInputUtils.numberFormat.E164);
         // Retrieve the username, or generate one
-
-        // NB !! Crude EMAIL UPDATE  implementation - the registered_emails field is not updated and may lead to discrepancy but it works
-        //expected impact is low as this is only used for merge account with accounts-meld
-        //the runtime checks have been removed - doubt of their added value...
-        // TODO check the proper email formatting...
-        newEmail = template.$('#AdminUser__email').eq(0).val().trim();
-        //let user = Meteor.users.findOne({ _id: Router.current().params.uid });
-        //console.log(this.emails);
-        log.info("Updating email from ", this.emails[0].address," -> ", newEmail);
-        //log.info("Updating email from ", user.emails[0].address," -> ", newEmail);
-        newUserObj.emails = [];
-        newUserObj.emails[0] = { address: newEmail, verified: true};
-        newUserObj.registered_emails = [];
-        newUserObj.registered_emails[0] = { address: newEmail, verified: true};
-
-        // Meteor.users.update(
-        //     {_id  : Router.current().params.uid},
-        //     {$set : {"emails":[{address : newEmail}]}});
-
-
+        newUserObj.username = template.$('#AdminUser__username').eq(0).val();
+        newUserObj.tel = template.$('#AdminUsers__tel').intlTelInput("getNumber", intlTelInputUtils.numberFormat.E164);
+        
+        let newEmail = template.$('#AdminUser__email').eq(0).val().trim();
+        if (parseEmail(newEmail)) {
+            newUserObj.emails = [];
+            newUserObj.emails[0] = { address: newEmail, verified: true};
+            newUserObj.registered_emails = [];
+            newUserObj.registered_emails[0] = { address: newEmail, verified: true};
+        }
+        else {
+            //log.warn("Didn't parse new email", newEmail);
+            return false;
+        }
+        if (this.emails && this.emails[0]) {
+            log.info("Updating email from ", this.emails[0].address," -> ", newEmail);
+        }
+        else{
+            log.info("Updating email from ", " -> ", newEmail);
+        }
+        
         // First Name, Last Name and DOB are required.
         // DOB were already checked above
         // If the first name or last name is not filledb throw an error as they are required fields
@@ -179,3 +176,21 @@ Template.AdminUsersView.events({
         );
     }
 });
+
+// If email is not present, password must be set
+var parseEmail = (email) => {
+    if(email.length > 0) {
+        if(Match.test(email, Match.Where(function(val) {
+                check(val, String);
+                return SimpleSchema.RegEx.Email.test(val);
+            })))
+        {
+            return true;
+        }
+        else {
+            // Email does not pass validation, Remove the email value
+            toastr.error(TAPi18n.__("EmailFormatNotCorrect"));
+            return false;
+        }
+    }
+};
