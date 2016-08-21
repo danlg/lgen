@@ -112,7 +112,10 @@ Template.AdminUsersView.events({
             toastr.error(TAPi18n.__("Admin.StudentDobRequired"));
             return false;
         } else {
-            newUserObj.dob = moment(new Date(template.$('#AdminUsers__dob').eq(0).val())).format('DD-MM-YYYY');
+            let dob = template.$('#AdminUsers__dob').eq(0).val();
+            log.info("dob",dob);
+            //newUserObj.dob = moment(new Date(dob)).format('DD-MM-YYYY');
+            newUserObj.dob = dob;
         }
         if ( isStudent() ) {
             newUserObj.classroom = template.$('#AdminUsers__classroom').eq(0).val();
