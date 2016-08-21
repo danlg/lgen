@@ -336,11 +336,10 @@ Smartix.Accounts.editUser = function(userId, options, currentUser) {
     if (Smartix.Accounts.canEditUser(userId, options, currentUser)) {
         //log.info('Smartix.Accounts.editUser:canEditUser', options);
         log.info ("Smartix.Accounts.editUser", options);
-        return Meteor.users.update({
-            _id: userId
-        }, {
-                $set: options
-            })
+        return Meteor.users.update(
+            { _id: userId},
+            { $set: options }
+        );
     }
     else {
         log.warn("cannot edit user");
