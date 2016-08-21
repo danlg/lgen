@@ -4,7 +4,7 @@ Template.AdminAddOthers.events({
         event.preventDefault();
         var newUserObj = {};
         var notifyuserwithemail = template.$('#notifyuserwithemail').is(":checked");
-        newUserObj.profile = {}
+        newUserObj.profile = {};
         let firstName = newUserObj.profile.firstName = template.$('#AdminAddOthers__firstName').eq(0).val();
         let lastName = newUserObj.profile.lastName = template.$('#AdminAddOthers__lastName').eq(0).val();
         // Retrieve email
@@ -93,6 +93,7 @@ Template.AdminAddOthers.onRendered(function () {
                 callback(countryCode);
             });
         },
-        preferredCountries: ["hk", "us", "gb"]
+        // Add a couple of countries to the most popular countries (displayed first)
+        preferredCountries: ["hk", "us", "gb", "fr", "in"]
     });
-})
+});
