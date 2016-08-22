@@ -47,10 +47,9 @@ Template.TabClasses.helpers({
     } else {
       if(Meteor.user() && Meteor.user().roles && Meteor.user().roles[currentSchoolId]){
         var userRolesInCurrentNamespace = Meteor.user().roles[currentSchoolId];
-        //student cannot create class
+        //student and parent cannot create class
         return (
             userRolesInCurrentNamespace.indexOf(Smartix.Accounts.School.ADMIN)!==-1 ||
-            userRolesInCurrentNamespace.indexOf(Smartix.Accounts.School.PARENT)!==-1 ||
             userRolesInCurrentNamespace.indexOf(Smartix.Accounts.School.TEACHER)!==-1
         );
       }

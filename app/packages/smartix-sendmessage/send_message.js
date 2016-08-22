@@ -229,8 +229,8 @@ var setCalendar = function (event, sendMsgtemplate) {
 						toastr.info(TAPi18n.__("FillEventDetail"));
 						return;
 					}
-					//sendMsgtemplate.calendarEvent.set({
-					Template.instance().calendarEvent.set({
+					sendMsgtemplate.calendarEvent.set({
+					// Template.instance().calendarEvent.set({
 						eventName: $(template.firstNode).find('#event-name').val(),
 						location: $(template.firstNode).find('#location').val(),
 						startDate: $(template.firstNode).find('#start-date').val(),
@@ -238,7 +238,7 @@ var setCalendar = function (event, sendMsgtemplate) {
 						endDate: $(template.firstNode).find('#end-date').val(),
 						endDateTime: $(template.firstNode).find('#end-date-time').val()
 					});
-					//log.info(sendMsgtemplate.calendarEvent.get());
+					// log.info(sendMsgtemplate.calendarEvent.get());
 					IonPopup.close();
 				}
 			}

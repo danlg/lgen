@@ -194,7 +194,10 @@ Meteor.publish('allSchoolUsersPerRole', function (school) {
     if(schoolDoc) {
         // log.info("allSchoolUsers", allSchoolUsers);
         return Meteor.users.find(
-            { _id: { $in: allSchoolUsers } }
+            { 
+                _id: { $in: allSchoolUsers }, 
+                emails : {$exists:true}, $where:'this.emails.length>0'
+            }
             , {
                     'profile.firstName': 1,
                     'profile.lastName': 1,
