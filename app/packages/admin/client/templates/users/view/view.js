@@ -32,16 +32,27 @@ Template.AdminUsersView.helpers({
     },
 
     userIsChild:function(){
-        var schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
-        var user = Meteor.users.findOne({ _id: Router.current().params.uid });
+        let schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
+        let user = Meteor.users.findOne({ _id: Router.current().params.uid });
         if(user && user.roles[schoolNamespace]) {
-            var isStudent =  ( user.roles[schoolNamespace].indexOf(Smartix.Accounts.School.STUDENT) > -1);
+            let isStudent =  ( user.roles[schoolNamespace].indexOf(Smartix.Accounts.School.STUDENT) > -1);
             //log.info("userIsChild="+ isStudent);
             return isStudent;
         }
         return false;
     }
 });
+
+var isStudent = () => {
+    let schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
+    let user = Meteor.users.findOne({ _id: Router.current().params.uid });
+    if(user && user.roles[schoolNamespace]) {
+        let isStudent =  ( user.roles[schoolNamespace].indexOf(Smartix.Accounts.School.STUDENT) > -1);
+        //log.info("userIsChild="+ isStudent);
+        return isStudent;
+    }
+    return false;
+};
 
 var initTelephone = function (template) {
     // Initialize intl-tel-input
@@ -53,14 +64,13 @@ var initTelephone = function (template) {
                 callback(countryCode);
             });
         },
-        // Add Hong Kong, USA and UK to the most popular countries (displayed first)
-        preferredCountries: ["hk", "us", "gb"]
+        // Add a couple of countries to the most popular countries (displayed first)
+        preferredCountries: ["hk", "us", "gb", "fr", "in"]
     });
 };
 
 Template.AdminUsersView.events({
-    'click #AdminUsers__dob': function(event, template)
-    {
+    'click #AdminUsers__dob': function(event, template) {
         event.preventDefault();
         template.$("#AdminUsers__dob").pickadate({
                 labelMonthNext: 'Go to the next month',
@@ -79,8 +89,7 @@ Template.AdminUsersView.events({
         );
     },
 
-    'click #AdminUsers__tel': function(event, template)
-    {
+    'click #AdminUsers__tel': function(event, template) {
         initTelephone(template);
     },
 
@@ -96,33 +105,48 @@ Template.AdminUsersView.events({
         initTelephone(template);//to parse the telephone and transform object -> string
         
         var dateFieldVal = template.$('#AdminUsers__dob').eq(0).val();
-        if (dateFieldVal === "") {
+        if (dateFieldVal === ""
+            && isStudent ()
+            //&& Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.STUDENT, namespace)||
+        ) {
             toastr.error(TAPi18n.__("Admin.StudentDobRequired"));
             return false;
         } else {
-            newUserObj.dob = moment(new Date(template.$('#AdminUsers__dob').eq(0).val())).format('DD-MM-YYYY');
+            let dob = template.$('#AdminUsers__dob').eq(0).val();
+            log.info("dob",dob);
+            //newUserObj.dob = moment(new Date(dob)).format('DD-MM-YYYY');
+            newUserObj.dob = dob;
         }
-        // Retrieve Telephone Number
-        newUserObj.tel = template.$('#AdminUsers__tel').intlTelInput("getNumber", intlTelInputUtils.numberFormat.E164);
+        if ( isStudent() ) {
+            newUserObj.classroom = template.$('#AdminUsers__classroom').eq(0).val();
+            newUserObj.grade     = template.$('#AdminUsers__grade').eq(0).val();
+            newUserObj.studentId = template.$('#AdminUsers__studentId').eq(0).val();
+        }
         // Retrieve the username, or generate one
-
-        // NB !! Crude EMAIL UPDATE  implementation - the registered_emails field is not updated and may lead to discrepancy but it works
-        //expected impact is low as this is only used for merge account with accounts-meld
-        //the runtime checks have been removed - doubt of their added value...
-        // TODO check the proper email formatting...
-        newEmail = template.$('#AdminUser__email').eq(0).val().trim();
-        //let user = Meteor.users.findOne({ _id: Router.current().params.uid });
-        //console.log(this.emails);
-        log.info("Updating email from ", this.emails[0].address," -> ", newEmail);
-        //log.info("Updating email from ", user.emails[0].address," -> ", newEmail);
-        newUserObj.emails = [];
-        newUserObj.emails[0] = { address: newEmail, verified: true};
+        newUserObj.username = template.$('#AdminUser__username').eq(0).val().trim().toLowerCase();
+        newUserObj.tel = template.$('#AdminUsers__tel').intlTelInput("getNumber", intlTelInputUtils.numberFormat.E164);
         
-        // Meteor.users.update(
-        //     {_id  : Router.current().params.uid},
-        //     {$set : {"emails":[{address : newEmail}]}});
-
-
+        let newEmail = template.$('#AdminUser__email').eq(0).val().trim().toLowerCase();
+        if ( parseEmail(newEmail)) {
+            log.info("Setting email ", newEmail);
+            newUserObj.emails = [];
+            newUserObj.emails[0] = { address: newEmail, verified: true};
+            newUserObj.registered_emails = [];
+            newUserObj.registered_emails[0] = { address: newEmail, verified: true};
+        }
+        else if (newEmail !== "") {
+            log.warn("Didn't parse new email", newEmail);
+            return false;
+        }
+        //else{log.info("email optional", newEmail);}
+        //TODO warning - Bug to delete email - cannot be deleted - remains
+        if (this.emails && this.emails[0]) {
+            log.info("Updating email from ", this.emails[0].address," -> ", newEmail);
+        }
+        else{
+            log.info("Updating email from ", " -> ", newEmail);
+        }
+        
         // First Name, Last Name and DOB are required.
         // DOB were already checked above
         // If the first name or last name is not filledb throw an error as they are required fields
@@ -141,7 +165,7 @@ Template.AdminUsersView.events({
         newUserObj.schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
 
 
-        //log.info(newUserObj);
+        //log.info("calling smartix:accounts/editUser", newUserObj);
         // Call the Meteor method to create the school user
         Meteor.call(
             'smartix:accounts/editUser',
@@ -158,3 +182,21 @@ Template.AdminUsersView.events({
         );
     }
 });
+
+// If email is not present, password must be set
+var parseEmail = (email) => {
+    if(email.length > 0) {
+        if(Match.test(email, Match.Where(function(val) {
+                check(val, String);
+                return SimpleSchema.RegEx.Email.test(val);
+            })))
+        {
+            return true;
+        }
+        else {
+            // Email does not pass validation, Remove the email value
+            toastr.error(TAPi18n.__("EmailFormatNotCorrect"));
+            return false;
+        }
+    }
+};

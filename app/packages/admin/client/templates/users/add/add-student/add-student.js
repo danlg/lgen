@@ -28,8 +28,8 @@ Template.AdminAddStudent.onRendered(function(){
                 callback(countryCode);
             });
         },
-        // Add Hong Kong, USA and UK to the most popular countries (displayed first)
-        preferredCountries: ["hk", "us", "gb"]
+        // Add a couple of countries to the most popular countries (displayed first)
+        preferredCountries: ["hk", "us", "gb", "fr", "in"]
     });
 });
 
@@ -40,7 +40,7 @@ var checkAllRelationshipsAreValid = function (template) {
         var firstName = $(el).find('.AddStudentNewRelationship__firstName').eq(0).val();
         var lastName = $(el).find('.AddStudentNewRelationship__lastName').eq(0).val();
         var email = $(el).find('.AddStudentNewRelationship__email').eq(0).val();
-        var tel = $(el).find('.AddStudentNewRelationship__phone').eq(0).val();
+        //var tel = $(el).find('.AddStudentNewRelationship__phone').eq(0).val();
         var type = $(el).find('.AddStudentNewRelationship__type').eq(0).val();
         
         if(
@@ -101,17 +101,20 @@ Template.AdminAddStudent.events({
         
         var dateFieldVal = template.$('#AdminAddStudent__dob').eq(0).val();
         if (dateFieldVal === "") {
-            toastr.error(TAPi18n.__("admin.users.add.studentDobRequired"));
+            toastr.error(TAPi18n.__("Admin.StudentDobRequired"));
             return false;
         } else {
             newUserObj.dob = moment(new Date(template.$('#AdminAddStudent__dob').eq(0).val())).format('DD-MM-YYYY');
         }
+        newUserObj.classroom = template.$('#AdminAddStudent__classroom').eq(0).val();
+        newUserObj.grade     = template.$('#AdminAddStudent__grade').eq(0).val();
+        newUserObj.studentId = template.$('#AdminAddStudent__studentId').eq(0).val();
         // Retrieve Telephone Number
         newUserObj.tel = template.$('#AdminAddStudent__tel').intlTelInput("getNumber", intlTelInputUtils.numberFormat.E164);
         // Retrieve the username, or generate one
-        newUserObj.username = template.$('#AdminAddStudent__username').eq(0).val();
+        newUserObj.username = template.$('#AdminAddStudent__username').eq(0).val().trim().toLowerCase();
         // Retrieve email
-        var email = template.$('#AdminAddStudent__email').eq(0).val();
+        let email = template.$('#AdminAddStudent__email').eq(0).val().trim().toLowerCase();
         // Retrieve password
         newUserObj.password = template.$('#AdminAddStudent__password').eq(0).val();
         // CHECKS //
@@ -130,11 +133,9 @@ Template.AdminAddStudent.events({
                 check(val, String);
                 return SimpleSchema.RegEx.Email.test(val);
             }))) {
-                // Email passes validation
-                // Password not required
+                // Email passes validation, Password not required
             } else {
-                // Email does not pass validation
-                // Remove the email value
+                // Email does not pass validation, Remove the email value
                 toastr.error(TAPi18n.__("EmailFormatNotCorrect"));
                 return false;
             }
@@ -151,13 +152,13 @@ Template.AdminAddStudent.events({
                 return false;
             }
         }
-        check(newUserObj, {
-            profile: Object,
-            dob: String,
-            tel: Match.Maybe(String),
-            password: Match.Maybe(String),
-	        username: Match.Maybe(String)
-        });
+        // check(newUserObj, {
+        //     profile: Object,
+        //     dob: String,
+        //     tel: Match.Maybe(String),
+        //     password: Match.Maybe(String),
+	     //    username: Match.Maybe(String)
+        // });
         
         //log.info(newUserObj);
         // Call the Meteor method to create the school user

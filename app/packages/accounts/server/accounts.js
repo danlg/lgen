@@ -167,7 +167,8 @@ Smartix.Accounts.createUser = function(email, userObj, namespace, roles, current
  */
 Smartix.Accounts.createUserImpl = function(userObj, email, namespace) {
     var newUserOptions = {};
-    if (userObj.username) { newUserOptions.username = userObj.username; }
+    //if (userObj.username) { newUserOptions.username = userObj.username; }
+    if (userObj.username) { newUserOptions.username = userObj.username.toLowerCase(); }
     if (!userObj.username && userObj.profile && userObj.profile.firstName && userObj.profile.lastName) {
         newUserOptions.username = Smartix.Accounts.helpers.generateUniqueUserName(userObj.profile.firstName, userObj.profile.lastName);
     }
@@ -185,7 +186,8 @@ Smartix.Accounts.createUserImpl = function(userObj, email, namespace) {
         }
     }
     if (typeof email === "string") {
-        newUserOptions.email = email;
+        //newUserOptions.email = email;
+        newUserOptions.email = email.toLowerCase();
     }
     //log.info("About to create user "+ newUserOptions.email + " " + newUserOptions.username + " for school "+newUserOptions.schools);
     var newUserId;
@@ -336,11 +338,10 @@ Smartix.Accounts.editUser = function(userId, options, currentUser) {
     if (Smartix.Accounts.canEditUser(userId, options, currentUser)) {
         //log.info('Smartix.Accounts.editUser:canEditUser', options);
         log.info ("Smartix.Accounts.editUser", options);
-        return Meteor.users.update({
-            _id: userId
-        }, {
-                $set: options
-            })
+        return Meteor.users.update(
+            { _id: userId},
+            { $set: options }
+        );
     }
     else {
         log.warn("cannot edit user");

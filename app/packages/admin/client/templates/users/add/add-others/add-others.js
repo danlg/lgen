@@ -4,15 +4,15 @@ Template.AdminAddOthers.events({
         event.preventDefault();
         var newUserObj = {};
         var notifyuserwithemail = template.$('#notifyuserwithemail').is(":checked");
-        newUserObj.profile = {}
-        let firstName = newUserObj.profile.firstName = template.$('#AdminAddOthers__firstName').eq(0).val();
-        let lastName = newUserObj.profile.lastName = template.$('#AdminAddOthers__lastName').eq(0).val();
+        newUserObj.profile = {};
+        newUserObj.profile.firstName = template.$('#AdminAddOthers__firstName').eq(0).val();
+        newUserObj.profile.lastName = template.$('#AdminAddOthers__lastName').eq(0).val();
         // Retrieve email
-        var email = template.$('#AdminAddOthers__email').eq(0).val();
+        let email = template.$('#AdminAddOthers__email').eq(0).val().trim().toLowerCase();
         // Retrieve Telephone Number
         newUserObj.tel = template.$('#AdminAddOthers__tel').intlTelInput("getNumber", intlTelInputUtils.numberFormat.E164);
         // Retrieve the username, or generate one
-        newUserObj.username = template.$('#AdminAddOthers__username').eq(0).val();
+        newUserObj.username = template.$('#AdminAddOthers__username').eq(0).val().trim().toLowerCase();
         // Retrieve Roles
         var roles = template.$('#AdminAddOthers__roles').eq(0).val();
         // Retrieve password
@@ -93,6 +93,7 @@ Template.AdminAddOthers.onRendered(function () {
                 callback(countryCode);
             });
         },
-        preferredCountries: ["hk", "us", "gb"]
+        // Add a couple of countries to the most popular countries (displayed first)
+        preferredCountries: ["hk", "us", "gb", "fr", "in"]
     });
-})
+});

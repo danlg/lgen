@@ -8,6 +8,7 @@ Template.MobileSchoolHome.onCreated(function(){
         self.subscribe('newsForUser',null,null, schoolName);
         self.subscribe('images', schoolName, 'school', schoolName);
     }
+    //this.autorun()
 });
 
 Template.MobileSchoolHome.helpers({

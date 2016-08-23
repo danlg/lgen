@@ -220,7 +220,7 @@ Router.route('/role', {
 });
 
 Router.route('TabClasses', {
-    path: "/classes",
+    path: "/classes"
 });
 
 Router.route('TabChat', {

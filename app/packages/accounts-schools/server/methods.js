@@ -21,16 +21,17 @@ if(Meteor.isServer){
                     _id: schoolName
                 });   
             }
-            //need to ensure we are not dealing with global school 
-            if (schoolDoc && schoolDoc._id !== 'global') {
+            //
+            // if (schoolDoc && schoolDoc._id !== 'global') {
+            // need to ensure we are not dealing with global school no reason why Smartix = global school should be different to other school
                 return Smartix.Accounts.createUser(email, options, schoolDoc._id, roles, this.userId, emailVerified, doNotifyEmail);
-            } 
-            else if(schoolDoc && schoolDoc._id === 'global') {
-                return Smartix.Accounts.createUser(email, options, schoolDoc._id, ['user'], this.userId, emailVerified, doNotifyEmail);
-            }
-            else {
-                return false;
-            }
+            // }
+            // else if(schoolDoc && schoolDoc._id === 'global') {
+            //     return Smartix.Accounts.createUser(email, options, schoolDoc._id, ['user'], this.userId, emailVerified, doNotifyEmail);
+            // }
+            // else {
+            //     return false;
+            // }
         },
 
         'smartix:accounts-schools/deleteSchoolUsers':function(school,users){
