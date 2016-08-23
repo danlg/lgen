@@ -5,13 +5,19 @@ Template.AppLayout.onCreated(function() {
     this.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');
     this.subscribe('smartix:accounts/ownUserData');
     // this.subscribe('smartix:accounts/basicInfoOfAllUsersInNamespace', 'global');//?
-    // this.subscribe('allMyChatRoomWithUser');
+    this.subscribe('allMyChatRoomWithUser');
 
     var self = this;
+    self.subscribe("notifications");
     self.autorun(function() {
         self.subscribe('userRelationships', Meteor.userId());
         self.subscribe('mySchools');
-    });
+        var totalUnreadBadgeCount = Smartix.helpers.getTotalUnreadNotificationCount(Meteor.userId());
+        //log.info('setTotalUnreadBadgeCount:'+totalUnreadBadgeCount);
+        if (Smartix.helpers.isIOS()) {
+            Push.setBadge(totalUnreadBadgeCount);
+        }  
+    });   
 });
 
 Template.AppLayout.helpers({

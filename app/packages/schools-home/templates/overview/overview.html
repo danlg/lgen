@@ -28,44 +28,41 @@
       {{#if Template.subscriptionsReady}}
       {{{customizeTheme}}}
       {{{getSchoolBannerBackground}}}
-      <div class='school-logo-wrapper'>
-        <div class='school-logo-background'>
-            <div class='school-logo'>
-                {{#with schoolLogoUrl}}
-                <img src='{{this.url}}'/>
-                {{/with}}
-            </div>           
-        </div>                             
-      </div>
-    <div class='school-banner-wrapper'>
-      <div class='school-banner-background'>
-        <div class='school-banner'>
-        </div>
-      </div>
-    </div>
-      <div class='news-slidebox-wrapper'>
-        <div class='ion-slide-box'>
-            {{#each getSlidingNews}}
-                <a href="{{pathFor route='newsgroups.news.view' msgid=_id}}" class='slide-box-bg ion-slide' data-msg-id='{{_id}}'>
-                    <div class='content'>
-                    <b>{{data.title}}</b>
-                    <div>{{formatDate createdAt}}</div>
-                    <div>Read More</div>                    
+            <div class='school-logo-wrapper'>
+                <div class='school-logo-background'>
+                    <div class='school-logo'>
+                        {{#with schoolLogoUrl}}
+                        <img src='{{this.url}}' /> {{/with}}
                     </div>
-                </a>
-            {{else}}
-                <div class='slide-box-bg ion-slide'>
-                    <div class='content'>
-                    <p>{{_ "NoNews" }}</p>
-                    <p></p>
-                    <p></p>                    
+                </div>
+            </div>
+            <div class='school-banner-wrapper'>
+                <div class='school-banner-background'>
+                    <div class='school-banner'>
                     </div>
-                </div>                        
-            {{/each}}           
-        </div>
-      </div>
-      {{/if}}
-      
+                </div>
+            </div>
+            <div class='news-slidebox-wrapper'>
+                <div class='ion-slide-box'>
+                    {{#each getSlidingNews}}
+                    <a href="{{pathFor route='newsgroups.news.view' msgid=_id}}" class='slide-box-bg ion-slide' data-msg-id='{{_id}}'>
+                        <div class='content'>
+                            <b>{{data.title}}</b>
+                            <div>{{formatDate createdAt}}</div>
+                            <div>Read More</div>
+                        </div>
+                    </a>
+                    {{else}}
+                    <div class='slide-box-bg ion-slide'>
+                        <div class='content'>
+                            <p>{{_ "NoNews" }}</p>
+                            <p></p>
+                            <p></p>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
       <div class='overview-bottom-section {{needMaskImageFallback}}'>
        <div class='square-cards-wrapper '>        
                 <a href="{{pathFor route='newsgroups.news.list'}}" class="card square-card  square-card-small tiles ">
@@ -120,7 +117,7 @@
                 </a>
        </div>     
      </div>
-           
+    {{/if}}
     {{/ionContent}}
   {{/ionView}}    
 
