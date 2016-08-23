@@ -129,7 +129,7 @@ Smartix.DistributionLists.editDistributionList = function (id, options, currentU
     if(options.url) {
         newOptions.url = options.url;
     }
-    return Smartix.Groups.update({
+    return Smartix.Groups.Collection.update({
         _id: id
     }, {
         $set: newOptions
@@ -152,6 +152,33 @@ Smartix.DistributionLists.removeDistributionList = function (id, currentUser) {
 	}
 	// Remove the distribution list specified
 	Smartix.Groups.deleteGroup(id);
+};
+
+Smartix.DistributionLists.duplicateDistributionList = function(id, name, currentUser){
+    check(id, String);
+    check(currentUser, Match.Maybe(String));
+    
+    // Get the `_id` of the currently-logged in user
+    if(!(currentUser === null)) {
+        currentUser = currentUser || Meteor.userId();
+    }
+    // Checks permission
+    if(!Smartix.DistributionLists.hasPermissionForList(id, currentUser)) {
+		return false;
+		// Optional: Throw an appropriate error if not
+	}
+    var currentList = Smartix.Groups.Collection.findOne(id);
+    // log.info("currentList", currentList);
+    var listClone = {};
+    var cloneListURL = currentList.name +'-'+ Math.floor((Math.random() * 1000) + 1);
+    log.info("cloneListURL", cloneListURL);
+    listClone.name = name;
+    listClone.users = currentList.users;
+    listClone.namespace = currentList.namespace;
+    listClone.expectDuplicates = false;
+    listClone.upsert = false;
+    listClone.url = Smartix.Utilities.stringToLetterCase(cloneListURL);
+    return Smartix.DistributionLists.createDistributionList(listClone, currentUser);
 };
 
 Smartix.DistributionLists.addUsersToList = function (id, users, currentUser) {

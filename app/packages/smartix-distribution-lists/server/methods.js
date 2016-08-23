@@ -19,7 +19,16 @@ Meteor.methods({
             upsert: false
         }, this.userId);
     },
-    'smartix:distribution-lists/edit': function (id, options) {
+            
+    'smartix:distribution-lists/duplicate': function(distlistId, listName){
+        return Smartix.DistributionLists.duplicateDistributionList(distlistId, listName, this.userId);    
+    },
+    
+    'smartix:distribution-lists/edit': function (name, options) {
+        let distributionList = Smartix.Groups.Collection.findOne({
+            url: name
+        });
+        let id = distributionList._id;
         return Smartix.DistributionLists.editDistributionList(id, options, this.userId);
     },
     'smartix:distribution-lists/remove': function (id) {

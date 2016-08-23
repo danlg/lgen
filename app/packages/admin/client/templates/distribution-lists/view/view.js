@@ -5,9 +5,8 @@ Template.AdminDistributionListView.onCreated(function () {
     this.subscribe('schoolInfo', schoolName, function (err, res) {
         var schoolId = UI._globalHelpers['getCurrentSchoolId']();
         self.namespace = schoolId;
-        self.subscribe('smartix:distribution-lists/listByCode', currentCode, function (error, res) {
-                self.subscribe('smartix:accounts/basicInfoOfAllUsersInNamespace', schoolId, function (err, res) {});
-        });
+        self.subscribe('smartix:distribution-lists/listByCode', currentCode);
+        self.subscribe('smartix:accounts/basicInfoOfAllUsersInNamespace', schoolId);
     });
     this.usersChecked = new ReactiveVar([]);
     this.doingOperations = new ReactiveVar(false);
@@ -15,19 +14,15 @@ Template.AdminDistributionListView.onCreated(function () {
 
 Template.AdminDistributionListView.helpers({
     listData: function () {
-        if(Template.instance().subscriptionsReady()) {
-            return Smartix.Groups.Collection.findOne({
-                url: Router.current().params.code,
-                type: 'distributionList'
-            });
-        }
+        return Smartix.Groups.Collection.findOne({
+            url: Router.current().params.code,
+            type: 'distributionList'
+        })
     },
-    userData: function (data) {
-        if(Template.instance().subscriptionsReady()) {
-            return Meteor.users.findOne({
-                _id: data
-            });
-        }
+    userData: function(data) {
+        return Meteor.users.findOne({
+            _id: data
+        });
     },
     distributionListUsersIndex: function () {
         return DistributionListUsersIndex;
@@ -44,8 +39,10 @@ Template.AdminDistributionListView.helpers({
     },
     getUserEmail:function(){
         if(this.emails){
-        return this.emails[0].address;
+            if(this.emails.length>0)
+                return this.emails[0].address;
         }
+        else return "";
     },
     getUserRoles:function(){
         var schoolId = UI._globalHelpers['getCurrentSchoolId']();
@@ -229,5 +226,23 @@ Template.AdminDistributionListView.events({
         //we also need to take user back to the first page of results
         DistributionListUsersIndex.getComponentDict().set('currentPage', 1);
         DistributionListUsersIndex.getComponentMethods().paginate(1);          
-   }      
+   },
+   
+   'click #UpdateListName_submit': function(event, template)
+    {
+        event.preventDefault();
+        // Create new object to store info
+        var newListObj = {};
+        var currentList = Router.current().params.code;     
+        newListObj.name = template.$('#updateListName-name').eq(0).val();
+        Meteor.call('smartix:distribution-lists/edit', currentList, newListObj, function(err,res){
+            if(!err)
+            {
+                toastr.success(TAPi18n.__('Success'));
+            }
+            else{
+                toastr.error(err.reason);
+            }
+        })
+    }
 });

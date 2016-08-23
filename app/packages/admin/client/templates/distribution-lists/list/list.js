@@ -132,6 +132,24 @@ Template.AdminDistributionListsSearch.events({
             template.usersChecked.set([]); 
         }*/           
    },
+   'click .clone-distribution-lists-btn': function(event, template)
+   {
+        let latestArray = template.usersChecked.get();
+        if(latestArray.length > 1)
+        {
+            toastr.error(TAPi18n.__("Admin.CloneListError"));
+        }
+        else{
+            let listToClone = Smartix.Groups.Collection.findOne(latestArray[0]);
+            template.modalName.set("clone-distribution-lists-modal");
+            template.modalTitle.set("Clone Distribution List: " + listToClone.name);
+            template.modalBody.set('<input id="cloneDistributionList-name" type="text" class="form-control" value="'+listToClone.name+' (2)">');  
+            Meteor.setTimeout(function(){
+                $('#clone-distribution-lists-modal-btn').click();  
+            },200); 
+        }
+   },
+   
     'click .modal .save':function(event,template){
         if( $(event.target).hasClass('remove-distribution-lists-modal') ){
             let latestArray = template.usersChecked.get();
@@ -144,5 +162,20 @@ Template.AdminDistributionListsSearch.events({
                 Meteor.call('smartix:distribution-lists/remove',eachDistributionListId);            
             });           
         }
+       else if( $(event.target).hasClass('clone-distribution-lists-modal'))
+       {
+            let latestArray = template.usersChecked.get();
+            let newName = $('#cloneDistributionList-name').eq(0).val();
+            Meteor.call('smartix:distribution-lists/duplicate', latestArray[0], newName, function(error, result){
+                if(!error)
+                {
+                    toastr.info(TAPi18n.__("Admin.CloneListSuccess"));
+                }
+                else{
+                    toastr.info(error.reason);
+                }
+            });
+            $('.modal .close').click();
+       }
     },
 });

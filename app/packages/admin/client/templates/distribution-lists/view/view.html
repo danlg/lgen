@@ -5,10 +5,25 @@
         <div class="panel-heading">
             <h1>{{_ "Admin.ManageDistList" }} {{name}}</h1>
         </div>
-
         <div class="panel-body">
+            <div class="row">
+            <div class="col-xs-9">
+           <form class="form-horizontal" action="#">
+                <fieldset class="content-group" style="margin-bottom:0px !important">
+                    <div class="form-group" style="margin-bottom:0px">
+                        <label class="control-label col-xs-4"><strong>{{_ "Admin.ListName"}}</strong></label>
+                        <div class="col-xs-8">
+                            <input id="updateListName-name" type="text" class="form-control" value="{{name}}" required>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            </div>
+            <div class="col-xs-3">
+                <button id="UpdateListName_submit" type="submit" class="btn btn-primary">{{_ "Update" }} <i class="icon-arrow-right14 position-right"></i></button>
+            </div>
             <!--<p>{{_ "Admin.ListCode" }}: {{url}}</p>-->
-
+            </div>
             <h3> {{_ "Admin.Users" }} </h3>
             <div id="AdminClassesView__add-user-container" class="form-group">
                 <div class="col-xs-12">

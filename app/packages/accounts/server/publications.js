@@ -31,11 +31,13 @@ Meteor.publish('smartix:accounts/basicInfoOfAllUsersInNamespace', function (name
             schools: namespace
         }, {
             fields: { 
+                'username': 1,
                 'profile.firstName': 1,
                 'profile.lastName': 1,
                 'proflle.chatSetting' : 1,                
-                'emails.0.address': 1,
-                'roles':1
+                'emails': 1,
+                'roles':1,
+                'grade': 1
             }
         });
     } else {
