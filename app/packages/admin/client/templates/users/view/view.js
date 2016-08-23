@@ -123,11 +123,12 @@ Template.AdminUsersView.events({
             newUserObj.studentId = template.$('#AdminUsers__studentId').eq(0).val();
         }
         // Retrieve the username, or generate one
-        newUserObj.username = template.$('#AdminUser__username').eq(0).val();
+        newUserObj.username = template.$('#AdminUser__username').eq(0).val().trim().toLowerCase();
         newUserObj.tel = template.$('#AdminUsers__tel').intlTelInput("getNumber", intlTelInputUtils.numberFormat.E164);
         
-        let newEmail = template.$('#AdminUser__email').eq(0).val().trim();
+        let newEmail = template.$('#AdminUser__email').eq(0).val().trim().toLowerCase();
         if ( parseEmail(newEmail)) {
+            log.info("Setting email ", newEmail);
             newUserObj.emails = [];
             newUserObj.emails[0] = { address: newEmail, verified: true};
             newUserObj.registered_emails = [];

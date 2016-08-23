@@ -112,9 +112,9 @@ Template.AdminAddStudent.events({
         // Retrieve Telephone Number
         newUserObj.tel = template.$('#AdminAddStudent__tel').intlTelInput("getNumber", intlTelInputUtils.numberFormat.E164);
         // Retrieve the username, or generate one
-        newUserObj.username = template.$('#AdminAddStudent__username').eq(0).val();
+        newUserObj.username = template.$('#AdminAddStudent__username').eq(0).val().trim().toLowerCase();
         // Retrieve email
-        var email = template.$('#AdminAddStudent__email').eq(0).val();
+        let email = template.$('#AdminAddStudent__email').eq(0).val().trim().toLowerCase();
         // Retrieve password
         newUserObj.password = template.$('#AdminAddStudent__password').eq(0).val();
         // CHECKS //
