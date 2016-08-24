@@ -6,9 +6,9 @@ Template.AppLayout.onCreated(function() {
     this.subscribe('smartix:accounts/ownUserData');
     // this.subscribe('smartix:accounts/basicInfoOfAllUsersInNamespace', 'global');//?
     this.subscribe('allMyChatRoomWithUser');
+    this.subscribe('notifications');
 
     var self = this;
-    self.subscribe("notifications");
     self.autorun(function() {
         self.subscribe('userRelationships', Meteor.userId());
         self.subscribe('mySchools');
