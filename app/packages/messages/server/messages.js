@@ -122,13 +122,12 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
     if(isPush) {
         //2. add notification to notifications collection, add notifications to db
         //Remove current user himself/herself from the push notification list
-        lodash.remove(group.users,
-          function(eachUserId){
-            return (eachUserId === currentUser);
-        });
         var addonTypes = lodash.map(addons,'type');
+
         var allUserToDoPushNotifications = [];
         allUserToDoPushNotifications = allUserToDoPushNotifications.concat( group.users );
+        allUserToDoPushNotifications = allUserToDoPushNotifications.concat( group.admins );
+
         if(group.distributionLists){
             //log.info('group.distributionLists',group.distributionLists);
             var allLinkedDistributionLists = Smartix.Groups.Collection.find({_id:{$in: group.distributionLists}}).fetch();
@@ -154,6 +153,12 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
         emailMessage.data.content =  $email('*').html() || emailMessage.data.content;
         console.log('emailMessage.data.content' ,emailMessage.data.content);*/
         
+        lodash.remove(allUserToDoPushNotifications,
+            function(eachUserId){
+                return (eachUserId === currentUser);
+            }
+        );
+
         Smartix.Messages.emailMessage(allUserToDoPushNotifications, message, group, meteorUser);
 
         allUserToDoPushNotifications.map(function(eachTargetUser){
