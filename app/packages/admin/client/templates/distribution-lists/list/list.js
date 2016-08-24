@@ -142,7 +142,8 @@ Template.AdminDistributionListsSearch.events({
         else{
             let listToClone = Smartix.Groups.Collection.findOne(latestArray[0]);
             template.modalName.set("clone-distribution-lists-modal");
-            template.modalTitle.set("Clone Distribution List: " + listToClone.name);
+            let title = TAPi18n.__("Admin.DuplicateDistributionList");
+            template.modalTitle.set(title + " : " + listToClone.name);
             template.modalBody.set('<input id="cloneDistributionList-name" type="text" class="form-control" value="'+listToClone.name+' (2)">');  
             Meteor.setTimeout(function(){
                 $('#clone-distribution-lists-modal-btn').click();  
