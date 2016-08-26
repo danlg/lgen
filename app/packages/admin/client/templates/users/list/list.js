@@ -1,45 +1,24 @@
-Template.AdminUsersSearch.helpers({
-  doingOperations:function(){
-   return Template.instance().doingOperations.get();   
-  },
-    
-  getUserEmail:function(){
-      if(this.emails){
-       return this.emails[0].address;
-      }
-  },
-    
-  getUserRoles:function(){
-      var schoolId = UI._globalHelpers['getCurrentSchoolId']();
-      if(schoolId){
-          let role = "";
-          if(this.roles) {
-              role = this.roles[schoolId].toString();//in English
-              role = TAPi18n.__ ( role);
-          }
-          return role;
-      }
-  },
-
-  getUserId:function(){
-      return this._id;
-  },
-    
-  isUserChecked:function(){
-      //log.info(this._id )
-    //log.info(Template.instance().usersChecked.get());
-    return (  Template.instance().usersChecked.get().indexOf(this._id) !== -1 ) ? "checked" : "";
-  },
-  totalUserCount:function(){
-      return Meteor.users.find( {},{ fields:{ _id: 1} } ).count();
-  },
-  totalSelectUserCount:function(){
-      return Template.instance().usersChecked.get().length;
-  },
-  showOptions:function(){
-     return Template.instance().usersChecked.get().length > 0 ;
-    
-  }
+Template.AdminUsersSearch.onCreated(function () {
+    var self = this;
+    var schoolUsername = UI._globalHelpers['getCurrentSchoolName']();
+    if (schoolUsername) {
+        // subscribe to the school info first
+        log.info('packages/admin/client/template/users/list#schoolUsername: ' + schoolUsername);
+        var schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
+        log.info('packages/admin/client/template/users/list#schoolNamespace: ' + schoolNamespace);
+        if(schoolNamespace) {
+            self.subscribe('smartix:accounts/allUsersInNamespace', schoolNamespace, function (err, res) {
+            });
+            self.namespace = schoolNamespace;
+        }
+    } else {
+        log.info("Please specify a school to list the users for");
+    }
+    this.usersChecked = new ReactiveVar([]);
+    this.doingOperations = new ReactiveVar(false);
+    this.modalName = new ReactiveVar("");
+    this.modalTitle = new ReactiveVar("");
+    this.modalBody = new ReactiveVar("");
 });
 
 Template.AdminUsersSearch.events({
@@ -224,42 +203,60 @@ Template.AdminUsersSearch.events({
     }
 });
 
-
-Template.AdminUsersSearch.onCreated(function () {
-    var self = this;
-    var schoolUsername = UI._globalHelpers['getCurrentSchoolName']();
-    if (schoolUsername) {
-        // subscribe to the school info first
-        log.info('packages/admin/client/template/users/list#schoolUsername: ' + schoolUsername);
-        var schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
-        log.info('packages/admin/client/template/users/list#schoolNamespace: ' + schoolNamespace);     
-        if(schoolNamespace) {
-            self.subscribe('smartix:accounts/allUsersInNamespace', schoolNamespace, function (err, res) {             
-            });
-            self.namespace = schoolNamespace;
-        }
-    } else {
-        log.info("Please specify a school to list the users for");
-    }
-    this.usersChecked = new ReactiveVar([]);
-    this.doingOperations = new ReactiveVar(false);
-    this.modalName = new ReactiveVar("");
-    this.modalTitle = new ReactiveVar("");
-    this.modalBody = new ReactiveVar("");
-});
-
 Template.AdminUsersSearch.helpers({
-  usersIndex: function () {
+    doingOperations:function(){
+        return Template.instance().doingOperations.get();
+    },
+
+    getUserEmail:function(){
+        if(this.emails){
+            return this.emails[0].address;
+        }
+    },
+
+    getUserRoles:function(){
+        var schoolId = UI._globalHelpers['getCurrentSchoolId']();
+        if(schoolId){
+            let role = "";
+            if(this.roles) {
+                role = this.roles[schoolId].toString();//in English
+                role = TAPi18n.__ ( role);
+            }
+            return role;
+        }
+    },
+
+    getUserId:function(){
+        return this._id;
+    },
+
+    isUserChecked:function(){
+        //log.info(this._id )
+        //log.info(Template.instance().usersChecked.get());
+        return (  Template.instance().usersChecked.get().indexOf(this._id) !== -1 ) ? "checked" : "";
+    },
+    totalUserCount:function(){
+        return Meteor.users.find( {},{ fields:{ _id: 1} } ).count();
+    },
+    totalSelectUserCount:function(){
+        return Template.instance().usersChecked.get().length;
+    },
+    showOptions:function(){
+        return Template.instance().usersChecked.get().length > 0 ;
+
+    }
+
+  , usersIndex: function () {
       if (Template.instance().subscriptionsReady()) {
         return UsersIndex;
       }
   },
-  routeData: function () {
-        return {
-            uid: this._id,
-            school: UI._globalHelpers['getCurrentSchoolName']()
-        };
-    },
+  // routeData: function () {
+  //       return {
+  //           uid: this._id,
+  //           school: UI._globalHelpers['getCurrentSchoolName']()
+  //       };
+  //   },
     userSearchInputAttributes: function () {
         return {
             placeholder: TAPi18n.__("Admin.FilterUser"),
