@@ -292,7 +292,7 @@ Template.ClassPanel.onCreated(function(){
     this.subscribe('images',    UI._globalHelpers['getCurrentSchoolName'](), 'class', currentClassCode);
     this.subscribe('documents', UI._globalHelpers['getCurrentSchoolName'](), 'class', currentClassCode);
 	this.subscribe('sounds',    UI._globalHelpers['getCurrentSchoolName'](), 'class', currentClassCode);
-    this.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');
+    // this.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');
     this.subscribe('smartix:classes/associatedClasses',function(){
         var classObj = Smartix.Groups.Collection.findOne({
             type: 'class',

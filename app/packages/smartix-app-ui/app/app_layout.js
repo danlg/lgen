@@ -2,10 +2,10 @@
 Template.AppLayout.onCreated(function() {
     //TODO: subscription to be filtered based on selected school
     this.subscribe('smartix:classes/associatedClasses');
-    this.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');
+    // this.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');
     this.subscribe('smartix:accounts/ownUserData');
     // this.subscribe('smartix:accounts/basicInfoOfAllUsersInNamespace', 'global');//?
-    this.subscribe('allMyChatRoomWithUser');
+    this.subscribe('getAllMyChatRooms');
     this.subscribe('notifications');
     var schoolName =  UI._globalHelpers['getCurrentSchoolName']();
     if (schoolName){
