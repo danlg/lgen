@@ -26,7 +26,8 @@ Template.AttendanceHome.helpers({
         let currentUser = Meteor.user();
         schoolId = UI._globalHelpers['getCurrentSchoolId']();
         return (currentUser.roles[currentSchoolId].indexOf(Smartix.Accounts.School.PARENT) !=-1)
-    }
+    },
+    
     isTeacherOrAdmin: function () {
         let currentUser = Meteor.user();
         schoolId = UI._globalHelpers['getCurrentSchoolId']();
@@ -35,7 +36,6 @@ Template.AttendanceHome.helpers({
             (currentUser.roles[schoolId].indexOf(Smartix.Accounts.School.ADMIN)  !=-1) 
         )
     }
-
 });
 
 Template.AttendanceHome.onDestroyed(function(){
