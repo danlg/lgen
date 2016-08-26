@@ -14,7 +14,6 @@ Smartix.Accounts.School.isMember = function(currentUser, schoolId) {
 };
 
 Smartix.Accounts.School.getAllSchoolUsers = function (namespace, currentUser) {
-    
     check(namespace, String);
     check(currentUser, Match.Maybe(String));
     
@@ -38,6 +37,71 @@ Smartix.Accounts.School.getAllSchoolUsers = function (namespace, currentUser) {
     }
     return false;
 };
+
+Smartix.Accounts.School.getAllSchoolUsersStatus = function (namespace, currentUser
+//    , options  //filter on client side
+)  {
+    check(namespace, String);
+    check(currentUser, Match.Maybe(String));
+    if(!(currentUser === null)) {  // Get the `_id` of the currently-logged in user
+        currentUser = currentUser || Meteor.userId();
+    }
+    // Check if the user has permission for this school
+    Smartix.Accounts.School.isAdmin(namespace, currentUser);
+    // Get the `_id` of the school from its username
+    var schoolDoc = SmartixSchoolsCol.findOne({_id: namespace });
+    if(schoolDoc) {
+        let cursor = Meteor.users.find({
+                schools: schoolDoc._id//,
+                //, "status.online": true
+                //{ fields: { ... }
+            }
+            , {
+                fields :{
+                    'status.online': 1, 'status.lastLogin.date': 1 ,  'status.lastLogin.userAgent': 1,
+                    'profile.firstName': 1, 'profile.lastName': 1,'emails.address': 1, 'username': 1 , 'roles':1 },
+                 sort: {'status.online': -1, 'status.lastLogin.date': -1 }
+                //, limit :10 //TODO remove me
+            }
+        );
+        //log.info("getAllSchoolUsersStatus", cursor.count());
+        return cursor;
+        // if (options.online)
+        // {
+        //     return Meteor.users.find({
+        //         schools: schoolDoc._id,
+        //         "status.online": true
+        //         //{ fields: { ... }
+        //         }
+        //         , {
+        //               sort: {'status.lastLogin': -1 }
+        //             , limit :2 //TODO remove me
+        //         }
+        //     );
+        // }
+        // else {
+        //     return Meteor.users.find(
+        //         {$or:[
+        //             {
+        //                 schools: schoolDoc._id,
+        //                 "status.online": false
+        //             },
+        //             {
+        //                 schools: schoolDoc._id,
+        //                 "status.online": { $exists: false}
+        //             }
+        //         ]}
+        //         , {
+        //             sort: {'status.lastLogin': -1 }
+        //             , limit :2 //TODO remove me
+        //         }
+        //     );
+        // }
+    }
+    return false;
+};
+
+
 
 Smartix.Accounts.School.getAllSchoolStudents = function (namespace, currentUser) {
     

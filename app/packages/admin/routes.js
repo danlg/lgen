@@ -28,6 +28,15 @@ Router.route('/:school/admin/users/list', {
     }
 });
 
+Router.route('/:school/admin/users/status', {
+    name: 'admin.users.status',
+    layoutTemplate: 'adminLayout',
+    template: 'UserStatusSearch',
+    action: function () {
+        this.render('UserStatusSearch');
+    }
+});
+
 Router.route('/:school/admin/users/view/:uid', {
     name: 'admin.users.view',
     layoutTemplate: 'adminLayout',
