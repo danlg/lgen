@@ -7,7 +7,7 @@ Template.About.helpers({
     //require plugin cordova-plugin-compile-time
     //http://eclipsesource.com/blogs/2015/04/07/an-apache-cordova-hook-to-auto-bump-ios-cfbundleversion-and-android-versioncode/
     //https://gist.github.com/hstaudacher/d78b154509e2783cfcc2 - timestamp_version_bump.js
-    var version = "1.2.2 build 315";
+    var version = "1.2.2 build 316";
     return version;
     // if (Meteor.isCordova) {
     //   //version = window.cordova.compileTime.version; //now broken with carmel branch
