@@ -4,7 +4,6 @@ Template.MobileSchoolHome.onCreated(function(){
     var schoolName =  UI._globalHelpers['getCurrentSchoolName']();
     if(schoolName)
     {
-        // self.subscribe('newsgroupsForUser',null,null, schoolName);
         self.subscribe('newsForUser',null,null, schoolName);
         self.subscribe('images', schoolName, 'school', schoolName);
     }

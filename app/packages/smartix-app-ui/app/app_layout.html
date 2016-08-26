@@ -48,6 +48,9 @@
                                class="item item-icon-left" data-ion-menu-close>
                                 <i class="icon ion-ios-bolt-outline"></i>
                                 {{_ "News" }}
+                                {{#if sumOfNewNewsCounter}}
+                                <span class='square-card-counter badge badge-assertive'>{{sumOfNewNewsCounter}}</span>
+                                {{/if}} 
                             </a>
                             <a href="{{pathFor route='calendar.list'}}"
                                class="item item-icon-left" data-ion-menu-close>

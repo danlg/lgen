@@ -7,7 +7,10 @@ Template.AppLayout.onCreated(function() {
     // this.subscribe('smartix:accounts/basicInfoOfAllUsersInNamespace', 'global');//?
     this.subscribe('allMyChatRoomWithUser');
     this.subscribe('notifications');
-
+    var schoolName =  UI._globalHelpers['getCurrentSchoolName']();
+    if (schoolName){
+        this.subscribe('newsgroupsForUser',null,null, schoolName);
+    }
     var self = this;
     self.autorun(function() {
         self.subscribe('userRelationships', Meteor.userId());
