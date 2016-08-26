@@ -54,7 +54,11 @@
                                 <ul class="collapse" id="collapse-user-list-{{_id}}">
                                 {{#each users}}
                                     {{#with userData this}}
-                                    <li>{{profile.firstName}} &nbsp; {{profile.lastName}}</li>
+                                    <li>
+                                        <a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=_id}}" target="_blank">
+                                            {{profile.firstName}} &nbsp; {{profile.lastName}}</a>
+                                        {{emails.[0].address}}
+                                    </li>
                                     {{/with}}
                                 {{/each}}
                                 </ul>

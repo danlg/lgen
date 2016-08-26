@@ -97,16 +97,21 @@
             <h3>{{_ "Admin.ActualUsersDistList" }} </h3>
             <table class="table datatable-basic">
                 <thead>
-                    <th>{{_ "FirstName" }}</th>
-                    <th>{{_ "LastName" }}</th>
-                    <th>{{_ "Admin.RemoveUser" }}</th>
+                    <td>{{_ "FirstName" }}</td>
+                    <td>{{_ "LastName" }}</td>
+                    <td>{{_ "Email" }}</td>
+                    <td>{{_ "Admin.RemoveUser" }}</td>
                 </thead>
                 <tbody>
                     {{#each users}}
                         {{#with userData this}}
                             <tr>
-                                <td><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.firstName}}</a></td>
-                                <td><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.lastName}}</a></td>
+                                <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=_id}}" target="_blank">
+                                    {{profile.firstName}}</a></td>
+                                <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=_id}}" target="_blank">
+                                    {{profile.lastName}}</a></td>
+                                <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=_id}}" target="_blank">
+                                    {{emails.[0].address}}</a></td>
                                 <td>
                                     <button type="button" data-user-id="{{_id}}"
                                             class="AdminDistributionListView__remove-user btn border-warning text-warning-600 btn-flat btn-icon btn-rounded">
