@@ -1,0 +1,14 @@
+<template name="TeacherAbsenceHome">
+<ul class="list">
+{{#each createdClass}}
+<div>
+    <a href="{{pathFor 'attendance.teacher.class' school=getCurrentSchoolName classCode=this.classCode }}">
+        <div class="item item-icon-left item-checkbox-right item-checkbox">
+            <i class="icon {{classAvatarIcon}} e1a-1x emojicon"></i> {{this.className}}
+            <div class="description class-code">@{{this.classCode}}</div>
+        </div>
+    </a>
+</div>
+{{/each}}
+</ul>
+</template>

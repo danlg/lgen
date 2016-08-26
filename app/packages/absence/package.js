@@ -56,6 +56,12 @@ Package.onUse(function(api) {
     
   api.addFiles('client/templates/list/list.html', 'client');
   api.addFiles('client/templates/list/list.js', 'client');
+ 
+  api.addFiles('client/templates/teacher/teacherHome.html', 'client');
+  api.addFiles('client/templates/teacher/teacherHome.js', 'client');
+  api.addFiles('client/templates/teacher/classAttendance.html', 'client');
+  api.addFiles('client/templates/teacher/classAttendance.js', 'client');
+
 
   api.addFiles('client/templates/add/add.html', 'client');
   api.addFiles('client/templates/add/add.js', 'client'); 

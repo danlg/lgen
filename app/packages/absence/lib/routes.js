@@ -7,6 +7,16 @@ Router.route('/:school/attendance/home', {
     }
 });
 
+Router.route('/:school/attendance/:classCode/rollCall', {
+    name: 'attendance.teacher.class',
+    layoutTemplate: 'AppLayout',
+    template: 'ClassAttendance',
+    action: function () {
+        this.render('ClassAttendance');
+    }
+});
+
+
 Router.route('/:school/attendance/list', {
     name: 'attendance.list',
     layoutTemplate: 'AppLayout',

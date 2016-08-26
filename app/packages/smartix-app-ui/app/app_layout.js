@@ -2,7 +2,7 @@
 Template.AppLayout.onCreated(function() {
     //TODO: subscription to be filtered based on selected school
     this.subscribe('smartix:classes/associatedClasses');
-    this.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');
+    // this.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');
     this.subscribe('smartix:accounts/ownUserData');
     // this.subscribe('smartix:accounts/basicInfoOfAllUsersInNamespace', 'global');//?
     this.subscribe('allMyChatRoomWithUser');

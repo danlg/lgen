@@ -21,6 +21,19 @@ Template.AttendanceHome.helpers({
     },
     isAbsent: function(){
         return (this.clockIn === null) ? true : false;
+    },
+    isParent: function () {
+        let currentUser = Meteor.user();
+        schoolId = UI._globalHelpers['getCurrentSchoolId']();
+        return (currentUser.roles[currentSchoolId].indexOf(Smartix.Accounts.School.PARENT) !=-1)
+    }
+    isTeacherOrAdmin: function () {
+        let currentUser = Meteor.user();
+        schoolId = UI._globalHelpers['getCurrentSchoolId']();
+        return (
+            (currentUser.roles[schoolId].indexOf(Smartix.Accounts.School.TEACHER) !=-1) ||            
+            (currentUser.roles[schoolId].indexOf(Smartix.Accounts.School.ADMIN)  !=-1) 
+        )
     }
 
 });
