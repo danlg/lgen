@@ -9,6 +9,7 @@ Template.AppLayout.onCreated(function() {
     this.subscribe('notifications');
     var schoolName =  UI._globalHelpers['getCurrentSchoolName']();
     if (schoolName){
+        this.subscribe('newsForUser',null,null, schoolName);
         this.subscribe('newsgroupsForUser',null,null, schoolName);
     }
     var self = this;
