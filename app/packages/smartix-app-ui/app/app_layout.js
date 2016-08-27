@@ -5,9 +5,13 @@ Template.AppLayout.onCreated(function() {
     // this.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');
     this.subscribe('smartix:accounts/ownUserData');
     // this.subscribe('smartix:accounts/basicInfoOfAllUsersInNamespace', 'global');//?
-    this.subscribe('allMyChatRoomWithUser');
+    this.subscribe('getAllMyChatRooms');
     this.subscribe('notifications');
-
+    var schoolName =  UI._globalHelpers['getCurrentSchoolName']();
+    if (schoolName){
+        this.subscribe('newsForUser',null,null, schoolName);
+        this.subscribe('newsgroupsForUser',null,null, schoolName);
+    }
     var self = this;
     self.autorun(function() {
         self.subscribe('userRelationships', Meteor.userId());

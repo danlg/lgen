@@ -11,7 +11,6 @@ Template.ClassPanel.onCreated(function () {
 	currentClassCode = Router.current().params.classCode;
 	var self = this;
 	//log.info(Router.current().params.classCode);
-	// self.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');
 	self.subscribe('smartix:classes/classByClassCode', {currentClassCode}, 
 	{
 		onReady: function () {

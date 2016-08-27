@@ -5,7 +5,6 @@ Meteor.publish('userPendingApprovedSchools', function(){
 
 Meteor.publish('allSchoolUsers', function (schoolId) {
     let schoolUsersCursor = Smartix.Accounts.School.getAllSchoolUsers(schoolId, this.userId);
-    
     if(schoolUsersCursor) {
         return schoolUsersCursor;
     } else {
@@ -13,6 +12,23 @@ Meteor.publish('allSchoolUsers', function (schoolId) {
     }
 });
 
+Meteor.publish('userStatus', function(schoolId) {
+    //log.info("userStatus", schoolId);
+    //let options = { online: false };// we filter status on client side
+    let schoolUsersStatusCursor = Smartix.Accounts.School.getAllSchoolUsersStatus(
+        schoolId,
+        this.userId
+        //, options 
+    );
+    if (schoolUsersStatusCursor) {
+        //log.info("userStatus.count", schoolUsersStatusCursor.count());
+        //log.info("userStatus.fetch", schoolUsersStatusCursor.fetch());
+        return schoolUsersStatusCursor;
+    }
+    else {
+        this.ready();
+    }
+});
 
 
 var getContactsForAdmins = function(userId, schoolDoc)

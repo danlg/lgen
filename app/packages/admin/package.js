@@ -27,7 +27,8 @@ Package.onUse(function (api) {
   api.use('alanning:roles@1.2.15');
   api.use('easy:search@2.0.9');
   api.use('stevezhu:lodash@4.6.1');
-  
+  api.use('mizzao:user-status@0.6.6');
+
   api.use('smartix:lib@0.0.1');
   api.use('smartix:utilities@0.0.1');
   api.use('smartix:news@0.0.1');
@@ -107,9 +108,15 @@ Package.onUse(function (api) {
   api.addFiles('client/templates/rss/view/view.js', 'web.browser');
   api.addFiles('client/templates/rss/add/add.html', 'web.browser');
   api.addFiles('client/templates/rss/add/add.js', 'web.browser');
+
   api.addFiles('client/templates/users/list/index.js', 'web.browser');
   api.addFiles('client/templates/users/list/list.html', 'web.browser');
   api.addFiles('client/templates/users/list/list.js', 'web.browser');
+
+  api.addFiles('client/templates/users/status/index.js', 'web.browser');
+  api.addFiles('client/templates/users/status/user-status.html', 'web.browser');
+  api.addFiles('client/templates/users/status/user-status.js', 'web.browser');
+
   api.addFiles('client/templates/users/view/view.html', 'web.browser');
   api.addFiles('client/templates/users/view/view.js', 'web.browser');
   api.addFiles('client/templates/users/add/add-student/new-relationship/new-relationship.css', 'web.browser');
@@ -429,6 +436,7 @@ Package.onUse(function (api) {
   api.addFiles('client/templates/bootstrap-modal/bootstrap-modal.html', 'web.browser');
   
   api.export('UsersIndex');
+  api.export('UsersStatusIndex');
   api.export('DistributionListUsersIndex');
 });
 

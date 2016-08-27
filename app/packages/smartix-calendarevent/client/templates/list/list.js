@@ -45,15 +45,13 @@ Template.CalendarListView.helpers({
                 'addons.type':'calendar',
                 group: { $in: newsgroupsIds },
                 hidden : false,
-                deletedAt:"",
-
+                deletedAt:""
             },
             {
                 'addons.type':'calendar',
                 group: { $in: newsgroupsIds },
                 hidden: false,
-                deletedAt: { $exists: false },
-                 
+                deletedAt: { $exists: false }
             }
         ]}
         , {sort: {'addons.calendar.startDate': 1 } }

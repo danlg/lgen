@@ -6,13 +6,7 @@ Meteor.publish('getChatRoomById', function (chatRoomId) {
 
 Meteor.publish('getAllMyChatRooms', function () {
   // Meteor._sleepForMs(5000);
-  return Smartix.Groups.Collection.find({
-    users: {
-      $elemMatch: {
-        _id: this.userId
-      }
-    }
-  });
+  return Smartix.Groups.Collection.find({users: this.userId, type:'chat'});
 });
 
 // Meteor.publish('getChatRoomMenbers', function () {

@@ -1,0 +1,111 @@
+<template name="UserStatusSearch">
+    {{> BootstrapModal modalName=getModalName modalTitle=getModalTitle modalBody=getModalBody }}
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h1>{{_ "Admin.UserStatus"}} {{#if Template.subscriptionsReady}}({{totalUserCount}}){{/if}} </h1>
+            {{#if doingOperations}}
+                <div style ="padding-top:2vh; height: 5vh;" class="spinner-loading">{{> ionSpinner icon="spiral"}}</div>
+            {{/if}}
+        </div>
+
+        {{#if Template.subscriptionsReady}}
+            <div class="panel-body">
+
+                {{> EasySearch.Input index=usersStatusIndex attributes=userStatusSearchInputAttributes timeout=100}}
+
+                <br/>
+                <div class="btn-group">
+                    <button type="button" data-role='all' class="btn btn-primary filter-by-role-btn">{{_ "Admin.All" }}</button>
+                    <button type="button" data-role='parent' class="btn btn-primary filter-by-role-btn">{{_ "Parent" }}</button>
+                    <button type="button" data-role='student' class="btn btn-primary filter-by-role-btn">{{_ "Student" }}</button>
+                    <button type="button" data-role='teacher' class="btn btn-primary filter-by-role-btn">{{_ "Teacher" }}</button>
+                    <button type="button" data-role='admin' class="btn btn-primary filter-by-role-btn">{{_ "Admin.Admin" }}</button>
+                </div>
+                <br/>
+
+                <div class="radio radio-inline">
+                    <label>
+                        <input type="radio" name="status-filter" data-connectstatus="allconnection"
+                               class="control-success filter-by-status-btn"  checked="checked">
+                        <button class="label label-info">  {{_ "Admin.ShowAllConnection" }}</button>
+                    </label>
+                </div>
+                <div class="radio radio-inline">
+                    <label>
+                        <input type="radio" name="status-filter" data-connectstatus="online"
+                               class="control-success filter-by-status-btn">
+                         <button class="label label-success">  {{_ "Admin.Online" }}</button>
+                    </label>
+                </div>
+
+                <div class="radio radio-inline">
+                    <label>
+                        <input type="radio" name="status-filter" data-connectstatus="offline"
+                               class="control-success filter-by-status-btn">
+                         <button class="label label-warning"> {{_ "Admin.Offline" }}</button>
+                    </label>
+                </div>
+
+                <div class="table-responsive">
+                    <table class='table' >
+                        <thead style="font-weight:bold;">
+                        <tr>
+
+                            <th>{{_ "Admin.Roles" }}</th>
+                            <th>{{_ "LastName" }}</th>
+                            <th>{{_ "FirstName" }}</th>
+
+                            <th>{{_ "Admin.LastLogin" }}</th>
+                            <th>{{_ "Admin.Client" }}</th>
+                            <th>{{_ "Admin.Online" }}</th>
+
+                            <th>{{_ "Email" }}</th>
+                            <th>{{_ "Admin.Username" }}</th>
+
+
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                            {{#EasySearch.Each index=usersStatusIndex }}
+                                <tr>
+                                    <td style="text-transform: capitalize">{{getUserRoles}}</td>
+                                    <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}">{{profile.lastName}}</a></td>
+                                    <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}">{{profile.firstName}}</a></td>
+
+                                    <td>{{lastLogin getUserId}}</td>
+                                    <td>{{userAgent getUserId}}</td>
+                                    <td><i class="icon {{online getUserId}} emojicon"></i></td>
+
+                                    <td>{{getUserEmail}}</td>
+                                    <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}"> {{username}} </a></td>
+                                </tr>
+                            {{/EasySearch.Each}}
+                            </tbody>
+                            {{#EasySearch.IfNoResults index=usersStatusIndex}}
+                            <div>No results found!</div>
+                            {{/EasySearch.IfNoResults}}
+                    </table>
+                </div>
+                {{> EasySearch.Pagination index=usersStatusIndex maxPages=10 customRenderPagination='CustomEasySearchPaginationStatus'}}
+            </div>
+        {{else}}
+            {{_ "Admin.Loading" }}
+        {{/if}}
+    </div>
+</template>
+
+<template name='CustomEasySearchPaginationStatus'>
+    <nav>
+        <ul class="pagination">
+            {{#each page}}
+                <li class="page {{pageClasses this}}">
+                    <a>
+                        {{content}}
+                    </a>
+                </li>
+            {{/each}}
+        </ul>
+    </nav>
+</template>
+

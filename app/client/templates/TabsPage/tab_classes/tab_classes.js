@@ -26,6 +26,8 @@ Template.TabClasses.helpers({
     var joinedClasses = Smartix.Groups.Collection.find
     (
         {
+            namespace: Session.get('pickedSchoolId'),
+            type: 'class',
             admins :{  $nin : [Meteor.userId()] }
         },
         {
