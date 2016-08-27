@@ -24,21 +24,29 @@ UsersStatusIndex = new EasySearch.Index({
                 selector['$and'].push( { '$or': selector['$or'] });
                 delete selector['$or'];
 
-                if (options.search.props.role && options.search.props.role !== 'all') {
+                if (options.search.props.role !== 'all') {
                     selector['$and'].push( { ['roles.'+options.search.props.schoolNamespace] : options.search.props.role }  );
                 }
                 //else{ log.info("role selector not set");//e/g student}
-
                 let status = options.search.props.connectstatus;
                 let connectionFlag = ( status === 'online');
+                //log.info("connectStatus", status);
                 //log.info("connectionFlag", connectionFlag);
-                if (options.search.props.connectstatus && options.search.props.connectstatus !== 'allconnection') {
-                    selector['$and'].push( { ['status.online'] : connectionFlag }  );
+                if (options.search.props.connectstatus === 'online') {
+                    selector['$and'].push( { ['status.online'] : true }  );
                 }
-                // else{
+                if (options.search.props.connectstatus === 'offline') {
+                    selector['$and'].push( { ['status.online'] : false }  );
+                }
+                if (options.search.props.neverLogin === true) {
+                    //log.info("neverLogin", options.search.props.neverLogin);
+                    selector['$and'].push( { ['status.lastLogin'] : { $exists: false} }  );
+                }
+                else{
+                    //log.info("neverLogin false", options.search.props.neverLogin);
                     //log.info("options.search.props", options.search.props);
                     // log.info("connection selector not set");//eg offline
-                // }
+                }
             }
             //TO examine the above mongo selector,un-comment the below console log
             //log.info("selector", selector);

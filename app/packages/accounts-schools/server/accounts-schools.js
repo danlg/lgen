@@ -61,7 +61,7 @@ Smartix.Accounts.School.getAllSchoolUsersStatus = function (namespace, currentUs
                     'status.online': 1, 'status.lastLogin.date': 1 ,  'status.lastLogin.userAgent': 1,
                     'profile.firstName': 1, 'profile.lastName': 1,'emails.address': 1, 'username': 1 , 'roles':1 },
                  sort: {'status.online': -1, 'status.lastLogin.date': -1 }
-                //, limit :10 //TODO remove me
+                //, limit :5 //TODO remove me
             }
         );
         //log.info("getAllSchoolUsersStatus", cursor.count());

@@ -17,6 +17,7 @@ Package.onUse(function(api) {
     //not working in Meteor 1.3.2.4 while tap-i18n defined in package #166
     //https://github.com/TAPevents/tap-i18n/issues/166
     api.use('smartix:core');
+
     api.use('templating', 'client');
     api.use('stevezhu:lodash');
     api.use('smartix:classes', { unordered: true });
@@ -28,8 +29,8 @@ Package.onUse(function(api) {
     api.addFiles('server/methods.js', 'server');
     api.addFiles('server/method_cs.js', 'server');
     api.addFiles('server/server_lib.js', 'server');
-
-    //lanaguage-specific app tour image
+    
+    //language-specific app tour image
 
     api.addAssets([
         'i18n/fr/fr_t1.jpg',

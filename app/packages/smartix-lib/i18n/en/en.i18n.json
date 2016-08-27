@@ -329,10 +329,12 @@
     "Users": "Users",
     "UserStatus": "Connection status",
     "LastLogin": "Last login",
+    "NeverLogin": "Never logged in",
     "Client": "Client",
     "Connection": "Connection status",
     "Online": "Online",
     "Offline": "Offline",
+
     "ShowAllConnection": "Show both online & offline",
     "VerificationConfirmation": "Verification email sent!",
     "VerificationIssue": "There was an issue with sending the emails",

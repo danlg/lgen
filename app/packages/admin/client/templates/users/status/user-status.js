@@ -16,10 +16,10 @@ Template.UserStatusSearch.onCreated(function () {
     this.modalName = new ReactiveVar("");
     this.modalTitle = new ReactiveVar("");
     this.modalBody = new ReactiveVar("");
-    this.chosenRole = new ReactiveVar("");
-    this.connectStatus = new ReactiveVar("");
+    this.chosenRole = new ReactiveVar("all");
+    this.connectStatus = new ReactiveVar("allconnection");
+    this.neverLogin = new ReactiveVar(false);
 });
-
 
 Template.UserStatusSearch.helpers({
 
@@ -137,14 +137,23 @@ Template.UserStatusSearch.events({
     },
 
     'click .filter-by-status-btn':function(event,template){
-        //var connectstatus =  $(event.target).data('connectstatus');
-        template.connectStatus.set ($(event.target).data('connectstatus'));
-        //status-filter
+        let  connectStatus =  $(event.target).data('connectstatus');
+        if (connectStatus) {
+            template.connectStatus.set (connectStatus);
+        }
         //log.info("filter-by-status-btn:connectstatus", template.connectStatus.get());
+
+        //template.connectStatus.set (template.$('#connectstatus'));
+        //template.neverLogin.set ($(event.target).data('neverLogin').is(":checked"));
+        template.neverLogin.set (template.$('#neverLogin').is(":checked"));
+        //let neverLogin = template.$('#neverLogin').is(":checked");
+        //status-filter
         UsersStatusIndex.getComponentMethods().addProps('schoolNamespace', template.namespace);
         UsersStatusIndex.getComponentMethods().addProps('role', template.chosenRole.get());
         UsersStatusIndex.getComponentMethods().addProps('connectstatus', template.connectStatus.get());
+        UsersStatusIndex.getComponentMethods().addProps('neverLogin', template.neverLogin.get());
     }
+
 });
 
 
