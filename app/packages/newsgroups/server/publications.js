@@ -51,14 +51,50 @@ Meteor.publishComposite('newsForUser', function(limit, query, namespace) {
         if(groups)
         {
             groups = groups.fetch();
+            let NewsMessages = Smartix.Messages.Collection.find({group: {$in: lodash.map(groups, '_id')},
+                            hidden: false,
+                            deletedAt: { $exists: false }
+                        }).fetch(); 
+                        
+            let calendarNews = [];
+            
+            //loads all calendar events in new array
+            lodash.forEach(NewsMessages, function(message){
+                if(message.addons)
+                {
+                    lodash.forEach(message.addons, function(addon){
+                        if(addon.type==='calendar'){
+                            calendarNews.push(message);
+                        }
+                    })
+                }
+            });
+            
+            //removes all calendar events which end after the current time
+            lodash.remove(calendarNews, function(calenderEvent){
+                    // log.info("Checking Event with Id", calenderEvent._id);
+                    //need to make this dynamic
+                    let calendar = lodash.filter(calenderEvent.addons, function(addOns){
+                                    return addOns.type === 'calendar'
+                    });                    
+                    // log.info(calendar);
+                    let endTime = null;
+                    
+                    return (moment(calendar[0].endTime).isAfter(moment()));
+            });
+            
+            //removes all calenderEvents in calendarNews array from the NewsMessages array
+            lodash.pullAll(NewsMessages, calendarNews);
+            
+            let newsIds = lodash.map(NewsMessages, '_id');
+            // log.info("FinalId", newsIds);
+            
             return { 
                 find: function(){
                     //log.info("newsForUser.groups",groups);
                     let find = Smartix.Messages.Collection.find(
                         {
-                            group: {$in: lodash.map(groups, '_id')},
-                            hidden: false,
-                            deletedAt: { $exists: false }
+                           _id: {$in: newsIds}
                         },
                         {
                             sort: {createdAt: -1},
