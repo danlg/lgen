@@ -15,7 +15,7 @@
                         {{/if}}
                         <!--only if in school namespace - the below should available -->
                         {{#if isSchoolNamespace}}
-                            <a href="{{pathFor route='MobileSchoolHome' school=getCurrentSchoolName}}"
+                            <a href="{{pathFor route='mobile.school.home' school=getCurrentSchoolName}}"
                                class="item item-icon-left" data-ion-menu-close>
                                 <i class="icon ion-ios-home-outline"></i>
                                 <strong>{{getSchoolFullName}} {{_ "Home" }}</strong>

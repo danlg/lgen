@@ -2,7 +2,7 @@
   {{#if isAndroid}}
 
     {{#ionTabs style="android"}}
-      {{> ionTab title="Home"   path="MobileSchoolHome" school=getCurrentSchoolName  icon="android-home"}}
+      {{> ionTab title="Home"   path="mobile.school.home" school=getCurrentSchoolName  icon="android-home"}}
       {{> ionTab title=_Classes path="TabClasses" icon="android-people" badgeNumber=sumOfNewClassMessageAndCommentCounter}}
       {{> ionTab title=_Chat    path="TabChat" icon="android-chat" badgeNumber=sumOfNewChatMessageCounter }}
       {{> ionTab title=_You     path="TabYou" icon="gear-b"}}
@@ -12,7 +12,8 @@
 
     {{#ionTabs style="ios"}}
         <!--TODO add badge for home-->
-      {{> ionTab class='class-ionHome' title="Home"   path="MobileSchoolHome" school=getCurrentSchoolName iconOff="ios-home-outline" iconOn="ios-home"}}
+      <!--{{> ionTab class='class-ionHome' title="Home"   path="MobileSchoolHome" school=getCurrentSchoolName iconOff="ios-home-outline" iconOn="ios-home"}}-->
+      {{> ionTab class='class-ionHome' title="Home"   path="mobile.school.home" school=getCurrentSchoolName iconOff="ios-home-outline" iconOn="ios-home"}}
       {{> ionTab class='class-ionTab' title=_Classes path="TabClasses" iconOff="ios-people-outline" iconOn="ios-people" badgeNumber=sumOfNewClassMessageAndCommentCounter}}
       {{> ionTab class='chat-ionTab' title=_Chat    path="TabChat" iconOff="ios-chatbubble-outline" iconOn="ios-chatbubble" badgeNumber=sumOfNewChatMessageCounter }}
       {{> ionTab class='you-ionTab' title=_You     path="TabYou" iconOff="ios-gear-outline" iconOn="ios-gear"}}
