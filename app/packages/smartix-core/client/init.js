@@ -191,12 +191,11 @@ Meteor.startup(function () {
         Smartix.helpers.spawnDesktopNotification(data.text, '/img/logo-new.png', data.from, pathToRouteObj);
     } else {
         //if  desktop notification is not available, use toastr   
-        log.info(data);
-
+        //log.info(data);
         toastr.info(data.text, data.from,
             {
                 "closeButton": true,
-                "preventDuplicates": true,
+                "preventDuplicates": true
             }
         );
     }               
