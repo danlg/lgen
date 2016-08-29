@@ -28,12 +28,13 @@ Template.ionTab.helpers({
       return this.href;
     }
     if (this.path && Router.routes[this.path]) {
-      let pathtmp = Router.routes[this.path];
+      //let pathtmp = Router.routes[this.path];
       //log.info("pathtmp", pathtmp);
       //log.info("Template.currentData()", Template.currentData());
-      let retURL =pathtmp.path(Template.currentData());
+      //let retURL =pathtmp.path(Template.currentData());
       //log.info("retURL=", retURL);
-      return retURL;
+      //return retURL;
+      return Router.routes[this.path].path(Template.currentData());
     }
     //log.info("url empty");
   },
