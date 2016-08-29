@@ -80,12 +80,12 @@ Meteor.publishComposite('newsForUser', function(limit, query, namespace) {
                     // log.info(calendar);
                     let endTime = null;
                     
-                    return (moment(calendar[0].endTime).isAfter(moment()));
+                    return (moment(calendar[0].endDate).isAfter(moment()));
             });
             
             //removes all calenderEvents in calendarNews array from the NewsMessages array
             lodash.pullAll(NewsMessages, calendarNews);
-            
+
             let newsIds = lodash.map(NewsMessages, '_id');
             // log.info("FinalId", newsIds);
             
