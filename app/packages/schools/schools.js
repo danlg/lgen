@@ -16,12 +16,25 @@ SchoolsSchema = new SimpleSchema({
    }
    ,backgroundImage:{type : String, optional:true}
    ,tel:{ type:String, optional : true}
+   ,tel2:{ type:String, optional : true}
+   ,tel3:{ type:String, optional : true},
+
+   label:{ type:String, optional : true}
+   ,label2:{ type:String, optional : true}
+   ,label3:{ type:String, optional : true}
+   ,labelext:{ type:String, optional : true}
+   ,labelweb:{ type:String, optional : true}
    //URL
    , web:{ type:String, optional : true }
+   , web2:{ type:String, optional : true }
+   , web3:{ type:String, optional : true }
+   , webext:{ type:String, optional : true }
    //adminemail
    , email:{ type:String, regEx:SimpleSchema.RegEx.Email}
    //contactemail
    , contactemail:{ type:String, regEx:SimpleSchema.RegEx.Email, optional : true}
+   , contactemail2:{ type:String, regEx:SimpleSchema.RegEx.Email, optional : true}
+   , contactemail3:{ type:String, regEx:SimpleSchema.RegEx.Email, optional : true}
    , active:{
      type:Boolean,
      defaultValue: true

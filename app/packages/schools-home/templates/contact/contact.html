@@ -21,25 +21,73 @@
     {{#ionContent}}
         {{#with getSchoolObj}}          
             <div class="list card">
-            <a href="{{openExternalLink web}}" target="_blank" id="schoolWebsite" class="item item-icon-left">
-                <i class="icon ion-home"></i>
-                <h2>{{_ "schools-home.Homepage" }}</h2>
-                <p>{{web}}</p>
-            </a>
-            <a href="tel:{{tel}}" class="item item-icon-left">
-                <i class="icon ion-ios-telephone"></i>
-                <h2>{{_ "PhoneNumber" }}</h2>
-                <p>{{tel}}</p>
-            </a>
+                <a id="label" class="item item-icon-left">
+                    <i class="icon ion-home"></i>
+                    <strong>{{label}}</strong>
+                </a>
+                <a class="item item-icon-left">
+                    <i class="icon ion-ios-telephone"></i>
+                    <h2>{{_ "PhoneNumber" }}</h2>
+                    <p>{{tel}}</p>
+                </a>
+                <a href="mailto:{{contactemail}}" class="item item-icon-left">
+                    <i class="icon ion-ios-email-outline"></i>
+                    <h2>{{_ "Email" }}</h2>
+                    <p>{{contactemail}}</p>
+                </a>
+            </div>
 
-            <a href="mailto:{{contactemail}}" class="item item-icon-left">
-                <i class="icon ion-ios-email-outline"></i>
-                <h2>{{_ "Email" }}</h2>
-                <p>{{contactemail}}</p>
-            </a>
+            <!--2-->
+            <div class="list card">
+                <a id="label2" class="item item-icon-left">
+                    <i class="icon ion-home"></i>
+                    <strong>{{label2}}</strong>
+                </a>
+                <a  class="item item-icon-left">
+                    <i class="icon ion-ios-telephone"></i>
+                    <h2>{{_ "PhoneNumber" }}</h2>
+                    <p>{{tel2}}</p>
+                </a>
+                <a href="mailto:{{contactemail2}}" class="item item-icon-left">
+                    <i class="icon ion-ios-email-outline"></i>
+                    <h2>{{_ "Email" }}</h2>
+                    <p>{{contactemail2}}</p>
+                </a>
+            </div>
 
+                <!--3-->
+            <div class="list card">
+                <a id="label3" class="item item-icon-left">
+                    <i class="icon ion-home"></i>
+                    <strong>{{label3}}</strong>
+                </a>
+                <a class="item item-icon-left">
+                    <i class="icon ion-ios-telephone"></i>
+                    <h2>{{_ "PhoneNumber" }}</h2>
+                    <p>{{tel3}}</p>
+                </a>
+                <a href="mailto:{{contactemail3}}" class="item item-icon-left">
+                    <i class="icon ion-ios-email-outline"></i>
+                    <h2>{{_ "Email" }}</h2>
+                    <p>{{contactemail3}}</p>
+                </a>
+            </div>
 
-            </div>        
+            <div class="list card">
+                <a href="{{openExternalLink web}}" target="_blank" id="schoolWebsite" class="item item-icon-left">
+                    <i class="icon ion-home"></i>
+                    <strong>{{labelweb}}</strong>
+                    <p>{{web}}</p>
+                </a>
+            </div>
+
+            <div class="list card">
+                <a href="{{openExternalLink webext}}" target="_blank" id="schoolWebsite" class="item item-icon-left">
+                    <i class="icon ion-home"></i>
+                    <strong>{{labelext}}</strong>
+                    <p>{{webext}}</p>
+                </a>
+            </div>
         {{/with}}    
     {{/ionContent}}
   {{/ionView}}    
