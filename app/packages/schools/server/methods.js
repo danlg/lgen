@@ -11,6 +11,7 @@ Meteor.methods({
             Roles.userIsInRole(Meteor.userId(), 'sysadmin');
             return 'smartix';
         }
+        log.info('smartix:schools/getSchoolName', namespace);
         var targetSchool = SmartixSchoolsCol.findOne(namespace);
         if (
             Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.SYSADMIN, namespace) ||
@@ -19,6 +20,7 @@ Meteor.methods({
             Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.STUDENT, namespace)||
             Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.TEACHER, namespace)
         ) {
+            log.info('smartix:schools/getSchoolName.targetSchool', targetSchool);
             return targetSchool.shortname;
         }
     },      
