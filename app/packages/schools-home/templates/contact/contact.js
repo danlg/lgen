@@ -25,5 +25,14 @@ Template.MobileSchoolContact.events({
             var url = template.$("#schoolWebsite").attr('href');
             window.open(url, '_system', 'location=yes');
         }
+    },
+    'click #schoolWebsiteExt': function(event, template)
+    {
+        if(Smartix.helpers.isCordova())
+        {
+            event.preventDefault();
+            var url = template.$("#schoolWebsiteExt").attr('href');
+            window.open(url, '_system', 'location=yes');
+        }
     }
 });
