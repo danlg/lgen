@@ -51,57 +51,46 @@ Meteor.publishComposite('newsForUser', function(limit, query, namespace) {
         if(groups)
         {
             groups = groups.fetch();
-            let NewsMessages = Smartix.Messages.Collection.find({group: {$in: lodash.map(groups, '_id')},
-                            hidden: false,
-                            deletedAt: { $exists: false }
-                        }).fetch(); 
-                        
-            let calendarNews = [];
-            
-            //loads all calendar events in new array
-            lodash.forEach(NewsMessages, function(message){
-                if(message.addons)
-                {
-                    lodash.forEach(message.addons, function(addon){
-                        if(addon.type==='calendar'){
-                            calendarNews.push(message);
-                        }
-                    })
-                }
-            });
-            
-            //removes all calendar events which end after the current time
-            lodash.remove(calendarNews, function(calenderEvent){
-                    // log.info("Checking Event with Id", calenderEvent._id);
-                    //need to make this dynamic
-                    let calendar = lodash.filter(calenderEvent.addons, function(addOns){
-                                    return addOns.type === 'calendar'
-                    });                    
-                    // log.info(calendar);
-                    let endTime = null;
-                    
-                    return (moment(calendar[0].endDate).isAfter(moment()));
-            });
-            
-            //removes all calenderEvents in calendarNews array from the NewsMessages array
-            lodash.pullAll(NewsMessages, calendarNews);
-
-            let newsIds = lodash.map(NewsMessages, '_id');
-            // log.info("FinalId", newsIds);
-            
             return { 
                 find: function(){
-                    //log.info("newsForUser.groups",groups);
+                    let now = new Date();//moment();
+                    let offsetEvent =     24 * 3600 * 1000; //24h in milliseconds
+                    let expiredEvent = new Date (now.getTime() - offsetEvent);// wait 24h before removing it
+
+                    let offsetNews  = 7 * 24 * 3600 * 1000; //10 days * 24h in milliseconds
+                    let expiredNews  = new Date (now.getTime() - offsetNews);// wait 7d  before removing it
+                    //log.info("newsForUser:school", namespace);
+                    //log.info("newsForUser:userId", this.userId);
                     let find = Smartix.Messages.Collection.find(
                         {
-                           _id: {$in: newsIds}
-                        },
-                        {
+                            $or:[
+                                //news without event
+                                {
+                                    group: {$in: lodash.map(groups, '_id')},
+                                    'type' : 'article', //important to get only news ! and not txt messages !
+                                    'addons.type' : { $ne:'calendar'},
+                                    hidden: false,
+                                    deletedAt: { $exists: false },
+                                    createdAt: {$gte: expiredNews}
+                                },
+                                //news WITH calendar event
+                                {
+                                    group: {$in: lodash.map(groups, '_id')},
+                                    'type' : 'article', //important to get only news ! and not txt messages !
+                                    'addons.type' : 'calendar',
+                                    hidden: false,
+                                    deletedAt: { $exists: false },
+                                    'addons.endDate': {$gte: expiredEvent}
+                                }
+                            ]
+                        }
+                        , {
                             sort: {createdAt: -1},
                             limit: limit
                         }
                     );
                     //log.info("newsForUser.count",find.count());
+                    //log.info("newsForUser.docs",find.fetch());
                     return find;
                 },
                 children:[
@@ -134,6 +123,77 @@ Meteor.publishComposite('newsForUser', function(limit, query, namespace) {
                     }
                 ]
             }
+        }
+    }
+    else {
+        this.ready();
+    }
+});
+
+/**
+ * Publish calendar for a given user
+ * @return the calendar entries for the user
+ */
+Meteor.publish('calendarEntriesForUser', function(limit, query, namespace) {
+    check(limit, Match.Maybe(Number));
+    check(namespace, String);
+    // if (!limit) {
+    //     limit = 9999;
+    // }
+    var schoolDoc = SmartixSchoolsCol.findOne({
+        shortname: namespace
+    });
+    if (!schoolDoc) {
+        schoolDoc = SmartixSchoolsCol.findOne({
+            _id: namespace
+        });
+    }
+    if (schoolDoc){
+        var groups = Smartix.Newsgroup.getNewsgroupOfUser(this.userId, schoolDoc);
+        if(groups)
+        {
+            groups = groups.fetch();
+            let now = new Date();//moment();
+            let offset = 24 * 3600 * 1000; //24h in milliseconds
+            let expired = new Date (now.getTime() - offset);// wait 24h before removing it
+            //log.info("calendarEntriesForUser:now", now.unix());
+            //log.info("calendarEntriesForUser:now", now);
+            let calendarMessagesCursor = Smartix.Messages.Collection.find({
+                $and:[
+                    {
+                        $or:[//live calendar entries
+                            {
+                                'addons.type':'calendar',
+                                group: { $in: lodash.map(groups, '_id')},
+                                //group: { $in: newsgroupsIds },
+                                hidden : false,
+                                deletedAt:""
+                            },
+                            {
+                                'addons.type':'calendar',
+                                group: { $in: lodash.map(groups, '_id')},
+                                hidden: false,
+                                deletedAt: { $exists: false }
+                            }
+                        ]
+                    }
+                    //moment(calenderEvent[0].endTime).: { $gt : moment()}
+                    //TODO add offset
+                    , {//not expired
+                        //'addons.endDate': { $gte : now.unix() }
+                        'addons.endDate': { $gte : expired }
+                    }
+                ]}
+                , { //sort them by ascending order
+                    //TODO add fields projection...
+                    sort: { 'addons.startDate': 1 }
+                }
+            // ).fetch();
+            );
+            //log.info("calendarEntriesForUser:calendarMessages:school", namespace);
+            //log.info("calendarEntriesForUser:calendarMessages.count", calendarMessagesCursor.count());
+            //log.info("calendarEntriesForUser:calendarMessages", calendarMessagesCursor.fetch());
+            return calendarMessagesCursor;
         }
     }
     else {
