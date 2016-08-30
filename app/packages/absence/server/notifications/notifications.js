@@ -1,10 +1,8 @@
 Smartix = Smartix || {};
-
 Smartix.Absence = Smartix.Absence || {};
 
 //Notification from admin to parent to ask for student attendance detail
 Smartix.Absence.notificationToParentForDetail = function (processId, currentUserId) {
-
     check(processId, String);
     check(currentUserId, Match.Maybe(String));
     
@@ -14,13 +12,10 @@ Smartix.Absence.notificationToParentForDetail = function (processId, currentUser
     }
 
     var currentUser = Meteor.users.findOne(currentUserId);
-
     var processObj = Smartix.Absence.Collections.processed.findOne(processId);
-    
 
     // Get the parents
     let parentIds = Smartix.Accounts.Relationships.getParentOfStudent(processObj.studentId, processObj.namespace);
-
     parentIds.forEach(function (parentId) {
         //1. add to notification obj
         Notifications.insert({
@@ -35,7 +30,7 @@ Smartix.Absence.notificationToParentForDetail = function (processId, currentUser
         });
 
         //2. send push and in-app notification                  
-        var notificationObj = {
+        let notificationObj = {
             from: Smartix.helpers.getFullNameByProfileObj(currentUser.profile),
             title: 'School needs more detail about your children attendance',
             text: 'Click to View',
@@ -43,10 +38,11 @@ Smartix.Absence.notificationToParentForDetail = function (processId, currentUser
                 type: 'attendance',
                 subType:'attendanceToParent',
                 id: processId,
-                namespace: processObj.namespace,
+                namespace: processObj.namespace
             },
             query: { userId: parentId },
             badge: Smartix.helpers.getTotalUnreadNotificationCount(parentId)
+            , apn: { sound: 'default' }
         };
         Meteor.call("doPushNotification", notificationObj);
     });
@@ -59,21 +55,17 @@ Smartix.Absence.notificationToParentForDetail = function (processId, currentUser
             lastNotified: Math.floor(Date.now() / 1000)
         } 
     });
-}
+};
 
 //Notification from admin to parent to display approval of leave application
 Smartix.Absence.notificationToParentApprovedNotice = function (expectedId, currentUserId) {
-
     check(expectedId, String);
     check(currentUserId, Match.Maybe(String));
-    
     // Get the `_id` of the currently-logged in user
     if(!(currentUserId === null)) {
         currentUserId = currentUserId || Meteor.userId();
     }
-
     var currentUser = Meteor.users.findOne(currentUserId);
-
     var expectedObj = Smartix.Absence.Collections.expected.findOne(expectedId);
     
     // Get the parents
@@ -93,7 +85,7 @@ Smartix.Absence.notificationToParentApprovedNotice = function (expectedId, curre
         });
 
         //2. send push and in-app notification              
-        var notificationObj = {
+        let notificationObj = {
             from: Smartix.helpers.getFullNameByProfileObj(currentUser.profile),
             title: 'School has approved your leave application',
             text: 'Click to View',
@@ -105,23 +97,20 @@ Smartix.Absence.notificationToParentApprovedNotice = function (expectedId, curre
             },
             query: { userId: parentId },
             badge: Smartix.helpers.getTotalUnreadNotificationCount(parentId)
+            , apn: { sound: 'default' }
         };
         Meteor.call("doPushNotification", notificationObj);
     });
-
-}
+};
 
 //Notification from parent to admin about request of leave application
 Smartix.Absence.notificationToAdminApprovalRequest = function (expectedId, currentUserId) {
-
     check(expectedId, String);
     check(currentUserId, Match.Maybe(String));
-    
     // Get the `_id` of the currently-logged in user
     if(!(currentUserId === null)) {
         currentUserId = currentUserId || Meteor.userId();
     }
-
     var currentUser = Meteor.users.findOne(currentUserId);
     var expectedObj = Smartix.Absence.Collections.expected.findOne(expectedId);
     //log.info('Smartix.Absence.notificationToAdminApprovalRequest',expectedObj);
@@ -131,7 +120,6 @@ Smartix.Absence.notificationToAdminApprovalRequest = function (expectedId, curre
     var adminIds = lodash.map(admins,'_id');
     
     adminIds.forEach(function (adminId) {
-
         //1. add to notification obj
         Notifications.insert({
             eventType: 'attendance',
@@ -144,42 +132,35 @@ Smartix.Absence.notificationToAdminApprovalRequest = function (expectedId, curre
             messageCreateByUserId: currentUserId
         });
 
-        //2. send push and in-app notification   
-
-        var notificationObj = {
+        //2. send push and in-app notification
+        let notificationObj = {
             from: Smartix.helpers.getFullNameByProfileObj(currentUser.profile),
-            title: 'A Parent has submitted a leave application',
+            title: 'A parent has submitted a leave application',
             text: 'Click to view',
             payload: {
                 type: 'attendance',
                 subType:'attendanceSubmission',
                 id: expectedId,
-                namespace: expectedObj.namespace,
+                namespace: expectedObj.namespace
             },
             query: { userId: adminId },
             badge: Smartix.helpers.getTotalUnreadNotificationCount(adminId)
+            , apn: { sound: 'default' }
         };
         Meteor.call("doPushNotification", notificationObj);
     });
-
-}
+};
 
 //Notification from parent to admin about response from parent of student attendance    
 Smartix.Absence.notificationToAdminForDetailReply = function (processId, currentUserId) {
-
     check(processId, String);
     check(currentUserId, Match.Maybe(String));
-    
     // Get the `_id` of the currently-logged in user
     if(!(currentUserId === null)) {
         currentUserId = currentUserId || Meteor.userId();
     }
-
     var currentUser = Meteor.users.findOne(currentUserId);
-
     var processObj = Smartix.Absence.Collections.processed.findOne(processId);
-
-
     // Get all admins
     var admins = Roles.getUsersInRole('admin', processObj.namespace);
     var adminIds = _.map(admins, function (admin) {
@@ -199,9 +180,8 @@ Smartix.Absence.notificationToAdminForDetailReply = function (processId, current
             messageCreateByUserId: currentUserId
         });
 
-        //2. send push and in-app notification 
-
-        var notificationObj = {
+        //2. send push and in-app notification
+        let notificationObj = {
             from: Smartix.helpers.getFullNameByProfileObj(currentUser.profile),
             title: 'Parent has replied about children attendance',
             text: 'Click to View',
@@ -212,8 +192,8 @@ Smartix.Absence.notificationToAdminForDetailReply = function (processId, current
             },
             query: { userId: adminId },
             badge: Smartix.helpers.getTotalUnreadNotificationCount(adminId)
+            , apn: { sound: 'default' }
         };
         Meteor.call("doPushNotification", notificationObj);
     });
-
-}
+};

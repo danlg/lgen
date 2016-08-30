@@ -176,7 +176,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
                 if(meteorUser) { 
                     //4. send push notification and in-app notification
                     //log.info('cheerioWithhtmlText',$('*').text());                   
-                    var notificationObj = {
+                    let notificationObj = {
                         from : Smartix.helpers.getFullNameByProfileObj(meteorUser.profile),
                         title : Smartix.helpers.getFullNameByProfileObj(meteorUser.profile),
                         text: message.data.content || "",
@@ -186,6 +186,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
                         },
                         query:{userId:eachTargetUser},
                         badge: Smartix.helpers.getTotalUnreadNotificationCount(eachTargetUser)
+                        , apn: { sound: 'default' }
                     };
                     if(group.type === 'newsgroup'){
                         notificationObj.title = message.data.title || "";
