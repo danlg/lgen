@@ -67,3 +67,4 @@ jspm_packages
 
 #tempfiles
 app/.tmp*
+app/mt-1*
