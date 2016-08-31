@@ -85,7 +85,7 @@ Meteor.publishComposite('newsForUser', function(limit, query, namespace) {
                             ]
                         }
                         , {
-                            sort: {createdAt: -1},
+                            sort: { createdAt: -1}, //for news, sorted by most recent first
                             limit: limit
                         }
                     );
@@ -186,7 +186,7 @@ Meteor.publish('calendarEntriesForUser', function(limit, query, namespace) {
                 ]}
                 , { //sort them by ascending order
                     //TODO add fields projection...
-                    sort: { 'addons.startDate': 1 }
+                    sort: { 'addons.startDate': 1 } //for calendar event, sorted by chronological order
                 }
             // ).fetch();
             );

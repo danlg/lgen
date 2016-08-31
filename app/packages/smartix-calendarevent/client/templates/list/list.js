@@ -21,7 +21,7 @@ Template.CalendarListView.helpers({
         //TODO : DONE filter done server side
         return Smartix.Messages.Collection.find(
             {},
-            { sort: { 'addons.startDate': 1 } }//the sort doesn;t seem to work on server side
+            { sort: { 'addons.startDate': 1 } }// sort doesn't work on server side, for calendar event, by chronological order
         );
     },
 

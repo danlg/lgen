@@ -11,12 +11,15 @@ Template.NewsgroupsNewsList.onCreated(function(){
 
 Template.NewsgroupsNewsList.helpers({
     getNews:function(){
-        return Smartix.Messages.Collection.find();          
+        return Smartix.Messages.Collection.find(
+            { },
+            { sort: { createdAt: -1} } );//for news, sorted by most recent first
     },
+
     getGroupName:function(groupId){
         //log.info('getGroupName',groupId);
        return Smartix.Groups.Collection.findOne(groupId).name;
-    },
+    }
 });
 
 Template.NewsgroupsNewsList.events({
