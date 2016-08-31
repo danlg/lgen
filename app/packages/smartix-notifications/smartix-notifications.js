@@ -59,12 +59,13 @@ Smartix.Notifications.Helpers.sumOfNewCalendarCounter = function(){
 };
 
 Smartix.Notifications.Helpers.sumOfNewAttendanceCounter = function(){
-   let newMessageCount =  Notifications.find({'eventType':'attendance','hasRead':false,'namespace':Session.get('pickedSchoolId')}).count();
-   if(newMessageCount > 0 ){
-       return newMessageCount;
-   }else{
+    let newMessageCount =  Notifications.find({'eventType':'attendance','hasRead':false,'namespace':Session.get('pickedSchoolId')}).count();
+    if(newMessageCount > 0 ){
+        log.info("sumOfNewAttendanceCounter", Session.get('pickedSchoolId'),", count=", newMessageCount);
+        return newMessageCount;
+    }else{
        return false;
-   }
+    }
 };
 
 Smartix.Notifications.Helpers.sumOfNewAttendanceApprovedCounter = function(){
