@@ -81,9 +81,10 @@ Template.ClassDetail.events({
 	},
 	'click .add-comment-annoucement': function (e) {
 		//log.info(e);
-		var text = $(e.target).parent().find('.add-comment-annoucement-textbox').val();
-		var msgId = $(e.target).data().msgid;
-		Meteor.call('smartix:messages-addons-comment/addNewComment', msgId, text);
+		let text = $(e.target).parent().find('.add-comment-annoucement-textbox').val();
+		let msgId = $(e.target).data().msgid;
+		let schoolId =  UI._globalHelpers['getCurrentSchoolId']();
+		Meteor.call('smartix:messages-addons-comment/addNewComment', msgId, text, schoolId);
       //clear comment
       $(e.target).parent().find('.add-comment-annoucement-textbox').val("");
 	},

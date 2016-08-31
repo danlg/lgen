@@ -38,13 +38,10 @@ Smartix.Messages.Addons.Comment.Schema = new SimpleSchema({
     }
 });
 
-Smartix.Messages.Addons.Comment.addNewComment = function (messageId, commentObj) {
-    
+Smartix.Messages.Addons.Comment.addNewComment = function (messageId, commentObj, schoolId) {
     check(commentObj,Smartix.Messages.Addons.Comment.Schema);
     Smartix.Messages.Addons.Comment.Schema.clean(commentObj);
-    
     //TODO add canUpdateNewCommentChecking
-    
     Smartix.Messages.Collection.update({
         _id: messageId
     }, {
@@ -60,16 +57,14 @@ Smartix.Messages.Addons.Comment.addNewComment = function (messageId, commentObj)
             }, {
                 $push: {addons: commentObj}
             },function(err,success){
-                
                 if(!err){
                     var msgObj = Smartix.Messages.Collection.findOne({_id:messageId});
                     var groupObj = Smartix.Groups.Collection.findOne({_id:msgObj.group});
-                    
                     //log.info(commentObj);
-                    
                     groupObj.admins.map(function(eachAdmin){     
                         Meteor.call('insertNotification', {
                             eventType: "newclasscomment",
+                            namespace: schoolId,//add namespace here
                             userId: eachAdmin,
                             hasRead: false,
                             groupId: groupObj._id,
@@ -77,13 +72,8 @@ Smartix.Messages.Addons.Comment.addNewComment = function (messageId, commentObj)
                             messageCreateByUserId: Meteor.userId()
                         });                        
                     });
-                  
-                    
                 }
-                
-                
-                
             });
         }
     });
-}
+};
