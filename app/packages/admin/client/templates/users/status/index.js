@@ -2,7 +2,10 @@
 // https://github.com/matteodem/meteor-easy-search/issues/445
 UsersStatusIndex = new EasySearch.Index({
     collection: Meteor.users,
-    fields: ['status.lastLogin.date', 'profile.firstName', 'profile.lastName','emails.address', 'username', 'status.lastLogin.userAgent', 'status.online'],
+    fields: ['status.lastLogin.date', 'profile.firstName', 'profile.lastName',
+        'grade','classroom',
+        'emails.address', 'username',
+        'status.lastLogin.userAgent', 'status.online'],
     engine: new EasySearch.Minimongo({
         //sort: (searchObject,options) =>{
         sort: () =>{

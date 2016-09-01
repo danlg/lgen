@@ -17,13 +17,28 @@ Meteor.publish('usersFromRelationships', function(userId){
     if(!(userId === null)) {
         userId = userId || this.userId;
     }
+    let userCursor =  usersFromRelationshipsImpl (userId);
+    if ( userCursor ) {
+        return userCursor;
+    }
+    this.ready();
+});
+
+/**
+ * @param userId
+ * @returns the collection/cursor of users with whom the userId has a relationship
+ */
+var usersFromRelationshipsImpl =  (userId) => {
+    if(!(userId === null)) {
+        userId = userId || this.userId;
+    }
+    let userCursor ;
     if (userId === this.userId
-        || Smartix.Accounts.System.isAdmin(this.userId)) {
+        || Smartix.Accounts.System.isAdmin(userId)) {
         let relationshipsArray = Smartix.Accounts.Relationships.getRelationshipsOfUser(userId);
-        if(relationshipsArray)
-        {
+        if(relationshipsArray)  {
             let users = [];
-            relationshipsArray = relationshipsArray.fetch();            
+            relationshipsArray = relationshipsArray.fetch();
             lodash.map(relationshipsArray, function(relationship){
                 users.push(relationship.child);
                 let findParents = Smartix.Accounts.Relationships.Collection.find({ child: relationship.child}).fetch();
@@ -31,20 +46,53 @@ Meteor.publish('usersFromRelationships', function(userId){
                     users.push(parents.parent);
                 });
             });
-            return Meteor.users.find(
-                {_id: {$in: users}}
+            userCursor = Meteor.users.find(
+                { _id: {$in: users} }
+                //, { limit :5 } //TODO remove me
             );
+            return userCursor;
         }
+    }
+};
+
+/**
+ *
+ */
+Meteor.publish('ALLUsersRelationships', function(userId, schoolId) {
+    log.info('publish.ALLUsersRelationships', userId, schoolId);
+    check(userId, Match.Maybe(String));
+    if(!(userId === null)) { userId = userId || this.userId; }
+    //if (Smartix.Accounts.System.isAdmin(this.userId)) {
+    if (Smartix.Accounts.School.isAdmin(schoolId, userId)
+        || Smartix.Accounts.System.isAdmin(userId)) {
+        //let relationshipsArray = Smartix.Accounts.Relationships.getAllRelationshipsForSchool(schoolId);
+        let relationshipCursor = Smartix.Accounts.Relationships.getAllRelationshipsForSchool(schoolId);
+        //log.info ("ALLUsersRelationships- relationshipsCursor", relationshipCursor.fetch());
+        return relationshipCursor;
+        // if(relationshipsArray) {
+        //     log.info ("ALLUsersRelationships- relationshipsArray", relationshipsArray);
+        //     lodash.map()
+        //     //var childrenIds = lodash.map(relationRecords,'child');
+        //     let userCursor = usersFromRelationshipsImpl(userId);
+        //     if (userCursor) {
+        //         log.info ("ALLUsersRelationships", userCursor.fetch());
+        //         return Meteor.users.find( { _id : {$in: userCursor.fetch()}} );
+        //     }
+        //     else{
+        //         log.info ("ALLUsersRelationships - not found", );
+        //     }
+        // }
+    }
+    else{
+        log.warn('publish.ALLUsersRelationships.not authorized');
     }
     this.ready();
 });
 
 // Publish an user's relationships in a namespace
 Meteor.publish('userRelationshipsInNamespace', function (userId, namespace) {
-    
     check(userId, Match.Maybe(String));
     check(namespace, String);
-    
     if (userId === this.userId
         || Smartix.Accounts.School.isAdmin(namespace, this.userId)
         || Smartix.Accounts.System.isAdmin(this.userId)) {
