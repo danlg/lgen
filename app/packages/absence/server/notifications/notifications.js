@@ -122,38 +122,40 @@ Smartix.Absence.notificationToAdminApprovalRequest = function (expectedId, curre
     // Get all admins
     var admins = Roles.getUsersInRole('admin', expectedObj.namespace).fetch();
     //log.info('Smartix.Absence.notificationToAdminApprovalRequest:admins',admins);
-    var adminIds = lodash.map(admins,'_id');
-    
-    adminIds.forEach(function (adminId) {
-        //1. add to notification obj
-        Notifications.insert({
-            eventType: 'attendance',
-            eventSubType:'attendanceSubmission',
-            userId: adminId,
-            hasRead: false,
-            expectedId: expectedId,
-            namespace: expectedObj.namespace,
-            messageCreateTimestamp: new Date(),
-            messageCreateByUserId: currentUserId
-        });
 
-        //2. send push and in-app notification
-        let notificationObj = {
-            from: Smartix.helpers.getFullNameByProfileObj(currentUser.profile),
-            title: 'A parent has submitted a leave application',
-            text: 'Click to view',
-            payload: {
-                type: 'attendance',
-                subType:'attendanceSubmission',
-                id: expectedId,
-                namespace: expectedObj.namespace
-            },
-            query: { userId: adminId },
-            badge: Smartix.helpers.getTotalUnreadNotificationCount(adminId)
-            , apn: { sound: 'default' }
-        };
-        Meteor.call("doPushNotification", notificationObj);
-    });
+    //WE DO NOT NOTIFY ADMIN OF APPROVAL REQUEST as they CANNOT DO ANYTHING ON THE MOBILE APP
+    //var adminIds = lodash.map(admins,'_id');
+    //adminIds.forEach(function (adminId) {
+        // //1. add to notification obj
+        // Notifications.insert({
+        //     eventType: 'attendance',
+        //     eventSubType:'attendanceSubmission',
+        //     userId: adminId,
+        //     hasRead: false,
+        //     expectedId: expectedId,
+        //     namespace: expectedObj.namespace,
+        //     messageCreateTimestamp: new Date(),
+        //     messageCreateByUserId: currentUserId
+        // });
+        //
+        // //2. send push and in-app notification
+        // let notificationObj = {
+        //     from: Smartix.helpers.getFullNameByProfileObj(currentUser.profile),
+        //     title: 'A parent has submitted a leave application',
+        //     text: 'A parent has submitted a leave application', //new
+        //     text: 'Click to view', //old
+        //     payload: {
+        //         type: 'attendance',
+        //         subType:'attendanceSubmission',
+        //         id: expectedId,
+        //         namespace: expectedObj.namespace
+        //     },
+        //     query: { userId: adminId },
+        //     badge: Smartix.helpers.getTotalUnreadNotificationCount(adminId)
+        //     , apn: { sound: 'default' }
+        // };
+        // Meteor.call("doPushNotification", notificationObj);
+    //});
 };
 
 //Notification from parent to admin about response from parent of student attendance    
