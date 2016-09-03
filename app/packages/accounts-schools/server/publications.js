@@ -32,7 +32,7 @@ var  buildParentShadow = (schoolId) => {
                 parent.classroom_shadow = lodash.uniq ( parent.classroom_shadow );
             } else {
                 parent.classroom_shadow = [child.classroom];
-                log.info("Adding ", relationship.parent, " classroom_shadow=[", child.classroom, "]");
+                //log.info("Adding ", relationship.parent, " classroom_shadow=[", child.classroom, "]");
                 // if (
                 //     ( relationship.parent === "xfoofdTL3z9dsx8Lp") ||
                 //     ( relationship.parent === "G52eeaB5Gr6p68DDX")
@@ -52,7 +52,7 @@ var  buildParentShadow = (schoolId) => {
                 parent.grade_shadow = lodash.uniq(parent.grade_shadow);
             } else {
                 parent.grade_shadow = [child.grade];
-                log.info("Adding ", relationship.parent, " grade_shadow=[", child.grade, "]");
+                //log.info("Adding ", relationship.parent, " grade_shadow=[", child.grade, "]");
                 // if (
                 //     ( relationship.parent === "xfoofdTL3z9dsx8Lp") ||
                 //     ( relationship.parent === "G52eeaB5Gr6p68DDX")
