@@ -64,12 +64,20 @@ Meteor.publish('images', function (school, category, id) {
  * @param category chat or class
  * @param id chatRoomId or classCode
  */
-Meteor.publish('sounds', function (school, category, id) {
-    return Sounds.find({
-      'metadata.school': school,
-      'metadata.category': category,
-      'metadata.id': id
-  });
+Meteor.publish('sounds', function (schoolName, category, id) {
+    let soundCursor = Sounds.find({
+        //'metadata.school': schoolName
+        // 'metadata.category': category,
+         'metadata.id': id
+        //should be already quite granular with the room =class / chat room id,
+        // the other criteria are unnecessary
+    });
+    log.info("Published " , soundCursor.count(), " sounds with criteria: ",
+        "metadata.school", schoolName,
+        ", metadata.category", category,
+        ", metadata.id", id
+    );
+    return soundCursor;
 });
 
 Meteor.publish('documents',function(school, category, id){

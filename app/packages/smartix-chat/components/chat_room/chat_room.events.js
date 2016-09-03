@@ -174,9 +174,16 @@ function onResolveSuccess(fileEntry) {
 		//log.info(newFile);
 		var chatRoomId = Router.current().params.chatRoomId;
 
-		log.info("Setting sound metadata ", "school:", UI._globalHelpers['getCurrentSchoolId'](), "category:chat", "id:", chatRoomId);
+		console.log("Setting sound metadata "+
+			"school:" + UI._globalHelpers['getCurrentSchoolName']() +
+			"category:'chat'" +
+			"id:" + chatRoomId);
+		log.info("Setting sound metadata ",
+			"school:", UI._globalHelpers['getCurrentSchoolName'](),
+			"category:chat",
+			"id:", chatRoomId);
 		newFile.metadata = { 
-			school: UI._globalHelpers['getCurrentSchoolId'](),
+			school: UI._globalHelpers['getCurrentSchoolName'](),
 			category: 'chat', 
 			id: chatRoomId
 		};
