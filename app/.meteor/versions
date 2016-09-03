@@ -105,6 +105,7 @@ manuel:isdev@1.0.0
 manuel:reactivearray@1.0.5
 manuel:viewmodel@4.1.6
 manuel:viewmodel-debug@2.7.0
+matb33:collection-hooks@0.8.1
 mdg:validation-error@0.5.1
 meteor@1.1.15
 meteor-base@1.0.4

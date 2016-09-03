@@ -1,15 +1,20 @@
 //defaultSearchOptions : {limit: 50} <-- means showing 50 items per page
 // https://github.com/matteodem/meteor-easy-search/issues/445
+
+// see Searching on composite fields
+// http://matteodem.github.io/meteor-easy-search/docs/recipes/
+
 UsersStatusIndex = new EasySearch.Index({
-    collection: Meteor.users,
+    collection: Smartix.Accounts.UsersComposite,
     fields: ['status.lastLogin.date', 'profile.firstName', 'profile.lastName',
-        'grade','classroom',
+        'grade', 'grade_shadow',
+        'classroom', 'classroom_shadow',
+        'fullName',
         'emails.address', 'username',
         'status.lastLogin.userAgent', 'status.online'],
     engine: new EasySearch.Minimongo({
         //sort: (searchObject,options) =>{
         sort: () =>{
-            //TODO FIX the sorting
             return { 'status.lastLogin.date': -1 }
         },
 
@@ -29,17 +34,6 @@ UsersStatusIndex = new EasySearch.Index({
                 if (options.search.props.role !== 'all') {
                     selector['$and'].push( { ['roles.'+options.search.props.schoolNamespace] : options.search.props.role }  );
                 }
-                //else{ log.info("role selector not set");//e/g student}
-                //let status = options.search.props.connectstatus;
-                //let connectionFlag = ( status === 'online');
-                //log.info("connectStatus", status);
-                //log.info("connectionFlag", connectionFlag);
-                // if (options.search.props.connectStatus === 'online') {
-                //     selector['$and'].push( { ['status.online'] : true }  );
-                // }
-                // if (options.search.props.connectStatus === 'offline') {
-                //     selector['$and'].push( { ['status.online'] : false }  );
-                // }
                 let loginStatus = options.search.props.loginStatus;
                 //log.info("loginStatus ", loginStatus);
                 if (loginStatus !== 'anyLoggedIn') {

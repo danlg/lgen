@@ -332,7 +332,7 @@
     "AlreadyLoggedIn": "Only already logged in",
     "LastLogin": "Last login",
     "NeverLogin": "Only never logged in",
-    "Client": "Client",
+    "Client": "Device",
     "Connection": "Connection status",
     "Online": "Online",
     "Offline": "Offline",

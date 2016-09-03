@@ -10,35 +10,10 @@ Template.UserStatusSearch.onCreated(function () {
         if(this.namespace) {
             this.subscribe('userStatus', this.namespace, function (err, res) {});
             //we cache the data, a bit heavy , eager loading but should preserve round trip when searching
-            this.subscribe('ALLUsersRelationships', Meteor.userId(), this.namespace, function (err, res) {
-                if(!err) {
-                    self.parentMap.set( buildParentMap());
-                    //this.parentMap = self.parentMap;
-                    //buildParentMap(self);
-                    if (self.parentMap) {
-                        log.info("parentmap.size-oncreated-SELF-IN", Object.keys(self.parentMap.get()).length);
-                    }else {
-                        log.info("parentmap.size-oncreated-SELF-IN-NULL");
-                    }
-                   }
-                // else log.error("cannot build parent map");
+            this.subscribe('ALLUsersRelationships', Meteor.userId(), this.namespace,  (err, res) => {
             });
-            log.info("here1");
-            if (self.parentMap.get()) {
-                log.info("parentmap.size-oncreated-SELF", Object.keys(self.parentMap.get()).length);
-            }else {
-                log.info("parentmap.size-oncreated-SELF-NULL");
-            }
-            if (this.parentMap.get()) {
-                log.info("parentmap.size-oncreated-THIS", Object.keys(this.parentMap.get()).length);
-            }else {
-                log.info("parentmap.size-oncreated-THIS-NULL");
-            }
         }
-    } else {
-        log.info("Please specify a school to list the users for");
     }
-    //this.parentMap = self.parentMap;
     this.modalName = new ReactiveVar("");
     this.modalTitle = new ReactiveVar("");
     this.modalBody = new ReactiveVar("");
@@ -47,70 +22,13 @@ Template.UserStatusSearch.onCreated(function () {
     this.loginStatus = new ReactiveVar("anyLoggedIn");
 });
 
-var buildParentMap = () => {
-    let relationshipCursor = Smartix.Accounts.Relationships.Collection.find();
-    let parentMapTmp = {};
-    relationshipCursor.forEach((relation) => {
-        let value = {};
-        value.classrooms = findClassroom(relation.child);
-        value.grades = findGrade(relation.child);//todo changeme
-        if (relation.parent ==="xfoofdTL3z9dsx8Lp"){
-            log.info("findUser", findUser(relation.parent) ,"=",  findUser(relation.child));
-        }
-        parentMapTmp [relation.parent] = value;
-        if (relation.parent ==="xfoofdTL3z9dsx8Lp"){
-            log.info("findUserFOUND",  parentMapTmp [relation.parent]);
-            log.info("findUserFOUND.cs",  parentMapTmp [relation.parent].classrooms);
-        }
-    });
-    log.info("parentmap.size-IMPL", Object.keys(parentMapTmp).length);
-    //log.info("parentmap", parentMap);
-    return parentMapTmp;
-};
-var findUser = (uid) => {
-    let user = Meteor.users.findOne({_id: uid});
-    if (user) {
-        return user;
-    }
-    // else {  log.info("Cannot find user ", uid); }
-};
-var findClassroom = (uid) => {
-    let user = Meteor.users.findOne({_id: uid});
-    if (user) {
-        if (user.classroom) {
-            return user.classroom;
-        }
-    }
-    // else { log.info("Cannot find classroom for user ", uid);}
-};
-var findGrade = (uid) => {
-    let user = Meteor.users.findOne({_id: uid});
-    if (user) {
-        if (user.grade) {
-            return user.grade;
-        }
-    }
-    // else {     log.info("Cannot find grade for user ", uid); }
-};
-/**
- * @param parentUserId
- * @returns an object containing the parent's children classroom and grades
- */
-// var lookupStudentDetail = (parentUserId) => {
-//     if(Template.instance().subscriptionsReady()) {
-//         //1. find children
-//
-//         //2. find classroom of the child
-//         let classroomArray = [];
-//         let gradeArray = [];
-//         return {
-//             classrooms : classroomArray,
-//             grades :     gradeArray
-//         };
+// var findUser = (uid) => {
+//     let user = Meteor.users.findOne({_id: uid});
+//     if (user) {
+//         return user;
 //     }
+//     else {  log.info("Cannot find user ", uid); }
 // };
-
-
 
 Template.UserStatusSearch.helpers({
 
@@ -155,54 +73,26 @@ Template.UserStatusSearch.helpers({
         }
     },
 
-    getClassroom:(uid) => {
-        let parentMapH =  Template.instance().parentMap.get();
-        // if (Template.instance() && Template.instance().parentMap) {
-        //     log.info("parentmap.size-GET-11111", Object.keys(Template.instance().parentMap.get()).length);
-        // }else {
-        //     log.info("parentmap.size-GET-11111-KO)))");
-        //     log.info("parentmap.size-GET-22222-KO)))", Template.instance().parentMap);
-        // }
-        if (parentMapH) {
-            log.info("parentmap.size-GET-PM-11111", Object.keys(parentMapH).length);
-        }else {
-            log.info("parentmap.size-GET-PM-11111-KO)))");
-            log.info("parentmap.size-GET-PM-22222-KO)))", parentMapH);
-        }
-        let user =  Meteor.users.findOne({ _id: uid});
-        let namespace = UI._globalHelpers['getCurrentSchoolId']();
-        if (uid ==="xfoofdTL3z9dsx8Lp") {
-            log.info("getClassroom.value", findUser(uid) ,"=",   user);
-        }
+    classroom:(uid) => {
+        let user =  Meteor.users.findOne({ _id: uid}); //log.info("user_classroom", user);
         if (user.classroom) {
             return user.classroom;
         }
-        else{ //this is a parent, admin
-            if (Roles.userIsInRole(uid, Smartix.Accounts.School.PARENT, namespace) ) {
-                if (uid ==="xfoofdTL3z9dsx8Lp"){
-                    log.info("getClassroom.value", findUser(uid) );
-                    log.info("parentmap.size-GET");
-                    if (Template.instance().parentMap.get()) {
-                        log.info("parentmap.size-GET.OK", Object.keys(Template.instance().parentMap.get()).length);
-                    } else{
-                        log.info("parentmap.size-GET.KO", Template.instance().parentMap);
-                    }
-                    log.info("getClassroom.value", findUser(uid) ,"=",   parentMapH [uid]);
-                    let classrooms = parentMapH [uid].classrooms;
-                    log.info("getClassroom.classrooms", findUser(uid) ,"=",  classrooms);
-                }
-                if (parentMapH [uid]){
-                    let classrooms = parentMapH [uid].classrooms;
-                    return classrooms;
-                }
-            }
-            else {
-                if (uid ==="xfoofdTL3z9dsx8Lp") {
-                    log.warn ("cannot find parent", namespace);
-                }
-                return  "";
-            }
+        else if (user.classroom_shadow){
+            return user.classroom_shadow;
         }
+        else return  "";
+    },
+
+    grade:(uid) => {
+        let user =  Meteor.users.findOne({ _id: uid}); //log.info("user_classroom", user);
+        if (user.grade) {
+            return user.grade;
+        }
+        else if (user.grade_shadow){
+            return user.grade_shadow;
+        }
+        else return  "";
     },
 
     getUserEmail:function(){

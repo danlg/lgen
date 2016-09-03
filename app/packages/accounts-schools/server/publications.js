@@ -11,10 +11,64 @@ Meteor.publish('allSchoolUsers', function (schoolId) {
         this.ready();
     }
 });
+/**
+ * We build a shadow classroom for parent (due to easy search constraint,the field to search MUST be in the doc to search it)
+ * @param schoolId
+ */
+var  buildParentShadow = (schoolId) => {
+    log.info("buildParentShadow");
+    let count_grade= 0; let count_classroom = 0;
+    let relationshipCursor = Smartix.Accounts.Relationships.Collection.find({"namespace": schoolId});
+    relationshipCursor.forEach( (relationship) => {
+        let parent = Meteor.users.find({"_id": relationship.parent}).fetch()[0];
+        let child  = Meteor.users.findOne({"_id": relationship.child});
+        if (child.classroom) {
+            if (parent.classroom_shadow) {
+                parent.classroom_shadow.push(child.classroom);
+                parent.classroom_shadow = lodash.uniq ( parent.classroom_shadow );
+            } else {
+                parent.classroom_shadow = [child.classroom];
+                log.info("Adding ", relationship.parent, " classroom_shadow=[", child.classroom, "]");
+                // if (
+                //     ( relationship.parent === "xfoofdTL3z9dsx8Lp") ||
+                //     ( relationship.parent === "G52eeaB5Gr6p68DDX")
+                // ) {
+                //     log.info("parent", parent);
+                // }
+            }
+            count_classroom++;
+        }  else log.warn("No classroom for child", relationship.child);
+        if (child.grade) {
+            if (parent.grade_shadow) {
+                parent.grade_shadow.push(child.grade);
+                parent.grade_shadow = lodash.uniq(parent.grade_shadow);
+            } else {
+                parent.grade_shadow = [child.grade];
+                log.info("Adding ", relationship.parent, " grade_shadow=[", child.grade, "]");
+                // if (
+                //     ( relationship.parent === "xfoofdTL3z9dsx8Lp") ||
+                //     ( relationship.parent === "G52eeaB5Gr6p68DDX")
+                // ) {
+                //     log.info("parent", parent);
+                // }
+            }
+            count_grade++;
+        }  else log.warn("No grade for child", relationship.child);
+        //now update parent
+        if (child.classroom || child.grade) {
+            Meteor.users.update(
+                {"_id": relationship.parent},
+                {$set: parent}
+            );
+        }
+    });
+    log.info("Added ", count_classroom, " classroom_shadow, ", count_grade, " grade_shadow");
+};
 
 Meteor.publish('userStatus', function(schoolId) {
     //log.info("userStatus", schoolId);
     //let options = { online: false };// we filter status on client side
+    buildParentShadow(schoolId);
     let schoolUsersStatusCursor = Smartix.Accounts.School.getAllSchoolUsersStatus(
         schoolId,
         this.userId

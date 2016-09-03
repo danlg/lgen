@@ -89,14 +89,14 @@
                             <th>{{_ "FirstName" }}</th>
 
                             <th>{{_ "Admin.Classroom" }}</th>
+                            <th>{{_ "Admin.Grade" }}</th>
                             <th>{{_ "Admin.LastLogin" }}</th>
                             <th>{{_ "Admin.Online" }}</th>
 
                             <th>{{_ "Email" }}</th>
                             <th>{{_ "Admin.Username" }}</th>
-                            <th>{{_ "Admin.UID" }}</th>
-                            <!--<th>{{_ "Admin.Client" }}</th>-->
-
+                            <!--<th>{{_ "Admin.UID" }}</th>-->
+                            <th>{{_ "Admin.Client" }}</th>
 
                         </tr>
                         </thead>
@@ -108,15 +108,16 @@
                                     <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}">{{profile.lastName}}</a></td>
                                     <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}">{{profile.firstName}}</a></td>
 
-                                    <td>{{getClassroom getUserId}}</td>
+                                    <td>{{classroom getUserId}}</td>
+                                    <td>{{grade getUserId}}</td>
                                     <td>{{lastLogin getUserId}}</td>
                                     <!--Client/Device-->
                                     <td><i class="icon {{online getUserId}} emojicon"></i></td>
 
                                     <td>{{getUserEmail}}</td>
                                     <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}"> {{username}} </a></td>
-                                    <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}"> {{getUserId}} </a></td>
-                                    <!--<td>{{userAgent getUserId}}</td>-->
+                                    <!--<td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}"> {{getUserId}} </a></td>-->
+                                    <td>{{userAgent getUserId}}</td>
                                 </tr>
                             {{/EasySearch.Each}}
                             </tbody>
