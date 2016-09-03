@@ -42,8 +42,8 @@ var  buildParentShadow = (schoolId) => {
             }
             count_classroom++;
         }  else {
-            if (!!parent) { log.warn("No parent found ", relationship.parent  );}
-            if (!!child)  { log.warn("No child found ", relationship.child  );}
+            if (typeof parent === 'undefined') { log.warn("No parent found ", relationship.parent  );}
+            if (typeof child  === 'undefined') { log.warn("No child found ",  relationship.child  );}
             log.warn("No classroom for child", relationship.child  );
         }
         if (child && child.grade && parent) {
