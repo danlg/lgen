@@ -15,15 +15,19 @@ Meteor.publish('allSchoolUsers', function (schoolId) {
  * We build a shadow classroom for parent (due to easy search constraint,the field to search MUST be in the doc to search it)
  * @param schoolId
  */
+
 var  buildParentShadow = (schoolId) => {
     log.info("buildParentShadow");
     let count_grade= 0; let count_classroom = 0;
     let relationshipCursor = Smartix.Accounts.Relationships.Collection.find({"namespace": schoolId});
     relationshipCursor.forEach( (relationship) => {
-        let parent = Meteor.users.find({"_id": relationship.parent}).fetch()[0];
+        let parent = Meteor.users.findOne({"_id": relationship.parent});
         let child  = Meteor.users.findOne({"_id": relationship.child});
-        if (child.classroom) {
+        //defensive coding in case there are some orphan relationship without user
+        if (child && child.classroom && parent) {
             if (parent.classroom_shadow) {
+                //TODO implement if there is some changes to the classroom, this implementation doesn't sync..
+                //as we duplicate the data
                 parent.classroom_shadow.push(child.classroom);
                 parent.classroom_shadow = lodash.uniq ( parent.classroom_shadow );
             } else {
@@ -37,8 +41,12 @@ var  buildParentShadow = (schoolId) => {
                 // }
             }
             count_classroom++;
-        }  else log.warn("No classroom for child", relationship.child);
-        if (child.grade) {
+        }  else {
+            if (!!parent) { log.warn("No parent found ", relationship.parent  );}
+            if (!!child)  { log.warn("No child found ", relationship.child  );}
+            log.warn("No classroom for child", relationship.child  );
+        }
+        if (child && child.grade && parent) {
             if (parent.grade_shadow) {
                 parent.grade_shadow.push(child.grade);
                 parent.grade_shadow = lodash.uniq(parent.grade_shadow);
@@ -53,9 +61,13 @@ var  buildParentShadow = (schoolId) => {
                 // }
             }
             count_grade++;
-        }  else log.warn("No grade for child", relationship.child);
+        }  else {
+            if (typeof parent === 'undefined') { log.warn("No parent found ", relationship.parent  );}
+            if (typeof child  === 'undefined') { log.warn("No child found ",  relationship.child  );}
+            log.warn("No grade for child", relationship.child);
+        }
         //now update parent
-        if (child.classroom || child.grade) {
+        if (child && ( child.classroom || child.grade) && parent) {
             Meteor.users.update(
                 {"_id": relationship.parent},
                 {$set: parent}
