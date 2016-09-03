@@ -66,8 +66,8 @@ Meteor.publish('images', function (school, category, id) {
  */
 Meteor.publish('sounds', function (schoolName, category, id) {
     let soundCursor = Sounds.find({
-        //'metadata.school': schoolName
-        // 'metadata.category': category,
+        'metadata.school': schoolName,
+         'metadata.category': category,
          'metadata.id': id
         //should be already quite granular with the room =class / chat room id,
         // the other criteria are unnecessary
