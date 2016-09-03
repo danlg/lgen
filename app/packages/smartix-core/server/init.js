@@ -25,10 +25,13 @@ log4js.configure({
 log = log4js.getLogger('lg');//global variable
 
 Meteor.startup(function () {
-  Push.debug = true;
+  //Push.debug = true;
   //Push.Configure();
   log.setLevel('INFO');
 
+  log.info("======================================================================");
+  log.info("====================== STARTING SMARTIX ==============================");
+  log.info("======================================================================");
   log.info("Using env DDP_DEFAULT_CONNECTION_URL="+ Meteor.settings.DDP_DEFAULT_CONNECTION_URL);
   log.info("Using meteor DDP_DEFAULT_CONNECTION_URL="+ __meteor_runtime_config__.DDP_DEFAULT_CONNECTION_URL);
 
