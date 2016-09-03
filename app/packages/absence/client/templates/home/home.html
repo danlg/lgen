@@ -20,6 +20,8 @@
   
   {{#ionView}}
     {{#ionContent}}
+        Coming soon
+    <!--
         {{#if Template.subscriptionsReady}}
             <div class="card">
                 <div class="item item-text-wrap smaller">
@@ -48,7 +50,6 @@
                         </div>
                         <div class="button-bar bar-light">
                             <a href="{{pathFor route='attendance.addByProcess' school=getCurrentSchoolName processId=getProcessId }}" class="button">{{_ "absence.Reason" }}</a>
-                            <!--<a data-id='{{_id}}' class="i-dont-know-btn button">I don't know</a>-->
                             <a href="{{pathFor route='mobile.school.contact' school=getCurrentSchoolName}}" class="button">{{_ "absence.Contact" }}</a>
                         </div>                
             </div>
@@ -73,6 +74,7 @@
         {{else}}   
             <div style ="padding-top:2vh; height: 5vh;" class="spinner-loading">{{> ionSpinner icon="spiral"}}</div>
         {{/if}}
+        -->
     {{/ionContent}}
   {{/ionView}}
 </template>
