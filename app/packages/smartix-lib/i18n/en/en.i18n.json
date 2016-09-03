@@ -221,7 +221,7 @@
     "OptionalClassname": "Optional. classname e.g English G4B. You can list up to 10 classnames by teacher (a teacher can have several classes)",
     "OptionalMarkXParents": "Optional. Mark by \"X\" if you want the parents to join this class (e.g the parent of class Grade 4B). Up to 10 classes. Tip: invite parents for primary classes",
     "OptionalMarkXStudents": "Optional. Mark by \"X\" if you want the students to join this class (e.g the parent of class Grade 4B). Up to 10 classes. In this case, the class name in this file need to match the class name in the student file upload (Grade 4B). Tip: invite students for secondary classes",
-    "Other": "Parent, Teacher, Administrator",
+    "AddOther": "Parent, Teacher, Administrator",
     "Password": "Password",
     "Pending": "Pending",
     "PendingApproval": "Pending Approval",
