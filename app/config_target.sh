@@ -68,6 +68,11 @@ echo "   Sym linking " `pwd`/settings.json " -> " `pwd`/${1}u.settings.json
 rm -f mup.json && rm -f settings.json
 ln -s ${1}u.mup.json mup.json && ln -s ${1}u.settings.json settings.json
 
+echo ""
+echo "5. Touch package to get localization"
+
+touch `pwd`/packages/smartix-lib/package.js
+
 if [ $? -eq 0 ];
 then
     echo "   Config $1 sym link successfully set up"
