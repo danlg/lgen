@@ -1,7 +1,7 @@
 Template.AdminUsersView.onCreated(function () {
     var self = this;
     var userId = Router.current().params.uid;
-    var schoolUsername = UI._globalHelpers['getCurrentSchoolName']();
+    //var schoolUsername = UI._globalHelpers['getCurrentSchoolName']();
     var schoolId = UI._globalHelpers['getCurrentSchoolId']();
     self.subscribe('smartix:accounts/allUsersInNamespace', schoolId );
     self.subscribe('mySchools');
