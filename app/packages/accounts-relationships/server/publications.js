@@ -1,4 +1,7 @@
 // Publish specific user's relationships
+/**
+ * Return the user "relationship collection"
+ */
 Meteor.publish('userRelationships', function(userId) {
     check(userId, Match.Maybe(String));
     if(!(userId === null)) {
@@ -12,11 +15,20 @@ Meteor.publish('userRelationships', function(userId) {
 });
 
 //Return the cursor of all parents and children in the relationship with currentUser
+
+//what is the difference between 'usersFromRelationships' and 'userRelationships' ?
+/**
+ * Return the "user collection" of his / her relationship
+ */
+
+//Return the cursor of all parents and children in the relationship with currentUser
+//TODO add namesapce
 Meteor.publish('usersFromRelationships', function(userId){
     check(userId, Match.Maybe(String));
     if(!(userId === null)) {
         userId = userId || this.userId;
     }
+    log.info ("publish usersFromRelationships", userId);
     let userCursor =  usersFromRelationshipsImpl (userId);
     if ( userCursor ) {
         return userCursor;
@@ -33,8 +45,10 @@ var usersFromRelationshipsImpl =  (userId) => {
         userId = userId || this.userId;
     }
     let userCursor ;
-    if (userId === this.userId
-        || Smartix.Accounts.System.isAdmin(userId)) {
+    // if (userId === this.userId
+    //     we need to enable people to see their relationship. see required for RelatedUsersMobile
+    //     || Smartix.Accounts.System.isAdmin(userId))
+    // {
         let relationshipsArray = Smartix.Accounts.Relationships.getRelationshipsOfUser(userId);
         if(relationshipsArray)  {
             let users = [];
@@ -50,9 +64,12 @@ var usersFromRelationshipsImpl =  (userId) => {
                 { _id: {$in: users} }
                 //, { limit :5 } //TODO remove me
             );
+            //log.info ("usersFromRelationshipsImpl count", userCursor.fetch().count());
+            //log.info ("usersFromRelationshipsImpl", userCursor.fetch());
             return userCursor;
         }
-    }
+        else log.warn("usersFromRelationshipsImpl empty", userId);
+    // }  else log.warn("no access for", userId);
 };
 
 /**
@@ -102,11 +119,10 @@ Meteor.publish('userRelationshipsInNamespace', function (userId, namespace) {
         return Smartix.Accounts.Relationships.Collection.find({
             $and: [
                 {
-                    $or: [{
-                        parent: userId
-                    }, {
-                        child: userId
-                    }]
+                    $or: [
+                        { parent: userId }, 
+                        { child : userId }
+                    ]
                 },
                 {
                     namespace: namespace
@@ -121,9 +137,7 @@ Meteor.publish('userRelationshipsInNamespace', function (userId, namespace) {
 
 // Publish all users' relationships in a namespace for admin usage
 Meteor.publish('usersRelationshipsInNamespace', function(namespace) {
-    
     check(namespace, String);
-    
     if (Smartix.Accounts.System.isAdmin(currentUser)
         || Smartix.Accounts.School.isAdmin(namespace, currentUser)
     ) {
