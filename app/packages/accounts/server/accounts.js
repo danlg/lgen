@@ -331,13 +331,12 @@ Smartix.Accounts.removeUser = function(userId, namespace, currentUser) {
     return true;
 };
 
-
-
 Smartix.Accounts.editUser = function(userId, options, currentUser) {
     //log.info('Smartix.Accounts.editUser', options);
     if (Smartix.Accounts.canEditUser(userId, options, currentUser)) {
         //log.info('Smartix.Accounts.editUser:canEditUser', options);
-        log.info ("Smartix.Accounts.editUser", options);
+        //log.info ("Smartix.Accounts.editUser", options); //remove verbose especially with avatarImage
+        //TODO ensure that avatar is not deleted when updating
         return Meteor.users.update(
             { _id: userId},
             { $set: options }
