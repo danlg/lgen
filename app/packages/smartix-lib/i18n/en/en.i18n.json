@@ -401,6 +401,7 @@
   "DownloadTheApp": "Download the app",
   "EditClass": "Edit class",
   "Email": "Email",
+  "EmailOrUsername": "Type your email or username",
   "EmailFormatNotCorrect": "Incorrect email format",
   "EmailNotFound": "This email does not exist.",
   "EmailPlaceHolder": "My contact email",
