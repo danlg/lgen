@@ -17,7 +17,7 @@ var convertAttendanceFormat = function (originalRecord, namespace) {
     newRecord.clockIn = Smartix.Utilities.getMinutesSinceMidnight(originalRecord.clockIn);
     newRecord.namespace = namespace;
     return newRecord;
-}
+};
 
 Smartix.Absence.attendanceRecordsSchema = new SimpleSchema({
     name: {
@@ -54,11 +54,9 @@ var attendanceRecordsPattern = {
 };
 
 Smartix.Absence.updateAttendanceRecord = function (records, schoolName, currentUser) {
-
     check(records, Match.OneOf(attendanceRecordsPattern, [attendanceRecordsPattern]));
     check(schoolName, String);
     check(currentUser, Match.Maybe(String));
-    
     let namespace =  SmartixSchoolsCol.findOne({
                 shortname: schoolName
     })._id;
@@ -106,4 +104,4 @@ Smartix.Absence.updateAttendanceRecord = function (records, schoolName, currentU
         insertCount: records.length,
         errors: errors
     };
-}
+};

@@ -40,21 +40,18 @@
                                {{_ "Admin.ShowAll" }}
                             </label>
                         </div>
-
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="status-filter" class="control-success" value="approved">
-                                   {{_ "Admin.Show" }} <button class="label label-success">  {{_ "Admin.Approved" }}</button> <small>（{{_ "Admin.MessageAcknowledged" }}）</small>
-                            </label>
-                        </div>
-
                         <div class="radio">
                             <label>
                                 <input type="radio" name="status-filter" class="control-success" value="pending">
                                  {{_ "Admin.Show" }} <button class="label label-info"> {{_ "Admin.Pending" }}</button> <small>({{_ "Admin.AbsenceRequestNotApproved" }})</small>
                             </label>
                         </div>
-                        
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="status-filter" class="control-success" value="approved">
+                                {{_ "Admin.Show" }} <button class="label label-success">  {{_ "Admin.Approved" }}</button> <small>（{{_ "Admin.MessageAcknowledged" }}）</small>
+                            </label>
+                        </div>
                         <div class="radio">
                             <label>
                                 <input type="radio" name="status-filter" class="control-success" value="missing">

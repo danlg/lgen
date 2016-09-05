@@ -239,7 +239,7 @@ var getContactsForStudents = function(userId, schoolDoc)
         findAdminsOfClass.map(function(teacher)
         {
             teacherOfClass.push(teacher._id);
-        })
+        });
         let parents = [];
         let findParents = Smartix.Accounts.Relationships.Collection.find({ child: studentID, namespace: schoolDoc._id }).fetch();
         findParents.map(function (relationship) {
@@ -298,12 +298,10 @@ Meteor.publish('allSchoolUsersPerRole', function (school) {
 Meteor.publish('schoolUser', function (school, userId) {
     // Check if the user has permission for this school
     Smartix.Accounts.School.isAdmin(school, this.userId);
-    
     // Get the `_id` of the school from its username
     var schoolDoc = SmartixSchoolsCol.findOne({
         shortname: school
     });
-    
     if(schoolDoc) {
         return Meteor.users.find({
             _id: userId,
@@ -317,15 +315,11 @@ Meteor.publish('schoolUser', function (school, userId) {
 Meteor.publish('schoolAdmins', function (schoolNamespace) {
     // Check if the user has permission for this school
     Smartix.Accounts.School.isAdmin(schoolNamespace, this.userId);
-    
     return Roles.getUsersInRole('admin', schoolNamespace);
-
 });
 
 Meteor.publish('schoolStudents', function (schoolNamespace) {
     // Check if the user has permission for this school
     Smartix.Accounts.School.isAdmin(schoolNamespace, this.userId);
-    
     return Roles.getUsersInRole(Smartix.Accounts.School.STUDENT, schoolNamespace);
-
 });

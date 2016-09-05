@@ -5,7 +5,6 @@ Meteor.methods({
     'smartix:absence/replyWithReason': function (options) {
         Smartix.Absence.parentReplySchema.clean(options);
         check(options, Smartix.Absence.parentReplySchema);
-        
         return Smartix.Absence.processParentReply(options, this.userId);
     }
 });
