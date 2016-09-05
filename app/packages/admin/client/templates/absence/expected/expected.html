@@ -82,12 +82,12 @@
                                     <button class="AdminAbsenceExpected__approve label label-info">{{_ "Admin.Pending" }}</button>
                                 {{/if}}
                             </td>
-                            <!--{{#with userData}}-->
-                                <!--<td>{{profile.firstName}}</td>-->
-                                <!--<td>{{profile.lastName}}</td>-->
-                            <!--{{/with}}-->
-                            <td>{{firstName}}</td>
-                            <td>{{lastName}}</td>
+                            {{#with userData}}
+                                <td>{{profile.firstName}}</td>
+                                <td>{{profile.lastName}}</td>
+                            {{/with}}
+                            <!--<td>{{firstName}}</td>-->
+                            <!--<td>{{lastName}}</td>-->
                             <td>{{startDateTime}}</td>
                             <td>{{endDateTime}}</td>
                             <td>{{message}}</td>

@@ -294,6 +294,7 @@
     "StoryPlaceHolder": "Write your great story here",
     "StructureFile": "The structure of the file is basically 1 line per teacher. The columns describes how the teacher's class(es) will be organized. Please refer to the following guidelines for entering teacher data into the spreadsheet:",
     "StudentDobRequired": "Date of Birth is required for students",
+    "StudentIDRequired": "Student ID is mandatory for students",
     "StudentEmail": "Student E-mail",
     "StudentID": "Student ID",
     "StudentIDSkipped": "Student ID can be skipped if Student E-mail is present, and vice versa. At least one parent or carer is mandatory.",

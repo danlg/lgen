@@ -1,17 +1,5 @@
 Template.AdminAbsenceExpected.onCreated(function () {
-    // subscribe to the school info first
-    var schoolName = UI._globalHelpers['getCurrentSchoolName']();
-    var self = this;
-    this.subscribe('schoolInfo', schoolName, function () {
-        var schoolId = UI._globalHelpers['getCurrentSchoolId']();
-        if(schoolId) {
-            self.subscribe('smartix:absence/expectedAbsences', schoolId, function () {
-                self.subscribe('smartix:absence/expectedAbsencesUsers', schoolId);
-            });
-        } else {
-            log.error("Could not find school with code " + schoolName);
-        }
-    });
+    subscribe();
     // Set defaults for the filter
     this.expectedAbsencesFilter = new ReactiveDict();
     this.expectedAbsencesFilter.set('from', moment(Date.now()).format("YYYY-MM-DD"));
@@ -19,6 +7,23 @@ Template.AdminAbsenceExpected.onCreated(function () {
     this.expectedAbsencesFilter.set('status', "any");
     this.expectedAbsencesFilter.set('name', undefined);
 });
+
+//used also when changing the filter see click #AdminAbsenceExpected__updateFilter
+var subscribe = () => {
+    let schoolName = UI._globalHelpers['getCurrentSchoolName']();
+    //we need to update our subscription when we change the criteria in case there are some other students
+    //same code as in "onCreated" method
+    Meteor.subscribe('schoolInfo', schoolName, function () {
+        var schoolId = UI._globalHelpers['getCurrentSchoolId']();
+        if(schoolId) {
+            Meteor.subscribe('smartix:absence/expectedAbsences', schoolId, function () {
+                Meteor.subscribe('smartix:absence/expectedAbsencesUsers', schoolId);
+            });
+        } else {
+            log.error("Could not find school with code " + schoolName);
+        }
+    });
+};
 
 Template.AdminAbsenceExpected.helpers({
     filterStartDate: function () {
@@ -31,30 +36,24 @@ Template.AdminAbsenceExpected.helpers({
         var dateFrom = Template.instance().expectedAbsencesFilter.get('from');
         var dateTo = Template.instance().expectedAbsencesFilter.get('to');
         
-        // Assumes UTC+8
+        // Assumes UTC+8 - see bug  https://github.com/danlg/lgen/issues/614
         var dateFromTS = moment.utc(dateFrom, "YYYY-MM-DD").startOf('day').subtract(8, 'hours').unix();
         var dateToTS = moment.utc(dateTo, "YYYY-MM-DD").endOf('day').subtract(8, 'hours').unix();
         var status = Template.instance().expectedAbsencesFilter.get('status');
         var name = Template.instance().expectedAbsencesFilter.get('name');
+        //TODO we keep the name search 
         var usersWithMatchingNameIds = [];
         if(name) {
             // Find all users with 
             var usersWithMatchingName = Meteor.users.find({
                 $or: [
-                    {
-                        "profile.firstName": {
-                            $regex : name
-                        }
-                    },
-                    {
-                        "profile.lastName": {
-                            $regex : name
-                        }
-                    }
+                    { "profile.firstName": {$regex : name} },
+                    { "profile.lastName":  {$regex : name} }
                 ]
             }).fetch();
             usersWithMatchingNameIds = _.map(usersWithMatchingName, function (user) {
-                return user._id;
+                //return user._id; //change to studentId
+                return user.studentId;
             })
         }
         var studentIdSelector = usersWithMatchingNameIds.length > 0 ? {$in: usersWithMatchingNameIds} : {$exists: true};
@@ -84,34 +83,27 @@ Template.AdminAbsenceExpected.helpers({
             namespace: UI._globalHelpers['getCurrentSchoolId']()
         });
     },
-    // userData: function () {
-	 //    let findOne = Meteor.users.find({
-    //         studentId: this.studentId
+
+    'userData': function () {
+        return Meteor.users.findOne({
+            "studentId": this.studentId
+        });
+    },
+    // firstName: function () {
+    //     let findtmp = Meteor.users.findOne({
+    //         //"_id": this.studentId
+    //         "studentId": this.studentId
     //     });
-    //     // log.info("this.studentId",this.studentId);
-    //     // log.info("findOne",findOne);
-    //     // log.info("findOne.profile",findOne.profile);
-    //     // log.info("findOne.profile.firstName", findOne.profile.firstName);
-    //     // log.info("findOne.profile.lastName", findOne.profile.lastName);
-    //     return findOne;
+    //     //log.info("this.studentId",this.studentId); //log.info("find",findtmp);
+    //     return findtmp && findtmp.profile && findtmp.profile.firstName;
     // },
-    firstName: function () {
-        let findtmp = Meteor.users.findOne({
-            "studentId": this.studentId
-        });
-        // log.info("this.studentId",this.studentId);
-        // log.info("find",findtmp);
-        // log.info("find.profile",findtmp.profile);
-        // log.info("find.profile.firstName", findtmp.profile.firstName);
-        // log.info("find.profile.lastName", findtmp.profile.lastName);
-        return findtmp.profile.firstName;
-    },
-    lastName: function () {
-        let findtmp = Meteor.users.findOne({
-            "studentId": this.studentId
-        });
-        return findtmp.profile.lastName;
-    },
+    // lastName: function () {
+    //     let findtmp = Meteor.users.findOne({
+    //         //"_id": this.studentId
+    //         "studentId": this.studentId
+    //     });
+    //     return findtmp && findtmp.profile && findtmp.profile.lastName;
+    // },
 
     startDateTime: function () {
         // This will be converted to the client's local timezone automatically
@@ -125,15 +117,21 @@ Template.AdminAbsenceExpected.helpers({
 
 Template.AdminAbsenceExpected.events({
     'click .AdminAbsenceExpected__unapprove': function () {
+        log.info("click .AdminAbsenceExpected__unapprove", this);
         Meteor.call('smartix:absence/unapproveExpectedAbsence', this._id);
     },
+
     'click .AdminAbsenceExpected__approve': function () {
+        log.info("click .AdminAbsenceExpected__approve", this);
         Meteor.call('smartix:absence/approveExpectedAbsence', this._id);
     },
+
     'click #AdminAbsenceExpected__updateFilter': function (event, template) {
         Template.instance().expectedAbsencesFilter.set('from', template.$('#AdminAbsenceExpected__startDate').eq(0).val());
         Template.instance().expectedAbsencesFilter.set('to', template.$('#AdminAbsenceExpected__endDate').eq(0).val());
         Template.instance().expectedAbsencesFilter.set('status', template.$("input[name='status-filter']:checked").val());
         Template.instance().expectedAbsencesFilter.set('name', template.$("#AdminAbsenceExpected__studentName").val());
+        //share code with onCreated
+        subscribe();
     }
-})
+});

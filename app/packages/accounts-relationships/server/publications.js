@@ -8,8 +8,39 @@ Meteor.publish('userRelationships', function(userId) {
         userId = userId || this.userId;
     }
     if (userId === this.userId
-        || Smartix.Accounts.System.isAdmin(this.userId)) {
+        || Smartix.Accounts.System.isAdmin(this.userId)
+      //  || Smartix.Accounts.School.isAdmin(schoolId, userId)
+    ) {
             return Smartix.Accounts.Relationships.getRelationshipsOfUser(userId);
+    }
+    this.ready();
+});
+
+Meteor.publish('getAllChildren', function(userId, namespace) {
+    check(userId, Match.Maybe(String));
+    if(!(userId === null)) {
+        userId = userId || this.userId;
+    }
+    if (   userId === this.userId
+        || Smartix.Accounts.School.isAdmin(schoolId, userId)
+        || Smartix.Accounts.System.isAdmin(userId)
+    ) {
+        let relationshipCursor = Smartix.Accounts.Relationships.getRelationshipsOfUserByNamespace(userId, namespace);
+        let childrenIds = [];
+        relationshipCursor.forEach((relationship) => {
+            //let parent = Meteor.users.findOne({"_id": relationship.parent});
+            let child = Meteor.users.findOne({"_id": relationship.child});
+            //defensive coding in case there are some orphan relationship without user
+            if (child) {
+                childrenIds.push(relationship.child)
+            }
+        });
+        let children = Meteor.users.find({
+            _id: { $in: childrenIds }
+        });
+        //log.info('publish getAllChildren', children.fetch());
+        //log.info('publish getAllChildren', children.count());
+        return children;
     }
     this.ready();
 });
@@ -21,8 +52,8 @@ Meteor.publish('userRelationships', function(userId) {
  * Return the "user collection" of his / her relationship
  */
 
-//Return the cursor of all parents and children in the relationship with currentUser
-//TODO add namesapce
+//Return the cursor of "Meteor.users" of all parents and children in the relationship with currentUser
+//TODO add namespace
 Meteor.publish('usersFromRelationships', function(userId){
     check(userId, Match.Maybe(String));
     if(!(userId === null)) {
@@ -53,6 +84,8 @@ var usersFromRelationshipsImpl =  (userId) => {
         if(relationshipsArray)  {
             let users = [];
             relationshipsArray = relationshipsArray.fetch();
+            //Roles.getUsersInRole(Smartix.Accounts.School.STUDENT, schoolNamespace)
+            //if ()
             lodash.map(relationshipsArray, function(relationship){
                 users.push(relationship.child);
                 let findParents = Smartix.Accounts.Relationships.Collection.find({ child: relationship.child}).fetch();
@@ -60,12 +93,14 @@ var usersFromRelationshipsImpl =  (userId) => {
                     users.push(parents.parent);
                 });
             });
+            log.info ("usersFromRelationshipsImpl users", users);
+            lodash.without (users, userId);
             userCursor = Meteor.users.find(
                 { _id: {$in: users} }
                 //, { limit :5 } //TODO remove me
             );
-            //log.info ("usersFromRelationshipsImpl count", userCursor.fetch().count());
-            //log.info ("usersFromRelationshipsImpl", userCursor.fetch());
+            log.info ("usersFromRelationshipsImpl count", userId, userCursor.count());
+            log.info ("usersFromRelationshipsImpl", userId, userCursor.fetch());
             return userCursor;
         }
         else log.warn("usersFromRelationshipsImpl empty", userId);
@@ -86,19 +121,6 @@ Meteor.publish('ALLUsersRelationships', function(userId, schoolId) {
         let relationshipCursor = Smartix.Accounts.Relationships.getAllRelationshipsForSchool(schoolId);
         //log.info ("ALLUsersRelationships- relationshipsCursor", relationshipCursor.fetch());
         return relationshipCursor;
-        // if(relationshipsArray) {
-        //     log.info ("ALLUsersRelationships- relationshipsArray", relationshipsArray);
-        //     lodash.map()
-        //     //var childrenIds = lodash.map(relationRecords,'child');
-        //     let userCursor = usersFromRelationshipsImpl(userId);
-        //     if (userCursor) {
-        //         log.info ("ALLUsersRelationships", userCursor.fetch());
-        //         return Meteor.users.find( { _id : {$in: userCursor.fetch()}} );
-        //     }
-        //     else{
-        //         log.info ("ALLUsersRelationships - not found", );
-        //     }
-        // }
     }
     else{
         log.warn('publish.ALLUsersRelationships.not authorized');
@@ -116,19 +138,7 @@ Meteor.publish('userRelationshipsInNamespace', function (userId, namespace) {
         // Return relationships belong to the current user
         // as a parent or as a child
         // For the namespace specified
-        return Smartix.Accounts.Relationships.Collection.find({
-            $and: [
-                {
-                    $or: [
-                        { parent: userId }, 
-                        { child : userId }
-                    ]
-                },
-                {
-                    namespace: namespace
-                }
-            ]
-        });
+        return Smartix.Accounts.Relationships.getRelationshipsOfUserByNamespace (userId, namespace);
     } else {
         this.ready();
     }
@@ -136,16 +146,19 @@ Meteor.publish('userRelationshipsInNamespace', function (userId, namespace) {
 
 
 // Publish all users' relationships in a namespace for admin usage
-Meteor.publish('usersRelationshipsInNamespace', function(namespace) {
-    check(namespace, String);
-    if (Smartix.Accounts.System.isAdmin(currentUser)
-        || Smartix.Accounts.School.isAdmin(namespace, currentUser)
-    ) {
-        return Smartix.Accounts.Relationships.Collection.find({
-            namespace: namespace
-        });
-    } else {
-        this.ready();
-    }
-});
+//WATCH OUT NO FUNCTION OVERLOAD IN JAVASCRIPT ! So different function name is safer !
+//   userRelationshipsInNamespace
+//vs usersRelationshipsInNamespace (note the extra s) ///anyway not used
+// Meteor.publish('usersRelationshipsInNamespace', function(namespace) {
+//     check(namespace, String);
+//     if (Smartix.Accounts.System.isAdmin(currentUser)
+//         || Smartix.Accounts.School.isAdmin(namespace, currentUser)
+//     ) {
+//         return Smartix.Accounts.Relationships.Collection.find({
+//             namespace: namespace
+//         });
+//     } else {
+//         this.ready();
+//     }
+// });
 

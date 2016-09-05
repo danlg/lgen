@@ -3,26 +3,23 @@ Smartix.Absence = Smartix.Absence || {};
 
 // Register expected absences, supports multiple days 
 Smartix.Absence.registerExpectedAbsence = function (options, currentUser) {
-    
     check(currentUser, Match.Maybe(String));
-    
     // Get the `_id` of the currently-logged in user
     if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
-    
     Smartix.Absence.expectedAbsenceSchema.clean(options);
     check(options, Smartix.Absence.expectedAbsenceSchema);
-    
     let isParent = Smartix.Accounts.Relationships.isParent(options.studentId, currentUser, options.namespace);
     let isAdmin = Smartix.Accounts.School.isAdmin(options.namespace, currentUser);
-    
     // Checks if the user is the parent of the student specified
     // Or if they are the admin for the school
+    log.info("Smartix.Absence.registerExpectedAbsence" , isParent);
+    log.info("Smartix.Absence.registerExpectedAbsence" , isAdmin);
+    log.info("Smartix.Absence.registerExpectedAbsence" , options, currentUser);
     if(!(isParent || isAdmin)) {
-        throw new Meteor.Error("permission-denied", "The user does not have permission to perform this action.");
+        throw new Meteor.Error("permission-denied registerExpectedAbsence", "The user does not have permission to perform this action.");
     }
-    
     if(isParent) {
         options.approved = false;
     }
@@ -41,13 +38,11 @@ Smartix.Absence.registerExpectedAbsence = function (options, currentUser) {
         namespace: options.namespace,
         approved: options.approved
     });
-    
     if(isParent) {
         Smartix.Absence.notificationToAdminApprovalRequest(insertedAbsenceId, currentUser);
     }
-    
     return insertedAbsenceId;
-}
+};
 
 Smartix.Absence.approveExpectedAbsence = function(id, currentUser) {
     return Smartix.Absence.setAbsenceApproval(id, currentUser, true);

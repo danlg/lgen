@@ -126,7 +126,12 @@ Template.AdminAddStudent.events({
             toastr.error(TAPi18n.__("requiredFields"));
             return false;
         }
-        
+        //studentID required as it will be used for absence management
+        if(!newUserObj.studentId) {
+            //todo check uniqueness
+            toastr.error(TAPi18n.__("Admin.StudentIDRequired"));
+            return false;
+        }
         // If email is not present, password must be set
         if(email.length > 0) {
             if(Match.test(email, Match.Where(function(val) {

@@ -138,6 +138,11 @@ Template.AdminUsersView.events({
             log.warn("Didn't parse new email", newEmail);
             return false;
         }
+        if(!newUserObj.studentId) {
+            //todo check uniqueness
+            toastr.error(TAPi18n.__("Admin.StudentIDRequired"));
+            return false;
+        }
         //else{log.info("email optional", newEmail);}
         //TODO warning - Bug to delete email - cannot be deleted - remains
         if (this.emails && this.emails[0]) {

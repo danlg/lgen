@@ -3,12 +3,12 @@ Template.AdminAbsentees.onCreated(function () {
         self.schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
         if(self.schoolNamespace) {
             self.subscribe('schoolAdmins', self.schoolNamespace);
-            self.subscribe('smartix:absence/allAbsences', self.schoolNamespace)
-            self.subscribe('smartix:absence/absentUsers', self.schoolNamespace)
+            self.subscribe('smartix:absence/allAbsences', self.schoolNamespace);
+            self.subscribe('smartix:absence/absentUsers', self.schoolNamespace);
             self.subscribe('smartix:absence/expectedAbsencesUsers', self.schoolNamespace);
-        }   
+        }
+
     // Set defaults for the filter
-    
     this.processedAbsencesFilter = new ReactiveDict();
     this.processedAbsencesFilter.set('from', moment(Date.now()).format("YYYY-MM-DD"));
     this.processedAbsencesFilter.set('to', moment(Date.now()).add(1, 'day').format("YYYY-MM-DD"));
@@ -28,26 +28,18 @@ Template.AdminAbsentees.helpers({
         var dateTo = moment(Template.instance().processedAbsencesFilter.get('to'), "YYYY-MM-DD").unix();
         var status = Template.instance().processedAbsencesFilter.get('status');
         var name = Template.instance().processedAbsencesFilter.get('name');
-        
         var usersWithMatchingNameIds = [];
         if(name) {
             // Find all users with 
             var usersWithMatchingName = Meteor.users.find({
                 $or: [
-                    {
-                        "profile.firstName": {
-                            $regex : name
-                        }
-                    },
-                    {
-                        "profile.lastName": {
-                            $regex : name
-                        }
-                    }
+                    { "profile.firstName": { $regex : name } },
+                    { "profile.lastName":  { $regex : name } }
                 ]
             }).fetch();
             usersWithMatchingNameIds = _.map(usersWithMatchingName, function (user) {
-                return user._id;
+                //return user._id; //change to studentId
+                return user.studentId;
             })
         }
         var studentIdSelector = usersWithMatchingNameIds.length > 0 ? {$in: usersWithMatchingNameIds} : {$exists: true};
@@ -78,9 +70,27 @@ Template.AdminAbsentees.helpers({
     },
     'userData': function () {
         return Meteor.users.findOne({
-            _id: this.studentId
+            "studentId": this.studentId
         });
     },
+
+    // firstName: function () {
+    //     let findtmp = Meteor.users.findOne({
+    //         //"_id": this.studentId
+    //         "studentId": this.studentId
+    //     });
+    //     //log.info("this.studentId",this.studentId); //log.info("find",findtmp);
+    //     return findtmp && findtmp.profile && findtmp.profile.firstName;
+    // },
+    //
+    // lastName: function () {
+    //     let findtmp = Meteor.users.findOne({
+    //         //"_id": this.studentId
+    //         "studentId": this.studentId
+    //     });
+    //     return findtmp && findtmp.profile && findtmp.profile.lastName;
+    // },
+
     'lastNotified': function () {
         if(this.lastNotified) {
             return moment(this.lastNotified * 1000).format("HH:mm");
@@ -103,7 +113,6 @@ Template.AdminAbsentees.helpers({
                     $in: this.expectedAbsenceRecords
                 }
             });
-            
             if(expectedAbsenceRecords.count() > 0) {
                 var etaTimestamp = _.reduce(expectedAbsenceRecords.fetch(), function (timestamp, rec) {
                     timestamp = Math.max(timestamp, rec.dateTo);
@@ -117,18 +126,18 @@ Template.AdminAbsentees.helpers({
             return "-";
         }
     },
+
     'admin': function () {
         if(Array.isArray(this.expectedAbsenceRecords)) {
-            var expectedAbsenceRecord = Smartix.Absence.Collections.expected.findOne({
-                _id: {
-                    $in: this.expectedAbsenceRecords
+            var expectedAbsenceRecord = Smartix.Absence.Collections.expected.findOne(
+                {
+                    _id: { $in: this.expectedAbsenceRecords },
+                    adminId: { $exists: true }
                 },
-                adminId: {
-                    $exists: true
+                {
+                    sort: { dateFrom: 1 }
                 }
-            }, {
-                sort: {dateFrom: 1}
-            });
+            );
             
             if(expectedAbsenceRecord) {
                 var admin = Meteor.users.findOne({
@@ -146,7 +155,7 @@ Template.AdminAbsentees.helpers({
             return "-";
         }
     }
-})
+});
 
 Template.AdminAbsentees.events({
     'click #AdminAbsenceProcessed__updateFilter': function (event, template) {
@@ -155,24 +164,28 @@ Template.AdminAbsentees.events({
         Template.instance().processedAbsencesFilter.set('status', template.$("input[name='status-filter']:checked").val());
         Template.instance().processedAbsencesFilter.set('name', template.$("#AdminAbsenceProcessed__studentName").val());
     },
+
     'mouseenter .AdminAbsentees__changeStatus.label-danger': function (event, template) {
         event.currentTarget.innerText = "NOTIFY";
     },
+
     'mouseleave .AdminAbsentees__changeStatus.label-danger': function (event, template) {
         event.currentTarget.innerText = "MISSING";
     },
+
     'click .AdminAbsentees__changeStatus': function (event, template) {
-        var processedId = event.currentTarget.dataset.id;
-        var expectedAbsence = Smartix.Absence.Collections.processed.findOne({
+        let expectedAbsenceId;
+        let processedId = event.currentTarget.dataset.id;
+        log.info("AdminAbsentees__changeStatus processedId", processedId);
+        let expectedAbsence = Smartix.Absence.Collections.processed.findOne({
             _id: processedId
         });
-        var expectedAbsenceId;
         if(expectedAbsence && Array.isArray(expectedAbsence.expectedAbsenceRecords)) {
             expectedAbsenceId = expectedAbsence.expectedAbsenceRecords[0];
         }
-        
-        var status = event.currentTarget.dataset.status;
-        
+        let status = event.currentTarget.dataset.status;
+        log.info("AdminAbsentees__changeStatus expectedAbsenceId", expectedAbsenceId);
+        log.info("AdminAbsentees__changeStatus status", status);
         switch(status) {
             case "missing":
                 // Send notification
@@ -188,16 +201,18 @@ Template.AdminAbsentees.events({
                 break;
         }
     },
+
     'click #AdminAbsentees__update': function () {
         Meteor.call('smartix:absence/processAbsencesForDay', Template.instance().schoolNamespace, undefined, undefined, false, function (err, res) {
             //log.info(err);
             //log.info(res);
         });
     },
+
     'click #AdminAbsentees__updateNotify': function () {
         Meteor.call('smartix:absence/processAbsencesForDay', Template.instance().schoolNamespace, undefined, undefined, true, function (err, res) {
             //log.info(err);
             //log.info(res);
         });
     }
-})
+});

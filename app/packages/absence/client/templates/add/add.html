@@ -1,82 +1,83 @@
 <template name='AttendanceRecordAdd'>
-    
-        {{#contentFor "headerTitle"}}
-            <h1 class="title">{{_ "absence.ApplyForLeave" }}</h1>
-        {{/contentFor}}
+    {{#contentFor "headerTitle"}}
+        <h1 class="title">{{_ "absence.ApplyForLeave" }}</h1>
+    {{/contentFor}}
+    {{#contentFor "headerButtonLeft"}}
+        {{>ionNavBackButton text=" "}}
+    {{/contentFor}}
 
+    {{#ionView}}
+        {{#ionContent}}
+            {{#if isParent}}
+                <style>
+                    .item{
+                        white-space: initial;
+                    }
+                    .item .item-input{
+                        white-space: initial;
+                    }
+                    .list ::-webkit-scrollbar{
+                        display:initial;
+                    }
+                </style>
+                <form>
+                    {{#if Template.subscriptionsReady}}
+                        <div class="list ">
+                            <label class="item item-input">
+                                {{_ "absence.SelectChild" }} <br/>
+                                <select id="children-id">
+                                    {{#each getAllChildren}}
+                                        <!--we put in "value" the studentId-->
+                                        <option value="{{this.studentId}}">
+                                            <!--{{#with getUserById this}}-->
+                                            <!--{{#with this}}-->
+                                                {{profile.firstName}} {{profile.lastName}}
+                                            <!--{{/with}}-->
+                                        </option>
+                                    {{else}}
+                                        <option value=""> {{_ "absence.NoChildren" }}</option>
+                                    {{/each}}
+                                </select>
+                            </label>
+                            <!--<div class="card">-->
+                            <!--<div class="item item-text-wrap smaller less-top-bottom-padding">-->
+                            <!--{{_ "absence.Localtime" }}-->
+                            <!--</div>-->
+                            <!--</div>-->
 
-        {{#contentFor "headerButtonLeft"}}
-            {{>ionNavBackButton text=" "}}
-        {{/contentFor}}
+                            <label class="item less-top-bottom-padding">
+                                {{_ "absence.StartDate" }}
+                                <input id='start-date' type="date" value='{{getTodayDate}}' oninvalid="setCustomValidity('Start Date cannot be emptied')"
+                                       oninput="setCustomValidity('')" placeholder="Start Date" required>
+                            </label>
+                            <label class="item less-top-bottom-padding">
+                                {{_ "absence.From" }}
+                                <input id='start-date-time' type="time" value='{{getDefaultStartDateTime}}' oninvalid="setCustomValidity('Start Date Time cannot be emptied')"
+                                       oninput="setCustomValidity('')" placeholder="Start Date Time" required>
+                            </label>
+                            <label class="item less-top-bottom-padding">
+                                {{_ "absence.EndDate" }}
+                                <input id='end-date' type="date" value='{{getTodayDate}}' required>
+                            </label>
+                            <label class="item less-top-bottom-padding">
+                                {{_ "absence.To" }}
+                                <input id='end-date-time' type="time" value='{{getDefaultEndDateTime}}' required>
+                            </label>
+                            <label class="item item-input">
+                                <input id='leave-reason' type="text" value='{{email}}' placeholder={{_ "absence.ReasonToLeave" }} required>
+                            </label>
+                            <!--<label class="item item-input">
+                <input id='content' type="text" value='{{email}}' placeholder="Content">
+              </label>-->
 
-  {{#ionView}}
-    {{#ionContent}}      
-	    
-        <style>
-          .item{
-            white-space: initial;
-          }          
-          .item .item-input{
-            white-space: initial;
-          }
-          .list ::-webkit-scrollbar{
-           display:initial;
-          }
-        </style>
-      <form>
-        {{#if Template.subscriptionsReady}}
-        <div class="list ">
-          <label class="item item-input">
-            {{_ "absence.SelectChild" }} <br/>
-            <select id="children-id">
-                {{#each getAllChildrens}}
-                 
-                 <option value="{{this}}">
-                  {{#with getUserById this}}
-                    {{profile.firstName}} {{profile.lastName}}                  
-                  {{/with}}
-                 </option>
-                {{else}}
-                 <option value=""> {{_ "absence.NoChildren" }}</option>
-                {{/each}}
-            </select>
-          </label>
-        <!--<div class="card">-->
-            <!--<div class="item item-text-wrap smaller less-top-bottom-padding">-->
-              <!--{{_ "absence.Localtime" }}-->
-            <!--</div>-->
-        <!--</div>-->
-        
-          <label class="item less-top-bottom-padding">
-              {{_ "absence.StartDate" }}
-            <input id='start-date' type="date" value='{{getTodayDate}}' oninvalid="setCustomValidity('Start Date cannot be emptied')"
-            oninput="setCustomValidity('')" placeholder="Start Date" required>
-          </label>
-          <label class="item less-top-bottom-padding">
-             {{_ "absence.From" }}
-            <input id='start-date-time' type="time" value='{{getDefaultStartDateTime}}' oninvalid="setCustomValidity('Start Date Time cannot be emptied')"
-            oninput="setCustomValidity('')" placeholder="Start Date Time" required>
-          </label>        
-          <label class="item less-top-bottom-padding">
-             {{_ "absence.EndDate" }}
-            <input id='end-date' type="date" value='{{getTodayDate}}' required>
-          </label>
-          <label class="item less-top-bottom-padding">
-             {{_ "absence.To" }}
-            <input id='end-date-time' type="time" value='{{getDefaultEndDateTime}}' required>
-          </label>
-          <label class="item item-input">
-            <input id='leave-reason' type="text" value='{{email}}' placeholder={{_ "absence.ReasonToLeave" }} required>
-          </label>                 
-          <!--<label class="item item-input">
-            <input id='content' type="text" value='{{email}}' placeholder="Content">
-          </label>-->
-          
-          <button type='button' class="apply-leave-btn button button-block button-positive">{{_ "absence.Submit" }}</button>		  	  
-        </div>
-        {{/if}}
-	   </form>
-        
-     {{/ionContent}}
-  {{/ionView}}       
+                            <button type='button' class="apply-leave-btn button button-block button-positive">{{_ "absence.Submit" }}</button>
+                        </div>
+
+                    {{/if}}
+                </form>
+            {{else}} <!-- parent -->
+                Only available for parent
+            {{/if}} <!-- parent -->
+        {{/ionContent}}
+    {{/ionView}}
 </template>

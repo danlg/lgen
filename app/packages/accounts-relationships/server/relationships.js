@@ -95,6 +95,22 @@ Smartix.Accounts.Relationships.getRelationshipsOfUser = function(userId)
     });
 };
 
+//WATCH OUT NO FUNCTION OVERLOAD IN JAVASCRIPT ! So different function name is safer !
+Smartix.Accounts.Relationships.getRelationshipsOfUserByNamespace = function(userId, namespace)
+{
+    return Smartix.Accounts.Relationships.Collection.find({
+        $and: [
+            {
+                $or: [
+                    { parent: userId },
+                    { child : userId }
+                ]
+            },
+            { namespace: namespace }
+        ]
+    });
+};
+
 // Checks whether the (supposed) parent is actually
 // The parent for the student, as defined by
 // The school with the namespace
@@ -102,11 +118,18 @@ Smartix.Accounts.Relationships.isParent = function (studentId, parentId, namespa
     check(studentId, String);
     check(parentId, String);
     check(namespace, String);
-    return Smartix.Accounts.Relationships.Collection.findOne({
-        parent: parentId,
-        child: studentId,
-        namespace: namespace
-    });
+    let childUser = Meteor.users.findOne( { "studentId" : studentId} );
+    if (childUser) {
+        log.info("Smartix.Accounts.Relationships.isParent", studentId, childUser._id);
+        let relationship = Smartix.Accounts.Relationships.Collection.findOne({
+            parent: parentId,
+            child: childUser._id,
+            namespace: namespace
+        });
+        log.info("Smartix.Accounts.Relationships.isParent Rel", relationship);
+        return relationship;
+    }
+    else return false;
 };
 
 Smartix.Accounts.Relationships.getParentOfStudent = function (studentId, namespace) {

@@ -1,9 +1,11 @@
 Meteor.publish('smartix:absence/expectedAbsences', function (namespace) {
     check(namespace, String);
     if(Smartix.Absence.canViewAllExpectedAbsences(namespace, this.userId)) {
-        return Smartix.Absence.Collections.expected.find({
+        let cursor = Smartix.Absence.Collections.expected.find({
             namespace: namespace
         });
+        log.info('smartix:absence/expectedAbsences', cursor.count());
+        return cursor;
     } else {
         this.ready();
     }
@@ -28,29 +30,29 @@ Meteor.publish('smartix:absence/expectedAbsencesUsers', function (namespace, dat
     check(dateFrom, Match.Maybe(Number));
     check(dateTo, Match.Maybe(Number));
     if(Smartix.Absence.canViewAllExpectedAbsences(namespace, this.userId)) {
-        let agRes = Smartix.Absence.Collections.expected.aggregate([
-            {
-                $match: {
-                    namespace: namespace
-                }
-            },
-            {
-                $group: {
-                    _id: "$studentId"
-                }
-            }
+        let allExpectedAbsencesCursor = Smartix.Absence.Collections.expected.aggregate([
+            { $match: { namespace: namespace } },
+            { $group: { _id: "$studentId"    } }
         ]);
+        //aggregate return  _id, not studentId !
+        //see https://docs.mongodb.com/manual/reference/method/db.collection.aggregate/
         let studentsArray = [];
-        agRes.forEach(function (val) {
-            studentsArray.push(val._id);
+        allExpectedAbsencesCursor.forEach(function (expectedRecord) {
+            //studentsArray.push(val._id);
+            log.info("smartix:absence/expectedAbsencesUsers expectedRecord", expectedRecord);
+            studentsArray.push(expectedRecord._id);
         });
         //log.info("studentsArray", studentsArray);
 	    let find = Meteor.users.find({
-            studentId: {
-                $in: studentsArray
-            }
+            //_id:     { $in: studentsArray }
+            studentId: { $in: studentsArray },
+            //schools:   { $elemMatch :  { namespace } }
+            schools:   { $elemMatch :  {$in : [namespace ] } }
         });
-        //log.info("count", find.count());
+        log.info("smartix:absence/expectedAbsencesUsers studentsArray",studentsArray);
+        log.info("smartix:absence/expectedAbsencesUsers namespace", namespace);
+        log.info("smartix:absence/expectedAbsencesUsers", find.count());
+        log.info("smartix:absence/expectedAbsencesUsers", find.fetch());
         return find;
     } else {
         this.ready();
