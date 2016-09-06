@@ -6,6 +6,31 @@ var isPlayingSound = false;
 
 /* ChatRoom: Event Handlers */
 Template.ChatRoom.events({
+	// for now we just add doc in chat - replace native
+	// 'click .showActionSheet': function (event, template) {
+	// 	IonActionSheet.show({
+	// 		//titleText: 'What to attach?',
+	// 		buttons: [
+	// 			{text: TAPi18n.__("AttachDocument") }
+	// 			//, {text: TAPi18n.__("AttachEvent")}
+	// 		],
+	// 		cancelText: 'Cancel',
+	// 		cancel: function () {
+	// 			//log.info('Cancelled!');
+	// 		},
+	// 		buttonClicked: function (index) {
+	// 			if (index === 0) {
+	// 				//log.info('Document');
+	// 				$('#documentBtn').click();
+	// 			}
+	// 			// if (index === 1) {
+	// 			// 	//log.info('Calendar');
+	// 			// 	setCalendar(event, template);
+	// 			// }
+	// 			return true;
+	// 		}
+	// 	});
+	// },
 
 	'click .sendBtn': function () {
 		var text = $('.inputBox').val();
@@ -19,7 +44,9 @@ Template.ChatRoom.events({
 	},
 
 	'click .imageIcon': function (argument) {
-		// alert("asd");
+		log.info("imageIcon" + argument);
+		console.log("imageIcon" + argument);
+		//alert("imageIcon" + argument);
 	},
 	
 	'keyup .inputBox': function () {

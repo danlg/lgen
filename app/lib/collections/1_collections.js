@@ -54,7 +54,9 @@ Documents = new FS.Collection("documents", {
                         "application/vnd.ms-powerpoint.presentation.macroEnabled.12",
                         "application/vnd.ms-powerpoint.template.macroEnabled.12",
                         "application/vnd.ms-powerpoint.slideshow.macroEnabled.12",
-                        "application/pdf" 
+                        "application/pdf"
+                        //, "image/jpeg" // no good rendering, image are just displayed with their name as attachment
+                        //plus mix doc and image 
                     ]
     },
     onInvalid: function (message) {

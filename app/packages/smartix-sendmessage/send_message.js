@@ -250,12 +250,16 @@ var setCalendar = function (event, sendMsgtemplate) {
 /* SendMessage: Event Handlers */
 Template.SendMessage.events({
 	'click .showActionSheet': function (event, template) {
+		let arrayOptionsBrowser = [
+			{text: TAPi18n.__("AttachEvent")},
+			{text: TAPi18n.__("AttachDocument") }
+		];
+		let arrayOptionsMobile = [
+			{text: TAPi18n.__("AttachEvent")}
+		];
 		IonActionSheet.show({
 			//titleText: 'What to attach?',
-			buttons: [
-				{text: TAPi18n.__("AttachDocument") },
-				{text: TAPi18n.__("AttachEvent")}
-			],
+			buttons: Meteor.isCordova ? arrayOptionsMobile : arrayOptionsBrowser,
 			cancelText: 'Cancel',
 			cancel: function () {
 				//log.info('Cancelled!');
@@ -263,11 +267,12 @@ Template.SendMessage.events({
 			buttonClicked: function (index) {
 				if (index === 0) {
 					//log.info('Document');
-					$('#documentBtn').click();
-				}
-				if (index === 1) {
-					//log.info('Calendar');
 					setCalendar(event, template);
+				}
+				//only for
+				if (index === 1 && !Meteor.isCordova) {
+					//log.info('Calendar');
+					$('#documentBtn').click();
 				}
 				return true;
 			}
