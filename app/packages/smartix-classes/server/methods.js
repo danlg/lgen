@@ -21,9 +21,16 @@ Meteor.methods({
         var userObj = Meteor.users.findOne({
             _id: id
         });
-        var name = userObj.profile.firstName + " " + userObj.profile.lastName;
-        return name;
+        if (typeof userObj === 'undefined') {
+            log.warn("getFullNameById", "cannot find user", id);
+            return "";
+        }
+        if (userObj && userObj.profile) {
+            return userObj.profile.firstName + " " + userObj.profile.lastName;
+        }
+        return "";
     },
+    
     getAvatarById: function(id) {
         var userObj = Meteor.users.findOne({ _id: id });
 
