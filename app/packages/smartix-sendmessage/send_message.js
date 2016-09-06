@@ -260,7 +260,7 @@ Template.SendMessage.events({
 		IonActionSheet.show({
 			//titleText: 'What to attach?',
 			buttons: Meteor.isCordova ? arrayOptionsMobile : arrayOptionsBrowser,
-			cancelText: 'Cancel',
+			cancelText: TAPi18n.__("Cancel"),
 			cancel: function () {
 				//log.info('Cancelled!');
 			},

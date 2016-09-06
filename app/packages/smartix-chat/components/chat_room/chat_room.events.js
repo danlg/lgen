@@ -14,7 +14,7 @@ Template.ChatRoom.events({
 	// 			{text: TAPi18n.__("AttachDocument") }
 	// 			//, {text: TAPi18n.__("AttachEvent")}
 	// 		],
-	// 		cancelText: 'Cancel',
+	// 		cancelText: TAPi18n.__("Cancel"),
 	// 		cancel: function () {
 	// 			//log.info('Cancelled!');
 	// 		},
