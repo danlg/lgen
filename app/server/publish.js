@@ -31,10 +31,14 @@ Meteor.publish('getJoinedClassCreatedByMeByUserId', function (userId) {
 });
 
 Meteor.publish('createdClassByMe', function () {
-  return Smartix.Groups.Collection.find({
-      type: 'class',
-    admins: this.userId
-  });
+    let classCursor = Smartix.Groups.Collection.find({
+        //TODO add here the schoolname/namespace in the query
+        type: 'class',
+        admins: this.userId
+    });
+    //log.info("createdClassByMe count", classCursor.count());
+    //log.info("createdClassByMe fetch", classCursor.fetch());
+    return classCursor;
 });
 
 Meteor.publish('user', function (_id) {

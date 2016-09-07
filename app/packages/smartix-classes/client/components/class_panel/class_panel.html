@@ -1,123 +1,134 @@
 <template name="ClassPanel">
+    {{#if Template.subscriptionsReady}}
+        {{#contentFor "headerTitle"}}
+            <h1 class="title">
+                <i class="icon e1a-{{classObj.classAvatar}} e1a-2x emojicon"></i>
+                {{classObj.className}}
+            </h1>
+        {{/contentFor}}
+        {{#contentFor "headerButtonLeft"}}
+            {{>ionNavBackButton path='TabClasses' text=" "}}
+        {{/contentFor}}
+        {{#contentFor "headerButtonRight"}}
+            <div style="position: absolute; right: 0;">
+                <a href="{{pathFor 'ClassInvitation' classCode=classObj.classCode  }}"
+                   class="button button-clear button-entering button-active "><i class="icon ion-android-share-alt"></i></a>
+                <a href="{{pathFor 'classEdit' classCode=classObj.classCode  }}"
+                   class="button button-clear button-entering button-active "><i
+                    class="icon ion-ios-information-outline"></i></a>
+            </div>
+        {{/contentFor}}
 
-  {{#if Template.subscriptionsReady}}
-  {{#contentFor "headerTitle"}}
-     <h1 class="title">
-        <i class="icon e1a-{{classObj.classAvatar}} e1a-2x emojicon"></i>
-      {{classObj.className}}
-    </h1>
-  {{/contentFor}}
-  {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton path='TabClasses' text=" "}}
-  {{/contentFor}}
-  {{#contentFor "headerButtonRight"}}
-    <div style="position: absolute; right: 0;">
-      <a href="{{pathFor 'ClassInvitation' classCode=classObj.classCode  }}"
-         class="button button-clear button-entering button-active "><i class="icon ion-android-share-alt"></i></a>
-      <a href="{{pathFor 'classEdit' classCode=classObj.classCode  }}"
-         class="button button-clear button-entering button-active "><i class="icon ion-ios-information-outline"></i></a>
-    </div>
-  {{/contentFor}}
-  
-  {{#if Template.subscriptionsReady}}
-  {{#ionView}}
-    {{#ionContent}}
-        <div class="list messageList background-wallpaper"  id="messageList">
-           <div class='date-bubble-wrapper {{isLoadMoreButtonShow}}'><button class='load-prev-msg'>{{_ "smartix-classes.Loadmessages" }} </button> </div>
-               {{#each classMessages}}
-                {{#if isFirstMsgInOneDay}}
-                       <div class='date-bubble-wrapper'> <div class='date-bubble'>{{formatDate2 createdAt}}</div> </div>
-                {{/if}}                 
-                <div class="item card less-top-bottom-padding less-top-bottom-margin">
-                 {{#each attachCalendar}}
-                    {{>CalendarDisplay this}}
-                {{/each}}
-                <div class="item less-top-bottom-padding">
-                    <div>
-                    {{{docPreview data.content}}}    
-                    {{#autolink}}<div class='content'><pre>{{data.content}}</pre></div>{{/autolink}}
-                    <div>
-                        {{#each attachImages}}
-                            {{#with getImage}}
-                            {{#if this.isUploaded}}
-                                {{#if this.hasStored 'images'}}
-                                <div class="">
-                                    <img src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs responsive-img" data-fullsizeimage="{{this.url  }}">
-                                    <!-- <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a> -->
+        {{#if Template.subscriptionsReady}}
+            {{#ionView}}
+                {{#ionContent}}
+                    <div class="list messageList background-wallpaper" id="messageList">
+                        <div class='date-bubble-wrapper {{isLoadMoreButtonShow}}'>
+                            <button class='load-prev-msg'>{{_ "smartix-classes.Loadmessages" }} </button>
+                        </div>
+                        {{#each classMessages}}
+                            {{#if isFirstMsgInOneDay}}
+                                <div class='date-bubble-wrapper'>
+                                    <div class='date-bubble'>{{formatDate2 createdAt}}</div>
                                 </div>
-                                {{/if}}
                             {{/if}}
-                            {{/with}}
-                        {{/each}}
-                    </div>
-                    <div>
-                        {{#each attachVoices}}                      
-                            {{#with getSound}}
-                            {{#if this.isUploaded}}
-                                {{#if this.hasStored 'sounds'}}                           
-                                {{#if  this.url}}
-                                    {{#if isCordova}}
-                                    <div class="bubble">
-                                        <a class="button button-icon icon ion-play playBtn" data-clipid="{{_id}}"></a>
-                                        <!-- <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a> -->
-                                    </div>                    
-                                    {{else}}
-                                    <div class="bubble">
-                                        <audio controls>
-                                        <source src="{{this.url}}" type="audio/wav">
-                                        </audio>
-                                        <!-- <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a> -->
-                                    </div>                                                                                    
-                                    {{/if}}
-                                {{/if}}                                 
-                                {{/if}}                      
-                            {{/if}}
-                            {{/with}}
-                        {{/each}}
-                    </div>
-                    <div>
-                        {{#each attachDocuments}}
-                            {{#with getDocument}}
-                            {{#if this.isUploaded}}
-                                    {{#if this.hasStored 'documents'}}                           
-                                        <div class="bubble">
-                                        <a href='{{this.url}}'> <i class="icon ion-ios-download-outline"></i>&nbsp;{{this.name}}</a>                                                     
+                            <div class="item card less-top-bottom-padding less-top-bottom-margin">
+                                {{#each attachCalendar}}
+                                    {{>CalendarDisplay this}}
+                                {{/each}}
+                                <div class="item less-top-bottom-padding">
+                                    <div>
+                                        {{{docPreview data.content}}}
+                                        {{#autolink}}
+                                            <div class='content'>
+                                                <pre>{{data.content}}</pre>
+                                            </div>{{/autolink}}
+                                        <div>
+                                            {{#each attachImages}}
+                                                {{#with getImage}}
+                                                    {{#if this.isUploaded}}
+                                                        {{#if this.hasStored 'images'}}
+                                                            <div class="">
+                                                                <img src="{{this.url store='thumbs'  }}" alt=""
+                                                                     class="imgThumbs responsive-img"
+                                                                     data-fullsizeimage="{{this.url  }}">
+                                                                <!-- <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a> -->
+                                                            </div>
+                                                        {{/if}}
+                                                    {{/if}}
+                                                {{/with}}
+                                            {{/each}}
                                         </div>
-                                    {{else}}
-                                        {{> LoadingSpinner}}                                  
-                                    {{/if}}
-                                {{else}}
-                                        {{> LoadingSpinner}}             
-                            {{/if}}
-                            {{/with}}
+                                        <div>
+                                            {{#each attachVoices}}
+                                                {{#with getSound}}
+                                                    {{#if this.isUploaded}}
+                                                        {{#if this.hasStored 'sounds'}}
+                                                            {{#if  this.url}}
+                                                                {{#if isCordova}}
+                                                                    <div class="bubble">
+                                                                        <a class="button button-icon icon ion-play playBtn"
+                                                                           data-clipid="{{_id}}"></a>
+                                                                        <!-- <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a> -->
+                                                                    </div>
+                                                                {{else}}
+                                                                    <div class="bubble">
+                                                                        <audio controls>
+                                                                            <source src="{{this.url}}" type="audio/wav">
+                                                                        </audio>
+                                                                        <!-- <a class="button button-icon icon ion-close-circled voice" data-clipid="{{_id}}"></a> -->
+                                                                    </div>
+                                                                {{/if}}
+                                                            {{/if}}
+                                                        {{/if}}
+                                                    {{/if}}
+                                                {{/with}}
+                                            {{/each}}
+                                        </div>
+                                        <div>
+                                            {{#each attachDocuments}}
+                                                {{#with getDocument}}
+                                                    {{#if this.isUploaded}}
+                                                        {{#if this.hasStored 'documents'}}
+                                                            <div class="bubble">
+                                                                <a href='{{this.url}}'> <i
+                                                                    class="icon ion-ios-download-outline"></i>&nbsp;{{this.name}}
+                                                                </a>
+                                                            </div>
+                                                        {{else}}
+                                                            {{> LoadingSpinner}}
+                                                        {{/if}}
+                                                    {{else}}
+                                                        {{> LoadingSpinner}}
+                                                    {{/if}}
+                                                {{/with}}
+                                            {{/each}}
+                                        </div>
+                                    </div>
+                                    <p>
+                                        {{#each attachVotes}}
+                                            {{> AppDisplayVote this}}
+                                        {{/each}}
+                                        <span class='timestamp'>{{formatTime createdAt}}</span>
+                                        <span>
+                                            {{#each attachComment}}
+                                                {{#if this.allowComment}}
+                                                    <a class='smaller comment-counter subdued'>{{_ "CommentCounter" comment_count=this.comments.length }}</a>
+                                                {{/if}}
+                                            {{/each}}
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class='extraInfo {{showByDefaultIfWithComments}}'>
+                                    {{> MessageExtraInfo msgCode=msgId inputMessageObj=this }}
+                                </div>
+                            </div>
+                            <!-- </a> -->
                         {{/each}}
                     </div>
-                    </div>
-                    <p>
-                        {{#each attachVotes}}
-                            {{> AppDisplayVote this}}
-                        {{/each}}
-                    <span class='timestamp'>{{formatTime createdAt}}</span>  
-                    <span>
-                        {{#each attachComment}}
-                         {{#if this.allowComment}}
-                             <a class='smaller comment-counter subdued'>{{_ "CommentCounter" comment_count=this.comments.length }}</a>
-                         {{/if}}
-                        {{/each}}
-                    </span>
-                    </p>
-                    
-                </div>
-                <div class='extraInfo {{showByDefaultIfWithComments}}'>
-                    {{> MessageExtraInfo msgCode=msgId inputMessageObj=this }}
-                </div>
-                </div>
-                <!-- </a> -->
-              {{/each}}
-        </div>
-        {{> SendMessage callFromClassPanel=true }}
-    {{/ionContent}}
-  {{/ionView}}
-  {{/if}}
-{{/if}}
+                    {{> SendMessage callFromClassPanel=true }}
+                {{/ionContent}}
+            {{/ionView}}
+        {{/if}}
+    {{/if}}
 </template>

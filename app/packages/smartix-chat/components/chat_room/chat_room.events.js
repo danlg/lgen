@@ -35,11 +35,15 @@ Template.ChatRoom.events({
 	'click .sendBtn': function () {
 		var text = $('.inputBox').val();
 		if (!lodash.isEmpty(text)) {
-			GeneralMessageSender(Router.current().params.chatRoomId, 'text', text, null, Smartix.helpers.getAllUserExceptCurrentUser(), function () {
-				$('.inputBox').val("");
-				sendBtnMediaButtonToggle();
-				document.getElementsByClassName("inputBox")[0].updateAutogrow();
-			});
+			GeneralMessageSender(
+				Router.current().params.chatRoomId, 'text', text, null,
+				Smartix.helpers.getAllUserExceptCurrentUser(),
+				function () {
+					$('.inputBox').val("");
+					sendBtnMediaButtonToggle();
+					document.getElementsByClassName("inputBox")[0].updateAutogrow();
+				}
+			);
 		}//else we do not send
 	},
 
