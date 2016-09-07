@@ -7,8 +7,10 @@ cd .meteor/local
 #we do not delete cordova-build/plugins as it is llong to download to speed up build
 
 declare -a files=("build" "bundler-cache" "isopacks"  "shell"\
-                  "cordova-build/hooks" "cordova-build/platforms" "cordova-build/resources" \
-                  "cordova-build/www" )
+                  "cordova-build/" \
+                 # "cordova-build/hooks" "cordova-build/platforms" "cordova-build/resources" \
+                 # "cordova-build/www cordova-build/config.xml"
+                 )
 
 #we delete everything but not the local database ".meteor/local/db"
 
