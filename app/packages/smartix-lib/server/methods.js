@@ -124,21 +124,26 @@ Meteor.methods({
             Push.send(notificationObj);
         }
         else { // User not found
-            log.warn("doPushNotification, cannot notify user not found " + userId);
+            log.warn("doPushNotification, cannot notify, user not found ",  userId);
         }
     }
     var userIds = filteredUserIdsWhoEnablePushNotify;
     if(inAppNotifyObj && notificationObj.payload.type == 'chat'){
         //send notification via websocket using Streamy
         userIds.map(function(userId){
-            //log.info("streamy:newchatmessage:"+userId);
-            var socketObj = Streamy.socketsForUsers(userId);
-            socketObj._sockets.map(function(socket){
-                Streamy.emit('newchatmessage', { from: notificationObj.from,
-                                                text: notificationObj.text,
-                                                chatRoomId: inAppNotifyObj.groupId                                  
-                }, socket); 
-            });
+            if (userId) {
+                //log.info("streamy:newchatmessage:"+userId);
+                var socketObj = Streamy.socketsForUsers(userId);
+                socketObj._sockets.map(function(socket){
+                    Streamy.emit('newchatmessage', { from: notificationObj.from,
+                        text: notificationObj.text,
+                        chatRoomId: inAppNotifyObj.groupId
+                    }, socket);
+                });
+            }
+            else {
+                log.warn("doPushNotification, cannot notify via streamy, user not found ", userId);
+            }
         });        
     }
     else if(inAppNotifyObj && notificationObj.payload.type == 'class'){
