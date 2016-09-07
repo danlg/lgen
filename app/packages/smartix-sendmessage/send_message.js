@@ -288,14 +288,74 @@ Template.SendMessage.events({
 		voteEnableCheck();
 	},
 
+	// 'click #imageBtnOLD': function (e) {
+	// 	log.info("click #imageBtn", e);
+	// 	if (Meteor.isCordova) {
+	// 		if (window.device.platform === "Android") {
+	// 			e.preventDefault();
+	// 			imageAction();
+	// 		}
+	// 	}
+	// },
+	
 	'click #imageBtn': function (e) {
+		log.info("click #imageBtn", e);
 		if (Meteor.isCordova) {
 			if (window.device.platform === "Android") {
 				e.preventDefault();
-				imageAction();
+				// 	imageAction();
+				Smartix.FileHandler.imageUploadForAndroid(
+					{
+						category: 'class',
+						id: Router.current().params.classCode,
+						'school': UI._globalHelpers['getCurrentSchoolName']()
+					}
+					, imageArr.get()
+					// the callback is not called
+					, function (result) {
+						console.log("click #imageBtn callback++++++++" );
+						console.log("click #imageBtn callback++++++++", result);
+						log.info("click #imageBtn callback", result);
+						imageArr.set(result);
+						//cleanup shoudl be here reaaly
+					}
+				);
+				console.log("Before show preview" );
+				cleanupAfterSendingMessage();
+				//showPreview("image");
 			}
 		}
 	},
+
+	'click .imgThumbs': function (e) {
+		var imageFullSizePath = $(e.target).data('fullsizeimage');
+		IonModal.open('imageModal', {src: imageFullSizePath});
+	},
+
+	'change #imageBtn': function (event, template) {
+		//https://github.com/CollectionFS/Meteor-CollectionFS
+		//Image is inserted from here via FS.Utility
+		Smartix.FileHandler.imageUpload(
+			event,
+			{category: 'class', id: Router.current().params.classCode, 'school': UI._globalHelpers['getCurrentSchoolName']()}
+			, imageArr.get(),
+			function (result) {
+				imageArr.set(result);
+			}
+		);
+		showPreview("image");
+	},
+
+
+// 	function imageAction() {
+// 	var options = {
+// 		'buttonLabels': ['Take Photo From Camera', 'Select From Gallery'],
+// 		'androidEnableCancelButton': true, // default false
+// 		'winphoneEnableCancelButton': true, // default false
+// 		'addCancelButtonWithLabel': 'Cancel'
+// 	};
+// 	window.plugins.actionsheet.show(options, callback);
+// }
 
 	'click .ion-play.playBtn': function (e) {
 		if (!isPlayingSound) {
@@ -378,20 +438,6 @@ Template.SendMessage.events({
 		IonModal.open('imageModal', {src: imageFullSizePath});
 	},
 
-	'change #imageBtn': function (event, template) {
-		//https://github.com/CollectionFS/Meteor-CollectionFS
-		//Image is inserted from here via FS.Utility
-		Smartix.FileHandler.imageUpload(
-			event,
-			{category: 'class', id: Router.current().params.classCode, 'school': UI._globalHelpers['getCurrentSchoolName']()}
-			, imageArr.get(),
-			function (result) {
-				imageArr.set(result);
-			}
-		);
-		showPreview("image");
-	},
-
 	'click .sendMsgBtn': function (event, template) {
 		var target = Session.get('sendMessageSelectedClasses').selectArrId;
 		//log.info(target);
@@ -419,25 +465,17 @@ Template.SendMessage.events({
 		}
 		var addons = [];
 		populateAddons(addons, mediaObj);
-		GeneralMessageSender(target[0], 'text', msg, addons, null, function () {
-			//log.info('callback@GeneralMessageSender');
-			Session.set("sendMessageSelectedClasses", {
-				selectArrName: [],
-				selectArrId: []
-			});
-			//input parameters clean up
-			imageArr.set([]);
-			soundArr.set([]);
-			documentArr.set([]);
-			$(".msgBox").val("");
-			template.calendarEvent.set({});
-			hidePreview('all');
-			sendBtnMediaButtonToggle();
-			//force update autogrow
-			document.getElementsByClassName("inputBox")[0].updateAutogrow();
-			//scroll messagelist to bottom;
-			window.setTimeout(scrollMessageListToBottom, 100);
-		});
+		GeneralMessageSender(target[0], 'text', msg, addons, null,
+			//callback
+			function () {
+				//log.info('callback@GeneralMessageSender');
+				Session.set("sendMessageSelectedClasses", {
+					selectArrName: [],
+					selectArrId: []
+				});
+				cleanupAfterSendingMessage();
+			}
+		);
 	},
 
 	'keyup .inputBox': function () {
@@ -475,6 +513,21 @@ Template.SendMessage.events({
 			});
 	}
 });
+
+function cleanupAfterSendingMessage() {
+	//input parameters clean up
+	imageArr.set([]);
+	soundArr.set([]);
+	documentArr.set([]);
+	$(".msgBox").val("");
+	template.calendarEvent.set({});
+	hidePreview('all');
+	sendBtnMediaButtonToggle();
+	//force update autogrow
+	document.getElementsByClassName("inputBox")[0].updateAutogrow();
+	//scroll messagelist to bottom;
+	window.setTimeout(scrollMessageListToBottom, 100);
+}
 
 function populateAddons(addons, mediaObj) {
 	//add images to addons one by one if any
@@ -768,10 +821,9 @@ function playAudio(url, callback) {
 	my_media.play({numberOfLoops: 1});
 }
 
-
 function imageAction() {
 	var options = {
-		'buttonLabels': ['Take Photo From Camera', 'Select From Gallery'],
+		'buttonLabels': ['Take Photo From Camera HERE', 'Select From Gallery THERE'],
 		'androidEnableCancelButton': true, // default false
 		'winphoneEnableCancelButton': true, // default false
 		'addCancelButtonWithLabel': 'Cancel'

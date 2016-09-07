@@ -64,11 +64,13 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
     // Get the `_id` of the currently-logged in user
     if(!(currentUser === null)) { currentUser = currentUser || Meteor.userId(); }
     /* CHECKS FOR PERMISSION TO POST IN GROUP */
+    // var keyToLookup; do not mix messageType with groupType ORTHOGONAL
     // Query to the get group
     var group = Smartix.Groups.Collection.findOne({ _id: groupId });
+    //var group = Smartix.Groups.Collection.findOne(dynamicQuery);
     // Checks if group exists
     if(!group) {
-        log.error('group not exist');
+        log.error('Group does not exist', groupId);
         return false;
         // OPTIONAL: Throw error saying the group specified does not exists
     }
