@@ -37,21 +37,25 @@ Smartix.Class.getClassesOfUser = function(id) {
     }
 };
 
-Smartix.Class.isClassAdmin = function(userId, classId) {
+Smartix.Class.isClassAdmin = function(userId, groupId) {
     userId = userId || Meteor.userId();
-    var queriedClass = Smartix.Groups.Collection.findOne({
-        _id: classId
+    var queriedGroup = Smartix.Groups.Collection.findOne({
+        _id: groupId
     });
-
-    if (Array.isArray(queriedClass.admins)) {
-
-        return queriedClass.admins.indexOf(userId) > -1;
-    } else {
-
+    if ( queriedGroup.namespace && Smartix.Accounts.School.isAdmin(queriedGroup.namespace) ) {
+        return true;
+    }
+    if (typeof queriedGroup.namespace === 'undefined') {
+        log.warn("Smartix.Class.isClassAdmin, queriedGroup.namespace not found for groupId", groupId);
+        log.warn("Smartix.Class.isClassAdmin, queriedGroup.namespace", queriedGroup.namespace);
+    }
+    if (Array.isArray(queriedGroup.admins)) {
+        log.info("Smartix.Class.isClassAdmin userid", userId , ", groupId", groupId, ", admins", queriedGroup.admins);
+        return queriedGroup.admins.indexOf(userId) > -1;
+    } else  {
         // OPTIONAL: Throw error as `queriedClass.admins` should be an array of strings
         return false;
     }
-
 };
 
 Smartix.Class.canCreateClass = function(namespace, currentUser) {
