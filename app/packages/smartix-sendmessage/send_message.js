@@ -298,7 +298,7 @@ Template.SendMessage.events({
 	// 	}
 	// },
 	
-	'click #imageBtn': function (e) {
+	'click #imageBtn': function (e, template) {
 		log.info("click #imageBtn", e);
 		if (Meteor.isCordova) {
 			if (window.device.platform === "Android") {
@@ -313,16 +313,16 @@ Template.SendMessage.events({
 					, imageArr.get()
 					// the callback is not called
 					, function (result) {
-						console.log("click #imageBtn callback++++++++" );
-						console.log("click #imageBtn callback++++++++", result);
+						//console.log("click #imageBtn callback++++++++" );
+						//console.log("click #imageBtn callback++++++++", result);
 						log.info("click #imageBtn callback", result);
 						imageArr.set(result);
-						//cleanup shoudl be here reaaly
+						//cleanup should be here really
 					}
 				);
 				console.log("Before show preview" );
-				cleanupAfterSendingMessage();
 				//showPreview("image");
+				cleanupAfterSendingMessage(template);
 			}
 		}
 	},
@@ -473,7 +473,7 @@ Template.SendMessage.events({
 					selectArrName: [],
 					selectArrId: []
 				});
-				cleanupAfterSendingMessage();
+				cleanupAfterSendingMessage(template);
 			}
 		);
 	},
@@ -514,15 +514,15 @@ Template.SendMessage.events({
 	}
 });
 
-function cleanupAfterSendingMessage() {
+function cleanupAfterSendingMessage(template) {
 	//input parameters clean up
+	sendBtnMediaButtonToggle();
 	imageArr.set([]);
 	soundArr.set([]);
 	documentArr.set([]);
 	$(".msgBox").val("");
 	template.calendarEvent.set({});
 	hidePreview('all');
-	sendBtnMediaButtonToggle();
 	//force update autogrow
 	document.getElementsByClassName("inputBox")[0].updateAutogrow();
 	//scroll messagelist to bottom;
@@ -832,6 +832,7 @@ function imageAction() {
 }
 
 function showPreview(filetype) {
+//the preview is not working for Android
 	log.info("show preview:filetype:" + filetype);
 	$('.preview' + '.' + filetype).show();
 	var borrower = messageListHeightBorrower.get();
