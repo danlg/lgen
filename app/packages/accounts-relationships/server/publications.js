@@ -100,7 +100,7 @@ var usersFromRelationshipsImpl =  (userId) => {
                 //, { limit :5 } //TODO remove me
             );
             log.info ("usersFromRelationshipsImpl count", userId, userCursor.count());
-            log.info ("usersFromRelationshipsImpl", userId, userCursor.fetch());
+            //log.debug ("usersFromRelationshipsImpl", userId, userCursor.fetch());
             return userCursor;
         }
         else log.warn("usersFromRelationshipsImpl empty", userId);

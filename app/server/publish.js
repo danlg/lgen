@@ -72,11 +72,11 @@ Meteor.publish('sounds', function (schoolName, category, id) {
         //should be already quite granular with the room =class / chat room id,
         // the other criteria are unnecessary
     });
-    log.info("Published " , soundCursor.count(), " sounds with criteria: ",
-        "metadata.school", schoolName,
-        ", metadata.category", category,
-        ", metadata.id", id
-    );
+    // log.info("Published " , soundCursor.count(), " sounds with criteria: ",
+    //     "metadata.school", schoolName,
+    //     ", metadata.category", category,
+    //     ", metadata.id", id
+    // );
     return soundCursor;
 });
 
