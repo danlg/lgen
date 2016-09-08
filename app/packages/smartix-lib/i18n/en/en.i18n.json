@@ -457,6 +457,7 @@
   "LastNamePlaceHolder": "Last name",
   "Later": "Later",
   "Leave": "Leave",
+  "Loadmessages": "...",
   "Login": "Login",
   "LoginWithGoogle": "Login With Google",
   "LoveSmartix": "Love Smartix",
@@ -765,8 +766,7 @@
     "Check/UncheckAll": "Check / uncheck all",
     "ChooseGroupAvatar": "Choose a group avatar (optional)",
     "CreateChat": "Create Chat",
-    "GroupChat": "Group Chat",
-    "Loadmessage": "..."
+    "GroupChat": "Group Chat"
   },
   "smartix-classes": {
     "Loadmessages": "...",

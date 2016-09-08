@@ -1,4 +1,16 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
+
+//@import "mixins"; //not working because  meteoric_ionic-sass is not  a package
+
+//we should really make meteoric_ionic-sass a package and import it....
+
+@mixin user-select($select) {
+  -webkit-user-select: $select;
+  -moz-user-select: $select;
+  -ms-user-select: $select;
+  user-select: $select;
+}
+
 .chat-room {
 }
 
@@ -96,6 +108,7 @@
     -webkit-border-radius: 3px;
     border-radius:         3px;
     font-family: sans-serif;
+    @include user-select(text);
   }
   .bubble.image-bubble{
     padding-top: 1px;
@@ -133,6 +146,10 @@
   
 }
 
+//.selectable {
+//  -webkit-user-select: auto;
+//}
+
 .notmine {
   text-align: left;
   .bubble {
@@ -148,7 +165,9 @@
     -moz-border-radius:    3px;
     -webkit-border-radius: 3px;
     border-radius:         3px;
-    font-family: sans-serif;    
+    font-family: sans-serif;
+    @include user-select(auto);
+    //-webkit-user-select: auto;
   }
    .bubble.image-bubble{
     padding-top: 1px;
