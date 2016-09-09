@@ -50,8 +50,8 @@ Template.YouIconChoose.events({
       if (files.length > 0) {
         var reader = new FileReader();
         template.isPickEmoji.set(false);
-        reader.onloadend = function (readerEvent) {
-          template.uploadedImage.set(readerEvent.currentTarget.result);
+        reader.onload = function (readerEvent) {
+          template.uploadedImage.set(readerEvent.target.result);
           var imgHolder = template.$('#imageCrop')[0];
           // log.info("uploadedImage", template.uploadedImage.get());
           imgHolder.src = template.uploadedImage.get();
@@ -110,26 +110,28 @@ var imageUploadForAndroid = function (event, template) {
     window.resolveLocalFileSystemURL(imageURI,
       function (fileEntry) {
         filenameofajax = fileEntry.name;
-        var efail = function (evt) {
-          console.log("File entry error  " + error.code);
+        var onErrorIn = function (evt) {
+          log.error("imageUploadForAndroid.you_icon_choose, File entry error  " + error.code);
+          console.log("imageUploadForAndroid.you_icon_choose, File entry error  " + error.code);
         };
-        var win = function (file) {
+        var onSuccessIn = function (file) {
           template.isPickEmoji.set(false);
           var reader = new FileReader();
           reader.readAsDataURL(file);
-          reader.onloadend = function (readerEvent) {
-            console.log(readerEvent.currentTarget.result);
-            template.uploadedImage.set(readerEvent.currentTarget.result);
+          reader.onload = function (readerEvent) {
+            console.log("imageUploadForAndroid.onSuccessIn.onload target=", readerEvent.target);
+            //console.log(readerEvent.target.result);
+            template.uploadedImage.set(readerEvent.target.result);
             var imgHolder = template.$('#imageCrop')[0];
             // log.info("uploadedImage", template.uploadedImage.get());
             imgHolder.src = template.uploadedImage.get();
             img = cropInit(imgHolder);
           };
         };
-        fileEntry.file(win, efail);
+        fileEntry.file(onSuccessIn, onErrorIn);
       }
     );
-  }
+  };
 
   var onFail = function (message) {
     toastr.error(TAPi18n.__("FailedBecause") + message);
@@ -138,14 +140,14 @@ var imageUploadForAndroid = function (event, template) {
     setTimeout(function () {
       switch (buttonIndex) {
         case 1:
-          navigator.camera.getPicture(onSuccess, onFail, {
+          navigator.camera.getPicture(onSuccess, onFail, { allowEdit: true, correctOrientation: true,
             quality: 50,
             destinationType: Camera.DestinationType.FILE_URI,
             limit: 1
           });
           break;
         case 2:
-          navigator.camera.getPicture(onSuccess, onFail, {
+          navigator.camera.getPicture(onSuccess, onFail, { allowEdit: true, correctOrientation: true,
             quality: 50,
             destinationType: Camera.DestinationType.FILE_URI,
             sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
@@ -156,6 +158,9 @@ var imageUploadForAndroid = function (event, template) {
       }
     });
   };
+
+  //var callback = androidCameraCallback;
+
   var options = {
     'buttonLabels': ['Take Photo From Camera', 'Select From Gallery'],
     'androidEnableCancelButton': true, // default false
@@ -163,8 +168,7 @@ var imageUploadForAndroid = function (event, template) {
     'addCancelButtonWithLabel': 'Cancel'
   };
   window.plugins.actionsheet.show(options, callback);
-}
-
+};
 
 var cropInit = function (image) {
   var cropper = new Cropper(image, {

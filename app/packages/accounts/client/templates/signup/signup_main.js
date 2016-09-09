@@ -264,8 +264,8 @@ Template.SignupMain.events({
             reader.onload = function (readerEvent) {
                 //log.info(readerEvent);
                 // get loaded data and render thumbnail.
-                document.getElementById("school-logo-preview").src = readerEvent.currentTarget.result;
-                template.previewSchoolLogoBlob.set( readerEvent.currentTarget.result );
+                document.getElementById("school-logo-preview").src = readerEvent.target.result;
+                template.previewSchoolLogoBlob.set( readerEvent.target.result );
             };
             // read the image file as a data URL.
             reader.readAsDataURL(files[0]);
@@ -426,16 +426,16 @@ var loadDefaultImage = function(template)
     var schoolBackground = base64.imgSrcToDataURL(schoolLogoSource,  {crossOrigin: 'Anonymous'}).then(function (dataURL) {
         template.previewSchoolLogoBlob.set(dataURL);
     }).catch(function (err) {
-        log.info(err);
+        log.error(err);
     });  
 
     var schoolBackground = base64.imgSrcToDataURL(schoolbannerSource, 'image/jpeg', {crossOrigin: 'Anonymous'}).then(function (dataURL) {
         template.previewSchoolBackgroundImageBlob.set(dataURL);
         // log.info(schoolbannerSource, dataURL);
     }).catch(function (err) {
-        log.info(err);
+        log.error(err);
     });  
-}
+};
 
 //Image upload for android 
 var imageUploadForAndroid = function (template, imageType) {
@@ -443,29 +443,31 @@ var imageUploadForAndroid = function (template, imageType) {
                 window.resolveLocalFileSystemURL(imageURI,
                     function (fileEntry) {
                         filenameofajax=fileEntry.name;
-                        var efail = function(evt) {
+                        var onErrorIn = function(evt) {
                             console.log("File entry error  "+error.code);
                         };
-                        var win=function(file) {
-                            console.log(file);
+                        var onSuccessIn = function(file) {
+                            //console.log(file);
                             var reader = new FileReader();
                             reader.readAsDataURL(file);
                             Template.instance().isPickEmoji.set(false);
-                            reader.onloadend = function (readerEvent) 
+                            reader.onload = function (readerEvent)
                             {
+                                console.log("imageUploadForAndroid.onSuccessIn.onload target=", readerEvent.target);
+                                let result = readerEvent.target.result;
                                 if(imageType === 'logo')
                                 {
-                                    document.getElementById("school-logo-preview").src = readerEvent.currentTarget.result;
-                                    template.previewSchoolLogoBlob.set(readerEvent.currentTarget.result);   
+                                    document.getElementById("school-logo-preview").src = result;
+                                    template.previewSchoolLogoBlob.set(result);
                                 }
                                 else if (imageType === 'background')
                                 {
-                                    document.getElementById("school-banner-preview").src = readerEvent.currentTarget.result;
-                                    template.previewSchoolBackgroundImageBlob.set( readerEvent.currentTarget.result );
+                                    document.getElementById("school-banner-preview").src = result;
+                                    template.previewSchoolBackgroundImageBlob.set( result );
                                 }  
                             };
                         };
-                        fileEntry.file(win, efail);
+                        fileEntry.file(onSuccessIn, onErrorIn);
                     },
                     function () {
                     }
@@ -478,14 +480,14 @@ var imageUploadForAndroid = function (template, imageType) {
         setTimeout(function () {
             switch (buttonIndex) {
                 case 1:
-                    navigator.camera.getPicture(onSuccess, onFail, {
+                    navigator.camera.getPicture(onSuccess, onFail, { allowEdit: true, correctOrientation: true,
                         quality: 50,
                         destinationType: Camera.DestinationType.FILE_URI,
                         limit: 1
                     });
                     break;
                 case 2:
-                    navigator.camera.getPicture(onSuccess, onFail, {
+                    navigator.camera.getPicture(onSuccess, onFail, { allowEdit: true, correctOrientation: true,
                         quality: 50,
                         destinationType: Camera.DestinationType.FILE_URI,
                         sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
