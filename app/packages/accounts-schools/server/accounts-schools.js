@@ -342,7 +342,7 @@ Smartix.Accounts.School.revokeSchool = function(school,users){
         && !Smartix.Accounts.System.isAdmin()){
         return;
     }
-    Roles.removeUsersFromRoles(users,['admin','teacher','parent','student'],school);
+    Roles.removeUsersFromRoles(users,['admin','teacher','parent','student', 'user'],school);
     return Meteor.users.update({
         _id: {$in : users}
     },{
