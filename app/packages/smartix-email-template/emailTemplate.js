@@ -245,21 +245,30 @@ Smartix.inviteClassMailTemplate = function (to, classObj) {
   });
 };
 
+var verifyImpl = function (userObj, emailLang) {
+    let emailContent;
+    if(Smartix.Lib.Server.IsGoogleAccount (userObj.emails[0].address)) {
+        emailContent = Assets.getText("lang/" + emailLang + "/emailVerifyTemplate.html");
+    }
+    else if (userObj.services.password){
+        emailContent = Assets.getText("lang/" + emailLang + "/emailAccountDetailsVerification.html");
+    }
+    else{
+        emailContent = Assets.getText("lang/" + emailLang + "/emailSetPasswordVerification.html");
+    }
+    return emailContent;
+};
+
 Smartix.verificationEmailTemplate = function (userObj, verificationURL) {
   //log.info('verificationEmailTemplate',userObj);
-  var emailLang = userObj.lang || "en";
+  var lang = userObj.lang || "en";
   var verifyEmailcontent;
   try {
-    if(Smartix.Lib.Server.IsGoogleAccount (userObj.emails[0].address))
-        verifyEmailcontent = Assets.getText("lang/" + emailLang + "/emailVerifyTemplate.html");
-    else if (userObj.services.password){
-          verifyEmailcontent = Assets.getText("lang/" + emailLang + "/emailAccountDetailsVerification.html");
-        }
-    else{
-        verifyEmailcontent = Assets.getText("lang/" + emailLang + "/emailSetPasswordVerification.html");
-    }
-  } catch (e) {
-    log.info(e);
+      verifyEmailcontent = verifyImpl(lang);
+  }
+  catch (e) {
+      log.warn("email lang", lang, "not found, falling back to english");
+      verifyEmailcontent = verifyImpl("en");
   }
   var firstPass = Spacebars.toHTML(
     {
