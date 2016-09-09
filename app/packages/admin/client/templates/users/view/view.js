@@ -106,7 +106,7 @@ Template.AdminUsersView.events({
         
         var dateFieldVal = template.$('#AdminUsers__dob').eq(0).val();
         if (dateFieldVal === ""
-            && isStudent ()
+            && isStudent()
             //&& Roles.userIsInRole(Meteor.userId(), Smartix.Accounts.School.STUDENT, namespace)||
         ) {
             toastr.error(TAPi18n.__("Admin.StudentDobRequired"));
@@ -138,7 +138,7 @@ Template.AdminUsersView.events({
             log.warn("Didn't parse new email", newEmail);
             return false;
         }
-        if(!newUserObj.studentId) {
+        if( isStudent() && (!newUserObj.studentId) ) {
             //todo check uniqueness
             toastr.error(TAPi18n.__("Admin.StudentIDRequired"));
             return false;
