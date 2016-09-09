@@ -735,19 +735,22 @@ function onFail(message) {
 }
 
 var callback = function (buttonIndex) {
+	//TODO reuse this bit of code 
 	setTimeout(function () {
 		// like other Cordova plugins (prompt, confirm) the buttonIndex is 1-based (first button is index 1)
 		//  alert('button index clicked: ' + buttonIndex);
 		switch (buttonIndex) {
 			case 1:
-				navigator.camera.getPicture(onSuccess, onFail, {
+				navigator.camera.getPicture(onSuccess, onFail, { allowEdit: true, correctOrientation: true,
 					quality: 50,
 					destinationType: Camera.DestinationType.FILE_URI,
 					limit: 1
 				});
 				break;
 			case 2:
-				navigator.camera.getPicture(onSuccess, onFail, {
+				//fix orientation 
+				//see https://forum.ionicframework.com/t/camera-wrong-orientation-with-android/8583/22 allowEdit: true, correctOrientation: true,
+				navigator.camera.getPicture(onSuccess, onFail, { allowEdit: true, correctOrientation: true,
 					quality: 50,
 					destinationType: Camera.DestinationType.FILE_URI,
 					sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,

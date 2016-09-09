@@ -194,16 +194,21 @@ Smartix.FileHandler = (function () {
 					//  alert('button index clicked: ' + buttonIndex);
 					switch (buttonIndex) {
 						case 1:
-							navigator.camera.getPicture(onSuccess, onFail, {
+							//fix orientation 
+							//see https://forum.ionicframework.com/t/camera-wrong-orientation-with-android/8583/22
+							navigator.camera.getPicture(onSuccess, onFail, { allowEdit: true, correctOrientation: true,
 								quality: 50,
 								destinationType: Camera.DestinationType.FILE_URI,
 								limit: 1
 							});
 							break;
 						case 2:
-							navigator.camera.getPicture(onSuccess, onFail, {
+							//fix orientation 
+							//see https://forum.ionicframework.com/t/camera-wrong-orientation-with-android/8583/22
+							navigator.camera.getPicture(onSuccess, onFail, { allowEdit: true, correctOrientation: true,
 								quality: 50,
 								destinationType: Camera.DestinationType.FILE_URI,
+								encodingType: Camera.EncodingType.JPEG,
 								sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
 								limit: 1
 							});
