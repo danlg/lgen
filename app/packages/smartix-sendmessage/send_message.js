@@ -741,7 +741,7 @@ var callback = function (buttonIndex) {
 		//  alert('button index clicked: ' + buttonIndex);
 		switch (buttonIndex) {
 			case 1:
-				navigator.camera.getPicture(onSuccess, onFail, { allowEdit: true, correctOrientation: true,
+				navigator.camera.getPicture(onSuccess, onFail, { allowEdit: false, correctOrientation: true,
 					quality: 50,
 					destinationType: Camera.DestinationType.FILE_URI,
 					limit: 1
@@ -749,8 +749,11 @@ var callback = function (buttonIndex) {
 				break;
 			case 2:
 				//fix orientation 
-				//see https://forum.ionicframework.com/t/camera-wrong-orientation-with-android/8583/22 allowEdit: true, correctOrientation: true,
-				navigator.camera.getPicture(onSuccess, onFail, { allowEdit: true, correctOrientation: true,
+				//see https://forum.ionicframework.com/t/camera-wrong-orientation-with-android/8583/22 allowEdit: false, correctOrientation: true,
+				// from https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-camera/index.html
+				// from https://github.com/apache/cordova-plugin-camera/tree/2.1.1
+				// Android Quirks: allowEdit is unpredictable on Android and it should not be used! (version 6.x)
+				navigator.camera.getPicture(onSuccess, onFail, { allowEdit: false, correctOrientation: true,
 					quality: 50,
 					destinationType: Camera.DestinationType.FILE_URI,
 					sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,

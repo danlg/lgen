@@ -480,14 +480,14 @@ var imageUploadForAndroid = function (template, imageType) {
         setTimeout(function () {
             switch (buttonIndex) {
                 case 1:
-                    navigator.camera.getPicture(onSuccess, onFail, { allowEdit: true, correctOrientation: true,
+                    navigator.camera.getPicture(onSuccess, onFail, { allowEdit: false, correctOrientation: true,
                         quality: 50,
                         destinationType: Camera.DestinationType.FILE_URI,
                         limit: 1
                     });
                     break;
                 case 2:
-                    navigator.camera.getPicture(onSuccess, onFail, { allowEdit: true, correctOrientation: true,
+                    navigator.camera.getPicture(onSuccess, onFail, { allowEdit: false, correctOrientation: true,
                         quality: 50,
                         destinationType: Camera.DestinationType.FILE_URI,
                         sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
