@@ -5,5 +5,5 @@ Template.CalendarDisplay.helpers({
     },
     calendarTime:function(date){   
         return moment(date).calendar();
-    },  
+    }
 });
