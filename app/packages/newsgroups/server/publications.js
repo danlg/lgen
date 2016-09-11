@@ -206,11 +206,15 @@ Meteor.publish('smartix:newsgroups/allNewsgroupsFromSchoolName', function(school
     var schoolDoc = SmartixSchoolsCol.findOne({
         shortname: schoolName
     });
+    //log.info("smartix:newsgroups/allNewsgroupsFromSchoolName", schoolName, schoolDoc);
     if (schoolDoc) {
-        return Smartix.Groups.Collection.find({
+        let cursor = Smartix.Groups.Collection.find({
             namespace: schoolDoc._id,
             type: 'newsgroup'
         });
+        //log.info("smartix:newsgroups/allNewsgroupsFromSchoolName count", cursor.count());
+        //log.info("smartix:newsgroups/allNewsgroupsFromSchoolName detail", cursor.fetch());
+        return cursor;
     } else {
         this.ready();
     }

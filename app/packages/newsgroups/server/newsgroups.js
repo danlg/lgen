@@ -82,7 +82,7 @@ Smartix.Newsgroup.createNewsgroup = function (distributionLists, users, namespac
 	newsgroup.type = 'newsgroup';
 	newsgroup.name = name;
     
-    newsgroup.url = url ? url : Smartix.Utilities.stringToLetterCase(newsgroup.name);
+    newsgroup.url = url ? url : Smartix.Utilities.generateUniqueURL(newsgroup.name);
     
 	newsgroup.mandatory = mandatory;
 	newsgroup.admins = [

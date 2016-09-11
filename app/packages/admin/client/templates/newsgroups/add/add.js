@@ -5,7 +5,8 @@ Template.AdminNewsgroupsAdd.events({
         newNewsgroup.users = [];
         newNewsgroup.type = 'newsgroup';
         newNewsgroup.className = template.$('#addNewsgroup-name').eq(0).val();
-        newNewsgroup.url = template.$('#addNewsgroup-code').eq(0).val();
+        //newNewsgroup.url generated server side
+        //newNewsgroup.url = template.$('#addNewsgroup-code').eq(0).val();
         newNewsgroup.mandatory = template.$('#newsgroupMandatory').is(":checked");
         //log.info("newNewsgroup.mandatory", newNewsgroup.mandatory);
         // If the checkbox is selected,
