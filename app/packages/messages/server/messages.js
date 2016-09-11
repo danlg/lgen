@@ -160,10 +160,16 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
                 return (eachUserId === currentUser);
             }
         );
+        //for some reason the user can be twice.
+        //log.info("Smartix.Messages.createMessage:users-mult", allUserToDoPushNotifications);
+        // fix 
+        allUserToDoPushNotifications = lodash.uniq(allUserToDoPushNotifications);
+        //log.info("Smartix.Messages.createMessage:users-uniq", allUserToDoPushNotifications);
 
         Smartix.Messages.emailMessage(allUserToDoPushNotifications, message, group, meteorUser);
 
         allUserToDoPushNotifications.map(function(eachTargetUser){
+            //log.info("Smartix.Messages.createMessage:before Notifications.insert", groupId, eachTargetUser);
             Notifications.insert({
                 eventType:"new"+group.type+"message",
                 userId: eachTargetUser,
@@ -194,6 +200,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
                         notificationObj.title = message.data.title || "";
                         notificationObj.text  = $('*').text() || message.data.content;
                     }
+                    //log.info("Smartix.Messages.createMessage:before doPushNotification", groupId);
                     Meteor.call("doPushNotification", notificationObj,{
                         groupId: groupId,
                         classCode: group.classCode || ""
