@@ -16,24 +16,24 @@ Smartix.Messages.Addons.Poll.canChangeVotes = function (messageId) {
     var message = Smartix.Messages.Collection.findOne({
         _id: messageId
     });
-    
-    if(!message) {
+    if(!message) {      // OPTIONAL: Throw error indicating message does not exist
         return false;
-        // OPTIONAL: Throw error indicating message does not exist
     }
-    
     // Checks the user is a member of said group
     // using `isUserInGroup()` from the `smartix:groups` package
     if(!Smartix.Groups.isUserInGroup(Meteor.userId(), message.group)) {
         return false;
         // OPTIONAL: Throw error indicating the user is not part of the group
     }
-    
     // Retrieves the addon object of type `poll`
-    pollObj = _.find(message.addons, function (addon) {
+    let pollObj = _.find(message.addons, function (addon) {
         return addon.type === Smartix.Messages.Addons.Poll.Type;
     });
-    
+    if (!pollObj) {
+        log.warn("Cannot find addon poll for message id", messageId);//see https://github.com/danlg/lgen/issues/643
+        log.warn("Cannot find addon poll for message addons", message.addons);//see https://github.com/danlg/lgen/issues/643
+        return false;
+    }
     // Checks that the current time is not after `expires`
     if(pollObj.expires
         && Date.now() > pollObj.expires) {
@@ -41,29 +41,29 @@ Smartix.Messages.Addons.Poll.canChangeVotes = function (messageId) {
         // OPTIONAL: Throw error indicating the poll has finished
         // and does not accept new votes
     }
-  
     return pollObj;
-}
+};
 
 Smartix.Messages.Addons.Poll.updateNewPoll = function (messageId, pollObj) {
     // Update the message
     // log.info(Smartix.Messages.Addons.Poll.Type);
     Smartix.Messages.Collection.update({
-        _id: messageId
-    },
-    { $pull: { addons: {type: Smartix.Messages.Addons.Poll.Type }  } },
-    function (error, n) {
-        if(!error) {
-            // log.info(pollObj)
-            // log.info(pollObj.votes);
-            Smartix.Messages.Collection.update({
-                _id: messageId
-            }, {
-                $push: { addons: pollObj}
-            });
+            _id: messageId
+        },
+        { $pull: { addons: {type: Smartix.Messages.Addons.Poll.Type }  } },
+        function (error, n) {
+            if(!error) {
+                // log.info(pollObj)
+                // log.info(pollObj.votes);
+                Smartix.Messages.Collection.update({
+                    _id: messageId
+                }, {
+                    $push: { addons: pollObj}
+                });
+            }
         }
-    });
-}
+    );
+};
 
 // Change the name of an option in the poll
 Smartix.Messages.Addons.Poll.changeOptionName = function (messageId, oldName, newName) {
@@ -79,18 +79,16 @@ Smartix.Messages.Addons.Poll.changeOptionName = function (messageId, oldName, ne
         // the user does not have permission
         // to change the option names in the poll
     }
-    
     var message = Smartix.Messages.Collection.findOne({
         _id: messageId
     });
-    
     if(!message) {
         return false;
         // OPTIONAL: Throw error indicating message does not exist
     }
     
     // Retrieves the addon object of type `poll`
-    pollObj = _.find(message.addons, function (addon) {
+    let pollObj = _.find(message.addons, function (addon) {
         return addon.type = Smartix.Messages.Addons.Poll.Type;
     });
     
@@ -107,13 +105,10 @@ Smartix.Messages.Addons.Poll.changeOptionName = function (messageId, oldName, ne
         return false;
         // OPTIONAL: Throw an error indicating the option already exists
     }
-    
     // Pull the element matching `oldName` from the `options` array
     pollObj.options = _.pull(pollObj.options, oldName);
-    
     // Add `newName` to the `options` array
     pollObj.options.push(newName);
-    
     // Change the name in the `votes` object array
     pollObj.votes = _.map(pollObj.votes, function (vote) {
         if(vote.option === oldName) {
@@ -124,32 +119,29 @@ Smartix.Messages.Addons.Poll.changeOptionName = function (messageId, oldName, ne
     
     // Update the message
     Smartix.Messages.Collection.update({
-        _id: messageId
-    }, {
-        $pull: {
-            addons: {
-                type: Smartix.Messages.Addons.Poll.Type
+            _id: messageId
+        }, {
+            $pull: {
+                addons: {
+                    type: Smartix.Messages.Addons.Poll.Type
+                }
+            }
+        }, function (error, n) {
+            if(!error) {
+                Smartix.Messages.Collection.update({
+                    _id: messageId
+                }, {
+                    $push: pollObj
+                });
             }
         }
-    }, function (error, n) {
-        if(!error) {
-            Smartix.Messages.Collection.update({
-                _id: messageId
-            }, {
-                $push: pollObj
-            });
-        }
-    });
-}
-
-
+    );
+};
 
 // Merge multiple polling options into one
 Smartix.Messages.Addons.Poll.mergeOptions = function (options, name) {
     check(options, [String]);
     check(name, String);
-    
-    
     // Makes sure the user have the correct permissions
     if(!Smartix.Messages.Addons.canUserAttachAddon(messageId, ['poll'])) {
         return false;
@@ -157,18 +149,15 @@ Smartix.Messages.Addons.Poll.mergeOptions = function (options, name) {
         // the user does not have permission
         // to change the option names in the poll
     }
-    
     var message = Smartix.Messages.Collection.findOne({
         _id: messageId
     });
-    
     if(!message) {
         return false;
         // OPTIONAL: Throw error indicating message does not exist
     }
-    
     // Retrieves the addon object of type `poll`
-    pollObj = _.find(message.addons, function (addon) {
+    let pollObj = _.find(message.addons, function (addon) {
         return addon.type = Smartix.Messages.Addons.Poll.Type;
     });
     
@@ -187,43 +176,32 @@ Smartix.Messages.Addons.Poll.mergeOptions = function (options, name) {
         return false;
         // OPTIONAL: Throw an error indicating the option already exists
     }
-    
     // Pull the elements matching `options` from the `pollObj.options` array
     pollObj.options = _.pullAll(pollObj.options, options);
-    
     // Add `name` to the `options` array
     pollObj.options.push(name);
-    
     // Change the name in the `votes` object array
-    
     // Collect all the votes from the options to be merged
     var newCollectiveVotes = [];
-    
     for(var i = 0; i < pollObj.votes.length; i++) {
         if(options.indexOf(pollObj.votes[i].option) > -1) {
             newCollectiveVotes.push(users);
             
         }
     }
-    
     // Remove the `options` from the votes object array
     pollObj.votes = _.filter(pollObj.votes, function (vote, i, votes) {
         // If it is not in the ones specified to be removed, keep the element
-        if(options.indexOf(vote.option) < 0) {
-            return true;
-        }
-        return false;
+        return options.indexOf(vote.option) < 0;
     });
-    
     pollObj.votes.push({
         option: name,
         // Weed out any duplicates
         users: _.uniq(newCollectiveVotes)
     });
-    
     // Update the message
     Smartix.Messages.Addons.Poll.updateNewPoll(messageId, pollObj);
-}
+};
 
 // Remove polling option
 Smartix.Messages.Addons.Poll.removeOptions = function(messageId, options) {
@@ -237,49 +215,34 @@ Smartix.Messages.Addons.Poll.removeOptions = function(messageId, options) {
         // the user does not have permission
         // to change the option names in the poll
     }
-    
-    var message = Smartix.Messages.Collection.findOne({
-        _id: messageId
-    });
-    
-    if(!message) {
+    var message = Smartix.Messages.Collection.findOne( { _id: messageId });
+    if(!message) {   // OPTIONAL: Throw error indicating message does not exist
         return false;
-        // OPTIONAL: Throw error indicating message does not exist
-    }
-    
+     }
     // Retrieves the addon object of type `poll`
-    pollObj = _.find(message.addons, function (addon) {
+    let pollObj = _.find(message.addons, function (addon) {
         return addon.type = Smartix.Messages.Addons.Poll.Type;
     });
-    
     // Pull the elements matching `options` from the `pollObj.options` array
     pollObj.options = _.pullAll(pollObj.options, options);
-    
     // Remove the `options` from the votes object array
     pollObj.votes = _.filter(pollObj.votes, function (vote, i, votes) {
         // If it is not in the ones specified to be removed, keep the element
-        if(options.indexOf(vote.option) < 0) {
-            return true;
-        }
-        return false;
+        return options.indexOf(vote.option) < 0;
     });
-    
     // Update the message
     Smartix.Messages.Addons.Poll.updateNewPoll(messageId, pollObj);
-}
+};
 
 // Cast a vote for an option
 Smartix.Messages.Addons.Poll.castVote = function (messageId, option) {
     check(messageId, String);
     check(option, String);
-    
-    pollObj = Smartix.Messages.Addons.Poll.canChangeVotes(messageId);
-    
+    let pollObj = Smartix.Messages.Addons.Poll.canChangeVotes(messageId);
     if(!pollObj) {
         return false;
         // OPTIONAL: Throw error indicating you can no longer change your vote
     }
-    
     // Checks if the user has voted for another option already
     // If `multiple` is set to `false`
     // Remove the vote from the other options
@@ -289,35 +252,28 @@ Smartix.Messages.Addons.Poll.castVote = function (messageId, option) {
             return voteOption;
         });
     }
-    
     _.map(pollObj.votes, function (voteOption) {
         if(voteOption.option === option) {
             voteOption.users.push(Meteor.userId());
         }
         return voteOption;
     });
-    
     Smartix.Messages.Addons.Poll.updateNewPoll(messageId, pollObj);
-    
-}
+};
 
 // Remove vote for an option
 Smartix.Messages.Addons.Poll.uncastVote = function (messageId, option) {
     check(messageId, String);
     check(option, String);
-    
-    pollObj = Smartix.Messages.Addons.Poll.canChangeVotes(messageId);
-    
+    let pollObj = Smartix.Messages.Addons.Poll.canChangeVotes(messageId);
     if(!pollObj) {
         return false;
         // OPTIONAL: Throw error indicating you can no longer change your vote
     }
-    
     _.map(pollObj.votes, function (voteOption) {
         pollObj.votes = _.pull(voteOption.users, Meteor.userId());
         return voteOption;
     });
-    
     // Update the message
     Smartix.Messages.Addons.Poll.updateNewPoll(messageId, pollObj);
-}
+};
