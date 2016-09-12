@@ -264,7 +264,7 @@ Meteor.publish('allSchoolUsersPerRole', function (school) {
         });
     }
     if(!schoolDoc){
-        log.info('allSchoolUsersPerRole: no school is found: are you in global or system namespace? they dont have school collection');
+        log.warn('allSchoolUsersPerRole: no school is found: are you in global or system namespace? they dont have school collection');
         return;
     }
     var allSchoolUsers = [];
@@ -276,16 +276,24 @@ Meteor.publish('allSchoolUsersPerRole', function (school) {
     if(schoolDoc) {
         // log.info("allSchoolUsers", allSchoolUsers);
         return Meteor.users.find(
-            { 
-                _id: { $in: allSchoolUsers }, 
-                emails : {$exists:true}, $where:'this.emails.length>0'
-            }
+            { $or: [
+                {
+                    studentId: {$exists:true},
+                    _id: { $in: allSchoolUsers },
+                    emails : {$exists:true}, $where:'this.emails.length>0'
+                    //this is the cause of the issue https://github.com/danlg/lgen/issues/644
+                },
+                {
+                    studentId: {$exists:false},
+                    _id: { $in: allSchoolUsers }
+                }
+            ]}
             , {
                     'profile.firstName': 1,
                     'profile.lastName': 1,
                     'profile.avatarType': 1,
                     'profile.avatarValue': 1,
-                    'proflle.chatSetting' : 1,
+                    'profile.chatSetting' : 1,
                     'emails.0.address': 1,
                     'roles':1
             }
