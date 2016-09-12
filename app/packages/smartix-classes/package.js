@@ -52,13 +52,13 @@ Package.onUse(function(api) {
                 'client/components/class_invitation/class_invitation.css',
                 'client/components/class_invitation/class_invitation.js'],'client');
                 
-    api.addFiles(['client/components/class_panel/class_panel.html',
-                'client/components/class_panel/class_panel.css',
-                'client/components/class_panel/class_panel.js'],'client');
+    api.addFiles(['client/components/my_class/my_class.html',
+                'client/components/my_class/my_class.css',
+                'client/components/my_class/my_class.js'],'client');
                 
-    api.addFiles(['client/components/class_detail/class_detail.html',
-                'client/components/class_detail/class_detail.css',
-                'client/components/class_detail/class_detail.js'],'client');
+    api.addFiles(['client/components/class_joined/class_joined.html',
+                'client/components/class_joined/class_joined.css',
+                'client/components/class_joined/class_joined.js'],'client');
                                     
     api.addFiles(['client/components/class_users/class_users.html',
                 'client/components/class_users/class_users.js'],'client');                   

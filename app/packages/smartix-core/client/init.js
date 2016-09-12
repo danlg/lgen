@@ -31,7 +31,7 @@ Meteor.startup(function () {
    //if it is a new class annoucement
    if(payload.type === 'class'){
       if(payload.classCode){
-        Router.go('classDetail',{classCode:payload.classCode},{query: "toBottom=true"});          
+        Router.go('ClassJoined',{classCode:payload.classCode},{query: "toBottom=true"});
       }             
    }
     //if it is a new newsgroup news
@@ -110,7 +110,7 @@ Meteor.startup(function () {
   Streamy.on('newclassmessage', function(data) {
     log.info("newclassmessage", data);
     var pathToRouteObj ={
-        routeName:'classDetail',
+        routeName:'ClassJoined',
         params: {classCode:data.classCode},
         query: {query: "toBottom=true"}
     };    
@@ -126,7 +126,7 @@ Meteor.startup(function () {
                         "preventDuplicates": true,
                         onclick: function () {
                             //classCode
-                            Router.go('classDetail',{classCode:data.classCode},{query: "toBottom=true"});
+                            Router.go('ClassJoined',{classCode:data.classCode},{query: "toBottom=true"});
                             //$('.class-detail').scrollTop(999999);
                     }
                 }
