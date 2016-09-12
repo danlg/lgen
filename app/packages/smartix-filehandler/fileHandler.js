@@ -209,7 +209,7 @@ Smartix.FileHandler = (function () {
 								quality: 50,
 								destinationType: Camera.DestinationType.FILE_URI,
 								encodingType: Camera.EncodingType.JPEG,
-								sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
+								sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
 								limit: 1
 							});
 							break;
