@@ -166,7 +166,7 @@ Smartix.Absence.processAbsencesForDay = function (namespace, date, format, notif
                     studentId: processedAbsence.studentId
                 })._id;
             }
-            log.info("processAbsencesForDay:processId", processId, ", insertedId=",process.insertedId);
+            // log.info("processAbsencesForDay:processId", processId, ", insertedId=",process.insertedId);
             if(!hasPhonedIn && notify) {
                 // Notify the parents & Send notification
                 Smartix.Absence.notificationToParentForDetail(processId, currentUser);

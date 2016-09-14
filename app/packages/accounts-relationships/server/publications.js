@@ -59,7 +59,7 @@ Meteor.publish('usersFromRelationships', function(userId){
     if(!(userId === null)) {
         userId = userId || this.userId;
     }
-    log.info ("publish usersFromRelationships", userId);
+    // log.info ("publish usersFromRelationships", userId);
     let userCursor =  usersFromRelationshipsImpl (userId);
     if ( userCursor ) {
         return userCursor;
@@ -93,13 +93,13 @@ var usersFromRelationshipsImpl =  (userId) => {
                     users.push(parents.parent);
                 });
             });
-            log.info ("usersFromRelationshipsImpl users", users);
+            // log.info ("usersFromRelationshipsImpl users", users);
             lodash.without (users, userId);
             userCursor = Meteor.users.find(
                 { _id: {$in: users} }
                 //, { limit :5 } //TODO remove me
             );
-            log.info ("usersFromRelationshipsImpl count", userId, userCursor.count());
+            // log.info ("usersFromRelationshipsImpl count", userId, userCursor.count());
             //log.debug ("usersFromRelationshipsImpl", userId, userCursor.fetch());
             return userCursor;
         }

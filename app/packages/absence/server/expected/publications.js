@@ -4,7 +4,7 @@ Meteor.publish('smartix:absence/expectedAbsences', function (namespace) {
         let cursor = Smartix.Absence.Collections.expected.find({
             namespace: namespace
         });
-        log.info('smartix:absence/expectedAbsences', cursor.count());
+        // log.info('smartix:absence/expectedAbsences', cursor.count());
         return cursor;
     } else {
         this.ready();
@@ -39,7 +39,7 @@ Meteor.publish('smartix:absence/expectedAbsencesUsers', function (namespace, dat
         let studentsArray = [];
         allExpectedAbsencesCursor.forEach(function (expectedRecord) {
             //studentsArray.push(val._id);
-            log.info("smartix:absence/expectedAbsencesUsers expectedRecord", expectedRecord);
+            // log.info("smartix:absence/expectedAbsencesUsers expectedRecord", expectedRecord);
             studentsArray.push(expectedRecord._id);
         });
         //log.info("studentsArray", studentsArray);
@@ -49,10 +49,10 @@ Meteor.publish('smartix:absence/expectedAbsencesUsers', function (namespace, dat
             //schools:   { $elemMatch :  { namespace } }
             schools:   { $elemMatch :  {$in : [namespace ] } }
         });
-        log.info("smartix:absence/expectedAbsencesUsers studentsArray",studentsArray);
-        log.info("smartix:absence/expectedAbsencesUsers namespace", namespace);
-        log.info("smartix:absence/expectedAbsencesUsers", find.count());
-        log.info("smartix:absence/expectedAbsencesUsers", find.fetch());
+        // log.info("smartix:absence/expectedAbsencesUsers studentsArray",studentsArray);
+        // log.info("smartix:absence/expectedAbsencesUsers namespace", namespace);
+        // log.info("smartix:absence/expectedAbsencesUsers", find.count());
+        // log.info("smartix:absence/expectedAbsencesUsers", find.fetch());
         return find;
     } else {
         this.ready();

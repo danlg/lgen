@@ -84,7 +84,15 @@ Smartix.Absence.updateAttendanceRecord = function (records, schoolName, currentU
             return convertedRecord;
         }).filter(Boolean);
         // log.info("Converted Record", records);
-        _.each(records, function(record) { 
+        _.each(records, function(record) {
+            let studentObj = Meteor.users.findOne({
+                studentId: record.studentId,
+                schools: [namespace]
+            });
+            //if studentObj exists take the unique id else continue with the record.studentId
+            if(studentObj){
+                record.studentId = studentObj._id;
+            }
             Smartix.Absence.Collections.actual.upsert({
                 studentId: record.studentId,
                 date: record.date,

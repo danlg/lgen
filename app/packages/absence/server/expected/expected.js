@@ -14,9 +14,9 @@ Smartix.Absence.registerExpectedAbsence = function (options, currentUser) {
     let isAdmin = Smartix.Accounts.School.isAdmin(options.namespace, currentUser);
     // Checks if the user is the parent of the student specified
     // Or if they are the admin for the school
-    log.info("Smartix.Absence.registerExpectedAbsence" , isParent);
-    log.info("Smartix.Absence.registerExpectedAbsence" , isAdmin);
-    log.info("Smartix.Absence.registerExpectedAbsence" , options, currentUser);
+    // log.info("Smartix.Absence.registerExpectedAbsence" , isParent);
+    // log.info("Smartix.Absence.registerExpectedAbsence" , isAdmin);
+    // log.info("Smartix.Absence.registerExpectedAbsence" , options, currentUser);
     if(!(isParent || isAdmin)) {
         throw new Meteor.Error("permission-denied registerExpectedAbsence", "The user does not have permission to perform this action.");
     }
@@ -27,10 +27,19 @@ Smartix.Absence.registerExpectedAbsence = function (options, currentUser) {
         options.approved = true;
         options.adminId = currentUser;
     }
-    
+
+    let studentObj = Meteor.users.findOne({
+        studentId: options.studentId,
+        schools: [options.namespace]
+    });
+    let studentId = options.studentId;
+    //if studentObj exists take the unique id else continue with the options.studentId
+    if(studentObj){
+        studentId = studentObj._id;
+    }    
     // Add the expected absence entry into the collection
     let insertedAbsenceId = Smartix.Absence.Collections.expected.insert({
-        studentId: options.studentId,
+        studentId: studentId,
         reporterId: options.reporterId,
         dateFrom: options.dateFrom,
         dateTo: options.dateTo,

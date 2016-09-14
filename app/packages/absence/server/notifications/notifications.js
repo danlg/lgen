@@ -3,7 +3,7 @@ Smartix.Absence = Smartix.Absence || {};
 
 //Notification from admin to parent to ask for student attendance detail
 Smartix.Absence.notificationToParentForDetail = function (processId, currentUserId) {
-    log.info("notificationToParentForDetail", processId, currentUserId);
+    // log.info("notificationToParentForDetail", processId, currentUserId);
     check(processId, String);
     check(currentUserId, Match.Maybe(String));
     // Get the `_id` of the currently-logged in user
@@ -13,11 +13,11 @@ Smartix.Absence.notificationToParentForDetail = function (processId, currentUser
     var currentUser = Meteor.users.findOne(currentUserId);
     var processObj = Smartix.Absence.Collections.processed.findOne(processId);
     if (processObj && processObj.namespace){
-        log.info("notificationToParentForDetail:processObj.namespace", processObj.namespace);
+        // log.info("notificationToParentForDetail:processObj.namespace", processObj.namespace);
     }
     else{
-        log.error("notificationToParentForDetail:processObj.namespace not found");
-        log.error("notificationToParentForDetail:processObj", processObj);
+        // log.error("notificationToParentForDetail:processObj.namespace not found");
+        log.error("notificationToParentForDetail:processObj", processObj._id);
     }
     // Get the parents
     let parentIds = Smartix.Accounts.Relationships.getParentOfStudent(processObj.studentId, processObj.namespace);
