@@ -1,0 +1,70 @@
+This files lists the changes made on the server to have a working prod configuration
+
+increase file limit from 1024 to 65000 (for each 1GB of RAM)
+add to  /etc/security/limits.conf
+
+root soft nofile 65000
+root hard nofile 65000
+* soft nofile 65000
+* hard nofile 65000
+
+Add to /etc/sysctl.conf the following:
+fs.file-max = 100000
+fs.nr_open = 100000
+net.ipv4.netfilter.ip_conntrack_max = 100000
+net.nf_conntrack_max = 100000
+
+“fs.file-max” : The maximum file handles that can be allocated
+
+“fs.nr_open” : Max amount of file handles that can be opened
+
+“net.ipv4.netfilter.ip_conntrack_max” : Specifies how many connections the NAT can keep track of in the “tracking” table before it starts to drop packets and
+just break connections, this we totally want to avoid. The default value for this is 65536 so without this setting
+you wont be able to get more connections than that.
+
+Run:
+sysctl -p
+Above will increase “total” number of files that can remain open system-wide.
+
+
+**Verify New Limits**
+
+Use following command to see max limit of file descriptors:
+
+cat /proc/sys/fs/file-max
+Hard Limit
+
+ulimit -Hn
+Soft Limit
+
+ulimit -Sn
+
+==========
+NODE PROCESS
+=========
+Node.js flags
+Set the following flags to launch your node.js application:
+
+node --nouse-idle-notification --expose-gc --max-new-space-size=1024 --max-old-space-size=1024 app/main.js (for a 1GB box)
+
+node --nouse-idle-notification --expose-gc --max-new-space-size=2048 --max-old-space-size=8192 app/main.js
+
+–nouse-idle-notification: Turns of the idle garbage collection which makes the GC constantly run and is devastating for a realtime server environment.
+If not turned off the system will get a long hickup for almost a second once every few seconds.
+
+–expose-gc: Use the expose-gc command to enable manual control of the GC from your code. I recommend to call GC once every 30 seconds.
+
+–max-old-space-size=8192 Increases the limit for each V8 node process to use max 8Gb of heap memory instead of the 1,4Gb default on 64-bit machines
+(512Mb on a 32-bit machine).
+
+–max-new-space-size=2048: Specified in kb and setting this flag optimizes the V8 for a stable allround environment with short pauses and ok high peak
+performance.
+
+If this flag is not used the pauses will be a little bit longer but the machine will handle peaks a little bit better.
+What you need in this case depends on the project you are working on.
+My pick is to have an allround stable server instead of just handling peaks so I stick with this flag.
+
+References:
+https://www.jayway.com/2015/04/13/600k-concurrent-websocket-connections-on-aws-using-node-js/
+https://easyengine.io/tutorials/linux/increase-open-files-limit/
+https://bocoup.com/weblog/node-stress-test-analysis
