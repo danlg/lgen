@@ -23,7 +23,7 @@
     {{#ionView}}
       {{#ionContent}}
         <div class="list chatroomList background-wallpaper" id="chatroomList">
-          <div class='date-bubble-wrapper {{isLoadMoreButtonShow}}'><button class='load-prev-msg'>{{_ "smartix-chat.Loadmessage" }}</button> </div>
+          <div class='date-bubble-wrapper {{isLoadMoreButtonShow}}'><button class='load-prev-msg'>{{_ "smartix-classes.Loadmessages" }}</button> </div>
           {{#each chatRoomProfile}}
             {{#if isFirstMsgInOneDay}}
               <div class='date-bubble-wrapper'> <div class='date-bubble'>{{formatDate2 createdAt}}</div> </div>
@@ -209,12 +209,27 @@
             </div>
           {{else}}
             <div class="item item-input chatroomItem">
-          <span style='width:5em;'>
-                <span class="file " style='font-size:xx-large;'>
-                  <i class="icon ion-arrow-up-c imageIcon"></i>
-                  <input type="file" id="documentBtn" accept=".pdf, .doc, .docx, .ppt, .pptx, .xls, .xlsx">
-                </span>                  
-          </span>
+          <!--<span style='width:5em;'>-->
+            {{#if isCordova}}
+                <!--TODO no point to add just document which cannot be inserted on iOS-->
+                <!--and for Android we need to check if this could work -->
+                <!--Anyway for now not providing other media in CHAT on Mobile other than Voice and Image-->
+                <!--&lt;!&ndash;TODO issue with that is that google docs integration is gone&ndash;&gt;-->
+                <!--<span style='width:5em;text-align:center;'>-->
+                    <!--<span class="file " style='font-size:xx-large;display:inline-block;'>-->
+                        <!--<i class="icon ion-arrow-up-c imageIcon showActionSheet"></i>-->
+                    <!--</span>-->
+                <!--</span>-->
+            {{else}} <!-- desktop browser-->
+                <span style='width:5em;'>
+                    <span class="file" style='font-size:xx-large;'>
+                      <i class="icon ion-arrow-up-c imageIcon"></i>
+                      <input type="file" id="documentBtn" accept=".pdf, .doc, .docx, .ppt, .pptx, .xls, .xlsx">
+                        <!--, .jpg, .png, .jpeg">-->
+                    </span>
+                </span>
+            {{/if}}
+          <!--</span>-->
           <textarea style="" dir="auto" name="msg" maxlength="5000"
                     class="inputBox autogrow-short" placeholder=""></textarea>
               <button style="min-height:0;border:0;padding:0;margin:0;border-radius:6px;width:5em;display:none;"
@@ -223,7 +238,8 @@
                   <span class='mediaButtonGroup' style='width:10em;text-align:center;'>
                       <span class="file " style='font-size:xx-large;display:inline-block;'>
                           <i class="icon ion-ios-camera-outline imageIcon "></i>
-                          <input type="file" id="imageBtn" accept="image/*;capture=camera" capture="camera">
+                          <input type="file" id="imageBtn" accept="image/*;capture=camera"
+                                 capture="camera">
                       </span>
                       <span class="file voice" style='font-size:xx-large;display:inline-block;'>
                         <i class="icon  ion-ios-mic-outline "></i>
@@ -242,7 +258,7 @@
         </div>
       {{/ionContent}}
     {{/ionView}}
-  {{/if}} 
+  {{/if}}
 </template>
 
 <template name="imageModal">

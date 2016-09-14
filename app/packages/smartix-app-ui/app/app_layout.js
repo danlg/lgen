@@ -6,11 +6,22 @@ Template.AppLayout.onCreated(function() {
     this.subscribe('smartix:accounts/ownUserData');
     // this.subscribe('smartix:accounts/basicInfoOfAllUsersInNamespace', 'global');//?
     this.subscribe('getAllMyChatRooms');
-    this.subscribe('notifications');
-    var schoolName =  UI._globalHelpers['getCurrentSchoolName']();
-    if (schoolName){
+    let schoolName = UI._globalHelpers['getCurrentSchoolName']();
+    let schoolId   = UI._globalHelpers['getCurrentSchoolId']();
+    if (schoolId) {
+        log.info("Subscribing to name", schoolName, "id, namespace=", schoolId);
+        this.subscribe('notifications', schoolId);
+    }
+    else {
+        log.error("Cannot find school id");
+    }
+    if (schoolName) {
+        log.info("Subscribing to name", schoolName, "id, namespace=", schoolId);
         this.subscribe('newsForUser',null,null, schoolName);
         this.subscribe('newsgroupsForUser',null,null, schoolName);
+    }
+    else {
+        log.error("Cannot find schoolname");
     }
     var self = this;
     self.autorun(function() {

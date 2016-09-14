@@ -3,12 +3,16 @@
   "scripts": {
     "clean-build": "rm -rf ../build",
     "clean-local": "./clean_build.sh",
+    "localdev-noup": "meteor run --settings dev.settings.json --no-background-update",
+    "localdev--restore": "export MONGO_URL=mongodb://127.0.0.1:3001/littlegenius && meteor run --settings dev.settings.json",
     "localdev": "meteor run --settings dev.settings.json",
     "localdev-ssl": "export MONGO_URL=mongodb://127.0.0.1:28888/littlegenius && meteor --settings dev.settings.json",
     "localdev-ssl-prd-beware": "export MONGO_URL=mongodb://127.0.0.1:29999/littlegenius && meteor --settings dev.settings.json",
-    "localdev-clean": "./clean_build.sh && meteor -v --settings dev.settings.json",
+    "localdev-clean": "./clean_build.sh && meteor -v --settings dev.settings.cjson",
     "ios-local": "meteor run ios --settings dev.settings.json --mobile-server=http://localhost:3000",
-    "ios-local-clean": "./clean_build.sh && meteor run ios --settings dev.settings.json --mobile-server=http://localhost:3000",
+
+    "ios-local-clean": "./clean_build.sh && meteor run ios -v --settings dev.settings.json --mobile-server=http://localhost:3000",
+
     "ios-device-local": "./clean_build.sh && meteor run ios-device -v --settings dev.settings.json --mobile-server=http://localhost:3000",
     "ios-device-local-carmel": "./clean_build.sh && ./config_target.sh carmel && meteor run ios-device -v --settings dev.settings.json --mobile-server=http://localhost:3000",
     "ios-uat": "./clean_build.sh && meteor run ios --settings smartixu.settings.json --mobile-server=https://uat.gosmartix.com -p 4000",
@@ -22,8 +26,14 @@
     "build-apk": "./build-android.sh $1 https://now.gosmartix.com",
     "build-apk-carmel": "./build-android.sh  https://carmel.gosmartix.com",
     "build-apk-smartix": "rm -rf ../android-build && mkdir ../android-build && meteor build --directory ../android-build --server https://now.gosmartix.com && sign-apk.sh hello123",
+    "build-apk-carmel-dev": "rm -rf ../android-build && mkdir ../android-build && meteor build --directory ../android-build --server http://192.168.43.151:3000 && sign-apk.sh hello123",
     "sign-apk": "./sign-android.sh $1",
-    "android-local": "./clean_build.sh && meteor run android --settings dev.settings.json --mobile-server=http://10.0.2.2:3000",
+
+    "android-local": " meteor run android --settings dev.settings.json --mobile-server=http://192.168.43.151:3000",
+    "android-device-local-ip": " meteor run android-device --settings dev.android.local.settings.json --mobile-server=http://192.168.43.151:3000",
+    "android-device-local": " meteor run android-device --settings dev.settings.json --mobile-server=http://localhost:3000",
+
+    "android-local-clean": "./clean_build.sh && meteor run android --settings dev.settings.json --mobile-server=http://10.0.2.2:3000",
     "android": "meteor run android --settings smartixu.settings.json --mobile-server=https://uat.gosmartix.com",
     "android-device": "meteor run android-device --settings smartixu.settings.json --mobile-server=https://uat.gosmartix.com",
     "android-device-carmelu": "meteor run android-device --settings carmelu.settings.json --mobile-server=https://carmelu.gosmartix.com",

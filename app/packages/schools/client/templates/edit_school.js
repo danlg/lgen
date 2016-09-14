@@ -65,10 +65,17 @@ Template.EditSchool.events({
           shortname: $("#shortname").val(),
           logo: template.newSchoolLogo.get() || $('existing-school-logo').data('existingSchoolLogoId'), 
           backgroundImage: template.newSchoolBackgroundImage.get() || $('existing-school-background-image').data('existingSchoolBackgroundImageId'), 
-          tel: $("#tel").val(),
+          tel: $("#tel").val(), tel2: $("#tel2").val(), tel3: $("#tel3").val(),
+          label: $("#label").val(), label2: $("#label2").val(), label3: $("#label3").val(), labelext: $("#labelext").val(),
+          labelweb: $("#labelweb").val(),
           web: $("#web").val(),
+          web2: $("#web2").val(),
+          web3: $("#web3").val(),
+          webext: $("#webext").val(),
           email: $("#email").val(),
           contactemail: $("#contactemail").val(),
+          contactemail2: $("#contactemail2").val(),
+          contactemail3: $("#contactemail3").val(),
           preferences: {
               schoolBackgroundColor: $("#school-background-color").val(),
               schoolTextColor: $("#school-text-color").val()

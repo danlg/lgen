@@ -146,7 +146,7 @@ Template.AdminUsersSearch.events({
                 let message = TAPi18n.__('Admin.VerificationConfirmation');
                 toastr.info(message);
             } else {
-                let message = TAPi18n.__('Admin.VerifictionIssue');
+                let message = TAPi18n.__('Admin.VerificationIssue');
                 toastr.error(message);
                 log.error(err.reason);
             }

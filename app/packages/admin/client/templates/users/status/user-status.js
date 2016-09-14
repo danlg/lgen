@@ -1,25 +1,34 @@
 Template.UserStatusSearch.onCreated(function () {
     var self = this;
-    var schoolUsername = UI._globalHelpers['getCurrentSchoolName']();
-    if (schoolUsername) {
+    this.schoolUsername = UI._globalHelpers['getCurrentSchoolName']();
+    this.namespace  = UI._globalHelpers['getCurrentSchoolId']();
+    Template.instance().parentMap  = new ReactiveVar({});
+    if (this.schoolUsername) {
         // subscribe to the school info first
         //log.info('packages/admin/client/template/users/list#schoolUsername: ' + schoolUsername);
-        var schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
-        //log.info('packages/admin/client/template/users/list#schoolNamespace: ' + schoolNamespace);
-        if(schoolNamespace) {
-            self.subscribe('userStatus', schoolNamespace, function (err, res) {});
-            self.namespace = schoolNamespace;
+        //log.info('Template.UserStatusSearch.onCreated', schoolNamespace);
+        if(this.namespace) {
+            this.subscribe('userStatus', this.namespace, function (err, res) {});
+            //we cache the data, a bit heavy , eager loading but should preserve round trip when searching
+            this.subscribe('ALLUsersRelationships', Meteor.userId(), this.namespace,  (err, res) => {
+            });
         }
-    } else {
-        log.info("Please specify a school to list the users for");
     }
     this.modalName = new ReactiveVar("");
     this.modalTitle = new ReactiveVar("");
     this.modalBody = new ReactiveVar("");
-    this.chosenRole = new ReactiveVar("");
-    this.connectStatus = new ReactiveVar("");
+    this.chosenRole = new ReactiveVar("all");
+    //this.connectStatus = new ReactiveVar("allconnection");
+    this.loginStatus = new ReactiveVar("anyLoggedIn");
 });
 
+// var findUser = (uid) => {
+//     let user = Meteor.users.findOne({_id: uid});
+//     if (user) {
+//         return user;
+//     }
+//     else {  log.info("Cannot find user ", uid); }
+// };
 
 Template.UserStatusSearch.helpers({
 
@@ -31,12 +40,8 @@ Template.UserStatusSearch.helpers({
                 return user.status.lastLogin.date;
             }
             else {
-                //log.info("this",this);
-                //log.info(user.status);
-                //log.info("login not found",user.status);
                 return "Never";
                 //sort is not working..
-                //return new Date(1970,01,01);
             }
         }
     },
@@ -62,12 +67,32 @@ Template.UserStatusSearch.helpers({
                 return user.status.lastLogin.userAgent;
             }
             else {
-                //log.info("this",this);
                 //log.info(user.status);
-                //log.info("login not found",user.status);
                 return "N/A";
             }
         }
+    },
+
+    classroom:(uid) => {
+        let user =  Meteor.users.findOne({ _id: uid}); //log.info("user_classroom", user);
+        if (user.classroom) {
+            return user.classroom;
+        }
+        else if (user.classroom_shadow){
+            return user.classroom_shadow;
+        }
+        else return  "";
+    },
+
+    grade:(uid) => {
+        let user =  Meteor.users.findOne({ _id: uid}); //log.info("user_classroom", user);
+        if (user.grade) {
+            return user.grade;
+        }
+        else if (user.grade_shadow){
+            return user.grade_shadow;
+        }
+        else return  "";
     },
 
     getUserEmail:function(){
@@ -133,18 +158,29 @@ Template.UserStatusSearch.events({
         //log.info("filter-by-role-btn:namespace", template.namespace);
         UsersStatusIndex.getComponentMethods().addProps('schoolNamespace', template.namespace);
         UsersStatusIndex.getComponentMethods().addProps('role', template.chosenRole.get());
-        UsersStatusIndex.getComponentMethods().addProps('connectstatus', template.connectStatus.get());
+        //UsersStatusIndex.getComponentMethods().addProps('connectStatus', template.connectStatus.get());
+        UsersStatusIndex.getComponentMethods().addProps('loginStatus', template.loginStatus.get());
     },
+    // this.chosenRole = new ReactiveVar("all");
+// this.connectStatus = new ReactiveVar("allconnection");
+// this.loginStatus = new ReactiveVar("anyLoggedIn");
 
-    'click .filter-by-status-btn':function(event,template){
-        //var connectstatus =  $(event.target).data('connectstatus');
-        template.connectStatus.set ($(event.target).data('connectstatus'));
+    'click .filter-by-last-login-btn':function(event,template){
+        let loginStatus =  $(event.target).data('loginstatus');
+        if (loginStatus) {
+            template.loginStatus.set (loginStatus);
+        }
+        //log.info("filter-by-last-login-btn:loginStatus-local", loginStatus);
+        //log.info("filter-by-last-login-btn:loginStatus-get", template.loginStatus.get());
+        //template.connectStatus.set (template.$('#connectstatus'));
+
         //status-filter
-        //log.info("filter-by-status-btn:connectstatus", template.connectStatus.get());
         UsersStatusIndex.getComponentMethods().addProps('schoolNamespace', template.namespace);
         UsersStatusIndex.getComponentMethods().addProps('role', template.chosenRole.get());
-        UsersStatusIndex.getComponentMethods().addProps('connectstatus', template.connectStatus.get());
+        //UsersStatusIndex.getComponentMethods().addProps('connectStatus', template.connectStatus.get());
+        UsersStatusIndex.getComponentMethods().addProps('loginStatus', template.loginStatus.get());
     }
+
 });
 
 

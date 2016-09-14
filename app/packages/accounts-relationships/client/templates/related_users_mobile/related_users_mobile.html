@@ -1,27 +1,33 @@
 <template name="RelatedUsersMobile">
-    <div class="item item-divider">{{_ "accounts-relationships.Family" }} </div>
-    <div class="list">
-    
-    {{#each relationships}}
-        <div class="item item-icon-right less-top-bottom-padding user-item">
-            {{#if userIsChild }}
-             <span>
-               {{getFirstAndLastNameById parent}}<div style="font-size: smaller;color:grey">{{type}} ({{name}}) </div>
-             </span>
-                  <!--@ {{namespace}} -->
+    {{#if Template.subscriptionsReady}}
+        <div class="item item-divider">{{_ "accounts-relationships.Family" }} </div>
+        <div class="list">
+            {{#each relationships}}
+                <!--<div class="item item-icon-right less-top-bottom-padding user-item">-->
+                <div class="item item-icon-right user-item">
+                    {{#if userIsChild }}
+                         <span>
+                           {{getFirstAndLastNameById parent}}
+                             <!--type is name is name of relationship father / mother / other-->
+                             <div style="font-size: smaller;color:grey">{{type}} ({{name}}) </div>
+                         </span>
+                         <!--@ {{namespace}} -->
+                    {{else}}
+                         {{getFirstAndLastNameById child}}
+                    <!--//TODO localize-->
+                        <div style="font-size: smaller;color:grey"> Child </div>
+                    {{/if}}
+                    <!--//TODO test for namespace if smartix school allow to remove -->
+                    <i data-relationship-id={{_id}} style=''
+                       class="icon assertive  ion-android-remove-circle remove-relationship-btn "> </i>
+                </div>
+                <!--see secret blaze feature https://github.com/meteor/meteor/issues/5566-->
+                <!--https://github.com/meteor/meteor/blob/devel/packages/spacebars/README.md#each-->
             {{else}}
-               {{getFirstAndLastNameById child}}
-            {{/if}}
-
-            <i data-relationship-id={{_id}} style='' class="icon assertive  ion-android-remove-circle remove-relationship-btn ">
-            </i>
-
+                    <label class="item item-input item-stacked-label">
+                       <p>{{_ "accounts-relationships.Norecord" }}</p>
+                    </label>
+            {{/each}}
         </div>
-        {{else}}
-          <label class="item item-input item-stacked-label">
-           <p>{{_ "accounts-relationships.Norecord" }}</p>  
-          </label>         
-         
-    {{/each}}
-    </div>
+    {{/if}}
 </template>

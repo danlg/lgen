@@ -245,29 +245,39 @@ Smartix.inviteClassMailTemplate = function (to, classObj) {
   });
 };
 
+var verifyImpl = function (userObj, emailLang) {
+    let emailContent;
+    log.info("Verify with lang ", emailLang, " for ", userObj.emails[0].address);
+    if(Smartix.Lib.Server.IsGoogleAccount (userObj.emails[0].address)) {
+        emailContent = Assets.getText("lang/" + emailLang + "/emailVerifyTemplate.html");
+    }
+    else if (userObj.services.password){
+        emailContent = Assets.getText("lang/" + emailLang + "/emailAccountDetailsVerification.html");
+    }
+    else{
+        emailContent = Assets.getText("lang/" + emailLang + "/emailSetPasswordVerification.html");
+    }
+    return emailContent;
+};
+
 Smartix.verificationEmailTemplate = function (userObj, verificationURL) {
   //log.info('verificationEmailTemplate',userObj);
-  var emailLang = userObj.lang || "en";
+  var lang = userObj.lang || "en";
   var verifyEmailcontent;
   try {
-    if(Smartix.Lib.Server.IsGoogleAccount (userObj.emails[0].address))
-        verifyEmailcontent = Assets.getText("lang/" + emailLang + "/emailVerifyTemplate.html");
-    else if (userObj.services.password){
-          verifyEmailcontent = Assets.getText("lang/" + emailLang + "/emailAccountDetailsVerification.html");
-        }
-    else{
-        verifyEmailcontent = Assets.getText("lang/" + emailLang + "/emailSetPasswordVerification.html");
-    }
-  } catch (e) {
-    log.info(e);
+      verifyEmailcontent = verifyImpl(userObj, lang);
+  }
+  catch (e) {
+      log.warn("email lang", lang, "not found, falling back to english");
+      verifyEmailcontent = verifyImpl(userObj, "en");
   }
   var firstPass = Spacebars.toHTML(
     {
       //TODO localize me
       title: "",
       content: verifyEmailcontent,
-      GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = emailLang),
-      UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = emailLang),
+      GetTheApp: TAPi18n.__("GetTheApp", {}, lang_tag = lang),
+      UnsubscribeEmailNotification: TAPi18n.__("UnsubscribeEmailNotification", {}, lang_tag = lang),
       DOWNLOAD_URL:  Meteor.settings.public.DOWNLOAD_URL,
       APP_STORE_URL:  Meteor.settings.public.APP_STORE_URL,
       GOOGLE_PLAY_URL:  Meteor.settings.public.GOOGLE_PLAY_URL,

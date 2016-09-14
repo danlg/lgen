@@ -117,28 +117,33 @@ Meteor.methods({
         notificationObjType="single";
         var userId = notificationObj.query.userId;
         var userObj = Meteor.users.findOne(userId);
-        //log.info('doPushNotification:',userObj,userId);//very verbose
+        //log.info("doPushNotification, single:", userId);//very verbose
         if(userObj && userObj.pushNotifications) {
             filteredUserIdsWhoEnablePushNotify.push(userId);
             notificationObj.badge = Smartix.helpers.getTotalUnreadNotificationCount(userId);
             Push.send(notificationObj);
         }
         else { // User not found
-            log.warn("doPushNotification, cannot notify user not found " + userId);
+            log.warn("doPushNotification, cannot notify, user not found ",  userId);
         }
     }
     var userIds = filteredUserIdsWhoEnablePushNotify;
     if(inAppNotifyObj && notificationObj.payload.type == 'chat'){
         //send notification via websocket using Streamy
         userIds.map(function(userId){
-            //log.info("streamy:newchatmessage:"+userId);
-            var socketObj = Streamy.socketsForUsers(userId);
-            socketObj._sockets.map(function(socket){
-                Streamy.emit('newchatmessage', { from: notificationObj.from,
-                                                text: notificationObj.text,
-                                                chatRoomId: inAppNotifyObj.groupId                                  
-                }, socket); 
-            });
+            if (userId) {
+                //log.info("streamy:newchatmessage:"+userId);
+                var socketObj = Streamy.socketsForUsers(userId);
+                socketObj._sockets.map(function(socket){
+                    Streamy.emit('newchatmessage', { from: notificationObj.from,
+                        text: notificationObj.text,
+                        chatRoomId: inAppNotifyObj.groupId
+                    }, socket);
+                });
+            }
+            else {
+                log.warn("doPushNotification, cannot notify via streamy, user not found ", userId);
+            }
         });        
     }
     else if(inAppNotifyObj && notificationObj.payload.type == 'class'){

@@ -16,7 +16,7 @@ Template.ClassInformationForWebUser.events({
 				}
 				else {
 					//log.info("Redirecting you to the class");
-					Router.go("classDetail", {classCode: doc.classCode});
+					Router.go("ClassJoined", {classCode: doc.classCode});
 				}
 			});
 		}
@@ -47,7 +47,7 @@ Template.ClassInformationForWebUser.events({
 				}
 				else {
 					//log.info("Redirecting you to the class");
-					Router.go("classDetail", {classCode: doc.classCode});
+					Router.go("ClassJoined", {classCode: doc.classCode});
 				}
 			});
 		}
@@ -76,7 +76,7 @@ Template.ClassInformationForWebUser.events({
 				}
 				else {
 					//log.info("Redirecting you to the class");
-					Router.go("classDetail", {classCode: doc.classCode});
+					Router.go("ClassJoined", {classCode: doc.classCode});
 				}
 			});
 		}

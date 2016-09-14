@@ -26,9 +26,10 @@ Template.AdminAbsenceRegister.events({
     'change #AdminRegisterAbsence__type, focus #AdminRegisterAbsence__type, blur #AdminRegisterAbsence__type': function (event, template){
         return (template.$('#AdminRegisterAbsence__type').eq(0).val() === 'Actual') ? template.isActualRegistration.set(true) : template.isActualRegistration.set(false); 
     },
-
+    //expected
     'click .AdminAbsenceRegister__user-search-result': function (event, template) {
         var userId = event.currentTarget.dataset.userId;
+        log.info("click .AdminAbsenceRegister__user-search-result userId", userId);
         if(!userId) {
             Toastr.error(TAPi18n.__("Admin.SelectUser"));
         }
@@ -36,37 +37,46 @@ Template.AdminAbsenceRegister.events({
         template.studentId.set(userId);
         if (userObj.studentId) {
             template.studentId.set(userObj.studentId);
-            log.info("Student ID", userObj.studentId)
+            log.info("click .AdminAbsenceRegister__user-search-result, Student ID", userObj.studentId)
         }
         template.find('#AdminAbsenceRegister__name').value = event.currentTarget.innerHTML;
         template.$(".AdminAbsenceRegister__user-search-result").hide(); 
     },
 
+    'click .ActualAbsenceRegister__user-search-result': function (event, template) {
+        var userId = event.currentTarget.dataset.userId;
+        log.info("click .ActualAbsenceRegister__user-search-result userId", userId);
+        template.studentId.set(userId);
+        if(!userId) {
+            Toastr.error(TAPi18n.__("Admin.SelectUser"));
+        }
+        userObj = Meteor.users.findOne(userId);
+        if (userObj.studentId) {
+            // template.$('#ActualAbsenceRegister__studentId').val(userObj.studentId);
+            template.studentId.set(userObj.studentId);
+            log.info("click .ActualAbsenceRegister__user-search-result, Student ID", userObj.studentId)
+        }
+        template.find('#ActualAbsenceRegister__name').value = event.currentTarget.innerHTML;
+        template.$(".ActualAbsenceRegister__user-search-result").hide();
+    },
+
     'click #AdminAbsenceRegister__submit': function (event, template) {
-        
         event.preventDefault();
-        
         options = {};
-        
         options.namespace = UI._globalHelpers['getCurrentSchoolId']();
         options.studentId = template.studentId.get();
         options.reporterId = Meteor.userId();
-        
         let dateFrom = template.find("#AdminAbsenceRegister__startDate").value;
         let timeFrom = template.find("#AdminAbsenceRegister__startTime").value;
         let dateTo = template.find("#AdminAbsenceRegister__endDate").value;
         let timeTo = template.find("#AdminAbsenceRegister__endTime").value;
-        
         options.dateFrom = moment(dateFrom + " " + timeFrom).unix();
         options.dateTo = moment(dateTo + " " + timeTo).unix();
-        
         options.message = template.$('#AdminAbsenceRegister__message').val();
-        
         Smartix.Absence.expectedAbsenceSchema.clean(options);
-        
+
         Meteor.call('smartix:absence/registerExpectedAbsence', options, function (err, res) {
-            if(err)
-            {
+            if(err) {
                 toastr.error(TAPi18n.__("Admin.UpdateFail"));
                 log.error(err);
             }
@@ -77,22 +87,6 @@ Template.AdminAbsenceRegister.events({
         });
     },
 
-    'click .ActualAbsenceRegister__user-search-result': function (event, template) {
-        var userId = event.currentTarget.dataset.userId;
-        template.studentId.set(userId);
-        if(!userId) {
-            Toastr.error(TAPi18n.__("Admin.SelectUser"));
-        }
-        userObj = Meteor.users.findOne(userId);
-        if (userObj.studentId) {
-            // template.$('#ActualAbsenceRegister__studentId').val(userObj.studentId);
-            template.studentId.set(userObj.studentId);
-            log.info("Student ID", userObj.studentId)
-        }
-        template.find('#ActualAbsenceRegister__name').value = event.currentTarget.innerHTML;
-        template.$(".ActualAbsenceRegister__user-search-result").hide(); 
-    },
-
     'click #studentAbsentOrLate': function(event, template)
     {
        return template.$('#studentAbsentOrLate').is(":checked") ? template.isAbsent.set(false) : template.isAbsent.set(true);
@@ -101,7 +95,7 @@ Template.AdminAbsenceRegister.events({
     'click #ActualAbsenceRegister__submit': function(event, template){
         event.preventDefault();
         options = {};
-        var studentId = template.studentId.get();
+        //var studentId = template.studentId.get();//not used
 
         options.name = template.$('#ActualAbsenceRegister__name').val();
         options.studentId = template.studentId.get();
@@ -142,6 +136,7 @@ Template.AdminAbsenceRegister.helpers({
             placeholder: TAPi18n.__("Students")
         }
     },
+
     'actualAbsenceRegisterInputAttributes': function () {
         return {
             id: "ActualAbsenceRegister__name",
@@ -157,11 +152,11 @@ Template.AdminAbsenceRegister.helpers({
     'absenceUsersIndex': function () {
         return AbsenceUsersIndex;
     }
-})
+});
 
 Template.AdminAbsenceRegister.onDestroyed(function () {
     Session.set('absent-student', undefined);
-})
+});
 
 var clearForm = function ( ) {
     // Clear form values

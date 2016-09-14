@@ -1,7 +1,7 @@
-Router.route('/class/:classCode/info', {
+Router.route('/class/info/:classCode', {
     name: 'ClassInformation',
     template: 'ClassInformation',
-    path: "/class/:classCode/info",
+    path: "/class/info/:classCode",
     action: function () {
         this.render();
     },
@@ -14,30 +14,23 @@ Router.route('/class/:classCode/info', {
 });
 
 
-Router.route('classDetail', {
-  path: "/class/:classCode/detail",
-    waitOn: function(){
-      return[
-        Meteor.subscribe('smartix:classes/associatedClasses'),
-        // Meteor.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses'),
-        Meteor.subscribe('smartix:classes/classMembers', this.params.classCode)               
-      ]
-    } 
+Router.route('ClassJoined', {
+  path: "/class/joined/:classCode"
 });
 
 Router.route('classEdit', {
-  path: "/class/:classCode/edit",
+  path: "/class/edit/:classCode",
   waitOn: function () {
     return Meteor.subscribe('smartix:classes/classByClassCode', this.params.classCode);
   }
 });
 
 Router.route('ClassUsers', {
-  path: "/class/:classCode/users",
+  path: "/class/users/:classCode"
 });
 
 Router.route('ClassInvitation', {
-  path: "/class/:classCode/invite",
+  path: "/class/invite/:classCode",
   waitOn: function () {
     return [
       Meteor.subscribe('smartix:classes/classByClassCode', this.params.classCode)
@@ -46,7 +39,7 @@ Router.route('ClassInvitation', {
 });
 
 Router.route('ClassPanel',{
-    path: "/class/:classCode/panel"
+    path: "/class/:classCode"
 });
 
 Router.route('AddClass', {

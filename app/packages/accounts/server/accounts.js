@@ -331,16 +331,14 @@ Smartix.Accounts.removeUser = function(userId, namespace, currentUser) {
     return true;
 };
 
-
-
 Smartix.Accounts.editUser = function(userId, options, currentUser) {
-    //log.info('Smartix.Accounts.editUser', options);
     if (Smartix.Accounts.canEditUser(userId, options, currentUser)) {
-        //log.info('Smartix.Accounts.editUser:canEditUser', options);
-        log.info ("Smartix.Accounts.editUser", options);
+        let existingUserObj = Meteor.users.findOne(userId);
+        let merged = lodash.merge(existingUserObj, options);
+        //log.info("Smartix.Accounts.editUser", merged);//remove verbose especially with avatarImage
         return Meteor.users.update(
             { _id: userId},
-            { $set: options }
+            { $set: merged }
         );
     }
     else {

@@ -4,20 +4,16 @@ Smartix.Absence = Smartix.Absence || {};
 Smartix.Absence.processParentReply = function(options, currentUser) {
     Smartix.Absence.parentReplySchema.clean(options);
     check(options, Smartix.Absence.parentReplySchema);
-    
     check(currentUser, Match.Maybe(String));
-    
     // Get the `_id` of the currently-logged in user
     if(!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
-    
-    
+
     // Get the processed absence by Id
     let processedAbsence = Smartix.Absence.Collections.processed.findOne({
         _id: options.processId
     });
-    
     // Checks to ensure the processed absence record exists
     if(!processedAbsence) {
         throw new Meteor.Error('record-not-found', 'The processed absence record with id ' + options.processId + ' could not be found.');
@@ -46,12 +42,7 @@ Smartix.Absence.processParentReply = function(options, currentUser) {
     processedAbsence = Smartix.Absence.Collections.processed.update({
         _id: options.processId
     }, {
-        $addToSet: {
-            expectedAbsenceRecords: newExpectedAbsenceId
-        },
-        $set: {
-            status: 'pending'
-        }
+        $addToSet:  { expectedAbsenceRecords: newExpectedAbsenceId },
+        $set: { status: 'pending' }
     });
-    
-}
+};

@@ -11,10 +11,76 @@ Meteor.publish('allSchoolUsers', function (schoolId) {
         this.ready();
     }
 });
+/**
+ * We build a shadow classroom for parent (due to easy search constraint,the field to search MUST be in the doc to search it)
+ * @param schoolId
+ */
+
+var  buildParentShadow = (schoolId) => {
+    log.info("buildParentShadow");
+    let count_grade= 0; let count_classroom = 0;
+    let relationshipCursor = Smartix.Accounts.Relationships.Collection.find({"namespace": schoolId});
+    relationshipCursor.forEach( (relationship) => {
+        let parent = Meteor.users.findOne({"_id": relationship.parent});
+        let child  = Meteor.users.findOne({"_id": relationship.child});
+        //defensive coding in case there are some orphan relationship without user
+        if (child && child.classroom && parent) {
+            if (parent.classroom_shadow) {
+                //TODO implement if there is some changes to the classroom, this implementation doesn't sync..
+                //as we duplicate the data
+                parent.classroom_shadow.push(child.classroom);
+                parent.classroom_shadow = lodash.uniq ( parent.classroom_shadow );
+            } else {
+                parent.classroom_shadow = [child.classroom];
+                //log.info("Adding ", relationship.parent, " classroom_shadow=[", child.classroom, "]");
+                // if (
+                //     ( relationship.parent === "xfoofdTL3z9dsx8Lp") ||
+                //     ( relationship.parent === "G52eeaB5Gr6p68DDX")
+                // ) {
+                //     log.info("parent", parent);
+                // }
+            }
+            count_classroom++;
+        }  else {
+            if (typeof parent === 'undefined') { log.warn("No parent found ", relationship.parent  );}
+            if (typeof child  === 'undefined') { log.warn("No child found ",  relationship.child  );}
+            log.warn("No classroom for child", relationship.child  );
+        }
+        if (child && child.grade && parent) {
+            if (parent.grade_shadow) {
+                parent.grade_shadow.push(child.grade);
+                parent.grade_shadow = lodash.uniq(parent.grade_shadow);
+            } else {
+                parent.grade_shadow = [child.grade];
+                //log.info("Adding ", relationship.parent, " grade_shadow=[", child.grade, "]");
+                // if (
+                //     ( relationship.parent === "xfoofdTL3z9dsx8Lp") ||
+                //     ( relationship.parent === "G52eeaB5Gr6p68DDX")
+                // ) {
+                //     log.info("parent", parent);
+                // }
+            }
+            count_grade++;
+        }  else {
+            if (typeof parent === 'undefined') { log.warn("No parent found ", relationship.parent  );}
+            if (typeof child  === 'undefined') { log.warn("No child found ",  relationship.child  );}
+            log.warn("No grade for child", relationship.child);
+        }
+        //now update parent
+        if (child && ( child.classroom || child.grade) && parent) {
+            Meteor.users.update(
+                {"_id": relationship.parent},
+                {$set: parent}
+            );
+        }
+    });
+    log.info("Added ", count_classroom, " classroom_shadow, ", count_grade, " grade_shadow");
+};
 
 Meteor.publish('userStatus', function(schoolId) {
     //log.info("userStatus", schoolId);
     //let options = { online: false };// we filter status on client side
+    buildParentShadow(schoolId);
     let schoolUsersStatusCursor = Smartix.Accounts.School.getAllSchoolUsersStatus(
         schoolId,
         this.userId
@@ -173,7 +239,7 @@ var getContactsForStudents = function(userId, schoolDoc)
         findAdminsOfClass.map(function(teacher)
         {
             teacherOfClass.push(teacher._id);
-        })
+        });
         let parents = [];
         let findParents = Smartix.Accounts.Relationships.Collection.find({ child: studentID, namespace: schoolDoc._id }).fetch();
         findParents.map(function (relationship) {
@@ -198,7 +264,7 @@ Meteor.publish('allSchoolUsersPerRole', function (school) {
         });
     }
     if(!schoolDoc){
-        log.info('allSchoolUsersPerRole: no school is found: are you in global or system namespace? they dont have school collection');
+        log.warn('allSchoolUsersPerRole: no school is found: are you in global or system namespace? they dont have school collection');
         return;
     }
     var allSchoolUsers = [];
@@ -210,16 +276,24 @@ Meteor.publish('allSchoolUsersPerRole', function (school) {
     if(schoolDoc) {
         // log.info("allSchoolUsers", allSchoolUsers);
         return Meteor.users.find(
-            { 
-                _id: { $in: allSchoolUsers }, 
-                emails : {$exists:true}, $where:'this.emails.length>0'
-            }
+            { $or: [
+                {
+                    studentId: {$exists:true},
+                    _id: { $in: allSchoolUsers },
+                    emails : {$exists:true}, $where:'this.emails.length>0'
+                    //this is the cause of the issue https://github.com/danlg/lgen/issues/644
+                },
+                {
+                    studentId: {$exists:false},
+                    _id: { $in: allSchoolUsers }
+                }
+            ]}
             , {
                     'profile.firstName': 1,
                     'profile.lastName': 1,
                     'profile.avatarType': 1,
                     'profile.avatarValue': 1,
-                    'proflle.chatSetting' : 1,
+                    'profile.chatSetting' : 1,
                     'emails.0.address': 1,
                     'roles':1
             }
@@ -232,12 +306,10 @@ Meteor.publish('allSchoolUsersPerRole', function (school) {
 Meteor.publish('schoolUser', function (school, userId) {
     // Check if the user has permission for this school
     Smartix.Accounts.School.isAdmin(school, this.userId);
-    
     // Get the `_id` of the school from its username
     var schoolDoc = SmartixSchoolsCol.findOne({
         shortname: school
     });
-    
     if(schoolDoc) {
         return Meteor.users.find({
             _id: userId,
@@ -251,15 +323,11 @@ Meteor.publish('schoolUser', function (school, userId) {
 Meteor.publish('schoolAdmins', function (schoolNamespace) {
     // Check if the user has permission for this school
     Smartix.Accounts.School.isAdmin(schoolNamespace, this.userId);
-    
     return Roles.getUsersInRole('admin', schoolNamespace);
-
 });
 
 Meteor.publish('schoolStudents', function (schoolNamespace) {
     // Check if the user has permission for this school
     Smartix.Accounts.School.isAdmin(schoolNamespace, this.userId);
-    
     return Roles.getUsersInRole(Smartix.Accounts.School.STUDENT, schoolNamespace);
-
 });

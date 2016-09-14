@@ -1,3 +1,16 @@
+Template.NewsDetail.events({
+    'click .item': function(event, template){
+        if ($(event.currentTarget).children().children('.content').children('.text-content').hasClass('newsExpand')) {
+                $(event.currentTarget).children().children('.content').children('.text-content').removeClass('newsExpand');
+                $(event.currentTarget).children().children('.content').children('.text-content').addClass('newsReduce');
+        }
+            else {
+                $(event.currentTarget).children().children('.content').children('.text-content').removeClass('newsReduce');
+                $(event.currentTarget).children().children('.content').children('.text-content').addClass('newsExpand');
+            }
+        }
+})
+
 Template.NewsDetail.helpers({
   attachImages: function () {
     var imageObjects =lodash.filter(this.addons, function(addon) { return addon.type =='images'; });

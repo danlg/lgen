@@ -63,7 +63,9 @@ Smartix.Class.Messages.canAttachAddons = function (announcementId, addons) {
         // for which the announcement belongs to no longer exists
     }
     var isGroupAdmin = _class.admins.indexOf(Meteor.userId()) > -1;
-    if(!(isAuthorOfAnnouncement || isClassAdmin)) {
+    //WARNING isClassAdmin is undefined !!
+    //if(!(isAuthorOfAnnouncement || isClassAdmin)) {
+    if(!(isAuthorOfAnnouncement )) {
         log.warn('you are not author of the announcement or the admin of the class');
         return false;
         // OPTIONAL: Throw error saying you must be either

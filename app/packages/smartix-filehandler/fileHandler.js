@@ -92,10 +92,12 @@ Smartix.FileHandler = (function () {
 					}
 					else {
 						var arr;
-						if (Meteor.user().firstPicture) {
-							analytics.track("First Picture", {date: new Date()});
-							Meteor.call("updateProfileByPath", 'firstPicture', false);
-						}
+						// if (Meteor.user().firstPicture) {
+						// 	analytics.track("First Picture", {date: new Date()});
+						// 	Meteor.call("updateProfileByPath", 'firstPicture', false);
+						// }
+						//let groupId = Router.current().params.chatRoomId;
+						//let groupId = metadata.id;
 						if (metadata.category === "chat") {
 							GeneralMessageSender(Router.current().params.chatRoomId, 'text', 'New Image', [{
 									type: 'images',
@@ -120,7 +122,8 @@ Smartix.FileHandler = (function () {
 		},
 
 		//Image Upload for Android
-		imageUploadForAndroid: function (metadata) {
+		//TODO implement callback and preview
+		imageUploadForAndroid: function (metadata, currentImageArray, callback) {
 			var onSuccess = function (imageURI) {
 				// var image = document.getElementById('myImage');
 				// image.src = "data:image/jpeg;base64," + imageData;
@@ -141,12 +144,35 @@ Smartix.FileHandler = (function () {
 									log.error(err);
 								}
 								else {
-									GeneralMessageSender(Router.current().params.chatRoomId, 'text', 'New Image', [{
-											type: 'images',
-											fileId: fileObj._id
-										}],
-										Smartix.helpers.getAllUserExceptCurrentUser()
-									);
+									if (metadata.category === 'chat') {
+										GeneralMessageSender(Router.current().params.chatRoomId, 'text', 'New Image', [{
+												type: 'images',
+												fileId: fileObj._id
+											}],
+											Smartix.helpers.getAllUserExceptCurrentUser()
+										);
+									}
+									else if (metadata.category === 'class') {
+										var imageArray = currentImageArray || [];
+										log.info("Smartix.FileHandler.imageUploadForAndroid", metadata);
+										log.info("Smartix.FileHandler.imageUploadForAndroid id", fileObj._id);
+										var classObj = Smartix.Groups.Collection.findOne({
+											type: 'class',
+											classCode: Router.current().params.classCode
+										});
+
+										//we send direct the image for now on android without preview
+										GeneralMessageSender(classObj._id, 'text', 'New Image', [{
+												type: 'images',
+												fileId: fileObj._id
+											}]
+											, undefined
+										);
+										imageArray.push(fileObj._id);
+										//callback not found?
+										callback(imageArray);
+									}
+
 								}
 							});
 						});
@@ -168,17 +194,22 @@ Smartix.FileHandler = (function () {
 					//  alert('button index clicked: ' + buttonIndex);
 					switch (buttonIndex) {
 						case 1:
-							navigator.camera.getPicture(onSuccess, onFail, {
+							//fix orientation 
+							//see https://forum.ionicframework.com/t/camera-wrong-orientation-with-android/8583/22
+							navigator.camera.getPicture(onSuccess, onFail, { allowEdit: false, correctOrientation: true,
 								quality: 50,
 								destinationType: Camera.DestinationType.FILE_URI,
 								limit: 1
 							});
 							break;
 						case 2:
-							navigator.camera.getPicture(onSuccess, onFail, {
+							//fix orientation 
+							//see https://forum.ionicframework.com/t/camera-wrong-orientation-with-android/8583/22
+							navigator.camera.getPicture(onSuccess, onFail, { allowEdit: false, correctOrientation: true,
 								quality: 50,
 								destinationType: Camera.DestinationType.FILE_URI,
-								sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
+								encodingType: Camera.EncodingType.JPEG,
+								sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
 								limit: 1
 							});
 							break;
@@ -188,7 +219,7 @@ Smartix.FileHandler = (function () {
 				});
 			};
 			var options = {
-				'buttonLabels': ['Take Photo From Camera', 'Select From Gallery'],
+				'buttonLabels': ['Take photo from Camera', 'Select from Gallery'],
 				'androidEnableCancelButton': true, // default false
 				'winphoneEnableCancelButton': true, // default false
 				'addCancelButtonWithLabel': 'Cancel'

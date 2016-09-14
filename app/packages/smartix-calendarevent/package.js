@@ -25,11 +25,11 @@ Package.onUse(function(api) {
      api.addFiles('calendar_event.html','client');
      api.addFiles('calendar_event.js','client');  
 
-     api.addFiles('client/templates/view/view.html', 'client');
-     api.addFiles('client/templates/view/view.js', 'client');  
+     api.addFiles('client/templates/view/calendar_display.html', 'client');
+     api.addFiles('client/templates/view/calendar_display.js', 'client');  
           
-     api.addFiles('client/templates/list/list.html', 'client');
-     api.addFiles('client/templates/list/list.js', 'client');  
+     api.addFiles('client/templates/list/calendar_list_view.html', 'client');
+     api.addFiles('client/templates/list/calendar_list_view.js', 'client');
 
      api.addFiles('routes.js');         
 });

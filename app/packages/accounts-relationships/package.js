@@ -15,7 +15,10 @@ Package.onUse(function(api) {
   api.use('ecmascript');
   api.use('templating');
   api.use('aldeed:collection2');
-  api.use('aldeed:simple-schema'); 
+  //not sure matb33:collection-hooks is actually required as we now add shadow properties into 'users' table
+  //TODO remove matb33:collection-hooks package and UsersComposite collection and check if Connection Status is still working
+  api.use('matb33:collection-hooks');
+  api.use('aldeed:simple-schema');
   api.use('alanning:roles@1.2.15');
   api.use('smartix:accounts-system');
   api.use('smartix:accounts-schools', {unordered: true});

@@ -276,11 +276,13 @@ Template.registerHelper('getCurrentSchoolName',function(){
         if(Router && Router.current() && Router.current().params.school) {
             return Router.current().params.school;
         }
+        else {
+            log.error("getCurrentSchoolName cannot be found");
+        }
     }
     else{
         log.error("getCurrentSchoolName cannot be called from server");
     }
-    
 });
 
 Template.registerHelper('getCurrentSchoolId',function(){

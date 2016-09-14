@@ -1,63 +1,60 @@
 <template name="ChatInvite">
-  {{#contentFor "headerTitle"}}
-    <h1 class="title">{{_ "Chat_with"}} </h1>
-  {{/contentFor}}
-  {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton path="TabChat"  text=" "}}
-  {{/contentFor}}
-  {{#contentFor "headerButtonRight"}}
-    <div style="position: absolute; right: 0;">
-      <!-- <button  class="button button-clear button-entering button-active sendMsgBtn">Send</button> -->
-      <!-- <button  class="button button-clear button-entering button-active msgDoneClassBtn {{doneClassBtnStatus}}">Done</button> -->
-    </div>
-  {{/contentFor}}
+    {{#contentFor "headerTitle"}}
+        <h1 class="title">{{_ "Chat_with"}} </h1>
+    {{/contentFor}}
+    {{#contentFor "headerButtonLeft"}}
+        {{>ionNavBackButton path="TabChat"  text=" "}}
+    {{/contentFor}}
+    {{#contentFor "headerButtonRight"}}
+        <div style="position: absolute; right: 0;">
+            <!-- <button  class="button button-clear button-entering button-active sendMsgBtn">Send</button> -->
+            <!-- <button  class="button button-clear button-entering button-active msgDoneClassBtn {{doneClassBtnStatus}}">Done</button> -->
+        </div>
+    {{/contentFor}}
 
-  {{#ionView}}
-    {{#ionTabs style="android" class=""}}
-      {{> ionTab title="1-to-1 Chat" class="active" path='ChatInvite' }}
-      {{> ionTab title="Group Chat" href=getGroupChatInvitePath  }}
-    {{/ionTabs}}
-    {{#ionContent}}
+    {{#ionView}}
+        {{#ionTabs style="android" class=""}}
+            {{> ionTab title="1-to-1 Chat" class="active" path='ChatInvite' }}
+            {{> ionTab title="Group Chat" href=getGroupChatInvitePath  }}
+        {{/ionTabs}}
+        {{#ionContent}}
 
-      <div class="list">
-
-        {{#with classesJoinedOwner}}
-
-          <div class="item item-input">
-            <i class="icon ion-search placeholder-icon"></i>
-            <input type="search" class="searchbar" placeholder="{{_ 'Search'}}">
-          </div>
-
-          {{#each this}}
-            {{#if isSearchable}}
-              <div class="item item-icon-left item-checkbox-right item-checkbox">
-                  <label class="checkbox">
-                    <input type="radio" name="nameOfTeacher" class="targetCB" value="{{_id}}"
-                          data-fullName="{{userName profile}}">
-                  </label>
-                  {{#if profile.avatarValue}}
-                      {{#if isEmoji profile.avatarType}}
-                      <i class="icon e1a-{{profile.avatarValue}} e1a-1x emojicon"></i>
-                      {{else}}
-                          <img class="icon icon-avatar e1a-1x" src="{{profile.avatarValue}}" />
-                      {{/if}}
-                  {{/if}}
-                  {{profile.firstName}}<strong> {{profile.lastName}}</strong>
-                  <p style="text-transform: capitalize;">{{getUserRoleInNamespace}}</p>
-              </div>
+            {{#if Template.subscriptionsReady}}
+                <div class="list">
+                    {{#with classesJoinedOwner}}
+                        <div class="item item-input">
+                            <i class="icon ion-search placeholder-icon"></i>
+                            <input type="search" class="searchbar" placeholder="{{_ 'Search'}}">
+                        </div>
+                        {{#each this}}
+                            {{#if isSearchable}}
+                                <div class="item item-icon-left item-checkbox-right item-checkbox">
+                                    <label class="checkbox">
+                                        <input type="radio" name="nameOfTeacher" class="targetCB" value="{{_id}}"
+                                               data-fullName="{{userName profile}}">
+                                    </label>
+                                    {{#if profile.avatarValue}}
+                                        {{#if isEmoji profile.avatarType}}
+                                            <i class="icon e1a-{{profile.avatarValue}} e1a-1x emojicon"></i>
+                                        {{else}}
+                                            <img class="icon icon-avatar e1a-1x" src="{{profile.avatarValue}}" />
+                                        {{/if}}
+                                    {{/if}}
+                                    {{profile.firstName}}<strong> {{profile.lastName}}</strong>
+                                    <p style="text-transform: capitalize;">{{getUserRoleInNamespace}}</p>
+                                </div>
+                            {{/if}}
+                        {{/each}}
+                    {{else}} <!--with-->
+                        <div class="item">{{_ "No_chat_yet"}}</div>
+                    {{/with}}
+                </div>
             {{/if}}
-          {{/each}}
-
-        {{else}} <!--with-->
-            <div class="item">{{_ "No_chat_yet"}}</div>
-        {{/with}}
-      </div>
-
-    {{/ionContent}}
-  {{/ionView}}
-  {{#if shouldDisplay}}
-    {{#ionFooterBar class='startChatBtn bar-stable'}}
-      <div class="title"><i class="icon ion-arrow-right-c" style="font-size: 30px;"></i></div>
-    {{/ionFooterBar}}
-  {{/if}}
+        {{/ionContent}}
+    {{/ionView}}
+    {{#if shouldDisplay}}
+        {{#ionFooterBar class='startChatBtn bar-stable'}}
+            <div class="title"><i class="icon ion-arrow-right-c" style="font-size: 30px;"></i></div>
+        {{/ionFooterBar}}
+    {{/if}}
 </template>

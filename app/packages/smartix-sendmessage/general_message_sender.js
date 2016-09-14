@@ -1,5 +1,6 @@
-GeneralMessageSender = function(groupId,messageType,messageText,addons,targetUsers,callback){
-    
+GeneralMessageSender = function(groupId, messageType, messageText, addons, targetUsers, callback){
+    //TODO targetUsers is not Used !!! No need to fill it //REmove it but be careful of regression
+    //TARGET USERS IS DETERMINED SERVER SIDE WHICH IS CORRECT
     //e.g each addons :
     //{type:messageType,fileId:messageAttachmentObject._id}
     addons = addons || [];

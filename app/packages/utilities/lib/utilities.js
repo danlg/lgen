@@ -34,10 +34,12 @@ Smartix.Utilities.getLanguageCode = function (lang) {
         case 'Traditional Chinese':
         case 'Taiwan':
         case 'zh-tw':
-        default:
             return 'zh-tw';
+
+        default:
+            return 'en';
     }
-}
+};
 
 Smartix.Utilities.removeEmptyProperties = function (object) {
     for (var prop in object) {
@@ -69,7 +71,41 @@ Smartix.Utilities.stringToLetterCase = function (str) {
     // Replaces all non-alphanumeric characters with hyphen
     // Converts all to lowercase
     return str.replace(/\W+/g, '-').toLowerCase().replace(/^-+|-+$/g, "");
-}
+};
+
+Smartix.Utilities.generateUniqueURL = function(name){
+    check(name, String);
+    //remove all non-ascii character and space
+    var uniqueName = Smartix.Utilities.stringToLetterCase(name);
+    uniqueName = uniqueName.replace(/[^\x00-\x7F,]/g, "").trim().toLowerCase();
+    //if uniqueName becomes empty, transform firstname and lastname to unicode
+    if(uniqueName == ""){
+        for (var i = 0, len = name.length; i < len; i++) {
+            uniqueName = uniqueName + name.charCodeAt(i);
+        }
+    }
+    if (uniqueName.length > 10) {
+        uniqueName = uniqueName.substr(0,10);
+    }
+    var uniqueName = uniqueName.replace(/\W/g, "").toLowerCase();//remove space and any non a-Z0-9 character
+    var index = 1;
+    let cursor = Smartix.Groups.Collection.find({
+        url: uniqueName,
+        type: 'newsgroup'
+    });
+    if (cursor.count() != 0) {
+        while (
+            Smartix.Groups.Collection.find({
+                url: uniqueName+index,
+                type: 'newsgroup'
+            }).count() != 0) {
+            index++;
+        }
+        uniqueName = uniqueName + index;
+    }
+    log.info("Smartix.Utilities.generateUniqueURL:out", uniqueName);
+    return uniqueName;
+};
 
 Smartix.Utilities.getMinutesSinceMidnight = function (timeString) {
     if(!timeString) {

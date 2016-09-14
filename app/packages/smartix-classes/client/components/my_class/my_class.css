@@ -1,19 +1,24 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
-/*****************************************************************************/
-/* ClassPanel: Style */
-/*****************************************************************************/
+
+/*We should move to scss for consistency with chat room and because it is more maintainable, mixin,include.*/
+
 .messageList {
-	
   overflow-x: hidden;
   overflow-y: auto;
   height: calc(100% - 100px);
   /*height: calc(100% - 43px);*/
   bottom: 0;
-  
 }
 
 .messageList .content a{
   	color:#148FE9 !important; 
+}
+
+.selectable {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
 }
 
 .button-bar{
@@ -21,15 +26,12 @@
 }
 
 .button-bar-button{
-  
   padding-bottom:2% !important;
   line-height:80% !important;
 }
 
-
-
 .messageList .card .extraInfo{
-    max-height:  0px; 
+    max-height:  0px;
     z-index:  -1;
     opacity:            0;
     -webkit-transition: all 0.5s ; /* Safari */

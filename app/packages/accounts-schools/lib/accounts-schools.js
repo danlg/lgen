@@ -21,12 +21,13 @@ Smartix.Accounts.School.getStudentId = function (studentId, namespace) {
     check(studentId, String);
     check(namespace, String);
     var user = Meteor.users.findOne({
-        "studentId": studentId,
+        "studentId": studentId
     });
     if(user) {
         if(Roles.userIsInRole(user._id, Smartix.Accounts.School.STUDENT, namespace))
         {
-            return user._id;
+            //return user._id;
+            return studentId;
         }
     }
     return false;

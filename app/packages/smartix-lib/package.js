@@ -28,8 +28,8 @@ Package.onUse(function(api) {
     api.addFiles('server/methods.js', 'server');
     api.addFiles('server/method_cs.js', 'server');
     api.addFiles('server/server_lib.js', 'server');
-
-    //lanaguage-specific app tour image
+    
+    //language-specific app tour image
 
     api.addAssets([
         'i18n/fr/fr_t1.jpg',

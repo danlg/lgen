@@ -1,0 +1,27 @@
+dan@LG1:~$ adb devices
+List of devices attached
+LGD722d8f72aa6	device
+
+dan@LG1:~$ adb -s LGD722d8f72aa6 install /Users/dan/DEV/github8/lgen/android-build/android/smartix-release-signed.apk
+6948 KB/s (13402932 bytes in 1.883s)
+	pkg: /data/local/tmp/smartix-release-signed.apk
+Success
+
+* Run this if the app is already installed before running "npm run android-device-local-ip"
+adb uninstall com.gosmartix.carmel
+
+Build command
+
+"android-device-local-ip": " meteor run android-device --settings dev.android.local.settings.json --mobile-server=http://192.168.43.151:3000",
+
+Change android settings.json
+
+"ROOT_URL": "http://192.168.43.151:3000" => localip given by the DHCP of the mobile
+
+App.setPreference('WebAppStartupTimeout', '660000');
+App.setPreference('LoadUrlTimeoutValue',  '666000');
+
+
+
+- Possibly do port forwarding on Chrome debugging (because app
+ (android:http://localhost:12648/cordova.js:1185) deviceready has not fired after 5 seconds.

@@ -127,46 +127,62 @@ Smartix.helpers.getAllUser = function() {
 
 };
 
+//not clean code
+// var keyToLookup;
+// //classCode is not primary key of Groups collection....//groupid = Router.current().params.chatRoomId
+// switch(groupType) {
+//     case 'chat':
+//         keyToLookup = "_id"; break;
+//     case 'class':
+//         keyToLookup = "classCode"; break;
+//     default:
+//         log.warn('Unknown group type', groupType);
+// }
+// var dynamicQuery = {};
+// dynamicQuery[keyToLookup] = groupid;
+//var groupObj = Smartix.Groups.Collection.findOne(dynamicQuery);
+
+
+//TODO this is not required is using GeneralMessageSender as targetUsers is not used !
 Smartix.helpers.getAllUserExceptCurrentUser = function() {
-
-    //find all userids in this chat rooms
-    var arr = Smartix.Groups.Collection.findOne({ _id: Router.current().params.chatRoomId }).users;
-    //log.info(arr);
-    //return all user objects
-    var targetUsers = Meteor.users.find({
-        _id: { $in: arr }
-    }).fetch();
-
-    var index = lodash.findIndex(targetUsers, { '_id': Meteor.userId() });
-    if (index > -1) {
-        targetUsers.splice(index, 1);
+    //find all userids in this chat / rooms
+    var groupObj = Smartix.Groups.Collection.findOne({ _id: Router.current().params.chatRoomId });
+    var targetUsers = [];
+    if (groupObj) {
+        var arr = groupObj.users;
+        //log.info(arr);
+        //return all user objects
+        targetUsers = Meteor.users.find({
+            _id: { $in: arr }
+        }).fetch();
+        var index = lodash.findIndex(targetUsers, { '_id': Meteor.userId() });
+        if (index > -1) {
+            targetUsers.splice(index, 1);
+        }
     }
-
     return targetUsers;
-
 };
 
-
 lodash.mixin({
-'findByValues': function (collection, property, values) {
-return lodash.filter(collection, function (item) {
-  return lodash.includes(item[property], values);
-});
-}
-});
-
-lodash.mixin({
-'findByValues2': function (collection, property, values) {
-return lodash.filter(collection, function (item) {
-  return item[property] == values;
-});
-}
+    'findByValues': function (collection, property, values) {
+        return lodash.filter(collection, function (item) {
+            return lodash.includes(item[property], values);
+        });
+    }
 });
 
 lodash.mixin({
-'findByValuesNested': function (collection, property, secproperty, values) {
-return lodash.filter(collection, function (item) {
-  return lodash.includes(item[property][secproperty], values);
+    'findByValues2': function (collection, property, values) {
+        return lodash.filter(collection, function (item) {
+            return item[property] == values;
+        });
+    }
 });
-}
+
+lodash.mixin({
+    'findByValuesNested': function (collection, property, secproperty, values) {
+        return lodash.filter(collection, function (item) {
+            return lodash.includes(item[property][secproperty], values);
+        });
+    }
 });

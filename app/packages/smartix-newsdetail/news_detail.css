@@ -2,3 +2,26 @@
     font-size: large;
     font-weight: bold;
 }
+
+.content p{
+    text-overflow: inherit !important;
+    white-space: inherit !important;
+}
+
+.newsReduce{
+    text-overflow: ellipsis;
+    max-height: 20px;
+    white-space: pre;
+    overflow: hidden;
+}
+
+.newsExpand{
+    text-overflow: initial;
+    max-height: fit-content;
+    white-space: wrap;
+    overflow: hidden;
+}
+
+img{
+    max-width: 100%;
+}

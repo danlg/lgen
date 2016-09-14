@@ -7,7 +7,7 @@ App.info({
   email: 'contact@gosmartix.com',
   website: 'http://www.gosmartix.com',
   version: '1.2.2',
-  buildNumber: '317'
+  buildNumber: '342'
 });
 
 //generated with meteor-assets
@@ -90,6 +90,7 @@ App.accessRule('https://localhost:*');
 
 //to have hot code push
 App.setPreference('WebAppStartupTimeout', '60000');
+//App.setPreference('LoadUrlTimeoutValue','60000');
 
 App.accessRule('*://*.gosmartix.com:*/*');
 

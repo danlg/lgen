@@ -141,10 +141,8 @@ Smartix.Absence.processAbsencesForDay = function (namespace, date, format, notif
             let hasPhonedIn = (
                 // User has not clocked in and the time now is before the expected absence's end
                 (clockedInTime === null && (Date.now() / 1000) < expectedAbsenceRange.end)
-                
                 // Or the user has clocked in and the clocked in time is before the expected absence's end
                 || (clockedInTime !== null && clockedInTime.unix() < expectedAbsenceRange.end));
-  
             if(hasPhonedIn) {
                 processedAbsence.expectedAbsenceRecords = expectedAbsenceRange.ids;
                 processedAbsence.status = expectedAbsenceRange.approved ? 'approved' : 'pending';
@@ -153,15 +151,12 @@ Smartix.Absence.processAbsencesForDay = function (namespace, date, format, notif
                 // User is either late or absent and has not sent in a notice
                 processedAbsence.status = 'missing';
             }
-            
             let process = Smartix.Absence.Collections.processed.upsert({
                 date: processedAbsence.date,
                 namespace: processedAbsence.namespace,
                 studentId: processedAbsence.studentId
             }, processedAbsence, false);
-            
             let processId;
-            
             if(process.insertedId) {
                 processId = process.insertedId;
             } else {
@@ -171,13 +166,11 @@ Smartix.Absence.processAbsencesForDay = function (namespace, date, format, notif
                     studentId: processedAbsence.studentId
                 })._id;
             }
-            
+            // log.info("processAbsencesForDay:processId", processId, ", insertedId=",process.insertedId);
             if(!hasPhonedIn && notify) {
-                // Notify the parents
-                // Send notification
+                // Notify the parents & Send notification
                 Smartix.Absence.notificationToParentForDetail(processId, currentUser);
             }
-            
         } else {
             // Student is on-time, no action required
             // console.log(record.studentId + ' is on-time');

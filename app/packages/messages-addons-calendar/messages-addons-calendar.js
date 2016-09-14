@@ -49,7 +49,7 @@ Smartix.Messages.Addons.Calendar.updateNewCalendar = function (messageId, Calend
             });
         }
     });
-}
+};
 
 Smartix.Messages.Addons.Calendar.addEvent = function(title,eventLocation,notes,startDate,endDate,callback){
     if(Meteor.isCordova){
@@ -63,7 +63,8 @@ Smartix.Messages.Addons.Calendar.addEvent = function(title,eventLocation,notes,s
         //fail callback
         log.info('Cannot add event to calendar');
         });
-    }else{
-     log.info('This environment does not support add calendar');
     }
-}
+    else{
+     log.warn('This environment does not support add calendar');
+    }
+};

@@ -35,23 +35,60 @@
                 <br>
                 <input id='school-background-image' type="file" name="school-background-image">
 
-                <br> {{_ "PhoneNumber" }}
-                <input id='tel' type="text" name="tel" value='{{tel}}'>
+                <div class="list card">
+                    <br> <strong>{{_ "Label" }}</strong>
+                    <input id='label' type="text" name="label" value='{{label}}' placeholder="My campus name">
+                    <br> <strong>{{_ "PhoneNumber" }}</strong>
+                    <input id='tel' type="text" name="tel" value='{{tel}}' placeholder="12345678">
+                    <br> <strong>{{_ "schools.SchoolContactEmail" }}</strong>
+                    <input id='contactemail' type="text" name="contactemail" value='{{contactemail}}' placeholder="contact@myschool.com">
+                </div>
 
-                <br> {{_ "schools.Schoolwebsite" }}
-                <input id='web' type="text" name="web" value='{{web}}'>
+                <div class="list card">
+                    <br><strong> {{_ "Label" }} 2</strong>
+                    <input id='label2' type="text" name="label2" value='{{label2}}' placeholder="My campus name 2">
+                    <br> <strong>{{_ "PhoneNumber" }} 2</strong>
+                    <input id='tel2' type="text" name="tel" value='{{tel2}}' placeholder="12345678">
+                    <!--<br> {{_ "schools.Schoolwebsite" }} 2-->
+                    <!--<input id='web2' type="text" name="web" value='{{web2}}'>-->
+                    <br> <strong>{{_ "schools.SchoolContactEmail" }} 2</strong>
+                    <input id='contactemail2' type="text" name="contactemail" value='{{contactemail2}}' placeholder="contact@myschool.com">
+                </div>
 
-                <br> {{_ "schools.SchoolAdministratorEmail" }}
+                <div class="list card">
+                    <br> <strong>{{_ "Label" }} 3</strong>
+                    <input id='label3' type="text" name="label3" value='{{label3}}' placeholder="My campus name 3">
+                    <br> <strong>{{_ "PhoneNumber" }} 3</strong>
+                    <input id='tel3' type="text" name="tel" value='{{tel3}}' placeholder="12345678">
+                    <!--<br> {{_ "schools.Schoolwebsite" }} 3-->
+                    <!--<input id='web3' type="text" name="web" value='{{web3}}'>-->
+                    <br> <strong>{{_ "schools.SchoolContactEmail" }} 3</strong>
+                    <input id='contactemail3' type="text" name="contactemail" value='{{contactemail3}}' placeholder="contact@myschool.com">
+                </div>
+
+                <div class="list card">
+                    <br> <strong>{{_ "Labelweb" }}</strong>
+                    <input id='labelweb' type="text" name="labelweb" value='{{labelweb}}' placeholder="My great school web site">
+                    <br> <strong>{{_ "schools.Schoolwebsite" }} URL</strong>
+                    <input id='web' type="text" name="web" value='{{web}}' placeholder="www.gosmartix.com">
+                </div>
+
+                <div class="list card">
+                    <!--TODO localize me-->
+                    <br><strong> {{_ "External Site Name" }}</strong>
+                    <input id='labelext' type="text" name="labelext" value='{{labelext}}' placeholder="My great external web site">
+                    <br> <strong>{{_ "schools.Schoolwebsite" }} URL External</strong>
+                    <input id='webext' type="text" name="webext" value='{{webext}}' placeholder="www.gosmartix.com">
+                </div>
+
+                <br><strong> {{_ "schools.SchoolAdministratorEmail" }}</strong>
                 <input id='email' type="text" name="email" value='{{email}}'>
 
-                <br> {{_ "schools.SchoolContactEmail" }}
-                <input id='contactemail' type="text" name="contactemail" value='{{contactemail}}'>
-
-                <br> {{_ "schools.SchoolBackgroundColor" }}
+                <br> <strong>{{_ "schools.SchoolBackgroundColor" }}</strong>
                 <input id='school-background-color' type="color" name="school-background-color"
                        value='{{preferences.schoolBackgroundColor}}'>
 
-                <br> {{_ "schools.SchoolTextColor" }}
+                <br> <strong>{{_ "schools.SchoolTextColor" }}</strong>
                 <input id='school-text-color' type="color" name="school-text-color"
                        value='{{preferences.schoolTextColor}}'>
 

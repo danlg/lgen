@@ -64,11 +64,13 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
     // Get the `_id` of the currently-logged in user
     if(!(currentUser === null)) { currentUser = currentUser || Meteor.userId(); }
     /* CHECKS FOR PERMISSION TO POST IN GROUP */
+    // var keyToLookup; do not mix messageType with groupType ORTHOGONAL
     // Query to the get group
     var group = Smartix.Groups.Collection.findOne({ _id: groupId });
+    //var group = Smartix.Groups.Collection.findOne(dynamicQuery);
     // Checks if group exists
     if(!group) {
-        log.error('group not exist');
+        log.error('Group does not exist', groupId);
         return false;
         // OPTIONAL: Throw error saying the group specified does not exists
     }
@@ -158,10 +160,16 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
                 return (eachUserId === currentUser);
             }
         );
+        //for some reason the user can be twice.
+        //log.info("Smartix.Messages.createMessage:users-mult", allUserToDoPushNotifications);
+        // fix 
+        allUserToDoPushNotifications = lodash.uniq(allUserToDoPushNotifications);
+        //log.info("Smartix.Messages.createMessage:users-uniq", allUserToDoPushNotifications);
 
         Smartix.Messages.emailMessage(allUserToDoPushNotifications, message, group, meteorUser);
 
         allUserToDoPushNotifications.map(function(eachTargetUser){
+            //log.info("Smartix.Messages.createMessage:before Notifications.insert", groupId, eachTargetUser);
             Notifications.insert({
                 eventType:"new"+group.type+"message",
                 userId: eachTargetUser,
@@ -176,7 +184,7 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
                 if(meteorUser) { 
                     //4. send push notification and in-app notification
                     //log.info('cheerioWithhtmlText',$('*').text());                   
-                    var notificationObj = {
+                    let notificationObj = {
                         from : Smartix.helpers.getFullNameByProfileObj(meteorUser.profile),
                         title : Smartix.helpers.getFullNameByProfileObj(meteorUser.profile),
                         text: message.data.content || "",
@@ -186,11 +194,13 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
                         },
                         query:{userId:eachTargetUser},
                         badge: Smartix.helpers.getTotalUnreadNotificationCount(eachTargetUser)
+                        , apn: { sound: 'default' }
                     };
                     if(group.type === 'newsgroup'){
                         notificationObj.title = message.data.title || "";
                         notificationObj.text  = $('*').text() || message.data.content;
                     }
+                    //log.info("Smartix.Messages.createMessage:before doPushNotification", groupId);
                     Meteor.call("doPushNotification", notificationObj,{
                         groupId: groupId,
                         classCode: group.classCode || ""

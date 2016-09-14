@@ -1,73 +1,74 @@
 <template name="TabChat">
 
-  {{#contentFor "headerButtonLeft"}}
-   <button class="button button-clear pull-left" data-ion-menu-toggle="left">
-        {{> ionIcon icon='navicon'}}
-    </button>
-  {{/contentFor}}
-  
-  {{#contentFor "headerTitle"}}
-    <h1 class="title">{{_"Chat"}}</h1>
+    {{#contentFor "headerButtonLeft"}}
+        <button class="button button-clear pull-left" data-ion-menu-toggle="left">
+            {{> ionIcon icon='navicon'}}
+        </button>
+    {{/contentFor}}
 
-  {{/contentFor}}
+    {{#contentFor "headerTitle"}}
+        <h1 class="title">{{_"Chat"}}</h1>
 
-  {{#contentFor "headerButtonRight"}}
-    <div style="position: absolute; right: 0 ;">
-      <a href="{{ pathFor 'ChatInvite' school=getCurrentSchoolName}}" class="button button-clear button-entering button-active">
-        <i class="icon ion-chatbubble-working"></i>
-      </a>
-      {{#if displayChatOption}}
-        <a href="{{ pathFor 'Chatoption' }}" class="button button-clear button-entering button-active">
-          <i class="icon ion-gear-a"></i>
-        </a>
-      {{/if}}
-    </div>
-  {{/contentFor}}
+    {{/contentFor}}
 
-  {{#ionView}}
-    {{#ionContent}}
-    <div class="tab-chat">
-        <div class="listview">
-          <div class="listview-container">
-          {{#with getAllMyChatRooms }}
-            <div class="item item-input">
-              <i class="icon ion-search placeholder-icon"></i>
-              <input type="search" class="searchbar" placeholder="{{_ 'Search'}}">
-            </div>
-            {{#each this}}
-              {{#if isHide }}
-                <a href="{{ pathFor 'ChatRoom' chatRoomId=_id }}">
-                  {{#if Template.subscriptionsReady}}
-                  <div class="item item-icon-left item-checkbox-right item-checkbox">
-                    {{{newMessageCounter _id}}}                  
-                      {{#if isEmoji}}
-                          <i class="icon {{chatRoomUserAvatar}} e1a-1x emojicon"></i>
-                      {{else}}
-                          <img class="icon e1a-1x icon-avatar" src="{{chatRoomUserAvatar}}" />
-                      {{/if}}
-                    <h2>{{chatroomMemberName 4 }}</h2>
-                      <div class="description">{{lasttext _id}}</div>
-                      <div class="description checkbox">
-                        <span class="description" style="position:relative; float:right; top:-8px; line-height:initial"> {{formatTime2 this.lastUpdatedAt}} </span>
-                      </div>
-                  </div>
-                    {{/if}}
+    {{#contentFor "headerButtonRight"}}
+        <div style="position: absolute; right: 0 ;">
+            <a href="{{ pathFor 'ChatInvite' school=getCurrentSchoolName}}" class="button button-clear button-entering button-active">
+                <i class="icon ion-chatbubble-working"></i>
+            </a>
+            {{#if displayChatOption}}
+                <a href="{{ pathFor 'Chatoption' }}" class="button button-clear button-entering button-active">
+                    <i class="icon ion-gear-a"></i>
                 </a>
-              {{/if}}
-            {{else}}
-              
-              <div class="row row-center listview-nth">
-                <div class="col">
-                  {{_ "No_chat_yet" }} <br/><br/>
-                  <a class="button button-stable long-button" href="{{pathFor 'ChatInvite'  school=getCurrentSchoolName}}"> {{_ "StartNewChat" }} </a>
-                </div>
-              </div>            
-            {{/each}}
-          {{/with}}
-          </div>
+            {{/if}}
         </div>
-     </div>
-    {{/ionContent}}
-  {{/ionView}}
+    {{/contentFor}}
 
+    {{#ionView}}
+        {{#ionContent}}
+            {{#if Template.subscriptionsReady}}
+                <div class="tab-chat">
+                    <div class="listview">
+                        <div class="listview-container">
+                            {{#with getAllMyChatRooms }}
+                                <div class="item item-input">
+                                    <i class="icon ion-search placeholder-icon"></i>
+                                    <input type="search" class="searchbar" placeholder="{{_ 'Search'}}">
+                                </div>
+                                {{#each this}}
+                                    {{#if isHide }}
+                                        <a href="{{ pathFor 'ChatRoom' chatRoomId=_id }}">
+                                            <div class="item item-icon-left item-checkbox-right item-checkbox">
+                                                {{{newChatMessageCounter _id}}}
+                                                {{#if isEmoji}}
+                                                    <i class="icon {{chatRoomUserAvatar}} e1a-1x emojicon"></i>
+                                                {{else}}
+                                                    <img class="icon e1a-1x icon-avatar" src="{{chatRoomUserAvatar}}" />
+                                                {{/if}}
+                                                <h2>{{chatroomMemberName 4 }}</h2>
+                                                <div class="description">{{lasttext _id}}</div>
+                                                <div class="description checkbox">
+                                                    <span class="description" style="position:relative; float:right; top:-8px; line-height:initial"> {{formatTime2 this.lastUpdatedAt}} </span>
+                                                </div>
+                                            </div>
+
+                                        </a>
+                                    {{/if}}
+                                {{else}}
+
+                                    <div class="row row-center listview-nth">
+                                        <div class="col">
+                                            {{_ "No_chat_yet" }} <br/><br/>
+                                            <a class="button button-stable long-button" href="{{pathFor 'ChatInvite'  school=getCurrentSchoolName}}"> {{_ "StartNewChat" }} </a>
+                                        </div>
+                                    </div>
+                                {{/each}}
+                            {{/with}}
+                        </div>
+                    </div>
+                </div>
+            {{/if}}
+
+        {{/ionContent}}
+    {{/ionView}}
 </template>

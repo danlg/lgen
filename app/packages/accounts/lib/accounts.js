@@ -128,14 +128,12 @@ Smartix.Accounts.Schema = new SimpleSchema({
         type: String,
         optional: true
     },
-    grade: {
-        type: String,
-        optional: true
-    },
-    classroom: {
-        type: String,
-        optional: true
-    },
+
+    grade: { type: String, optional: true },
+    grade_shadow: { type: String, optional: true },
+    classroom: { type: String,  optional: true },
+    classroom_shadow: { type: String,  optional: true },
+
     country: {
         type: String,
         optional: true

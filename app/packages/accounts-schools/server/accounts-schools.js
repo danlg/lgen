@@ -51,7 +51,8 @@ Smartix.Accounts.School.getAllSchoolUsersStatus = function (namespace, currentUs
     // Get the `_id` of the school from its username
     var schoolDoc = SmartixSchoolsCol.findOne({_id: namespace });
     if(schoolDoc) {
-        let cursor = Meteor.users.find({
+        //let cursor = Meteor.users.find({
+        let cursor = Smartix.Accounts.UsersComposite.find({
                 schools: schoolDoc._id//,
                 //, "status.online": true
                 //{ fields: { ... }
@@ -59,44 +60,18 @@ Smartix.Accounts.School.getAllSchoolUsersStatus = function (namespace, currentUs
             , {
                 fields :{
                     'status.online': 1, 'status.lastLogin.date': 1 ,  'status.lastLogin.userAgent': 1,
-                    'profile.firstName': 1, 'profile.lastName': 1,'emails.address': 1, 'username': 1 , 'roles':1 },
+                    'profile.firstName': 1, 'profile.lastName': 1,'emails.address': 1, 'username': 1 , 'roles':1, 
+                    'grade': 1,    'grade_shadow':1,
+                    'classroom':1, 'classroom_shadow':1,
+                    'fullName': 1
+                }, //for student
                  sort: {'status.online': -1, 'status.lastLogin.date': -1 }
-                //, limit :10 //TODO remove me
+                //, limit :5 //TODO remove me
             }
         );
+        //log.info("getAllSchoolUsersStatus", cursor.fetch());
         //log.info("getAllSchoolUsersStatus", cursor.count());
         return cursor;
-        // if (options.online)
-        // {
-        //     return Meteor.users.find({
-        //         schools: schoolDoc._id,
-        //         "status.online": true
-        //         //{ fields: { ... }
-        //         }
-        //         , {
-        //               sort: {'status.lastLogin': -1 }
-        //             , limit :2 //TODO remove me
-        //         }
-        //     );
-        // }
-        // else {
-        //     return Meteor.users.find(
-        //         {$or:[
-        //             {
-        //                 schools: schoolDoc._id,
-        //                 "status.online": false
-        //             },
-        //             {
-        //                 schools: schoolDoc._id,
-        //                 "status.online": { $exists: false}
-        //             }
-        //         ]}
-        //         , {
-        //             sort: {'status.lastLogin': -1 }
-        //             , limit :2 //TODO remove me
-        //         }
-        //     );
-        // }
     }
     return false;
 };
@@ -367,28 +342,22 @@ Smartix.Accounts.School.revokeSchool = function(school,users){
         && !Smartix.Accounts.System.isAdmin()){
         return;
     }
-    
-    Roles.removeUsersFromRoles(users,['admin','teacher','parent','student'],school);
-    
+    Roles.removeUsersFromRoles(users,['admin','teacher','parent','student', 'user'],school);
     return Meteor.users.update({
         _id: {$in : users}
     },{
         $pull: {
             schools: school
-        },
-        
+        }
     },{
         multi: true  
     });    
-}
+};
 
 Smartix.Accounts.School.deleteSchoolUsers = function(userIds,namespace,currentUser){
-
     check(userIds, [String]);
     check(namespace, String);
     check(currentUser, String);
-        
-
     userIds.map(function(userId){
         // Retrieve the target user
         var targetUser = Meteor.users.findOne({ _id: userId });
@@ -406,5 +375,4 @@ Smartix.Accounts.School.deleteSchoolUsers = function(userIds,namespace,currentUs
             }
         }        
     });
-
-}
+};

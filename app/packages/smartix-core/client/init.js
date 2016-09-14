@@ -31,7 +31,7 @@ Meteor.startup(function () {
    //if it is a new class annoucement
    if(payload.type === 'class'){
       if(payload.classCode){
-        Router.go('classDetail',{classCode:payload.classCode},{query: "toBottom=true"});          
+        Router.go('ClassJoined',{classCode:payload.classCode},{query: "toBottom=true"});
       }             
    }
     //if it is a new newsgroup news
@@ -79,10 +79,10 @@ Meteor.startup(function () {
   //when receive a new class message, display a popup, which can be clicked
   //and be redirected to that class
   Streamy.on('newnewsgroupmessage', function(data) {
-    log.info(data);
+    log.info("newnewsgroupmessage", data);
     var pathToRouteObj ={
         routeName:'newsgroups.news.list'
-    }    
+    };
     //In Desktop, determine if browser support Notification API
     if('Notification' in window && Notification.permission == 'granted'){
         //if Notification API is supported
@@ -108,9 +108,9 @@ Meteor.startup(function () {
   //when receive a new class message, display a popup, which can be clicked
   //and be redirected to that class
   Streamy.on('newclassmessage', function(data) {
-    log.info(data);
+    log.info("newclassmessage", data);
     var pathToRouteObj ={
-        routeName:'classDetail',
+        routeName:'ClassJoined',
         params: {classCode:data.classCode},
         query: {query: "toBottom=true"}
     };    
@@ -126,7 +126,7 @@ Meteor.startup(function () {
                         "preventDuplicates": true,
                         onclick: function () {
                             //classCode
-                            Router.go('classDetail',{classCode:data.classCode},{query: "toBottom=true"});
+                            Router.go('ClassJoined',{classCode:data.classCode},{query: "toBottom=true"});
                             //$('.class-detail').scrollTop(999999);
                     }
                 }
@@ -156,7 +156,7 @@ Meteor.startup(function () {
             if(Router.current().route.getName() == 'ChatRoom' && Router.current().params.chatRoomId == data.chatRoomId){
                 //do nothing. As user its already on that chat.
             }else{
-                log.info(data);
+                log.info("newchatmessage", data);
                 toastr.info(data.text, data.from,
                         {           
                             "closeButton": true,
@@ -191,12 +191,11 @@ Meteor.startup(function () {
         Smartix.helpers.spawnDesktopNotification(data.text, '/img/logo-new.png', data.from, pathToRouteObj);
     } else {
         //if  desktop notification is not available, use toastr   
-        log.info(data);
-
+        //log.info(data);
         toastr.info(data.text, data.from,
             {
                 "closeButton": true,
-                "preventDuplicates": true,
+                "preventDuplicates": true
             }
         );
     }               
@@ -231,12 +230,11 @@ Meteor.startup(function () {
         Smartix.helpers.spawnDesktopNotification(data.text, '/img/logo-new.png', data.from, pathToRouteObj);
     } else {
         //if  desktop notification is not available, use toastr   
-        log.info(data);
-
+        log.info("Streamy other", data);
         toastr.info(data.text, data.from,
             {
                 "closeButton": true,
-                "preventDuplicates": true,
+                "preventDuplicates": true
             }
         );
     }               

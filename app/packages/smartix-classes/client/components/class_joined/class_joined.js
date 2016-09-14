@@ -14,24 +14,25 @@ var loadedItems = ReactiveVar(10);
 var loadExtraItems = 5;
 var localClassMessagesCollection = new Meteor.Collection(null);
 
-/* ClassDetail: Lifecycle Hooks */
-Template.ClassDetail.onCreated(function () {
+Template.ClassJoined.onCreated(function () {
 	//log.info(Router.current().params.classCode);
-	var classcode = Router.current().params.classCode;
-	var classObj = Smartix.Groups.Collection.findOne({
+	let classCode = Router.current().params.classCode;
+	let classObj = Smartix.Groups.Collection.findOne({
 		type: 'class',
-		classCode: classcode
+		classCode: classCode
 	});
 	var self = this;
 	this.autorun(function () {
+		self.subscribe('smartix:classes/associatedClasses');
+		self.subscribe('smartix:classes/classMembers', classCode);
 		self.subscribe('smartix:messages/groupMessages', classObj._id);
-		self.subscribe('images', UI._globalHelpers['getCurrentSchoolName'](), 'class', classcode);
-		self.subscribe('documents', UI._globalHelpers['getCurrentSchoolName'](), 'class', classcode);
-		self.subscribe('sounds', UI._globalHelpers['getCurrentSchoolName'](), 'class', classcode);
+		self.subscribe('images', UI._globalHelpers['getCurrentSchoolName'](), 'class', classCode);
+		self.subscribe('documents', UI._globalHelpers['getCurrentSchoolName'](), 'class', classCode);
+		self.subscribe('sounds', UI._globalHelpers['getCurrentSchoolName'](), 'class', classCode);
 	});
 });
 
-Template.ClassDetail.destroyed = function () {
+Template.ClassJoined.destroyed = function () {
 	//initialLoadItems.set(20);
 	loadedItems.set(10);
 	loadExtraItems = 5;
@@ -39,8 +40,7 @@ Template.ClassDetail.destroyed = function () {
 	localClassMessagesCollection = null;
 };
 
-/* ClassDetail: Event Handlers */
-Template.ClassDetail.events({
+Template.ClassJoined.events({
 	'click .tab-item': function (e) {
 		var msgId = $(e.target.parentNode).data("msgid");
 		var action = $(e.target.parentNode).data("action");
@@ -81,9 +81,10 @@ Template.ClassDetail.events({
 	},
 	'click .add-comment-annoucement': function (e) {
 		//log.info(e);
-		var text = $(e.target).parent().find('.add-comment-annoucement-textbox').val();
-		var msgId = $(e.target).data().msgid;
-		Meteor.call('smartix:messages-addons-comment/addNewComment', msgId, text);
+		let text = $(e.target).parent().find('.add-comment-annoucement-textbox').val();
+		let msgId = $(e.target).data().msgid;
+		let schoolId =  UI._globalHelpers['getCurrentSchoolId']();
+		Meteor.call('smartix:messages-addons-comment/addNewComment', msgId, text, schoolId);
       //clear comment
       $(e.target).parent().find('.add-comment-annoucement-textbox').val("");
 	},
@@ -109,10 +110,7 @@ Template.ClassDetail.events({
 	}
 });
 
-/*****************************************************************************/
-/* ClassDetail: Helpers */
-/*****************************************************************************/
-Template.ClassDetail.helpers({
+Template.ClassJoined.helpers({
 	classObj: function () {
 		var latestClassObj = Smartix.Groups.Collection.findOne({
 			type: 'class',
@@ -219,7 +217,7 @@ Template.ClassDetail.helpers({
 });
 
 
-Template.ClassDetail.onRendered( function() {
+Template.ClassJoined.onRendered( function() {
 	Meteor.call('getFullNameById', classObj.admins[0], function (err, data) {
 		return teacherName.set(data);
 	});

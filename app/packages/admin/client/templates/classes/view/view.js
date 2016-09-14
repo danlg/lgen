@@ -28,9 +28,7 @@ Template.AdminClassesView.onCreated(function () {
             }
         }),
         // See https://github.com/matteodem/meteor-easy-search/issues/315
-        defaultSearchOptions: {
-            limit: 5 
-        }
+        defaultSearchOptions: { limit: 5 }
     });
     
     this.ClassUsersIndex = new EasySearch.Index({
@@ -38,9 +36,7 @@ Template.AdminClassesView.onCreated(function () {
         fields: ['profile.firstName', 'profile.lastName'],
         engine: new EasySearch.Minimongo(),
         // See https://github.com/matteodem/meteor-easy-search/issues/315
-        defaultSearchOptions: {
-            limit: 5 
-        }
+        defaultSearchOptions: { limit: 5 }
     });
 
     this.ClassAdminsIndex = new EasySearch.Index({
@@ -48,9 +44,7 @@ Template.AdminClassesView.onCreated(function () {
         fields: ['profile.firstName', 'profile.lastName'],
         engine: new EasySearch.Minimongo(),
         // See https://github.com/matteodem/meteor-easy-search/issues/315
-        defaultSearchOptions: {
-            limit: 5 
-        }
+        defaultSearchOptions: { limit: 5 }
     });
 });
 

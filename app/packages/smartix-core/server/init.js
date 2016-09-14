@@ -25,12 +25,20 @@ log4js.configure({
 log = log4js.getLogger('lg');//global variable
 
 Meteor.startup(function () {
-  Push.debug = true;
-  //Push.Configure();
   log.setLevel('INFO');
-
-  log.info("Using env DDP_DEFAULT_CONNECTION_URL="+ Meteor.settings.DDP_DEFAULT_CONNECTION_URL);
-  log.info("Using meteor DDP_DEFAULT_CONNECTION_URL="+ __meteor_runtime_config__.DDP_DEFAULT_CONNECTION_URL);
+  log.info("======================================================================");
+  log.info("====================== STARTING SMARTIX ==============================");
+  log.info("======================================================================");
+  //Push.debug = true;
+  //Push.Configure();
+  if (process.env.CDN_DOMAIN) { //keycdn or cloudflare or cloudfront
+    WebAppInternals.setBundledJsCssPrefix(process.env.CDN_DOMAIN);
+    log.info("Setting CDN_DOMAIN=", process.env.CDN_DOMAIN);
+  }else{
+    log.warn("Setting CDN_DOMAIN not set");
+  }
+  log.info("Using DDP_DEFAULT_CONNECTION_URL=", Meteor.settings.DDP_DEFAULT_CONNECTION_URL);
+  log.info("Using DDP_DEFAULT_CONNECTION_URL=", __meteor_runtime_config__.DDP_DEFAULT_CONNECTION_URL);
 
   Accounts.config({
     //we keep delay at 90 days

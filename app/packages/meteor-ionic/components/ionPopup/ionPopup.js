@@ -47,7 +47,7 @@ IonPopup = {
       templateName: options.templateName,
       buttons: [
         {
-          text: options.okText ? options.okText : 'Ok',
+          text: options.okText ? options.okText : TAPi18n.__("OK"),
           type: options.okType ? options.okType : 'button-positive',
           onTap: function(event, template) {
             if (options.onOk) options.onOk(event, template);
@@ -66,7 +66,7 @@ IonPopup = {
       templateName: options.templateName,
       buttons: [
         {
-          text: options.cancelText ? options.cancelText : 'Cancel',
+          text: options.cancelText ? options.cancelText : TAPi18n.__("Cancel"),
           type: options.cancelType ? options.cancelType : 'button-default',
           onTap: function (event, template) {
             if (options.onCancel) options.onCancel(event, template);
@@ -74,7 +74,7 @@ IonPopup = {
           }
         },
         {
-          text: options.okText ? options.okText : 'Ok',
+          text: options.okText ? options.okText : TAPi18n.__("OK"),
           type: options.okType ? options.okType : 'button-positive',
           onTap: function (event, template) {
             if (options.onOk) options.onOk(event, template);
@@ -105,7 +105,7 @@ IonPopup = {
       template: template,
       buttons: [
         {
-          text: options.cancelText ? options.cancelText : 'Cancel',
+          text: options.cancelText ? options.cancelText : TAPi18n.__("Cancel"),
           type: options.cancelType ? options.cancelType : 'button-default',
           onTap: function (event, template) {
             if (options.onCancel) options.onCancel(event, template);
@@ -113,7 +113,7 @@ IonPopup = {
           }
         },
         {
-          text: options.okText ? options.okText : 'Ok',
+          text: options.okText ? options.okText : TAPi18n.__("OK"),
           type: options.okType ? options.okType : 'button-positive',
           onTap: function (event, template) {
             var inputVal = $(template.firstNode).find('[name=prompt]').val();

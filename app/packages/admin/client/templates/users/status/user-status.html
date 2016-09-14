@@ -23,28 +23,61 @@
                 </div>
                 <br/>
 
+                <!--<div class="radio radio-inline">-->
+                    <!--<label>-->
+                        <!--<input type="radio" name="status-filter" data-connectstatus="allconnection"-->
+                               <!--class="control-success filter-by-status-btn"  checked="checked">-->
+                        <!--<button class="label label-info">  {{_ "Admin.ShowAllConnection" }}</button>-->
+                    <!--</label>-->
+                <!--</div>-->
+                <!--<div class="radio radio-inline">-->
+                    <!--<label>-->
+                        <!--<input type="radio" name="status-filter" data-connectstatus="online"-->
+                               <!--class="control-success filter-by-status-btn">-->
+                         <!--<button class="label label-success">  {{_ "Admin.Online" }}</button>-->
+                    <!--</label>-->
+                <!--</div>-->
+
+                <!--<div class="radio radio-inline">-->
+                    <!--<label>-->
+                        <!--<input type="radio" name="status-filter" data-connectstatus="offline"-->
+                               <!--class="control-success filter-by-status-btn">-->
+                         <!--<button class="label label-warning"> {{_ "Admin.Offline" }}</button>-->
+                    <!--</label>-->
+                <!--</div>-->
+
+                <!--Last login-->
                 <div class="radio radio-inline">
                     <label>
-                        <input type="radio" name="status-filter" data-connectstatus="allconnection"
-                               class="control-success filter-by-status-btn"  checked="checked">
-                        <button class="label label-info">  {{_ "Admin.ShowAllConnection" }}</button>
+                        <input type="radio" name="status-filter" data-loginstatus="anyLoggedIn"
+                               class="control-success filter-by-last-login-btn" checked="checked">
+                         <button class="label label-info"> {{_ "Admin.AnyLoggedIn" }}</button>
                     </label>
                 </div>
                 <div class="radio radio-inline">
                     <label>
-                        <input type="radio" name="status-filter" data-connectstatus="online"
-                               class="control-success filter-by-status-btn">
-                         <button class="label label-success">  {{_ "Admin.Online" }}</button>
+                        <input type="radio" name="status-filter" data-loginstatus="loggedInAtLeastOnce"
+                               class="control-success filter-by-last-login-btn">
+                        <button class="label label-success"> {{_ "Admin.AlreadyLoggedIn" }}</button>
+                    </label>
+                </div>
+                <div class="radio radio-inline">
+                    <label>
+                        <input type="radio" name="status-filter" data-loginstatus="neverLogin"
+                               class="control-success filter-by-last-login-btn">
+                         <button class="label label-warning"> {{_ "Admin.NeverLogin" }}</button>
                     </label>
                 </div>
 
-                <div class="radio radio-inline">
-                    <label>
-                        <input type="radio" name="status-filter" data-connectstatus="offline"
-                               class="control-success filter-by-status-btn">
-                         <button class="label label-warning"> {{_ "Admin.Offline" }}</button>
-                    </label>
-                </div>
+
+                <!--<div class="text-right inline">-->
+                    <!--<label class="control-label">{{_ "Admin.NeverLogin" }}</label>-->
+                    <!--<div class="checkbox checkbox-switchery">-->
+                        <!--<label>-->
+                            <!--<input id="neverLogin" type="checkbox" class="switchery filter-by-status-btn">-->
+                        <!--</label>-->
+                    <!--</div>-->
+                <!--</div>-->
 
                 <div class="table-responsive">
                     <table class='table' >
@@ -55,13 +88,15 @@
                             <th>{{_ "LastName" }}</th>
                             <th>{{_ "FirstName" }}</th>
 
+                            <th>{{_ "Admin.Classroom" }}</th>
+                            <th>{{_ "Admin.Grade" }}</th>
                             <th>{{_ "Admin.LastLogin" }}</th>
-                            <th>{{_ "Admin.Client" }}</th>
                             <th>{{_ "Admin.Online" }}</th>
 
                             <th>{{_ "Email" }}</th>
                             <th>{{_ "Admin.Username" }}</th>
-
+                            <!--<th>{{_ "Admin.UID" }}</th>-->
+                            <th>{{_ "Admin.Client" }}</th>
 
                         </tr>
                         </thead>
@@ -73,12 +108,16 @@
                                     <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}">{{profile.lastName}}</a></td>
                                     <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}">{{profile.firstName}}</a></td>
 
+                                    <td>{{classroom getUserId}}</td>
+                                    <td>{{grade getUserId}}</td>
                                     <td>{{lastLogin getUserId}}</td>
-                                    <td>{{userAgent getUserId}}</td>
+                                    <!--Client/Device-->
                                     <td><i class="icon {{online getUserId}} emojicon"></i></td>
 
                                     <td>{{getUserEmail}}</td>
                                     <td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}"> {{username}} </a></td>
+                                    <!--<td><a href="{{pathFor 'admin.users.view' school=getCurrentSchoolName uid=getUserId}}"> {{getUserId}} </a></td>-->
+                                    <td>{{userAgent getUserId}}</td>
                                 </tr>
                             {{/EasySearch.Each}}
                             </tbody>

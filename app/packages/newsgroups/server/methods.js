@@ -14,8 +14,6 @@ Meteor.methods({
         if(distributionListInputCount !== distributionListCount){
              throw new Meteor.Error("distributionList-invalid", "Some distribution lists are not valid");             
         }
-        
-        
         var resultValue = Smartix.Newsgroup.createNewsgroup(
             distributionLists,
             [],

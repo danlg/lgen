@@ -250,24 +250,29 @@ var setCalendar = function (event, sendMsgtemplate) {
 /* SendMessage: Event Handlers */
 Template.SendMessage.events({
 	'click .showActionSheet': function (event, template) {
+		let arrayOptionsBrowser = [
+			{text: TAPi18n.__("AttachEvent")},
+			{text: TAPi18n.__("AttachDocument") }
+		];
+		let arrayOptionsMobile = [
+			{text: TAPi18n.__("AttachEvent")}
+		];
 		IonActionSheet.show({
 			//titleText: 'What to attach?',
-			buttons: [
-				{text: TAPi18n.__("AttachDocument") },
-				{text: TAPi18n.__("AttachEvent")}
-			],
-			cancelText: 'Cancel',
+			buttons: Meteor.isCordova ? arrayOptionsMobile : arrayOptionsBrowser,
+			cancelText: TAPi18n.__("Cancel"),
 			cancel: function () {
 				//log.info('Cancelled!');
 			},
 			buttonClicked: function (index) {
 				if (index === 0) {
 					//log.info('Document');
-					$('#documentBtn').click();
-				}
-				if (index === 1) {
-					//log.info('Calendar');
 					setCalendar(event, template);
+				}
+				//only for
+				if (index === 1 && !Meteor.isCordova) {
+					//log.info('Calendar');
+					$('#documentBtn').click();
 				}
 				return true;
 			}
@@ -283,14 +288,74 @@ Template.SendMessage.events({
 		voteEnableCheck();
 	},
 
-	'click #imageBtn': function (e) {
+	// 'click #imageBtnOLD': function (e) {
+	// 	log.info("click #imageBtn", e);
+	// 	if (Meteor.isCordova) {
+	// 		if (window.device.platform === "Android") {
+	// 			e.preventDefault();
+	// 			imageAction();
+	// 		}
+	// 	}
+	// },
+	
+	'click #imageBtn': function (e, template) {
+		log.info("click #imageBtn", e);
 		if (Meteor.isCordova) {
 			if (window.device.platform === "Android") {
 				e.preventDefault();
-				imageAction();
+				// 	imageAction();
+				Smartix.FileHandler.imageUploadForAndroid(
+					{
+						category: 'class',
+						id: Router.current().params.classCode,
+						'school': UI._globalHelpers['getCurrentSchoolName']()
+					}
+					, imageArr.get()
+					// the callback is not called
+					, function (result) {
+						//console.log("click #imageBtn callback++++++++" );
+						//console.log("click #imageBtn callback++++++++", result);
+						log.info("click #imageBtn callback", result);
+						imageArr.set(result);
+						//cleanup should be here really
+					}
+				);
+				console.log("Before show preview" );
+				//showPreview("image");
+				cleanupAfterSendingMessage(template);
 			}
 		}
 	},
+
+	'click .imgThumbs': function (e) {
+		var imageFullSizePath = $(e.target).data('fullsizeimage');
+		IonModal.open('imageModal', {src: imageFullSizePath});
+	},
+
+	'change #imageBtn': function (event, template) {
+		//https://github.com/CollectionFS/Meteor-CollectionFS
+		//Image is inserted from here via FS.Utility
+		Smartix.FileHandler.imageUpload(
+			event,
+			{category: 'class', id: Router.current().params.classCode, 'school': UI._globalHelpers['getCurrentSchoolName']()}
+			, imageArr.get(),
+			function (result) {
+				imageArr.set(result);
+			}
+		);
+		showPreview("image");
+	},
+
+
+// 	function imageAction() {
+// 	var options = {
+// 		'buttonLabels': ['Take Photo From Camera', 'Select From Gallery'],
+// 		'androidEnableCancelButton': true, // default false
+// 		'winphoneEnableCancelButton': true, // default false
+// 		'addCancelButtonWithLabel': 'Cancel'
+// 	};
+// 	window.plugins.actionsheet.show(options, callback);
+// }
 
 	'click .ion-play.playBtn': function (e) {
 		if (!isPlayingSound) {
@@ -373,20 +438,6 @@ Template.SendMessage.events({
 		IonModal.open('imageModal', {src: imageFullSizePath});
 	},
 
-	'change #imageBtn': function (event, template) {
-		//https://github.com/CollectionFS/Meteor-CollectionFS
-		//Image is inserted from here via FS.Utility
-		Smartix.FileHandler.imageUpload(
-			event,
-			{category: 'class', id: Router.current().params.classCode, 'school': UI._globalHelpers['getCurrentSchoolName']()}
-			, imageArr.get(),
-			function (result) {
-				imageArr.set(result);
-			}
-		);
-		showPreview("image");
-	},
-
 	'click .sendMsgBtn': function (event, template) {
 		var target = Session.get('sendMessageSelectedClasses').selectArrId;
 		//log.info(target);
@@ -414,25 +465,17 @@ Template.SendMessage.events({
 		}
 		var addons = [];
 		populateAddons(addons, mediaObj);
-		GeneralMessageSender(target[0], 'text', msg, addons, null, function () {
-			//log.info('callback@GeneralMessageSender');
-			Session.set("sendMessageSelectedClasses", {
-				selectArrName: [],
-				selectArrId: []
-			});
-			//input parameters clean up
-			imageArr.set([]);
-			soundArr.set([]);
-			documentArr.set([]);
-			$(".msgBox").val("");
-			template.calendarEvent.set({});
-			hidePreview('all');
-			sendBtnMediaButtonToggle();
-			//force update autogrow
-			document.getElementsByClassName("inputBox")[0].updateAutogrow();
-			//scroll messagelist to bottom;
-			window.setTimeout(scrollMessageListToBottom, 100);
-		});
+		GeneralMessageSender(target[0], 'text', msg, addons, null,
+			//callback
+			function () {
+				//log.info('callback@GeneralMessageSender');
+				Session.set("sendMessageSelectedClasses", {
+					selectArrName: [],
+					selectArrId: []
+				});
+				cleanupAfterSendingMessage(template);
+			}
+		);
 	},
 
 	'keyup .inputBox': function () {
@@ -470,6 +513,21 @@ Template.SendMessage.events({
 			});
 	}
 });
+
+function cleanupAfterSendingMessage(template) {
+	//input parameters clean up
+	sendBtnMediaButtonToggle();
+	imageArr.set([]);
+	soundArr.set([]);
+	documentArr.set([]);
+	$(".msgBox").val("");
+	template.calendarEvent.set({});
+	hidePreview('all');
+	//force update autogrow
+	document.getElementsByClassName("inputBox")[0].updateAutogrow();
+	//scroll messagelist to bottom;
+	window.setTimeout(scrollMessageListToBottom, 100);
+}
 
 function populateAddons(addons, mediaObj) {
 	//add images to addons one by one if any
@@ -677,22 +735,28 @@ function onFail(message) {
 }
 
 var callback = function (buttonIndex) {
+	//TODO reuse this bit of code 
 	setTimeout(function () {
 		// like other Cordova plugins (prompt, confirm) the buttonIndex is 1-based (first button is index 1)
 		//  alert('button index clicked: ' + buttonIndex);
 		switch (buttonIndex) {
 			case 1:
-				navigator.camera.getPicture(onSuccess, onFail, {
+				navigator.camera.getPicture(onSuccess, onFail, { allowEdit: false, correctOrientation: true,
 					quality: 50,
 					destinationType: Camera.DestinationType.FILE_URI,
 					limit: 1
 				});
 				break;
 			case 2:
-				navigator.camera.getPicture(onSuccess, onFail, {
+				//fix orientation 
+				//see https://forum.ionicframework.com/t/camera-wrong-orientation-with-android/8583/22 allowEdit: false, correctOrientation: true,
+				// from https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-camera/index.html
+				// from https://github.com/apache/cordova-plugin-camera/tree/2.1.1
+				// Android Quirks: allowEdit is unpredictable on Android and it should not be used! (version 6.x)
+				navigator.camera.getPicture(onSuccess, onFail, { allowEdit: false, correctOrientation: true,
 					quality: 50,
 					destinationType: Camera.DestinationType.FILE_URI,
-					sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
+					sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
 					limit: 1
 				});
 				break;
@@ -709,10 +773,17 @@ function onResolveSuccess(fileEntry) {
 		//newFile.attachData();
 		//log.info(newFile);
 		var classCode = Router.current().params.classCode;
-		log.info("Setting sound metadata ", "school:", UI._globalHelpers['getCurrentSchoolName'](), "category:class", "id:", classCode);
+		console.log("Setting sound metadata "+
+			"school:" + UI._globalHelpers['getCurrentSchoolName']() +
+			"category:'class'" +
+			"id:" + classCode);
+		log.info("Setting sound metadata ", 
+			"school:", UI._globalHelpers['getCurrentSchoolName'](), 
+			"category:'class'",
+			"id:", classCode);
 		newFile.metadata = {
 			school: UI._globalHelpers['getCurrentSchoolName'](),
-			category: 'chat',
+			category: 'class',
 			id: classCode };
 		Sounds.insert(newFile, function (err, fileObj) {
 			if (err) {
@@ -756,10 +827,9 @@ function playAudio(url, callback) {
 	my_media.play({numberOfLoops: 1});
 }
 
-
 function imageAction() {
 	var options = {
-		'buttonLabels': ['Take Photo From Camera', 'Select From Gallery'],
+		'buttonLabels': ['Take Photo From Camera HERE', 'Select From Gallery THERE'],
 		'androidEnableCancelButton': true, // default false
 		'winphoneEnableCancelButton': true, // default false
 		'addCancelButtonWithLabel': 'Cancel'
@@ -768,6 +838,7 @@ function imageAction() {
 }
 
 function showPreview(filetype) {
+//the preview is not working for Android
 	log.info("show preview:filetype:" + filetype);
 	$('.preview' + '.' + filetype).show();
 	var borrower = messageListHeightBorrower.get();

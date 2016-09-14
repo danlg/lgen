@@ -6,20 +6,51 @@ var isPlayingSound = false;
 
 /* ChatRoom: Event Handlers */
 Template.ChatRoom.events({
+	// for now we just add doc in chat - replace native
+	// 'click .showActionSheet': function (event, template) {
+	// 	IonActionSheet.show({
+	// 		//titleText: 'What to attach?',
+	// 		buttons: [
+	// 			{text: TAPi18n.__("AttachDocument") }
+	// 			//, {text: TAPi18n.__("AttachEvent")}
+	// 		],
+	// 		cancelText: TAPi18n.__("Cancel"),
+	// 		cancel: function () {
+	// 			//log.info('Cancelled!');
+	// 		},
+	// 		buttonClicked: function (index) {
+	// 			if (index === 0) {
+	// 				//log.info('Document');
+	// 				$('#documentBtn').click();
+	// 			}
+	// 			// if (index === 1) {
+	// 			// 	//log.info('Calendar');
+	// 			// 	setCalendar(event, template);
+	// 			// }
+	// 			return true;
+	// 		}
+	// 	});
+	// },
 
 	'click .sendBtn': function () {
 		var text = $('.inputBox').val();
 		if (!lodash.isEmpty(text)) {
-			GeneralMessageSender(Router.current().params.chatRoomId, 'text', text, null, Smartix.helpers.getAllUserExceptCurrentUser(), function () {
-				$('.inputBox').val("");
-				sendBtnMediaButtonToggle();
-				document.getElementsByClassName("inputBox")[0].updateAutogrow();
-			});
+			GeneralMessageSender(
+				Router.current().params.chatRoomId, 'text', text, null,
+				Smartix.helpers.getAllUserExceptCurrentUser(),
+				function () {
+					$('.inputBox').val("");
+					sendBtnMediaButtonToggle();
+					document.getElementsByClassName("inputBox")[0].updateAutogrow();
+				}
+			);
 		}//else we do not send
 	},
 
 	'click .imageIcon': function (argument) {
-		// alert("asd");
+		log.info("imageIcon" + argument);
+		console.log("imageIcon" + argument);
+		//alert("imageIcon" + argument);
 	},
 	
 	'keyup .inputBox': function () {
@@ -174,9 +205,16 @@ function onResolveSuccess(fileEntry) {
 		//log.info(newFile);
 		var chatRoomId = Router.current().params.chatRoomId;
 
-		log.info("Setting sound metadata ", "school:", UI._globalHelpers['getCurrentSchoolId'](), "category:chat", "id:", chatRoomId);
+		console.log("Setting sound metadata "+
+			"school:" + UI._globalHelpers['getCurrentSchoolName']() +
+			"category:'chat'" +
+			"id:" + chatRoomId);
+		log.info("Setting sound metadata ",
+			"school:", UI._globalHelpers['getCurrentSchoolName'](),
+			"category:chat",
+			"id:", chatRoomId);
 		newFile.metadata = { 
-			school: UI._globalHelpers['getCurrentSchoolId'](),
+			school: UI._globalHelpers['getCurrentSchoolName'](),
 			category: 'chat', 
 			id: chatRoomId
 		};
