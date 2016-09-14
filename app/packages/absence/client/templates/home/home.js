@@ -25,7 +25,7 @@ Template.AttendanceHome.helpers({
     isParent: function () {
         let currentUser = Meteor.user();
         schoolId = UI._globalHelpers['getCurrentSchoolId']();
-        return (currentUser.roles[currentSchoolId].indexOf(Smartix.Accounts.School.PARENT) !=-1)
+        return (currentUser.roles[schoolId].indexOf(Smartix.Accounts.School.PARENT) !=-1)
     },
     
     isTeacherOrAdmin: function () {

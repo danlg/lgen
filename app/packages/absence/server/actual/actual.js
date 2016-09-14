@@ -53,6 +53,28 @@ var attendanceRecordsPattern = {
     department: String
 };
 
+
+Smartix.Absence.recordRollCall = function(records, date, classCode, schoolName, currentUser){
+    check(records, [String]);
+    check(schoolName, String);
+    check(currentUser, Match.Maybe(String));
+    check(date, String);
+    
+    let absenseRecords = [];
+    lodash.forEach(records, function(studentId){
+        studentRecord = {};
+        studentObj = Meteor.users.findOne(studentId);
+        studentRecord.studentId = studentObj.studentId;
+        studentRecord.name = studentObj.profile.firstName + ' ' + studentObj.profile.lastName;
+        studentRecord.date = date;
+        studentRecord.absent = 'True';
+        studentRecord.department = classCode;
+        absenseRecords.push(studentRecord);
+    });    
+    // log.info(absenseRecords);
+    return Smartix.Absence.updateAttendanceRecord(absenseRecords, schoolName, currentUser);
+}
+
 Smartix.Absence.updateAttendanceRecord = function (records, schoolName, currentUser) {
     check(records, Match.OneOf(attendanceRecordsPattern, [attendanceRecordsPattern]));
     check(schoolName, String);

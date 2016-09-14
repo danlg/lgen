@@ -634,6 +634,8 @@
     "Attendance": "Attendance",
     "AttendanceRecord": "Attendance record",
     "ConfirmToApplyLeaveFor": "Leave request",
+    "ConfirmToMarkAbsent1": "Do you want to mark ",
+    "ConfirmToMarkAbsent2": " students absent?",
     "Contact": "Contact School",
     "EndDate": "End Date",
     "From": "From",

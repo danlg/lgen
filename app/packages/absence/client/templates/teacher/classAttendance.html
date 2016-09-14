@@ -30,9 +30,9 @@
             {{else}}
                 {{#each usersProfile}}
                     {{#if isAdmin this._id}}
-                    <p></p>
+                    <!--<p></p>-->
                     {{else}}
-                        <div class="item item-icon-left user-item item-checkbox-right item-checkbox">
+                        <div id="{{this._id}}" class="item studentProfile item-icon-left user-item item-checkbox-right item-checkbox">
                             {{#if isEmoji this}}
                                 <i class="icon e1a-{{this.profile.avatarValue}} e1a-1x emojicon"></i>
                             {{else}}
@@ -40,8 +40,17 @@
                             {{/if}}
                             <h2>{{this.profile.firstName}} {{this.profile.lastName}}</h2>
                             <div class="checkbox" style="position:relative; float:right">
-                                <!--<i class="icon assertive ion-android-remove-circle remove-member-btn " >
-                                </i>-->
+                                {{#if isPresent this._id}}
+                                <i class="icon ion-checkmark-circled positive" ></i>                                    
+                                {{else}}
+                                    {{#if isAbsent this._id}}
+                                        <i class="icon ion-minus-circled assertive" ></i>                                                   
+                                    {{else}}
+                                    <i class="icon assertive " >
+                                        <i class="icon ion-record dark" ></i>                                                   
+                                    </i>   
+                                    {{/if}}
+                                {{/if}}
                             </div>
                         </div>
                     {{/if}}
@@ -52,4 +61,9 @@
 
     {{/ionContent}}
   {{/ionView}}
+  
+    {{#ionFooterBar class='submitAttendance bar-stable'}}
+        <div class="title"><i class="icon ion-arrow-right-c" style="font-size: 30px;"></i></div>
+    {{/ionFooterBar}}
+    
 </template>
