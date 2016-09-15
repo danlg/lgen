@@ -96,8 +96,8 @@
                         <br/>
                       {{/with}}
                     {{/if}}
-                    <!--http://stackoverflow.com/questions/10426786/div-gets-extra-height-for-no-reason-->
-                    <img style='display:block;' src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs responsive-img" data-fullsizeimage="{{this.url  }}">
+                    <!--http://stackoverflow.com/questions/10426786/div-gets-extra-height-for-no-reason-->  <!-- I have add id here to handle long press event in chat_room.events.js Rajit Deligence -->
+                    <img id="dt-image-chat" style='display:block;' src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs responsive-img" data-fullsizeimage="{{this.url  }}">
                   </div>
                 {{/with}}
                 {{#with FS.GetFile "documents" fileId}}
