@@ -35,7 +35,7 @@ Template.ChatRoom.events({
 	// },
 
 	// Here handling chat image long press - on long press showing popup for save/cancel the image to mobile gallery - Rajit Deligence
-	'contextmenu #dt-image-chat': function (e) {
+	'contextmenu .dt-image-chat': function (e) {
 	    var img = e.target
 		var callback = function (buttonIndex) {
 	    	setTimeout(function () {

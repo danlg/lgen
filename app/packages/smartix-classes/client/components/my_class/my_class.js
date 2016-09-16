@@ -121,7 +121,50 @@ Template.ClassPanel.events({
 		Smartix.Messages.Addons.Calendar.addEvent(eventName, location, description, startDate, endDate, function () {
 			toastr.info(TAPi18n.__("EventAddCalendar"));
 		});
-	}
+	},
+
+	'contextmenu .dt-image-class-chat1': function (e) {
+		var img = e.target
+		var callback = function (buttonIndex) {
+	    	setTimeout(function () {
+					// like other Cordova plugins (prompt, confirm) the buttonIndex is 1-based (first button is index 1)
+					//  alert('button index clicked: ' + buttonIndex);
+					switch (buttonIndex) {
+						case 1:
+							//do nothing -- Cancel case
+							break;
+							default:
+						case 2:
+							function getBase64Image(img) {
+							  var canvas = document.createElement("canvas");
+							  canvas.width = img.width;
+							  canvas.height = img.height;
+							  img.setAttribute('crossOrigin', 'anonymous');
+							  if(!img.getAttribute('src')){
+						  		img.setAttribute('src', img.getAttribute('data-fullsizeimage'))
+							  }
+							  var ctx = canvas.getContext("2d");
+							  ctx.drawImage(img, 0, 0);
+							  var dataURL = canvas.toDataURL("image/png");
+							  return dataURL               //.replace(/^data:image\/(png|jpg);base64,/, "");
+							}
+
+							var base64 = getBase64Image(img);
+							var params = {data:base64};
+							window.imageSaver.saveBase64Image(params, 
+								function (result) {
+						          console.log('result ' + result);
+						        },
+						        function (error) {
+						          console.log('error ' + error);
+					        	}
+					        )
+							break;
+					}
+				});
+			};
+			navigator.notification.confirm('Are you sure, you want to save this image', callback, 'Confirm', ['Cancel','Save'])
+  }
 });
 
 /* ClassPanel: Helpers */

@@ -48,11 +48,11 @@
                                                 {{#with getImage}}
                                                     {{#if this.isUploaded}}
                                                         {{#if this.hasStored 'images'}}
+                                                            <!-- <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a>  store='thumbs'-->
                                                             <div class="">
-                                                                <img src="{{this.url store='thumbs'  }}" alt=""
-                                                                     class="imgThumbs responsive-img"
+                                                                <img src="{{this.url}}" alt=""
+                                                                     class="dt-image-class-chat imgThumbs responsive-img"
                                                                      data-fullsizeimage="{{this.url  }}">
-                                                                <!-- <a class="button button-icon icon ion-close-circled image" data-imgid="{{_id}}"></a> -->
                                                             </div>
                                                         {{/if}}
                                                     {{/if}}
