@@ -269,15 +269,16 @@ Template.registerHelper('getCurrentSchoolName',function(){
     if ( Meteor.isClient ) {
         var pickedSchoolId = Session.get('pickedSchoolId');
         var pickSchoolName = SmartixSchoolsCol.findOne(pickedSchoolId);
-        if(pickSchoolName)
-        {
+        if (pickSchoolName) {
             return pickSchoolName.shortname;
         }
-        if(Router && Router.current() && Router.current().params.school) {
-            return Router.current().params.school;
-        }
-        else {
-            log.error("getCurrentSchoolName cannot be found");
+        if (Meteor.userId()) {
+            if (Router.current() && Router.current().params.school) {
+                return Router.current().params.school;
+            }
+            else {
+                log.warn("getCurrentSchoolName cannot be found");
+            }
         }
     }
     else{

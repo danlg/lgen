@@ -16,54 +16,8 @@ Package.onUse(function(api) {
     api.use('reactive-var','client');
     api.use('session', 'client');    
     api.use('templating', 'client');
-    api.use('fourseven:scss@2.0.0','client'); 
-    
-    api.addFiles('route.js');
+    api.use('fourseven:scss@2.0.0','client');
 
-    api.addFiles('client/templates/report/report.html','client');
-                 
-    api.addFiles([
-                    'client/templates/about/about.html',
-                    'client/templates/about/about.js',                    
-                 ],
-                'client');
-
-    api.addFiles([
-                    'client/templates/connection_status/connection_status.html',                  
-                 ],
-                'client');
- 
-     api.addFiles([
-                    'client/templates/feedback/feedback.html',
-                    'client/templates/feedback/feedback.js',
-                    'client/templates/feedback/feedback.css',                                       
-                 ],
-                'client');
-
-     api.addFiles([
-                    'client/templates/help/help.html',                                    
-                 ],
-                'client');
-
-     api.addFiles([
-                    'client/templates/legal/en.privacy.html',
-                    'client/templates/legal/en.tandc.html',
-                    'client/templates/legal/fr.privacy.html',
-                    'client/templates/legal/fr.tandc.html',                                                                                               
-                 ],
-                'client');
-                
-     api.addFiles([
-                    'client/templates/shared/loading/loading.html',
-                    'client/templates/shared/loading/loading.js',
-                    'client/templates/shared/not_found/not_found.html',
-                    'client/templates/shared/not_found/not_found.js',                                                                                                                                    
-                 ],
-                'client');
-                                                                                                  
-
-    
-    
     //initialize dependency
     api.use('yuukan:streamy');
     api.use('chrismbeckett:toastr');
@@ -78,6 +32,49 @@ Package.onUse(function(api) {
     api.use('accounts-password');
     api.use('jquery');
     
+    api.addFiles('route.js');
+
+    api.addFiles('client/templates/report/report.html','client');
+                 
+    api.addFiles([
+                    'client/templates/about/about.html',
+                    'client/templates/about/about.js'
+                 ],
+                'client');
+
+    api.addFiles([
+                    'client/templates/connection_status/connection_status.html'              
+                 ],
+                'client');
+ 
+     api.addFiles([
+                    'client/templates/feedback/feedback.html',
+                    'client/templates/feedback/feedback.js',
+                    'client/templates/feedback/feedback.css'                                       
+                 ],
+                'client');
+
+     api.addFiles([
+                    'client/templates/help/help.html'                                   
+                 ],
+                'client');
+
+     api.addFiles([
+                    'client/templates/legal/en.privacy.html',
+                    'client/templates/legal/en.tandc.html',
+                    'client/templates/legal/fr.privacy.html',
+                    'client/templates/legal/fr.tandc.html'                                                                                               
+                 ],
+                'client');
+                
+     api.addFiles([
+                    'client/templates/shared/loading/loading.html',
+                    'client/templates/shared/loading/loading.js',
+                    'client/templates/shared/not_found/not_found.html',
+                    'client/templates/shared/not_found/not_found.js'                                                                                                                                    
+                 ],
+                'client');
+    
     api.addFiles('_app.js');         
     api.addFiles('client/init.js','client');       
     api.addFiles('server/init.js','server');
@@ -87,7 +84,7 @@ Package.onUse(function(api) {
                   'client/autoformHooks/emailInvite.js',
                   'client/autoformHooks/emailsignup.js',
                   'client/autoformHooks/joinClassHook.js',
-                  'client/autoformHooks/profileEdit.js',
+                  'client/autoformHooks/profileEdit.js'
                  ],'client');
         
     
