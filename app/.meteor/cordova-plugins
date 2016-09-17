@@ -6,6 +6,7 @@ cordova-plugin-compile-time@0.4.2
 cordova-plugin-contacts@2.0.1
 cordova-plugin-device@1.1.1
 cordova-plugin-dialogs@1.2.0
+cordova-plugin-file@4.2.0
 cordova-plugin-filepath@1.0.2
 cordova-plugin-globalization@1.0.3
 cordova-plugin-inappbrowser@https://github.com/ephemer/cordova-plugin-inappbrowser.git#04091fde737519c149e7ad6316971cb6b490c5b3
