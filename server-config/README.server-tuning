@@ -68,3 +68,16 @@ References:
 https://www.jayway.com/2015/04/13/600k-concurrent-websocket-connections-on-aws-using-node-js/
 https://easyengine.io/tutorials/linux/increase-open-files-limit/
 https://bocoup.com/weblog/node-stress-test-analysis
+
+----
+DEPLOY NGINX
+
+deploy nginx.conf in /etc/nginx
+deploy <app>.conf (like carmel.conf, smartix.conf) in /etc/nginx/sites-enabled
+kill bud
+ensure force-ssl is removed in Meteor packages
+
+ENVIRONMENT VARIABLES in config/env.sh
+change environment variable BIND_IP in to be the same as the one specified in the <app>.conf file
+add export DDP_DEFAULT_CONNECTION_URL=https://carmel.gosmartix.com required for Cordova client when build is not done against the --server
+(typically build against UAT and deployment in prod)
