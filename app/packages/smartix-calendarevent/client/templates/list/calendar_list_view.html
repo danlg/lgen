@@ -10,6 +10,8 @@
     {{#ionView}}
     {{#ionContent}} 
 
+        <div id='calendar'></div>
+
         {{#if Template.subscriptionsReady}}
         {{#each getEvents}}
             
@@ -22,8 +24,6 @@
         {{else}}
             <div style ="padding-top:2vh; height: 5vh;" class="spinner-loading">{{> ionSpinner icon="sprial"}}</div>
         {{/if}}   
-
-        <div id='calendar'>Calendar Goes here</div>
 
        {{/ionContent}}
   {{/ionView}}              

@@ -5,25 +5,46 @@ import fullCalendar from 'fullcalendar';
 
 var mycalendar;
 
-Template.CalendarListView.onRendered( () => {
-    mycalendar = jQuery('#calendar').fullCalendar({
-        // put your options and callbacks here
-    });
-    log.info("Calendar rendered", mycalendar);
-});
-//END  OF FULL CALENDAR INTEGRATION
-
 Template.CalendarListView.onCreated(function(){
     var self = this;
     self.subscribe('newsgroupsForUser',null,null,Session.get('pickedSchoolId'),function(){
         //self.subscribe('newsForUser',null,null,Session.get('pickedSchoolId'));
-        self.subscribe('calendarEntriesForUser',null,null,Session.get('pickedSchoolId'));
+        self.subscribe('calendarEntriesForUser',null,null,Session.get('pickedSchoolId'), function(){
+            let calendarEvents = Smartix.Messages.Collection.find(
+            {},
+            // { sort: { 'addons.startDate': 1 } }// sort doesn't work on server side, for calendar event, by chronological order
+            ).fetch();
+            let calendarEventsArray = [];
+            lodash.forEach(calendarEvents, function(calendarEvent){
+                let calendarEventObj = {};
+                calendarEventObj.title = calendarEvent.addons[0].eventName;
+                calendarEventObj.start = moment(calendarEvent.addons[0].startDate).format();
+                calendarEventObj.end = moment(calendarEvent.addons[0].endDate).format();
+                calendarEventObj.description = "Location: " + calendarEvent.addons[0].location;
+                calendarEventsArray.push(calendarEventObj);
+            });
+            mycalendar = jQuery('#calendar').fullCalendar({
+                    // put your options and callbacks here
+                    events: calendarEventsArray,
+                    // eventRender: function(event, element) {
+                    //     element.qtip({
+                    //         content: event.description
+                    //     });
+                    // }
+            });
+        });
         self.subscribe('smartix:distribution-lists/listsInNamespace',Session.get('pickedSchoolId'));
     });
 });
 //1. get all messages that have calendar addons that user is in the group
 //db.getCollection('smartix:messages').find({'addons.type':'calendar',group:{ $in: usergroups}})
 //2. display them like the list view shown in github
+
+Template.CalendarListView.onRendered( () => {
+    
+});
+//END  OF FULL CALENDAR INTEGRATION
+
 Template.CalendarListView.helpers({
     getEvents:function(){
         //TODO : DONE filter done server side

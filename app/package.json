@@ -60,11 +60,11 @@
     "listplugins": "ls -lrt .meteor/local/cordova-build/plugins"
   },
   "dependencies": {
+    "fullcalendar": "^3.0.0",
     "jszip": "^3.0.0",
     "log4js": "^0.6.29",
     "meteor-node-stubs": "^0.2.3",
     "trumbowyg": "^2.1.0",
-    "xlsx": "^0.8.0",
-    "fullcalendar": "^3.0.0"
+    "xlsx": "^0.8.0"
   }
 }
