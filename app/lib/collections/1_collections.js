@@ -67,13 +67,22 @@ Documents = new FS.Collection("documents", {
   
 });
 
-function trueFunc(userId) {
+function accessFunction(userId) {
+    //here we pur the function we want to use
+    //return trueAuthFunc(userId);
+    return trueFunc(userId);
+}
+
+function trueFunc (userId) { return true; }
+
+function trueAuthFunc(userId) {
   if (!userId) {
-    // must be logged in
+    // must be logged in to get the image
     return false;
   }
   return true;
 }
+
 function falseFunc() {
   return false;
 }
@@ -87,22 +96,23 @@ function falseFunc() {
 
 Images.allow({
 //for school signup, the user  is not logged in so we need to authorize to upload image
-  insert: function()  { return true; } ,
-  update: trueFunc,
-  remove: trueFunc,
-  download: trueFunc
-});
-Sounds.allow({
   insert: trueFunc,
-  update: trueFunc,
-  remove: trueFunc,
-  download: trueFunc
+  update: trueAuthFunc,
+  remove: trueAuthFunc,
+  download: trueFunc //here do the change so relax rule
+});
+
+Sounds.allow({
+  insert: trueAuthFunc,
+  update: trueAuthFunc,
+  remove: trueAuthFunc,
+  download: trueFunc //here do the change so relax rule
 });
 Documents.allow({
-  insert: trueFunc,
-  update: trueFunc,
-  remove: trueFunc,
-  download: trueFunc
+  insert: trueAuthFunc,
+  update: trueAuthFunc,
+  remove: trueAuthFunc,
+  download: trueFunc //here do the change so relax rule
 });
 
 // Docs.allow({

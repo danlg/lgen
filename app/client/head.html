@@ -27,18 +27,14 @@ _____                          _    _            _____        _                 
 
   <meta name="description" content="Smartix: instant messaging for school">
   <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1,minimum-scale=1, user-scalable=no, shrink-to-fit=no' />
-  <meta http-equiv="Content-Security-Policy"
-          content="
-        default-src https:;
-        connect-src https: wss:;
-        font-src https: data:;
-        frame-src https:;
-        img-src https: data:;
-        media-src https:;
-        object-src https:;
-        script-src 'unsafe-inline' 'unsafe-eval' https:;
-        style-src 'unsafe-inline' https:;
-    ">
+    <!--connect-src 'self' http: https: ws: wss: ; //wss is ws secure-->
+    <meta http-equiv="Content-Security-Policy" content="default-src * data: blob: 'unsafe-inline' 'unsafe-eval' ws: wss:;
+        img-src * 'self' data: 'unsafe-inline' 'unsafe-eval' data: *;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com carmelprd-51ba.kxcdn.com smartixprd-51ba.kxcdn.com carmeluuat-51ba.kxcdn.com;
+        script-src 'self' 'unsafe-inline' 'unsafe-eval'
+                   carmelprd-51ba.kxcdn.com smartixprd-51ba.kxcdn.com carmeluuat-51ba.kxcdn.com
+                   cdnjs.cloudflare.com maxcdn.bootstrapcdn.com www.google-analytics.com cdn.mxpnl.com;
+        font-src 'self' 'unsafe-inline' 'unsafe-eval' carmelprd-51ba.kxcdn.com smartixprd-51ba.kxcdn.com carmeluuat-51ba.kxcdn.com https://fonts.gstatic.com data:">
 
    <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

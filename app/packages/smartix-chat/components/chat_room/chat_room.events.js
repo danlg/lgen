@@ -1,36 +1,135 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
+// import blobUtil from 'blob-util';
+
 
 var isRecording = false;
 var media = "";
 var isPlayingSound = false;
 
-/* ChatRoom: Event Handlers */
+/** This code for imageModal is not working yet but is not activated*/
+Template.imageModal.onCreated( (imagePath) => {
+	this.imagePath = new ReactiveVar(imagePath);
+});
+
+Template.imageModal.events({
+	// Here handling chat image long press - on long press showing popup for save/cancel the image to mobile gallery - Rajit Deligence
+	//'contextmenu #dt-image-chat': function (e) {
+	// not used yet to debug
+	'click #imageGallery': function (e) {
+		log.info("Clicked imageGallery" + Template.instance().imagePath);
+		var img = Template.instance().imagePath; //e.target;
+		var img = src; //e.target;
+		var callback = function (buttonIndex) {
+			setTimeout(function () {
+				// like other Cordova plugins (prompt, confirm) the buttonIndex is 1-based (first button is index 1)
+				//  alert('button index clicked: ' + buttonIndex);
+				switch (buttonIndex) {
+					case 1:
+						//do nothing -- Cancel case
+						break;
+					case 2:
+					function getBase64Image(img) {
+						var canvas = document.createElement("canvas");
+						canvas.width = img.width;
+						canvas.height = img.height;
+						img.setAttribute('crossOrigin', 'anonymous');
+						if(!img.getAttribute('src')){
+							img.setAttribute('src', img.getAttribute('data-fullsizeimage'))
+						}
+						var ctx = canvas.getContext("2d");
+						ctx.drawImage(img, 0, 0);
+						var dataURL = canvas.toDataURL("image/png", 1.0);
+						return dataURL;               //.replace(/^data:image\/(png|jpg);base64,/, "");
+					}
+						var base64 = getBase64Image(img);
+						//https://github.com/agomezmoron/cordova-save-image-gallery/blob/master/README.md
+						var params = {data:base64, quality: 100 };
+						window.imageSaver.saveBase64Image(params,
+							function (result) {
+								log.info('result ' + result);
+							},
+							function (error) {
+								log.error('error ' + error);
+							}
+						);
+						break;
+				}
+			});
+		};
+		navigator.notification.confirm('Are you sure, you want to save this image', callback, 'Confirm', ['Cancel','Save'])
+	}
+});
+
 Template.ChatRoom.events({
-	// for now we just add doc in chat - replace native
-	// 'click .showActionSheet': function (event, template) {
-	// 	IonActionSheet.show({
-	// 		//titleText: 'What to attach?',
-	// 		buttons: [
-	// 			{text: TAPi18n.__("AttachDocument") }
-	// 			//, {text: TAPi18n.__("AttachEvent")}
-	// 		],
-	// 		cancelText: TAPi18n.__("Cancel"),
-	// 		cancel: function () {
-	// 			//log.info('Cancelled!');
-	// 		},
-	// 		buttonClicked: function (index) {
-	// 			if (index === 0) {
-	// 				//log.info('Document');
-	// 				$('#documentBtn').click();
-	// 			}
-	// 			// if (index === 1) {
-	// 			// 	//log.info('Calendar');
-	// 			// 	setCalendar(event, template);
-	// 			// }
-	// 			return true;
-	// 		}
-	// 	});
-	// },
+	// Here handling chat image long press - on long press showing popup for save/cancel the image to mobile gallery - Rajit Deligence
+
+
+// 	try to use this code to download image in background
+// 	Make sure your url contains a image and it is valid url
+// 	NSString *strImgURLAsString = @"imageURL";
+// [strImgURLAsString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+// NSURL *imgURL = [NSURL URLWithString:strImgURLAsString];
+// [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:imgURL] queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+// 	if (!connectionError) {
+// 		UIImage *img = [[UIImage alloc] initWithData:data];
+// 		// pass the img to your imageview
+// 	}else{
+// 		NSLog(@"%@",connectionError);
+// 	}
+// }];
+
+	// 'click #dt-image-chat': function (e) {
+    'contextmenu #dt-image-chat': function (e) {
+		log.info("Clicked imageGallery dt-image-chat");
+		if (Meteor.isCordova) {
+			var img = e.target;
+			var callback = function (buttonIndex) {
+				setTimeout(function () {
+					// like other Cordova plugins (prompt, confirm) the buttonIndex is 1-based (first button is index 1)
+					//  alert('button index clicked: ' + buttonIndex);
+					switch (buttonIndex) {
+						case 1:
+							//do nothing -- Cancel case
+							break;
+						case 2:
+							function getBase64Image(img) {
+								var canvas = document.createElement("canvas");
+								canvas.width = img.width;
+								canvas.height = img.height;
+								img.setAttribute('crossOrigin', 'anonymous');
+								if (!img.getAttribute('src')) {
+									img.setAttribute('src', img.getAttribute('data-fullsizeimage'))
+								}
+								var ctx = canvas.getContext("2d");
+								ctx.drawImage(img, 0, 0);
+								var dataURL = canvas.toDataURL("image/png", 1.0);
+								return dataURL;               //.replace(/^data:image\/(png|jpg);base64,/, "");
+							}
+							var base64 = getBase64Image(img);
+							//https://github.com/agomezmoron/cordova-save-image-gallery/blob/master/README.md
+							var params = {data: base64, quality: 100};
+							window.imageSaver.saveBase64Image(params,
+								function (result) {
+									log.info('result ' + result);
+								},
+								function (error) {
+									log.error('error ' + error);
+								}
+							);
+							break;
+					}
+				});
+			};
+			navigator.notification.confirm('Are you sure, you want to save this image', callback, 'Confirm', ['Cancel', 'Save'])
+		}
+	},
+
+	// TODO KEEP ME !
+	'click .imgThumbs': function (e) {
+		var imageFullSizePath = $(e.target).data('fullsizeimage');
+		log.info("click .imgThumbs", imageFullSizePath);
+		IonModal.open('imageModal', {src: imageFullSizePath});
+	},
 
 	'click .sendBtn': function () {
 		var text = $('.inputBox').val();
@@ -52,25 +151,25 @@ Template.ChatRoom.events({
 		console.log("imageIcon" + argument);
 		//alert("imageIcon" + argument);
 	},
-	
+
 	'keyup .inputBox': function () {
 		sendBtnMediaButtonToggle();
 		$(".inputBox").autogrow();
 	},
-	
+
 	'change .inputBox': function () {
 		//var height = $(".inputBoxList").height() + 2;
 		//$(".chatroomList").css(height, "(100% - " + height + "px )");
 		sendBtnMediaButtonToggle();
 	},
-	
+
 	'paste .inputBox': function () {
 		log.info("input box paste");
 
 		//http://stackoverflow.com/questions/9857801/how-to-get-the-new-value-of-a-textarea-input-field-on-paste
 		window.setTimeout(sendBtnMediaButtonToggle, 100);
 	},
-	
+
 	'click #imageBtn': function (e) {
 		if (Meteor.isCordova) {
 			if (window.device.platform === "Android") {
@@ -111,7 +210,7 @@ Template.ChatRoom.events({
 			}
 		}
 	},
-	
+
 	'change #documentBtn': function (event, template) {
 		const metadata = {
 			school: UI._globalHelpers['getCurrentSchoolName'](),
@@ -119,11 +218,6 @@ Template.ChatRoom.events({
 			id: Router.current().params.chatRoomId
 		};
 		Smartix.FileHandler.documentUpload(event, metadata);
-	},
-
-	'click .imgThumbs': function (e) {
-		var imageFullSizePath = $(e.target).data('fullsizeimage');
-		IonModal.open('imageModal', {src: imageFullSizePath});
 	},
 
 	'click .voice': function (argument) {
@@ -144,6 +238,11 @@ Template.ChatRoom.events({
 			//  playAudio(media.src);
 			isRecording = false;
 			$(".icon.ion-stop").attr("class", "ion-ios-mic-outline");
+			//cordova.file is provided by cordova-plugin-file@4.2.0
+			//TODO We should use cordova.file.dataDirectory instead as it is Read/Write for both Android and iOS
+			// Persistent and private data storage within the application's sandbox using internal
+			// memory (on Android, if you need to use external memory, use .externalDataDirectory).
+			// On iOS, this directory is not synced with iCloud (use .syncedDataDirectory). (iOS, Android, BlackBerry 10, windows)
 			switch (window.device.platform) {
 				case "Android":
 					window.resolveLocalFileSystemURL(cordova.file.externalRootDirectory + media.src, onResolveSuccess, fail);
@@ -213,9 +312,9 @@ function onResolveSuccess(fileEntry) {
 			"school:", UI._globalHelpers['getCurrentSchoolName'](),
 			"category:chat",
 			"id:", chatRoomId);
-		newFile.metadata = { 
+		newFile.metadata = {
 			school: UI._globalHelpers['getCurrentSchoolName'](),
-			category: 'chat', 
+			category: 'chat',
 			id: chatRoomId
 		};
 		Sounds.insert(newFile, function (err, fileObj) {
