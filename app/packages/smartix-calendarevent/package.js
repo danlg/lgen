@@ -5,17 +5,20 @@ Package.describe({
   documentation:'README.md'
 });
 
+Npm.depends({
+     'fullcalendar': "3.0.0"
+});
 
 Package.onUse(function(api) {
      api.versionsFrom("1.2");
      api.use('ecmascript');
      api.use('iron:router');
      api.use('momentjs:moment','client');
-     api.use('jquery', 'client');
      api.use('reactive-var','client');
      api.use('session', 'client');
      api.use('templating', 'client');
-     api.use('fullcalendar:fullcalendar', 'client');
+     //api.use('jquery', 'client');
+     //api.use('fullcalendar:fullcalendar', 'client');
      api.use('aldeed:collection2');
      api.use('aldeed:simple-schema');
      api.use('stevezhu:lodash@4.6.1');

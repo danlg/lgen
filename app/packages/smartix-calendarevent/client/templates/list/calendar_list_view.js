@@ -15,11 +15,14 @@ Template.CalendarListView.onCreated(function(){
 
 var calendar = null;
 
-Template.CalendarListView.onRendered(function(){
-    calendar = $('#calendar').fullCalendar({
+Template.CalendarListView.onRendered( () => {
+    //calendar = $('#calendar22').fullCalendar();
+
+    $('#calendar').fullCalendar({
         // put your options and callbacks here
-    })
-    log.info("Calen", calendar);
+    });
+
+    //log.info("Calen", calendar);
 });
 
 
