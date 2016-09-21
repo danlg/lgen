@@ -22,7 +22,7 @@ Package.onUse(function(api) {
      api.use('aldeed:collection2');
      api.use('aldeed:simple-schema');
      api.use('stevezhu:lodash@4.6.1');
-      
+     
      api.use('smartix:newsgroups');
      api.use('smartix:messages-addons-calendar');
      
