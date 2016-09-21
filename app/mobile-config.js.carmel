@@ -7,7 +7,7 @@ App.info({
   email: 'contact@gosmartix.com',
   website: 'http://www.gosmartix.com',
   version: '1.2.2',
-  buildNumber: '342'
+  buildNumber: '364'
 });
 
 //generated with meteor-assets
@@ -76,6 +76,8 @@ App.setPreference('SplashScreenDelay', '3000');
 App.setPreference('DisallowOverscroll', 'false');//was webviewbounce
 
 //For Youtube iframe
+App.accessRule("*");
+
 App.accessRule('https://*.youtube.com/*', { type: 'navigation' } );
 App.accessRule('https://*.youtu.be/*', { type: 'navigation' } );
 

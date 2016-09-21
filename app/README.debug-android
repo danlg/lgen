@@ -12,6 +12,9 @@ adb uninstall com.gosmartix.carmel
 
 Build command
 
+
+*****Remove force-ssl***
+
 "android-device-local-ip": " meteor run android-device --settings dev.android.local.settings.json --mobile-server=http://192.168.43.151:3000",
 
 Change android settings.json
