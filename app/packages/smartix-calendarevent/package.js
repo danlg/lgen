@@ -33,6 +33,7 @@ Package.onUse(function(api) {
           
      api.addFiles('client/templates/list/calendar_list_view.html', 'client');
      api.addFiles('client/templates/list/calendar_list_view.js', 'client');
+     api.addFiles('client/templates/fullcalendar.css', 'client');
 
      api.addFiles('routes.js');         
 });
