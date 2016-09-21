@@ -327,11 +327,6 @@ Template.SendMessage.events({
 		}
 	},
 
-	'click .imgThumbs': function (e) {
-		var imageFullSizePath = $(e.target).data('fullsizeimage');
-		IonModal.open('imageModal', {src: imageFullSizePath});
-	},
-
 	'change #imageBtn': function (event, template) {
 		//https://github.com/CollectionFS/Meteor-CollectionFS
 		//Image is inserted from here via FS.Utility
