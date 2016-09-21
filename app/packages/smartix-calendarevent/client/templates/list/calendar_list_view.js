@@ -1,22 +1,30 @@
-//TODO:
+// BEGINNING OF FULL CALENDAR INTEGRATION - This works just remove comment to make calendar appear
 
-//1. get all messages that have calendar addons that user is in the group
-//db.getCollection('smartix:messages').find({'addons.type':'calendar',group:{ $in: usergroups}})
+import jQuery from 'jquery'
+import fullCalendar from 'fullcalendar';
 
-//2. display them like the list view shown in github
+var mycalendar;
+
+Template.CalendarListView.onRendered( () => {
+    mycalendar = jQuery('#calendar').fullCalendar({
+        // put your options and callbacks here
+    });
+    log.info("Calendar rendered", mycalendar);
+});
+//END  OF FULL CALENDAR INTEGRATION
 
 Template.CalendarListView.onCreated(function(){
-   var self = this;
-   self.subscribe('newsgroupsForUser',null,null,Session.get('pickedSchoolId'),function(){
-      //self.subscribe('newsForUser',null,null,Session.get('pickedSchoolId'));
-      self.subscribe('calendarEntriesForUser',null,null,Session.get('pickedSchoolId'));
-      self.subscribe('smartix:distribution-lists/listsInNamespace',Session.get('pickedSchoolId'));
-   });    
-
+    var self = this;
+    self.subscribe('newsgroupsForUser',null,null,Session.get('pickedSchoolId'),function(){
+        //self.subscribe('newsForUser',null,null,Session.get('pickedSchoolId'));
+        self.subscribe('calendarEntriesForUser',null,null,Session.get('pickedSchoolId'));
+        self.subscribe('smartix:distribution-lists/listsInNamespace',Session.get('pickedSchoolId'));
+    });
 });
-
+//1. get all messages that have calendar addons that user is in the group
+//db.getCollection('smartix:messages').find({'addons.type':'calendar',group:{ $in: usergroups}})
+//2. display them like the list view shown in github
 Template.CalendarListView.helpers({
-    
     getEvents:function(){
         //TODO : DONE filter done server side
         return Smartix.Messages.Collection.find(
@@ -31,7 +39,7 @@ Template.CalendarListView.helpers({
     },
     
     getCalendar:function(){
-        var calendarObjs =lodash.filter(this.addons, function(addon) { return addon.type =='calendar'; });
+        var calendarObjs =lodash.filter(this.addons, function(addon) { return addon.type ==='calendar'; });
         return calendarObjs[0];       
     },
     
