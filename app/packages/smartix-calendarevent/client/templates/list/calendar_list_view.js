@@ -11,27 +11,39 @@ Template.CalendarListView.onCreated(function(){
         //self.subscribe('newsForUser',null,null,Session.get('pickedSchoolId'));
         self.subscribe('calendarEntriesForUser',null,null,Session.get('pickedSchoolId'), function(){
             let calendarEvents = Smartix.Messages.Collection.find(
-            {},
-            // { sort: { 'addons.startDate': 1 } }// sort doesn't work on server side, for calendar event, by chronological order
+                {},
+                // { sort: { 'addons.startDate': 1 } }// sort doesn't work on server side, for calendar event, by chronological order
             ).fetch();
             let calendarEventsArray = [];
-            lodash.forEach(calendarEvents, function(calendarEvent){
-                let calendarEventObj = {};
-                calendarEventObj.title = calendarEvent.addons[0].eventName;
-                calendarEventObj.start = moment(calendarEvent.addons[0].startDate).format();
-                calendarEventObj.end = moment(calendarEvent.addons[0].endDate).format();
-                calendarEventObj.description = "Location: " + calendarEvent.addons[0].location;
-                calendarEventsArray.push(calendarEventObj);
+            lodash.forEach(calendarEvents, function(calEvt){
+                let calEvtObj = {};
+                //for now we merge title and location
+                calEvtObj.title = (calEvt.addons[0].location)
+                    ? calEvt.addons[0].eventName + "/" + calEvt.addons[0].location
+                    : calEvt.addons[0].eventName;
+                calEvtObj.description = "Location: " + calEvt.addons[0].location;
+                calEvtObj.start = moment(calEvt.addons[0].startDate).format();
+                calEvtObj.end = moment(calEvt.addons[0].endDate).format();
+                calendarEventsArray.push(calEvtObj);
             });
             mycalendar = jQuery('#calendar').fullCalendar({
                     // put your options and callbacks here
+                    //https://fullcalendar.io/docs/text/locale/
+                    locale: '\'' + TAPi18n.getLanguage() +  '\'',//not working yet for some reason
                     events: calendarEventsArray,
+                    header: {
+                        left:   'title today',
+                        center: 'agendaDay,agendaWeek,month',
+                        // listMonth not pretty but should be added later to get rid of our custom. dev list
+                        right:  'prev,next'
+                    }
                     // eventRender: function(event, element) {
                     //     element.qtip({
                     //         content: event.description
                     //     });
                     // }
             });
+            log.info("fullCalendar lang", TAPi18n.getLanguage());
         });
         self.subscribe('smartix:distribution-lists/listsInNamespace',Session.get('pickedSchoolId'));
     });

@@ -34,7 +34,12 @@ Package.onUse(function(api) {
           
      api.addFiles('client/templates/list/calendar_list_view.html', 'client');
      api.addFiles('client/templates/list/calendar_list_view.js', 'client');
-     api.addFiles('client/templates/fullcalendar.css', 'client');
+
+     //fullcalendar integration,
+     //Watch out we had to copy paste from Npm source, Need to manually synchronized if fullcalendar upgrade
+     api.addFiles('client/templates/fullcalendar/fullcalendar.css', 'client');
+     api.addFiles('client/templates/fullcalendar/locale-all.js', 'client');
+     api.addFiles('client/templates/fullcalendar/gcal.js', 'client');
 
      api.addFiles('routes.js');         
 });
