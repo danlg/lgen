@@ -29,7 +29,7 @@ Template.CalendarListView.onCreated(function(){
             mycalendar = jQuery('#calendar').fullCalendar({
                     // put your options and callbacks here
                     //https://fullcalendar.io/docs/text/locale/
-                    locale: '\'' + TAPi18n.getLanguage() +  '\'',//not working yet for some reason
+                    locale:  TAPi18n.getLanguage(),
                     events: calendarEventsArray,
                     header: {
                         left:   'title today',
