@@ -9,20 +9,22 @@
   {{/contentFor}}   
     {{#ionView}}
     {{#ionContent}} 
-                 {{#if Template.subscriptionsReady}}
-                    {{#each getEvents}}
-                        
-                        {{#with getCalendar}}
-                                {{>CalendarDisplay this}}                                       
-                        {{/with}}
-                    {{else}}
-                        {{_ "smartix-calendarevent.NoIncomingEvents" }}
-                    {{/each}}
-                {{else}}
-                    <div style ="padding-top:2vh; height: 5vh;" class="spinner-loading">{{> ionSpinner icon="spiral"}}</div>
-                {{/if}}
-                <!--we add here fullCalendar-->
-                <!--<div id='calendar'></div>-->
+
+        <div id='calendar'></div>
+
+        {{#if Template.subscriptionsReady}}
+        {{#each getEvents}}
+
+            {{#with getCalendar}}
+                    {{>CalendarDisplay this}}
+            {{/with}}
+        {{else}}
+            {{_ "smartix-calendarevent.NoIncomingEvents" }}
+        {{/each}}
+        {{else}}
+            <div style ="padding-top:2vh; height: 5vh;" class="spinner-loading">{{> ionSpinner icon="spiral"}}</div>
+        {{/if}}
+
        {{/ionContent}}
   {{/ionView}}              
                  
