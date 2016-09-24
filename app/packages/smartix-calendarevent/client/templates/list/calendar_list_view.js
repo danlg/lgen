@@ -10,40 +10,7 @@ Template.CalendarListView.onCreated(function(){
     self.subscribe('newsgroupsForUser',null,null,Session.get('pickedSchoolId'),function(){
         //self.subscribe('newsForUser',null,null,Session.get('pickedSchoolId'));
         self.subscribe('calendarEntriesForUser',null,null,Session.get('pickedSchoolId'), function(){
-            let calendarEvents = Smartix.Messages.Collection.find(
-                {},
-                // { sort: { 'addons.startDate': 1 } }// sort doesn't work on server side, for calendar event, by chronological order
-            ).fetch();
-            let calendarEventsArray = [];
-            lodash.forEach(calendarEvents, function(calEvt){
-                let calEvtObj = {};
-                //for now we merge title and location
-                calEvtObj.title = (calEvt.addons[0].location)
-                    ? calEvt.addons[0].eventName + "/" + calEvt.addons[0].location
-                    : calEvt.addons[0].eventName;
-                calEvtObj.description = "Location: " + calEvt.addons[0].location;
-                calEvtObj.start = moment(calEvt.addons[0].startDate).format();
-                calEvtObj.end = moment(calEvt.addons[0].endDate).format();
-                calendarEventsArray.push(calEvtObj);
-            });
-            mycalendar = jQuery('#calendar').fullCalendar({
-                    // put your options and callbacks here
-                    //https://fullcalendar.io/docs/text/locale/
-                    locale:  TAPi18n.getLanguage(),
-                    events: calendarEventsArray,
-                    header: {
-                        left:   'title today',
-                        center: 'agendaDay,agendaWeek,month',
-                        // listMonth not pretty but should be added later to get rid of our custom. dev list
-                        right:  'prev,next'
-                    }
-                    // eventRender: function(event, element) {
-                    //     element.qtip({
-                    //         content: event.description
-                    //     });
-                    // }
-            });
-            log.info("fullCalendar lang", TAPi18n.getLanguage());
+            loadCalendar();
         });
         self.subscribe('smartix:distribution-lists/listsInNamespace',Session.get('pickedSchoolId'));
     });
@@ -87,14 +54,48 @@ Template.CalendarListView.helpers({
     
 });
 
+let loadCalendar = function(){
+    let calendarEvents = Smartix.Messages.Collection.find().fetch();
+    let calendarEventsArray = [];
+    lodash.forEach(calendarEvents, function(calendarEvent){
+        let calendarEventObj = {};
+        let calendarTemp = calendarEvent.addons[0];
+        calendarEventObj.title =  (calendarTemp.location)
+                            ? calendarTemp.eventName + " / " + calendarTemp.location
+                            : calendarTemp.eventName;
+        calendarEventObj.start = moment(calendarTemp.startDate).format();
+        calendarEventObj.end = moment(calendarTemp.endDate).format();
+        calendarEventObj.location = calendarTemp.location;
+        calendarEventObj.content = calendarEvent.data.content;
+        calendarEventsArray.push(calendarEventObj);
+    });
+
+    mycalendar = jQuery('#calendar').fullCalendar({
+            // put your options and callbacks here
+            locale:  TAPi18n.getLanguage(),
+            events: calendarEventsArray,
+            header: {
+                left:   'title today',
+                center: 'listMonth,month,agendaWeek,agendaDay',
+                // listMonth not pretty but should be added later to get rid of our custom. dev list
+                right:  'prev,next'
+            },
+            defaultView: 'listMonth',
+            eventClick: function(calEvent, jsEvent, view) {
+                IonModal.open("calendarModal", calEvent);
+                log.info(calEvent);
+            }
+    });
+}
+
 Template.CalendarListView.events({
 
   'click .add-to-calendar':function(event){
-      var startDate = this.startDate;
-      var endDate = this.endDate;
-      var eventName = this.eventName;
+      var startDate = this.start;
+      var endDate = this.end;
+      var eventName = this.title;
       var location = this.location;
-      var description = $(event.target).data('description');
+      var description = this.content;
       
       Smartix.Messages.Addons.Calendar.addEvent(eventName,location,description,startDate,endDate,function(){
          toastr.info(TAPi18n.__("EventAddCalendar")); 

@@ -40,6 +40,5 @@ Package.onUse(function(api) {
      api.addFiles('client/templates/fullcalendar/fullcalendar.css', 'client');
      api.addFiles('client/templates/fullcalendar/locale-all.js', 'client');
      api.addFiles('client/templates/fullcalendar/gcal.js', 'client');
-
      api.addFiles('routes.js');         
 });

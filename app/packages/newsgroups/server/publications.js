@@ -179,10 +179,10 @@ Meteor.publish('calendarEntriesForUser', function(limit, query, namespace) {
                     }
                     //moment(calenderEvent[0].endTime).: { $gt : moment()}
                     //TODO add offset
-                    , {//not expired
-                        //'addons.endDate': { $gte : now.unix() }
-                        'addons.endDate': { $gte : expired }
-                    }
+                    // , {//not expired
+                    //     //'addons.endDate': { $gte : now.unix() }
+                    //     'addons.endDate': { $gte : expired }
+                    // }
                 ]}
                 , { //sort them by ascending order
                     //TODO add fields projection...
