@@ -34,26 +34,52 @@ Meteor.startup(function () {
 	log.info("======================================================================");
 	//Push.debug = true;
 	//Push.Configure();
+	log.info("Using ROOT_URL="+ process.env.ROOT_URL);
+	log.info("Using PORT="+ process.env.PORT);
+	log.info("Using BIND_IP="+ process.env.BIND_IP);
+	log.info("Using HTTP_FORWARDED_COUNT=" + process.env.HTTP_FORWARDED_COUNT);
 	if (process.env.CDN_DOMAIN) { //keycdn or cloudflare or cloudfront
 		WebAppInternals.setBundledJsCssPrefix(process.env.CDN_DOMAIN);
 		log.info("Setting CDN_DOMAIN=", process.env.CDN_DOMAIN);
-		//https://docs.meteor.com/packages/webapp.html
-		//for CDN we need to set the Content-Length
 		//WebApp.rawConnectHandlers.use(function(req, res, next) {
-
 	}
 	else {
-		log.warn("Setting CDN_DOMAIN not set");
+		log.warn("CDN_DOMAIN not set");
 	}
+	if (process.env.SET_HTTP_HEADER) {
+		log.info("Setting SET_HTTP_HEADER");
+		WebApp.connectHandlers.use(function(req, res, next) {
+			//https://docs.meteor.com/packages/webapp.html
+			//for CDN we need to set the Content-Length
+			res.setHeader('Content-Length', '9999');
+			// add allow origin
+			res.setHeader('Access-Control-Allow-Origin', '*');
 
-	// WebApp.rawConnectHandlers.use(function (req, res, next) {
-	// 	//WebApp.connectHandlers.use( function(req, res, next) {
-	// 	//https://github.com/meteor/meteor/blob/devel/packages/webapp/webapp_server.js
-	// 	res.setHeader("Content-Length", 777); //res.setHeader("X-Clacks-Overhead", "GNU Terry Pratchett");
-	// 	res.end();
-	// 	log.info("GET ORIGINAL URL", req.originalUrl);
-	// 	return next();
-	// });
+			//http://plugins.telerik.com/cordova/plugin/wkwebview
+
+			// Traditionally JavaScript can't make requests across domain boundaries. UIWebView was able to do this because the file protocol is not a domain. Since WKWebView uses the http protocol, you'll need to add CORS headers to your server. More specifically you need this header:
+			// 	Access-Control-Allow-Origin: *
+			// And depending on your configuration you may also need these:
+			// Access-Control-Allow-Headers: Accept, Origin, Content-Type
+			// Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+			// It's probably easiest to add all of them, confirm your app works and gradually remove headers.
+
+			// add headers
+			res.setHeader('Access-Control-Allow-Methods', [
+				'GET, POST, PUT, DELETE, OPTIONS'
+			].join(', '));
+			res.setHeader('Access-Control-Allow-Headers', [
+				'Accept',
+				'Content-Type',
+				'Origin'
+			].join(', '));
+			log.info("GET ORIGINAL URL", req.originalUrl);
+			return next();
+		});
+	}
+	else {
+		log.warn("HTTP Header not set");
+	}
 
 	log.info("Using DDP_DEFAULT_CONNECTION_URL=", Meteor.settings.DDP_DEFAULT_CONNECTION_URL);
 	log.info("Using DDP_DEFAULT_CONNECTION_URL=", __meteor_runtime_config__.DDP_DEFAULT_CONNECTION_URL);
