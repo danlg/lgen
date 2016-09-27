@@ -9,9 +9,6 @@
                 "people": true
             }
         },
-        "ROOT_URL": "https://uat.gosmartix.com",
-        "PORT":443,
-
         "SHARE_URL": "https://uat.gosmartix.com",
         "DOWNLOAD_URL":"http://www.gosmartix.com/#download",
         "GOOGLE_PLAY_URL": "https://play.google.com/store/apps/details?id=com.gosmartix.smartix",
