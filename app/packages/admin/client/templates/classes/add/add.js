@@ -43,7 +43,10 @@ Template.AdminClassesAdd.events({
                     school:  UI._globalHelpers['getCurrentSchoolName'](),
                     classCode: newClass.classCode});
             }
-            else{
+            else if (err.error === "class-code-already-exist") {
+                toastr.error(TAPi18n.__("ClassAddFailed"));
+            }
+            else if (err.error === "class-code-syntax") {
                 toastr.warning(TAPi18n.__("ClassCodeErrorMessage"));
             }
         });

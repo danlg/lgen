@@ -64,9 +64,9 @@ Meteor.methods({
                 classObj.namespace = schoolDoc._id;
             }
         // }
-        var result = Smartix.Class.createClass(classObj, this.userId);
-        log.info(result);
-        if (result == "no-right-create-class") {
+        let result = Smartix.Class.createClass(classObj, this.userId);
+        //log.info(result);
+        if (result === "no-right-create-class") {
             log.info('throw err');
             throw new Meteor.Error("no-right-create-class", "No right to create class in this school");
         }
@@ -133,7 +133,7 @@ Meteor.methods({
             }
             else { //class is not found
                 log.warn("classcode '" + classCode + "' not found");
-                throw new Meteor.Error("class-not-foun", "Can't find the class");
+                throw new Meteor.Error("class-not-found", "Can't find the class");
             }
         }
         else {

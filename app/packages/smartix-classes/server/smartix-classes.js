@@ -1,21 +1,25 @@
 Smartix = Smartix || {};
 
 Smartix.Class = Smartix.Class || {};
-
+/**
+ * @param classCode
+ * @returns Return if classCode already taken or exist
+ */
 Smartix.Class.searchForClassWithClassCode = function(classCode) {
     //log.info('Checks that `classCode` conforms to the schema before searching', classCode);
     // Checks that `classCode` conforms to the schema before searching
     var classCodePattern = new RegExp(/^[a-zA-Z0-9-]{3,}$/);
     if (typeof classCode === "string"
         && classCodePattern.test(classCode)) {
-
-        var existGroup = Smartix.Groups.Collection.findOne({
-            classCode: /^classCode$/i
+        let existGroup = Smartix.Groups.Collection.findOne({
+            //classCode: /^classCode$/i
+            classCode: classCode.toLowerCase()
         });
-        //log.info('existGroup', existGroup);
-        // Returns the class object or `undefined`
-        return existGroup;
+        //TODO ADD namespace
+        //log.info("Smartix.Class.searchForClassWithClassCode 1", classCode, existGroup);
+        return !!existGroup;
     }
+    //log.info("Smartix.Class.searchForClassWithClassCode 2", classCode, false);
     return false;
 };
 
@@ -74,12 +78,20 @@ Smartix.Class.canCreateClass = function(namespace, currentUser) {
 };
 
 Smartix.Class.createClass = function(classObj, currentUser) {
+    //check class code unique
+    let classCode = classObj.classCode.trim();
+    if (Smartix.Class.searchForClassWithClassCode(classCode) ) {
+        log.error("cannot create class, class code already exist", classCode);
+        throw new Meteor.Error("class-code-already-exist", classCode );
+    }
+    else{
+        log.info("Creating class with classCode", classCode);//, classObj);
+    }
     check(currentUser, Match.Maybe(String));
     // Get the `_id` of the currently-logged in user
     if (!(currentUser === null)) {
         currentUser = currentUser || Meteor.userId();
     }
-
     // Checks that the namespace is either `global` or the currently-logged in user is one of the following:
     // * Admin for the school (namespace) specified
     // * Teacher for the school (namespace) specified
@@ -95,7 +107,7 @@ Smartix.Class.createClass = function(classObj, currentUser) {
     newClass.namespace = classObj.namespace;
     newClass.type = 'class';
     newClass.className = classObj.className.trim();
-    newClass.classCode = classObj.classCode.trim();
+    newClass.classCode = classObj.classCode.toLowerCase().trim();
     
     newClass.ageRestricted = classObj.ageRestricted;
     // newClass.anyoneCanChat = classObj.anyoneCanChat;
@@ -147,8 +159,13 @@ Smartix.Class.createClass = function(classObj, currentUser) {
         // Checks the arguments are of the specified type, convert it if not
         Smartix.Class.Schema.clean(newClass);
         // Checks are done in one go
-        check(newClass, Smartix.Class.Schema);
-        
+        try{
+            check(newClass, Smartix.Class.Schema);
+        }
+        catch(e) {
+            throw new Meteor.Error("class-code-syntax", "invalid class code syntax");
+        }
+
         let newClassId = Smartix.Groups.createGroup(newClass);
         // Send emails to students if `newClass.notifyStudents` is true
         if (newClass.notifyStudents) {
@@ -170,7 +187,7 @@ Smartix.Class.createClass = function(classObj, currentUser) {
             // Add each parent to the class
             Smartix.Groups.addUsersToGroup(newClassId, _.uniq(_.flattenDeep(parentUsersArray)));
         }
-        log.info("Created successfully class" + newClassId);
+        log.info("Created successfully class", newClassId);
         return newClassId;
     }
 };

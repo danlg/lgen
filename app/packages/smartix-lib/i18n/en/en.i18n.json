@@ -371,7 +371,7 @@
   "Child": "Child",
   "ChooseColor": "Magic color",
   "CityPlaceHolder": "My city",
-  "ClassAddFailed": "Cannot add class, please try again",
+  "ClassAddFailed": "Class code already used, please try another one",
   "ClassCode": "Class code",
   "ClassCodeErrorMessage": "At least 3 letters in lower case only (a-z) or digit (0-9) e.g. math123. Class name is free of choice.",
   "ClassName": "Class name",

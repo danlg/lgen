@@ -13,16 +13,16 @@ var form;
 /* AddClass: Event Handlers */
 /*****************************************************************************/
 Template.AddClass.events({
-  
+
     'keyup input[name=className]': function(event, template){
- 
+
         var lastName = Smartix.helpers.getLastnameOfCurrentUser(3);
         var className = $(event.target).val();
-        
+
         //if user deletes all input in class name, leave the class code field blank.
         if(className.length == 0 ){
-            template.$("input[name=classCode]").val("");         
-          return;
+            template.$("input[name=classCode]").val("");
+            return;
         }
         var trimSpacesSuggestClassCode = className.replace(/\s/g, "");
         var first4Letters = trimSpacesSuggestClassCode.substr(0,4);
@@ -60,31 +60,31 @@ Template.AddClass.events({
     },
 
     'click #pick-an-icon-btn':function(){
-      var parentDataContext= {iconListToGet:"iconListForClass",sessionToBeSet:"chosenIconForNewClass"};
-      IonModal.open("ClassIconChoose", parentDataContext);  
-    } 
+        var parentDataContext= {iconListToGet:"iconListForClass",sessionToBeSet:"chosenIconForNewClass"};
+        IonModal.open("ClassIconChoose", parentDataContext);
+    }
 });
 
 /*****************************************************************************/
 /* AddClass: Helpers */
 /*****************************************************************************/
 Template.AddClass.helpers({
-  
-  getClassAvatar:function(){
-    var chosenIcon = Session.get('chosenIconForNewClass');
-    if(chosenIcon){
-      return chosenIcon;
-    }else{
-      //default set as green apple
-      return "green_apple";
+
+    getClassAvatar:function(){
+        var chosenIcon = Session.get('chosenIconForNewClass');
+        if(chosenIcon){
+            return chosenIcon;
+        }else{
+            //default set as green apple
+            return "green_apple";
+        }
+    },
+    getCurrentNameSpace:function(){
+        return Session.get('pickedSchoolId');
+    },
+    getAdmin:function(){
+        return [Meteor.userId()];
     }
-  },
-  getCurrentNameSpace:function(){
-      return Session.get('pickedSchoolId');
-  },
-  getAdmin:function(){
-      return [Meteor.userId()];
-  }
 });
 
 /* AddClass: Lifecycle Hooks */
@@ -92,45 +92,54 @@ Template.AddClass.onCreated( function() {
 });
 
 Template.AddClass.onRendered( function() {
-  //var origClassCode = $this.$("input[name=classCode]").val();
-  //if user deletes all input in class name, leave the class code field blank.
-  //this.$("input[name=classCode]").val(origClassCode.trim().toLowerCase());
+    //var origClassCode = $this.$("input[name=classCode]").val();
+    //if user deletes all input in class name, leave the class code field blank.
+    //this.$("input[name=classCode]").val(origClassCode.trim().toLowerCase());
 
-  form = this.$("#insertClass");
-  $(".checked").attr("checked", "checked");
-  //by default anyone canChat
-  // $('#anyoneCanChat').attr("checked", "checked");
-  $('#ageRestricted').attr("checked", "checked");
-  //setTimeout(function(){ $('#pick-an-icon-help-btn').addClass('activated'); },1500)
-  //setTimeout(function(){$('#pick-an-icon-help-btn').removeClass('activated'); },5000)  
+    form = this.$("#insertClass");
+    $(".checked").attr("checked", "checked");
+    //by default anyone canChat
+    // $('#anyoneCanChat').attr("checked", "checked");
+    $('#ageRestricted').attr("checked", "checked");
+    //setTimeout(function(){ $('#pick-an-icon-help-btn').addClass('activated'); },1500)
+    //setTimeout(function(){$('#pick-an-icon-help-btn').removeClass('activated'); },5000)
 });
 
 Template.AddClass.destroyed = function () {
-  delete Session.keys['chosenIconForNewClass'];
+    delete Session.keys['chosenIconForNewClass'];
 };
 
 Template.ionNavBar.events({
-  'click .addClassBtn': function (e, template) {
-    var newClassObj = {
-        namespace: $('#namespace').val(),
-        className: $('#className').val(),
-        classCode: $('#classCode').val(),
-        admins: [Meteor.userId()],
-        classAvatar:$('#classAvatar').val(),
-        ageRestricted:$('#ageRestricted').is(':checked')
-        // ,anyoneCanChat:$('#anyoneCanChat').is(':checked')
-    };
-    Smartix.Class.Schema.clean(newClassObj);
-    check(newClassObj,Smartix.Class.Schema);
-    Meteor.call('smartix:classes/createClass',  UI._globalHelpers['getCurrentSchoolName'](), newClassObj,function(err,result){
-      if(err){
-          log.error("smartix:classes/createClass", err);
-          toastr.error(TAPi18n.__("ClassAddFailed"));
-      }else{
-          //log.info(result);
-          Router.go('TabClasses');
-      }
-    });
-  }
+    'click .addClassBtn': function (e, template) {
+        var newClassObj = {
+            namespace: $('#namespace').val(),
+            className: $('#className').val(),
+            classCode: $('#classCode').val(),
+            admins: [Meteor.userId()],
+            classAvatar:$('#classAvatar').val(),
+            ageRestricted:$('#ageRestricted').is(':checked')
+            // ,anyoneCanChat:$('#anyoneCanChat').is(':checked')
+        };
+        Smartix.Class.Schema.clean(newClassObj);
+        try{
+            check(newClassObj, Smartix.Class.Schema);
+        }
+        catch(e) {
+            toastr.warning(TAPi18n.__("ClassCodeErrorMessage"));
+            return;
+        }
+        Meteor.call('smartix:classes/createClass',  UI._globalHelpers['getCurrentSchoolName'](), newClassObj,function(err,result){
+            if(!err) {
+                Router.go('TabClasses');
+            }
+            else if (err.error === "class-code-already-exist"){
+                log.error("smartix:classes/createClass", err);
+                toastr.error(TAPi18n.__("ClassAddFailed"));
+            }
+            else {
+                toastr.warning(TAPi18n.__("ClassCodeErrorMessage"));
+            }
+        });
+    }
 });
 
