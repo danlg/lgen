@@ -17,6 +17,7 @@ Package.onUse(function(api) {
     api.use('session', 'client');    
     api.use('templating', 'client');
     api.use('fourseven:scss@2.0.0','client');
+    api.use('nitrolabs:cdn'); //modifies both client and server
 
     //initialize dependency
     api.use('yuukan:streamy');

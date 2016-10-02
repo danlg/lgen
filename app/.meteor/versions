@@ -129,6 +129,7 @@ mongo@1.1.9
 mongo-id@1.0.5
 mongo-livedata@1.0.12
 mrt:twit@0.2.0
+nitrolabs:cdn@1.2.5
 npm-bcrypt@0.8.6_1
 npm-mongo@1.4.44
 oauth@1.1.11

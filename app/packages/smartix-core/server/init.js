@@ -38,13 +38,14 @@ Meteor.startup(function () {
 	log.info("Using PORT="+ process.env.PORT);
 	log.info("Using BIND_IP="+ process.env.BIND_IP);
 	log.info("Using HTTP_FORWARDED_COUNT=" + process.env.HTTP_FORWARDED_COUNT);
-	if (process.env.CDN_DOMAIN) { //keycdn or cloudflare or cloudfront
-		WebAppInternals.setBundledJsCssPrefix(process.env.CDN_DOMAIN);
-		log.info("Setting CDN_DOMAIN=", process.env.CDN_DOMAIN);
+	//if (process.env.CDN_DOMAIN) { //keycdn or cloudflare or cloudfront
+	if (process.env.CDN_URL) { //we use nitrolabs:cdn
+		WebAppInternals.setBundledJsCssPrefix(process.env.CDN_URL);
+		log.info("Setting CDN_URL=", process.env.CDN_URL);
 		//WebApp.rawConnectHandlers.use(function(req, res, next) {
 	}
 	else {
-		log.warn("CDN_DOMAIN not set");
+		log.warn("CDN_URL not set");
 	}
 	if (process.env.SET_HTTP_HEADER) {
 		log.info("Setting SET_HTTP_HEADER");
@@ -52,6 +53,7 @@ Meteor.startup(function () {
 			//https://docs.meteor.com/packages/webapp.html
 			//for CDN we need to set the Content-Length
 			res.setHeader('Content-Length', '9999');
+			res.setHeader('Transfer-Encoding', '');
 			// add allow origin
 			res.setHeader('Access-Control-Allow-Origin', '*');
 
