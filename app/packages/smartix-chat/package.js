@@ -5,6 +5,11 @@ Package.describe({
   documentation:'README.md'
 });
 
+Npm.depends({
+   'blob-util': "1.2.1",
+});
+
+
 Package.onUse(function(api) {
      api.versionsFrom("1.2");
      api.use('check');

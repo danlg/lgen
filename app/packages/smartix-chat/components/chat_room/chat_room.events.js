@@ -1,5 +1,5 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
-// import blobUtil from 'blob-util';
+import blobUtil from 'blob-util';
 
 
 var isRecording = false;
@@ -13,32 +13,28 @@ Template.imageModal.events({
 	'click #imageGallery': function(event, template){
 		var img = document.getElementById('imageHolder');
 		log.info("Test", img);
-		function getBase64ImageHolder(img) {
-			var canvas = document.createElement("canvas");
-			canvas.width = img.width;
-			canvas.height = img.height;
-			img.setAttribute('crossOrigin', 'Anonymous');
-			if (!img.getAttribute('src')) {
-				img.setAttribute('src', img.getAttribute('data-fullsizeimage'))
-			}
-			var ctx = canvas.getContext("2d");
-			ctx.drawImage(img, 0, 0);
-			var dataURL = canvas.toDataURL("image/png", 1.0);
-			return dataURL;               //.replace(/^data:image\/(png|jpg);base64,/, "");
+		function getBase64ImageHolder(image) {
+			var imgSrc = image.getAttribute('src');
+			log.info(imgSrc);
+			imgSrc = imgSrc.split('?')[0];
+			var saveImage = blobUtil.imgSrcToDataURL(imgSrc, 'image/jpeg', { crossOrigin: 'Anonymous' }).then(function (dataURL) {
+				log.info("Data URL", dataURL);
+				var params = { data: dataURL, quality: 100 };
+				window.imageSaver.saveBase64Image(params,
+					function (result) {
+						log.info('result ' + result);
+						toastr.info("Image saved successfully");
+					},
+					function (error) {
+						log.error('error ' + error);
+						toastr.error("Error saving image");
+					}
+				);			// log.info(schoolbannerSource, dataURL);
+			}).catch(function (err) {
+				log.error(err);
+			});               //.replace(/^data:image\/(png|jpg);base64,/, "");
 		}
-		var base64 = getBase64ImageHolder(img);
-		//https://github.com/agomezmoron/cordova-save-image-gallery/blob/master/README.md
-		var params = { data: base64, quality: 100 };
-		window.imageSaver.saveBase64Image(params,
-			function (result) {
-				log.info('result ' + result);
-				toastr.info("Image saved successfully");
-			},
-			function (error) {
-				log.error('error ' + error);
-				toastr.error("Error saving image");
-			}
-		);
+		var getBase64 = getBase64ImageHolder(img);
 	}
 });
 
