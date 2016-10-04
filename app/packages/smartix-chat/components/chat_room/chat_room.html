@@ -97,9 +97,9 @@
                       {{/with}}
                     {{/if}}
                     <!--http://stackoverflow.com/questions/10426786/div-gets-extra-height-for-no-reason-->  <!-- I have add id here to handle long press event in chat_room.events.js Rajit Deligence -->
-                      <!--img id="dt-image-chat"
+                      <!--<img id="dt-image-chat" crossOrigin="Anonymous"
                             style='display:block;' src="{{this.url store='thumbs'  }}"  alt="" class="imgThumbs responsive-img"
-                            data-fullsizeimage="{{this.url  }}"-->
+                            data-fullsizeimage="{{this.url  }}">-->
                       <img  style='display:block;' src="{{this.url store='thumbs'  }}" alt="" class="imgThumbs responsive-img"
                             data-fullsizeimage="{{this.url  }}">
                   </div>
@@ -270,14 +270,16 @@
   {{#ionModal title="" }}
     <div class="row row-center" style="height:100%">
       <div class="col" style="text-align: center;">
-        <img src="{{src}}" alt="" style="max-width:100%">
+        {{#if isCordova}}
+          <div id="imageGallery" style="float:right;position:absolute;top:10;right:10;">
+              <button class="button button-positive">
+                  <i class="icon ion-android-download"></i>
+              </button>
+          </div>
+        {{/if}}
+        <img src="{{src}}"  crossOrigin="Anonymous" id="imageHolder" data-fullsizeimage="{{this.url  }}" alt="" style="max-width:100%">
       </div>
     </div>
-    <!--<div id="imageGallery" class="item" style="text-align:center">-->
-        <!--<button class="button button-positive">-->
-            <!--Save to photo library-->
-            <!--<i class="icon ion-android-download"></i>-->
-        <!--</button>-->
-    <!--</div>-->
+
   {{/ionModal}}
 </template>

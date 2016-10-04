@@ -6,57 +6,39 @@ var isRecording = false;
 var media = "";
 var isPlayingSound = false;
 
-/** This code for imageModal is not working yet but is not activated*/
-Template.imageModal.onCreated( (imagePath) => {
-	this.imagePath = new ReactiveVar(imagePath);
-});
-
 Template.imageModal.events({
 	// Here handling chat image long press - on long press showing popup for save/cancel the image to mobile gallery - Rajit Deligence
 	//'contextmenu #dt-image-chat': function (e) {
 	// not used yet to debug
-	'click #imageGallery': function (e) {
-		log.info("Clicked imageGallery" + Template.instance().imagePath);
-		var img = Template.instance().imagePath; //e.target;
-		var img = src; //e.target;
-		var callback = function (buttonIndex) {
-			setTimeout(function () {
-				// like other Cordova plugins (prompt, confirm) the buttonIndex is 1-based (first button is index 1)
-				//  alert('button index clicked: ' + buttonIndex);
-				switch (buttonIndex) {
-					case 1:
-						//do nothing -- Cancel case
-						break;
-					case 2:
-					function getBase64Image(img) {
-						var canvas = document.createElement("canvas");
-						canvas.width = img.width;
-						canvas.height = img.height;
-						img.setAttribute('crossOrigin', 'anonymous');
-						if(!img.getAttribute('src')){
-							img.setAttribute('src', img.getAttribute('data-fullsizeimage'))
-						}
-						var ctx = canvas.getContext("2d");
-						ctx.drawImage(img, 0, 0);
-						var dataURL = canvas.toDataURL("image/png", 1.0);
-						return dataURL;               //.replace(/^data:image\/(png|jpg);base64,/, "");
-					}
-						var base64 = getBase64Image(img);
-						//https://github.com/agomezmoron/cordova-save-image-gallery/blob/master/README.md
-						var params = {data:base64, quality: 100 };
-						window.imageSaver.saveBase64Image(params,
-							function (result) {
-								log.info('result ' + result);
-							},
-							function (error) {
-								log.error('error ' + error);
-							}
-						);
-						break;
-				}
-			});
-		};
-		navigator.notification.confirm('Are you sure, you want to save this image', callback, 'Confirm', ['Cancel','Save'])
+	'click #imageGallery': function(event, template){
+		var img = document.getElementById('imageHolder');
+		log.info("Test", img);
+		function getBase64ImageHolder(img) {
+			var canvas = document.createElement("canvas");
+			canvas.width = img.width;
+			canvas.height = img.height;
+			img.setAttribute('crossOrigin', 'Anonymous');
+			if (!img.getAttribute('src')) {
+				img.setAttribute('src', img.getAttribute('data-fullsizeimage'))
+			}
+			var ctx = canvas.getContext("2d");
+			ctx.drawImage(img, 0, 0);
+			var dataURL = canvas.toDataURL("image/png", 1.0);
+			return dataURL;               //.replace(/^data:image\/(png|jpg);base64,/, "");
+		}
+		var base64 = getBase64ImageHolder(img);
+		//https://github.com/agomezmoron/cordova-save-image-gallery/blob/master/README.md
+		var params = { data: base64, quality: 100 };
+		window.imageSaver.saveBase64Image(params,
+			function (result) {
+				log.info('result ' + result);
+				toastr.info("Image saved successfully");
+			},
+			function (error) {
+				log.error('error ' + error);
+				toastr.error("Error saving image");
+			}
+		);
 	}
 });
 
@@ -111,6 +93,7 @@ Template.ChatRoom.events({
 							window.imageSaver.saveBase64Image(params,
 								function (result) {
 									log.info('result ' + result);
+									toastr.info("Image saved successfully");
 								},
 								function (error) {
 									log.error('error ' + error);
