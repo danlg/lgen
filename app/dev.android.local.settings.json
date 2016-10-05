@@ -9,9 +9,9 @@
                 "people": true
             }
         },
-        "ROOT_URL": "http://192.168.43.151:3000",
+        "ROOT_URL": "http://192.168.1.61:3000",
         "PORT": 3000,
-        "SHARE_URL": "http://192.168.43.151:3000",
+        "SHARE_URL": "http://192.168.1.61:3000",
         "DOWNLOAD_URL":"https://itunes.apple.com/us/app/carmel-safe-school-communication/id1112054393?mt=8&ign-mpt=uo%3D4",
         "GOOGLE_PLAY_URL":"https://play.google.com/store/apps/details?id=com.gosmartix.carmel",
         "APP_STORE_URL":"https://itunes.apple.com/us/app/carmel-safe-school-communication/id1112054393?mt=8&ign-mpt=uo%3D4"

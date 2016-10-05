@@ -9,6 +9,8 @@
                 "people": true
             }
         },
+        "ROOT_URL": "https://carmelu.gosmartix.com",
+        "PORT":443,
         "SHARE_URL": "https://carmelu.gosmartix.com",
         "DOWNLOAD_URL":"https://itunes.apple.com/us/app/carmel-safe-school-communication/id1112054393?mt=8&ign-mpt=uo%3D4",
         "GOOGLE_PLAY_URL":"https://play.google.com/store/apps/details?id=com.gosmartix.carmel",

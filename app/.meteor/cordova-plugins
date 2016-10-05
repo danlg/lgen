@@ -15,5 +15,6 @@ cordova-plugin-save-image@0.2.2
 cordova-plugin-splashscreen@3.2.1
 cordova-plugin-vibration@2.1.0
 cordova-plugin-x-socialsharing@5.0.11
+cordova-save-image-gallery@0.0.26
 cordova-universal-clipboard@0.1.0
 de.appplant.cordova.plugin.local-notification@0.8.4
