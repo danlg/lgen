@@ -1,0 +1,14 @@
+For the AppStore upload
+
+Using Sierra OS, XCode 7.3
+
+XCode 8 requires a change of Swift code, which is risky as it could create regression with cordova plugin
+
+We are using XCode 7.3 to avoid this but we cannot upload an app with it !
+So we build, archive the app and export as IPA
+http://stackoverflow.com/questions/37838487/error-itms-90167-no-app-bundles-found-in-the-package
+
+We need to use XCode 8 to upload the app so we use the Application Loader of XCode 8 (version 3.6)
+
+
+
