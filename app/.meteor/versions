@@ -71,7 +71,6 @@ emojione:emojione@2.2.3
 es5-shim@4.5.12
 facts@1.0.8
 fastclick@1.0.12
-force-ssl@1.0.12
 fourseven:scss@2.1.1
 francocatena:status@1.5.1
 geojson-utils@1.0.9
@@ -169,6 +168,7 @@ smartix:accounts-usernames@0.0.1
 smartix:accounts-utilities@0.0.1
 smartix:admin@0.0.1
 smartix:app-ui@0.0.1
+smartix:calendar@0.0.1
 smartix:calendarevent@0.0.1
 smartix:chat@0.0.1
 smartix:chats-messages@0.0.1

@@ -1,0 +1,85 @@
+<template name="AdminCalendarAdd">
+<!--{{> BootstrapModal modalName=getModalName modalTitle=getModalTitle modalBody=getModalBody }}-->
+    <!-- Form horizontal -->
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h1>Add Calendar Event</h1>
+        </div>
+        <div class="panel-body">
+            <p class="content-group-lg">{{_ "Admin.FillClickAddNews" }} {{_ "Admin.ThatSit" }}</p>
+            <div id="calendar"></div>
+        </div>
+    </div>
+    <!-- /form horizontal -->
+    <!--Calendar Modal-->
+    <!-- Button trigger modal -->
+    <button id='calendar-event-btn' type="button" class="hide btn btn-primary btn-lg" data-toggle="modal" data-target="#calendar-event">
+    {{_ "Admin.LaunchModal" }}
+    </button>
+    <div id='calendar-event' class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Add Calendar Event</h4>
+        </div>
+        <div class="modal-body">
+            <form>
+                <style>
+                    .item {
+                        white-space: initial;
+                    }
+                    
+                    .item .item-input {
+                        white-space: initial;
+                    }
+                    
+                    .list::-webkit-scrollbar {
+                        display: initial;
+                    }
+                </style>
+                <div class="list ">
+                    <label class="item item-input">
+                        <input id='event-name' type="text" value=''
+                        oninvalid="setCustomValidity('Event Name cannot be emptied')"
+                        oninput="setCustomValidity('')"  placeholder="Event Name" 
+                        required />
+                    </label>
+                    <label class="item item-input">
+                        <input id='location' type="text"
+                        value='' placeholder="Location">
+                    </label>
+                    <label class="item">
+                        {{_ "smartix-calendarevent.Startdate" }}
+                        <input id='start-date' type="date" value='{{getStartDate}}' oninvalid="setCustomValidity('Start Date cannot be emptied')"
+                        oninput="setCustomValidity('')" placeholder="Start Date" required>
+                    </label>
+                    <label class="item">
+                        {{_ "smartix-calendarevent.At" }}
+                        <input id='start-date-time' type="time" value='{{getCurrentTime}}' oninvalid="setCustomValidity('Start Date Time cannot be emptied')"
+                        oninput="setCustomValidity('')" placeholder="Start Date Time" required>
+                    </label>
+                    <label class="item">
+                        {{_ "smartix-calendarevent.Enddate" }}
+                        <input id='end-date' type="date" value= {{getEndDate}}  >
+                    </label>
+                    <label class="item">
+                        {{_ "smartix-calendarevent.To" }}
+                        <input id='end-date-time' type="time" value='{{getCurrentTime}}' placeholder="End Date Time" >
+                    </label>
+                    <!--<label class="item item-input">
+                        <input id='content' type="text" value='{{email}}' placeholder="Content">
+                    </label>-->
+                    <button class='hidden'> {{_ "smartix-calendarevent.Submit" }}</button>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default dismiss-modal" data-dismiss="modal">{{_ "Admin.Close" }}</button>
+            <button type="button" id="modal-save" data-dismiss="modal" class="btn btn-primary save calendar-event">{{_ "Admin.SaveChanges" }}</button>
+        </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+</template>

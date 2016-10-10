@@ -27,7 +27,7 @@ less
 standard-minifier-css
 standard-minifier-js
 ddp-rate-limiter
-force-ssl
+# force-ssl
 
 # account
 accounts-base
@@ -144,4 +144,5 @@ smartix:distribution-lists
 smartix:plan
 danielqiu:feed
 smartix:rss
+smartix:calendar
 matb33:collection-hooks

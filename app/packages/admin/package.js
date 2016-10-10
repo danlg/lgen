@@ -8,7 +8,8 @@ Package.describe({
 
 Npm.depends({
   jszip: "3.0.0",
-  xlsx: "https://github.com/d4nyll/js-xlsx/archive/36e68fcc15a71f49fea4e73f8bc15ff4acbaa34e.tar.gz"
+  xlsx: "https://github.com/d4nyll/js-xlsx/archive/36e68fcc15a71f49fea4e73f8bc15ff4acbaa34e.tar.gz",
+  'fullcalendar': "3.0.0"
 //   "intl-tel-input": "8.5.2"
 });
 
@@ -102,6 +103,11 @@ Package.onUse(function (api) {
   api.addFiles('client/templates/newsgroups/import/import.js', 'web.browser');
   api.addFiles('client/templates/news/add/add.html', 'web.browser');
   api.addFiles('client/templates/news/add/add.js', 'web.browser');
+  api.addFiles('client/templates/news/addCalendar/addCalendar.html', 'web.browser');
+  api.addFiles('client/templates/news/addCalendar/addCalendar.js', 'web.browser');
+  api.addFiles('client/templates/news/addCalendar/fullcalendar/fullcalendar.css', 'web.browser');
+  api.addFiles('client/templates/news/addCalendar/fullcalendar/gcal.js', 'web.browser');
+  api.addFiles('client/templates/news/addCalendar/fullcalendar/locale-all.js', 'web.browser');
   api.addFiles('client/templates/news/import/import.html', 'web.browser');
   api.addFiles('client/templates/news/import/import.js', 'web.browser');
   api.addFiles('client/templates/rss/view/view.html', 'web.browser');

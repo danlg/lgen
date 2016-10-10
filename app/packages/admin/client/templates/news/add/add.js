@@ -31,6 +31,11 @@ Template.AdminNewsAdd.helpers({
             // }
         }
     },
+    routeData: function () {
+       return {
+           school:  UI._globalHelpers['getCurrentSchoolName']()
+       }
+    },
     uploadPic: function (argument) { 
         return Template.instance().imageArr.get();
     },

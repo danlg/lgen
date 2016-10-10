@@ -215,6 +215,15 @@ Router.route('/:school/admin/news/add', {
     }
 });
 
+Router.route('/:school/admin/calendar/add', {
+    name: 'admin.calendar.add',
+    layoutTemplate: 'adminLayout',
+    template: 'AdminCalendarAdd',
+    action: function () {
+        this.render('AdminCalendarAdd');
+    }
+});
+
 Router.route('/:school/admin/news/import', {
     name: 'admin.news.import',
     layoutTemplate: 'adminLayout',
