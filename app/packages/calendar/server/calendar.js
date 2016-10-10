@@ -1,10 +1,6 @@
 Smartix = Smartix || {};
 Smartix.Calendar = Smartix.Calendar || {};
 
-
-Smartix.Calendar.Collection = new Mongo.Collection('calendar');
-
-
 Smartix.Calendar.Collection.calendarSchema = new SimpleSchema({
     schoolId: {
         type: String,
@@ -13,7 +9,8 @@ Smartix.Calendar.Collection.calendarSchema = new SimpleSchema({
         type: String
     },
     location: {
-        type: String
+        type: String,
+        optional: true
     },
     startDate:{
         type: String

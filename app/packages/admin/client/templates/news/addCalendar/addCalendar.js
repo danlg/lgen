@@ -12,7 +12,9 @@ Template.AdminCalendarAdd.onCreated(function () {
             self.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolName', schoolName); 
         }
     });
-    self.subscribe('smartix:calendar/eventsBySchool', schoolId);
+    self.subscribe('smartix:calendar/eventsBySchool', schoolId, function(){
+        log.info(Smartix.Calendar.Collection.find().fetch())
+    });
     this.calendarEvent = new ReactiveVar({});
     this.showCalendarForm = new ReactiveVar(false);
 })

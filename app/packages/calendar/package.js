@@ -31,6 +31,8 @@ Package.onUse(function(api) {
     
     api.use('smartix:utilities');
 
+    api.addFiles('lib/calendar_collections.js', ['server', 'client']);
+
     api.addFiles('server/calendar.js', 'server');
     api.addFiles('server/api.js', 'server');
 
