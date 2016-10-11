@@ -24,7 +24,7 @@
             <h4 class="modal-title">Add Calendar Event</h4>
         </div>
         <div class="modal-body">
-            <form>
+            <form id="calendar-input-form">
                 <style>
                     .item {
                         white-space: initial;
@@ -49,6 +49,13 @@
                         <input id='location' type="text"
                         value='' placeholder="Location">
                     </label>
+                    <label class="item item-input">
+                        <input id='calendarName' type="text"
+                        value='' placeholder="Calendar Name">
+                    </label>
+                    <label class="item item-input">
+                        <input id='description' type="text" value='' placeholder="Description">
+                    </label>
                     <label class="item">
                         {{_ "smartix-calendarevent.Startdate" }}
                         <input id='start-date' type="date" value='{{getStartDate}}' oninvalid="setCustomValidity('Start Date cannot be emptied')"
@@ -65,7 +72,7 @@
                     </label>
                     <label class="item">
                         {{_ "smartix-calendarevent.To" }}
-                        <input id='end-date-time' type="time" value='{{getCurrentTime}}' placeholder="End Date Time" >
+                        <input id='end-date-time' type="time" value='{{getCurrentTimePlusOne}}' placeholder="End Date Time" >
                     </label>
                     <!--<label class="item item-input">
                         <input id='content' type="text" value='{{email}}' placeholder="Content">

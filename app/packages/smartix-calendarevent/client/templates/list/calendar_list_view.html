@@ -36,9 +36,16 @@
         <div class="row" >
             <div class="col" ><h2><i class='icon ion-ios-calendar-outline' ></i>&nbsp;{{title}}</h2></div>  
         </div> 
+        {{#if location}}
         <div class="row" >
             <div class="col" ><h2><i class='icon ion-location' ></i>&nbsp;{{location}}</h2></div>
-        </div>                                                               
+        </div>        
+        {{/if}}   
+        {{#if content}}
+        <div class="row" >
+            <div class="col" ><h2>{{content}}</h2></div>
+        </div>        
+        {{/if}}                                                       
         <div class="row" >
             <div class="col">{{_ "smartix-calendarevent.Start" }} {{formatDateCalendar start}}</div>
         </div>

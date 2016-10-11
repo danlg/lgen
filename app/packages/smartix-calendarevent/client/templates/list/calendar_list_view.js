@@ -7,10 +7,14 @@ var mycalendar;
 
 Template.CalendarListView.onCreated(function(){
     var self = this;
+    var schoolId =  UI._globalHelpers['getCurrentSchoolId']();
     self.subscribe('newsgroupsForUser',null,null,Session.get('pickedSchoolId'),function(){
         //self.subscribe('newsForUser',null,null,Session.get('pickedSchoolId'));
         self.subscribe('calendarEntriesForUser',null,null,Session.get('pickedSchoolId'), function(){
-            loadCalendar();
+            self.subscribe('smartix:calendar/eventsBySchool', schoolId, function(){
+                // log.info(Smartix.Calendar.Collection.find().fetch());
+                loadCalendar();
+            }); 
         });
         self.subscribe('smartix:distribution-lists/listsInNamespace',Session.get('pickedSchoolId'));
     });
@@ -54,7 +58,28 @@ Template.CalendarListView.helpers({
     
 });
 
-let loadCalendar = function(){
+let fetchSchoolCalendarEvents = () =>{
+    let calendarEvents = Smartix.Calendar.Collection.find().fetch();
+    let calendarEventsArray = [];
+    lodash.forEach(calendarEvents, function(calendarEvent){
+        let calendarEventObj = {};
+        calendarEventObj.title =  (calendarEvent.location)
+                            ? calendarEvent.eventName + " / " + calendarEvent.location
+                            : calendarEvent.eventName;
+        calendarEventObj.start = moment(calendarEvent.startDate).format();
+        calendarEventObj.end = moment(calendarEvent.endDate).format();
+        calendarEventObj.location = calendarEvent.location;
+        calendarEventObj.content = calendarEvent.description;
+        calendarEventsArray.push(calendarEventObj);
+    });
+    let calendarEventsSource = {};
+    calendarEventsSource.events = calendarEventsArray;
+    calendarEventsSource.color = 'green';
+    // log.info(calendarEventsSource);
+    return calendarEventsSource;
+}
+
+let fetchUserCalendarEvents = () => {
     let calendarEvents = Smartix.Messages.Collection.find().fetch();
     let calendarEventsArray = [];
     lodash.forEach(calendarEvents, function(calendarEvent){
@@ -69,11 +94,16 @@ let loadCalendar = function(){
         calendarEventObj.content = calendarEvent.data.content;
         calendarEventsArray.push(calendarEventObj);
     });
+    let calendarEventsSource = {};
+    calendarEventsSource.events = calendarEventsArray;
+    return calendarEventsSource;
+}
 
+let loadCalendar = () => {
     mycalendar = jQuery('#calendar').fullCalendar({
             // put your options and callbacks here
+            eventSources: [fetchSchoolCalendarEvents(), fetchUserCalendarEvents()],
             locale:  TAPi18n.getLanguage(),
-            events: calendarEventsArray,
             header: {
                 left:   'title today',
                 center: 'listMonth,month,agendaWeek,agendaDay',
@@ -83,10 +113,18 @@ let loadCalendar = function(){
             defaultView: 'listMonth',
             eventClick: function(calEvent, jsEvent, view) {
                 IonModal.open("calendarModal", calEvent);
-                log.info(calEvent);
+                // log.info(calEvent);
             }
     });
 }
+
+// let reloadCalendar = () =>{
+//     log.info("Method Called");
+//     jQuery('#calendar').fullCalendar('removeEvents');
+//     jQuery('#calendar').fullCalendar('removeEventSource', fetchCalendarEvents());
+//     jQuery('#calendar').fullCalendar('addEventSource', fetchCalendarEvents());
+//     jQuery('#calendar').fullCalendar('rerenderEvents');
+// }
 
 Template.CalendarListView.events({
 
