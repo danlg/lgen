@@ -1,4 +1,5 @@
 com.megster.cordova.FileChooser@http://github.com/don/cordova-filechooser.git#1941938e206d29e0e661c053358bc65889e42fd8
+cordova-custom-config@2.0.3
 cordova-plugin-actionsheet@2.2.2
 cordova-plugin-calendar@4.4.7
 cordova-plugin-camera@2.1.1

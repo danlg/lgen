@@ -63,6 +63,16 @@ App.setPreference('deployment-target', '8.4');
 App.setPreference('BackupWebStorage', 'none');
 //target-device(string)//Allowed values: handset, tablet, universal//Default: universal
 
+//https://github.com/dpa99c/cordova-custom-config#ios-preferences
+App.appendToConfig(`<platform name="ios">
+    <config-file platform="ios" target="*-Info.plist" parent="NSPhotoLibraryUsageDescription">
+      <string>Smartix requires access to the photo library</string>
+    </config-file>
+    <config-file platform="ios" target="*-Info.plist" parent="NSCameraUsageDescription">
+      <string>Smartix requires access to the camera</string>
+    </config-file>
+  </platform>`);
+
 //ANDROID
 App.setPreference('android-minSdkVersion', '19'); //19 === android 4.4.2 webview is required
 App.setPreference('android-targetSdkVersion', '23');//should be the latest version (ideally)
