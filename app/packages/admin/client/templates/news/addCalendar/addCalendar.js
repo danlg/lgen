@@ -18,7 +18,7 @@ Template.AdminCalendarAdd.onCreated(function () {
     }); 
     this.calendarEvent = new ReactiveVar({});
     this.showCalendarForm = new ReactiveVar(false);
-})
+});
 
 Template.AdminCalendarAdd.helpers({
     newsgroups: function () {
@@ -38,14 +38,12 @@ Template.AdminCalendarAdd.helpers({
         return Template.instance().showCalendarForm.get();
     },
     getCurrentTime : function(){
-        var date = new Date();
-        var formattedTime = moment(date).format('HH:mm');
-        return formattedTime;
+        let date = new Date();
+        return moment(date).format('HH:mm');
     },
     getCurrentTimePlusOne : function(){
-        var date = new Date();
-        var formattedTime = moment(date).add(1, 'hours').format('HH:mm');
-        return formattedTime;
+        let date = new Date();
+        return moment(date).add(1, 'hours').format('HH:mm');
     }
 });
 
@@ -111,17 +109,17 @@ let fetchCalendarEvents = () =>{
     calendarEventsSource.events = calendarEventsArray;
     // log.info(calendarEventsSource);
     return calendarEventsSource;
-}
+};
 
 let loadCalendar = () => {
-    mycalendar = jQuery('#calendar').fullCalendar({
+    let mycalendar = jQuery('#calendar').fullCalendar({
             // put your options and callbacks here
+            //droppable: true,
             eventSources: [fetchCalendarEvents()],
             locale:  TAPi18n.getLanguage(),
             header: {
-                left:   'title',
-                center: 'month',
-                // listMonth not pretty but should be added later to get rid of our custom. dev list
+                left:   'title today',
+                center: 'month,agendaWeek,agendaDay',
                 right:  'prev,next'
             },
             selectable:true,
@@ -137,15 +135,15 @@ let loadCalendar = () => {
             // }
     });
     // log.info(mycalendar);
-}
+};
 
 let reloadCalendar = () =>{
-    jQuery('#calendar').fullCalendar('removeEvents');
-    jQuery('#calendar').fullCalendar('removeEventSource', fetchCalendarEvents());
-    jQuery('#calendar').fullCalendar('addEventSource', fetchCalendarEvents());
-    jQuery('#calendar').fullCalendar('rerenderEvents');
-}
-
+    let cal = jQuery('#calendar');//time consuming
+    cal.fullCalendar('removeEvents');
+    cal.fullCalendar('removeEventSource', fetchCalendarEvents());
+    cal.fullCalendar('addEventSource', fetchCalendarEvents());
+    cal.fullCalendar('rerenderEvents');
+};
 
 let selectCalendarRange = (start, end) =>
 {

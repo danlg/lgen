@@ -3,7 +3,7 @@
 import jQuery from 'jquery'
 import fullCalendar from 'fullcalendar';
 
-var mycalendar;
+//var mycalendar;
 
 Template.CalendarListView.onCreated(function(){
     var self = this;
@@ -100,7 +100,7 @@ let fetchUserCalendarEvents = () => {
 }
 
 let loadCalendar = () => {
-    mycalendar = jQuery('#calendar').fullCalendar({
+    let mycalendar = jQuery('#calendar').fullCalendar({
             // put your options and callbacks here
             eventSources: [fetchSchoolCalendarEvents(), fetchUserCalendarEvents()],
             locale:  TAPi18n.getLanguage(),
@@ -110,13 +110,13 @@ let loadCalendar = () => {
                 // listMonth not pretty but should be added later to get rid of our custom. dev list
                 right:  'prev,next'
             },
-            defaultView: 'listMonth',
+            defaultView: 'month',//'listMonth',
             eventClick: function(calEvent, jsEvent, view) {
                 IonModal.open("calendarModal", calEvent);
                 // log.info(calEvent);
             }
     });
-}
+};
 
 // let reloadCalendar = () =>{
 //     log.info("Method Called");
