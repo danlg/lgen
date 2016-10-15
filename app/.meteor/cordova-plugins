@@ -12,6 +12,7 @@ cordova-plugin-filepath@1.0.2
 cordova-plugin-globalization@1.0.3
 cordova-plugin-inappbrowser@https://github.com/ephemer/cordova-plugin-inappbrowser.git#04091fde737519c149e7ad6316971cb6b490c5b3
 cordova-plugin-media@https://github.com/terenceng2010/cordova-plugin-media.git#43c186dbbb373b27151333166e54c8c9fbee16d5
+cordova-plugin-meteor-webapp@https://github.com/meteor/cordova-plugin-meteor-webapp.git#480c431ba0ff8cd7aab76a36b89b7b714a2f1857
 cordova-plugin-save-image@0.2.2
 cordova-plugin-splashscreen@3.2.1
 cordova-plugin-vibration@2.1.0
