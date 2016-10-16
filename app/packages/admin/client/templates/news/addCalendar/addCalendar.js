@@ -2,41 +2,16 @@
 import jQuery from 'jquery'
 import fullCalendar from 'fullcalendar';
 
+isNewEvent = ReactiveVar(true);
+
 Template.AdminCalendarAdd.onCreated(function () {
-    const self = Template.instance();
-    var schoolName = UI._globalHelpers['getCurrentSchoolName']();
     var schoolId =  UI._globalHelpers['getCurrentSchoolId']();
-    this.autorun(() => {
-        if(schoolName)
-        {
-            self.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolName', schoolName);
-        }
-    });
-     self.subscribe('smartix:calendar/eventsBySchool', schoolId, function(){
-                // log.info(Smartix.Calendar.Collection.find().fetch());
+     this.subscribe('smartix:calendar/eventsBySchool', schoolId, function(){
                 loadCalendar();
-    }); 
-    this.calendarEvent = new ReactiveVar({});
-    this.showCalendarForm = new ReactiveVar(false);
+    });    
 });
 
 Template.AdminCalendarAdd.helpers({
-    newsgroups: function () {
-        if(Template.instance().subscriptionsReady()) {
-            // var schoolDoc = UI._globalHelpers['getCurrentSchoolName']();
-            // if(schoolDoc) {
-                return Smartix.Groups.Collection.find({
-                    type: 'newsgroup'
-                });
-            // }
-        }
-    },
-    calendarEventSet:function(){ 
-        return ( !($.isEmptyObject( Template.instance().calendarEvent.get() ) ) );
-    },
-    showCalendarForm:function(){
-        return Template.instance().showCalendarForm.get();
-    },
     getCurrentTime : function(){
         let date = new Date();
         return moment(date).format('HH:mm');
@@ -44,6 +19,9 @@ Template.AdminCalendarAdd.helpers({
     getCurrentTimePlusOne : function(){
         let date = new Date();
         return moment(date).add(1, 'hours').format('HH:mm');
+    },
+    isNewEvent : function(){
+        return isNewEvent.get();
     }
 });
 
@@ -75,9 +53,54 @@ Template.AdminCalendarAdd.events({
             }
         });
     },  
+    
+    'click #modal-delete': function(event, template){
+        let eventId = $('#eventId').val();
+        log.info('deleteing:', eventId);
+        Meteor.call('smartix:calendar/deleteCalendarEvent', eventId, function(err, res){
+            if(!err)
+            {
+                log.info("Success");
+                reloadCalendar();
+                toastr.info("Successfully deleted event");
+            }
+            else{
+                log.error("There was an issue");
+                toastr.error("There was an issue");
+            }
+        })
+    },
 
+    'click #modal-edit': function(event, template){
+        let eventId = $('#eventId').val();
+        let orgEventObj = Smartix.Calendar.Collection.findOne(eventId);
+        let startTime = ($('start-date-time').val()) ? $('start-date-time').val() : moment(orgEventObj.startDate).format('HH:mm');
+        let endTime = ($('end-date-time').val()) ? $('end-date-time').val() : moment(orgEventObj.endDate).format('HH:mm');
+        log.info(startTime);
+        let startDateTime = moment($('#start-date').val()+" "+startTime).utc().format();
+        let endDateTime = moment($('#end-date').val()+" "+endTime).utc().format();
+        // log.info(startDateAndTime);
+        let calendarObj = {};
+        calendarObj.eventName = $('#event-name').val();
+        calendarObj.location = $('#location').val();
+        calendarObj.description = $('#description').val();
+        calendarObj.calendarName = $('#calendarName').val();
+        calendarObj.startDate = startDateTime;
+        calendarObj.endDate = endDateTime;
+        log.info(calendarObj);       
+        Meteor.call('smartix:calendar/editCalendarEvent', calendarObj, eventId, function(err, res){
+            if(!err){
+                reloadCalendar();
+                clearForm();
+                toastr.info("Successfully updated event");
+            }
+            else{
+                log.error("There was an issue");
+                toastr.error("There was an issue");
+            }
+        });
+    }
 });
-
 
 var notifyAdmin = function () {
     // If last element
@@ -90,12 +113,12 @@ var clearForm = function ( ) {
     document.getElementById("calendar-input-form").reset();
 };
 
-
 let fetchCalendarEvents = () =>{
     let calendarEvents = Smartix.Calendar.Collection.find().fetch();
     let calendarEventsArray = [];
     lodash.forEach(calendarEvents, function(calendarEvent){
         let calendarEventObj = {};
+        calendarEventObj.id = calendarEvent._id;
         calendarEventObj.title =  (calendarEvent.location)
                             ? calendarEvent.eventName + " / " + calendarEvent.location
                             : calendarEvent.eventName;
@@ -125,14 +148,11 @@ let loadCalendar = () => {
             selectable:true,
             select: function(start, end, jsEvent, view){
                 selectCalendarRange(start, end)
+            },
+            eventClick: function(calEvent, jsEvent, view) {
+                log.info('Event: ', calEvent.id);
+                editCalendarEvent(calEvent);
             }
-            // eventClick: function(calEvent, jsEvent, view) {
-            //     alert('Event: ' + calEvent.title);
-            //     alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-            //     alert('View: ' + view.name);
-            //     // change the border color just for fun
-            //     $(this).css('border-color', 'red');
-            // }
     });
     // log.info(mycalendar);
 };
@@ -155,6 +175,31 @@ let selectCalendarRange = (start, end) =>
     else
         $('#end-date').attr('value', end.format('YYYY-MM-DD'));
     $('#start-date').attr('value', start.format('YYYY-MM-DD'));
+    openModal();
+}
+
+let editCalendarEvent = (calEvent) => {
+    isNewEvent.set(false);
+    openModal(calEvent);
+}
+
+let openModal = (eventDetails) => {
+    //do something if not a new event
+    if(!isNewEvent.get() && eventDetails){
+        let calendarEventObj = Smartix.Calendar.Collection.findOne(eventDetails.id);
+        $('#eventId').val(calendarEventObj._id);
+        $('#event-name').val(calendarEventObj.eventName);
+        $('#location').val(calendarEventObj.location);
+        $('#calendarName').val(calendarEventObj.calendarName);
+        $('#description').val(calendarEventObj.description);
+        $('#start-date').val( moment(calendarEventObj.startDate).format('YYYY-MM-DD'));
+        $('#end-date').val(moment(calendarEventObj.endDate).format('YYYY-MM-DD'));
+        let startTime = moment(calendarEventObj.startDate).format('HH:mm');
+        $('#start-date-time').val(startTime);
+        let endTime = moment(calendarEventObj.endDate).format('HH:mm');
+        $('#end-date-time').val(endTime);
+    }
+
     Meteor.setTimeout(function(){
         $('#calendar-event-btn').click();  
     },200);  

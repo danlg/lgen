@@ -34,9 +34,31 @@ Smartix.Calendar.Collection.attachSchema(Smartix.Calendar.Collection.calendarSch
 Smartix.Calendar.addCalendarEvent = function(calendarObj){
     check(calendarObj, Smartix.Calendar.Collection.calendarSchema);
     let startTest = moment(calendarObj.startDate).isValid();
-    let endTest = moment(calendarObj.endTest).isValid();
+    let endTest = moment(calendarObj.endDate).isValid();
     let isAdmin = Smartix.Accounts.School.isAdmin(calendarObj.schoolId, Meteor.userId());
     if(isAdmin && startTest && endTest){
         Smartix.Calendar.Collection.insert(calendarObj);
     }
-}
+};
+
+Smartix.Calendar.deleteCalendarEvent = function(id){
+    let calendarObj = Smartix.Calendar.Collection.findOne(id);
+    let isAdmin = Smartix.Accounts.School.isAdmin(calendarObj.schoolId, Meteor.userId());
+    if(isAdmin){
+       return Smartix.Calendar.Collection.remove(id);
+    }
+};
+
+
+Smartix.Calendar.editCalendarEvent = function(calendarObj, eventId){
+    let originalCalendarObj = Smartix.Calendar.Collection.findOne(eventId);
+    calendarObj.schoolId = originalCalendarObj.schoolId;
+    Smartix.Calendar.Collection.calendarSchema.clean(calendarObj);
+    check(calendarObj, Smartix.Calendar.Collection.calendarSchema);
+    let startTest = moment(calendarObj.startDate).isValid();
+    let endTest = moment(calendarObj.endDate).isValid();    
+    let isAdmin = Smartix.Accounts.School.isAdmin(originalCalendarObj.schoolId, Meteor.userId());
+    if(isAdmin && startTest && endTest){
+       return Smartix.Calendar.Collection.update(eventId, calendarObj,  {validate: false});
+    }
+};

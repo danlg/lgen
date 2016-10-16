@@ -17,76 +17,90 @@
     {{_ "Admin.LaunchModal" }}
     </button>
     <div id='calendar-event' class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Add Calendar Event</h4>
-        </div>
-        <div class="modal-body">
-            <form id="calendar-input-form">
-                <style>
-                    .item {
-                        white-space: initial;
-                    }
-                    
-                    .item .item-input {
-                        white-space: initial;
-                    }
-                    
-                    .list::-webkit-scrollbar {
-                        display: initial;
-                    }
-                </style>
-                <div class="list ">
-                    <label class="item item-input">
-                        <input id='event-name' type="text" value=''
-                        oninvalid="setCustomValidity('Event Name cannot be emptied')"
-                        oninput="setCustomValidity('')"  placeholder="Event Name" 
-                        required />
-                    </label>
-                    <label class="item item-input">
-                        <input id='location' type="text"
-                        value='' placeholder="Location">
-                    </label>
-                    <label class="item item-input">
-                        <input id='calendarName' type="text"
-                        value='' placeholder="Calendar Name">
-                    </label>
-                    <label class="item item-input">
-                        <input id='description' type="text" value='' placeholder="Description">
-                    </label>
-                    <label class="item">
-                        {{_ "smartix-calendarevent.Startdate" }}
-                        <input id='start-date' type="date" value='{{getStartDate}}' oninvalid="setCustomValidity('Start Date cannot be emptied')"
-                        oninput="setCustomValidity('')" placeholder="Start Date" required>
-                    </label>
-                    <label class="item">
-                        {{_ "smartix-calendarevent.At" }}
-                        <input id='start-date-time' type="time" value='{{getCurrentTime}}' oninvalid="setCustomValidity('Start Date Time cannot be emptied')"
-                        oninput="setCustomValidity('')" placeholder="Start Date Time" required>
-                    </label>
-                    <label class="item">
-                        {{_ "smartix-calendarevent.Enddate" }}
-                        <input id='end-date' type="date" value= {{getEndDate}}  >
-                    </label>
-                    <label class="item">
-                        {{_ "smartix-calendarevent.To" }}
-                        <input id='end-date-time' type="time" value='{{getCurrentTimePlusOne}}' placeholder="End Date Time" >
-                    </label>
-                    <!--<label class="item item-input">
-                        <input id='content' type="text" value='{{email}}' placeholder="Content">
-                    </label>-->
-                    <button class='hidden'> {{_ "smartix-calendarevent.Submit" }}</button>
-                </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default dismiss-modal" data-dismiss="modal">{{_ "Admin.Close" }}</button>
-            <button type="button" id="modal-save" data-dismiss="modal" class="btn btn-primary save calendar-event">{{_ "Admin.SaveChanges" }}</button>
-        </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                {{#if isNewEvent}}
+                <h4 class="modal-title">Add Calendar Event</h4>
+                {{else}}
+                <h4 class="modal-title">Edit Calendar Event</h4>
+                {{/if}}
+            </div>
+            <div class="modal-body">
+                <form id="calendar-input-form">
+                    <style>
+                        .item {
+                            white-space: initial;
+                        }
+                        
+                        .item .item-input {
+                            white-space: initial;
+                        }
+                        
+                        .list::-webkit-scrollbar {
+                            display: initial;
+                        }
+                    </style>
+                    <div class="list ">
+                        <label class="item item-input">
+                            <input id='event-name' type="text" value=''
+                            oninvalid="setCustomValidity('Event Name cannot be emptied')"
+                            oninput="setCustomValidity('')"  placeholder="Event Name *" 
+                            required />
+                        </label>
+                        <label class="item item-input">
+                            <input id='location' type="text"
+                            value='' placeholder="Location">
+                        </label>
+                        <label class="item item-input">
+                            <input id='calendarName' type="text" value='' placeholder="Calendar Name">
+                        </label>
+                        <label class="item item-input">
+                            <input id='description' type="text" value='' placeholder="Description">
+                        </label>
+                        <label class="item">
+                            {{_ "smartix-calendarevent.Startdate" }} *
+                            <input id='start-date' type="date" value='{{getStartDate}}' oninvalid="setCustomValidity('Start Date cannot be emptied')"
+                            oninput="setCustomValidity('')" placeholder="Start Date" required>
+                        </label>
+                        <label class="item">
+                            {{_ "smartix-calendarevent.At" }} *
+                            {{#if isNewEvent}}
+                            <input id='start-date-time' type="time" value='{{getCurrentTime}}' oninvalid="setCustomValidity('Start Date Time cannot be emptied')"
+                            oninput="setCustomValidity('')" placeholder="Start Date Time" required>
+                            {{else}}
+                                <input id='start-date-time' type="time" value='' oninvalid="setCustomValidity('Start Date Time cannot be emptied')" oninput="setCustomValidity('')" placeholder="Start Date Time" required>
+                            {{/if}}
+                        </label>
+                        <label class="item">
+                            {{_ "smartix-calendarevent.Enddate" }} *
+                            <input id='end-date' type="date" value= {{getEndDate}}  >
+                        </label>
+                        <label class="item">
+                            {{_ "smartix-calendarevent.To" }} *
+                            {{#if isNewEvent}}
+                                <input id='end-date-time' type="time" value='{{getCurrentTimePlusOne}}' placeholder="End Date Time" >
+                            {{else}}
+                                <input id='end-date-time' type="time">
+                            {{/if}}
+                        </label>
+                        <input id='eventId' type="hidden" value=''>
+                        <button class='hidden'> {{_ "smartix-calendarevent.Submit" }}</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default dismiss-modal" data-dismiss="modal">{{_ "Admin.Close" }}</button>
+                {{#if isNewEvent}}
+                <button type="button" id="modal-save" data-dismiss="modal" class="btn btn-primary save calendar-event">{{_ "Admin.SaveChanges" }}</button>
+                {{else}}
+                <button type="button" id="modal-delete" data-dismiss="modal" class="btn btn-danger save calendar-event">Delete Event</button>
+                <button type="button" id="modal-edit" data-dismiss="modal" class="btn btn-success save calendar-event">{{_ "Admin.SaveChanges" }}</button>
+                {{/if}}
+            </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
 </template>
