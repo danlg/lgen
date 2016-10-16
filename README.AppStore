@@ -10,5 +10,15 @@ http://stackoverflow.com/questions/37838487/error-itms-90167-no-app-bundles-foun
 
 We need to use XCode 8 to upload the app so we use the Application Loader of XCode 8 (version 3.6)
 
+========
+XCode 8 Tricks to upgrade to be able to build & archive = deploy
+========
+- change web app to one supporting Swift 3 : cordova-plugin-meteor-webapp@https://github.com/meteor/cordova-plugin-meteor-webapp.git#480c431ba0ff8cd7aab76a36b89b7b714a2f1857
+- ld compiler error => fix change settings no Apple LLVM 8.0 Code generation => "No Common blocks" set to "No"
+=> now it builds
+
+To be able to Archive:
+- Change provisioning profile to : com.gosmartix.carmel
+- Change code signing: iPhone Distribution Little Genius Education Limited 7TG6... (drop down)
 
 
