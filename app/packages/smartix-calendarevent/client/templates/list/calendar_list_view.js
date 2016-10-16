@@ -126,15 +126,14 @@ let loadCalendar = () => {
 //     jQuery('#calendar').fullCalendar('rerenderEvents');
 // }
 
-Template.CalendarListView.events({
-
-  'click .add-to-calendar':function(event){
+Template.calendarModal.events({
+  'click .add-to-calendar': function(event){
       var startDate = this.start;
       var endDate = this.end;
       var eventName = this.title;
       var location = this.location;
       var description = this.content;
-      
+    //   log.info(startDate, eventName, description, endDate);
       Smartix.Messages.Addons.Calendar.addEvent(eventName,location,description,startDate,endDate,function(){
          toastr.info(TAPi18n.__("EventAddCalendar")); 
       });
