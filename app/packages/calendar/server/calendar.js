@@ -25,6 +25,11 @@ Smartix.Calendar.Collection.calendarSchema = new SimpleSchema({
     calendarName: {
         type: String,
         optional: true
+    },
+    allDay: {
+        type: Boolean,
+        defaultValue: false,
+        optional: true
     }
 });
 

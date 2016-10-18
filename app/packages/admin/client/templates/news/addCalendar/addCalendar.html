@@ -22,9 +22,9 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 {{#if isNewEvent}}
-                <h4 class="modal-title">Add Calendar Event</h4>
+                <h4 class="modal-title">{{_ "Admin.AddEvent" }}</h4>
                 {{else}}
-                <h4 class="modal-title">Edit Calendar Event</h4>
+                <h4 class="modal-title">{{_ "Admin.EditEvent" }}</h4>
                 {{/if}}
             </div>
             <div class="modal-body">
@@ -42,10 +42,11 @@
                             display: initial;
                         }
                     </style>
+                    <!--TODO LOCALIZE ME-->
                     <div class="list ">
                         <label class="item item-input">
                             <input id='event-name' type="text" value=''
-                            oninvalid="setCustomValidity('Event Name cannot be emptied')"
+                            oninvalid="setCustomValidity('Event Name cannot be empty')"
                             oninput="setCustomValidity('')"  placeholder="Event Name *" 
                             required />
                         </label>
@@ -61,16 +62,17 @@
                         </label>
                         <label class="item">
                             {{_ "smartix-calendarevent.Startdate" }} *
-                            <input id='start-date' type="date" value='{{getStartDate}}' oninvalid="setCustomValidity('Start Date cannot be emptied')"
-                            oninput="setCustomValidity('')" placeholder="Start Date" required>
+                            <input id='start-date' type="date" value='{{getStartDate}}' oninvalid="setCustomValidity('Start date cannot be empty')"
+                                   oninput="setCustomValidity('')" placeholder="Start date" required>
                         </label>
                         <label class="item">
                             {{_ "smartix-calendarevent.At" }} *
                             {{#if isNewEvent}}
-                            <input id='start-date-time' type="time" value='{{getCurrentTime}}' oninvalid="setCustomValidity('Start Date Time cannot be emptied')"
-                            oninput="setCustomValidity('')" placeholder="Start Date Time" required>
+                                <input id='start-date-time' type="time" value='{{getCurrentTime}}' oninvalid="setCustomValidity('Start time cannot be empty')"
+                                       oninput="setCustomValidity('')" placeholder="Start time" required>
                             {{else}}
-                                <input id='start-date-time' type="time" value='' oninvalid="setCustomValidity('Start Date Time cannot be emptied')" oninput="setCustomValidity('')" placeholder="Start Date Time" required>
+                                <input id='start-date-time' type="time" value='' oninvalid="setCustomValidity('Start time cannot be empty')"
+                                       oninput="setCustomValidity('')" placeholder="Start time" required>
                             {{/if}}
                         </label>
                         <label class="item">
@@ -80,7 +82,7 @@
                         <label class="item">
                             {{_ "smartix-calendarevent.To" }} *
                             {{#if isNewEvent}}
-                                <input id='end-date-time' type="time" value='{{getCurrentTimePlusOne}}' placeholder="End Date Time" >
+                                <input id='end-date-time' type="time" value='{{getCurrentTimePlusOne}}' placeholder="End time" >
                             {{else}}
                                 <input id='end-date-time' type="time">
                             {{/if}}
@@ -95,7 +97,7 @@
                 {{#if isNewEvent}}
                 <button type="button" id="modal-save" data-dismiss="modal" class="btn btn-primary save calendar-event">{{_ "Admin.SaveChanges" }}</button>
                 {{else}}
-                <button type="button" id="modal-delete" data-dismiss="modal" class="btn btn-danger save calendar-event">Delete Event</button>
+                <button type="button" id="modal-delete" data-dismiss="modal" class="btn btn-danger save calendar-event">{{_ "Admin.DeleteEvent" }}</button>
                 <button type="button" id="modal-edit" data-dismiss="modal" class="btn btn-success save calendar-event">{{_ "Admin.SaveChanges" }}</button>
                 {{/if}}
             </div>

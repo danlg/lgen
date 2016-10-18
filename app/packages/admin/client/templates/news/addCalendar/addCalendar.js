@@ -14,6 +14,7 @@ Template.AdminCalendarAdd.onCreated(function () {
 Template.AdminCalendarAdd.helpers({
     getCurrentTime : function(){
         let date = new Date();
+	    //todo round to the next hour
         return moment(date).format('HH:mm');
     },
     getCurrentTimePlusOne : function(){
@@ -43,7 +44,7 @@ Template.AdminCalendarAdd.events({
         log.info(calendarObj);       
         Meteor.call('smartix:calendar/addNewCalendarEvent', calendarObj, function(err, res){
             if(!err){
-                log.info("Successfully added event to DB");
+                log.info("Successfully added event");
                 reloadCalendar();
                 notifyAdmin();
             }
@@ -76,7 +77,7 @@ Template.AdminCalendarAdd.events({
         let orgEventObj = Smartix.Calendar.Collection.findOne(eventId);
         let startTime = ($('start-date-time').val()) ? $('start-date-time').val() : moment(orgEventObj.startDate).format('HH:mm');
         let endTime = ($('end-date-time').val()) ? $('end-date-time').val() : moment(orgEventObj.endDate).format('HH:mm');
-        log.info(startTime);
+        //log.info(startTime);
         let startDateTime = moment($('#start-date').val()+" "+startTime).utc().format();
         let endDateTime = moment($('#end-date').val()+" "+endTime).utc().format();
         // log.info(startDateAndTime);
@@ -113,7 +114,7 @@ var clearForm = function ( ) {
     document.getElementById("calendar-input-form").reset();
 };
 
-let fetchCalendarEvents = () =>{
+let fetchCalendarEvents = () => {
     let calendarEvents = Smartix.Calendar.Collection.find().fetch();
     let calendarEventsArray = [];
     lodash.forEach(calendarEvents, function(calendarEvent){
