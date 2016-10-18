@@ -94,7 +94,7 @@ Template.AdminNewsgroupsSearch.events({
         
     },
    'click .select-all-users-btn':function(event,template){
-     var userObjects = Smartix.Groups.Collection.find( {},{ fields:{ _id: 1} } ).fetch();
+     var userObjects = Smartix.Groups.Collection.find({type:'newsgroup'},{ fields:{ _id: 1} } ).fetch();
      var userIds = lodash.map(userObjects,"_id");
      let latestArray = template.usersChecked.set(userIds);  
    },
