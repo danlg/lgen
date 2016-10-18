@@ -44,8 +44,8 @@ Meteor.publish('smartix:absence/expectedAbsencesUsers', function (namespace, dat
         });
         //log.info("studentsArray", studentsArray);
 	    let find = Meteor.users.find({
-            //_id:     { $in: studentsArray }
-            studentId: { $in: studentsArray },
+            _id:     { $in: studentsArray },
+            // studentId: { $in: studentsArray },
             //schools:   { $elemMatch :  { namespace } }
             schools:   { $elemMatch :  {$in : [namespace ] } }
         });

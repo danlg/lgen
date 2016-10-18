@@ -86,7 +86,7 @@ Template.AdminAbsenceExpected.helpers({
 
     'userData': function () {
         return Meteor.users.findOne({
-            "studentId": this.studentId
+            "_id": this.studentId
         });
     },
     // firstName: function () {

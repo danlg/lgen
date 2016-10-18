@@ -70,7 +70,7 @@ Template.AdminAbsentees.helpers({
     },
     'userData': function () {
         return Meteor.users.findOne({
-            "studentId": this.studentId
+            "_id": this.studentId
         });
     },
 

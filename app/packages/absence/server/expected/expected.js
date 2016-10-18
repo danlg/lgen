@@ -29,14 +29,14 @@ Smartix.Absence.registerExpectedAbsence = function (options, currentUser) {
     }
 
     let studentObj = Meteor.users.findOne({
-        studentId: options.studentId,
+        $or: [ { studentId: options.studentId }, { _id: options.studentId } ],
         schools: [options.namespace]
     });
-    let studentId = options.studentId;
+    let studentId = studentObj._id;
     //if studentObj exists take the unique id else continue with the options.studentId
-    if(studentObj){
-        studentId = studentObj._id;
-    }    
+    // if(studentObj){
+        // studentId = studentObj._id;
+    // }    
     // Add the expected absence entry into the collection
     let insertedAbsenceId = Smartix.Absence.Collections.expected.insert({
         studentId: studentId,
