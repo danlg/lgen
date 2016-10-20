@@ -12,16 +12,20 @@ Template.ClassPanel.onCreated(function () {
 	var self = this;
 	//log.info(Router.current().params.classCode);
 	// self.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');
+	// self.subscribe('images',    UI._globalHelpers['getCurrentSchoolName'](), 'class', currentClassCode);
+    // self.subscribe('documents', UI._globalHelpers['getCurrentSchoolName'](), 'class', currentClassCode);
+	// self.subscribe('sounds',    UI._globalHelpers['getCurrentSchoolName'](), 'class', currentClassCode);
 	self.subscribe('smartix:classes/classByClassCode', {currentClassCode}, 
 	{
 		onReady: function () {
 		var classObj = Smartix.Groups.Collection.findOne({
 			type: 'class',
-			classCode: Router.current().params.classCode
+			classCode: currentClassCode
 		});
 		self.subscribe('smartix:messages/groupMessages', classObj._id);}
 	});
 });
+
 
 /* ClassPanel: Event Handlers */
 Template.ClassPanel.events({
@@ -199,6 +203,7 @@ Template.ClassPanel.helpers({
 
 	getImage: function () {
 		var id = this.toString();
+		// log.info(Images.findOne(id));
 		return Images.findOne(id);
 	},
 
@@ -284,23 +289,6 @@ Template.ClassPanel.helpers({
 	}
 });
 
-/* ClassPanel: Lifecycle Hooks */
-Template.ClassPanel.onCreated(function(){
-    currentClassCode = Router.current().params.classCode;
-    var self = this;
-    log.info("Template.ClassPanel.onCreated", UI._globalHelpers['getCurrentSchoolName']());
-    this.subscribe('images',    UI._globalHelpers['getCurrentSchoolName'](), 'class', currentClassCode);
-    this.subscribe('documents', UI._globalHelpers['getCurrentSchoolName'](), 'class', currentClassCode);
-	this.subscribe('sounds',    UI._globalHelpers['getCurrentSchoolName'](), 'class', currentClassCode);
-    // this.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');
-    this.subscribe('smartix:classes/associatedClasses',function(){
-        var classObj = Smartix.Groups.Collection.findOne({
-            type: 'class',
-            classCode: Router.current().params.classCode
-        });
-        self.subscribe('smartix:messages/groupMessages',classObj._id);
-    });
-});
 
 Template.ClassPanel.onRendered( function() {
 	//log.info('rendered',this.subscriptionsReady());

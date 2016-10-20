@@ -76,6 +76,7 @@ Meteor.publish('joinedClasses', function () {
 });
 
 Meteor.publish('smartix:classes/classMembers', function(classCode) {
+    this.unblock();
     var group = Smartix.Groups.Collection.findOne({ classCode: classCode });
     if (group) {
         let classmates = [];

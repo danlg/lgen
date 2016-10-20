@@ -27,6 +27,7 @@ Meteor.publish('getAllMyChatRooms', function () {
 // });
 
 Meteor.publishComposite('chatRoomWithUser', function (chatRoomId) {
+  this.unblock();
   return {
     find: function () {
       // Find posts made by user. Note arguments for callback function
@@ -51,6 +52,7 @@ Meteor.publishComposite('chatRoomWithUser', function (chatRoomId) {
 
 
 Meteor.publishComposite('allMyChatRoomWithUser', function () {
+  this.unblock();
   return {
     find: function () {
       // Find posts made by user. Note arguments for callback function
