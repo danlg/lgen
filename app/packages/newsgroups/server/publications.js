@@ -9,6 +9,7 @@ Meteor.publish('newsgroups', function(newsgroups) {
 
 Meteor.publish('newsgroupsForUser', function(limit, query, namespace) {
     //log.info('newsgroupsForUser',limit,query,namespace);
+    this.unblock();
     var schoolDoc = SmartixSchoolsCol.findOne({
         shortname: namespace
     });
@@ -33,6 +34,7 @@ Meteor.publish('newsgroupsForUser', function(limit, query, namespace) {
  * imageIds cotains union of all fileIds for particular message
  */
 Meteor.publishComposite('newsForUser', function(limit, query, namespace) {
+    this.unblock();
     check(limit, Match.Maybe(Number));
     check(namespace, String);
     if (!limit) {

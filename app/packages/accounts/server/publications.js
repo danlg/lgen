@@ -4,6 +4,7 @@ Meteor.publish(null, function (){
 });
 
 Meteor.publish('smartix:accounts/ownUserData', function () {
+    this.unblock();
     return Meteor.users.find({
         _id: this.userId
     });

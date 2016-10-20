@@ -16,6 +16,7 @@ Meteor.publish('schoolInfo', function (schoolName) {
 });
 
 Meteor.publish('mySchools', function() {
+    this.unblock();
     if (this.userId) {
         var currentUserId = this.userId;
         var currentUser = Meteor.users.findOne({ _id: currentUserId });

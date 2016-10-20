@@ -280,6 +280,7 @@ Meteor.methods({
     updateProfileByPath: function (path, value) {
         // var obj = {};
         // obj = lodash.set(obj,path,value);
+        this.unblock();
         var user = Meteor.user();
         lodash.set(user, path, value);
         if(typeof user === 'object') {

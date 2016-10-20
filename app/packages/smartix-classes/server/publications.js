@@ -44,6 +44,8 @@ Meteor.publish('smartix:classes/classByClassCode', function (classCode) {
 // Returns a cursor of all classes where
 // the current user is a member or an admin
 Meteor.publish('smartix:classes/associatedClasses', function () {
+    this.unblock();
+    // log.info("associatedClasses Called!");
     return Smartix.Groups.Collection.find({
         type: 'class',
         $or: [{
