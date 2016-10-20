@@ -46,6 +46,12 @@ Template.PrivateNote.helpers({
 /* PrivateNote: Lifecycle Hooks */
 /*****************************************************************************/
 Template.PrivateNote.onCreated(function () {
+  let classId = Router.current().params.classId;
+  let userId = Router.current().params._id;
+    this.subscribe('smartix:classes/classById', classId);
+    this.subscribe('getUserById', userId);
+    this.subscribe('getCommentsByClassIdNId', classId, userId);
+    this.subscribe('getJoinedClassCreatedByMeByUserId', userId);
 });
 
 Template.PrivateNote.onRendered(function () {

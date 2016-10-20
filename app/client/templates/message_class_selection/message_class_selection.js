@@ -43,6 +43,7 @@ Template.MessageClassSelection.helpers({
 
 /* MessageClassSelection: Lifecycle Hooks */
 Template.MessageClassSelection.onCreated( function() {
+  this.subscribe('createdClassByMe');
 });
 
 Template.MessageClassSelection.onRendered( function() {

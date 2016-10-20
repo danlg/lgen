@@ -249,23 +249,23 @@ Router.route('TabYou', {
 
 
 
-Router.route('Notification', {
-  path: "/notice/:msgCode",
-  waitOn: function () {
-    Meteor.subscribe('smartix:messages/messagesById', this.params.msgCode);
-  }
-});
+// Router.route('Notification', {
+//   path: "/notice/:msgCode",
+//   waitOn: function () {
+//     Meteor.subscribe('smartix:messages/messagesById', this.params.msgCode);
+//   }
+// });
 
 Router.route('MessageExtraInfo', {
   path: "/panel/notice/:msgCode"
 });
 
-Router.route('NotificationDetail', {
-  path: "/notice/:msgCode/detail",
-  waitOn: function () {
-    Meteor.subscribe('smartix:messages/messagesById', this.params.msgCode);
-  }
-});
+// Router.route('NotificationDetail', {
+//   path: "/notice/:msgCode/detail",
+//   waitOn: function () {
+//     Meteor.subscribe('smartix:messages/messagesById', this.params.msgCode);
+//   }
+// });
 
 
 
@@ -277,13 +277,7 @@ Router.route('NotificationSetting' , {
 Router.route('Perf');
 
 Router.route('PrivateNote', {
-  path: "/private-note/:classId/:_id/",
-  waitOn: function (argument) {
-    Meteor.subscribe('smartix:classes/classById', this.params.classId);
-    Meteor.subscribe('getUserById', this.params._id);
-    Meteor.subscribe('getCommentsByClassIdNId', this.params.classId, this.params._id);
-    Meteor.subscribe('getJoinedClassCreatedByMeByUserId', this.params._id);
-  }
+  path: "/private-note/:classId/:_id/"
 });
 
 

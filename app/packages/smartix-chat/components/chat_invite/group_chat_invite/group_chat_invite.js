@@ -5,6 +5,10 @@ var targetString = [];
 var targetIds = ReactiveVar([]);
 var searchString = ReactiveVar("");
 
+Template.GroupChatInvite.onCreated(function(){
+    this.subscribe('createdClassByMe');
+})
+
 /* ChatInvite: Event Handlers */
 Template.GroupChatInvite.events({
   'click .classItem':function(){

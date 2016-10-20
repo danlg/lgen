@@ -42,6 +42,7 @@ Template.ClassEdit.helpers({
 
 /* ClassEdit: Lifecycle Hooks */
 Template.ClassEdit.onCreated( function() {
+  this.subscribe('smartix:classes/classByClassCode', Router.current().params.classCode);
 });
 
 Template.ClassEdit.onRendered( function() {

@@ -23,7 +23,7 @@ Template.ClassJoined.onCreated(function () {
 	});
 	var self = this;
 	this.autorun(function () {
-		self.subscribe('smartix:classes/associatedClasses');
+		// self.subscribe('smartix:classes/associatedClasses');
 		self.subscribe('smartix:classes/classMembers', classCode);
 		self.subscribe('smartix:messages/groupMessages', classObj._id);
 		self.subscribe('images', UI._globalHelpers['getCurrentSchoolName'](), 'class', classCode);
@@ -39,6 +39,114 @@ Template.ClassJoined.destroyed = function () {
 	Meteor.call('setAllClassMessagesAsRead', classObj.classCode);
 	localClassMessagesCollection = null;
 };
+
+
+
+Template.ClassJoined.onRendered( function() {
+	Meteor.call('getFullNameById', classObj.admins[0], function (err, data) {
+		return teacherName.set(data);
+	});
+
+	//Unused
+	// Meteor.call('getAvatarById', classObj.admins[0], function (err, data) {
+	// 	//log.info(data);
+	// 	return teacherAvatar.set(data);
+	// });
+	// Meteor.call('getAvatarTypeId', classObj.admins[0], function (err, data) {
+	// 	//log.info(data);
+	// 	return teacherAvatarType.set(data);
+	// });
+
+	//greet first-time user
+	if (Meteor.user().firstClassJoined) {
+		IonPopup.alert({
+			title: TAPi18n.__("Congratulations"),
+			template: TAPi18n.__("JoinedFirstClass"),
+			okText: TAPi18n.__("OKay")
+		});
+		//set the flag to false so it would not show again
+		Meteor.call('smartix:accounts/setFirstClassJoined');
+	}
+
+	$(".class-detail").scroll(function () {
+		if ($('.class-detail').scrollTop() > 75) {
+			isAtTop.set(false);
+		}
+		else {
+			isAtTop.set(true);
+		}
+	});
+
+	var classDetailClass = document.getElementsByClassName("class-detail")[0];
+	/****track if there are any new messages *********/
+	var initialClassObj = Smartix.Groups.Collection.findOne({
+		type: 'class',
+		classCode: Router.current().params.classCode
+	});
+	var initialCount = Smartix.Messages.Collection.find({group: initialClassObj._id}).count();
+
+	//http://stackoverflow.com/questions/32461639/how-to-execute-a-callback-after-an-each-is-done
+	this.autorun(function () {
+		var latestClassObj = Smartix.Groups.Collection.findOne({
+			type: 'class',
+			classCode: Router.current().params.classCode
+		});
+		// we need to register a dependency on the number of documents returned by the
+		// cursor to actually make this computation rerun everytime the count is altered
+		var latestCount = Smartix.Messages.Collection.find({group: initialClassObj._id}).count();
+
+		Tracker.afterFlush(function () {
+			if (latestCount > initialCount) {
+
+				//scroll to bottom
+				var classMessageListToBottomScrollTopValue = classDetailClass.scrollHeight - classDetailClass.clientHeight;
+				classDetailClass.scrollTop = classMessageListToBottomScrollTopValue;
+
+				initialCount = latestCount;
+			}
+		}.bind(this));
+	}.bind(this));
+	/****track if there are any new messages - END *********/
+	var template = this;
+	//scroll to bottom
+	this.autorun(function () {
+		if (template.subscriptionsReady()) {
+			Tracker.afterFlush(function () {
+
+				var imgReadyChecking = function () {
+					var hasAllImagesLoaded = true;
+					$('img').each(function () {
+						if (this.complete) {
+							//log.info('loaded');
+						}
+						else {
+							//log.info('not loaded');
+							hasAllImagesLoaded = false;
+						}
+					});
+
+					if (hasAllImagesLoaded) {
+						//log.info('scroll to bottom');
+						//need to wrap the code inside autorun and subscriptionready
+						//see http://stackoverflow.com/questions/32291382/when-the-page-loads-scroll-down-not-so-simple-meteor-js
+						var classMessageListToBottomScrollTopValue = classDetailClass.scrollHeight - classDetailClass.clientHeight;
+						//log.info(classMessageListToBottomScrollTopValue);
+						classDetailClass.scrollTop = classMessageListToBottomScrollTopValue;
+
+					}
+					else {
+						//if not all images is fully loaded, scroll bottom would not work.
+						//so we set a timer to do the imgReadyChecking again later
+						setTimeout(imgReadyChecking, 1000);
+					}
+				};
+				//run immediately for the first time
+				imgReadyChecking();
+			});
+		}
+	});
+});
+
 
 Template.ClassJoined.events({
 	'click .tab-item': function (e) {
@@ -214,112 +322,6 @@ Template.ClassJoined.helpers({
 			return "";
 		}
 	}
-});
-
-
-Template.ClassJoined.onRendered( function() {
-	Meteor.call('getFullNameById', classObj.admins[0], function (err, data) {
-		return teacherName.set(data);
-	});
-
-	//Unused
-	// Meteor.call('getAvatarById', classObj.admins[0], function (err, data) {
-	// 	//log.info(data);
-	// 	return teacherAvatar.set(data);
-	// });
-	// Meteor.call('getAvatarTypeId', classObj.admins[0], function (err, data) {
-	// 	//log.info(data);
-	// 	return teacherAvatarType.set(data);
-	// });
-
-	//greet first-time user
-	if (Meteor.user().firstClassJoined) {
-		IonPopup.alert({
-			title: TAPi18n.__("Congratulations"),
-			template: TAPi18n.__("JoinedFirstClass"),
-			okText: TAPi18n.__("OKay")
-		});
-		//set the flag to false so it would not show again
-		Meteor.call('smartix:accounts/setFirstClassJoined');
-	}
-
-	$(".class-detail").scroll(function () {
-		if ($('.class-detail').scrollTop() > 75) {
-			isAtTop.set(false);
-		}
-		else {
-			isAtTop.set(true);
-		}
-	});
-
-	var classDetailClass = document.getElementsByClassName("class-detail")[0];
-	/****track if there are any new messages *********/
-	var initialClassObj = Smartix.Groups.Collection.findOne({
-		type: 'class',
-		classCode: Router.current().params.classCode
-	});
-	var initialCount = Smartix.Messages.Collection.find({group: initialClassObj._id}).count();
-
-	//http://stackoverflow.com/questions/32461639/how-to-execute-a-callback-after-an-each-is-done
-	this.autorun(function () {
-		var latestClassObj = Smartix.Groups.Collection.findOne({
-			type: 'class',
-			classCode: Router.current().params.classCode
-		});
-		// we need to register a dependency on the number of documents returned by the
-		// cursor to actually make this computation rerun everytime the count is altered
-		var latestCount = Smartix.Messages.Collection.find({group: initialClassObj._id}).count();
-
-		Tracker.afterFlush(function () {
-			if (latestCount > initialCount) {
-
-				//scroll to bottom
-				var classMessageListToBottomScrollTopValue = classDetailClass.scrollHeight - classDetailClass.clientHeight;
-				classDetailClass.scrollTop = classMessageListToBottomScrollTopValue;
-
-				initialCount = latestCount;
-			}
-		}.bind(this));
-	}.bind(this));
-	/****track if there are any new messages - END *********/
-	var template = this;
-	//scroll to bottom
-	this.autorun(function () {
-		if (template.subscriptionsReady()) {
-			Tracker.afterFlush(function () {
-
-				var imgReadyChecking = function () {
-					var hasAllImagesLoaded = true;
-					$('img').each(function () {
-						if (this.complete) {
-							//log.info('loaded');
-						}
-						else {
-							//log.info('not loaded');
-							hasAllImagesLoaded = false;
-						}
-					});
-
-					if (hasAllImagesLoaded) {
-						//log.info('scroll to bottom');
-						//need to wrap the code inside autorun and subscriptionready
-						//see http://stackoverflow.com/questions/32291382/when-the-page-loads-scroll-down-not-so-simple-meteor-js
-						var classMessageListToBottomScrollTopValue = classDetailClass.scrollHeight - classDetailClass.clientHeight;
-						//log.info(classMessageListToBottomScrollTopValue);
-						classDetailClass.scrollTop = classMessageListToBottomScrollTopValue;
-
-					}
-					else {
-						//if not all images is fully loaded, scroll bottom would not work.
-						//so we set a timer to do the imgReadyChecking again later
-						setTimeout(imgReadyChecking, 1000);
-					}
-				};
-				//run immediately for the first time
-				imgReadyChecking();
-			});
-		}
-	});
 });
 
 function playAudio(url, callback) {

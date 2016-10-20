@@ -70,6 +70,8 @@ Template.ShareInvite.helpers({
 
 /* ShareInvite: Lifecycle Hooks */
 Template.ShareInvite.onCreated( function() {
+  this.subscribe('smartix:classes/classByClassCode', Router.current().params.classCode)
+
   var link = Meteor.settings.public.SHARE_URL;
   log.info ("Setting SHARE_URL="+link);
 

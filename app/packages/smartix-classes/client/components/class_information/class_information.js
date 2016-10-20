@@ -1,4 +1,10 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
+
+Template.ClassInformation.onCreated(function(){
+  this.subscribe('smartix:classes/adminsOfClass', Router.current().params.classCode),
+  this.subscribe('smartix:classes/classByClassCode', Router.current().params.classCode)
+})
+
 /*****************************************************************************/
 /* ClassInformation: Event Handlers */
 /*****************************************************************************/

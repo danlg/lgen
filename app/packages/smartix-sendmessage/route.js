@@ -3,8 +3,5 @@ Router.route('SendMessage', {
 });
 
 Router.route('MessageClassSelection', {
-  path: "/message/classselect",
-  waitOn: function () {
-    return Meteor.subscribe('createdClassByMe');
-  }
+  path: "/message/classselect"
 });
