@@ -62,14 +62,6 @@ checkNews = function(broadcastList){
     toastr.info(TAPi18n.__("Admin.NoNewsgroupExists"));
     return false;
   }
-  var anyChecked = false;
-  broadcastList.each(function () {
-    anyChecked = anyChecked || this.checked;
-  });
-  if (!anyChecked) {
-    toastr.info(TAPi18n.__("Admin.NoNewsgroupExists"));
-    return false;
-  }
   return true;
 };
 
@@ -98,7 +90,10 @@ Template.AdminNewsAdd.events({
     },
     
     'click #addNews-submit': function (event, template) {
-        var broadcastList = $("input[type='checkbox'][name='addNews-newsgroup']");
+        var broadcastList = [];
+            $.each($("input[name='addNews-newsgroup'][type='checkbox']:checked"), function(){            
+                broadcastList.push($(this).val());
+        });
         if (!checkNews(broadcastList)) {
           return;
         }
@@ -137,26 +132,29 @@ Template.AdminNewsAdd.events({
         populateAddons(addons, mediaObj);
         var sentToNewgroupNames = [];
         var lastNewsGroupCode;
-        broadcastList.each(function (index) {
-            var self = this;
-            if (self.checked) {
-                Meteor.call('smartix:messages/createNewsMessage'
-                    , self.value
-                    , 'article'
-                    , {
-                        content: content,
-                        title: title
-                    }
-                    , addons
-                    , doPushNotificationB);
-                sentToNewgroupNames.push($('label[for=' + self.value + ']').text());
-                lastNewsGroupCode = self.value;
+        Meteor.call('smartix:messages/createNewsMessage'
+            , broadcastList
+            , 'article'
+            , {
+                content: content,
+                title: title
             }
-        });
-        //we notify the admin sender after the messages are sent
-        notifyAdmin(sentToNewgroupNames);
-        //we redirect to the page where the news is shown
-        Router.go('admin.newsgroups.view', { school: Router.current().params.school, classCode: lastNewsGroupCode });
+            , addons
+            , doPushNotificationB, 
+            (err, res)=>{
+                if(!err)
+                {
+                    //we notify the admin sender after the messages are sent
+                    notifyAdmin(sentToNewgroupNames);
+                    //we redirect to the page where the news is shown
+                    // Router.go('admin.newsgroups.view', { school: Router.current().params.school, classCode: lastNewsGroupCode });
+                }
+                else
+                {
+                    log.error(err);
+                }
+            });
+        
     },
 
     'change #imageBtn': function (event, template) {

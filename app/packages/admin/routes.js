@@ -233,6 +233,16 @@ Router.route('/:school/admin/news/import', {
     }
 });
 
+Router.route('/:school/admin/news/view', {
+    name: 'admin.news.view',
+    layoutTemplate: 'adminLayout',
+    template: 'AdminNewsView',
+    action: function () {
+        this.render('AdminNewsView');
+    }
+});
+
+
 Router.route('/:school/admin/absence/register', {
     name: 'admin.absence.register',
     layoutTemplate: 'adminLayout',

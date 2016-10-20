@@ -216,6 +216,184 @@ Smartix.Messages.createMessage = function (groupId, messageType, data, addons, i
     );
 };
 
+
+Smartix.Messages.createBroadcastMessage = function (groups, messageType, data, addons, isPush, currentUser) {
+    var cheerio = Npm.require('cheerio');
+    //log.info('Smartix.Messages.createMessage',groupId,messageType,data,addons, isPush);
+    check(groups, [String]);
+    check(messageType, String);
+    check(data, Object);
+    //Match.Maybe is only available at meteor 1.3 //https://github.com/meteor/meteor/issues/3876
+    check(addons, Match.OneOf(undefined,null,[Object]));
+    check(currentUser, Match.Maybe(String));
+    // Get the `_id` of the currently-logged in user
+    if(!(currentUser === null)) { currentUser = currentUser || Meteor.userId(); }
+    /* CHECKS FOR PERMISSION TO POST IN GROUP */
+    // var keyToLookup; do not mix messageType with groupType ORTHOGONAL
+    // Query to the get group
+    lodash.forEach(groups, function(groupId){
+        var group = Smartix.Groups.Collection.findOne({ _id: groupId });
+        //var group = Smartix.Groups.Collection.findOne(dynamicQuery);
+        // Checks if group exists
+        if(!group) {
+            log.error('Group does not exist', groupId);
+            return false;
+            // OPTIONAL: Throw error saying the group specified does not exists
+        }
+        // Checks whether the currently logged-in user has permission to create a message for the group
+        // The logic behind this would be different for different group types
+        if(!Smartix[Smartix.Utilities.letterCaseToCapitalCase(group.type)].Messages.canCreateMessage(groupId, group.type)) {
+            log.warn('no permission to create message for this group');
+            return false; //OPTIONAL: Throw error saying no  permission to create message for this group
+        }
+    })
+    
+    /* CHECKS THE VALIDITY OF THE MESSAGE */
+    if(!Smartix.Messages.isValidType(messageType)) {
+        log.error('type specified is not recognized');
+        return false;
+        // OPTIONAL: Throw error indicating the `type` specified is not recognized
+    }
+    // Create an announcement object to house all the data
+    var message = {};
+    message.groups = groups; message.author = currentUser; message.type = messageType; message.data = data;
+    Smartix.Messages.cleanAndValidate(message);
+
+    /* INSERT THE MESSAGE */
+	var newMessage = Smartix.Messages.Collection.insert(message);
+    //i.e of an addOn Obj:{type:'documents'}{type:'images'}{type:'poll'}{type:'voice'}{type:'calendar'}{type:'comments'}
+    //e.g:
+    //class's msg allow addons can be all of the above
+    //chat's  msg allow addons are files/images and/or voice
+    //news's  msg allow addons are files/images and/or voice
+    //log.info('newMessage',newMessage);
+    // if(addons) {
+    //     /* CHECKS FOR PERMISSION TO ATTACH THE ADDON */
+    //     //Group-Type Addons check e.g This is class, so all addons are allowed. We input the newMessage Id , and the addons for the examination
+    //     if(!Smartix[Smartix.Utilities.letterCaseToCapitalCase(group.type)].Messages.canAttachAddons(newMessage, addons)) {
+    //         log.error('Cannot attach addons of this group type', Smartix.Utilities.letterCaseToCapitalCase(group.type));
+    //         return false; // OPTIONAL: Throw error saying you do not have permission to attach an addon for this group
+    //     }
+    //     //Group-Type Instance Addons check. even  more restricted.
+    //     //e.g This is terence's class, which is more restricted that class admin cannot send msg with documents addons
+    //     // Checks that the group allows for this type of addon
+    //     // If the addon type specified is not in the array of allowed addons, return `false`
+    //     addons.map(function(eachAddOn){
+    //         if(group.addons.indexOf(eachAddOn.type) < 0) {
+    //             log.warn('not in canAttachAddons in this specific group instance', Smartix.Utilities.letterCaseToCapitalCase(group.type));
+    //             return false;
+    //             // OPTIONAL: Throw error indicating the add-on
+    //             // you are trying to attached in not an approved type
+    //         }
+    //     });
+        /* CHECKS THE VALIDITY OF THE ADDONS AND ATTACH */
+        Smartix.Messages.Addons.attachAddons(newMessage, addons);
+    // }
+    if(isPush) {
+        //2. add notification to notifications collection, add notifications to db
+        //Remove current user himself/herself from the push notification list
+        var addonTypes = lodash.map(addons,'type');
+
+        var allUserToDoPushNotifications = [];
+        lodash.forEach(groups, function(groupId){
+            var group = Smartix.Groups.Collection.findOne({ _id: groupId });
+
+            allUserToDoPushNotifications = allUserToDoPushNotifications.concat( group.users );
+            allUserToDoPushNotifications = allUserToDoPushNotifications.concat( group.admins );
+
+            if(group.distributionLists){
+                //log.info('group.distributionLists',group.distributionLists);
+                var allLinkedDistributionLists = Smartix.Groups.Collection.find({_id:{$in: group.distributionLists}}).fetch();
+                //log.info('allLinkedDistributionLists',allLinkedDistributionLists);
+                var allUsersInDistributionLists = lodash.map(allLinkedDistributionLists,'users');
+                //log.info('allUsersInDistributionLists',allUsersInDistributionLists);
+                allUsersInDistributionLists = lodash.flatten(allUsersInDistributionLists);
+                allUserToDoPushNotifications = allUserToDoPushNotifications.concat( allUsersInDistributionLists );
+                if(group.optOutUsersFromDistributionLists){
+                    //remove opt-out user from push notifications
+                    allUserToDoPushNotifications = lodash.difference(allUserToDoPushNotifications, group.optOutUsersFromDistributionLists);
+                }
+            }
+
+        });
+
+        // log.info('allUserToDoPushNotifications',allUserToDoPushNotifications);
+        let meteorUser = Meteor.users.findOne({    _id: currentUser   });
+        
+        //3. send email notifications if user opt to receive email notification/
+        $ = cheerio.load(message.data.content);
+        /*$email = cheerio.load(message.data.content); 
+        $email('img').attr('width','320');
+        console.log('$email('*').html()', $email('*').html());
+        var emailMessage = message;
+        emailMessage.data.content =  $email('*').html() || emailMessage.data.content;
+        console.log('emailMessage.data.content' ,emailMessage.data.content);*/
+        
+        lodash.remove(allUserToDoPushNotifications,
+            function(eachUserId){
+                return (eachUserId === currentUser);
+            }
+        );
+        //for some reason the user can be twice.
+        //log.info("Smartix.Messages.createMessage:users-mult", allUserToDoPushNotifications);
+        // fix 
+        allUserToDoPushNotifications = lodash.uniq(allUserToDoPushNotifications);
+        //log.info("Smartix.Messages.createMessage:users-uniq", allUserToDoPushNotifications);
+
+        // NEED TO FIX THIS LATER
+        // Smartix.Messages.emailMessage(allUserToDoPushNotifications, message, group, meteorUser);
+
+    //     allUserToDoPushNotifications.map(function(eachTargetUser){
+    //         //log.info("Smartix.Messages.createMessage:before Notifications.insert", groupId, eachTargetUser);
+    //         Notifications.insert({
+    //             eventType:"new"+group.type+"message",
+    //             userId: eachTargetUser,
+    //             hasRead: false,
+    //             groupId: groupId,
+    //             namespace: group.namespace,
+    //             messageId: newMessage,
+    //             addons: addonTypes,
+    //             messageCreateTimestamp: message.createdAt,
+    //             messageCreateByUserId: currentUser
+    //         },function(){
+    //             if(meteorUser) { 
+    //                 //4. send push notification and in-app notification
+    //                 //log.info('cheerioWithhtmlText',$('*').text());                   
+    //                 let notificationObj = {
+    //                     from : Smartix.helpers.getFullNameByProfileObj(meteorUser.profile),
+    //                     title : Smartix.helpers.getFullNameByProfileObj(meteorUser.profile),
+    //                     text: message.data.content || "",
+    //                     payload:{
+    //                         type: group.type,
+    //                         groupId: groupId
+    //                     },
+    //                     query:{userId:eachTargetUser},
+    //                     badge: Smartix.helpers.getTotalUnreadNotificationCount(eachTargetUser)
+    //                     , apn: { sound: 'default' }
+    //                 };
+    //                 if(group.type === 'newsgroup'){
+    //                     notificationObj.title = message.data.title || "";
+    //                     notificationObj.text  = $('*').text() || message.data.content;
+    //                 }
+    //                 //log.info("Smartix.Messages.createMessage:before doPushNotification", groupId);
+    //                 Meteor.call("doPushNotification", notificationObj,{
+    //                     groupId: groupId,
+    //                     classCode: group.classCode || ""
+    //                 });
+    //             }                 
+    //         })
+    //    });
+    }
+    //update group lastUpdateBy, lastUpdatedAt fields to indicate modification in this group and by whom
+    lodash.forEach(groups, function(groupId){
+        var group = Smartix.Groups.Collection.findOne({ _id: groupId });
+        Smartix.Groups.Collection.update(
+            {  _id  : groupId},
+            {  $set :  { lastUpdatedBy: currentUser, lastUpdatedAt:new Date() } }
+        );
+    });
+};
+
 Smartix.Messages.editMessage = function (messageId, newData, newAddons) {
     check(messageId, String);
     check(newData, Match.Maybe(Object));

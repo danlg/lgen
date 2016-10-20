@@ -10,7 +10,12 @@ Smartix.Messages.Addons.ValidTypes = Smartix.Messages.Addons.ValidTypes || [];
 
 Smartix.Messages.Schema = new SimpleSchema({
 	group: {
-		type: String
+		type: String,
+		optional: true
+	},
+	groups: {
+		type: [String],
+		optional: true
 	},
 	author: {
 		type: String

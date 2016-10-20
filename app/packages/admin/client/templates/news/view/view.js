@@ -1,4 +1,4 @@
-Template.AdminClassesView.onCreated(function () {
+Template.AdminNewsView.onCreated(function () {
     var self = this;
     self.subscribe('smartix:classes/classByClassCode', Router.current().params.classCode, function (error, res) {
         if(!error) {
@@ -11,7 +11,7 @@ Template.AdminClassesView.onCreated(function () {
     });
 });
 
-Template.AdminClassesView.helpers({
+Template.AdminNewsView.helpers({
     classData: function () {
         if(Template.instance().subscriptionsReady()) {
             return Smartix.Groups.Collection.findOne({

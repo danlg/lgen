@@ -110,6 +110,8 @@ Package.onUse(function (api) {
   api.addFiles('client/templates/news/addCalendar/fullcalendar/locale-all.js', 'web.browser');
   api.addFiles('client/templates/news/import/import.html', 'web.browser');
   api.addFiles('client/templates/news/import/import.js', 'web.browser');
+  api.addFiles('client/templates/news/view/view.html', 'web.browser');
+  api.addFiles('client/templates/news/view/view.js', 'web.browser');
   api.addFiles('client/templates/rss/view/view.html', 'web.browser');
   api.addFiles('client/templates/rss/view/view.js', 'web.browser');
   api.addFiles('client/templates/rss/add/add.html', 'web.browser');
