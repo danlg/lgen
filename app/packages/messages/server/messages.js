@@ -266,14 +266,16 @@ Smartix.Messages.createBroadcastMessage = function (groups, messageType, data, a
     //class's msg allow addons can be all of the above
     //chat's  msg allow addons are files/images and/or voice
     //news's  msg allow addons are files/images and/or voice
-    //log.info('newMessage',newMessage);
-    // if(addons) {
+    // log.info('newMessage',newMessage);
+    if(addons) {
     //     /* CHECKS FOR PERMISSION TO ATTACH THE ADDON */
     //     //Group-Type Addons check e.g This is class, so all addons are allowed. We input the newMessage Id , and the addons for the examination
-    //     if(!Smartix[Smartix.Utilities.letterCaseToCapitalCase(group.type)].Messages.canAttachAddons(newMessage, addons)) {
-    //         log.error('Cannot attach addons of this group type', Smartix.Utilities.letterCaseToCapitalCase(group.type));
-    //         return false; // OPTIONAL: Throw error saying you do not have permission to attach an addon for this group
-    //     }
+       
+        //TODO FIX!!
+        // if(!Smartix.Newsgroup.Messages.canAttachAddons(newMessage, addons)) {
+        //     log.error('Cannot attach addons of this group type', 'News');
+        //     return false; // OPTIONAL: Throw error saying you do not have permission to attach an addon for this group
+        // }
     //     //Group-Type Instance Addons check. even  more restricted.
     //     //e.g This is terence's class, which is more restricted that class admin cannot send msg with documents addons
     //     // Checks that the group allows for this type of addon
@@ -288,12 +290,12 @@ Smartix.Messages.createBroadcastMessage = function (groups, messageType, data, a
     //     });
         /* CHECKS THE VALIDITY OF THE ADDONS AND ATTACH */
         Smartix.Messages.Addons.attachAddons(newMessage, addons);
-    // }
+    }
     if(isPush) {
         //2. add notification to notifications collection, add notifications to db
         //Remove current user himself/herself from the push notification list
         var addonTypes = lodash.map(addons,'type');
-
+        var allUsersByGroup = [];
         var allUserToDoPushNotifications = [];
         lodash.forEach(groups, function(groupId){
             var group = Smartix.Groups.Collection.findOne({ _id: groupId });
@@ -314,9 +316,13 @@ Smartix.Messages.createBroadcastMessage = function (groups, messageType, data, a
                     allUserToDoPushNotifications = lodash.difference(allUserToDoPushNotifications, group.optOutUsersFromDistributionLists);
                 }
             }
-
+            allUserToDoPushNotifications = allUserToDoPushNotifications.map(function(eachTargetUser){
+                return eachTargetUser.groupId = groupId;
+            });
+            let groupUsers = {groupId: groupId, users: allUserToDoPushNotifications};
+            allUsersByGroup.push(groupUsers);
         });
-
+        log.info("Users with groupId", allUsersByGroup);
         // log.info('allUserToDoPushNotifications',allUserToDoPushNotifications);
         let meteorUser = Meteor.users.findOne({    _id: currentUser   });
         
@@ -329,18 +335,27 @@ Smartix.Messages.createBroadcastMessage = function (groups, messageType, data, a
         emailMessage.data.content =  $email('*').html() || emailMessage.data.content;
         console.log('emailMessage.data.content' ,emailMessage.data.content);*/
         
-        lodash.remove(allUserToDoPushNotifications,
-            function(eachUserId){
+        lodash.remove(allUsersByGroup, function(userGroup){
+            lodash.remove(userGroup.users, function(eachUserId){
                 return (eachUserId === currentUser);
-            }
-        );
+            })
+        });
         //for some reason the user can be twice.
         //log.info("Smartix.Messages.createMessage:users-mult", allUserToDoPushNotifications);
         // fix 
-        allUserToDoPushNotifications = lodash.uniq(allUserToDoPushNotifications);
+        // allUserToDoPushNotifications = lodash.uniq(allUserToDoPushNotifications);
         //log.info("Smartix.Messages.createMessage:users-uniq", allUserToDoPushNotifications);
-
+        
+        allUsersByGroup.map(function(eachTargetUser){
+            log.info("User", eachTargetUser.groupId);
+            log.info("User:", eachTargetUser.users);
+        })
         // NEED TO FIX THIS LATER
+
+        /** TO DO: Group: {
+         * type: 'newsgroup',
+        *  namespace: schoolNamespace
+                    }*/
         // Smartix.Messages.emailMessage(allUserToDoPushNotifications, message, group, meteorUser);
 
     //     allUserToDoPushNotifications.map(function(eachTargetUser){
