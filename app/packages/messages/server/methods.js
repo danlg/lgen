@@ -3,18 +3,19 @@ Meteor.methods({
         return Smartix.Messages.createMessage(groupId, messageType, data, addons, isPush, this.userId);
     },
     
-    'smartix:messages/createNewsMessage': function(broadcastList, messageType, data, addons, isPush) {
-        // var newsgroupDoc = Smartix.Groups.Collection.findOne({ url: url });
-        var newsgroupDoc = [];
-        lodash.forEach(broadcastList, function(url){
-            newsgroupObj =     Smartix.Groups.Collection.findOne({ url: url });
-            newsgroupDoc.push(newsgroupObj._id);
-        });
-        if (!newsgroupDoc) {
-            return;
-        }
-        log.info(newsgroupDoc);
-        // return;
-        return Smartix.Messages.createBroadcastMessage(newsgroupDoc, messageType, data, addons, isPush, this.userId);
+
+    'smartix:messages/createNewsMessage': function(urls, messageType, data, addons, isPush) {
+        // this.unblock();
+        let successUrls = [];
+        lodash.forEach(urls, function(url){
+            var newsgroupDoc = Smartix.Groups.Collection.findOne({ url: url });
+            if (!newsgroupDoc) {
+                return;
+            }
+            Smartix.Messages.createMessage(newsgroupDoc._id, messageType, data, addons, isPush, this.userId);
+            successUrls.push(url);    
+        })
+        // log.info(successUrls);
+        return successUrls;
     }
 });

@@ -35,11 +35,13 @@
                     
                     <div class="form-group">
                         <label class="control-label col-xs-2">{{_ "Admin.BroadcastNewsgroup" }}</label>
+                        {{#if Template.subscriptionsReady}}
                         <div class="col-xs-10">
                             {{#each newsgroups}}
                                 <input type="checkbox" name="addNews-newsgroup" id="{{url}}" value="{{url}}"><label for="{{url}}">{{name}}</label><br>
                             {{/each}}                       
                         </div>
+                        {{/if}}
                     </div>
                     
                     <div class="form-group">

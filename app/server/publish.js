@@ -55,6 +55,7 @@ Meteor.publish('user', function (_id) {
  */
 Meteor.publish('images', function (school, category, id) {
   //roomId can be a classCode or chatRoomId
+  this.unblock();
   return images = Images.find({
       'metadata.school': school,
       'metadata.category': category,
@@ -69,6 +70,7 @@ Meteor.publish('images', function (school, category, id) {
  * @param id chatRoomId or classCode
  */
 Meteor.publish('sounds', function (schoolName, category, id) {
+    this.unblock();
     let soundCursor = Sounds.find({
         'metadata.school': schoolName,
          'metadata.category': category,
@@ -85,6 +87,7 @@ Meteor.publish('sounds', function (schoolName, category, id) {
 });
 
 Meteor.publish('documents',function(school, category, id){
+  this.unblock();
   return Documents.find({
       'metadata.school': school,
       'metadata.category': category,

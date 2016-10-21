@@ -1,3 +1,7 @@
+Template.ClassInvitation.onCreated(function(){
+    this.subscribe('smartix:classes/classByClassCode', Router.current().params.classCode)
+})
+
 Template.ClassInvitation.helpers({
   classCode: function (argument) {
     return Router.current().params.classCode;

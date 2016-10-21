@@ -41,6 +41,8 @@ Template.JoinClass.helpers({
 });
 
 Template.JoinClass.onCreated( function() {
+  this.subscribe('joinedClass');
+
 });
 
 Template.JoinClass.onRendered( function() {

@@ -1,5 +1,10 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 
+
+Template.ChatRoomInformation.onCreated(function(){
+    this.subscribe('chatRoomWithUser', Router.current().params.chatRoomId)
+})
+
 /*****************************************************************************/
 /* ChatRoom: Event Handlers */
 /*****************************************************************************/

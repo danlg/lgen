@@ -139,6 +139,7 @@ Template.EmailInvite.helpers({
 
 /* EmailInvite: Lifecycle Hooks */
 Template.EmailInvite.onCreated( function() {
+  this.subscribe('smartix:classes/classByClassCode', Router.current().params.classCode);
   contactList.set("");
   searchText.set("");
   if (Meteor.isCordova) {

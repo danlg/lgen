@@ -31,8 +31,8 @@
     "RSS_FETCH_INTERVAL": 300000,
     "RSS_PROCESS_INTERVAL": 300000,
     
-    "kadira": {
-        "appId": "vmjaGrm8sxL2o3c86",
-        "appSecret": "f30133a4-0f43-4c5f-891e-3230e3425a00"
+    "kadira": { 
+        "appId": "ZxTZio5XiqG4dNwfj", 
+        "appSecret": "70747c0b-cf71-45ce-b3f2-edcebab5c570" 
     }
 }

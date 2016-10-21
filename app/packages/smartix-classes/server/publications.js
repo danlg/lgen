@@ -44,6 +44,8 @@ Meteor.publish('smartix:classes/classByClassCode', function (classCode) {
 // Returns a cursor of all classes where
 // the current user is a member or an admin
 Meteor.publish('smartix:classes/associatedClasses', function () {
+    this.unblock();
+    // log.info("associatedClasses Called!");
     return Smartix.Groups.Collection.find({
         type: 'class',
         $or: [{
@@ -74,6 +76,7 @@ Meteor.publish('joinedClasses', function () {
 });
 
 Meteor.publish('smartix:classes/classMembers', function(classCode) {
+    this.unblock();
     var group = Smartix.Groups.Collection.findOne({ classCode: classCode });
     if (group) {
         let classmates = [];

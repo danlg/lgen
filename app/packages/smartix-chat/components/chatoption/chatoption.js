@@ -15,6 +15,7 @@ Template.Chatoption.events({
 
 /* Chatoption: Created Handlers */
 Template.Chatoption.onCreated( function() {
+  this.subscribe('createdClassByMe');
 });
 
 /* Chatoption: Helpers */

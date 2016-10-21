@@ -161,6 +161,8 @@ Template.ClassInformationForWebUser.helpers({
 
 /* Home: Lifecycle Hooks */
 Template.ClassInformationForWebUser.onCreated(function () {
+	this.subscribe('smartix:classes/adminsOfClass', Router.current().params.classCode),
+	this.subscribe('smartix:classes/classByClassCode', Router.current().params.classCode)
 });
 
 Template.ClassInformationForWebUser.onRendered(function () {

@@ -1,8 +1,5 @@
 Router.route('Chatoption', {
-  path: "/chat/option",
-  waitOn: function () {
-    Meteor.subscribe('createdClassByMe');
-  }
+  path: "/chat/option"
 });
 
 Router.route('ChatRoom', {
@@ -10,12 +7,7 @@ Router.route('ChatRoom', {
 });
 
 Router.route('ChatRoomInformation', {
-  path: "/chat/:chatRoomId/info",
-  waitOn: function () {
-    return [
-      Meteor.subscribe('chatRoomWithUser', this.params.chatRoomId)
-    ];
-  }
+  path: "/chat/:chatRoomId/info"
 });
 
 
@@ -25,12 +17,7 @@ Router.route('ChatInvite', {
 });
 
 Router.route('GroupChatInvite', {
-    path: "/:school/group-chat-invite",
-    waitOn: function(){
-        return [
-            Meteor.subscribe('createdClassByMe')
-        ]
-    }
+    path: "/:school/group-chat-invite"
 });
 
 Router.route('GroupChatInviteChooser', {

@@ -143,7 +143,7 @@ Template.TabChat.helpers({
 
     'lasttext': function (groupId) {
         //log.info('lasttext',Smartix.Messages.Collection.find({group:groupId}, {sort: {createdAt: -1}, limit: 1}).fetch());
-        var fetch = Smartix.Messages.Collection.find({group: groupId}, {sort: {createdAt: -1}, limit: 1}).fetch()[0];
+        var fetch = Smartix.Messages.Collection.findOne({group: groupId});
         return (fetch && fetch.data) ? fetch.data.content : "";
     },
 
