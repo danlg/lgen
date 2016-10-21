@@ -18,9 +18,9 @@ Package.onUse(function(api) {
     api.use('alanning:roles');
 
     //template dependency
-    api.use('tap:i18n@1.8.0');
+    api.use('tap:i18n');
     api.use('templating');
-    api.use('fourseven:scss@2.0.0','client');    
+    api.use('fourseven:scss','client');
     api.use('iron:router');
     api.use('aldeed:collection2');
     api.use('aldeed:simple-schema');

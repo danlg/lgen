@@ -1,0 +1,45 @@
+dan@LG1:~/DEV/github8/lgen/app$ meteor update --release 1.4.1.2
+
+smartix:core: updating npm dependencies -- log4js...
+smartix:accounts: updating npm dependencies -- blob-util...
+smartix:messages: updating npm dependencies -- cheerio...
+smartix:absence: updating npm dependencies -- jszip, xlsx...
+smartix:calendarevent: updating npm dependencies -- fullcalendar...
+smartix:chat: updating npm dependencies -- blob-util...
+smartix:iconchooser: updating npm dependencies -- cropperjs...
+smartix:admin: updating npm dependencies -- jszip, xlsx, fullcalendar...
+
+Changes to your project's package version selections from updating the release:
+
+accounts-base           upgraded from 1.2.8 to 1.2.11
+accounts-password       upgraded from 1.1.11 to 1.3.0
+babel-compiler          upgraded from 6.8.3 to 6.9.1_1
+babel-runtime           upgraded from 0.1.9 to 0.1.11_1
+caching-compiler        upgraded from 1.0.5 to 1.1.7_1
+ecmascript              upgraded from 0.4.6 to 0.5.8_1
+ecmascript-runtime      upgraded from 0.2.11 to 0.3.14_1
+email                   upgraded from 1.0.14 to 1.1.17_1
+es5-shim                upgraded from 4.5.12 to 4.6.14_1
+fourseven:scss          added, version 3.10.0
+google                  upgraded from 1.1.13 to 1.1.14
+http                    upgraded from 1.1.7 to 1.2.9
+less                    upgraded from 2.6.3 to 2.7.5_1
+logging                 upgraded from 1.0.13 to 1.1.15_1
+meteor                  upgraded from 1.1.15 to 1.2.17_1
+meteoric:ionic-sass     upgraded from 0.1.9 to 0.3.0
+meteoric:ionicons-sass  upgraded from 0.1.6 to 0.1.7
+minifier-css            upgraded from 1.1.12 to 1.2.14_1
+minifier-js             upgraded from 1.1.12 to 1.2.14_1
+modules                 upgraded from 0.6.4 to 0.7.6_1
+modules-runtime         upgraded from 0.6.4 to 0.7.6_1
+mongo                   upgraded from 1.1.9 to 1.1.12_1
+npm-bcrypt              upgraded from 0.8.6_1 to 0.9.0
+npm-mongo               upgraded from 1.4.44 to 1.5.48
+promise                 upgraded from 0.7.2 to 0.8.4_1
+standard-minifier-css   upgraded from 1.0.7 to 1.2.0_1
+standard-minifier-js    upgraded from 1.0.7 to 1.2.0_1
+templating              upgraded from 1.1.12 to 1.2.14
+tracker                 upgraded from 1.0.14 to 1.1.0
+webapp                  upgraded from 1.2.9 to 1.3.11_1
+
+app: updated to Meteor 1.4.1.2.

@@ -18,7 +18,7 @@ Package.onUse(function(api) {
     api.use('reactive-var','client');
     api.use('session', 'client');
     api.use('templating', 'client');
-    api.use('fourseven:scss@2.0.0','client');    
+    api.use('fourseven:scss','client');
     api.use('stevezhu:lodash@4.6.1');
     api.use('chrismbeckett:toastr');   
    
