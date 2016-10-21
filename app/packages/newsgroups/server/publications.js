@@ -7,23 +7,32 @@ Meteor.publish('newsgroups', function(newsgroups) {
     });
 });
 
-Meteor.publish('newsgroupsForUser', function(limit, query, namespace) {
-    //log.info('newsgroupsForUser',limit,query,namespace);
+Meteor.publish('newsgroupsForUser', function(userId, query, namespace) {
     this.unblock();
-    var schoolDoc = SmartixSchoolsCol.findOne({
-        shortname: namespace
-    });
-    if (!schoolDoc) {
-        schoolDoc = SmartixSchoolsCol.findOne({
-            _id: namespace
-        });
-    }
-    if(schoolDoc) {
-        groups = Smartix.Newsgroup.getNewsgroupOfUser(this.userId, schoolDoc);
-        return groups;
-    } else {
-        this.ready();
-    }
+    check(userId, Match.Maybe(String));
+    check(namespace, String);
+
+    userId = userId || this.userId;
+    if (userId === this.userId
+        || Smartix.Accounts.School.isAdmin(namespace, this.userId)
+        || Smartix.Accounts.System.isAdmin(this.userId)){
+                var schoolDoc = SmartixSchoolsCol.findOne({
+                    shortname: namespace
+                });
+                if (!schoolDoc) {
+                    schoolDoc = SmartixSchoolsCol.findOne({
+                        _id: namespace
+                    });
+                }
+                if(schoolDoc) {
+                    groups = Smartix.Newsgroup.getNewsgroupOfUser(userId, schoolDoc);
+                    return groups;
+                } else {
+                    this.ready();
+                }
+        }
+        else
+            this.ready();
 });
 
 

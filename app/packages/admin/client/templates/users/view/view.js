@@ -3,9 +3,14 @@ Template.AdminUsersView.onCreated(function () {
     var userId = Router.current().params.uid;
     //var schoolUsername = UI._globalHelpers['getCurrentSchoolName']();
     var schoolId = UI._globalHelpers['getCurrentSchoolId']();
-    self.subscribe('smartix:accounts/allUsersInNamespace', schoolId );
+    var schoolName = UI._globalHelpers['getCurrentSchoolName']();
+    // self.subscribe('smartix:accounts/allUsersInNamespace', schoolId );
     self.subscribe('mySchools');
+    self.subscribe('smartix:accounts/userInNamespace', userId,schoolId);
     self.subscribe('userRelationshipsInNamespace', userId,schoolId);
+    self.subscribe('smartix:distribution-lists/distributionListsOfUser', userId, schoolId);
+    self.subscribe('newsgroupsForUser',userId,null,schoolName);
+    self.subscribe('smartix:classes/associatedClasses', userId, schoolId);
 });
 
 Template.AdminUsersView.helpers({
@@ -13,6 +18,40 @@ Template.AdminUsersView.helpers({
         return Meteor.users.findOne({
             _id: Router.current().params.uid
         });
+    },
+    distributionList: function(){
+        return Smartix.Groups.Collection.find({
+            type: 'distributionList'
+        })
+    },
+    newsGroups: function(){
+        return Smartix.Groups.Collection.find({
+            type: 'newsgroup'
+        });
+    },
+    userClasses: function(){
+        return Smartix.Groups.Collection.find({
+            type: 'class'
+        }); 
+    },
+    routeData: function(){
+        if(this.type === 'class'){
+            return {
+                school:  UI._globalHelpers['getCurrentSchoolId'](),
+                classCode: this.classCode
+            }
+        }else if(this.type === 'newsgroup'){
+            return {
+                school:  UI._globalHelpers['getCurrentSchoolId'](),
+                code: this.url
+            }
+        }
+        else if(this.type === 'distributionList'){
+            return {
+                school:  UI._globalHelpers['getCurrentSchoolId'](),
+                code: this.url
+            }
+        }
     },
     userEmail: function () {
         //log.info(this);

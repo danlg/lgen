@@ -109,10 +109,21 @@ Meteor.publish('smartix:distribution-lists/basicInfoOfUsersInListByCode', functi
     }
 });
 
-Meteor.publish('smartix:distribution-lists/distributionListsOfUser', function (userId) {
+Meteor.publish('smartix:distribution-lists/distributionListsOfUser', function (userId, namespace) {
     
     // TODO - Check for permissions
-    
+    this.unblock();
+    check(userId, Match.Maybe(String));
+    check(namespace, String);
+
     userId = userId || this.userId;
-    return Smartix.DistributionLists.getDistributionListsOfUser(userId);
+    if (userId === this.userId
+        || Smartix.Accounts.School.isAdmin(namespace, this.userId)
+        || Smartix.Accounts.System.isAdmin(this.userId)) {
+
+        let DistributionLists = Smartix.DistributionLists.getDistributionListsOfUser(userId);
+        return Smartix.Groups.Collection.find({ _id: { $in: DistributionLists } });
+    }
+    else
+        this.ready();
 })

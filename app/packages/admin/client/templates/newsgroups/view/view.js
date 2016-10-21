@@ -1,13 +1,13 @@
 Template.AdminNewsgroupsView.onCreated(function () {
     var self = this;
-    this.subscribe('smartix:newsgroups/newsgroupByUrl', Router.current().params.classCode, function (error, res) {
+    this.subscribe('smartix:newsgroups/newsgroupByUrl', Router.current().params.code, function (error, res) {
         if(!error) {
-            var classData = Smartix.Groups.Collection.findOne({
-                url: Router.current().params.classCode,
+            var newsgroupData = Smartix.Groups.Collection.findOne({
+                url: Router.current().params.code,
                 type: 'newsgroup'
             });
-            self.subscribe('smartix:messages/groupMessages', classData._id);
-            self.subscribe('allSchoolUsers',classData.namespace);
+            self.subscribe('smartix:messages/groupMessages', newsgroupData._id);
+            self.subscribe('allSchoolUsers', newsgroupData.namespace);
         }
     });
     this.subscribe('smartix:distribution-lists/listsBySchoolName',  UI._globalHelpers['getCurrentSchoolName']());
@@ -17,7 +17,7 @@ Template.AdminNewsgroupsView.helpers({
     classData: function () {
         if(Template.instance().subscriptionsReady()) {
             return Smartix.Groups.Collection.findOne({
-                url: Router.current().params.classCode,
+                url: Router.current().params.code,
                 type: 'newsgroup'
             });
         }
@@ -32,7 +32,7 @@ Template.AdminNewsgroupsView.helpers({
     news: function () {
         if(Template.instance().subscriptionsReady()) {
             var classData = Smartix.Groups.Collection.findOne({
-                url: Router.current().params.classCode,
+                url: Router.current().params.code,
                 type: 'newsgroup'
             });
             if(classData) {

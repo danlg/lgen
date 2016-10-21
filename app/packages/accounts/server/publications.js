@@ -46,6 +46,23 @@ Meteor.publish('smartix:accounts/basicInfoOfAllUsersInNamespace', function (name
     }
 });
 
+Meteor.publish('smartix:accounts/userInNamespace', function(userId, namespace){
+    this.unblock();
+    check(userId, Match.Maybe(String));
+    check(namespace, String);
+
+    if (userId === this.userId
+        || Smartix.Accounts.School.isAdmin(namespace, this.userId)
+        || Smartix.Accounts.System.isAdmin(this.userId)) {
+        // Return relationships belong to the current user
+        // as a parent or as a child
+        // For the namespace specified
+        return Meteor.users.find(userId);
+    }
+    else
+        this.ready();
+})
+
 Meteor.publish('smartix:accounts/allUsersInNamespace', function (namespace) {
     var allUsers = Smartix.Accounts.getAllUsersInNamespace(namespace, this.userId);
     if(allUsers) {

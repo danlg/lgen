@@ -43,21 +43,32 @@ Meteor.publish('smartix:classes/classByClassCode', function (classCode) {
 
 // Returns a cursor of all classes where
 // the current user is a member or an admin
-Meteor.publish('smartix:classes/associatedClasses', function () {
+Meteor.publish('smartix:classes/associatedClasses', function (userId, namespace) {
     this.unblock();
     // log.info("associatedClasses Called!");
-    return Smartix.Groups.Collection.find({
-        type: 'class',
-        $or: [{
-            users: this.userId
-        }, {
-            admins: this.userId
-        }, {
-            distributionLists: {
-                $in: Smartix.DistributionLists.getDistributionListsOfUser(this.userId)
-            }
-        }]
-    });
+    check(userId, Match.Maybe(String));
+    check(namespace, String);
+
+    userId = userId || this.userId;
+     if (userId === this.userId
+        || Smartix.Accounts.School.isAdmin(namespace, this.userId)
+        || Smartix.Accounts.System.isAdmin(this.userId)){
+   
+            return Smartix.Groups.Collection.find({
+                type: 'class',
+                $or: [{
+                    users: userId
+                }, {
+                    admins: userId
+                }, {
+                    distributionLists: {
+                        $in: Smartix.DistributionLists.getDistributionListsOfUser(userId)
+                    }
+                }]
+            });
+        }
+        else
+            this.ready();
 });
 
 // Returns a cursor of all classes where
