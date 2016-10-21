@@ -1,18 +1,16 @@
 Template.AdminNewsAdd.onCreated(function () {
-    const self = Template.instance();
-    this.autorun(() => {
-        var schoolName = UI._globalHelpers['getCurrentSchoolName']();
-        if(schoolName)
+    const self = this;
+    self.imageArr = new ReactiveVar([]);
+    self.fileArr = new ReactiveVar([]);
+    self.documentArr = new ReactiveVar([]);
+    self.calendarEvent = new ReactiveVar({});
+    self.showCalendarForm = new ReactiveVar(false);
+    let schoolName = UI._globalHelpers['getCurrentSchoolName']();
+    if(schoolName)
         {
             self.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolName', schoolName);   
         }
     });
-    this.imageArr = new ReactiveVar([]);
-    this.fileArr = new ReactiveVar([]);
-    this.documentArr = new ReactiveVar([]);
-    this.calendarEvent = new ReactiveVar({});
-    this.showCalendarForm = new ReactiveVar(false);
-});
 
 Template.AdminNewsAdd.onRendered(function(){
   $('#addNews-content').trumbowyg({
@@ -57,16 +55,8 @@ Template.AdminNewsAdd.helpers({
     }
 });
 
-checkNews = function(broadcastList){
+let checkNews = function(broadcastList){
   if (broadcastList.length < 1 ) {
-    toastr.info(TAPi18n.__("Admin.NoNewsgroupExists"));
-    return false;
-  }
-  var anyChecked = false;
-  broadcastList.each(function () {
-    anyChecked = anyChecked || this.checked;
-  });
-  if (!anyChecked) {
     toastr.info(TAPi18n.__("Admin.NoNewsgroupExists"));
     return false;
   }
@@ -75,20 +65,21 @@ checkNews = function(broadcastList){
 
 var notifyAdmin = function (sentToNewgroupNames) {
     // If last element
-    clearForm();
     toastr.info(TAPi18n.__("Admin.NewsSentToGroup") + sentToNewgroupNames.toString() );
+    log.info("Notify");
+    // clearForm();
 };
 
-var clearForm = function ( ) {
-    // Clear form values
-    $('#addNews-title').val("");
-    //https://alex-d.github.io/Trumbowyg/documentation.html#empty
-    $('#addNews-content').trumbowyg('empty');
-    Template.instance().imageArr.set([]);
-    Template.instance().documentArr.set([]);
-    Template.instance().calendarEvent.set({});
-    Template.instance().showCalendarForm.set(false);
-};
+// var clearForm = function ( ) {
+//     // Clear form values
+//     $('#addNews-title').val("");
+//     //https://alex-d.github.io/Trumbowyg/documentation.html#empty
+//     $('#addNews-content').trumbowyg('empty');
+//     Template.instance().imageArr.set([]);
+//     Template.instance().documentArr.set([]);
+//     Template.instance().calendarEvent.set({});
+//     Template.instance().showCalendarForm.set(false);
+// };
 
 Template.AdminNewsAdd.events({
 
@@ -98,7 +89,10 @@ Template.AdminNewsAdd.events({
     },
     
     'click #addNews-submit': function (event, template) {
-        var broadcastList = $("input[type='checkbox'][name='addNews-newsgroup']");
+        var broadcastList = [];
+            $.each($("input[name='addNews-newsgroup'][type='checkbox']:checked"), function(){            
+                broadcastList.push($(this).val());
+        });
         if (!checkNews(broadcastList)) {
           return;
         }
@@ -135,28 +129,33 @@ Template.AdminNewsAdd.events({
         mediaObj.documentArr = template.documentArr.get();
         mediaObj.calendarEvent = template.calendarEvent.get();
         populateAddons(addons, mediaObj);
-        var sentToNewgroupNames = [];
-        var lastNewsGroupCode;
-        broadcastList.each(function (index) {
-            var self = this;
-            if (self.checked) {
-                Meteor.call('smartix:messages/createNewsMessage'
-                    , self.value
-                    , 'article'
-                    , {
-                        content: content,
-                        title: title
-                    }
-                    , addons
-                    , doPushNotificationB);
-                sentToNewgroupNames.push($('label[for=' + self.value + ']').text());
-                lastNewsGroupCode = self.value;
+        // var sentToNewgroupNames = [];
+        // var lastNewsGroupCode;
+        Meteor.call('smartix:messages/createNewsMessage'
+            , broadcastList
+            , 'article'
+            , {
+                content: content,
+                title: title
             }
-        });
-        //we notify the admin sender after the messages are sent
-        notifyAdmin(sentToNewgroupNames);
-        //we redirect to the page where the news is shown
-        Router.go('admin.newsgroups.view', { school: Router.current().params.school, classCode: lastNewsGroupCode });
+            , addons
+            , doPushNotificationB, 
+            (err, res)=>{
+                if(!err)
+                {
+                    //we notify the admin sender after the messages are sent
+                    notifyAdmin(res);
+                    //we redirect to the page where the news is shown
+                    // Router.go('admin.newsgroups.view', { school: Router.current().params.school, classCode: lastNewsGroupCode });
+                }
+                else
+                {
+                    log.error(err);
+                    toastr.error(TAPi18n.__("Admin.NewsSentError"));
+                }
+            });
+            // log.info("After call");
+           Router.go('admin.dashboard', { school: Router.current().params.school}); 
     },
 
     'change #imageBtn': function (event, template) {
