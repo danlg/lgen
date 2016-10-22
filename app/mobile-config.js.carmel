@@ -7,7 +7,7 @@ App.info({
   email: 'contact@gosmartix.com',
   website: 'http://www.gosmartix.com',
   version: '1.2.4',
-  buildNumber: '400'
+  buildNumber: '401'
 });
 
 //generated with meteor-assets
@@ -64,14 +64,14 @@ App.setPreference('BackupWebStorage', 'none');
 
 //https://github.com/dpa99c/cordova-custom-config#ios-preferences
 //only in Meteor 1.4, https://docs.meteor.com/api/mobile-config.html#App-appendToConfig
-// App.appendToConfig(`<platform name="ios">
-//     <config-file platform="ios" target="*-Info.plist" parent="NSPhotoLibraryUsageDescription">
-//       <string>Smartix requires access to the photo library</string>
-//     </config-file>
-//     <config-file platform="ios" target="*-Info.plist" parent="NSCameraUsageDescription">
-//       <string>Smartix requires access to the camera</string>
-//     </config-file>
-//   </platform>`);
+App.appendToConfig(`<platform name="ios">
+    <config-file platform="ios" target="*-Info.plist" parent="NSPhotoLibraryUsageDescription">
+      <string>Smartix requires access to the photo library</string>
+    </config-file>
+    <config-file platform="ios" target="*-Info.plist" parent="NSCameraUsageDescription">
+      <string>Smartix requires access to the camera</string>
+    </config-file>
+  </platform>`);
 
 //ANDROID
 App.setPreference('android-minSdkVersion', '19'); //19 === android 4.4.2 webview is required
