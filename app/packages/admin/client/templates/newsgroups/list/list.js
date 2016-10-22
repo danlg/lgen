@@ -22,7 +22,7 @@ Template.AdminNewsgroupsSearch.helpers({
   },
   routeData: function () {
     return {
-        classCode: this.url,
+        code: this.url,
         school: UI._globalHelpers['getCurrentSchoolName']()
     };
   },

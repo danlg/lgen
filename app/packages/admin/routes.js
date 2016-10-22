@@ -179,7 +179,7 @@ Router.route('/:school/admin/newsgroups/list', {
     }
 });
 
-Router.route('/:school/admin/newsgroups/view/:classCode', {
+Router.route('/:school/admin/newsgroups/view/:code', {
     name: 'admin.newsgroups.view',
     layoutTemplate: 'adminLayout',
     template: 'AdminNewsgroupsView',
