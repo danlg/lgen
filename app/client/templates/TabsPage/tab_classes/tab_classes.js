@@ -4,6 +4,11 @@ Template.TabClasses.events({});
 
 Template.TabClasses.onCreated( function() {
     this.subscribe('joinedClasses');
+    if(!TimeSync.isSynced()){
+        TimeSync.resync();
+        log.info("resynced time with server", new Date(TimeSync.serverTime()));
+    }
+    TimeSync.loggingEnabled = false;
 });
 
 Template.TabClasses.helpers({
