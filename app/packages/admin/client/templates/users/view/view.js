@@ -22,17 +22,23 @@ Template.AdminUsersView.helpers({
     distributionList: function(){
         return Smartix.Groups.Collection.find({
             type: 'distributionList'
-        })
+        }).fetch().length > 0 ? Smartix.Groups.Collection.find({
+            type: 'distributionList'
+        }) : false;
     },
     newsGroups: function(){
         return Smartix.Groups.Collection.find({
             type: 'newsgroup'
-        });
+        }).fetch().lenght > 0 ? Smartix.Groups.Collection.find({
+            type: 'newsgroup'
+        }) : false;
     },
     userClasses: function(){
         return Smartix.Groups.Collection.find({
             type: 'class'
-        }); 
+        }).fetch().lenght > 0 ? Smartix.Groups.Collection.find({
+            type: 'class'
+        }) : false;
     },
     routeData: function(){
         if(this.type === 'class'){

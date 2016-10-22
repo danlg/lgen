@@ -87,27 +87,34 @@
                 {{> RelatedUsersMobile}}
             <div class="item item-divider">Distribution Lists</div>
             <div class="list">
-                {{#with distributionList}}
-                    {{#each this}}
-                    <!--<div class="item item-icon-right less-top-bottom-padding user-item">-->
-                    <div class="item item-icon-right user-item">
-                        <a href="{{pathFor route='admin.lists.view' data=routeData}}">
-                            <span>
-                            {{this.name}}
-                                <!--type is name is name of relationship father / mother / other-->
-                                <div style="font-size: smaller;color:grey">URL: {{this.url}} </div>
-                            </span>
-                            <!--@ {{namespace}} -->
-                        </a>
-                        <!--//TODO test for namespace if smartix school allow to remove -->
-                    </div>
-                    <!--see secret blaze feature https://github.com/meteor/meteor/issues/5566-->
-                    <!--https://github.com/meteor/meteor/blob/devel/packages/spacebars/README.md#each-->
-                    {{/each}}
-                    {{/with}}
+                {{#if distributionList}}
+                    {{#with distributionList}}
+                            {{#each this}}
+                            <!--<div class="item item-icon-right less-top-bottom-padding user-item">-->
+                            <div class="item item-icon-right user-item">
+                                <a href="{{pathFor route='admin.lists.view' data=routeData}}">
+                                    <span>
+                                    {{this.name}}
+                                        <!--type is name is name of relationship father / mother / other-->
+                                        <div style="font-size: smaller;color:grey">URL: {{this.url}} </div>
+                                    </span>
+                                    <!--@ {{namespace}} -->
+                                </a>
+                                <!--//TODO test for namespace if smartix school allow to remove -->
+                            </div>
+                            <!--see secret blaze feature https://github.com/meteor/meteor/issues/5566-->
+                            <!--https://github.com/meteor/meteor/blob/devel/packages/spacebars/README.md#each-->
+                            {{/each}}
+                        {{/with}}
+                    {{else}}
+                        <div class="item item-icon-right user-item">
+                        <span>{{_ "Admin.NoDistributionList"}}</span>
+                        </div>
+                    {{/if}}
             </div>            
             <div class="item item-divider">News Groups</div>
             <div class="list">
+                {{#if newsGroups}}
                 {{#with newsGroups}}
                     {{#each this}}
                     <!--<div class="item item-icon-right less-top-bottom-padding user-item">-->
@@ -126,27 +133,38 @@
                     <!--https://github.com/meteor/meteor/blob/devel/packages/spacebars/README.md#each-->
                     {{/each}}
                     {{/with}}
+                    {{else}}
+                        <div class="item item-icon-right user-item">
+                            <span>{{_ "Admin.NoNewsgroups"}}</span>
+                        </div>
+                    {{/if}}
             </div>            
             <div class="item item-divider">Classes</div>
             <div class="list">
-                {{#with userClasses}}
-                    {{#each this}}
-                    <!--<div class="item item-icon-right less-top-bottom-padding user-item">-->
-                    <div class="item item-icon-right user-item">
-                            <a href="{{pathFor route='admin.classes.view' data=routeData}}">
-                                <span>
-                                {{this.className}}
-                                    <!--type is name is name of relationship father / mother / other-->
-                                    <div style="font-size: smaller;color:grey">Code: {{this.classCode}} </div>
-                                </span>
-                            <!--@ {{namespace}} -->
-                            </a>
-                        <!--//TODO test for namespace if smartix school allow to remove -->
-                    </div>
-                    <!--see secret blaze feature https://github.com/meteor/meteor/issues/5566-->
-                    <!--https://github.com/meteor/meteor/blob/devel/packages/spacebars/README.md#each-->
-                    {{/each}}
+                    {{#if userClasses}}
+                    {{#with userClasses}}
+                        {{#each this}}
+                        <!--<div class="item item-icon-right less-top-bottom-padding user-item">-->
+                        <div class="item item-icon-right user-item">
+                                <a href="{{pathFor route='admin.classes.view' data=routeData}}">
+                                    <span>
+                                    {{this.className}}
+                                        <!--type is name is name of relationship father / mother / other-->
+                                        <div style="font-size: smaller;color:grey">Code: {{this.classCode}} </div>
+                                    </span>
+                                <!--@ {{namespace}} -->
+                                </a>
+                            <!--//TODO test for namespace if smartix school allow to remove -->
+                        </div>
+                        <!--see secret blaze feature https://github.com/meteor/meteor/issues/5566-->
+                        <!--https://github.com/meteor/meteor/blob/devel/packages/spacebars/README.md#each-->
+                        {{/each}}
                     {{/with}}
+                    {{else}}
+                        <div class="item item-icon-right user-item">
+                            <span>{{_ "Admin.NoClass"}}</span>
+                        </div>
+                    {{/if}}
             </div>
 
         {{/with}} 
