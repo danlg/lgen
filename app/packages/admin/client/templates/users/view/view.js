@@ -1,16 +1,22 @@
 Template.AdminUsersView.onCreated(function () {
     var self = this;
-    var userId = Router.current().params.uid;
+    let userId = Router.current().params.uid;
     //var schoolUsername = UI._globalHelpers['getCurrentSchoolName']();
-    var schoolId = UI._globalHelpers['getCurrentSchoolId']();
-    var schoolName = UI._globalHelpers['getCurrentSchoolName']();
+    let schoolId = UI._globalHelpers['getCurrentSchoolId']();
+    let schoolName = UI._globalHelpers['getCurrentSchoolName']();
     // self.subscribe('smartix:accounts/allUsersInNamespace', schoolId );
     self.subscribe('mySchools');
-    self.subscribe('smartix:accounts/userInNamespace', userId,schoolId);
-    self.subscribe('userRelationshipsInNamespace', userId,schoolId);
-    self.subscribe('smartix:distribution-lists/distributionListsOfUser', userId, schoolId);
-    self.subscribe('newsgroupsForUser',userId,null,schoolName);
-    self.subscribe('smartix:classes/associatedClasses', userId, schoolId);
+    if (schoolId) {
+        log.info("Subscribing to name", schoolName, "id, namespace=", schoolId);
+        self.subscribe('smartix:accounts/userInNamespace', userId,schoolId);
+        self.subscribe('userRelationshipsInNamespace', userId,schoolId);
+        self.subscribe('smartix:distribution-lists/distributionListsOfUser', userId, schoolId);
+        self.subscribe('newsgroupsForUser',userId,null,schoolName);
+        self.subscribe('smartix:classes/associatedClasses', userId, schoolId);
+    }
+    else {
+        log.error("Cannot find school id");
+    }
 });
 
 Template.AdminUsersView.helpers({

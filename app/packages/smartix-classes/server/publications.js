@@ -47,7 +47,7 @@ Meteor.publish('smartix:classes/associatedClasses', function (userId, namespace)
     this.unblock();
     // log.info("associatedClasses Called!");
     check(userId, Match.Maybe(String));
-    check(namespace, String);
+    check(namespace, Match.Maybe(String));
 
     userId = userId || this.userId;
      if (userId === this.userId
