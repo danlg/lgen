@@ -1,11 +1,22 @@
 Template.AdminUsersView.onCreated(function () {
     var self = this;
-    var userId = Router.current().params.uid;
+    let userId = Router.current().params.uid;
     //var schoolUsername = UI._globalHelpers['getCurrentSchoolName']();
-    var schoolId = UI._globalHelpers['getCurrentSchoolId']();
-    self.subscribe('smartix:accounts/allUsersInNamespace', schoolId );
+    let schoolId = UI._globalHelpers['getCurrentSchoolId']();
+    let schoolName = UI._globalHelpers['getCurrentSchoolName']();
+    // self.subscribe('smartix:accounts/allUsersInNamespace', schoolId );
     self.subscribe('mySchools');
-    self.subscribe('userRelationshipsInNamespace', userId,schoolId);
+    if (schoolId) {
+        log.info("Subscribing to name", schoolName, "id, namespace=", schoolId);
+        self.subscribe('smartix:accounts/userInNamespace', userId,schoolId);
+        self.subscribe('userRelationshipsInNamespace', userId,schoolId);
+        self.subscribe('smartix:distribution-lists/distributionListsOfUser', userId, schoolId);
+        self.subscribe('newsgroupsForUser',userId,null,schoolName);
+        self.subscribe('smartix:classes/associatedClasses', userId, schoolId);
+    }
+    else {
+        log.error("Cannot find school id");
+    }
 });
 
 Template.AdminUsersView.helpers({
@@ -13,6 +24,46 @@ Template.AdminUsersView.helpers({
         return Meteor.users.findOne({
             _id: Router.current().params.uid
         });
+    },
+    distributionList: function(){
+        return Smartix.Groups.Collection.find({
+            type: 'distributionList'
+        }).fetch().length > 0 ? Smartix.Groups.Collection.find({
+            type: 'distributionList'
+        }) : false;
+    },
+    newsGroups: function(){
+        return Smartix.Groups.Collection.find({
+            type: 'newsgroup'
+        }).fetch().lenght > 0 ? Smartix.Groups.Collection.find({
+            type: 'newsgroup'
+        }) : false;
+    },
+    userClasses: function(){
+        return Smartix.Groups.Collection.find({
+            type: 'class'
+        }).fetch().lenght > 0 ? Smartix.Groups.Collection.find({
+            type: 'class'
+        }) : false;
+    },
+    routeData: function(){
+        if(this.type === 'class'){
+            return {
+                school:  UI._globalHelpers['getCurrentSchoolId'](),
+                classCode: this.classCode
+            }
+        }else if(this.type === 'newsgroup'){
+            return {
+                school:  UI._globalHelpers['getCurrentSchoolId'](),
+                code: this.url
+            }
+        }
+        else if(this.type === 'distributionList'){
+            return {
+                school:  UI._globalHelpers['getCurrentSchoolId'](),
+                code: this.url
+            }
+        }
     },
     userEmail: function () {
         //log.info(this);

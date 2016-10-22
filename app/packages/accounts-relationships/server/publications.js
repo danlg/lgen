@@ -130,6 +130,7 @@ Meteor.publish('ALLUsersRelationships', function(userId, schoolId) {
 
 // Publish an user's relationships in a namespace
 Meteor.publish('userRelationshipsInNamespace', function (userId, namespace) {
+    this.unblock();
     check(userId, Match.Maybe(String));
     check(namespace, String);
     if (userId === this.userId

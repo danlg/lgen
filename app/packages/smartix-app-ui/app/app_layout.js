@@ -1,16 +1,17 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
 Template.AppLayout.onCreated(function() {
-    //TODO: subscription to be filtered based on selected school
-    this.subscribe('smartix:classes/associatedClasses');
+     this.subscribe('getAllMyChatRooms');
+    let schoolName = UI._globalHelpers['getCurrentSchoolName']();
+    let schoolId   = UI._globalHelpers['getCurrentSchoolId']();
     // this.subscribe('smartix:classes/allUsersWhoHaveJoinedYourClasses');
     this.subscribe('smartix:accounts/ownUserData');
     // this.subscribe('smartix:accounts/basicInfoOfAllUsersInNamespace', 'global');//?
-    this.subscribe('getAllMyChatRooms');
-    let schoolName = UI._globalHelpers['getCurrentSchoolName']();
-    let schoolId   = UI._globalHelpers['getCurrentSchoolId']();
+ 
     if (schoolId) {
         log.info("Subscribing to name", schoolName, "id, namespace=", schoolId);
         this.subscribe('notifications', schoolId);
+        this.subscribe('smartix:classes/associatedClasses', Meteor.userId(), schoolId);
+
     }
     else {
         log.error("Cannot find school id");

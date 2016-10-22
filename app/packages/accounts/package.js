@@ -28,7 +28,7 @@ Package.onUse(function(api) {
     //template dependency
     api.use('tap:i18n@1.8.0');
     api.use('templating');
-    api.use('fourseven:scss@2.0.0','client');    
+    api.use('fourseven:scss','client');
     api.use('iron:router');
     api.use('aldeed:collection2');
     api.use('aldeed:simple-schema');

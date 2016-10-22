@@ -20,7 +20,7 @@ Package.onUse(function(api) {
     api.use('templating', 'client');
     api.use('stevezhu:lodash');
     api.use('smartix:classes', { unordered: true });
-    api.use('fourseven:scss@2.0.0', 'client');
+    api.use('fourseven:scss', 'client');
 
     api.addFiles('client/helper.js', 'client');
     api.addFiles('shared/helper.js');
