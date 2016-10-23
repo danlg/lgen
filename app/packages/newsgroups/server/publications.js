@@ -77,7 +77,10 @@ Meteor.publishComposite('newsForUser', function(limit, query, namespace) {
                             $or:[
                                 //news without event
                                 {
-                                    group: {$in: lodash.map(groups, '_id')},
+                                    $or: [
+                                        {group: {$in: lodash.map(groups, '_id')}},
+                                        {groups: {$in: lodash.map(groups, '_id')}}
+                                    ],
                                     'type' : 'article', //important to get only news ! and not txt messages !
                                     'addons.type' : { $ne:'calendar'},
                                     hidden: false,
@@ -86,7 +89,10 @@ Meteor.publishComposite('newsForUser', function(limit, query, namespace) {
                                 },
                                 //news WITH calendar event
                                 {
-                                    group: {$in: lodash.map(groups, '_id')},
+                                $or: [
+                                        {group: {$in: lodash.map(groups, '_id')}},
+                                        {groups: {$in: lodash.map(groups, '_id')}}
+                                    ],
                                     'type' : 'article', //important to get only news ! and not txt messages !
                                     'addons.type' : 'calendar',
                                     hidden: false,
@@ -175,8 +181,10 @@ Meteor.publish('calendarEntriesForUser', function(limit, query, namespace) {
                         $or:[//live calendar entries
                             {
                                 'addons.type':'calendar',
-                                group: { $in: lodash.map(groups, '_id')},
-                                //group: { $in: newsgroupsIds },
+                            $or: [
+                                    {group: {$in: lodash.map(groups, '_id')}},
+                                    {groups: {$in: lodash.map(groups, '_id')}}
+                                ],
                                 hidden : false,
                                 deletedAt:""
                             },

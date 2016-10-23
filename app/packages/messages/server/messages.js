@@ -231,10 +231,12 @@ Smartix.Messages.createBroadcastMessage = function (groups, messageType, data, a
     /* CHECKS FOR PERMISSION TO POST IN GROUP */
     // var keyToLookup; do not mix messageType with groupType ORTHOGONAL
     // Query to the get group
-    lodash.forEach(groups, function(groupId){
-        var group = Smartix.Groups.Collection.findOne({ _id: groupId });
+    var groupObjs = Smartix.Groups.Collection.find({ _id: {$in: groups} }).fetch();
+
+    lodash.forEach(groupObjs, function(group){
         //var group = Smartix.Groups.Collection.findOne(dynamicQuery);
         // Checks if group exists
+        let groupId = group._id;
         if(!group) {
             log.error('Group does not exist', groupId);
             return false;
@@ -291,18 +293,17 @@ Smartix.Messages.createBroadcastMessage = function (groups, messageType, data, a
         /* CHECKS THE VALIDITY OF THE ADDONS AND ATTACH */
         Smartix.Messages.Addons.attachAddons(newMessage, addons);
     }
-    if(isPush) {
+       if(isPush) {
         //2. add notification to notifications collection, add notifications to db
         //Remove current user himself/herself from the push notification list
         var addonTypes = lodash.map(addons,'type');
-        var allUsersByGroup = [];
+
         var allUserToDoPushNotifications = [];
-        lodash.forEach(groups, function(groupId){
-            var group = Smartix.Groups.Collection.findOne({ _id: groupId });
-
-            allUserToDoPushNotifications = allUserToDoPushNotifications.concat( group.users );
-            allUserToDoPushNotifications = allUserToDoPushNotifications.concat( group.admins );
-
+        lodash.forEach(groupObjs, function(group){
+           //Deal later as all users are in distlist
+            let allUsersInGroup = []
+            allUsersInGroup = allUsersInGroup.concat( group.users );
+            allUsersInGroup = allUsersInGroup.concat( group.admins );
             if(group.distributionLists){
                 //log.info('group.distributionLists',group.distributionLists);
                 var allLinkedDistributionLists = Smartix.Groups.Collection.find({_id:{$in: group.distributionLists}}).fetch();
@@ -310,20 +311,22 @@ Smartix.Messages.createBroadcastMessage = function (groups, messageType, data, a
                 var allUsersInDistributionLists = lodash.map(allLinkedDistributionLists,'users');
                 //log.info('allUsersInDistributionLists',allUsersInDistributionLists);
                 allUsersInDistributionLists = lodash.flatten(allUsersInDistributionLists);
-                allUserToDoPushNotifications = allUserToDoPushNotifications.concat( allUsersInDistributionLists );
+                allUsersInGroup = allUsersInGroup.concat( allUsersInDistributionLists );
                 if(group.optOutUsersFromDistributionLists){
                     //remove opt-out user from push notifications
-                    allUserToDoPushNotifications = lodash.difference(allUserToDoPushNotifications, group.optOutUsersFromDistributionLists);
+                    allUsersInGroup = lodash.difference(allUsersInGroup, group.optOutUsersFromDistributionLists);
                 }
             }
-            allUserToDoPushNotifications = allUserToDoPushNotifications.map(function(eachTargetUser){
-                return eachTargetUser.groupId = groupId;
+            allUsersInGroup = lodash.map(allUsersInGroup, function (userId) {
+                return {
+                    userId: userId,
+                    groupId: group._id
+                };
             });
-            let groupUsers = {groupId: groupId, users: allUserToDoPushNotifications};
-            allUsersByGroup.push(groupUsers);
+            allUserToDoPushNotifications= allUserToDoPushNotifications.concat(allUsersInGroup);
         });
-        log.info("Users with groupId", allUsersByGroup);
         // log.info('allUserToDoPushNotifications',allUserToDoPushNotifications);
+        
         let meteorUser = Meteor.users.findOne({    _id: currentUser   });
         
         //3. send email notifications if user opt to receive email notification/
@@ -335,78 +338,81 @@ Smartix.Messages.createBroadcastMessage = function (groups, messageType, data, a
         emailMessage.data.content =  $email('*').html() || emailMessage.data.content;
         console.log('emailMessage.data.content' ,emailMessage.data.content);*/
         
-        lodash.remove(allUsersByGroup, function(userGroup){
-            lodash.remove(userGroup.users, function(eachUserId){
+        lodash.remove(allUserToDoPushNotifications,
+            function(eachUserId){
                 return (eachUserId === currentUser);
-            })
-        });
+            }
+        );
         //for some reason the user can be twice.
         //log.info("Smartix.Messages.createMessage:users-mult", allUserToDoPushNotifications);
         // fix 
-        // allUserToDoPushNotifications = lodash.uniq(allUserToDoPushNotifications);
+        allUserToDoPushNotifications = lodash.uniqBy(allUserToDoPushNotifications, 'userId');
         //log.info("Smartix.Messages.createMessage:users-uniq", allUserToDoPushNotifications);
-        
-        allUsersByGroup.map(function(eachTargetUser){
-            log.info("User", eachTargetUser.groupId);
-            log.info("User:", eachTargetUser.users);
-        })
-        // NEED TO FIX THIS LATER
 
-        /** TO DO: Group: {
-         * type: 'newsgroup',
-        *  namespace: schoolNamespace
-                    }*/
-        // Smartix.Messages.emailMessage(allUserToDoPushNotifications, message, group, meteorUser);
+        // log.info("After Uniq", allUserToDoPushNotifications);
 
-    //     allUserToDoPushNotifications.map(function(eachTargetUser){
-    //         //log.info("Smartix.Messages.createMessage:before Notifications.insert", groupId, eachTargetUser);
-    //         Notifications.insert({
-    //             eventType:"new"+group.type+"message",
-    //             userId: eachTargetUser,
-    //             hasRead: false,
-    //             groupId: groupId,
-    //             namespace: group.namespace,
-    //             messageId: newMessage,
-    //             addons: addonTypes,
-    //             messageCreateTimestamp: message.createdAt,
-    //             messageCreateByUserId: currentUser
-    //         },function(){
-    //             if(meteorUser) { 
-    //                 //4. send push notification and in-app notification
-    //                 //log.info('cheerioWithhtmlText',$('*').text());                   
-    //                 let notificationObj = {
-    //                     from : Smartix.helpers.getFullNameByProfileObj(meteorUser.profile),
-    //                     title : Smartix.helpers.getFullNameByProfileObj(meteorUser.profile),
-    //                     text: message.data.content || "",
-    //                     payload:{
-    //                         type: group.type,
-    //                         groupId: groupId
-    //                     },
-    //                     query:{userId:eachTargetUser},
-    //                     badge: Smartix.helpers.getTotalUnreadNotificationCount(eachTargetUser)
-    //                     , apn: { sound: 'default' }
-    //                 };
-    //                 if(group.type === 'newsgroup'){
-    //                     notificationObj.title = message.data.title || "";
-    //                     notificationObj.text  = $('*').text() || message.data.content;
-    //                 }
-    //                 //log.info("Smartix.Messages.createMessage:before doPushNotification", groupId);
-    //                 Meteor.call("doPushNotification", notificationObj,{
-    //                     groupId: groupId,
-    //                     classCode: group.classCode || ""
-    //                 });
-    //             }                 
-    //         })
-    //    });
+        let groupDetails = {};
+
+        groupDetails.type = 'newsgroup';
+        groupDetails.namespace = groupObjs[0].namespace;
+
+        // log.info("groupDetails", groupDetails);
+
+        Smartix.Messages.emailMessage(allUserToDoPushNotifications, message, groupDetails, meteorUser);
+
+        allUserToDoPushNotifications.map(function(targetUserObj){
+            let eachTargetUser = targetUserObj.userId;
+            let groupId = targetUserObj.groupId;
+            let group = lodash.find(groupObjs, {'_id': groupId});
+            log.info("Smartix.Messages.createMessage:before Notifications.insert", eachTargetUser);
+            Notifications.insert({
+                eventType:"new"+group.type+"message",
+                userId: eachTargetUser,
+                hasRead: false,
+                groupId: groupId,
+                namespace: group.namespace,
+                messageId: newMessage,
+                addons: addonTypes,
+                messageCreateTimestamp: message.createdAt,
+                messageCreateByUserId: currentUser
+            },function(){
+                if(meteorUser) { 
+                    //4. send push notification and in-app notification
+                    //log.info('cheerioWithhtmlText',$('*').text());                   
+                    let notificationObj = {
+                        from : Smartix.helpers.getFullNameByProfileObj(meteorUser.profile),
+                        title : Smartix.helpers.getFullNameByProfileObj(meteorUser.profile),
+                        text: message.data.content || "",
+                        payload:{
+                            type: group.type,
+                            groupId: groupId
+                        },
+                        query:{userId:eachTargetUser},
+                        badge: Smartix.helpers.getTotalUnreadNotificationCount(eachTargetUser)
+                        , apn: { sound: 'default' }
+                    };
+                    if(group.type === 'newsgroup'){
+                        notificationObj.title = message.data.title || "";
+                        notificationObj.text  = $('*').text() || message.data.content;
+                    }
+                    //log.info("Smartix.Messages.createMessage:before doPushNotification", groupId);
+                    Meteor.call("doPushNotification", notificationObj,{
+                        groupId: groupId,
+                        classCode: group.classCode || ""
+                    });
+                }                 
+            })
+       });
     }
-    //update group lastUpdateBy, lastUpdatedAt fields to indicate modification in this group and by whom
+     //update group lastUpdateBy, lastUpdatedAt fields to indicate modification in this group and by whom
     lodash.forEach(groups, function(groupId){
-        var group = Smartix.Groups.Collection.findOne({ _id: groupId });
         Smartix.Groups.Collection.update(
             {  _id  : groupId},
             {  $set :  { lastUpdatedBy: currentUser, lastUpdatedAt:new Date() } }
         );
     });
+
+    return newMessage;
 };
 
 Smartix.Messages.editMessage = function (messageId, newData, newAddons) {

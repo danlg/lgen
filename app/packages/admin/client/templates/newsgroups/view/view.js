@@ -38,11 +38,17 @@ Template.AdminNewsgroupsView.helpers({
             if(classData) {
                 return Smartix.Messages.Collection.find({$or:[
                     {
-                        group: classData._id,
+                        $or: [
+                            {group: classData._id},
+                            {groups: classData._id}
+                        ],
                         deletedAt:""
                     },
                     {
-                        group: classData._id,
+                        $or: [
+                            {group: classData._id},
+                            {groups: classData._id}
+                        ],
                         deletedAt: { $exists: false }
                     }
                 ]}, { //news most recent on the top

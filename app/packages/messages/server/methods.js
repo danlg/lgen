@@ -6,16 +6,16 @@ Meteor.methods({
 
     'smartix:messages/createNewsMessage': function(urls, messageType, data, addons, isPush) {
         // this.unblock();
-        let successUrls = [];
-        lodash.forEach(urls, function(url){
-            var newsgroupDoc = Smartix.Groups.Collection.findOne({ url: url });
-            if (!newsgroupDoc) {
-                return;
-            }
-            Smartix.Messages.createMessage(newsgroupDoc._id, messageType, data, addons, isPush, this.userId);
-            successUrls.push(url);    
-        })
+        // let successUrls = [];
+        // lodash.forEach(urls, function(url){
+        //     var newsgroupDoc = Smartix.Groups.Collection.findOne({ url: url });
+        //     if (!newsgroupDoc) {
+        //         return;
+        //     }
+        //     Smartix.Messages.createMessage(newsgroupDoc._id, messageType, data, addons, isPush, this.userId);
+        //     successUrls.push(url);    
+        // })
         // log.info(successUrls);
-        return successUrls;
+        return Smartix.Messages.createBroadcastMessage(urls, messageType, data, addons, isPush, this.userId);
     }
 });
