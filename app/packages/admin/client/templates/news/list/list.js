@@ -1,10 +1,10 @@
-Template.AdminClassesSearch.onCreated(function () {
-    this.subscribe('smartix:classes/allClassesFromSchoolName', UI._globalHelpers['getCurrentSchoolName']());
+Template.AdminNewsSearch.onCreated(function () {
+    this.subscribe('allSchoolNews', UI._globalHelpers['getCurrentSchoolId']());
 });
 
-Template.AdminClassesSearch.helpers({
-    classesIndex: function () {
-        return ClassesIndex;
+Template.AdminNewsSearch.helpers({
+    NewsIndex: function () {
+        return NewsIndex;
     },
 
     newsSearchInputAttributes: function () {
@@ -13,5 +13,18 @@ Template.AdminClassesSearch.helpers({
             class: "form-control",
             id: "newsSearchInput"
         }
+    },
+    routeData: function () {
+    return {
+        msgcode: this._id,
+        school: UI._globalHelpers['getCurrentSchoolName']()
     }
+  },
+    newsSearchInputAttributes: function () {
+      return {
+          placeholder: TAPi18n.__("Search"),
+          class: "form-control",
+          id: "newsSearchInput"
+      }
+  },
 });

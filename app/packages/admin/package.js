@@ -112,6 +112,9 @@ Package.onUse(function (api) {
   api.addFiles('client/templates/news/import/import.js', 'web.browser');
   api.addFiles('client/templates/news/view/view.html', 'web.browser');
   api.addFiles('client/templates/news/view/view.js', 'web.browser');
+  api.addFiles('client/templates/news/list/list.html', 'web.browser');
+  api.addFiles('client/templates/news/list/index.js', 'web.browser');
+  api.addFiles('client/templates/news/list/list.js', 'web.browser');
   api.addFiles('client/templates/rss/view/view.html', 'web.browser');
   api.addFiles('client/templates/rss/view/view.js', 'web.browser');
   api.addFiles('client/templates/rss/add/add.html', 'web.browser');

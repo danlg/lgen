@@ -233,7 +233,19 @@ Router.route('/:school/admin/news/import', {
     }
 });
 
+
 Router.route('/:school/admin/news/view', {
+    name: 'admin.news.search',
+    layoutTemplate: 'adminLayout',
+    template: 'AdminNewsSearch',
+    action: function () {
+        this.render('AdminNewsSearch');
+    }
+});
+
+
+
+Router.route('/:school/admin/news/view/:msgcode', {
     name: 'admin.news.view',
     layoutTemplate: 'adminLayout',
     template: 'AdminNewsView',
