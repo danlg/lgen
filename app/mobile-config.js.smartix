@@ -8,7 +8,7 @@ App.info({
   email: 'contact@gosmartix.com',
   website: 'http://www.gosmartix.com',
   version: '1.2.4',
-  buildNumber: '403'
+  buildNumber: '404'
 });
 
 //generated with meteor-assets
@@ -71,6 +71,9 @@ App.appendToConfig(`<platform name="ios">
      </config-file>
      <config-file platform="ios" target="*-Info.plist" parent="NSCameraUsageDescription">
        <string>Smartix requires access to the camera</string>
+     </config-file>
+     <config-file platform="ios" target="*-Info.plist" parent="NSCalendarsUsageDescription">
+           <string>Smartix requires access to the calendar</string>
      </config-file>
    </platform>`);
 
