@@ -16,10 +16,10 @@ Template.NewsgroupsNewsList.helpers({
             { sort: { createdAt: -1} } );//for news, sorted by most recent first
     },
 
-    getGroupName:function(groupId){
-        //log.info('getGroupName',groupId);
-       return Smartix.Groups.Collection.findOne(groupId).name;
-    }
+    // getGroupName:function(groupId){
+    //     //log.info('getGroupName',groupId);
+    //    return Smartix.Groups.Collection.findOne(groupId).name;
+    // }
 });
 
 Template.NewsgroupsNewsList.events({

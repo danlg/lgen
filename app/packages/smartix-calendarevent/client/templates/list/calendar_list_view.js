@@ -37,10 +37,10 @@ Template.CalendarListView.helpers({
         );
     },
 
-    getGroupName:function(groupId){
-        //log.info('getGroupName',groupId);
-       return Smartix.Groups.Collection.findOne(groupId).name;
-    },
+    // getGroupName:function(groupId){
+    //     //log.info('getGroupName',groupId);
+    //    return Smartix.Groups.Collection.findOne(groupId).name;
+    // },
     
     getCalendar:function(){
         var calendarObjs =lodash.filter(this.addons, function(addon) { return addon.type ==='calendar'; });
@@ -84,15 +84,21 @@ let fetchUserCalendarEvents = () => {
     let calendarEventsArray = [];
     lodash.forEach(calendarEvents, function(calendarEvent){
         let calendarEventObj = {};
-        let calendarTemp = calendarEvent.addons[0];
-        calendarEventObj.title =  (calendarTemp.location)
+        let index = lodash.findIndex(calendarEvent.addons, ['type', 'calendar']);
+        let calendarTemp;
+        if (index  !== -1) {
+            calendarTemp = calendarEvent.addons[index];
+        }        
+        if(calendarTemp){
+            calendarEventObj.title =  (calendarTemp.location)
                             ? calendarTemp.eventName + " / " + calendarTemp.location
                             : calendarTemp.eventName;
-        calendarEventObj.start = moment(calendarTemp.startDate).format();
-        calendarEventObj.end = moment(calendarTemp.endDate).format();
-        calendarEventObj.location = calendarTemp.location;
-        calendarEventObj.content = calendarEvent.data.content;
-        calendarEventsArray.push(calendarEventObj);
+            calendarEventObj.start = moment(calendarTemp.startDate).format();
+            calendarEventObj.end = moment(calendarTemp.endDate).format();
+            calendarEventObj.location = calendarTemp.location;
+            calendarEventObj.content = calendarEvent.data.content;
+            calendarEventsArray.push(calendarEventObj);
+        }
     });
     let calendarEventsSource = {};
     calendarEventsSource.events = calendarEventsArray;
