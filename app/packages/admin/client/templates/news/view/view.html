@@ -1,55 +1,35 @@
 <template name="AdminNewsView">
-    {{#if Template.subscriptionsReady}}
         <div class="panel panel-flat">
-          <!-- WHY IS IT CLASS ?-->
-            {{#with classData}}
+            {{#if Template.subscriptionsReady}}
+            {{#with newsData}}
                 <div class="panel-heading">
-                    <h1>{{className}}</h1>
+                    <h1>{{_ "Admin.Title"}}: {{data.title}}</h1>
+                        <small class="display-block">
+                            {{_ "Admin.Content"}}: {{data.content}}
+                        </small>
                 </div>
-
-                <div class="panel-body">
-                    <p>{{_ "Admin.CreatedAt" }}: {{createdAt}}</p>
-                    <p>{{_ "Admin.NewsCode" }}: {{classCode}}</p>
-                    <p>{{_ "Admin.Mandatory" }}: {{mandatory}}</p>
-                </div>
-                
-                <h3>{{_ "Admin.Admins" }}</h3>
-                {{#each admins}}
-                    {{#with userData this}}
-                        <li><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.firstName}} {{profile.lastName}}</a><button class="remove-admin">{{_ "Admin.times" }}</button></li>
-                    {{/with}}
-                {{/each}}
-                <input type="text" name="text" placeholder="Type the name of your new admin" />
-                
-                <h3>{{_ "Admin.Users" }}</h3>
-                {{#each users}}
-                    {{#with userData this}}
-                        <li><a href="{{pathFor 'admin.users.view' data=_id}}">{{profile.firstName}} {{profile.lastName}}</a><button class="remove-user">{{_ "Admin.times" }}</button></li>
-                    {{/with}}
-                {{/each}}
-                <input type="text" name="text" placeholder="Type the name of your new user" />
-            {{/with}}
+            <div class="item item-divider">Newsgroups sent to</div>
+            <div class="list">
+                        {{#each groups}}
+                            {{#with groupInfo this}}
+                        <!--<div class="item item-icon-right less-top-bottom-padding user-item">-->
+                        <div class="item item-icon-right user-item">
+                            <a href="{{pathFor route='admin.newsgroups.view' data=routeData}}">
+                                <span>
+                                {{this.name}}
+                                    <!--type is name is name of relationship father / mother / other-->
+                                    <div style="font-size: smaller;color:grey">URL: {{this.url}} </div>
+                                </span>
+                                <!--@ {{namespace}} -->
+                            </a>
+                            <!--//TODO test for namespace if smartix school allow to remove -->
+                        </div>
+                            {{/with}}
+                        <!--see secret blaze feature https://github.com/meteor/meteor/issues/5566-->
+                        <!--https://github.com/meteor/meteor/blob/devel/packages/spacebars/README.md#each-->
+                        {{/each}}
+                </div>            
+                {{/with}}
+            {{/if}}
         </div>
-        
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h1>{{_ "Admin.ClassAnnouncements" }}</h1>
-            </div>
-            <div class="panel-body">
-                {{#each announcements}}
-                    <p>{{_ "Admin.Message" }}</p>
-                {{/each}}
-                <div>
-                    <p>{{_ "Admin.Createanewannouncement" }}</p>
-                    <div>
-                        <div>{{_ "Admin.Text" }}</div>
-                        <div>{{_ "Admin.Article" }}</div>
-                    </div>
-                    <div>
-                        <div>{{_ "Admin.Poll" }}</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-   {{/if}}
 </template>

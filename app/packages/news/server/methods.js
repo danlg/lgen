@@ -3,7 +3,8 @@ Meteor.methods({
         log.info("smartix:news/showMessage '" + msgId + "'");
         var targetMsg = Smartix.Messages.Collection.findOne(msgId.toString());
         if (targetMsg) {
-            if (Smartix.Class.isClassAdmin(Meteor.userId(), targetMsg.group)) {
+            let groupId = targetMsg.group || targetMsg.groups[0];
+            if (Smartix.Class.isClassAdmin(Meteor.userId(), groupId)) {
                 return Smartix.Messages.showMessage(msgId.toString());
             }
             else{
@@ -19,7 +20,8 @@ Meteor.methods({
         log.info("smartix:news/hideMessage", msgId.toString());
         var targetMsg = Smartix.Messages.Collection.findOne(msgId.toString());
         if (targetMsg) {
-            if (Smartix.Class.isClassAdmin(Meteor.userId(), targetMsg.group)) {
+            let groupId = targetMsg.group || targetMsg.groups[0];
+            if (Smartix.Class.isClassAdmin(Meteor.userId(), groupId)) {
                 return Smartix.Messages.hideMessage(msgId.toString());
             }
             else{
@@ -34,7 +36,8 @@ Meteor.methods({
     'smartix:news/deleteMessage': function(msgId) {
         var targetMsg = Smartix.Messages.Collection.findOne(msgId);
         if (targetMsg) {
-            if (Smartix.Class.isClassAdmin(Meteor.userId(), targetMsg.group)) {
+            let groupId = targetMsg.group || targetMsg.groups[0];
+            if (Smartix.Class.isClassAdmin(Meteor.userId(), groupId)) {
                 return Smartix.Messages.deleteMessage(msgId);
             }
         }

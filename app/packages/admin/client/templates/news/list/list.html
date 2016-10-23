@@ -1,16 +1,36 @@
-<template name="AdminClassesSearch">
+<template name="AdminNewsSearch">
     <div class="panel panel-flat">
         <div class="panel-heading">
             <h1>{{_ "Admin.ListNews" }}</h1>
         </div>
 
         <div class="panel-body">
-            {{> EasySearch.Input index=classesIndex attributes=newsSearchInputAttributes}}
-            <ul>
-                {{#EasySearch.Each index=classesIndex }}
-                    <li><a href="{{pathFor route='admin.classes.view' data=classCode}}">{{className}}</a></li>
+            {{> EasySearch.Input index=NewsIndex attributes=newsSearchInputAttributes}}                  
+            <div class="table-responsive">                
+            <table class='table'>
+                <thead>
+                <tr>
+                    <th>{{_ "Admin.Title"}}</th>
+                    <th>{{_ "Admin.Content"}}</th>
+                                                                    
+                </tr>
+                </thead>
+                <tbody>
+                {{#EasySearch.Each index=NewsIndex }}
+                    <tr>
+                        <!--<td><a href="{{pathFor route='admin.newsgroups.view' data=routeData}}"> {{name}} {{url}} {{_id}}</a></td>-->
+                        <td><a href="{{pathFor route='admin.news.view' data=routeData}}"> {{data.title}} </a></td>
+                        <td>{{data.content}}</td>  
+                    </tr>                 
                 {{/EasySearch.Each}}
-            </ul>
+                </tbody>
+                {{#EasySearch.IfNoResults index=NewsIndex}}
+                    <div>{{_ "Admin.NoResultsFound" }}</div>
+                {{/EasySearch.IfNoResults}}                
+            </table>
+            </div>                
+            {{> EasySearch.Pagination index=NewsIndex maxPages=10 customRenderPagination='CustomEasySearchPagination'}}               
+
         </div>
     </div>
 </template>

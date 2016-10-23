@@ -33,6 +33,7 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/view/view.js', 'client');  
   
   api.addFiles('server/methods.js','server');  
+  api.addFiles('server/publications.js','server');  
 });
 
 Package.onTest(function(api) {

@@ -11,9 +11,12 @@ Meteor.publish('smartix:messages/groupMessages', function (groupId) {
   //2b. or     current user is one of the admins in the group
   //log.info('smartix:messages/groupMessages',groupId);
   this.unblock();
-  return Smartix.Messages.Collection.find(
-    { group: groupId }
-  );
+  return Smartix.Messages.Collection.find({
+        $or: [
+                {group: groupId},
+                {groups: groupId}
+            ]}  
+        );
 });
 
 Meteor.publish('smartix:messages/latestMessageEachGroups', function (groupIds) {

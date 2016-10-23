@@ -15,10 +15,10 @@ Template.NewsgroupsList.helpers({
     getNewsgroups:function(){
         return Smartix.Groups.Collection.find({ type: 'newsgroup' });
     },
-    getGroupName:function(groupId){
-        //log.info('getGroupName',groupId);
-       return Smartix.Groups.Collection.findOne(groupId).name;
-    },
+    // getGroupName:function(groupId){
+    //     //log.info('getGroupName',groupId);
+    //    return Smartix.Groups.Collection.findOne(groupId).name;
+    // },
     userInNewsgroup:function(){    
         var userInNewsgroup = false;
         //check if user in users array of the group

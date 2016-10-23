@@ -1,43 +1,27 @@
-Template.AdminClassesView.onCreated(function () {
+Template.AdminNewsView.onCreated(function () {
     var self = this;
-    self.subscribe('smartix:classes/classByClassCode', Router.current().params.classCode, function (error, res) {
+    self.subscribe('smartix:messages/messagesById', Router.current().params.msgcode, function (error, res) {
         if(!error) {
-            var classData = Smartix.Groups.Collection.findOne({
-                classCode: Router.current().params.classCode,
-                type: 'class'
-            });
-            self.subscribe('smartix:messages/groupMessages', classData._id);
+            var messageObj = Smartix.Messages.Collection.findOne()
+            self.subscribe('newsgroups', messageObj.groups);
         }
     });
 });
 
-Template.AdminClassesView.helpers({
-    classData: function () {
-        if(Template.instance().subscriptionsReady()) {
-            return Smartix.Groups.Collection.findOne({
-                classCode: Router.current().params.classCode,
-                type: 'class'
-            });
-        }
+Template.AdminNewsView.helpers({
+    newsData: function () {
+        return Smartix.Messages.Collection.findOne();
     },
-    userData: function (data) {
-        if(Template.instance().subscriptionsReady()) {
-            return Meteor.users.findOne({
-                _id: data
+    groupInfo: function (groupId) {
+      return Smartix.Groups.Collection.findOne({
+                _id: groupId,
+                type: 'newsgroup'
             });
-        }
     },
-    announcements: function () {
-        if(Template.instance().subscriptionsReady()) {
-            var classData = Smartix.Groups.Collection.findOne({
-                classCode: Router.current().params.classCode,
-                type: 'class'
-            });
-            if(classData) {
-                return Smartix.Messages.Collection.find({
-                    group: classData._id
-                });
-            }
-        }
+   routeData: function(){
+    return {
+        school:  UI._globalHelpers['getCurrentSchoolId'](),
+        code: this.url
     }
+   }
 });

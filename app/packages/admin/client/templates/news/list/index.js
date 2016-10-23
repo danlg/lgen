@@ -1,6 +1,6 @@
-ClassesIndex = new EasySearch.Index({
-    collection: Smartix.Groups.Collection,
-    fields: ['className', 'classCode'],
+NewsIndex = new EasySearch.Index({
+    collection: Smartix.Messages.Collection,
+    fields: ['data.title'],
     engine: new EasySearch.Minimongo({
         selector: function (searchObject, options, aggregation) {
             
@@ -8,7 +8,7 @@ ClassesIndex = new EasySearch.Index({
             var selector = this.defaultConfiguration().selector(searchObject, options, aggregation);
 
             // modify the selector to only match documents where region equals "New York"
-            selector.type = 'class';
+            selector.type = 'article';
 
             return selector;
         }

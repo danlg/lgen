@@ -15,10 +15,10 @@ Template.NewsgroupsNewsView.helpers({
         );         
         
     },
-    getGroupName:function(groupId){
-        //log.info('getGroupName',groupId);
-       return Smartix.Groups.Collection.findOne(groupId).name;
-    }  
+    // getGroupName:function(groupId){
+    //     //log.info('getGroupName',groupId);
+    //    return Smartix.Groups.Collection.findOne(groupId).name;
+    // }  
 });
 
 Template.NewsgroupsNewsView.events({
