@@ -20,7 +20,7 @@
                     <tr>
                         <!--<td><a href="{{pathFor route='admin.newsgroups.view' data=routeData}}"> {{name}} {{url}} {{_id}}</a></td>-->
                         <td><a href="{{pathFor route='admin.news.view' data=routeData}}"> {{data.title}} </a></td>
-                        <td>{{data.content}}</td>  
+                        <td>{{{data.content}}}</td>
                     </tr>                 
                 {{/EasySearch.Each}}
                 </tbody>

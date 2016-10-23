@@ -5,10 +5,10 @@
                 <div class="panel-heading">
                     <h1>{{_ "Admin.Title"}}: {{data.title}}</h1>
                         <small class="display-block">
-                            {{_ "Admin.Content"}}: {{data.content}}
+                            {{{data.content}}}
                         </small>
                 </div>
-            <div class="item item-divider">Newsgroups sent to</div>
+            <div class="item item-divider">News sent to newsgroup</div>
             <div class="list">
                         {{#each groups}}
                             {{#with groupInfo this}}
