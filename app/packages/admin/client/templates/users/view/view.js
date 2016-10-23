@@ -35,14 +35,14 @@ Template.AdminUsersView.helpers({
     newsGroups: function(){
         return Smartix.Groups.Collection.find({
             type: 'newsgroup'
-        }).fetch().lenght > 0 ? Smartix.Groups.Collection.find({
+        }).fetch().length > 0 ? Smartix.Groups.Collection.find({
             type: 'newsgroup'
         }) : false;
     },
     userClasses: function(){
         return Smartix.Groups.Collection.find({
             type: 'class'
-        }).fetch().lenght > 0 ? Smartix.Groups.Collection.find({
+        }).fetch().length > 0 ? Smartix.Groups.Collection.find({
             type: 'class'
         }) : false;
     },
