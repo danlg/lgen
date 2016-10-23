@@ -82,6 +82,8 @@ launch-screen@1.0.12
 raix:push
 cordova-only
 web-only
+#boilerplate-generator@1.0.9
+boilerplate-generator@1.0.11-rc.0
 
 # misc
 practicalmeteor:loglevel
