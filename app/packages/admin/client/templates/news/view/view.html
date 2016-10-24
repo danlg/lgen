@@ -2,13 +2,34 @@
         <div class="panel panel-flat">
             {{#if Template.subscriptionsReady}}
             {{#with newsData}}
-                <div class="panel-heading">
+            <div class="panel-heading">
+                <div class="panel-title">
                     <h1>{{_ "Admin.Title"}}: {{data.title}}</h1>
-                        <small class="display-block">
-                            {{{data.content}}}
-                        </small>
+                        <h5 class="display-block">
+                            {{data.content}}
+                            {{#if addons}}
+                                <hr />
+                                <span>{{_ "Contents"}}:</span>
+                                <ul>
+                                {{#each addons}}
+                                    <li style="text-transform:capitalize">{{ this.type}}</li>
+                                {{/each}}
+                                </ul>
+                            {{/if}}
+                        </h5>
                 </div>
-            <div class="item item-divider">News sent to newsgroup</div>
+                <div class="heading-elements">
+                    <label class="checkbox-inline checkbox-switchery checkbox-right switchery-xs">
+                    {{#if hidden}}
+                        <button class='show-news-btn' data-msg-id="{{_id}}" type="button">{{_ "Admin.Show" }}</button>
+                    {{else}}
+                        <button class='hide-news-btn' data-msg-id="{{_id}}" type="button">{{_ "Admin.Hide" }}</button>
+                    {{/if}}
+                    <button class='remove-news-btn' data-msg-id="{{_id}}" type="button">{{_ "Admin.Remove" }}</button>
+                    </label>
+                </div>
+            </div>
+            <div class="item item-divider">Newsgroups sent to newsgroup</div>
             <div class="list">
                         {{#each groups}}
                             {{#with groupInfo this}}

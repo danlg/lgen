@@ -7,5 +7,9 @@ Meteor.publish('allSchoolNews', function(schoolId) {
     return Smartix.Messages.Collection.find({
         groups: {$in: newsgroupIds},
         type: 'article'
-    });
+    }, {
+            sort: {
+                "createdAt": -1 
+            }
+        });
 });
