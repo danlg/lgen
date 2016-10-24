@@ -5,10 +5,10 @@ Template.AdminNewsAdd.onCreated(function () {
     self.documentArr = new ReactiveVar([]);
     self.calendarEvent = new ReactiveVar({});
     self.showCalendarForm = new ReactiveVar(false);
-    let schoolName = UI._globalHelpers['getCurrentSchoolName']();
-    if(schoolName)
+    let schoolId = UI._globalHelpers['getCurrentSchoolId']();
+    if(schoolId)
         {
-            self.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolName', schoolName);   
+            self.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolId', schoolId);   
         }
     });
 

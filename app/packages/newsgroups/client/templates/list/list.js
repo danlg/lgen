@@ -5,7 +5,7 @@ Template.NewsgroupsList.onCreated(function(){
     {
         var schoolId = UI._globalHelpers['getCurrentSchoolId']()
         self.autorun(function(){
-            self.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolName',schoolName);
+            self.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolId',schoolId);
             self.subscribe('smartix:distribution-lists/listsInNamespace',schoolId);
         });
     }

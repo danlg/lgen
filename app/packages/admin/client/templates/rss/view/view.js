@@ -2,7 +2,7 @@ Template.AdminRss.onCreated(function () {
     var schoolNamespace = UI._globalHelpers['getCurrentSchoolId']();
     this.subscribe('feedsForNamespace', schoolNamespace);
     this.subscribe('feedLinksForNamespace', schoolNamespace);
-    this.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolName',  UI._globalHelpers['getCurrentSchoolName']())
+    this.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolId', schoolNamespace)
 });
 
 Template.AdminRss.helpers({

@@ -221,14 +221,11 @@ Meteor.publish('calendarEntriesForUser', function(limit, query, namespace) {
 });
 
 // Returns a cursor of all newsgroups,
-Meteor.publish('smartix:newsgroups/allNewsgroupsFromSchoolName', function(schoolName) {
-    var schoolDoc = SmartixSchoolsCol.findOne({
-        shortname: schoolName
-    });
+Meteor.publish('smartix:newsgroups/allNewsgroupsFromSchoolId', function(schoolId) {
     //log.info("smartix:newsgroups/allNewsgroupsFromSchoolName", schoolName, schoolDoc);
-    if (schoolDoc) {
+    if (schoolId) {
         let cursor = Smartix.Groups.Collection.find({
-            namespace: schoolDoc._id,
+            namespace: schoolId,
             type: 'newsgroup'
         });
         //log.info("smartix:newsgroups/allNewsgroupsFromSchoolName count", cursor.count());
