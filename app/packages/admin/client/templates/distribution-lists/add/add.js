@@ -1,6 +1,6 @@
 Template.AdminDistributionListsAdd.onCreated(function(){
-    var schoolName = UI._globalHelpers['getCurrentSchoolName']();
-    this.subscribe('smartix:distribution-lists/listsBySchoolName', schoolName);
+    var schoolId = UI._globalHelpers['getCurrentSchoolId']();
+    this.subscribe('smartix:distribution-lists/listsBySchoolId', schoolId);
 
     var schoolId = UI._globalHelpers['getCurrentSchoolId']();
     this.subscribe('smartix:accounts/allUsersInNamespace', schoolId);

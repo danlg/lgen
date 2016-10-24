@@ -1,7 +1,10 @@
 Template.AdminDistributionListsSearch.onCreated(function () {
-    this.subscribe('smartix:distribution-lists/listsBySchoolName', UI._globalHelpers['getCurrentSchoolName']());
-    this.subscribe('smartix:accounts/allUsersInNamespace', UI._globalHelpers['getCurrentSchoolId']());
 
+    let schoolId = UI._globalHelpers['getCurrentSchoolId']()
+    if(schoolId){
+        this.subscribe('smartix:distribution-lists/listsBySchoolId', schoolId);
+        this.subscribe('smartix:accounts/allUsersInNamespace', schoolId);
+    }
     this.usersChecked = new ReactiveVar([]);
     this.doingOperations = new ReactiveVar(false);    
     this.modalName = new ReactiveVar("remove-distribution-lists-modal");

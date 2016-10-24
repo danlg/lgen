@@ -4,7 +4,7 @@ Template.AdminNewsgroupsSearch.onCreated(function () {
     {
         let schoolId =  UI._globalHelpers['getCurrentSchoolId']();
         this.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolId', schoolId);
-        this.subscribe('smartix:distribution-lists/listsBySchoolName', schoolName);
+        this.subscribe('smartix:distribution-lists/listsBySchoolId', schoolId);
         this.subscribe('smartix:accounts/allUsersInNamespace', schoolId);
     }
     this.usersChecked = new ReactiveVar([]);

@@ -10,7 +10,7 @@ Template.AdminNewsgroupsView.onCreated(function () {
             self.subscribe('allSchoolUsers', newsgroupData.namespace);
         }
     });
-    this.subscribe('smartix:distribution-lists/listsBySchoolName',  UI._globalHelpers['getCurrentSchoolName']());
+    this.subscribe('smartix:distribution-lists/listsBySchoolId',  UI._globalHelpers['getCurrentSchoolId']());
 });
 
 Template.AdminNewsgroupsView.helpers({
