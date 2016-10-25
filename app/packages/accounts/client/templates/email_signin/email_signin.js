@@ -15,6 +15,7 @@ Template.EmailSignin.events({
       }
       else {
         log.info("login:meteor:" + Meteor.userId());
+        Smartix.helpers.setSchoolNameSpace();
         Smartix.helpers.routeToTabClasses();
       }
     });
