@@ -190,8 +190,10 @@ Meteor.publish('calendarEntriesForUser', function(limit, query, namespace) {
                             },
                             {
                                 'addons.type':'calendar',
-                                group: { $in: lodash.map(groups, '_id')},
-                                hidden: false,
+                            $or: [
+                                    {group: {$in: lodash.map(groups, '_id')}},
+                                    {groups: {$in: lodash.map(groups, '_id')}}
+                                ],                                hidden: false,
                                 deletedAt: { $exists: false }
                             }
                         ]
