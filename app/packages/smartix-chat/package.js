@@ -64,6 +64,9 @@ Package.onUse(function(api) {
                    
      api.addFiles(['components/chat_setting/chat_setting.html',
                    'components/chat_setting/chat_setting.js'], 'client');
+                   
+     api.addFiles(['components/imageModal/imageModal.html',
+                   'components/imageModal/imageModal.js'], 'client');
 
      api.addFiles(['components/chatoption/chatoption.html',
                    'components/chatoption/chatoption.js',

@@ -264,25 +264,6 @@
     {{/ionView}}
   {{/if}}
 </template>
-
-<!--For image in full size-->
-<template name="imageModal">
-  {{#ionModal title="" }}
-    <div class="row row-center" style="height:100%">
-      <div class="col" style="text-align: center;">
-        {{#if isCordova}}
-          <div id="imageGallery" style="float:right;position:absolute;">
-              <button class="button button-positive">
-                  <i class="icon ion-android-download"></i>
-              </button>
-          </div>
-        {{/if}}
-        <img src="{{src}}" id="imageHolder" data-fullsizeimage="{{this.url}}" alt="" style="max-width:100%">
-      </div>
-    </div>
-  {{/ionModal}}
-</template>
-
 <!-- wrap imageGallery with isCordova not displayed consistently chrome iOS
 <div class="row row-bottom" style="height:100%">
     <div class="col" style="text-align: center;">
