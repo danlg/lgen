@@ -35,3 +35,4 @@ To be able to Archive:
 <key>NSCalendarsUsageDescription</key>
 <string>Smartix requires access to the calendar</string>
 
+- add ws: wss: in index.html in XCode (2x in staging also). This is not generated  to fix issue https://github.com/meteor/meteor/issues/7772
