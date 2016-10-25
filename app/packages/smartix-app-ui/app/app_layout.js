@@ -11,10 +11,9 @@ Template.AppLayout.onCreated(function() {
         log.info("Subscribing to name", schoolName, "id, namespace=", schoolId);
         this.subscribe('notifications', schoolId);
         this.subscribe('smartix:classes/associatedClasses', Meteor.userId(), schoolId);
-
     }
     else {
-        log.error("Cannot find school id");
+        log.error("Cannot find school id to subscribe to associatedClasses");
     }
     if (schoolName) {
         log.info("Subscribing to name", schoolName, "id, namespace=", schoolId);

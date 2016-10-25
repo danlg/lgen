@@ -3,6 +3,14 @@
 Template.TabClasses.events({});
 
 Template.TabClasses.onCreated( function() {
+    let schoolId   = UI._globalHelpers['getCurrentSchoolId']();
+    if (schoolId) {
+        log.info("Subscribing to  namespace=", schoolId);
+        this.subscribe('smartix:classes/associatedClasses', Meteor.userId(), schoolId);
+    }
+    else {
+        log.error("TabClasses, cannot find school id");
+    }
     this.subscribe('joinedClasses');
     if(!TimeSync.isSynced()){
         TimeSync.resync();
