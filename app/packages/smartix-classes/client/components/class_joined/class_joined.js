@@ -310,11 +310,10 @@ Template.ClassJoined.helpers({
 			type: 'class',
 			classCode: Router.current().params.classCode
 		});
-
+		//log.info("isLoadMoreButtonShow", currentClassObj);
 		var msgCount = Smartix.Messages.Collection.find({
 			group: currentClassObj._id
 		}).count();
-
 		if (loadedItems.get() >= msgCount) {
 			return "hidden";
 		}
