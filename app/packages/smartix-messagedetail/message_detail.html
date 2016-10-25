@@ -13,6 +13,12 @@
             </div>
             <div>
                 <i class="icon {{isNewMessage createdAt}} new-message-icon"></i>
+                {{#if hasMultipleAdmins}}
+                <div class='username' style="float:none !important">
+                    {{getAuthorInfo author}}
+                <!--<i style='larger' class="icon {{isNewMessage ../createdAt}}  new-message-icon"></i>-->
+                </div>
+                {{/if}}
                 {{#if isText}}
                     <!--<div class="selectable">-->
                     <div

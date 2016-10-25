@@ -71,5 +71,19 @@ Template.MessageDetail.helpers({
     }else{
       return true;
     }
-  }
+  },
+
+	hasMultipleAdmins: function(){
+		let currentClassObj = Smartix.Groups.Collection.findOne({
+			type: 'class',
+			classCode: Router.current().params.classCode
+		});
+		if (currentClassObj.admins.length > 1)
+			return true;
+		return false;
+	},
+	getAuthorInfo(userId){
+		userObj = Meteor.users.findOne(userId);
+		return userObj.profile.firstName;
+	}
 });
