@@ -17,19 +17,25 @@ var localClassMessagesCollection = new Meteor.Collection(null);
 Template.ClassJoined.onCreated(function () {
 	//log.info(Router.current().params.classCode);
 	let classCode = Router.current().params.classCode;
-	let classObj = Smartix.Groups.Collection.findOne({
-		type: 'class',
-		classCode: classCode
-	});
 	var self = this;
-	this.autorun(function () {
-		// self.subscribe('smartix:classes/associatedClasses');
-		self.subscribe('smartix:classes/classMembers', classCode);
+	self.subscribe('smartix:classes/classByClassCode', classCode, 
+	{
+		onReady: function () {
+		var classObj = Smartix.Groups.Collection.findOne({
+			type: 'class',
+			classCode: classCode
+		});
 		self.subscribe('smartix:messages/groupMessages', classObj._id);
+		self.subscribe('smartix:classes/classMembers', classCode);
+
 		self.subscribe('images', UI._globalHelpers['getCurrentSchoolName'](), 'class', classCode);
 		self.subscribe('documents', UI._globalHelpers['getCurrentSchoolName'](), 'class', classCode);
 		self.subscribe('sounds', UI._globalHelpers['getCurrentSchoolName'](), 'class', classCode);
+		}
 	});
+	// this.autorun(function () {
+		// self.subscribe('smartix:classes/associatedClasses');
+	// });
 });
 
 Template.ClassJoined.destroyed = function () {
