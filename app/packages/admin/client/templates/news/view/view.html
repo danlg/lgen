@@ -31,24 +31,41 @@
             </div>
             <div class="item item-divider">Newsgroups sent to newsgroup</div>
             <div class="list">
+                    {{#if groups}}
                         {{#each groups}}
                             {{#with groupInfo this}}
-                        <!--<div class="item item-icon-right less-top-bottom-padding user-item">-->
-                        <div class="item item-icon-right user-item">
-                            <a href="{{pathFor route='admin.newsgroups.view' data=routeData}}">
-                                <span>
-                                {{this.name}}
-                                    <!--type is name is name of relationship father / mother / other-->
-                                    <div style="font-size: smaller;color:grey">URL: {{this.url}} </div>
-                                </span>
-                                <!--@ {{namespace}} -->
-                            </a>
-                            <!--//TODO test for namespace if smartix school allow to remove -->
-                        </div>
+                            <!--<div class="item item-icon-right less-top-bottom-padding user-item">-->
+                            <div class="item item-icon-right user-item">
+                                <a href="{{pathFor route='admin.newsgroups.view' data=routeData}}">
+                                    <span>
+                                    {{this.name}}
+                                        <!--type is name is name of relationship father / mother / other-->
+                                        <div style="font-size: smaller;color:grey">URL: {{this.url}} </div>
+                                    </span>
+                                    <!--@ {{namespace}} -->
+                                </a>
+                                <!--//TODO test for namespace if smartix school allow to remove -->
+                            </div>
                             {{/with}}
                         <!--see secret blaze feature https://github.com/meteor/meteor/issues/5566-->
                         <!--https://github.com/meteor/meteor/blob/devel/packages/spacebars/README.md#each-->
                         {{/each}}
+                    {{else}}
+                        {{#with groupInfo group}}
+                            <!--<div class="item item-icon-right less-top-bottom-padding user-item">-->
+                            <div class="item item-icon-right user-item">
+                                <a href="{{pathFor route='admin.newsgroups.view' data=routeData}}">
+                                    <span>
+                                    {{this.name}}
+                                        <!--type is name is name of relationship father / mother / other-->
+                                        <div style="font-size: smaller;color:grey">URL: {{this.url}} </div>
+                                    </span>
+                                    <!--@ {{namespace}} -->
+                                </a>
+                                <!--//TODO test for namespace if smartix school allow to remove -->
+                            </div>
+                        {{/with}}
+                    {{/if}}
                 </div>            
                 {{/with}}
             {{/if}}

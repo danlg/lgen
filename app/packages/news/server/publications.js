@@ -5,7 +5,10 @@ Meteor.publish('allSchoolNews', function(schoolId) {
     }).fetch();
     let newsgroupIds = lodash.map(cursor, '_id')
     return Smartix.Messages.Collection.find({
-        groups: {$in: newsgroupIds},
+         $or: [
+                {group: {$in: newsgroupIds}},
+                {groups: {$in: newsgroupIds}}
+            ],   
         type: 'article'
     }, {
             sort: {

@@ -3,7 +3,8 @@ Template.AdminNewsView.onCreated(function () {
     self.subscribe('smartix:messages/messagesById', Router.current().params.msgcode, function (error, res) {
         if(!error) {
             var messageObj = Smartix.Messages.Collection.findOne()
-            self.subscribe('newsgroups', messageObj.groups);
+            let groups = messageObj.groups || [messageObj.group];
+            self.subscribe('newsgroups', groups);
         }
     });
 });
