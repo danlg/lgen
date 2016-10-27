@@ -299,7 +299,7 @@ Template.ClassPanel.helpers({
 	},
 	getAuthorInfo(userId){
 		userObj = Meteor.users.findOne(userId);
-		return userObj.profile.firstName;
+		return userObj && userObj.profile.firstName;
 	}
 });
 
