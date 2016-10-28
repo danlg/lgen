@@ -70,6 +70,7 @@ let fetchSchoolCalendarEvents = () =>{
         calendarEventObj.end = moment(calendarEvent.endDate).format();
         calendarEventObj.location = calendarEvent.location;
         calendarEventObj.content = calendarEvent.description;
+        calendarEventObj.allDay = calendarEvent.allDay;
         calendarEventsArray.push(calendarEventObj);
     });
     let calendarEventsSource = {};

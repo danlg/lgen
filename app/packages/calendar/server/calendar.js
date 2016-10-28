@@ -28,8 +28,7 @@ Smartix.Calendar.Collection.calendarSchema = new SimpleSchema({
     },
     allDay: {
         type: Boolean,
-        defaultValue: false,
-        optional: true
+        defaultValue: false
     }
 });
 
@@ -64,6 +63,6 @@ Smartix.Calendar.editCalendarEvent = function(calendarObj, eventId){
     let endTest = moment(calendarObj.endDate).isValid();    
     let isAdmin = Smartix.Accounts.School.isAdmin(originalCalendarObj.schoolId, Meteor.userId());
     if(isAdmin && startTest && endTest){
-       return Smartix.Calendar.Collection.update(eventId, calendarObj,  {validate: false});
+        return Smartix.Calendar.Collection.update(eventId, {$set: calendarObj});
     }
 };

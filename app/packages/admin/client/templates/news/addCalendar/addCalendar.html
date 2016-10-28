@@ -65,6 +65,15 @@
                             <input id='start-date' type="date" value='{{getStartDate}}' oninvalid="setCustomValidity('Start date cannot be empty')"
                                    oninput="setCustomValidity('')" placeholder="Start date" required>
                         </label>
+                        <!--{{#if isNewEvent}}-->
+                        <label class="item">
+                            All Day Event
+                            <input id='all-day-event' type="checkbox" value=true>
+                        </label>        
+                        <!--{{else}}-->
+                        <!--{{/if}}-->
+                        {{#if isAllDayEvent}}
+                        {{else}}
                         <label class="item">
                             {{_ "smartix-calendarevent.At" }} *
                             {{#if isNewEvent}}
@@ -87,6 +96,7 @@
                                 <input id='end-date-time' type="time">
                             {{/if}}
                         </label>
+                        {{/if}}
                         <input id='eventId' type="hidden" value=''>
                         <button class='hidden'> {{_ "smartix-calendarevent.Submit" }}</button>
                     </div>
