@@ -98,6 +98,10 @@ let fetchUserCalendarEvents = () => {
             calendarEventObj.end = moment(calendarTemp.endDate).format();
             calendarEventObj.location = calendarTemp.location;
             calendarEventObj.content = calendarEvent.data.content;
+            if(calendarTemp.startDate.getTime() === calendarTemp.endDate.getTime())
+                calendarEventObj.allDay = true;
+            else
+                calendarEventObj.allDay = false;
             calendarEventsArray.push(calendarEventObj);
         }
     });
@@ -120,7 +124,6 @@ let loadCalendar = () => {
             defaultView: 'month',//'listMonth',
             eventClick: function(calEvent, jsEvent, view) {
                 IonModal.open("calendarModal", calEvent);
-                // log.info(calEvent);
             }
     });
 };
@@ -137,6 +140,8 @@ Template.calendarModal.events({
   'click .add-to-calendar': function(event){
       var startDate = this.start;
       var endDate = this.end;
+      if(this.allDay)
+        endDate = this.start;
       var eventName = this.title;
       var location = this.location;
       var description = this.content;

@@ -6,15 +6,17 @@
             <div class="row" >
                 <div class="col" ><h2><i class='icon ion-location' ></i>{{location}}</h2></div>
             </div>                                                               
-            <div class='row'>
-                <div class="col">{{calendarTime startDate}}</div>
-            </div>
-            
             {{#if isAllDayEvent}}
+            <div class='row'>
+                <div class="col">{{formatDate startDate}}</div>
+            </div>
             <div class="row" >
                 <div class="col">{{_ "smartix-calendarevent.Alldayevent" }}</div>
             </div>                                
             {{else}}
+            <div class='row'>
+                <div class="col">{{calendarTime startDate}}</div>
+            </div>
             <div class="row" >
                 <div class="col">{{_ "smartix-calendarevent.Start" }} {{formatDateCalendar startDate}}</div>
             </div>
