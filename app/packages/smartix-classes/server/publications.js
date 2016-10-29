@@ -75,6 +75,7 @@ Meteor.publish('smartix:classes/associatedClasses', function (userId, namespace)
 // Returns a cursor of all classes where
 // the current user is a member
 Meteor.publish('joinedClasses', function () {
+    this.unblock();
     let cursor = Smartix.Groups.Collection.find({
         type: 'class',
         $or: [{
