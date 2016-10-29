@@ -53,3 +53,33 @@ Newer versions of the following indirect dependencies are available:
  * peerlibrary:reactive-field 0.1.0 (0.3.0 is available)
 To update one or more of these packages, pass their names to
 `meteor update`, or just run `meteor update --all-packages`.
+
+----
+
+As 1.4.2 includes change:
+The cordova-lib npm package has been updated to 6.3.1, along with cordova-android (5.2.2) and cordova-ios (4.2.1), and various plugins.
+
+WARNING: Attempting to install plugin cordova-plugin-splashscreen@3.2.1, but it should have a minimum version of
+         4.0.0 to ensure compatibility with the current platform versions. Installing the minimum version for
+         convenience, but you should adjust your dependencies.
+WARNING: Attempting to install plugin cordova-plugin-camera@2.1.1, but it should have a minimum version of 2.3.0 to
+         ensure compatibility with the current platform versions. Installing the minimum version for convenience, but
+         you should adjust your dependencies.
+WARNING: Attempting to install plugin cordova-plugin-contacts@2.0.1, but it should have a minimum version of 2.2.0 to
+         ensure compatibility with the current platform versions. Installing the minimum version for convenience, but
+         you should adjust your dependencies.
+WARNING: Attempting to install plugin cordova-plugin-device@1.1.1, but it should have a minimum version of 1.1.3 to
+         ensure compatibility with the current platform versions. Installing the minimum version for convenience, but
+         you should adjust your dependencies.
+WARNING: Attempting to install plugin cordova-plugin-dialogs@1.2.0, but it should have a minimum version of 1.3.0 to
+         ensure compatibility with the current platform versions. Installing the minimum version for convenience, but
+         you should adjust your dependencies.
+WARNING: Attempting to install plugin cordova-plugin-file@4.2.0, but it should have a minimum version of 4.3.0 to
+         ensure compatibility with the current platform versions. Installing the minimum version for convenience, but
+         you should adjust your dependencies.
+WARNING: Attempting to install plugin cordova-plugin-globalization@1.0.3, but it should have a minimum version of
+         1.0.4 to ensure compatibility with the current platform versions. Installing the minimum version for
+         convenience, but you should adjust your dependencies.
+WARNING: Attempting to install plugin cordova-plugin-vibration@2.1.0, but it should have a minimum version of 2.1.2
+         to ensure compatibility with the current platform versions. Installing the minimum version for convenience,
+         but you should adjust your dependencies.
