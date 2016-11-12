@@ -7,7 +7,7 @@ App.info({
   email: 'contact@gosmartix.com',
   website: 'http://www.gosmartix.com',
   version: '1.2.4',
-  buildNumber: '410'
+  buildNumber: '500'
 });
 
 //generated with meteor-assets
