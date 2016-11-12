@@ -6,7 +6,7 @@ App.info({
   author: 'Little Genius Education',
   email: 'contact@gosmartix.com',
   website: 'http://www.gosmartix.com',
-  version: '1.2.6',
+  version: '1.2.7',
   buildNumber: '501'
 });
 
