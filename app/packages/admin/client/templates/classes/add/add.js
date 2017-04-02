@@ -1,6 +1,6 @@
 Template.AdminClassesAdd.onCreated( function() {
-    let schoolName = UI._globalHelpers['getCurrentSchoolName']();
-    this.subscribe('smartix:distribution-lists/listsBySchoolName', schoolName);
+    let schoolId = UI._globalHelpers['getCurrentSchoolId']();
+    this.subscribe('smartix:distribution-lists/listsBySchoolId', schoolId);
 });
 
 Template.AdminClassesAdd.helpers({

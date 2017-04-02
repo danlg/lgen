@@ -2,9 +2,10 @@ Template.AdminNewsgroupsSearch.onCreated(function () {
     var schoolName = UI._globalHelpers['getCurrentSchoolName']();
     if(schoolName)
     {
-        this.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolName', schoolName);
-        this.subscribe('smartix:distribution-lists/listsBySchoolName', schoolName);
-        this.subscribe('smartix:accounts/allUsersInNamespace', UI._globalHelpers['getCurrentSchoolId']());
+        let schoolId =  UI._globalHelpers['getCurrentSchoolId']();
+        this.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolId', schoolId);
+        this.subscribe('smartix:distribution-lists/listsBySchoolId', schoolId);
+        this.subscribe('smartix:accounts/allUsersInNamespace', schoolId);
     }
     this.usersChecked = new ReactiveVar([]);
     this.doingOperations = new ReactiveVar(false);  

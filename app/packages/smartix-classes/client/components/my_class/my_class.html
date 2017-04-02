@@ -38,6 +38,12 @@
                                 {{/each}}
                                 <div class="item less-top-bottom-padding">
                                     <div>
+                                        {{#if hasMultipleAdmins}}
+                                        <div class='username' style="float:none !important">
+                                            {{getAuthorInfo author}}
+                                        <!--<i style='larger' class="icon {{isNewMessage ../createdAt}}  new-message-icon"></i>-->
+                                        </div>
+                                        {{/if}}
                                         {{{docPreview data.content}}}
                                         {{#autolink}}
                                             <div class='content selectable'>

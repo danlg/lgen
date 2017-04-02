@@ -286,6 +286,20 @@ Template.ClassPanel.helpers({
 			return addon.type === 'comment';
 		});
 		return commentObjs;
+	},
+
+	hasMultipleAdmins: function(){
+		let currentClassObj = Smartix.Groups.Collection.findOne({
+			type: 'class',
+			classCode: Router.current().params.classCode
+		});
+		if (currentClassObj.admins.length > 1)
+			return true;
+		return false;
+	},
+	getAuthorInfo(userId){
+		userObj = Meteor.users.findOne(userId);
+		return userObj && userObj.profile.firstName;
 	}
 });
 

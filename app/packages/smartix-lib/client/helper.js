@@ -76,30 +76,12 @@ Smartix.helpers.routeToTabClasses = function() {
             }
         });
     }
-    var userNamespaceCount;
-    if (Meteor.user() && Meteor.user().roles) {
-        // Get the keys (namespace) from the `roles` object
-        userNamespaceCount = Object.keys(Meteor.user().roles).length;
-    }
-    if (userNamespaceCount >= 1) {
-        var userNamespace = Object.keys(Meteor.user().roles)[0];
-        // if ( (userNamespace !== 'global') && (userNamespace !== 'sysadmin') ) {
-        Meteor.call('smartix:schools/getSchoolName', userNamespace, function(err, result) {
-            if (err) {
-                log.error('smartix:schools/getSchoolName', err);
-            }
-            if (result) {
-                log.info("routeToHome", result);
-                Session.set('pickedSchoolId', userNamespace);
-                Router.go('mobile.school.home', { school: result });
-            }
-        });
-        // } else { //if global
-        //     //todo change this later to be like a school
-        //     Router.go("TabClasses");
-        // }
-    } 
+
     //TO DO need to add method to go to the last used school
+    if(Smartix.helpers.setSchoolNameSpace())
+    {
+
+    }
     else {
         Router.go("TabClasses");
     }
@@ -180,11 +162,7 @@ function youtube_parser(url) {
 
 Template.registerHelper('isFirstMessageInADate', function(index) {
     //if it is the first item in the messages's subarray
-    if (index == 0) {
-        return true;
-    } else {
-        return false;
-    }
+    return index == 0;
 });
 
 Template.registerHelper('messagesGroupByDate', function(messages) {
@@ -264,10 +242,38 @@ Template.registerHelper('openExternalLink', function(url) {
     return link;
 });
 
+Smartix.helpers.setSchoolNameSpace = function() {
+    //log.info("Smartix.helpers.setSchoolNameSpace");
+    var userNamespaceCount;
+    if (Meteor.user() && Meteor.user().roles) {
+        // Get the keys (namespace) from the `roles` object
+        userNamespaceCount = Object.keys(Meteor.user().roles).length;
+    }
+    if (userNamespaceCount >= 1) {
+        var userNamespace = Object.keys(Meteor.user().roles)[0];
+        log.info("Smartix.helpers.setSchoolNameSpace", userNamespace);
+        Session.set('pickedSchoolId', userNamespace);
+        log.info("Session.set('pickedSchoolId'", userNamespace);
+        // if ( (userNamespace !== 'global') && (userNamespace !== 'sysadmin') ) {
+        Meteor.call('smartix:schools/getSchoolName', userNamespace, function(err, result) {
+            if (err) {
+                log.error('smartix:schools/getSchoolName', err);
+            }
+            if (result) {
+                Router.go('mobile.school.home', { school: result });
+            }
+        });
+    }
+    else {
+        log.warn("Smartix.helpers.setSchoolNameSpace", "not set");
+        return false;
+    }
+};
 
 Template.registerHelper('getCurrentSchoolName',function(){
     if ( Meteor.isClient ) {
         var pickedSchoolId = Session.get('pickedSchoolId');
+        log.info('Helper getCurrentSchoolName', pickedSchoolId);
         var pickSchoolName = SmartixSchoolsCol.findOne(pickedSchoolId);
         if (pickSchoolName) {
             return pickSchoolName.shortname;
@@ -277,7 +283,8 @@ Template.registerHelper('getCurrentSchoolName',function(){
                 return Router.current().params.school;
             }
             else {
-                log.warn("getCurrentSchoolName cannot be found");
+                //debugger;
+                log.warn(Template.registerHelper.caller, "getCurrentSchoolName cannot be found");
             }
         }
     }

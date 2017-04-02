@@ -3,6 +3,7 @@ import jQuery from 'jquery'
 import fullCalendar from 'fullcalendar';
 
 isNewEvent = ReactiveVar(true);
+isAllDayEvent = ReactiveVar(false);
 
 Template.AdminCalendarAdd.onCreated(function () {
     var schoolId =  UI._globalHelpers['getCurrentSchoolId']();
@@ -23,6 +24,9 @@ Template.AdminCalendarAdd.helpers({
     },
     isNewEvent : function(){
         return isNewEvent.get();
+    },
+    isAllDayEvent: function(){
+        return isAllDayEvent.get();
     }
 });
 
@@ -30,10 +34,16 @@ Template.AdminCalendarAdd.events({
 
     'click #modal-save':function(event,template){
         log.info("clear");
-        let startDateTime = moment($('#start-date').val()+" "+$('#start-date-time').val()).utc().format();
-        let endDateTime = moment($('#end-date').val()+" "+$('#end-date-time').val()).utc().format();
-        // log.info(startDateAndTime);
         let calendarObj = {};
+        let startDateTime, endDateTime;
+        if(!isAllDayEvent.get()){
+            startDateTime = moment($('#start-date').val()+" "+$('#start-date-time').val()).utc().format();
+            endDateTime = moment($('#end-date').val()+" "+$('#end-date-time').val()).utc().format();
+        }else{
+            startDateTime = moment($('#start-date').val()).format("YYYY-MM-DD");
+            endDateTime = moment($('#start-date').val()).add(1, 'days').format("YYYY-MM-DD");
+        }
+        // log.info(startDateAndTime);
         calendarObj.schoolId =  UI._globalHelpers['getCurrentSchoolId']();
         calendarObj.eventName = $('#event-name').val();
         calendarObj.location = $('#location').val();
@@ -41,6 +51,7 @@ Template.AdminCalendarAdd.events({
         calendarObj.calendarName = $('#calendarName').val();
         calendarObj.startDate = startDateTime;
         calendarObj.endDate = endDateTime;
+        calendarObj.allDay = $("#all-day-event").is(':checked');
         log.info(calendarObj);       
         Meteor.call('smartix:calendar/addNewCalendarEvent', calendarObj, function(err, res){
             if(!err){
@@ -52,6 +63,7 @@ Template.AdminCalendarAdd.events({
                 log.error("There was an issue");
                 toastr.error("There was an issue posting event");
             }
+            isAllDayEvent.set(false);
         });
     },  
     
@@ -75,20 +87,25 @@ Template.AdminCalendarAdd.events({
     'click #modal-edit': function(event, template){
         let eventId = $('#eventId').val();
         let orgEventObj = Smartix.Calendar.Collection.findOne(eventId);
-        let startTime = ($('start-date-time').val()) ? $('start-date-time').val() : moment(orgEventObj.startDate).format('HH:mm');
-        let endTime = ($('end-date-time').val()) ? $('end-date-time').val() : moment(orgEventObj.endDate).format('HH:mm');
-        //log.info(startTime);
-        let startDateTime = moment($('#start-date').val()+" "+startTime).utc().format();
-        let endDateTime = moment($('#end-date').val()+" "+endTime).utc().format();
-        // log.info(startDateAndTime);
+        let startDateTime, endDateTime;
         let calendarObj = {};
+        if(!isAllDayEvent.get()){
+            let startTime = ($('#start-date-time').val()) ? $('#start-date-time').val() : moment(orgEventObj.startDate).format('HH:mm');
+            let endTime = ($('#end-date-time').val()) ? $('#end-date-time').val() : moment(orgEventObj.endDate).format('HH:mm');
+            startDateTime = moment($('#start-date').val()+" "+startTime).utc().format();
+            endDateTime = moment($('#end-date').val()+" "+endTime).utc().format();
+        }
+       else{
+            startDateTime = moment($('#start-date').val()).format("YYYY-MM-DD");
+            endDateTime = moment($('#start-date').val()).add(1, 'days').format("YYYY-MM-DD");
+        }
         calendarObj.eventName = $('#event-name').val();
         calendarObj.location = $('#location').val();
         calendarObj.description = $('#description').val();
         calendarObj.calendarName = $('#calendarName').val();
         calendarObj.startDate = startDateTime;
         calendarObj.endDate = endDateTime;
-        log.info(calendarObj);       
+        calendarObj.allDay = $("#all-day-event").is(':checked');
         Meteor.call('smartix:calendar/editCalendarEvent', calendarObj, eventId, function(err, res){
             if(!err){
                 reloadCalendar();
@@ -100,6 +117,10 @@ Template.AdminCalendarAdd.events({
                 toastr.error("There was an issue");
             }
         });
+    },
+
+    'change #all-day-event': function(event, template){
+        isAllDayEvent.set(!isAllDayEvent.get());
     }
 });
 
@@ -127,6 +148,7 @@ let fetchCalendarEvents = () => {
         calendarEventObj.end = moment(calendarEvent.endDate).format();
         calendarEventObj.location = calendarEvent.location;
         calendarEventObj.content = calendarEvent.description;
+        calendarEventObj.allDay = calendarEvent.allDay || '';
         calendarEventsArray.push(calendarEventObj);
     });
     let calendarEventsSource = {};
@@ -151,7 +173,6 @@ let loadCalendar = () => {
                 selectCalendarRange(start, end)
             },
             eventClick: function(calEvent, jsEvent, view) {
-                log.info('Event: ', calEvent.id);
                 editCalendarEvent(calEvent);
             }
     });
@@ -168,6 +189,7 @@ let reloadCalendar = () =>{
 
 let selectCalendarRange = (start, end) =>
 {
+    isNewEvent.set(true);
     //if the admin clicks on one date need to ensure it is not all day event
     if(end.diff(start) === 86400000)
     {
@@ -186,6 +208,8 @@ let editCalendarEvent = (calEvent) => {
 
 let openModal = (eventDetails) => {
     //do something if not a new event
+    isAllDayEvent.set(false);
+    $("#all-day-event").prop("checked", false);
     if(!isNewEvent.get() && eventDetails){
         let calendarEventObj = Smartix.Calendar.Collection.findOne(eventDetails.id);
         $('#eventId').val(calendarEventObj._id);
@@ -199,8 +223,14 @@ let openModal = (eventDetails) => {
         $('#start-date-time').val(startTime);
         let endTime = moment(calendarEventObj.endDate).format('HH:mm');
         $('#end-date-time').val(endTime);
+        if(calendarEventObj.allDay){
+            isAllDayEvent.set(true);
+            $("#all-day-event").prop("checked", true);
+        }
     }
-
+    else{
+        clearForm();
+    }
     Meteor.setTimeout(function(){
         $('#calendar-event-btn').click();  
     },200);  

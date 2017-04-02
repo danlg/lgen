@@ -1,6 +1,6 @@
 Template.MessageDetail.helpers({
   attachImages: function () {
-    var imageObjects =lodash.filter(this.addons, function(addon) { return addon.type =='images'; });
+    var imageObjects =lodash.filter(this.addons, function(addon) { return addon.type ==='images'; });
     return lodash.map(imageObjects,'fileId');
   },  
   getImage: function () {
@@ -50,7 +50,7 @@ Template.MessageDetail.helpers({
   },
   getNameById: function (userId) {
     var userObj = Meteor.users.findOne(userId);
-    return userObj._id == Meteor.userId() ? "You" : userObj.profile.firstName + " " + userObj.profile.lastName;
+    return userObj._id === Meteor.userId() ? "You" : userObj.profile.firstName + " " + userObj.profile.lastName;
   },
   attachCalendar:function(){
     var calendarObjs =lodash.filter(this.addons, function(addon) { return addon.type =='calendar'; });
@@ -71,5 +71,19 @@ Template.MessageDetail.helpers({
     }else{
       return true;
     }
-  }
+  },
+
+	hasMultipleAdmins: function(){
+		let currentClassObj = Smartix.Groups.Collection.findOne({
+			type: 'class',
+			classCode: Router.current().params.classCode
+		});
+		return currentClassObj.admins.length > 1;
+	},
+
+	getAuthorInfo(userId){
+	  //we lack a subscription to admin users...
+		userObj = Meteor.users.findOne(userId);
+        return userObj && userObj.profile.firstName;
+	}
 });

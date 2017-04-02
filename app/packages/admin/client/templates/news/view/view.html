@@ -2,32 +2,70 @@
         <div class="panel panel-flat">
             {{#if Template.subscriptionsReady}}
             {{#with newsData}}
-                <div class="panel-heading">
+            <div class="panel-heading">
+                <div class="panel-title">
                     <h1>{{_ "Admin.Title"}}: {{data.title}}</h1>
-                        <small class="display-block">
+                        <h5 class="display-block">
                             {{{data.content}}}
-                        </small>
+                            {{#if addons}}
+                                <hr />
+                                <span>{{_ "Contents"}}:</span>
+                                <ul>
+                                {{#each addons}}
+                                    <li style="text-transform:capitalize">{{ this.type}}</li>
+                                {{/each}}
+                                </ul>
+                            {{/if}}
+                        </h5>
                 </div>
-            <div class="item item-divider">News sent to newsgroup</div>
+                <div class="heading-elements">
+                    <label class="checkbox-inline checkbox-switchery checkbox-right switchery-xs">
+                    {{#if hidden}}
+                        <button class='show-news-btn' data-msg-id="{{_id}}" type="button">{{_ "Admin.Show" }}</button>
+                    {{else}}
+                        <button class='hide-news-btn' data-msg-id="{{_id}}" type="button">{{_ "Admin.Hide" }}</button>
+                    {{/if}}
+                    <button class='remove-news-btn' data-msg-id="{{_id}}" type="button">{{_ "Admin.Remove" }}</button>
+                    </label>
+                </div>
+            </div>
+            <div class="item item-divider">Newsgroups sent to newsgroup</div>
             <div class="list">
+                    {{#if groups}}
                         {{#each groups}}
                             {{#with groupInfo this}}
-                        <!--<div class="item item-icon-right less-top-bottom-padding user-item">-->
-                        <div class="item item-icon-right user-item">
-                            <a href="{{pathFor route='admin.newsgroups.view' data=routeData}}">
-                                <span>
-                                {{this.name}}
-                                    <!--type is name is name of relationship father / mother / other-->
-                                    <div style="font-size: smaller;color:grey">URL: {{this.url}} </div>
-                                </span>
-                                <!--@ {{namespace}} -->
-                            </a>
-                            <!--//TODO test for namespace if smartix school allow to remove -->
-                        </div>
+                            <!--<div class="item item-icon-right less-top-bottom-padding user-item">-->
+                            <div class="item item-icon-right user-item">
+                                <a href="{{pathFor route='admin.newsgroups.view' data=routeData}}">
+                                    <span>
+                                    {{this.name}}
+                                        <!--type is name is name of relationship father / mother / other-->
+                                        <div style="font-size: smaller;color:grey">URL: {{this.url}} </div>
+                                    </span>
+                                    <!--@ {{namespace}} -->
+                                </a>
+                                <!--//TODO test for namespace if smartix school allow to remove -->
+                            </div>
                             {{/with}}
                         <!--see secret blaze feature https://github.com/meteor/meteor/issues/5566-->
                         <!--https://github.com/meteor/meteor/blob/devel/packages/spacebars/README.md#each-->
                         {{/each}}
+                    {{else}}
+                        {{#with groupInfo group}}
+                            <!--<div class="item item-icon-right less-top-bottom-padding user-item">-->
+                            <div class="item item-icon-right user-item">
+                                <a href="{{pathFor route='admin.newsgroups.view' data=routeData}}">
+                                    <span>
+                                    {{this.name}}
+                                        <!--type is name is name of relationship father / mother / other-->
+                                        <div style="font-size: smaller;color:grey">URL: {{this.url}} </div>
+                                    </span>
+                                    <!--@ {{namespace}} -->
+                                </a>
+                                <!--//TODO test for namespace if smartix school allow to remove -->
+                            </div>
+                        {{/with}}
+                    {{/if}}
                 </div>            
                 {{/with}}
             {{/if}}

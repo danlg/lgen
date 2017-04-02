@@ -1,5 +1,14 @@
 /*! Copyright (c) 2015 Little Genius Education Ltd.  All Rights Reserved. */
-/* JoinClass: Event Handlers */
+Template.JoinClass.onCreated( function() {
+  this.subscribe('joinedClasses');
+});
+
+Template.JoinClass.onRendered( function() {
+});
+
+Template.JoinClass.destroyed = function () {
+};
+
 Template.JoinClass.events({
   'click .joinBtn': function () {
     var classCodeInput = $(".classCodeInput").val().trim();
@@ -39,17 +48,6 @@ Template.JoinClass.helpers({
     return UI._globalHelpers['getCurrentSchoolName']();
   }
 });
-
-Template.JoinClass.onCreated( function() {
-  this.subscribe('joinedClass');
-
-});
-
-Template.JoinClass.onRendered( function() {
-});
-
-Template.JoinClass.destroyed = function () {
-};
 
 Template.ionNavBar.events({
   'click .doneClassBtn': function (e, template) {

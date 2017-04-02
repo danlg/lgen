@@ -1,5 +1,5 @@
 Template.AdminRssAdd.onCreated(function () {
-    this.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolName',  UI._globalHelpers['getCurrentSchoolName']());
+    this.subscribe('smartix:newsgroups/allNewsgroupsFromSchoolId',  UI._globalHelpers['getCurrentSchoolId']());
 });
 
 Template.AdminRssAdd.helpers({

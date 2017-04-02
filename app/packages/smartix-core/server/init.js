@@ -52,7 +52,7 @@ Meteor.startup(function () {
 		WebApp.connectHandlers.use(function(req, res, next) {
 			//https://docs.meteor.com/packages/webapp.html
 			//for CDN we need to set the Content-Length
-			res.setHeader('Content-Length', '9999');
+			//res.setHeader('Content-Length', '9999');
 			res.setHeader('Transfer-Encoding', '');
 			// add allow origin
 			res.setHeader('Access-Control-Allow-Origin', '*');

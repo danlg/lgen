@@ -12,39 +12,38 @@
 
 # meteor libraries
 meteor-base@1.0.4
-ecmascript@0.5.8_1
-es5-shim@4.6.14_1
-check@1.2.3
-tracker@1.1.0
-modules@0.7.6_1
+ecmascript@0.5.9
+es5-shim@4.6.15
+check@1.2.4
+tracker@1.1.1
+modules@0.7.7
 
 # standard libraries
-jquery@1.11.9
-underscore@1.0.9
-less@2.7.5_1
+jquery@1.11.10
+underscore@1.0.10
+less@2.7.7
 
 # production
-standard-minifier-css@1.2.0_1
-standard-minifier-js@1.2.0_1
-ddp-rate-limiter@1.0.5
-force-ssl@1.0.12
+standard-minifier-css@1.3.2
+standard-minifier-js@1.2.1
+ddp-rate-limiter@1.0.6
 
 # account
-accounts-base@1.2.11
-accounts-password@1.3.0
-accounts-google@1.0.10
-accounts-oauth@1.1.13
-oauth@1.1.11
-oauth2@1.1.10
-google@1.1.14
-localstorage@1.0.11
-service-configuration@1.0.10
-email@1.1.17_1
+accounts-base@1.2.14
+accounts-password@1.3.2
+accounts-google@1.0.11
+accounts-oauth@1.1.15
+oauth@1.1.12
+oauth2@1.1.11
+google@1.1.15
+localstorage@1.0.12
+service-configuration@1.0.11
+email@1.1.18
 splendido:accounts-meld
 jparker:crypto-sha1
 
 # data
-mongo@1.1.12_1
+mongo@1.1.14
 aldeed:autoform
 aldeed:collection2
 aldeed:simple-schema
@@ -61,29 +60,29 @@ fourseven:scss@3.8.0_1
 
 # other meteor packages
 blaze-html-templates@1.0.4
-session@1.1.6
+session@1.1.7
 u2622:persistent-session
-reactive-var@1.0.10
-fastclick@1.0.12
-logging@1.1.15_1
-reload@1.1.10
+reactive-var@1.0.11
+fastclick@1.0.13
+logging@1.1.16
+reload@1.1.11
 random@1.0.10
-ejson@1.0.12
+ejson@1.0.13
 spacebars@1.0.12
-spiderable@1.0.13
-facts@1.0.8
+spiderable@1.0.14-release-testing.0
+facts@1.0.9
 
 # mobile
 mobile-experience@1.0.4
 meteoric:ionic-sass
 meteoric:ionicons-sass
 terenceng2010:ionic
-launch-screen@1.0.12
+launch-screen@1.1.0
 raix:push
 cordova-only
 web-only
 #boilerplate-generator@1.0.9
-boilerplate-generator@1.0.11-rc.0
+boilerplate-generator@1.0.11
 
 # misc
 practicalmeteor:loglevel
@@ -150,5 +149,5 @@ smartix:rss
 smartix:calendar
 matb33:collection-hooks
 meteorhacks:unblock
-shell-server
+shell-server@0.2.1
 mizzao:timesync

@@ -40,5 +40,5 @@ Template.AdminNewsgroupsAdd.helpers({
 });
 
 Template.AdminNewsgroupsAdd.onCreated(function () {
-    this.subscribe('smartix:distribution-lists/listsBySchoolName',  UI._globalHelpers['getCurrentSchoolName']());
+    this.subscribe('smartix:distribution-lists/listsBySchoolId',  UI._globalHelpers['getCurrentSchoolId']());
 });

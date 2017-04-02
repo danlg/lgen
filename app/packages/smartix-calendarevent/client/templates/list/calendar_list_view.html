@@ -45,20 +45,30 @@
         <div class="row" >
             <div class="col" ><h2>{{content}}</h2></div>
         </div>        
-        {{/if}}                                                       
+        {{/if}}
+        {{#if allDay}}
+            <div class='row'>
+                <div class="col">{{formatDate start}}</div>
+            </div>
+            <div class="row" >
+                <div class="col">{{_ "smartix-calendarevent.Alldayevent" }}</div>
+            </div>    
+        {{else}}                                                       
         <div class="row" >
             <div class="col">{{_ "smartix-calendarevent.Start" }} {{formatDateCalendar start}}</div>
         </div>
         <div class="row" >
             <div class="col">{{_ "smartix-calendarevent.End" }} {{formatDateCalendar end}}</div>                                                                   
         </div>
+        {{/if}}
         {{#if isCordova}}
             <div class="row" >
                 <div class="col" style="text-align:right">
                     <button class='add-to-calendar' data-start-date='{{startDate}}'
                     data-end-date='{{endDate}}' data-event-name='{{eventName}}'
                     data-event-location='{{location}}' data-description='{{content}}'>{{_ "smartix-calendarevent.AddToCalendar" }}
-                    </button></div>
+                    </button>
+                </div>
             </div>
         {{/if}}
         </div>

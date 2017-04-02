@@ -51,30 +51,32 @@ Meteor.publish('smartix:classes/associatedClasses', function (userId, namespace)
 
     userId = userId || this.userId;
      if (userId === this.userId
-        || Smartix.Accounts.School.isAdmin(namespace, this.userId)
-        || Smartix.Accounts.System.isAdmin(this.userId)){
-   
-            return Smartix.Groups.Collection.find({
-                type: 'class',
-                $or: [{
-                    users: userId
-                }, {
-                    admins: userId
-                }, {
-                    distributionLists: {
-                        $in: Smartix.DistributionLists.getDistributionListsOfUser(userId)
-                    }
-                }]
-            });
-        }
-        else
-            this.ready();
+            || Smartix.Accounts.School.isAdmin(namespace, this.userId)
+            || Smartix.Accounts.System.isAdmin(this.userId))
+     {
+         let cursor = Smartix.Groups.Collection.find({
+                 type: 'class',
+                 $or: [{
+                     users: userId
+                 }, {
+                     admins: userId
+                 }, {
+                     distributionLists: {
+                         $in: Smartix.DistributionLists.getDistributionListsOfUser(userId)
+                     }
+                 }]
+         });
+         //log.info("Publish smartix:classes/associatedClasses", cursor.count());
+         return cursor;
+     }
+     else this.ready();
 });
 
 // Returns a cursor of all classes where
 // the current user is a member
 Meteor.publish('joinedClasses', function () {
-    return Smartix.Groups.Collection.find({
+    this.unblock();
+    let cursor = Smartix.Groups.Collection.find({
         type: 'class',
         $or: [{
             users: this.userId
@@ -84,6 +86,8 @@ Meteor.publish('joinedClasses', function () {
             }
         }]
     });
+    //log.info("Publish joinedClasses", cursor.count());
+    return cursor;
 });
 
 Meteor.publish('smartix:classes/classMembers', function(classCode) {

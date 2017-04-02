@@ -2,6 +2,10 @@ NewsIndex = new EasySearch.Index({
     collection: Smartix.Messages.Collection,
     fields: ['data.title'],
     engine: new EasySearch.Minimongo({
+        sort: function()
+        {
+            return { 'createdAt': -1 };
+        },
         selector: function (searchObject, options, aggregation) {
             
             // selector contains the default mongo selector that Easy Search would use
@@ -12,5 +16,6 @@ NewsIndex = new EasySearch.Index({
 
             return selector;
         }
-    })
+    }),
+
 });

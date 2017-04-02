@@ -62,9 +62,11 @@
                 {{/EasySearch.IfNoResults}}                
             </table>
             </div>                
-            {{> EasySearch.Pagination index=newsgroupsIndex maxPages=10 customRenderPagination='CustomEasySearchPagination'}}               
+            {{> EasySearch.Pagination index=newsgroupsIndex maxPages=10 customRenderPagination='CustomEasySearchPagination'}}
 
         </div>
+        {{else}}
+            {{_ "Admin.Loading" }}
         {{/if}}
     </div>
 </template>

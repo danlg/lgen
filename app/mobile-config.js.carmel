@@ -6,8 +6,8 @@ App.info({
   author: 'Little Genius Education',
   email: 'contact@gosmartix.com',
   website: 'http://www.gosmartix.com',
-  version: '1.2.4',
-  buildNumber: '406'
+  version: '1.2.7',
+  buildNumber: '501'
 });
 
 //generated with meteor-assets
@@ -73,6 +73,9 @@ App.appendToConfig(`<platform name="ios">
     </config-file>
     <config-file platform="ios" target="*-Info.plist" parent="NSCalendarsUsageDescription">
       <string>Smartix requires access to the calendar</string>
+    </config-file>
+    <config-file platform="ios" target="*-Info.plist" parent="NSMicrophoneUsageDescription">
+      <string>Smartix requires access to the microphone to record the voice message</string>
     </config-file>
   </platform>`);
 
